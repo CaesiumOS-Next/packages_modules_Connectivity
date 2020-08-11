@@ -89,8 +89,15 @@ public class IpSecBaseTest {
                                 .getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
+    protected static byte[] getKeyBytes(int byteLength) {
+        return Arrays.copyOf(KEY_DATA, byteLength);
+    }
+
     protected static byte[] getKey(int bitLength) {
-        return Arrays.copyOf(KEY_DATA, bitLength / 8);
+        if (bitLength % 8 != 0) {
+            throw new IllegalArgumentException("Invalid key length in bits" + bitLength);
+        }
+        return getKeyBytes(bitLength / 8);
     }
 
     protected static int getDomain(InetAddress address) {
