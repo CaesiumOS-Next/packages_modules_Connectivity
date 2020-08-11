@@ -97,6 +97,11 @@ public final class CtsNetUtils {
     public static final String NETWORK_CALLBACK_ACTION =
             "ConnectivityManagerTest.NetworkCallbackAction";
 
+    // TODO: b/171083832 Remove this constant and make callers use
+    // Build.VERSION.DEVICE_INITIAL_SDK_INT when AOSP and internal branch are synced.
+    public static final int DEVICE_INITIAL_SDK_INT =
+            SystemProperties.getInt("ro.product.first_api_level", 0);
+
     private final IBinder mBinder = new Binder();
     private final Context mContext;
     private final ConnectivityManager mCm;
@@ -116,8 +121,7 @@ public final class CtsNetUtils {
     /** Checks if FEATURE_IPSEC_TUNNELS is enabled on the device */
     public boolean hasIpsecTunnelsFeature() {
         return mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_IPSEC_TUNNELS)
-                || SystemProperties.getInt("ro.product.first_api_level", 0)
-                        >= Build.VERSION_CODES.Q;
+                || DEVICE_INITIAL_SDK_INT >= Build.VERSION_CODES.Q;
     }
 
     /**
