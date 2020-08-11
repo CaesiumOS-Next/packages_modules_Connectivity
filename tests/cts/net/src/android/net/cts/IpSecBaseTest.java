@@ -31,6 +31,10 @@ import android.util.Log;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -43,10 +47,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class IpSecBaseTest {
@@ -89,8 +89,15 @@ public class IpSecBaseTest {
                                 .getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
+    protected static byte[] getKeyBytes(int byteLength) {
+        return Arrays.copyOf(KEY_DATA, byteLength);
+    }
+
     protected static byte[] getKey(int bitLength) {
-        return Arrays.copyOf(KEY_DATA, bitLength / 8);
+        if (bitLength % 8 != 0) {
+            throw new IllegalArgumentException("Invalid key length in bits" + bitLength);
+        }
+        return getKeyBytes(bitLength / 8);
     }
 
     protected static int getDomain(InetAddress address) {
