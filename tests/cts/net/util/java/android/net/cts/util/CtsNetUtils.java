@@ -42,6 +42,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.IpSecAlgorithm;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -118,6 +119,16 @@ public final class CtsNetUtils {
         return mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_IPSEC_TUNNELS)
                 || SystemProperties.getInt("ro.product.first_api_level", 0)
                         >= Build.VERSION_CODES.Q;
+    }
+
+    /** Checks if an IPsec algorithm is enabled on the device */
+    public static boolean hasIpSecAlgorithm(String algorithm) {
+        return IpSecAlgorithm.getSupportedAlgorithms().contains(algorithm);
+    }
+
+    /** Checks if the device is first launched on an SDK version >= S */
+    public static boolean isFirstLaunchVersionSOrGreater() {
+        return Build.VERSION.FIRST_SDK_INT > Build.VERSION_CODES.R;
     }
 
     /**
