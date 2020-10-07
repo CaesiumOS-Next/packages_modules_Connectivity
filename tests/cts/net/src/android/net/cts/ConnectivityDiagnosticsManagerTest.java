@@ -94,6 +94,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @IgnoreUpTo(Build.VERSION_CODES.Q) // ConnectivityDiagnosticsManager did not exist in Q
@@ -128,6 +129,12 @@ public class ConnectivityDiagnosticsManagerTest {
                     .build();
 
     private static final IBinder BINDER = new Binder();
+
+    // Lock for accessing Shell Permissions. Use of this lock around adoptShellPermissionIdentity,
+    // runWithShellPermissionIdentity, and callWithShellPermissionIdentity ensures Shell Permission
+    // is not interrupted by another operation (which would drop all previously adopted
+    // permissions).
+    private Object mShellPermissionsIdentityLock = new Object();
 
     private Context mContext;
     private ConnectivityManager mConnectivityManager;
@@ -244,20 +251,24 @@ public class ConnectivityDiagnosticsManagerTest {
                 CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY,
                 new String[] {getCertHashForThisPackage()});
 
-        runWithShellPermissionIdentity(
-                () -> {
-                    mCarrierConfigManager.overrideConfig(subId, carrierConfigs);
-                    mCarrierConfigManager.notifyConfigChangedForSubId(subId);
-                },
-                android.Manifest.permission.MODIFY_PHONE_STATE);
+        synchronized (mShellPermissionsIdentityLock) {
+            runWithShellPermissionIdentity(
+                    () -> {
+                        mCarrierConfigManager.overrideConfig(subId, carrierConfigs);
+                        mCarrierConfigManager.notifyConfigChangedForSubId(subId);
+                    },
+                    android.Manifest.permission.MODIFY_PHONE_STATE);
+        }
 
         // TODO(b/157779832): This should use android.permission.CHANGE_NETWORK_STATE. However, the
         // shell does not have CHANGE_NETWORK_STATE, so use CONNECTIVITY_INTERNAL until the shell
         // permissions are updated.
-        runWithShellPermissionIdentity(
-                () -> mConnectivityManager.requestNetwork(
-                        CELLULAR_NETWORK_REQUEST, testNetworkCallback),
-                android.Manifest.permission.CONNECTIVITY_INTERNAL);
+        synchronized (mShellPermissionsIdentityLock) {
+            runWithShellPermissionIdentity(
+                    () -> mConnectivityManager.requestNetwork(
+                            CELLULAR_NETWORK_REQUEST, testNetworkCallback),
+                    android.Manifest.permission.CONNECTIVITY_INTERNAL);
+        }
 
         final Network network = testNetworkCallback.waitForAvailable();
         assertNotNull(network);
@@ -536,6 +547,12 @@ public class ConnectivityDiagnosticsManagerTest {
     }
 
     private class CarrierConfigReceiver extends BroadcastReceiver {
+        // #onReceive may encounter Exceptions while running on the Process' main Thread and
+        // #waitForCarrierConfigChanged checks the cached Exception from the test Thread - use an
+        // AtomicReference to keep this Thread-safe. Exceptions must be cached and thrown later, as
+        // throwing on the Process' main Thread will crash the process and cause other tests to
+        // fail.
+        private final AtomicReference<Exception> mOnReceiveFailure = new AtomicReference<>();
         private final CountDownLatch mLatch = new CountDownLatch(1);
         private final int mSubId;
 
@@ -555,22 +572,52 @@ public class ConnectivityDiagnosticsManagerTest {
                             SubscriptionManager.INVALID_SUBSCRIPTION_ID);
             if (mSubId != subId) return;
 
-            final PersistableBundle carrierConfigs = mCarrierConfigManager.getConfigForSubId(subId);
-            if (!CarrierConfigManager.isConfigForIdentifiedCarrier(carrierConfigs)) return;
+            final PersistableBundle carrierConfigs;
+            try {
+                synchronized (mShellPermissionsIdentityLock) {
+                    carrierConfigs = callWithShellPermissionIdentity(
+                            () -> mCarrierConfigManager.getConfigForSubId(subId),
+                            android.Manifest.permission.READ_PHONE_STATE);
+                }
+            } catch (Exception exception) {
+                mOnReceiveFailure.set(exception);
+                mLatch.countDown();
+                return;
+            }
 
-            final String[] certs =
-                    carrierConfigs.getStringArray(
-                            CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY);
+            if (!CarrierConfigManager.isConfigForIdentifiedCarrier(carrierConfigs)) {
+                return;
+            }
+
+            final String[] certs = carrierConfigs.getStringArray(
+                    CarrierConfigManager.KEY_CARRIER_CERTIFICATE_STRING_ARRAY);
             try {
                 if (ArrayUtils.contains(certs, getCertHashForThisPackage())) {
                     mLatch.countDown();
                 }
-            } catch (Exception e) {
+            } catch (Exception exception) {
+                mOnReceiveFailure.set(exception);
+                mLatch.countDown();
             }
         }
 
+        /**
+         * Waits for the CarrierConfig changed broadcast to reach this CarrierConfigReceiver.
+         *
+         * <p>Must be called from the Test Thread.
+         *
+         * @throws Exception if an Exception occurred during any #onReceive invocation
+         */
         boolean waitForCarrierConfigChanged() throws Exception {
-            return mLatch.await(CARRIER_CONFIG_CHANGED_BROADCAST_TIMEOUT, TimeUnit.MILLISECONDS);
+            final boolean result = mLatch.await(CARRIER_CONFIG_CHANGED_BROADCAST_TIMEOUT,
+                    TimeUnit.MILLISECONDS);
+
+            final Exception onReceiveFailure = mOnReceiveFailure.get();
+            if (onReceiveFailure != null) {
+                throw onReceiveFailure;
+            }
+
+            return result;
         }
     }
 }
