@@ -34,6 +34,7 @@ import android.net.NetworkStats;
 import android.net.NetworkStats.Entry;
 import android.net.TetherOffloadRuleParcel;
 import android.net.TetherStatsParcel;
+import android.net.ip.ConntrackMonitor;
 import android.net.ip.IpServer;
 import android.net.netstats.provider.NetworkStatsProvider;
 import android.net.util.SharedLog;
@@ -55,9 +56,11 @@ import com.android.internal.util.IndentingPrintWriter;
 import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *  This coordinator is responsible for providing BPF offload relevant functionality.
@@ -86,6 +89,8 @@ public class BpfCoordinator {
     private final SharedLog mLog;
     @NonNull
     private final Dependencies mDeps;
+    @NonNull
+    private final ConntrackMonitor mConntrackMonitor;
     @Nullable
     private final BpfTetherStatsProvider mStatsProvider;
 
@@ -146,6 +151,9 @@ public class BpfCoordinator {
     private final HashMap<IpServer, LinkedHashMap<Inet6Address, Ipv6ForwardingRule>>
             mIpv6ForwardingRules = new LinkedHashMap<>();
 
+    // Set for which downstream is monitoring the conntrack netlink message.
+    private final Set<IpServer> mMonitoringIpServer = new HashSet<>();
+
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingTask = () -> {
         updateForwardedStatsFromNetd();
@@ -168,6 +176,12 @@ public class BpfCoordinator {
 
         /** Get tethering configuration. */
         @Nullable public abstract TetheringConfiguration getTetherConfig();
+
+        /** Get conntrack monitor. */
+        @NonNull public ConntrackMonitor getConntrackMonitor(
+                ConntrackMonitor.ConntrackEventConsumer consumer) {
+            return new ConntrackMonitor(getHandler(), getSharedLog(), consumer);
+        }
     }
 
     @VisibleForTesting
@@ -177,6 +191,7 @@ public class BpfCoordinator {
         mNetd = mDeps.getNetd();
         mLog = mDeps.getSharedLog().forSubComponent(TAG);
         mIsBpfEnabled = isBpfEnabled();
+        mConntrackMonitor = mDeps.getConntrackMonitor(new BpfConntrackEventConsumer());
         BpfTetherStatsProvider provider = new BpfTetherStatsProvider();
         try {
             mDeps.getNetworkStatsManager().registerNetworkStatsProvider(
@@ -229,6 +244,58 @@ public class BpfCoordinator {
         mPollingStarted = false;
 
         mLog.i("Polling stopped");
+    }
+
+    /**
+     * Start conntrack message monitoring.
+     * Note that this can be only called on handler thread.
+     *
+     * TODO: figure out a better logging for non-interesting conntrack message.
+     * For example, the following logging is an IPCTNL_MSG_CT_GET message but looks scary.
+     * +------------------------------------------------------------------------+
+     * | ERROR unparsable netlink msg: 1400000001010103000000000000000002000000 |
+     * +------------------+-----------------------------------------------------+
+     * |                  | struct nlmsghdr                                     |
+     * | 14000000         | length = 20                                         |
+     * | 0101             | type = NFNL_SUBSYS_CTNETLINK | IPCTNL_MSG_CT_GET    |
+     * | 0103             | flags                                               |
+     * | 00000000         | seqno = 0                                           |
+     * | 00000000         | pid = 0                                             |
+     * |                  | struct nfgenmsg                                     |
+     * | 02               | nfgen_family  = AF_INET                             |
+     * | 00               | version = NFNETLINK_V0                              |
+     * | 0000             | res_id                                              |
+     * +------------------+-----------------------------------------------------+
+     * See NetlinkMonitor#handlePacket, NetlinkMessage#parseNfMessage.
+     */
+    public void startMonitoring(@NonNull final IpServer ipServer) {
+        if (!mIsBpfEnabled) return;
+
+        if (mMonitoringIpServer.contains(ipServer)) {
+            Log.wtf(TAG, "The same downstream " + ipServer.interfaceName()
+                    + " should not start monitoring twice.");
+            return;
+        }
+
+        if (mMonitoringIpServer.size() == 0) {
+            mConntrackMonitor.start();
+            mLog.i("Monitoring started");
+        }
+
+        mMonitoringIpServer.add(ipServer);
+    }
+
+    /**
+     * Stop conntrack event monitoring.
+     * Note that this can be only called on handler thread.
+     */
+    public void stopMonitoring(@NonNull final IpServer ipServer) {
+        mMonitoringIpServer.remove(ipServer);
+
+        if (mMonitoringIpServer.size() != 0) return;
+
+        mConntrackMonitor.stop();
+        mLog.i("Monitoring stopped");
     }
 
     /**
@@ -580,6 +647,10 @@ public class BpfCoordinator {
             mIfaceStats = mIfaceStats.add(ifaceDiff);
             mUidStats = mUidStats.add(uidDiff);
         }
+    }
+
+    private class BpfConntrackEventConsumer implements ConntrackMonitor.ConntrackEventConsumer {
+        public void accept(ConntrackMonitor.ConntrackEvent e) { /* TODO */ }
     }
 
     private boolean isBpfEnabled() {
