@@ -52,6 +52,8 @@ import android.net.MacAddress;
 import android.net.NetworkStats;
 import android.net.TetherOffloadRuleParcel;
 import android.net.TetherStatsParcel;
+import android.net.ip.ConntrackMonitor;
+import android.net.ip.ConntrackMonitor.ConntrackEventConsumer;
 import android.net.ip.IpServer;
 import android.net.util.SharedLog;
 import android.os.Handler;
@@ -93,7 +95,9 @@ public class BpfCoordinatorTest {
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private INetd mNetd;
     @Mock private IpServer mIpServer;
+    @Mock private IpServer mIpServer2;
     @Mock private TetheringConfiguration mTetherConfig;
+    @Mock private ConntrackMonitor mConntrackMonitor;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -126,6 +130,11 @@ public class BpfCoordinatorTest {
             @Nullable
             public TetheringConfiguration getTetherConfig() {
                 return mTetherConfig;
+            }
+
+            @NonNull
+            public ConntrackMonitor getConntrackMonitor(ConntrackEventConsumer consumer) {
+                return mConntrackMonitor;
             }
     };
 
@@ -603,5 +612,33 @@ public class BpfCoordinatorTest {
         mTestLooper.moveTimeForward((long) (pollingInterval * 0.1));
         waitForIdle();
         verify(mNetd).tetherOffloadGetStats();
+    }
+
+    @Test
+    public void testStartStopConntrackMonitoring() throws Exception {
+        setupFunctioningNetdInterface();
+
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+
+        // [1] Don't stop monitoring if never started.
+        coordinator.stopMonitoring(mIpServer);
+        verify(mConntrackMonitor, never()).start();
+
+        // [2] Start monitoring at the first call.
+        coordinator.startMonitoring(mIpServer);
+        verify(mConntrackMonitor).start();
+        clearInvocations(mConntrackMonitor);
+
+        // [3] Don't start monitoring at the second call.
+        coordinator.startMonitoring(mIpServer2);
+        verify(mConntrackMonitor, never()).start();
+
+        // [4] Don't stop monitoring if anyone is still using it.
+        coordinator.stopMonitoring(mIpServer2);
+        verify(mConntrackMonitor, never()).stop();
+
+        // [5] Stop monitoring if no one is using it.
+        coordinator.stopMonitoring(mIpServer);
+        verify(mConntrackMonitor).stop();
     }
 }
