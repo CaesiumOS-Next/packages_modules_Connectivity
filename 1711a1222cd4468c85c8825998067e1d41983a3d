@@ -1,0 +1,12 @@
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Verified+1: Baligh Uddin <baligh@google.com>
+Autosubmit+1: Baligh Uddin <baligh@google.com>
+Code-Review+2: Lorenzo Colitti <lorenzo@google.com>
+Presubmit-Verified-1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Bypass-Presubmit+1: Baligh Uddin <baligh@google.com>
+Submitted-by: Baligh Uddin <baligh@google.com>
+Submitted-at: Sat, 31 Oct 2020 12:50:56 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1482768
+Project: platform/packages/modules/Connectivity
+Branch: refs/heads/master
