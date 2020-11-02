@@ -734,9 +734,12 @@ public class TetheringTest {
         initTetheringUpstream(upstreamState);
 
         // Emulate pressing the USB tethering button in Settings UI.
-        mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB), null);
+        final TetheringRequestParcel request = createTetheringRequestParcel(TETHERING_USB);
+        mTethering.startTethering(request, null);
         mLooper.dispatchAll();
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
+        assertEquals(1, mTethering.getActiveTetheringRequests().size());
+        assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
 
         mTethering.interfaceStatusChanged(TEST_USB_IFNAME, true);
     }
@@ -1245,6 +1248,33 @@ public class TetheringTest {
 
         runUserRestrictionsChange(currDisallow, nextDisallow, isTetheringActive,
                 expectedInteractionsWithShowNotification);
+    }
+
+    @Test
+    public void testUntetherUsbWhenRestrictionIsOn() {
+        // Start usb tethering and check that usb interface is tethered.
+        final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
+        runUsbTethering(upstreamState);
+        assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_USB_IFNAME);
+        assertTrue(mTethering.isTetheringActive());
+        assertEquals(0, mTethering.getActiveTetheringRequests().size());
+
+        final Bundle newRestrictions = new Bundle();
+        newRestrictions.putBoolean(UserManager.DISALLOW_CONFIG_TETHERING, true);
+        when(mUserManager.getUserRestrictions()).thenReturn(newRestrictions);
+
+        final Tethering.UserRestrictionActionListener ural =
+                new Tethering.UserRestrictionActionListener(
+                        mUserManager, mTethering, mNotificationUpdater);
+        ural.mDisallowTethering = false;
+
+        ural.onUserRestrictionsChanged();
+        mLooper.dispatchAll();
+
+        // Verify that restriction notification has showed to user.
+        verify(mNotificationUpdater, times(1)).notifyTetheringDisabledByRestriction();
+        // Verify that usb tethering has been disabled.
+        verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
     }
 
     private class TestTetheringEventCallback extends ITetheringEventCallback.Stub {
