@@ -1081,7 +1081,7 @@ public class Tethering {
 
     @VisibleForTesting
     boolean isTetheringActive() {
-        return mActiveTetheringRequests.size() > 0;
+        return getTetheredIfaces().length > 0;
     }
 
     @VisibleForTesting

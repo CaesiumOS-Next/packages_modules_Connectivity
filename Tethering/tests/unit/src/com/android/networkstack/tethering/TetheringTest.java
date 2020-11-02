@@ -1247,6 +1247,31 @@ public class TetheringTest {
                 expectedInteractionsWithShowNotification);
     }
 
+    @Test
+    public void testUntetherUsbWhenRestrictionIsOn() {
+        // Start usb tethering and check that usb interface is tethered.
+        final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
+        runUsbTethering(upstreamState);
+        assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_USB_IFNAME);
+
+        final Bundle newRestrictions = new Bundle();
+        newRestrictions.putBoolean(UserManager.DISALLOW_CONFIG_TETHERING, true);
+        when(mUserManager.getUserRestrictions()).thenReturn(newRestrictions);
+
+        final Tethering.UserRestrictionActionListener ural =
+                new Tethering.UserRestrictionActionListener(
+                        mUserManager, mTethering, mNotificationUpdater);
+        ural.mDisallowTethering = false;
+
+        ural.onUserRestrictionsChanged();
+        mLooper.dispatchAll();
+
+        // Verify that restriction notification has showed to user.
+        verify(mNotificationUpdater, times(1)).notifyTetheringDisabledByRestriction();
+        // Verify that usb tethering has been disabled.
+        verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
+    }
+
     private class TestTetheringEventCallback extends ITetheringEventCallback.Stub {
         private final ArrayList<Network> mActualUpstreams = new ArrayList<>();
         private final ArrayList<TetheringConfigurationParcel> mTetheringConfigs =
