@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc8da8ef_f0fcc9a4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2020-11-02T13:00:10Z",
+      "side": 1,
+      "message": "Could you also verify the result of isTetheringActive() to prevent it may break in the future? Ideally, it will be better to verify the result against previous logic.",
+      "range": {
+        "startLine": 1251,
+        "startChar": 16,
+        "endLine": 1251,
+        "endChar": 50
+      },
+      "revId": "9cc7723ca36bd4c47d967a6e72ccfdc458c71d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70940c04_a5e65a71",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2020-11-02T13:00:10Z",
+      "side": 1,
+      "message": "Nit: It looks lots of duplication with runUserRestrictionsChange(). Maybe integrate with it.",
+      "range": {
+        "startLine": 1257,
+        "startChar": 7,
+        "endLine": 1268,
+        "endChar": 0
+      },
+      "revId": "9cc7723ca36bd4c47d967a6e72ccfdc458c71d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
