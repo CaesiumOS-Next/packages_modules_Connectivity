@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdd9d24f_1a8a51f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1071150
+      },
+      "writtenOn": "2020-11-03T10:42:16Z",
+      "side": 1,
+      "message": "PTAL, this is the same change as network stack with the delta that it\u0027s fatal if dlsym fails which was suggested in comments there.",
+      "revId": "91e2e7302569ec5b29c00f7e3818915e2dcf783f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
