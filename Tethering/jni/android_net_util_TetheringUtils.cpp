@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
+#include <dlfcn.h>
 #include <errno.h>
 #include <error.h>
 #include <jni.h>
 #include <linux/filter.h>
 #include <nativehelper/JNIHelp.h>
-#include <nativehelper/JNIHelpCompat.h>
 #include <nativehelper/ScopedUtfChars.h>
 #include <net/if.h>
 #include <netinet/ether.h>
 #include <netinet/ip6.h>
 #include <netinet/icmp6.h>
 #include <sys/socket.h>
+#include <sys/system_properties.h>
 #include <stdio.h>
 
 #define LOG_TAG "TetheringUtils"
@@ -36,6 +37,8 @@ namespace android {
 static const uint32_t kIPv6NextHeaderOffset = offsetof(ip6_hdr, ip6_nxt);
 static const uint32_t kIPv6PayloadStart = sizeof(ip6_hdr);
 static const uint32_t kICMPv6TypeOffset = kIPv6PayloadStart + offsetof(icmp6_hdr, icmp6_type);
+
+static int getNativeFileDescriptor(JNIEnv* env, jobject javaFd);
 
 static void android_net_util_setupIcmpFilter(JNIEnv *env, jobject javaFd, uint32_t type) {
     sock_filter filter_code[] = {
@@ -57,7 +60,7 @@ static void android_net_util_setupIcmpFilter(JNIEnv *env, jobject javaFd, uint32
         filter_code,
     };
 
-    int fd = jniGetFDFromFileDescriptor(env, javaFd);
+    int fd = getNativeFileDescriptor(env, javaFd);
     if (setsockopt(fd, SOL_SOCKET, SO_ATTACH_FILTER, &filter, sizeof(filter)) != 0) {
         jniThrowExceptionFmt(env, "java/net/SocketException",
                 "setsockopt(SO_ATTACH_FILTER): %s", strerror(errno));
@@ -79,7 +82,7 @@ static void android_net_util_setupRaSocket(JNIEnv *env, jobject clazz, jobject j
 {
     static const int kLinkLocalHopLimit = 255;
 
-    int fd = jniGetFDFromFileDescriptor(env, javaFd);
+    int fd = getNativeFileDescriptor(env, javaFd);
 
     // Set an ICMPv6 filter that only passes Router Solicitations.
     struct icmp6_filter rs_only;
@@ -163,6 +166,65 @@ static void android_net_util_setupRaSocket(JNIEnv *env, jobject clazz, jobject j
                 "setsockopt(IPV6_JOIN_GROUP): %s", strerror(errno));
         return;
     }
+}
+
+static int getNativeFileDescriptorWithoutNdk(JNIEnv* env, jobject javaFd) {
+  // Prior to Android S, we need to find the descriptor field in the FileDescriptor class. The
+  // symbol name has been stable in libcore, but is a private implementation detail.
+  static jfieldID descriptorFieldID = nullptr;
+  if (descriptorFieldID == nullptr) {
+    jclass fileDescriptorClass = env->FindClass("java/io/FileDescriptor");
+    descriptorFieldID = env->GetFieldID(fileDescriptorClass, "descriptor", "I");
+    env->DeleteLocalRef(fileDescriptorClass);
+    if (descriptorFieldID == nullptr) {
+      __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "Failed to get descriptor field.");
+      return -1;
+    }
+  }
+  return javaFd != nullptr ? env->GetIntField(javaFd, descriptorFieldID) : -1;
+}
+
+static int getNativeFileDescriptorWithNdk(JNIEnv* env, jobject javaFd) {
+  // Since Android S, there is an NDK API to get a file descriptor present in libnativehelper.so.
+  // libnativehelper is loaded into all processes by the zygote since the zygote uses it
+  // to load the Android Runtime and is also a public library (because of the NDK API).
+  static int (*ndkGetFD)(JNIEnv*, jobject) = nullptr;
+  if (ndkGetFD == nullptr) {
+    void* handle = dlopen("libnativehelper.so", RTLD_NOLOAD | RTLD_NODELETE);
+    ndkGetFD = reinterpret_cast<decltype(ndkGetFD)>(dlsym(handle, "AFileDescriptor_getFD"));
+    if (ndkGetFD == nullptr) {
+      __android_log_print(ANDROID_LOG_FATAL, LOG_TAG,
+                          "Failed to dlsym(AFileDescriptor_getFD): %s", dlerror());
+      dlclose(handle);
+      return -1;
+    }
+    dlclose(handle);
+  }
+  return javaFd != nullptr ? ndkGetFD(env, javaFd) : -1;
+}
+
+static int getNativeFileDescriptor(JNIEnv* env, jobject javaFd) {
+  static bool preferNdkFileDescriptorApi = false;
+  static bool probeNdkFileDescriptorApi = true;
+
+  if (probeNdkFileDescriptorApi) {
+    // Check if we should use the NDK File Descriptor API introduced in S.
+    preferNdkFileDescriptorApi = (android_get_device_api_level() >= __ANDROID_API_S__);
+    if (!preferNdkFileDescriptorApi) {
+      // Check if this is a device with Android S dogfood build.
+      static constexpr const char* kCodenameProperty = "ro.build.version.codename";
+      char codename[PROP_VALUE_MAX] = { 0 };
+      preferNdkFileDescriptorApi = (__system_property_get(kCodenameProperty, codename) > 0 &&
+                                    strncmp(codename, "S", 2) == 0);
+    }
+    probeNdkFileDescriptorApi = false;
+  }
+
+  if (preferNdkFileDescriptorApi) {
+    return getNativeFileDescriptorWithNdk(env, javaFd);
+  } else {
+    return getNativeFileDescriptorWithoutNdk(env, javaFd);
+  }
 }
 
 /*
