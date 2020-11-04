@@ -41,6 +41,7 @@ import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.AF_UNSPEC;
 
+import static com.android.compatibility.common.util.SystemUtil.callWithShellPermissionIdentity;
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
@@ -79,6 +80,8 @@ import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
 import android.net.NetworkRequest;
 import android.net.NetworkUtils;
+import android.net.QosCallbackException;
+import android.net.QosSocketInfo;
 import android.net.SocketKeepalive;
 import android.net.cts.util.CtsNetUtils;
 import android.net.util.KeepaliveUtils;
@@ -1529,6 +1532,65 @@ public class ConnectivityManagerTest {
             assertEquals("Invalid captive portal URL protocol", "http", parsedUrl.getProtocol());
         } catch (MalformedURLException e) {
             throw new AssertionFailedError("Captive portal server URL is invalid: " + e);
+        }
+    }
+
+    @AppModeFull(reason = "Cannot access IMS in instant app mode")
+    @Test
+    public void testQosCallbackRestrictedNetworkCheck() throws Exception {
+        final PackageManager pm = mContext.getPackageManager();
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY)
+                || !pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY_IMS)) {
+            // Doesn't support either telephony or IMS
+            return;
+        }
+
+        final QosSocketInfo info = callWithShellPermissionIdentity(() -> {
+            final NetworkRequest request =
+                    new NetworkRequest.Builder().addCapability(NET_CAPABILITY_IMS).build();
+            final TestNetworkCallback callback = new TestNetworkCallback();
+            mCm.requestNetwork(request, callback);
+            callback.waitForAvailable();
+            final Network network = callback.currentNetwork;
+            if (network == null) {
+                // Device can't access the IMS network and so testing security isn't helpful
+                return null;
+            }
+
+            // This tests the security check on restricted networks.  Since that check occurs
+            // before the check that the socket is bound, we can get away with having an unbound
+            // socket passed in.
+            final Socket socket = new Socket();
+            return new QosSocketInfo(network, socket);
+        });
+
+        if (info == null) {
+            // Couldn't acquire IMS network.  See above.
+            return;
+        }
+
+        final NetworkAgentTest.TestableQosCallback qosCallback =
+                new NetworkAgentTest.TestableQosCallback();
+        try {
+            mCm.registerQosCallback(info, qosCallback, mContext.getMainExecutor());
+            final NetworkAgentTest.TestableQosCallback.CallbackEntry callbackEntry =
+                    qosCallback.getHistory().poll(5000L, entry ->
+                            entry instanceof TestableQosCallback.CallbackEntry.OnError
+                    );
+            if (callbackEntry != null) {
+                final NetworkAgentTest.TestableQosCallback.CallbackEntry.OnError errorCbe =
+                        (NetworkAgentTest.TestableQosCallback.CallbackEntry.OnError) callbackEntry;
+                final QosCallbackException qosCallbackException = errorCbe.getEx();
+                if (!(qosCallbackException.getCause() instanceof SecurityException)) {
+                    fail("testQosCallbackRestrictedNetworkCheck: expected security exception, got "
+                            + qosCallbackException.getCause());
+                }
+            } else {
+                fail("testQosCallbackRestrictedNetworkCheck: security exception expected");
+            }
+
+        } finally {
+            mCm.unregisterQosCallback(qosCallback);
         }
     }
 }
