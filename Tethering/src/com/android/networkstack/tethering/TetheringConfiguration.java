@@ -24,6 +24,8 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
 import android.content.Context;
+import android.content.pm.ModuleInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.TetheringConfigurationParcel;
 import android.net.util.SharedLog;
@@ -71,6 +73,10 @@ public class TetheringConfiguration {
 
     private static final String[] DEFAULT_IPV4_DNS = {"8.8.4.4", "8.8.8.8"};
 
+    private static final String TETHERING_APEX_NAME = "com.android.tethering";
+    private static final long MIN_VERSION = 300000000L;
+    private static final long MAX_VERSION = 9999999999L;
+
     /**
      * Override enabling BPF offload configuration for tethering.
      */
@@ -92,6 +98,9 @@ public class TetheringConfiguration {
      */
     public static final String TETHER_ENABLE_SELECT_ALL_PREFIX_RANGES =
             "tether_enable_select_all_prefix_ranges";
+
+    public static final String TETHER_ENABLE_NCM_USB_TETHERING =
+            "tether_enable_ncm_usb_tethering";
 
     /**
      * Default value that used to periodic polls tether offload stats from tethering offload HAL
@@ -125,6 +134,7 @@ public class TetheringConfiguration {
     private final boolean mEnableWifiP2pDedicatedIp;
 
     private final boolean mEnableSelectAllPrefixRange;
+    private final boolean mEnableNcmUsbTethering;
 
     public TetheringConfiguration(Context ctx, SharedLog log, int id) {
         final SharedLog configLog = log.forSubComponent("config");
@@ -176,6 +186,7 @@ public class TetheringConfiguration {
         // to turn off the feature, so binary rollback problems do not apply.
         mEnableSelectAllPrefixRange = getDeviceConfigBoolean(
                 TETHER_ENABLE_SELECT_ALL_PREFIX_RANGES, true /* defaultValue */);
+        mEnableNcmUsbTethering = getNcmUsbTetheringEnabled(ctx, res);
 
         configLog.log(toString());
     }
@@ -265,6 +276,9 @@ public class TetheringConfiguration {
 
         pw.print("mEnableSelectAllPrefixRange: ");
         pw.println(mEnableSelectAllPrefixRange);
+
+        pw.print("enableNcmUsbTethering: ");
+        pw.println(mEnableNcmUsbTethering);
     }
 
     /** Returns the string representation of this object.*/
@@ -328,6 +342,27 @@ public class TetheringConfiguration {
 
     public boolean isSelectAllPrefixRangeEnabled() {
         return mEnableSelectAllPrefixRange;
+    }
+
+    public boolean isNcmUsbTetheringEnabled() {
+        return mEnableNcmUsbTethering;
+    }
+
+    private boolean getNcmUsbTetheringEnabled(final Context ctx, final Resources res) {
+        final boolean enabledByRes = getResourceBoolean(res,
+                R.bool.config_tether_enable_ncm_usb_tethering, false /* defaultValue */);
+
+        final boolean enabledByConfig = isFeatureFlagEnabled(ctx, TETHER_ENABLE_NCM_USB_TETHERING,
+                MAX_VERSION, MIN_VERSION);
+
+        return enabledByRes | enabledByConfig;
+    }
+
+    private boolean isFeatureFlagEnabled(final Context ctx, final String name,
+            final long defaultFlagValue, final long defaultModuleVersion) {
+        final long moduleVersion = getTetheringVersion(ctx, defaultModuleVersion);
+
+        return moduleVersion >= getDeviceConfigLong(name, defaultFlagValue);
     }
 
     private static Collection<Integer> getUpstreamIfaceTypes(Resources res, boolean dunRequired) {
@@ -448,6 +483,11 @@ public class TetheringConfiguration {
         return value != null ? Boolean.parseBoolean(value) : defaultValue;
     }
 
+    private long getDeviceConfigLong(final String name, final long defaultValue) {
+        final String value = getDeviceConfigProperty(name);
+        return value != null ? Long.parseLong(value) : defaultValue;
+    }
+
     @VisibleForTesting
     protected String getDeviceConfigProperty(String name) {
         return DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY, name);
@@ -494,6 +534,29 @@ public class TetheringConfiguration {
             result[index++] = value;
         }
         return result;
+    }
+
+
+    // ModuleMetadata (AOSP version) has no modules configured. Module infomation is
+    // confiugred via ModuleMetadataGoogle app, which doesn't exist in AOSP. So using
+    // "defaultVersion" in AOSP.
+    private long getTetheringVersion(final Context ctx, final long defaultVersion) {
+        final PackageManager pm = ctx.getPackageManager();
+        long tetheringVersion = defaultVersion;
+
+        try {
+            ModuleInfo tetheringModule = pm.getModuleInfo(TETHERING_APEX_NAME,
+                    PackageManager.MODULE_APEX_NAME);
+            String tetheringPackageName = tetheringModule.getPackageName();
+            if (tetheringPackageName != null) {
+                tetheringVersion = pm.getPackageInfo(tetheringPackageName,
+                        PackageManager.MATCH_APEX).getLongVersionCode();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return tetheringVersion;
+        }
+
+        return tetheringVersion;
     }
 
     /**
