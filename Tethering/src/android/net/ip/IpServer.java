@@ -167,7 +167,13 @@ public class IpServer extends StateMachine {
          * needs to be supported per IpServer instead of per upstream.
          */
         public DadProxy getDadProxy(Handler handler, InterfaceParams ifParams) {
-            return new DadProxy(handler, ifParams);
+            // TODO: use feature flag instead of explicitly checking the version here.
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R || "S".equals(Build.VERSION.CODENAME)
+                    || "T".equals(Build.VERSION.CODENAME)) {
+                return new DadProxy(handler, ifParams);
+            }
+
+            return null;
         }
 
         /** Create an IpNeighborMonitor to be used by this IpServer */
@@ -685,12 +691,8 @@ public class IpServer extends StateMachine {
             return false;
         }
 
-        // TODO: use ShimUtils instead of explicitly checking the version here.
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R || "S".equals(Build.VERSION.CODENAME)
-                    || "T".equals(Build.VERSION.CODENAME)) {
-            // DAD Proxy starts forwarding packets after IPv6 upstream is present.
-            mDadProxy = mDeps.getDadProxy(getHandler(), mInterfaceParams);
-        }
+        // DAD Proxy starts forwarding packets after IPv6 upstream is present.
+        mDadProxy = mDeps.getDadProxy(getHandler(), mInterfaceParams);
 
         return true;
     }
