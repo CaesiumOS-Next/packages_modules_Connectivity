@@ -16,6 +16,23 @@
       "message": "Per comment on ag/12977821, I\u0027d prefer not to have two copies of this code. Can we move it to a common location somewhere?",
       "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "088ebe78_2a731a31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-11-04T10:32:23Z",
+      "side": 1,
+      "message": "Also, this should probably wait until the automerger is setup between aosp/master and goog/mainline-prod on packages/modules/Connectivity.",
+      "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
