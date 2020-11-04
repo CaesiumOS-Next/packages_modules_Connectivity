@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f366dea1_b1cb7f0c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2020-11-04T08:27:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36f2c931_597101fe",
+      "range": {
+        "startLine": 1251,
+        "startChar": 16,
+        "endLine": 1251,
+        "endChar": 50
+      },
+      "revId": "9cc7723ca36bd4c47d967a6e72ccfdc458c71d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70940c04_a5e65a71",
@@ -78,6 +102,30 @@
       "writtenOn": "2020-11-02T13:00:10Z",
       "side": 1,
       "message": "Nit: It looks lots of duplication with runUserRestrictionsChange(). Maybe integrate with it.",
+      "range": {
+        "startLine": 1257,
+        "startChar": 7,
+        "endLine": 1268,
+        "endChar": 0
+      },
+      "revId": "9cc7723ca36bd4c47d967a6e72ccfdc458c71d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfd5d7c3_29bcf815",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2020-11-04T08:27:34Z",
+      "side": 1,
+      "message": "We are using real Tethering object instead of mock Tethering object and we don\u0027t mock the isTetheringAcive() here. Beside, runUserRestrictionsChange() is using to verify onUserRestrictionsChanged() only, so I don\u0027t think we should integrate them.",
+      "parentUuid": "70940c04_a5e65a71",
       "range": {
         "startLine": 1257,
         "startChar": 7,
