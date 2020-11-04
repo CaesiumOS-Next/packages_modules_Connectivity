@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e10d61f0_27dc0a2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-11-04T10:31:34Z",
+      "side": 1,
+      "message": "Per comment on ag/12977821, I\u0027d prefer not to have two copies of this code. Can we move it to a common location somewhere?",
+      "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
