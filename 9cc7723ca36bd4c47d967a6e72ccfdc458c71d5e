@@ -134,6 +134,30 @@
       },
       "revId": "9cc7723ca36bd4c47d967a6e72ccfdc458c71d5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3c390b4_fc3cfb11",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-04T08:40:00Z",
+      "side": 1,
+      "message": "I think the concern is duplicate the code. The usage here are duplication except for mLooper.dispatchAll(). You can simple make they a util method and both use it in here and other place.",
+      "parentUuid": "bfd5d7c3_29bcf815",
+      "range": {
+        "startLine": 1257,
+        "startChar": 7,
+        "endLine": 1268,
+        "endChar": 0
+      },
+      "revId": "9cc7723ca36bd4c47d967a6e72ccfdc458c71d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
