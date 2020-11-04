@@ -46,6 +46,30 @@
       },
       "revId": "fcabfc688d46ae9f5c859694e5f0d3fe811721f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2118d7e2_e613a73c",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2020-11-04T15:43:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b7e0c3d_d7a137f7",
+      "range": {
+        "startLine": 564,
+        "startChar": 12,
+        "endLine": 564,
+        "endChar": 31
+      },
+      "revId": "fcabfc688d46ae9f5c859694e5f0d3fe811721f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
