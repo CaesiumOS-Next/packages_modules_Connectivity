@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20933b8a_005ab040",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-04T02:44:03Z",
+      "side": 1,
+      "message": "LGTM if Chiachang\u0027s comment is addressed.",
+      "revId": "9cc7723ca36bd4c47d967a6e72ccfdc458c71d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc8da8ef_f0fcc9a4",
@@ -14,6 +31,30 @@
       "writtenOn": "2020-11-02T13:00:10Z",
       "side": 1,
       "message": "Could you also verify the result of isTetheringActive() to prevent it may break in the future? Ideally, it will be better to verify the result against previous logic.",
+      "range": {
+        "startLine": 1251,
+        "startChar": 16,
+        "endLine": 1251,
+        "endChar": 50
+      },
+      "revId": "9cc7723ca36bd4c47d967a6e72ccfdc458c71d5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36f2c931_597101fe",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-04T02:44:03Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "fc8da8ef_f0fcc9a4",
       "range": {
         "startLine": 1251,
         "startChar": 16,
