@@ -44,12 +44,19 @@ import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAdd
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAutomaticReconnectDisabled
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnBandwidthUpdateRequested
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnNetworkUnwanted
+import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnRegisterQosCallback
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnRemoveKeepalivePacketFilter
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnSaveAcceptUnvalidated
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnSignalStrengthThresholdsUpdated
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnStartSocketKeepalive
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnStopSocketKeepalive
+import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnUnregisterQosCallback
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnValidationStatus
+import android.net.QosCallback
+import android.net.QosCallbackException
+import android.net.QosFilter
+import android.net.QosSession
+import android.net.QosSessionAttributes
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -57,6 +64,7 @@ import android.os.HandlerThread
 import android.os.Looper
 import android.os.Message
 import android.os.Messenger
+import android.telephony.data.EpsBearerQosSessionAttributes
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.android.internal.util.AsyncChannel
@@ -80,6 +88,8 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import java.net.InetAddress
+import java.net.InetSocketAddress
+import java.net.Socket
 import java.time.Duration
 import java.util.UUID
 import kotlin.test.assertEquals
@@ -215,6 +225,11 @@ class NetworkAgentTest {
             object OnAutomaticReconnectDisabled : CallbackEntry()
             data class OnValidationStatus(val status: Int, val uri: Uri?) : CallbackEntry()
             data class OnSignalStrengthThresholdsUpdated(val thresholds: IntArray) : CallbackEntry()
+            data class OnRegisterQosCallback(
+                val callbackId: Int,
+                val filter: QosFilter
+            ) : CallbackEntry()
+            data class OnUnregisterQosCallback(val callbackId: Int) : CallbackEntry()
         }
 
         fun getName(): String? = (nc.getNetworkSpecifier() as? StringNetworkSpecifier)?.specifier
@@ -264,6 +279,14 @@ class NetworkAgentTest {
                 // intArrayOf() without arguments makes an empty array
                 assertArrayEquals(intArrayOf(), it.thresholds)
             }
+        }
+
+        override fun onQosCallbackRegistered(qosCallbackId: Int, filter: QosFilter) {
+            history.add(OnRegisterQosCallback(qosCallbackId, filter))
+        }
+
+        override fun onQosCallbackUnregistered(qosCallbackId: Int) {
+            history.add(OnUnregisterQosCallback(qosCallbackId))
         }
 
         override fun onValidationStatus(status: Int, uri: Uri?) {
@@ -664,5 +687,239 @@ class NetworkAgentTest {
         }
 
         // tearDown() will unregister the requests and agents
+    }
+
+    open class TestableQosCallback : QosCallback() {
+        val history = ArrayTrackRecord<CallbackEntry>().newReadHead()
+
+        sealed class CallbackEntry {
+            data class OnQosSessionAvailable(val sess: QosSession, val attr: QosSessionAttributes)
+                : CallbackEntry()
+            data class OnQosSessionLost(val sess: QosSession)
+                : CallbackEntry()
+            data class OnError(val ex: QosCallbackException)
+                : CallbackEntry()
+        }
+
+        override fun onQosSessionAvailable(sess: QosSession, attr: QosSessionAttributes) {
+            history.add(CallbackEntry.OnQosSessionAvailable(sess, attr))
+        }
+
+        override fun onQosSessionLost(sess: QosSession) {
+            history.add(CallbackEntry.OnQosSessionLost(sess))
+        }
+
+        override fun onError(ex: QosCallbackException) {
+            history.add(CallbackEntry.OnError(ex))
+        }
+
+        inline fun <reified T : CallbackEntry> expectCallback(): T {
+            val foundCallback = history.poll(5000L)
+            assertTrue(foundCallback is T, "Expected ${T::class} but found $foundCallback")
+            return foundCallback
+        }
+
+        fun assertNoCallback() {
+            assertNull(history.peek(), "Callback exists")
+            assertNull(history.poll(NO_CALLBACK_TIMEOUT),
+                    "Callback received in ${NO_CALLBACK_TIMEOUT}ms")
+        }
+    }
+
+    private fun setupForQosCallbackTesting(): TestableNetworkAgent {
+        val request = NetworkRequest.Builder()
+                .clearCapabilities()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .build()
+
+        val callback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
+        requestNetwork(request, callback)
+        val (agent, _) = createConnectedNetworkAgent()
+        val network = agent.network!!
+        callback.expectAvailableThenValidatedCallbacks(network)
+        agent.expectEmptySignalStrengths()
+        agent.expectNoInternetValidationStatus()
+        return agent
+    }
+
+    @Test
+    fun testQosCallbackRegisterWithUnregister() {
+        val agent = setupForQosCallbackTesting()
+        val socket = Socket()
+        val qosCallback = TestableQosCallback()
+        var callbackId = -1
+        try {
+            val filter = QosFilter.fromSocket(agent.network!!, socket)
+            mCM!!.registerQosCallback(filter, qosCallback, realContext.mainExecutor)
+            callbackId = agent.expectCallback<OnRegisterQosCallback>().callbackId
+        } finally {
+            socket.close()
+            mCM.unregisterQosCallback(qosCallback)
+            assertEquals(callbackId, agent.expectCallback<OnUnregisterQosCallback>().callbackId)
+        }
+    }
+
+    @Test
+    fun testQosCallbackOnQosSession() {
+        val agent = setupForQosCallbackTesting()
+        val socket = Socket()
+        val qosCallback = TestableQosCallback()
+        try {
+            val filter = QosFilter.fromSocket(agent.network!!, socket)
+            mCM!!.registerQosCallback(filter, qosCallback, realContext.mainExecutor)
+            val callbackId = agent.expectCallback<OnRegisterQosCallback>().callbackId
+
+            val sessId = 4294967397
+            val session = QosSession(101, QosSession.TYPE_EPS_BEARER)
+            assertEquals(sessId, session.sessionId)
+
+            val attributes = createEpsAttributes(5)
+            agent.sendQosSessionAvailable(callbackId, session, attributes)
+            qosCallback.expectCallback<TestableQosCallback.CallbackEntry.OnQosSessionAvailable>()
+                    .let {
+                assertEquals(sessId, it.sess.sessionId)
+                assertEquals(QosSession.TYPE_EPS_BEARER, it.sess.sessionType)
+                assertEquals(attributes.qci, 5)
+            }
+
+            agent.sendQosSessionLost(callbackId, session)
+            qosCallback.expectCallback<TestableQosCallback.CallbackEntry.OnQosSessionLost>()
+                    .let {
+                        assertEquals(sessId, it.sess.sessionId)
+                        assertEquals(QosSession.TYPE_EPS_BEARER, it.sess.sessionType)
+                    }
+
+            // Make sure that we don't get more qos callbacks
+            mCM.unregisterQosCallback(qosCallback)
+            agent.expectCallback<OnUnregisterQosCallback>()
+
+            agent.sendQosSessionLost(callbackId, session)
+            qosCallback.assertNoCallback()
+        } finally {
+            socket.close()
+
+            // just in case we didn't make this far...
+            mCM.unregisterQosCallback(qosCallback)
+        }
+    }
+
+    @Test
+    fun testQosCallbackOnError() {
+        val agent = setupForQosCallbackTesting()
+        val socket = Socket()
+        val qosCallback = TestableQosCallback()
+        try {
+            val filter = QosFilter.fromSocket(agent.network!!, socket)
+            mCM!!.registerQosCallback(filter, qosCallback, realContext.mainExecutor)
+            val callbackId = agent.expectCallback<OnRegisterQosCallback>().callbackId
+
+            val session = QosSession(101, QosSession.TYPE_EPS_BEARER)
+            val attributes = createEpsAttributes()
+
+            // Double check that this is wired up and ready to go
+            agent.sendQosSessionAvailable(callbackId, session, attributes)
+            qosCallback.expectCallback<TestableQosCallback.CallbackEntry.OnQosSessionAvailable>()
+
+            // Check that onError is coming through correctly
+            agent.sendQosCallbackOnError(callbackId,
+                    QosCallbackException.EX_TYPE_FILTER_NOT_SUPPORTED)
+            qosCallback.expectCallback<TestableQosCallback.CallbackEntry.OnError>().let {
+                assertNotNull(it.ex)
+                assertNotNull(it.ex.cause)
+                if (it.ex.cause !is UnsupportedOperationException) {
+                    fail("the cause of the qos callback exception must be of cause " +
+                            "QosFilter.NotSupportedException")
+                }
+            }
+
+            // Ensure that when an error occurs the callback was also unregistered
+            agent.sendQosSessionLost(callbackId, session)
+            qosCallback.assertNoCallback()
+        } finally {
+            socket.close()
+
+            // Make sure we are fully unregistered just in case
+            mCM.unregisterQosCallback(qosCallback)
+        }
+    }
+
+    @Test
+    fun testQosCallbackIdsAreMappedCorrectly() {
+        val agent = setupForQosCallbackTesting()
+        val socket = Socket()
+        val qosCallback1 = TestableQosCallback()
+        val qosCallback2 = TestableQosCallback()
+        try {
+            val filter = QosFilter.fromSocket(agent.network!!, socket)
+            mCM!!.registerQosCallback(filter, qosCallback1, realContext.mainExecutor)
+            val callbackId1 = agent.expectCallback<OnRegisterQosCallback>().callbackId
+
+            mCM.registerQosCallback(filter, qosCallback2, realContext.mainExecutor)
+            val callbackId2 = agent.expectCallback<OnRegisterQosCallback>().callbackId
+
+            val session1 = QosSession(101, QosSession.TYPE_EPS_BEARER)
+            val attributes1 = createEpsAttributes(1)
+
+            // Check #1
+            agent.sendQosSessionAvailable(callbackId1, session1, attributes1)
+            qosCallback1.expectCallback<TestableQosCallback.CallbackEntry.OnQosSessionAvailable>()
+            qosCallback2.assertNoCallback()
+
+            // Check #2
+            val session2 = QosSession(102, QosSession.TYPE_EPS_BEARER)
+            val attributes2 = createEpsAttributes(2)
+            agent.sendQosSessionAvailable(callbackId2, session2, attributes2)
+            qosCallback1.assertNoCallback()
+            qosCallback2.expectCallback<TestableQosCallback.CallbackEntry.OnQosSessionAvailable>()
+                    .let {
+                assertEquals(it.sess.sessionId, session2.sessionId)
+            }
+        } finally {
+            socket.close()
+
+            // Make sure we are fully unregistered just in case
+            mCM.unregisterQosCallback(qosCallback1)
+            mCM.unregisterQosCallback(qosCallback2)
+        }
+    }
+
+    @Test
+    fun testQosCallbackWhenNetworkReleased() {
+        val agent = setupForQosCallbackTesting()
+        val socket = Socket()
+        val qosCallback1 = TestableQosCallback()
+        val qosCallback2 = TestableQosCallback()
+        try {
+            val filter = QosFilter.fromSocket(agent.network!!, socket)
+            mCM!!.registerQosCallback(filter, qosCallback1, realContext.mainExecutor)
+            mCM.registerQosCallback(filter, qosCallback2, realContext.mainExecutor)
+            agent.unregister()
+
+            val onError1 = qosCallback1.expectCallback<TestableQosCallback.CallbackEntry.OnError>()
+            assertNotNull(onError1.ex.cause)
+            if (onError1.ex.cause !is QosFilter.NetworkReleasedException) {
+                fail("onError1.ex.cause should be of type QosFilter.NetworkReleasedException, " +
+                        "exception type: " + onError1.ex.cause.toString())
+            }
+            val onError2 = qosCallback2.expectCallback<TestableQosCallback.CallbackEntry.OnError>()
+            assertNotNull(onError2.ex.cause)
+            if (onError2.ex.cause !is QosFilter.NetworkReleasedException) {
+                fail("onError2.ex.cause should be of type QosFilter.NetworkReleasedException, " +
+                        "exception type: " + onError2.ex.cause.toString())
+            }
+        } finally {
+            socket.close()
+            mCM.unregisterQosCallback(qosCallback1)
+            mCM.unregisterQosCallback(qosCallback2)
+        }
+    }
+
+    private fun createEpsAttributes(qci: Int = 1): EpsBearerQosSessionAttributes {
+        val remoteAddresses = ArrayList<InetSocketAddress>()
+        remoteAddresses.add(InetSocketAddress("192.0.2.5", 80))
+        return EpsBearerQosSessionAttributes(
+                qci, 2, 3, 4, 5,
+                remoteAddresses
+        )
     }
 }
