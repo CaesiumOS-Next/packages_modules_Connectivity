@@ -33,6 +33,24 @@
       "message": "Also, this should probably wait until the automerger is setup between aosp/master and goog/mainline-prod on packages/modules/Connectivity.",
       "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9cd7d35_7c261b3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1071150
+      },
+      "writtenOn": "2020-11-04T11:04:03Z",
+      "side": 1,
+      "message": "Is there a tracking bug for this?\n\nFound restructing but not entirely clear this is the same:\n\nb/167962976 | P2 | comment | ASSIGNED | baligh | Restructure Module code [ com.google.android.tethering ] | cl/340585698",
+      "parentUuid": "088ebe78_2a731a31",
+      "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
