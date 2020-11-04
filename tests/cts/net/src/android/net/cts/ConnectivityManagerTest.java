@@ -315,11 +315,11 @@ public class ConnectivityManagerTest {
                 assertTrue("Info shouldn't be null for " + type, ni != null);
                 State state = ni.getState();
                 assertTrue("Bad state for " + type, State.UNKNOWN.ordinal() >= state.ordinal()
-                           && state.ordinal() >= State.CONNECTING.ordinal());
+                        && state.ordinal() >= State.CONNECTING.ordinal());
                 DetailedState ds = ni.getDetailedState();
                 assertTrue("Bad detailed state for " + type,
-                           DetailedState.FAILED.ordinal() >= ds.ordinal()
-                           && ds.ordinal() >= DetailedState.IDLE.ordinal());
+                        DetailedState.FAILED.ordinal() >= ds.ordinal()
+                                && ds.ordinal() >= DetailedState.IDLE.ordinal());
             } else {
                 assertNull("Info should be null for " + type, mCm.getNetworkInfo(type));
             }
@@ -451,14 +451,14 @@ public class ConnectivityManagerTest {
         // Note that this test this will still fail in instant mode if a device supports Ethernet
         // via other hardware means. We are not currently aware of any such device.
         return (mContext.getSystemService(Context.ETHERNET_SERVICE) != null) ||
-            mPackageManager.hasSystemFeature(FEATURE_ETHERNET) ||
-            mPackageManager.hasSystemFeature(FEATURE_USB_HOST);
+                mPackageManager.hasSystemFeature(FEATURE_ETHERNET) ||
+                mPackageManager.hasSystemFeature(FEATURE_USB_HOST);
     }
 
     private boolean shouldBeSupported(int networkType) {
         return mNetworks.containsKey(networkType) ||
-               (networkType == ConnectivityManager.TYPE_VPN) ||
-               (networkType == ConnectivityManager.TYPE_ETHERNET && shouldEthernetBeSupported());
+                (networkType == ConnectivityManager.TYPE_VPN) ||
+                (networkType == ConnectivityManager.TYPE_ETHERNET && shouldEthernetBeSupported());
     }
 
     @Test
@@ -728,7 +728,7 @@ public class ConnectivityManagerTest {
         mCm.registerDefaultNetworkCallback(networkCallback);
         if (!latch.await(NETWORK_CHANGE_METEREDNESS_TIMEOUT, TimeUnit.MILLISECONDS)) {
             fail("Timed out waiting for active network metered status to change to "
-                 + requestedMeteredness + " ; network = " + mCm.getActiveNetwork());
+                    + requestedMeteredness + " ; network = " + mCm.getActiveNetwork());
         }
         mCm.unregisterNetworkCallback(networkCallback);
     }
@@ -758,8 +758,8 @@ public class ConnectivityManagerTest {
         final String rawMeteredPref = Settings.Global.getString(resolver,
                 NETWORK_METERED_MULTIPATH_PREFERENCE);
         return TextUtils.isEmpty(rawMeteredPref)
-            ? getIntResourceForName(NETWORK_METERED_MULTIPATH_PREFERENCE_RES_NAME)
-            : Integer.parseInt(rawMeteredPref);
+                ? getIntResourceForName(NETWORK_METERED_MULTIPATH_PREFERENCE_RES_NAME)
+                : Integer.parseInt(rawMeteredPref);
     }
 
     private int findNextPrefValue(ContentResolver resolver) {
