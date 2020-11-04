@@ -53,6 +53,7 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.util.SharedLog;
 import android.os.Bundle;
@@ -93,6 +94,7 @@ public final class EntitlementManagerTest {
     @Mock private Resources mResources;
     @Mock private SharedLog mLog;
     @Mock private EntitlementManager.OnUiEntitlementFailedListener mEntitlementFailedListener;
+    @Mock private PackageManager mPackageManager;
 
     // Like so many Android system APIs, these cannot be mocked because it is marked final.
     // We have to use the real versions.
@@ -113,6 +115,11 @@ public final class EntitlementManagerTest {
         @Override
         public Resources getResources() {
             return mResources;
+        }
+
+        @Override
+        public PackageManager getPackageManager() {
+            return mPackageManager;
         }
     }
 
@@ -182,7 +189,7 @@ public final class EntitlementManagerTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mMockingSession = mockitoSession()
                 .initMocks(this)
@@ -211,6 +218,8 @@ public final class EntitlementManagerTest {
                 false);
         when(mResources.getString(R.string.config_wifi_tether_enable)).thenReturn("");
         when(mLog.forSubComponent(anyString())).thenReturn(mLog);
+        when(mPackageManager.getModuleInfo(anyString(), eq(PackageManager.MODULE_APEX_NAME))).thenThrow(
+                new PackageManager.NameNotFoundException());
 
         mMockContext = new MockContext(mContext);
         mPermissionChangeCallback = spy(() -> { });

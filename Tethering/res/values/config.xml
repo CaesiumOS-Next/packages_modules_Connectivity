@@ -191,4 +191,7 @@
          state. -->
     <!-- Config for showing upstream roaming notification. -->
     <bool name="config_upstream_roaming_notification">false</bool>
+
+    <!-- Usb ncm instead of rndis for usb tethering -->
+    <bool name="config_tether_enable_ncm_usb_tethering"></bool>
 </resources>

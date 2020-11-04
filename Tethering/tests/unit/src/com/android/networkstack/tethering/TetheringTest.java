@@ -545,6 +545,8 @@ public class TetheringTest {
         initOffloadConfiguration(true /* offloadConfig */, true /* offloadControl */,
                 0 /* defaultDisabled */);
         when(mOffloadHardwareInterface.getForwardedStats(any())).thenReturn(mForwardedStats);
+        resetAndInitPackageManager();
+        enableNcmUsbTethering(false);
 
         mServiceContext = new TestContext(mContext);
         mContentResolver = new MockContentResolver(mServiceContext);
@@ -568,6 +570,12 @@ public class TetheringTest {
                 eq(PhoneStateListener.LISTEN_ACTIVE_DATA_SUBSCRIPTION_ID_CHANGE));
         verify(mWifiManager).registerSoftApCallback(any(), any());
         mPhoneStateListener = phoneListenerCaptor.getValue();
+    }
+
+    private void resetAndInitPackageManager() throws Exception {
+        reset(mPackageManager);
+        when(mPackageManager.getModuleInfo(any(), eq(PackageManager.MODULE_APEX_NAME))).thenThrow(
+                new PackageManager.NameNotFoundException());
     }
 
     private void setTetheringSupported(final boolean supported) {
@@ -666,7 +674,7 @@ public class TetheringTest {
         final Intent intent = new Intent(UsbManager.ACTION_USB_STATE);
         intent.putExtra(USB_CONNECTED, connected);
         intent.putExtra(USB_CONFIGURED, configured);
-        if (type == TETHERING_USB) {
+        if (type == TETHERING_USB && !mConfig.isNcmUsbTetheringEnabled()) {
             intent.putExtra(USB_FUNCTION_RNDIS, function);
         } else {
             intent.putExtra(USB_FUNCTION_NCM, function);
@@ -736,7 +744,11 @@ public class TetheringTest {
         // Emulate pressing the USB tethering button in Settings UI.
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_USB), null);
         mLooper.dispatchAll();
-        verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
+        if (mConfig.isNcmUsbTetheringEnabled()) {
+            verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
+        } else {
+            verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
+        }
 
         mTethering.interfaceStatusChanged(TEST_USB_IFNAME, true);
     }
@@ -842,6 +854,11 @@ public class TetheringTest {
         prepareUsbTethering(upstreamState);
         sendUsbBroadcast(true, true, true, TETHERING_USB);
         mLooper.dispatchAll();
+    }
+
+    private void enableNcmUsbTethering(final boolean enable) {
+        when(mResources.getBoolean(R.bool.config_tether_enable_ncm_usb_tethering))
+                .thenReturn(enable);
     }
 
     @Test
@@ -2005,13 +2022,26 @@ public class TetheringTest {
         setupForRequiredProvisioning();
         assertTrue(mTethering.isTetheringSupported());
         verify(mPackageManager).getPackageInfo(PROVISIONING_APP_NAME[0], GET_ACTIVITIES);
-        reset(mPackageManager);
+        resetAndInitPackageManager();
 
         doThrow(PackageManager.NameNotFoundException.class).when(mPackageManager).getPackageInfo(
                 PROVISIONING_APP_NAME[0], GET_ACTIVITIES);
         setupForRequiredProvisioning();
         assertFalse(mTethering.isTetheringSupported());
         verify(mPackageManager).getPackageInfo(PROVISIONING_APP_NAME[0], GET_ACTIVITIES);
+    }
+
+    @Test
+    public void testEnableNcmUsbTethering() throws Exception {
+        enableNcmUsbTethering(true);
+        sendConfigurationChanged();
+        assertTrue(mConfig.isNcmUsbTetheringEnabled());
+
+        final UpstreamNetworkState upstreamState = buildMobileIPv4UpstreamState();
+        runUsbTethering(upstreamState);
+        assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_USB_IFNAME);
+        runStopUSBTethering();
+        reset(mUsbManager);
     }
 
     // TODO: Test that a request for hotspot mode doesn't interfere with an

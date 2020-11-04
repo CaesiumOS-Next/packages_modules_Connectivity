@@ -31,9 +31,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import android.content.Context;
+import android.content.pm.ModuleInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.util.SharedLog;
 import android.provider.DeviceConfig;
@@ -63,10 +68,17 @@ public class TetheringConfigurationTest {
     private static final String[] PROVISIONING_APP_NAME = {"some", "app"};
     private static final String PROVISIONING_NO_UI_APP_NAME = "no_ui_app";
     private static final String PROVISIONING_APP_RESPONSE = "app_response";
+    private static final String APEX_NAME = "com.android.tethering";
+    private static final String TEST_PKG_NAME = "test.tethering";
+    private static final long MAX_MODULE_VERSION = 9999999999L;
+    private static final long TEST_MODULE_VERSION = 301400000L;
     @Mock private Context mContext;
     @Mock private TelephonyManager mTelephonyManager;
     @Mock private Resources mResources;
     @Mock private Resources mResourcesForSubId;
+    @Mock private PackageManager mPackageManager;
+    @Mock private PackageInfo mTetheringInfo;
+    @Mock private ModuleInfo mTetheringModule;
     private Context mMockContext;
     private boolean mHasTelephonyManager;
     private boolean mEnableLegacyDhcpServer;
@@ -99,6 +111,11 @@ public class TetheringConfigurationTest {
                 return mHasTelephonyManager ? mTelephonyManager : null;
             }
             return super.getSystemService(name);
+        }
+
+        @Override
+        public PackageManager getPackageManager() {
+            return mPackageManager;
         }
     }
 
@@ -133,9 +150,27 @@ public class TetheringConfigurationTest {
         initializeBpfOffloadConfiguration(true, null /* unset */);
         initEnableSelectAllPrefixRangeFlag(null /* unset */);
 
+        setupTetheringVersion(null);
+        initEnableNcmUsbTetheringFlag(null, null);
+
         mHasTelephonyManager = true;
         mMockContext = new MockContext(mContext);
         mEnableLegacyDhcpServer = false;
+    }
+
+    private void setupTetheringVersion(final Long versionCode) throws Exception {
+        if (versionCode == null) {
+            doThrow(new PackageManager.NameNotFoundException()).when(mPackageManager)
+                    .getModuleInfo(eq(APEX_NAME), eq(PackageManager.MODULE_APEX_NAME));
+            return;
+        }
+
+        doReturn(mTetheringModule).when(mPackageManager).getModuleInfo(eq(APEX_NAME),
+                eq(PackageManager.MODULE_APEX_NAME));
+        doReturn(TEST_PKG_NAME).when(mTetheringModule).getPackageName();
+        doReturn(mTetheringInfo).when(mPackageManager).getPackageInfo(eq(TEST_PKG_NAME),
+                eq(PackageManager.MATCH_APEX));
+        doReturn(versionCode).when(mTetheringInfo).getLongVersionCode();
     }
 
     @After
@@ -454,5 +489,52 @@ public class TetheringConfigurationTest {
         final TetheringConfiguration testEnable = new TetheringConfiguration(
                 mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
         assertTrue(testEnable.isSelectAllPrefixRangeEnabled());
+    }
+
+    private void initEnableNcmUsbTetheringFlag(final String configValue,
+            final Boolean resValue) throws Exception {
+        if (resValue != null) {
+            doReturn(resValue.booleanValue()).when(mResources).getBoolean(
+                    R.bool.config_tether_enable_ncm_usb_tethering);
+        } else {
+            doThrow(new Resources.NotFoundException()).when(mResources).getBoolean(
+                    R.bool.config_tether_enable_ncm_usb_tethering);
+        }
+
+        doReturn(configValue).when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
+                eq(TetheringConfiguration.TETHER_ENABLE_NCM_USB_TETHERING)));
+    }
+
+    @Test
+    public void testEnableNcmUsbTethering() throws Exception {
+        // Test default value with default developmenet module version.
+        final TetheringConfiguration defaultCfg = new TetheringConfiguration(
+                mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertFalse(defaultCfg.isNcmUsbTetheringEnabled());
+
+        // Test default value with test module version.
+        setupTetheringVersion(TEST_MODULE_VERSION);
+        final TetheringConfiguration defaultTestCfg = new TetheringConfiguration(
+                mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertFalse(defaultTestCfg.isNcmUsbTetheringEnabled());
+
+        // Test disabled.
+        initEnableNcmUsbTetheringFlag(Long.toString(MAX_MODULE_VERSION), new Boolean(false));
+        final TetheringConfiguration testDisableByRes = new TetheringConfiguration(
+                mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertFalse(testDisableByRes.isNcmUsbTetheringEnabled());
+
+        // Test enable by res.
+        initEnableNcmUsbTetheringFlag(null, new Boolean(true));
+        final TetheringConfiguration testEnableByRes = new TetheringConfiguration(
+                mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertTrue(testEnableByRes.isNcmUsbTetheringEnabled());
+
+        // Test enable by device config.
+        initEnableNcmUsbTetheringFlag(Long.toString(0), new Boolean(false));
+        final TetheringConfiguration testEnableByConfig = new TetheringConfiguration(
+                mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertTrue(testEnableByConfig.isNcmUsbTetheringEnabled());
     }
 }

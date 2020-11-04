@@ -20,6 +20,9 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
 import static android.content.pm.PackageManager.GET_ACTIVITIES;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static android.hardware.usb.UsbManager.FUNCTION_NCM;
+import static android.hardware.usb.UsbManager.FUNCTION_NONE;
+import static android.hardware.usb.UsbManager.FUNCTION_RNDIS;
 import static android.hardware.usb.UsbManager.USB_CONFIGURED;
 import static android.hardware.usb.UsbManager.USB_CONNECTED;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_NCM;
@@ -600,7 +603,7 @@ public class Tethering {
                 setBluetoothTethering(enable, listener);
                 break;
             case TETHERING_NCM:
-                result = setNcmTethering(enable);
+                result = setUsbFunction(enable ? FUNCTION_NCM : FUNCTION_NONE);
                 break;
             case TETHERING_ETHERNET:
                 result = setEthernetTethering(enable);
@@ -980,11 +983,14 @@ public class Tethering {
                     // Turn off tethering if it was enabled and there is a disconnect.
                     tetherMatchingInterfaces(IpServer.STATE_AVAILABLE, TETHERING_USB);
                     mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_USB);
-                } else if (usbConfigured && rndisEnabled) {
-                    // Tether if rndis is enabled and usb is configured.
-                    tetherMatchingInterfaces(IpServer.STATE_TETHERED, TETHERING_USB);
-                } else if (usbConnected && ncmEnabled) {
-                    tetherMatchingInterfaces(IpServer.STATE_LOCAL_ONLY, TETHERING_NCM);
+                } else if (usbConfigured && (rndisEnabled || ncmEnabled)) {
+                    // Tether if rndis/ncm is enabled and usb is configured.
+                    // TETHERING_NCM is used for MirrorLink feature which is a local only tethering.
+                    if (mActiveTetheringRequests.contains(TETHERING_NCM) && ncmEnabled) {
+                        tetherMatchingInterfaces(IpServer.STATE_LOCAL_ONLY, TETHERING_NCM);
+                    } else {
+                        tetherMatchingInterfaces(IpServer.STATE_TETHERED, TETHERING_USB);
+                    }
                 }
                 mRndisEnabled = usbConfigured && rndisEnabled;
             }
@@ -1290,6 +1296,13 @@ public class Tethering {
 
     int setUsbTethering(boolean enable) {
         if (VDBG) Log.d(TAG, "setUsbTethering(" + enable + ")");
+
+        if (!enable) return setUsbFunction(FUNCTION_NONE);
+
+        return setUsbFunction(mConfig.isNcmUsbTetheringEnabled() ? FUNCTION_NCM : FUNCTION_RNDIS);
+    }
+
+    private int setUsbFunction(final long usbFunction) {
         UsbManager usbManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
         if (usbManager == null) {
             mLog.e("setUsbTethering: failed to get UsbManager!");
@@ -1297,18 +1310,7 @@ public class Tethering {
         }
 
         synchronized (mPublicSync) {
-            usbManager.setCurrentFunctions(enable ? UsbManager.FUNCTION_RNDIS
-                    : UsbManager.FUNCTION_NONE);
-        }
-        return TETHER_ERROR_NO_ERROR;
-    }
-
-    private int setNcmTethering(boolean enable) {
-        if (VDBG) Log.d(TAG, "setNcmTethering(" + enable + ")");
-        UsbManager usbManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
-        synchronized (mPublicSync) {
-            usbManager.setCurrentFunctions(enable ? UsbManager.FUNCTION_NCM
-                    : UsbManager.FUNCTION_NONE);
+            usbManager.setCurrentFunctions(usbFunction);
         }
         return TETHER_ERROR_NO_ERROR;
     }
