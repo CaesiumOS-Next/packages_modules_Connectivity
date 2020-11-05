@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "077c9316_5166dd51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-11-05T15:16:20Z",
+      "side": 1,
+      "message": "LGTM since it fixes a broken test, but I\u0027m not really a fan of duplicating the ShimUtils code that determines what release the code is running on. Remi, any thoughts on that?",
+      "revId": "290e7c452bde4a2ce74b8d744473bf88d3ea4b74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
