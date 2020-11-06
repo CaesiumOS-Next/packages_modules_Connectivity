@@ -16,6 +16,23 @@
       "message": "Rebased from aosp/1477882",
       "revId": "72c7fe9b0c13db9e6ebe00acb7c66f6a6f429993",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe19120b_ca089cac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-06T08:01:59Z",
+      "side": 1,
+      "message": "LGTM, this is move from aosp/1477882",
+      "revId": "72c7fe9b0c13db9e6ebe00acb7c66f6a6f429993",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
