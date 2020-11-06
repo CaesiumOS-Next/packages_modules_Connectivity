@@ -33,6 +33,23 @@
       "message": "Re-TH again because previous it don\u0027t automerge to master so there is no goog/master related build/test",
       "revId": "290e7c452bde4a2ce74b8d744473bf88d3ea4b74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e23fc90_704a0ed9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-06T10:59:48Z",
+      "side": 1,
+      "message": "Merged this to fix the test first. If there is new comment for \"duplicating the ShimUtils code\", I will address it in follow up change.",
+      "revId": "290e7c452bde4a2ce74b8d744473bf88d3ea4b74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
