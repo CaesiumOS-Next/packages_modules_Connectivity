@@ -26,6 +26,9 @@ java_defaults {
 
     jni_libs: [
         "libcts_jni",
+        // FrameworksNetCommonTests library includes mockito-target-inline-minus-junit4
+        // and it depends on libdexmakerjvmtiagent so add it here.
+        "libdexmakerjvmtiagent",
         "libnativedns_jni",
         "libnativemultinetwork_jni",
         "libnativehelper_compat_libc++",
