@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10e9e735_f741de40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-06T07:57:39Z",
+      "side": 1,
+      "message": "LGTM since this fix the test broken for Q.",
+      "revId": "78cb3a9de0a86eea96a070d2d6eeea5cf1adfffb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
