@@ -51,6 +51,23 @@
       "parentUuid": "ca4459ba_29e2c5de",
       "revId": "583e35a12e6d206a1e0036d54db8288dd54f56e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fc0ff34_76169e00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-06T05:07:43Z",
+      "side": 1,
+      "message": "It is fixed by https://googleplex-android-review.git.corp.google.com/c/platform/manifest/+/12998400",
+      "revId": "583e35a12e6d206a1e0036d54db8288dd54f56e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
