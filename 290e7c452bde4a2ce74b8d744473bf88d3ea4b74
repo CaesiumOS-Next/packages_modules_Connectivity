@@ -16,6 +16,23 @@
       "message": "LGTM since it fixes a broken test, but I\u0027m not really a fan of duplicating the ShimUtils code that determines what release the code is running on. Remi, any thoughts on that?",
       "revId": "290e7c452bde4a2ce74b8d744473bf88d3ea4b74",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71c6e4d4_c4941855",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-06T08:04:54Z",
+      "side": 1,
+      "message": "Re-TH again because previous it don\u0027t automerge to master so there is no goog/master related build/test",
+      "revId": "290e7c452bde4a2ce74b8d744473bf88d3ea4b74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
