@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a1b7a6e_d63b466b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1463964
+      },
+      "writtenOn": "2020-11-06T02:23:28Z",
+      "side": 1,
+      "message": "continuation of aosp/1453316 (required due to Connectivity CTS moving from cts/tests/tests/net to packages/modules/Connectivity/tests/cts/net)",
+      "revId": "676ea9f33cb918fa274f5ddcd88ceb26b3242793",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
