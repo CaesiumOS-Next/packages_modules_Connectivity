@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10a63f88_9cdd18c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2020-11-06T09:29:24Z",
+      "side": 1,
+      "message": "Reupload aosp/1475823 since git moved.",
+      "revId": "1052bc70edb6c3e9cfc98c89480c2cbf09fddff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
