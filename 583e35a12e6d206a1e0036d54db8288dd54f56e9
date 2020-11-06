@@ -33,6 +33,24 @@
       "message": "If ",
       "revId": "583e35a12e6d206a1e0036d54db8288dd54f56e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ff653d_b3968820",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-06T02:59:31Z",
+      "side": 1,
+      "message": "Ohh wait, we may have problem that this change won\u0027t automerge to mirror-aosp-master but not sure whether https://android-review.googlesource.com/c/platform/build/soong/+/1489477 will be automerge to mirror-aosp-master or not.",
+      "parentUuid": "ca4459ba_29e2c5de",
+      "revId": "583e35a12e6d206a1e0036d54db8288dd54f56e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
