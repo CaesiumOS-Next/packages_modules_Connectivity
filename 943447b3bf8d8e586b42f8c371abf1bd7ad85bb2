@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c43b97b3_9744253e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-06T06:00:20Z",
+      "side": 1,
+      "message": "I wouldn\u0027t insist too much on the comment if this passed presubmits but IIUC this doesn\u0027t build",
+      "revId": "943447b3bf8d8e586b42f8c371abf1bd7ad85bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

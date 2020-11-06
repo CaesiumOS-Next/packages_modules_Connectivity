@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b0c2c45_c396a9b2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-06T06:00:20Z",
+      "side": 1,
+      "message": "Unused ; preupload should have warned you ?",
+      "range": {
+        "startLine": 97,
+        "startChar": 35,
+        "endLine": 97,
+        "endChar": 50
+      },
+      "revId": "775fb839b3b051e2c5505172078c719fc3fdc21c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114a1436_3afe1286",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-06T06:00:20Z",
+      "side": 1,
+      "message": "// else explain why this is an urelated broadcast",
+      "range": {
+        "startLine": 608,
+        "startChar": 15,
+        "endLine": 608,
+        "endChar": 17
+      },
+      "revId": "775fb839b3b051e2c5505172078c719fc3fdc21c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6249112e_f31e2818",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-06T06:00:20Z",
+      "side": 1,
+      "message": "undefined identifier ; did you build ?",
+      "range": {
+        "startLine": 628,
+        "startChar": 47,
+        "endLine": 628,
+        "endChar": 64
+      },
+      "revId": "775fb839b3b051e2c5505172078c719fc3fdc21c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
