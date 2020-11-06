@@ -29,6 +29,11 @@ java_defaults {
         "libnativedns_jni",
         "libnativemultinetwork_jni",
         "libnativehelper_compat_libc++",
+
+        // FrameworksNetCommonTests library includes mockito extended library and it
+        // depends on libdexmakerjvmtiagent and libstaticjvmtiagent so add them here.
+        "libdexmakerjvmtiagent",
+        "libstaticjvmtiagent",
     ],
 
     srcs: [
