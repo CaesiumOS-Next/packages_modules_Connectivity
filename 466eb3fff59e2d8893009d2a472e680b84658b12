@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "134c6f4f_a264aa86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2020-11-06T09:26:50Z",
+      "side": 1,
+      "message": "Carry-foward code review +2 from aosp/1440758 since this is pure rebase.",
+      "revId": "466eb3fff59e2d8893009d2a472e680b84658b12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
