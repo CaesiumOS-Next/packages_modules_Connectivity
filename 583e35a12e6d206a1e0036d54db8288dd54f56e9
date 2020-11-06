@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb5c368_c103f2e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-06T02:52:50Z",
+      "side": 1,
+      "message": "LGTM, but probably this change in aosp need to hold on till b/172520401 fixed. The auto merger of packages/modules/Connectivity would not go to mirror-aosp-master.",
+      "revId": "583e35a12e6d206a1e0036d54db8288dd54f56e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
