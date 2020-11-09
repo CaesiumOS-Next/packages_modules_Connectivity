@@ -99,6 +99,7 @@ import android.util.Pair;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.compatibility.common.util.SystemUtil;
 import com.android.internal.util.ArrayUtils;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.SkipPresubmit;
@@ -153,6 +154,8 @@ public class ConnectivityManagerTest {
     private static final int INTERVAL_KEEPALIVE_RETRY_MS = 500;
     private static final int MAX_KEEPALIVE_RETRY_COUNT = 3;
     private static final int MIN_KEEPALIVE_INTERVAL = 10;
+    private static final int KEEPALIVE_COUNTER_TIMEOUT_MS = MIN_KEEPALIVE_INTERVAL * 3_000;
+    private static final int INTERVAL_KEEPALIVE_COUNTER_POLL_MS = 500;
 
     // Changing meteredness on wifi involves reconnecting, which can take several seconds (involves
     // re-associating, DHCP...)
@@ -175,6 +178,9 @@ public class ConnectivityManagerTest {
             "config_allowedUnprivilegedKeepalivePerUid";
     private static final String KEEPALIVE_RESERVED_PER_SLOT_RES_NAME =
             "config_reservedPrivilegedKeepaliveSlots";
+
+    private static final Pattern KEEPALIVE_COUNTER_PATTERN = Pattern.compile(
+            "DROPPED_IPV4_KEEPALIVE_ACK: *([0-9]+)");
 
     private Context mContext;
     private Instrumentation mInstrumentation;
@@ -1035,6 +1041,8 @@ public class ConnectivityManagerTest {
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
 
+        final String iface = mCm.getLinkProperties(network).getInterfaceName();
+
         // If kernel < 4.8 then it doesn't support TCP keepalive, but it might still support
         // NAT-T keepalive. If keepalive limits from resource overlay is not zero, TCP keepalive
         // needs to be supported except if the kernel doesn't support it.
@@ -1059,6 +1067,9 @@ public class ConnectivityManagerTest {
 
             mUiAutomation.adoptShellPermissionIdentity();
             try (SocketKeepalive sk = mCm.createSocketKeepalive(network, s, executor, callback)) {
+                // May be null if APF is unsupported
+                final Integer originalApfCount = getTcpKeepaliveApfCounter(getApfDump(iface));
+
                 sk.start(MIN_KEEPALIVE_INTERVAL);
                 callback.expectStarted();
 
@@ -1075,6 +1086,25 @@ public class ConnectivityManagerTest {
                     in.read(responseBytes);
                     fail("Should not able to read");
                 } catch (IOException e) { }
+
+                if (originalApfCount != null) {
+                    final long limit = System.currentTimeMillis() + KEEPALIVE_COUNTER_TIMEOUT_MS;
+                    String apfDump = null;
+                    Integer newCount = null;
+                    while (System.currentTimeMillis() < limit) {
+                        apfDump = getApfDump(iface);
+                        newCount = getTcpKeepaliveApfCounter(apfDump);
+
+                        if (newCount != null && newCount > originalApfCount) {
+                            break;
+                        }
+                        Thread.sleep(INTERVAL_KEEPALIVE_COUNTER_POLL_MS);
+                    }
+
+                    assertTrue("TCP keepalive responses not filtered, original count "
+                            + originalApfCount + ", last dump:\n" + apfDump,
+                            newCount != null && newCount > originalApfCount);
+                }
 
                 // Stop.
                 sk.stop();
@@ -1117,6 +1147,28 @@ public class ConnectivityManagerTest {
                 mUiAutomation.dropShellPermissionIdentity();
             }
         }
+    }
+
+    private String getApfDump(final @NonNull String iface) {
+        return SystemUtil.runShellCommand("dumpsys network_stack ipclient " + iface + " apf");
+    }
+
+    /**
+     * Get the current APF counter for dropped IPv4 TCP keepalives, or null if APF and/or counters
+     * are not supported.
+     */
+    private Integer getTcpKeepaliveApfCounter(String apfDump) {
+        if (apfDump.contains("No active ApfFilter")
+                || apfDump.contains("APF counters not supported")) {
+            return null;
+        }
+
+        final Matcher matcher = KEEPALIVE_COUNTER_PATTERN.matcher(apfDump);
+        if (!matcher.find()) {
+            return 0;
+        }
+
+        return Integer.parseInt(matcher.group(1));
     }
 
     private ArrayList<SocketKeepalive> createConcurrentKeepalivesOfType(
