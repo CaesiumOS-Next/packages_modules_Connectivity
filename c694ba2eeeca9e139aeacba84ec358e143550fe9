@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a90648_329aa015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-09T08:52:46Z",
+      "side": 1,
+      "message": "I also upload the fix: https://android-review.googlesource.com/c/platform/build/soong/+/1491998(waiting TH happy), but I am also fine with this change for revert-fist policy. ",
+      "revId": "c694ba2eeeca9e139aeacba84ec358e143550fe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
