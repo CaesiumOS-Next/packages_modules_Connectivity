@@ -17,7 +17,7 @@
 apex {
     name: "com.android.tethering",
     updatable: true,
-    min_sdk_version: "30",
+    min_sdk_version: "current",
     java_libs: ["framework-tethering"],
     bpfs: ["offload.o"],
     apps: ["Tethering"],
