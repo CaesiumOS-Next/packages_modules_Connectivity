@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac967b9d_8f0313dc",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-09T07:08:21Z",
+      "side": 1,
+      "message": "Want to add .vscode ? I can also see in the tree some gitignores using *.*~ for emacs users,  .DS_Store for mac users, __pycache__ for python users.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 18
+      },
+      "revId": "1949ab485f798ff3ebe382d29bbf4fe3f67b1bf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce11ff90_47f4ebd2",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-09T07:08:21Z",
+      "side": 1,
+      "message": "Well if you .gitignore the .gitignore it\u0027s not going to be very useful",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 13
+      },
+      "revId": "1949ab485f798ff3ebe382d29bbf4fe3f67b1bf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e3bb362_9ee515d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-09T07:08:21Z",
+      "side": 1,
+      "message": "I don\u0027t see .gitignore in there ; might you have taken it from your own local dir ?",
+      "range": {
+        "startLine": 11,
+        "startChar": 42,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "1949ab485f798ff3ebe382d29bbf4fe3f67b1bf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29171d3b_28e3b348",
+        "filename": "OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-09T07:08:21Z",
+      "side": 1,
+      "message": "Any particular reason the network stack is the source of truth ? Shouldn\u0027t we have the source somewhere in frameworks/base and have everyone else refer to that ?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 55
+      },
+      "revId": "1949ab485f798ff3ebe382d29bbf4fe3f67b1bf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
