@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fff5a040_a01b5d6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-11-10T07:20:08Z",
+      "side": 1,
+      "message": "Note this test doesn\u0027t pass without aosp/1492657, which I think is a bug",
+      "revId": "03438fc1615eeb2b5ca46002f5f3eeb9a227366a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
