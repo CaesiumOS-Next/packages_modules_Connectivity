@@ -16,6 +16,23 @@
       "message": "I also upload the fix: https://android-review.googlesource.com/c/platform/build/soong/+/1491998(waiting TH happy), but I am also fine with this change for revert-fist policy. ",
       "revId": "c694ba2eeeca9e139aeacba84ec358e143550fe9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30c3fd70_da46bd18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-10T01:31:49Z",
+      "side": 1,
+      "message": "The build broken is fixed by b/172791253. So revert is not necessary. Abandon this ?",
+      "revId": "c694ba2eeeca9e139aeacba84ec358e143550fe9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
