@@ -60,8 +60,11 @@ cc_library {
         "com.android.tethering",
     ],
     min_sdk_version: "30",
+    include_dirs: [
+        "system/bpf/libbpf_android/include/",
+    ],
     srcs: [
-        "jni/android_net_util_TetheringUtils.cpp",
+        "jni/*.cpp",
     ],
     shared_libs: [
         "liblog",
