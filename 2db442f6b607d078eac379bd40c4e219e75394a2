@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bc73e15_183a0135",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2020-11-11T09:04:35Z",
+      "side": 1,
+      "message": "Refer to the commit that add the extended lib. If it\u0027s not necessary, you may not need this.",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 77
+      },
+      "revId": "2db442f6b607d078eac379bd40c4e219e75394a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
