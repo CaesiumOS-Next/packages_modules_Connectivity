@@ -22,6 +22,30 @@
       },
       "revId": "2db442f6b607d078eac379bd40c4e219e75394a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fc77d27_3253b85a",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2020-11-13T09:50:29Z",
+      "side": 1,
+      "message": "This is necessary because FrameworksNetCommonTests only inculdes the library and it cannot inculde jni lib so here needs to add them.",
+      "parentUuid": "2bc73e15_183a0135",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 77
+      },
+      "revId": "2db442f6b607d078eac379bd40c4e219e75394a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
