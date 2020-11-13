@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5902fafb_cdd560fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "some loose comments",
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeff215c_19adb2dc",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "just call this bpfFdGet",
+      "range": {
+        "startLine": 26,
+        "startChar": 46,
+        "endLine": 26,
+        "endChar": 52
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2498525_ab287f81",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "this is stack local.  it does not survive function exit\n\nI\u0027d suggest eliminating this function and just open coding it down below :-(",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a30c94d9_c6149f4e",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "andrid",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 61
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "471c9421_6627b85b",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "seems like we should somehow return the ret",
+      "range": {
+        "startLine": 51,
+        "startChar": 9,
+        "endLine": 51,
+        "endChar": 12
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a573bd24_18f9913c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "please add a comment that this is following definitions from kernel include/uapi/linux/bpf.h",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d29f1a5_cbce85f8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "consistent ordering with above",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66a8e991_95fb9ffb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "seems to ignore errno, do we have a nice way to return errno?\nperhaps this should throw an exception?",
+      "range": {
+        "startLine": 41,
+        "startChar": 29,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96b2703c_353099d5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "should we not be returning different class types?\n\nso we get compile time safety and never try to write to a read only map?",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a33076_81b8d441",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-11-13T04:33:50Z",
+      "side": 1,
+      "message": "easier to read in ()",
+      "range": {
+        "startLine": 73,
+        "startChar": 30,
+        "endLine": 73,
+        "endChar": 41
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
