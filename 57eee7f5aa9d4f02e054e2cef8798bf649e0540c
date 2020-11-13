@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de6af42_27a5752a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2020-11-13T00:21:19Z",
+      "side": 1,
+      "message": "Partial review; will try again later when i\u0027m not half asleep",
+      "revId": "57eee7f5aa9d4f02e054e2cef8798bf649e0540c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8073dfa_61a324ed",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2020-11-13T00:21:19Z",
+      "side": 1,
+      "message": "I think this the wrong ordering; the formatter may have jumbled it. J comes before O",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 29
+      },
+      "revId": "57eee7f5aa9d4f02e054e2cef8798bf649e0540c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
