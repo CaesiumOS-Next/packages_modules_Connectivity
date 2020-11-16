@@ -17,17 +17,18 @@
 package com.android.cts.net.hostside;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Network;
+import android.net.NetworkUtils;
 import android.net.ProxyInfo;
 import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class MyVpnService extends VpnService {
@@ -62,13 +63,11 @@ public class MyVpnService extends VpnService {
         if (addresses != null) {
             String[] addressArray = addresses.split(",");
             for (int i = 0; i < addressArray.length; i++) {
-                String[] prefixAndMask = addressArray[i].split("/");
                 try {
-                    InetAddress address = InetAddress.getByName(prefixAndMask[0]);
-                    int prefixLength = Integer.parseInt(prefixAndMask[1]);
-                    builder.addAddress(address, prefixLength);
-                } catch (UnknownHostException|NumberFormatException|
-                         ArrayIndexOutOfBoundsException e) {
+                    Pair<InetAddress, Integer> ipAndMask = NetworkUtils.parseIpAndMask(
+                            addressArray[i]);
+                    builder.addAddress(ipAndMask.first, ipAndMask.second);
+                } catch (IllegalArgumentException e) {
                     continue;
                 }
             }
@@ -78,13 +77,25 @@ public class MyVpnService extends VpnService {
         if (routes != null) {
             String[] routeArray = routes.split(",");
             for (int i = 0; i < routeArray.length; i++) {
-                String[] prefixAndMask = routeArray[i].split("/");
                 try {
-                    InetAddress address = InetAddress.getByName(prefixAndMask[0]);
-                    int prefixLength = Integer.parseInt(prefixAndMask[1]);
-                    builder.addRoute(address, prefixLength);
-                } catch (UnknownHostException|NumberFormatException|
-                         ArrayIndexOutOfBoundsException e) {
+                    Pair<InetAddress, Integer> ipAndMask = NetworkUtils.parseIpAndMask(
+                            routeArray[i]);
+                    builder.addRoute(ipAndMask.first, ipAndMask.second);
+                } catch (IllegalArgumentException e) {
+                    continue;
+                }
+            }
+        }
+
+        String excludeRoutes = intent.getStringExtra(packageName + ".excludedRoutes");
+        if (excludeRoutes != null) {
+            String[] routeArray = excludeRoutes.split(",");
+            for (int i = 0; i < routeArray.length; i++) {
+                try {
+                    Pair<InetAddress, Integer> ipAndMask = NetworkUtils.parseIpAndMask(
+                            routeArray[i]);
+                    builder.excludeRoute(ipAndMask.first, ipAndMask.second);
+                } catch (IllegalArgumentException e) {
                     continue;
                 }
             }
