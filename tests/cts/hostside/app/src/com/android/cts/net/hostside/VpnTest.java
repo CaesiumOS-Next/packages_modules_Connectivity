@@ -71,7 +71,6 @@ import android.system.OsConstants;
 import android.system.StructPollfd;
 import android.test.InstrumentationTestCase;
 import android.test.MoreAsserts;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.compatibility.common.util.BlockingBroadcastReceiver;
@@ -239,70 +238,97 @@ public class VpnTest extends InstrumentationTestCase {
         }
     }
 
-    // TODO: Consider replacing arguments with a Builder.
-    private void startVpn(
-            String[] addresses, String[] routes, String allowedApplications,
-            String disallowedApplications, @Nullable ProxyInfo proxyInfo,
-            @Nullable ArrayList<Network> underlyingNetworks, boolean isAlwaysMetered)
-            throws Exception {
-        startVpn(addresses, routes, /* excludedRoutes */ new String[0], allowedApplications,
-                disallowedApplications, proxyInfo, underlyingNetworks, isAlwaysMetered);
-    }
+    private class VpnServiceBuilder {
+        private String[] mAddresses = new String[0];
+        private String[] mIncludedRoutes = new String[0];
+        private String[] mExcludedRoutes = new String[0];
+        private String mAllowedApplications = "";
+        private String mDisallowedApplications = "";
+        private @Nullable ProxyInfo mProxyInfo = null;
+        private @Nullable ArrayList<Network> mUnderlyingNetworks = null;
+        private boolean mIsAlwaysMetered = false;
 
-    private void startVpn(
-            String[] addresses, String[] routes, String[] excludedRoutes,
-            String allowedApplications,
-            String disallowedApplications, @Nullable ProxyInfo proxyInfo,
-            @Nullable ArrayList<Network> underlyingNetworks, boolean isAlwaysMetered)
-            throws Exception {
-        prepareVpn();
+        public VpnServiceBuilder setAddresses(String... addresses) {
+            mAddresses = addresses;
+            return this;
+        }
 
-        // Register a callback so we will be notified when our VPN comes up.
-        final NetworkRequest request = new NetworkRequest.Builder()
-                .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
-                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
-                .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build();
-        mCallback = new NetworkCallback() {
-            public void onAvailable(Network network) {
-                synchronized (mLock) {
-                    Log.i(TAG, "Got available callback for network=" + network);
-                    mNetwork = network;
-                    mLock.notify();
+        public VpnServiceBuilder setIncludedRoutes(String... includedRoutes) {
+            mIncludedRoutes = includedRoutes;
+            return this;
+        }
+
+        public VpnServiceBuilder setExcludedRoutes(String... excludedRoutes) {
+            mExcludedRoutes = excludedRoutes;
+            return this;
+        }
+
+        public VpnServiceBuilder setAllowedApplications(String allowedApplications) {
+            mAllowedApplications = allowedApplications;
+            return this;
+        }
+
+        public VpnServiceBuilder setDisallowedApplications(String disallowedApplications) {
+            mDisallowedApplications = disallowedApplications;
+            return this;
+        }
+
+        public VpnServiceBuilder setProxyInfo(ProxyInfo proxyInfo) {
+            mProxyInfo = proxyInfo;
+            return this;
+        }
+
+        public VpnServiceBuilder setUnderlyingNetworks(ArrayList<Network> underlyingNetworks) {
+            mUnderlyingNetworks = underlyingNetworks;
+            return this;
+        }
+
+        public VpnServiceBuilder setAlwaysMetered(boolean alwaysMetered) {
+            mIsAlwaysMetered = alwaysMetered;
+            return this;
+        }
+
+        public void startVpn() throws Exception {
+            prepareVpn();
+
+            // Register a callback so we will be notified when our VPN comes up.
+            final NetworkRequest request = new NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .build();
+            mCallback = new NetworkCallback() {
+                public void onAvailable(Network network) {
+                    synchronized (mLock) {
+                        Log.i(TAG, "Got available callback for network=" + network);
+                        mNetwork = network;
+                        mLock.notify();
+                    }
+                }
+            };
+            mCM.registerNetworkCallback(request, mCallback);  // Unregistered in tearDown.
+
+            // Start the service and wait up for TIMEOUT_MS ms for the VPN to come up.
+            Intent intent = MyVpnService.connect(mActivity)
+                    .setAddresses(mAddresses)
+                    .setIncludedRoutes(mIncludedRoutes)
+                    .setExcludedRoutes(mExcludedRoutes)
+                    .setAllowedApplications(mAllowedApplications)
+                    .setDisallowedApplications(mDisallowedApplications)
+                    .setProxyInfo(mProxyInfo)
+                    .setUnderlyingNetworks(mUnderlyingNetworks)
+                    .setAlwaysMetered(mIsAlwaysMetered)
+                    .buildIntent();
+
+            mActivity.startService(intent);
+            synchronized (mLock) {
+                if (mNetwork == null) {
+                    Log.i(TAG, "bf mLock");
+                    mLock.wait(TIMEOUT_MS);
+                    Log.i(TAG, "af mLock");
                 }
             }
-        };
-        mCM.registerNetworkCallback(request, mCallback);  // Unregistered in tearDown.
-
-        // Start the service and wait up for TIMEOUT_MS ms for the VPN to come up.
-        Intent intent = new Intent(mActivity, MyVpnService.class)
-                .putExtra(mPackageName + ".cmd", "connect")
-                .putExtra(mPackageName + ".addresses", TextUtils.join(",", addresses))
-                .putExtra(mPackageName + ".routes", TextUtils.join(",", routes))
-                .putExtra(mPackageName + ".excludedRoutes", TextUtils.join(",", excludedRoutes))
-                .putExtra(mPackageName + ".allowedapplications", allowedApplications)
-                .putExtra(mPackageName + ".disallowedapplications", disallowedApplications)
-                .putExtra(mPackageName + ".httpProxy", proxyInfo)
-                .putParcelableArrayListExtra(
-                    mPackageName + ".underlyingNetworks", underlyingNetworks)
-                .putExtra(mPackageName + ".isAlwaysMetered", isAlwaysMetered);
-
-        mActivity.startService(intent);
-        synchronized (mLock) {
-            if (mNetwork == null) {
-                 Log.i(TAG, "bf mLock");
-                 mLock.wait(TIMEOUT_MS);
-                 Log.i(TAG, "af mLock");
-            }
         }
-
-        if (mNetwork == null) {
-            fail("VPN did not become available after " + TIMEOUT_MS + "ms");
-        }
-
-        // Unfortunately, when the available callback fires, the VPN UID ranges are not yet
-        // configured. Give the system some time to do so. http://b/18436087 .
-        try { Thread.sleep(3000); } catch(InterruptedException e) {}
     }
 
     private void stopVpn() {
@@ -798,9 +824,10 @@ public class VpnTest extends InstrumentationTestCase {
 
         FileDescriptor fd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
 
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                 new String[] {"0.0.0.0/0", "::/0"},
-                 "", "", null, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .startVpn();
 
         final Intent intent = receiver.awaitForBroadcast(TimeUnit.MINUTES.toMillis(1));
         assertNotNull("Failed to receive broadcast from VPN service", intent);
@@ -839,9 +866,11 @@ public class VpnTest extends InstrumentationTestCase {
 
         // Shell app must not be put in here or it would kill the ADB-over-network use case
         String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                 new String[] {"192.0.2.0/24", "2001:db8::/32"},
-                 allowedApps, "", null, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("192.0.2.0/24", "2001:db8::/32")
+                .setAllowedApplications(allowedApps)
+                .startVpn();
 
         assertSocketClosed(fd, TEST_HOST);
 
@@ -857,11 +886,12 @@ public class VpnTest extends InstrumentationTestCase {
 
         // Shell app must not be put in here or it would kill the ADB-over-network use case
         String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
-        startVpn(new String[]{"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[]{"0.0.0.0/0", "::/0"},
-                new String[]{"192.0.2.0/24", "2001:db8::/32"},
-                allowedApps, "" /* disallowedApplications */, null /* proxyInfo */,
-                null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setExcludedRoutes("192.0.2.0/24", "2001:db8::/32")
+                .setAllowedApplications(allowedApps)
+                .startVpn();
 
         // Excluded routes should bypass VPN.
         checkTrafficOffVpn("192.0.2.1", "2001:db8:dead:beef::f00");
@@ -875,10 +905,11 @@ public class VpnTest extends InstrumentationTestCase {
 
         // Shell app must not be put in here or it would kill the ADB-over-network use case
         String allowedApps = mRemoteSocketFactoryClient.getPackageName() + "," + mPackageName;
-        startVpn(new String[]{"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[]{"192.0.2.0/24", "2001:db8::/32"},
-                allowedApps, "" /* disallowedApplications */, null /* proxyInfo */,
-                null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("192.0.2.0/24", "2001:db8::/32")
+                .setAllowedApplications(allowedApps)
+                .startVpn();
 
         // Included routes should go through VPN.
         checkTrafficOnVpn("192.0.2.1", "2001:db8:dead:beef::f00");
@@ -899,10 +930,11 @@ public class VpnTest extends InstrumentationTestCase {
         // Note: The test don't support running adb over network for root device
         disallowedApps = disallowedApps + ",com.android.shell";
         Log.i(TAG, "Append shell app to disallowedApps: " + disallowedApps);
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                 new String[] {"192.0.2.0/24", "2001:db8::/32"},
-                 "", disallowedApps, null, null /* underlyingNetworks */,
-                 false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("192.0.2.0/24", "2001:db8::/32")
+                .setDisallowedApplications(disallowedApps)
+                .startVpn();
 
         assertSocketStillOpen(localFd, TEST_HOST);
         assertSocketStillOpen(remoteFd, TEST_HOST);
@@ -944,9 +976,12 @@ public class VpnTest extends InstrumentationTestCase {
 
         String allowedApps = mPackageName;
         ProxyInfo testProxyInfo = ProxyInfo.buildDirectProxy("10.0.0.1", 8888);
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "",
-                testProxyInfo, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setAllowedApplications(allowedApps)
+                .setProxyInfo(testProxyInfo)
+                .startVpn();
 
         // Check that the proxy change broadcast is received
         try {
@@ -984,9 +1019,12 @@ public class VpnTest extends InstrumentationTestCase {
         // Note: The test don't support running adb over network for root device
         String disallowedApps = mPackageName + ",com.android.shell";
         ProxyInfo testProxyInfo = ProxyInfo.buildDirectProxy("10.0.0.1", 8888);
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, "", disallowedApps,
-                testProxyInfo, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setDisallowedApplications(disallowedApps)
+                .setProxyInfo(testProxyInfo)
+                .startVpn();
 
         // The disallowed app does has the proxy configs of the default network.
         assertNetworkHasExpectedProxy(initialProxy, mCM.getActiveNetwork());
@@ -999,9 +1037,11 @@ public class VpnTest extends InstrumentationTestCase {
         BlockingBroadcastReceiver proxyBroadcastReceiver = new ProxyChangeBroadcastReceiver();
         proxyBroadcastReceiver.register();
         String allowedApps = mPackageName;
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "", null,
-                null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setAllowedApplications(allowedApps)
+                .startVpn();
 
         try {
             assertNotNull("No proxy change was broadcast.",
@@ -1036,9 +1076,12 @@ public class VpnTest extends InstrumentationTestCase {
         // Receiver for the proxy change broadcast.
         BlockingBroadcastReceiver proxyBroadcastReceiver = new ProxyChangeBroadcastReceiver();
         proxyBroadcastReceiver.register();
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "",
-                testProxyInfo, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setAllowedApplications(allowedApps)
+                .setProxyInfo(testProxyInfo)
+                .startVpn();
 
         assertDefaultProxy(testProxyInfo);
         mCM.bindProcessToNetwork(initialNetwork);
@@ -1059,9 +1102,12 @@ public class VpnTest extends InstrumentationTestCase {
         ArrayList<Network> underlyingNetworks = new ArrayList<>();
         String allowedApps = mPackageName;
 
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "", null,
-                underlyingNetworks, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setAllowedApplications(allowedApps)
+                .setUnderlyingNetworks(underlyingNetworks)
+                .startVpn();
 
         // VPN should now be the active network.
         assertEquals(mNetwork, mCM.getActiveNetwork());
@@ -1087,9 +1133,12 @@ public class VpnTest extends InstrumentationTestCase {
         ArrayList<Network> underlyingNetworks = null;
         String allowedApps = mPackageName;
 
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "", null,
-                underlyingNetworks, false /*isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setAllowedApplications(allowedApps)
+                .setUnderlyingNetworks(underlyingNetworks)
+                .startVpn();
 
         // Ensure VPN transports contains underlying network's transports.
         assertVpnTransportContains(underlyingNetwork);
@@ -1116,9 +1165,12 @@ public class VpnTest extends InstrumentationTestCase {
         underlyingNetworks.add(underlyingNetwork);
         String allowedApps = mPackageName;
 
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "", null,
-                underlyingNetworks, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setAllowedApplications(allowedApps)
+                .setUnderlyingNetworks(underlyingNetworks)
+                .startVpn();
 
         // Ensure VPN transports contains underlying network's transports.
         assertVpnTransportContains(underlyingNetwork);
@@ -1145,9 +1197,13 @@ public class VpnTest extends InstrumentationTestCase {
         String allowedApps = mPackageName;
         boolean isAlwaysMetered = true;
 
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "", null,
-                underlyingNetworks, isAlwaysMetered);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setAllowedApplications(allowedApps)
+                .setUnderlyingNetworks(underlyingNetworks)
+                .setAlwaysMetered(isAlwaysMetered)
+                .startVpn();
 
         // VPN's meteredness does not depend on underlying network since it is always metered.
         assertTrue(isNetworkMetered(mNetwork));
@@ -1172,9 +1228,13 @@ public class VpnTest extends InstrumentationTestCase {
         String allowedApps = mPackageName;
         boolean isAlwaysMetered = true;
 
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "", null,
-                underlyingNetworks, isAlwaysMetered);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setAllowedApplications(allowedApps)
+                .setUnderlyingNetworks(underlyingNetworks)
+                .setAlwaysMetered(isAlwaysMetered)
+                .startVpn();
 
         // VPN's meteredness does not depend on underlying network since it is always metered.
         assertTrue(isNetworkMetered(mNetwork));
@@ -1192,10 +1252,11 @@ public class VpnTest extends InstrumentationTestCase {
         final int NUM_THREADS = 8;
         final int NUM_SOCKETS = 5000;
         final Thread[] threads = new Thread[NUM_THREADS];
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                 new String[] {"0.0.0.0/0", "::/0"},
-                 "" /* allowedApplications */, "com.android.shell" /* disallowedApplications */,
-                null /* proxyInfo */, null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("0.0.0.0/0", "::/0")
+                .setDisallowedApplications("com.android.shell")
+                .startVpn();
 
         for (int i = 0; i < NUM_THREADS; i++) {
             threads[i] = new Thread(() -> {
@@ -1284,10 +1345,11 @@ public class VpnTest extends InstrumentationTestCase {
         if (!supportedHardware()) return;
 
         // Start a VPN with DownloadManager package in disallowed list.
-        startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
-                new String[] {"192.0.2.0/24", "2001:db8::/32"},
-                "" /* allowedApps */, "com.android.providers.downloads", null /* proxyInfo */,
-                null /* underlyingNetworks */, false /* isAlwaysMetered */);
+        new VpnServiceBuilder()
+                .setAddresses("192.0.2.2/32", "2001:db8:1:2::ffe/128")
+                .setIncludedRoutes("192.0.2.0/24", "2001:db8::/32")
+                .setDisallowedApplications("com.android.providers.downloads")
+                .startVpn();
 
         final Context context = VpnTest.this.getInstrumentation().getContext();
         final DownloadManager dm = context.getSystemService(DownloadManager.class);
