@@ -17,11 +17,11 @@
 package com.android.cts.net.hostside;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Network;
 import android.net.ProxyInfo;
 import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -85,6 +85,22 @@ public class MyVpnService extends VpnService {
                     builder.addRoute(address, prefixLength);
                 } catch (UnknownHostException|NumberFormatException|
                          ArrayIndexOutOfBoundsException e) {
+                    continue;
+                }
+            }
+        }
+
+        String excludeRoutes = intent.getStringExtra(packageName + ".excludedRoutes");
+        if (excludeRoutes != null) {
+            String[] routeArray = excludeRoutes.split(",");
+            for (int i = 0; i < routeArray.length; i++) {
+                String[] prefixAndMask = routeArray[i].split("/");
+                try {
+                    InetAddress address = InetAddress.getByName(prefixAndMask[0]);
+                    int prefixLength = Integer.parseInt(prefixAndMask[1]);
+                    builder.excludeRoute(address, prefixLength);
+                } catch (UnknownHostException | NumberFormatException
+                        | ArrayIndexOutOfBoundsException e) {
                     continue;
                 }
             }
