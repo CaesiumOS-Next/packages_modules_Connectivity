@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14621ec6_29854b0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-11-16T10:27:43Z",
+      "side": 1,
+      "message": "Why ACTS failed to detect this is still a mystery... Martin said he was interested in investigating last week. I\u0027m curious too !",
+      "parentUuid": "73544bda_c78b1f02",
+      "revId": "03438fc1615eeb2b5ca46002f5f3eeb9a227366a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a0a92db_77e60e41",
@@ -48,6 +66,30 @@
       "writtenOn": "2020-11-10T10:06:54Z",
       "side": 1,
       "message": "It is unclear to me why 10s * 3000.\nmaybe say MIN_KEEPALIVE_INTERVAL * 1000 * 3 ?",
+      "range": {
+        "startLine": 156,
+        "startChar": 85,
+        "endLine": 156,
+        "endChar": 90
+      },
+      "revId": "03438fc1615eeb2b5ca46002f5f3eeb9a227366a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06ceda69_e4c1c5f1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-11-16T10:27:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a0a92db_77e60e41",
       "range": {
         "startLine": 156,
         "startChar": 85,
@@ -94,6 +136,54 @@
       "writtenOn": "2020-11-10T10:06:54Z",
       "side": 1,
       "message": "@Nullable",
+      "range": {
+        "startLine": 1159,
+        "startChar": 12,
+        "endLine": 1159,
+        "endChar": 19
+      },
+      "revId": "03438fc1615eeb2b5ca46002f5f3eeb9a227366a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d13edda6_d50e0e5b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-11-16T10:27:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06148eb4_50d7f974",
+      "range": {
+        "startLine": 1159,
+        "startChar": 46,
+        "endLine": 1159,
+        "endChar": 52
+      },
+      "revId": "03438fc1615eeb2b5ca46002f5f3eeb9a227366a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80b5b6a8_76acf0ab",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-11-16T10:27:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "162ab5e3_098538b1",
       "range": {
         "startLine": 1159,
         "startChar": 12,
