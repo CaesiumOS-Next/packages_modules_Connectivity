@@ -19,6 +19,13 @@ package android.net.cts.util;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.ConnectivityManager.PRIVATE_DNS_MODE_OPPORTUNISTIC;
+import static android.net.IpSecAlgorithm.AUTH_CRYPT_AES_GCM;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_MD5;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA1;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA256;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA384;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA512;
+import static android.net.IpSecAlgorithm.CRYPT_AES_CBC;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
@@ -73,7 +80,9 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
@@ -107,6 +116,18 @@ public final class CtsNetUtils {
     private String mOldPrivateDnsMode;
     private String mOldPrivateDnsSpecifier;
 
+    private static Set<String> MANDATORY_IPSEC_ALGOS_SINCE_P = new HashSet<>();
+
+    static {
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(CRYPT_AES_CBC);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_MD5);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA1);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA256);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA384);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA512);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_CRYPT_AES_GCM);
+    }
+
     public CtsNetUtils(Context context) {
         mContext = context;
         mCm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -123,7 +144,11 @@ public final class CtsNetUtils {
 
     /** Checks if an IPsec algorithm is enabled on the device */
     public static boolean hasIpSecAlgorithm(String algorithm) {
-        return IpSecAlgorithm.getSupportedAlgorithms().contains(algorithm);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+            return MANDATORY_IPSEC_ALGOS_SINCE_P.contains(algorithm);
+        } else {
+            return IpSecAlgorithm.getSupportedAlgorithms().contains(algorithm);
+        }
     }
 
     /** Checks if the device is first launched on an SDK version >= S */
