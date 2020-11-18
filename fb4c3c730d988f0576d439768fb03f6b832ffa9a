@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bd5f04b_562964a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2020-11-18T19:27:48Z",
+      "side": 1,
+      "message": "Clean cherry pick of aosp/1396894",
+      "revId": "fb4c3c730d988f0576d439768fb03f6b832ffa9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
