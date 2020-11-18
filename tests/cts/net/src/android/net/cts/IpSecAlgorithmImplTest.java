@@ -60,10 +60,13 @@ import android.net.cts.PacketUtils.EspCryptCipher;
 import android.net.cts.PacketUtils.EspHeader;
 import android.net.cts.PacketUtils.IpHeader;
 import android.net.cts.PacketUtils.UdpHeader;
+import android.os.Build;
 import android.platform.test.annotations.AppModeFull;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -206,6 +209,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
                 espCipher, EspAuthNull.getInstance())));
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtr160() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -215,6 +219,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
         checkAesCtr(AES_CTR_KEY_LEN_20);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtr224() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -224,6 +229,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
         checkAesCtr(AES_CTR_KEY_LEN_28);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtr288() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -233,6 +239,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
         checkAesCtr(AES_CTR_KEY_LEN_36);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesXcbc() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_XCBC)) {
@@ -254,6 +261,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
                                 espAuth)));
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testChaCha20Poly1305() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305)) {
