@@ -30,6 +30,17 @@ java_sdk_library {
     apex_available: ["com.android.tethering"],
     permitted_packages: ["android.net"],
     min_sdk_version: "30",
+    aidl: {
+        include_dirs: [
+            // TODO: remove after moving net module srcs to packages/modules/Connectivity/framework
+            "frameworks/base/core/java",
+        ],
+    },
+    libs: [
+        // TODO: DO NOT SHIP: this is likely unsafe ?
+        "framework-connectivity.stubs.module_lib",
+    ],
+    stub_only_libs: ["framework-connectivity.stubs.module_lib"],
 }
 
 filegroup {
