@@ -70,6 +70,10 @@ import android.system.OsConstants;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -88,6 +92,7 @@ import java.util.Set;
 @RunWith(AndroidJUnit4.class)
 @AppModeFull(reason = "Socket cannot bind in instant app mode")
 public class IpSecManagerTest extends IpSecBaseTest {
+    @Rule public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
 
     private static final String TAG = IpSecManagerTest.class.getSimpleName();
 
@@ -698,6 +703,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
     //     checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, true, 1000);
     // }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testGetSupportedAlgorithms() throws Exception {
         final Map<String, Integer> algoToRequiredFirstSdk = new HashMap<>();
@@ -735,6 +741,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         }
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testSupportAlgosRequiredOnDevicesFisrtLaunchedInSOrLater() {
         if (!isFirstLaunchVersionSOrGreater()) {
@@ -937,6 +944,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
                 AUTH_HMAC_SHA512, getKeyBytes(HMAC_SHA512_KEY_LEN), HMAC_SHA512_ICV_LEN * 8);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtrHmacSha512Tcp4() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -949,6 +957,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtrHmacSha512Tcp6() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -961,6 +970,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV6_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtrHmacSha512Udp4() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -973,6 +983,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtrHmacSha512Udp6() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -999,6 +1010,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
                 AUTH_AES_CMAC, getKeyBytes(AES_CMAC_KEY_LEN), AES_CMAC_ICV_LEN * 8);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesXCbcTcp4() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_XCBC)) {
@@ -1011,6 +1023,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesXCbcTcp6() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_XCBC)) {
@@ -1023,6 +1036,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV6_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesXCbcUdp4() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_XCBC)) {
@@ -1035,6 +1049,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesXCbcUdp6() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_XCBC)) {
@@ -1047,6 +1062,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV6_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesCmacTcp4() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
@@ -1059,6 +1075,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesCmacTcp6() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
@@ -1071,6 +1088,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV6_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesCmacUdp4() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
@@ -1083,6 +1101,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesCmacUdp6() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
@@ -1196,6 +1215,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
                 AUTH_CRYPT_CHACHA20_POLY1305, AEAD_KEY, CHACHA20_POLY1305_ICV_LEN * 8);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testChaCha20Poly1305Tcp4() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305)) {
@@ -1207,6 +1227,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, null, null, authCrypt, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testChaCha20Poly1305Tcp6() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305)) {
@@ -1218,6 +1239,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV6_LOOPBACK, null, null, authCrypt, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testChaCha20Poly1305Udp4() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305)) {
@@ -1229,6 +1251,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, null, null, authCrypt, false, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testChaCha20Poly1305Udp6() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305)) {
@@ -1320,6 +1343,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtrHmacSha512Tcp4UdpEncap() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -1332,6 +1356,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtrHmacSha512Udp4UdpEncap() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -1344,6 +1369,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesXCbcTcp4UdpEncap() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_XCBC)) {
@@ -1356,6 +1382,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesXCbcUdp4UdpEncap() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_XCBC)) {
@@ -1368,6 +1395,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesCmacTcp4UdpEncap() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
@@ -1380,6 +1408,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesCmacUdp4UdpEncap() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
@@ -1440,6 +1469,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, null, null, authCrypt, true, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testChaCha20Poly1305Tcp4UdpEncap() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305)) {
@@ -1451,6 +1481,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, null, null, authCrypt, true, 1, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testChaCha20Poly1305Udp4UdpEncap() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305)) {
