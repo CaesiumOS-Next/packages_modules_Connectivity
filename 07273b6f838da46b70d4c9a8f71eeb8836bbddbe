@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05de9a1f_18b8553d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2020-11-18T22:33:30Z",
+      "side": 1,
+      "message": "Need to verify it on R device",
+      "revId": "07273b6f838da46b70d4c9a8f71eeb8836bbddbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
