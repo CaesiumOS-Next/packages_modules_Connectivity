@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b30346b8_146599a7",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2020-11-19T11:07:41Z",
+      "side": 1,
+      "message": "Nit: It\u0027s better to have short descriptions about this aidl, e.g. Interface to inform NetworkAgent ....\n\nSimilar to INetworkAgentRegistry",
+      "range": {
+        "startLine": 23,
+        "startChar": 10,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4871c636_20e5313e",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgentRegistry.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2020-11-19T11:07:41Z",
+      "side": 1,
+      "message": "Question: This should able to allow networkagent owner to update information. markConnected() looks only for owner to update when it\u0027s connected. Can it replace sendNetworkInfo? or that\u0027s plan for getting rid of NetworkInfo?",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 70
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
