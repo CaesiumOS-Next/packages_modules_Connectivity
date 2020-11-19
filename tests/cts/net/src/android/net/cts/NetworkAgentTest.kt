@@ -541,6 +541,7 @@ class NetworkAgentTest {
     }
 
     @Test
+    @IgnoreUpTo(android.os.Build.VERSION_CODES.R)
     fun testAgentStartsInConnecting() {
         val mockContext = mock(Context::class.java)
         val mockCm = mock(ConnectivityManager::class.java)
