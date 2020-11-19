@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d08e4144_c717c5be",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-11-19T09:28:55Z",
+      "side": 1,
+      "message": "Nit: could have an import for Build, and a comment to explain that the test verifies a fix that was only merged for S+\n\nBut maybe not worth the effort.",
+      "range": {
+        "startLine": 544,
+        "startChar": 16,
+        "endLine": 544,
+        "endChar": 32
+      },
+      "revId": "175a3e768f8ba160cd1d1a7085313bae21022a3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
