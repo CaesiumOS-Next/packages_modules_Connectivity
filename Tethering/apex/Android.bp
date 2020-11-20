@@ -45,4 +45,5 @@ override_apex {
     apps: [
         "InProcessTethering",
     ],
+    system_ext_specific: true,
 }
