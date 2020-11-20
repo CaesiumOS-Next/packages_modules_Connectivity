@@ -57,6 +57,7 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemProperties;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.system.Os;
 import android.system.OsConstants;
@@ -96,6 +97,7 @@ public final class CtsNetUtils {
     // Action sent to ConnectivityActionReceiver when a network callback is sent via PendingIntent.
     public static final String NETWORK_CALLBACK_ACTION =
             "ConnectivityManagerTest.NetworkCallbackAction";
+    private static final String SHELL_PKG_NAME = "com.android.shell";
 
     private final IBinder mBinder = new Binder();
     private final Context mContext;
@@ -127,15 +129,19 @@ public final class CtsNetUtils {
      */
     public void setAppopPrivileged(int appop, boolean allow) {
         final String opName = AppOpsManager.opToName(appop);
-        for (final String pkg : new String[] {"com.android.shell", mContext.getPackageName()}) {
-            final String cmd =
-                    String.format(
-                            "appops set %s %s %s",
-                            pkg, // Package name
-                            opName, // Appop
-                            (allow ? "allow" : "deny")); // Action
-            SystemUtil.runShellCommand(cmd);
+        final String action = allow ? "allow" : "deny";
+        final int user = UserHandle.getCallingUserId();
+        // Grant user 0's shell the same permission if running as a secondary user - see b/161905683
+        if (user != UserHandle.USER_SYSTEM) {
+            SystemUtil.runShellCommand(buildAppopsCommandString(0, SHELL_PKG_NAME, opName, action));
         }
+
+        for (final String pkg : new String[] {SHELL_PKG_NAME, mContext.getPackageName()}) {
+            SystemUtil.runShellCommand(buildAppopsCommandString(user, pkg, opName, action));
+        }
+    }
+    private String buildAppopsCommandString(int user, String pkg, String opName, String action) {
+        return String.format("appops set --user %d %s %s %s", user, pkg, opName, action);
     }
 
     /** Sets up a test network using the provided interface name */
