@@ -16,6 +16,24 @@
       "message": "If you want to move inprocess tethering to system_ext, I think you also need to allow \"system_ext\" be tethering RRO overlable.\n\nhttps://source.corp.google.com/android/packages/modules/Connectivity/Tethering/res/values/overlayable.xml;l\u003d18\n\nRRO doc: https://source.android.com/devices/architecture/rros",
       "revId": "11ecd7b7982cae25797935d4dde81ce318123bb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55392495_afbc811e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1278660
+      },
+      "writtenOn": "2020-11-24T18:14:21Z",
+      "side": 1,
+      "message": "Thank you for pointing this. There is no \"system_ext\" policy, I believe \"system\" covers them both since \"system_ext\" is mentioned later.\n\nhttps://source.android.com/devices/architecture/rros#restricting-policies",
+      "parentUuid": "0ffbb897_0972b2d5",
+      "revId": "11ecd7b7982cae25797935d4dde81ce318123bb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
