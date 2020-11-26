@@ -39,6 +39,7 @@ import android.net.NetworkProvider
 import android.net.NetworkRequest
 import android.net.SocketKeepalive
 import android.net.StringNetworkSpecifier
+import android.net.UidRange
 import android.net.Uri
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAddKeepalivePacketFilter
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAutomaticReconnectDisabled
@@ -57,6 +58,7 @@ import android.os.HandlerThread
 import android.os.Looper
 import android.os.Message
 import android.os.Messenger
+import android.os.Process
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.android.internal.util.AsyncChannel
@@ -82,6 +84,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import java.net.InetAddress
 import java.time.Duration
+import java.util.Arrays
 import java.util.UUID
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -312,9 +315,12 @@ class NetworkAgentTest {
 
     private fun createNetworkAgent(
         context: Context = realContext,
-        name: String? = null
+        name: String? = null,
+        initialNc: NetworkCapabilities? = null,
+        initialLp: LinkProperties? = null
     ): TestableNetworkAgent {
-        val nc = NetworkCapabilities().apply {
+        val nc = if (initialNc != null) NetworkCapabilities(initialNc) else NetworkCapabilities()
+        nc.apply {
             addTransportType(NetworkCapabilities.TRANSPORT_TEST)
             removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
             removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
@@ -325,7 +331,8 @@ class NetworkAgentTest {
                 setNetworkSpecifier(StringNetworkSpecifier(name))
             }
         }
-        val lp = LinkProperties().apply {
+        val lp = if (initialLp != null) LinkProperties(initialLp) else LinkProperties()
+        lp.apply {
             addLinkAddress(LinkAddress(LOCAL_IPV4_ADDRESS, 0))
         }
         val config = NetworkAgentConfig.Builder().build()
@@ -541,8 +548,67 @@ class NetworkAgentTest {
         // tearDown() will unregister the requests and agents
     }
 
+    private fun hasAllTransports(nc: NetworkCapabilities?, transports: IntArray): Boolean {
+        if (nc == null) return false;
+        for (transport in transports) {
+            if (!nc.hasTransport(transport)) return false;
+        }
+        return true;
+    }
+
     @Test
-    @IgnoreUpTo(android.os.Build.VERSION_CODES.R)
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    fun testSetUnderlyingNetworks() {
+        val request = NetworkRequest.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)  // TODO: add to VPN!
+                .build()
+        val callback = TestableNetworkCallback()
+        mCM.registerNetworkCallback(request, callback)
+
+        val nc = NetworkCapabilities().apply{
+            addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+            addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+            removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+        }
+        val lp = LinkProperties().apply {
+            interfaceName = "nonexistent0"  // Must be non-null or NetworkStatsService will crash.
+        }
+        val defaultNetwork = mCM.activeNetwork
+        assertNotNull(defaultNetwork);
+        val defaultNetworkTransports = mCM.getNetworkCapabilities(defaultNetwork).transportTypes
+
+        val agent = createNetworkAgent(initialNc=nc, initialLp = lp)
+        agent.register()
+        agent.markConnected()
+        callback.expectAvailableThenValidatedCallbacks(agent.network!!)
+
+        var vpnNc = mCM.getNetworkCapabilities(agent.network)
+        assertTrue(NetworkCapabilities.TRANSPORT_VPN in vpnNc.transportTypes)
+        assertTrue(hasAllTransports(vpnNc, defaultNetworkTransports),
+        "VPN transports {vpnNc.transportTypes} lacking transports from {defaultNetworkTransports}")
+
+        agent.setUnderlyingNetworks(listOf<Network>())
+        callback.expectCapabilitiesThat(agent.network!!) {
+            it.transportTypes.size == 1 && it.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+        }
+
+        agent.setUnderlyingNetworks(null)
+        callback.expectCapabilitiesThat(agent.network!!) {
+            it.transportTypes.size == 2 && it.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+                    && hasAllTransports(it, defaultNetworkTransports)
+        }
+
+        agent.unregister()
+        callback.expectCallback<Lost>(agent.network)
+
+        mCM.unregisterNetworkCallback(callback)
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     fun testAgentStartsInConnecting() {
         val mockContext = mock(Context::class.java)
         val mockCm = mock(ConnectivityManager::class.java)
