@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cbda72c_2d308f2a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T09:09:00Z",
+      "side": 1,
+      "message": "So this will give you the default LP, which will have a null interfaceName no ?\nPS4 said a null interfaceName would crash NetworkStatsService",
+      "range": {
+        "startLine": 571,
+        "startChar": 46,
+        "endLine": 571,
+        "endChar": 47
+      },
+      "revId": "9907f8d4d3b9af2439fa08b05e2baf42726e3617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0db89a5d_fec291dd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T09:09:00Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to convert back to an int array if what you\u0027re going to do is just pass it to hasAllTransports. Instead you could just convert to a set in l.569 and add TRANSPORT_VPN immediately, then you\u0027d just remove l.578 and change the type of the arg to hasAllTransports to a Set\u003cInteger\u003e (no changes necessary to the body of the function). You could also have hasAllTransports take an Iterable and call .asIterable() if you\u0027d prefer that.\n\n(note that the conversion to set is really only to ensure TRANSPORT_VPN won\u0027t be added twice, which would confuse l.592, but otherwise you could just say defaultNetworkTransports + TRANSPORT_VPN)",
+      "range": {
+        "startLine": 589,
+        "startChar": 50,
+        "endLine": 589,
+        "endChar": 63
+      },
+      "revId": "9907f8d4d3b9af2439fa08b05e2baf42726e3617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

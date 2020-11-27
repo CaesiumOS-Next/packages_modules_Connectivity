@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d8c703b_ce2ce322",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T09:09:00Z",
+      "side": 1,
+      "message": "Still happy with the code if NSS doesn\u0027t crash",
+      "revId": "8169df548c4d6a785bab0fed855b2d21f69b843c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
