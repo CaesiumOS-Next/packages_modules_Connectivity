@@ -1,0 +1,10 @@
+Presubmit-Verified-Together+1: Treehugger Robot <treehugger-gerrit@google.com>
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Code-Review+2: Remi NGUYEN VAN <reminv@google.com>
+Code-Review+1: Chalard Jean <jchalard@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Submitted-by: Lorenzo Colitti <lorenzo@google.com>
+Submitted-at: Fri, 27 Nov 2020 10:33:28 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1512850
+Project: platform/packages/modules/Connectivity
+Branch: refs/heads/master
