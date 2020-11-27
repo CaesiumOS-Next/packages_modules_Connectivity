@@ -16,6 +16,24 @@
       "message": "LGTM, but I\u0027m a little worry about this might be flaky if apf is disabled by firmware sometimes.\nBecause framework only sends the program to firmware but firmeware actually moght have condition to decide apf is enbled or disabled by condition.",
       "revId": "861e8225c05ad8e00caa3565e1723f4dbd3fabcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7db644c8_bf0ed4b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2020-11-27T10:10:13Z",
+      "side": 1,
+      "message": "Reply again because there were too many typos in the previous comment.\n\nLGTM, but I\u0027m a little worried about this might be flaky if apf is disabled by firmware sometimes.\nBecause framework only sends the apf program to firmware but firmware might have conditions to enable or disable apf filter.",
+      "parentUuid": "e7deda4a_a8f0ba15",
+      "revId": "861e8225c05ad8e00caa3565e1723f4dbd3fabcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
