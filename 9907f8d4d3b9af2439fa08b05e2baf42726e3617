@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14544a7e_ebffd9f3",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-11-27T09:20:10Z",
+      "side": 1,
+      "message": "That\u0027s no longer the case. I introduced that crash in a previous patchset of aosp/1501816, and then fixed it:\n\nhttps://android-review.googlesource.com/c/platform/frameworks/base/+/1501816/26..27/services/core/java/com/android/server/ConnectivityService.java\n\nI did run the test locally and it didn\u0027t crash. Also, I believe this test runs in presubmit.",
+      "parentUuid": "8cbda72c_2d308f2a",
+      "range": {
+        "startLine": 571,
+        "startChar": 46,
+        "endLine": 571,
+        "endChar": 47
+      },
+      "revId": "9907f8d4d3b9af2439fa08b05e2baf42726e3617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0db89a5d_fec291dd",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-27T09:09:00Z",
       "side": 1,
       "message": "I don\u0027t think you need to convert back to an int array if what you\u0027re going to do is just pass it to hasAllTransports. Instead you could just convert to a set in l.569 and add TRANSPORT_VPN immediately, then you\u0027d just remove l.578 and change the type of the arg to hasAllTransports to a Set\u003cInteger\u003e (no changes necessary to the body of the function). You could also have hasAllTransports take an Iterable and call .asIterable() if you\u0027d prefer that.\n\n(note that the conversion to set is really only to ensure TRANSPORT_VPN won\u0027t be added twice, which would confuse l.592, but otherwise you could just say defaultNetworkTransports + TRANSPORT_VPN)",
+      "range": {
+        "startLine": 589,
+        "startChar": 50,
+        "endLine": 589,
+        "endChar": 63
+      },
+      "revId": "9907f8d4d3b9af2439fa08b05e2baf42726e3617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1096bd51_f6b62111",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-11-27T09:20:10Z",
+      "side": 1,
+      "message": "Ack. Left as is for now in the hope that we\u0027ll be able to merge this topic today. Will address in a follow-up.",
+      "parentUuid": "0db89a5d_fec291dd",
       "range": {
         "startLine": 589,
         "startChar": 50,
