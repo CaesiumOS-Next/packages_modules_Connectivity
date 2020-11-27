@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "361c4266_30aaee82",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T13:28:05Z",
+      "side": 1,
+      "message": "Let\u0027s call this onRegistered (resp. onUnregistered), because \"connect\" will mean something very different for an agent.",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e3e97ef_fab8f1f8",
         "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
         "patchSetId": 3
