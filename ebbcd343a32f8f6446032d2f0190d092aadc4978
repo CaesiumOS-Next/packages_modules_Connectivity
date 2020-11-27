@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cca01058_de4cefd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T07:27:43Z",
+      "side": 1,
+      "message": "Only nits",
+      "revId": "ebbcd343a32f8f6446032d2f0190d092aadc4978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "680bc5d0_231c9435",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T07:27:43Z",
+      "side": 1,
+      "message": "initialNc ?: NetworkCapabilities()\n\nBut also, anything wrong with declaring a default of `NetworkCapabilities()` ?\n\nSame question for the link properties.",
+      "range": {
+        "startLine": 322,
+        "startChar": 17,
+        "endLine": 322,
+        "endChar": 97
+      },
+      "revId": "ebbcd343a32f8f6446032d2f0190d092aadc4978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3a94070_12a8020e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T07:27:43Z",
+      "side": 1,
+      "message": "Suggest :\n\n nc !\u003d null \u0026\u0026 transports.all { nc.hasCapability(it) }",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 556,
+        "endChar": 20
+      },
+      "revId": "ebbcd343a32f8f6446032d2f0190d092aadc4978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696ed74e_20fd82fc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T07:27:43Z",
+      "side": 1,
+      "message": "Nit : spaces ; surprised ktlint lets you off with this",
+      "range": {
+        "startLine": 583,
+        "startChar": 48,
+        "endLine": 583,
+        "endChar": 49
+      },
+      "revId": "ebbcd343a32f8f6446032d2f0190d092aadc4978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "657b052c_9157554d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T07:27:43Z",
+      "side": 1,
+      "message": "No complaints from the linter for indentation ?",
+      "range": {
+        "startLine": 591,
+        "startChar": 8,
+        "endLine": 591,
+        "endChar": 9
+      },
+      "revId": "ebbcd343a32f8f6446032d2f0190d092aadc4978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ed48c5b_a95f9c14",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T07:27:43Z",
+      "side": 1,
+      "message": "Theoretically this is the wrong thing to do (if the default network has more than 1 transport, then 2 is wrong, but if the default network has VPN then defaultNetworkTransports + 1 is wrong). Not sure how likely it is that a device running CTS has a VPN right now.\n\nYou could say something like :\n\n  val defaultNetworkTransports \u003d (...).transportTypes.toSet() + TRANSPORT_VPN\n\nThis would let you remove l.589, and replace l.600 with just\n\n  it.transportTypes.size \u003d\u003d defaultNetworkTransports.size",
+      "range": {
+        "startLine": 600,
+        "startChar": 38,
+        "endLine": 600,
+        "endChar": 39
+      },
+      "revId": "ebbcd343a32f8f6446032d2f0190d092aadc4978",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
