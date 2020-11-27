@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e3e97ef_fab8f1f8",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T10:54:57Z",
+      "side": 1,
+      "message": "I think this should be non-null ? It doesn\u0027t make any sense to start keepalive without packet data.",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4871c636_20e5313e",
         "filename": "framework/src/com/android/connectivity/aidl/INetworkAgentRegistry.aidl",
         "patchSetId": 3
@@ -42,6 +65,99 @@
         "startChar": 13,
         "endLine": 26,
         "endChar": 70
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3294840_77c6d888",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgentRegistry.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T10:54:57Z",
+      "side": 1,
+      "message": "We should do this in S. There are changes under review that will make this possible very soon.",
+      "parentUuid": "4871c636_20e5313e",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 70
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5d0e4a6_bef48dba",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T10:54:57Z",
+      "side": 1,
+      "message": "...because...",
+      "range": {
+        "startLine": 141,
+        "startChar": 15,
+        "endLine": 141,
+        "endChar": 25
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc730746_42e3c1bb",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T10:54:57Z",
+      "side": 1,
+      "message": "Just make this a property.\n\n  private var agentField: INetworkAgent? \u003d null\n  val agent: INetworkAgent\n    get() \u003d agentField ?: fail()",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 24
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a18395d7_27ac414b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-11-27T10:54:57Z",
+      "side": 1,
+      "message": "You\u0027re losing the important nuance that tearing down the network is a required part of calling onPreventAutomaticReconnect on the CS side. Your new wording makes it sound like we\u0027re testing disconnecting here. We\u0027re not. We\u0027re simulating onPreventAutomaticReconnect.",
+      "range": {
+        "startLine": 540,
+        "startChar": 15,
+        "endLine": 540,
+        "endChar": 33
       },
       "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
