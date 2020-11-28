@@ -70,6 +70,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee8ac172_e80dbe7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-11-28T16:46:25Z",
+      "side": 1,
+      "message": "LGTM except .gitignore conflict. .gitignore part is merged by Lorenzo\u0027s CL aosp/1511115",
+      "revId": "1949ab485f798ff3ebe382d29bbf4fe3f67b1bf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29171d3b_28e3b348",
