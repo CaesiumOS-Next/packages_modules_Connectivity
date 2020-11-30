@@ -499,8 +499,7 @@ public class Tethering {
             if (up) {
                 maybeTrackNewInterfaceLocked(iface);
             } else {
-                if (ifaceNameToType(iface) == TETHERING_BLUETOOTH
-                        || ifaceNameToType(iface) == TETHERING_WIGIG) {
+                if (ifaceNameToType(iface) == TETHERING_WIGIG) {
                     stopTrackingInterfaceLocked(iface);
                 } else {
                     // Ignore usb0 down after enabling RNDIS.
