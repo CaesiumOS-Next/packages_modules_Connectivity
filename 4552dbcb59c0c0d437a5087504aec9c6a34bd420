@@ -69,6 +69,24 @@
       "parentUuid": "b9cd7d35_7c261b3a",
       "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d47cf5_aa6e66c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-11-30T08:57:38Z",
+      "side": 1,
+      "message": "Chiachang is trying to setup the automerger but this needs to be addressed before it can be done, otherwise it will break the build.\nI commented in the other CL, I think shared code can go to frameworks/libs/net.",
+      "parentUuid": "b9cd7d35_7c261b3a",
+      "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
