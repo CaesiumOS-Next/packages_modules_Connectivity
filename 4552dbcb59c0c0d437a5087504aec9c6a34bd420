@@ -51,6 +51,24 @@
       "parentUuid": "088ebe78_2a731a31",
       "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a86b844_f311f8fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2020-11-30T08:49:45Z",
+      "side": 1,
+      "message": "Since the dependency on legacy jniGetFDFromFileDescriptor is not removed, we will need this commit to solve the break build before enabling automerger. \n\nCombing with Lorenzo comment, we may factor out the code to frameworks/libs/net, and have both NetworkStack and Tethering use the native library.\n\nHi Orion, \nDo you think you could help to apply this? Thanks.",
+      "parentUuid": "b9cd7d35_7c261b3a",
+      "revId": "4552dbcb59c0c0d437a5087504aec9c6a34bd420",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
