@@ -2215,6 +2215,10 @@ public class TetheringTest {
         mLooper.dispatchAll();
         tetherResult.assertHasResult();
 
+        // Test ignore interface down event.
+        mTethering.interfaceStatusChanged(TEST_BT_IFNAME, false);
+        mLooper.dispatchAll();
+
         verify(mNetd).tetherInterfaceAdd(TEST_BT_IFNAME);
         verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, TEST_BT_IFNAME);
         verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_BT_IFNAME),
