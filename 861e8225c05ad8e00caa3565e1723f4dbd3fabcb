@@ -70,6 +70,24 @@
       "parentUuid": "9f270b4b_f202ebb8",
       "revId": "861e8225c05ad8e00caa3565e1723f4dbd3fabcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea15ddb_f7e80b82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1273909
+      },
+      "writtenOn": "2020-12-01T14:55:57Z",
+      "side": 1,
+      "message": "2 years ago, Qualcomm gave me a couple of debug commands to configure their wifi firmware, including a way to leave the APF interpreter always on.\n\nUnfortunately, I couldn\u0027t find anything in my notes, in docs and in bugs related to the APF counters work. It was probably in an email which I no longer have.\n\nTry asking directly to the Qualcomm engineers who work on it.",
+      "parentUuid": "58d47aff_80fcc745",
+      "revId": "861e8225c05ad8e00caa3565e1723f4dbd3fabcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
