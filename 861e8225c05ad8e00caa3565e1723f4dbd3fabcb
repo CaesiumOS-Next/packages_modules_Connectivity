@@ -34,6 +34,24 @@
       "parentUuid": "e7deda4a_a8f0ba15",
       "revId": "861e8225c05ad8e00caa3565e1723f4dbd3fabcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f270b4b_f202ebb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-01T02:24:20Z",
+      "side": 1,
+      "message": "I see, do you mean APF would *not* return \"No active ApfFilter\", but actually APF is disabled ?\n\nIs there any way to know whether APF is actually enabled or not ?\nCan it be considered a bug if the firmware disables APF when the framework doesn\u0027t know about it, or is that expected behavior ?",
+      "parentUuid": "7db644c8_bf0ed4b9",
+      "revId": "861e8225c05ad8e00caa3565e1723f4dbd3fabcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
