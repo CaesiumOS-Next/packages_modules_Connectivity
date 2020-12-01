@@ -52,6 +52,24 @@
       "parentUuid": "7db644c8_bf0ed4b9",
       "revId": "861e8225c05ad8e00caa3565e1723f4dbd3fabcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58d47aff_80fcc745",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2020-12-01T09:00:12Z",
+      "side": 1,
+      "message": "\"No active ApfFilter\" in the dump message means the apfFilter object is null which would be determined when create apfFilter(see ApfFiler#maybeCreate, there are some condition might return null) or actually not create.\n\nCurrently, we don\u0027t have any way to know APF is enabled or disabled in firmware side. As I know, bassically we expect all incoming packets should be checked by the filter, however, in practice apf might be dynamically disabled temporary because of throughput cncern or some reasons. It would be expected behavior from a perspective of firmware.\n\n+codewiz@ might have a different view.",
+      "parentUuid": "9f270b4b_f202ebb8",
+      "revId": "861e8225c05ad8e00caa3565e1723f4dbd3fabcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
