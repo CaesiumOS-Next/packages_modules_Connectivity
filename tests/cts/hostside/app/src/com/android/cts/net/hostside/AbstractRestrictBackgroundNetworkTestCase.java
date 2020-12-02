@@ -25,7 +25,6 @@ import static com.android.cts.net.hostside.NetworkPolicyTestUtils.executeShellCo
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getConnectivityManager;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getContext;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getInstrumentation;
-import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getWifiManager;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDozeModeSupported;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.restrictBackgroundValueToString;
 
@@ -40,13 +39,14 @@ import android.app.Instrumentation;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
-import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Bundle;
@@ -124,6 +124,8 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
 
     protected static final long TEMP_POWERSAVE_WHITELIST_DURATION_MS = 5_000; // 5 sec
 
+    private static final String DISABLE_WIFI_MEDIATOR_KEY = "cw_disable_wifimediator";
+
     protected Context mContext;
     protected Instrumentation mInstrumentation;
     protected ConnectivityManager mCm;
@@ -151,6 +153,10 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         executeShellCommand("cmd netpolicy start-watching " + mUid);
         setAppIdle(false);
 
+        if (hasFeatureWatch()) {
+            setWearWifiMediatorEnabled(false);
+        }
+
         Log.i(TAG, "Apps status:\n"
                 + "\ttest app: uid=" + mMyUid + ", state=" + getProcessStateByUid(mMyUid) + "\n"
                 + "\tapp2: uid=" + mUid + ", state=" + getProcessStateByUid(mUid));
@@ -159,6 +165,19 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     protected void tearDown() throws Exception {
         executeShellCommand("cmd netpolicy stop-watching");
         mServiceClient.unbind();
+
+        if (hasFeatureWatch()) {
+            setWearWifiMediatorEnabled(true);
+        }
+    }
+
+    private void setWearWifiMediatorEnabled(boolean enabled) {
+        ContentResolver resolver = mContext.getContentResolver();
+        Settings.Global.putInt(resolver, DISABLE_WIFI_MEDIATOR_KEY, enabled ? 0 : 1);
+    }
+
+    private boolean hasFeatureWatch() {
+        return mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WATCH);
     }
 
     protected int getUid(String packageName) throws Exception {
