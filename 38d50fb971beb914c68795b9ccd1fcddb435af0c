@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18496232_90a4650a",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-03T03:08:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeff215c_19adb2dc",
+      "range": {
+        "startLine": 26,
+        "startChar": 46,
+        "endLine": 26,
+        "endChar": 52
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2498525_ab287f81",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-11-13T04:33:50Z",
       "side": 1,
       "message": "this is stack local.  it does not survive function exit\n\nI\u0027d suggest eliminating this function and just open coding it down below :-(",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b39e5c15_f65dac37",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-03T03:08:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2498525_ab287f81",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eef4c5b_a8c4ca25",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-03T03:08:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a30c94d9_c6149f4e",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 61
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "471c9421_6627b85b",
@@ -100,6 +172,30 @@
       "writtenOn": "2020-11-13T04:33:50Z",
       "side": 1,
       "message": "seems like we should somehow return the ret",
+      "range": {
+        "startLine": 51,
+        "startChar": 9,
+        "endLine": 51,
+        "endChar": 12
+      },
+      "revId": "38d50fb971beb914c68795b9ccd1fcddb435af0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "834fa416_245e8429",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-03T03:08:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "471c9421_6627b85b",
       "range": {
         "startLine": 51,
         "startChar": 9,
