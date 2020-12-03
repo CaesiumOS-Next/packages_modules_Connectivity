@@ -27,6 +27,8 @@ import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
+import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
 import static android.net.TetheringManager.EXTRA_ACTIVE_LOCAL_ONLY;
@@ -443,7 +445,8 @@ public class Tethering {
     // NOTE: This is always invoked on the mLooper thread.
     private void updateConfiguration() {
         mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId);
-        mUpstreamNetworkMonitor.updateMobileRequiresDun(mConfig.isDunRequired);
+        mUpstreamNetworkMonitor.setUpstreamConfig(mConfig.chooseUpstreamAutomatically,
+                mConfig.isDunRequired);
         reportConfigurationChanged(mConfig.toStableParcelable());
     }
 
@@ -1550,12 +1553,16 @@ public class Tethering {
                             config.preferredUpstreamIfaceTypes);
             if (ns == null) {
                 if (tryCell) {
-                    mUpstreamNetworkMonitor.registerMobileNetworkRequest();
+                    mUpstreamNetworkMonitor.setTryCell(true);
                     // We think mobile should be coming up; don't set a retry.
                 } else {
                     sendMessageDelayed(CMD_RETRY_UPSTREAM, UPSTREAM_SETTLE_TIME_MS);
                 }
+            } else if (!(ns.networkCapabilities.hasTransport(TRANSPORT_CELLULAR)
+                    && ns.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_VPN))) {
+                mUpstreamNetworkMonitor.setTryCell(false);
             }
+
             setUpstreamNetwork(ns);
             final Network newUpstream = (ns != null) ? ns.network : null;
             if (mTetherUpstream != newUpstream) {
@@ -1834,7 +1841,7 @@ public class Tethering {
                         // longer desired, release any mobile requests.
                         final boolean previousUpstreamWanted = updateUpstreamWanted();
                         if (previousUpstreamWanted && !mUpstreamWanted) {
-                            mUpstreamNetworkMonitor.releaseMobileNetworkRequest();
+                            mUpstreamNetworkMonitor.setTryCell(false);
                         }
                         break;
                     }
