@@ -1732,6 +1732,7 @@ public class Tethering {
                     // broadcasts that result in being passed a
                     // TetherMainSM.CMD_UPSTREAM_CHANGED.
                     handleNewUpstreamNetworkState(null);
+                    chooseUpstreamType(false);
                     break;
                 default:
                     mLog.e("Unknown arg1 value: " + arg1);
