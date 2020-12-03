@@ -35,6 +35,7 @@ import android.net.IpPrefix;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.net.util.PrefixUtils;
 import android.net.util.SharedLog;
@@ -109,7 +110,7 @@ public class UpstreamNetworkMonitor {
     private final int mWhat;
     private final HashMap<Network, UpstreamNetworkState> mNetworkMap = new HashMap<>();
     private HashSet<IpPrefix> mLocalPrefixes;
-    private ConnectivityManager mCM;
+    private static ConnectivityManager mCM;
     private EntitlementManager mEntitlementMgr;
     private NetworkCallback mListenAllCallback;
     private NetworkCallback mDefaultNetworkCallback;
@@ -530,9 +531,12 @@ public class UpstreamNetworkMonitor {
                     continue;
                 }
 
-                result.type = type;
-                result.ns = value;
-                return result;
+                NetworkInfo info = mCM.getNetworkInfo(type);
+                if (info != null && info.isConnected()) {
+                    result.type = type;
+                    result.ns = value;
+                    return result;
+                }
             }
         }
 
