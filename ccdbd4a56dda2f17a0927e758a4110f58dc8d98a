@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff91c6ae_9bf80a0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1352498
+      },
+      "writtenOn": "2020-12-04T07:33:23Z",
+      "side": 1,
+      "message": "Hi Mark, please help to check the CL submit by Unisoc. Thanks.",
+      "revId": "ccdbd4a56dda2f17a0927e758a4110f58dc8d98a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
