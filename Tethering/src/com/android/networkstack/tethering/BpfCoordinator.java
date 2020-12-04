@@ -24,6 +24,7 @@ import static android.net.NetworkStats.TAG_NONE;
 import static android.net.NetworkStats.UID_ALL;
 import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED;
+import static android.system.OsConstants.ETH_P_IPV6;
 
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
 
@@ -42,6 +43,7 @@ import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.system.ErrnoException;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
@@ -71,6 +73,8 @@ import java.util.Objects;
 public class BpfCoordinator {
     private static final String TAG = BpfCoordinator.class.getSimpleName();
     private static final int DUMP_TIMEOUT_MS = 10_000;
+    private static final String TETHER_INGRESS_FS_PATH =
+            "/sys/fs/bpf/map_offload_tether_ingress_map";
 
     @VisibleForTesting
     enum StatsType {
@@ -146,6 +150,11 @@ public class BpfCoordinator {
     private final HashMap<IpServer, LinkedHashMap<Inet6Address, Ipv6ForwardingRule>>
             mIpv6ForwardingRules = new LinkedHashMap<>();
 
+    // BPF map of ingress queueing discipline which pre-processes the packets by the IPv6
+    // forwarding rules.
+    @Nullable
+    private final BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
+
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingTask = () -> {
         updateForwardedStatsFromNetd();
@@ -168,6 +177,17 @@ public class BpfCoordinator {
 
         /** Get tethering configuration. */
         @Nullable public abstract TetheringConfiguration getTetherConfig();
+
+        /** Get ingress BPF map. */
+        @Nullable public BpfMap<TetherIngressKey, TetherIngressValue> getBpfIngressMap() {
+            try {
+                return new BpfMap<>(TETHER_INGRESS_FS_PATH,
+                    BpfMap.BPF_F_RDWR, TetherIngressKey.class, TetherIngressValue.class);
+            } catch (IllegalStateException e) {
+                Log.e(TAG, "Cannot create bpf map: " + e);
+                return null;
+            }
+        }
     }
 
     @VisibleForTesting
@@ -177,6 +197,7 @@ public class BpfCoordinator {
         mNetd = mDeps.getNetd();
         mLog = mDeps.getSharedLog().forSubComponent(TAG);
         mIsBpfEnabled = isBpfEnabled();
+        mBpfIngressMap = mDeps.getBpfIngressMap();
         BpfTetherStatsProvider provider = new BpfTetherStatsProvider();
         try {
             mDeps.getNetworkStatsManager().registerNetworkStatsProvider(
@@ -199,8 +220,8 @@ public class BpfCoordinator {
     public void startPolling() {
         if (mPollingStarted) return;
 
-        if (!mIsBpfEnabled) {
-            mLog.i("Offload disabled");
+        if (!isUsingBpf()) {
+            mLog.i("BPF is not using");
             return;
         }
 
@@ -231,6 +252,33 @@ public class BpfCoordinator {
         mLog.i("Polling stopped");
     }
 
+    private boolean isUsingBpf() {
+        return mIsBpfEnabled && mBpfIngressMap != null;
+    }
+
+    /**
+     * Adds a tethering offload rule to BPF map, or updates it if it already exists.
+     *
+     * Currently, only downstream /128 IPv6 entries are supported. An existing rule will be updated
+     * if the input interface and destination prefix match. Otherwise, a new rule will be created.
+     * Note that this can be only called on handler thread.
+     *
+     * @param rule The rule to add or update.
+     */
+    private boolean bpfOffloadRuleAdd(@NonNull final Ipv6ForwardingRule rule) {
+        final TetherIngressKey key = rule.makeTetherIngressKey();
+        final TetherIngressValue value = rule.makeTetherIngressValue();
+
+        try {
+            mBpfIngressMap.updateEntry(key, value);
+        } catch (ErrnoException e) {
+            mLog.e("Could not update entry: ", e);
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Add forwarding rule. After adding the first rule on a given upstream, must add the data
      * limit on the given upstream.
@@ -238,13 +286,11 @@ public class BpfCoordinator {
      */
     public void tetherOffloadRuleAdd(
             @NonNull final IpServer ipServer, @NonNull final Ipv6ForwardingRule rule) {
-        if (!mIsBpfEnabled) return;
+        if (!isUsingBpf()) return;
 
-        try {
-            // TODO: Perhaps avoid to add a duplicate rule.
-            mNetd.tetherOffloadRuleAdd(rule.toTetherOffloadRuleParcel());
-        } catch (RemoteException | ServiceSpecificException e) {
-            mLog.e("Could not add IPv6 forwarding rule: ", e);
+        // TODO: Perhaps avoid to add a duplicate rule.
+        if (!bpfOffloadRuleAdd(rule)) {
+            mLog.e("Could not add IPv6 forwarding rule");
             return;
         }
 
@@ -279,7 +325,7 @@ public class BpfCoordinator {
      */
     public void tetherOffloadRuleRemove(
             @NonNull final IpServer ipServer, @NonNull final Ipv6ForwardingRule rule) {
-        if (!mIsBpfEnabled) return;
+        if (!isUsingBpf()) return;
 
         try {
             // TODO: Perhaps avoid to remove a non-existent rule.
@@ -324,7 +370,7 @@ public class BpfCoordinator {
      * Note that this can be only called on handler thread.
      */
     public void tetherOffloadRuleClear(@NonNull final IpServer ipServer) {
-        if (!mIsBpfEnabled) return;
+        if (!isUsingBpf()) return;
 
         final LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules = mIpv6ForwardingRules.get(
                 ipServer);
@@ -341,7 +387,7 @@ public class BpfCoordinator {
      * Note that this can be only called on handler thread.
      */
     public void tetherOffloadRuleUpdate(@NonNull final IpServer ipServer, int newUpstreamIfindex) {
-        if (!mIsBpfEnabled) return;
+        if (!isUsingBpf()) return;
 
         final LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules = mIpv6ForwardingRules.get(
                 ipServer);
@@ -365,7 +411,7 @@ public class BpfCoordinator {
      * Note that this can be only called on handler thread.
      */
     public void addUpstreamNameToLookupTable(int upstreamIfindex, @NonNull String upstreamIface) {
-        if (!mIsBpfEnabled) return;
+        if (!isUsingBpf()) return;
 
         if (upstreamIfindex == 0 || TextUtils.isEmpty(upstreamIface)) return;
 
@@ -391,6 +437,8 @@ public class BpfCoordinator {
         final ConditionVariable dumpDone = new ConditionVariable();
         mHandler.post(() -> {
             pw.println("mIsBpfEnabled: " + mIsBpfEnabled);
+            pw.println("Ingress map: "
+                    + (mBpfIngressMap != null ? "initialized" : "not initialized"));
             pw.println("Polling " + (mPollingStarted ? "started" : "not started"));
             pw.println("Stats provider " + (mStatsProvider != null
                     ? "registered" : "not registered"));
@@ -454,6 +502,10 @@ public class BpfCoordinator {
 
     /** IPv6 forwarding rule class. */
     public static class Ipv6ForwardingRule {
+        // The default outbound path mtu is synced from
+        // system/netd/server/binder/android/net/TetherOffloadRuleParcel.aidl
+        public static final int PMTU = 1500;
+
         public final int upstreamIfindex;
         public final int downstreamIfindex;
 
@@ -495,6 +547,23 @@ public class BpfCoordinator {
             parcel.srcL2Address = srcMac.toByteArray();
             parcel.dstL2Address = dstMac.toByteArray();
             return parcel;
+        }
+
+        /**
+         * Return a TetherIngressKey object built from the rule.
+         */
+        @NonNull
+        public TetherIngressKey makeTetherIngressKey() {
+            return new TetherIngressKey(upstreamIfindex, address.getAddress());
+        }
+
+        /**
+         * Return a TetherIngressValue object built from the rule.
+         */
+        @NonNull
+        public TetherIngressValue makeTetherIngressValue() {
+            return new TetherIngressValue(downstreamIfindex, dstMac.toByteArray(),
+                    srcMac.toByteArray(), ETH_P_IPV6, PMTU);
         }
 
         @Override
