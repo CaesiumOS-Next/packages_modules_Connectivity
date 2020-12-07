@@ -557,7 +557,7 @@ class NetworkAgentTest {
                 .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED) // TODO: add to VPN!
                 .build()
         val callback = TestableNetworkCallback()
-        mCM.registerNetworkCallback(request, callback)
+        registerNetworkCallback(request, callback)
 
         val nc = NetworkCapabilities().apply {
             addTransportType(NetworkCapabilities.TRANSPORT_TEST)
@@ -576,6 +576,7 @@ class NetworkAgentTest {
         var vpnNc = mCM.getNetworkCapabilities(agent.network)
         assertNotNull(vpnNc)
         assertTrue(NetworkCapabilities.TRANSPORT_VPN in vpnNc.transportTypes)
+        assertFalse(vpnNc.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN))
         assertTrue(hasAllTransports(vpnNc, defaultNetworkTransports),
                 "VPN transports ${Arrays.toString(vpnNc.transportTypes)}" +
                 " lacking transports from ${Arrays.toString(defaultNetworkTransports)}")
@@ -595,8 +596,6 @@ class NetworkAgentTest {
 
         agent.unregister()
         callback.expectCallback<Lost>(agent.network)
-
-        mCM.unregisterNetworkCallback(callback)
     }
 
     @Test
