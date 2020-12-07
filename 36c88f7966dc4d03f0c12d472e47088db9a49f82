@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "796a17ce_6692a214",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-07T09:58:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b30346b8_146599a7",
+      "range": {
+        "startLine": 23,
+        "startChar": 10,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "361c4266_30aaee82",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fee00d6e_991fc1a0",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-07T09:58:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "361c4266_30aaee82",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e3e97ef_fab8f1f8",
@@ -60,6 +108,30 @@
       "writtenOn": "2020-11-27T10:54:57Z",
       "side": 1,
       "message": "I think this should be non-null ? It doesn\u0027t make any sense to start keepalive without packet data.",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9ece8de_799607e2",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-07T09:58:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e3e97ef_fab8f1f8",
       "range": {
         "startLine": 32,
         "startChar": 12,
@@ -140,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef3684a6_ee3b9119",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-07T09:58:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5d0e4a6_bef48dba",
+      "range": {
+        "startLine": 141,
+        "startChar": 15,
+        "endLine": 141,
+        "endChar": 25
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc730746_42e3c1bb",
@@ -163,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf7bd9f6_f3061741",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-07T09:58:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc730746_42e3c1bb",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 24
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a18395d7_27ac414b",
@@ -176,6 +296,30 @@
       "writtenOn": "2020-11-27T10:54:57Z",
       "side": 1,
       "message": "You\u0027re losing the important nuance that tearing down the network is a required part of calling onPreventAutomaticReconnect on the CS side. Your new wording makes it sound like we\u0027re testing disconnecting here. We\u0027re not. We\u0027re simulating onPreventAutomaticReconnect.",
+      "range": {
+        "startLine": 540,
+        "startChar": 15,
+        "endLine": 540,
+        "endChar": 33
+      },
+      "revId": "36c88f7966dc4d03f0c12d472e47088db9a49f82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c30c24_0d2f020e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-07T09:58:36Z",
+      "side": 1,
+      "message": "Done (I think ?)",
+      "parentUuid": "a18395d7_27ac414b",
       "range": {
         "startLine": 540,
         "startChar": 15,
