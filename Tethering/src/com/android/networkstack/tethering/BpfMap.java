@@ -21,6 +21,8 @@ import android.system.ErrnoException;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.internal.annotations.VisibleForTesting;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
@@ -61,6 +63,21 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
         mMapFd = bpfFdGet(path, flag);
         if (mMapFd == -1) throw new IllegalStateException("fail to open map fd");
 
+        mKeyClass = key;
+        mValueClass = value;
+        mKeySize = Struct.getSize(key);
+        mValueSize = Struct.getSize(value);
+    }
+
+    /**
+     * Constructor for testing only.
+     * The derived class implements an internal mocked map. It need to implement all functions
+     * which are related with the native BPF map because the BPF map handler is not initialized.
+     * See BpfCoordinatorTest#TestBpfMap.
+     */
+    @VisibleForTesting
+    protected BpfMap(final Class<K> key, final Class<V> value) {
+        mMapFd = -1;
         mKeyClass = key;
         mValueClass = value;
         mKeySize = Struct.getSize(key);
