@@ -56,6 +56,7 @@ import android.net.TetherOffloadRuleParcel;
 import android.net.TetherStatsParcel;
 import android.net.ip.IpServer;
 import android.net.util.SharedLog;
+import android.net.util.Struct;
 import android.os.Handler;
 import android.os.test.TestLooper;
 
@@ -78,6 +79,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.net.Inet6Address;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -97,6 +100,7 @@ public class BpfCoordinatorTest {
     @Mock private IpServer mIpServer;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
+    @Mock private BpfMap<TetherStatsKey, TetherStatsValue> mBpfStatsMap;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -136,6 +140,11 @@ public class BpfCoordinatorTest {
             @Nullable
             public BpfMap<TetherIngressKey, TetherIngressValue> getBpfIngressMap() {
                 return mBpfIngressMap;
+            }
+
+            @Nullable
+            public BpfMap<TetherStatsKey, TetherStatsValue> getBpfStatsMap() {
+                return mBpfStatsMap;
             }
     };
 
@@ -636,9 +645,16 @@ public class BpfCoordinatorTest {
             public BpfMap<TetherIngressKey, TetherIngressValue> getBpfIngressMap() {
                 return null;  // no ingress map
             }
+
+            @Nullable
+            public BpfMap<TetherStatsKey, TetherStatsValue> getBpfStatsMap() {
+                return mBpfStatsMap;
+            }
         };
 
         testBpfDisabled();
+
+        // TODO: test no stats map.
     }
 
     @Test
@@ -688,5 +704,13 @@ public class BpfCoordinatorTest {
         mTestLooper.moveTimeForward((long) (pollingInterval * 0.1));
         waitForIdle();
         verify(mNetd).tetherOffloadGetStats();
+    }
+
+    // TODO: remove this test.
+    @Test
+    public void testStructParseTetherStatsKey() throws Exception {
+        final ByteBuffer buf = ByteBuffer.wrap(new byte[4]);
+        buf.order(ByteOrder.nativeOrder());
+        Struct.parse(TetherStatsKey.class, buf);
     }
 }

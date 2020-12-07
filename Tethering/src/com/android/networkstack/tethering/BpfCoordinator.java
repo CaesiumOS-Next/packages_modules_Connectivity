@@ -38,6 +38,7 @@ import android.net.TetherStatsParcel;
 import android.net.ip.IpServer;
 import android.net.netstats.provider.NetworkStatsProvider;
 import android.net.util.SharedLog;
+import android.net.util.Struct;
 import android.net.util.TetheringUtils.ForwardedStats;
 import android.os.ConditionVariable;
 import android.os.Handler;
@@ -55,11 +56,14 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 
 import java.net.Inet6Address;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+
 
 /**
  *  This coordinator is responsible for providing BPF offload relevant functionality.
@@ -75,6 +79,8 @@ public class BpfCoordinator {
     private static final int DUMP_TIMEOUT_MS = 10_000;
     private static final String TETHER_INGRESS_FS_PATH =
             "/sys/fs/bpf/map_offload_tether_ingress_map";
+    private static final String TETHER_STATS_MAP_PATH =
+            "/sys/fs/bpf/map_offload_tether_stats_map";
 
     @VisibleForTesting
     enum StatsType {
@@ -155,9 +161,13 @@ public class BpfCoordinator {
     @Nullable
     private final BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
 
+    // BPF map of tethering statistics of the upstream interface since tethering startup.
+    @Nullable
+    private final BpfMap<TetherStatsKey, TetherStatsValue> mBpfStatsMap;
+
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingTask = () -> {
-        updateForwardedStatsFromNetd();
+        updateForwardedStatsFromMap();
         maybeSchedulePollingStats();
     };
 
@@ -188,6 +198,17 @@ public class BpfCoordinator {
                 return null;
             }
         }
+
+        /** Get stats BPF map. */
+        @Nullable public BpfMap<TetherStatsKey, TetherStatsValue> getBpfStatsMap() {
+            try {
+                return new BpfMap<>(TETHER_STATS_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, TetherStatsKey.class, TetherStatsValue.class);
+            } catch (IllegalStateException e) {
+                Log.e(TAG, "Cannot create stats map: " + e);
+                return null;
+            }
+        }
     }
 
     @VisibleForTesting
@@ -198,6 +219,7 @@ public class BpfCoordinator {
         mLog = mDeps.getSharedLog().forSubComponent(TAG);
         mIsBpfEnabled = isBpfEnabled();
         mBpfIngressMap = mDeps.getBpfIngressMap();
+        mBpfStatsMap = mDeps.getBpfStatsMap();
         BpfTetherStatsProvider provider = new BpfTetherStatsProvider();
         try {
             mDeps.getNetworkStatsManager().registerNetworkStatsProvider(
@@ -246,14 +268,14 @@ public class BpfCoordinator {
         if (mHandler.hasCallbacks(mScheduledPollingTask)) {
             mHandler.removeCallbacks(mScheduledPollingTask);
         }
-        updateForwardedStatsFromNetd();
+        updateForwardedStatsFromMap();
         mPollingStarted = false;
 
         mLog.i("Polling stopped");
     }
 
     private boolean isUsingBpf() {
-        return mIsBpfEnabled && mBpfIngressMap != null;
+        return mIsBpfEnabled && mBpfIngressMap != null && mBpfStatsMap != null;
     }
 
     /**
@@ -350,8 +372,15 @@ public class BpfCoordinator {
             try {
                 final TetherStatsParcel stats =
                         mNetd.tetherOffloadGetAndClearStats(upstreamIfindex);
+
+                SparseArray<TetherStatsValue> tetherStatsList =
+                        new SparseArray<TetherStatsValue>();
+                tetherStatsList.put(stats.ifIndex, new TetherStatsValue(stats.rxPackets,
+                        stats.rxBytes, 0 /* rxErrors */, stats.txPackets, stats.txBytes,
+                        0 /* txErrors */));
+
                 // Update the last stats delta and delete the local cache for a given upstream.
-                updateQuotaAndStatsFromSnapshot(new TetherStatsParcel[] {stats});
+                updateQuotaAndStatsFromSnapshot(tetherStatsList);
                 mStats.remove(upstreamIfindex);
             } catch (RemoteException | ServiceSpecificException e) {
                 Log.wtf(TAG, "Exception when cleanup tether stats for upstream index "
@@ -434,6 +463,8 @@ public class BpfCoordinator {
             pw.println("mIsBpfEnabled: " + mIsBpfEnabled);
             pw.println("Ingress map: "
                     + (mBpfIngressMap != null ? "initialized" : "not initialized"));
+            pw.println("Stats map: "
+                    + (mBpfStatsMap != null ? "initialized" : "not initialized"));
             pw.println("Polling " + (mPollingStarted ? "started" : "not started"));
             pw.println("Stats provider " + (mStatsProvider != null
                     ? "registered" : "not registered"));
@@ -754,10 +785,11 @@ public class BpfCoordinator {
     }
 
     private void updateQuotaAndStatsFromSnapshot(
-            @NonNull final TetherStatsParcel[] tetherStatsList) {
+            @NonNull final SparseArray<TetherStatsValue> tetherStatsList) {
         long usedAlertQuota = 0;
-        for (TetherStatsParcel tetherStats : tetherStatsList) {
-            final Integer ifIndex = tetherStats.ifIndex;
+        for (int i = 0; i < tetherStatsList.size(); i++) {
+            final Integer ifIndex = tetherStatsList.keyAt(i);
+            final TetherStatsValue tetherStats = tetherStatsList.get(ifIndex);
             final ForwardedStats curr = new ForwardedStats(tetherStats);
             final ForwardedStats base = mStats.get(ifIndex);
             final ForwardedStats diff = (base != null) ? curr.subtract(base) : curr;
@@ -789,16 +821,38 @@ public class BpfCoordinator {
         // TODO: Count the used limit quota for notifying data limit reached.
     }
 
-    private void updateForwardedStatsFromNetd() {
-        final TetherStatsParcel[] tetherStatsList;
+    private TetherStatsKey toTetherStatsKey(final byte[] rawKey) {
+        final ByteBuffer keyBuf = ByteBuffer.wrap(rawKey);
+        keyBuf.order(ByteOrder.nativeOrder());
+        return Struct.parse(TetherStatsKey.class, keyBuf);
+    }
+
+    private TetherStatsValue toTetherStatsValue(final byte[] rawValue) {
+        final ByteBuffer valueBuf = ByteBuffer.wrap(rawValue);
+        valueBuf.order(ByteOrder.nativeOrder());
+        return Struct.parse(TetherStatsValue.class, valueBuf);
+    }
+
+    private void updateForwardedStatsFromMap() {
+        final SparseArray<TetherStatsValue> tetherStatsList = new SparseArray<TetherStatsValue>();
+
         try {
             // The reported tether stats are total data usage for all currently-active upstream
             // interfaces since tethering start.
-            tetherStatsList = mNetd.tetherOffloadGetStats();
-        } catch (RemoteException | ServiceSpecificException e) {
+            mBpfStatsMap.forEach((rawKey, rawValue) -> {
+                final TetherStatsKey key = toTetherStatsKey(rawKey);
+                final TetherStatsValue value = toTetherStatsValue(rawValue);
+                tetherStatsList.put((int) key.ifindex, value);
+
+                // TODO: remove the logging
+                mLog.w("iif " + key.ifindex + " -> " + value.rxPackets
+                        + ", " + value.rxBytes + ", " + value.rxErrors);
+            });
+        } catch (ErrnoException e) {
             mLog.e("Problem fetching tethering stats: ", e);
             return;
         }
+
         updateQuotaAndStatsFromSnapshot(tetherStatsList);
     }
 
