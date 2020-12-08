@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "919f58b5_ac27336a",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgentRegistry.aidl",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-08T06:04:14Z",
+      "side": 1,
+      "message": "@nullable\n\n(also, in fact, nullability annotations everywhere)",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "9bb65d218af1d1fdca7afbe0a92643e9b0932d68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "605b4591_f6572928",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-08T06:04:14Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand this correctly ; my best guess is that this relies on .asBinder() only ever being used to register a death recipient or otherwise IBinder methods, but nobody casts the result of asBinder() (otherwise they\u0027d inkoke the methods on the real IBinder too).\n\nIf that interpretation is correct, this sounds a bit funky and dangerous (but not unacceptable). Maybe you could instead direct this to a vanilla binder ? Something like\n\n  private val registry \u003d object : INetworkAgentRegistry.Stub(),\n          INetworkAgentRegistry by mockRegistry {\n    private val identifyingBinder \u003d Binder()\n    override fun asBinder() \u003d identifyingBinder\n  }\n\nWhat this gives you is a crash if somebody violates your constraint. It\u0027s not awesome, but it\u0027s easier to diagnose than a method just not being called.",
+      "range": {
+        "startLine": 156,
+        "startChar": 33,
+        "endLine": 156,
+        "endChar": 100
+      },
+      "revId": "9bb65d218af1d1fdca7afbe0a92643e9b0932d68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
