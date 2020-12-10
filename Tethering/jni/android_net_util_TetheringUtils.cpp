@@ -18,6 +18,7 @@
 #include <error.h>
 #include <jni.h>
 #include <linux/filter.h>
+#include <linux/pfkeyv2.h>
 #include <nativehelper/JNIHelp.h>
 #include <nativehelper/JNIHelpCompat.h>
 #include <nativehelper/ScopedUtfChars.h>
@@ -162,6 +163,27 @@ static void android_net_util_setupRaSocket(JNIEnv *env, jobject clazz, jobject j
     }
 }
 
+static void android_net_util_synchronizeKernelRCU(JNIEnv *env, jobject clazz)
+{
+    // This is a temporary hack for network stats map swap on devices running
+    // 4.9 kernels. The kernel code of socket release on pf_key socket will
+    // explicitly call synchronize_rcu() which is exactly what we need.
+    int pfSocket = socket(AF_KEY, SOCK_RAW | SOCK_CLOEXEC, PF_KEY_V2);
+
+    if (pfSocket < 0) {
+        jniThrowExceptionFmt(env, "java/net/SocketException",
+                "create PF_KEY socket failed: %s", strerror(errno));
+        return;
+    }
+
+    // When closing socket, synchronize_rcu() gets called in sock_release().
+    if (close(pfSocket)) {
+        jniThrowExceptionFmt(env, "java/net/SocketException",
+                "failed to close the PF_KEY socket: %s", strerror(errno));
+        return;
+    }
+}
+
 /*
  * JNI registration.
  */
@@ -173,6 +195,8 @@ static const JNINativeMethod gMethods[] = {
         (void*) android_net_util_setupNsSocket },
     { "setupRaSocket", "(Ljava/io/FileDescriptor;I)V",
         (void*) android_net_util_setupRaSocket },
+    { "synchronizeKernelRCU", "()V",
+        (void*) android_net_util_synchronizeKernelRCU },
 };
 
 int register_android_net_util_TetheringUtils(JNIEnv* env) {
