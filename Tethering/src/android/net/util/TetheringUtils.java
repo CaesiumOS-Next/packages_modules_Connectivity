@@ -171,4 +171,10 @@ public class TetheringUtils {
             return null;
         }
     }
+
+    /**
+     * Call synchronize_rcu() to block until all existing RCU read-side critical sections have
+     * been completed.
+     */
+    public static native void synchronizeKernelRCU() throws SocketException;
 }
