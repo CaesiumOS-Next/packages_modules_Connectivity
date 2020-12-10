@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9742178f_87fb6f4e",
+        "filename": "Tethering/proguard.flags",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-10T07:16:17Z",
+      "side": 1,
+      "message": "You are right. Need to use the name in jar-jar rule (https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1498277/3/Tethering/jarjar-rules.txt#14).\n\n\nVerified:\n-keepclassmembers public class * extends com.android.networkstack.tethering.util.Struct {\n    public \u003cinit\u003e(...);\n}",
+      "range": {
+        "startLine": 11,
+        "startChar": 41,
+        "endLine": 11,
+        "endChar": 64
+      },
+      "revId": "d44045a325014ba1f446cd611abb6fe231205fd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
