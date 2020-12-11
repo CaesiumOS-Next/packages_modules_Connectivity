@@ -22,6 +22,30 @@
       },
       "revId": "527bb9adae78797933469616a9c78bb380b32d41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f404198_fbecd694",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-11T09:57:33Z",
+      "side": 1,
+      "message": "Yes: as I wrote in the commit message,\nThis change should not be released in monthly updates until the\nmodularization work is done, so will be reverted in module release\nbranches.\n\nMy plan is to revert the change in mainline-prod shortly after (actually right now it won\u0027t automerge yet)",
+      "parentUuid": "3abcd686_661d5161",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "527bb9adae78797933469616a9c78bb380b32d41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
