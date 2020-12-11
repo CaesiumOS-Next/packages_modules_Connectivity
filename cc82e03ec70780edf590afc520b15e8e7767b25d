@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd67d949_b355e19e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-11T04:05:35Z",
+      "side": 1,
+      "message": "Why can\u0027t we just do:\n\nFileDescriptor fd \u003d Os.socket(PF_KEY, ...);\nOs.close(fd);",
+      "revId": "cc82e03ec70780edf590afc520b15e8e7767b25d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
