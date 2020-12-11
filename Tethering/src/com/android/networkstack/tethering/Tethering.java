@@ -499,8 +499,8 @@ public class Tethering {
             if (up) {
                 maybeTrackNewInterfaceLocked(iface);
             } else {
-                if (ifaceNameToType(iface) == TETHERING_BLUETOOTH
-                        || ifaceNameToType(iface) == TETHERING_WIGIG) {
+                if (isIfaceNameMatchingType(iface, TETHERING_BLUETOOTH)
+                        || isIfaceNameMatchingType(iface, TETHERING_WIGIG)) {
                     stopTrackingInterfaceLocked(iface);
                 } else {
                     // Ignore usb0 down after enabling RNDIS.
@@ -515,6 +515,25 @@ public class Tethering {
 
     void interfaceLinkStateChanged(String iface, boolean up) {
         interfaceStatusChanged(iface, up);
+    }
+    private boolean isIfaceNameMatchingType(String iface, int interfaceType) {
+        final TetheringConfiguration cfg = mConfig;
+        switch (interfaceType) {
+            case TETHERING_WIFI:
+                return cfg.isWifi(iface);
+            case TETHERING_WIGIG:
+                return cfg.isWigig(iface);
+            case TETHERING_WIFI_P2P:
+                return cfg.isWifiP2p(iface);
+            case TETHERING_USB:
+                return cfg.isUsb(iface);
+            case TETHERING_BLUETOOTH:
+                return cfg.isBluetooth(iface);
+            case TETHERING_NCM:
+                return cfg.isNcm(iface);
+            default:
+                return false;
+        }
     }
 
     private int ifaceNameToType(String iface) {
@@ -1228,7 +1247,7 @@ public class Tethering {
         String chosenIface = null;
         if (ifaces != null) {
             for (String iface : ifaces) {
-                if (ifaceNameToType(iface) == interfaceType) {
+                if (isIfaceNameMatchingType(iface, interfaceType)) {
                     chosenIface = iface;
                     break;
                 }
