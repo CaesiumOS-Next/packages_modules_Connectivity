@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81b15171_b05e1124",
+        "filename": "Tethering/proguard.flags",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-11T02:52:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c68e7bf_6e0c8245",
+      "range": {
+        "startLine": 19,
+        "startChar": 12,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "a9af60ba551849258bb001966119d84cb801d5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cda97cd_1195eeef",
