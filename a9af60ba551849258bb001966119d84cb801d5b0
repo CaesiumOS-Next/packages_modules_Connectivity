@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c68e7bf_6e0c8245",
+        "filename": "Tethering/proguard.flags",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-11T02:35:04Z",
+      "side": 1,
+      "message": "No \"com\", Sorry for typo in our offline chat",
+      "range": {
+        "startLine": 19,
+        "startChar": 12,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "a9af60ba551849258bb001966119d84cb801d5b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
