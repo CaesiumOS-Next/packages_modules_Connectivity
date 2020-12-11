@@ -250,6 +250,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24110170_56765334",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-11T14:13:49Z",
+      "side": 1,
+      "message": "It seems that errno ENOENT doesn\u0027t thrown as an exception\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1498277/4/Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp#74\nstatic jboolean checkResultAndThrow(JNIEnv *env, int ret) {\n..\n    if (ret) throwErrnoException(env, \"writeToMapEntry\", errno);\n\nI am trying to use BpfMap::GetValue to get the value of a nonexistent entry. I get a null pointer without errno exception ENOENT. In the following case, ENOENT may be required. \n\nex:\nhttps://android.googlesource.com/platform/system/netd/+/master/server/TetherController.cpp#1065\n    auto statsEntry \u003d mBpfStatsMap.readValue(ifIndex);\n..\n    } else if (statsEntry.error().code() \u003d\u003d ENOENT) {",
+      "range": {
+        "startLine": 117,
+        "startChar": 74,
+        "endLine": 117,
+        "endChar": 89
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4a45347_27e3bf91",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 4
@@ -353,6 +376,30 @@
       "writtenOn": "2020-12-11T04:40:57Z",
       "side": 1,
       "message": "seems like we should have\n\ninsertEntry (if doesn\u0027t exist)\nupdateEntry (bpf_any)\nreplaceEntry (if exists)",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 77
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0dedebb_c15f442e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-11T14:13:49Z",
+      "side": 1,
+      "message": "We may need BPF_NOEXIST (create if didn\u0027t exist) to make sure that we are creating a nonexistent entry. (although it may could be checked by get the entry first)\n\nex:\nhttps://android.googlesource.com/platform/system/netd/+/master/server/TetherController.cpp#1069\nResult\u003cvoid\u003e TetherController::setBpfLimit(uint32_t ifIndex, uint64_t limit) {\n   auto statsEntry \u003d mBpfStatsMap.readValue(ifIndex);\n..\n    } else if (statsEntry.error().code() \u003d\u003d ENOENT) {\n..\n        // This function is the *only* thing that can create entries.\n        auto ret \u003d mBpfStatsMap.writeValue(ifIndex, stats, BPF_NOEXIST);",
+      "parentUuid": "eb5e0402_d37e26ac",
       "range": {
         "startLine": 74,
         "startChar": 0,
