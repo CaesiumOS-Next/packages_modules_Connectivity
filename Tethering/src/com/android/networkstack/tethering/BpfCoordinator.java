@@ -82,6 +82,8 @@ public class BpfCoordinator {
             "/sys/fs/bpf/map_offload_tether_ingress_map";
     private static final String TETHER_STATS_MAP_PATH =
             "/sys/fs/bpf/map_offload_tether_stats_map";
+    private static final String TETHER_LIMIT_MAP_PATH =
+            "/sys/fs/bpf/map_offload_tether_limit_map";
 
     @VisibleForTesting
     enum StatsType {
@@ -166,6 +168,10 @@ public class BpfCoordinator {
     @Nullable
     private final BpfMap<TetherStatsKey, TetherStatsValue> mBpfStatsMap;
 
+    // BPF map of per-interface quota for tethering offload.
+    @Nullable
+    private final BpfMap<TetherLimitKey, TetherLimitValue> mBpfLimitMap;
+
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingTask = () -> {
         updateForwardedStatsFromBpfMap();
@@ -210,6 +216,17 @@ public class BpfCoordinator {
                 return null;
             }
         }
+
+        /** Get limit BPF map. */
+        @Nullable public BpfMap<TetherLimitKey, TetherLimitValue> getBpfLimitMap() {
+            try {
+                return new BpfMap<>(TETHER_LIMIT_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, TetherLimitKey.class, TetherLimitValue.class);
+            } catch (IllegalStateException e) {
+                Log.e(TAG, "Cannot create limit map: " + e);
+                return null;
+            }
+        }
     }
 
     @VisibleForTesting
@@ -221,6 +238,7 @@ public class BpfCoordinator {
         mIsBpfEnabled = isBpfEnabled();
         mBpfIngressMap = mDeps.getBpfIngressMap();
         mBpfStatsMap = mDeps.getBpfStatsMap();
+        mBpfLimitMap = mDeps.getBpfLimitMap();
         BpfTetherStatsProvider provider = new BpfTetherStatsProvider();
         try {
             mDeps.getNetworkStatsManager().registerNetworkStatsProvider(
@@ -276,7 +294,8 @@ public class BpfCoordinator {
     }
 
     private boolean isUsingBpf() {
-        return mIsBpfEnabled && mBpfIngressMap != null && mBpfStatsMap != null;
+        return mIsBpfEnabled && mBpfIngressMap != null && mBpfStatsMap != null
+                && mBpfLimitMap != null;
     }
 
     /**
@@ -323,6 +342,70 @@ public class BpfCoordinator {
                 mLog.e("Could not update entry: ", e);
                 return false;
             }
+        }
+
+        return true;
+    }
+
+   /**
+    * Set a per-interface quota for tethering offload.
+    *
+    * @param ifIndex Index of upstream interface
+    * @param quotaBytes The quota defined as the number of bytes, starting from zero and counting
+    *       from *now*. A value of QUOTA_UNLIMITED (-1) indicates there is no limit.
+    */
+    private boolean bpfSetInterfaceQuota(int ifIndex, long quotaBytes) {
+        // The common case is an update, where the stats already exist,
+        // hence we read first, even though writing with BPF_NOEXIST
+        // first would make the code simpler.
+        long rxBytes, txBytes;
+        TetherStatsValue statsValue = null;
+
+        try {
+            statsValue = mBpfStatsMap.getValue(new TetherStatsKey(ifIndex));
+        } catch (ErrnoException e) {
+            if (e.errno != OsConstants.ENOENT) {
+                // Other error while trying to get stats entry.
+                mLog.e("Could not get stats entry of interface index " + ifIndex + ": ", e);
+                return false;
+            }
+        }
+
+        // The BpfMap#getValue doesn't throw an errno ENOENT exception. For now, not be able to
+        // create entry only when getting a given stats entry with errno ENOENT.
+        // TODO: Considering the errno ENOENT #getValue returned for creating stats entry once class
+        // BpfMap support.
+        if (statsValue != null) {
+            // Ok, there was a stats entry.
+            rxBytes = statsValue.rxBytes;
+            txBytes = statsValue.txBytes;
+        } else {
+            // No stats entry - create one with zeroes.
+            try {
+                // This function is the *only* thing that can create entries.
+                // TODO: use BPF_NOEXIST to create the entry once class BpfMap support.
+                mBpfStatsMap.updateEntry(new TetherStatsKey(ifIndex), new TetherStatsValue(
+                        0 /* rxPackets */, 0 /* rxBytes */, 0 /* rxErrors */, 0 /* txPackets */,
+                        0 /* txBytes */, 0 /* txErrors */));
+            } catch (ErrnoException e) {
+                mLog.e("Could not create stats entry: ", e);
+                return false;
+            }
+            rxBytes = 0;
+            txBytes = 0;
+        }
+
+        // rxBytes + txBytes won't overflow even at 5gbps for ~936 years.
+        long newLimit = rxBytes + txBytes + quotaBytes;
+
+        // if adding limit (e.g., if limit is QUOTA_UNLIMITED) caused overflow: clamp to 'infinity'
+        if (newLimit < rxBytes + txBytes) newLimit = QUOTA_UNLIMITED;
+
+        try {
+            mBpfLimitMap.updateEntry(new TetherLimitKey(ifIndex), new TetherLimitValue(newLimit));
+        } catch (ErrnoException e) {
+            mLog.e("Fail to set quota " + quotaBytes + " for interface index " + ifIndex + ": ", e);
+            return false;
         }
 
         return true;
@@ -494,6 +577,8 @@ public class BpfCoordinator {
                     + (mBpfIngressMap != null ? "initialized" : "not initialized"));
             pw.println("Stats map: "
                     + (mBpfStatsMap != null ? "initialized" : "not initialized"));
+            pw.println("Limit map: "
+                    + (mBpfLimitMap != null ? "initialized" : "not initialized"));
             pw.println("Polling " + (mPollingStarted ? "started" : "not started"));
             pw.println("Stats provider " + (mStatsProvider != null
                     ? "registered" : "not registered"));
@@ -731,16 +816,14 @@ public class BpfCoordinator {
         return quotaBytes;
     }
 
-    private boolean sendDataLimitToNetd(int ifIndex, long quotaBytes) {
+    private boolean sendDataLimitToBpfMap(int ifIndex, long quotaBytes) {
         if (ifIndex == 0) {
             Log.wtf(TAG, "Invalid interface index.");
             return false;
         }
 
-        try {
-            mNetd.tetherOffloadSetInterfaceQuota(ifIndex, quotaBytes);
-        } catch (RemoteException | ServiceSpecificException e) {
-            mLog.e("Exception when updating quota " + quotaBytes + ": ", e);
+        if (!bpfSetInterfaceQuota(ifIndex, quotaBytes)) {
+            mLog.e("Fail to update quota " + quotaBytes);
             return false;
         }
 
@@ -757,7 +840,7 @@ public class BpfCoordinator {
         if (ifIndex == 0) return;
 
         final long quotaBytes = getQuotaBytes(iface);
-        sendDataLimitToNetd(ifIndex, quotaBytes);
+        sendDataLimitToBpfMap(ifIndex, quotaBytes);
     }
 
     // Handle the data limit update while adding forwarding rules.
@@ -768,7 +851,7 @@ public class BpfCoordinator {
             return false;
         }
         final long quotaBytes = getQuotaBytes(iface);
-        return sendDataLimitToNetd(ifIndex, quotaBytes);
+        return sendDataLimitToBpfMap(ifIndex, quotaBytes);
     }
 
     private boolean isAnyRuleOnUpstream(int upstreamIfindex) {
