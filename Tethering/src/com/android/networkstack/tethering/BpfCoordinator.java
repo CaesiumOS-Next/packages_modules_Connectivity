@@ -45,6 +45,7 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
+import android.system.OsConstants;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
@@ -297,6 +298,26 @@ public class BpfCoordinator {
     }
 
     /**
+     * Remove a given forwarding rule from BPF map.
+     * Note that this can be only called while mBpfIngressMap was initialized.
+     */
+    private boolean bpfOffloadRuleRemove(@NonNull final Ipv6ForwardingRule rule) {
+        final TetherIngressKey key = rule.makeTetherIngressKey();
+
+        try {
+            mBpfIngressMap.deleteEntry(key);
+        } catch (ErrnoException e) {
+            // Silent if the rule did not exist.
+            if (e.errno != OsConstants.ENOENT) {
+                mLog.e("Could not update entry: ", e);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Add forwarding rule. After adding the first rule on a given upstream, must add the data
      * limit on the given upstream.
      * Note that this can be only called on handler thread.
@@ -344,11 +365,8 @@ public class BpfCoordinator {
             @NonNull final IpServer ipServer, @NonNull final Ipv6ForwardingRule rule) {
         if (!isUsingBpf()) return;
 
-        try {
-            // TODO: Perhaps avoid to remove a non-existent rule.
-            mNetd.tetherOffloadRuleRemove(rule.toTetherOffloadRuleParcel());
-        } catch (RemoteException | ServiceSpecificException e) {
-            mLog.e("Could not remove IPv6 forwarding rule: ", e);
+        if (!bpfOffloadRuleRemove(rule)) {
+            mLog.e("Could not remove IPv6 forwarding rule");
             return;
         }
 

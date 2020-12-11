@@ -494,14 +494,14 @@ public class BpfCoordinatorTest {
 
         // Removing the second rule on current upstream does not send the quota to netd.
         coordinator.tetherOffloadRuleRemove(mIpServer, ruleB);
-        inOrder.verify(mNetd).tetherOffloadRuleRemove(matches(ruleB));
+        verify(mBpfIngressMap).deleteEntry(ruleB.makeTetherIngressKey());
         inOrder.verify(mNetd, never()).tetherOffloadSetInterfaceQuota(anyInt(), anyLong());
 
         // Removing the last rule on current upstream immediately sends the cleanup stuff to netd.
         when(mNetd.tetherOffloadGetAndClearStats(mobileIfIndex))
                 .thenReturn(buildTestTetherStatsParcel(mobileIfIndex, 0, 0, 0, 0));
         coordinator.tetherOffloadRuleRemove(mIpServer, ruleA);
-        inOrder.verify(mNetd).tetherOffloadRuleRemove(matches(ruleA));
+        verify(mBpfIngressMap).deleteEntry(ruleA.makeTetherIngressKey());
         inOrder.verify(mNetd).tetherOffloadGetAndClearStats(mobileIfIndex);
         inOrder.verifyNoMoreInteractions();
     }
@@ -555,11 +555,11 @@ public class BpfCoordinatorTest {
         // Update the existing rules for upstream changes. The rules are removed and re-added one
         // by one for updating upstream interface index by #tetherOffloadRuleUpdate.
         coordinator.tetherOffloadRuleUpdate(mIpServer, mobileIfIndex);
-        inOrder.verify(mNetd).tetherOffloadRuleRemove(matches(ethernetRuleA));
+        verify(mBpfIngressMap).deleteEntry(ethernetRuleA.makeTetherIngressKey());
         verify(mBpfIngressMap).updateEntry(
                 mobileRuleA.makeTetherIngressKey(), mobileRuleA.makeTetherIngressValue());
         inOrder.verify(mNetd).tetherOffloadSetInterfaceQuota(mobileIfIndex, QUOTA_UNLIMITED);
-        inOrder.verify(mNetd).tetherOffloadRuleRemove(matches(ethernetRuleB));
+        verify(mBpfIngressMap).deleteEntry(ethernetRuleB.makeTetherIngressKey());
         inOrder.verify(mNetd).tetherOffloadGetAndClearStats(ethIfIndex);
         verify(mBpfIngressMap).updateEntry(
                 mobileRuleB.makeTetherIngressKey(), mobileRuleB.makeTetherIngressValue());
@@ -568,8 +568,8 @@ public class BpfCoordinatorTest {
         when(mNetd.tetherOffloadGetAndClearStats(mobileIfIndex))
                 .thenReturn(buildTestTetherStatsParcel(mobileIfIndex, 50, 60, 70, 80));
         coordinator.tetherOffloadRuleClear(mIpServer);
-        inOrder.verify(mNetd).tetherOffloadRuleRemove(matches(mobileRuleA));
-        inOrder.verify(mNetd).tetherOffloadRuleRemove(matches(mobileRuleB));
+        verify(mBpfIngressMap).deleteEntry(mobileRuleA.makeTetherIngressKey());
+        verify(mBpfIngressMap).deleteEntry(mobileRuleB.makeTetherIngressKey());
         inOrder.verify(mNetd).tetherOffloadGetAndClearStats(mobileIfIndex);
 
         // [4] Force pushing stats update to verify that the last diff of stats is reported on all
@@ -619,21 +619,21 @@ public class BpfCoordinatorTest {
         rules.put(rule.address, rule);
         coordinator.getForwardingRulesForTesting().put(mIpServer, rules);
         coordinator.tetherOffloadRuleRemove(mIpServer, rule);
-        verify(mNetd, never()).tetherOffloadRuleRemove(any());
+        verify(mBpfIngressMap, never()).deleteEntry(any());
         rules = coordinator.getForwardingRulesForTesting().get(mIpServer);
         assertNotNull(rules);
         assertEquals(1, rules.size());
 
         // The rule can't be cleared.
         coordinator.tetherOffloadRuleClear(mIpServer);
-        verify(mNetd, never()).tetherOffloadRuleRemove(any());
+        verify(mBpfIngressMap, never()).deleteEntry(any());
         rules = coordinator.getForwardingRulesForTesting().get(mIpServer);
         assertNotNull(rules);
         assertEquals(1, rules.size());
 
         // The rule can't be updated.
         coordinator.tetherOffloadRuleUpdate(mIpServer, rule.upstreamIfindex + 1 /* new */);
-        verify(mNetd, never()).tetherOffloadRuleRemove(any());
+        verify(mBpfIngressMap, never()).deleteEntry(any());
         verify(mBpfIngressMap, never()).updateEntry(any(), any());
         rules = coordinator.getForwardingRulesForTesting().get(mIpServer);
         assertNotNull(rules);
