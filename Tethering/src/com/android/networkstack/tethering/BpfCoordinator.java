@@ -34,7 +34,6 @@ import android.net.MacAddress;
 import android.net.NetworkStats;
 import android.net.NetworkStats.Entry;
 import android.net.TetherOffloadRuleParcel;
-import android.net.TetherStatsParcel;
 import android.net.ip.IpServer;
 import android.net.netstats.provider.NetworkStatsProvider;
 import android.net.util.SharedLog;
@@ -42,9 +41,8 @@ import android.net.util.Struct;
 import android.net.util.TetheringUtils.ForwardedStats;
 import android.os.ConditionVariable;
 import android.os.Handler;
-import android.os.RemoteException;
-import android.os.ServiceSpecificException;
 import android.system.ErrnoException;
+import android.system.Os;
 import android.system.OsConstants;
 import android.text.TextUtils;
 import android.util.Log;
@@ -56,6 +54,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 
+import java.io.FileDescriptor;
 import java.net.Inet6Address;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -84,6 +83,11 @@ public class BpfCoordinator {
             "/sys/fs/bpf/map_offload_tether_stats_map";
     private static final String TETHER_LIMIT_MAP_PATH =
             "/sys/fs/bpf/map_offload_tether_limit_map";
+
+    // AF_KEY socket type. See include/linux/socket.h.
+    private static final int AF_KEY = 15;
+    // PFKEYv2 constants. See include/uapi/linux/pfkeyv2.h.
+    private static final int PF_KEY_V2 = 2;
 
     @VisibleForTesting
     enum StatsType {
@@ -412,6 +416,96 @@ public class BpfCoordinator {
     }
 
     /**
+     * Return BPF tethering offload statistics and clear the stats for a given upstream.
+     *
+     * Must only be called once all offload rules have already been deleted for the given upstream
+     * interface. The existing stats will be fetched and returned. The stats and the limit for the
+     * given upstream interface will be deleted as well.
+     *
+     * The stats and limit for a given upstream interface must be initialized (using
+     * tetherOffloadSetInterfaceQuota) before any offload will occur on that interface.
+     *
+     * Note that this can be only called while the BPF maps were initialized.
+     *
+     * @param ifIndex Index of upstream interface.
+     * @return TetherStatsValue, which contains the given upstream interface's tethering statistics
+     *         since tethering was first started on that upstream interface.
+     */
+    private TetherStatsValue bpfGetAndClearStats(int ifIndex) {
+        // getAndClearTetherOffloadStats is called after all offload rules have already been
+        // deleted for the given upstream interface. Before starting to do cleanup stuff in this
+        // function, use synchronizeKernelRCU to make sure that all the current running eBPF
+        // programs are finished on all CPUs, especially the unfinished packet processing. After
+        // synchronizeKernelRCU returned, we can safely read or delete on the stats map or the
+        // limit map.
+        final int res = synchronizeKernelRCU();
+        if (res != 0) {
+            // Error log but don't return. Do as much cleanup as possible.
+            mLog.e("synchronize_rcu() failed: " + res);
+        }
+
+        TetherStatsValue statsValue = null;
+        try {
+            statsValue = mBpfStatsMap.getValue(new TetherStatsKey(ifIndex));
+        } catch (ErrnoException e) {
+            mLog.e("Could not get stats entry for interface index " + ifIndex + ": ", e);
+            return null;
+        }
+
+        // TODO: probably BpfMap#getValue should throw the exception if not found in any case.
+        if (statsValue == null) return null;
+
+
+        try {
+            mBpfStatsMap.deleteEntry(new TetherStatsKey(ifIndex));
+        } catch (ErrnoException e) {
+            mLog.e("Could not delete stats entry for interface index " + ifIndex + ": ", e);
+            return null;
+        }
+
+        try {
+            mBpfLimitMap.deleteEntry(new TetherLimitKey(ifIndex));
+        } catch (ErrnoException e) {
+            mLog.e("Could not delete limit for interface index " + ifIndex + ": ", e);
+            return null;
+        }
+
+        return statsValue;
+    }
+
+    /**
+     * Call synchronize_rcu() to block until all existing RCU read-side critical sections have
+     * been completed.
+     * Note that BpfCoordinatorTest have no permissions to create or close pf_key socket. It is
+     * okay for now because the caller #bpfGetAndClearStats doesn't care the result of this
+     * function. The tests don't be broken.
+     * TODO: Wrap this function into Dependencies for mocking in tests.
+     */
+    private int synchronizeKernelRCU() {
+        // This is a temporary hack for network stats map swap on devices running
+        // 4.9 kernels. The kernel code of socket release on pf_key socket will
+        // explicitly call synchronize_rcu() which is exactly what we need.
+        FileDescriptor pfSocket;
+        try {
+            pfSocket = Os.socket(AF_KEY, OsConstants.SOCK_RAW | OsConstants.SOCK_CLOEXEC,
+                    PF_KEY_V2);
+        } catch (ErrnoException e) {
+            mLog.e("create PF_KEY socket failed: ", e);
+            return e.errno;
+        }
+
+        // When closing socket, synchronize_rcu() gets called in sock_release().
+        try {
+            Os.close(pfSocket);
+        } catch (ErrnoException e) {
+            mLog.e("failed to close the PF_KEY socket: ", e);
+            return e.errno;
+        }
+
+        return 0;
+    }
+
+    /**
      * Add forwarding rule. After adding the first rule on a given upstream, must add the data
      * limit on the given upstream.
      * Note that this can be only called on handler thread.
@@ -481,23 +575,18 @@ public class BpfCoordinator {
         // Do cleanup functionality if there is no more rule on the given upstream.
         final int upstreamIfindex = rule.upstreamIfindex;
         if (!isAnyRuleOnUpstream(upstreamIfindex)) {
-            try {
-                final TetherStatsParcel stats =
-                        mNetd.tetherOffloadGetAndClearStats(upstreamIfindex);
-
-                SparseArray<TetherStatsValue> tetherStatsList =
-                        new SparseArray<TetherStatsValue>();
-                tetherStatsList.put(stats.ifIndex, new TetherStatsValue(stats.rxPackets,
-                        stats.rxBytes, 0 /* rxErrors */, stats.txPackets, stats.txBytes,
-                        0 /* txErrors */));
-
-                // Update the last stats delta and delete the local cache for a given upstream.
-                updateQuotaAndStatsFromSnapshot(tetherStatsList);
-                mStats.remove(upstreamIfindex);
-            } catch (RemoteException | ServiceSpecificException e) {
-                Log.wtf(TAG, "Exception when cleanup tether stats for upstream index "
-                        + upstreamIfindex + ": ", e);
+            final TetherStatsValue statsValue = bpfGetAndClearStats(upstreamIfindex);
+            if (statsValue == null) {
+                Log.wtf(TAG, "Fail to cleanup tether stats for upstream index " + upstreamIfindex);
+                return;
             }
+
+            SparseArray<TetherStatsValue> tetherStatsList = new SparseArray<TetherStatsValue>();
+            tetherStatsList.put(upstreamIfindex, statsValue);
+
+            // Update the last stats delta and delete the local cache for a given upstream.
+            updateQuotaAndStatsFromSnapshot(tetherStatsList);
+            mStats.remove(upstreamIfindex);
         }
     }
 
