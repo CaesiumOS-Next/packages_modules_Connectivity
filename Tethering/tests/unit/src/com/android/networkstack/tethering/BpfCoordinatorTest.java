@@ -120,6 +120,11 @@ public class BpfCoordinatorTest {
         }
 
         @Override
+        public boolean deleteEntry(Struct key) throws ErrnoException {
+            return mMap.remove(key) != null;
+        }
+
+        @Override
         public V getValue(@NonNull Struct key) throws ErrnoException {
             // TODO: Throw an errno exception ENOENT for nonexistent key once the class BpfMap
             // supports.
@@ -486,7 +491,7 @@ public class BpfCoordinatorTest {
         // Applying a data limit to the current upstream does not take any immediate action.
         // The data limit could be only set on an upstream which has rules.
         final long limit = 12345;
-        final InOrder inOrder = inOrder(mNetd, mBpfIngressMap, mBpfLimitMap);
+        final InOrder inOrder = inOrder(mNetd, mBpfIngressMap, mBpfLimitMap, mBpfStatsMap);
         mTetherStatsProvider.onSetLimit(mobileIface, limit);
         waitForIdle();
         inOrder.verify(mBpfLimitMap, never()).updateEntry(any(), any());
@@ -513,11 +518,11 @@ public class BpfCoordinatorTest {
         inOrder.verify(mBpfLimitMap, never()).updateEntry(any(), any());
 
         // Removing the last rule on current upstream immediately sends the cleanup stuff to netd.
-        when(mNetd.tetherOffloadGetAndClearStats(mobileIfIndex))
-                .thenReturn(buildTestTetherStatsParcel(mobileIfIndex, 0, 0, 0, 0));
         coordinator.tetherOffloadRuleRemove(mIpServer, ruleA);
         inOrder.verify(mBpfIngressMap).deleteEntry(ruleA.makeTetherIngressKey());
-        inOrder.verify(mNetd).tetherOffloadGetAndClearStats(mobileIfIndex);
+        inOrder.verify(mBpfStatsMap).getValue(new TetherStatsKey(mobileIfIndex));
+        inOrder.verify(mBpfStatsMap).deleteEntry(new TetherStatsKey(mobileIfIndex));
+        inOrder.verify(mBpfLimitMap).deleteEntry(new TetherLimitKey(mobileIfIndex));
         inOrder.verifyNoMoreInteractions();
     }
 
@@ -534,7 +539,7 @@ public class BpfCoordinatorTest {
         coordinator.addUpstreamNameToLookupTable(ethIfIndex, ethIface);
         coordinator.addUpstreamNameToLookupTable(mobileIfIndex, mobileIface);
 
-        final InOrder inOrder = inOrder(mNetd, mBpfIngressMap, mBpfLimitMap);
+        final InOrder inOrder = inOrder(mNetd, mBpfIngressMap, mBpfLimitMap, mBpfStatsMap);
 
         // Before the rule test, here are the additional actions while the rules are changed.
         // - After adding the first rule on a given upstream, the coordinator adds a data limit.
@@ -565,8 +570,7 @@ public class BpfCoordinatorTest {
                 mobileIfIndex, NEIGH_A, MAC_A);
         final Ipv6ForwardingRule mobileRuleB = buildTestForwardingRule(
                 mobileIfIndex, NEIGH_B, MAC_B);
-        when(mNetd.tetherOffloadGetAndClearStats(ethIfIndex))
-                .thenReturn(buildTestTetherStatsParcel(ethIfIndex, 10, 20, 30, 40));
+        updateStatsMapEntry(buildTestTetherStatsParcel(ethIfIndex, 10, 20, 30, 40));
 
         // Update the existing rules for upstream changes. The rules are removed and re-added one
         // by one for updating upstream interface index by #tetherOffloadRuleUpdate.
@@ -577,17 +581,20 @@ public class BpfCoordinatorTest {
         inOrder.verify(mBpfLimitMap).updateEntry(new TetherLimitKey(mobileIfIndex),
                 new TetherLimitValue(QUOTA_UNLIMITED));
         inOrder.verify(mBpfIngressMap).deleteEntry(ethernetRuleB.makeTetherIngressKey());
-        inOrder.verify(mNetd).tetherOffloadGetAndClearStats(ethIfIndex);
+        inOrder.verify(mBpfStatsMap).getValue(new TetherStatsKey(ethIfIndex));
+        inOrder.verify(mBpfStatsMap).deleteEntry(new TetherStatsKey(ethIfIndex));
+        inOrder.verify(mBpfLimitMap).deleteEntry(new TetherLimitKey(ethIfIndex));
         inOrder.verify(mBpfIngressMap).updateEntry(
                 mobileRuleB.makeTetherIngressKey(), mobileRuleB.makeTetherIngressValue());
 
         // [3] Clear all rules for a given IpServer.
-        when(mNetd.tetherOffloadGetAndClearStats(mobileIfIndex))
-                .thenReturn(buildTestTetherStatsParcel(mobileIfIndex, 50, 60, 70, 80));
+        updateStatsMapEntry(buildTestTetherStatsParcel(mobileIfIndex, 50, 60, 70, 80));
         coordinator.tetherOffloadRuleClear(mIpServer);
         inOrder.verify(mBpfIngressMap).deleteEntry(mobileRuleA.makeTetherIngressKey());
         inOrder.verify(mBpfIngressMap).deleteEntry(mobileRuleB.makeTetherIngressKey());
-        inOrder.verify(mNetd).tetherOffloadGetAndClearStats(mobileIfIndex);
+        inOrder.verify(mBpfStatsMap).getValue(new TetherStatsKey(mobileIfIndex));
+        inOrder.verify(mBpfStatsMap).deleteEntry(new TetherStatsKey(mobileIfIndex));
+        inOrder.verify(mBpfLimitMap).deleteEntry(new TetherLimitKey(mobileIfIndex));
 
         // [4] Force pushing stats update to verify that the last diff of stats is reported on all
         // upstreams.
