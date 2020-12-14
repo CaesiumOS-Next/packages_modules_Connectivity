@@ -412,6 +412,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fc7ec6d_dd11b0c4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-14T22:21:08Z",
+      "side": 1,
+      "message": "Yeah it would be buggy to use BPF_ANY above, because it would introduce a race - something else could have created the entry between your fetch/ENOENT and your write/BPF_ANY.\n\nThat\u0027s why the code does\n\nfetch, if ENOENT, then write/BPF_NOEXIST, then fetch again.\n\nIn general it would be useful to have that as a generic fetch_with_default function.\n\n(though we can always add that later)",
+      "parentUuid": "d0dedebb_c15f442e",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 77
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18df3254_0550b5cb",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 4
