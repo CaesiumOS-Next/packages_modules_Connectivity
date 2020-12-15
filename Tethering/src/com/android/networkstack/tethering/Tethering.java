@@ -982,9 +982,13 @@ public class Tethering {
                     mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_USB);
                 } else if (usbConfigured && rndisEnabled) {
                     // Tether if rndis is enabled and usb is configured.
-                    tetherMatchingInterfaces(IpServer.STATE_TETHERED, TETHERING_USB);
-                } else if (usbConnected && ncmEnabled) {
-                    tetherMatchingInterfaces(IpServer.STATE_LOCAL_ONLY, TETHERING_NCM);
+                    if (rndisEnabled) {
+                        tetherMatchingInterfaces(IpServer.STATE_TETHERED, TETHERING_USB);
+                    }
+
+                    if (ncmEnabled) {
+                        tetherMatchingInterfaces(IpServer.STATE_TETHERED, TETHERING_NCM);
+                    }
                 }
                 mRndisEnabled = usbConfigured && rndisEnabled;
             }
