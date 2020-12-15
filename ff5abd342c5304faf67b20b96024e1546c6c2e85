@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4358dd_422e0e58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "Hmm. I feel like the way this is currently doing exception handling is not quite right.\n\nI think we should only use ErrnoException for things that are unlikely in normal execution (ie. should not happen cases), while things like deleting a key that doesn\u0027t exist should throw something more specific.  That makes it easier to catch common errors without catching all of them, while at the same time not requiring one to always check the boolean return code.\n\nboolean for return seems only appropriate for something that would be used in a loop (like getNextKey) and thus basically always tested for...\n\nProbably needs more thought...",
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "583b6b95_1cb2b0b1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "Update an existing or create a new key -\u003e value entry in an eBbpf map.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 99
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44df832b_a9c2474b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "If the key does not exist in the map, insert key -\u003e value entry into the eBbpf map.",
+      "range": {
+        "startLine": 83,
+        "startChar": 18,
+        "endLine": 83,
+        "endChar": 20
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9bd2fe_767eed35",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "hmm, not sure catching this and hiding it is a good interface...\n\nmaybe function should return void, and instead this should throw something that isn\u0027t ErrnoException (perhaps AlreadyExistsException, or something similar)",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 48
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e96a5f4b_57d88fe2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 99,
+        "startChar": 44,
+        "endLine": 99,
+        "endChar": 51
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a68d16c_45fa3c27",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "exists",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d50cd1_a844bd49",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "just delete this",
+      "range": {
+        "startLine": 99,
+        "startChar": 56,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af38ee2_5024147a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "similar comment as above: not sure catching/hiding is a good interface,\nmaybe catch and throw DoesNotExistException.\n\nmaybe this could be done directly by writeToMapEntry, so these functions are trivial",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 48
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b3197e_519cccc2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "boolean??",
+      "range": {
+        "startLine": 123,
+        "startChar": 11,
+        "endLine": 123,
+        "endChar": 12
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
