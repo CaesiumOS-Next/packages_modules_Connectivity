@@ -535,16 +535,13 @@ public class IpServer extends StateMachine {
     private DhcpServingParamsParcel makeServingParams(@NonNull final Inet4Address defaultRouter,
             @NonNull final Inet4Address dnsServer, @NonNull LinkAddress serverAddr,
             @Nullable Inet4Address clientAddr) {
-        final boolean changePrefixOnDecline =
-                (mInterfaceType == TetheringManager.TETHERING_NCM && clientAddr == null);
         return new DhcpServingParamsParcelExt()
             .setDefaultRouters(defaultRouter)
             .setDhcpLeaseTimeSecs(DHCP_LEASE_TIME_SECS)
             .setDnsServers(dnsServer)
             .setServerAddr(serverAddr)
             .setMetered(true)
-            .setSingleClientAddr(clientAddr)
-            .setChangePrefixOnDecline(changePrefixOnDecline);
+            .setSingleClientAddr(clientAddr);
             // TODO: also advertise link MTU
     }
 
