@@ -140,8 +140,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -216,13 +216,12 @@ public class Tethering {
     private final ArrayMap<String, TetherState> mTetherStates;
     private final BroadcastReceiver mStateReceiver;
     private final Looper mLooper;
-    private final StateMachine mTetherMainSM;
+    private final TetherMainSM mTetherMainSM;
     private final OffloadController mOffloadController;
     private final UpstreamNetworkMonitor mUpstreamNetworkMonitor;
     // TODO: Figure out how to merge this and other downstream-tracking objects
     // into a single coherent structure.
-    // Use LinkedHashSet for predictable ordering order for ConnectedClientsTracker.
-    private final LinkedHashSet<IpServer> mForwardedDownstreams;
+    private final HashSet<IpServer> mForwardedDownstreams;
     private final VersionedBroadcastListener mCarrierConfigChange;
     private final TetheringDependencies mDeps;
     private final EntitlementManager mEntitlementMgr;
@@ -271,7 +270,7 @@ public class Tethering {
         mPublicSync = new Object();
 
         mTetherStates = new ArrayMap<>();
-        mConnectedClientsTracker = new ConnectedClientsTracker();
+        mConnectedClientsTracker = mDeps.getConnectedClientsTracker();
 
         mTetherMainSM = new TetherMainSM("TetherMain", mLooper, deps);
         mTetherMainSM.start();
@@ -287,7 +286,7 @@ public class Tethering {
                 });
         mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mTetherMainSM, mLog,
                 TetherMainSM.EVENT_UPSTREAM_CALLBACK);
-        mForwardedDownstreams = new LinkedHashSet<>();
+        mForwardedDownstreams = new HashSet<>();
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_CARRIER_CONFIG_CHANGED);
@@ -1423,6 +1422,7 @@ public class Tethering {
         //    interfaces.
         // 2) mNotifyList contains all state machines that may have outstanding tethering state
         //    that needs to be torn down.
+        // 3) Use mNotifyList for predictable ordering order for ConnectedClientsTracker.
         //
         // Because we excise interfaces immediately from mTetherStates, we must maintain mNotifyList
         // so that the garbage collector does not clean up the state machine before it has a chance
@@ -1453,10 +1453,15 @@ public class Tethering {
             addState(mSetDnsForwardersErrorState);
 
             mNotifyList = new ArrayList<>();
-            mIPv6TetheringCoordinator = deps.getIPv6TetheringCoordinator(mNotifyList, mLog);
+            mIPv6TetheringCoordinator = deps.getIPv6TetheringCoordinator(mNotifyList,
+                    mLog);
             mOffload = new OffloadWrapper();
 
             setInitialState(mInitialState);
+        }
+
+        public List<IpServer> getCurrentlyServingList() {
+            return mNotifyList;
         }
 
         class InitialState extends State {
@@ -2300,7 +2305,8 @@ public class Tethering {
     }
 
     private void updateConnectedClients(final List<WifiClient> wifiClients) {
-        if (mConnectedClientsTracker.updateConnectedClients(mForwardedDownstreams, wifiClients)) {
+        if (mConnectedClientsTracker.updateConnectedClients(mTetherMainSM.getCurrentlyServingList(),
+                wifiClients)) {
             reportTetherClientsChanged(mConnectedClientsTracker.getLastTetheredClients());
         }
     }

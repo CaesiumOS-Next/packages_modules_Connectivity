@@ -36,6 +36,7 @@ import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_NCM;
 import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
+import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.TetheringManager.TETHER_ERROR_IFACE_CFG_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
@@ -123,6 +124,7 @@ import android.net.util.NetworkConstants;
 import android.net.util.SharedLog;
 import android.net.wifi.SoftApConfiguration;
 import android.net.wifi.WifiManager;
+import android.net.wifi.WifiManager.SoftApCallback;
 import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -237,6 +239,8 @@ public class TetheringTest {
     private EntitlementManager mEntitleMgr;
     private OffloadController mOffloadCtrl;
     private PrivateAddressCoordinator mPrivateAddressCoordinator;
+    private ConnectedClientsTracker mConnectedClientsTracker;
+    private SoftApCallback mSoftApCallback;
 
     private class TestContext extends BroadcastInterceptingContext {
         TestContext(Context base) {
@@ -461,6 +465,12 @@ public class TetheringTest {
             mPrivateAddressCoordinator = super.getPrivateAddressCoordinator(ctx, cfg);
             return mPrivateAddressCoordinator;
         }
+
+        @Override
+        public ConnectedClientsTracker getConnectedClientsTracker() {
+            mConnectedClientsTracker = spy(super.getConnectedClientsTracker());
+            return mConnectedClientsTracker;
+        }
     }
 
     private static UpstreamNetworkState buildMobileUpstreamState(boolean withIPv4,
@@ -568,8 +578,12 @@ public class TetheringTest {
                 ArgumentCaptor.forClass(PhoneStateListener.class);
         verify(mTelephonyManager).listen(phoneListenerCaptor.capture(),
                 eq(PhoneStateListener.LISTEN_ACTIVE_DATA_SUBSCRIPTION_ID_CHANGE));
-        verify(mWifiManager).registerSoftApCallback(any(), any());
         mPhoneStateListener = phoneListenerCaptor.getValue();
+
+        final ArgumentCaptor<SoftApCallback> softApCallbackCaptor =
+                ArgumentCaptor.forClass(SoftApCallback.class);
+        verify(mWifiManager).registerSoftApCallback(any(), softApCallbackCaptor.capture());
+        mSoftApCallback = softApCallbackCaptor.getValue();
     }
 
     private void setTetheringSupported(final boolean supported) {
@@ -2052,6 +2066,37 @@ public class TetheringTest {
         setupForRequiredProvisioning();
         assertFalse(mTethering.isTetheringSupported());
         verify(mPackageManager).getPackageInfo(PROVISIONING_APP_NAME[0], GET_ACTIVITIES);
+    }
+
+    @Test
+    public void testUpdateConnectedClients() throws Exception {
+        final ArrayList<Integer> testDownStreamTypes = new ArrayList<>();
+        testDownStreamTypes.add(TETHERING_WIFI_P2P);
+        mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
+        sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
+        mLooper.dispatchAll();
+        verifyUpdateConnectedClients(testDownStreamTypes);
+        reset(mConnectedClientsTracker);
+
+        testDownStreamTypes.add(TETHERING_WIFI);
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
+        mLooper.dispatchAll();
+        verifyUpdateConnectedClients(testDownStreamTypes);
+    }
+
+    private void verifyUpdateConnectedClients(final ArrayList<Integer> expectedTypes)
+            throws Exception {
+        final ArgumentCaptor<Iterable<IpServer>> ipServersCaptor =
+                ArgumentCaptor.forClass((Class) Iterable.class);
+        verify(mConnectedClientsTracker).updateConnectedClients(ipServersCaptor.capture(), any());
+        final Iterable<IpServer> testList = ipServersCaptor.getValue();
+        int index = 0;
+        for (IpServer server : testList) {
+            assertEquals(server.interfaceType(), expectedTypes.get(index).intValue());
+            index++;
+        }
+        assertEquals(expectedTypes.size(), index);
     }
 
     // TODO: Test that a request for hotspot mode doesn't interfere with an
