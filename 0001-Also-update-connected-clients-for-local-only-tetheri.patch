@@ -1,0 +1,204 @@
+From 49f0c3b3fea7f0ce5288fd6e671b641d15c27d0e Mon Sep 17 00:00:00 2001
+From: markchien <markchien@google.com>
+Date: Wed, 16 Dec 2020 16:38:51 +0800
+Subject: [PATCH] Also update connected clients for local only tethering
+
+Bug: 172236596
+Test: atest TetheringTests
+Change-Id: I58fdb28efc616b00d63a1c237ea93aee4d8f2dcd
+---
+ .../networkstack/tethering/Tethering.java     | 20 +++++---
+ .../tethering/TetheringDependencies.java      |  5 ++
+ .../networkstack/tethering/TetheringTest.java | 47 ++++++++++++++++++-
+ 3 files changed, 64 insertions(+), 8 deletions(-)
+
+diff --git a/Tethering/src/com/android/networkstack/tethering/Tethering.java b/Tethering/src/com/android/networkstack/tethering/Tethering.java
+index 2c91d100..4f2dbd58 100644
+--- a/Tethering/src/com/android/networkstack/tethering/Tethering.java
++++ b/Tethering/src/com/android/networkstack/tethering/Tethering.java
+@@ -140,8 +140,8 @@ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.Collection;
+ import java.util.Collections;
++import java.util.HashSet;
+ import java.util.Iterator;
+-import java.util.LinkedHashSet;
+ import java.util.List;
+ import java.util.Set;
+ import java.util.concurrent.Executor;
+@@ -221,8 +221,7 @@ public class Tethering {
+     private final UpstreamNetworkMonitor mUpstreamNetworkMonitor;
+     // TODO: Figure out how to merge this and other downstream-tracking objects
+     // into a single coherent structure.
+-    // Use LinkedHashSet for predictable ordering order for ConnectedClientsTracker.
+-    private final LinkedHashSet<IpServer> mForwardedDownstreams;
++    private final HashSet<IpServer> mForwardedDownstreams;
+     private final VersionedBroadcastListener mCarrierConfigChange;
+     private final TetheringDependencies mDeps;
+     private final EntitlementManager mEntitlementMgr;
+@@ -271,7 +270,7 @@ public class Tethering {
+         mPublicSync = new Object();
+ 
+         mTetherStates = new ArrayMap<>();
+-        mConnectedClientsTracker = new ConnectedClientsTracker();
++        mConnectedClientsTracker = mDeps.getConnectedClientsTracker();
+ 
+         mTetherMainSM = new TetherMainSM("TetherMain", mLooper, deps);
+         mTetherMainSM.start();
+@@ -287,7 +286,7 @@ public class Tethering {
+                 });
+         mUpstreamNetworkMonitor = mDeps.getUpstreamNetworkMonitor(mContext, mTetherMainSM, mLog,
+                 TetherMainSM.EVENT_UPSTREAM_CALLBACK);
+-        mForwardedDownstreams = new LinkedHashSet<>();
++        mForwardedDownstreams = new HashSet<>();
+ 
+         IntentFilter filter = new IntentFilter();
+         filter.addAction(ACTION_CARRIER_CONFIG_CHANGED);
+@@ -1423,6 +1422,7 @@ public class Tethering {
+         //    interfaces.
+         // 2) mNotifyList contains all state machines that may have outstanding tethering state
+         //    that needs to be torn down.
++        // 3) Use mNotifyList for predictable ordering order for ConnectedClientsTracker.
+         //
+         // Because we excise interfaces immediately from mTetherStates, we must maintain mNotifyList
+         // so that the garbage collector does not clean up the state machine before it has a chance
+@@ -1453,12 +1453,17 @@ public class Tethering {
+             addState(mSetDnsForwardersErrorState);
+ 
+             mNotifyList = new ArrayList<>();
+-            mIPv6TetheringCoordinator = deps.getIPv6TetheringCoordinator(mNotifyList, mLog);
++            mIPv6TetheringCoordinator = deps.getIPv6TetheringCoordinator(mNotifyList,
++                    mLog);
+             mOffload = new OffloadWrapper();
+ 
+             setInitialState(mInitialState);
+         }
+ 
++        public List<IpServer> getCurrentlyServingList() {
++            return mNotifyList;
++        }
++
+         class InitialState extends State {
+             @Override
+             public boolean processMessage(Message message) {
+@@ -2300,7 +2305,8 @@ public class Tethering {
+     }
+ 
+     private void updateConnectedClients(final List<WifiClient> wifiClients) {
+-        if (mConnectedClientsTracker.updateConnectedClients(mForwardedDownstreams, wifiClients)) {
++        if (mConnectedClientsTracker.updateConnectedClients(mTetherMainSM.getCurrentlyServingList(),
++                wifiClients)) {
+             reportTetherClientsChanged(mConnectedClientsTracker.getLastTetheredClients());
+         }
+     }
+diff --git a/Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java b/Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java
+index 45b91417..fd253850 100644
+--- a/Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java
++++ b/Tethering/src/com/android/networkstack/tethering/TetheringDependencies.java
+@@ -164,4 +164,9 @@ public abstract class TetheringDependencies {
+             TetheringConfiguration cfg) {
+         return new PrivateAddressCoordinator(ctx, cfg);
+     }
++
++    /** Get a reference to ConnectedClientsTracker to be used by Tethering. */
++    public ConnectedClientsTracker getConnectedClientsTracker() {
++        return new ConnectedClientsTracker();
++    }
+ }
+diff --git a/Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java b/Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java
+index 0a37f54a..6ae045ff 100644
+--- a/Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java
++++ b/Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java
+@@ -36,6 +36,7 @@ import static android.net.TetheringManager.TETHERING_ETHERNET;
+ import static android.net.TetheringManager.TETHERING_NCM;
+ import static android.net.TetheringManager.TETHERING_USB;
+ import static android.net.TetheringManager.TETHERING_WIFI;
++import static android.net.TetheringManager.TETHERING_WIFI_P2P;
+ import static android.net.TetheringManager.TETHER_ERROR_IFACE_CFG_ERROR;
+ import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+ import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_IFACE;
+@@ -123,6 +124,7 @@ import android.net.util.NetworkConstants;
+ import android.net.util.SharedLog;
+ import android.net.wifi.SoftApConfiguration;
+ import android.net.wifi.WifiManager;
++import android.net.wifi.WifiManager.SoftApCallback;
+ import android.net.wifi.p2p.WifiP2pGroup;
+ import android.net.wifi.p2p.WifiP2pInfo;
+ import android.net.wifi.p2p.WifiP2pManager;
+@@ -237,6 +239,8 @@ public class TetheringTest {
+     private EntitlementManager mEntitleMgr;
+     private OffloadController mOffloadCtrl;
+     private PrivateAddressCoordinator mPrivateAddressCoordinator;
++    private ConnectedClientsTracker mConnectedClientsTracker;
++    private SoftApCallback mSoftApCallback;
+ 
+     private class TestContext extends BroadcastInterceptingContext {
+         TestContext(Context base) {
+@@ -461,6 +465,12 @@ public class TetheringTest {
+             mPrivateAddressCoordinator = super.getPrivateAddressCoordinator(ctx, cfg);
+             return mPrivateAddressCoordinator;
+         }
++
++        @Override
++        public ConnectedClientsTracker getConnectedClientsTracker() {
++            mConnectedClientsTracker = spy(super.getConnectedClientsTracker());
++            return mConnectedClientsTracker;
++        }
+     }
+ 
+     private static UpstreamNetworkState buildMobileUpstreamState(boolean withIPv4,
+@@ -568,8 +578,12 @@ public class TetheringTest {
+                 ArgumentCaptor.forClass(PhoneStateListener.class);
+         verify(mTelephonyManager).listen(phoneListenerCaptor.capture(),
+                 eq(PhoneStateListener.LISTEN_ACTIVE_DATA_SUBSCRIPTION_ID_CHANGE));
+-        verify(mWifiManager).registerSoftApCallback(any(), any());
+         mPhoneStateListener = phoneListenerCaptor.getValue();
++
++        final ArgumentCaptor<SoftApCallback> softApCallbackCaptor =
++                ArgumentCaptor.forClass(SoftApCallback.class);
++        verify(mWifiManager).registerSoftApCallback(any(), softApCallbackCaptor.capture());
++        mSoftApCallback = softApCallbackCaptor.getValue();
+     }
+ 
+     private void setTetheringSupported(final boolean supported) {
+@@ -2054,6 +2068,37 @@ public class TetheringTest {
+         verify(mPackageManager).getPackageInfo(PROVISIONING_APP_NAME[0], GET_ACTIVITIES);
+     }
+ 
++    @Test
++    public void testUpdateConnectedClients() throws Exception {
++        final ArrayList<Integer> testDownStreamTypes = new ArrayList<>();
++        testDownStreamTypes.add(TETHERING_WIFI_P2P);
++        mTethering.interfaceStatusChanged(TEST_P2P_IFNAME, true);
++        sendWifiP2pConnectionChanged(true, true, TEST_P2P_IFNAME);
++        mLooper.dispatchAll();
++        verifyUpdateConnectedClients(testDownStreamTypes);
++        reset(mConnectedClientsTracker);
++
++        testDownStreamTypes.add(TETHERING_WIFI);
++        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
++        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_TETHERED);
++        mLooper.dispatchAll();
++        verifyUpdateConnectedClients(testDownStreamTypes);
++    }
++
++    private void verifyUpdateConnectedClients(final ArrayList<Integer> expectedTypes)
++            throws Exception {
++        final ArgumentCaptor<Iterable<IpServer>> ipServersCaptor =
++                ArgumentCaptor.forClass((Class) Iterable.class);
++        verify(mConnectedClientsTracker).updateConnectedClients(ipServersCaptor.capture(), any());
++        final Iterable<IpServer> testList = ipServersCaptor.getValue();
++        int index = 0;
++        for (IpServer server : testList) {
++            assertEquals(server.interfaceType(), expectedTypes.get(index).intValue());
++            index++;
++        }
++        assertEquals(expectedTypes.size(), index);
++    }
++
+     // TODO: Test that a request for hotspot mode doesn't interfere with an
+     // already operating tethering mode interface.
+ }
+-- 
+2.29.2.684.gfbc64c5ab5-goog
+

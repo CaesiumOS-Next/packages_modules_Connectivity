@@ -164,4 +164,9 @@ public abstract class TetheringDependencies {
             TetheringConfiguration cfg) {
         return new PrivateAddressCoordinator(ctx, cfg);
     }
+
+    /** Get a reference to ConnectedClientsTracker to be used by Tethering. */
+    public ConnectedClientsTracker getConnectedClientsTracker() {
+        return new ConnectedClientsTracker();
+    }
 }
