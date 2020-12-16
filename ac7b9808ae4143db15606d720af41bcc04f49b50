@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6140d569_2497507a",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "476fb648_fffa208d",
+      "range": {
+        "startLine": 31,
+        "startChar": 40,
+        "endLine": 31,
+        "endChar": 58
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a221610f_b8aa284a",
@@ -99,6 +123,30 @@
         "id": 1003247
       },
       "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a221610f_b8aa284a",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bb06e7f_0c8d42ce",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "a221610f_b8aa284a",
@@ -159,6 +207,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a935068e_be31df4f",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2bf08a5_736be33b",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 8
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd1de330_73262d6c",
@@ -193,6 +265,30 @@
         "id": 1003247
       },
       "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd1de330_73262d6c",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d55e59a_d4e8a164",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "dd1de330_73262d6c",
@@ -253,6 +349,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "312f7b66_63f8c1f2",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb003e6f_d83e73a4",
+      "range": {
+        "startLine": 66,
+        "startChar": 36,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2be9ca00_23485a8c",
@@ -287,6 +407,30 @@
         "id": 1003247
       },
       "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2be9ca00_23485a8c",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 35
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b3d8b0_0eb6ac96",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "2be9ca00_23485a8c",
@@ -347,6 +491,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d012177_72628cc3",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2de16bbf_01435ea3",
+      "range": {
+        "startLine": 86,
+        "startChar": 35,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c3bbf07_e4dba158",
@@ -360,6 +528,30 @@
       "writtenOn": "2020-12-11T04:40:57Z",
       "side": 1,
       "message": "is this mechanism more or less performant then the copy you do above?\nshould everything be using this mechanism instead?",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 59
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7988473_14e4e92d",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "They are different use case. GetByteArrayRegion is used for copied data from input parameter(key). Here is used to get data back(get data from input parameter and modify it).",
+      "parentUuid": "4c3bbf07_e4dba158",
       "range": {
         "startLine": 97,
         "startChar": 0,
@@ -417,6 +609,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aed54d27_bfea649d",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2b95221_7efdb30b",
+      "range": {
+        "startLine": 102,
+        "startChar": 34,
+        "endLine": 102,
+        "endChar": 37
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70e74cd0_3c488afa",
@@ -430,6 +646,30 @@
       "writtenOn": "2020-12-11T04:40:57Z",
       "side": 1,
       "message": "seems like this check should be pre-getNextMapKey and return/throw prior to running bpf syscall?\n\nyou could do something like\n\nif (!data) { errno \u003d EFOO; return checkResultAndThrow(env, 1); }",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 70
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "615d39cb_b5e38bb0",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "No.\nGetByteArrayElements call would either return a pointer to the actual elements, or allocate some memory and make a copy.\n\nenv-\u003eReleaseByteArrayElements(nextKey, data, 0) is used to tell VM that \"data\" is copied back to \"nextKey\", so the \"data\" could be freed or un-pinned.",
+      "parentUuid": "70e74cd0_3c488afa",
       "range": {
         "startLine": 104,
         "startChar": 0,
@@ -463,6 +703,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83c90c6d_2657ab72",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "If this function return false without exception, it means ENOENT. If this JNI function return false, the BpfMap#getValue() would return null.\n\nnetd:\n    auto statsEntry \u003d mBpfStatsMap.readValue(ifIndex);\n    if (statsEntry.ok()) {\n        // Ok, there was a stats entry.\n        rxBytes \u003d statsEntry.value().rxBytes;\n        txBytes \u003d statsEntry.value().txBytes;\n    } else if (statsEntry.error().code() \u003d\u003d ENOENT) {\n        // No stats entry - create one with zeroes.\n        TetherStatsValue stats \u003d {};\n        // This function is the *only* thing that can create entries.\n        auto ret \u003d mBpfStatsMap.writeValue(ifIndex, stats, BPF_NOEXIST);\n        if (!ret.ok()) {\n            ALOGE(\"mBpfStatsMap.writeValue failure: %s\", strerror(ret.error().code()));\n            return ret;\n        }\n        rxBytes \u003d 0;\n        txBytes \u003d 0;\n    } else {\n        // Other error while trying to get stats entry.\n        return statsEntry.error();\n    }\n\nJava BpfMap:\n    try {\n        if (mBpfStatsMap.getValue(key) !\u003d null) {\n            // Same as \"if (statsEntry.ok()) {\" block\n        } else {\n            // Same as \"} else if (statsEntry.error().code() \u003d\u003d ENOENT) {\" block\n        }\n    } catch (ErrnoException e) {\n        // Same as \"} else {\" block of above example.       \n    }",
+      "parentUuid": "24110170_56765334",
+      "range": {
+        "startLine": 117,
+        "startChar": 74,
+        "endLine": 117,
+        "endChar": 89
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4a45347_27e3bf91",
@@ -486,6 +750,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dc76439_16922731",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Caller need to pass these flag to create BpfMap. See l.59 second parameter of constructor(\"final int flag\").",
+      "parentUuid": "b4a45347_27e3bf91",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 10
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "faefbee3_fed09978",
@@ -499,6 +787,30 @@
       "writtenOn": "2020-12-11T04:40:57Z",
       "side": 1,
       "message": "we should have different classes for R/O R/W W/O maps.\n\nWith a diagonal hierarchy.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 89
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80edd66a_3992bbb5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "I know you want compile time check of R/W -\u003e R/O, W/O inheritance, but I don\u0027t find a way to do that if I want to keep generic type. I have try it in patchset 1. But I think have generic type would be more flexible.",
+      "parentUuid": "faefbee3_fed09978",
       "range": {
         "startLine": 56,
         "startChar": 0,
@@ -556,6 +868,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e1fd3c5_83e89161",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b57c9cc_939cb782",
+      "range": {
+        "startLine": 61,
+        "startChar": 17,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fb1f0b6_63c9be53",
@@ -590,6 +926,30 @@
         "id": 1003247
       },
       "writtenOn": "2020-12-15T07:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fb1f0b6_63c9be53",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 81
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3cf7538_f17f816a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "1fb1f0b6_63c9be53",
@@ -674,6 +1034,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "827905c5_ef205d24",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0dedebb_c15f442e",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 77
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18df3254_0550b5cb",
@@ -697,6 +1081,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "771719c2_d69a07d0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "if (mBpfMap.getValue(key) \u003d\u003d null) {\n    //insert value.\n}",
+      "parentUuid": "18df3254_0550b5cb",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 66
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dd9fda1_a41427f2",
@@ -710,6 +1118,30 @@
       "writtenOn": "2020-12-11T04:40:57Z",
       "side": 1,
       "message": "these methods don\u0027t seem to use the class (ie. take fd as arg instead of jni reaching into the class to grab mMapFd),\nso they should probably be static?",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 63
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89517c9e_55fbadc5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dd9fda1_a41427f2",
       "range": {
         "startLine": 156,
         "startChar": 0,
@@ -766,6 +1198,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e03da92d_f3870c8c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Yes. But it should be in other CL. For this initial BpfMap CL, I want this TetherIngressKey be the same as what we define in netd.",
+      "parentUuid": "b56b0406_e5345286",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73290e38_a9fdb757",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a205855f_562761b8",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 60
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af5f62bb_ed34ec3f",
@@ -779,6 +1259,30 @@
       "writtenOn": "2020-12-11T04:40:57Z",
       "side": 1,
       "message": "should this not be [16]",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07510214_efbaa9d5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "No, byte[16] is an illegal definition.",
+      "parentUuid": "af5f62bb_ed34ec3f",
       "range": {
         "startLine": 32,
         "startChar": 22,
@@ -835,6 +1339,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "503e05ee_84367c49",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "java don\u0027t have unsigned int, d means Decimal Integer: integer (incl. byte, short, int, long, bigint).",
+      "parentUuid": "562c9c8f_96809180",
+      "range": {
+        "startLine": 60,
+        "startChar": 40,
+        "endLine": 60,
+        "endChar": 41
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8e31e39_65409abe",
@@ -881,6 +1409,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33a14c64_02f8d6ee",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "befe5e0c_3dcf85d8",
+      "range": {
+        "startLine": 62,
+        "startChar": 40,
+        "endLine": 62,
+        "endChar": 41
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e3695c7_dccfd153",
@@ -894,6 +1446,30 @@
       "writtenOn": "2020-12-11T04:40:57Z",
       "side": 1,
       "message": "Type.MacAddress",
+      "range": {
+        "startLine": 32,
+        "startChar": 34,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6a157e7_166feaba",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressValue.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "There are no Type.MacAddress",
+      "parentUuid": "4e3695c7_dccfd153",
       "range": {
         "startLine": 32,
         "startChar": 34,
@@ -929,6 +1505,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d8dc667_7bf546fe",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressValue.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "This is define in Struct.java. If you are interest, you could review: https://android-review.googlesource.com/c/platform/frameworks/libs/net/+/1471543/11/common/device/android/net/util/Struct.java#111",
+      "parentUuid": "9eee9231_ed66a97c",
+      "range": {
+        "startLine": 36,
+        "startChar": 34,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6e32b24_8577ad74",
         "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressValue.java",
         "patchSetId": 4
@@ -940,6 +1540,30 @@
       "writtenOn": "2020-12-11T04:40:57Z",
       "side": 1,
       "message": "u",
+      "range": {
+        "startLine": 72,
+        "startChar": 36,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90937b1e_1b48a831",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressValue.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-16T06:18:57Z",
+      "side": 1,
+      "message": "java don\u0027t have unsigned int, d means Decimal Integer: integer (incl. byte, short, int, long, bigint).",
+      "parentUuid": "c6e32b24_8577ad74",
       "range": {
         "startLine": 72,
         "startChar": 36,
