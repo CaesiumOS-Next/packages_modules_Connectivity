@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5e0987c_02e887e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-17T09:54:30Z",
+      "side": 1,
+      "message": "- Can you explain in a bit more details ?\n - Why \"also\" ?\n - Why is this good / necessary ?\n - Why does changing the list from mForwardedDownstreams to mNotifyList make a difference ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 4
+      },
+      "revId": "4982b111289197a737f052bf1a68a4b9286716d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b350a13_7aaf75e3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-17T09:54:30Z",
+      "side": 1,
+      "message": "Most methods in here have the member created in setUp() (with MockitoAnnotations.initMock()) and just return it here: could you move the spy to setUp() just return here ?\nIt could be spy(new ConnectedClientsTracker()).\n\nThat said, see note below about verifying the callback, rather than checking that the tracker is notified.",
+      "range": {
+        "startLine": 471,
+        "startChar": 12,
+        "endLine": 472,
+        "endChar": 44
+      },
+      "revId": "4982b111289197a737f052bf1a68a4b9286716d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5db8948_d5511b8a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2085,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-17T09:54:30Z",
+      "side": 1,
+      "message": "This test seems a bit too targeted on the implementation; could you check that the callback is sent instead ? By registering something on registerTetheringEventCallback and checking that it\u0027s sent ?\n\nI think verifying that the clients tracker is updated is a bit too small of a scope to check that callbacks are working, even if there\u0027s another test for the tracker.",
+      "range": {
+        "startLine": 2085,
+        "startChar": 8,
+        "endLine": 2085,
+        "endChar": 36
+      },
+      "revId": "4982b111289197a737f052bf1a68a4b9286716d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
