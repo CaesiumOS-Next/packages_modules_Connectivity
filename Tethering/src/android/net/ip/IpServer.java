@@ -67,6 +67,7 @@ import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.networkstack.tethering.BpfCoordinator;
+import com.android.networkstack.tethering.BpfCoordinator.Ipv4TetherClient;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.PrivateAddressCoordinator;
 
@@ -941,11 +942,48 @@ public class IpServer extends StateMachine {
         }
     }
 
+    private void addIpv4Client(Ipv4TetherClient client) {
+        // TODO: Perhaps remove this protection check.
+        // See the related comment in #addIpv6ForwardingRule.
+        if (!mUsingBpfOffload) return;
+
+        mBpfCoordinator.tetherOffloadClientAdd(this, client);
+    }
+
+    private void removeIpv4Client(Ipv4TetherClient client) {
+        // TODO: Perhaps remove this protection check.
+        // See the related comment in #addIpv6ForwardingRule.
+        if (!mUsingBpfOffload) return;
+
+        mBpfCoordinator.tetherOffloadClientRemove(this, client);
+    }
+
+    private void updateIpv4ClientInfo(NeighborEvent e) {
+        if (e == null) return;
+        if (!(e.ip instanceof Inet4Address) || e.ip.isMulticastAddress()
+                || e.ip.isLoopbackAddress() || e.ip.isLinkLocalAddress()) {
+            return;
+        }
+
+        // When deleting clients, IpServer still need to pass a non-null MAC, even though it's
+        // ignored. Do this here instead of in the Ipv4TetherClient constructor to ensure that
+        // IpServer never add clients with a null MAC, only delete them.
+        final MacAddress clientMac = e.isValid() ? e.macAddr : NULL_MAC_ADDRESS;
+        final Ipv4TetherClient client = new Ipv4TetherClient(mInterfaceParams.index,
+                mInterfaceParams.macAddr, (Inet4Address) e.ip, clientMac);
+        if (e.isValid()) {
+            addIpv4Client(client);
+        } else {
+            removeIpv4Client(client);
+        }
+    }
+
     private void handleNeighborEvent(NeighborEvent e) {
         if (mInterfaceParams != null
                 && mInterfaceParams.index == e.ifindex
                 && mInterfaceParams.hasMacAddress) {
             updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, mLastIPv6UpstreamIfindex, e);
+            updateIpv4ClientInfo(e);
         }
     }
 
