@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec99205f_f375e3f3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1462,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-21T09:52:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16896df9_69415022",
+      "range": {
+        "startLine": 1462,
+        "startChar": 30,
+        "endLine": 1462,
+        "endChar": 53
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b4f9cae_cf174d6c",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-12-21T03:36:40Z",
       "side": 1,
       "message": "Nit: not necessary since the sizes were checked to be equal, and leases contains result",
+      "range": {
+        "startLine": 1364,
+        "startChar": 12,
+        "endLine": 1364,
+        "endChar": 51
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5627742_450ddb77",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1364,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-21T09:52:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b4f9cae_cf174d6c",
       "range": {
         "startLine": 1364,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ecb9cdc_cba15e49",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-21T09:52:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99316eb0_1d685995",
+      "range": {
+        "startLine": 1398,
+        "startChar": 8,
+        "endLine": 1398,
+        "endChar": 9
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8930ecc_805ac1ff",
@@ -83,6 +155,30 @@
       "writtenOn": "2020-12-21T03:36:40Z",
       "side": 1,
       "message": "Nit: not necessary (1 is the default)",
+      "range": {
+        "startLine": 2098,
+        "startChar": 64,
+        "endLine": 2098,
+        "endChar": 73
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b461f3_c4bf806a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2098,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-21T09:52:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8930ecc_805ac1ff",
       "range": {
         "startLine": 2098,
         "startChar": 64,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f472c69c_ec3e4888",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-21T09:52:30Z",
+      "side": 1,
+      "message": "Thanks for doc sharing. Will fix this comment in follow up change, tracking bug: 176058344.. Since mDhcpServer is injected into IpServer via Dpenedecices, this is not just few lines change that it would need to change the usage for all the tests which use mDhcpServer.",
+      "parentUuid": "e380f38b_014178fd",
+      "range": {
+        "startLine": 2109,
+        "startChar": 8,
+        "endLine": 2109,
+        "endChar": 13
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7707f572_35abebc1",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
         "patchSetId": 3
@@ -129,6 +249,30 @@
       "writtenOn": "2020-12-21T03:36:40Z",
       "side": 1,
       "message": "This method does 2 different things: call onLeasesChanged, and convert the list of parcelables to a list of clients. It\u0027s not clear from the naming (I had to go through the code to figure it out)\n\nHow about splitting it into two, \"notifyDhcpLeasesChanged\" and \"toTetheredClients\" (or \"leasesToTetheredClients\") ?",
+      "range": {
+        "startLine": 2139,
+        "startChar": 33,
+        "endLine": 2139,
+        "endChar": 51
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f66b72_26fc3aa7",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2139,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-21T09:52:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7707f572_35abebc1",
       "range": {
         "startLine": 2139,
         "startChar": 33,
@@ -152,6 +296,30 @@
       "writtenOn": "2020-12-21T03:36:40Z",
       "side": 1,
       "message": "InetAddresses.parseNumericAddress (getByName is the horrible version that optionally does a DNS query)",
+      "range": {
+        "startLine": 2169,
+        "startChar": 60,
+        "endLine": 2169,
+        "endChar": 90
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "354a98d0_04afea0b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2169,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-21T09:52:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85859364_1c045444",
       "range": {
         "startLine": 2169,
         "startChar": 60,
