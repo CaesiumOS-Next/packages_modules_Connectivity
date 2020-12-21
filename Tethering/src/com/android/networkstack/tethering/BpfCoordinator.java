@@ -52,6 +52,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 
+import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,6 +146,16 @@ public class BpfCoordinator {
     // startIpv6() is called, and make mInterfaceParams final.
     private final HashMap<IpServer, LinkedHashMap<Inet6Address, Ipv6ForwardingRule>>
             mIpv6ForwardingRules = new LinkedHashMap<>();
+
+    // Map of downstream client maps. Each of these maps represents the IPv4 clients for a given
+    // downstream. Need for building IPv4 forwarding rule when a conntrack event is received.
+    // Each map:
+    // - Is owned by the IpServer that is responsible for that downstream.
+    // - Must only be modified by that IpServer.
+    // - Is created when the IpServer adds its first client, and deleted when the IpServer deletes
+    //   its last client.
+    private final HashMap<IpServer, LinkedHashMap<Inet4Address, Ipv4TetherClient>>
+            mIpv4TetherClients = new LinkedHashMap<>();
 
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingTask = () -> {
@@ -382,6 +393,42 @@ public class BpfCoordinator {
     }
 
     /**
+     * Add downstream client.
+     */
+    public void tetherOffloadClientAdd(@NonNull final IpServer ipServer,
+            @NonNull final Ipv4TetherClient client) {
+        if (!mIsBpfEnabled) return;
+
+        if (!mIpv4TetherClients.containsKey(ipServer)) {
+            mIpv4TetherClients.put(ipServer, new LinkedHashMap<Inet4Address,
+                    Ipv4TetherClient>());
+        }
+
+        LinkedHashMap<Inet4Address, Ipv4TetherClient> clients = mIpv4TetherClients.get(ipServer);
+        clients.put(client.clientAddress, client);
+    }
+
+    /**
+     * Remove downstream client.
+     */
+    public void tetherOffloadClientRemove(
+            @NonNull final IpServer ipServer, @NonNull final Ipv4TetherClient client) {
+        if (!mIsBpfEnabled) return;
+
+        LinkedHashMap<Inet4Address, Ipv4TetherClient> clients = mIpv4TetherClients.get(ipServer);
+        if (clients == null) return;
+
+        // If no rule is removed, return early. Avoid unnecessary work on a non-existent rule
+        // which may have never been added or removed already.
+        if (clients.remove(client.clientAddress) == null) return;
+
+        // Remove the downstream entry if it has no more rule.
+        if (clients.isEmpty()) {
+            mIpv4TetherClients.remove(ipServer);
+        }
+    }
+
+    /**
      * Dump information.
      * Block the function until all the data are dumped on the handler thread or timed-out. The
      * reason is that dumpsys invokes this function on the thread of caller and the data may only
@@ -513,6 +560,50 @@ public class BpfCoordinator {
             // TODO: if this is ever used in production code, don't pass ifindices
             // to Objects.hash() to avoid autoboxing overhead.
             return Objects.hash(upstreamIfindex, downstreamIfindex, address, srcMac, dstMac);
+        }
+    }
+
+    /** IPv4 tethering client class. */
+    public static class Ipv4TetherClient {
+        public final int downstreamIfindex;
+
+        @NonNull
+        public final MacAddress downstreamMac;
+        @NonNull
+        public final Inet4Address clientAddress;
+        @NonNull
+        public final MacAddress clientMac;
+
+        public Ipv4TetherClient(int downstreamIfindex,
+                @NonNull MacAddress downstreamMac, @NonNull Inet4Address clientAddress,
+                @NonNull MacAddress clientMac) {
+            this.downstreamIfindex = downstreamIfindex;
+            this.downstreamMac = downstreamMac;
+            this.clientAddress = clientAddress;
+            this.clientMac = clientMac;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof Ipv4TetherClient)) return false;
+            Ipv4TetherClient that = (Ipv4TetherClient) o;
+            return this.downstreamIfindex == that.downstreamIfindex
+                    && Objects.equals(this.downstreamMac, that.downstreamMac)
+                    && Objects.equals(this.clientAddress, that.clientAddress)
+                    && Objects.equals(this.clientMac, that.clientMac);
+        }
+
+        @Override
+        public int hashCode() {
+            // TODO: if this is ever used in production code, don't pass ifindices
+            // to Objects.hash() to avoid autoboxing overhead.
+            return Objects.hash(downstreamIfindex, downstreamMac, clientAddress, clientMac);
+        }
+
+        @Override
+        public String toString() {
+            return String.format("downstream: %d (%s), client: %s (%s)",
+                    downstreamIfindex, downstreamMac, clientAddress, clientMac);
         }
     }
 
