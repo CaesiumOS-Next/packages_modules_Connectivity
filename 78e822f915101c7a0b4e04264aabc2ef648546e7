@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16896df9_69415022",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1462,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-21T03:36:40Z",
+      "side": 1,
+      "message": "Nit: \"Serving\" is a bit ambiguous here, the comment says \"mNotifyList contains all state machines that may have outstanding tethering state that needs to be torn down.\": so \"serving\" means serving a downstream, but not be necessarily tethered, which is confusing.\n\nMaybe \"getAllDownstreams\" or similar, with a javadoc explaining that it returns all downstreams that are serving clients, regardless of whether they are actually tethered ?\n\nAlso document that it must be called on the tethering thread (not thread-safe) and add @NonNull to return type and mNotifyList",
+      "range": {
+        "startLine": 1462,
+        "startChar": 30,
+        "endLine": 1462,
+        "endChar": 53
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b4f9cae_cf174d6c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1364,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-21T03:36:40Z",
+      "side": 1,
+      "message": "Nit: not necessary since the sizes were checked to be equal, and leases contains result",
+      "range": {
+        "startLine": 1364,
+        "startChar": 12,
+        "endLine": 1364,
+        "endChar": 51
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99316eb0_1d685995",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-21T03:36:40Z",
+      "side": 1,
+      "message": "How about testing tethered clients from onCallbackStarted too ?",
+      "range": {
+        "startLine": 1398,
+        "startChar": 8,
+        "endLine": 1398,
+        "endChar": 9
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8930ecc_805ac1ff",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2098,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-21T03:36:40Z",
+      "side": 1,
+      "message": "Nit: not necessary (1 is the default)",
+      "range": {
+        "startLine": 2098,
+        "startChar": 64,
+        "endLine": 2098,
+        "endChar": 73
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e380f38b_014178fd",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-21T03:36:40Z",
+      "side": 1,
+      "message": "reset is generally discouraged: https://javadoc.io/static/org.mockito/mockito-core/3.6.28/org/mockito/Mockito.html#resetting_mocks\n\nHere you\u0027re actually using a different DhcpServer: one is used for P2P, the other for wifi tethering. So maybe just create a different one for wifi tethering with mock(DhcpServer.class) ?",
+      "range": {
+        "startLine": 2109,
+        "startChar": 8,
+        "endLine": 2109,
+        "endChar": 13
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7707f572_35abebc1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-21T03:36:40Z",
+      "side": 1,
+      "message": "This method does 2 different things: call onLeasesChanged, and convert the list of parcelables to a list of clients. It\u0027s not clear from the naming (I had to go through the code to figure it out)\n\nHow about splitting it into two, \"notifyDhcpLeasesChanged\" and \"toTetheredClients\" (or \"leasesToTetheredClients\") ?",
+      "range": {
+        "startLine": 2139,
+        "startChar": 33,
+        "endLine": 2139,
+        "endChar": 51
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85859364_1c045444",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2169,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2020-12-21T03:36:40Z",
+      "side": 1,
+      "message": "InetAddresses.parseNumericAddress (getByName is the horrible version that optionally does a DNS query)",
+      "range": {
+        "startLine": 2169,
+        "startChar": 60,
+        "endLine": 2169,
+        "endChar": 90
+      },
+      "revId": "78e822f915101c7a0b4e04264aabc2ef648546e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
