@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b943f57_8d22d9ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-22T11:06:18Z",
+      "side": 1,
+      "message": "Please add bug id here like below, then this CL would link to the issue tracker by system.\n\nBug: 173310882",
+      "revId": "ccdbd4a56dda2f17a0927e758a4110f58dc8d98a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ff91c6ae_9bf80a0a",
@@ -14,6 +31,40 @@
       "writtenOn": "2020-12-04T07:33:23Z",
       "side": 1,
       "message": "Hi Mark, please help to check the CL submit by Unisoc. Thanks.",
+      "revId": "ccdbd4a56dda2f17a0927e758a4110f58dc8d98a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4e1b4b_9e13d66b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-22T11:06:18Z",
+      "side": 1,
+      "message": "Please also add the test for this change. A Unit test is fine. You could add the test in packages/modules/Connectivity/Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java\n\nYou could take Tethering#workingWifiTetheringEnrichedApBroadcast as reference example.\n\nYou could setup bluetooth tethering first, then verify interface down would not suddenly bring down tethering. Finally verify calling #untether without interface down could disable bluetooth tethering.\n\n\n",
+      "revId": "ccdbd4a56dda2f17a0927e758a4110f58dc8d98a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c267c48a_cf711798",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-22T11:06:18Z",
+      "side": 1,
+      "message": "Could you also add the comment here say that PanService would always call #untether when bt tethering is disabled, so handle bt-pan down here is unnecessary.",
       "revId": "ccdbd4a56dda2f17a0927e758a4110f58dc8d98a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
