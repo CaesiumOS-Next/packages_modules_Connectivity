@@ -29,6 +29,7 @@ import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_
 
 import android.app.usage.NetworkStatsManager;
 import android.net.INetd;
+import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.NetworkStats;
 import android.net.NetworkStats.Entry;
@@ -56,7 +57,11 @@ import com.android.internal.util.IndentingPrintWriter;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -165,6 +170,9 @@ public class BpfCoordinator {
 
     // Set for which downstream is monitoring the conntrack netlink message.
     private final Set<IpServer> mMonitoringIpServer = new HashSet<>();
+
+    // Map of upstream interface IPv4 address to interface index.
+    private final HashMap<Inet4Address, Integer> mIpv4UpstreamIndices = new HashMap<>();
 
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingTask = () -> {
@@ -492,6 +500,39 @@ public class BpfCoordinator {
         // Remove the downstream entry if it has no more rule.
         if (clients.isEmpty()) {
             mIpv4TetherClients.remove(ipServer);
+        }
+    }
+
+    /**
+     * Call when UpstreamNetworkState may be changed.
+     * If upstream has ipv4 for tethering, update this new UpstreamNetworkState to map. The
+     * upstream interface index and its address mapping is prepared for building IPv4
+     * offload rule.
+     *
+     * TODO: Find a way to delete the interface mapping without racing problem.
+     */
+    public void addUpstreamIfindexAndIpv4AddressMap(LinkProperties lp) {
+        if (mMonitoringIpServer.size() == 0 /* not monitoring */) return;
+        if (lp == null) return;
+        if (!lp.hasIpv4Address()) return;
+
+        int ifindex = 0;
+        try {
+            ifindex = NetworkInterface.getByName(lp.getInterfaceName()).getIndex();
+        } catch (NullPointerException | SocketException e) {
+            mLog.e("The interface index can't be found: ", e);
+            return;
+        }
+
+        Collection<InetAddress> addresses = lp.getAddresses();
+        for (InetAddress addr: addresses) {
+            if (addr instanceof Inet4Address) {
+                Inet4Address i4addr = (Inet4Address) addr;
+                if (!i4addr.isAnyLocalAddress() && !i4addr.isLinkLocalAddress()
+                        && !i4addr.isLoopbackAddress() && !i4addr.isMulticastAddress()) {
+                    mIpv4UpstreamIndices.put(i4addr, ifindex);
+                }
+            }
         }
     }
 

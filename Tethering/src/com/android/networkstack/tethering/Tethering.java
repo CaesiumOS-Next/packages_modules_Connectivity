@@ -1627,6 +1627,13 @@ public class Tethering {
         protected void handleNewUpstreamNetworkState(UpstreamNetworkState ns) {
             mIPv6TetheringCoordinator.updateUpstreamNetworkState(ns);
             mOffload.updateUpstreamNetworkState(ns);
+
+            // Don't remove the interface mapping even the interface has gone because conntrack
+            // event may be received after the interface was removed. The interface mapping is
+            // required to build a key for removing BPF entry.
+            if (ns != null) {
+                mBpfCoordinator.addUpstreamIfindexAndIpv4AddressMap(ns.linkProperties);
+            }
         }
 
         private void handleInterfaceServingStateActive(int mode, IpServer who) {
