@@ -16,6 +16,24 @@
       "message": "Could you check whether this make TETHERING_USB and TETHEIRNG_NCM both shared the same IpServer(IpServer#interfaceType() \u003d\u003d TetheringManager.TETHEIRNG_USB) ? This seems be hacky that each tethering type should have its dedicated ipServer.",
       "revId": "6362f287f3472f7532b6a44d1688ed6184d51beb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3b79cd3_cdc9e481",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160618
+      },
+      "writtenOn": "2020-12-22T03:54:44Z",
+      "side": 1,
+      "message": "Yes, this seems be hacky. I think that each IpServer should not match an interfaceType, but an Interface. The interfaceType was determined when Tethering started. I will submit a new modification later.\n\nThanks",
+      "parentUuid": "228a1d37_556137d8",
+      "revId": "6362f287f3472f7532b6a44d1688ed6184d51beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
