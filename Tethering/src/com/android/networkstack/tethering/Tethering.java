@@ -1427,6 +1427,7 @@ public class Tethering {
         // Because we excise interfaces immediately from mTetherStates, we must maintain mNotifyList
         // so that the garbage collector does not clean up the state machine before it has a chance
         // to tear itself down.
+        @NonNull
         private final ArrayList<IpServer> mNotifyList;
         private final IPv6TetheringCoordinator mIPv6TetheringCoordinator;
         private final OffloadWrapper mOffload;
