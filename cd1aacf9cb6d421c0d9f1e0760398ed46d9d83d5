@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000006914358",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1487838?revision\u003d8",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "0ce99b2c_c8c80169",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1578,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2020-12-22T20:31:10Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 1578,
+        "startChar": 0,
+        "endLine": 1578,
+        "endChar": 103
+      },
+      "revId": "cd1aacf9cb6d421c0d9f1e0760398ed46d9d83d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
