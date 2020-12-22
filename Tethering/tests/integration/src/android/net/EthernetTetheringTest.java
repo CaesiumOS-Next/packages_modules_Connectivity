@@ -39,6 +39,7 @@ import android.net.TetheringManager.TetheringRequest;
 import android.net.dhcp.DhcpAckPacket;
 import android.net.dhcp.DhcpOfferPacket;
 import android.net.dhcp.DhcpPacket;
+import android.net.networkstack.aidl.dhcp.DhcpOption;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
@@ -64,6 +65,7 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -491,7 +493,8 @@ public class EthernetTetheringTest {
         ByteBuffer packet = DhcpPacket.buildDiscoverPacket(DhcpPacket.ENCAP_L2,
                 new Random().nextInt() /* transactionId */, (short) 0 /* secs */,
                 macAddress,  false /* unicast */, DHCP_REQUESTED_PARAMS,
-                false /* rapid commit */,  DHCP_HOSTNAME);
+                false /* rapid commit */, DHCP_HOSTNAME,
+                new ArrayList<DhcpOption>() /* customized DHCP options */);
         sendPacket(fd, packet);
     }
 
@@ -503,7 +506,8 @@ public class EthernetTetheringTest {
         ByteBuffer packet = DhcpPacket.buildRequestPacket(DhcpPacket.ENCAP_L2,
                 0 /* transactionId */, (short) 0 /* secs */, DhcpPacket.INADDR_ANY /* clientIp */,
                 false /* broadcast */, macAddress, clientIp /* requestedIpAddress */,
-                serverIdentifier, DHCP_REQUESTED_PARAMS, DHCP_HOSTNAME);
+                serverIdentifier, DHCP_REQUESTED_PARAMS, DHCP_HOSTNAME,
+                new ArrayList<DhcpOption>() /* customized DHCP options */);
         sendPacket(fd, packet);
     }
 
