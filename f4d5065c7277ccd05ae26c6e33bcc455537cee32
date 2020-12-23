@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4129a8c_b0afd6cd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-23T13:17:53Z",
+      "side": 1,
+      "message": "moved to com.android.net.module.util.Struct (aosp/1532061)",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "f4d5065c7277ccd05ae26c6e33bcc455537cee32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9576a199_41b67de8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-23T13:17:53Z",
+      "side": 1,
+      "message": "Need byte order in the latest commit.\n\npublic final void writeToByteBuffer(final ByteBuffer output) {\nhttps://android-review.googlesource.com/c/platform/frameworks/libs/net/+/1471543/11/common/device/android/net/util/Struct.java#570",
+      "range": {
+        "startLine": 122,
+        "startChar": 83,
+        "endLine": 122,
+        "endChar": 97
+      },
+      "revId": "f4d5065c7277ccd05ae26c6e33bcc455537cee32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "155eb06d_0154fb1f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-23T13:17:53Z",
+      "side": 1,
+      "message": "nit: one space (_ _ -\u003e _)",
+      "range": {
+        "startLine": 197,
+        "startChar": 56,
+        "endLine": 197,
+        "endChar": 58
+      },
+      "revId": "f4d5065c7277ccd05ae26c6e33bcc455537cee32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfcd517c_fa0a0ef6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-23T13:17:53Z",
+      "side": 1,
+      "message": "nit: one space  (_ _ -\u003e _)",
+      "range": {
+        "startLine": 202,
+        "startChar": 55,
+        "endLine": 202,
+        "endChar": 57
+      },
+      "revId": "f4d5065c7277ccd05ae26c6e33bcc455537cee32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc41f3a3_14a327d3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-23T13:17:53Z",
+      "side": 1,
+      "message": "nit: Dst",
+      "range": {
+        "startLine": 33,
+        "startChar": 27,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "f4d5065c7277ccd05ae26c6e33bcc455537cee32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
