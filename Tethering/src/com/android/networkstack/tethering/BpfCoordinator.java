@@ -23,6 +23,7 @@ import static android.net.NetworkStats.SET_DEFAULT;
 import static android.net.NetworkStats.TAG_NONE;
 import static android.net.NetworkStats.UID_ALL;
 import static android.net.NetworkStats.UID_TETHERING;
+import static android.net.ip.ConntrackMonitor.ConntrackEvent;
 import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED;
 
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
@@ -38,6 +39,7 @@ import android.net.TetherStatsParcel;
 import android.net.ip.ConntrackMonitor;
 import android.net.ip.ConntrackMonitor.ConntrackEventConsumer;
 import android.net.ip.IpServer;
+import android.net.netlink.NetlinkConstants;
 import android.net.netstats.provider.NetworkStatsProvider;
 import android.net.util.SharedLog;
 import android.net.util.TetheringUtils.ForwardedStats;
@@ -81,6 +83,8 @@ import java.util.Set;
 public class BpfCoordinator {
     private static final String TAG = BpfCoordinator.class.getSimpleName();
     private static final int DUMP_TIMEOUT_MS = 10_000;
+    private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString(
+            "00:00:00:00:00:00");
 
     @VisibleForTesting
     enum StatsType {
@@ -165,6 +169,9 @@ public class BpfCoordinator {
     // - Must only be modified by that IpServer.
     // - Is created when the IpServer adds its first client, and deleted when the IpServer deletes
     //   its last client.
+    // Note that relying on the client address for finding downstream is okay for now because the
+    // client address is unique. See PrivateAddressCoordinator#requestDownstreamAddress.
+    // TODO: Refactor if any possible that the client address is not unique.
     private final HashMap<IpServer, LinkedHashMap<Inet4Address, Ipv4TetherClient>>
             mIpv4TetherClients = new LinkedHashMap<>();
 
@@ -781,8 +788,95 @@ public class BpfCoordinator {
         }
     }
 
+    @Nullable
+    private Ipv4TetherClient getIpv4TetherClient(@NonNull Inet4Address clientAddress) {
+        for (LinkedHashMap<Inet4Address, Ipv4TetherClient> clients : mIpv4TetherClients.values()) {
+            for (Ipv4TetherClient client : clients.values()) {
+                if (clientAddress.equals(client.clientAddress)) {
+                    return client;
+                }
+            }
+        }
+        return null;
+    }
+
     private class BpfConntrackEventConsumer implements ConntrackEventConsumer {
-        public void accept(ConntrackMonitor.ConntrackEvent e) { /* TODO */ }
+        private static final boolean RAW_IP = false;  // true for ether ip. unused for now.
+        private static final boolean IPV4 = false;  // true for IPV6. unused for now.
+        private static final boolean ORIG_DIR = false;
+        private static final boolean REPLY_DIR = true;
+        private static final long UNUSED = 0;
+
+        @NonNull
+        private TetherIngressIpv4Key makeOrigTetherIngressIpv4Key(
+                @NonNull ConntrackEvent e, @NonNull Ipv4TetherClient c) {
+            return new TetherIngressIpv4Key(c.downstreamIfindex, c.downstreamMac.toByteArray(),
+                    e.tupleOrig.protoNum, e.tupleOrig.srcIp.getAddress(),
+                    e.tupleOrig.dstIp.getAddress(), e.tupleOrig.srcPort, e.tupleOrig.dstPort);
+        }
+
+        @NonNull
+        private TetherIngressIpv4Key makeReplyTetherIngressIpv4Key(
+                @NonNull ConntrackEvent e, @NonNull Ipv4TetherClient c, int upstreamIndex) {
+            // TODO: Support ether ip.
+            return new TetherIngressIpv4Key(upstreamIndex,
+                    NULL_MAC_ADDRESS.toByteArray() /* rawip */, e.tupleReply.protoNum,
+                    e.tupleReply.srcIp.getAddress(), e.tupleReply.dstIp.getAddress(),
+                    e.tupleReply.srcPort, e.tupleReply.dstPort);
+        }
+
+        @NonNull
+        private TetherIngressIpv4Value makeOrigTetherIngressIpv4Value(
+                @NonNull ConntrackEvent e, int upstreamIndex) {
+            // TODO: Support ether ip.
+            return new TetherIngressIpv4Value(upstreamIndex,
+                    NULL_MAC_ADDRESS.toByteArray() /* rawip */,
+                    NULL_MAC_ADDRESS.toByteArray() /* rawip */, e.tupleReply.dstIp.getAddress(),
+                    e.tupleReply.srcIp.getAddress(), e.tupleReply.dstPort, e.tupleReply.srcPort,
+                    booleanToByte(RAW_IP), booleanToByte(IPV4), booleanToByte(ORIG_DIR),
+                    UNUSED /* lastUsed */);
+        }
+
+        @NonNull
+        private TetherIngressIpv4Value makeReplyTetherIngressIpv4Value(
+                @NonNull ConntrackEvent e, @NonNull Ipv4TetherClient c, int upstreamIndex) {
+            return new TetherIngressIpv4Value(c.downstreamIfindex,
+                    c.clientMac.toByteArray(), c.downstreamMac.toByteArray(),
+                    e.tupleOrig.dstIp.getAddress(), e.tupleOrig.srcIp.getAddress(),
+                    e.tupleOrig.dstPort, e.tupleOrig.srcPort, booleanToByte(RAW_IP),
+                    booleanToByte(IPV4), booleanToByte(ORIG_DIR), UNUSED /* lastUsed */);
+        }
+
+        private byte booleanToByte(boolean b) {
+            return (byte) (b ? 1 : 0);
+        }
+
+        public void accept(ConntrackEvent e) {
+            final Ipv4TetherClient tetherClient = getIpv4TetherClient(e.tupleOrig.srcIp);
+            if (tetherClient == null) return;
+
+            final Integer upstreamIndex = mIpv4UpstreamIndices.get(e.tupleReply.dstIp);
+            if (upstreamIndex == null) return;
+
+            // Build original and reply direction map key.
+            final TetherIngressIpv4Key origRuleKey = makeOrigTetherIngressIpv4Key(e, tetherClient);
+            final TetherIngressIpv4Key replyRuleKey = makeReplyTetherIngressIpv4Key(e,
+                    tetherClient, upstreamIndex);
+
+            if (e.msgType == (NetlinkConstants.NFNL_SUBSYS_CTNETLINK << 8
+                    | NetlinkConstants.IPCTNL_MSG_CT_DELETE)) {
+                // TODO: delete rules from BPF maps.
+                return;
+            }
+
+            // Build original and reply direction map value.
+            final TetherIngressIpv4Value origRuleValue = makeOrigTetherIngressIpv4Value(e,
+                    upstreamIndex);
+            final TetherIngressIpv4Value replyRuleValue = makeReplyTetherIngressIpv4Value(e,
+                    tetherClient, upstreamIndex);
+
+            // TODO: write rules to BPF maps.
+        }
     }
 
     private boolean isBpfEnabled() {
