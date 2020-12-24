@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89b6e074_158916db",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "583b6b95_1cb2b0b1",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 99
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44df832b_a9c2474b",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49bddcf4_645691af",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44df832b_a9c2474b",
+      "range": {
+        "startLine": 83,
+        "startChar": 18,
+        "endLine": 83,
+        "endChar": 20
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b9bd2fe_767eed35",
@@ -77,6 +125,30 @@
       "writtenOn": "2020-12-15T07:19:29Z",
       "side": 1,
       "message": "hmm, not sure catching this and hiding it is a good interface...\n\nmaybe function should return void, and instead this should throw something that isn\u0027t ErrnoException (perhaps AlreadyExistsException, or something similar)",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 48
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb94235a_88003478",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b9bd2fe_767eed35",
       "range": {
         "startLine": 90,
         "startChar": 0,
@@ -156,6 +228,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef07a53_de5bc848",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a68d16c_45fa3c27",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 31
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cbbf6c8_8d9969a5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e96a5f4b_57d88fe2",
+      "range": {
+        "startLine": 99,
+        "startChar": 44,
+        "endLine": 99,
+        "endChar": 51
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f35ad98_d0e8ed99",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27d50cd1_a844bd49",
+      "range": {
+        "startLine": 99,
+        "startChar": 56,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7af38ee2_5024147a",
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47703dd9_c9030276",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7af38ee2_5024147a",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 48
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3b3197e_519cccc2",
@@ -192,6 +360,30 @@
       "writtenOn": "2020-12-15T07:19:29Z",
       "side": 1,
       "message": "boolean??",
+      "range": {
+        "startLine": 123,
+        "startChar": 11,
+        "endLine": 123,
+        "endChar": 12
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c0744a2_b1c2c4a4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "K is the key which is nextKey.",
+      "parentUuid": "c3b3197e_519cccc2",
       "range": {
         "startLine": 123,
         "startChar": 11,

@@ -821,6 +821,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "825db8a0_645e39d9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "80edd66a_3992bbb5",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 89
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b57c9cc_939cb782",
@@ -1316,6 +1340,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be6c26ca_a39d7beb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "There is restriction for Struct usage: construtor\u0027s field type mush match the type mark in @Field\n\nhttps://source.corp.google.com/android/frameworks/libs/net/common/device/android/net/util/Struct.java;l\u003d209?q\u003dstruct.java\u0026sq\u003dpackage:android",
+      "parentUuid": "6519d879_3da44e4e",
+      "range": {
+        "startLine": 34,
+        "startChar": 44,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "562c9c8f_96809180",
@@ -1517,6 +1565,30 @@
       "side": 1,
       "message": "This is define in Struct.java. If you are interest, you could review: https://android-review.googlesource.com/c/platform/frameworks/libs/net/+/1471543/11/common/device/android/net/util/Struct.java#111",
       "parentUuid": "9eee9231_ed66a97c",
+      "range": {
+        "startLine": 36,
+        "startChar": 34,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "ac7b9808ae4143db15606d720af41bcc04f49b50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38aa360a_a01266cd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressValue.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-24T17:11:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4d8dc667_7bf546fe",
       "range": {
         "startLine": 36,
         "startChar": 34,
