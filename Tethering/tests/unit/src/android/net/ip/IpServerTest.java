@@ -100,7 +100,10 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.networkstack.tethering.BpfCoordinator;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
+import com.android.networkstack.tethering.BpfMap;
 import com.android.networkstack.tethering.PrivateAddressCoordinator;
+import com.android.networkstack.tethering.TetherIngressKey;
+import com.android.networkstack.tethering.TetherIngressValue;
 import com.android.networkstack.tethering.TetheringConfiguration;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
@@ -163,6 +166,7 @@ public class IpServerTest {
     @Mock private PrivateAddressCoordinator mAddressCoordinator;
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
+    @Mock private BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
 
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
@@ -281,6 +285,15 @@ public class IpServerTest {
                     @Nullable
                     public TetheringConfiguration getTetherConfig() {
                         return mTetherConfig;
+                    }
+
+                    public boolean isAtLeastS() {
+                        return false;
+                    }
+
+                    @Nullable
+                    public BpfMap<TetherIngressKey, TetherIngressValue> getBpfIngressMap() {
+                        return mBpfIngressMap;
                     }
                 }));
 

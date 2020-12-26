@@ -24,6 +24,7 @@ import static android.net.NetworkStats.TAG_NONE;
 import static android.net.NetworkStats.UID_ALL;
 import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED;
+import static android.system.OsConstants.ETH_P_IPV6;
 
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType;
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType.STATS_PER_IFACE;
@@ -33,6 +34,7 @@ import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -94,6 +96,7 @@ public class BpfCoordinatorTest {
     @Mock private INetd mNetd;
     @Mock private IpServer mIpServer;
     @Mock private TetheringConfiguration mTetherConfig;
+    @Mock private BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -101,11 +104,13 @@ public class BpfCoordinatorTest {
     private final ArgumentCaptor<ArrayList> mStringArrayCaptor =
             ArgumentCaptor.forClass(ArrayList.class);
     private final TestLooper mTestLooper = new TestLooper();
+    private final Handler mHandler = new Handler(mTestLooper.getLooper());
+    private final SharedLog mSharedLog = new SharedLog("test");
     private BpfCoordinator.Dependencies mDeps =
             new BpfCoordinator.Dependencies() {
             @NonNull
             public Handler getHandler() {
-                return new Handler(mTestLooper.getLooper());
+                return mHandler;
             }
 
             @NonNull
@@ -120,12 +125,21 @@ public class BpfCoordinatorTest {
 
             @NonNull
             public SharedLog getSharedLog() {
-                return new SharedLog("test");
+                return mSharedLog;
             }
 
             @Nullable
             public TetheringConfiguration getTetherConfig() {
                 return mTetherConfig;
+            }
+
+            public boolean isAtLeastS() {
+                return false;
+            }
+
+            @Nullable
+            public BpfMap<TetherIngressKey, TetherIngressValue> getBpfIngressMap() {
+                return mBpfIngressMap;
             }
     };
 
@@ -336,6 +350,29 @@ public class BpfCoordinatorTest {
             int upstreamIfindex, @NonNull InetAddress address, @NonNull MacAddress dstMac) {
         return new Ipv6ForwardingRule(upstreamIfindex, DOWNSTREAM_IFINDEX, (Inet6Address) address,
                 DOWNSTREAM_MAC, dstMac);
+    }
+
+    @Test
+    public void testRuleMakeTetherIngressKey() throws Exception {
+        final Integer mobileIfIndex = 100;
+        final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
+
+        final TetherIngressKey key = rule.makeTetherIngressKey();
+        assertEquals(key.iif, (long) mobileIfIndex);
+        assertTrue(Arrays.equals(key.neigh6, NEIGH_A.getAddress()));
+    }
+
+    @Test
+    public void testRuleMakeTetherIngressValue() throws Exception {
+        final Integer mobileIfIndex = 100;
+        final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
+
+        final TetherIngressValue value = rule.makeTetherIngressValue();
+        assertEquals(value.oif, (long) DOWNSTREAM_IFINDEX);
+        assertTrue(Arrays.equals(value.ethDstMac, MAC_A.toByteArray()));
+        assertTrue(Arrays.equals(value.ethSrcMac, DOWNSTREAM_MAC.toByteArray()));
+        assertEquals(value.ethProto, ETH_P_IPV6);
+        assertEquals(value.pmtu, Ipv6ForwardingRule.PMTU);
     }
 
     @Test
