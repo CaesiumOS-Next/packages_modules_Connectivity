@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f3142e1_58705c6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-27T15:53:40Z",
+      "side": 1,
+      "message": "Per talk in our 1:1 meeting, we will take aosp/1536562 which support compatibility between R and S. This CL is just for reference. Add DO NOT MERGED to commit message to avoid adding review resource here and be easily to find correct CL(no duplicated title).",
+      "revId": "65308d7c9476abf159a3b313eca8b948f596b365",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
