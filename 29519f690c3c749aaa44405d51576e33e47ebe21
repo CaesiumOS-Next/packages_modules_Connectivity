@@ -46,6 +46,30 @@
       },
       "revId": "29519f690c3c749aaa44405d51576e33e47ebe21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78f998b_3f200a65",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-28T02:04:19Z",
+      "side": 1,
+      "message": "Hmm, my understanding is if NetworkCallback report available it should already be ready to use( which means CONNECTED). Or the case you want to avoid is SUSPENDED ?\n\nNetworkCallback {\n        /**\n         * Called when the framework connects and has declared a new network ready for use.\n         * This callback may be called more than once if the {@link Network} that is\n         * satisfying the request changes.\n         *\n         * @param network The {@link Network} of the satisfying network.\n         * @param networkCapabilities The {@link NetworkCapabilities} of the satisfying network.\n         * @param linkProperties The {@link LinkProperties} of the satisfying network.\n         * @param blocked Whether access to the {@link Network} is blocked due to system policy.\n         * @hide\n         */\n        public void onAvailable(@NonNull Network network,\n                @NonNull NetworkCapabilities networkCapabilities,\n                @NonNull LinkProperties linkProperties, boolean blocked) {\n            // Internally only this method is called when a new network is available, and\n            // it calls the callback in the same way and order that older versions used\n            // to call so as not to change the behavior.\n            onAvailable(network);\n            if (!networkCapabilities.hasCapability(\n                    NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)) {\n                onNetworkSuspended(network);\n            }\n            onCapabilitiesChanged(network, networkCapabilities);\n            onLinkPropertiesChanged(network, linkProperties);\n            onBlockedStatusChanged(network, blocked);\n        }\n}",
+      "parentUuid": "6829c769_d7d4ab5f",
+      "range": {
+        "startLine": 534,
+        "startChar": 16,
+        "endLine": 535,
+        "endChar": 57
+      },
+      "revId": "29519f690c3c749aaa44405d51576e33e47ebe21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
