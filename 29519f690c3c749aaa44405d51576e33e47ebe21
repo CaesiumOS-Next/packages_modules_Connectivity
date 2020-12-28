@@ -70,6 +70,30 @@
       },
       "revId": "29519f690c3c749aaa44405d51576e33e47ebe21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a55b0e_2f582e72",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1520437
+      },
+      "writtenOn": "2020-12-28T02:56:53Z",
+      "side": 1,
+      "message": "I am sorry. I made you get confused.\n\nYes. onAvailable() is called when Wi-Fi network is connected.\nBut the problem is that Wi-Fi network is existed in mNetworkMap even though it\u0027s state is changed to DISCONNECTED due to weak signal.\n\nThere is no way to check if network status is changed with callback as far as I know.\n\nI added log based analysis to the bug(b/173068192).",
+      "parentUuid": "d78f998b_3f200a65",
+      "range": {
+        "startLine": 534,
+        "startChar": 16,
+        "endLine": 535,
+        "endChar": 57
+      },
+      "revId": "29519f690c3c749aaa44405d51576e33e47ebe21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
