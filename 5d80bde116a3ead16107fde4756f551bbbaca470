@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3919a618_f9d17c58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-28T14:09:40Z",
+      "side": 1,
+      "message": ": )",
+      "parentUuid": "38c1be80_757bb99a",
+      "revId": "5d80bde116a3ead16107fde4756f551bbbaca470",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd7c2a5c_cc9cb241",
@@ -31,6 +49,30 @@
       "writtenOn": "2020-12-27T15:40:04Z",
       "side": 1,
       "message": "Use BuildCompat.isAtLeastS() which is added androidx(compatible supported) and have owner to maintain it.\nhttps://source.corp.google.com/aosp-androidx/core/core/src/main/java/androidx/core/os/BuildCompat.java;l\u003d141?q\u003dbuildcompat.java\u0026sq\u003dpackage:android\n\nOr using SdkLevel.isAtLeastS() which is added and maintained by us (network team) for networking modules.",
+      "range": {
+        "startLine": 184,
+        "startChar": 12,
+        "endLine": 187,
+        "endChar": 42
+      },
+      "revId": "5d80bde116a3ead16107fde4756f551bbbaca470",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc03417f_35ffa1da",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-28T14:09:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd7c2a5c_cc9cb241",
       "range": {
         "startLine": 184,
         "startChar": 12,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdaeeb13_bcfb459a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-28T14:09:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f76d6cfc_5713cf69",
+      "range": {
+        "startLine": 195,
+        "startChar": 35,
+        "endLine": 195,
+        "endChar": 61
+      },
+      "revId": "5d80bde116a3ead16107fde4756f551bbbaca470",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf1fa429_5ac8cecf",
@@ -77,6 +143,30 @@
       "writtenOn": "2020-12-27T15:40:04Z",
       "side": 1,
       "message": "deps.getNetd() is marked as @NonNull. If netd is null, it should be bug instead of not initialized. How about just return true which means we don\u0027t need initialized check for api30 version ?",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 29
+      },
+      "revId": "5d80bde116a3ead16107fde4756f551bbbaca470",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bddabe9d_bc5a782b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/shim/30/com/android/networkstack/tethering/apishim/api30/BpfCoordinatorShimImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2020-12-28T14:09:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf1fa429_5ac8cecf",
       "range": {
         "startLine": 44,
         "startChar": 8,
