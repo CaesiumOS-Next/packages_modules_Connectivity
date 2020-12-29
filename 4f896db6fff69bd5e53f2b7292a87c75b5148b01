@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6054a853_cc0a92ea",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060959
+      },
+      "writtenOn": "2020-12-29T10:52:13Z",
+      "side": 1,
+      "message": "Is this an interface between the module and outside it? If so, it should probably be a java api?",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "4f896db6fff69bd5e53f2b7292a87c75b5148b01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
