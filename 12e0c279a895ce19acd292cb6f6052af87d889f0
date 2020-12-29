@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505d7250_297146bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "These tests are great and provide good coverage for the wiring of the callbacks.\n\nWhat they don\u0027t provide is coverage for the code in CS. For example, this patch provides the coverage to ensure that when CS calls the agent, the wiring is done correctly so that the implementations learn about it, but we have no coverage for CS actually calling the agent when the network disconnects. Such tests should probably be written separately, as the coverage here is specific to NetworkAgent.\n",
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0410dfcf_1a7927cc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "Maybe name this a little bit more specifically as most tests have no idea what this socket is",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 27
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d1cc5b8_f37616a9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "DEFAULT_TIMEOUT_MS ?",
+      "range": {
+        "startLine": 815,
+        "startChar": 45,
+        "endLine": 815,
+        "endChar": 50
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3886a4b8_e3aecae3",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "No point doing this considering the next line",
+      "range": {
+        "startLine": 821,
+        "startChar": 12,
+        "endLine": 821,
+        "endChar": 57
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "887bf780_18942b11",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "In fact I don\u0027t even think this matters because whether it\u0027s already there when this is called or arrives within NO_CALLBACK_TIMEOUT is going to be subject to race conditions and will vary with invocations. Just simplify the error message to \"Callback received\" or something.",
+      "range": {
+        "startLine": 823,
+        "startChar": 42,
+        "endLine": 823,
+        "endChar": 66
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c1b24a3_0fa2f6a9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "No need to pass the default, it\u0027s the default",
+      "range": {
+        "startLine": 833,
+        "startChar": 47,
+        "endLine": 833,
+        "endChar": 77
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2239c0c9_6e07fcbd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "Should this be included in the argument ?",
+      "range": {
+        "startLine": 844,
+        "startChar": 63,
+        "endLine": 844,
+        "endChar": 68
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f28f1c6e_8f037b2e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "!! is generally a code smell. It\u0027s not always wrong, especially when interacting with Java code, but most of the time it\u0027s a good clue that your code could be more readable. In this case I suggest something like :\n\n  val socket \u003d network.socketFactory.createSocket().run {\n    bind(InetSocketAddress(localhostAddress, 10000 + port))\n  }\n  boundSocket \u003d socket\n  return agent to socket",
+      "range": {
+        "startLine": 844,
+        "startChar": 19,
+        "endLine": 844,
+        "endChar": 21
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c62d72da_d39a1346",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "This sounds dangerous ; it is the main thread of the app, whatever that means in the context of CTS. Can you use a thread that the test will ready, maybe mHandlerThread if that fits your needs or some other thread that you\u0027d make with Executors.singleThreadExecutor() ?",
+      "range": {
+        "startLine": 856,
+        "startChar": 69,
+        "endLine": 856,
+        "endChar": 81
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8c26b6_c8be6c1c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "I think mCM is already non-null",
+      "range": {
+        "startLine": 856,
+        "startChar": 15,
+        "endLine": 856,
+        "endChar": 17
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a46ab71_7fba9ef4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "　\n  assertFailsWith\u003cQosCallbackRegistrationException\u003e(\"...\") {\n    mCm.registerQosCallback(...)\n  }",
+      "range": {
+        "startLine": 859,
+        "startChar": 12,
+        "endLine": 864,
+        "endChar": 67
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24f5d5a5_63203091",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "agent.expectCallback\u003c...\u003e { it.callbackId \u003d\u003d callbackId }",
+      "range": {
+        "startLine": 868,
+        "startChar": 12,
+        "endLine": 868,
+        "endChar": 96
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "829a5376_88b3188a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "likewise",
+      "range": {
+        "startLine": 878,
+        "startChar": 15,
+        "endLine": 878,
+        "endChar": 18
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b02bfbc_0a6f04c1",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "　\n  \u003e {\n    sessId \u003d\u003d it.sess.sessionId \u0026\u0026 uniqueSessionId \u003d\u003d ...\n  }",
+      "range": {
+        "startLine": 886,
+        "startChar": 95,
+        "endLine": 892,
+        "endChar": 13
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bcf3a7e_588ec6ba",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "socket is already non-null, as it comes from a Pair\u003cAgent, Socket\u003e",
+      "range": {
+        "startLine": 909,
+        "startChar": 18,
+        "endLine": 909,
+        "endChar": 20
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fb40b1e_ee76bb37",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "Nit : you can just import that",
+      "range": {
+        "startLine": 930,
+        "startChar": 39,
+        "endLine": 930,
+        "endChar": 94
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce43a433_f6f79ba9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "go/avoidwe",
+      "range": {
+        "startLine": 988,
+        "startChar": 25,
+        "endLine": 988,
+        "endChar": 27
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4bc6e94_f8bf4292",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2020-12-29T05:37:56Z",
+      "side": 1,
+      "message": "assertTrue(msg, cause is NetworkReleasedException)\n\nor better yet, simply :\n\n  expectCallback\u003conError\u003e { it.ex.cause is NetworkReleasedException }\n\n...which does the same thing. You\u0027ll have a slightly less useful error message, but that will change automatically with a patch that I am working on.",
+      "range": {
+        "startLine": 1009,
+        "startChar": 16,
+        "endLine": 1013,
+        "endChar": 17
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
