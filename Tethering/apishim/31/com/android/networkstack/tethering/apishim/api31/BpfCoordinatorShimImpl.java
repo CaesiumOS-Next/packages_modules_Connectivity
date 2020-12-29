@@ -16,17 +16,24 @@
 
 package com.android.networkstack.tethering.apishim.api31;
 
+import android.net.util.SharedLog;
 import android.system.ErrnoException;
-import android.util.Log;
+import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.net.module.util.Struct;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.BpfMap;
 import com.android.networkstack.tethering.TetherIngressKey;
 import com.android.networkstack.tethering.TetherIngressValue;
+import com.android.networkstack.tethering.TetherStatsKey;
+import com.android.networkstack.tethering.TetherStatsValue;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * Bpf coordinator class for API shims.
@@ -35,18 +42,27 @@ public class BpfCoordinatorShimImpl
         extends com.android.networkstack.tethering.apishim.common.BpfCoordinatorShim {
     private static final String TAG = "api31.BpfCoordinatorShimImpl";
 
+    @NonNull
+    private final SharedLog mLog;
+
     // BPF map of ingress queueing discipline which pre-processes the packets by the IPv6
     // forwarding rules.
     @Nullable
     private final BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
 
+    // BPF map of tethering statistics of the upstream interface since tethering startup.
+    @Nullable
+    private final BpfMap<TetherStatsKey, TetherStatsValue> mBpfStatsMap;
+
     public BpfCoordinatorShimImpl(@NonNull final Dependencies deps) {
+        mLog = deps.getSharedLog().forSubComponent(TAG);
         mBpfIngressMap = deps.getBpfIngressMap();
+        mBpfStatsMap = deps.getBpfStatsMap();
     }
 
     @Override
     public boolean isInitialized() {
-        return mBpfIngressMap != null;
+        return mBpfIngressMap != null && mBpfStatsMap != null;
     }
 
     @Override
@@ -59,7 +75,7 @@ public class BpfCoordinatorShimImpl
         try {
             mBpfIngressMap.updateEntry(key, value);
         } catch (ErrnoException e) {
-            Log.e(TAG, "Could not update entry: ", e);
+            mLog.e("Could not update entry: ", e);
             return false;
         }
 
@@ -67,9 +83,50 @@ public class BpfCoordinatorShimImpl
     }
 
     @Override
+    @Nullable
+    public SparseArray<TetherStatsValue> tetherOffloadGetStats() {
+        if (!isInitialized()) return null;
+
+        final SparseArray<TetherStatsValue> tetherStatsList = new SparseArray<TetherStatsValue>();
+        try {
+            // The reported tether stats are total data usage for all currently-active upstream
+            // interfaces since tethering start.
+            mBpfStatsMap.forEach((rawKey, rawValue) -> {
+                final TetherStatsKey key = toTetherStatsKey(rawKey);
+                final TetherStatsValue value = toTetherStatsValue(rawValue);
+                tetherStatsList.put((int) key.ifindex, value);
+            });
+        } catch (ErrnoException e) {
+            mLog.e("Fail to fetch tethering stats from netd: ", e);
+            return null;
+        }
+        return tetherStatsList;
+    }
+
+    @Override
     public String toString() {
         return "mBpfIngressMap{"
-                + (mBpfIngressMap != null ? "initialized" : "not initialized") + "} "
+                + (mBpfIngressMap != null ? "initialized" : "not initialized") + "}, "
+                + "mBpfStatsMap{"
+                + (mBpfStatsMap != null ? "initialized" : "not initialized") + "} "
                 + "}";
+    }
+
+    private TetherStatsKey toTetherStatsKey(final byte[] rawKey) {
+        final ByteBuffer keyBuf = ByteBuffer.wrap(rawKey);
+        keyBuf.order(ByteOrder.nativeOrder());
+        // Cheat Proguard to keep the constructor for Struct.parse().
+        // TODO: remove it once the Proguard rules are added.
+        final TetherStatsKey value = new TetherStatsKey(0L);
+        return Struct.parse(TetherStatsKey.class, keyBuf);
+    }
+
+    private TetherStatsValue toTetherStatsValue(final byte[] rawValue) {
+        final ByteBuffer valueBuf = ByteBuffer.wrap(rawValue);
+        valueBuf.order(ByteOrder.nativeOrder());
+        // Cheat Proguard to keep the constructor for Struct.parse().
+        // TODO: remove it once the Proguard rules are added.
+        final TetherStatsValue value = new TetherStatsValue(0L, 0L, 0L, 0L, 0L, 0L);
+        return Struct.parse(TetherStatsValue.class, valueBuf);
     }
 }
