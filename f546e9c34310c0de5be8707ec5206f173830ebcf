@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48de5433_32489b9c",
+        "filename": "Tethering/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:28:29Z",
+      "side": 1,
+      "message": "Is a configuration option the right thing to do here? We don\u0027t expect this option to be needed or useful except on auto, right? If so, then it\u0027s probably better to ensure that this option does not actually do anything on non-auto devices.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 80
+      },
+      "revId": "f546e9c34310c0de5be8707ec5206f173830ebcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
