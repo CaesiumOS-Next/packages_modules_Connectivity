@@ -1,0 +1,832 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0061461c_28f641da",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "We should not use this because it makes it puts arbitrary paths on the include paths list without telling the build system what the code actually depends on. This probably makes it difficult or impossible for the build system to provide safety guarantees.\n\nWe should instead put an explicit dependency into shared_libs (or, if the library is only headers, into header_libs). Not sure what target this would be. libbpf_android?",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 6
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f10c1c_3ac2a881",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Is this needed? The exception will have a stack trace, so it will already contain the Java method name that was being run when the exception was thrown.",
+      "range": {
+        "startLine": 27,
+        "startChar": 57,
+        "endLine": 27,
+        "endChar": 69
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97fd54ad_ac6d0624",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Can these two be made static so we don\u0027t need to call FindClass() or GetMethodId() every time an exception is thrown?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 78
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a8cdda_6e45856b",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Does this need to be freed? Looking at throwException in libcore_io_Linux.cpp, it looks like it might need to be. Can we use something like ScopedLocalRef or ScopedUtfChars or...?",
+      "range": {
+        "startLine": 33,
+        "startChar": 35,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "426bf795_1b03ea09",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "From past experience, if an exception is already pending, then I think this will crash.\n\nLooking at throwException in libcore_io_Linux.cpp, you might want something like:\n\n    jthrowable cause \u003d NULL;\n    if (env-\u003eExceptionCheck()) {\n        cause \u003d env-\u003eExceptionOccurred();\n        env-\u003eExceptionClear();\n    }\n\nMore in general, I think that once an exception is thrown, it\u0027s forbidden to perform pretty much any JNI operation except for releasing resources and returning immediately. See:\n\nhttps://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/design.html#wp770\n\nwhich lists the only methods that are safe to call with an exception pending.",
+      "range": {
+        "startLine": 36,
+        "startChar": 41,
+        "endLine": 36,
+        "endChar": 46
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16f21602_923b2449",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Suggest \"return ret\" here. Rationale: if an exception was thrown, the caller probably needs to know, so it can abort immediately without doing anything else.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 1
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d803306a_4cfeb55f",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "It is generally error-prone to use Get*ArrayElements directly. It can lead to refcount errors or memory leaks. Any reason we can\u0027t use ScopedByteArrayRW? I think it might be available by depending on the libnativehelper_header_only build target. Or, if we already depend on libnativehelper_compat_libc++ or some other libnativehelper target, then that should work as well.",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 43
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4051bd9_5a574dbc",
+        "filename": "Tethering/jni/onload.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Pre-existing, but... should this be ANDROID_LOG_FATAL?",
+      "range": {
+        "startLine": 31,
+        "startChar": 28,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caec0603_0068174b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "kernel",
+      "range": {
+        "startLine": 37,
+        "startChar": 33,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "367d3560_197f927e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "written",
+      "range": {
+        "startLine": 37,
+        "startChar": 88,
+        "endLine": 37,
+        "endChar": 93
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54b41e4d_52a32603",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Why is this Struct and not K? It\u0027s not valid to pass in any Struct here, right? It must be a Struct of type K?\n\nAlso everywhere else.",
+      "range": {
+        "startLine": 80,
+        "startChar": 28,
+        "endLine": 80,
+        "endChar": 34
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdb705cc_712d6106",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Why is this LITTLE_ENDIAN instead of ByteOrder.nativeOrder()? Also elsewhere.\n\nIn fact - why pass the order at all? Just add to Struct.java a version of writeToBytes that doesn\u0027t take a byte order, something like:\n\n    public final byte[] writeToBytes() {\n        return writeToBytes(ByteOrder.nativeOrder());\n    }",
+      "range": {
+        "startLine": 81,
+        "startChar": 84,
+        "endLine": 81,
+        "endChar": 97
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f507e4_13ebbb83",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "will",
+      "range": {
+        "startLine": 87,
+        "startChar": 42,
+        "endLine": 87,
+        "endChar": 47
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c42e868_b775be65",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "IllegalStateException would be better. Rationale: the arguments themselves are legal (they\u0027re syntactically valid), it\u0027s the state that\u0027s not legal (the map already contains the key).",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 41
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c737d43_86b65c4c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "exists",
+      "range": {
+        "startLine": 95,
+        "startChar": 86,
+        "endLine": 95,
+        "endChar": 91
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe4c3b69_6f1575ae",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Why not just \"throw e\"?",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 61
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5aea84e_aa86e513",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Why put \"insertEntry\" here? insertEntry will already be at the top of the stack trace.",
+      "range": {
+        "startLine": 97,
+        "startChar": 38,
+        "endLine": 97,
+        "endChar": 49
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e28960e_c7b2b5da",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "will",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 12
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b27229d_8eaf41c9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 62
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec0ef6a9_9aef6566",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "was not",
+      "range": {
+        "startLine": 117,
+        "startChar": 63,
+        "endLine": 117,
+        "endChar": 72
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d844b578_1c85b5d6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "the passed-in",
+      "range": {
+        "startLine": 123,
+        "startChar": 27,
+        "endLine": 123,
+        "endChar": 34
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383d8ae5_6ade2922",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "the passed-in",
+      "range": {
+        "startLine": 123,
+        "startChar": 43,
+        "endLine": 123,
+        "endChar": 50
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3d21b4e_76e0092b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Currently this method behaves specially if |key| is null. I think this is implemented incorrectly (see comment below), so I don\u0027t know if we want to keep this. But if we do, we should document that null is special.",
+      "range": {
+        "startLine": 124,
+        "startChar": 47,
+        "endLine": 124,
+        "endChar": 48
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fad1204_442fba37",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "It looks like if the caller passes in a null key, that is treated as a key that is all zeros. What if the map already contains such a key? The method would not return the first key and it would behave incorrectly.",
+      "range": {
+        "startLine": 128,
+        "startChar": 30,
+        "endLine": 128,
+        "endChar": 48
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8344ace4_b10741b6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "ByteOrder.nativeOrder()\n\nAlso everywhere else.",
+      "range": {
+        "startLine": 133,
+        "startChar": 21,
+        "endLine": 133,
+        "endChar": 34
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0914acf_5dc61cf8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Can you add @NonNull or @Nullable here?",
+      "range": {
+        "startLine": 137,
+        "startChar": 33,
+        "endLine": 137,
+        "endChar": 49
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b473e2b2_d352e581",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Should this explicitly throw if the key is null? If so,\n\n    Objects.requireNonNull(key);",
+      "range": {
+        "startLine": 150,
+        "startChar": 32,
+        "endLine": 150,
+        "endChar": 39
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47e1a2a4_703773b8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Suggest first doing:\n\n    Objects.requireNonNull(key);",
+      "range": {
+        "startLine": 162,
+        "startChar": 47,
+        "endLine": 162,
+        "endChar": 48
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df048ce8_83937e44",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Why is this \u003cbyte[], byte[]\u003e and not \u003cK, V\u003e?",
+      "range": {
+        "startLine": 181,
+        "startChar": 35,
+        "endLine": 181,
+        "endChar": 49
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5696dd44_31bf34f6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "What actually happens if an array of incorrect size is passed in?",
+      "range": {
+        "startLine": 32,
+        "startChar": 45,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1efe12d4_e216fbd9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Check that neigh6 is a valid IPv6 address and blow up if it isn\u0027t?\n\n    try {\n        (Inet6Address) InetAddress.getByAddress(neigh6);\n    } catch (NullPointerException | UnknownHostException | NullPointerException e) {\n        throw new IllegalArgumentException(\"Invalid IPv6 aaddress: \" + Arrays.toString(neigh6));\n    }",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56c35603_9c4fffcf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "These probably belong in Struct.java, not here. Maybe file a bug on Xiao to autogenerate equals() and hashCode() in Struct?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 5
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de65f918_87e66f46",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "If you check this in the constructor as per earlier comment, you can just blow up with an unchecked exception here (e.g., IllegalStateException, or even AssertionError) since it can\u0027t happen (neigh6 is final).",
+      "range": {
+        "startLine": 63,
+        "startChar": 43,
+        "endLine": 63,
+        "endChar": 60
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c67e880d_2cf294c1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressValue.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Struct now supports Type.EUI48, can you use that?",
+      "range": {
+        "startLine": 33,
+        "startChar": 29,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c83fad91_3b344406",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Can we add a TODO not to use the production map for this? For example, we could perhaps define a new \"map_offload_tether_ingress_map_TEST\" for testing.",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 55
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ed6ec1_beedb899",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:05:16Z",
+      "side": 1,
+      "message": "Presumably you don\u0027t ever actually want iif to reach such high values? If so, define a MAX_IIF constant (say, 10000) and then:\n\n    if (iif \u003d\u003d MAX_IIF) fail(\"All iif values up to \" + MAX_IIF + \" already in map\");",
+      "range": {
+        "startLine": 86,
+        "startChar": 43,
+        "endLine": 86,
+        "endChar": 60
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
