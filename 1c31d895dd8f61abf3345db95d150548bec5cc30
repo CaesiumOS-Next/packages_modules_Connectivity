@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6adc1b_e4ceabdf",
+        "filename": "Tethering/apishim/30/com/android/networkstack/tethering/apishim/api30/BpfCoordinatorShimImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-30T05:36:29Z",
+      "side": 1,
+      "message": "Originally the log would both in logcat and dumpsys. Now it only print to logcat. You could do somthing like below to keep error log both in dumpsys and logcat.\n\nmLog \u003d mDeps.getSharedLog().forSubComponent(TAG);\n\nmLog.e(...);",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 66
+      },
+      "revId": "1c31d895dd8f61abf3345db95d150548bec5cc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d02d920_6108727e",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-30T05:36:29Z",
+      "side": 1,
+      "message": "both print to logcat and dumpsys ?",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 54
+      },
+      "revId": "1c31d895dd8f61abf3345db95d150548bec5cc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46520515_364db7a3",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-30T05:36:29Z",
+      "side": 1,
+      "message": "redundant space",
+      "range": {
+        "startLine": 767,
+        "startChar": 70,
+        "endLine": 767,
+        "endChar": 71
+      },
+      "revId": "1c31d895dd8f61abf3345db95d150548bec5cc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3df718b_8158a10e",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-30T05:36:29Z",
+      "side": 1,
+      "message": "Hmm, I prefer avoid nested \"if\". How about separate the function.\n\n    private void verifyTetherOffloadRuleAdd(int upstreamIfindex, @NonNull final InetAddress dst, @NonNull final MacAddress dstMac) throws Exception {\n        if (mBpfDeps.isAtLeastS()) {\n            verify(mBpfIngressMap).updateEntry(\n                    makeIngressKey(upstreamIfindex, dst), makeIngressValue(dstMac));\n        } else {\n            verify(mNetd).tetherOffloadRuleAdd(matches(upstreamIfindex, dst, dstMac));\n        }\n    }\n\n    private void verifyTetherOffloadRuleAdd(@NonNull InOrder inOrder, int upstreamIfindex, @NonNull final InetAddress dst, @NonNull final MacAddress dstMac) throws Exception {\n        if (mBpfDeps.isAtLeastS()) {\n            inOrder.verify(mBpfIngressMap).updateEntry(\n                    makeIngressKey(upstreamIfindex, dst), makeIngressValue(dstMac));\n        } else {\n            inOrder.verify(mNetd).tetherOffloadRuleAdd(matches(upstreamIfindex, dst, dstMac));\n        }\n    }",
+      "range": {
+        "startLine": 767,
+        "startChar": 0,
+        "endLine": 784,
+        "endChar": 5
+      },
+      "revId": "1c31d895dd8f61abf3345db95d150548bec5cc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c138277_6ebeed40",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-30T05:36:29Z",
+      "side": 1,
+      "message": "It seems mHandler and mSharedLog don\u0027t be used ?",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 63
+      },
+      "revId": "1c31d895dd8f61abf3345db95d150548bec5cc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f6495c6_ceae10b9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2020-12-30T05:36:29Z",
+      "side": 1,
+      "message": "Replace with presubmit ? We do have auto test on R, the reason we still want to run some both have some R and S test in S platform is that presubmit would not run R test when we submit to S codebase (not yet configured).",
+      "range": {
+        "startLine": 248,
+        "startChar": 29,
+        "endLine": 248,
+        "endChar": 44
+      },
+      "revId": "1c31d895dd8f61abf3345db95d150548bec5cc30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
