@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07c528b0_36566d6d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0410dfcf_1a7927cc",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 27
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d1cc5b8_f37616a9",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-12-29T05:37:56Z",
       "side": 1,
       "message": "DEFAULT_TIMEOUT_MS ?",
+      "range": {
+        "startLine": 815,
+        "startChar": 45,
+        "endLine": 815,
+        "endChar": 50
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce245cb3_22336bed",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3d1cc5b8_f37616a9",
       "range": {
         "startLine": 815,
         "startChar": 45,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86909e5a_183346f9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3886a4b8_e3aecae3",
+      "range": {
+        "startLine": 821,
+        "startChar": 12,
+        "endLine": 821,
+        "endChar": 57
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "887bf780_18942b11",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "927acd44_6a752cf5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "887bf780_18942b11",
+      "range": {
+        "startLine": 823,
+        "startChar": 42,
+        "endLine": 823,
+        "endChar": 66
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c1b24a3_0fa2f6a9",
@@ -123,6 +219,30 @@
       "writtenOn": "2020-12-29T05:37:56Z",
       "side": 1,
       "message": "No need to pass the default, it\u0027s the default",
+      "range": {
+        "startLine": 833,
+        "startChar": 47,
+        "endLine": 833,
+        "endChar": 77
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78d706dd_b7c9e618",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c1b24a3_0fa2f6a9",
       "range": {
         "startLine": 833,
         "startChar": 47,
@@ -179,6 +299,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c1661c5_bc9cff04",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "I would actually prefer it to crash because the intention of the method is to set the global socket to be both non-null and bound, and if that doesn\u0027t happen sucessfully for whatever reason, the dependent tests will crash and it\u0027s of course better to crash closer to the source of the issue.\n\nI added assertNull to express this instead of having !!",
+      "parentUuid": "f28f1c6e_8f037b2e",
+      "range": {
+        "startLine": 844,
+        "startChar": 19,
+        "endLine": 844,
+        "endChar": 21
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7a09001_fe5373a1",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2239c0c9_6e07fcbd",
+      "range": {
+        "startLine": 844,
+        "startChar": 63,
+        "endLine": 844,
+        "endChar": 68
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c62d72da_d39a1346",
@@ -225,6 +393,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31417d1c_124a81bd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "I checked and context.getSystemService(...) is nullable.\n\nMy IDE caught this actually.\n\nI went ahead and did this:\nprivate val mCM \u003d realContext.getSystemService(ConnectivityManager::class.java)!!\n\nsince if mCM is ever null, all of the tests will crash.",
+      "parentUuid": "8e8c26b6_c8be6c1c",
+      "range": {
+        "startLine": 856,
+        "startChar": 15,
+        "endLine": 856,
+        "endChar": 17
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ead8c6a_ef5dfef7",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c62d72da_d39a1346",
+      "range": {
+        "startLine": 856,
+        "startChar": 69,
+        "endLine": 856,
+        "endChar": 81
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a46ab71_7fba9ef4",
@@ -238,6 +454,30 @@
       "writtenOn": "2020-12-29T05:37:56Z",
       "side": 1,
       "message": "　\n  assertFailsWith\u003cQosCallbackRegistrationException\u003e(\"...\") {\n    mCm.registerQosCallback(...)\n  }",
+      "range": {
+        "startLine": 859,
+        "startChar": 12,
+        "endLine": 864,
+        "endChar": 67
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7fd6971_a06a9a32",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a46ab71_7fba9ef4",
       "range": {
         "startLine": 859,
         "startChar": 12,
@@ -271,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad73ba0_aa789616",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24f5d5a5_63203091",
+      "range": {
+        "startLine": 868,
+        "startChar": 12,
+        "endLine": 868,
+        "endChar": 96
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "829a5376_88b3188a",
@@ -284,6 +548,30 @@
       "writtenOn": "2020-12-29T05:37:56Z",
       "side": 1,
       "message": "likewise",
+      "range": {
+        "startLine": 878,
+        "startChar": 15,
+        "endLine": 878,
+        "endChar": 18
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f21b3252_cb12e3b4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "829a5376_88b3188a",
       "range": {
         "startLine": 878,
         "startChar": 15,
@@ -317,6 +605,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4754b4c5_894cf0a2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b02bfbc_0a6f04c1",
+      "range": {
+        "startLine": 886,
+        "startChar": 95,
+        "endLine": 892,
+        "endChar": 13
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bcf3a7e_588ec6ba",
@@ -330,6 +642,30 @@
       "writtenOn": "2020-12-29T05:37:56Z",
       "side": 1,
       "message": "socket is already non-null, as it comes from a Pair\u003cAgent, Socket\u003e",
+      "range": {
+        "startLine": 909,
+        "startChar": 18,
+        "endLine": 909,
+        "endChar": 20
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab4ceb1a_21d8dc2e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bcf3a7e_588ec6ba",
       "range": {
         "startLine": 909,
         "startChar": 18,
@@ -363,6 +699,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d01c140_30c6f604",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fb40b1e_ee76bb37",
+      "range": {
+        "startLine": 930,
+        "startChar": 39,
+        "endLine": 930,
+        "endChar": 94
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce43a433_f6f79ba9",
@@ -386,6 +746,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f6fec9c_fb4a3ab6",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce43a433_f6f79ba9",
+      "range": {
+        "startLine": 988,
+        "startChar": 25,
+        "endLine": 988,
+        "endChar": 27
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4bc6e94_f8bf4292",
@@ -399,6 +783,30 @@
       "writtenOn": "2020-12-29T05:37:56Z",
       "side": 1,
       "message": "assertTrue(msg, cause is NetworkReleasedException)\n\nor better yet, simply :\n\n  expectCallback\u003conError\u003e { it.ex.cause is NetworkReleasedException }\n\n...which does the same thing. You\u0027ll have a slightly less useful error message, but that will change automatically with a patch that I am working on.",
+      "range": {
+        "startLine": 1009,
+        "startChar": 16,
+        "endLine": 1013,
+        "endChar": 17
+      },
+      "revId": "12e0c279a895ce19acd292cb6f6052af87d889f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e3c23b_1545cbfc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2020-12-30T02:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4bc6e94_f8bf4292",
       "range": {
         "startLine": 1009,
         "startChar": 16,
