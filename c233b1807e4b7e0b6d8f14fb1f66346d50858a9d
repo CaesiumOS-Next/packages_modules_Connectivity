@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "623e272d_1b015130",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T08:14:34Z",
+      "side": 1,
+      "message": "LGTM since it looks like we just forgot tether() and untether() when we made everything else asynchronous.",
+      "revId": "c233b1807e4b7e0b6d8f14fb1f66346d50858a9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
