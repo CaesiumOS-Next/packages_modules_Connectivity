@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "054d1314_8cd1310d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2020-12-30T07:29:09Z",
+      "side": 1,
+      "message": "-1 because I think that if we want to add a new config option we should probably limit it only to auto.",
+      "revId": "f546e9c34310c0de5be8707ec5206f173830ebcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48de5433_32489b9c",
