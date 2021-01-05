@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9405b8e6_fdebfa99",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-05T03:40:55Z",
+      "side": 1,
+      "message": "I actually meant literally:\n\n    static void throwErrnoException(JNIEnv* env, const char* functionName, int error) {\n        static jclass cls \u003d env-\u003eFindClass(...);\n        static jmethodID cid \u003d ...;\n\nbut what you have is fine too.",
+      "parentUuid": "85117316_ce41fdba",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 78
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14a8cdda_6e45856b",
