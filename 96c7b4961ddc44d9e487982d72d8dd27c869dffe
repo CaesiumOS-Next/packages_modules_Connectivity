@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b550feee_d70f9d48",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-05T01:40:39Z",
+      "side": 1,
+      "message": "If we only use syscall wrappers, and those syscall wrappers don\u0027t depend on any other libraries, then can we put the syscall wrappers into their own include file, and add a cc_library_headers target containing only that file?",
+      "parentUuid": "448df351_a297e17c",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 6
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07f10c1c_3ac2a881",
         "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
         "patchSetId": 7
