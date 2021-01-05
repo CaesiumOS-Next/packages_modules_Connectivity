@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c59de0c5_c7a99e4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-01-05T20:44:49Z",
+      "side": 1,
+      "message": "sarahchin@ mentioned that SubscriptionManager.setSubscriptionOverrideUnmetered() going to be updated to add NET_CAPABILITY_NOT_METERED. So it will be simpler to make use of that once it is done.",
+      "revId": "6d7ef7e20eeb97faf4d6180862d79e0aa8b9f727",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
