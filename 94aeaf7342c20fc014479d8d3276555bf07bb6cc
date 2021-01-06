@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58a39bdd_909b36cd",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-01-06T06:35:47Z",
+      "side": 1,
+      "message": "Nit: Maybe add comments to say this adjustment is for CF issue and will change back to 10s after bug fixed.",
+      "range": {
+        "startLine": 166,
+        "startChar": 64,
+        "endLine": 166,
+        "endChar": 71
+      },
+      "revId": "94aeaf7342c20fc014479d8d3276555bf07bb6cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
