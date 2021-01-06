@@ -163,7 +163,7 @@ public class ConnectivityManagerTest {
     private static final int MIN_NUM_NETWORK_TYPES = 1;
 
     // Airplane Mode BroadcastReceiver Timeout
-    private static final long AIRPLANE_MODE_CHANGE_TIMEOUT_MS = 10_000L;
+    private static final long AIRPLANE_MODE_CHANGE_TIMEOUT_MS = 40_000L;
 
     // Minimum supported keepalive counts for wifi and cellular.
     public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT = 1;
