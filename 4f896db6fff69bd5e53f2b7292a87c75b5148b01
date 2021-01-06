@@ -22,6 +22,30 @@
       },
       "revId": "4f896db6fff69bd5e53f2b7292a87c75b5148b01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5578627a_d953ea0c",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgent.aidl",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-01-06T01:20:36Z",
+      "side": 1,
+      "message": "No this is internal to the module: both ConnectivityService and NetworkAgent are planned to be inside the module. NetworkAgent is a @SystemApi, so that\u0027s what everything outside would see.\n\nThis is only mentioned in the commit message for aosp/1483962; I\u0027d add it here but this is a cherry-pick, so I\u0027d prefer not to have inconsistencies with the merged change.",
+      "parentUuid": "6054a853_cc0a92ea",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "4f896db6fff69bd5e53f2b7292a87c75b5148b01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
