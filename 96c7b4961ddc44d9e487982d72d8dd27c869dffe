@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc60085a_16410730",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-08T12:40:32Z",
+      "side": 1,
+      "message": "Move the discussion to\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1498277/8/Tethering/Android.bp#65",
+      "parentUuid": "b550feee_d70f9d48",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 6
+      },
+      "revId": "96c7b4961ddc44d9e487982d72d8dd27c869dffe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07f10c1c_3ac2a881",
         "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
         "patchSetId": 7
