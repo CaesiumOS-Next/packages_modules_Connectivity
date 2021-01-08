@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "90aeae29_bb11cbed",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-08T03:52:31Z",
+      "side": 1,
+      "message": "Could this just be:\n\n    header_libs: [\n        \"libbpf_android_headers\",\n    ],\n\n? If the problem is that the libbpf_android_headers target does not have an sdk_version attribute, then... can we just add it? That target does not depend on anything, so setting an sdk_version on it shouldn\u0027t require any other changes.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 6
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89c2c54f_b99233dc",
         "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
         "patchSetId": 8
