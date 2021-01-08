@@ -417,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52339e1d_0bc0dda9",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-08T15:47:13Z",
+      "side": 1,
+      "message": "Ack.\n\nI wonder if it\u0027s better to do:\n\n    sErrnoExceptionClass \u003d static_cast\u003cjclass\u003e(env-\u003eNewGlobalRef(\n            env-\u003eFindClass(\"android/system/ErrnoException\")));\n    if (sErrnoExceptionClass \u003d\u003d nullptr) return JNI_ERR;\n\n    sErrnoExceptionCtor2 \u003d env-\u003eGetMethodID(sErrnoExceptionClass, \"\u003cinit\u003e\",\n            \"(Ljava/lang/String;I)V\");\n    if (sErrnoExceptionCtor2 \u003d\u003d nullptr) return JNI_ERR;\n\n    sErrnoExceptionCtor3 \u003d env-\u003eGetMethodID(sErrnoExceptionClass, \"\u003cinit\u003e\",\n            \"(Ljava/lang/String;ILjava/lang/Throwable;)V\");\n    if (sErrnoExceptionCtor3 \u003d\u003d nullptr) return JNI_ERR;\n\nbut it probably doesn\u0027t matter. I don\u0027t think it\u0027s possible for this code to ever fail.",
+      "parentUuid": "3f371ccc_36acf6ad",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 89
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59ed0fae_16301311",
@@ -652,6 +676,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18be5681_6ea30d8d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-08T15:47:13Z",
+      "side": 1,
+      "message": "LGTM either way. If we find that a public method that takes null is useful, we can always add one. Also you could add a TODO to consider adding one. Or just add one right now.",
+      "parentUuid": "59430bed_09f77b9c",
+      "range": {
+        "startLine": 125,
+        "startChar": 24,
+        "endLine": 125,
+        "endChar": 39
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "056b0124_c9a845e1",
@@ -748,6 +796,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53752a7a_fb95fbdd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-08T15:47:13Z",
+      "side": 1,
+      "message": "The current code allows the user to delete *all* the keys, yes. But it does not allow the user to delete some of the keys without restarting the iteration. I think that would be useful. So if you think my suggested code will work, we could allow deletion and add this in the docs:\n\n\u003d\u003d\u003d\u003d\u003d\u003d\nThe given BiConsumer may to delete the passed-in entry, but is not allowed to perform any other structural modifications to the map, such as adding entries or deleting other entries. Otherwise, iteration will result in undefined behaviour.\n\u003d\u003d\u003d\u003d\u003d\u003d\n\nThe reason I suggest this is that it\u0027s consistent with the general behaviour of Java iterators, which allow deletion, as long as you *only* delete through the iterator, and don\u0027t change the map in any other way. For example, see:\n\nhttps://docs.oracle.com/javase/7/docs/api/java/util/ListIterator.html#remove()\n\nAlso see the docs for ArrayList:\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nThe iterators returned by this class\u0027s iterator and listIterator methods are fail-fast: if the list is structurally modified at any time after the iterator is created, in any way except through the iterator\u0027s own remove or add methods, the iterator will throw a ConcurrentModificationException. Thus, in the face of concurrent modification, the iterator fails quickly and cleanly, rather than risking arbitrary, non-deterministic behavior at an undetermined time in the future.\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nNote the \"in any way except through the iterator\u0027s own remove or add methods\". That implies that it is allowed to delete.",
+      "parentUuid": "5ad56dda_cb327126",
+      "range": {
+        "startLine": 180,
+        "startChar": 98,
+        "endLine": 180,
+        "endChar": 99
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0972b2e1_897ae032",
         "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
         "patchSetId": 8
@@ -783,6 +855,30 @@
       "side": 1,
       "message": "May I use Inet6Address.getByAddress(neigh6)? (and L.67)\n              ^-- 6 for IPv6",
       "parentUuid": "0972b2e1_897ae032",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b614527_3753c9a9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-08T15:47:13Z",
+      "side": 1,
+      "message": "Having tried this before, I think the answer is: no, you can\u0027t.\n\nInet6Address is a subclass of InetAddress, and it doesn\u0027t override getByAddress. So Inet6Address.getByAddress behaves exactly the same as InetAddress.getByAddress. As such, Inet6Address.getByAddress({new byte[]{1, 2, 3, 4}) will happily return an IPv4 address without throwing any exceptions.\n\nThat said - if you have a test that demonstrates that this works, then yes you can. :-)",
+      "parentUuid": "852ad752_63e2b888",
       "range": {
         "startLine": 37,
         "startChar": 12,
