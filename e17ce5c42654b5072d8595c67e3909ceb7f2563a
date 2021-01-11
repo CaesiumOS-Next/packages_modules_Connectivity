@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "959e3e5c_f925dc90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Thanks, both \"Inet(6)Address\" and \"deletion during iteration\" are addressed.",
+      "parentUuid": "98f6ce1b_a13d74b8",
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f027ca2a_fb59c702",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-01-08T15:47:13Z",
       "side": 1,
       "message": "Nit: suggest picking some numbers that are not all 1500, such as 1280 or 1400.",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 20
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c2e5513_d8c06890",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done.\n\nNote that the realistic case is always 1500 for now because no one modifies pmtu and the default value 1500 from TetherOffloadRuleParcel\n\nhttps://android.googlesource.com/platform/system/netd/+/master/server/aidl_api/netd_aidl_interface/5/android/net/TetherOffloadRuleParcel.aidl\nparcelable TetherOffloadRuleParcel {\n..\n  int pmtu \u003d 1500;",
+      "parentUuid": "f027ca2a_fb59c702",
       "range": {
         "startLine": 73,
         "startChar": 16,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f89483a7_67e1821c",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Add TODO at L.65 and leave this as unresolved.",
+      "parentUuid": "574f2a10_f6aa95ef",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 82
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee7f97b0_fac9bb0b",
         "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
         "patchSetId": 11
@@ -77,6 +143,30 @@
       "writtenOn": "2021-01-08T15:47:13Z",
       "side": 1,
       "message": "// getFirstKey on an empty map returns null.",
+      "range": {
+        "startLine": 146,
+        "startChar": 12,
+        "endLine": 146,
+        "endChar": 64
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f3425d_71ae5737",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee7f97b0_fac9bb0b",
       "range": {
         "startLine": 146,
         "startChar": 12,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a2ae4f5_7129348b",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dff2c5b6_c940b02f",
+      "range": {
+        "startLine": 150,
+        "startChar": 12,
+        "endLine": 150,
+        "endChar": 73
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e17f9d46_cbc56936",
@@ -123,6 +237,30 @@
       "writtenOn": "2021-01-08T15:47:13Z",
       "side": 1,
       "message": "Suggest using insertEntry in these tests (at least, in some of the tests) so it\u0027s easier for someone reading the test code to know how many entries are in the map.",
+      "range": {
+        "startLine": 170,
+        "startChar": 19,
+        "endLine": 170,
+        "endChar": 30
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cea2934_a509c42f",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e17f9d46_cbc56936",
       "range": {
         "startLine": 170,
         "startChar": 19,
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7679ee_27aa5a83",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ece90c04_6c5edbfb",
+      "range": {
+        "startLine": 212,
+        "startChar": 12,
+        "endLine": 212,
+        "endChar": 43
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b692cede_654b8223",
@@ -169,6 +331,30 @@
       "writtenOn": "2021-01-08T15:47:13Z",
       "side": 1,
       "message": "// updateEntry will update an entry that already exists.",
+      "range": {
+        "startLine": 217,
+        "startChar": 12,
+        "endLine": 217,
+        "endChar": 44
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "382086f9_47d6171d",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b692cede_654b8223",
       "range": {
         "startLine": 217,
         "startChar": 12,
@@ -202,6 +388,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e609510_2d655470",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cf4aec7_654f6994",
+      "range": {
+        "startLine": 283,
+        "startChar": 61,
+        "endLine": 283,
+        "endChar": 64
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "016a45fa_5d3b5c98",
@@ -215,6 +425,30 @@
       "writtenOn": "2021-01-08T15:47:13Z",
       "side": 1,
       "message": "won\u0027t allow inserting any more entries.",
+      "range": {
+        "startLine": 292,
+        "startChar": 23,
+        "endLine": 292,
+        "endChar": 59
+      },
+      "revId": "e17ce5c42654b5072d8595c67e3909ceb7f2563a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba7d89c_8619d668",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "016a45fa_5d3b5c98",
       "range": {
         "startLine": 292,
         "startChar": 23,

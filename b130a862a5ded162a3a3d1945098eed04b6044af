@@ -441,6 +441,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f1be56e_cb04614b",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52339e1d_0bc0dda9",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 89
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59ed0fae_16301311",
@@ -700,6 +724,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3376b145_b69856dc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Add a TODO for null key",
+      "parentUuid": "18be5681_6ea30d8d",
+      "range": {
+        "startLine": 125,
+        "startChar": 24,
+        "endLine": 125,
+        "endChar": 39
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "056b0124_c9a845e1",
@@ -818,6 +866,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "451e529a_87d930c2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Thanks for your explanation.\n\nAdd two tests for this change.\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1498277/11..12/Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java#285\ntestIterateEmptyMap\ntestIterateDeletion",
+      "parentUuid": "53752a7a_fb95fbdd",
+      "range": {
+        "startLine": 180,
+        "startChar": 98,
+        "endLine": 180,
+        "endChar": 99
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0972b2e1_897ae032",
@@ -879,6 +951,30 @@
       "side": 1,
       "message": "Having tried this before, I think the answer is: no, you can\u0027t.\n\nInet6Address is a subclass of InetAddress, and it doesn\u0027t override getByAddress. So Inet6Address.getByAddress behaves exactly the same as InetAddress.getByAddress. As such, Inet6Address.getByAddress({new byte[]{1, 2, 3, 4}) will happily return an IPv4 address without throwing any exceptions.\n\nThat said - if you have a test that demonstrates that this works, then yes you can. :-)",
       "parentUuid": "852ad752_63e2b888",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "b130a862a5ded162a3a3d1945098eed04b6044af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de006b7a_23205e3a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-11T09:49:02Z",
+      "side": 1,
+      "message": "Done.\n\nYou are right. I am sorry :-(",
+      "parentUuid": "0b614527_3753c9a9",
       "range": {
         "startLine": 37,
         "startChar": 12,
