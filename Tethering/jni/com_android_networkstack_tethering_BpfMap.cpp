@@ -24,7 +24,7 @@
 #include "nativehelper/scoped_utf_chars.h"
 
 #define BPF_FD_JUST_USE_INT
-#include "bpf/BpfUtils.h"
+#include "BpfUtils.h"
 
 namespace android {
 
