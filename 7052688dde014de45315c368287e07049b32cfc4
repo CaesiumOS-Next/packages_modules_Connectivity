@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f216400_e6396e73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "LGTM. Only nits left. Since this CL is treehugged, feel free to merge as is and address the comments in a follow-up.",
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17d93147_b4a4407a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "This should be @NonNull because you call Objects.requireNonNull on it.",
+      "range": {
+        "startLine": 137,
+        "startChar": 24,
+        "endLine": 137,
+        "endChar": 33
+      },
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca47a6c3_0d1346d2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "Nit: consider putting these on the same line:\n\n    @Nullable K nextKey \u003d getFirstKey();",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 34
+      },
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aa6beec_adf4ff1f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "... and these too",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 45
+      },
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5944cd_8ad5bdbc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherIngressKey.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "Nit: I think you can just do:\n\n            (Inet6Address) InetAddress.getByAddress(neigh6);",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 88
+      },
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26d61686_4901ebcc",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "Nit: should this actually catch exceptions? ISTM that if the map was successfully opened, then this code should never throw. What if you simply do:\n\n    private void cleanTestMap() throws Exception {\n        try (BpfMap\u003cTetherIngressKey, TetherIngressValue\u003e bpfMap \u003d getTestMap()) {\n            bpfMap.forEach((key, value) -\u003e assertTrue(bpfMap.deleteEntry(key));\n        }\n        assertNull(bpfMap.getFirstKey());\n    }",
+      "range": {
+        "startLine": 99,
+        "startChar": 18,
+        "endLine": 99,
+        "endChar": 52
+      },
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79a4aac3_4dd3b990",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "This is fine, but generally our code uses Atomic* classes for this. So you could do:\n\n    // Can\u0027t use an int because variables used in a lambda must be final.\n    final AtomicInteger count \u003d new AtomicInteger();\n    bpfMap.forEach((key, value) -\u003e count.incrementAndGet());\n\n    // Expect that the consumer was never called.\n    assertEquals(0, count.get());",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 36
+      },
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d28493_cc27e0e4",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "was never called",
+      "range": {
+        "startLine": 294,
+        "startChar": 36,
+        "endLine": 294,
+        "endChar": 55
+      },
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d8888d_4fae8a05",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-11T16:41:04Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 36
+      },
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
