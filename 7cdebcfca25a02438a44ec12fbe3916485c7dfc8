@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a25ea748_a5818887",
+        "filename": "Tethering/apishim/30/com/android/networkstack/tethering/apishim/api30/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "netd",
+      "range": {
+        "startLine": 77,
+        "startChar": 55,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab9c0c21_32e61308",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "BPF map",
+      "range": {
+        "startLine": 100,
+        "startChar": 55,
+        "endLine": 100,
+        "endChar": 59
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48be8f27_168d4de9",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "Am I correct that this is no longer necessary because in the checked-in version of BpfMap, forEach takes a BiConsumer\u003cK, V\u003e?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 5
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9fd9c44_23fd7dfa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "This is fine, but if you move you move toTetherStatsValueSparseArray to this file, or if you move tetherOffloadGetAndClearStats to the R shim, could also do something like:\n\n                final TetherStatsParcel stats \u003d\n                        mNetd.tetherOffloadGetAndClearStats(upstreamIfindex);\n                final TetherStatsParcel[] parcelArray \u003d new TetherStatsParcel[]{stats};\n                final SparseArray\u003cTetherStatsValue\u003e tetherStatsList \u003d\n                        toTetherStatsValueSparseArray(parcelArray);",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 43
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea3c5308_ae597ee8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "Given that you already have the index i, just use valueAt(i) here? I think get() might require a binary search to find the value.",
+      "range": {
+        "startLine": 771,
+        "startChar": 65,
+        "endLine": 771,
+        "endChar": 77
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "151eaf3c_28027061",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherStatsKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "FWIW, Xiao has implemented autogeneration of equals/hashCode/toString in struct: aosp/1536721 . Once that is merged you will be able to use it.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 5
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e5e6e39_6abecddc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherStatsValue.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "Uber-nit: I think generally Gbps are calculated as 1000*1000*1000 bits / s.",
+      "range": {
+        "startLine": 27,
+        "startChar": 19,
+        "endLine": 27,
+        "endChar": 37
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f590fc_fb8b5908",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "Do we actually need to do this? BpfMap already has its own unit tests that check that when you write to it it does what we expect it to do.\n\nMaybe we can replace the map with a mock, and just expect that the right methods on it are called? Given that TetherStatsKey and TetherStatsValue have equals() methods this should be pretty easy.\n\nAlternatively, we could add another test map, like the one we added for BpfMapTest. I don\u0027t know if we can do that for every production map we add though. If the only cost is a few bytes of memory, then maybe we can? Something to ask maze about.",
+      "range": {
+        "startLine": 106,
+        "startChar": 53,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04ce5459_27564341",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T16:08:46Z",
+      "side": 1,
+      "message": "Per comment on other CL: is there actually test coverage that we are not getting right now that makes this test code necessary?",
+      "range": {
+        "startLine": 350,
+        "startChar": 4,
+        "endLine": 350,
+        "endChar": 62
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
