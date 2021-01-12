@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02c706f_5417b967",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-12T08:05:57Z",
+      "side": 1,
+      "message": "Thanks for your review. I will address them in a follow-up commit and merge this commit first.",
+      "parentUuid": "9f216400_e6396e73",
+      "revId": "7052688dde014de45315c368287e07049b32cfc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17d93147_b4a4407a",
