@@ -16,6 +16,414 @@
       "message": "Remi should probably take a look at the shims.",
       "revId": "a226d53a25db87c264745829a840645c388f6282",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85ff2c6e_5207f554",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Generally LGTM though I\u0027m not sure whether the shim is the right approach here. I don\u0027t think it\u0027s harmful to use shims, I just think it might be overkill. Perhaps the value of using the shims will become clearer in future CLs.\n\nIt would be good if Remi could take a look at the shims.",
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3867e91e_fdac4631",
+        "filename": "Tethering/apishim/30/com/android/networkstack/tethering/apishim/api30/BpfCoordinatorShimImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "mNetd !\u003d null\n\n?\n\nThat said, see other comment - I\u0027m not sure this is very useful.",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de91cf7e_4ac582e0",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Do you want \",\" or \"+\" here?\n\n, will log the whole stack trace to the logs.\n+ will just put the exception message.\n\nGenerally I use + since the stack trace is often not very useful.",
+      "range": {
+        "startLine": 66,
+        "startChar": 45,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d5c6002_ed1601f6",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is actually useful. If someone calls this method and gets false, is there anything they can do to fix the problem? If the answer is no, then perhaps we should simply not have the method. Or do we just have it for debugging?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "918b9ab8_c6a22f59",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Is this what we use elsewhere? In NetworkStack I think we use ShimUtils. Remi would know.",
+      "range": {
+        "startLine": 187,
+        "startChar": 19,
+        "endLine": 187,
+        "endChar": 27
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf03de29_b65b8e0c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Is there a reason this is not part of the API 31 shim?",
+      "range": {
+        "startLine": 191,
+        "startChar": 70,
+        "endLine": 191,
+        "endChar": 86
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4f695de_0f211071",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "\"BPF disabled\" or \"BPF not in use\".",
+      "range": {
+        "startLine": 237,
+        "startChar": 20,
+        "endLine": 237,
+        "endChar": 36
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b07291e_031d7070",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Is the intent here that if BPF fails to initialize, then the code will call into netd? That seems like a bad idea, because it increases the number of combinations that need to be supported and tested. I think it would be better to say:\n\nR: always use netd. if it fails, BPF tethering doesn\u0027t work\nS: always use BPF. if it fails, BPF tethering doesn\u0027t work",
+      "range": {
+        "startLine": 269,
+        "startChar": 29,
+        "endLine": 269,
+        "endChar": 67
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a588b3d3_c50a44fa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Can this code NetworkStackConstants? If so, would use NetworkStackConstants.ETHER_MTU.",
+      "range": {
+        "startLine": 493,
+        "startChar": 32,
+        "endLine": 493,
+        "endChar": 36
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ace297e_54f12c28",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Ditto, should these be part of the API 31 shim?",
+      "range": {
+        "startLine": 538,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 9
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b839f05a_c3b52de9",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "FWIW, you don\u0027t need to have two versions of these methods. In IpClientIntegrationTest we have:\n\n    private \u003cT\u003e T verifyWithTimeout(InOrder inOrder, T t) {\n        if (inOrder !\u003d null) {\n            return inOrder.verify(t, timeout(TEST_TIMEOUT_MS));\n        } else {\n            return verify(t, timeout(TEST_TIMEOUT_MS));\n        }\n    }\n\nso I think here you could just have:\n\n    private \u003cT\u003e T verify(InOrder inOrder, T t) {\n        if (inOrder !\u003d null) {\n            return inOrder.verify(t);\n        } else {\n            return verify(t);\n        }\n    }\n\nand then:\n\n    private void verifyTetherOffloadRuleAdd(InOrder inOrder, int upstreamIfindex, InetAddress dst,\n            MacAddress dstMac) throws Exception {\n        if (isAtLeastS()) {\n            verify(inOrder, mBpfMap).updateEntry(...);\n        } else {\n            verify(inOrder, mNetd).tetherOffloadRuleAdd(...);\n        }\n    }",
+      "range": {
+        "startLine": 777,
+        "startChar": 17,
+        "endLine": 777,
+        "endChar": 43
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f9642e4_a0bf934c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Why did you need to change this to a spy?",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 15
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2144bab3_84f28208",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "I don\u0027t understand this. What test coverage are we lacking? AFAIK currently the following all run in presubmit:\n\n- AOSP master tests on HEAD\n- Internal master tests on HEAD\n- Mainline-prod tests on R and will only run on R\n\nAt some point, we\u0027ll re-enable presubmit testing for internal master testing on R as well (this is currently disabled).\n\nBut regardless of the above the tethering code should be the same in all branches (AOSP, internal master, mainline-prod). So both R and S are tested.\n\nAm I missing something?\n\nIs the problem that isAtLeastS does not return true in AOSP? But even if it doesn\u0027t, it returns true in master, doesn\u0027t it?",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 78
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5021d02_ec2ee6b3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Generally, in our code methods that start with \"test\" are tests. Suggest renaming to checkTetherOffloadRuleAdd.",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 21
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d89c8fba_604e6e32",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Is it worth testing the size of the key to ensure it\u0027s what we expect? Something like:\n\n    assertEquals(20, key.writeToBytes().length);",
+      "range": {
+        "startLine": 419,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 5
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a8d23df_dad8237f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Out of curiosity, why is this long?",
+      "range": {
+        "startLine": 427,
+        "startChar": 32,
+        "endLine": 427,
+        "endChar": 38
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e1f284_cd09c788",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Ditto, check the length?",
+      "range": {
+        "startLine": 432,
+        "startChar": 4,
+        "endLine": 432,
+        "endChar": 5
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae158e1a_ed8193a8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-12T14:46:07Z",
+      "side": 1,
+      "message": "Ditto, suggest renaming to checkBpfDisabled.",
+      "range": {
+        "startLine": 595,
+        "startChar": 17,
+        "endLine": 595,
+        "endChar": 21
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
