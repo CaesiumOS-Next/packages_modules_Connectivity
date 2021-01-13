@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ecd1f7cb_bef22f3b",
+        "filename": "Tethering/apishim/30/com/android/networkstack/tethering/apishim/api30/BpfCoordinatorShimImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Theoretically, yes (mNetd !\u003d null) \n\nBecause mNetd should be non-null, it is not possible that netd handler is null. So just return true.\n\nL.39\n@NonNull\nprivate final INetd mNetd;\n\nActually, isInitialized() is used for api 31. The bpf coordinator uses this function to early leave if the BPF maps (stats, limit, ingress) are not initialized. In api 30, it is useless. Yes, it is ugly.\n\nLeave as unresolved for further discussion.",
+      "parentUuid": "3867e91e_fdac4631",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de91cf7e_4ac582e0",
         "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
         "patchSetId": 6
@@ -71,6 +95,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "Do you want \",\" or \"+\" here?\n\n, will log the whole stack trace to the logs.\n+ will just put the exception message.\n\nGenerally I use + since the stack trace is often not very useful.",
+      "range": {
+        "startLine": 66,
+        "startChar": 45,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c61c5df4_a1e70b01",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done.\n\nUse \"+\". Thanks for your explanation.",
+      "parentUuid": "de91cf7e_4ac582e0",
       "range": {
         "startLine": 66,
         "startChar": 45,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e04757f_467960fd",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "The coordinator uses this function to check if the BPF shim is available (actually, for api 31). If the BPF maps are not initialized, block the polling, rule modification from ipserver.. \n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1536562/6/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java#268\n# check \n    private boolean isUsingBpf() {\n        return mIsBpfEnabled \u0026\u0026 mBpfCoordinatorShim.isInitialized();\n# use\n    public void startPolling() {\n        if (!isUsingBpf()) {\n\n    public void tetherOffloadRuleAdd(\n        if (!isUsingBpf()) return;\n\nLeave as unresolved for further discussion.",
+      "parentUuid": "8d5c6002_ed1601f6",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "918b9ab8_c6a22f59",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 6
@@ -117,6 +189,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "Is this what we use elsewhere? In NetworkStack I think we use ShimUtils. Remi would know.",
+      "range": {
+        "startLine": 187,
+        "startChar": 19,
+        "endLine": 187,
+        "endChar": 27
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3692a292_9cd3398a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Let me check with Remi and add a TODO.\n\nCurrently, the module NetworkStackApiStableShims (ShimUtils inside) is bigger than what I need. Probably need to wrap ShimUtils into a smaller library as netlink-client.\n\nLeave as unresolved",
+      "parentUuid": "918b9ab8_c6a22f59",
       "range": {
         "startLine": 187,
         "startChar": 19,
@@ -152,6 +248,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e786889a_d7fb41e1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Need a mocked ingress bpf map for testing api 31.\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1536562/6/Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java#200\n    private void verifyTetherOffloadRuleAdd(@NonNull InOrder inOrder,\n..\n            inOrder.verify(mBpfIngressMap).updateEntry(",
+      "parentUuid": "bf03de29_b65b8e0c",
+      "range": {
+        "startLine": 191,
+        "startChar": 70,
+        "endLine": 191,
+        "endChar": 86
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4f695de_0f211071",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 6
@@ -163,6 +283,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "\"BPF disabled\" or \"BPF not in use\".",
+      "range": {
+        "startLine": 237,
+        "startChar": 20,
+        "endLine": 237,
+        "endChar": 36
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a8a4919_63fd4a8b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4f695de_0f211071",
       "range": {
         "startLine": 237,
         "startChar": 20,
@@ -196,6 +340,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bcbc269_35d3723a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "It won\u0027t fall back to netd if the bpf failed. \n\nAt L.221, BpfCoordinatorShim.getBpfCoordinatorShim() will return a object for either api 30 or 31 by SDK version (isAtLeastS). I think that current behavior is the same as what you advised (R: netd, S+: BPF).\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1536562/6/Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java#32\n    public static BpfCoordinatorShim getBpfCoordinatorShim(@NonNull final Dependencies deps) {\n        if (deps.isAtLeastS()) {\n            return new com.android.networkstack.tethering.apishim.api31.BpfCoordinatorShimImpl(\n                    deps);\n        } else {\n            return new com.android.networkstack.tethering.apishim.api30.BpfCoordinatorShimImpl(\n                    deps);\n        }",
+      "parentUuid": "9b07291e_031d7070",
+      "range": {
+        "startLine": 269,
+        "startChar": 29,
+        "endLine": 269,
+        "endChar": 67
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a588b3d3_c50a44fa",
@@ -209,6 +377,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "Can this code NetworkStackConstants? If so, would use NetworkStackConstants.ETHER_MTU.",
+      "range": {
+        "startLine": 493,
+        "startChar": 32,
+        "endLine": 493,
+        "endChar": 36
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff8468b1_6be183ce",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a588b3d3_c50a44fa",
       "range": {
         "startLine": 493,
         "startChar": 32,
@@ -244,6 +436,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2109aee2_64afd234",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Doable. \n\nBut do you prefer that wrap the utils function into a shim class? If yes, I will wrap it as the follows:\n\ncom.android.networkstack.tethering.apishim.api31.BpfCoordinatorShimImpl.makeTetherIngressValue(Ipv6ForwardingRule rule)\n\nI am not familiar with shim class. I just feel that maybe the \"api XX\" should be abstracted but exposed. User don\u0027t need to know any specific function in specific shim. \n\nI think wrap into Ipv6ForwardingRule class is easier to use.\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1536562/6/Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java#203\nupdateEntry(.., rule.makeTetherIngressKey(), rule.makeTetherIngressValue());\n\nPlease share your thought. Thank you",
+      "parentUuid": "7ace297e_54f12c28",
+      "range": {
+        "startLine": 538,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 9
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b839f05a_c3b52de9",
         "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
         "patchSetId": 6
@@ -255,6 +471,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "FWIW, you don\u0027t need to have two versions of these methods. In IpClientIntegrationTest we have:\n\n    private \u003cT\u003e T verifyWithTimeout(InOrder inOrder, T t) {\n        if (inOrder !\u003d null) {\n            return inOrder.verify(t, timeout(TEST_TIMEOUT_MS));\n        } else {\n            return verify(t, timeout(TEST_TIMEOUT_MS));\n        }\n    }\n\nso I think here you could just have:\n\n    private \u003cT\u003e T verify(InOrder inOrder, T t) {\n        if (inOrder !\u003d null) {\n            return inOrder.verify(t);\n        } else {\n            return verify(t);\n        }\n    }\n\nand then:\n\n    private void verifyTetherOffloadRuleAdd(InOrder inOrder, int upstreamIfindex, InetAddress dst,\n            MacAddress dstMac) throws Exception {\n        if (isAtLeastS()) {\n            verify(inOrder, mBpfMap).updateEntry(...);\n        } else {\n            verify(inOrder, mNetd).tetherOffloadRuleAdd(...);\n        }\n    }",
+      "range": {
+        "startLine": 777,
+        "startChar": 17,
+        "endLine": 777,
+        "endChar": 43
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75f0c0f4_3189b617",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done.\n\n\nprivate \u003cT\u003e T verify(InOrder inOrder, T t) \n              ^ rename to verifyWithOrder() because verify() has been used by org.mockito.Mockito.verify",
+      "parentUuid": "b839f05a_c3b52de9",
       "range": {
         "startLine": 777,
         "startChar": 17,
@@ -278,6 +518,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "Why did you need to change this to a spy?",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 15
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f361b51d_2aabe673",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "I would like to test if there is no BpfIngressMap.\nL.663\n    public void testBpfDisabledbyNoBpfIngressMap() throws Exception {\n..\n        doReturn(null).when(mDeps).getBpfIngressMap();\n\n\nOr I have to create a Dependencies object with null BpfIngressMap for testing:\n\n(earlier version)\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1536562/2/Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java#705\n\n    public void testBpfDisabledbyNoBpfIngressMap() throws Exception {\n..\n        mDeps \u003d new BpfCoordinator.Dependencies() {\n            @NonNull\n            public Handler getHandler() {\n                return mHandler;\n            }\n\n            @NonNull\n            public INetd getNetd() {\n                return mNetd;\n            }\n\n            @NonNull\n            public NetworkStatsManager getNetworkStatsManager() {\n                return mStatsManager;\n            }\n\n            @NonNull\n            public SharedLog getSharedLog() {\n                return mSharedLog;\n            }\n\n            @Nullable\n            public TetheringConfiguration getTetherConfig() {\n                return mTetherConfig;\n            }\n\n            @Nullable\n            public BpfMap\u003cTetherIngressKey, TetherIngressValue\u003e getBpfIngressMap() {\n                return null;  // no ingress map\n            }\n        };",
+      "parentUuid": "3f9642e4_a0bf934c",
       "range": {
         "startLine": 112,
         "startChar": 12,
@@ -313,6 +577,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab829742_12bc7ecb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "isAtLeastS() returns true on AOSP (test on S) and auto-merge Connectivity on mainline-prod is not enabled (not test on R). That means R has never tested automatically for now. I think that we may need these tests for minimum testing on R until auto-merge mainline-prod is enabled.",
+      "parentUuid": "2144bab3_84f28208",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 78
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5021d02_ec2ee6b3",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 6
@@ -324,6 +612,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "Generally, in our code methods that start with \"test\" are tests. Suggest renaming to checkTetherOffloadRuleAdd.",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 21
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d748a85b_30911f3b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5021d02_ec2ee6b3",
       "range": {
         "startLine": 228,
         "startChar": 17,
@@ -357,6 +669,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0978fd6_e4963739",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d89c8fba_604e6e32",
+      "range": {
+        "startLine": 419,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 5
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a8d23df_dad8237f",
@@ -370,6 +706,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "Out of curiosity, why is this long?",
+      "range": {
+        "startLine": 427,
+        "startChar": 32,
+        "endLine": 427,
+        "endChar": 38
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "762d1bd0_193cab24",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done\n\nremoved, just want to cast as oif (long)",
+      "parentUuid": "1a8d23df_dad8237f",
       "range": {
         "startLine": 427,
         "startChar": 32,
@@ -403,6 +763,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d23be84c_98734a1c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7e1f284_cd09c788",
+      "range": {
+        "startLine": 432,
+        "startChar": 4,
+        "endLine": 432,
+        "endChar": 5
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae158e1a_ed8193a8",
@@ -416,6 +800,30 @@
       "writtenOn": "2021-01-12T14:46:07Z",
       "side": 1,
       "message": "Ditto, suggest renaming to checkBpfDisabled.",
+      "range": {
+        "startLine": 595,
+        "startChar": 17,
+        "endLine": 595,
+        "endChar": 21
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab35897_a4fd4618",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-13T13:09:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae158e1a_ed8193a8",
       "range": {
         "startLine": 595,
         "startChar": 17,
