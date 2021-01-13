@@ -46,6 +46,52 @@
       },
       "revId": "2db442f6b607d078eac379bd40c4e219e75394a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5ac1695_64b326d7",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-13T12:37:35Z",
+      "side": 1,
+      "message": "Looks like this will add these two JNI libraries as dependencies for all targets that inherit this defaults section, i.e., all our CTS tests. Can you explain in the commit message why this is necessary? Could they be added as a dependency only for some targets? If not, why not?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "2db442f6b607d078eac379bd40c4e219e75394a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4af0d9c_5aceef65",
+        "filename": "tests/cts/net/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-13T12:37:35Z",
+      "side": 1,
+      "message": "From the commit message I don\u0027t understand why this is necessary. This is the AndroidManifest.xml for the CtsNetTestCases apk, right? Why do we need to change the configuration of this APK? Are we adding new tests to it that we didn\u0027t have before?\n\nWhat are the other implications of adding android:debuggable? They should be documented somewhere, perhaps in the commit message of this CL?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 7
+      },
+      "revId": "2db442f6b607d078eac379bd40c4e219e75394a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
