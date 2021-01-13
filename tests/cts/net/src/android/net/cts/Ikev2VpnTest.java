@@ -50,6 +50,7 @@ import android.net.VpnManager;
 import android.net.cts.util.CtsNetUtils;
 import android.os.Build;
 import android.os.Process;
+import android.os.SystemProperties;
 import android.platform.test.annotations.AppModeFull;
 
 import androidx.test.InstrumentationRegistry;
@@ -478,9 +479,20 @@ public class Ikev2VpnTest {
         }
     }
 
+    private void assumeAdbNotRunningOverNetwork() {
+        // If adb is running over the network, the VPN profile will kill its sockets. There is
+        // no provision for exempting particular applications from the VPN with the VpnManager API,
+        // and adbd is a mainline module that can't call into netd's protectFromVpn. Until a
+        // solution allowing to run this on adb-over-the-network devices is available, skip this
+        // test on such devices.
+        assumeTrue(SystemProperties.getInt("persist.adb.tcp.port", -1) < 0
+                && SystemProperties.getInt("service.adb.tcp.port", -1) < 0);
+    }
+
     @Test
     public void testStartStopVpnProfileV4() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+        assumeAdbNotRunningOverNetwork();
 
         // Requires shell permission to update appops.
         runWithShellPermissionIdentity(() -> {
@@ -491,6 +503,7 @@ public class Ikev2VpnTest {
     @Test
     public void testStartStopVpnProfileV6() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+        assumeAdbNotRunningOverNetwork();
 
         // Requires shell permission to update appops.
         runWithShellPermissionIdentity(() -> {
