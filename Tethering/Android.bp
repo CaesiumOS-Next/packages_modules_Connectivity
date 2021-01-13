@@ -45,6 +45,7 @@ java_defaults {
         "framework-statsd.stubs.module_lib",
         "framework-tethering.impl",
         "framework-wifi",
+        "framework-connectivity.stubs.module_lib",
         "unsupportedappusage",
     ],
     plugins: ["java_api_finder"],

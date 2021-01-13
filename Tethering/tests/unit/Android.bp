@@ -29,10 +29,12 @@ java_library {
         "androidx.test.rules",
         "net-tests-utils",
     ],
-    // TODO(b/147200698) change sdk_version to module-current and remove framework-minus-apex
+    // TODO: have test libs build against SDK, change sdk_version to module-current and remove
+    // framework-minus-apex and framework-connectivity
     sdk_version: "core_platform",
     libs: [
         "framework-minus-apex",
+        "framework-connectivity.stubs.module_lib",
         "framework-tethering.impl",
     ],
     visibility: [

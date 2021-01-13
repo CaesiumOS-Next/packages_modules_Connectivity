@@ -25,10 +25,12 @@ apex {
     updatable: false,
     // min_sdk_version: "30",
     java_libs: [
+        "framework-connectivity.impl",
         "framework-tethering",
         "service-connectivity",
     ],
     jni_libs: [
+        "libframework-connectivity-jni",
         "libservice-connectivity",
     ],
     bpfs: [
