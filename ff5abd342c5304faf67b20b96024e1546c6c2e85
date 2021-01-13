@@ -67,6 +67,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20206dac_7152c431",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-13T02:32:22Z",
+      "side": 1,
+      "message": "should this not be  updateEntry(K key, V value), etc...\n\nlots of other places where we should use proper types",
+      "range": {
+        "startLine": 78,
+        "startChar": 28,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "ff5abd342c5304faf67b20b96024e1546c6c2e85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44df832b_a9c2474b",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 5

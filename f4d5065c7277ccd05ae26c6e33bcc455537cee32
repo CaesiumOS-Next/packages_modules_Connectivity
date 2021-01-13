@@ -97,6 +97,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84a1edb5_34e12cad",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-13T02:32:22Z",
+      "side": 1,
+      "message": "this should probably set post close mMapFd \u003d -1",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 25
+      },
+      "revId": "f4d5065c7277ccd05ae26c6e33bcc455537cee32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "155eb06d_0154fb1f",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 6
