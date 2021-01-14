@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f243b60_ced6c0de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-14T10:57:04Z",
+      "side": 1,
+      "message": "Need to discuss if we want to use a mocked test map or a real test bpf map (need to become privileged test).",
+      "revId": "68c5d02deb389c04a46129b849fb7d9fc6c7b8c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
