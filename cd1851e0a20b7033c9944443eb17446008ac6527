@@ -1,0 +1,11 @@
+Verified+1: David Su <dysu@google.com>
+Code-Review+2: Lorenzo Colitti <lorenzo@google.com>
+Code-Review+1: Frank Li <lifr@google.com>
+Autosubmit+1: Lorenzo Colitti <lorenzo@google.com>
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Presubmit-Verified+2: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 14 Jan 2021 03:51:11 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1548094
+Project: platform/packages/modules/Connectivity
+Branch: refs/heads/master
