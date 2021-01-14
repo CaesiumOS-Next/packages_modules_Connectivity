@@ -16,8 +16,12 @@
 
 package android.net.cts;
 
+import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_FOTA;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_SUPL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
@@ -272,5 +276,32 @@ public class NetworkRequestTest {
 
         assertEquals(Process.INVALID_UID, new NetworkRequest.Builder()
                 .clearCapabilities().build().getRequestorUid());
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testBypassingVcnForNonInternetRequest() {
+        // Make a normal MMS request. Verify the request could bypass VCN.
+        final NetworkRequest mmsRequest =
+                new NetworkRequest.Builder().addCapability(NET_CAPABILITY_MMS).build();
+        assertFalse(mmsRequest.hasCapability(NET_CAPABILITY_NOT_VCN_MANAGED));
+
+        // Make a SUPL request along with internet. Verify NOT_VCN_MANAGED is preserved.
+        final NetworkRequest suplWithInternetRequest = new NetworkRequest.Builder()
+                        .addCapability(NET_CAPABILITY_SUPL)
+                        .addCapability(NET_CAPABILITY_INTERNET).build();
+        assertTrue(suplWithInternetRequest.hasCapability(NET_CAPABILITY_NOT_VCN_MANAGED));
+
+        // Make a FOTA request with explicitly add NOT_VCN_MANAGED capability. Verify
+        // NOT_VCN_MANAGED is preserved.
+        final NetworkRequest fotaRequest = new NetworkRequest.Builder()
+                        .addCapability(NET_CAPABILITY_FOTA)
+                        .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED).build();
+        assertTrue(fotaRequest.hasCapability(NET_CAPABILITY_NOT_VCN_MANAGED));
+
+        // Make a DUN request, which is not in {@code CAPABILITIES_ACCESSIBLE_DESPITE_VCN}.
+        // Verify NOT_VCN_MANAGED is preserved.
+        final NetworkRequest dunRequest = new NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_DUN).build();
+        assertTrue(dunRequest.hasCapability(NET_CAPABILITY_NOT_VCN_MANAGED));
     }
 }
