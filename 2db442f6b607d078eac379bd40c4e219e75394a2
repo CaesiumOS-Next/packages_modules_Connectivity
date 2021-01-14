@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f85c3d4_abaa5ffd",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-14T05:43:48Z",
+      "side": 1,
+      "message": "Thanks. Commented on the other CL in this topic. Before we allow all our tests, including CTS, to mock statics and finals I think it would be good to consider whether we really need that ability and if we can instead use better coding/testing practices like dependency injection.",
+      "parentUuid": "6df6108d_e85b186b",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "2db442f6b607d078eac379bd40c4e219e75394a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4af0d9c_5aceef65",
         "filename": "tests/cts/net/AndroidManifest.xml",
         "patchSetId": 3
