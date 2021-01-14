@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d8efc2_b1c7b47a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1423861
+      },
+      "writtenOn": "2021-01-14T03:50:02Z",
+      "side": 1,
+      "message": "Confirmed CtsNetTestCases passes locally, and lifr@ confirmed it passes in forrest.",
+      "revId": "cd1851e0a20b7033c9944443eb17446008ac6527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
