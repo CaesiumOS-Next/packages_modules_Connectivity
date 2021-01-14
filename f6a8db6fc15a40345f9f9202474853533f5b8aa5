@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "960a34b8_c85a9216",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-14T03:44:51Z",
+      "side": 1,
+      "message": "Please run CtsNetTestCases as well.",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 28
+      },
+      "revId": "f6a8db6fc15a40345f9f9202474853533f5b8aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "63d8b2fd_ad93c556",
@@ -14,6 +37,23 @@
       "writtenOn": "2021-01-13T07:02:22Z",
       "side": 1,
       "message": "I have verified your commit on go/forrest.\nI tried to run it many times and the test NsdManager Test can be successfully tested with the entire CtsNetTestCases.\n\n1st run (PASS) https://android-build.googleplex.com/builds/tests/view?invocationId\u003dI25500007114565847\u0026testResultId\u003dTR51516575313251733\u0026tab\u003dartifacts\n01-12 21:33:22.812 I TestRunner: started: testNDSManager(android.net.cts.NsdManagerTest)\n01-12 21:33:38.294 I TestRunner: finished: testNDSManager(android.net.cts.NsdManagerTest)\n\n2nd run(PASS) https://android-build.googleplex.com/builds/bug_tool?url\u003dhttps%3A%2F%2Fandroid-build.googleplex.com%2Fbuilds%2FI59500007114548980%2Fgit_master%2FP18892989%2Ftest-mapping-presubmit%2Finv_18119331747553287445%2Finvocation_ended_bugreport_127.0.0.1%3A45759_1280690526270001338.zip\u0026source\u003dABDX\n01-12 21:31:41.522 I TestRunner: started: testNDSManager(android.net.cts.NsdManagerTest)\n01-12 21:31:56.975 I TestRunner: finished: testNDSManager(android.net.cts.NsdManagerTest)",
+      "revId": "f6a8db6fc15a40345f9f9202474853533f5b8aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5349011e_a1684f49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-14T03:44:51Z",
+      "side": 1,
+      "message": "Moving the test LGTM, but please confirm that it passes. If this is running in presubmit, then maybe treehugger has already run it and you don\u0027t need to do anything except maybe link to the passing test result in the presubmit results :-)",
       "revId": "f6a8db6fc15a40345f9f9202474853533f5b8aa5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
