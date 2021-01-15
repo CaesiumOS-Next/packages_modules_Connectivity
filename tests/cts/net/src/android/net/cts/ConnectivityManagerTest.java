@@ -104,9 +104,9 @@ import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.SkipPresubmit;
 import com.android.testutils.TestableNetworkCallback;
 
-import libcore.io.Streams;
-
 import junit.framework.AssertionFailedError;
+
+import libcore.io.Streams;
 
 import org.junit.After;
 import org.junit.Before;
@@ -1529,6 +1529,27 @@ public class ConnectivityManagerTest {
             assertEquals("Invalid captive portal URL protocol", "http", parsedUrl.getProtocol());
         } catch (MalformedURLException e) {
             throw new AssertionFailedError("Captive portal server URL is invalid: " + e);
+        }
+    }
+
+    /**
+     * Verify background request cannot be requested since the test lack of
+     * {@code CONNECTIVITY_USE_RESTRICTED_NETWORKS} or NetworkStack permissions.
+     */
+    @AppModeFull(reason = "CHANGE_NETWORK_STATE permission can't be granted to instant apps")
+    @Test
+    public void testRequestBackgroundNetwork() {
+        // Verify normal request can be requested.
+        NetworkRequest request = new NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET).build();
+        NetworkCallback callback = new NetworkCallback();
+        mCm.requestNetwork(request, callback);
+        mCm.unregisterNetworkCallback(callback);
+        // Verify background network cannot be requested.
+        try {
+            mCm.requestBackgroundNetwork(request, null, callback);
+            fail("No exception thrown when background network requested.");
+        } catch (SecurityException expected) {
         }
     }
 }
