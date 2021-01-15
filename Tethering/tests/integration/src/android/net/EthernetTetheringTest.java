@@ -39,6 +39,7 @@ import android.net.TetheringManager.TetheringRequest;
 import android.net.dhcp.DhcpAckPacket;
 import android.net.dhcp.DhcpOfferPacket;
 import android.net.dhcp.DhcpPacket;
+import android.net.networkstack.DhcpResults;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
