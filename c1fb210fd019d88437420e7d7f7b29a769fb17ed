@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1deca4a7_e31495fa",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-15T16:48:28Z",
+      "side": 1,
+      "message": "Per discussion on other CL, would suggest making the API available to NETWORK_SETTINGS or MANAGE_TEST_NETWORKS, then you can test it here by adopting the shell permission identity.",
+      "range": {
+        "startLine": 1536,
+        "startChar": 0,
+        "endLine": 1537,
+        "endChar": 80
+      },
+      "revId": "c1fb210fd019d88437420e7d7f7b29a769fb17ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
