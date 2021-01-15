@@ -129,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecdfdc62_e55dd8e4",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-15T09:15:34Z",
+      "side": 1,
+      "message": "Use \",\" again. \n\nI want to know the code stack. But it maybe not useful for now because tetherOffloadRuleAdd is only called by bpf coordinator.",
+      "parentUuid": "c61c5df4_a1e70b01",
+      "range": {
+        "startLine": 66,
+        "startChar": 45,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d5c6002_ed1601f6",
