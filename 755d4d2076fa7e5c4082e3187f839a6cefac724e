@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d04cb40d_07d78440",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-01-15T07:22:39Z",
+      "side": 1,
+      "message": "I also tested to make sure that this works correctly on a USB-ADB connection (ie, continues running the tests)",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "755d4d2076fa7e5c4082e3187f839a6cefac724e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d43462_ffd441f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-01-15T07:22:39Z",
+      "side": 1,
+      "message": "+1, but I don\u0027t have owners.",
+      "revId": "755d4d2076fa7e5c4082e3187f839a6cefac724e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
