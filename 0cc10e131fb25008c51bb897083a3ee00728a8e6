@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "738196be_cd6f7306",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-15T07:49:47Z",
+      "side": 1,
+      "message": "nit : manual\n\nPlease also run NetworkStackTests and FrameworksNetTests and CtsNetTestCasesLatestSdk",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 12
+      },
+      "revId": "0cc10e131fb25008c51bb897083a3ee00728a8e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7150af51_971fd14c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-15T07:49:47Z",
+      "side": 1,
+      "message": "Giving owners as this is fine as long as implementation is concerned, but I don\u0027t have any context and therefore can\u0027t tell whether this change does the right thing. Can you please get someone who knows about the feature to give you +2 ?",
+      "revId": "0cc10e131fb25008c51bb897083a3ee00728a8e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
