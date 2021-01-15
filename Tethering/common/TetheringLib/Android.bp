@@ -22,6 +22,13 @@ java_sdk_library {
     ],
 
     srcs: [":framework-tethering-srcs"],
+    libs: ["framework-connectivity.stubs.system"],
+    stub_only_libs: ["framework-connectivity.stubs.system"],
+    aidl: {
+        include_dirs: [
+            "frameworks/base/packages/Connectivity/framework/src",
+        ],
+    },
 
     jarjar_rules: "jarjar-rules.txt",
     installable: true,
