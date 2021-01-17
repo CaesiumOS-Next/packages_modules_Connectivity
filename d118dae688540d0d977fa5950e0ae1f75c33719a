@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c5e7b0_3311bb75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-01-17T21:08:35Z",
+      "side": 1,
+      "message": "Hi Lorenzo, Jean, Hugo, \nPlease take a look",
+      "revId": "d118dae688540d0d977fa5950e0ae1f75c33719a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
