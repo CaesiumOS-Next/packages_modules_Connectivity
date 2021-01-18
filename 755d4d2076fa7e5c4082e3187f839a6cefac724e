@@ -39,6 +39,23 @@
       "message": "+1, but I don\u0027t have owners.",
       "revId": "755d4d2076fa7e5c4082e3187f839a6cefac724e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ed5ba30_0d3f2f1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T05:54:48Z",
+      "side": 1,
+      "message": "I\u0027m not sure it\u0027s a good idea to skip this test completely. Can we instead fix the production code in netd to it skips the ADB port, if any, when force closing sockets?",
+      "revId": "755d4d2076fa7e5c4082e3187f839a6cefac724e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
