@@ -82,6 +82,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc5c628a_a643b87c",
+        "filename": "Tethering/apishim/30/com/android/networkstack/tethering/apishim/api30/BpfCoordinatorShimImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:18:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ecd1f7cb_bef22f3b",
+      "range": {
+        "startLine": 48,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de91cf7e_4ac582e0",
@@ -190,6 +214,30 @@
       "side": 1,
       "message": "The coordinator uses this function to check if the BPF shim is available (actually, for api 31). If the BPF maps are not initialized, block the polling, rule modification from ipserver.. \n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1536562/6/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java#268\n# check \n    private boolean isUsingBpf() {\n        return mIsBpfEnabled \u0026\u0026 mBpfCoordinatorShim.isInitialized();\n# use\n    public void startPolling() {\n        if (!isUsingBpf()) {\n\n    public void tetherOffloadRuleAdd(\n        if (!isUsingBpf()) return;\n\nLeave as unresolved for further discussion.",
       "parentUuid": "8d5c6002_ed1601f6",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b80e4c1_f0d13ed6",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:18:31Z",
+      "side": 1,
+      "message": "I see. Do we *want* it to be possible for BPF to be enabled, but the maps not to exist? When can this happen? Should we simply crash on startup or disable tethering if it happens? Or maybe crash on startup on debug builds?\n\nThe fact that we support enabling and disabling BPF does mean that adding this extra check does not add code complexity, because you\u0027re just adding another condition to a check that\u0027s already there. So I think it\u0027s fine to leave as is as well.",
+      "parentUuid": "4e04757f_467960fd",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -332,6 +380,30 @@
       "side": 1,
       "message": "Need a mocked ingress bpf map for testing api 31.\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1536562/6/Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java#200\n    private void verifyTetherOffloadRuleAdd(@NonNull InOrder inOrder,\n..\n            inOrder.verify(mBpfIngressMap).updateEntry(",
       "parentUuid": "bf03de29_b65b8e0c",
+      "range": {
+        "startLine": 191,
+        "startChar": 70,
+        "endLine": 191,
+        "endChar": 86
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5f02e4e_2181d2e6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:18:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e786889a_d7fb41e1",
       "range": {
         "startLine": 191,
         "startChar": 70,
@@ -532,6 +604,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6e5ef95_cbd69e3a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:18:31Z",
+      "side": 1,
+      "message": "Generally speaking, so far I think we\u0027ve used shims for code that doesn\u0027t even compile on previous releases, so any functionality that is specific to a newer release needs to be in the shim or the code won\u0027t compile.\n\nThey way you\u0027re using the shims here is a bit new in the sense that all of this code will *compile* with both R and S SDKs, it just won\u0027t *run* on R due to other parts of the system not supporting the new way of doing things.\n\nI personally find it more natural to say, \"The shim provides a way to add and remove tethering ingress rules. How it does that is an implementation detail of the shim.\" If you take that point of view, I think it makes sense to say that these two methods should be in the shim, not in the class. Similarly you could argue that toTetherOffloadRuleParcel, which is only used on R, should be renamed into \"static TetherOffloadRuleParcel ruleToParcel\" and moved to the API 30 shim because it\u0027s an implementation detail of how things work on R.\n\nThat approach has the benefit of keeping this file simpler and shorter because all the version-dependent code is not in this file. Of course, it makes it harder to find out what is actually going on because you\u0027d have to look at more than one file.\n\nThat said - it doesn\u0027t really matter too much where these 2 3-line functions live. And there\u0027s definitely no need to move toTetherOffloadRuleParcel to the shim in this CL. So up to you I\u0027d say.",
+      "parentUuid": "2109aee2_64afd234",
+      "range": {
+        "startLine": 538,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 9
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b839f05a_c3b52de9",
         "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
         "patchSetId": 6
@@ -626,6 +722,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "db1f5a32_de9758d2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:18:31Z",
+      "side": 1,
+      "message": "Might want to add a comment explaining why this means that it needs to be a spy.\n\n    // Use a spy of Dependencies instead of directly using Dependencies so tests can alter\n    // its return values (e.g., make getBpfIngressMap return null).\n\nFWIW I think the same could be accomplished by simply having the test do:\n\n    mBpfIngressMap.close();\n    mBpfIngressMap \u003d null;\n\nI think that\u0027s a slightly cleaner solution actually, because generally spies are used when trying to alter the behaviour of real objects, not when trying to alter the behaviour of objects (like Dependencies) that the test creates itself.\n\nNo need to address in this CL.",
+      "parentUuid": "f361b51d_2aabe673",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 15
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2144bab3_84f28208",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 6
@@ -661,6 +781,30 @@
       "side": 1,
       "message": "isAtLeastS() returns true on AOSP (test on S) and auto-merge Connectivity on mainline-prod is not enabled (not test on R). That means R has never tested automatically for now. I think that we may need these tests for minimum testing on R until auto-merge mainline-prod is enabled.",
       "parentUuid": "2144bab3_84f28208",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 227,
+        "endChar": 78
+      },
+      "revId": "a226d53a25db87c264745829a840645c388f6282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bcb6b71_858a7a8d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:18:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ab829742_12bc7ecb",
       "range": {
         "startLine": 227,
         "startChar": 4,
