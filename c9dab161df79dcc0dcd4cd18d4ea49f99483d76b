@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9066429_77979261",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:09:07Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "c9dab161df79dcc0dcd4cd18d4ea49f99483d76b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bde1790_fd7db327",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1574,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:09:07Z",
+      "side": 1,
+      "message": "Can you specify the NETWORK_SETTINGS permission here? I think (at least some versions of) runWithShellPermissionIdentity take an extra parameter at the end specifying which permission(s) are being requested.",
+      "range": {
+        "startLine": 1574,
+        "startChar": 12,
+        "endLine": 1574,
+        "endChar": 42
+      },
+      "revId": "c9dab161df79dcc0dcd4cd18d4ea49f99483d76b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "609dc046_15c6e7b0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-18T02:09:07Z",
+      "side": 1,
+      "message": "I think this might require holding the shell permission identity. IIRC when calling adoptShellPermissionIdentity, at least in some cases, the UID seen by binder calls is 2000. So the callback might actually be registered as UID 2000. If that\u0027s the case, then the unregister, which comes from the test app\u0027s UID, will fail, and the NetworkCallback will leak.\n\nCan you check, and if so, add a runWithShellPermissionIdentity around this call?",
+      "range": {
+        "startLine": 1582,
+        "startChar": 16,
+        "endLine": 1582,
+        "endChar": 41
+      },
+      "revId": "c9dab161df79dcc0dcd4cd18d4ea49f99483d76b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
