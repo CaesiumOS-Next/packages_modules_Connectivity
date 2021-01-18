@@ -16,6 +16,92 @@
       "message": "Hi Lorenzo, Jean, Hugo, \nPlease take a look",
       "revId": "e8143bb447cea7a119baebb9df2a9b7a1eb3b513",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc9732ac_1ca8bfec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2021-01-18T00:59:08Z",
+      "side": 1,
+      "message": "(only styling nits, I defer the real review to OWNERs)",
+      "revId": "e8143bb447cea7a119baebb9df2a9b7a1eb3b513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f9d48e4_0e1a992f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2021-01-18T00:59:08Z",
+      "side": 1,
+      "message": "Prefer to use the existing NetworkUtils.parseIpAndMask(), which is used by one of the ctor of LinkAddress.",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "e8143bb447cea7a119baebb9df2a9b7a1eb3b513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68d4d3c5_a34179d8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2021-01-18T00:59:08Z",
+      "side": 1,
+      "message": "This looks like it could easily silence a real bug. This is usually not an exception that needs to be caught.\n\nYou should instead asser/check that prefixAndMask has length 2 and fail/skip that entry otherwise.",
+      "range": {
+        "startLine": 103,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 56
+      },
+      "revId": "e8143bb447cea7a119baebb9df2a9b7a1eb3b513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56f3b9b7_e2d228f4",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1107893
+      },
+      "writtenOn": "2021-01-18T00:59:08Z",
+      "side": 1,
+      "message": "Capital, for consistency with other comments.",
+      "range": {
+        "startLine": 804,
+        "startChar": 11,
+        "endLine": 804,
+        "endChar": 12
+      },
+      "revId": "e8143bb447cea7a119baebb9df2a9b7a1eb3b513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
