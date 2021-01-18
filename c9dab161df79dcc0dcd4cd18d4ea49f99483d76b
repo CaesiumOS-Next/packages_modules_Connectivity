@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90a5e08b_9577ba23",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1574,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-18T08:33:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bde1790_fd7db327",
+      "range": {
+        "startLine": 1574,
+        "startChar": 12,
+        "endLine": 1574,
+        "endChar": 42
+      },
+      "revId": "c9dab161df79dcc0dcd4cd18d4ea49f99483d76b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "609dc046_15c6e7b0",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-01-18T02:09:07Z",
       "side": 1,
       "message": "I think this might require holding the shell permission identity. IIRC when calling adoptShellPermissionIdentity, at least in some cases, the UID seen by binder calls is 2000. So the callback might actually be registered as UID 2000. If that\u0027s the case, then the unregister, which comes from the test app\u0027s UID, will fail, and the NetworkCallback will leak.\n\nCan you check, and if so, add a runWithShellPermissionIdentity around this call?",
+      "range": {
+        "startLine": 1582,
+        "startChar": 16,
+        "endLine": 1582,
+        "endChar": 41
+      },
+      "revId": "c9dab161df79dcc0dcd4cd18d4ea49f99483d76b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba323b45_cdf5944e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-18T08:33:39Z",
+      "side": 1,
+      "message": "Checked, it seems ConnectivityService saw CTS uid so IIUC this is fine.\n\n01-18 16:27:08.033  1518  2269 D ConnectivityService: requestNetwork for uid/pid:10137/5422 [NetworkRequest [ BACKGROUND_REQUEST id\u003d23, [ Transports: CELLULAR Capabilities: INTERNET\u0026NOT_RESTRICTED\u0026TRUSTED\u0026NOT_VPN Uid: 10137 RequestorUid: 10137 RequestorPkg: android.net.cts] ]]\n01-18 16:27:08.041  1518  1947 D ConnectivityService: NetReassign [23 : null → 102]\n01-18 16:27:08.045  1518  1947 D ConnectivityService: releasing NetworkRequest [ BACKGROUND_REQUEST id\u003d23, [ Transports: CELLULAR Capabilities: INTERNET\u0026NOT_RESTRICTED\u0026TRUSTED\u0026NOT_VPN Uid: 10137 RequestorUid: 10137 RequestorPkg: android.net.cts] ] (release request)",
+      "parentUuid": "609dc046_15c6e7b0",
       "range": {
         "startLine": 1582,
         "startChar": 16,
