@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e42d01_a068bae1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-01-18T16:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f9d48e4_0e1a992f",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "e8143bb447cea7a119baebb9df2a9b7a1eb3b513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68d4d3c5_a34179d8",
@@ -81,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2264638c_fa2d3a08",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-01-18T16:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68d4d3c5_a34179d8",
+      "range": {
+        "startLine": 103,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 56
+      },
+      "revId": "e8143bb447cea7a119baebb9df2a9b7a1eb3b513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56f3b9b7_e2d228f4",
@@ -94,6 +142,30 @@
       "writtenOn": "2021-01-18T00:59:08Z",
       "side": 1,
       "message": "Capital, for consistency with other comments.",
+      "range": {
+        "startLine": 804,
+        "startChar": 11,
+        "endLine": 804,
+        "endChar": 12
+      },
+      "revId": "e8143bb447cea7a119baebb9df2a9b7a1eb3b513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9017b97_a64b842f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-01-18T16:07:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56f3b9b7_e2d228f4",
       "range": {
         "startLine": 804,
         "startChar": 11,
