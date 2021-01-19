@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0d5c044_2ee9eef5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T13:54:11Z",
+      "side": 1,
+      "message": "Does that mean that this test will take 40 seconds to run? I think that\u0027s too long.",
+      "range": {
+        "startLine": 171,
+        "startChar": 57,
+        "endLine": 171,
+        "endChar": 64
+      },
+      "revId": "36853749d84271cda1315dd6c882893a5b311530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
