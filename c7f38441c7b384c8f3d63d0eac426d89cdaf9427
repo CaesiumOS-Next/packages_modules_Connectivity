@@ -16,6 +16,23 @@
       "message": "Needs a rebase.",
       "revId": "c7f38441c7b384c8f3d63d0eac426d89cdaf9427",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3b9cf63_c2695d65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T12:06:18Z",
+      "side": 1,
+      "message": "Other than the merge conflict, LGTM.",
+      "revId": "c7f38441c7b384c8f3d63d0eac426d89cdaf9427",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
