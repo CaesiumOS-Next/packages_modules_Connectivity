@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "101f35ab_8082ed57",
+        "filename": "Tethering/bpf_progs/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T11:20:03Z",
+      "side": 1,
+      "message": "This is really not allowed for a mainline module. I think we\u0027ll need to refactor this into a library like we did with the BPF syscall wrappers. Think you could file a bug for this, so we can clean it up before this code ships?\n\nGiven that this is the same as for the production program, it doesn\u0027t make things any worse, so this CL itself is fine.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 40
+      },
+      "revId": "e9810ffef1a3a4c765f7c73bc29f3d08402710e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fbc5b34_4b3bcff0",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T11:20:03Z",
+      "side": 1,
+      "message": "\"test\" seems too generic to have at top level in /sys/fs/bpf directly. If you are going to put this into a subdirectory, then this is fine for now.",
+      "range": {
+        "startLine": 55,
+        "startChar": 29,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "e9810ffef1a3a4c765f7c73bc29f3d08402710e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
