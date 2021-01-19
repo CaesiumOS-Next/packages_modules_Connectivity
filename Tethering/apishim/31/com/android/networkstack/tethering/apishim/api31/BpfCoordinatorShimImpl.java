@@ -25,8 +25,8 @@ import androidx.annotation.Nullable;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.BpfMap;
-import com.android.networkstack.tethering.TetherIngressKey;
-import com.android.networkstack.tethering.TetherIngressValue;
+import com.android.networkstack.tethering.TetherDownstream6Key;
+import com.android.networkstack.tethering.TetherDownstream6Value;
 
 /**
  * Bpf coordinator class for API shims.
@@ -41,27 +41,27 @@ public class BpfCoordinatorShimImpl
     // BPF map of ingress queueing discipline which pre-processes the packets by the IPv6
     // forwarding rules.
     @Nullable
-    private final BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
+    private final BpfMap<TetherDownstream6Key, TetherDownstream6Value> mBpfDownstream6Map;
 
     public BpfCoordinatorShimImpl(@NonNull final Dependencies deps) {
         mLog = deps.getSharedLog().forSubComponent(TAG);
-        mBpfIngressMap = deps.getBpfIngressMap();
+        mBpfDownstream6Map = deps.getBpfIngressMap();
     }
 
     @Override
     public boolean isInitialized() {
-        return mBpfIngressMap != null;
+        return mBpfDownstream6Map != null;
     }
 
     @Override
     public boolean tetherOffloadRuleAdd(@NonNull final Ipv6ForwardingRule rule) {
         if (!isInitialized()) return false;
 
-        final TetherIngressKey key = rule.makeTetherIngressKey();
-        final TetherIngressValue value = rule.makeTetherIngressValue();
+        final TetherDownstream6Key key = rule.makeTetherDownstream6Key();
+        final TetherDownstream6Value value = rule.makeTetherDownstream6Value();
 
         try {
-            mBpfIngressMap.updateEntry(key, value);
+            mBpfDownstream6Map.updateEntry(key, value);
         } catch (ErrnoException e) {
             mLog.e("Could not update entry: ", e);
             return false;
@@ -72,8 +72,8 @@ public class BpfCoordinatorShimImpl
 
     @Override
     public String toString() {
-        return "mBpfIngressMap{"
-                + (mBpfIngressMap != null ? "initialized" : "not initialized") + "} "
+        return "mBpfDownstream6Map{"
+                + (mBpfDownstream6Map != null ? "initialized" : "not initialized") + "} "
                 + "}";
     }
 }

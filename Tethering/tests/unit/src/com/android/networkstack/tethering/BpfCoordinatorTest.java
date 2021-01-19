@@ -101,7 +101,7 @@ public class BpfCoordinatorTest {
     @Mock private INetd mNetd;
     @Mock private IpServer mIpServer;
     @Mock private TetheringConfiguration mTetherConfig;
-    @Mock private BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
+    @Mock private BpfMap<TetherDownstream6Key, TetherDownstream6Value> mBpfDownstream6Map;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -137,8 +137,8 @@ public class BpfCoordinatorTest {
                     }
 
                     @Nullable
-                    public BpfMap<TetherIngressKey, TetherIngressValue> getBpfIngressMap() {
-                        return mBpfIngressMap;
+                    public BpfMap<TetherDownstream6Key, TetherDownstream6Value> getBpfIngressMap() {
+                        return mBpfDownstream6Map;
                     }
             });
 
@@ -209,8 +209,8 @@ public class BpfCoordinatorTest {
     private void verifyTetherOffloadRuleAdd(@Nullable InOrder inOrder,
             @NonNull Ipv6ForwardingRule rule) throws Exception {
         if (mDeps.isAtLeastS()) {
-            verifyWithOrder(inOrder, mBpfIngressMap).updateEntry(
-                    rule.makeTetherIngressKey(), rule.makeTetherIngressValue());
+            verifyWithOrder(inOrder, mBpfDownstream6Map).updateEntry(
+                    rule.makeTetherDownstream6Key(), rule.makeTetherDownstream6Value());
         } else {
             verifyWithOrder(inOrder, mNetd).tetherOffloadRuleAdd(matches(rule));
         }
@@ -218,7 +218,7 @@ public class BpfCoordinatorTest {
 
     private void verifyNeverTetherOffloadRuleAdd() throws Exception {
         if (mDeps.isAtLeastS()) {
-            verify(mBpfIngressMap, never()).updateEntry(any(), any());
+            verify(mBpfDownstream6Map, never()).updateEntry(any(), any());
         } else {
             verify(mNetd, never()).tetherOffloadRuleAdd(any());
         }
@@ -409,11 +409,11 @@ public class BpfCoordinatorTest {
     }
 
     @Test
-    public void testRuleMakeTetherIngressKey() throws Exception {
+    public void testRuleMakeTetherDownstream6Key() throws Exception {
         final Integer mobileIfIndex = 100;
         final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
 
-        final TetherIngressKey key = rule.makeTetherIngressKey();
+        final TetherDownstream6Key key = rule.makeTetherDownstream6Key();
         assertEquals(key.iif, (long) mobileIfIndex);
         assertTrue(Arrays.equals(key.neigh6, NEIGH_A.getAddress()));
         // iif (4) + neigh6 (16) = 20.
@@ -421,11 +421,11 @@ public class BpfCoordinatorTest {
     }
 
     @Test
-    public void testRuleMakeTetherIngressValue() throws Exception {
+    public void testRuleMakeTetherDownstream6Value() throws Exception {
         final Integer mobileIfIndex = 100;
         final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
 
-        final TetherIngressValue value = rule.makeTetherIngressValue();
+        final TetherDownstream6Value value = rule.makeTetherDownstream6Value();
         assertEquals(value.oif, DOWNSTREAM_IFINDEX);
         assertEquals(value.ethDstMac, MAC_A);
         assertEquals(value.ethSrcMac, DOWNSTREAM_MAC);
@@ -449,7 +449,7 @@ public class BpfCoordinatorTest {
         // Set the unlimited quota as default if the service has never applied a data limit for a
         // given upstream. Note that the data limit only be applied on an upstream which has rules.
         final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
-        final InOrder inOrder = inOrder(mNetd, mBpfIngressMap);
+        final InOrder inOrder = inOrder(mNetd, mBpfDownstream6Map);
         coordinator.tetherOffloadRuleAdd(mIpServer, rule);
         verifyTetherOffloadRuleAdd(inOrder, rule);
         inOrder.verify(mNetd).tetherOffloadSetInterfaceQuota(mobileIfIndex, QUOTA_UNLIMITED);
@@ -490,7 +490,7 @@ public class BpfCoordinatorTest {
         // Applying a data limit to the current upstream does not take any immediate action.
         // The data limit could be only set on an upstream which has rules.
         final long limit = 12345;
-        final InOrder inOrder = inOrder(mNetd, mBpfIngressMap);
+        final InOrder inOrder = inOrder(mNetd, mBpfDownstream6Map);
         mTetherStatsProvider.onSetLimit(mobileIface, limit);
         waitForIdle();
         inOrder.verify(mNetd, never()).tetherOffloadSetInterfaceQuota(anyInt(), anyLong());
@@ -535,7 +535,7 @@ public class BpfCoordinatorTest {
         coordinator.addUpstreamNameToLookupTable(ethIfIndex, ethIface);
         coordinator.addUpstreamNameToLookupTable(mobileIfIndex, mobileIface);
 
-        final InOrder inOrder = inOrder(mNetd, mBpfIngressMap);
+        final InOrder inOrder = inOrder(mNetd, mBpfDownstream6Map);
 
         // Before the rule test, here are the additional actions while the rules are changed.
         // - After adding the first rule on a given upstream, the coordinator adds a data limit.
