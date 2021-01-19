@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000007408034",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1538984?revision\u003d3",
+      "fixSuggestions": [
+        {
+          "fixId": "6b6d217a_2dc25010",
+          "description": "Change to \"tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java\"",
+          "replacements": [
+            {
+              "path": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+              "range": {
+                "startLine": 215,
+                "startChar": 29,
+                "endLine": 215,
+                "endChar": 34
+              },
+              "replacement": "Millis"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "40a918cd_c03f2cab",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-01-19T20:02:20Z",
+      "side": 1,
+      "message": "Common typo found: \"Milis\" -- should it be \"Millis\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 215,
+        "startChar": 29,
+        "endLine": 215,
+        "endChar": 34
+      },
+      "revId": "b2b793a7d4aae88b3e39351b57aead81d53a935b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
