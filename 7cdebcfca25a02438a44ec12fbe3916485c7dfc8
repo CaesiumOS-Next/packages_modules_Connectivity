@@ -283,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7ff1365_2149fa05",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherStatsKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "The CL is merged, but no need to remove these before merging this CL. Now that we have a TODO, we can clean them up later.",
+      "parentUuid": "1ad82b88_b98e1e84",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 5
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e5e6e39_6abecddc",
@@ -377,6 +401,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "452197a1_8fdacf50",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Per discussion: agree that this is a good approach.\n\nI think we should rename this to FakeBpfMap, move it to its own file and add unit tests for it, but you already have a TODO for that.",
+      "parentUuid": "611e6eb3_1b3cbe87",
+      "range": {
+        "startLine": 106,
+        "startChar": 53,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04ce5459_27564341",
@@ -414,6 +462,30 @@
       "side": 1,
       "message": "Before Connectivity is auto-merged into mainline-prod, we have no auto test on R now. Maybe keep these tests until auto-merge is enabled. thought? Thank you",
       "parentUuid": "04ce5459_27564341",
+      "range": {
+        "startLine": 350,
+        "startChar": 4,
+        "endLine": 350,
+        "endChar": 62
+      },
+      "revId": "7cdebcfca25a02438a44ec12fbe3916485c7dfc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c98012ff_49f90b9b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Ack. Might want to update the comment to mention to the automerger to mainline-prod. Doesn\u0027t need to be in this CL.",
+      "parentUuid": "3e27bf0b_343c9102",
       "range": {
         "startLine": 350,
         "startChar": 4,

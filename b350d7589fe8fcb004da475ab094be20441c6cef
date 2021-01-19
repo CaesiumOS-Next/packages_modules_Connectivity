@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0e78623_13166d18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "LGTM. Lots of nits, but none that should block this CL, feel free to merge as is.",
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91629a91_6154f90a",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Nit: if a null map means really bad things will happen, suggest \"OK\" and \"ERROR\" instead of \"initialized\" and \"not initialized\". Not for this CL.",
+      "range": {
+        "startLine": 103,
+        "startChar": 43,
+        "endLine": 103,
+        "endChar": 54
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06ca34b8_01b3fbc2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Nit: this (and the one above) should probably say \"open\" instead of \"create\".",
+      "range": {
+        "startLine": 211,
+        "startChar": 35,
+        "endLine": 211,
+        "endChar": 41
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "545b6dcc_8723328d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Nit: this would have benefited from:\n\n    // Convert the parcelable to a 1-element SparseArray.\n\nBut since this code is deleted in aosp/1538841 then there\u0027s probably no need.",
+      "range": {
+        "startLine": 360,
+        "startChar": 16,
+        "endLine": 360,
+        "endChar": 63
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "794c9655_6c24410c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Nit: given that keyAt() returns int and can never return null, prefer int over Integer.",
+      "range": {
+        "startLine": 768,
+        "startChar": 18,
+        "endLine": 768,
+        "endChar": 25
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698ccb9a_4bae48ef",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Nit: remove spurious space.",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 5
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7903991b_4748973e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherStatsKey.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Actually I think this should be int and Type.S32. I think ifindices are actually integers. The kernel uses int in many places, including, it looks like, \"struct ifreq\".",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "674a1410_3ca1e1f6",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Great idea to do this. Thanks for adding a TODO.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 73
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d89f05_054598fc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "What happens if the user calls a method that\u0027s not here, such as insertEntry? We should either implement it, or have something like:\n\n\n    @Override\n    public void insertEntry(K key, V value) throws ErrnoException {\n        throw new UnsupportedOperationException();\n    }\n\nso if any test ever calls it there\u0027s a clear error. Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 9
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ef0d8d0_91543272",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "It looks like in R, when stats are fetched, only the parcel passed in by the most recent updateStatsEntry call will returned. But on S, all parcels passed in by all updateStatsEntry calls so far will be returned.\n\nThis could be confusing, particularly because there are tests that call updateEntry directly. Those tests might in the future behave differently on R and S.\n\nCan we simplify this by trying to make these behave the same by making the S codepath clear the map before calling updateEntry? I think we can do this relatively simply by adding another method. Something like:\n\n    private void addStatsEntry(@NonNull TetherStatsParcel stats) throws Exception {\n        assertTrue(mDeps.isAtLeastS());\n        final TetherStatsKey key \u003d new TetherStatsKey(stats.ifIndex);\n        final TetherStatsValue value \u003d new TetherStatsValue(stats.rxPackets, stats.rxBytes,\n                0L /* rxErrors */, stats.txPackets, stats.txBytes, 0L /* txErrors */);\n        mBpfStatsMap.updateEntry(key, value);\n    }\n\n    private void updateStatsEntry(@NonNull TetherStatsParcel stats) throws Exception {\n        if (mDeps.isAtLeastS()) {\n            clearStatsMap();\n            addStatsEntry(stats);\n        } else {\n            when(mNetd.tetherOffloadGetStats()).thenReturn(new TetherStatsParcel[] {stats});\n    }\n\n    // Update specific tether stats list and wait for the stats cache is updated by polling thread\n    // in the coordinator. Beware of that it is only used for the default polling interval.\n    private void updateStatsEntriesAndWaitForUpdate(@NonNull TetherStatsParcel[] tetherStatsList)\n            throws Exception {\n        if (mDeps.isAtLeastS()) {\n            for (TetherStatsParcel stats : tetherStatsList) {\n                addStatsEntry(stats);\n            }\n        } else {\n            when(mNetd.tetherOffloadGetStats()).thenReturn(tetherStatsList);\n        }\n\n        mTestLooper.moveTimeForward(DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS);\n        waitForIdle();\n    }\n\n\nDoesn\u0027t need to be in this CL, partly because I think clearStatsMap() may not be easy to implement.",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 9
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2263b3ff_e6b1ab7e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T08:05:36Z",
+      "side": 1,
+      "message": "Related to comment on line 240: how does this work? on R, this updateStatsEntry will replace the previous stats entry with all zeros. On R, this updateStatsEntry will *add* to the previous stats entry. I guess this works because the previous one happens to be all zeros. But still, we should try to address the comment on line 240 soon after we merge this CL.",
+      "range": {
+        "startLine": 478,
+        "startChar": 8,
+        "endLine": 478,
+        "endChar": 24
+      },
+      "revId": "b350d7589fe8fcb004da475ab094be20441c6cef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
