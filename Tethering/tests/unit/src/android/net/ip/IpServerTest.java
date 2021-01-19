@@ -104,8 +104,8 @@ import com.android.networkstack.tethering.BpfCoordinator;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.BpfMap;
 import com.android.networkstack.tethering.PrivateAddressCoordinator;
-import com.android.networkstack.tethering.TetherIngressKey;
-import com.android.networkstack.tethering.TetherIngressValue;
+import com.android.networkstack.tethering.TetherDownstream6Key;
+import com.android.networkstack.tethering.TetherDownstream6Value;
 import com.android.networkstack.tethering.TetheringConfiguration;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
@@ -168,7 +168,7 @@ public class IpServerTest {
     @Mock private PrivateAddressCoordinator mAddressCoordinator;
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
-    @Mock private BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
+    @Mock private BpfMap<TetherDownstream6Key, TetherDownstream6Value> mBpfIngressMap;
 
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
@@ -290,7 +290,7 @@ public class IpServerTest {
                     }
 
                     @Nullable
-                    public BpfMap<TetherIngressKey, TetherIngressValue> getBpfIngressMap() {
+                    public BpfMap<TetherDownstream6Key, TetherDownstream6Value> getBpfIngressMap() {
                         return mBpfIngressMap;
                     }
                 };
@@ -754,15 +754,15 @@ public class IpServerTest {
     }
 
     @NonNull
-    private static TetherIngressKey makeIngressKey(int upstreamIfindex,
+    private static TetherDownstream6Key makeIngressKey(int upstreamIfindex,
             @NonNull final InetAddress dst) {
-        return new TetherIngressKey(upstreamIfindex, dst.getAddress());
+        return new TetherDownstream6Key(upstreamIfindex, dst.getAddress());
     }
 
     @NonNull
-    private static TetherIngressValue makeIngressValue(@NonNull final MacAddress dstMac) {
-        return new TetherIngressValue(TEST_IFACE_PARAMS.index, dstMac, TEST_IFACE_PARAMS.macAddr,
-                ETH_P_IPV6, NetworkStackConstants.ETHER_MTU);
+    private static TetherDownstream6Value makeIngressValue(@NonNull final MacAddress dstMac) {
+        return new TetherDownstream6Value(TEST_IFACE_PARAMS.index, dstMac,
+                TEST_IFACE_PARAMS.macAddr, ETH_P_IPV6, NetworkStackConstants.ETHER_MTU);
     }
 
     private <T> T verifyWithOrder(@Nullable InOrder inOrder, @NonNull T t) {

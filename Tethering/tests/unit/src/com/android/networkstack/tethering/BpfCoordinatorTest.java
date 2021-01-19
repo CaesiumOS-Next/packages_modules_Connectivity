@@ -101,7 +101,7 @@ public class BpfCoordinatorTest {
     @Mock private INetd mNetd;
     @Mock private IpServer mIpServer;
     @Mock private TetheringConfiguration mTetherConfig;
-    @Mock private BpfMap<TetherIngressKey, TetherIngressValue> mBpfIngressMap;
+    @Mock private BpfMap<TetherDownstream6Key, TetherDownstream6Value> mBpfIngressMap;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -137,7 +137,7 @@ public class BpfCoordinatorTest {
                     }
 
                     @Nullable
-                    public BpfMap<TetherIngressKey, TetherIngressValue> getBpfIngressMap() {
+                    public BpfMap<TetherDownstream6Key, TetherDownstream6Value> getBpfIngressMap() {
                         return mBpfIngressMap;
                     }
             });
@@ -210,7 +210,7 @@ public class BpfCoordinatorTest {
             @NonNull Ipv6ForwardingRule rule) throws Exception {
         if (mDeps.isAtLeastS()) {
             verifyWithOrder(inOrder, mBpfIngressMap).updateEntry(
-                    rule.makeTetherIngressKey(), rule.makeTetherIngressValue());
+                    rule.makeTetherDownstream6Key(), rule.makeTetherDownstream6Value());
         } else {
             verifyWithOrder(inOrder, mNetd).tetherOffloadRuleAdd(matches(rule));
         }
@@ -409,11 +409,11 @@ public class BpfCoordinatorTest {
     }
 
     @Test
-    public void testRuleMakeTetherIngressKey() throws Exception {
+    public void testRuleMakeTetherDownstream6Key() throws Exception {
         final Integer mobileIfIndex = 100;
         final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
 
-        final TetherIngressKey key = rule.makeTetherIngressKey();
+        final TetherDownstream6Key key = rule.makeTetherDownstream6Key();
         assertEquals(key.iif, (long) mobileIfIndex);
         assertTrue(Arrays.equals(key.neigh6, NEIGH_A.getAddress()));
         // iif (4) + neigh6 (16) = 20.
@@ -421,11 +421,11 @@ public class BpfCoordinatorTest {
     }
 
     @Test
-    public void testRuleMakeTetherIngressValue() throws Exception {
+    public void testRuleMakeTetherDownstream6Value() throws Exception {
         final Integer mobileIfIndex = 100;
         final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
 
-        final TetherIngressValue value = rule.makeTetherIngressValue();
+        final TetherDownstream6Value value = rule.makeTetherDownstream6Value();
         assertEquals(value.oif, DOWNSTREAM_IFINDEX);
         assertEquals(value.ethDstMac, MAC_A);
         assertEquals(value.ethSrcMac, DOWNSTREAM_MAC);
