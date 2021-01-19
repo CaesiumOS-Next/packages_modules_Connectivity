@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf3d346c_93330a12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T03:45:25Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address nits in a follow-up CL.",
+      "revId": "5ea9c4b64a5b31f9dc2d587a7460578da7762626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1101bdf_da6fa5be",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T03:45:25Z",
+      "side": 1,
+      "message": "Nit: it is needed here because tetherOffloadRuleRemove takes an Ipv6ForwardingRule, and that requires dstMac.",
+      "range": {
+        "startLine": 819,
+        "startChar": 60,
+        "endLine": 820,
+        "endChar": 50
+      },
+      "revId": "5ea9c4b64a5b31f9dc2d587a7460578da7762626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8c99b60_65535080",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T03:45:25Z",
+      "side": 1,
+      "message": "cleanup IPCs",
+      "range": {
+        "startLine": 351,
+        "startChar": 72,
+        "endLine": 351,
+        "endChar": 89
+      },
+      "revId": "5ea9c4b64a5b31f9dc2d587a7460578da7762626",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
