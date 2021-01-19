@@ -168,6 +168,8 @@ public class ConnectivityManagerTest {
     // Airplane Mode BroadcastReceiver Timeout
     private static final long AIRPLANE_MODE_CHANGE_TIMEOUT_MS = 10_000L;
 
+    private static final long LINGER_CHANGE_TIMEOUT_MS = 40_000L;
+
     // Minimum supported keepalive counts for wifi and cellular.
     public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT = 1;
     public static final int MIN_SUPPORTED_WIFI_KEEPALIVE_COUNT = 3;
@@ -1577,6 +1579,11 @@ public class ConnectivityManagerTest {
             waitForAvailable(cellCallback);
             final Network cellNetwork = cellCallback.getLastAvailableNetwork();
             assertNotNull(cellNetwork);
+            cellCallback.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                    LINGER_CHANGE_TIMEOUT_MS,
+                    c -> c instanceof CallbackEntry.CapabilitiesChanged
+                            && !((CallbackEntry.CapabilitiesChanged) c).getCaps()
+                            .hasCapability(NET_CAPABILITY_FOREGROUND));
             assertFalse(mCm.getNetworkCapabilities(cellNetwork).hasCapability(
                     NET_CAPABILITY_FOREGROUND));
         } finally {
