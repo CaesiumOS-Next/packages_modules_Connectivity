@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab244bf1_e0560474",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-19T04:59:06Z",
+      "side": 1,
+      "message": "Giving +2 in the interest of expediency in case you feel strongly against my comment, but otherwise I would really prefer the suggestion I wrote.",
+      "revId": "e97b8363e967af527b967a47c06f7a8bcb5982fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3406c19_f0e9c288",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-19T04:59:06Z",
+      "side": 1,
+      "message": "Lazy is not an animal we want to use often, and the more you put it in the code, the more people use it liberally, kind of like lateinit. It\u0027s not often the best solution, and we should avoid using it just for convenience reasons just because it happens to work with a given implementation detail.\n\nConsidering this builds on R and crashes when calling mock(), can we instead move the mockRegistry in a different, subclassed object ?\n\n  private class FakeConnectivityService {\n    private var agentField ...\n  }\n  private class FakeConnectivityServiceS : FakeConnectivityService {\n    val mockRegistry \u003d mock(...)\n    private val registry \u003d object : ...\n    override fun connect(agent: INetworkAgent) {\n      super(agent)\n      agent.onRegistered(registry)\n    }\n  }\n\n  private val mFakeConnectivityService \u003d if (isAtLeastS()) FakeConnectivityServiceS() else FakeConnectivityService\n\n?\n\nThen (we don\u0027t have this yet in this class but) when we have a test that requires using the registry in the specific test, that test can start with assert(mFakeConnectivityService is FakeConnectivityServiceS)\n...and be done.\n(or we could do that with assume, but I don\u0027t think assume() has the right contract for the smart cast to happen)",
+      "range": {
+        "startLine": 137,
+        "startChar": 44,
+        "endLine": 137,
+        "endChar": 48
+      },
+      "revId": "e97b8363e967af527b967a47c06f7a8bcb5982fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
