@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e68370e_48de1d21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "086dc6e4_0c176aa8",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "ENOENT if the entry does not exist. So ErrnoException always indicates a failure.",
+      "range": {
+        "startLine": 137,
+        "startChar": 49,
+        "endLine": 138,
+        "endChar": 47
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef5b60c1_40d00b90",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "I think this should be IllegalStateException.",
+      "range": {
+        "startLine": 156,
+        "startChar": 38,
+        "endLine": 156,
+        "endChar": 62
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2274b635_fdf33330",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "Use \"+\" instead of \",\"?",
+      "range": {
+        "startLine": 157,
+        "startChar": 55,
+        "endLine": 157,
+        "endChar": 56
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6442475_59c88ddb",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "Nit: given that this is signed, is this 468 years?",
+      "range": {
+        "startLine": 164,
+        "startChar": 63,
+        "endLine": 164,
+        "endChar": 66
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e812ef06_d96415ef",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "It looks like this code comes from netd. But that uses unsigned arithmetic and Java arithmetic is always signed. So adding anything to QUOTA_UNLIMITED will not result in overflow. However, it *will* result in something that is \u003c rxBytes + txBytes (specifically, it will result in rxBytes + txBytes - 1), so I think this code is still correct.\n\nWe should update the comment though. Something like:\n\n    // If adding limit caused overflow, or if limit was QUOTA_UNLIMITED, clamp to unlimited.",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 69
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cbcc73a_f3a1c1c4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "While it\u0027s true that the limit always ends up in a map, whether through netd or not... \"map\" here suggests the S+ codepath, which uses maps, but this code runs on both R and S. applyDataLimit, perhaps? Or even just \"setInterfaceQuota\"?",
+      "range": {
+        "startLine": 689,
+        "startChar": 20,
+        "endLine": 689,
+        "endChar": 41
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfefb066_3b30160a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherLimitKey.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "Per comment in other CL, this could be int and S32.",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77401bad_c22ba9c2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "IllegalStateException",
+      "range": {
+        "startLine": 135,
+        "startChar": 26,
+        "endLine": 135,
+        "endChar": 50
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccac47ec_17b2646e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-19T16:04:26Z",
+      "side": 1,
+      "message": "This is definitely not nullable because you dereference it. @NonNull?",
+      "range": {
+        "startLine": 369,
+        "startChar": 59,
+        "endLine": 369,
+        "endChar": 68
+      },
+      "revId": "67c14b549f47ec1314366009731e4713a8a8f663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
