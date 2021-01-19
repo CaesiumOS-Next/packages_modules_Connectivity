@@ -1,0 +1,8 @@
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Code-Review+2: Chalard Jean <jchalard@google.com>
+Build-Cop-Override+1: Ruslan Tkhakokhov <rthakohov@google.com>
+Submitted-by: Junyu Lai <junyulai@google.com>
+Submitted-at: Tue, 19 Jan 2021 10:24:46 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1553865
+Project: platform/packages/modules/Connectivity
+Branch: refs/heads/master
