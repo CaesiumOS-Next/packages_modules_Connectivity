@@ -133,7 +133,8 @@ class NetworkAgentTest {
 
     private val mCM = realContext.getSystemService(ConnectivityManager::class.java)
     private val mHandlerThread = HandlerThread("${javaClass.simpleName} handler thread")
-    private val mFakeConnectivityService = FakeConnectivityService()
+    // Lazy init to avoid initializing newer API members when the test is skipped
+    private val mFakeConnectivityService by lazy { FakeConnectivityService() }
 
     private class Provider(context: Context, looper: Looper) :
             NetworkProvider(context, looper, "NetworkAgentTest NetworkProvider")
