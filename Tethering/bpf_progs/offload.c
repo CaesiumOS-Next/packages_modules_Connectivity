@@ -27,6 +27,9 @@
 DEFINE_BPF_MAP_GRW(tether_downstream6_map, HASH, TetherDownstream6Key, TetherDownstream6Value, 64,
                    AID_NETWORK_STACK)
 
+DEFINE_BPF_MAP_GRW(tether_upstream6_map, HASH, TetherUpstream6Key, TetherUpstream6Value, 64,
+                   AID_NETWORK_STACK)
+
 // Tethering stats, indexed by upstream interface.
 DEFINE_BPF_MAP_GRW(tether_stats_map, HASH, uint32_t, TetherStatsValue, 16, AID_NETWORK_STACK)
 
@@ -34,8 +37,8 @@ DEFINE_BPF_MAP_GRW(tether_stats_map, HASH, uint32_t, TetherStatsValue, 16, AID_N
 // (tethering allowed when stats[iif].rxBytes + stats[iif].txBytes < limit[iif])
 DEFINE_BPF_MAP_GRW(tether_limit_map, HASH, uint32_t, uint64_t, 16, AID_NETWORK_STACK)
 
-static inline __always_inline int do_forward(struct __sk_buff* skb, bool is_ethernet) {
-    int l2_header_size = is_ethernet ? sizeof(struct ethhdr) : 0;
+static inline __always_inline int do_forward(struct __sk_buff* skb, const bool is_ethernet, const bool downstream) {
+    const int l2_header_size = is_ethernet ? sizeof(struct ethhdr) : 0;
     void* data = (void*)(long)skb->data;
     const void* data_end = (void*)(long)skb->data_end;
     struct ethhdr* eth = is_ethernet ? data : NULL;  // used iff is_ethernet
@@ -63,17 +66,35 @@ static inline __always_inline int do_forward(struct __sk_buff* skb, bool is_ethe
         (src32 & htonl(0xe0000000)) != htonl(0x20000000))    // 2000::/3 Global Unicast
         return TC_ACT_OK;
 
-    TetherDownstream6Key k = {
+    // Protect against forwarding packets destined to ::1 or fe80::/64 or other weirdness.
+    __be32 dst32 = ip6->daddr.s6_addr32[0];
+    if (dst32 != htonl(0x0064ff9b) &&                        // 64:ff9b:/32 incl. XLAT464 WKP
+        (dst32 & htonl(0xe0000000)) != htonl(0x20000000))    // 2000::/3 Global Unicast
+        return TC_ACT_OK;
+
+    // In the upstream direction do not forward traffic within the same /64 subnet,
+    // with an exception for XLAT464 (ie. the 64:ff9b::/32 subnet)
+    if (!downstream && (dst32 != htonl(0x0064ff9b)) && (src32 == dst32) &&
+        (ip6->saddr.s6_addr32[1] == ip6->daddr.s6_addr32[1]))
+        return TC_ACT_OK;
+
+    TetherDownstream6Key kd = {
             .iif = skb->ifindex,
             .neigh6 = ip6->daddr,
     };
 
-    TetherDownstream6Value* v = bpf_tether_downstream6_map_lookup_elem(&k);
+    TetherUpstream6Key ku = {
+            .iif = skb->ifindex,
+    };
+
+    TetherDownstream6Value* vd = downstream ? bpf_tether_downstream6_map_lookup_elem(&kd) : NULL;
+    TetherUpstream6Value* vu = downstream ? NULL : bpf_tether_upstream6_map_lookup_elem(&ku);
 
     // If we don't find any offload information then simply let the core stack handle it...
-    if (!v) return TC_ACT_OK;
+    if (downstream && !vd) return TC_ACT_OK;
+    if (!downstream && !vu) return TC_ACT_OK;
 
-    uint32_t stat_and_limit_k = skb->ifindex;
+    uint32_t stat_and_limit_k = downstream ? skb->ifindex : vu->oif;
 
     TetherStatsValue* stat_v = bpf_tether_stats_map_lookup_elem(&stat_and_limit_k);
 
@@ -86,7 +107,7 @@ static inline __always_inline int do_forward(struct __sk_buff* skb, bool is_ethe
     if (!limit_v) return TC_ACT_OK;
 
     // Required IPv6 minimum mtu is 1280, below that not clear what we should do, abort...
-    const int pmtu = v->pmtu;
+    const int pmtu = downstream ? vd->pmtu : vu->pmtu;
     if (pmtu < IPV6_MIN_MTU) return TC_ACT_OK;
 
     // Approximate handling of TCP/IPv6 overhead for incoming LRO/GRO packets: default
@@ -115,11 +136,9 @@ static inline __always_inline int do_forward(struct __sk_buff* skb, bool is_ethe
     if (stat_v->rxBytes + stat_v->txBytes + bytes > *limit_v) return TC_ACT_OK;
 
     if (!is_ethernet) {
-        is_ethernet = true;
-        l2_header_size = sizeof(struct ethhdr);
         // Try to inject an ethernet header, and simply return if we fail
-        if (bpf_skb_change_head(skb, l2_header_size, /*flags*/ 0)) {
-            __sync_fetch_and_add(&stat_v->rxErrors, 1);
+        if (bpf_skb_change_head(skb, sizeof(struct ethhdr), /*flags*/ 0)) {
+            __sync_fetch_and_add(downstream ? &stat_v->rxErrors : &stat_v->txErrors, 1);
             return TC_ACT_OK;
         }
 
@@ -130,8 +149,8 @@ static inline __always_inline int do_forward(struct __sk_buff* skb, bool is_ethe
         ip6 = (void*)(eth + 1);
 
         // I do not believe this can ever happen, but keep the verifier happy...
-        if (data + l2_header_size + sizeof(*ip6) > data_end) {
-            __sync_fetch_and_add(&stat_v->rxErrors, 1);
+        if (data + sizeof(struct ethhdr) + sizeof(*ip6) > data_end) {
+            __sync_fetch_and_add(downstream ? &stat_v->rxErrors : &stat_v->txErrors, 1);
             return TC_ACT_SHOT;
         }
     };
@@ -147,11 +166,11 @@ static inline __always_inline int do_forward(struct __sk_buff* skb, bool is_ethe
     // (-ENOTSUPP) if it isn't.
     bpf_csum_update(skb, 0xFFFF - ntohs(old_hl) + ntohs(new_hl));
 
-    __sync_fetch_and_add(&stat_v->rxPackets, packets);
-    __sync_fetch_and_add(&stat_v->rxBytes, bytes);
+    __sync_fetch_and_add(downstream ? &stat_v->rxPackets : &stat_v->txPackets, packets);
+    __sync_fetch_and_add(downstream ? &stat_v->rxBytes : &stat_v->txBytes, bytes);
 
     // Overwrite any mac header with the new one
-    *eth = v->macHeader;
+    *eth = downstream ? vd->macHeader : vu->macHeader;
 
     // Redirect to forwarded interface.
     //
@@ -159,13 +178,19 @@ static inline __always_inline int do_forward(struct __sk_buff* skb, bool is_ethe
     // The redirect actually happens after the ebpf program has already terminated,
     // and can fail for example for mtu reasons at that point in time, but there's nothing
     // we can do about it here.
-    return bpf_redirect(v->oif, 0 /* this is effectively BPF_F_EGRESS */);
+    return bpf_redirect(downstream ? vd->oif : vu->oif, 0 /* this is effectively BPF_F_EGRESS */);
 }
 
 DEFINE_BPF_PROG("schedcls/tether_downstream6_ether", AID_ROOT, AID_ROOT,
                 sched_cls_tether_downstream6_ether)
 (struct __sk_buff* skb) {
-    return do_forward(skb, true);
+    return do_forward(skb, /* is_ethernet */ true, /* downstream */ true);
+}
+
+DEFINE_BPF_PROG("schedcls/tether_upstream6_ether", AID_ROOT, AID_ROOT,
+                sched_cls_tether_upstream6_ether)
+(struct __sk_buff* skb) {
+    return do_forward(skb, /* is_ethernet */ true, /* downstream */ false);
 }
 
 // Note: section names must be unique to prevent programs from appending to each other,
@@ -184,7 +209,13 @@ DEFINE_BPF_PROG("schedcls/tether_downstream6_ether", AID_ROOT, AID_ROOT,
 DEFINE_BPF_PROG_KVER("schedcls/tether_downstream6_rawip$5_4", AID_ROOT, AID_ROOT,
                      sched_cls_tether_downstream6_rawip_5_4, KVER(5, 4, 0))
 (struct __sk_buff* skb) {
-    return do_forward(skb, false);
+    return do_forward(skb, /* is_ethernet */ false, /* downstream */ true);
+}
+
+DEFINE_BPF_PROG_KVER("schedcls/tether_upstream6_rawip$5_4", AID_ROOT, AID_ROOT,
+                     sched_cls_tether_upstream6_rawip_5_4, KVER(5, 4, 0))
+(struct __sk_buff* skb) {
+    return do_forward(skb, /* is_ethernet */ false, /* downstream */ false);
 }
 
 // and this identical optional (may fail to load) implementation for [4.14..5.4) patched kernels:
@@ -192,7 +223,14 @@ DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_downstream6_rawip$4_14", AI
                                     sched_cls_tether_downstream6_rawip_4_14, KVER(4, 14, 0),
                                     KVER(5, 4, 0))
 (struct __sk_buff* skb) {
-    return do_forward(skb, false);
+    return do_forward(skb, /* is_ethernet */ false, /* downstream */ true);
+}
+
+DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_upstream6_rawip$4_14", AID_ROOT, AID_ROOT,
+                                    sched_cls_tether_upstream6_rawip_4_14, KVER(4, 14, 0),
+                                    KVER(5, 4, 0))
+(struct __sk_buff* skb) {
+    return do_forward(skb, /* is_ethernet */ false, /* downstream */ false);
 }
 
 // and define a no-op stub for [4.9,4.14) and unpatched [4.14,5.4) kernels.
@@ -200,6 +238,12 @@ DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_downstream6_rawip$4_14", AI
 // it at the same location this one would be pinned at and will thus skip loading this stub)
 DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_downstream6_rawip$stub", AID_ROOT, AID_ROOT,
                            sched_cls_tether_downstream6_rawip_stub, KVER_NONE, KVER(5, 4, 0))
+(struct __sk_buff* skb) {
+    return TC_ACT_OK;
+}
+
+DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_upstream6_rawip$stub", AID_ROOT, AID_ROOT,
+                           sched_cls_tether_upstream6_rawip_stub, KVER_NONE, KVER(5, 4, 0))
 (struct __sk_buff* skb) {
     return TC_ACT_OK;
 }
