@@ -1,0 +1,10 @@
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Code-Review+2: Lorenzo Colitti <lorenzo@google.com>
+Code-Review+1: Nucca Chen <nuccachen@google.com>
+Presubmit-Verified+2: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Maciej Żenczykowski <maze@google.com>
+Submitted-at: Wed, 20 Jan 2021 10:57:53 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1554238
+Project: platform/packages/modules/Connectivity
+Branch: refs/heads/master
