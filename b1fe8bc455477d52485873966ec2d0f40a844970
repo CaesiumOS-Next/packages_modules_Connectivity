@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e7bef73_e7498879",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T17:58:16Z",
+      "side": 1,
+      "message": "Filed bug 178006921\n\nI have an idea how to do this, but I\u0027m not sure how to populate the map.",
+      "parentUuid": "4aaf141d_7d00e5aa",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 0
+      },
+      "revId": "b1fe8bc455477d52485873966ec2d0f40a844970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a83cbbc7_f77ac96f",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-01-20T10:49:01Z",
       "side": 1,
       "message": "Should add a comment to note that this is done regardless of whether the TX interface has an ethernet header or not. I believe you said that the kernel will strip it if it\u0027s there and not needed?\n\nThe previous code was downstream-only, so the TX interface was always downstream and always had an Ethernet header and such a comment was not necessary. But that\u0027s not true any more.",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 73
+      },
+      "revId": "b1fe8bc455477d52485873966ec2d0f40a844970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ffb0c0_9274b2fb",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T17:58:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a83cbbc7_f77ac96f",
       "range": {
         "startLine": 138,
         "startChar": 8,
