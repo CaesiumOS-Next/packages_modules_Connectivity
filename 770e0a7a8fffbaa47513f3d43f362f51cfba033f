@@ -16,6 +16,282 @@
       "message": "Other than the merge conflict, LGTM.",
       "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503c1de2_a0a02346",
+        "filename": "Tethering/bpf_progs/test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "I am sorry. It should be right. Just confirm again. \n\nThis line will create the test map which the BpfMapTest exactly wants, right?\n/sys/fs/bpf/tethering/map_test_tether_downstream6_map\n                           ^-- I remember that \"test\" comes from the .o file name (test.o) \n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1554238/3/Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java#55\n    private static final String TETHER_INGRESS_FS_PATH \u003d\n            \"/sys/fs/bpf/tethering/map_test_tether_downstream6_map\";",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6feae98b_27c46426",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: DOWNSTREAM6",
+      "range": {
+        "startLine": 76,
+        "startChar": 39,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fb2de60_80c2cda9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 193,
+        "startChar": 16,
+        "endLine": 193,
+        "endChar": 23
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "398a5fd0_39c42d7e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 194,
+        "startChar": 84,
+        "endLine": 194,
+        "endChar": 91
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a508956_f4dd29d8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: downstream6",
+      "range": {
+        "startLine": 199,
+        "startChar": 42,
+        "endLine": 199,
+        "endChar": 49
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90d8d37d_9757a937",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 299,
+        "startChar": 86,
+        "endLine": 299,
+        "endChar": 93
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0dcfffe_7b8f0f3b",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 773,
+        "startChar": 44,
+        "endLine": 773,
+        "endChar": 51
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c07ab962_0b63495c",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 779,
+        "startChar": 46,
+        "endLine": 779,
+        "endChar": 53
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72d8f200_656e2a60",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 197,
+        "startChar": 86,
+        "endLine": 197,
+        "endChar": 93
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b0381b_f0e0c591",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 849,
+        "startChar": 38,
+        "endLine": 849,
+        "endChar": 45
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0fdb38a_67a123e3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 912,
+        "startChar": 38,
+        "endLine": 912,
+        "endChar": 45
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf0a88a3_a33023c4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-20T10:31:18Z",
+      "side": 1,
+      "message": "nit: Downstream6",
+      "range": {
+        "startLine": 914,
+        "startChar": 41,
+        "endLine": 914,
+        "endChar": 48
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
