@@ -22,6 +22,30 @@
       },
       "revId": "36853749d84271cda1315dd6c882893a5b311530",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88631150_2892a2ce",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-20T01:42:47Z",
+      "side": 1,
+      "message": "Run out of ideas of better way to test it, since:\n 1. MMS or other type of non-internet connections are not guaranteed to exist, so cannot use them for testing CTS.\n 2. Wifi cannot be a background network since it always satisfies default request.\n 3. Cell can be background only if linger timer passed.\n   3.a The linger timer can be customized via system property but it will need reboot to take effect. If doing so we might take more time than 40s.\n   3.b We might change linger timer on the fly but might need an API or trigger point(e.g. read property when dumpsys is called) to do.\n\nIt seems we don\u0027t have any CTS about linger before. It looks to me 3.b is feasible but not great. Any idea?",
+      "parentUuid": "c0d5c044_2ee9eef5",
+      "range": {
+        "startLine": 171,
+        "startChar": 57,
+        "endLine": 171,
+        "endChar": 64
+      },
+      "revId": "36853749d84271cda1315dd6c882893a5b311530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
