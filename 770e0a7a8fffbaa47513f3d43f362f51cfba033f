@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aceec62c_f23e06d3",
+        "filename": "Tethering/bpf_progs/test.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T10:42:05Z",
+      "side": 1,
+      "message": "Yup.",
+      "parentUuid": "503c1de2_a0a02346",
+      "range": {
+        "startLine": 26,
+        "startChar": 19,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "revId": "770e0a7a8fffbaa47513f3d43f362f51cfba033f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6feae98b_27c46426",
