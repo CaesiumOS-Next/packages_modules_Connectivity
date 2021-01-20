@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad99c52c_16683ce6",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T08:25:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad2481e3_49fcb1fb",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 116
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6ca0549_f8b309cd",
@@ -149,6 +173,30 @@
       "writtenOn": "2021-01-19T13:34:43Z",
       "side": 1,
       "message": "memcmp would be clearer I think.",
+      "range": {
+        "startLine": 77,
+        "startChar": 55,
+        "endLine": 78,
+        "endChar": 60
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61319404_7cd38397",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T08:25:05Z",
+      "side": 1,
+      "message": "I\u0027m not entirely certain what the consequences would be for a bpf program, so I prefer direct compare.",
+      "parentUuid": "8eee201d_d878de9d",
       "range": {
         "startLine": 77,
         "startChar": 55,
