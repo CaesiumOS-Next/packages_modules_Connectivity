@@ -46,6 +46,30 @@
       },
       "revId": "1123ee7bb6f25a85b2b691e1cf21085125cd24ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "193a7dcb_28993546",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-20T02:14:44Z",
+      "side": 1,
+      "message": "Per discussion: IIRC we added the uid and group parameters so these programs can be set to group ID net_admin:\n\n$ adb shell ls -l /sys/fs/bpf | grep net_admin\n-r--r----- 1 root net_admin     0 2021-01-20 10:31 prog_netd_skfilter_allowlist_xtbpf\n-r--r----- 1 root net_admin     0 2021-01-20 10:31 prog_netd_skfilter_denylist_xtbpf\n-r--r----- 1 root net_admin     0 2021-01-20 10:31 prog_netd_skfilter_egress_xtbpf\n-r--r----- 1 root net_admin     0 2021-01-20 10:31 prog_netd_skfilter_ingress_xtbpf\n\nThe reason was that vendor code in the net_admin group could change iptables rules, which requires reading the program.\n\nSo I think this should probably be AID_ROOT, AID_NETWORK_STACK with a TODO to change it to AID_NETWORKSTACK, AID_NETWORKSTACK if/when we move the attach to the networkstack module.",
+      "parentUuid": "60b3cd46_7eb2b88c",
+      "range": {
+        "startLine": 165,
+        "startChar": 49,
+        "endLine": 165,
+        "endChar": 67
+      },
+      "revId": "1123ee7bb6f25a85b2b691e1cf21085125cd24ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
