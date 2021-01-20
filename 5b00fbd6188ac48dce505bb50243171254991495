@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fd7112_68e3f219",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T18:10:38Z",
+      "side": 1,
+      "message": "(expect this presubmit to fail due to automerged to internal master not being caught up yet)",
+      "revId": "5b00fbd6188ac48dce505bb50243171254991495",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
