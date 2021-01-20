@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c955545e_f74106d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-20T02:17:34Z",
+      "side": 1,
+      "message": "Per discussion offline: I think this change is fine as is as long as we address the comments in a follow-up ASAP.",
+      "revId": "6971e91d6284fbe14682cf88cf296e140b6192a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64c17b88_9049885d",
