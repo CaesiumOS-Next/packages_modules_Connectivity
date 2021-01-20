@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c58f785_b1fe0621",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-20T05:17:11Z",
+      "side": 1,
+      "message": "If you\u0027re going to clean this up later, LGTM as long as it actually allows the module to write to the maps.",
+      "revId": "1123ee7bb6f25a85b2b691e1cf21085125cd24ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d6ca8b2_f9579906",
