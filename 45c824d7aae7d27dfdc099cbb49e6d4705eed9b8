@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75a61ccd_60eb70b3",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6ca0549_f8b309cd",
+      "range": {
+        "startLine": 76,
+        "startChar": 29,
+        "endLine": 76,
+        "endChar": 36
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9707310_df7434df",
@@ -78,6 +102,30 @@
       "writtenOn": "2021-01-19T13:34:43Z",
       "side": 1,
       "message": "Why does you need this even matter? AFAICS what we need to do is \"for upstream packets, if the src and dst addresses are in the same /64, don\u0027t offload\".\n\nWhat\u0027s the point of the extra check for 64:ff9b::? Why would we ever receive a packet on our downstream interface that has *both a source and a destination* in 64:ff9b::? Pretty much by definition that never happens - NAT64 translates from IPv6 (i.e., non-64:ff9b::) to IPv4 (i.e., 64:ff9b::) or vice versa.\n\nAlso - Android does support networks where the NAT64 prefix is not 64:ff9b::. So if this code is necessary, we should probably add a TODO for making the NAT64 prefix configurable.",
+      "range": {
+        "startLine": 77,
+        "startChar": 23,
+        "endLine": 77,
+        "endChar": 51
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f4aa119_dbb30854",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9707310_df7434df",
       "range": {
         "startLine": 77,
         "startChar": 23,
@@ -134,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41560c2b_ffd1a019",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "well, that would be the exact opposite.\n\nthe goal here is to add an ethernet header if there isn\u0027t one yet.",
+      "parentUuid": "cd467e9a_3301af71",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 23
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad7c1c4a_303a2480",
@@ -147,6 +219,30 @@
       "writtenOn": "2021-01-19T13:34:43Z",
       "side": 1,
       "message": "l2_header_size ?",
+      "range": {
+        "startLine": 140,
+        "startChar": 37,
+        "endLine": 140,
+        "endChar": 58
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51882d15_21850514",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "l2_header_size is 0, we\u0027re trying to *add* the l2 header",
+      "parentUuid": "ad7c1c4a_303a2480",
       "range": {
         "startLine": 140,
         "startChar": 37,
@@ -180,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e97984c_1ba952ea",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "l2_header_size is still 0, so that would be wrong.",
+      "parentUuid": "5794fa4d_49ee11d2",
+      "range": {
+        "startLine": 152,
+        "startChar": 19,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be3de9e0_e498bd09",
@@ -193,6 +313,30 @@
       "writtenOn": "2021-01-19T13:34:43Z",
       "side": 1,
       "message": "Pre-existing, but how does this work? eth could be null, right? Does the jitter simply compile it out?",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 54
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3276cb_c2ea49e7",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "no, there is always an ethernet header to populate at this point.\n\nthat\u0027s what the if (!is_ethernet) {} above did - it added the ethernet header,\nwithout actually filling it in.",
+      "parentUuid": "be3de9e0_e498bd09",
       "range": {
         "startLine": 173,
         "startChar": 4,
@@ -249,6 +393,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "588aae37_80c50584",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ea2e9cb_dab5eb84",
+      "range": {
+        "startLine": 208,
+        "startChar": 50,
+        "endLine": 208,
+        "endChar": 64
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b6c8053_6999881c",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b43aa627_77ca924c",
+      "range": {
+        "startLine": 208,
+        "startChar": 10,
+        "endLine": 208,
+        "endChar": 14
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f61b9fe_556aab2f",
@@ -295,6 +487,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b41ef117_66587795",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f61b9fe_556aab2f",
+      "range": {
+        "startLine": 221,
+        "startChar": 50,
+        "endLine": 221,
+        "endChar": 64
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2743c702_9c47603e",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a5c4748_a724b7d9",
+      "range": {
+        "startLine": 221,
+        "startChar": 7,
+        "endLine": 221,
+        "endChar": 11
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d53d533_ca98a10c",
@@ -308,6 +548,30 @@
       "writtenOn": "2021-01-19T13:34:43Z",
       "side": 1,
       "message": "no-op stubs",
+      "range": {
+        "startLine": 236,
+        "startChar": 14,
+        "endLine": 236,
+        "endChar": 26
+      },
+      "revId": "45c824d7aae7d27dfdc099cbb49e6d4705eed9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9da8ea46_c4d76ef6",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T06:26:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d53d533_ca98a10c",
       "range": {
         "startLine": 236,
         "startChar": 14,
