@@ -46,6 +46,30 @@
       },
       "revId": "36853749d84271cda1315dd6c882893a5b311530",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a64f459_fbda62c9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-20T02:13:09Z",
+      "side": 1,
+      "message": "3.c reduce the linger timer permanently for cuttlefish, e.g. set persist.netmon.linger \u003d 5",
+      "parentUuid": "88631150_2892a2ce",
+      "range": {
+        "startLine": 171,
+        "startChar": 57,
+        "endLine": 171,
+        "endChar": 64
+      },
+      "revId": "36853749d84271cda1315dd6c882893a5b311530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
