@@ -70,6 +70,30 @@
       },
       "revId": "1123ee7bb6f25a85b2b691e1cf21085125cd24ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7ac7c73_07c5a6b5",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-20T05:11:42Z",
+      "side": 1,
+      "message": "Ack.  Will do in followup commit, as a lot more then this one place needs to be changed.",
+      "parentUuid": "193a7dcb_28993546",
+      "range": {
+        "startLine": 165,
+        "startChar": 49,
+        "endLine": 165,
+        "endChar": 67
+      },
+      "revId": "1123ee7bb6f25a85b2b691e1cf21085125cd24ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
