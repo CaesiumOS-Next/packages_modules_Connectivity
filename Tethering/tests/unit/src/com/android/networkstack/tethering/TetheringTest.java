@@ -1251,7 +1251,7 @@ public class TetheringTest {
         verify(mUpstreamNetworkMonitor, times(1)).startObserveAllNetworks();
         // In tethering mode, in the default configuration, an explicit request
         // for a mobile network is also made.
-        verify(mUpstreamNetworkMonitor, times(1)).registerMobileNetworkRequest();
+        verify(mUpstreamNetworkMonitor, times(1)).setTryCell(true);
         // There are 2 IpServer state change events: STATE_AVAILABLE -> STATE_TETHERED
         verify(mNotificationUpdater, times(1)).onDownstreamChanged(DOWNSTREAM_NONE);
         verify(mNotificationUpdater, times(1)).onDownstreamChanged(eq(1 << TETHERING_WIFI));
