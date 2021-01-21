@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca937d13_62eda94a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-21T16:08:44Z",
+      "side": 1,
+      "message": "LGTM with nit",
+      "revId": "79dce4c28d567775e7ef2eaf1ac4881495b8d022",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f63ea3fc_48b14db7",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgentRegistry.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-21T16:08:44Z",
+      "side": 1,
+      "message": "dup?",
+      "range": {
+        "startLine": 25,
+        "startChar": 39,
+        "endLine": 25,
+        "endChar": 46
+      },
+      "revId": "79dce4c28d567775e7ef2eaf1ac4881495b8d022",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
