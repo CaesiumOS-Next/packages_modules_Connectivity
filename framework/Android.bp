@@ -15,6 +15,10 @@
 //
 
 // TODO: use a java_library in the bootclasspath instead
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
 filegroup {
     name: "framework-connectivity-sources",
     srcs: [

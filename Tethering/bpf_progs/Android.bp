@@ -17,6 +17,10 @@
 //
 // bpf kernel programs
 //
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
 bpf {
     name: "offload.o",
     srcs: ["offload.c"],
