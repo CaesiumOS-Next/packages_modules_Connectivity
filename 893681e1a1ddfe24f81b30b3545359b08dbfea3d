@@ -1,0 +1,51 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19d8bedd_c03aeb28",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-21T04:46:52Z",
+      "side": 1,
+      "message": "\u003e Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.\n\nPlease fix.",
+      "parentUuid": "c09bba63_2d1e50fc",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 101
+      },
+      "revId": "893681e1a1ddfe24f81b30b3545359b08dbfea3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d274a88b_c5674c58",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-21T04:46:52Z",
+      "side": 1,
+      "message": "For shipping purposes, it is unacceptable to have the map definitions in the module and the map key definitions in system/netd or system/bpf. Do we already have a bug filed to move them all to the module? If not we should file a stopship bug for S.",
+      "range": {
+        "startLine": 266,
+        "startChar": 49,
+        "endLine": 266,
+        "endChar": 69
+      },
+      "revId": "893681e1a1ddfe24f81b30b3545359b08dbfea3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
