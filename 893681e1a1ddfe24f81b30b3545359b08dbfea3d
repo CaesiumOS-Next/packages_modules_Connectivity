@@ -25,6 +25,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c41192b_9e7c9206",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-21T05:11:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19d8bedd_c03aeb28",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 101
+      },
+      "revId": "893681e1a1ddfe24f81b30b3545359b08dbfea3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d274a88b_c5674c58",
@@ -38,6 +62,30 @@
       "writtenOn": "2021-01-21T04:46:52Z",
       "side": 1,
       "message": "For shipping purposes, it is unacceptable to have the map definitions in the module and the map key definitions in system/netd or system/bpf. Do we already have a bug filed to move them all to the module? If not we should file a stopship bug for S.",
+      "range": {
+        "startLine": 266,
+        "startChar": 49,
+        "endLine": 266,
+        "endChar": 69
+      },
+      "revId": "893681e1a1ddfe24f81b30b3545359b08dbfea3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0800aa97_a640631d",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-01-21T05:11:57Z",
+      "side": 1,
+      "message": "Yes we have a bug filed to remove the dependency on the header files from the Android.bp file in the mainline module, this will of course fix this.",
+      "parentUuid": "d274a88b_c5674c58",
       "range": {
         "startLine": 266,
         "startChar": 49,
