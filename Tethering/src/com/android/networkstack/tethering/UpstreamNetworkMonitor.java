@@ -114,7 +114,14 @@ public class UpstreamNetworkMonitor {
     private NetworkCallback mListenAllCallback;
     private NetworkCallback mDefaultNetworkCallback;
     private NetworkCallback mMobileNetworkCallback;
+
+    /** Whether Tethering has requested a cellular upstream. */
+    private boolean mTryCell;
+    /** Whether the carrier requires DUN. */
     private boolean mDunRequired;
+    /** Whether automatic upstream selection is enabled. */
+    private boolean mAutoUpstream;
+
     // Whether the current default upstream is mobile or not.
     private boolean mIsDefaultCellularUpstream;
     // The current system default network (not really used yet).
@@ -190,14 +197,35 @@ public class UpstreamNetworkMonitor {
         mNetworkMap.clear();
     }
 
-    /** Setup or teardown DUN connection according to |dunRequired|. */
-    public void updateMobileRequiresDun(boolean dunRequired) {
-        final boolean valueChanged = (mDunRequired != dunRequired);
+    private void reevaluateUpstreamRequirements(boolean tryCell, boolean autoUpstream,
+            boolean dunRequired) {
+        final boolean mobileRequestWasRequired = mTryCell && (mDunRequired || !mAutoUpstream);
+        final boolean mobileRequestIsRequired = tryCell && (dunRequired || !autoUpstream);
+        final boolean dunRequiredChanged = (mDunRequired != dunRequired);
+
+        mTryCell = tryCell;
         mDunRequired = dunRequired;
-        if (valueChanged && mobileNetworkRequested()) {
+        mAutoUpstream = autoUpstream;
+
+        if (dunRequiredChanged && mobileNetworkRequested()) {
             releaseMobileNetworkRequest();
             registerMobileNetworkRequest();
         }
+    }
+
+    /**
+     * Informs UpstreamNetworkMonitor that a cellular upstream is desired.
+     *
+     * This may result in filing a NetworkRequest for DUN if it is required, or for MOBILE_HIPRI if
+     * automatic upstream selection is disabled and MOBILE_HIPRI is the preferred upstream.
+     */
+    public void setTryCell(boolean tryCell) {
+        reevaluateUpstreamRequirements(tryCell, mAutoUpstream, mDunRequired);
+    }
+
+    /** Informs UpstreamNetworkMonitor of upstream configuration parameters. */
+    public void setUpstreamConfig(boolean autoUpstream, boolean dunRequired) {
+        reevaluateUpstreamRequirements(mTryCell, autoUpstream, dunRequired);
     }
 
     /** Whether mobile network is requested. */
