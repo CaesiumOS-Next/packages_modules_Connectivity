@@ -39,6 +39,30 @@
       },
       "revId": "e97b8363e967af527b967a47c06f7a8bcb5982fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "098b20d7_11f9cad0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-01-21T01:13:10Z",
+      "side": 1,
+      "message": "Actually the test only needs to run from S+ (the previous diff looked like it was R+ but this was not the latest rebase); so I can also skip the whole class with DevSdkIgnoreRunner, which I find simpler: see latest patchset.",
+      "parentUuid": "f3406c19_f0e9c288",
+      "range": {
+        "startLine": 137,
+        "startChar": 44,
+        "endLine": 137,
+        "endChar": 48
+      },
+      "revId": "e97b8363e967af527b967a47c06f7a8bcb5982fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
