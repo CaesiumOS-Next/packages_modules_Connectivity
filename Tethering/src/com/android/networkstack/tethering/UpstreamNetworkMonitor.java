@@ -199,15 +199,18 @@ public class UpstreamNetworkMonitor {
 
     private void reevaluateUpstreamRequirements(boolean tryCell, boolean autoUpstream,
             boolean dunRequired) {
-        final boolean mobileRequestWasRequired = mTryCell && (mDunRequired || !mAutoUpstream);
-        final boolean mobileRequestIsRequired = tryCell && (dunRequired || !autoUpstream);
+        final boolean mobileRequestRequired = tryCell && (dunRequired || !autoUpstream);
         final boolean dunRequiredChanged = (mDunRequired != dunRequired);
 
         mTryCell = tryCell;
         mDunRequired = dunRequired;
         mAutoUpstream = autoUpstream;
 
-        if (dunRequiredChanged && mobileNetworkRequested()) {
+        if (mobileRequestRequired && !mobileNetworkRequested()) {
+            registerMobileNetworkRequest();
+        } else if (mobileNetworkRequested() && !mobileRequestRequired) {
+            releaseMobileNetworkRequest();
+        } else if (mobileNetworkRequested() && dunRequiredChanged) {
             releaseMobileNetworkRequest();
             registerMobileNetworkRequest();
         }
@@ -221,11 +224,6 @@ public class UpstreamNetworkMonitor {
      */
     public void setTryCell(boolean tryCell) {
         reevaluateUpstreamRequirements(tryCell, mAutoUpstream, mDunRequired);
-        if (tryCell) {
-            registerMobileNetworkRequest();
-        } else {
-            releaseMobileNetworkRequest();
-        }
     }
 
     /** Informs UpstreamNetworkMonitor of upstream configuration parameters. */
