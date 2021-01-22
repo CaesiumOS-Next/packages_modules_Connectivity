@@ -87,6 +87,10 @@ public class BpfCoordinator {
     private static final int DUMP_TIMEOUT_MS = 10_000;
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString(
             "00:00:00:00:00:00");
+    private static final String TETHER_DOWNSTREAM4_MAP_PATH =
+            "/sys/fs/bpf/tethering/map_offload_tether_downstream4_map";
+    private static final String TETHER_UPSTREAM4_MAP_PATH =
+            "/sys/fs/bpf/tethering/map_offload_tether_upstream4_map";
     private static final String TETHER_DOWNSTREAM6_FS_PATH =
             "/sys/fs/bpf/tethering/map_offload_tether_downstream6_map";
     private static final String TETHER_STATS_MAP_PATH =
@@ -230,6 +234,30 @@ public class BpfCoordinator {
         public boolean isAtLeastS() {
             // TODO: consider using ShimUtils.isAtLeastS.
             return SdkLevel.isAtLeastS();
+        }
+
+        /** Get downstream4 BPF map. */
+        @Nullable public BpfMap<TetherDownstream4Key, TetherDownstream4Value>
+                getBpfDownstream4Map() {
+            try {
+                return new BpfMap<>(TETHER_DOWNSTREAM4_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, TetherDownstream4Key.class, TetherDownstream4Value.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create downstream4 map: " + e);
+                return null;
+            }
+        }
+
+        /** Get upstream4 BPF map. */
+        @Nullable public BpfMap<TetherUpstream4Key, TetherUpstream4Value>
+                getBpfUpstream4Map() {
+            try {
+                return new BpfMap<>(TETHER_UPSTREAM4_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, TetherUpstream4Key.class, TetherUpstream4Value.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create upstream4 map: " + e);
+                return null;
+            }
         }
 
         /** Get downstream6 BPF map. */
@@ -929,7 +957,8 @@ public class BpfCoordinator {
 
             if (e.msgType == (NetlinkConstants.NFNL_SUBSYS_CTNETLINK << 8
                     | NetlinkConstants.IPCTNL_MSG_CT_DELETE)) {
-                // TODO: remove ingress and egress rules from BPF maps.
+                mBpfCoordinatorShim.tetherOffloadRuleRemove(upstream4Key);
+                mBpfCoordinatorShim.tetherOffloadRuleRemove(downstream4Key);
                 return;
             }
 
@@ -938,7 +967,8 @@ public class BpfCoordinator {
             final TetherDownstream4Value downstream4Value = makeTetherDownstream4Value(e,
                     tetherClient, upstreamIndex);
 
-            // TODO: insert ingress and egress rules to BPF maps.
+            mBpfCoordinatorShim.tetherOffloadRuleAdd(upstream4Key, upstream4Value);
+            mBpfCoordinatorShim.tetherOffloadRuleAdd(downstream4Key, downstream4Value);
         }
     }
 
