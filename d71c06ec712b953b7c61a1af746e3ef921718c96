@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd6131b3_6fc58c42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:24:55Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address comments in a follow-up.",
+      "revId": "d71c06ec712b953b7c61a1af746e3ef921718c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "983141bb_a74d68ed",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:24:55Z",
+      "side": 1,
+      "message": "Is this still true? Or did you just get the comment from the IPv6 code that might end up calling into netd?",
+      "range": {
+        "startLine": 957,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 72
+      },
+      "revId": "d71c06ec712b953b7c61a1af746e3ef921718c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f85418c_f7c1d60d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:24:55Z",
+      "side": 1,
+      "message": "While this method is called Add, it will also update an existing client if there is one. Maybe rename it to tetherOffloadClientAddOrUpdate?\n\nThat said:\n- Does it make sense to update one of these client objects? If not, we should simply refuse to update and only have add and remove.\n- If something does change changes in one of these objects, will the code know what to do?\n\nThe fields in ClientInfo are:\n\n        public final int downstreamIfindex;\n\n        @NonNull\n        public final MacAddress downstreamMac;\n        @NonNull\n        public final Inet4Address clientAddress;\n        @NonNull\n        public final MacAddress clientMac;\n\ndownstreamIfindex and MAC clientMac can\u0027t change. clientAddress cannot change because it\u0027s what identifies these objects. So a client with a different address is a different client.\n\nHowever, I think it\u0027s possible in theory for the MAC address to change without deleting and re-adding the neighbor entry. This seems quite unlikely, so no need to support it now. But it does suggest that we should rename this method to tetherOffloadClientaddOrUpdate and try to support updates at some point.\n\nMaybe add a TODO to ensure that if the MAC address changes, all the rules are updated with new MAC addresses?",
+      "range": {
+        "startLine": 528,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 50
+      },
+      "revId": "d71c06ec712b953b7c61a1af746e3ef921718c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13e444dc_07cdcf5a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:24:55Z",
+      "side": 1,
+      "message": "Nit: suggest renaming to localIfindex and localMac.",
+      "range": {
+        "startLine": 709,
+        "startChar": 0,
+        "endLine": 712,
+        "endChar": 46
+      },
+      "revId": "d71c06ec712b953b7c61a1af746e3ef921718c96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
