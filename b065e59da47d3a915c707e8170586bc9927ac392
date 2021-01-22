@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd7cf3fb_b204a9c3",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:30:56Z",
+      "side": 1,
+      "message": "Ack. I think it\u0027s fine to modify NeighborEvent to make its members public. After all, NeighborEvent is just a plan data class that exists to contain those members.",
+      "parentUuid": "4253fbbf_e69e0756",
+      "range": {
+        "startLine": 944,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 5
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27219b99_740c9984",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 7
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "doable, L984 make sure that mInterfaceParams.index \u003d\u003d e.ifindex\n\nMay I know why you prefer to use e.ifindex? \"mInterfaceParams.index\" is easier to know it is downstream index\n\nas L.936:\nIpv6ForwardingRule rule \u003d new Ipv6ForwardingRule(upstreamIfindex,\n    mInterfaceParams.index, (Inet6Address) e.ip, mInterfaceParams.macAddr, dstMac);\n\n\nthought?",
       "parentUuid": "27219b99_740c9984",
+      "range": {
+        "startLine": 972,
+        "startChar": 61,
+        "endLine": 972,
+        "endChar": 83
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "195c2abc_10b7b001",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:30:56Z",
+      "side": 1,
+      "message": "It\u0027s by design. The IpNeighborMonitor run by each IpServer only looks at neighbor events for its own interface. See line 973, \"mInterfaceParams.index \u003d\u003d e.ifindex\".\n\nI suppose that if we eventually only run one IpNeighorMonitor in BpfCoordinator (instead of one per IpServer) then we might need to change this again?\n\nLGTM either way.",
+      "parentUuid": "e2d98246_3887b7f6",
       "range": {
         "startLine": 972,
         "startChar": 61,
