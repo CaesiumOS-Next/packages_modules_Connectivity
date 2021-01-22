@@ -1,0 +1,13 @@
+Code-Review+2: Chalard Jean <jchalard@google.com>
+Autosubmit+1: Daniel Bright <dbright@google.com>
+Autosubmit+1: Chalard Jean <jchalard@google.com>
+Presubmit-Ready+1: Daniel Bright <dbright@google.com>
+Presubmit-Ready+1: Treehugger Robot <treehugger-gerrit@google.com>
+Build-Cop-Override+1: Roland Levillain <rpl@google.com>
+Bypass-Presubmit+1: Roland Levillain <rpl@google.com>
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Submitted-by: Roland Levillain <rpl@google.com>
+Submitted-at: Fri, 22 Jan 2021 14:19:57 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1487838
+Project: platform/packages/modules/Connectivity
+Branch: refs/heads/master
