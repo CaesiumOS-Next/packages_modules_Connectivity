@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "495572ed_e2c6a5d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T08:32:29Z",
+      "side": 1,
+      "message": "Generally LGTM. Would prefer to see this code added to BpfCoordinator instead of IpServer (see suggestion inline) but if that\u0027s a lot of work, no need to do that now.",
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dd773cc_8968b37f",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T08:32:29Z",
+      "side": 1,
+      "message": "Is there a reason this code lives here in IpServer? Could we instead just add something like this to BpfCoordinator?\n\n    public void handleNeighborEvent(IpServer ipServer, NeighborEvent e)\n\nor:\n\n    public void handleNeighborEvent(MacAddress localMacAddr, NeighborEvent e)\n\n\nI think that would let you delete some of the code here and would in general be simpler. If it\u0027s easy and quick I would do that in this CL. If not, add a TODO.\n\n\nLong term, I think the IPv6 code should probably move to BpfCoordinator as well (but no need to do this now). The IPv6 part would probably look something like this:\n\n    public void handleIPv6UpstreamChanged(IpServer ipServer, int oldIfindex, int newIfindex) {\n\n    public void handleUpstreamRemoved(IpServer ipServer) {\n\nOnce that\u0027s done you could move the IPv6 forwarding rules to BpfCoordinator as well.",
+      "range": {
+        "startLine": 944,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 5
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27219b99_740c9984",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T08:32:29Z",
+      "side": 1,
+      "message": "Is it possible to use \"e.ifindex\" here?",
+      "range": {
+        "startLine": 972,
+        "startChar": 61,
+        "endLine": 972,
+        "endChar": 83
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72066414_5660d332",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T08:32:29Z",
+      "side": 1,
+      "message": "rules",
+      "range": {
+        "startLine": 167,
+        "startChar": 53,
+        "endLine": 167,
+        "endChar": 57
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75193f1f_1b303bbf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T08:32:29Z",
+      "side": 1,
+      "message": "conntrack events are received",
+      "range": {
+        "startLine": 167,
+        "startChar": 63,
+        "endLine": 167,
+        "endChar": 92
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b76fc74_26175d2b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T08:32:29Z",
+      "side": 1,
+      "message": "Needed to build",
+      "range": {
+        "startLine": 167,
+        "startChar": 19,
+        "endLine": 167,
+        "endChar": 36
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2488dab2_6561a5fb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T08:32:29Z",
+      "side": 1,
+      "message": "Why LinkedHashMap instead of, say, HashMap or even android.util.ArrayMap which uses less memory? Do you need this because it has predictable iteration order?",
+      "range": {
+        "startLine": 529,
+        "startChar": 8,
+        "endLine": 529,
+        "endChar": 21
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a84999b_dd196d68",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T08:32:29Z",
+      "side": 1,
+      "message": "I notice this is basically the same as Ipv6ForwardingRule except for the upstream interface.\n\nIf we\u0027re not going to add more info to this structure in future CLs, then we should call this ClientInfo (or something not IPv4 or IPv6-specific) and add a TODO to Ipv6ForwardingRule to store a ClientInfo object instead of storing address, srcMac, and dstMac directly.",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 42
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
