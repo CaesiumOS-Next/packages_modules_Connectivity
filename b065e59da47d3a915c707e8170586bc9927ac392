@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4253fbbf_e69e0756",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:45:04Z",
+      "side": 1,
+      "message": "Add a TODD and delete {add, remove}ClientInfoIpv4\n\nMost NeighborEvent data members (ex: ip, macAddr) and functions (ex: isValid) are not public. BpfCoordinator doesn\u0027t be able to access it. Need to modify NeighborEvent.\n\nthanks",
+      "parentUuid": "2dd773cc_8968b37f",
+      "range": {
+        "startLine": 944,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 5
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27219b99_740c9984",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 7
@@ -54,6 +78,30 @@
       "writtenOn": "2021-01-22T08:32:29Z",
       "side": 1,
       "message": "Is it possible to use \"e.ifindex\" here?",
+      "range": {
+        "startLine": 972,
+        "startChar": 61,
+        "endLine": 972,
+        "endChar": 83
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2d98246_3887b7f6",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:45:04Z",
+      "side": 1,
+      "message": "doable, L984 make sure that mInterfaceParams.index \u003d\u003d e.ifindex\n\nMay I know why you prefer to use e.ifindex? \"mInterfaceParams.index\" is easier to know it is downstream index\n\nas L.936:\nIpv6ForwardingRule rule \u003d new Ipv6ForwardingRule(upstreamIfindex,\n    mInterfaceParams.index, (Inet6Address) e.ip, mInterfaceParams.macAddr, dstMac);\n\n\nthought?",
+      "parentUuid": "27219b99_740c9984",
       "range": {
         "startLine": 972,
         "startChar": 61,
@@ -133,6 +181,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8139d8_4fb0b204",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:45:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b76fc74_26175d2b",
+      "range": {
+        "startLine": 167,
+        "startChar": 19,
+        "endLine": 167,
+        "endChar": 36
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e7ca385_30f059bd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:45:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72066414_5660d332",
+      "range": {
+        "startLine": 167,
+        "startChar": 53,
+        "endLine": 167,
+        "endChar": 57
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2291a10a_60d92f13",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:45:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75193f1f_1b303bbf",
+      "range": {
+        "startLine": 167,
+        "startChar": 63,
+        "endLine": 167,
+        "endChar": 92
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2488dab2_6561a5fb",
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d91559fa_3f388229",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:45:04Z",
+      "side": 1,
+      "message": "Done. \n\nuse HashMap. no specific reason actually.",
+      "parentUuid": "2488dab2_6561a5fb",
+      "range": {
+        "startLine": 529,
+        "startChar": 8,
+        "endLine": 529,
+        "endChar": 21
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a84999b_dd196d68",
@@ -169,6 +313,30 @@
       "writtenOn": "2021-01-22T08:32:29Z",
       "side": 1,
       "message": "I notice this is basically the same as Ipv6ForwardingRule except for the upstream interface.\n\nIf we\u0027re not going to add more info to this structure in future CLs, then we should call this ClientInfo (or something not IPv4 or IPv6-specific) and add a TODO to Ipv6ForwardingRule to store a ClientInfo object instead of storing address, srcMac, and dstMac directly.",
+      "range": {
+        "startLine": 708,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 42
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "941023ca_5ae758ff",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:45:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a84999b_dd196d68",
       "range": {
         "startLine": 708,
         "startChar": 0,
