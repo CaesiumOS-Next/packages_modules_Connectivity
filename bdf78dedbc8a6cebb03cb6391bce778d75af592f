@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f07e3b_af0666ea",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:37:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa6be8cb_eb862c23",
+      "range": {
+        "startLine": 576,
+        "startChar": 16,
+        "endLine": 576,
+        "endChar": 30
+      },
+      "revId": "bdf78dedbc8a6cebb03cb6391bce778d75af592f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "804eef1d_e59f9687",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "Thanks for your description. \nit needs to be traced in the follow-up. Especially, we are starting to delete the unused information or rules. \n\nKeep as unresolved",
       "parentUuid": "149dbb54_740857ac",
+      "range": {
+        "startLine": 1644,
+        "startChar": 32,
+        "endLine": 1644,
+        "endChar": 55
+      },
+      "revId": "bdf78dedbc8a6cebb03cb6391bce778d75af592f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3fb9820_14989eca",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:37:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a7a8724_f995e598",
       "range": {
         "startLine": 1644,
         "startChar": 32,

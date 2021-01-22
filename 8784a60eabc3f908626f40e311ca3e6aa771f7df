@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de66db1a_3ea5528f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:37:48Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed in a follow-up.",
+      "revId": "8784a60eabc3f908626f40e311ca3e6aa771f7df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62192d90_1b4461ff",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1640,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:37:48Z",
+      "side": 1,
+      "message": "This comment belongs in BpfCoordinator I think.",
+      "range": {
+        "startLine": 1640,
+        "startChar": 12,
+        "endLine": 1640,
+        "endChar": 84
+      },
+      "revId": "8784a60eabc3f908626f40e311ca3e6aa771f7df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa0de723_b3b62b1a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:37:48Z",
+      "side": 1,
+      "message": "The map and the upstream index are implementation details of BpfCoordinator that Tethering doesn\u0027t necessarily need to know about. Maybe just call this updateUpstreamNetworkState, so this method would become:\n\n            mIPv6TetheringCoordinator.updateUpstreamNetworkState(ns);\n            mOffload.updateUpstreamNetworkState(ns);\n            mBpfCoordinator.updateUpstreamNetworkState(ns);",
+      "range": {
+        "startLine": 1644,
+        "startChar": 32,
+        "endLine": 1644,
+        "endChar": 55
+      },
+      "revId": "8784a60eabc3f908626f40e311ca3e6aa771f7df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
