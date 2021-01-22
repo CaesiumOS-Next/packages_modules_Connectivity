@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1366a8c0_834d3594",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherDownstream4Value.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T10:08:58Z",
+      "side": 1,
+      "message": "I don\u0027t think you need these, Struct will autogenerate them for you.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 5
+      },
+      "revId": "daee2e312f0923f88003bae9783b4c0d58e999ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
