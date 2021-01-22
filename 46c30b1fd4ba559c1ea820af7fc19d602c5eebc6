@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae3ed6e6_d7da1dcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T07:40:29Z",
+      "side": 1,
+      "message": "LGTM as is. Feel free to merge as is and address comments in a follow-up.",
+      "revId": "46c30b1fd4ba559c1ea820af7fc19d602c5eebc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a80fc69_6ca874e0",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T07:40:29Z",
+      "side": 1,
+      "message": "Nit: these methods don\u0027t seem very useful, since they\u0027re trivial and each of them is only called once.",
+      "range": {
+        "startLine": 1114,
+        "startChar": 0,
+        "endLine": 1120,
+        "endChar": 5
+      },
+      "revId": "46c30b1fd4ba559c1ea820af7fc19d602c5eebc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "956c5d1a_38e84ade",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T07:40:29Z",
+      "side": 1,
+      "message": "Nit: if you only have a few items, I think android.util.ArraySet is generally more efficient.",
+      "range": {
+        "startLine": 166,
+        "startChar": 59,
+        "endLine": 166,
+        "endChar": 66
+      },
+      "revId": "46c30b1fd4ba559c1ea820af7fc19d602c5eebc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76b18307_bd97328a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T07:40:29Z",
+      "side": 1,
+      "message": "Do we want to log an error if the ipServer didn\u0027t exist?\n\n    if (mMonitoringIpServers.remove(ipServer) \u003d\u003d null) {\n        Log.e(\"Attempting to remove nonexistent IpServer \" + ipServer.getInterfaceName());\n        return;\n    }\n\nThat would also ensure that we don\u0027t call mConntrackMonitor#stop() twice if someone tries to remove the same IpServer twice.",
+      "range": {
+        "startLine": 357,
+        "startChar": 8,
+        "endLine": 357,
+        "endChar": 46
+      },
+      "revId": "46c30b1fd4ba559c1ea820af7fc19d602c5eebc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27a4fa88_a9a10734",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T07:40:29Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to describe what you\u0027re testing here. Perhaps:\n\n    // [1] Ensure that if no IpServer is added, monitoring is never started.",
+      "range": {
+        "startLine": 1002,
+        "startChar": 15,
+        "endLine": 1002,
+        "endChar": 61
+      },
+      "revId": "46c30b1fd4ba559c1ea820af7fc19d602c5eebc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d091b2e6_1e1d9071",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1014,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T07:40:29Z",
+      "side": 1,
+      "message": "Consider checking that if mIpServer is removed again, mConntrackMonitor is not stopped again.",
+      "range": {
+        "startLine": 1014,
+        "startChar": 4,
+        "endLine": 1014,
+        "endChar": 5
+      },
+      "revId": "46c30b1fd4ba559c1ea820af7fc19d602c5eebc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
