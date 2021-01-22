@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa6be8cb_eb862c23",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:49:47Z",
+      "side": 1,
+      "message": "Add a TODO and leave as unresolved",
+      "parentUuid": "acef0678_fbcb5d94",
+      "range": {
+        "startLine": 576,
+        "startChar": 16,
+        "endLine": 576,
+        "endChar": 30
+      },
+      "revId": "bdf78dedbc8a6cebb03cb6391bce778d75af592f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "804eef1d_e59f9687",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2021-01-22T09:16:00Z",
       "side": 1,
       "message": "I don\u0027t think you need this, just use params.index everywhere.",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 588,
+        "endChar": 9
+      },
+      "revId": "bdf78dedbc8a6cebb03cb6391bce778d75af592f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b69271a_c33d2958",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:49:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "804eef1d_e59f9687",
       "range": {
         "startLine": 581,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c09e726a_7ee3597f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1642,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:49:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6ad80d8_92156946",
+      "range": {
+        "startLine": 1642,
+        "startChar": 82,
+        "endLine": 1642,
+        "endChar": 89
+      },
+      "revId": "bdf78dedbc8a6cebb03cb6391bce778d75af592f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "149dbb54_740857ac",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-01-22T09:16:00Z",
       "side": 1,
       "message": "We need to be careful of the ordering of this call. I think we talked about this at length this when doing the IPv6 rules. There are few things to consider.\n\n- This code runs before any of the IpServers know what the current upstream is, so when it runs they will think they still have the previous upstream. If we\u0027re unlucky I think it\u0027s even possible that an upstream is added/removed/added and when the second add event happens the IpServers still haven\u0027t heard about the first one.\n\n- The information that the IpServers get when the interface changes is the interface name, not an index. For IPv6 they convert it to an index just before adding (or clearing) the forwarding rules. We need to make sure that when the rules are deleted we use the same ifindex and do not get the ifindex from the interface name again. This is important because when the interface is deleted the interface index is no longer available (or the interface could be deleted and re-added and the ifindex would be different).\n\n- We also need to ensure that the ifindex of the upstream is the same as the one in the limit map. \n\nI don\u0027t remember all the details here but for IPv6 I remember that we decided to make all calls into BpfCoordinator from IpServer, and make those calls at the same time as IpServer tells netd to enable kernel forwarding. We might want to do the same here.\n\nI think we can say that as long as we don\u0027t assume that the upstream interface index we see here is the same as the upstream interface index seen by IpServer, things are fine. I think this is OK because in your current CLs, IpServer never tells BpfCoordinator about upstream ifindices for IPv4, only for IPv6.",
+      "range": {
+        "startLine": 1644,
+        "startChar": 32,
+        "endLine": 1644,
+        "endChar": 55
+      },
+      "revId": "bdf78dedbc8a6cebb03cb6391bce778d75af592f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a7a8724_f995e598",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1644,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-22T11:49:47Z",
+      "side": 1,
+      "message": "Thanks for your description. \nit needs to be traced in the follow-up. Especially, we are starting to delete the unused information or rules. \n\nKeep as unresolved",
+      "parentUuid": "149dbb54_740857ac",
       "range": {
         "startLine": 1644,
         "startChar": 32,
