@@ -16,6 +16,24 @@
       "message": "Why don\u0027t you change it to mUpstreamNetwork.setTryCell(tryCell) to prevent Mobile request is filed?",
       "revId": "237b027b46bb367ddddb308a52ff3b58aa7df0d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "644b88e1_91c81126",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1563,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-22T14:06:51Z",
+      "side": 1,
+      "message": "Ah, yes, I had missed that. Done. Also I have made registerMobileNetworkRequest and releaseMobileNetworkRequest private so we cannot make this mistake in the future.",
+      "parentUuid": "d2da8928_883c6eb3",
+      "revId": "237b027b46bb367ddddb308a52ff3b58aa7df0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
