@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89b60a0c_c10b9ff4",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-23T07:09:25Z",
+      "side": 1,
+      "message": "Can you add a comment explaining why? Something like:\n\n// If hardware offload is running and programming flows based on conntrack entries,\n// don\u0027t interfere with it.",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 38
+      },
+      "revId": "4ed3f3dd70f4b8ccf444d5ad5e899bbd9dc9aeed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
