@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e85d7686_40db3bad",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-23T11:04:00Z",
+      "side": 1,
+      "message": "thanks for your review for NeighborEvent.\ntodo and keep this as unresolved",
+      "parentUuid": "cd7cf3fb_b204a9c3",
+      "range": {
+        "startLine": 944,
+        "startChar": 0,
+        "endLine": 959,
+        "endChar": 5
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27219b99_740c9984",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 7
@@ -150,6 +174,30 @@
       "side": 1,
       "message": "It\u0027s by design. The IpNeighborMonitor run by each IpServer only looks at neighbor events for its own interface. See line 973, \"mInterfaceParams.index \u003d\u003d e.ifindex\".\n\nI suppose that if we eventually only run one IpNeighorMonitor in BpfCoordinator (instead of one per IpServer) then we might need to change this again?\n\nLGTM either way.",
       "parentUuid": "e2d98246_3887b7f6",
+      "range": {
+        "startLine": 972,
+        "startChar": 61,
+        "endLine": 972,
+        "endChar": 83
+      },
+      "revId": "b065e59da47d3a915c707e8170586bc9927ac392",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be5fed5c_0401896d",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-23T11:04:00Z",
+      "side": 1,
+      "message": "i got it. thanks\ntodo and keep this as unresolved",
+      "parentUuid": "195c2abc_10b7b001",
       "range": {
         "startLine": 972,
         "startChar": 61,
