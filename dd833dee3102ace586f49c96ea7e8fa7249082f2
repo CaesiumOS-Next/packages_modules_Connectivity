@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a426e1_590a09e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-25T16:39:44Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address comments in a follow-up.",
+      "revId": "dd833dee3102ace586f49c96ea7e8fa7249082f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bcc80bc_346600a1",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-25T16:39:44Z",
+      "side": 1,
+      "message": "Why twice? Once for upstream and once for downstream? Or...?",
+      "range": {
+        "startLine": 259,
+        "startChar": 24,
+        "endLine": 259,
+        "endChar": 29
+      },
+      "revId": "dd833dee3102ace586f49c96ea7e8fa7249082f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b56ac3d1_564f78ed",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-25T16:39:44Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you mean by this. Who refreshes what?",
+      "range": {
+        "startLine": 259,
+        "startChar": 37,
+        "endLine": 259,
+        "endChar": 59
+      },
+      "revId": "dd833dee3102ace586f49c96ea7e8fa7249082f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e7d2c2_8bfc034b",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-25T16:39:44Z",
+      "side": 1,
+      "message": "What do you mean \"pair\"? Do you mean \"entry\"?",
+      "range": {
+        "startLine": 259,
+        "startChar": 19,
+        "endLine": 259,
+        "endChar": 23
+      },
+      "revId": "dd833dee3102ace586f49c96ea7e8fa7249082f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ce3f983_d9df4ca6",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-25T16:39:44Z",
+      "side": 1,
+      "message": "Out of curiosity, why did you not use insertEntry here?",
+      "range": {
+        "startLine": 261,
+        "startChar": 12,
+        "endLine": 261,
+        "endChar": 48
+      },
+      "revId": "dd833dee3102ace586f49c96ea7e8fa7249082f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
