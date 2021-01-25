@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000007565012",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1559293?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "e0810585_38c24b95",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-01-25T07:18:35Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027complex\u0027, \u0027unexpected\u0027, or \u0027placeholder\u0027; see https://developers.google.com/style/inclusive-documentation#ableist-language for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 463,
+        "startChar": 3,
+        "endLine": 463,
+        "endChar": 8
+      },
+      "revId": "c643d9a2d6512e8f25cbdeca5002a881d8e9683c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
