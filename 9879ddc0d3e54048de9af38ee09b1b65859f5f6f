@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aea7d8a0_942bd472",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-01-25T16:42:27Z",
+      "side": 1,
+      "message": "LGTM, only nit.",
+      "revId": "9879ddc0d3e54048de9af38ee09b1b65859f5f6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44de22c3_c9a012db",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-01-25T16:42:27Z",
+      "side": 1,
+      "message": "nit: Since registerMobileNetworkRequest() have protected duplicated request and releaseMobileNetworkRequest() also have protected duplicated release.\nHow about this:\n\n        if (mobileRequestRequired) {\n            // If dunRequired is changed, release previous request if have.\n            if (dunRequiredChanged) releaseMobileNetworkRequest();\n            registerMobileNetworkRequest();\n        } else {\n            releaseMobileNetworkRequest();\n        }",
+      "range": {
+        "startLine": 209,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 5
+      },
+      "revId": "9879ddc0d3e54048de9af38ee09b1b65859f5f6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
