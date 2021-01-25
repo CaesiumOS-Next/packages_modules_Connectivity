@@ -160,7 +160,8 @@ public class BpfCoordinatorTest {
     @Mock private ConntrackMonitor mConntrackMonitor;
     @Mock private BpfMap<TetherDownstream4Key, TetherDownstream4Value> mBpfDownstream4Map;
     @Mock private BpfMap<TetherUpstream4Key, TetherUpstream4Value> mBpfUpstream4Map;
-    @Mock private BpfMap<TetherDownstream6Key, TetherDownstream6Value> mBpfDownstream6Map;
+    @Mock private BpfMap<TetherDownstream6Key, Tether6Value> mBpfDownstream6Map;
+    @Mock private BpfMap<TetherUpstream6Key, Tether6Value> mBpfUpstream6Map;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -217,9 +218,15 @@ public class BpfCoordinatorTest {
                     }
 
                     @Nullable
-                    public BpfMap<TetherDownstream6Key, TetherDownstream6Value>
+                    public BpfMap<TetherDownstream6Key, Tether6Value>
                             getBpfDownstream6Map() {
                         return mBpfDownstream6Map;
+                    }
+
+                    @Nullable
+                    public BpfMap<TetherUpstream6Key, Tether6Value>
+                            getBpfUpstream6Map() {
+                        return mBpfUpstream6Map;
                     }
 
                     @Nullable
@@ -366,7 +373,7 @@ public class BpfCoordinatorTest {
             @NonNull Ipv6ForwardingRule rule) throws Exception {
         if (mDeps.isAtLeastS()) {
             verifyWithOrder(inOrder, mBpfDownstream6Map).updateEntry(
-                    rule.makeTetherDownstream6Key(), rule.makeTetherDownstream6Value());
+                    rule.makeTetherDownstream6Key(), rule.makeTether6Value());
         } else {
             verifyWithOrder(inOrder, mNetd).tetherOffloadRuleAdd(matches(rule));
         }
@@ -692,7 +699,7 @@ public class BpfCoordinatorTest {
         final Integer mobileIfIndex = 100;
         final Ipv6ForwardingRule rule = buildTestForwardingRule(mobileIfIndex, NEIGH_A, MAC_A);
 
-        final TetherDownstream6Value value = rule.makeTetherDownstream6Value();
+        final Tether6Value value = rule.makeTether6Value();
         assertEquals(value.oif, DOWNSTREAM_IFINDEX);
         assertEquals(value.ethDstMac, MAC_A);
         assertEquals(value.ethSrcMac, DOWNSTREAM_MAC);
@@ -927,6 +934,15 @@ public class BpfCoordinatorTest {
     public void testBpfDisabledbyConfig() throws Exception {
         setupFunctioningNetdInterface();
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(false);
+
+        checkBpfDisabled();
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testBpfDisabledbyNoBpfUpstream6Map() throws Exception {
+        setupFunctioningNetdInterface();
+        doReturn(null).when(mDeps).getBpfUpstream6Map();
 
         checkBpfDisabled();
     }
