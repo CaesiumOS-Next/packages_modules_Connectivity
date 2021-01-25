@@ -83,20 +83,28 @@ import java.util.Set;
  * @hide
  */
 public class BpfCoordinator {
+    static final boolean DOWNSTREAM = true;
+    static final boolean UPSTREAM = false;
+
     private static final String TAG = BpfCoordinator.class.getSimpleName();
     private static final int DUMP_TIMEOUT_MS = 10_000;
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString(
             "00:00:00:00:00:00");
-    private static final String TETHER_DOWNSTREAM4_MAP_PATH =
-            "/sys/fs/bpf/tethering/map_offload_tether_downstream4_map";
-    private static final String TETHER_UPSTREAM4_MAP_PATH =
-            "/sys/fs/bpf/tethering/map_offload_tether_upstream4_map";
-    private static final String TETHER_DOWNSTREAM6_FS_PATH =
-            "/sys/fs/bpf/tethering/map_offload_tether_downstream6_map";
-    private static final String TETHER_STATS_MAP_PATH =
-            "/sys/fs/bpf/tethering/map_offload_tether_stats_map";
-    private static final String TETHER_LIMIT_MAP_PATH =
-            "/sys/fs/bpf/tethering/map_offload_tether_limit_map";
+    private static final String TETHER_DOWNSTREAM4_MAP_PATH = makeMapPath(DOWNSTREAM, 4);
+    private static final String TETHER_UPSTREAM4_MAP_PATH = makeMapPath(UPSTREAM, 4);
+    private static final String TETHER_DOWNSTREAM6_FS_PATH = makeMapPath(DOWNSTREAM, 6);
+    private static final String TETHER_UPSTREAM6_FS_PATH = makeMapPath(UPSTREAM, 6);
+    private static final String TETHER_STATS_MAP_PATH = makeMapPath("stats");
+    private static final String TETHER_LIMIT_MAP_PATH = makeMapPath("limit");
+
+    private static String makeMapPath(String which) {
+        return "/sys/fs/bpf/tethering/map_offload_tether_" + which + "_map";
+    }
+
+    private static String makeMapPath(boolean downstream, int ipVersion) {
+        return makeMapPath((downstream ? "downstream" : "upstream") + ipVersion);
+    }
+
 
     @VisibleForTesting
     enum StatsType {
@@ -253,21 +261,32 @@ public class BpfCoordinator {
                 getBpfUpstream4Map() {
             try {
                 return new BpfMap<>(TETHER_UPSTREAM4_MAP_PATH,
-                    BpfMap.BPF_F_RDWR, TetherUpstream4Key.class, TetherUpstream4Value.class);
+                        BpfMap.BPF_F_RDWR, TetherUpstream4Key.class, TetherUpstream4Value.class);
             } catch (ErrnoException e) {
                 Log.e(TAG, "Cannot create upstream4 map: " + e);
+            }
+            return null;
+        }
+
+        /** Get downstream6 BPF map. */
+        @Nullable public BpfMap<TetherDownstream6Key, TetherUpDownstream6Value>
+                getBpfDownstream6Map() {
+            try {
+                return new BpfMap<>(TETHER_DOWNSTREAM6_FS_PATH,
+                    BpfMap.BPF_F_RDWR, TetherDownstream6Key.class, TetherUpDownstream6Value.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create downstream6 map: " + e);
                 return null;
             }
         }
 
-        /** Get downstream6 BPF map. */
-        @Nullable public BpfMap<TetherDownstream6Key, TetherDownstream6Value>
-                getBpfDownstream6Map() {
+        /** Get upstream6 BPF map. */
+        @Nullable public BpfMap<TetherUpstream6Key, TetherUpDownstream6Value> getBpfUpstream6Map() {
             try {
-                return new BpfMap<>(TETHER_DOWNSTREAM6_FS_PATH,
-                    BpfMap.BPF_F_RDWR, TetherDownstream6Key.class, TetherDownstream6Value.class);
+                return new BpfMap<>(TETHER_UPSTREAM6_FS_PATH, BpfMap.BPF_F_RDWR,
+                        TetherUpstream6Key.class, TetherUpDownstream6Value.class);
             } catch (ErrnoException e) {
-                Log.e(TAG, "Cannot create downstream6 map: " + e);
+                Log.e(TAG, "Cannot create upstream6 map: " + e);
                 return null;
             }
         }
@@ -436,7 +455,7 @@ public class BpfCoordinator {
         }
         LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules = mIpv6ForwardingRules.get(ipServer);
 
-        // Setup the data limit on the given upstream if the first rule is added.
+        // When the first rule is added to an upstream, setup upstream forwarding and data limit.
         final int upstreamIfindex = rule.upstreamIfindex;
         if (!isAnyRuleOnUpstream(upstreamIfindex)) {
             // If failed to set a data limit, probably should not use this upstream, because
@@ -446,6 +465,20 @@ public class BpfCoordinator {
             if (!success) {
                 final String iface = mInterfaceNames.get(upstreamIfindex);
                 mLog.e("Setting data limit for " + iface + " failed.");
+            }
+
+        }
+
+        if (!isAnyRuleFromDownstreamToUpstream(rule.downstreamIfindex, rule.upstreamIfindex)) {
+            final int upstream = rule.upstreamIfindex;
+            final int downstream = rule.downstreamIfindex;
+            // TODO: suppport upstream forwarding on non-point-to-point interfaces.
+            // TODO: get the MTU from LinkProperties and update the rules when it changes.
+            if (mBpfCoordinatorShim.startUpstreamIpv6Forwarding(upstream, downstream,
+                    MacAddress.fromString("0:0:0:0:0:0:0"), MacAddress.fromString("0:0:0:0:0:0"),
+                    NetworkStackConstants.ETHER_MTU)) {
+                mLog.e("Failed to set up IPv6 forwarding from "
+                        + mInterfaceNames.get(upstream) + " to " + mInterfaceNames.get(downstream));
             }
         }
 
@@ -758,8 +791,8 @@ public class BpfCoordinator {
          * Return a TetherDownstream6Value object built from the rule.
          */
         @NonNull
-        public TetherDownstream6Value makeTetherDownstream6Value() {
-            return new TetherDownstream6Value(downstreamIfindex, dstMac, srcMac, ETH_P_IPV6,
+        public TetherUpDownstream6Value makeTetherUpDownstream6Value() {
+            return new TetherUpDownstream6Value(downstreamIfindex, dstMac, srcMac, ETH_P_IPV6,
                     NetworkStackConstants.ETHER_MTU);
         }
 
@@ -1046,6 +1079,19 @@ public class BpfCoordinator {
                 .values()) {
             for (Ipv6ForwardingRule rule : rules.values()) {
                 if (upstreamIfindex == rule.upstreamIfindex) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isAnyRuleFromDownstreamToUpstream(int downstreamIfindex, int upstreamIfindex) {
+        for (LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules : mIpv6ForwardingRules
+                .values()) {
+            for (Ipv6ForwardingRule rule : rules.values()) {
+                if (downstreamIfindex == rule.downstreamIfindex
+                        && upstreamIfindex == rule.upstreamIfindex) {
+                    return true;
+                }
             }
         }
         return false;
