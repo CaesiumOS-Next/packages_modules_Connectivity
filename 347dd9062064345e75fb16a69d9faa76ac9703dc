@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51f240c5_97c8be09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-25T16:27:19Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "347dd9062064345e75fb16a69d9faa76ac9703dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "448b0b3e_3dc1e65c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-25T16:27:19Z",
+      "side": 1,
+      "message": "Isn\u0027t clients a map from IPv4 address to ClientInfo? If so, can this just be:\n\n   return clients.get(clientAddress, null);\n\n?",
+      "range": {
+        "startLine": 868,
+        "startChar": 0,
+        "endLine": 872,
+        "endChar": 13
+      },
+      "revId": "347dd9062064345e75fb16a69d9faa76ac9703dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0df72b_f28054d3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherUpstream4Key.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-25T16:27:19Z",
+      "side": 1,
+      "message": "This is identical to TetherDownstream4Key. Maybe have only one class called TetherUpDownstream4Key?",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "347dd9062064345e75fb16a69d9faa76ac9703dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
