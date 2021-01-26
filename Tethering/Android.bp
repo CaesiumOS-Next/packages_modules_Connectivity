@@ -30,7 +30,7 @@ java_defaults {
         "modules-utils-build",
         "netlink-client",
         // TODO: use networkstack-client instead of just including the AIDL interface
-        "networkstack-aidl-interfaces-unstable-java",
+        "networkstack-aidl-interfaces-V10-java",
         "android.hardware.tetheroffload.config-V1.0-java",
         "android.hardware.tetheroffload.control-V1.0-java",
         "net-utils-framework-common",
