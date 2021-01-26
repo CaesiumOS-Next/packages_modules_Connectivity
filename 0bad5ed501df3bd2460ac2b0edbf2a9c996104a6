@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8646d23e_0c8b05e2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-01-26T04:19:44Z",
+      "side": 1,
+      "message": "Release Request in \"get\" function looks not good. After releasing network request here, it may still be re-filed again when configurations are changed (even isDunRequired and autoChooseUpstream is not changed). It seems calling #setTryCell(false) is better.",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 13
+      },
+      "revId": "0bad5ed501df3bd2460ac2b0edbf2a9c996104a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
