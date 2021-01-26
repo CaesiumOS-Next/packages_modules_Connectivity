@@ -1682,12 +1682,14 @@ public class Tethering {
             // If this is a Wi-Fi interface, tell WifiManager of any errors
             // or the inactive serving state.
             if (who.interfaceType() == TETHERING_WIFI) {
-                if (who.lastError() != TETHER_ERROR_NO_ERROR) {
-                    getWifiManager().updateInterfaceIpState(
-                            who.interfaceName(), IFACE_IP_MODE_CONFIGURATION_ERROR);
+                final WifiManager mgr = getWifiManager();
+                final String iface = who.interfaceName();
+                if (mgr == null) {
+                    Log.d(TAG, "Skipping WifiManager notification about inactive tethering");
+                } else if (who.lastError() != TETHER_ERROR_NO_ERROR) {
+                    mgr.updateInterfaceIpState(iface, IFACE_IP_MODE_CONFIGURATION_ERROR);
                 } else {
-                    getWifiManager().updateInterfaceIpState(
-                            who.interfaceName(), IFACE_IP_MODE_UNSPECIFIED);
+                    mgr.updateInterfaceIpState(iface, IFACE_IP_MODE_UNSPECIFIED);
                 }
             }
         }
