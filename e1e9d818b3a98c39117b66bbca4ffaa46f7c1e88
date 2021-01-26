@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f65d159_cf6982c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-26T13:43:52Z",
+      "side": 1,
+      "message": "LGTM. After the calling name fixed, feel free to merge.\n",
+      "revId": "e1e9d818b3a98c39117b66bbca4ffaa46f7c1e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a22e02fe_512daab0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-26T13:43:52Z",
+      "side": 1,
+      "message": "makeTetherUpstream4Key",
+      "range": {
+        "startLine": 1015,
+        "startChar": 44,
+        "endLine": 1015,
+        "endChar": 58
+      },
+      "revId": "e1e9d818b3a98c39117b66bbca4ffaa46f7c1e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85f13299_f0830423",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-26T13:43:52Z",
+      "side": 1,
+      "message": "makeTetherDownstream4Key",
+      "range": {
+        "startLine": 1016,
+        "startChar": 46,
+        "endLine": 1016,
+        "endChar": 60
+      },
+      "revId": "e1e9d818b3a98c39117b66bbca4ffaa46f7c1e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d4a1b52_2edfd393",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-26T13:43:52Z",
+      "side": 1,
+      "message": "makeTetherUpstream4Value",
+      "range": {
+        "startLine": 1026,
+        "startChar": 48,
+        "endLine": 1026,
+        "endChar": 64
+      },
+      "revId": "e1e9d818b3a98c39117b66bbca4ffaa46f7c1e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a66face_fd868fc9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-26T13:43:52Z",
+      "side": 1,
+      "message": "makeTetherDownstream4Value",
+      "range": {
+        "startLine": 1028,
+        "startChar": 50,
+        "endLine": 1028,
+        "endChar": 66
+      },
+      "revId": "e1e9d818b3a98c39117b66bbca4ffaa46f7c1e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
