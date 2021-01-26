@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6ae52709_f8614238",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-26T13:01:05Z",
+      "side": 1,
+      "message": "LGTM. Will address these comments in a follow-up.",
+      "revId": "32874eb6bcc782648b69028cc2c7b1c97a695370",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9a4043bd_3fc27e6c",
         "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
         "patchSetId": 1
