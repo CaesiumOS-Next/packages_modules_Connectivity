@@ -22,6 +22,30 @@
       },
       "revId": "0bad5ed501df3bd2460ac2b0edbf2a9c996104a6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f87f5c11_b6342cd8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-01-26T04:25:24Z",
+      "side": 1,
+      "message": "Ohh, I don\u0027t aware you are not base on Lorenzo\u0027s CL. After applying Lorenzo\u0027s CL, #reevaluateUpstreamRequirements would be called when Tethering#updateConfiguration is called. So mobile network may be re-filed unexpectedly.",
+      "parentUuid": "8646d23e_0c8b05e2",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 13
+      },
+      "revId": "0bad5ed501df3bd2460ac2b0edbf2a9c996104a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
