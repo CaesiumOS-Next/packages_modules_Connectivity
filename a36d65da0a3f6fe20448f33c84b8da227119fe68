@@ -39,6 +39,30 @@
       },
       "revId": "a36d65da0a3f6fe20448f33c84b8da227119fe68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b43ae91_28c83376",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-26T13:40:48Z",
+      "side": 1,
+      "message": "Thanks for pointing this out. Think you could upload a CL to fix?",
+      "parentUuid": "91c99ea3_13ba9b96",
+      "range": {
+        "startLine": 420,
+        "startChar": 12,
+        "endLine": 420,
+        "endChar": 66
+      },
+      "revId": "a36d65da0a3f6fe20448f33c84b8da227119fe68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
