@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02be272b_8c2c96ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-26T06:45:36Z",
+      "side": 1,
+      "message": "LGTM, thanks for your help.",
+      "revId": "ae27ecf5ad170b85e0056b14d5a3df62d21b0114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca8d4129_25b7334d",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-01-26T06:45:36Z",
+      "side": 1,
+      "message": "nit: move the comments to L.879. They are the same thing for shim 30 \u0026 31",
+      "range": {
+        "startLine": 884,
+        "startChar": 0,
+        "endLine": 885,
+        "endChar": 65
+      },
+      "revId": "ae27ecf5ad170b85e0056b14d5a3df62d21b0114",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
