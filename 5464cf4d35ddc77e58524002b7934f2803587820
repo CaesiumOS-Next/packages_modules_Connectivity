@@ -22,6 +22,30 @@
       },
       "revId": "5464cf4d35ddc77e58524002b7934f2803587820",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbeff523_9d16226e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-01-27T17:55:06Z",
+      "side": 1,
+      "message": "Yeah, you\u0027re right.\nI should change \"Tethering MTS\" to \"TetheringCoverageTests\".",
+      "parentUuid": "8c439e32_d8eecbef",
+      "range": {
+        "startLine": 7,
+        "startChar": 31,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "5464cf4d35ddc77e58524002b7934f2803587820",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
