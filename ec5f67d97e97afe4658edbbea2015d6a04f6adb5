@@ -1,0 +1,230 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33f30c5b_0603d043",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8016ab4_ac7d85cf",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "Indent this properly and give it a better comment.\n\n    // Only support TCP for now.",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 38
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3073d1a0_80f21b63",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "Do we know whether this will end up causing the packet to be copied (I forget the actual technical term, \"copy on write\" or \"cloned\")? If so that might have performance implications.... but maybe not since we\u0027re writing to the packet anyway?",
+      "range": {
+        "startLine": 456,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 87
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb123df_5b4d13cf",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "struct tcphdr",
+      "range": {
+        "startLine": 468,
+        "startChar": 25,
+        "endLine": 468,
+        "endChar": 29
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fcfed3a_3dd1d876",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "struct udphdr",
+      "range": {
+        "startLine": 469,
+        "startChar": 32,
+        "endLine": 469,
+        "endChar": 36
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3baff8c0_ba010e07",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "\u003e Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.\n\nPlease fix.",
+      "parentUuid": "529ddeb3_4bc4ae2d",
+      "range": {
+        "startLine": 472,
+        "startChar": 0,
+        "endLine": 472,
+        "endChar": 111
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc9852b6_4b3b7a7e",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "Interesting that this is the raw 4-byte value and not a pointer to the raw 4-byte-value.",
+      "range": {
+        "startLine": 492,
+        "startChar": 56,
+        "endLine": 492,
+        "endChar": 65
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8c04181_14a034e8",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "\u003e Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.\n\nPlease fix.",
+      "parentUuid": "2b9a3e89_9cda882d",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 492,
+        "endChar": 102
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5610a9b_13080171",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "// TODO: implement TTL decrement.",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 10
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59ebc3ed_85ba7d39",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:16:56Z",
+      "side": 1,
+      "message": "// TODO: uncomment when device kernels get this helper.",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 509,
+        "endChar": 42
+      },
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
