@@ -16,6 +16,24 @@
       "message": "ping for ORV..",
       "revId": "a00a596071d20e978d0e842af3de38b3c015def7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f38a0a4e_21597cb3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-01-28T04:00:06Z",
+      "side": 1,
+      "message": "(continuing discussion in aosp/1560369)",
+      "parentUuid": "c6b1d376_acb24fc2",
+      "revId": "a00a596071d20e978d0e842af3de38b3c015def7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
