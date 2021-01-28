@@ -139,6 +139,8 @@ public class BpfCoordinator {
     private final BpfTetherStatsProvider mStatsProvider;
     @NonNull
     private final BpfCoordinatorShim mBpfCoordinatorShim;
+    @NonNull
+    private final BpfConntrackEventConsumer mBpfConntrackEventConsumer;
 
     // True if BPF offload is supported, false otherwise. The BPF offload could be disabled by
     // a runtime resource overlay package or device configuration. This flag is only initialized
@@ -246,6 +248,11 @@ public class BpfCoordinator {
             return new ConntrackMonitor(getHandler(), getSharedLog(), consumer);
         }
 
+        /** Get interface information for a given interface. */
+        @NonNull public InterfaceParams getInterfaceParams(String ifName) {
+            return InterfaceParams.getByName(ifName);
+        }
+
         /**
          * Check OS Build at least S.
          *
@@ -331,7 +338,8 @@ public class BpfCoordinator {
         mNetd = mDeps.getNetd();
         mLog = mDeps.getSharedLog().forSubComponent(TAG);
         mIsBpfEnabled = isBpfEnabled();
-        mConntrackMonitor = mDeps.getConntrackMonitor(new BpfConntrackEventConsumer());
+        mBpfConntrackEventConsumer = new BpfConntrackEventConsumer();
+        mConntrackMonitor = mDeps.getConntrackMonitor(mBpfConntrackEventConsumer);
         BpfTetherStatsProvider provider = new BpfTetherStatsProvider();
         try {
             mDeps.getNetworkStatsManager().registerNetworkStatsProvider(
@@ -675,7 +683,7 @@ public class BpfCoordinator {
         if (lp == null || !lp.hasIpv4Address()) return;
 
         // Support raw ip upstream interface only.
-        final InterfaceParams params = InterfaceParams.getByName(lp.getInterfaceName());
+        final InterfaceParams params = mDeps.getInterfaceParams(lp.getInterfaceName());
         if (params == null || params.hasMacAddress) return;
 
         Collection<InetAddress> addresses = lp.getAddresses();
@@ -1066,7 +1074,8 @@ public class BpfCoordinator {
 
     // Support raw ip only.
     // TODO: add ether ip support.
-    private class BpfConntrackEventConsumer implements ConntrackEventConsumer {
+    @VisibleForTesting
+    class BpfConntrackEventConsumer implements ConntrackEventConsumer {
         @NonNull
         private Tether4Key makeTetherUpstream4Key(
                 @NonNull ConntrackEvent e, @NonNull ClientInfo c) {
@@ -1118,6 +1127,10 @@ public class BpfCoordinator {
             return addr6;
         }
 
+        // TODO: Handle the limit and stats maps as IPv6 offload.
+        // 1. add the limit on the given interface while the first rule is added.
+        // 2. do clean up while the last rule is removed on the given interface.
+        // See #tetherOffloadRuleAdd, #tetherOffloadRuleRemove.
         public void accept(ConntrackEvent e) {
             final ClientInfo tetherClient = getClientInfo(e.tupleOrig.srcIp);
             if (tetherClient == null) return;
@@ -1343,6 +1356,14 @@ public class BpfCoordinator {
     @VisibleForTesting
     final SparseArray<String> getInterfaceNamesForTesting() {
         return mInterfaceNames;
+    }
+
+    // Return BPF conntrack event consumer. This is used for testing only.
+    // Note that this can be only called on handler thread.
+    @NonNull
+    @VisibleForTesting
+    final BpfConntrackEventConsumer getBpfConntrackEventConsumerForTesting() {
+        return mBpfConntrackEventConsumer;
     }
 
     private static native String[] getBpfCounterNames();
