@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a41aa6e_37e93f7c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-28T08:41:31Z",
+      "side": 1,
+      "message": "Missing tests to add it explicitly.\n\n  final NetworkRequest mmsRequest \u003d new NetworkRequest.Builder()\n   .addCapability(NET_CAPABILITY_MMS)\n   .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)\n   .build();\n  assertTrue(mmsRequest.hasCapability(NET_CAPABILITY_NOT_VCN_MANAGED));\n\nYou may even want to add a test adding them in the opposite order.",
+      "range": {
+        "startLine": 344,
+        "startChar": 4,
+        "endLine": 344,
+        "endChar": 5
+      },
+      "revId": "74e7c0ca39678fb26f7654c43341728d373902d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
