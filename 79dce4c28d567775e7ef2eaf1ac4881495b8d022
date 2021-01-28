@@ -39,6 +39,30 @@
       },
       "revId": "79dce4c28d567775e7ef2eaf1ac4881495b8d022",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5100fd91_7fa001d8",
+        "filename": "framework/src/com/android/connectivity/aidl/INetworkAgentRegistry.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-28T11:40:15Z",
+      "side": 1,
+      "message": "Completely unrelated to this patch, but done",
+      "parentUuid": "f63ea3fc_48b14db7",
+      "range": {
+        "startLine": 25,
+        "startChar": 39,
+        "endLine": 25,
+        "endChar": 46
+      },
+      "revId": "79dce4c28d567775e7ef2eaf1ac4881495b8d022",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
