@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "914dc986_806328ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:18:16Z",
+      "side": 1,
+      "message": "Can you make it clearer that this is just a temporary hack until device kernels get access to the new helpers?\n\nMight be good to put TODOs in the file to revert this as well. Up to you.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "80445a6c91a10b799d3160fb2356da7f6a428bc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba77b223_f72692d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-28T02:18:16Z",
+      "side": 1,
+      "message": "LGTM assuming commit message updated.",
+      "revId": "80445a6c91a10b799d3160fb2356da7f6a428bc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
