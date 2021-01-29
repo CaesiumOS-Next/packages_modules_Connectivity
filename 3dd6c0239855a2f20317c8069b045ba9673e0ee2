@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "955b8cfb_1dd2883c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-29T05:44:56Z",
+      "side": 1,
+      "message": "Nit: this could move to before the try { line.",
+      "range": {
+        "startLine": 1573,
+        "startChar": 0,
+        "endLine": 1575,
+        "endChar": 85
+      },
+      "revId": "3dd6c0239855a2f20317c8069b045ba9673e0ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab8bcde9_e6c098a4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-29T05:44:56Z",
+      "side": 1,
+      "message": "How is this different from simply:\n\n    callback.expectCapabilitiesThat(testNetwork, c -\u003e c hasCapability(NET_CAPABILITY_FOREGROUND));\n\n?",
+      "range": {
+        "startLine": 1598,
+        "startChar": 69,
+        "endLine": 1600,
+        "endChar": 37
+      },
+      "revId": "3dd6c0239855a2f20317c8069b045ba9673e0ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
