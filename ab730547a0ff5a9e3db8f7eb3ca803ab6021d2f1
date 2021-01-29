@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1579096_1a820c68",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1135107
+      },
+      "writtenOn": "2021-01-29T16:01:50Z",
+      "side": 1,
+      "message": "The UI is turned off. The device does have wlan0 interface, but it\u0027s not available for Android and the WiFi feature is turned off. Maybe Android detects such interface and automatically creates IpServer to mark it as inactive at startup?\n\nStack trace is broken at the state machine message boundary (PTAL \"Attempt to invoke virtual method\" exception in the bad bug report at https://b.corp.google.com/issues/175430552#comment4), so I can\u0027t say how is it sent. But I can investigate more next week.",
+      "parentUuid": "14f718dd_d5efb3be",
+      "range": {
+        "startLine": 1684,
+        "startChar": 16,
+        "endLine": 1684,
+        "endChar": 53
+      },
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9208ade6_b96cd28a",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 1
@@ -71,6 +95,30 @@
       "writtenOn": "2021-01-29T03:52:47Z",
       "side": 1,
       "message": "Maybe make this a wtf, because we really never expect to see this.",
+      "range": {
+        "startLine": 1688,
+        "startChar": 24,
+        "endLine": 1688,
+        "endChar": 25
+      },
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb16293_45af4469",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1135107
+      },
+      "writtenOn": "2021-01-29T16:01:50Z",
+      "side": 1,
+      "message": "A wtf would make it crash, wouldn\u0027t it? This is definitely happening in the setup with WiFi disabled.",
+      "parentUuid": "9208ade6_b96cd28a",
       "range": {
         "startLine": 1688,
         "startChar": 24,
