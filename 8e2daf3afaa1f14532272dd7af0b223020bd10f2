@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6c76ab0_8c17ff67",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-01-29T09:23:07Z",
+      "side": 1,
+      "message": "How feasible is it to make the two TunContext(s) an instance variable, and put into setup? (please take a look before doing; this may be complex in this case)\n\nI think Jean has a very very strong preference that statics are not used here. (Lorenzo has the opposite though...)",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 40
+      },
+      "revId": "8e2daf3afaa1f14532272dd7af0b223020bd10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
