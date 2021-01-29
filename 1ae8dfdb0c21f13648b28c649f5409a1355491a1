@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dded1265_04c1e801",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1424063
+      },
+      "writtenOn": "2021-01-29T07:44:43Z",
+      "side": 1,
+      "message": "In case network is switched from LTE to Wifi, tryCell is true and dunRequired is always true.\n\nSo, DUN network won\u0027t be released until setTryCell(false) is called at somewhere.",
+      "range": {
+        "startLine": 202,
+        "startChar": 22,
+        "endLine": 202,
+        "endChar": 44
+      },
+      "revId": "1ae8dfdb0c21f13648b28c649f5409a1355491a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
