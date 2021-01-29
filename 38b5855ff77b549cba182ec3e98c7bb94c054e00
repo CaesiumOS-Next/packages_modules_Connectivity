@@ -39,6 +39,30 @@
       },
       "revId": "38b5855ff77b549cba182ec3e98c7bb94c054e00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3fe5609_172047c4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-29T14:37:56Z",
+      "side": 1,
+      "message": "What I mean is the change doesn\u0027t take effect immediately for non-listen request.\n\nFor example, if we LISTEN, we\u0027ll get:\n  onAvailable\n  onCapabilitiesChange(w/o FOREGROUND)\n  onCapabilitiesChange(w/o FOREGROUND, w/ VALIDATED)\n\nHowever, if the callback is a REQUEST, we\u0027ll get:\n  onAvailable\n  onCapabilitiesChange(w/ FOREGROUND)\n  onCapabilitiesChange(w/o FOREGROUND)\n  onCapabilitiesChange(w/o FOREGROUND, w/ VALIDATED)\n\nThus, we can expectCapabilities on example 1, but cannot use that on the example 2.\nAny idea to make this clearer?",
+      "parentUuid": "2dd74970_919e8467",
+      "range": {
+        "startLine": 1598,
+        "startChar": 69,
+        "endLine": 1599,
+        "endChar": 69
+      },
+      "revId": "38b5855ff77b549cba182ec3e98c7bb94c054e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
