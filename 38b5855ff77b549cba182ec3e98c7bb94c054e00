@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "184fd963_9abaa6bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-29T10:56:30Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address nits in a follow-up.",
+      "revId": "38b5855ff77b549cba182ec3e98c7bb94c054e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dd74970_919e8467",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-01-29T10:56:30Z",
+      "side": 1,
+      "message": "I don\u0027t understand this text. All methods in TestNetworkCallback will wait for a short time, or for the handler thread to go idle. Maybe just remove it?",
+      "range": {
+        "startLine": 1598,
+        "startChar": 69,
+        "endLine": 1599,
+        "endChar": 69
+      },
+      "revId": "38b5855ff77b549cba182ec3e98c7bb94c054e00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
