@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dab703c5_55b9cc56",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-29T06:37:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "955b8cfb_1dd2883c",
+      "range": {
+        "startLine": 1573,
+        "startChar": 0,
+        "endLine": 1575,
+        "endChar": 85
+      },
+      "revId": "3dd6c0239855a2f20317c8069b045ba9673e0ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab8bcde9_e6c098a4",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-01-29T05:44:56Z",
       "side": 1,
       "message": "How is this different from simply:\n\n    callback.expectCapabilitiesThat(testNetwork, c -\u003e c hasCapability(NET_CAPABILITY_FOREGROUND));\n\n?",
+      "range": {
+        "startLine": 1598,
+        "startChar": 69,
+        "endLine": 1600,
+        "endChar": 37
+      },
+      "revId": "3dd6c0239855a2f20317c8069b045ba9673e0ee2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a000bf_af387f86",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-01-29T06:37:33Z",
+      "side": 1,
+      "message": "I think you mean\n    callback.expectCapabilitiesThat(testNetwork, c -\u003e !c.hasCapability(NET_CAPABILITY_FOREGROUND));\n\nThe logic above will fail the test if we receive a onCapabilitiesChanged but with NET_CAPABILITY_FOREGROUND.\nWe can expect one right after first Available or maybe another one after Validated.\nBut they are not what we are expecting.\n\neventuallyExpect will wait for the one we are expecting.\nAnd ignore onCapabilitiesChanged with content we don\u0027t want.\nI think in this case it is more robust.\nReopen if I missed something.",
+      "parentUuid": "ab8bcde9_e6c098a4",
       "range": {
         "startLine": 1598,
         "startChar": 69,
