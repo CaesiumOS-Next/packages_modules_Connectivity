@@ -16,6 +16,69 @@
       "message": "Mark is OOO for over a month. Adding other reviewer for this change.",
       "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36940a9b_7055cf1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-29T03:52:47Z",
+      "side": 1,
+      "message": "I would like to see some comments in the code explaining how this can actually happen, but otherwise I don\u0027t think this is a bad change.\n\nYou can address the nits in a followup, if at all.",
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14f718dd_d5efb3be",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-29T03:52:47Z",
+      "side": 1,
+      "message": "How is it possible that this is entered if the device doesn\u0027t support WiFi ? The bug suggests this is because some bug in the driver disabling WiFi ; if that\u0027s the case and the feature really reports as off, the UI to turn on WiFi tethering should also be disabled so there should be no path into this.",
+      "range": {
+        "startLine": 1684,
+        "startChar": 16,
+        "endLine": 1684,
+        "endChar": 53
+      },
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9208ade6_b96cd28a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-01-29T03:52:47Z",
+      "side": 1,
+      "message": "Maybe make this a wtf, because we really never expect to see this.",
+      "range": {
+        "startLine": 1688,
+        "startChar": 24,
+        "endLine": 1688,
+        "endChar": 25
+      },
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
