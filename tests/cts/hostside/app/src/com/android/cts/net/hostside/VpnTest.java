@@ -16,6 +16,7 @@
 
 package com.android.cts.net.hostside;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -25,6 +26,9 @@ import static android.system.OsConstants.IPPROTO_ICMPV6;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.POLLIN;
 import static android.system.OsConstants.SOCK_DGRAM;
+import static android.test.MoreAsserts.assertNotEqual;
+
+import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 
 import android.annotation.Nullable;
 import android.app.DownloadManager;
@@ -48,6 +52,8 @@ import android.net.ProxyInfo;
 import android.net.Uri;
 import android.net.VpnService;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.os.Process;
 import android.os.SystemProperties;
@@ -687,6 +693,20 @@ public class VpnTest extends InstrumentationTestCase {
         setAndVerifyPrivateDns(initialMode);
     }
 
+    private class NeverChangeNetworkCallback extends NetworkCallback {
+        private volatile Network mLastNetwork;
+
+        public void onAvailable(Network n) {
+            assertNull("Callback got onAvailable more than once: " + mLastNetwork + ", " + n,
+                    mLastNetwork);
+            mLastNetwork = n;
+        }
+
+        public Network getLastNetwork() {
+            return mLastNetwork;
+        }
+    }
+
     public void testDefault() throws Exception {
         if (!supportedHardware()) return;
         // If adb TCP port opened, this test may running by adb over network.
@@ -701,6 +721,14 @@ public class VpnTest extends InstrumentationTestCase {
         final BlockingBroadcastReceiver receiver = new BlockingBroadcastReceiver(
                 getInstrumentation().getTargetContext(), MyVpnService.ACTION_ESTABLISHED);
         receiver.register();
+
+
+        // Expect the system default network not to change.
+        final NeverChangeNetworkCallback neverChangeCallback = new NeverChangeNetworkCallback();
+        final Network defaultNetwork = mCM.getActiveNetwork();
+        runWithShellPermissionIdentity(() ->
+                mCM.registerSystemDefaultNetworkCallback(neverChangeCallback,
+                        new Handler(Looper.getMainLooper())), NETWORK_SETTINGS);
 
         FileDescriptor fd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
 
@@ -721,7 +749,15 @@ public class VpnTest extends InstrumentationTestCase {
 
         checkStrictModePrivateDns();
 
+        assertEquals(defaultNetwork, neverChangeCallback.getLastNetwork());
+        assertNotEqual(defaultNetwork, mCM.getActiveNetwork());
+
         receiver.unregisterQuietly();
+
+        assertEquals(defaultNetwork, neverChangeCallback.getLastNetwork());
+        runWithShellPermissionIdentity(
+                () ->  mCM.unregisterNetworkCallback(neverChangeCallback),
+                NETWORK_SETTINGS);
     }
 
     public void testAppAllowed() throws Exception {
