@@ -42,6 +42,7 @@ import com.android.networkstack.tethering.TetherStatsValue;
 import com.android.networkstack.tethering.TetherUpstream6Key;
 
 import java.io.FileDescriptor;
+import java.util.HashMap;
 
 /**
  * Bpf coordinator class for API shims.
@@ -322,6 +323,28 @@ public class BpfCoordinatorShimImpl
             }
         }
         return true;
+    }
+
+    @Override
+    @Nullable
+    public HashMap<Tether4Key, Tether4Value> tetherOffloadGetRules4(boolean downstream) {
+        if (!isInitialized()) return null;
+
+        HashMap<Tether4Key, Tether4Value> rules = new HashMap<Tether4Key, Tether4Value>();
+        try {
+            if (downstream) {
+                mBpfDownstream4Map.forEach((key, value) -> rules.put(key, value));
+            } else {
+                mBpfUpstream4Map.forEach((key, value) -> rules.put(key, value));
+            }
+        } catch (ErrnoException e) {
+            mLog.e("Fail to fetch tethering rules from "
+                    + (downstream ? "downstream" : "upstream") + " "
+                    + "BPF map: ", e);
+            return null;
+        }
+
+        return rules;
     }
 
     private String mapStatus(BpfMap m, String name) {
