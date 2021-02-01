@@ -82,6 +82,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "501339ef_5850bd92",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1135107
+      },
+      "writtenOn": "2021-02-01T22:47:40Z",
+      "side": 1,
+      "message": "I found the root cause.\n\nIpServer is being created as TETHERING_WIFI, because wlan0 matches config_tether_wifi_regexs (see ifaceNameToType in Tethering.java). So as guessed last week, even if the WiFi feature is turned off, it would still go through and then fail when trying to fetch WifiManager.\n\nTo avoid this, we can check for hasSystemFeature(FEATURE_WIFI) in maybeTrackNewInterfaceLocked and do similar filtering as it\u0027s right now for TETHERING_INVALID interfaces. I did this in the next PS. Please let me know if you like it better or I should revert to the PS you +2\u0027d.",
+      "parentUuid": "d1579096_1a820c68",
+      "range": {
+        "startLine": 1684,
+        "startChar": 16,
+        "endLine": 1684,
+        "endChar": 53
+      },
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9208ade6_b96cd28a",
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "A wtf would make it crash, wouldn\u0027t it? This is definitely happening in the setup with WiFi disabled.",
       "parentUuid": "9208ade6_b96cd28a",
+      "range": {
+        "startLine": 1688,
+        "startChar": 24,
+        "endLine": 1688,
+        "endChar": 25
+      },
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c48ebd_07e94f95",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1135107
+      },
+      "writtenOn": "2021-02-01T22:47:40Z",
+      "side": 1,
+      "message": "Just checked - it wouldn\u0027t make this specific service crash (it depends on the configuration). Either way, we wouldn\u0027t expect to see this as long as we prevent creating IpServer for interface types that are disabled (as in the next PS).",
+      "parentUuid": "1eb16293_45af4469",
       "range": {
         "startLine": 1688,
         "startChar": 24,
