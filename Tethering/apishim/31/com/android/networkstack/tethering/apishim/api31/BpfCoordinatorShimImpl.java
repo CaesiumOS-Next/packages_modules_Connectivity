@@ -42,6 +42,7 @@ import com.android.networkstack.tethering.TetherStatsValue;
 import com.android.networkstack.tethering.TetherUpstream6Key;
 
 import java.io.FileDescriptor;
+import java.util.HashMap;
 
 /**
  * Bpf coordinator class for API shims.
@@ -288,18 +289,17 @@ public class BpfCoordinatorShimImpl
         if (!isInitialized()) return false;
 
         try {
-            // The last used time field of the value is updated by the bpf program. Adding the same
-            // map pair twice causes the unexpected refresh. Must be fixed before starting the
-            // conntrack timeout extension implementation.
-            // TODO: consider using insertEntry.
             if (downstream) {
-                mBpfDownstream4Map.updateEntry(key, value);
+                mBpfDownstream4Map.insertEntry(key, value);
             } else {
-                mBpfUpstream4Map.updateEntry(key, value);
+                mBpfUpstream4Map.insertEntry(key, value);
             }
         } catch (ErrnoException e) {
-            mLog.e("Could not update entry: ", e);
+            mLog.e("Could not update entry (" + key + ", " + value + "): ", e);
             return false;
+        } catch (IllegalStateException e) {
+            // Silent if the rule already exists. Note that the errno EEXIST was rethrown as
+            // IllegalStateException. See BpfMap#insertEntry.
         }
         return true;
     }
@@ -324,6 +324,28 @@ public class BpfCoordinatorShimImpl
         return true;
     }
 
+    @Override
+    @Nullable
+    public HashMap<Tether4Key, Tether4Value> tetherOffloadGetRules4(boolean downstream) {
+        if (!isInitialized()) return null;
+
+        HashMap<Tether4Key, Tether4Value> rules = new HashMap<Tether4Key, Tether4Value>();
+        try {
+            if (downstream) {
+                mBpfDownstream4Map.forEach((key, value) -> rules.put(key, value));
+            } else {
+                mBpfUpstream4Map.forEach((key, value) -> rules.put(key, value));
+            }
+        } catch (ErrnoException e) {
+            mLog.e("Fail to fetch tethering rules from "
+                    + (downstream ? "downstream" : "upstream") + " "
+                    + "BPF map: ", e);
+            return null;
+        }
+
+        return rules;
+    }
+
     private String mapStatus(BpfMap m, String name) {
         return name + "{" + (m != null ? "OK" : "ERROR") + "}";
     }
@@ -345,8 +367,8 @@ public class BpfCoordinatorShimImpl
      * been completed.
      * Note that BpfCoordinatorTest have no permissions to create or close pf_key socket. It is
      * okay for now because the caller #bpfGetAndClearStats doesn't care the result of this
-     * function. The tests don't be broken.
-     * TODO: Wrap this function into Dependencies for mocking in tests.
+     * function. The tests won't be broken.
+     * TODO: probably wrap this function into Dependencies for mocking and do nothing in tests.
      */
     private int synchronizeKernelRCU() {
         // This is a temporary hack for network stats map swap on devices running
