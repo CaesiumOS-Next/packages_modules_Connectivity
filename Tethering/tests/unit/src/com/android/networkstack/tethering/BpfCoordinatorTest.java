@@ -36,9 +36,11 @@ import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
+import static android.system.OsConstants.NETLINK_NETFILTER;
 
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.doReturn;
 import static com.android.dx.mockito.inline.extended.ExtendedMockito.staticMockMarker;
+import static com.android.networkstack.tethering.BpfCoordinator.POLLING_CONNTRACK_TIMEOUT_MS;
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType;
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType.STATS_PER_IFACE;
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType.STATS_PER_UID;
@@ -78,7 +80,9 @@ import android.net.TetherStatsParcel;
 import android.net.ip.ConntrackMonitor;
 import android.net.ip.ConntrackMonitor.ConntrackEventConsumer;
 import android.net.ip.IpServer;
+import android.net.netlink.ConntrackMessage;
 import android.net.netlink.NetlinkConstants;
+import android.net.netlink.NetlinkSocket;
 import android.net.util.InterfaceParams;
 import android.net.util.SharedLog;
 import android.os.Build;
@@ -219,6 +223,7 @@ public class BpfCoordinatorTest {
     // it has to access the non-static function of BPF coordinator.
     private BpfConntrackEventConsumer mConsumer;
 
+    private long mElapsedRealtimeNanos = 0;
     private final ArgumentCaptor<ArrayList> mStringArrayCaptor =
             ArgumentCaptor.forClass(ArrayList.class);
     private final TestLooper mTestLooper = new TestLooper();
@@ -256,6 +261,10 @@ public class BpfCoordinatorTest {
                     @NonNull
                     public ConntrackMonitor getConntrackMonitor(ConntrackEventConsumer consumer) {
                         return mConntrackMonitor;
+                    }
+
+                    public long elapsedRealtimeNanos() {
+                        return mElapsedRealtimeNanos;
                     }
 
                     @Nullable
@@ -1335,10 +1344,20 @@ public class BpfCoordinatorTest {
     }
 
     @NonNull
-    private Tether4Value makeDownstream4Value() {
+    private Tether4Value makeDownstream4Value(long lastUsed) {
         return new Tether4Value(DOWNSTREAM_IFINDEX, MAC_A /* client mac */, DOWNSTREAM_MAC,
                 ETH_P_IP, NetworkStackConstants.ETHER_MTU, REMOTE_ADDR_V4MAPPED_BYTES,
-                PRIVATE_ADDR_V4MAPPED_BYTES, REMOTE_PORT, PRIVATE_PORT, 0 /* lastUsed */);
+                PRIVATE_ADDR_V4MAPPED_BYTES, REMOTE_PORT, PRIVATE_PORT, lastUsed);
+    }
+
+    @NonNull
+    private Tether4Key makeDownstream4Key() {
+        return makeDownstream4Key(IPPROTO_TCP);
+    }
+
+    @NonNull
+    private Tether4Value makeDownstream4Value() {
+        return makeDownstream4Value(0 /* lastUsed */);
     }
 
     @NonNull
@@ -1501,5 +1520,92 @@ public class BpfCoordinatorTest {
 
         mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_NEW, IPPROTO_UDP));
         verify(mBpfDevMap, never()).updateEntry(any(), any());
+    }
+
+    private void setElapsedRealtimeNanos(long nanoSec) {
+        mElapsedRealtimeNanos = nanoSec;
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testRefreshConntrackTimeout() throws Exception {
+        // TODO: Replace the dependencies BPF map with a TestBpfMap.
+        final TestBpfMap<Tether4Key, Tether4Value> bpfDownstream4Map =
+                new TestBpfMap<>(Tether4Key.class, Tether4Value.class);
+        doReturn(bpfDownstream4Map).when(mDeps).getBpfDownstream4Map();
+
+        // The test assumes that current elapsed time is two times of POLLING_CONNTRACK_TIMEOUT_MS
+        // (60s). The rule which has the last used time within POLLING_CONNTRACK_TIMEOUT_MS before
+        // now is valid. Need to refresh the conntrack timeourt for the given conntrack entries.
+        // Otherwise, the rules are expired and don't refresh.
+        //
+        // Test timeline:
+        // 0                                       60                                      120 sec
+        // +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+        // |      POLLING_CONNTRACK_TIMEOUT_MS     |      POLLING_CONNTRACK_TIMEOUT_MS     |
+        // +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+        // ^                                                           ^                   ^
+        // expired                                                   valid                now
+        // (test#1: rule last used time)              (test#2: rule last used time)   (elapsed time)
+        final long now = (POLLING_CONNTRACK_TIMEOUT_MS * 1_000_000L) * 2;
+        final long validTime = now - (POLLING_CONNTRACK_TIMEOUT_MS * 1_000_000L) / 2;
+        final long expiredTime = 0;
+
+        final Tether4Key tcpDownstream4Key = makeDownstream4Key(IPPROTO_TCP);
+        final Tether4Key udpDownstream4Key = makeDownstream4Key(IPPROTO_UDP);
+        final Tether4Value tcpDownstream4Value = makeDownstream4Value(validTime);
+        final Tether4Value udpDownstream4Value = makeDownstream4Value(validTime);
+        final Tether4Value expiredDownstream4Value = makeDownstream4Value(expiredTime);
+
+        // Static mocking for NetlinkSocket.
+        MockitoSession mockSession = ExtendedMockito.mockitoSession()
+                .mockStatic(NetlinkSocket.class)
+                .startMocking();
+        try {
+            setElapsedRealtimeNanos(now);
+
+            final BpfCoordinator coordinator = makeBpfCoordinator();
+            coordinator.startPolling();
+
+            // [1] Refresh contrack timeout on both TCP and UDP contrack entries.
+            bpfDownstream4Map.insertEntry(tcpDownstream4Key, tcpDownstream4Value);
+            bpfDownstream4Map.insertEntry(udpDownstream4Key, udpDownstream4Value);
+            mTestLooper.moveTimeForward(POLLING_CONNTRACK_TIMEOUT_MS);
+            waitForIdle();
+
+            final byte[] expectedTcp = ConntrackMessage.newIPv4TimeoutUpdateRequest(
+                    IPPROTO_TCP, PRIVATE_ADDR, (int) PRIVATE_PORT, REMOTE_ADDR,
+                    (int) REMOTE_PORT, 432000 /* tcp established timeout */);
+            final byte[] expectedUdp = ConntrackMessage.newIPv4TimeoutUpdateRequest(
+                    IPPROTO_UDP, PRIVATE_ADDR, (int) PRIVATE_PORT, REMOTE_ADDR,
+                    (int) REMOTE_PORT, 180 /* udp stream timeout */);
+            ExtendedMockito.verify(() -> NetlinkSocket.sendOneShotKernelMessage(
+                    eq(NETLINK_NETFILTER), eq(expectedTcp)));
+            ExtendedMockito.verify(() -> NetlinkSocket.sendOneShotKernelMessage(
+                    eq(NETLINK_NETFILTER), eq(expectedUdp)));
+            ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
+            ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
+
+            // [2] Expect that refresh contrack timeout on TCP contrack entry only because UDP
+            // contrack entry has expired.
+            bpfDownstream4Map.updateEntry(udpDownstream4Key, expiredDownstream4Value);
+            mTestLooper.moveTimeForward(POLLING_CONNTRACK_TIMEOUT_MS);
+            waitForIdle();
+
+            ExtendedMockito.verify(() -> NetlinkSocket.sendOneShotKernelMessage(
+                    eq(NETLINK_NETFILTER), eq(expectedTcp)));
+            ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
+            ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
+
+            // [3] Don't refresh contrack timeout if polling stopped.
+            coordinator.stopPolling();
+            mTestLooper.moveTimeForward(POLLING_CONNTRACK_TIMEOUT_MS);
+            waitForIdle();
+
+            ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
+            ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
+        } finally {
+            mockSession.finishMocking();
+        }
     }
 }
