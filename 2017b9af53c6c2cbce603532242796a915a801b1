@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f244b342_3d36722b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-02T14:00:40Z",
+      "side": 1,
+      "message": "Maybe setupActiveNetworkMeteredness?",
+      "range": {
+        "startLine": 151,
+        "startChar": 35,
+        "endLine": 151,
+        "endChar": 54
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3839bfdd_a84b1d27",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-02T14:00:40Z",
+      "side": 1,
+      "message": "I think this function deserves a javadoc?",
+      "range": {
+        "startLine": 151,
+        "startChar": 18,
+        "endLine": 151,
+        "endChar": 34
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "099c6eb5_1fa4dbcd",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-02T14:00:40Z",
+      "side": 1,
+      "message": "Stupid Question: Why can\u0027t we just call setCellularMeteredStatus(subId, !metered) ?",
+      "range": {
+        "startLine": 163,
+        "startChar": 25,
+        "endLine": 163,
+        "endChar": 44
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69e932f6_502299fb",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-02T14:00:40Z",
+      "side": 1,
+      "message": "maybe assertNotNull?",
+      "range": {
+        "startLine": 189,
+        "startChar": 22,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e40809_6d693127",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-02T14:00:40Z",
+      "side": 1,
+      "message": "I think the naming between resetMeteredNetwork and setWifiMeteredStatus should be consistent.\nIt should be either setWifiMeteredStatus + resetWifiMeteredStatus, \nor setMeteredNetwork(ssid, metered) + resetMeteredNetwork(ssid, metered)",
+      "range": {
+        "startLine": 222,
+        "startChar": 23,
+        "endLine": 222,
+        "endChar": 42
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae63838_596886ff",
+        "filename": "tests/cts/hostside/app2/src/com/android/cts/net/hostside/app2/MyService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-02T14:00:40Z",
+      "side": 1,
+      "message": "IIUC this needs to be updated.",
+      "range": {
+        "startLine": 159,
+        "startChar": 31,
+        "endLine": 159,
+        "endChar": 35
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
