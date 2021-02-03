@@ -106,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13a018d4_aa1de0af",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-03T05:09:24Z",
+      "side": 1,
+      "message": "I like the new patchset where you do both.",
+      "parentUuid": "501339ef_5850bd92",
+      "range": {
+        "startLine": 1684,
+        "startChar": 16,
+        "endLine": 1684,
+        "endChar": 53
+      },
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9208ade6_b96cd28a",
@@ -167,6 +191,30 @@
       "side": 1,
       "message": "Just checked - it wouldn\u0027t make this specific service crash (it depends on the configuration). Either way, we wouldn\u0027t expect to see this as long as we prevent creating IpServer for interface types that are disabled (as in the next PS).",
       "parentUuid": "1eb16293_45af4469",
+      "range": {
+        "startLine": 1688,
+        "startChar": 24,
+        "endLine": 1688,
+        "endChar": 25
+      },
+      "revId": "ab730547a0ff5a9e3db8f7eb3ca803ab6021d2f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2642bf33_db4d3f16",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1688,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-03T05:09:24Z",
+      "side": 1,
+      "message": "wtfs don\u0027t make persistent processes crash, so this would only send us a notification in Listnr.",
+      "parentUuid": "84c48ebd_07e94f95",
       "range": {
         "startLine": 1688,
         "startChar": 24,
