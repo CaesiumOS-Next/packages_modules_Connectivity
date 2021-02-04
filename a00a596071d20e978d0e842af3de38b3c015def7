@@ -34,6 +34,24 @@
       "parentUuid": "c6b1d376_acb24fc2",
       "revId": "a00a596071d20e978d0e842af3de38b3c015def7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "472a74d0_9ce32a75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1386891
+      },
+      "writtenOn": "2021-02-04T11:17:44Z",
+      "side": 1,
+      "message": "it looks like this project is not down-streamed to mainline-prod, so it can be merged regardless of the discussion.",
+      "parentUuid": "f38a0a4e_21597cb3",
+      "revId": "a00a596071d20e978d0e842af3de38b3c015def7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
