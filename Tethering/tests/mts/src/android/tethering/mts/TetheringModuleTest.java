@@ -38,6 +38,7 @@ import android.net.LinkAddress;
 import android.net.TetheringManager;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
+import android.net.wifi.WifiManager;
 import android.provider.DeviceConfig;
 
 import androidx.annotation.NonNull;
@@ -60,8 +61,9 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class TetheringModuleTest {
     private Context mContext;
-    private TetheringManager mTm;
     private CtsTetheringUtils mCtsTetheringUtils;
+    private TetheringManager mTm;
+    private WifiManager mWm;
 
     private UiAutomation mUiAutomation =
             InstrumentationRegistry.getInstrumentation().getUiAutomation();
@@ -71,8 +73,9 @@ public class TetheringModuleTest {
         mUiAutomation.adoptShellPermissionIdentity(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS,
                 WRITE_SETTINGS, READ_DEVICE_CONFIG, TETHER_PRIVILEGED);
         mContext = InstrumentationRegistry.getContext();
-        mTm = mContext.getSystemService(TetheringManager.class);
         mCtsTetheringUtils = new CtsTetheringUtils(mContext);
+        mTm = mContext.getSystemService(TetheringManager.class);
+        mWm = mContext.getSystemService(WifiManager.class);
     }
 
     @After
@@ -84,6 +87,10 @@ public class TetheringModuleTest {
             "tether_enable_select_all_prefix_ranges";
     @Test
     public void testSwitchBasePrefixRangeWhenConflict() throws Exception {
+        // On some devices that do not support concurrent STA+AP, prefix conflict detection does not
+        // work well because when Tethering restarts the SoftAP is still being stopped. Skip the
+        // test on these devices.
+        assumeTrue(mWm.isStaApConcurrencySupported());
         assumeTrue(isFeatureEnabled(TETHER_ENABLE_SELECT_ALL_PREFIX_RANGES, true));
 
         addressConflictTest(true);
@@ -91,6 +98,8 @@ public class TetheringModuleTest {
 
     @Test
     public void testSwitchPrefixRangeWhenConflict() throws Exception {
+        assumeTrue(mWm.isStaApConcurrencySupported());
+
         addressConflictTest(false);
     }
 
