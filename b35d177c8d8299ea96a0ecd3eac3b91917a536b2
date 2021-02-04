@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "231f2e1e_4e41e95f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-04T03:25:43Z",
+      "side": 1,
+      "message": "Needs CTS+1 from Lorenzo",
+      "revId": "b35d177c8d8299ea96a0ecd3eac3b91917a536b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
