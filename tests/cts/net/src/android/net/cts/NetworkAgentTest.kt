@@ -45,7 +45,6 @@ import android.net.NetworkProvider
 import android.net.NetworkRequest
 import android.net.RouteInfo
 import android.net.SocketKeepalive
-import android.net.StringNetworkSpecifier
 import android.net.Uri
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAddKeepalivePacketFilter
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAutomaticReconnectDisabled
@@ -216,8 +215,6 @@ class NetworkAgentTest {
             data class OnSignalStrengthThresholdsUpdated(val thresholds: IntArray) : CallbackEntry()
         }
 
-        fun getName(): String? = (nc.getNetworkSpecifier() as? StringNetworkSpecifier)?.specifier
-
         override fun onBandwidthUpdateRequested() {
             history.add(OnBandwidthUpdateRequested)
         }
@@ -322,7 +319,7 @@ class NetworkAgentTest {
             addCapability(NET_CAPABILITY_NOT_ROAMING)
             addCapability(NET_CAPABILITY_NOT_VPN)
             if (null != name) {
-                setNetworkSpecifier(StringNetworkSpecifier(name))
+                setNetworkSpecifier(CompatUtil.makeEthernetNetworkSpecifier(name))
             }
         }
         val lp = initialLp ?: LinkProperties().apply {
@@ -498,12 +495,12 @@ class NetworkAgentTest {
         val request1 = NetworkRequest.Builder()
                 .clearCapabilities()
                 .addTransportType(TRANSPORT_TEST)
-                .setNetworkSpecifier(StringNetworkSpecifier(name1))
+                .setNetworkSpecifier(CompatUtil.makeEthernetNetworkSpecifier(name1))
                 .build()
         val request2 = NetworkRequest.Builder()
                 .clearCapabilities()
                 .addTransportType(TRANSPORT_TEST)
-                .setNetworkSpecifier(StringNetworkSpecifier(name2))
+                .setNetworkSpecifier(CompatUtil.makeEthernetNetworkSpecifier(name2))
                 .build()
         val callback1 = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
         val callback2 = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
