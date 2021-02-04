@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58a822cd_a1691aa8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1135107
+      },
+      "writtenOn": "2021-02-04T14:25:45Z",
+      "side": 1,
+      "message": "Bypassing presubmits - the failing ones are extremely flaky and broken for almost a week now.",
+      "revId": "f6a1052f4e0387b8b95460feb221846d39cf0466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
