@@ -85,7 +85,6 @@ import android.net.NetworkInfo.State;
 import android.net.NetworkRequest;
 import android.net.NetworkUtils;
 import android.net.SocketKeepalive;
-import android.net.StringNetworkSpecifier;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.net.cts.util.CtsNetUtils;
@@ -108,6 +107,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.ArrayUtils;
+import com.android.testutils.CompatUtil;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.SkipPresubmit;
 import com.android.testutils.TestableNetworkCallback;
@@ -1564,8 +1564,8 @@ public class ConnectivityManagerTest {
                 // Test networks do not have NOT_VPN or TRUSTED capabilities by default
                 .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
                 .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
-                .setNetworkSpecifier(
-                        new StringNetworkSpecifier(testNetworkInterface.getInterfaceName()))
+                .setNetworkSpecifier(CompatUtil.makeTestNetworkSpecifier(
+                        testNetworkInterface.getInterfaceName()))
                 .build();
 
         // Verify background network cannot be requested without NETWORK_SETTINGS permission.
