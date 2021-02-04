@@ -47,6 +47,7 @@ import android.os.ConditionVariable;
 import androidx.annotation.NonNull;
 
 import com.android.compatibility.common.util.SystemUtil;
+import com.android.compatibility.common.util.ThrowingRunnable;
 import com.android.net.module.util.ArrayTrackRecord;
 
 import java.util.Collection;
@@ -310,19 +311,9 @@ public final class CtsTetheringUtils {
 
             assumeTrue(!getTetheringInterfaceRegexps().getTetherableWifiRegexs().isEmpty());
 
-            final PackageManager pm = ctx.getPackageManager();
-            assumeTrue(pm.hasSystemFeature(PackageManager.FEATURE_WIFI));
-
-            WifiManager wm = ctx.getSystemService(WifiManager.class);
             // Wifi feature flags only work when wifi is on.
-            final boolean previousWifiEnabledState = wm.isWifiEnabled();
-            try {
-                if (!previousWifiEnabledState) SystemUtil.runShellCommand("svc wifi enable");
-                waitForWifiEnabled(ctx);
-                assumeTrue(wm.isPortableHotspotSupported());
-            } finally {
-                if (!previousWifiEnabledState) SystemUtil.runShellCommand("svc wifi disable");
-            }
+            WifiManager wm = ctx.getSystemService(WifiManager.class);
+            runWithWifiEnabled(ctx, () -> assumeTrue(wm.isPortableHotspotSupported()));
         }
 
         public TetheringInterfaceRegexps getTetheringInterfaceRegexps() {
@@ -335,6 +326,24 @@ public final class CtsTetheringUtils {
 
         public List<String> getTetheredInterfaces() {
             return mTetheredIfaces;
+        }
+    }
+
+    public static void assumeWifiSupported(final Context ctx) {
+        final PackageManager pm = ctx.getPackageManager();
+        assumeTrue(pm.hasSystemFeature(PackageManager.FEATURE_WIFI));
+    }
+
+    public static void runWithWifiEnabled(final Context ctx, ThrowingRunnable r)
+            throws Exception {
+        final WifiManager wm = ctx.getSystemService(WifiManager.class);
+        final boolean previousWifiEnabledState = wm.isWifiEnabled();
+        try {
+            if (!previousWifiEnabledState) SystemUtil.runShellCommand("svc wifi enable");
+            waitForWifiEnabled(ctx);
+            r.run();
+        } finally {
+            if (!previousWifiEnabledState) SystemUtil.runShellCommand("svc wifi disable");
         }
     }
 
