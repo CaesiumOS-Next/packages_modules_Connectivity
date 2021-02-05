@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e51cc2fe_0ff14d60",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-02-05T02:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3839bfdd_a84b1d27",
+      "range": {
+        "startLine": 151,
+        "startChar": 18,
+        "endLine": 151,
+        "endChar": 34
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "077b3730_01c7ba6a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-02-05T02:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f244b342_3d36722b",
+      "range": {
+        "startLine": 151,
+        "startChar": 35,
+        "endLine": 151,
+        "endChar": 54
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "099c6eb5_1fa4dbcd",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-02-02T14:00:40Z",
       "side": 1,
       "message": "Stupid Question: Why can\u0027t we just call setCellularMeteredStatus(subId, !metered) ?",
+      "range": {
+        "startLine": 163,
+        "startChar": 25,
+        "endLine": 163,
+        "endChar": 44
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a9105a9_32aabeb4",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-02-05T02:54:34Z",
+      "side": 1,
+      "message": "We had the reset method for Wifi network, so I ended up creating for metered network but yes, we don\u0027t really have to.",
+      "parentUuid": "099c6eb5_1fa4dbcd",
       "range": {
         "startLine": 163,
         "startChar": 25,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee33a5e8_ccb0f144",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-02-05T02:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69e932f6_502299fb",
+      "range": {
+        "startLine": 189,
+        "startChar": 22,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4e40809_6d693127",
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb945f62_cf2cb10d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-02-05T02:54:34Z",
+      "side": 1,
+      "message": "Removed these reset* methods.",
+      "parentUuid": "f4e40809_6d693127",
+      "range": {
+        "startLine": 222,
+        "startChar": 23,
+        "endLine": 222,
+        "endChar": 42
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eae63838_596886ff",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-02-02T14:00:40Z",
       "side": 1,
       "message": "IIUC this needs to be updated.",
+      "range": {
+        "startLine": 159,
+        "startChar": 31,
+        "endLine": 159,
+        "endChar": 35
+      },
+      "revId": "2017b9af53c6c2cbce603532242796a915a801b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22396f19_2ec2d98b",
+        "filename": "tests/cts/hostside/app2/src/com/android/cts/net/hostside/app2/MyService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-02-05T02:54:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae63838_596886ff",
       "range": {
         "startLine": 159,
         "startChar": 31,
