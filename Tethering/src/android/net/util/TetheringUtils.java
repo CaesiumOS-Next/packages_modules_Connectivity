@@ -171,4 +171,6 @@ public class TetheringUtils {
             return null;
         }
     }
+
+    public static native String[] getBpfErrors();
 }

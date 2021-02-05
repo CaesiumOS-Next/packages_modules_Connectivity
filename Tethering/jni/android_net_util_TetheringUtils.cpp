@@ -28,11 +28,22 @@
 #include <sys/socket.h>
 #include <stdio.h>
 
+#include "bpf_tethering.h"
+
 namespace android {
 
 static const uint32_t kIPv6NextHeaderOffset = offsetof(ip6_hdr, ip6_nxt);
 static const uint32_t kIPv6PayloadStart = sizeof(ip6_hdr);
 static const uint32_t kICMPv6TypeOffset = kIPv6PayloadStart + offsetof(icmp6_hdr, icmp6_type);
+
+static jobjectArray android_net_util_getBpfErrors(JNIEnv *env) {
+    size_t size = BPF_TETHER_ERR__MAX;
+    jobjectArray ret = env->NewObjectArray(size, env->FindClass("java/lang/String"), nullptr);
+    for (int i = 0; i < size; i++) {
+        env->SetObjectArrayElement(ret, i, env->NewStringUTF(bpf_tether_errors[i]));
+    }
+    return ret;
+}
 
 static void android_net_util_setupIcmpFilter(JNIEnv *env, jobject javaFd, uint32_t type) {
     sock_filter filter_code[] = {
@@ -167,6 +178,8 @@ static void android_net_util_setupRaSocket(JNIEnv *env, jobject clazz, jobject j
  */
 static const JNINativeMethod gMethods[] = {
     /* name, signature, funcPtr */
+    { "getBpfErrors", "()[Ljava/lang/String;",
+        (void*) android_net_util_getBpfErrors },
     { "setupNaSocket", "(Ljava/io/FileDescriptor;)V",
         (void*) android_net_util_setupNaSocket },
     { "setupNsSocket", "(Ljava/io/FileDescriptor;)V",
