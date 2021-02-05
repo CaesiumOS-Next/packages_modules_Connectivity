@@ -220,6 +220,18 @@ public class IpServer extends StateMachine {
     public static final int CMD_NEW_PREFIX_REQUEST          = BASE_IPSERVER + 12;
     // request from PrivateAddressCoordinator to restart tethering.
     public static final int CMD_NOTIFY_PREFIX_CONFLICT      = BASE_IPSERVER + 13;
+    // Message from IpServer to self to notify that it should restart after a delay
+    public static final int CMD_RESTART_DELAYED      = BASE_IPSERVER + 14;
+
+    /**
+     * On some devices, restarting tethering as soon as the interface goes down is racy as they need
+     * some time to reset state; in particular for wifi tethering, the interface may go back to
+     * STA mode after AP is turned off, and starting tethering while it is in progress fails.
+     * To avoid this, wait before restarting after seeing the interface disappear. As restarting is
+     * also done after receiving CMD_TETHER_UNREQUESTED (sent after receiving WIFI_AP_STATE_DISABLED
+     * in the wifi case), the device may end up not waiting for the whole delay.
+     */
+    private static final long IFACE_DOWN_RESTART_DELAY_MS = 3_000L;
 
     private final State mInitialState;
     private final State mLocalHotspotState;
@@ -1400,11 +1412,20 @@ public class IpServer extends StateMachine {
             logMessage(this, message.what);
             switch (message.what) {
                 case CMD_TETHER_UNREQUESTED:
+                    removeMessages(CMD_RESTART_DELAYED);
                     transitionTo(mInitialState);
                     mLog.i("Untethered (unrequested) and restarting " + mIfaceName);
                     mCallback.requestEnableTethering(mInterfaceType, true /* enabled */);
                     break;
                 case CMD_INTERFACE_DOWN:
+                    mLog.i("Untethered (interface down), wait before restarting "
+                            + mIfaceName);
+                    // Avoid races trying to start tethering while the downstream is still being
+                    // torn down; in particular wifi may be switching between STA and AP state.
+                    // TODO: fix the race in a more robust way
+                    sendMessageDelayed(CMD_RESTART_DELAYED, IFACE_DOWN_RESTART_DELAY_MS);
+                    break;
+                case CMD_RESTART_DELAYED:
                     transitionTo(mUnavailableState);
                     mLog.i("Untethered (interface down) and restarting" + mIfaceName);
                     mCallback.requestEnableTethering(mInterfaceType, true /* enabled */);
