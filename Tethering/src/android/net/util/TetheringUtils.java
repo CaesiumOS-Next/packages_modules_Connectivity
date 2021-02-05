@@ -171,4 +171,10 @@ public class TetheringUtils {
             return null;
         }
     }
+
+    /**
+     * Fetches the list of BPF error names from JNI code.
+     * TODO: move to BpfCoordinator.
+     */
+    public static native String[] getBpfErrorNames();
 }

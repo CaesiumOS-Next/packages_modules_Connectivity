@@ -44,6 +44,7 @@ import android.net.netlink.NetlinkConstants;
 import android.net.netstats.provider.NetworkStatsProvider;
 import android.net.util.InterfaceParams;
 import android.net.util.SharedLog;
+import android.net.util.TetheringUtils;
 import android.net.util.TetheringUtils.ForwardedStats;
 import android.os.ConditionVariable;
 import android.os.Handler;
@@ -59,6 +60,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.NetworkStackConstants;
+import com.android.net.module.util.Struct;
 import com.android.networkstack.tethering.apishim.common.BpfCoordinatorShim;
 
 import java.net.Inet4Address;
@@ -97,6 +99,7 @@ public class BpfCoordinator {
     private static final String TETHER_UPSTREAM6_FS_PATH = makeMapPath(UPSTREAM, 6);
     private static final String TETHER_STATS_MAP_PATH = makeMapPath("stats");
     private static final String TETHER_LIMIT_MAP_PATH = makeMapPath("limit");
+    private static final String TETHER_ERROR_MAP_PATH = makeMapPath("error");
 
     private static String makeMapPath(String which) {
         return "/sys/fs/bpf/tethering/map_offload_tether_" + which + "_map";
@@ -717,6 +720,12 @@ public class BpfCoordinator {
             dumpIpv4ForwardingRules(pw);
             pw.decreaseIndent();
 
+            pw.println();
+            pw.println("Forwarding errors:");
+            pw.increaseIndent();
+            dumpErrors(pw);
+            pw.decreaseIndent();
+
             dumpDone.open();
         });
         if (!dumpDone.block(DUMP_TIMEOUT_MS)) {
@@ -814,6 +823,36 @@ public class BpfCoordinator {
             pw.println("Error dumping IPv4 map: " + e);
         }
         pw.decreaseIndent();
+    }
+
+    public static final String[] sBpfErrorNames = TetheringUtils.getBpfErrorNames();
+
+    /**
+     * Generic struct containing a 4-byte integer.
+     * TODO: move to somwehere more generic.
+     */
+    public static class U32Struct extends Struct {
+        @Struct.Field(order = 0, type = Struct.Type.S32)
+        public int val;
+    }
+
+    private void dumpErrors(@NonNull IndentingPrintWriter pw) {
+        final BpfMap<U32Struct, U32Struct> map;
+        try {
+            map = new BpfMap<>(TETHER_ERROR_MAP_PATH, BpfMap.BPF_F_RDONLY,
+                    U32Struct.class, U32Struct.class);
+            map.forEach((k, v) -> {
+                String errName;
+                try {
+                    errName = sBpfErrorNames[k.val];
+                } catch (IndexOutOfBoundsException e) {
+                    errName = "???";
+                }
+                if (v.val > 0) pw.println(String.format("%s: %d", errName, v.val));
+            });
+        } catch (ErrnoException e) {
+            pw.println("Error iterating error map: " + e);
+        }
     }
 
     /** IPv6 forwarding rule class. */
