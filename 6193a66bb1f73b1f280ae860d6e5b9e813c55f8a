@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c96b97_a234c91e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-05T12:32:53Z",
+      "side": 1,
+      "message": "Info ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 32,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "6193a66bb1f73b1f280ae860d6e5b9e813c55f8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e18bb5_a647ebe1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-05T12:32:53Z",
+      "side": 1,
+      "message": "This patch is fine of course but do we want to have coverage for other types ?",
+      "revId": "6193a66bb1f73b1f280ae860d6e5b9e813c55f8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
