@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e94ec20_c0b49822",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-08T06:05:31Z",
+      "side": 1,
+      "message": "LGTM as long as this passes on R. Other comments inline; in particular I think we need to check not-yet-existing capabilities.\n\nNo need to do that in this CL, but given that today is the last day before you folks are off, can you upload another CL today to that just adds a TODO?",
+      "revId": "ea79aa6fd93dfabdd788c352fc89a5bd072c092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b3dd95e_43de8633",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-08T06:05:31Z",
+      "side": 1,
+      "message": "Do we need an isAtLeastS() here? Does this test pass on R?\n\nEven if it does, it might make sense to do something like:\n\n    private void addNotVcnManagedCapability(NetworkCapabilities nc) {\n        if (isAtLeastS()) {\n            nc.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);\n        }\n    }",
+      "range": {
+        "startLine": 171,
+        "startChar": 16,
+        "endLine": 171,
+        "endChar": 62
+      },
+      "revId": "ea79aa6fd93dfabdd788c352fc89a5bd072c092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7159d3b1_9941443f",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-08T06:05:31Z",
+      "side": 1,
+      "message": "For readability, might want to suggest refactoring out to a new method, maybe call it assertHasNotVcnManaged?\n\nMore in general, this test is a bit repetitive and could be easier to read. Could we refactor it to helper methods? Looks like lines 298-315 could be a helper method, perhaps.\n\nDoesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 303,
+        "endChar": 86
+      },
+      "revId": "ea79aa6fd93dfabdd788c352fc89a5bd072c092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cf49d24_e94eeedd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-08T06:05:31Z",
+      "side": 1,
+      "message": "Can we add a test for a new capability that does not yet exist? Something like:\n\n    private static final int futureCapability \u003d NetworkCapabilities.MAX_NET_CAPABILITY + 1;\n    // Check that if the code adds it, NOT_VCN_MANAGED is removed.\n    // Check that if the code adds it and also adds NOT_VCN_MANAGED, NOT_VCN_MANAGED remains.\n\nOr even better:\n\n    for (int i \u003d 0; MAX_NET_CAPABILITY; i \u003c MAX_NET_CAPABILITY + 10; i++) {\n        // Same checks\n    }",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 1
+      },
+      "revId": "ea79aa6fd93dfabdd788c352fc89a5bd072c092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
