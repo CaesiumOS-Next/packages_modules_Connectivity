@@ -1,0 +1,9 @@
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Presubmit-Verified+2: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Code-Review+2: Junyu Lai <junyulai@google.com>
+Submitted-by: Sudheer Shanka <sudheersai@google.com>
+Submitted-at: Mon, 08 Feb 2021 04:24:45 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1538984
+Project: platform/packages/modules/Connectivity
+Branch: refs/heads/master
