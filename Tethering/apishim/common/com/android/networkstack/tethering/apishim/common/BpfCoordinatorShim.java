@@ -28,6 +28,9 @@ import com.android.networkstack.tethering.Tether4Key;
 import com.android.networkstack.tethering.Tether4Value;
 import com.android.networkstack.tethering.TetherStatsValue;
 
+import java.util.HashMap;
+import java.util.function.BiFunction;
+
 /**
  * Bpf coordinator class for API shims.
  */
@@ -147,6 +150,17 @@ public abstract class BpfCoordinatorShim {
      * Deletes a tethering IPv4 offload rule from the appropriate BPF map.
      */
     public abstract boolean tetherOffloadRuleRemove(boolean downstream, @NonNull Tether4Key key);
+
+    /**
+     * Deletes tethering IPv4 offload rules which match the matcher from the appropriate BPF map.
+     *
+     * @param downstream true if downstream, false if upstream.
+     * @param matcher represents what kind of rule needs to be deleted.
+     * @return The deleted rules. Return null if unexpected error.
+     */
+    @Nullable
+    public abstract HashMap<Tether4Key, Tether4Value> tetherOffloadRuleRemoveIf(boolean downstream,
+            @NonNull BiFunction<Tether4Key, Tether4Value, Boolean> matcher);
 
     /**
      * Whether there is currently any IPv4 rule on the specified upstream.

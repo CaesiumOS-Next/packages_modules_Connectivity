@@ -45,6 +45,8 @@ import com.android.networkstack.tethering.TetherUpstream6Key;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.function.BiFunction;
 
 /**
  * Bpf coordinator class for API shims.
@@ -361,6 +363,23 @@ public class BpfCoordinatorShimImpl
         return true;
     }
 
+    private boolean decreaseIPv4RuleCountOnUpstream(int upstreamIfindex) {
+        // Decrease the rule count while a deleting rule is not using a given upstream
+        // interface anymore.
+        Integer count = mRule4CountOnUpstream.get(upstreamIfindex);
+        if (count == null) {
+            Log.wtf(TAG, "Could not delete count for interface " + upstreamIfindex);
+            return false;
+        }
+        if (--count == 0) {
+            // Remove the entry if the count decreases to zero.
+            mRule4CountOnUpstream.remove(upstreamIfindex);
+        } else {
+            mRule4CountOnUpstream.put(upstreamIfindex, count);
+        }
+        return true;
+    }
+
     @Override
     public boolean tetherOffloadRuleRemove(boolean downstream, @NonNull Tether4Key key) {
         if (!isInitialized()) return false;
@@ -371,22 +390,7 @@ public class BpfCoordinatorShimImpl
                     mLog.e("Could not delete entry (key: " + key + ")");
                     return false;
                 }
-
-                // Decrease the rule count while a deleting rule is not using a given upstream
-                // interface anymore.
-                final int upstreamIfindex = (int) key.iif;
-                Integer count = mRule4CountOnUpstream.get(upstreamIfindex);
-                if (count == null) {
-                    Log.wtf(TAG, "Could not delete count for interface " + upstreamIfindex);
-                    return false;
-                }
-
-                if (--count == 0) {
-                    // Remove the entry if the count decreases to zero.
-                    mRule4CountOnUpstream.remove(upstreamIfindex);
-                } else {
-                    mRule4CountOnUpstream.put(upstreamIfindex, count);
-                }
+                return decreaseIPv4RuleCountOnUpstream((int) key.iif);
             } else {
                 mBpfUpstream4Map.deleteEntry(key);
             }
@@ -398,6 +402,28 @@ public class BpfCoordinatorShimImpl
             }
         }
         return true;
+    }
+
+    @Override
+    public HashMap<Tether4Key, Tether4Value> tetherOffloadRuleRemoveIf(boolean downstream,
+            @NonNull BiFunction<Tether4Key, Tether4Value, Boolean> matcher) {
+        if (!isInitialized()) return null;
+
+        HashMap<Tether4Key, Tether4Value> deletedRules = null;
+        try {
+            if (downstream) {
+                deletedRules = mBpfDownstream4Map.deleteEntryIf(matcher);
+                for (final Tether4Key k : deletedRules.keySet()) {
+                    decreaseIPv4RuleCountOnUpstream((int) k.iif);
+                }
+            } else {
+                deletedRules = mBpfUpstream4Map.deleteEntryIf(matcher);
+            }
+        } catch (ErrnoException e) {
+            mLog.e("Could not delete entry by matcher: ", e);
+            return null;
+        }
+        return deletedRules;
     }
 
     @Override
