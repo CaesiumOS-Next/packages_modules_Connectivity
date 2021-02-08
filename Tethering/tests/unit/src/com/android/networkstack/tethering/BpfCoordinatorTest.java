@@ -68,6 +68,8 @@ import android.net.InetAddresses;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkStats;
 import android.net.TetherOffloadRuleParcel;
 import android.net.TetherStatsParcel;
@@ -1237,11 +1239,14 @@ public class BpfCoordinatorTest {
         coordinator.startPolling();
 
         // Provide upstream information to BPF coordinator.
-        final LinkProperties lp = new LinkProperties();
-        lp.setInterfaceName(UPSTREAM_IFACE);
-        lp.addLinkAddress(new LinkAddress(PUBLIC_ADDR, 32 /* prefix length */));
+        final LinkProperties prop = new LinkProperties();
+        prop.setInterfaceName(UPSTREAM_IFACE);
+        prop.addLinkAddress(new LinkAddress(PUBLIC_ADDR, 32 /* prefix length */));
+        final NetworkCapabilities capabilities = new NetworkCapabilities()
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);
         doReturn(UPSTREAM_IFACE_PARAMS).when(mDeps).getInterfaceParams(UPSTREAM_IFACE);
-        coordinator.addUpstreamIfindexToMap(lp);
+        coordinator.updateUpstreamNetworkState(new UpstreamNetworkState(prop, capabilities,
+                new Network(UPSTREAM_IFINDEX)));
 
         // Provide downstream and client information to BPF coordinator.
         final ClientInfo clientInfo = new ClientInfo(DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
