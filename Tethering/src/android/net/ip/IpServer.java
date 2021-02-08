@@ -596,6 +596,7 @@ public class IpServer extends StateMachine {
         // into calls to InterfaceController, shared with startIPv4().
         mInterfaceCtrl.clearIPv4Address();
         mPrivateAddressCoordinator.releaseDownstream(this);
+        mBpfCoordinator.releaseDownstream4(this);
         mIpv4Address = null;
         mStaticIpv4ServerAddr = null;
         mStaticIpv4ClientAddr = null;
@@ -928,6 +929,12 @@ public class IpServer extends StateMachine {
         } else {
             removeIpv6ForwardingRule(rule);
         }
+    }
+
+    private void clearIpv4ForwardingRules() {
+        if (!mUsingBpfOffload) return;
+
+        mBpfCoordinator.tetherOffloadRuleClear4(this);
     }
 
     // TODO: consider moving into BpfCoordinator.
@@ -1283,6 +1290,7 @@ public class IpServer extends StateMachine {
 
             for (String ifname : mUpstreamIfaceSet.ifnames) cleanupUpstreamInterface(ifname);
             mUpstreamIfaceSet = null;
+            clearIpv4ForwardingRules();
             clearIpv6ForwardingRules();
         }
 
