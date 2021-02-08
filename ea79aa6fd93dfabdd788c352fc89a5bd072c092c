@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6bdc7d0_108a3601",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-08T08:30:33Z",
+      "side": 1,
+      "message": "fixed in aosp/1579872 which is in the same topic.\nSee if it works for you.",
+      "parentUuid": "7b3dd95e_43de8633",
+      "range": {
+        "startLine": 171,
+        "startChar": 16,
+        "endLine": 171,
+        "endChar": 62
+      },
+      "revId": "ea79aa6fd93dfabdd788c352fc89a5bd072c092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7159d3b1_9941443f",
