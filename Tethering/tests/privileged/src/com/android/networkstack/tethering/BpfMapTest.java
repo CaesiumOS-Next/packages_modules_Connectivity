@@ -41,6 +41,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.net.InetAddress;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -388,5 +389,49 @@ public final class BpfMapTest {
             // map reached the limit. See man-pages/bpf.
             assertEquals(OsConstants.E2BIG, expected.errno);
         }
+    }
+
+    @Test
+    public void testDeleteEntryIf() throws Exception {
+        final int expectedIndice1 = 4;
+        final int expectedIndice2 = 8;
+
+        // Build test data. The iif of Downstream6Key is increased from 0. Note that The interface
+        // index 0 is not realistic for the key. But make the test easier because the map insertion
+        // index is zero-base and interface index is valid from one.
+        final ArrayMap<TetherDownstream6Key, Tether6Value> testData = new ArrayMap<>();
+        for (int i = 0; i < TEST_MAP_SIZE; i++) {
+            testData.put(createTetherDownstream6Key(i, "00:00:00:00:00:01", "2001:db8::1"),
+                    createTether6Value(100, "de:ad:be:ef:00:01", "de:ad:be:ef:00:02",
+                    ETH_P_IPV6, 1500));
+        }
+
+        // Insert test entries to the map.
+        for (int i = 0; i < TEST_MAP_SIZE; i++) {
+            mTestMap.insertEntry(testData.keyAt(i), testData.valueAt(i));
+        }
+
+        // Delete the entries which the iif of key equals the target interface indices. Can't
+        // use an int count because variables used in a lambda must be final.
+        final AtomicInteger count = new AtomicInteger();
+        final HashMap<TetherDownstream6Key, Tether6Value> resultMap =
+                mTestMap.deleteEntryIf((key, value) -> {
+                    count.incrementAndGet();
+                    return key.iif == expectedIndice1 || key.iif == expectedIndice2;
+                });
+
+        // Expect that the map was iterated once on each entry.
+        assertEquals(TEST_MAP_SIZE, count.get());
+
+        // Expect that the target entries are deleted and return value has deleted entries.
+        final TetherDownstream6Key expectedKey1 = testData.keyAt(expectedIndice1);
+        final TetherDownstream6Key expectedKey2 = testData.keyAt(expectedIndice2);
+        final Tether6Value expectValue1 = testData.valueAt(expectedIndice1);
+        final Tether6Value expectValue2 = testData.valueAt(expectedIndice2);
+        assertNull(mTestMap.getValue(expectedKey1));
+        assertNull(mTestMap.getValue(expectedKey2));
+        assertEquals(2, resultMap.size());
+        assertEquals(expectValue1, resultMap.get(expectedKey1));
+        assertEquals(expectValue2, resultMap.get(expectedKey2));
     }
 }

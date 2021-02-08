@@ -28,9 +28,12 @@ import com.android.net.module.util.Struct;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+
 
 /**
  * BpfMap is a key -> value mapping structure that is designed to maintained the bpf map entries.
@@ -166,6 +169,27 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
     /** Remove existing key from eBpf map. Return false if map was not modified. */
     public boolean deleteEntry(K key) throws ErrnoException {
         return deleteMapEntry(mMapFd, key.writeToBytes());
+    }
+
+    /**
+     * Returns the deleted entries which match the matcher. If no such entry is deleted, the
+     * function returns an empty map.
+     */
+    public HashMap<K, V> deleteEntryIf(@NonNull BiFunction<K, V, Boolean> matcher)
+            throws ErrnoException {
+        @Nullable K nextKey = getFirstKey();
+
+        final HashMap<K, V> deleted = new HashMap<K, V>();
+        while (nextKey != null) {
+            @NonNull final K curKey = nextKey;
+            @NonNull final V value = getValue(curKey);
+            nextKey = getNextKey(curKey);
+
+            if (matcher.apply(curKey, value) && deleteEntry(curKey)) {
+                deleted.put(curKey, value);
+            }
+        }
+        return deleted;
     }
 
     /** Returns {@code true} if this map contains no elements. */
