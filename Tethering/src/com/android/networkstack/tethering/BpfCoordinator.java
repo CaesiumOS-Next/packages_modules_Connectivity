@@ -32,7 +32,6 @@ import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_
 
 import android.app.usage.NetworkStatsManager;
 import android.net.INetd;
-import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.NetworkStats;
 import android.net.NetworkStats.Entry;
@@ -71,6 +70,7 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -225,6 +225,8 @@ public class BpfCoordinator {
     // TODO: consider making the key to be unique because the upstream address is not unique. It
     // is okay for now because there have only one upstream generally.
     private final HashMap<Inet4Address, Integer> mIpv4UpstreamIndices = new HashMap<>();
+
+    private int mLastIPv4UpstreamIfindex = 0;
 
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingStats = () -> {
@@ -584,6 +586,7 @@ public class BpfCoordinator {
     /**
      * Clear all forwarding rules for a given downstream.
      * Note that this can be only called on handler thread.
+     * TODO: rename to tetherOffloadRuleClear6 because of IPv6 only.
      */
     public void tetherOffloadRuleClear(@NonNull final IpServer ipServer) {
         if (!isUsingBpf()) return;
@@ -664,6 +667,7 @@ public class BpfCoordinator {
             mTetherClients.put(ipServer, new HashMap<Inet4Address, ClientInfo>());
         }
 
+        mLog.w("[cleanUp] tetherOffloadClientAdd: client: " + client);  // debug
         HashMap<Inet4Address, ClientInfo> clients = mTetherClients.get(ipServer);
         clients.put(client.clientAddress, client);
     }
@@ -674,53 +678,157 @@ public class BpfCoordinator {
     public void tetherOffloadClientRemove(@NonNull final IpServer ipServer,
             @NonNull final ClientInfo client) {
         if (!isUsingBpf()) return;
+        mLog.w("[cleanUp] tetherOffloadClientRemove: client: " + client);  // debug
 
         HashMap<Inet4Address, ClientInfo> clients = mTetherClients.get(ipServer);
         if (clients == null) return;
 
-        // If no rule is removed, return early. Avoid unnecessary work on a non-existent rule
+        // If no client is removed, return early. Avoid unnecessary work on a non-existent client
         // which may have never been added or removed already.
         if (clients.remove(client.clientAddress) == null) return;
 
-        // Remove the downstream entry if it has no more rule.
+        // Remove the client's offload rules.
+        tetherOffloadRuleClearForClient(client.clientAddress);
+
+        // Remove the downstream entry if it has no more client.
         if (clients.isEmpty()) {
             mTetherClients.remove(ipServer);
         }
     }
 
     /**
-     * Call when UpstreamNetworkState may be changed.
-     * If upstream has ipv4 for tethering, update this new UpstreamNetworkState to map. The
-     * upstream interface index and its address mapping is prepared for building IPv4
-     * offload rule.
+     * Clear all forwarding IPv4 rules for a given client.
+     * Note that this can be only called on handler thread.
      *
-     * TODO: Delete the unused upstream interface mapping.
-     * TODO: Support ether ip upstream interface.
+     * TODO: use BpfMap#forEach to reduce the time complexity.
      */
-    public void addUpstreamIfindexToMap(LinkProperties lp) {
-        if (!mPollingStarted) return;
+    private void tetherOffloadRuleClearForClient(@NonNull final Inet4Address clientAddr) {
+        mLog.w("[cleanUp] UPSTREAM tetherOffloadRuleClearForClient: "
+                + clientAddr);  // debug
 
-        // This will not work on a network that is using 464xlat because hasIpv4Address will not be
-        // true.
-        // TODO: need to consider 464xlat.
-        if (lp == null || !lp.hasIpv4Address()) return;
+        // Fetch the rules on the upstream interface(s).
+        final HashMap<Tether4Key, Tether4Value> upstreamRules = mBpfCoordinatorShim
+                .tetherOffloadGetRules4(UPSTREAM);
+        if (upstreamRules == null) return;
 
-        // Support raw ip upstream interface only.
-        final InterfaceParams params = mDeps.getInterfaceParams(lp.getInterfaceName());
-        if (params == null || params.hasMacAddress) return;
+        // Fetch the rules on the downstream interface(s).
+        final HashMap<Tether4Key, Tether4Value> downstreamRules = mBpfCoordinatorShim
+                .tetherOffloadGetRules4(DOWNSTREAM);
+        if (downstreamRules == null) return;  // should not happen if any upstream rules exists
 
-        Collection<InetAddress> addresses = lp.getAddresses();
-        for (InetAddress addr: addresses) {
-            if (addr instanceof Inet4Address) {
-                Inet4Address i4addr = (Inet4Address) addr;
-                if (!i4addr.isAnyLocalAddress() && !i4addr.isLinkLocalAddress()
-                        && !i4addr.isLoopbackAddress() && !i4addr.isMulticastAddress()) {
-                    mIpv4UpstreamIndices.put(i4addr, params.index);
-                }
+        // Clear the rules for a given client address.
+        for (Map.Entry<Tether4Key, Tether4Value> u : upstreamRules.entrySet()) {
+            final Tether4Key k = u.getKey();
+            if (Arrays.equals(k.src4, clientAddr.getAddress())) {
+                mBpfCoordinatorShim.tetherOffloadRuleRemove(UPSTREAM, k);
+                mLog.w("[cleanUp] UPSTREAM tetherOffloadRuleRemove: " + k);  // debug
+            }
+        }
+
+        for (Map.Entry<Tether4Key, Tether4Value> d : downstreamRules.entrySet()) {
+            final Tether4Key k = d.getKey();
+            final Tether4Value v = d.getValue();
+            if (Arrays.equals(v.dst46, clientAddr.getAddress())) {
+                mBpfCoordinatorShim.tetherOffloadRuleRemove(DOWNSTREAM, k);
+                mLog.w("[cleanUp] DOWNSTREAM tetherOffloadRuleRemove: " + k);  // debug
             }
         }
     }
 
+    /**
+     * Clear all forwarding IPv4 rules for a given downstream.
+     * Note that this can be only called on handler thread.
+     */
+    public void tetherOffloadRuleClear4(@NonNull final IpServer ipServer) {
+        if (!isUsingBpf()) return;
+
+        mLog.w("[cleanUp] tetherOffloadRuleClear4: " + ipServer.interfaceName());  // debug
+
+        final HashMap<Inet4Address, ClientInfo> clients = mTetherClients.get(ipServer);
+        if (clients == null) return;
+
+        for (Map.Entry<Inet4Address, ClientInfo> c : clients.entrySet()) {
+            tetherOffloadRuleClearForClient(c.getKey());
+        }
+    }
+
+    /**
+     * Clear all forwarding IPv4 rules for all downstreams.
+     * Note that this can be only called on handler thread.
+     */
+    private void tetherOffloadRuleClear4() {
+        if (!isUsingBpf()) return;
+
+        mLog.w("[cleanUp] tetherOffloadRuleClear4: all");  // debug
+
+        for (Map.Entry<IpServer, HashMap<Inet4Address, ClientInfo>> e : mTetherClients.entrySet()) {
+            tetherOffloadRuleClear4(e.getKey());
+        }
+    }
+
+    /**
+     * Release downstream record for IpServer.
+     * Note that this can be only called on handler thread.
+     */
+    public void releaseDownstream4(final IpServer ipServer) {
+        if (!isUsingBpf()) return;
+
+        mLog.w("[cleanUp] releaseDownstream: " + ipServer.interfaceName());  // debug
+        mTetherClients.remove(ipServer);
+    }
+
+    /**
+     * Call when UpstreamNetworkState may be changed.
+     * If upstream has ipv4 for tethering, update this new UpstreamNetworkState
+     * to BpfCoordinator for building upstream interface index mapping.
+     */
+    public void updateUpstreamNetworkState(UpstreamNetworkState ns) {
+        if (!isUsingBpf()) return;
+
+        // TODO: ingore the upstream network state while tethering stopped.
+        int upstreamIndex = 0;
+        mLog.w("[cleanUp] updateUpstreamNetworkState: " + ns);
+
+        // This will not work on a network that is using 464xlat because hasIpv4Address will not be
+        // true.
+        // TODO: need to consider 464xlat.
+        if (ns != null && ns.linkProperties != null && ns.linkProperties.hasIpv4Address()) {
+            // TODO: support ether ip upstream interface.
+            final InterfaceParams params = mDeps.getInterfaceParams(
+                    ns.linkProperties.getInterfaceName());
+            if (params != null && !params.hasMacAddress /* raw ip upstream only */) {
+                upstreamIndex = params.index;
+            }
+        }
+
+        // Clear existing rules if upstream interface is changed. The rules should be cleared
+        // before upstream index mapping is cleared. It can avoid that ipServer or conntrack
+        // event map the non-existing upstream interfeace index while removeing the rules.
+        if (mLastIPv4UpstreamIfindex != 0 && mLastIPv4UpstreamIfindex != upstreamIndex) {
+            mLog.w("[cleanUp] mIpv4UpstreamIndices CLEAR: " + upstreamIndex);
+            tetherOffloadRuleClear4();
+        }
+
+        // If link properties are valid, build the upstream information mapping. Otherwaise, clear
+        // the upstream index mapping.
+        if (upstreamIndex == 0) {
+            mIpv4UpstreamIndices.clear();
+        } else {
+            Collection<InetAddress> addresses = ns.linkProperties.getAddresses();
+            for (InetAddress addr: addresses) {
+                if (addr instanceof Inet4Address) {
+                    Inet4Address i4addr = (Inet4Address) addr;
+                    if (!i4addr.isAnyLocalAddress() && !i4addr.isLinkLocalAddress()
+                            && !i4addr.isLoopbackAddress() && !i4addr.isMulticastAddress()) {
+                        mLog.w("[cleanUp] mIpv4UpstreamIndices PUT: " + upstreamIndex);
+                        mIpv4UpstreamIndices.put(i4addr, upstreamIndex);
+                    }
+                }
+            }
+        }
+
+        mLastIPv4UpstreamIfindex = upstreamIndex;
+    }
 
     // TODO: make mInterfaceNames accessible to the shim and move this code to there.
     private String getIfName(long ifindex) {
@@ -764,6 +872,14 @@ public class BpfCoordinator {
             pw.println("Forwarding counters:");
             pw.increaseIndent();
             dumpCounters(pw);
+            pw.decreaseIndent();
+
+            pw.increaseIndent();
+            pw.println("Client Info: " + mTetherClients.toString());
+            pw.decreaseIndent();
+
+            pw.increaseIndent();
+            pw.println("IPv4 Upstream(s): " + mIpv4UpstreamIndices.toString());
             pw.decreaseIndent();
 
             dumpDone.open();
@@ -1206,6 +1322,7 @@ public class BpfCoordinator {
         // 2. do clean up while the last rule is removed on the given interface.
         // See #tetherOffloadRuleAdd, #tetherOffloadRuleRemove.
         public void accept(ConntrackEvent e) {
+            mLog.w("[cleanUp] accept e: " + e);  // debug
             final ClientInfo tetherClient = getClientInfo(e.tupleOrig.srcIp);
             if (tetherClient == null) return;
 
@@ -1218,6 +1335,11 @@ public class BpfCoordinator {
 
             if (e.msgType == (NetlinkConstants.NFNL_SUBSYS_CTNETLINK << 8
                     | NetlinkConstants.IPCTNL_MSG_CT_DELETE)) {
+                mLog.w("[cleanUp] tetherOffloadRuleRemove upstream4Key: "
+                        + upstream4Key);  // debug
+                mLog.w("[cleanUp] tetherOffloadRuleRemove downstream4Key: "
+                        + downstream4Key);  // debug
+
                 mBpfCoordinatorShim.tetherOffloadRuleRemove(false, upstream4Key);
                 mBpfCoordinatorShim.tetherOffloadRuleRemove(true, downstream4Key);
                 return;
@@ -1227,6 +1349,8 @@ public class BpfCoordinator {
             final Tether4Value downstream4Value = makeTetherDownstream4Value(e, tetherClient,
                     upstreamIndex);
 
+            mLog.w("[cleanUp] tetherOffloadRuleAdd upstream4Key: " + upstream4Key);  // debug
+            mLog.w("[cleanUp] tetherOffloadRuleAdd downstream4Key: " + downstream4Key);  // debug
             mBpfCoordinatorShim.tetherOffloadRuleAdd(false, upstream4Key, upstream4Value);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(true, downstream4Key, downstream4Value);
         }
