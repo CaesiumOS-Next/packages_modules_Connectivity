@@ -70,6 +70,8 @@ import android.net.InetAddresses;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkStats;
 import android.net.TetherOffloadRuleParcel;
 import android.net.TetherStatsParcel;
@@ -1356,10 +1358,13 @@ public class BpfCoordinatorTest {
     }
 
     private void setUpstreamInformationTo(final BpfCoordinator coordinator) {
-        final LinkProperties lp = new LinkProperties();
-        lp.setInterfaceName(UPSTREAM_IFACE);
-        lp.addLinkAddress(new LinkAddress(PUBLIC_ADDR, 32 /* prefix length */));
-        coordinator.addUpstreamIfindexToMap(lp);
+        final LinkProperties prop = new LinkProperties();
+        prop.setInterfaceName(UPSTREAM_IFACE);
+        prop.addLinkAddress(new LinkAddress(PUBLIC_ADDR, 32 /* prefix length */));
+        final NetworkCapabilities capabilities = new NetworkCapabilities()
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);
+        coordinator.updateUpstreamNetworkState(new UpstreamNetworkState(prop, capabilities,
+                new Network(UPSTREAM_IFINDEX)));
     }
 
     private void setDownstreamAndClientInformationTo(final BpfCoordinator coordinator) {
@@ -1376,8 +1381,11 @@ public class BpfCoordinatorTest {
         final BpfCoordinator coordinator = makeBpfCoordinator();
         coordinator.startPolling();
 
-        // Needed because tetherOffloadRuleRemove of api31.BpfCoordinatorShimImpl only decreases
-        // the count while the entry is deleted. In the other words, deleteEntry returns true.
+        // Needed because two reasons: (1) BpfConntrackEventConsumer#accept only do clearup when
+        // the bidirectional rules are removed concurrently. (2) tetherOffloadRuleRemove of
+        // api31.BpfCoordinatorShimImpl only decreases the count while the entry is deleted.
+        // In the other words, deleteEntry returns true.
+        doReturn(true).when(mBpfUpstream4Map).deleteEntry(any());
         doReturn(true).when(mBpfDownstream4Map).deleteEntry(any());
 
         // Needed because BpfCoordinator#addUpstreamIfindexToMap queries interface parameter for
