@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8272e36c_1ee06e0a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-08T08:28:30Z",
+      "side": 1,
+      "message": "Todo added in aosp/1579872.",
+      "parentUuid": "7159d3b1_9941443f",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 303,
+        "endChar": 86
+      },
+      "revId": "ea79aa6fd93dfabdd788c352fc89a5bd072c092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cf49d24_e94eeedd",
@@ -77,6 +101,30 @@
       "writtenOn": "2021-02-08T06:05:31Z",
       "side": 1,
       "message": "Can we add a test for a new capability that does not yet exist? Something like:\n\n    private static final int futureCapability \u003d NetworkCapabilities.MAX_NET_CAPABILITY + 1;\n    // Check that if the code adds it, NOT_VCN_MANAGED is removed.\n    // Check that if the code adds it and also adds NOT_VCN_MANAGED, NOT_VCN_MANAGED remains.\n\nOr even better:\n\n    for (int i \u003d 0; MAX_NET_CAPABILITY; i \u003c MAX_NET_CAPABILITY + 10; i++) {\n        // Same checks\n    }",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 1
+      },
+      "revId": "ea79aa6fd93dfabdd788c352fc89a5bd072c092c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada7ce35_0b7c0626",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-08T08:28:30Z",
+      "side": 1,
+      "message": "Todo added in aosp/1579872.\nBut it seems to me MAX_NET_CAPABILITY +10 provides the same test coverage as MAX_NET_CAPABILITY+1, right?",
+      "parentUuid": "0cf49d24_e94eeedd",
       "range": {
         "startLine": 360,
         "startChar": 0,
