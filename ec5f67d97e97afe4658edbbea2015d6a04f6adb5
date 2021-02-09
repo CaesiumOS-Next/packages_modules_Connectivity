@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06635a39_43177fa9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-09T04:23:30Z",
+      "side": 1,
+      "message": "LGTM as is assuming treehugger is happy with it and devices remain bootable. Feel free to address comments in a follow-up.",
+      "revId": "ec5f67d97e97afe4658edbbea2015d6a04f6adb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8016ab4_ac7d85cf",
