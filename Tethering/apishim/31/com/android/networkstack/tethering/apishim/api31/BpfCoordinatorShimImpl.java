@@ -42,6 +42,7 @@ import com.android.networkstack.tethering.TetherStatsValue;
 import com.android.networkstack.tethering.TetherUpstream6Key;
 
 import java.io.FileDescriptor;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Bpf coordinator class for API shims.
@@ -322,6 +323,20 @@ public class BpfCoordinatorShimImpl
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean isAnyIpv4RuleOnUpstream(int ifIndex) {
+        // TODO: find a way to compute this without iterating over the whole map.
+        AtomicBoolean ret = new AtomicBoolean(false);
+        try {
+            mBpfUpstream4Map.forEach((k, v) -> {
+                if (v.oif == ifIndex) ret.set(true);
+            });
+        } catch (ErrnoException e) {
+            mLog.e("Could not scan for IPv4 rules on interface index: " + ifIndex + ": ", e);
+        }
+        return ret.get();
     }
 
     private String mapStatus(BpfMap m, String name) {
