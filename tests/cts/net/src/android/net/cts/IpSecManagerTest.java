@@ -16,6 +16,7 @@
 
 package android.net.cts;
 
+import static android.net.IpSecAlgorithm.AUTH_AES_CMAC;
 import static android.net.IpSecAlgorithm.AUTH_AES_XCBC;
 import static android.net.IpSecAlgorithm.AUTH_CRYPT_AES_GCM;
 import static android.net.IpSecAlgorithm.AUTH_CRYPT_CHACHA20_POLY1305;
@@ -28,6 +29,8 @@ import static android.net.IpSecAlgorithm.CRYPT_AES_CBC;
 import static android.net.IpSecAlgorithm.CRYPT_AES_CTR;
 import static android.net.cts.PacketUtils.AES_CBC_BLK_SIZE;
 import static android.net.cts.PacketUtils.AES_CBC_IV_LEN;
+import static android.net.cts.PacketUtils.AES_CMAC_ICV_LEN;
+import static android.net.cts.PacketUtils.AES_CMAC_KEY_LEN;
 import static android.net.cts.PacketUtils.AES_CTR_BLK_SIZE;
 import static android.net.cts.PacketUtils.AES_CTR_IV_LEN;
 import static android.net.cts.PacketUtils.AES_CTR_KEY_LEN;
@@ -714,6 +717,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
 
         // STOPSHIP: b/170424293 Use Build.VERSION_CODES.S when it is defined
         algoToRequiredFirstSdk.put(CRYPT_AES_CTR, Build.VERSION_CODES.R + 1);
+        algoToRequiredFirstSdk.put(AUTH_AES_CMAC, Build.VERSION_CODES.R + 1);
         algoToRequiredFirstSdk.put(AUTH_AES_XCBC, Build.VERSION_CODES.R + 1);
         algoToRequiredFirstSdk.put(AUTH_CRYPT_CHACHA20_POLY1305, Build.VERSION_CODES.R + 1);
 
@@ -744,6 +748,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         }
 
         assertTrue(hasIpSecAlgorithm(CRYPT_AES_CTR));
+        assertTrue(hasIpSecAlgorithm(AUTH_AES_CMAC));
         assertTrue(hasIpSecAlgorithm(AUTH_AES_XCBC));
         assertTrue(hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305));
     }
@@ -999,6 +1004,11 @@ public class IpSecManagerTest extends IpSecBaseTest {
                 AUTH_AES_XCBC, getKeyBytes(AES_XCBC_KEY_LEN), AES_XCBC_ICV_LEN * 8);
     }
 
+    private static IpSecAlgorithm buildAuthAesCmac() throws Exception {
+        return new IpSecAlgorithm(
+                AUTH_AES_CMAC, getKeyBytes(AES_CMAC_KEY_LEN), AES_CMAC_ICV_LEN * 8);
+    }
+
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCbcAesXCbcTcp4() throws Exception {
@@ -1047,6 +1057,58 @@ public class IpSecManagerTest extends IpSecBaseTest {
 
         final IpSecAlgorithm crypt = buildCryptAesCbc();
         final IpSecAlgorithm auth = buildAuthAesXcbc();
+        checkTransform(IPPROTO_UDP, IPV6_LOOPBACK, crypt, auth, null, false, 1, false);
+        checkTransform(IPPROTO_UDP, IPV6_LOOPBACK, crypt, auth, null, false, 1, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @Test
+    public void testAesCbcAesCmacTcp4() throws Exception {
+        if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
+            return;
+        }
+
+        final IpSecAlgorithm crypt = buildCryptAesCbc();
+        final IpSecAlgorithm auth = buildAuthAesCmac();
+        checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, false, 1, false);
+        checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, false, 1, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @Test
+    public void testAesCbcAesCmacTcp6() throws Exception {
+        if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
+            return;
+        }
+
+        final IpSecAlgorithm crypt = buildCryptAesCbc();
+        final IpSecAlgorithm auth = buildAuthAesCmac();
+        checkTransform(IPPROTO_TCP, IPV6_LOOPBACK, crypt, auth, null, false, 1, false);
+        checkTransform(IPPROTO_TCP, IPV6_LOOPBACK, crypt, auth, null, false, 1, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @Test
+    public void testAesCbcAesCmacUdp4() throws Exception {
+        if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
+            return;
+        }
+
+        final IpSecAlgorithm crypt = buildCryptAesCbc();
+        final IpSecAlgorithm auth = buildAuthAesCmac();
+        checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, false, 1, false);
+        checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, false, 1, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @Test
+    public void testAesCbcAesCmacUdp6() throws Exception {
+        if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
+            return;
+        }
+
+        final IpSecAlgorithm crypt = buildCryptAesCbc();
+        final IpSecAlgorithm auth = buildAuthAesCmac();
         checkTransform(IPPROTO_UDP, IPV6_LOOPBACK, crypt, auth, null, false, 1, false);
         checkTransform(IPPROTO_UDP, IPV6_LOOPBACK, crypt, auth, null, false, 1, true);
     }
@@ -1328,6 +1390,32 @@ public class IpSecManagerTest extends IpSecBaseTest {
 
         final IpSecAlgorithm crypt = new IpSecAlgorithm(CRYPT_AES_CBC, CRYPT_KEY);
         final IpSecAlgorithm auth = new IpSecAlgorithm(AUTH_AES_XCBC, getKey(128), 96);
+        checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, true, 1, false);
+        checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @Test
+    public void testAesCbcAesCmacTcp4UdpEncap() throws Exception {
+        if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
+            return;
+        }
+
+        final IpSecAlgorithm crypt = new IpSecAlgorithm(CRYPT_AES_CBC, CRYPT_KEY);
+        final IpSecAlgorithm auth = new IpSecAlgorithm(AUTH_AES_CMAC, getKey(128), 96);
+        checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, true, 1, false);
+        checkTransform(IPPROTO_TCP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @Test
+    public void testAesCbcAesCmacUdp4UdpEncap() throws Exception {
+        if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
+            return;
+        }
+
+        final IpSecAlgorithm crypt = new IpSecAlgorithm(CRYPT_AES_CBC, CRYPT_KEY);
+        final IpSecAlgorithm auth = new IpSecAlgorithm(AUTH_AES_CMAC, getKey(128), 96);
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, true, 1, false);
         checkTransform(IPPROTO_UDP, IPV4_LOOPBACK, crypt, auth, null, true, 1, true);
     }
