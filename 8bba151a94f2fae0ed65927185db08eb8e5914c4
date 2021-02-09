@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06f176bd_af6639ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-09T14:51:26Z",
+      "side": 1,
+      "message": "The actual error is:\n\n\u003d\u003d\u003d\u003d\u003d\n02-09 23:31:51.982 13171 13199 E TestRunner: failed: testAllowTetheringWhenTetheringIsActive(com.android.networkstack.tethering.TetheringTest)\n02-09 23:31:51.982 13171 13199 E TestRunner: ----- begin exception -----\n02-09 23:31:51.983 13171 13199 E TestRunner: org.objenesis.ObjenesisException: java.lang.UnsatisfiedLinkError: No implementation found for java.lang.String[] com.android.networkstack.tethering.BpfCoordinator.getBpfCounterNames() (tried Java_com_android_networkstack_tethering_BpfCoordinator_getBpfCounterNames and Java_com_android_networkstack_tethering_BpfCoordinator_getBpfCounterNames__)\n...\n\u003d\u003d\u003d\u003d\u003d\n\nThis is because instantiating any BpfCoordinator instance in the test requires calling that native method, and the tests don\u0027t package the JNI code.\n\nI\u0027m attempting to package the JNI code with the tests but I\u0027m not sure if that\u0027s the right thing to do. It looks like we either have every test load the library independently, or we have BpfCoordinator load it by itself in a static block at the beginning of the class. The first requires lots of duplication, the second requires calling loadLibrary again, when we\u0027ve already done it in TetherService.\n\nThis might be OK since System.loadLibrary is documented not to do anything if called again with the same name.",
+      "revId": "8bba151a94f2fae0ed65927185db08eb8e5914c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
