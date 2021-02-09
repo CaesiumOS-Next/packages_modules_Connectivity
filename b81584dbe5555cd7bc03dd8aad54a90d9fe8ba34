@@ -1,0 +1,9 @@
+Code-Review+2: Maciej Żenczykowski <maze@google.com>
+Open-Source-Licensing+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Submitted-by: Maciej Żenczykowski <maze@google.com>
+Submitted-at: Tue, 09 Feb 2021 02:57:22 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1575050
+Project: platform/packages/modules/Connectivity
+Branch: refs/heads/master
