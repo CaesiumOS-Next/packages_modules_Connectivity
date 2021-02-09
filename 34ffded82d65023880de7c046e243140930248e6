@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1114d241_d07d5118",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-09T02:07:45Z",
+      "side": 1,
+      "message": "NetworkStackConstants.IPV6_HEADER_LEN\nNetworkStackConstants.ETHER_HEADER_LEN\nNetworkStackConstants.ICMPV6_RA_HEADER_LEN\n\n... etc.",
+      "range": {
+        "startLine": 131,
+        "startChar": 29,
+        "endLine": 131,
+        "endChar": 43
+      },
+      "revId": "34ffded82d65023880de7c046e243140930248e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33c3cc06_d2d3cfd0",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-09T02:07:45Z",
+      "side": 1,
+      "message": "Might be good to make these Structs as well.",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 63
+      },
+      "revId": "34ffded82d65023880de7c046e243140930248e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5f155a1_fb1bc009",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-09T02:07:45Z",
+      "side": 1,
+      "message": "Make this an IPv6 header struct?",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 42
+      },
+      "revId": "34ffded82d65023880de7c046e243140930248e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
