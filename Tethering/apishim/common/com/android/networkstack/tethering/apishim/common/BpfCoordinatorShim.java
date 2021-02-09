@@ -143,5 +143,9 @@ public abstract class BpfCoordinatorShim {
      * Deletes a tethering IPv4 offload rule from the appropriate BPF map.
      */
     public abstract boolean tetherOffloadRuleRemove(boolean downstream, @NonNull Tether4Key key);
-}
 
+    /**
+     * Whether there is currently any IPv4 rule on the specified upstream.
+     */
+    public abstract boolean isAnyIpv4RuleOnUpstream(int ifIndex);
+}
