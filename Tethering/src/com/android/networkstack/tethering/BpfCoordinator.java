@@ -467,17 +467,7 @@ public class BpfCoordinator {
 
         // When the first rule is added to an upstream, setup upstream forwarding and data limit.
         final int upstreamIfindex = rule.upstreamIfindex;
-        if (!isAnyRuleOnUpstream(upstreamIfindex)) {
-            // If failed to set a data limit, probably should not use this upstream, because
-            // the upstream may not want to blow through the data limit that was told to apply.
-            // TODO: Perhaps stop the coordinator.
-            boolean success = updateDataLimit(upstreamIfindex);
-            if (!success) {
-                final String iface = mInterfaceNames.get(upstreamIfindex);
-                mLog.e("Setting data limit for " + iface + " failed.");
-            }
-
-        }
+        maybeSetLimit(upstreamIfindex);
 
         if (!isAnyRuleFromDownstreamToUpstream(rule.downstreamIfindex, rule.upstreamIfindex)) {
             final int downstream = rule.downstreamIfindex;
@@ -533,21 +523,7 @@ public class BpfCoordinator {
 
         // Do cleanup functionality if there is no more rule on the given upstream.
         final int upstreamIfindex = rule.upstreamIfindex;
-        if (!isAnyRuleOnUpstream(upstreamIfindex)) {
-            final TetherStatsValue statsValue =
-                    mBpfCoordinatorShim.tetherOffloadGetAndClearStats(upstreamIfindex);
-            if (statsValue == null) {
-                Log.wtf(TAG, "Fail to cleanup tether stats for upstream index " + upstreamIfindex);
-                return;
-            }
-
-            SparseArray<TetherStatsValue> tetherStatsList = new SparseArray<TetherStatsValue>();
-            tetherStatsList.put(upstreamIfindex, statsValue);
-
-            // Update the last stats delta and delete the local cache for a given upstream.
-            updateQuotaAndStatsFromSnapshot(tetherStatsList);
-            mStats.remove(upstreamIfindex);
-        }
+        maybeClearLimit(upstreamIfindex);
     }
 
     /**
@@ -1133,6 +1109,7 @@ public class BpfCoordinator {
                     | NetlinkConstants.IPCTNL_MSG_CT_DELETE)) {
                 mBpfCoordinatorShim.tetherOffloadRuleRemove(false, upstream4Key);
                 mBpfCoordinatorShim.tetherOffloadRuleRemove(true, downstream4Key);
+                maybeClearLimit(upstreamIndex);
                 return;
             }
 
@@ -1140,6 +1117,7 @@ public class BpfCoordinator {
             final Tether4Value downstream4Value = makeTetherDownstream4Value(e, tetherClient,
                     upstreamIndex);
 
+            maybeSetLimit(upstreamIndex);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(false, upstream4Key, upstream4Value);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(true, downstream4Key, downstream4Value);
         }
@@ -1201,6 +1179,43 @@ public class BpfCoordinator {
         }
         final long quotaBytes = getQuotaBytes(iface);
         return sendDataLimitToBpfMap(ifIndex, quotaBytes);
+    }
+
+    private void maybeSetLimit(int upstreamIfindex) {
+        if (isAnyRuleOnUpstream(upstreamIfindex)
+                || mBpfCoordinatorShim.isAnyIpv4RuleOnUpstream(upstreamIfindex)) {
+            return;
+        }
+
+        // If failed to set a data limit, probably should not use this upstream, because
+        // the upstream may not want to blow through the data limit that was told to apply.
+        // TODO: Perhaps stop the coordinator.
+        boolean success = updateDataLimit(upstreamIfindex);
+        if (!success) {
+            final String iface = mInterfaceNames.get(upstreamIfindex);
+            mLog.e("Setting data limit for " + iface + " failed.");
+        }
+    }
+
+    private void maybeClearLimit(int upstreamIfindex) {
+        if (isAnyRuleOnUpstream(upstreamIfindex)
+                || mBpfCoordinatorShim.isAnyIpv4RuleOnUpstream(upstreamIfindex)) {
+            return;
+        }
+
+        final TetherStatsValue statsValue =
+                mBpfCoordinatorShim.tetherOffloadGetAndClearStats(upstreamIfindex);
+        if (statsValue == null) {
+            Log.wtf(TAG, "Fail to cleanup tether stats for upstream index " + upstreamIfindex);
+            return;
+        }
+
+        SparseArray<TetherStatsValue> tetherStatsList = new SparseArray<TetherStatsValue>();
+        tetherStatsList.put(upstreamIfindex, statsValue);
+
+        // Update the last stats delta and delete the local cache for a given upstream.
+        updateQuotaAndStatsFromSnapshot(tetherStatsList);
+        mStats.remove(upstreamIfindex);
     }
 
     private boolean isAnyRuleOnUpstream(int upstreamIfindex) {
