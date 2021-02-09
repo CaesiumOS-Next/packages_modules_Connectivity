@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b89117c_0ca0ec44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-09T14:56:59Z",
+      "side": 1,
+      "message": "This patchset loads the library in the initializer for BpfCoordinator. Remi, can you take a look to see if this makes sense?",
+      "revId": "201f6182e690d5cab30b57414b8cfab11907f002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
