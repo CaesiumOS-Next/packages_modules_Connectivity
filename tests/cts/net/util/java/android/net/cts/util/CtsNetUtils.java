@@ -18,6 +18,13 @@ package android.net.cts.util;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.net.IpSecAlgorithm.AUTH_CRYPT_AES_GCM;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_MD5;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA1;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA256;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA384;
+import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA512;
+import static android.net.IpSecAlgorithm.CRYPT_AES_CBC;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
@@ -63,6 +70,7 @@ import android.system.OsConstants;
 import android.util.Log;
 
 import com.android.compatibility.common.util.SystemUtil;
+import com.android.modules.utils.build.SdkLevel;
 
 import junit.framework.AssertionFailedError;
 
@@ -72,7 +80,9 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
@@ -98,6 +108,12 @@ public final class CtsNetUtils {
     public static final String NETWORK_CALLBACK_ACTION =
             "ConnectivityManagerTest.NetworkCallbackAction";
 
+    // TODO: b/171083832 Remove this constant and make callers use
+    // Build.VERSION.DEVICE_INITIAL_SDK_INT when AOSP and internal branch
+    // are synced.
+    public static final int DEVICE_INITIAL_SDK_INT =
+            SystemProperties.getInt("ro.product.first_api_level", 0);
+
     private final IBinder mBinder = new Binder();
     private final Context mContext;
     private final ConnectivityManager mCm;
@@ -106,6 +122,18 @@ public final class CtsNetUtils {
     private TestNetworkCallback mCellNetworkCallback;
     private String mOldPrivateDnsMode;
     private String mOldPrivateDnsSpecifier;
+
+    private static final Set<String> MANDATORY_IPSEC_ALGOS_SINCE_P = new HashSet<>();
+
+    static {
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(CRYPT_AES_CBC);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_MD5);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA1);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA256);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA384);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA512);
+        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_CRYPT_AES_GCM);
+    }
 
     public CtsNetUtils(Context context) {
         mContext = context;
@@ -123,12 +151,16 @@ public final class CtsNetUtils {
 
     /** Checks if an IPsec algorithm is enabled on the device */
     public static boolean hasIpSecAlgorithm(String algorithm) {
-        return IpSecAlgorithm.getSupportedAlgorithms().contains(algorithm);
+        if (SdkLevel.isAtLeastS()) {
+            return IpSecAlgorithm.getSupportedAlgorithms().contains(algorithm);
+        } else {
+            return MANDATORY_IPSEC_ALGOS_SINCE_P.contains(algorithm);
+        }
     }
 
     /** Checks if the device is first launched on an SDK version >= S */
     public static boolean isFirstLaunchVersionSOrGreater() {
-        return Build.VERSION.FIRST_SDK_INT > Build.VERSION_CODES.R;
+        return DEVICE_INITIAL_SDK_INT > Build.VERSION_CODES.R;
     }
 
     /**
