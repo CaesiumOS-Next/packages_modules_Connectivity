@@ -249,17 +249,6 @@ public class ConnectivityManagerTest {
         }
     }
 
-    /**
-     * Make sure WiFi is connected to an access point if it is not already. If
-     * WiFi is enabled as a result of this function, it will be disabled
-     * automatically in tearDown().
-     */
-    private Network ensureWifiConnected() {
-        mWifiWasDisabled = !mWifiManager.isWifiEnabled();
-        // Even if wifi is enabled, the network may not be connected or ready yet
-        return mCtsNetUtils.connectToWifi();
-    }
-
     @Test
     public void testIsNetworkTypeValid() {
         assertTrue(ConnectivityManager.isNetworkTypeValid(ConnectivityManager.TYPE_MOBILE));
@@ -543,7 +532,7 @@ public class ConnectivityManagerTest {
         Network wifiNetwork = null;
 
         try {
-            ensureWifiConnected();
+            mCtsNetUtils.ensureWifiConnected();
 
             // Now we should expect to get a network callback about availability of the wifi
             // network even if it was already connected as a state-based action when the callback
@@ -596,7 +585,7 @@ public class ConnectivityManagerTest {
         mCm.registerNetworkCallback(makeWifiNetworkRequest(), pendingIntent);
 
         try {
-            ensureWifiConnected();
+            mCtsNetUtils.ensureWifiConnected();
 
             // Now we expect to get the Intent delivered notifying of the availability of the wifi
             // network even if it was already connected as a state-based action when the callback
@@ -804,7 +793,7 @@ public class ConnectivityManagerTest {
     @Test
     public void testGetMultipathPreference() throws Exception {
         final ContentResolver resolver = mContext.getContentResolver();
-        ensureWifiConnected();
+        mCtsNetUtils.ensureWifiConnected();
         final String ssid = unquoteSSID(mWifiManager.getConnectionInfo().getSSID());
         final String oldMeteredSetting = getWifiMeteredStatus(ssid);
         final String oldMeteredMultipathPreference = Settings.Global.getString(
@@ -818,7 +807,7 @@ public class ConnectivityManagerTest {
             waitForActiveNetworkMetered(TRANSPORT_WIFI, true);
             // Wifi meterness changes from unmetered to metered will disconnect and reconnect since
             // R.
-            final Network network = ensureWifiConnected();
+            final Network network = mCtsNetUtils.ensureWifiConnected();
             assertEquals(ssid, unquoteSSID(mWifiManager.getConnectionInfo().getSSID()));
             assertEquals(mCm.getNetworkCapabilities(network).hasCapability(
                     NET_CAPABILITY_NOT_METERED), false);
@@ -1032,7 +1021,7 @@ public class ConnectivityManagerTest {
             return;
         }
 
-        final Network network = ensureWifiConnected();
+        final Network network = mCtsNetUtils.ensureWifiConnected();
         if (getSupportedKeepalivesForNet(network) != 0) return;
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
@@ -1052,7 +1041,7 @@ public class ConnectivityManagerTest {
             return;
         }
 
-        final Network network = ensureWifiConnected();
+        final Network network = mCtsNetUtils.ensureWifiConnected();
         if (getSupportedKeepalivesForNet(network) == 0) return;
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
@@ -1263,7 +1252,7 @@ public class ConnectivityManagerTest {
             return;
         }
 
-        final Network network = ensureWifiConnected();
+        final Network network = mCtsNetUtils.ensureWifiConnected();
         final int supported = getSupportedKeepalivesForNet(network);
         if (supported == 0) {
             return;
@@ -1360,7 +1349,7 @@ public class ConnectivityManagerTest {
             return;
         }
 
-        final Network network = ensureWifiConnected();
+        final Network network = mCtsNetUtils.ensureWifiConnected();
         final int supported = getSupportedKeepalivesForNet(network);
         if (supported == 0) {
             return;
@@ -1408,7 +1397,7 @@ public class ConnectivityManagerTest {
 
         // Ensure that NetworkUtils.queryUserAccess always returns false since this package should
         // not have netd system permission to call this function.
-        final Network wifiNetwork = ensureWifiConnected();
+        final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
         assertFalse(NetworkUtils.queryUserAccess(Binder.getCallingUid(), wifiNetwork.netId));
 
         // Ensure that this package cannot bind to any restricted network that's currently
