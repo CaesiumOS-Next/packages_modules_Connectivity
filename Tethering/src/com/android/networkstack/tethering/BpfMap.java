@@ -31,6 +31,7 @@ import java.nio.ByteOrder;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 /**
  * BpfMap is a key -> value mapping structure that is designed to maintained the bpf map entries.
@@ -219,6 +220,24 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
             nextKey = getNextKey(curKey);
             action.accept(curKey, value);
         }
+    }
+
+    /**
+     * Returns the first key in the map for which matcher returns true. If no such entry is found,
+     * the function returns null.
+     */
+    @Nullable
+    public K findKeyIf(@NonNull BiFunction<K, V, Boolean> matcher) throws ErrnoException {
+        @Nullable K nextKey = getFirstKey();
+
+        while (nextKey != null) {
+            @NonNull final K curKey = nextKey;
+            @NonNull final V value = getValue(curKey);
+
+            if (matcher.apply(curKey, value)) return curKey;
+            nextKey = getNextKey(curKey);
+        }
+        return null;
     }
 
     @Override

@@ -364,4 +364,37 @@ public final class BpfMapTest {
             assertEquals(OsConstants.E2BIG, expected.errno);
         }
     }
+
+    @Test
+    public void testFindKeyIf() throws Exception {
+        for (int i = 0; i < mTestData.size(); i++) {
+            mTestMap.insertEntry(mTestData.keyAt(i), mTestData.valueAt(i));
+        }
+
+        // Return null if no key has expected interface index.
+        assertNull(mTestMap.findKeyIf((k, v) -> k.iif == 1234 /*nonexistent*/));
+
+        // Return null if no value has expected interface index.
+        assertNull(mTestMap.findKeyIf((k, v) -> v.oif == 1234 /*nonexistent*/));
+
+        for (int i = 0; i < mTestData.size(); i++) {
+            // Local variables referenced from a lambda expression must be final.
+            final int index = i;
+
+            // [1] Find key if its key has expected interface index.
+            TetherDownstream6Key result = mTestMap.findKeyIf((k, v) ->
+                    k.iif == mTestData.keyAt(index).iif);
+            assertEquals(mTestData.keyAt(index), result);
+
+            // [2] Find key if its value has expected interface index.
+            result = mTestMap.findKeyIf((k, v) ->
+                    v.oif == mTestData.valueAt(index).oif);
+            assertEquals(mTestData.keyAt(index), result);
+
+            // [3] Find key if its key and value has expected interface index.
+            result = mTestMap.findKeyIf((k, v) -> (k.iif == mTestData.keyAt(index).iif)
+                    && (v.oif == mTestData.valueAt(index).oif));
+            assertEquals(mTestData.keyAt(index), result);
+        }
+    }
 }

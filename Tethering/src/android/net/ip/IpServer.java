@@ -742,14 +742,6 @@ public class IpServer extends StateMachine {
                     params.dnses.add(dnsServer);
                 }
             }
-
-            // Add upstream index to name mapping for the tether stats usage in the coordinator.
-            // Although this mapping could be added by both class Tethering and IpServer, adding
-            // mapping from IpServer guarantees that the mapping is added before the adding
-            // forwarding rules. That is because there are different state machines in both
-            // classes. It is hard to guarantee the link property update order between multiple
-            // state machines.
-            mBpfCoordinator.addUpstreamNameToLookupTable(upstreamIfIndex, upstreamIface);
         }
 
         // If v6only is null, we pass in null to setRaParams(), which handles
@@ -1335,6 +1327,22 @@ public class IpServer extends StateMachine {
                     mUpstreamIfaceSet = newUpstreamIfaceSet;
 
                     for (String ifname : added) {
+                        // Add upstream index to name mapping for the tether stats usage in the
+                        // coordinator. Although this mapping could be added by both class
+                        // Tethering and IpServer, adding mapping from IpServer guarantees that
+                        // the mapping is added before the adding forwarding rules. That is
+                        // because there are different state machines in both classes. It is hard
+                        // to guarantee the link property update order between multiple state
+                        // machines.
+                        if (!ifname.startsWith("v4-")) {  // ignore clat interface
+                            final InterfaceParams upstreamIfaceParams =
+                                    mDeps.getInterfaceParams(ifname);
+                            if (upstreamIfaceParams != null) {
+                                mBpfCoordinator.addUpstreamNameToLookupTable(
+                                        upstreamIfaceParams.index, ifname);
+                            }
+                        }
+
                         mBpfCoordinator.maybeAttachProgram(mIfaceName, ifname);
                         try {
                             mNetd.tetherAddForward(mIfaceName, ifname);

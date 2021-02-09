@@ -386,6 +386,16 @@ public class BpfCoordinatorShimImpl
         return true;
     }
 
+    @Override
+    public boolean isAnyIpv4RuleOnUpstream(int ifIndex) {
+        try {
+            return mBpfUpstream4Map.findKeyIf((k, v) -> v.oif == ifIndex) != null;
+        } catch (ErrnoException e) {
+            mLog.e("Could not scan for IPv4 rules on interface index: " + ifIndex + ": ", e);
+            return false;
+        }
+    }
+
     private String mapStatus(BpfMap m, String name) {
         return name + "{" + (m != null ? "OK" : "ERROR") + "}";
     }
