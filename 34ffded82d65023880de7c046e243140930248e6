@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "170a2005_bb9eabd2",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-02-10T03:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1114d241_d07d5118",
+      "range": {
+        "startLine": 131,
+        "startChar": 29,
+        "endLine": 131,
+        "endChar": 43
+      },
+      "revId": "34ffded82d65023880de7c046e243140930248e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33c3cc06_d2d3cfd0",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f42b3574_1df15a33",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-02-10T03:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33c3cc06_d2d3cfd0",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 63
+      },
+      "revId": "34ffded82d65023880de7c046e243140930248e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5f155a1_fb1bc009",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-02-09T02:07:45Z",
       "side": 1,
       "message": "Make this an IPv6 header struct?",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 274,
+        "endChar": 42
+      },
+      "revId": "34ffded82d65023880de7c046e243140930248e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "250a4c59_0f447828",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-02-10T03:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5f155a1_fb1bc009",
       "range": {
         "startLine": 269,
         "startChar": 0,
