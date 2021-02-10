@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59208f6c_cc78c61c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1498356
+      },
+      "writtenOn": "2021-02-10T00:41:35Z",
+      "side": 1,
+      "message": "Friendly ping for review. This CL will just enable your tests to be included in the new MTS packaging strategy go/mts-packaging ",
+      "revId": "fae658c909f1b19c5ea50c8d2c5a24e401c241e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
