@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ae1f850_74ece6a2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-10T06:26:52Z",
+      "side": 1,
+      "message": "Is this guaranteed to have received a network already ?\nThis probably works if you look closely at threading (neverChangeCallback being registered before the callbacks in startVpn, with the same ConnectivityManager so in order, and the BroadcastReceiver also runs in the main test thread so if it was received and CS sends onAvailable before the callbacks received in startVpn, it may be fine ?)\n\nBut it\u0027s probably clearer to use a CompletableFuture in NeverChangeCallback (throw if isDone), and call get() with a timeout here.",
+      "range": {
+        "startLine": 755,
+        "startChar": 57,
+        "endLine": 755,
+        "endChar": 71
+      },
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "869752d8_d5eb01ed",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-10T06:26:52Z",
+      "side": 1,
+      "message": "Did you want to assert that some callbacks are received ?",
+      "range": {
+        "startLine": 536,
+        "startChar": 34,
+        "endLine": 536,
+        "endChar": 63
+      },
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
