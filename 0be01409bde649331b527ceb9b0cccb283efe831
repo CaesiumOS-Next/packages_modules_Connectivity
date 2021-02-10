@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fb6398e_1f876094",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-10T04:03:13Z",
+      "side": 1,
+      "message": "No concern with this change going in as-is but not familiar enough with the BpfMap code to +2",
+      "revId": "0be01409bde649331b527ceb9b0cccb283efe831",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23522dcb_300e3b9d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-10T04:03:13Z",
+      "side": 1,
+      "message": "Instead of doing this just for tests here, I think it would be better to have the test call this.\nOtherwise, each class using tetherutilsjni should call loadLibrary in their static constructor. Basically choosing between two invariants: either the tetherutilsjni library is assumed to be loaded when the java classes are loaded, or each class is expected to ensure it loads it before using it.\n\nWhen we discussed that previously one reason not to have each class load it was to avoid crashes if one user forgets to load the lib, which could seemingly randomly happen based on class loading order. So loading the lib in the test (in @Before or @BeforeClass) seems better.\n\nSince this change is ready to go I think it can be done separately though (loadLibrary is a no-op when called multiple times so this is not harmful)",
+      "range": {
+        "startLine": 90,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "0be01409bde649331b527ceb9b0cccb283efe831",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cc8f034_40142e94",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-10T04:03:13Z",
+      "side": 1,
+      "message": "Nit: typo ?",
+      "range": {
+        "startLine": 853,
+        "startChar": 51,
+        "endLine": 853,
+        "endChar": 59
+      },
+      "revId": "0be01409bde649331b527ceb9b0cccb283efe831",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
