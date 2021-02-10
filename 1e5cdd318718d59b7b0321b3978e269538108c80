@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d21cccb_600dbb28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-10T06:35:37Z",
+      "side": 1,
+      "message": "I have no objection to checking this in, but I think we\u0027d need more coverage eventually :\n• Coverage for other callbacks than onAvailable, in particular onLost really needs to be checked I think\n• Coverage for when there is no default network at registration time\n",
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8364a656_9e273722",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-10T06:35:37Z",
+      "side": 1,
+      "message": "Bikeshedding : \"AssignOnce\" ?",
+      "range": {
+        "startLine": 696,
+        "startChar": 18,
+        "endLine": 696,
+        "endChar": 29
+      },
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ae1f850_74ece6a2",
@@ -19,6 +59,29 @@
         "startChar": 57,
         "endLine": 755,
         "endChar": 71
+      },
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96e47176_ad743404",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-10T06:35:37Z",
+      "side": 1,
+      "message": "Strictly speaking you need to wait for the callback to have fired once, because it\u0027s possible in theory that it still hasn\u0027t. Probably won\u0027t actually see any flakes considering we talk to another app and wait for a broadcast anyway, so maybe not worth addressing",
+      "range": {
+        "startLine": 755,
+        "startChar": 8,
+        "endLine": 755,
+        "endChar": 20
       },
       "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
