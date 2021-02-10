@@ -22,6 +22,7 @@ import android.util.SparseArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.Tether4Key;
@@ -50,6 +51,9 @@ public abstract class BpfCoordinatorShim {
      * Return true if this class has been initialized, otherwise return false.
      */
     public abstract boolean isInitialized();
+
+    /** Dumps internal state. */
+    public abstract void dump(IndentingPrintWriter pw);
 
     /**
      * Adds a tethering offload rule to BPF map, or updates it if it already exists.

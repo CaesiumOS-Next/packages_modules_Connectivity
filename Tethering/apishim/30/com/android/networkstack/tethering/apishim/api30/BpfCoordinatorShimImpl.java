@@ -27,6 +27,7 @@ import android.util.SparseArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.Tether4Key;
@@ -167,5 +168,39 @@ public class BpfCoordinatorShimImpl
     @Override
     public String toString() {
         return "Netd used";
+    }
+
+    @Override
+    public void dump(IndentingPrintWriter pw) {
+        pw.println("Forwarding rules:");
+        pw.increaseIndent();
+        dumpIpv6ForwardingRules(pw);
+        pw.decreaseIndent();
+    }
+
+    private void dumpIpv6ForwardingRules(@NonNull IndentingPrintWriter pw) {
+        if (mIpv6ForwardingRules.size() == 0) {
+            pw.println("No IPv6 rules");
+            return;
+        }
+
+        for (Map.Entry<IpServer, LinkedHashMap<Inet6Address, Ipv6ForwardingRule>> entry :
+                mIpv6ForwardingRules.entrySet()) {
+            IpServer ipServer = entry.getKey();
+            // The rule downstream interface index is paired with the interface name from
+            // IpServer#interfaceName. See #startIPv6, #updateIpv6ForwardingRules in IpServer.
+            final String downstreamIface = ipServer.interfaceName();
+            pw.println("[" + downstreamIface + "]: iif(iface) oif(iface) v6addr srcmac dstmac");
+
+            pw.increaseIndent();
+            LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules = entry.getValue();
+            for (Ipv6ForwardingRule rule : rules.values()) {
+                final int upstreamIfindex = rule.upstreamIfindex;
+                pw.println(String.format("%d(%s) %d(%s) %s %s %s", upstreamIfindex,
+                        mInterfaceNames.get(upstreamIfindex), rule.downstreamIfindex,
+                        downstreamIface, rule.address, rule.srcMac, rule.dstMac));
+            }
+            pw.decreaseIndent();
+        }
     }
 }

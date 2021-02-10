@@ -28,6 +28,7 @@ import android.util.SparseArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.BpfMap;
@@ -385,5 +386,83 @@ public class BpfCoordinatorShimImpl
         }
 
         return 0;
+    }
+
+    @Override
+    public void dump(IndentingPrintWriter pw) {
+        pw.println("Forwarding rules:");
+        pw.increaseIndent();
+        dumpIpv6UpstreamRules(pw);
+        dumpIpv6DownstreamRules(pw);
+        dumpIpv4ForwardingRules(pw);
+        pw.decreaseIndent();
+
+        pw.println();
+        pw.println("Forwarding counters:");
+        pw.increaseIndent();
+        dumpCounters(pw);
+        pw.decreaseIndent();
+    }
+
+    private String ipv6UpstreamRuletoString(TetherUpstream6Key key, Tether6Value value) {
+        return String.format("%d(%s) -> %d(%s) %04x %s %s",
+                key.iif, getIfName(key.iif), value.oif, getIfName(value.oif),
+                value.ethProto, value.ethSrcMac, value.ethDstMac);
+    }
+
+    private void dumpIpv6UpstreamRules(IndentingPrintWriter pw) {
+        try (BpfMap<TetherUpstream6Key, Tether6Value> map = mDeps.getBpfUpstream6Map()) {
+            if (map == null) {
+                pw.println("No IPv6 upstream");
+                return;
+            }
+            if (map.isEmpty()) {
+                pw.println("No IPv6 upstream rules");
+                return;
+            }
+            map.forEach((k, v) -> pw.println(ipv6UpstreamRuletoString(k, v)));
+        } catch (ErrnoException e) {
+            pw.println("Error dumping IPv4 map: " + e);
+        }
+    }
+
+    private String ipv6DownstreamRuletoString(TetherUpstream6Key key, Tether6Value value) {
+    }
+
+    private void dumpIpv6DownstreamRules(IndentingPrintWriter pw) {
+        // TODO: implement
+    }
+
+    private String ipv4RuleToString(Tether4Key key, Tether4Value value) {
+        final String private4, public4, dst4;
+        try {
+            private4 = InetAddress.getByAddress(key.src4).getHostAddress();
+            dst4 = InetAddress.getByAddress(key.dst4).getHostAddress();
+            public4 = InetAddress.getByAddress(value.src46).getHostAddress();
+        } catch (UnknownHostException impossible) {
+            throw new AssertionError("4-byte array not valid IPv4 address!");
+        }
+        return String.format("%d(%s) %d(%s) %s:%d -> %s:%d -> %s:%d",
+                key.iif, getIfName(key.iif), value.oif, getIfName(value.oif),
+                private4, key.srcPort, public4, value.srcPort, dst4, key.dstPort);
+    }
+
+    private void dumpIpv4ForwardingRules(IndentingPrintWriter pw) {
+        try (BpfMap<Tether4Key, Tether4Value> map = mDeps.getBpfUpstream4Map()) {
+            if (map == null) {
+                pw.println("No IPv4 support");
+                return;
+            }
+            if (map.isEmpty()) {
+                pw.println("No IPv4 rules");
+                return;
+            }
+            pw.println("[IPv4]: iif(iface) oif(iface) src nat dst");
+            pw.increaseIndent();
+            map.forEach((k, v) -> pw.println(ipv4RuleToString(k, v)));
+        } catch (ErrnoException e) {
+            pw.println("Error dumping IPv4 map: " + e);
+        }
+        pw.decreaseIndent();
     }
 }
