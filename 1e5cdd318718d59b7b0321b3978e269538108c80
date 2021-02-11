@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a59a9a56_808eeee7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-11T13:15:47Z",
+      "side": 1,
+      "message": "Comments addressed in aosp/1583023.",
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8364a656_9e273722",
@@ -31,6 +48,30 @@
       "writtenOn": "2021-02-10T06:35:37Z",
       "side": 1,
       "message": "Bikeshedding : \"AssignOnce\" ?",
+      "range": {
+        "startLine": 696,
+        "startChar": 18,
+        "endLine": 696,
+        "endChar": 29
+      },
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16d3035e_bfa4efa2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-11T13:15:47Z",
+      "side": 1,
+      "message": "It\u0027s not just \"assign once\" though; that could just be \"assign once and ignore future changes\". But actually it\u0027s \"assign once and complain if it ever changes\". While the current name isn\u0027t great, I don\u0027t think AssignOnceNetworkCallback is materially better.",
+      "parentUuid": "8364a656_9e273722",
       "range": {
         "startLine": 696,
         "startChar": 18,
@@ -87,6 +128,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d5f36fa_35fae03a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-11T13:15:47Z",
+      "side": 1,
+      "message": "Done. Also made failures easier to debug by asserting on the test thread instead of on the callback thread.",
+      "parentUuid": "4ae1f850_74ece6a2",
+      "range": {
+        "startLine": 755,
+        "startChar": 57,
+        "endLine": 755,
+        "endChar": 71
+      },
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "869752d8_d5eb01ed",
@@ -100,6 +165,30 @@
       "writtenOn": "2021-02-10T06:26:52Z",
       "side": 1,
       "message": "Did you want to assert that some callbacks are received ?",
+      "range": {
+        "startLine": 536,
+        "startChar": 34,
+        "endLine": 536,
+        "endChar": 63
+      },
+      "revId": "1e5cdd318718d59b7b0321b3978e269538108c80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e81bcd_322a258b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-11T13:15:47Z",
+      "side": 1,
+      "message": "Oops. Done.",
+      "parentUuid": "869752d8_d5eb01ed",
       "range": {
         "startLine": 536,
         "startChar": 34,
