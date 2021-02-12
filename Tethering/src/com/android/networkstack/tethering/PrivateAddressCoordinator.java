@@ -17,6 +17,7 @@ package com.android.networkstack.tethering;
 
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
+import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.util.PrefixUtils.asIpPrefix;
 
@@ -73,6 +74,7 @@ public class PrivateAddressCoordinator {
     private final ArraySet<IpServer> mDownstreams;
     private static final String LEGACY_WIFI_P2P_IFACE_ADDRESS = "192.168.49.1/24";
     private static final String LEGACY_BLUETOOTH_IFACE_ADDRESS = "192.168.44.1/24";
+    private static final String LEGACY_ETHERNET_IFACE_ADDRESS = "192.168.50.1/24";
     private final List<IpPrefix> mTetheringPrefixes;
     private final ConnectivityManager mConnectivityMgr;
     private final TetheringConfiguration mConfig;
@@ -89,6 +91,7 @@ public class PrivateAddressCoordinator {
         // Reserved static addresses for bluetooth and wifi p2p.
         mCachedAddresses.put(TETHERING_BLUETOOTH, new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
         mCachedAddresses.put(TETHERING_WIFI_P2P, new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
+        mCachedAddresses.put(TETHERING_ETHERNET, new LinkAddress(LEGACY_ETHERNET_IFACE_ADDRESS));
 
         mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16")));
         if (config.isSelectAllPrefixRangeEnabled()) {

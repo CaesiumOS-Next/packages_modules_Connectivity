@@ -111,6 +111,8 @@ public class IpServer extends StateMachine {
     // TODO: have PanService use some visible version of this constant
     private static final String BLUETOOTH_IFACE_ADDR = "192.168.44.1/24";
 
+    private static final String ETHERNET_IFACE_ADDR = "192.168.50.1/24";
+
     // TODO: have this configurable
     private static final int DHCP_LEASE_TIME_SECS = 3600;
 
@@ -655,6 +657,8 @@ public class IpServer extends StateMachine {
 
         if (mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) {
             return new LinkAddress(BLUETOOTH_IFACE_ADDR);
+        } else if (mInterfaceType == TetheringManager.TETHERING_ETHERNET) {
+            return new LinkAddress(ETHERNET_IFACE_ADDR);
         }
 
         return mPrivateAddressCoordinator.requestDownstreamAddress(this, useLastAddress);
