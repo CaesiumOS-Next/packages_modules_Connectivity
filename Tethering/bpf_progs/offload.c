@@ -535,7 +535,7 @@ if (!is_tcp) return TC_ACT_OK; // HACK
     return bpf_redirect(v->oif, 0 /* this is effectively BPF_F_EGRESS */);
 }
 
-// Real implementations for 5.8+ kernels
+// Full featured (required) implementations for 5.8+ kernels
 
 DEFINE_BPF_PROG_KVER("schedcls/tether_downstream4_ether$5_8", AID_ROOT, AID_NETWORK_STACK,
                      sched_cls_tether_downstream4_ether_5_8, KVER(5, 8, 0))
@@ -561,28 +561,97 @@ DEFINE_BPF_PROG_KVER("schedcls/tether_upstream4_rawip$5_8", AID_ROOT, AID_NETWOR
     return do_forward4(skb, /* is_ethernet */ false, /* downstream */ false, /* updatetime */ true);
 }
 
-// Placeholder implementations for older pre-5.8 kernels
+// Full featured (optional) implementations for [4.14..5.8) kernels
+
+DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_downstream4_ether$opt",
+                                    AID_ROOT, AID_NETWORK_STACK,
+                                    sched_cls_tether_downstream4_ether_opt,
+                                    KVER(4, 14, 0), KVER(5, 8, 0))
+(struct __sk_buff* skb) {
+    return do_forward4(skb, /* is_ethernet */ true, /* downstream */ true, /* updatetime */ true);
+}
+
+DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_downstream4_rawip$opt",
+                                    AID_ROOT, AID_NETWORK_STACK,
+                                    sched_cls_tether_downstream4_rawip_opt,
+                                    KVER(4, 14, 0), KVER(5, 8, 0))
+(struct __sk_buff* skb) {
+    return do_forward4(skb, /* is_ethernet */ false, /* downstream */ true, /* updatetime */ true);
+}
+
+DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_upstream4_ether$opt",
+                                    AID_ROOT, AID_NETWORK_STACK,
+                                    sched_cls_tether_upstream4_ether_opt,
+                                    KVER(4, 14, 0), KVER(5, 8, 0))
+(struct __sk_buff* skb) {
+    return do_forward4(skb, /* is_ethernet */ true, /* downstream */ false, /* updatetime */ true);
+}
+
+DEFINE_OPTIONAL_BPF_PROG_KVER_RANGE("schedcls/tether_upstream4_rawip$opt",
+                                    AID_ROOT, AID_NETWORK_STACK,
+                                    sched_cls_tether_upstream4_rawip_opt,
+                                    KVER(4, 14, 0), KVER(5, 8, 0))
+(struct __sk_buff* skb) {
+    return do_forward4(skb, /* is_ethernet */ false, /* downstream */ false, /* updatetime */ true);
+}
+
+// Partial (TCP-only: will not update 'last_used' field) implementations for 4.14+ kernels.
+// These will be loaded only if the above optional ones failed (loading of *these* must succeed).
+//
+// [Note: as a result TCP connections will not have their conntrack timeout refreshed, however,
+// since /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established defaults to 432000 (seconds),
+// this in practice means they'll break only after 5 days.  This seems an acceptable trade-off.
+//
+// Additionally kernel/tests change "net-test: add bpf_ktime_get_ns / bpf_ktime_get_boot_ns tests"
+// which enforces and documents the required kernel cherrypicks will make it pretty unlikely that
+// many devices upgrading to S will end up relying on these fallback programs.
+
+DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_downstream4_ether$4_14", AID_ROOT, AID_NETWORK_STACK,
+                           sched_cls_tether_downstream4_ether_4_14, KVER(4, 14, 0), KVER(5, 8, 0))
+(struct __sk_buff* skb) {
+    return do_forward4(skb, /* is_ethernet */ true, /* downstream */ true, /* updatetime */ false);
+}
+
+DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_downstream4_rawip$4_14", AID_ROOT, AID_NETWORK_STACK,
+                           sched_cls_tether_downstream4_rawip_4_14, KVER(4, 14, 0), KVER(5, 8, 0))
+(struct __sk_buff* skb) {
+    return do_forward4(skb, /* is_ethernet */ false, /* downstream */ true, /* updatetime */ false);
+}
+
+DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_upstream4_ether$4_14", AID_ROOT, AID_NETWORK_STACK,
+                           sched_cls_tether_upstream4_ether_4_14, KVER(4, 14, 0), KVER(5, 8, 0))
+(struct __sk_buff* skb) {
+    return do_forward4(skb, /* is_ethernet */ true, /* downstream */ false, /* updatetime */ false);
+}
+
+DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_upstream4_rawip$4_14", AID_ROOT, AID_NETWORK_STACK,
+                           sched_cls_tether_upstream4_rawip_4_14, KVER(4, 14, 0), KVER(5, 8, 0))
+(struct __sk_buff* skb) {
+    return do_forward4(skb, /* is_ethernet */ false, /* downstream */ false, /* updatetime */ false);
+}
+
+// Placeholder (no-op) implementations for older pre-4.14 kernels
 
 DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_downstream4_ether$stub", AID_ROOT, AID_NETWORK_STACK,
-                           sched_cls_tether_downstream4_ether_stub, KVER_NONE, KVER(5, 8, 0))
+                           sched_cls_tether_downstream4_ether_stub, KVER_NONE, KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     return TC_ACT_OK;
 }
 
 DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_downstream4_rawip$stub", AID_ROOT, AID_NETWORK_STACK,
-                           sched_cls_tether_downstream4_rawip_stub, KVER_NONE, KVER(5, 8, 0))
+                           sched_cls_tether_downstream4_rawip_stub, KVER_NONE, KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     return TC_ACT_OK;
 }
 
 DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_upstream4_ether$stub", AID_ROOT, AID_NETWORK_STACK,
-                           sched_cls_tether_upstream4_ether_stub, KVER_NONE, KVER(5, 8, 0))
+                           sched_cls_tether_upstream4_ether_stub, KVER_NONE, KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     return TC_ACT_OK;
 }
 
 DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_upstream4_rawip$stub", AID_ROOT, AID_NETWORK_STACK,
-                           sched_cls_tether_upstream4_rawip_stub, KVER_NONE, KVER(5, 8, 0))
+                           sched_cls_tether_upstream4_rawip_stub, KVER_NONE, KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     return TC_ACT_OK;
 }
