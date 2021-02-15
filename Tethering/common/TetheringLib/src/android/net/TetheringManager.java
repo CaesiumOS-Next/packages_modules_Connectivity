@@ -131,23 +131,27 @@ public class TetheringManager {
      */
     public static final int TETHERING_INVALID   = -1;
 
+    // ConnectivityManager stubs can't depend on Tethering stubs (circular dependency when building
+    // the API stubs): have tethering reference the ConnectivityManager constants instead of the
+    // other way around.
+    // TODO: remove the (API) constants in CM and have their value here
     /**
      * Wifi tethering type.
      * @see #startTethering.
      */
-    public static final int TETHERING_WIFI      = 0;
+    public static final int TETHERING_WIFI      = ConnectivityManager.TETHERING_WIFI;
 
     /**
      * USB tethering type.
      * @see #startTethering.
      */
-    public static final int TETHERING_USB       = 1;
+    public static final int TETHERING_USB       = ConnectivityManager.TETHERING_USB;
 
     /**
      * Bluetooth tethering type.
      * @see #startTethering.
      */
-    public static final int TETHERING_BLUETOOTH = 2;
+    public static final int TETHERING_BLUETOOTH = ConnectivityManager.TETHERING_BLUETOOTH;
 
     /**
      * Wifi P2p tethering type.
@@ -213,7 +217,11 @@ public class TetheringManager {
     public @interface StartTetheringError {
     }
 
-    public static final int TETHER_ERROR_NO_ERROR = 0;
+    // ConnectivityManager stubs can't depend on Tethering stubs (circular dependency when building
+    // the API stubs): have tethering reference the ConnectivityManager constant instead of the
+    // other way around.
+    // TODO: remove the (API) constant in CM and have its value here
+    public static final int TETHER_ERROR_NO_ERROR = ConnectivityManager.TETHER_ERROR_NO_ERROR;
     public static final int TETHER_ERROR_UNKNOWN_IFACE = 1;
     public static final int TETHER_ERROR_SERVICE_UNAVAIL = 2;
     public static final int TETHER_ERROR_UNSUPPORTED = 3;
@@ -224,9 +232,11 @@ public class TetheringManager {
     public static final int TETHER_ERROR_ENABLE_FORWARDING_ERROR = 8;
     public static final int TETHER_ERROR_DISABLE_FORWARDING_ERROR = 9;
     public static final int TETHER_ERROR_IFACE_CFG_ERROR = 10;
-    public static final int TETHER_ERROR_PROVISIONING_FAILED = 11;
+    public static final int TETHER_ERROR_PROVISIONING_FAILED =
+            ConnectivityManager.TETHER_ERROR_PROVISION_FAILED;
     public static final int TETHER_ERROR_DHCPSERVER_ERROR = 12;
-    public static final int TETHER_ERROR_ENTITLEMENT_UNKNOWN = 13;
+    public static final int TETHER_ERROR_ENTITLEMENT_UNKNOWN =
+            ConnectivityManager.TETHER_ERROR_ENTITLEMENT_UNKONWN;
     public static final int TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION = 14;
     public static final int TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION = 15;
     public static final int TETHER_ERROR_UNKNOWN_TYPE = 16;
