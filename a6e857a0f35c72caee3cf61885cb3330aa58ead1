@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61bbf083_5fe403dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-15T10:22:03Z",
+      "side": 1,
+      "message": "(I\u0027m guessing this will fail boot tests on some devices due to verifier complexity issues I\u0027ve yet to resolve)",
+      "revId": "a6e857a0f35c72caee3cf61885cb3330aa58ead1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
