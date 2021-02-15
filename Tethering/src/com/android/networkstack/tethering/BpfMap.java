@@ -19,6 +19,7 @@ import static android.system.OsConstants.EEXIST;
 import static android.system.OsConstants.ENOENT;
 
 import android.system.ErrnoException;
+import android.util.CloseGuard;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.Struct;
 
+import java.lang.ref.Reference;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.NoSuchElementException;
@@ -58,6 +60,8 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
     private static final int BPF_NOEXIST = 1;
     private static final int BPF_EXIST = 2;
 
+    private final CloseGuard mGuard = new CloseGuard();
+
     private int mMapFd = -1;
     private final Class<K> mKeyClass;
     private final Class<V> mValueClass;
@@ -73,12 +77,13 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
      */
     public BpfMap(@NonNull final String path, final int flag, final Class<K> key,
             final Class<V> value) throws ErrnoException, NullPointerException {
-        mMapFd = bpfFdGet(path, flag);
-
         mKeyClass = key;
         mValueClass = value;
         mKeySize = Struct.getSize(key);
         mValueSize = Struct.getSize(value);
+
+        mMapFd = bpfFdGet(path, flag);
+        mGuard.open("close");
     }
 
      /**
@@ -99,7 +104,11 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
      * Update an existing or create a new key -> value entry in an eBbpf map.
      */
     public void updateEntry(K key, V value) throws ErrnoException {
-        writeToMapEntry(mMapFd, key.writeToBytes(), value.writeToBytes(), BPF_ANY);
+        try {
+            writeToMapEntry(mMapFd, key.writeToBytes(), value.writeToBytes(), BPF_ANY);
+        } finally {
+            Reference.reachabilityFence(this);
+        }
     }
 
     /**
@@ -114,6 +123,8 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
             if (e.errno == EEXIST) throw new IllegalStateException(key + " already exists");
 
             throw e;
+        } finally {
+            Reference.reachabilityFence(this);
         }
     }
 
@@ -129,12 +140,18 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
             if (e.errno == ENOENT) throw new NoSuchElementException(key + " not found");
 
             throw e;
+        } finally {
+            Reference.reachabilityFence(this);
         }
     }
 
     /** Remove existing key from eBpf map. Return false if map was not modified. */
     public boolean deleteEntry(K key) throws ErrnoException {
-        return deleteMapEntry(mMapFd, key.writeToBytes());
+        try {
+            return deleteMapEntry(mMapFd, key.writeToBytes());
+        } finally {
+            Reference.reachabilityFence(this);
+        }
     }
 
     /** Returns {@code true} if this map contains no elements. */
@@ -164,10 +181,14 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
     }
 
     private byte[] getNextRawKey(@Nullable final byte[] key) throws ErrnoException {
-        byte[] nextKey = new byte[mKeySize];
-        if (getNextMapKey(mMapFd, key, nextKey)) return nextKey;
+        try {
+            byte[] nextKey = new byte[mKeySize];
+            if (getNextMapKey(mMapFd, key, nextKey)) return nextKey;
 
-        return null;
+            return null;
+        } finally {
+            Reference.reachabilityFence(this);
+        }
     }
 
     /** Get the first key of eBpf map. */
@@ -196,10 +217,14 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
     }
 
     private byte[] getRawValue(final byte[] key) throws ErrnoException {
-        byte[] value = new byte[mValueSize];
-        if (findMapEntry(mMapFd, key, value)) return value;
+        try {
+            byte[] value = new byte[mValueSize];
+            if (findMapEntry(mMapFd, key, value)) return value;
 
-        return null;
+            return null;
+        } finally {
+            Reference.reachabilityFence(this);
+        }
     }
 
     /**
@@ -226,6 +251,23 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
             if (mMapFd != -1) closeMap(mMapFd);
         } finally {
             mMapFd = -1;
+            mGuard.close();
+            Reference.reachabilityFence(this);
+        }
+    }
+
+    protected void finalize() throws Throwable {
+        try {
+            // We defensively assume mGuard might be null. See b/63177201.
+            // (perhaps if the constructor threw)
+            if (mGuard != null) {
+                // If the object was correctly constructed, and close() was called,
+                // then we expect warnIfOpen() to do nothing and mMapFd == -1.
+                mGuard.warnIfOpen();
+                if (mMapFd != -1) close();
+            }
+        } finally {
+            super.finalize();
         }
     }
 
