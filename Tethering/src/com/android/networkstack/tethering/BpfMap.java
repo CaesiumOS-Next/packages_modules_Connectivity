@@ -58,7 +58,7 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
     private static final int BPF_NOEXIST = 1;
     private static final int BPF_EXIST = 2;
 
-    private final int mMapFd;
+    private int mMapFd = -1;
     private final Class<K> mKeyClass;
     private final Class<V> mValueClass;
     private final int mKeySize;
@@ -89,7 +89,6 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
      */
     @VisibleForTesting
     protected BpfMap(final Class<K> key, final Class<V> value) {
-        mMapFd = -1;
         mKeyClass = key;
         mValueClass = value;
         mKeySize = Struct.getSize(key);
@@ -223,7 +222,11 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
 
     @Override
     public void close() throws ErrnoException {
-        closeMap(mMapFd);
+        try {
+            if (mMapFd != -1) closeMap(mMapFd);
+        } finally {
+            mMapFd = -1;
+        }
     }
 
     private static native int closeMap(int fd) throws ErrnoException;
