@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e22b1c2_e0e0a351",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-15T11:04:32Z",
+      "side": 1,
+      "message": "Nit: would call this updatetime or some such. To me, \"boottime\" suggests that this boolean expresses whether the time is boot time or some other time.",
+      "range": {
+        "startLine": 344,
+        "startChar": 42,
+        "endLine": 344,
+        "endChar": 50
+      },
+      "revId": "035a5491ddcefd894f8eebe1104c20d5b53fce0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
