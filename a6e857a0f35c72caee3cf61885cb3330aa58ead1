@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7951cd99_38a49ca8",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-15T22:33:13Z",
+      "side": 1,
+      "message": "Yes, exactly: added more to that effect to the comment.\n\nSo we can\u0027t actually *require* that the CLs be cherrypicked - hence we need this.\n\nBut I figure that the addition of the net_test with clear documentation of what exactly needs to be done to resolve the failures will result in most OEMs going the easy route of just\ncherrypicking the 2 required CLs instead of going through the waiver process (which\nwe\u0027d be required to grant them).",
+      "parentUuid": "29460a81_c5a4f5b9",
+      "range": {
+        "startLine": 598,
+        "startChar": 22,
+        "endLine": 598,
+        "endChar": 55
+      },
+      "revId": "a6e857a0f35c72caee3cf61885cb3330aa58ead1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3132ff7_d1e20714",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-02-15T11:35:06Z",
       "side": 1,
       "message": "Might want to make it clearer in the comment that these do nothing at all. Though I guess it\u0027s pretty clear from looking at the code :-)\n\nCan you add a TODO to delete these? I don\u0027t expect we\u0027ll know exactly when yet, but might be worth putting a guess. T? U? Or does this get worse due to the requirements freeze applying to SoCs instead of devices?\n\nhttps://android-developers.googleblog.com/2020/12/treble-plus-one-equals-four.html\nhttp://go/ks-vf",
+      "range": {
+        "startLine": 625,
+        "startChar": 50,
+        "endLine": 625,
+        "endChar": 57
+      },
+      "revId": "a6e857a0f35c72caee3cf61885cb3330aa58ead1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77839de6_546bb28d",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-15T22:33:13Z",
+      "side": 1,
+      "message": "Added extra comment \u0027(no-op)\u0027.\n\nAdding a TODO to delete this at some point doesn\u0027t seem all that useful...\n\nWe\u0027ve got plenty of code in various spots (as a reminder there\u0027s a 4.14+ requirement on portions of clat ebpf, and ipv6 tethering ebpf (and the ipv4 tethering ebpf here), and the ebpf cgroup stuff as well) that should be deleted once 4.14 is oldest supported kernel.\nThis is because 4.9 doesn\u0027t support cgroup ebpf and doesn\u0027t support the bpf skb modification to add an ethernet header, and we didn\u0027t backport the ktime stuff...\n\nAdditionally while S requires 4.9+ (technically I think it is 4.9-P+; also note that Q is the first version where launch devices required 4.9, though we do also support 4.{9,14}-P kernels), I\u0027m not sure we can ascertain that T will bump the requirements again, and thus be 4.14+, since there is a desire to enable upgrades for an extra year (this would imply: 4.9-Q -\u003e R -\u003e S -\u003e T)...\n\nHowever, since this is part of a mainline module, that will be shipping on top of S, which still supports 4.9... I think it basically means we can get rid of this approximately never.\nie. not as long as we continue shipping tethering mainline module updates to S devices.\nI assume that\u0027s easily half a decade or so??\n\nIt\u0027s one of the reasons I still have a bunch of AIs on myself to make the bpfloader even more robust (and to be able to make bpf programs optional based on device api level and kernel vintf [fcm] level).\n\nLuckily holding on to these dummy programs costs us virtually nothing - it\u0027s just these ~20 trivial lines of code here.",
+      "parentUuid": "c3132ff7_d1e20714",
       "range": {
         "startLine": 625,
         "startChar": 50,
