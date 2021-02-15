@@ -16,6 +16,52 @@
       "message": "(I\u0027m guessing this will fail boot tests on some devices due to verifier complexity issues I\u0027ve yet to resolve)",
       "revId": "a6e857a0f35c72caee3cf61885cb3330aa58ead1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29460a81_c5a4f5b9",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-15T11:35:06Z",
+      "side": 1,
+      "message": "Can you explain the impact here? Is the only impact that IPv4 TCP connections that last more than X time (5 days?) will stop working, even if they continue to see traffic? That seems like a reasonable trade-off, especially since it is easy for OEMs to cherry-pick from ACK the CL with the helper.\n\nWould also mention here that to fix this limitation it is sufficient to cherry-pick the CL with the helper.",
+      "range": {
+        "startLine": 598,
+        "startChar": 22,
+        "endLine": 598,
+        "endChar": 55
+      },
+      "revId": "a6e857a0f35c72caee3cf61885cb3330aa58ead1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3132ff7_d1e20714",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-15T11:35:06Z",
+      "side": 1,
+      "message": "Might want to make it clearer in the comment that these do nothing at all. Though I guess it\u0027s pretty clear from looking at the code :-)\n\nCan you add a TODO to delete these? I don\u0027t expect we\u0027ll know exactly when yet, but might be worth putting a guess. T? U? Or does this get worse due to the requirements freeze applying to SoCs instead of devices?\n\nhttps://android-developers.googleblog.com/2020/12/treble-plus-one-equals-four.html\nhttp://go/ks-vf",
+      "range": {
+        "startLine": 625,
+        "startChar": 50,
+        "endLine": 625,
+        "endChar": 57
+      },
+      "revId": "a6e857a0f35c72caee3cf61885cb3330aa58ead1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
