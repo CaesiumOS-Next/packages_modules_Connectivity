@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81d736d8_d26f3d91",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-16T05:35:11Z",
+      "side": 0,
+      "message": "\u003e If this code is not performance sensitive, then one solution is to make mMapFd volatile.\n\nSince basically every access to the field ends up calling into jni and bpf() syscall, I don\u0027t think memory barriers matter at all.  Syscall entry/exit (especially with all the spectre mitigation stuff) is *much* higher overhead then a mere memory barrier.",
+      "parentUuid": "9cd7aca9_99a14d84",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 17
+      },
+      "revId": "af97e51c0104015ffd12f89ad6e6596216af8e49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b43424b0_c3a5cc16",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 1
