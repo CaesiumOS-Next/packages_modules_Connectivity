@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cd7aca9_99a14d84",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-16T05:30:46Z",
+      "side": 0,
+      "message": "We\u0027d have to test mFdClosed before every use of mMapFd... because potentially the fd could have been closed and reopened by another thread and then actually reference the *wrong* bpf map.  Additionally bpf() system call does not specify the size of the key/value, since that\u0027s implied from the bpf map itself.  Ie. key/value are *just* pointers.  So we could even get memory corruption.\n\nSo I think this wouldn\u0027t work.\n\nI guess that means the mMapFd would have to be volatile... (will need to read up on that)",
+      "parentUuid": "62a70c7d_034d15ff",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 17
+      },
+      "revId": "af97e51c0104015ffd12f89ad6e6596216af8e49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b43424b0_c3a5cc16",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-16T02:02:07Z",
       "side": 0,
       "message": "Note that this means that mMapFd is 0. We probably want to continue initialize it to -1 instead.",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 20
+      },
+      "revId": "af97e51c0104015ffd12f89ad6e6596216af8e49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22edaced_685007ae",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-16T05:30:46Z",
+      "side": 0,
+      "message": "I set it to -1 up above in line 61.",
+      "parentUuid": "b43424b0_c3a5cc16",
       "range": {
         "startLine": 92,
         "startChar": 8,
