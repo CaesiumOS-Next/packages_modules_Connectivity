@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3f5dd0f_7846fd57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-16T03:00:31Z",
+      "side": 1,
+      "message": "Comments inline, but I don\u0027t know enough about finalization, reachabilityFence and @ReachabilitySensitive to comment on whether this is correct.\n\nHans, would you be a good person to look at this? As you can probably tell from the code, this is an utility class that maps a filedescriptor (stored as an int). The purpose of this CL is to prevent filedescriptor leaks even if the user forgets to call close() explicitly.\n\nPerhaps unrelated to the above question: filedescriptors have the known problem that as soon as close is called once on a given fd, the fd int becomes available to use by any other code in the process, so close must not be called a second time or it could close someone else\u0027s fd. Not sure if this can be done safely in the absence of explicit synchronization such that the close() call and the write to mFdInt (or whatever variable tracks whether close() was called) are in the same synchronized block.",
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91676b88_827d1e7c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-16T03:00:31Z",
+      "side": 1,
+      "message": "Are these reachabilityfences necessary? And even if they are, could they be replaced with a @ReachabilitySensitive annotation on mMapFd? That would keep the code cleaner and make it easier for others to modify in the future even if whoever makes those modifications does not understand the semantics of reachabilityFence (example: I don\u0027t think I do).",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 9
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be8f4d04_8a2be8a7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-16T03:00:31Z",
+      "side": 1,
+      "message": "Given that mMapFd is not final: does it need to be marked volatile for this to be correct? finalizers can be invoked on any thread and so are not guaranteed to see the constructor\u0027s write to mMapFd.",
+      "range": {
+        "startLine": 251,
+        "startChar": 23,
+        "endLine": 251,
+        "endChar": 28
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d85bb083_7eec4c70",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-16T03:00:31Z",
+      "side": 1,
+      "message": "I don\u0027t think this can this actually happen, given that the write to mGuard happens before an exception can be thrown. When the exception is thrown, the constructor terminates abruptly, and a freeze happens on mGuard.\n\nhttps://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.5.1",
+      "range": {
+        "startLine": 261,
+        "startChar": 12,
+        "endLine": 261,
+        "endChar": 71
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
