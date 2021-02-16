@@ -78,6 +78,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -165,6 +166,7 @@ import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.StateMachine;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
+import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 import com.android.testutils.MiscAsserts;
 
 import org.junit.After;
@@ -174,6 +176,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -831,7 +834,9 @@ public class TetheringTest {
     }
 
     private void prepareUsbTethering(UpstreamNetworkState upstreamState) {
-        initTetheringUpstream(upstreamState);
+        if (upstreamState != null) {
+            initTetheringUpstream(upstreamState);
+        }
 
         // Emulate pressing the USB tethering button in Settings UI.
         final TetheringRequestParcel request = createTetheringRequestParcel(TETHERING_USB);
@@ -1081,6 +1086,64 @@ public class TetheringTest {
         verify(mUpstreamNetworkMonitor, never()).selectPreferredUpstreamType(any());
 
         verify(mUpstreamNetworkMonitor, times(1)).setCurrentUpstream(upstreamState.network);
+    }
+
+    @Test
+    public void testAutomaticUpstreamSelection() throws Exception {
+        // Enable automatic upstream selection.
+        when(mResources.getBoolean(R.bool.config_tether_upstream_automatic)).thenReturn(true);
+        sendConfigurationChanged();
+        mLooper.dispatchAll();
+
+        InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+
+        // Start USB tethering with no current upstream.
+        runUsbTethering(null /* upstreamState */);
+        inOrder.verify(mUpstreamNetworkMonitor).startObserveAllNetworks();
+        inOrder.verify(mUpstreamNetworkMonitor).registerMobileNetworkRequest();
+
+        // Pretend cellular connected and expect the upstream to be set.
+        TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
+        mobile.fakeConnect();
+        mCm.makeDefaultNetwork(mobile);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(new Network(CELLULAR_NETID));
+
+        // Switch upstreams a few times.
+        // TODO: there may be a race where if the effects of the CONNECTIVITY_ACTION happen before
+        // UpstreamNetworkMonitor gets onCapabilitiesChanged on CALLBACK_DEFAULT_INTERNET, the
+        // upstream does not change. Write a test for this.
+        TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
+        wifi.fakeConnect();
+        mCm.makeDefaultNetwork(wifi);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(new Network(WIFI_NETID));
+
+        mCm.makeDefaultNetwork(mobile);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(new Network(CELLULAR_NETID));
+
+        // Wifi disconnecting should not have any affect since it's not the current upstream.
+        wifi.fakeDisconnect();
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        // Lose and regain upstream.
+        mobile.fakeDisconnect();
+        mCm.makeDefaultNetwork(null);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);
+
+        mobile = new TestNetworkAgent(mCm, buildMobile464xlatUpstreamState());
+        mobile.fakeConnect();
+        mCm.makeDefaultNetwork(mobile);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(new Network(CELLULAR_NETID));
+
+        mobile.fakeDisconnect();
+        mCm.makeDefaultNetwork(null);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);
     }
 
     private void runNcmTethering() {
