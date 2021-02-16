@@ -772,7 +772,9 @@ public class TetheringTest {
     }
 
     private void prepareUsbTethering(UpstreamNetworkState upstreamState) {
-        initTetheringUpstream(upstreamState);
+        if (upstreamState != null) {
+            initTetheringUpstream(upstreamState);
+        }
 
         // Emulate pressing the USB tethering button in Settings UI.
         final TetheringRequestParcel request = createTetheringRequestParcel(TETHERING_USB);
@@ -1022,6 +1024,15 @@ public class TetheringTest {
         verify(mUpstreamNetworkMonitor, never()).selectPreferredUpstreamType(any());
 
         verify(mUpstreamNetworkMonitor, times(1)).setCurrentUpstream(upstreamState.network);
+    }
+
+    @Test
+    public void testAutomaticUpstreamSelection() throws Exception {
+        when(mResources.getBoolean(R.bool.config_tether_upstream_automatic)).thenReturn(true);
+        sendConfigurationChanged();
+
+        // Start USB tethering with no current upstream.
+        prepareUsbTethering(null);
     }
 
     private void runNcmTethering() {
