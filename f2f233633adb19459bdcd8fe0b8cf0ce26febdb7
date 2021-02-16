@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d4edeb6_ff82268e",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-16T08:18:45Z",
+      "side": 1,
+      "message": "Nit: spaces instead of tab\nI won\u0027t oppose merging this since it\u0027s treehugged though...",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "f2f233633adb19459bdcd8fe0b8cf0ce26febdb7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
