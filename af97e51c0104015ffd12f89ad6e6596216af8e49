@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62a70c7d_034d15ff",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-16T02:02:07Z",
+      "side": 0,
+      "message": "Removing final from a member has impact on the visibility of writes to the member from other threads. Because this is the only non-final member in the class, this roughly has the effect of making the class non-thread-safe.\n\nIn particular I think it makes it possible, in theory, for another thread to observe an object that is fully constructed but where the write to mMapFd is not yet visible. I think \"final\" provides explicit guarantees in the Java memory model that this can never happen. It also prevents the compiler from introducing optimizations that might prevent the thread from ever observing a read (e.g., if one thread is looping on mMapFd !\u003d -1, and another thread sets it to -1, the first thread might continue looping).\n\nIt would be nice to keep that guarantee and keep this class just as thread-safe as the kernel interface it depends on.\n\nIf this code is not performance sensitive, then one solution is to make mMapFd volatile. That guarantees that every thread observes reads and writes to the fd. I *think* this ends up causing a memory barrier on every read/write of the mMapFd field, but I\u0027m not sure. It might depend on the architecture. A good primer on these issues, and on the guarantees provided by the Java memory model, is at:\n\nhttps://developer.android.com/training/articles/smp\n\n(Note that \"volatile\" in Java means something different from what it used to mean in C.)\n\nAnother way to do it would be to add a \"private volatile boolean mFdClosed \u003d false\" which is set to true on close(), and only check it on close(). This would prevent double closes, but it would not prevent reads or writes on a closed map. These would just go down to the kernel, which would perform the operation on the wrong file (and likely return EOPNOTSUPP or EBADF).",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 17
+      },
+      "revId": "af97e51c0104015ffd12f89ad6e6596216af8e49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b43424b0_c3a5cc16",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-16T02:02:07Z",
+      "side": 0,
+      "message": "Note that this means that mMapFd is 0. We probably want to continue initialize it to -1 instead.",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 20
+      },
+      "revId": "af97e51c0104015ffd12f89ad6e6596216af8e49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
