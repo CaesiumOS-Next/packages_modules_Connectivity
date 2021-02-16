@@ -16,6 +16,24 @@
       "message": "I wonder why this test is not tagged \"cts\", like the other CTS tests...",
       "revId": "1e0c5a89e0ce1444e4e26e830f268926209f3810",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "954a7483_51f87f0e",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1498356
+      },
+      "writtenOn": "2021-02-16T22:36:46Z",
+      "side": 1,
+      "message": "Checked the origin aosp/1235232: seems like this is MTS specific by allowing some subset of the CTS tests to be installed when the device platform does not match the test platform.",
+      "parentUuid": "ecbae20a_35d68c9d",
+      "revId": "1e0c5a89e0ce1444e4e26e830f268926209f3810",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
