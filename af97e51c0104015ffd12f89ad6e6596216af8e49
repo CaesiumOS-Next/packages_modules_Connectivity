@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "618db620_890ec26f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-16T05:37:41Z",
+      "side": 0,
+      "message": "Added volatile as requested.",
+      "parentUuid": "81d736d8_d26f3d91",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 17
+      },
+      "revId": "af97e51c0104015ffd12f89ad6e6596216af8e49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b43424b0_c3a5cc16",
