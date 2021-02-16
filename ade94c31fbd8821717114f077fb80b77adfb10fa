@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37ac1346_576e1269",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-16T11:44:59Z",
+      "side": 1,
+      "message": "Per comment in the other CL: I think we can use 0, 1, 2, etc. here as well, instead of ConnectivityManager.TETHERING_xxx. There\u0027s no risk that these values ever change because the API tooling would prevent that.\n\nIn fact, I think doing so would be better, because from looking at this CL it seems that this class contains all the constants, but ConnectivityManager only has some.\n\nCan be done in another CL though.",
+      "range": {
+        "startLine": 142,
+        "startChar": 50,
+        "endLine": 142,
+        "endChar": 84
+      },
+      "revId": "ade94c31fbd8821717114f077fb80b77adfb10fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
