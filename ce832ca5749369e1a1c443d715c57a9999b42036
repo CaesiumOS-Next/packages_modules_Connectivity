@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "979a71ff_9da70d52",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-16T01:39:14Z",
+      "side": 1,
+      "message": "Because PUNT returns, I think this would be more readable as:\n\n      // If we cannot update the \u0027last_used\u0027 field due to lack of bpf_ktime_get_boot_ns() helper,\n      // then it is not safe to offload UDP due to the small conntrack timeouts, as such,\n      // in such a situation we can only support TCP.  This also has the added nice benefit of\n      // using a separate error counter, and thus making it obvious which version of the program\n      // is loaded.\n      if (!updatetime \u0026\u0026 ip-\u003eprotocol !\u003d IPPROTO_TCP) PUNT(NON_TCP);\n\n      // We do not support offloading anything besides IPv4 TCP and UDP, due to need for NAT\n      if ((ip-\u003eprotocol !\u003d IPPROTO_TCP) \u0026\u0026 (ip-\u003eprotocol !\u003d IPPROTO_UDP)) PUNT(NON_TCP_UDP);",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 400,
+        "endChar": 5
+      },
+      "revId": "ce832ca5749369e1a1c443d715c57a9999b42036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
