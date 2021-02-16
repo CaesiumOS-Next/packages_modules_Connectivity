@@ -23,8 +23,12 @@ import static android.hardware.usb.UsbManager.USB_CONNECTED;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_NCM;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_DISABLED;
 import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_ENABLED;
+import static android.net.ConnectivityManager.TYPE_MOBILE;
+import static android.net.ConnectivityManager.TYPE_NONE;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
@@ -73,8 +77,10 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -112,6 +118,7 @@ import android.net.LinkProperties;
 import android.net.MacAddress;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.net.RouteInfo;
 import android.net.TetherStatesParcel;
@@ -153,6 +160,7 @@ import android.telephony.CarrierConfigManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.test.mock.MockContentResolver;
+import android.util.ArraySet;
 
 import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
@@ -171,8 +179,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -775,7 +785,9 @@ public class TetheringTest {
     }
 
     private void prepareUsbTethering(UpstreamNetworkState upstreamState) {
-        initTetheringUpstream(upstreamState);
+        if (upstreamState != null) {
+            initTetheringUpstream(upstreamState);
+        }
 
         // Emulate pressing the USB tethering button in Settings UI.
         final TetheringRequestParcel request = createTetheringRequestParcel(TETHERING_USB);
@@ -1025,6 +1037,125 @@ public class TetheringTest {
         verify(mUpstreamNetworkMonitor, never()).selectPreferredUpstreamType(any());
 
         verify(mUpstreamNetworkMonitor, times(1)).setCurrentUpstream(upstreamState.network);
+    }
+
+    private class UpstreamSimulator {
+        class RequestInfo {
+            public final NetworkRequest request;
+            public final NetworkCallback callback;
+            RequestInfo(NetworkRequest r, NetworkCallback c) {
+                request = r;
+                callback = c;
+            }
+        }
+        private final ArraySet<RequestInfo> mRequests = new ArraySet<>();
+        private UpstreamNetworkState mLastState = null;
+        private int mLastType = TYPE_NONE;
+
+        private void sendConnectivityAction(int type, boolean connected) {
+            NetworkInfo ni = new NetworkInfo(type, 0 /* subtype */,
+                    ConnectivityManager.getNetworkTypeName(type), "" /* subtypeName */);
+            NetworkInfo.DetailedState state = connected
+                    ? NetworkInfo.DetailedState.CONNECTED
+                    : NetworkInfo.DetailedState.DISCONNECTED;
+            ni.setDetailedState(state, "" /* reason */, "" /* extraInfo */);
+            Intent intent = new Intent(CONNECTIVITY_ACTION);
+            intent.putExtra(EXTRA_NETWORK_INFO, ni);
+            mServiceContext.sendStickyBroadcastAsUser(intent, UserHandle.ALL);
+            mLastType = connected ? type : TYPE_NONE;
+        }
+
+        private void sendAvailableCallbacks(UpstreamNetworkState state) {
+            for (RequestInfo r : mRequests) {
+                if (!r.request.canBeSatisfiedBy(state.networkCapabilities)) continue;
+                // Defensive copies in case tethering uses equals() to compare to previous state.
+                r.callback.onAvailable(state.network,
+                        new NetworkCapabilities(state.networkCapabilities),
+                        new LinkProperties(state.linkProperties), false /* blocked */);
+            }
+        }
+
+        private void sendLostCallbacks(UpstreamNetworkState state) {
+            for (RequestInfo r: mRequests) {
+                if (!r.request.canBeSatisfiedBy(state.networkCapabilities)) continue;
+                r.callback.onLost(state.network);
+            }
+        }
+
+        private void loseUpstream(boolean broadcastFirst) {
+            if (mLastType == TYPE_NONE || mLastState == null) return;
+            if (broadcastFirst) {
+                sendConnectivityAction(mLastType, false);
+                sendLostCallbacks(mLastState);
+            } else {
+                sendLostCallbacks(mLastState);
+                sendConnectivityAction(mLastType, false);
+            }
+        }
+
+        private void newUpstream(UpstreamNetworkState state, int type, boolean broadcastFirst) {
+            if (broadcastFirst) {
+                sendConnectivityAction(type, true);
+                sendAvailableCallbacks(state);
+            } else {
+                sendAvailableCallbacks(state);
+                sendConnectivityAction(type, true);
+            }
+            mLastState = state;
+        }
+
+        private void changeUpstream(UpstreamNetworkState state, int type, boolean broadcastFirst) {
+            if (broadcastFirst) {
+                sendConnectivityAction(mLastType, false);
+                sendConnectivityAction(type, true);
+                sendAvailableCallbacks(state);
+            } else {
+                sendAvailableCallbacks(state);
+                sendConnectivityAction(mLastType, false);
+                sendConnectivityAction(type, true);
+            }
+        }
+
+        private void interceptRequests() {
+            final Answer<Void> register = (inv) -> {
+                mRequests.add(new RequestInfo(inv.getArgument(0), inv.getArgument(1)));
+                if (mLastState != null) sendAvailableCallbacks(mLastState);
+                return null;
+            };
+            doAnswer(register).when(mCm).requestNetwork(any(), any(NetworkCallback.class), any());
+            doAnswer(register).when(mCm).registerNetworkCallback(any(), any(NetworkCallback.class),
+                    any());
+
+            final Answer<Void> unregister = (inv) -> {
+                mRequests.removeIf((r) -> r.callback == inv.getArgument(0));
+                return null;
+            };
+            doAnswer(unregister).when(mCm).unregisterNetworkCallback(any(NetworkCallback.class));
+
+        }
+    }
+
+    @Test
+    public void testAutomaticUpstreamSelection() throws Exception {
+        // Enable automatic upstream selection.
+        when(mResources.getBoolean(R.bool.config_tether_upstream_automatic)).thenReturn(true);
+        sendConfigurationChanged();
+        mLooper.dispatchAll();
+        reset(mCm, mUpstreamNetworkMonitor);
+
+        final UpstreamSimulator sim = new UpstreamSimulator();
+        sim.interceptRequests();
+
+        InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+
+        // Start USB tethering with no current upstream.
+        runUsbTethering(null /* upstreamState */);
+        inOrder.verify(mUpstreamNetworkMonitor).startObserveAllNetworks();
+        inOrder.verify(mUpstreamNetworkMonitor).registerMobileNetworkRequest();
+
+        sim.newUpstream(buildMobileDualStackUpstreamState(), TYPE_MOBILE, false);
+        mLooper.dispatchAll();
+        verify(mUpstreamNetworkMonitor).setCurrentUpstream(new Network(100));
     }
 
     private void runNcmTethering() {
