@@ -36,6 +36,7 @@ import android.net.InetAddresses;
 import android.net.IpSecAlgorithm;
 import android.net.IpSecConfig;
 import android.net.IpSecManager;
+import android.net.IpSecMigrateInfoParcel;
 import android.net.IpSecSpiResponse;
 import android.net.IpSecTransform;
 import android.net.IpSecTransformResponse;
@@ -590,14 +591,19 @@ public class IpSecService extends IIpSecService.Stub {
     }
 
     /**
-     * Tracks an SA in the kernel, and manages cleanup paths. Once a TransformRecord is
-     * created, the SpiRecord that originally tracked the SAs will reliquish the
-     * responsibility of freeing the underlying SA to this class via the mOwnedByTransform flag.
+     * Tracks an SA in the kernel, and manages cleanup paths. Once a TransformRecord is created, the
+     * SpiRecord that originally tracked the SAs will reliquish the responsibility of freeing the
+     * underlying SA to this class via the mOwnedByTransform flag.
+     *
+     * <p>This class is not thread-safe, and expects that that users of this class will ensure
+     * synchronization and thread safety by holding the IpSecService.this instance lock
      */
     private final class TransformRecord extends OwnedResourceRecord {
         private final IpSecConfig mConfig;
         private final SpiRecord mSpi;
         private final EncapSocketRecord mSocket;
+        private String mNewSourceAddress = null;
+        private String mNewDestinationAddress = null;
 
         TransformRecord(
                 int resourceId, IpSecConfig config, SpiRecord spi, EncapSocketRecord socket) {
@@ -619,6 +625,49 @@ public class IpSecService extends IIpSecService.Stub {
 
         public EncapSocketRecord getSocketRecord() {
             return mSocket;
+        }
+
+        @GuardedBy("IpSecService.this")
+        public String getNewSourceAddress() {
+            return mNewSourceAddress;
+        }
+
+        @GuardedBy("IpSecService.this")
+        public String getNewDestinationAddress() {
+            return mNewDestinationAddress;
+        }
+
+        private void verifyTunnelModeOrThrow() {
+            if (mConfig.getMode() != IpSecTransform.MODE_TUNNEL) {
+                throw new UnsupportedOperationException(
+                        "Migration requested/called on non-tunnel-mode transform");
+            }
+        }
+
+        /** Start migrating this transform to new source and destination addresses */
+        @GuardedBy("IpSecService.this")
+        public void startMigration(String newSourceAddress, String newDestinationAddress) {
+            verifyTunnelModeOrThrow();
+            mNewSourceAddress = newSourceAddress;
+            mNewDestinationAddress = newDestinationAddress;
+        }
+
+        /** Finish migration and update addresses. */
+        @GuardedBy("IpSecService.this")
+        public void finishMigration() {
+            verifyTunnelModeOrThrow();
+            mConfig.setSourceAddress(mNewSourceAddress);
+            mConfig.setDestinationAddress(mNewDestinationAddress);
+            mNewSourceAddress = null;
+            mNewDestinationAddress = null;
+        }
+
+        /** Return if this transform is going to be migrated. */
+        @GuardedBy("IpSecService.this")
+        public boolean isMigrating() {
+            verifyTunnelModeOrThrow();
+
+            return mNewSourceAddress != null;
         }
 
         /** always guarded by IpSecService#this */
@@ -1726,6 +1775,29 @@ public class IpSecService extends IIpSecService.Stub {
     }
 
     /**
+     * Starts migrating the transform and cache the new source/destination addresses.
+     *
+     * <p>Begin the process of migrating this transform. To complete the migration once started,
+     * callers should call {@link #applyTunnelModeTransform(int, int, int, String)}.
+     */
+    @Override
+    public synchronized void migrateTransform(
+            int transformId,
+            String newSourceAddress,
+            String newDestinationAddress,
+            String callingPackage) {
+        Objects.requireNonNull(newSourceAddress, "newSourceAddress was null");
+        Objects.requireNonNull(newDestinationAddress, "newDestinationAddress was null");
+
+        enforceTunnelFeatureAndPermissions(callingPackage);
+
+        UserRecord userRecord = mUserResourceTracker.getUserRecord(Binder.getCallingUid());
+        TransformRecord transformInfo =
+                userRecord.mTransformRecords.getResourceOrThrow(transformId);
+        transformInfo.startMigration(newSourceAddress, newDestinationAddress);
+    }
+
+    /**
      * Delete a transport mode transform that was previously allocated by + registered with the
      * system server. If this is called on an inactive (or non-existent) transform, it will not
      * return an error. It's safe to de-allocate transforms that may have already been deleted for
@@ -1784,12 +1856,14 @@ public class IpSecService extends IIpSecService.Stub {
 
     /**
      * Apply an active tunnel mode transform to a TunnelInterface, which will apply the IPsec
-     * security association as a correspondent policy to the provided interface
+     * security association as a correspondent policy to the provided interface.
+     *
+     * <p>If needed, migrate the IPsec security association to new source/destination addresses.
      */
     @Override
     public synchronized void applyTunnelModeTransform(
-            int tunnelResourceId, int direction,
-            int transformResourceId, String callingPackage) throws RemoteException {
+            int tunnelResourceId, int direction, int transformResourceId, String callingPackage)
+            throws RemoteException {
         enforceTunnelFeatureAndPermissions(callingPackage);
         checkDirection(direction);
 
@@ -1868,6 +1942,24 @@ public class IpSecService extends IIpSecService.Stub {
 
             // Update SA with tunnel mark (ikey or okey based on direction)
             createOrUpdateTransform(c, transformResourceId, spiRecord, socketRecord);
+
+            if (transformInfo.isMigrating()) {
+                for (int selAddrFamily : ADDRESS_FAMILIES) {
+                    final IpSecMigrateInfoParcel migrateInfo =
+                            new IpSecMigrateInfoParcel(
+                                    Binder.getCallingUid(),
+                                    selAddrFamily,
+                                    direction,
+                                    c.getSourceAddress(),
+                                    c.getDestinationAddress(),
+                                    transformInfo.getNewSourceAddress(),
+                                    transformInfo.getNewDestinationAddress(),
+                                    c.getXfrmInterfaceId());
+
+                    mNetd.ipSecMigrate(migrateInfo);
+                }
+                transformInfo.finishMigration();
+            }
         } catch (ServiceSpecificException e) {
             if (e.errorCode == EINVAL) {
                 throw new IllegalArgumentException(e.toString());
