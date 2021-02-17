@@ -403,6 +403,14 @@ static inline __always_inline int do_forward4(struct __sk_buff* skb, const bool 
     // out all the non-tcp logic.  Also note that at this point is_udp === !is_tcp.
     const bool is_tcp = !updatetime || (ip->protocol == IPPROTO_TCP);
 
+    // This is a bit of a hack to make things easier on the bpf verifier.
+    // For both TCP & UDP we'll need to read and modify the src/dst ports, which so happen to
+    // always be in the first 4 bytes of the L4 header.  Additionally for UDP we'll need access
+    // to the checksum field which is in bytes 7 and 8.  While for TCP we'll need to read the
+    // TCP flags (at offset 13) and access to the checksum field (2 bytes at offset 16).
+    // As such we *always* need access to at least 8 bytes.
+    if (data + l2_header_size + sizeof(*ip) + 8 > data_end) PUNT(SHORT_L4_HEADER);
+
     struct tcphdr* tcph = is_tcp ? (void*)(ip + 1) : NULL;
     struct udphdr* udph = is_tcp ? NULL : (void*)(ip + 1);
 
