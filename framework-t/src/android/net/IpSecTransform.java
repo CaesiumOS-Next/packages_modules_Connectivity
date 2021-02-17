@@ -93,6 +93,36 @@ public final class IpSecTransform implements AutoCloseable {
     private IpSecManager getIpSecManager(Context context) {
         return context.getSystemService(IpSecManager.class);
     }
+
+    /**
+     * Starts migrating this tunnel mode transform to new source/destination addresses.
+     *
+     * <p>This call only marks this transform as "going to be migrated". The actual migration
+     * happens when this transform is applied to an {@link IpSecManager#IpSecTunnelInterface}.
+     *
+     * <p>This call only applies to tunnel mode transform. Otherwise it will throw {@code
+     * UnsupportedOperationException}.
+     *
+     * @see {@link IpSecManager#IpSecTunnelInterface#setUnderlyingNetwork(Network)}
+     * @param newSourceAddress the new source address
+     * @param newDestinationAddress the new destination address
+     * @hide
+     */
+    // TODO: b/169169973 Require FEATURE_IPSEC_MIGRATE
+    @RequiresPermission(android.Manifest.permission.MANAGE_IPSEC_TUNNELS)
+    public void migrate(
+            @NonNull InetAddress newSourceAddress, @NonNull InetAddress newDestinationAddress) {
+        Objects.requireNonNull(newSourceAddress, "newSourceAddress was null");
+        Objects.requireNonNull(newDestinationAddress, "newDestinationAddress was null");
+
+        getIpSecManager(mContext)
+                .migrateTransform(
+                        mResourceId,
+                        newSourceAddress.getHostAddress(),
+                        newDestinationAddress.getHostAddress(),
+                        mContext.getOpPackageName());
+    }
+
     /**
      * Checks the result status and throws an appropriate exception if the status is not Status.OK.
      */

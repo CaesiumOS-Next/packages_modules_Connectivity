@@ -1010,6 +1010,20 @@ public class IpSecManager {
         }
     }
 
+    /** @hide */
+    public void migrateTransform(
+            int transformId,
+            String newSourceAddress,
+            String newDestinationAddress,
+            String callingPackage) {
+        try {
+            mService.migrateTransform(
+                    transformId, newSourceAddress, newDestinationAddress, callingPackage);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
     /**
      * Construct an instance of IpSecManager within an application context.
      *
