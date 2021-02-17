@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "268ba46e_42b4067d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1042828
+      },
+      "writtenOn": "2021-02-17T00:34:53Z",
+      "side": 1,
+      "message": "I think the CloseGuard usage instructions switched away from ReachabilitySensitive because we made the CloseGuard interface public, and it\u0027s still unclear we want to do that for ReachabilitySensitive. But if you believe that all clients call close(), we should be OK with a single reachabilityFence in close(). In that case, only code that forgets to call close will be subject to a very unlikely race in which the finalizer runs before the last access. I would go with either ReachabilitySensitive, or a single reachabilityFence call in close.\n\nI\u0027m a little hesitant to use @ReachabilitySensitive in places that I personally might not be able to find. It will need to be renamed at some point.",
+      "parentUuid": "91676b88_827d1e7c",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 9
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be8f4d04_8a2be8a7",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 1
@@ -66,6 +90,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0678bcef_f7b71b72",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1042828
+      },
+      "writtenOn": "2021-02-17T00:34:53Z",
+      "side": 1,
+      "message": "Assuming that a reachabilityFence(this) is executed as the last operation on the object, and all explicit calls to it are from a single thread, the finalizer shouldn\u0027t run concurrently with other accesses, and this should be OK.",
+      "parentUuid": "be8f4d04_8a2be8a7",
+      "range": {
+        "startLine": 251,
+        "startChar": 23,
+        "endLine": 251,
+        "endChar": 28
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87be2092_aabf1353",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1042828
+      },
+      "writtenOn": "2021-02-17T00:34:53Z",
+      "side": 1,
+      "message": "That needs to go at the end of the finally clause, to make sure the finalizer can\u0027t run before mGuard.close() executes. This is the one reachabilityFence that you really need to keep if you don\u0027t use @ReachabilitySensitive.",
+      "range": {
+        "startLine": 253,
+        "startChar": 12,
+        "endLine": 253,
+        "endChar": 46
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d85bb083_7eec4c70",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 1
@@ -77,6 +148,30 @@
       "writtenOn": "2021-02-16T03:00:31Z",
       "side": 1,
       "message": "I don\u0027t think this can this actually happen, given that the write to mGuard happens before an exception can be thrown. When the exception is thrown, the constructor terminates abruptly, and a freeze happens on mGuard.\n\nhttps://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.5.1",
+      "range": {
+        "startLine": 261,
+        "startChar": 12,
+        "endLine": 261,
+        "endChar": 71
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d3fd819_f67cb967",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1042828
+      },
+      "writtenOn": "2021-02-17T00:34:53Z",
+      "side": 1,
+      "message": "Interesting question.\n\nPresumably if the CloseGuard allocation fails, we end up with a null mGuard. I think the finalizer should not run in this case, but I\u0027m not immediately certain, since we have a bug dealing with registering finalizers too early. See b/63177201. I would replace the comment with something like:\n\n// We defensively assume mGuard might be null. See b/63177201.\n\n... and leave the code as is.",
+      "parentUuid": "d85bb083_7eec4c70",
       "range": {
         "startLine": 261,
         "startChar": 12,
