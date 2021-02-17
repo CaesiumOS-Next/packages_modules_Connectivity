@@ -18,22 +18,71 @@ package android.net;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import android.content.Context;
 import android.os.Build;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.server.IpSecService;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.net.InetAddress;
 
 /** Unit tests for {@link IpSecTransform}. */
 @SmallTest
 @RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
 public class IpSecTransformTest {
+    @Rule public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
+    private static final int DROID_SPI = 0xD1201D;
+    private static final int DUMMY_RESOURCE_ID = 0x1234;
+
+    private static final InetAddress SRC_ADDRESS = InetAddresses.parseNumericAddress("192.0.2.200");
+    private static final InetAddress DST_ADDRESS = InetAddresses.parseNumericAddress("192.0.2.201");
+    private static final InetAddress SRC_ADDRESS_V6 =
+            InetAddresses.parseNumericAddress("2001:db8::200");
+    private static final InetAddress DST_ADDRESS_V6 =
+            InetAddresses.parseNumericAddress("2001:db8::201");
+
+    private Context mMockContext;
+    private IpSecService mMockIpSecService;
+
+    private IpSecManager mIpSecManager;
+
+    @Before
+    public void setUp() throws Exception {
+        mMockContext = mock(Context.class);
+        mMockIpSecService = mock(IpSecService.class);
+        mIpSecManager = new IpSecManager(mMockContext, mMockIpSecService);
+
+        when(mMockContext.getSystemServiceName(IpSecManager.class))
+                .thenReturn(Context.IPSEC_SERVICE);
+        when(mMockContext.getSystemService(Context.IPSEC_SERVICE)).thenReturn(mIpSecManager);
+
+        final IpSecSpiResponse spiResp =
+                new IpSecSpiResponse(IpSecManager.Status.OK, DUMMY_RESOURCE_ID, DROID_SPI);
+        when(mMockIpSecService.allocateSecurityParameterIndex(any(), anyInt(), any()))
+                .thenReturn(spiResp);
+
+        final IpSecTransformResponse transformResp =
+                new IpSecTransformResponse(IpSecManager.Status.OK, DUMMY_RESOURCE_ID);
+        when(mMockIpSecService.createTransform(any(), any(), any())).thenReturn(transformResp);
+    }
 
     @Test
     public void testCreateTransformCopiesConfig() {
@@ -63,5 +112,33 @@ public class IpSecTransformTest {
         IpSecTransform config2 = new IpSecTransform(null, config);
 
         assertEquals(config1, config2);
+    }
+
+    private IpSecTransform buildTestTransform() throws Exception {
+        final IpSecManager.SecurityParameterIndex spi =
+                mIpSecManager.allocateSecurityParameterIndex(DST_ADDRESS);
+        return new IpSecTransform.Builder(mMockContext).buildTunnelModeTransform(SRC_ADDRESS, spi);
+    }
+
+    @Test
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.TIRAMISU)
+    public void testStartMigration() throws Exception {
+        buildTestTransform().startMigration(SRC_ADDRESS_V6, DST_ADDRESS_V6);
+        verify(mMockIpSecService)
+                .migrateTransform(
+                        anyInt(),
+                        eq(SRC_ADDRESS_V6.getHostAddress()),
+                        eq(DST_ADDRESS_V6.getHostAddress()),
+                        any());
+    }
+
+    @Test
+    @DevSdkIgnoreRule.IgnoreAfter(Build.VERSION_CODES.TIRAMISU)
+    public void testStartMigrationOnSdkBeforeU() throws Exception {
+        try {
+            buildTestTransform().startMigration(SRC_ADDRESS_V6, DST_ADDRESS_V6);
+            fail("Expect to fail since migration is not supported before U");
+        } catch (UnsupportedOperationException expected) {
+        }
     }
 }
