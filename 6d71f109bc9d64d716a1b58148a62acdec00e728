@@ -16,6 +16,23 @@
       "message": "$ tree out/soong/.intermediates/packages/modules/Connectivity/Tethering/tethering-module-sdk/\nout/soong/.intermediates/packages/modules/Connectivity/Tethering/tethering-module-sdk/\n└── common_os\n    ├── snapshot\n    │   ├── Android.bp\n    │   └── sdk_library\n    │       ├── module-lib\n    │       │   ├── framework-tethering-removed.txt\n    │       │   ├── framework-tethering-stubs.jar\n    │       │   └── framework-tethering.txt\n    │       ├── public\n    │       │   ├── framework-tethering-removed.txt\n    │       │   ├── framework-tethering-stubs.jar\n    │       │   └── framework-tethering.txt\n    │       └── system\n    │           ├── framework-tethering-removed.txt\n    │           ├── framework-tethering-stubs.jar\n    │           └── framework-tethering.txt\n    ├── tethering-module-sdk-current.unmerged.zip\n    ├── tethering-module-sdk-current.unmerged.zip.rsp\n    ├── tethering-module-sdk-current.zip\n    └── tmp\n        └── sdk_library\n            ├── module-lib\n            │   └── framework-tethering_stub_sources.zip\n            ├── public\n            │   └── framework-tethering_stub_sources.zip\n            └── system\n                └── framework-tethering_stub_sources.zip\n\n11 directories, 16 files",
       "revId": "6d71f109bc9d64d716a1b58148a62acdec00e728",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63d89a59_0102153c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2021-02-17T23:39:34Z",
+      "side": 1,
+      "message": "Hi Jean, could you take a look at this change since Mark is OOO until April?",
+      "revId": "6d71f109bc9d64d716a1b58148a62acdec00e728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
