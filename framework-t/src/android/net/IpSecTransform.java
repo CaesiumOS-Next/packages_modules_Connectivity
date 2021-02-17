@@ -30,6 +30,7 @@ import android.os.ServiceSpecificException;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.modules.utils.build.SdkLevel;
 
 import dalvik.system.CloseGuard;
 
@@ -93,6 +94,44 @@ public final class IpSecTransform implements AutoCloseable {
     private IpSecManager getIpSecManager(Context context) {
         return context.getSystemService(IpSecManager.class);
     }
+
+    /**
+     * Starts migrating this tunnel mode transform to new source/destination addresses.
+     *
+     * <p>Begin the process of migrating this transform. To complete the migration once started,
+     * callers should call {@link IpSecManager#applyTunnelModeTransform}.
+     *
+     * <p>Provided source and destination addresses MUST share the same address family, but they can
+     * have a different family from the current addresses.
+     *
+     * <p>Transform migration is only supported for Tunnel mode Transform(s). Calling this method on
+     * other types of Transform(s) will throw an {@code UnsupportedOperationException}.
+     *
+     * @see IpSecManager.IpSecTunnelInterface#setUnderlyingNetwork
+     * @param newSourceAddress the new source address
+     * @param newDestinationAddress the new destination address
+     * @hide
+     */
+    // TODO: b/169169973 Require FEATURE_IPSEC_MIGRATE
+    @RequiresFeature(PackageManager.FEATURE_IPSEC_TUNNELS)
+    @RequiresPermission(android.Manifest.permission.MANAGE_IPSEC_TUNNELS)
+    public void startMigration(
+            @NonNull InetAddress newSourceAddress, @NonNull InetAddress newDestinationAddress) {
+        if (!SdkLevel.isAtLeastU()) {
+            throw new UnsupportedOperationException("Transform migration only supported for U/U+");
+        }
+
+        Objects.requireNonNull(newSourceAddress, "newSourceAddress was null");
+        Objects.requireNonNull(newDestinationAddress, "newDestinationAddress was null");
+
+        getIpSecManager(mContext)
+                .migrateTransform(
+                        mResourceId,
+                        newSourceAddress.getHostAddress(),
+                        newDestinationAddress.getHostAddress(),
+                        mContext.getOpPackageName());
+    }
+
     /**
      * Checks the result status and throws an appropriate exception if the status is not Status.OK.
      */
