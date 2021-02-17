@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ea1f646_c89714b6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-17T01:04:23Z",
+      "side": 1,
+      "message": "Lorenzo also had a worry about mMapFd being non-volatile and thus being potentially accessed prior to constructor finishes writing to the field.  Could that happen?  Either way, probably just easier safer to make it volatile.",
+      "parentUuid": "0678bcef_f7b71b72",
+      "range": {
+        "startLine": 251,
+        "startChar": 23,
+        "endLine": 251,
+        "endChar": 28
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87be2092_aabf1353",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 1
