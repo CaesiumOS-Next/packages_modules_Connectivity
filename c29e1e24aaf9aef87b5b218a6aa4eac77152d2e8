@@ -162,6 +162,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cbe183e5_6e13d9ef",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1042828
+      },
+      "writtenOn": "2021-02-17T02:01:52Z",
+      "side": 1,
+      "message": "Re: Accessed prior to constructor being finished.\nAssuming the constructor finishes normally, I don\u0027t think there\u0027s a concern. This can be an issue if the client passes such a newly constructed object via a data race to another thread. And that could matter if you have to worry about adversaries doing this. But we don\u0027t normally rely on Java language security, and our answer in such situations is usually just: \"It\u0027s the client\u0027s problem: Don\u0027t pass stuff around via data races.\"\n\nI would not declare it volatile.\n\nRe: Two concurrent close() calls.\nActually, I\u0027m confused about what the intended concurrency properties are here. I had assumed that there were no concurrent explicit calls on this class. I agree that if concurrent calls to close() are allowed, and they\u0027re supposed to be idempotent, then this is wrong.\n\nLooking at the description of the class, it does seem like it should support concurrent access. But given that it\u0027s not declared to be Closeable, but only Autocloseable, there is no expectation that close() is idempotent. So concurrent calls shouldn\u0027t be expected (and would be weird). So I\u0027m unsure about the intent. I\u0027m not sure what the point of the test here is (unlike the one in the finalizer).",
+      "parentUuid": "c4a58995_453a595f",
+      "range": {
+        "startLine": 251,
+        "startChar": 23,
+        "endLine": 251,
+        "endChar": 28
+      },
+      "revId": "c29e1e24aaf9aef87b5b218a6aa4eac77152d2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87be2092_aabf1353",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
         "patchSetId": 1
