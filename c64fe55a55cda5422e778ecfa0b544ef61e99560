@@ -22,6 +22,30 @@
       },
       "revId": "c64fe55a55cda5422e778ecfa0b544ef61e99560",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "952cd97a_a83c8324",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T18:06:31Z",
+      "side": 1,
+      "message": "We spoke and keeping as is",
+      "parentUuid": "495da96f_c25aa90d",
+      "range": {
+        "startLine": 327,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 86
+      },
+      "revId": "c64fe55a55cda5422e778ecfa0b544ef61e99560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
