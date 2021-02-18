@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cec42a61_5f453859",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T00:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86db791a_bba10fbc",
+      "range": {
+        "startLine": 818,
+        "startChar": 8,
+        "endLine": 818,
+        "endChar": 30
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8c1bf39_243cff07",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-02-17T10:49:14Z",
       "side": 1,
       "message": "If you do !! here you don\u0027t need it on the next line. Soon (with Kotlin 1.4) you\u0027ll be able to remove this completely because assertNotNull will prove to the compiler that this is not null at this point – in fact, maybe you can try it locally because the tooling might have been upgraded since this patch was written.",
+      "range": {
+        "startLine": 822,
+        "startChar": 21,
+        "endLine": 822,
+        "endChar": 22
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec3b0761_795974f4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T00:09:11Z",
+      "side": 1,
+      "message": "I had !! originally but switched it to this per a comment on the original CL.  You had suggested using .run but that had an issue.\n\nUsing assertNotNull in the way that you suggest was most appealing.  I wasn\u0027t able to do as you suggested because qosTestSocket is mutable (the tooling was upgraded which allowed me to use what you suggested in another spot.)\n\nBut... I was able to do it in such a way that is still elegant.",
+      "parentUuid": "c8c1bf39_243cff07",
       "range": {
         "startLine": 822,
         "startChar": 21,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f1dad1d_167370b9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T00:09:11Z",
+      "side": 1,
+      "message": "Now that I could step back for a second, I see where the disconnect is.  There wasn\u0027t a version of expect callback that took in a function.  I added one on.\n\n(With that said, the let here is totally nonsensical.)\n\nI applied the same change everywhere.  But it, unfortunately, occurred to me, that using individual asserts probably make more sense in these cases.  Reason being is that if there is a failure, then we wouldn\u0027t know which of the comparison failed.  Let me know if you want me to switch back.\n\nFYI, this comment chain started here:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1487838/11..19/tests/cts/net/src/android/net/cts/NetworkAgentTest.kt#b892",
+      "parentUuid": "d591df71_7fa6438d",
+      "range": {
+        "startLine": 869,
+        "startChar": 24,
+        "endLine": 869,
+        "endChar": 30
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bc6c7cb_1a4aada4",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 1
@@ -100,6 +172,30 @@
       "writtenOn": "2021-02-17T10:49:14Z",
       "side": 1,
       "message": "go/avoidwe (also in l.881)",
+      "range": {
+        "startLine": 890,
+        "startChar": 32,
+        "endLine": 890,
+        "endChar": 34
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35dce2d7_75e9a634",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T00:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bc6c7cb_1a4aada4",
       "range": {
         "startLine": 890,
         "startChar": 32,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19954ba5_ecda239a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T00:09:11Z",
+      "side": 1,
+      "message": "Far cooler looking now \u003d )",
+      "parentUuid": "cccc04b7_e7717d20",
+      "range": {
+        "startLine": 920,
+        "startChar": 20,
+        "endLine": 920,
+        "endChar": 46
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fce10fd_91051bde",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-02-17T10:49:14Z",
       "side": 1,
       "message": "class",
+      "range": {
+        "startLine": 922,
+        "startChar": 81,
+        "endLine": 922,
+        "endChar": 86
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e53ca01_c8d70a5e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T00:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fce10fd_91051bde",
       "range": {
         "startLine": 922,
         "startChar": 81,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27ae803b_ea62299e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T00:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8caa56b8_f463937c",
+      "range": {
+        "startLine": 969,
+        "startChar": 24,
+        "endLine": 971,
+        "endChar": 25
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d31e7636_30c40e88",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-02-17T10:49:14Z",
       "side": 1,
       "message": "Same here and below",
+      "range": {
+        "startLine": 997,
+        "startChar": 59,
+        "endLine": 997,
+        "endChar": 62
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0462e438_d9f545d8",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1606087
+      },
+      "writtenOn": "2021-02-18T00:09:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d31e7636_30c40e88",
       "range": {
         "startLine": 997,
         "startChar": 59,
