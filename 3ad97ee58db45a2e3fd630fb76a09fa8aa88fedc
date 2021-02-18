@@ -25,6 +25,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58780f59_312e8f9c",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-18T06:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92916b51_498c9abe",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 424,
+        "endChar": 102
+      },
+      "revId": "3ad97ee58db45a2e3fd630fb76a09fa8aa88fedc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a65a6dc_2af75267",
@@ -39,6 +63,30 @@
       "side": 1,
       "message": "\u003e Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.\n\nPlease fix.",
       "parentUuid": "ecce1c97_7560aae9",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 431,
+        "endChar": 102
+      },
+      "revId": "3ad97ee58db45a2e3fd630fb76a09fa8aa88fedc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61b23230_403e219e",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-18T06:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a65a6dc_2af75267",
       "range": {
         "startLine": 431,
         "startChar": 0,
