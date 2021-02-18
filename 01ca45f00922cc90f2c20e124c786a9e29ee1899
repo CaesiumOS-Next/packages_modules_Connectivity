@@ -45,6 +45,29 @@
       },
       "revId": "01ca45f00922cc90f2c20e124c786a9e29ee1899",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6713b8c_73306ea5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-02-18T06:15:34Z",
+      "side": 1,
+      "message": "CS will send this PendingIntent w/ additional intent data. This should not be immutable.\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/ConnectivityService.java;l\u003d6902",
+      "range": {
+        "startLine": 580,
+        "startChar": 52,
+        "endLine": 580,
+        "endChar": 80
+      },
+      "revId": "01ca45f00922cc90f2c20e124c786a9e29ee1899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
