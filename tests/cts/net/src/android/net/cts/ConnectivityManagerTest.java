@@ -576,8 +576,8 @@ public class ConnectivityManagerTest {
 
         // Create a broadcast PendingIntent for NETWORK_CALLBACK_ACTION.
         Intent intent = new Intent(NETWORK_CALLBACK_ACTION);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                mContext, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, 0, intent,
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // We will register for a WIFI network being available or lost.
         mCm.registerNetworkCallback(makeWifiNetworkRequest(), pendingIntent);
