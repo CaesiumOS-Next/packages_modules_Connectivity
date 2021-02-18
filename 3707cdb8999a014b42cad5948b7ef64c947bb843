@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63ac2646_b5465073",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-18T08:12:06Z",
+      "side": 1,
+      "message": "This is also used for wifi, and should also be used by Tethering I think.",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 5
+      },
+      "revId": "3707cdb8999a014b42cad5948b7ef64c947bb843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f3a2c5a_68df0792",
+        "filename": "tests/cts/net/native/dns/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-18T08:12:06Z",
+      "side": 1,
+      "message": "Would this be a good time to add mts-networking here ? It would be good to run these tests on the networking modules too.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "3707cdb8999a014b42cad5948b7ef64c947bb843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
