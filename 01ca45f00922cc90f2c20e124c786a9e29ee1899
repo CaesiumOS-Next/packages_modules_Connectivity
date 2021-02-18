@@ -66,6 +66,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44a906fd_9e562264",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-02-18T07:00:03Z",
+      "side": 1,
+      "message": "For security reason, this intent should specify an explicit component to be delivered.\nhttps://developer.android.com/reference/android/app/PendingIntent#getBroadcast(android.content.Context,%20int,%20android.content.Intent,%20int)",
+      "range": {
+        "startLine": 579,
+        "startChar": 78,
+        "endLine": 579,
+        "endChar": 84
+      },
+      "revId": "01ca45f00922cc90f2c20e124c786a9e29ee1899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6713b8c_73306ea5",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 1
