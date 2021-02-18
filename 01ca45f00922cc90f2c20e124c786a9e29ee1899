@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83a7246d_18bef566",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-02-18T05:22:15Z",
+      "side": 1,
+      "message": "Nit: As you\u0027re updating this, add final on it",
+      "range": {
+        "startLine": 579,
+        "startChar": 8,
+        "endLine": 579,
+        "endChar": 9
+      },
+      "revId": "01ca45f00922cc90f2c20e124c786a9e29ee1899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14625a70_bd37878f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-02-18T05:22:15Z",
+      "side": 1,
+      "message": "Nit: 0 /* requestCode */",
+      "range": {
+        "startLine": 579,
+        "startChar": 75,
+        "endLine": 579,
+        "endChar": 76
+      },
+      "revId": "01ca45f00922cc90f2c20e124c786a9e29ee1899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
