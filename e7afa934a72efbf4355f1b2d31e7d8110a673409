@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "703e13e5_1b204860",
+        "filename": "Tethering/bpf_progs/bpf_tethering.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-18T06:30:54Z",
+      "side": 1,
+      "message": "Ok, I\u0027ll fix in a diff CL.  I still have to rename these counters anyway.",
+      "parentUuid": "2e8f76ad_f35eec23",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 7
+      },
+      "revId": "e7afa934a72efbf4355f1b2d31e7d8110a673409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c22934d_139c19d6",
