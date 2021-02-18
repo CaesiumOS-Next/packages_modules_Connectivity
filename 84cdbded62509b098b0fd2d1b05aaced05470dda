@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5454789_2041e90a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-18T03:47:52Z",
+      "side": 1,
+      "message": "Per discussion, we\u0027re thinking of the following:\n- Make close() throw no exceptions\n- Extend closeable instead of autocloseable\n- Use an AtomicInteger to store the fd. close would do \"int fd \u003d mFd.getAndSet(-1); close(fd)\", and other methods would just call get(), and if the fd ends up being -1, or if the map was closed from another thread, just do the wrong thing. This seems better for performance.\n- Put the reachability fences in all the methods, because otherwise it\u0027s possible for the finalizer to run concurrently with code that uses the map.",
+      "revId": "84cdbded62509b098b0fd2d1b05aaced05470dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
