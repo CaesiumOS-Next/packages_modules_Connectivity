@@ -205,6 +205,30 @@
       },
       "revId": "e7afa934a72efbf4355f1b2d31e7d8110a673409",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f0fca93_fcd16b7f",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-18T06:34:48Z",
+      "side": 1,
+      "message": "it is the offset, ie.\nis_tcp ? ETH_IP4_TCP_OFFSET(source) : ETH_IP4_UDP_OFFSET(source)  --\u003e (14+) 20 + 0 \u003d 20/34\nand\nis_tcp ? ETH_IP4_TCP_OFFSET(dest) : ETH_IP4_UDP_OFFSET(dest) --\u003e (14+) 20 + 2 \u003d 22/36\n\nPerhaps would be clearer if it was 1 line lower and plural.",
+      "parentUuid": "9c91db57_750d462e",
+      "range": {
+        "startLine": 565,
+        "startChar": 76,
+        "endLine": 565,
+        "endChar": 78
+      },
+      "revId": "e7afa934a72efbf4355f1b2d31e7d8110a673409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
