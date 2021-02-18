@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "495da96f_c25aa90d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-18T06:11:57Z",
+      "side": 1,
+      "message": "I\u0027d say the most idiomatic thing is to use a default value and remove the function above.\n\n  inline fun \u003creified T : CallbackEntry\u003e expectCallback(valid: (T) -\u003e Boolean \u003d { true }) {",
+      "range": {
+        "startLine": 327,
+        "startChar": 0,
+        "endLine": 327,
+        "endChar": 86
+      },
+      "revId": "c64fe55a55cda5422e778ecfa0b544ef61e99560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

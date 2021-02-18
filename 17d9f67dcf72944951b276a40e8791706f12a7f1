@@ -159,6 +159,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91f06daf_ad5e9284",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-18T06:11:57Z",
+      "side": 1,
+      "message": "Either way is fine I think. Generally I think what you have in PS2 will still work well because the object that fails the test should still be printed, so it should be relatively obvious what\u0027s wrong. But in some cases you\u0027d be right on the money, using the return value with asserts might make for clearer results.\n\nThe case where that won\u0027t work is when we need to, not take the next callback and validate it, but wait for one that matches a predicate. I have that kind of thing for followups, but your comment here gives me food for thought as I\u0027m trying to reorganize these expecting code for readability ; maybe it\u0027s clearer if the methods that take expectations skip what doesn\u0027t match, while we encourage callers to use the return value of something that does to check properties of the next callback.",
+      "parentUuid": "8f1dad1d_167370b9",
+      "range": {
+        "startLine": 869,
+        "startChar": 24,
+        "endLine": 869,
+        "endChar": 30
+      },
+      "revId": "17d9f67dcf72944951b276a40e8791706f12a7f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bc6c7cb_1a4aada4",
