@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5762361_3a743ce3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-18T04:28:38Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address comment in a follow-up.",
+      "revId": "57f292122825cd121e014c79bea856e34551e465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9febb999_9ff2fa82",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-18T04:28:38Z",
+      "side": 1,
+      "message": "Would be good to explain why we need to do this. For example: if we don\u0027t do it, will verification fail? Will it take longer and impact boot time? ...?",
+      "range": {
+        "startLine": 406,
+        "startChar": 72,
+        "endLine": 406,
+        "endChar": 73
+      },
+      "revId": "57f292122825cd121e014c79bea856e34551e465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
