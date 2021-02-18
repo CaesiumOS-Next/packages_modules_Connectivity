@@ -16,6 +16,24 @@
       "message": "Per discussion, we\u0027re thinking of the following:\n- Make close() throw no exceptions\n- Extend closeable instead of autocloseable\n- Use an AtomicInteger to store the fd. close would do \"int fd \u003d mFd.getAndSet(-1); close(fd)\", and other methods would just call get(), and if the fd ends up being -1, or if the map was closed from another thread, just do the wrong thing. This seems better for performance.\n- Put the reachability fences in all the methods, because otherwise it\u0027s possible for the finalizer to run concurrently with code that uses the map.",
       "revId": "84cdbded62509b098b0fd2d1b05aaced05470dda",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a84c067f_34881adf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1042828
+      },
+      "writtenOn": "2021-02-18T04:27:32Z",
+      "side": 1,
+      "message": "I\u0027m not sure the last three are worth it. It seems fairly hard to write correct code that leverages the fact that close() is idempotent. If two threads call close() roughly concurrently, it seems likely that one of them will also include another operation that will run concurrently with the other close(), in which case this is still buggy. My sense at the moment is that we\u0027re better off clearly documenting concurrent closes as a client bug. Checking (probably heuristically, without locking) for a second close and failing conspicuously in that case might still be a good idea.\n\nYou only need a single reachabilityFence() to keep code correct that calls close() exactly once as the final operation. And other code will complain correctly nearly all the time. The other reachabilityFences are needed to get 100% reliability from code that\u0027s kind of buggy, in that it fails to call close(). If you need that, then yes, you need all the fences.\n\nI agree the AtomicInteger approach is slightly faster than \"synchronized\", and can be made correct. Does it really matter here? If there\u0027s contention on that lock, we have serious issues. If not, the lock acquisition and release consists of something like a couple of atomic operations each.",
+      "parentUuid": "e5454789_2041e90a",
+      "revId": "84cdbded62509b098b0fd2d1b05aaced05470dda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
