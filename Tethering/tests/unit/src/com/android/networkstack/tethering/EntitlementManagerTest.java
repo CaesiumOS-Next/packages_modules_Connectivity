@@ -66,6 +66,7 @@ import android.provider.Settings;
 import android.telephony.CarrierConfigManager;
 
 import androidx.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.test.BroadcastInterceptingContext;
@@ -196,6 +197,8 @@ public final class EntitlementManagerTest {
                 eq(EntitlementManager.DISABLE_PROVISIONING_SYSPROP_KEY), anyBoolean()));
         doReturn(null).when(
                 () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY), anyString()));
+        doReturn(InstrumentationRegistry.getInstrumentation().getContext().getPackageManager())
+                .when(mContext).getPackageManager();
 
         when(mResources.getStringArray(R.array.config_tether_dhcp_range))
                 .thenReturn(new String[0]);
