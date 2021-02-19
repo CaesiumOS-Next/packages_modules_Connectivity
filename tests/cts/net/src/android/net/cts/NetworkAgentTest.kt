@@ -59,14 +59,14 @@ import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnSig
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnStartSocketKeepalive
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnStopSocketKeepalive
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnValidationStatus
+import android.net.internal.aidl.INetworkAgent
+import android.net.internal.aidl.INetworkAgentRegistry
 import android.os.Build
 import android.os.HandlerThread
 import android.os.Looper
 import android.os.Message
 import android.util.DebugUtils.valueToString
 import androidx.test.InstrumentationRegistry
-import com.android.connectivity.aidl.INetworkAgent
-import com.android.connectivity.aidl.INetworkAgentRegistry
 import com.android.net.module.util.ArrayTrackRecord
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
