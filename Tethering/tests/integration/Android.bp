@@ -41,6 +41,7 @@ java_defaults {
 
 android_library {
     name: "TetheringIntegrationTestsLib",
+    min_sdk_version: "30",
     platform_apis: true,
     defaults: ["TetheringIntegrationTestsDefaults"],
     visibility: [
@@ -66,6 +67,8 @@ android_test {
 android_test {
     name: "TetheringCoverageTests",
     platform_apis: true,
+    min_sdk_version: "30",
+    target_sdk_version: "30",
     test_suites: ["device-tests", "mts"],
     test_config: "AndroidTest_Coverage.xml",
     defaults: ["libnetworkstackutilsjni_deps"],

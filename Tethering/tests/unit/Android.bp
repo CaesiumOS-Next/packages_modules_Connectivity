@@ -78,6 +78,7 @@ java_defaults {
 // configuration needed by the tests is in the TetheringTestsDefaults rule.
 android_library {
     name: "TetheringTestsLib",
+    min_sdk_version: "30",
     defaults: ["TetheringTestsDefaults"],
     visibility: [
         "//frameworks/base/packages/Tethering/tests/integration",

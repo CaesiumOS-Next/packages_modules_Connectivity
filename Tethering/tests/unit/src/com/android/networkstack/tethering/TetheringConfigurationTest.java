@@ -36,16 +36,22 @@ import static org.mockito.Mockito.when;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.util.SharedLog;
+import android.os.Build;
 import android.provider.DeviceConfig;
 import android.telephony.TelephonyManager;
 
 import androidx.test.filters.SmallTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.test.BroadcastInterceptingContext;
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -60,9 +66,12 @@ import java.util.Iterator;
 public class TetheringConfigurationTest {
     private final SharedLog mLog = new SharedLog("TetheringConfigurationTest");
 
+    @Rule public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
     private static final String[] PROVISIONING_APP_NAME = {"some", "app"};
     private static final String PROVISIONING_NO_UI_APP_NAME = "no_ui_app";
     private static final String PROVISIONING_APP_RESPONSE = "app_response";
+    private static final long TEST_PACKAGE_VERSION = 1234L;
     @Mock private Context mContext;
     @Mock private TelephonyManager mTelephonyManager;
     @Mock private Resources mResources;
@@ -113,6 +122,11 @@ public class TetheringConfigurationTest {
         doReturn(null).when(
                 () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
                 eq(TetheringConfiguration.TETHER_ENABLE_LEGACY_DHCP_SERVER)));
+        doReturn(null).when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
+                        eq(TetheringConfiguration.TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION)));
+        doReturn(InstrumentationRegistry.getInstrumentation().getContext().getPackageManager())
+                .when(mContext).getPackageManager();
 
         when(mResources.getStringArray(R.array.config_tether_dhcp_range)).thenReturn(
                 new String[0]);
@@ -454,5 +468,53 @@ public class TetheringConfigurationTest {
         final TetheringConfiguration testEnable = new TetheringConfiguration(
                 mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
         assertTrue(testEnable.isSelectAllPrefixRangeEnabled());
+    }
+
+    @Test
+    public void testChooseUpstreamAutomatically() throws Exception {
+        when(mResources.getBoolean(R.bool.config_tether_upstream_automatic))
+                .thenReturn(true);
+        assertTrue(new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .chooseUpstreamAutomatically);
+
+        when(mResources.getBoolean(R.bool.config_tether_upstream_automatic))
+                .thenReturn(false);
+        assertFalse(new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .chooseUpstreamAutomatically);
+    }
+
+    // The flag override only works on R-
+    @Test @IgnoreAfter(Build.VERSION_CODES.R)
+    public void testChooseUpstreamAutomatically_FlagOverride() throws Exception {
+        when(mResources.getBoolean(R.bool.config_tether_upstream_automatic))
+                .thenReturn(false);
+        doReturn("1").when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
+                        eq(TetheringConfiguration.TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION)));
+        assertTrue(new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .chooseUpstreamAutomatically);
+
+        doReturn("0").when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
+                        eq(TetheringConfiguration.TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION)));
+        assertFalse(new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .chooseUpstreamAutomatically);
+
+        doReturn(Integer.toString(Integer.MAX_VALUE)).when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
+                        eq(TetheringConfiguration.TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION)));
+        assertFalse(new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .chooseUpstreamAutomatically);
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testChooseUpstreamAutomatically_FlagOverrideAfterR() throws Exception {
+        when(mResources.getBoolean(R.bool.config_tether_upstream_automatic))
+                .thenReturn(false);
+        doReturn("1").when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
+                        eq(TetheringConfiguration.TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION)));
+        assertFalse(new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID)
+                .chooseUpstreamAutomatically);
     }
 }
