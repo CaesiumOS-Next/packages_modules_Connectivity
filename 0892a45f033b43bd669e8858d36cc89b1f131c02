@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a28ecc19_d1b18c78",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-19T10:14:37Z",
+      "side": 1,
+      "message": "Any reason you put this here in TetheringConfiguration instead of one of the dependencies classes? Was it too much work to plumb it through?",
+      "range": {
+        "startLine": 475,
+        "startChar": 22,
+        "endLine": 475,
+        "endChar": 38
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "014d12fe_1dde5025",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-19T10:14:37Z",
+      "side": 1,
+      "message": "Doesn\u0027t this return the real packagemanager running on the system? Is that what we want here, as opposed to just a mock? If the test doesn\u0027t actually use the package manager, then maybe you can just say:\n\n    doReturn(mock(PackageManager.class)).when(mContext).getPackageManager();\n\nor something?",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 52
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d185fdb_7427d02e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-19T10:14:37Z",
+      "side": 1,
+      "message": "Not for this CL, but this boilerplate test code suggests that we need a FlagUtils or FlagManager class. That will make the production code easier to read, and will also allow test code to do when(mFlagManager.getFlag(...)).thenReturn(...) and simplify it.",
+      "range": {
+        "startLine": 510,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 0
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbde6103_755c2866",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-19T10:14:37Z",
+      "side": 1,
+      "message": "Factor these out to a method?\n\n    private void setTetherForceUpstreamAutomaticFlagVersion(int version) {\n...",
+      "range": {
+        "startLine": 520,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 0
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc6370e3_837df180",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-19T10:14:37Z",
+      "side": 1,
+      "message": "private void assertChooseUpstreamAutomaticallyIs(boolean value) {",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 46
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
