@@ -165,7 +165,7 @@ public class ConnectivityManagerTest {
 
     // Changing meteredness on wifi involves reconnecting, which can take several seconds (involves
     // re-associating, DHCP...)
-    private static final int NETWORK_CHANGE_METEREDNESS_TIMEOUT = 30_000;
+    private static final int CONNECTIVITY_CHANGE_TIMEOUT_MS = 30_000;
     private static final int NUM_TRIES_MULTIPATH_PREF_CHECK = 20;
     private static final long INTERVAL_MULTIPATH_PREF_CHECK_MS = 500;
     // device could have only one interface: data, wifi.
@@ -746,7 +746,7 @@ public class ConnectivityManagerTest {
         // with the current setting. Therefore, if the setting has already been changed,
         // this method will return right away, and if not it will wait for the setting to change.
         mCm.registerDefaultNetworkCallback(networkCallback);
-        if (!latch.await(NETWORK_CHANGE_METEREDNESS_TIMEOUT, TimeUnit.MILLISECONDS)) {
+        if (!latch.await(CONNECTIVITY_CHANGE_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
             fail("Timed out waiting for active network metered status to change to "
                  + requestedMeteredness + " ; network = " + mCm.getActiveNetwork());
         }
@@ -1556,7 +1556,6 @@ public class ConnectivityManagerTest {
      * Verify background request can only be requested when acquiring
      * {@link android.Manifest.permission.NETWORK_SETTINGS}.
      */
-    @SkipPresubmit(reason = "Flaky: b/179554972; add to presubmit after fixing")
     @Test
     public void testRequestBackgroundNetwork() throws Exception {
         // Create a tun interface. Use the returned interface name as the specifier to create
@@ -1608,7 +1607,7 @@ public class ConnectivityManagerTest {
             // background if no foreground request can be satisfied. Thus, wait for a short
             // period is needed to let foreground capability go away.
             callback.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
-                    callback.getDefaultTimeoutMs(),
+                    CONNECTIVITY_CHANGE_TIMEOUT_MS,
                     c -> c instanceof CallbackEntry.CapabilitiesChanged
                             && !((CallbackEntry.CapabilitiesChanged) c).getCaps()
                             .hasCapability(NET_CAPABILITY_FOREGROUND));
