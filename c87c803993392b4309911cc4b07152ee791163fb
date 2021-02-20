@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82d93546_b9e64277",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-20T09:48:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f1f2d5a_07cef19d",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 46
+      },
+      "revId": "c87c803993392b4309911cc4b07152ee791163fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a42a2fa7_1a7cc0dd",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "271e2457_95475215",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-20T09:48:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a42a2fa7_1a7cc0dd",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 167,
+        "endChar": 31
+      },
+      "revId": "c87c803993392b4309911cc4b07152ee791163fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca5a8272_6e8255c5",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-02-20T07:50:47Z",
       "side": 1,
       "message": "For unification, do you want to use this var in waitForAvailable()?",
+      "range": {
+        "startLine": 168,
+        "startChar": 29,
+        "endLine": 168,
+        "endChar": 59
+      },
+      "revId": "c87c803993392b4309911cc4b07152ee791163fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "302eae45_e761d36a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-20T09:48:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca5a8272_6e8255c5",
       "range": {
         "startLine": 168,
         "startChar": 29,
