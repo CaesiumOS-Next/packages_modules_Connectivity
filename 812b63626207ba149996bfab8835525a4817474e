@@ -93,6 +93,30 @@
       },
       "revId": "812b63626207ba149996bfab8835525a4817474e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1724e8e_f8f6182b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-02-22T03:51:52Z",
+      "side": 1,
+      "message": "The naming rule for NETWORK_CALLBACK_TIMEOUT_MS sound similar to CONNECTIVIYT_CHANGE_TIMEOUT to me. One is timeout for waiting CONNECTIVIYT_CHANGE. The other is timeout for waiting network callback. Why that explain nothing to you?\n\nNETWORK_CALLBACK_TIMEOUT_MS or NETWORK_CHANGED_TIMEOUT_MS are both fine to me. Either one is better than current one for me. Current one is confusing becuase it is not used for waiting connectivity change.",
+      "parentUuid": "14b38c43_f8b463c5",
+      "range": {
+        "startLine": 171,
+        "startChar": 29,
+        "endLine": 171,
+        "endChar": 59
+      },
+      "revId": "812b63626207ba149996bfab8835525a4817474e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
