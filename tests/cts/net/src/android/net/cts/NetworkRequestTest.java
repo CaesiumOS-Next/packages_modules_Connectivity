@@ -34,12 +34,12 @@ import android.net.MatchAllNetworkSpecifier;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.NetworkSpecifier;
-import android.net.UidRange;
 import android.net.wifi.WifiNetworkSpecifier;
 import android.os.Build;
 import android.os.PatternMatcher;
 import android.os.Process;
 import android.util.ArraySet;
+import android.util.Range;
 
 import androidx.test.runner.AndroidJUnit4;
 
@@ -210,8 +210,8 @@ public class NetworkRequestTest {
         // NetworkCapabilities.satisfiedByNetworkCapabilities().
         final LocalNetworkSpecifier specifier1 = new LocalNetworkSpecifier(1234 /* id */);
         final int uid = Process.myUid();
-        final ArraySet<UidRange> ranges = new ArraySet<>();
-        ranges.add(new UidRange(uid, uid));
+        final ArraySet<Range<Integer>> ranges = new ArraySet<>();
+        ranges.add(new Range<Integer>(uid, uid));
         final NetworkRequest requestCombination = new NetworkRequest.Builder()
                 .addTransportType(TRANSPORT_CELLULAR)
                 .addCapability(NET_CAPABILITY_INTERNET)
