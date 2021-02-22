@@ -47,7 +47,6 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.test.BroadcastInterceptingContext;
-import com.android.net.module.util.DeviceConfigUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -134,7 +133,6 @@ public class TetheringConfigurationTest {
                 .mockStatic(DeviceConfig.class)
                 .strictness(Strictness.WARN)
                 .startMocking();
-        DeviceConfigUtils.resetPackageVersionCacheForTest();
         doReturn(null).when(
                 () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
                 eq(TetheringConfiguration.TETHER_ENABLE_LEGACY_DHCP_SERVER)));
@@ -171,7 +169,6 @@ public class TetheringConfigurationTest {
     @After
     public void tearDown() throws Exception {
         mMockingSession.finishMocking();
-        DeviceConfigUtils.resetPackageVersionCacheForTest();
     }
 
     private TetheringConfiguration getTetheringConfiguration(int... legacyTetherUpstreamTypes) {
@@ -504,9 +501,6 @@ public class TetheringConfigurationTest {
         when(mResources.getBoolean(R.bool.config_tether_upstream_automatic))
                 .thenReturn(false);
         setTetherForceUpstreamAutomaticFlagVersion(TEST_PACKAGE_VERSION - 1);
-        assertTrue(DeviceConfigUtils.isFeatureEnabled(mMockContext, NAMESPACE_CONNECTIVITY,
-                TetheringConfiguration.TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION));
-
         assertChooseUpstreamAutomaticallyIs(true);
 
         setTetherForceUpstreamAutomaticFlagVersion(0L);

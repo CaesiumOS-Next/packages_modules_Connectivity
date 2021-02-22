@@ -34,7 +34,7 @@ import android.text.TextUtils;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.modules.utils.build.SdkLevel;
-import com.android.net.module.util.DeviceConfigUtils;
+import com.android.net.module.util.FlagManager;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -103,7 +103,7 @@ public class TetheringConfiguration {
      * config_tether_upstream_automatic when set to true.
      *
      * This flag is enabled if !=0 and less than the module APK version: see
-     * {@link DeviceConfigUtils#isFeatureEnabled}. It is also ignored after R, as later devices
+     * {@link FlagManager#isFeatureEnabled}. It is also ignored after R, as later devices
      * should just set config_tether_upstream_automatic to true instead.
      */
     public static final String TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION =
@@ -163,7 +163,8 @@ public class TetheringConfiguration {
         isDunRequired = checkDunRequired(ctx);
 
         final boolean forceAutomaticUpstream = !SdkLevel.isAtLeastS()
-                && isFeatureEnabled(ctx, TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION);
+                && makeFlagManager().isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY,
+                TETHER_FORCE_UPSTREAM_AUTOMATIC_VERSION);
         chooseUpstreamAutomatically = forceAutomaticUpstream || getResourceBoolean(
                 res, R.bool.config_tether_upstream_automatic, false /** defaultValue */);
         preferredUpstreamIfaceTypes = getUpstreamIfaceTypes(res, isDunRequired);
@@ -472,8 +473,8 @@ public class TetheringConfiguration {
     }
 
     @VisibleForTesting
-    protected boolean isFeatureEnabled(Context ctx, String featureVersionFlag) {
-        return DeviceConfigUtils.isFeatureEnabled(ctx, NAMESPACE_CONNECTIVITY, featureVersionFlag);
+    protected FlagManager makeFlagManager() {
+        return new FlagManager();
     }
 
     private Resources getResources(Context ctx, int subId) {

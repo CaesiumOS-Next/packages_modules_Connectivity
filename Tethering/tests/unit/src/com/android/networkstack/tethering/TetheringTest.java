@@ -159,6 +159,7 @@ import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.StateMachine;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
+import com.android.net.module.util.FlagManager;
 import com.android.testutils.MiscAsserts;
 
 import org.junit.After;
@@ -226,6 +227,7 @@ public class TetheringTest {
     @Mock private TetheringNotificationUpdater mNotificationUpdater;
     @Mock private BpfCoordinator mBpfCoordinator;
     @Mock private PackageManager mPackageManager;
+    @Mock private FlagManager mFlagManager;
 
     private final MockIpServerDependencies mIpServerDependencies =
             spy(new MockIpServerDependencies());
@@ -358,8 +360,8 @@ public class TetheringTest {
         }
 
         @Override
-        protected boolean isFeatureEnabled(Context ctx, String featureVersionFlag) {
-            return false;
+        protected FlagManager makeFlagManager() {
+            return mFlagManager;
         }
 
         @Override
