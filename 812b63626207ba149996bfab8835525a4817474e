@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1663faf3_35c1cabc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-22T02:50:55Z",
+      "side": 1,
+      "message": "Yes, that\u0027s why Verify+1.\nThe test runs fast on crosshatch (\u003c30ms).\nSo it passes even without the fix.",
+      "parentUuid": "8df361b7_e6abde86",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 17
+      },
+      "revId": "812b63626207ba149996bfab8835525a4817474e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea0bd390_8c4dec81",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-22T02:41:49Z",
       "side": 1,
       "message": "why this is named CONNECTIVIYT_CHANGE_TIMEOUT? The usage is actually the timeout for waiting network callback, right?",
+      "range": {
+        "startLine": 171,
+        "startChar": 29,
+        "endLine": 171,
+        "endChar": 59
+      },
+      "revId": "812b63626207ba149996bfab8835525a4817474e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14b38c43_f8b463c5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-22T02:50:55Z",
+      "side": 1,
+      "message": "That\u0027s why I name it like this.\nAny prefer name? NETWORK_CALLBACK_TIMEOUT_MS sounds explained nothing to me.\nMaybe NETWORK_CHANGED_TIMEOUT_MS?",
+      "parentUuid": "ea0bd390_8c4dec81",
       "range": {
         "startLine": 171,
         "startChar": 29,
