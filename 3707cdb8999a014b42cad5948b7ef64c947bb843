@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4d788d_ed294e90",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1498356
+      },
+      "writtenOn": "2021-02-22T23:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63ac2646_b5465073",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 5
+      },
+      "revId": "3707cdb8999a014b42cad5948b7ef64c947bb843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f3a2c5a_68df0792",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-18T08:12:06Z",
       "side": 1,
       "message": "Would this be a good time to add mts-networking here ? It would be good to run these tests on the networking modules too.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "3707cdb8999a014b42cad5948b7ef64c947bb843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf16cec7_33acc773",
+        "filename": "tests/cts/net/native/dns/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1498356
+      },
+      "writtenOn": "2021-02-22T23:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f3a2c5a_68df0792",
       "range": {
         "startLine": 40,
         "startChar": 4,
