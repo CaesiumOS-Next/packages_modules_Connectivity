@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d721cf74_214326bd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-22T05:31:55Z",
+      "side": 1,
+      "message": "This is mainly for consistency with the getDeviceConfigProperty method above.\nI looked at what it would take to add it to dependency classes, but some tests that use this class (notably EntitlementManagerTest) don\u0027t have dependencies for other purposes so that would add boilerplate.\n\nI think this would go away after adding a FlagManager though, so keeping it like this for now seems better.",
+      "parentUuid": "a28ecc19_d1b18c78",
+      "range": {
+        "startLine": 475,
+        "startChar": 22,
+        "endLine": 475,
+        "endChar": 38
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "014d12fe_1dde5025",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-19T10:14:37Z",
       "side": 1,
       "message": "Doesn\u0027t this return the real packagemanager running on the system? Is that what we want here, as opposed to just a mock? If the test doesn\u0027t actually use the package manager, then maybe you can just say:\n\n    doReturn(mock(PackageManager.class)).when(mContext).getPackageManager();\n\nor something?",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 52
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "900041e2_e43af6c0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-22T05:31:55Z",
+      "side": 1,
+      "message": "Mock PackageManager also works so changed to that",
+      "parentUuid": "014d12fe_1dde5025",
       "range": {
         "startLine": 200,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31e0b149_ec968560",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-22T05:31:55Z",
+      "side": 1,
+      "message": "This is basically DeviceConfigUtils but it\u0027s static, so hard to mock\nPreparing a followup for FlagManager now.",
+      "parentUuid": "2d185fdb_7427d02e",
+      "range": {
+        "startLine": 510,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 0
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbde6103_755c2866",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46eed97c_9a951cdd",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-22T05:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbde6103_755c2866",
+      "range": {
+        "startLine": 520,
+        "startChar": 0,
+        "endLine": 525,
+        "endChar": 0
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc6370e3_837df180",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-02-19T10:14:37Z",
       "side": 1,
       "message": "private void assertChooseUpstreamAutomaticallyIs(boolean value) {",
+      "range": {
+        "startLine": 529,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 46
+      },
+      "revId": "0892a45f033b43bd669e8858d36cc89b1f131c02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2669b337_6bf2a0a4",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-22T05:31:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc6370e3_837df180",
       "range": {
         "startLine": 529,
         "startChar": 0,
