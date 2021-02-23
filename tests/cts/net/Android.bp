@@ -74,6 +74,8 @@ android_test {
 android_test {
     name: "CtsNetTestCasesLatestSdk",
     defaults: ["CtsNetTestCasesDefaults"],
+    // TODO: delete this after mainline-prod snaps to sc-dev.
+    exclude_srcs: ["src/android/net/cts/NetworkAgentTest.kt"],
     jni_uses_sdk_apis: true,
     min_sdk_version: "29",
     target_sdk_version: "30",
