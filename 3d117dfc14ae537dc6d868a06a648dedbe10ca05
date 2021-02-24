@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "382df2ee_1e7aa5ab",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-24T03:31:47Z",
+      "side": 1,
+      "message": "Also add to this to the jarjar rules:\nrule com.android.modules.utils.** android.net.cts.util.@1\n\n(Or maybe android.net.cts.modules.util to avoid conflict if we end up having classes with the same name in libs/net and libs/modules-utils)",
+      "range": {
+        "startLine": 42,
+        "startChar": 19,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "3d117dfc14ae537dc6d868a06a648dedbe10ca05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
