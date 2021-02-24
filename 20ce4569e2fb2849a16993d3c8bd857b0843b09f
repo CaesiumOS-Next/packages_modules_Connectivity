@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9caf57ae_3ce37236",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-24T13:35:36Z",
+      "side": 1,
+      "message": "It doesn\u0027t even need to be null, you can just construct it and never use it.",
+      "parentUuid": "5c8d563c_57b47f19",
+      "range": {
+        "startLine": 744,
+        "startChar": 8,
+        "endLine": 744,
+        "endChar": 34
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fbcc526_e8927a8a",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 1
@@ -42,6 +66,29 @@
         "startChar": 12,
         "endLine": 749,
         "endChar": 37
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7816b88_14453b24",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-24T13:35:36Z",
+      "side": 1,
+      "message": "These can be outside the if since they should pass on R as well. So I think you can just limit the if to a couple of statements:\n\n        assertEquals(defaultNetwork, neverChangeCallback.getFirstNetwork());\n        assertNotEqual(defaultNetwork, mCM.getActiveNetwork());\n        if (SdkLevel.isAtLeastS()) {\n            // Check that system default network callback has not seen any network changes, even\n            // though the app\u0027s default network changed. This needs to be done before testing\n            // private DNS because checkStrictModePrivateDns will set the private DNS server to\n            // a nonexistent name, which will cause validation to fail and cause the default\n            // network to switch (e.g., from wifi to cellular).\n            neverChangeCallback.assertNeverChanged();\n            runWithShellPermissionIdentity(\n                    () -\u003e mCM.unregisterNetworkCallback(neverChangeCallback),\n                    NETWORK_SETTINGS);\n        }",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 782,
+        "endChar": 67
       },
       "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -83,6 +130,30 @@
       "writtenOn": "2021-02-24T13:05:06Z",
       "side": 1,
       "message": "Didn\u0027t we have Rules to ignore tests instead ?\n\nAlso please don\u0027t just return – if a test should be skipped, use assume to mark it skipped. But if you can use the Rule it\u0027s better.",
+      "range": {
+        "startLine": 1160,
+        "startChar": 0,
+        "endLine": 1160,
+        "endChar": 43
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebd3505f_5af5c661",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-24T13:35:36Z",
+      "side": 1,
+      "message": "This is not a test, it\u0027s an assertion helper, so putting this if here is correct. You could also rename it to maybeExpectVpnTransportInfo or put all calls to it inside if statements.",
+      "parentUuid": "0faea9e9_c824d810",
       "range": {
         "startLine": 1160,
         "startChar": 0,

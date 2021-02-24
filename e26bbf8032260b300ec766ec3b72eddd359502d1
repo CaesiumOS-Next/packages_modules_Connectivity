@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "147f26d4_57301f7e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-24T13:35:36Z",
+      "side": 0,
+      "message": "You don\u0027t need to change this code, since it works on R. You can just leave it as is.\n\n       NeverChangeNetworkCallback neverChangeCallback \u003d new NeverChangeNetworkCallback();\n        final Network defaultNetwork \u003d mCM.getActiveNetwork();\n        if (SdkLevel.isAtLeastS()) {\n            runWithShellPermissionIdentity(() -\u003e\n                    mCM.registerSystemDefaultNetworkCallback(neverChangeCallback\n                            new Handler(Looper.getMainLooper())), NETWORK_SETTINGS);\n        }",
+      "range": {
+        "startLine": 745,
+        "startChar": 0,
+        "endLine": 746,
+        "endChar": 62
+      },
+      "revId": "e26bbf8032260b300ec766ec3b72eddd359502d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
