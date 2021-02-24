@@ -226,6 +226,24 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
         closeMap(mMapFd);
     }
 
+    /**
+     * Clear the map.
+     */
+    public void clear() {
+        K key;
+        do {
+            try {
+                key = getFirstKey();
+            } catch (ErrnoException e) {
+                break;
+            }
+            try {
+                deleteEntry(key);
+            } catch (ErrnoException e) {
+            }
+        } while (key != null);
+    }
+
     private static native int closeMap(int fd) throws ErrnoException;
 
     private native int bpfFdGet(String path, int mode) throws ErrnoException, NullPointerException;
