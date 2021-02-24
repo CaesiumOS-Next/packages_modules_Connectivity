@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fbcc526_e8927a8a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-02-24T12:53:58Z",
+      "side": 1,
+      "message": "May I know why don\u0027t you just \"neverChangeCallback \u003d new NeverChangeNetworkCallback();\"?",
+      "range": {
+        "startLine": 748,
+        "startChar": 12,
+        "endLine": 749,
+        "endChar": 37
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0916b054_9e28e03e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-02-24T12:53:58Z",
+      "side": 1,
+      "message": "...and here just put \"neverChangeCallback\"?",
+      "range": {
+        "startLine": 786,
+        "startChar": 56,
+        "endLine": 786,
+        "endChar": 58
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
