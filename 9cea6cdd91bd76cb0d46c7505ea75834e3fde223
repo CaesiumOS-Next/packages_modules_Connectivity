@@ -122,6 +122,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c56bb9a5_733f1057",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1619,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-24T14:11:45Z",
+      "side": 1,
+      "message": "Because testNetwork is not final, nor effectively final, so I can\u0027t use it in the lambda below.",
+      "parentUuid": "fb7b4de1_05e316c1",
+      "range": {
+        "startLine": 1619,
+        "startChar": 12,
+        "endLine": 1619,
+        "endChar": 27
+      },
+      "revId": "9cea6cdd91bd76cb0d46c7505ea75834e3fde223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b425fa2_4b725f8c",
@@ -135,6 +159,30 @@
       "writtenOn": "2021-02-24T14:04:24Z",
       "side": 1,
       "message": "If this is 200 milliseconds, I\u0027d argue it is not long enough. Given that this timeout only fires if the test fails, it can be much more longer and less flaky, like 3s.",
+      "range": {
+        "startLine": 1624,
+        "startChar": 37,
+        "endLine": 1624,
+        "endChar": 56
+      },
+      "revId": "9cea6cdd91bd76cb0d46c7505ea75834e3fde223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b5a35e_62d4f39c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-24T14:11:45Z",
+      "side": 1,
+      "message": "Used NETWORK_CALLBACK_TIMEOUT_MS instead, which is 30s. Junyu had changed that a few days ago, but my tree wasn\u0027t up to date.",
+      "parentUuid": "2b425fa2_4b725f8c",
       "range": {
         "startLine": 1624,
         "startChar": 37,
