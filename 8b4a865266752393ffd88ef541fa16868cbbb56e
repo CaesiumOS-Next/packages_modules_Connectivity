@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd87b2d0_3533a97f",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-24T01:55:28Z",
+      "side": 1,
+      "message": "It seems that this class didn\u0027t exist on R: this test can\u0027t use it directly, since it is part of MTS which runs on both R and S+ (b/180870458).\nWe\u0027re trying to put the tests in presubmit in AOSP and/or goog/master but breakages still come up as we fix them",
+      "range": {
+        "startLine": 58,
+        "startChar": 50,
+        "endLine": 58,
+        "endChar": 76
+      },
+      "revId": "8b4a865266752393ffd88ef541fa16868cbbb56e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
