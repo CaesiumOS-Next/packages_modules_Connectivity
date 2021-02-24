@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d27fbac_9262dae1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-24T16:11:06Z",
+      "side": 1,
+      "message": "Remi, could you take a look? I think you commented on the similar aosp/1580048 that this prevents these tests from passing on R. Would this CL have a similar issue?",
+      "revId": "bb540131b77a0eee1e4edbaf1e9952a232212784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
