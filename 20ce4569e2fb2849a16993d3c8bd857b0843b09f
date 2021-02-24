@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c8d563c_57b47f19",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-24T13:05:06Z",
+      "side": 1,
+      "message": "final\n\n...\n } else {\n   \u003d null;\n }\n\n(but Lucas\u0027 suggestion is better if it\u0027s feasible)",
+      "range": {
+        "startLine": 744,
+        "startChar": 8,
+        "endLine": 744,
+        "endChar": 34
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fbcc526_e8927a8a",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 1
@@ -42,6 +65,29 @@
         "startChar": 56,
         "endLine": 786,
         "endChar": 58
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0faea9e9_c824d810",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-02-24T13:05:06Z",
+      "side": 1,
+      "message": "Didn\u0027t we have Rules to ignore tests instead ?\n\nAlso please don\u0027t just return – if a test should be skipped, use assume to mark it skipped. But if you can use the Rule it\u0027s better.",
+      "range": {
+        "startLine": 1160,
+        "startChar": 0,
+        "endLine": 1160,
+        "endChar": 43
       },
       "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
