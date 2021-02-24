@@ -1424,7 +1424,7 @@ public class ConnectivityManagerTest {
         // Ensure that NetworkUtils.queryUserAccess always returns false since this package should
         // not have netd system permission to call this function.
         final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
-        assertFalse(NetworkUtils.queryUserAccess(Binder.getCallingUid(), wifiNetwork.netId));
+        assertFalse(NetworkUtils.queryUserAccess(Binder.getCallingUid(), wifiNetwork.getNetId()));
 
         // Ensure that this package cannot bind to any restricted network that's currently
         // connected.
