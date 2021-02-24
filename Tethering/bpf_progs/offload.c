@@ -336,9 +336,23 @@ DEFINE_BPF_PROG_KVER_RANGE("schedcls/tether_upstream6_rawip$stub", AID_ROOT, AID
 
 // ----- IPv4 Support -----
 
-DEFINE_BPF_MAP_GRW(tether_downstream4_map, HASH, Tether4Key, Tether4Value, 64, AID_NETWORK_STACK)
+// Assign {upstream4, downstream4} bpf map size to 256 temporarily.
+// IPv4 offload rules are built per flow (conntrack event) and the BPF maps are shared for all
+// downstreams. Theoretically, the number of conntrack event entries could be 262144
+// (nf_conntrack_max) but it may be not a good idea to set the bpf map size as is.
+// TODO: Figure out a reasonable value for upstream4 and downstream4 bpf map size.
+// The default nf_conntrack_max value is nf_conntrack_buckets value * 4.
+// See https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt
+//
+// Dump on S:
+// $ adb shell cat proc/sys/net/netfilter/nf_conntrack_buckets
+// 65536
+// $ adb shell cat proc/sys/net/netfilter/nf_conntrack_max
+// 262144
 
-DEFINE_BPF_MAP_GRW(tether_upstream4_map, HASH, Tether4Key, Tether4Value, 64, AID_NETWORK_STACK)
+DEFINE_BPF_MAP_GRW(tether_downstream4_map, HASH, Tether4Key, Tether4Value, 256, AID_NETWORK_STACK)
+
+DEFINE_BPF_MAP_GRW(tether_upstream4_map, HASH, Tether4Key, Tether4Value, 256, AID_NETWORK_STACK)
 
 static inline __always_inline int do_forward4(struct __sk_buff* skb, const bool is_ethernet,
         const bool downstream, const bool updatetime) {
