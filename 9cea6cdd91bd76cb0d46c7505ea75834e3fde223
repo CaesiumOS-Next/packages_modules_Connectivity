@@ -16,6 +16,23 @@
       "message": "The build failure found by TH can\u0027t possibly be related to this",
       "revId": "9cea6cdd91bd76cb0d46c7505ea75834e3fde223",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93913f99_9232ca40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-24T09:21:20Z",
+      "side": 1,
+      "message": "LGTM, thanks for fixing it.",
+      "revId": "9cea6cdd91bd76cb0d46c7505ea75834e3fde223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
