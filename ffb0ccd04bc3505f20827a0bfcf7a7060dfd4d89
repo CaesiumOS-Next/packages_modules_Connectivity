@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78970c92_0822ca92",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-02-24T06:45:30Z",
+      "side": 1,
+      "message": "calling getFirstKey() from 2 spots is a little unpretty\n\nwhile (true) {\n  K key \u003d getFirstKey()\n  if (key \u003d\u003d null) return;\n  deleteEntry(key);\n}",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 240,
+        "endChar": 9
+      },
+      "revId": "ffb0ccd04bc3505f20827a0bfcf7a7060dfd4d89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
