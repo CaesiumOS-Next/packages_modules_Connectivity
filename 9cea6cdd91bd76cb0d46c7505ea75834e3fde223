@@ -80,6 +80,69 @@
       "message": "LGTM, thanks for fixing it.",
       "revId": "9cea6cdd91bd76cb0d46c7505ea75834e3fde223",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b109e213_700ff952",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-24T14:04:24Z",
+      "side": 1,
+      "message": "LGTM, but if the timeout is 200ms, please make it longer. We already have lots of problems with flaky tests due to too-short timeouts, and this timeout won\u0027t affect development velocity, because it only fires when the test fails which happens very rarely.\n\nGiven that this CL is already treehugged it\u0027s fine to fix that in a follow-up, but please do follow-up.",
+      "revId": "9cea6cdd91bd76cb0d46c7505ea75834e3fde223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb7b4de1_05e316c1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1619,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-24T14:04:24Z",
+      "side": 1,
+      "message": "Why do you need this local variable? Can\u0027t you just use testNetwork? This code is single-threaded.",
+      "range": {
+        "startLine": 1619,
+        "startChar": 12,
+        "endLine": 1619,
+        "endChar": 27
+      },
+      "revId": "9cea6cdd91bd76cb0d46c7505ea75834e3fde223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b425fa2_4b725f8c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-02-24T14:04:24Z",
+      "side": 1,
+      "message": "If this is 200 milliseconds, I\u0027d argue it is not long enough. Given that this timeout only fires if the test fails, it can be much more longer and less flaky, like 3s.",
+      "range": {
+        "startLine": 1624,
+        "startChar": 37,
+        "endLine": 1624,
+        "endChar": 56
+      },
+      "revId": "9cea6cdd91bd76cb0d46c7505ea75834e3fde223",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
