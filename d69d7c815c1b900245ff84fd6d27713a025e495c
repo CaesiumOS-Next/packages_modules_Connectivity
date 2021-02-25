@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a19953b_ac8f5771",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-02-25T01:08:10Z",
+      "side": 1,
+      "message": "Not related to this commit, I just found that VpnTransportInfo was added recently but the year of its Copyright notice is wrong.\nIt said 2017 but not 2021. (VpnTransportInfoTest has the same problem.)\nShould we fix it in another commit?",
+      "range": {
+        "startLine": 1161,
+        "startChar": 52,
+        "endLine": 1161,
+        "endChar": 68
+      },
+      "revId": "d69d7c815c1b900245ff84fd6d27713a025e495c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
