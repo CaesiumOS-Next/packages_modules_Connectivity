@@ -112,7 +112,7 @@ public class BpfCoordinator {
     private static final String TETHER_ERROR_MAP_PATH = makeMapPath("error");
 
     /** The names of all the BPF counters defined in bpf_tethering.h. */
-    public static final String[] sBpfCounterNames = getBpfCounterNames();
+    //public static final String[] sBpfCounterNames = getBpfCounterNames();
 
     private static String makeMapPath(String which) {
         return "/sys/fs/bpf/tethering/map_offload_tether_" + which + "_map";
@@ -984,6 +984,7 @@ public class BpfCoordinator {
         try (BpfMap<U32Struct, U32Struct> map = new BpfMap<>(TETHER_ERROR_MAP_PATH,
                 BpfMap.BPF_F_RDONLY, U32Struct.class, U32Struct.class)) {
 
+            final String[] sBpfCounterNames = getBpfCounterNames();
             map.forEach((k, v) -> {
                 String counterName;
                 try {
