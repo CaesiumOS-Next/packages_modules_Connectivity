@@ -302,6 +302,8 @@ public class TetheringService extends Service {
     boolean checkAndNoteWriteSettingsOperation(@NonNull Context context, int uid,
             @NonNull String callingPackage, @Nullable String callingAttributionTag,
             boolean throwException) {
+        // TODO: on S and above, pass the attribution tag to Settings instead of throwing it away.
+        // This will likely require a SettingsShim class.
         return Settings.checkAndNoteWriteSettingsOperation(context, uid, callingPackage,
                 throwException);
     }
