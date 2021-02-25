@@ -16,6 +16,24 @@
       "message": "Remi, could you take a look? I think you commented on the similar aosp/1580048 that this prevents these tests from passing on R. Would this CL have a similar issue?",
       "revId": "bb540131b77a0eee1e4edbaf1e9952a232212784",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "189a89c3_a609e4b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-25T06:41:07Z",
+      "side": 1,
+      "message": "This should be the fix for that (using unbundled BouncyCastle in the test so it\u0027s available even on older devices), so LGTM",
+      "parentUuid": "4d27fbac_9262dae1",
+      "revId": "bb540131b77a0eee1e4edbaf1e9952a232212784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
