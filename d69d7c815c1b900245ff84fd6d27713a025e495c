@@ -22,6 +22,30 @@
       },
       "revId": "d69d7c815c1b900245ff84fd6d27713a025e495c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49ddfc73_ba888d43",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-25T01:13:32Z",
+      "side": 1,
+      "message": "Done in aosp/1607313",
+      "parentUuid": "7a19953b_ac8f5771",
+      "range": {
+        "startLine": 1161,
+        "startChar": 52,
+        "endLine": 1161,
+        "endChar": 68
+      },
+      "revId": "d69d7c815c1b900245ff84fd6d27713a025e495c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
