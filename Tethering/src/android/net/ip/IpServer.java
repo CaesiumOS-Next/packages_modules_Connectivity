@@ -71,6 +71,7 @@ import com.android.networkstack.tethering.BpfCoordinator.ClientInfo;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.PrivateAddressCoordinator;
 
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
@@ -1301,6 +1302,11 @@ public class IpServer extends StateMachine {
             } catch (RemoteException | ServiceSpecificException e) {
                 mLog.e("Exception in disableNat: " + e.toString());
             }
+            try {
+                mBpfCoordinator.maybeDetachProg(mIfaceName, upstreamIface);
+            } catch (IOException e) {
+                mLog.e("Exception in maybeDetachProg: " + e.toString());
+            }
         }
 
         @Override
@@ -1335,9 +1341,10 @@ public class IpServer extends StateMachine {
 
                     for (String ifname : added) {
                         try {
+                            mBpfCoordinator.maybeAttachProg(mIfaceName, ifname);
                             mNetd.tetherAddForward(mIfaceName, ifname);
                             mNetd.ipfwdAddInterfaceForward(mIfaceName, ifname);
-                        } catch (RemoteException | ServiceSpecificException e) {
+                        } catch (IOException | RemoteException | ServiceSpecificException e) {
                             mLog.e("Exception enabling NAT: " + e.toString());
                             cleanupUpstream();
                             mLastError = TetheringManager.TETHER_ERROR_ENABLE_FORWARDING_ERROR;

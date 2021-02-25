@@ -62,6 +62,7 @@ import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
 import com.android.networkstack.tethering.apishim.common.BpfCoordinatorShim;
 
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -117,7 +118,6 @@ public class BpfCoordinator {
     private static String makeMapPath(boolean downstream, int ipVersion) {
         return makeMapPath((downstream ? "downstream" : "upstream") + ipVersion);
     }
-
 
     @VisibleForTesting
     enum StatsType {
@@ -690,6 +690,27 @@ public class BpfCoordinator {
         }
     }
 
+    /** Attach BPF program */
+    public void maybeAttachProg(@NonNull String intIface, @NonNull String extIface)
+            throws IOException {
+        // TODO: move attach code to shim.
+        // TODO: only attach upstream if we are the first enabled nat for this upstream.
+        // ex: upstream may be shared by many NAT pairs.
+
+        BpfUtils.attachProgram(intIface, UPSTREAM);
+        BpfUtils.attachProgram(extIface, DOWNSTREAM);
+    }
+
+    /** Detach BPF program */
+    public void maybeDetachProg(@NonNull String intIface, @NonNull String extIface)
+            throws IOException {
+        // TODO: move detach code to shim.
+        // TODO: only detach upstream if no one is using this upstream.
+        // ex: upstream may be shared by many NAT pairs.
+
+        BpfUtils.detachProgram(intIface);
+        BpfUtils.detachProgram(extIface);
+    }
 
     // TODO: make mInterfaceNames accessible to the shim and move this code to there.
     private String getIfName(long ifindex) {
