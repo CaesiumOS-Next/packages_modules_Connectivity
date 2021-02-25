@@ -1301,6 +1301,7 @@ public class IpServer extends StateMachine {
             } catch (RemoteException | ServiceSpecificException e) {
                 mLog.e("Exception in disableNat: " + e.toString());
             }
+            mBpfCoordinator.maybeDetachProgram(mIfaceName, upstreamIface);
         }
 
         @Override
@@ -1334,6 +1335,7 @@ public class IpServer extends StateMachine {
                     mUpstreamIfaceSet = newUpstreamIfaceSet;
 
                     for (String ifname : added) {
+                        mBpfCoordinator.maybeAttachProgram(mIfaceName, ifname);
                         try {
                             mNetd.tetherAddForward(mIfaceName, ifname);
                             mNetd.ipfwdAddInterfaceForward(mIfaceName, ifname);
