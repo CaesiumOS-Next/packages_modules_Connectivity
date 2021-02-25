@@ -62,6 +62,7 @@ import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
 import com.android.networkstack.tethering.apishim.common.BpfCoordinatorShim;
 
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -117,7 +118,6 @@ public class BpfCoordinator {
     private static String makeMapPath(boolean downstream, int ipVersion) {
         return makeMapPath((downstream ? "downstream" : "upstream") + ipVersion);
     }
-
 
     @VisibleForTesting
     enum StatsType {
@@ -217,6 +217,9 @@ public class BpfCoordinator {
     // TODO: consider making the key to be unique because the upstream address is not unique. It
     // is okay for now because there have only one upstream generally.
     private final HashMap<Inet4Address, Integer> mIpv4UpstreamIndices = new HashMap<>();
+
+    // Map for upstream and downstream pair.
+    private final HashMap<String, HashSet<String>> mForwardingPairs = new HashMap<>();
 
     // Runnable that used by scheduling next polling of stats.
     private final Runnable mScheduledPollingTask = () -> {
@@ -690,6 +693,30 @@ public class BpfCoordinator {
         }
     }
 
+    /** Attach BPF program */
+    public void maybeAttachProgram(@NonNull String intIface, @NonNull String extIface)
+            throws IOException {
+        // TODO: move attach code to shim.
+        if (isForwardingPairExisted(intIface, extIface)) return;
+
+        // Add this if this upstream is the first time to be added.
+        boolean firstDownstreamForThisUpstream = !isAnyForwardingPairOnUpstream(extIface);
+
+        forwardingPairAdd(intIface, extIface);
+
+        mBpfCoordinatorShim.attachProgram(intIface, UPSTREAM);
+        if (firstDownstreamForThisUpstream) mBpfCoordinatorShim.attachProgram(extIface, DOWNSTREAM);
+    }
+
+    /** Detach BPF program */
+    public void maybeDetachProgram(@NonNull String intIface, @NonNull String extIface)
+            throws IOException {
+        // TODO: move detach code to shim.
+        forwardingPairRemove(intIface, extIface);
+
+        mBpfCoordinatorShim.detachProgram(intIface);
+        if (!isAnyForwardingPairOnUpstream(extIface)) mBpfCoordinatorShim.detachProgram(extIface);
+    }
 
     // TODO: make mInterfaceNames accessible to the shim and move this code to there.
     private String getIfName(long ifindex) {
@@ -1224,6 +1251,36 @@ public class BpfCoordinator {
             }
         }
         return false;
+    }
+
+    private void forwardingPairAdd(@NonNull String intIface, @NonNull String extIface) {
+        if (!mForwardingPairs.containsKey(extIface)) {
+            mForwardingPairs.put(extIface, new HashSet<String>());
+        }
+
+        HashSet<String> downstreams = mForwardingPairs.get(extIface);
+        downstreams.add(intIface);
+    }
+
+    private void forwardingPairRemove(@NonNull String intIface, @NonNull String extIface) {
+        HashSet<String> downstreams = mForwardingPairs.get(extIface);
+        if (downstreams == null) return;
+        if (!downstreams.remove(intIface)) return;
+
+        if (downstreams.isEmpty()) {
+            mForwardingPairs.remove(extIface);
+        }
+    }
+
+    private boolean isForwardingPairExisted(@NonNull String intIface, @NonNull String extIface) {
+        if (!mForwardingPairs.containsKey(extIface)) return false;
+
+        HashSet<String> downstreams = mForwardingPairs.get(extIface);
+        return downstreams.contains(intIface);
+    }
+
+    private boolean isAnyForwardingPairOnUpstream(@NonNull String extIface) {
+        return mForwardingPairs.containsKey(extIface);
     }
 
     @NonNull
