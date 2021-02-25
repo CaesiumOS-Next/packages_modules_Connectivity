@@ -62,6 +62,7 @@ import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
 import com.android.networkstack.tethering.apishim.common.BpfCoordinatorShim;
 
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -92,6 +93,23 @@ public class BpfCoordinator {
         System.loadLibrary("tetherutilsjni");
     }
 
+    // The priority of clat/tether hooks - smaller is higher priority.
+    // TC tether is higher priority then TC clat to match XDP winning over TC.
+    // TODO: remove the prio base hack once netd has removed the prog attachment.
+    static final short PRIO_TETHER_BASE = 10;
+    static final short PRIO_TETHER6 = PRIO_TETHER_BASE;
+    static final short PRIO_TETHER4 = PRIO_TETHER_BASE + 1;
+    static final short PRIO_CLAT = PRIO_TETHER_BASE + 2;  // TODO: remove because unused?
+
+    // For better code clarity - do not change values - used for booleans like
+    // with_ethernet_header or isEthernet.
+    static final boolean RAWIP = false;
+    static final boolean ETHER = true;
+
+    // For better code clarity when used for 'bool ingress' parameter.
+    static final boolean EGRESS = false;
+    static final boolean INGRESS = true;
+
     static final boolean DOWNSTREAM = true;
     static final boolean UPSTREAM = false;
 
@@ -118,6 +136,13 @@ public class BpfCoordinator {
         return makeMapPath((downstream ? "downstream" : "upstream") + ipVersion);
     }
 
+    private static String makeProgPath(boolean downstream, int ipVersion, boolean ether) {
+        String path = "/sys/fs/bpf/tethering/prog_offload_schedcls_tether_";
+        path += (downstream ? "downstream" : "upstream");
+        path += ipVersion + "_";
+        path += (ether ? "ether" : "rawip");
+        return path;
+    }
 
     @VisibleForTesting
     enum StatsType {
@@ -690,6 +715,123 @@ public class BpfCoordinator {
         }
     }
 
+    // tc filter add dev .. ingress prio 1 protocol ipv6 bpf object-pinned /sys/fs/bpf/...
+    // direct-action
+    private void tcFilterAddDevIngress6Tether(int ifIndex, boolean ether, boolean downstream)
+            throws IOException {
+        tcFilterAddDevBpf(ifIndex, INGRESS, (short) PRIO_TETHER6, (short) ETH_P_IPV6,
+                makeProgPath(downstream, 6, ether));
+    }
+
+    // tc filter add dev .. ingress prio 2 protocol ip bpf object-pinned /sys/fs/bpf/...
+    // direct-action
+    private void tcFilterAddDevIngress4Tether(int ifIndex, boolean ether, boolean downstream)
+            throws IOException {
+        tcFilterAddDevBpf(ifIndex, INGRESS, (short) PRIO_TETHER4, (short) ETH_P_IP,
+                makeProgPath(downstream, 4, ether));
+    }
+
+    // tc filter del dev .. ingress prio 1 protocol ipv6
+    private void tcFilterDelDevIngress6Tether(int ifIndex) throws IOException {
+        tcFilterDelDev(ifIndex, INGRESS, (short) PRIO_TETHER6, (short) ETH_P_IPV6);
+    }
+
+    // tc filter del dev .. ingress prio 2 protocol ip
+    private void tcFilterDelDevIngress4Tether(int ifIndex) throws IOException {
+        tcFilterDelDev(ifIndex, INGRESS, (short) PRIO_TETHER4, (short) ETH_P_IP);
+    }
+
+    private boolean startBpf(@NonNull String iface, boolean downstream) {
+        final InterfaceParams params = InterfaceParams.getByName(iface);
+        if (params == null) {
+            mLog.e("Fail to get interface params for interface " + iface);
+            return false;
+        }
+
+        boolean ether;
+        try {
+            ether = isEthernet(iface);
+        } catch (IOException e) {
+            mLog.e("isEthernet(" + params.index + "[" + iface + "]) failure: " + e);
+            return false;
+        }
+
+        try {
+            tcFilterAddDevIngress6Tether(params.index, ether, downstream);
+        } catch (IOException e) {
+            mLog.e("tcFilterAddDevIngress6Tether(" + params.index + "[" + iface + "]) failure: "
+                    + e);
+            return false;
+        }
+
+        try {
+            tcFilterAddDevIngress4Tether(params.index, ether, downstream);
+        } catch (IOException e) {
+            mLog.e("tcFilterAddDevIngress4Tether(" + params.index + "[" + iface + "]) failure: "
+                    + e);
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean stopBpf(@NonNull String iface) {
+        final InterfaceParams params = InterfaceParams.getByName(iface);
+        if (params == null) {
+            mLog.e("Fail to get interface params for interface " + iface);
+            return false;
+        }
+
+        try {
+            tcFilterDelDevIngress6Tether(params.index);
+        } catch (IOException e) {
+            mLog.e("tcFilterDelDevIngress6Tether(" + params.index + "[" + iface + "]) failure: "
+                    + e);
+            return false;
+        }
+
+        try {
+            tcFilterDelDevIngress4Tether(params.index);
+        } catch (IOException e) {
+            mLog.e("tcFilterDelDevIngress4Tether(" + params.index + "[" + iface + "]) failure: "
+                    + e);
+            return false;
+        }
+
+        return true;
+    }
+
+    /** Attach BPF program */
+    public void maybeAttachProg(@NonNull String intIface, @NonNull String extIface)
+            throws IOException {
+        // TODO: move attach code to shim.
+        // TODO: only attach upstream if we are the first enabled nat for this upstream.
+        // ex: upstream may be shared by many NAT pairs.
+
+        if (!startBpf(intIface, UPSTREAM)) {
+            throw new IOException("Attach BPF program failed on intIface " + intIface);
+        }
+
+        if (!startBpf(extIface, DOWNSTREAM)) {
+            throw new IOException("Attach BPF program failed on extIface " + extIface);
+        }
+    }
+
+    /** Detach BPF program */
+    public void maybeDetachProg(@NonNull String intIface, @NonNull String extIface)
+            throws IOException {
+        // TODO: move detach code to shim.
+        // TODO: only detach upstream if no one is using this upstream.
+        // ex: upstream may be shared by many NAT pairs.
+
+        if (!stopBpf(intIface)) {
+            throw new IOException("Detach BPF program failed on intIface " + intIface);
+        }
+
+        if (!stopBpf(extIface)) {
+            throw new IOException("Detach BPF program failed on extIface " + extIface);
+        }
+    }
 
     // TODO: make mInterfaceNames accessible to the shim and move this code to there.
     private String getIfName(long ifindex) {
@@ -1346,4 +1488,12 @@ public class BpfCoordinator {
     }
 
     private static native String[] getBpfCounterNames();
+
+    private static native boolean isEthernet(String iface) throws IOException;
+
+    private static native void tcFilterAddDevBpf(int ifIndex, boolean ingress, short prio,
+            short proto, String bpfProgPath) throws IOException;
+
+    private static native void tcFilterDelDev(int ifIndex, boolean ingress, short prio,
+            short proto) throws IOException;
 }
