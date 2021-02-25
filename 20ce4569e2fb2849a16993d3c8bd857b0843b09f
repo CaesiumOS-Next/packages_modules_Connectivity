@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d9289ae_d61943a5",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-25T00:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9caf57ae_3ce37236",
+      "range": {
+        "startLine": 744,
+        "startChar": 8,
+        "endLine": 744,
+        "endChar": 34
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fbcc526_e8927a8a",
@@ -61,6 +85,30 @@
       "writtenOn": "2021-02-24T12:53:58Z",
       "side": 1,
       "message": "May I know why don\u0027t you just \"neverChangeCallback \u003d new NeverChangeNetworkCallback();\"?",
+      "range": {
+        "startLine": 748,
+        "startChar": 12,
+        "endLine": 749,
+        "endChar": 37
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f3f7c0f_2be7fa27",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-25T00:38:12Z",
+      "side": 1,
+      "message": "Removed.\nAny variables that outside lambda but referenced inside lambda must be final.",
+      "parentUuid": "6fbcc526_e8927a8a",
       "range": {
         "startLine": 748,
         "startChar": 12,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "affb02f5_8b2529f7",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-25T00:38:12Z",
+      "side": 1,
+      "message": "Yes and no the neverChangeCallback is never touched below S.",
+      "parentUuid": "c7816b88_14453b24",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 782,
+        "endChar": 67
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0916b054_9e28e03e",
@@ -107,6 +179,30 @@
       "writtenOn": "2021-02-24T12:53:58Z",
       "side": 1,
       "message": "...and here just put \"neverChangeCallback\"?",
+      "range": {
+        "startLine": 786,
+        "startChar": 56,
+        "endLine": 786,
+        "endChar": 58
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "745e307f_fb863c04",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-25T00:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0916b054_9e28e03e",
       "range": {
         "startLine": 786,
         "startChar": 56,
@@ -154,6 +250,30 @@
       "side": 1,
       "message": "This is not a test, it\u0027s an assertion helper, so putting this if here is correct. You could also rename it to maybeExpectVpnTransportInfo or put all calls to it inside if statements.",
       "parentUuid": "0faea9e9_c824d810",
+      "range": {
+        "startLine": 1160,
+        "startChar": 0,
+        "endLine": 1160,
+        "endChar": 43
+      },
+      "revId": "20ce4569e2fb2849a16993d3c8bd857b0843b09f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a798ef74_1d3a7995",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-02-25T00:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebd3505f_5af5c661",
       "range": {
         "startLine": 1160,
         "startChar": 0,
