@@ -22,6 +22,30 @@
       },
       "revId": "b4859198f5c7be7766c13b8d309fda344d661c5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86a57f07_3501237f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-02-26T06:41:54Z",
+      "side": 1,
+      "message": "Addressing in aosp/1598635",
+      "parentUuid": "671bf475_79ea9ee2",
+      "range": {
+        "startLine": 507,
+        "startChar": 0,
+        "endLine": 508,
+        "endChar": 81
+      },
+      "revId": "b4859198f5c7be7766c13b8d309fda344d661c5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
