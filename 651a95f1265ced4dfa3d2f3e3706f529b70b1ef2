@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cac0402_7dab804f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018108
+      },
+      "writtenOn": "2021-02-26T11:04:22Z",
+      "side": 1,
+      "message": "Revert in mainline-prod: ag/13699876 (frameworks/base does not merge from AOSP to mainline-prod)",
+      "revId": "651a95f1265ced4dfa3d2f3e3706f529b70b1ef2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
