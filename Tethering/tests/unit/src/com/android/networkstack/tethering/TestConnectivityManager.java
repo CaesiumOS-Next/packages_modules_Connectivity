@@ -17,18 +17,25 @@
 package com.android.networkstack.tethering;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
+import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.IConnectivityManager;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Handler;
+import android.os.UserHandle;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -63,11 +70,14 @@ public class TestConnectivityManager extends ConnectivityManager {
     public Map<NetworkCallback, Integer> legacyTypeMap = new HashMap<>();
 
     private final NetworkRequest mDefaultRequest;
+    private final Context mContext;
+
     private int mNetworkId = 100;
 
     public TestConnectivityManager(Context ctx, IConnectivityManager svc,
             NetworkRequest defaultRequest) {
         super(ctx, svc);
+        mContext = ctx;
         mDefaultRequest = defaultRequest;
     }
 
@@ -108,6 +118,13 @@ public class TestConnectivityManager extends ConnectivityManager {
 
         final TestNetworkAgent formerDefault = defaultNetwork;
         defaultNetwork = agent;
+
+        if (formerDefault != null) {
+            sendConnectivityAction(formerDefault.legacyType, false /* connected */);
+        }
+        if (defaultNetwork != null) {
+            sendConnectivityAction(defaultNetwork.legacyType, true /* connected */);
+        }
 
         for (NetworkCallback cb : trackingDefault) {
             if (defaultNetwork != null) {
@@ -194,24 +211,68 @@ public class TestConnectivityManager extends ConnectivityManager {
         assertFalse(requested.containsKey(cb));
     }
 
+    private void sendConnectivityAction(int type, boolean connected) {
+        NetworkInfo ni = new NetworkInfo(type, 0 /* subtype */,  getNetworkTypeName(type),
+                "" /* subtypeName */);
+        NetworkInfo.DetailedState state = connected
+                ? NetworkInfo.DetailedState.CONNECTED
+                : NetworkInfo.DetailedState.DISCONNECTED;
+        ni.setDetailedState(state, "" /* reason */, "" /* extraInfo */);
+        Intent intent = new Intent(CONNECTIVITY_ACTION);
+        intent.putExtra(EXTRA_NETWORK_INFO, ni);
+        mContext.sendStickyBroadcastAsUser(intent, UserHandle.ALL);
+    }
+
     public static class TestNetworkAgent {
         public final TestConnectivityManager cm;
         public final Network networkId;
-        public final int transportType;
         public final NetworkCapabilities networkCapabilities;
         public final LinkProperties linkProperties;
+        // TODO: delete when tethering no longer uses CONNECTIVITY_ACTION.
+        public final int legacyType;
 
         public TestNetworkAgent(TestConnectivityManager cm, int transportType) {
             this.cm = cm;
             this.networkId = new Network(cm.getNetworkId());
-            this.transportType = transportType;
             networkCapabilities = new NetworkCapabilities();
             networkCapabilities.addTransportType(transportType);
             networkCapabilities.addCapability(NET_CAPABILITY_INTERNET);
             linkProperties = new LinkProperties();
+            legacyType = transportToLegacyType(transportType);
+        }
+
+        public TestNetworkAgent(TestConnectivityManager cm, UpstreamNetworkState state) {
+            this.cm = cm;
+            networkId = state.network;
+            networkCapabilities = state.networkCapabilities;
+            linkProperties = state.linkProperties;
+            this.legacyType = transportToLegacyType(networkCapabilities.getTransportTypes()[0]);
+        }
+
+        private static int transportToLegacyType(int transportType) {
+            switch (transportType) {
+                case TRANSPORT_CELLULAR: return TYPE_MOBILE;
+                case TRANSPORT_WIFI: return TYPE_WIFI;
+                case TRANSPORT_BLUETOOTH: return TYPE_BLUETOOTH;
+                case TRANSPORT_ETHERNET: return TYPE_ETHERNET;
+                default: throw new IllegalArgumentException(("Unknown transport") + transportType);
+            }
+        }
+
+        private boolean matchesLegacyType(int legacyType) {
+            if (legacyType == TYPE_NONE) return false;
+            final NetworkCapabilities nc = cm.networkCapabilitiesForType(legacyType);
+            return nc.satisfiedByNetworkCapabilities(networkCapabilities);
         }
 
         public void fakeConnect() {
+            for (NetworkRequest request : cm.requested.values()) {
+                if (matchesLegacyType(request.legacyType)) {
+                    cm.sendConnectivityAction(legacyType, true /* connected */);
+                    // In practice, a given network can match only one legacy type.
+                    break;
+                }
+            }
             for (NetworkCallback cb : cm.listening.keySet()) {
                 cb.onAvailable(networkId);
                 cb.onCapabilitiesChanged(networkId, copy(networkCapabilities));
@@ -220,6 +281,12 @@ public class TestConnectivityManager extends ConnectivityManager {
         }
 
         public void fakeDisconnect() {
+            for (NetworkRequest request : cm.requested.values()) {
+                if (matchesLegacyType(request.legacyType)) {
+                    cm.sendConnectivityAction(legacyType, false /* connected */);
+                    break;
+                }
+            }
             for (NetworkCallback cb : cm.listening.keySet()) {
                 cb.onLost(networkId);
             }
