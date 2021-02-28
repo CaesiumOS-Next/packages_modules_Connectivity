@@ -36,6 +36,7 @@ import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Handler;
 import android.os.UserHandle;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -220,6 +221,7 @@ public class TestConnectivityManager extends ConnectivityManager {
         ni.setDetailedState(state, "" /* reason */, "" /* extraInfo */);
         Intent intent = new Intent(CONNECTIVITY_ACTION);
         intent.putExtra(EXTRA_NETWORK_INFO, ni);
+Log.d("TetheringTest", "Sending CONNECTIVITY_ACTION: " + mContext + " " + intent.getExtras());
         mContext.sendStickyBroadcastAsUser(intent, UserHandle.ALL);
     }
 

@@ -155,8 +155,8 @@ import java.util.concurrent.RejectedExecutionException;
 public class Tethering {
 
     private static final String TAG = Tethering.class.getSimpleName();
-    private static final boolean DBG = false;
-    private static final boolean VDBG = false;
+    private static final boolean DBG = true;
+    private static final boolean VDBG = true;
 
     private static final Class[] sMessageClasses = {
             Tethering.class, TetherMainSM.class, IpServer.class
@@ -1567,6 +1567,7 @@ public class Tethering {
             }
             setUpstreamNetwork(ns);
             final Network newUpstream = (ns != null) ? ns.network : null;
+Log.d(TAG, "Upstream change: old: " + mTetherUpstream + " new: " + newUpstream);
             if (mTetherUpstream != newUpstream) {
                 mTetherUpstream = newUpstream;
                 mUpstreamNetworkMonitor.setCurrentUpstream(mTetherUpstream);
@@ -1729,6 +1730,7 @@ public class Tethering {
                     // selection again.  If, for example, IPv4 connectivity has shown up
                     // after IPv6 (e.g., 464xlat became available) we want the chance to
                     // notice and act accordingly.
+Log.d(TAG, "Choosing upstream due to no upstream iface set: " + o);
                     chooseUpstreamType(false);
                 }
                 return;
@@ -1742,6 +1744,7 @@ public class Tethering {
                     handleNewUpstreamNetworkState(ns);
                     break;
                 case UpstreamNetworkMonitor.EVENT_ON_LINKPROPERTIES:
+Log.d(TAG, "Choosing upstream due to LinkProperties change: " + o);
                     chooseUpstreamType(false);
                     break;
                 case UpstreamNetworkMonitor.EVENT_ON_LOST:
@@ -1776,6 +1779,7 @@ public class Tethering {
                 if (upstreamWanted()) {
                     mUpstreamWanted = true;
                     mOffload.start();
+Log.d(TAG, "Choosing upstream due to entering alive state");
                     chooseUpstreamType(true);
                     mTryCell = false;
                 }
@@ -1825,6 +1829,7 @@ public class Tethering {
                         // desired, kick off the selection process.
                         final boolean previousUpstreamWanted = updateUpstreamWanted();
                         if (!previousUpstreamWanted && mUpstreamWanted) {
+Log.d(TAG, "Choosing upstream due to downstream coming up: " + message.obj);
                             chooseUpstreamType(true);
                         }
                         break;
@@ -1871,6 +1876,7 @@ public class Tethering {
                         if (!mUpstreamWanted) break;
 
                         // Need to try DUN immediately if Wi-Fi goes down.
+Log.d(TAG, "Choosing upstream due to CMD_UPSTREAM_CHANGED: " + message.obj);
                         chooseUpstreamType(true);
                         mTryCell = false;
                         break;
@@ -1878,6 +1884,7 @@ public class Tethering {
                         updateUpstreamWanted();
                         if (!mUpstreamWanted) break;
 
+Log.d(TAG, "Choosing upstream due to CMD_RETRY_UPSTREAM: " + message.obj);
                         chooseUpstreamType(mTryCell);
                         mTryCell = !mTryCell;
                         break;
