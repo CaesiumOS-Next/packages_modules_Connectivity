@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3092eae_badd550b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-02-28T12:19:34Z",
+      "side": 1,
+      "message": "Could you tell me what wifi mediator is and how it is affecting the tests?\nI\u0027m a bit uncomfortable about changing tests behavior using constants which are not defined in AOSP. I\u0027m assuming the alternative solution is to just skip affected tests on all watches?",
+      "range": {
+        "startLine": 127,
+        "startChar": 61,
+        "endLine": 127,
+        "endChar": 84
+      },
+      "revId": "d03d33ee5c246278a75004af02040e8fce9553ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
