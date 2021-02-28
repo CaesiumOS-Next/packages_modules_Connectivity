@@ -194,6 +194,7 @@ import java.util.Vector;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class TetheringTest {
+    private static final String TAG = TetheringTest.class.getSimpleName();
     private static final int IFINDEX_OFFSET = 100;
 
     private static final String TEST_MOBILE_IFNAME = "test_rmnet_data0";

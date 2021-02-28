@@ -76,8 +76,8 @@ import java.util.Set;
  */
 public class UpstreamNetworkMonitor {
     private static final String TAG = UpstreamNetworkMonitor.class.getSimpleName();
-    private static final boolean DBG = false;
-    private static final boolean VDBG = false;
+    private static final boolean DBG = true;
+    private static final boolean VDBG = true;
 
     public static final int EVENT_ON_CAPABILITIES   = 1;
     public static final int EVENT_ON_LINKPROPERTIES = 2;
@@ -305,6 +305,7 @@ public class UpstreamNetworkMonitor {
         final UpstreamNetworkState dfltState = (mDefaultInternetNetwork != null)
                 ? mNetworkMap.get(mDefaultInternetNetwork)
                 : null;
+Log.d(TAG, "getCurrentPreferredUpstream dfltState=" + dfltState);
         if (isNetworkUsableAndNotCellular(dfltState)) return dfltState;
 
         if (!isCellularUpstreamPermitted()) return null;
