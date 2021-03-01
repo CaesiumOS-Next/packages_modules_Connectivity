@@ -22,6 +22,30 @@
       },
       "revId": "cd223ae608cf0048c277092ff332f8028b8ca1a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d11c2e30_c4b57400",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-03-01T06:56:00Z",
+      "side": 1,
+      "message": "It may help a little if someone gets the shims / APIs wrong, but maybe it doesn\u0027t justify the maintenance/run cost. Removed.",
+      "parentUuid": "c1058408_049781ef",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "cd223ae608cf0048c277092ff332f8028b8ca1a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
