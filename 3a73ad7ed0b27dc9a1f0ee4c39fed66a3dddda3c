@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e637c085_a03229bf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-01T07:00:08Z",
+      "side": 1,
+      "message": "Oops! Fixed.",
+      "parentUuid": "f2ea1bba_08d3d5cc",
+      "range": {
+        "startLine": 532,
+        "startChar": 65,
+        "endLine": 532,
+        "endChar": 73
+      },
+      "revId": "3a73ad7ed0b27dc9a1f0ee4c39fed66a3dddda3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "062723e8_8d3e441a",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-01T06:56:59Z",
       "side": 1,
       "message": "This is always going to be false in CtsNetTestCasesLatestSdk, which is the only target in presubmit; we need to have CtsNetTestsCases in presubmit to avoid losing presubmit coverage.\n\nThis should get fixed with aosp/1612014.",
+      "range": {
+        "startLine": 1660,
+        "startChar": 40,
+        "endLine": 1660,
+        "endChar": 85
+      },
+      "revId": "3a73ad7ed0b27dc9a1f0ee4c39fed66a3dddda3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ac607a3_64788cb5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1660,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-01T07:00:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "062723e8_8d3e441a",
       "range": {
         "startLine": 1660,
         "startChar": 40,
