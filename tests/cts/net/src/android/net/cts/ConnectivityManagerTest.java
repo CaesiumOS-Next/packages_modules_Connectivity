@@ -110,6 +110,9 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.ArrayUtils;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
+import com.android.networkstack.apishim.ConstantsShim;
+import com.android.networkstack.apishim.common.ConnectivityManagerShim;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.RecorderCallback.CallbackEntry;
@@ -497,6 +500,15 @@ public class ConnectivityManagerTest {
                 .build();
     }
 
+    private void registerSystemDefaultNetworkCallback(NetworkCallback callback, Handler handler) {
+        final ConnectivityManagerShim shim = ConnectivityManagerShimImpl.newInstance(mContext);
+        // If running on a pre-S device, the shim will throw UnsupportedApiLevelException and
+        // runWithShellPermissionIdentity will re-throw it as RuntimeException.
+        runWithShellPermissionIdentity(() ->
+                shim.registerSystemDefaultNetworkCallback(callback, handler),
+                NETWORK_SETTINGS);
+    }
+
     /**
      * Exercises both registerNetworkCallback and unregisterNetworkCallback. This checks to
      * see if we get a callback for the TRANSPORT_WIFI transport type being available.
@@ -522,11 +534,9 @@ public class ConnectivityManagerTest {
         mCm.registerDefaultNetworkCallback(defaultTrackingCallback);
 
         final TestNetworkCallback systemDefaultTrackingCallback = new TestNetworkCallback();
-        if (SdkLevel.isAtLeastS()) {
-            runWithShellPermissionIdentity(() ->
-                    mCm.registerSystemDefaultNetworkCallback(systemDefaultTrackingCallback,
-                            new Handler(Looper.getMainLooper())),
-                    NETWORK_SETTINGS);
+        if (shouldTestSApis()) {
+            registerSystemDefaultNetworkCallback(systemDefaultTrackingCallback,
+                    new Handler(Looper.getMainLooper()));
         }
 
         Network wifiNetwork = null;
@@ -544,7 +554,7 @@ public class ConnectivityManagerTest {
             assertNotNull("Did not receive onAvailable on default network callback",
                     defaultTrackingCallback.waitForAvailable());
 
-            if (SdkLevel.isAtLeastS()) {
+            if (shouldTestSApis()) {
                 assertNotNull("Did not receive onAvailable on system default network callback",
                         systemDefaultTrackingCallback.waitForAvailable());
             }
@@ -553,7 +563,7 @@ public class ConnectivityManagerTest {
         } finally {
             mCm.unregisterNetworkCallback(callback);
             mCm.unregisterNetworkCallback(defaultTrackingCallback);
-            if (SdkLevel.isAtLeastS()) {
+            if (shouldTestSApis()) {
                 runWithShellPermissionIdentity(
                         () -> mCm.unregisterNetworkCallback(systemDefaultTrackingCallback),
                         NETWORK_SETTINGS);
@@ -1645,5 +1655,13 @@ public class ConnectivityManagerTest {
             }, new String[] { android.Manifest.permission.MANAGE_TEST_NETWORKS });
             mCm.unregisterNetworkCallback(callback);
         }
+    }
+
+    /**
+     * Whether to test S+ APIs. This requires a) that the test be running on an S+ device, and
+     * b) that the code be compiled against shims new enough to access these APIs.
+     */
+    private boolean shouldTestSApis() {
+        return SdkLevel.isAtLeastS() && ConstantsShim.VERSION > Build.VERSION_CODES.R;
     }
 }
