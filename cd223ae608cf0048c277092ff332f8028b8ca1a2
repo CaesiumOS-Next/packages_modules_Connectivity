@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1058408_049781ef",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-01T06:51:26Z",
+      "side": 1,
+      "message": "If we keep both CtsNetTestCasesLatestSdk and CtsNetTestCases, we\u0027ll see more failures and flaky tests. Given that CtsNetTestCases is a superset of CtsNetTestCasesLatestSdk, and given that we already run CtsNetTestCasesLatestSdk in mainline-presubmit, is there a reason to run this at all?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "cd223ae608cf0048c277092ff332f8028b8ca1a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
