@@ -22,6 +22,30 @@
       },
       "revId": "d03d33ee5c246278a75004af02040e8fce9553ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "408c20ee_0cd929e5",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/AbstractRestrictBackgroundNetworkTestCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1760254
+      },
+      "writtenOn": "2021-03-02T17:01:55Z",
+      "side": 1,
+      "message": "Thanks for taking time with this.\n\nThe Wi-Fi Mediator is a feature specific to Wear OS that will control when the Wi-Fi radio is enabled or disabled in order to save on battery consumption.\n\nI\u0027ll discuss this in more detail with the team to see if we can find another solution that does not involve updating the tests. May end up updating the change to skip the tests for Wear OS instead.",
+      "parentUuid": "f3092eae_badd550b",
+      "range": {
+        "startLine": 127,
+        "startChar": 61,
+        "endLine": 127,
+        "endChar": 84
+      },
+      "revId": "d03d33ee5c246278a75004af02040e8fce9553ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
