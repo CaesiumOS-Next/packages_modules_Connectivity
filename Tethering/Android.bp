@@ -20,10 +20,9 @@ package {
 
 java_defaults {
     name: "TetheringAndroidLibraryDefaults",
-    sdk_version: "module_current",
     min_sdk_version: "30",
     srcs: [
-        "apishim/**/*.java",
+        "apishim/**/*.java",  // These are the tethering shims, not the NetworkStack shims.
         "src/**/*.java",
         ":framework-tethering-shared-srcs",
         ":tethering-module-utils-srcs",
@@ -41,20 +40,34 @@ java_defaults {
         "netd-client",
     ],
     libs: [
-        "framework-connectivity",
         "framework-statsd.stubs.module_lib",
         "framework-tethering.impl",
         "framework-wifi",
         "unsupportedappusage",
     ],
     plugins: ["java_api_finder"],
-    manifest: "AndroidManifestBase.xml",
 }
 
-// Build tethering static library, used to compile both variants of the tethering.
+// Build tethering static library, used to compile in-process and current tethering.
 android_library {
     name: "TetheringApiCurrentLib",
     defaults: ["TetheringAndroidLibraryDefaults"],
+    static_libs: ["NetworkStackApiCurrentShims"],
+    sdk_version: "module_current",
+    libs: [
+        "framework-connectivity",
+    ],
+    manifest: "AndroidManifestBase.xml",
+}
+
+// Build tethering static library, used to compile releasable tethering.
+android_library {
+    name: "TetheringApiStableLib",
+    defaults: ["TetheringAndroidLibraryDefaults"],
+    static_libs: ["NetworkStackApiStableShims"],
+    sdk_version: "module_30",
+    target_sdk_version: "30",
+    manifest: "AndroidManifestBase.xml",
 }
 
 // Due to b/143733063, APK can't access a jni lib that is in APEX (but not in the APK).
