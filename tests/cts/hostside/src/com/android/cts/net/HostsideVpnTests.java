@@ -108,4 +108,8 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
     public void testExcludedRoutes() throws Exception {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testExcludedRoutes");
     }
+
+    public void testExcludedRoutesLoad() throws Exception {
+        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testExcludedRoutesLoad");
+    }
 }
