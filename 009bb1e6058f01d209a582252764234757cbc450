@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc1ecf6_fecda757",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-04T09:40:05Z",
+      "side": 1,
+      "message": "Small suggestion for readability, but I don\u0027t feel strongly.",
+      "revId": "009bb1e6058f01d209a582252764234757cbc450",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d9c8efa_ddd1d84f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-04T09:40:05Z",
+      "side": 1,
+      "message": "I think \"verify*\" methods are not generally expected to do side effects like this. My suggestion would be to just return the callback and call startTrackDefaultNetwork in the caller :\n\n\n  setUp() {\n    ...\n    mDefaultNetworkCallback \u003d verifyDNRF()\n    assertNotNull(mDefaultNetworkCallback);\n    mUMN.startTrack()\n    verifyNoMoreInteractions\n  }\n\n  private NetworkCallback verifyDNRF() {\n    captor\n    verify().requestNetwork(capture)\n    verifyNoMoreInteractions()\n    return captor.getValue();\n  }\n\nSure, returning the object from a verify* method is also not standard, but I think in this case it\u0027s very easy to understand even from just the method\u0027s signature. Or, you could rename the method to verifyAndReturn* or getFiledDefaultNetworkRequest.",
+      "range": {
+        "startLine": 717,
+        "startChar": 17,
+        "endLine": 717,
+        "endChar": 23
+      },
+      "revId": "009bb1e6058f01d209a582252764234757cbc450",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
