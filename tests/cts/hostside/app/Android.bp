@@ -24,6 +24,7 @@ android_test_helper_app {
     //sdk_version: "current",
     platform_apis: true,
     static_libs: [
+        "NetworkStackApiCurrentShims",
         "androidx.test.rules",
         "androidx.test.ext.junit",
         "compatibility-device-util-axt",
