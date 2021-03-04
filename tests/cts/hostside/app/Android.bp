@@ -35,6 +35,39 @@ android_test_helper_app {
         "ctstestrunner-axt",
         "modules-utils-build",
         "ub-uiautomator",
+        "NetworkStackApiStableShims",
+    ],
+    libs: [
+        "android.test.runner",
+        "android.test.base",
+    ],
+    srcs: ["src/**/*.java"],
+    // Tag this module as a cts test artifact
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+}
+
+android_test_helper_app {
+    name: "CtsHostsideNetworkTestsAppNext",
+    defaults: [
+        "cts_support_defaults",
+        "framework-connectivity-test-defaults",
+        "ConnectivityNextEnableDefaults",
+    ],
+    platform_apis: true,
+    static_libs: [
+        "CtsHostsideNetworkTestsAidl",
+        "androidx.test.ext.junit",
+        "androidx.test.rules",
+        "androidx.test.uiautomator_uiautomator",
+        "compatibility-device-util-axt",
+        "cts-net-utils",
+        "ctstestrunner-axt",
+        "modules-utils-build",
+        "ub-uiautomator",
+        "NetworkStackApiCurrentShims",
     ],
     libs: [
         "android.test.runner",
