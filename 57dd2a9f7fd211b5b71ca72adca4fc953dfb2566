@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04f343c2_45b748b2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-04T09:52:13Z",
+      "side": 1,
+      "message": "Since you now have a strong constraint that this is \"v4-\" + TEST_MOBILE_IFNAME I think that\u0027s how it should be written",
+      "range": {
+        "startLine": 195,
+        "startChar": 58,
+        "endLine": 195,
+        "endChar": 80
+      },
+      "revId": "57dd2a9f7fd211b5b71ca72adca4fc953dfb2566",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
