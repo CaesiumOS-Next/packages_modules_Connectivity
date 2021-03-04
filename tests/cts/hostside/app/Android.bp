@@ -14,6 +14,12 @@
 // limitations under the License.
 //
 
+network_stack_shims = "NetworkStackApiStableShims"
+// Placeholder
+// This is a placeholder comment to minimize merge conflicts, as network_stack_shims may have
+// different values depending on the branch.
+// Placeholder
+
 package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
@@ -32,6 +38,7 @@ android_test_helper_app {
         "ub-uiautomator",
         "CtsHostsideNetworkTestsAidl",
         "modules-utils-build",
+        network_stack_shims,
     ],
     libs: [
         "android.test.runner",
