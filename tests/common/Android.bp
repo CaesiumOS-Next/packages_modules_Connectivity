@@ -14,6 +14,12 @@
 // limitations under the License.
 //
 
+network_stack_shims = "NetworkStackApiStableShims"
+// Placeholder
+// This is a placeholder comment to minimize merge conflicts, as network_stack_shims may have
+// different values depending on the branch.
+// Placeholder
+
 // Tests in this folder are included both in unit tests and CTS.
 // They must be fast and stable, and exercise public or test APIs.
 package {
@@ -37,6 +43,7 @@ java_library {
         "net-tests-utils",
         "net-utils-framework-common",
         "platform-test-annotations",
+        network_stack_shims,
     ],
     libs: [
         "android.test.base.stubs",
