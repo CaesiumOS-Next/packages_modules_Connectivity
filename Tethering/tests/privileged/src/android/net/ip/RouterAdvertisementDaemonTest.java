@@ -27,6 +27,8 @@ import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_AD
 import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_ALL_NODES_MULTICAST;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_LEN;
 import static com.android.net.module.util.NetworkStackConstants.IPV6_HEADER_LEN;
+import static com.android.net.module.util.NetworkStackConstants.PIO_FLAG_AUTONOMOUS;
+import static com.android.net.module.util.NetworkStackConstants.PIO_FLAG_ON_LINK;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -96,8 +98,6 @@ public final class RouterAdvertisementDaemonTest {
 
     @BeforeClass
     public static void setupOnce() {
-        System.loadLibrary("tetherutilsjni");
-
         final Instrumentation inst = InstrumentationRegistry.getInstrumentation();
         final IBinder netdIBinder =
                 (IBinder) inst.getContext().getSystemService(Context.NETD_SERVICE);
@@ -182,13 +182,15 @@ public final class RouterAdvertisementDaemonTest {
                 final int length = Byte.toUnsignedInt(buf.get());
                 switch (type) {
                     case ICMPV6_ND_OPTION_PIO:
+                        // length is 4 because this test only expects one PIO included in the
+                        // router advertisement packet.
                         assertEquals(4, length);
 
                         final ByteBuffer pioBuf = ByteBuffer.wrap(buf.array(), currentPos,
                                 Struct.getSize(PrefixInformationOption.class));
                         final PrefixInformationOption pio =
                                 Struct.parse(PrefixInformationOption.class, pioBuf);
-                        assertEquals((byte) 0xc0, pio.flags); // L & A set
+                        assertEquals((byte) (PIO_FLAG_ON_LINK | PIO_FLAG_AUTONOMOUS), pio.flags);
 
                         final InetAddress address = InetAddress.getByAddress(pio.prefix);
                         final IpPrefix prefix = new IpPrefix(address, pio.prefixLen);
@@ -199,7 +201,7 @@ public final class RouterAdvertisementDaemonTest {
                             assertEquals(0, pio.validLifetime);
                             assertEquals(0, pio.preferredLifetime);
                         } else {
-                            fail("Unepxected prefix: " + prefix);
+                            fail("Unexpected prefix: " + prefix);
                         }
 
                         // Move ByteBuffer position to the next option.
