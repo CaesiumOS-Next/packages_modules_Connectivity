@@ -17,18 +17,26 @@
 package com.android.cts.net.hostside;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.IpPrefix;
 import android.net.Network;
+import android.net.NetworkUtils;
 import android.net.ProxyInfo;
 import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
+
+import com.android.modules.utils.build.SdkLevel;
+import com.android.networkstack.apishim.VpnServiceBuilderShimImpl;
+import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class MyVpnService extends VpnService {
 
@@ -55,39 +63,55 @@ public class MyVpnService extends VpnService {
         return START_NOT_STICKY;
     }
 
+    private void parseIpAndMaskListArgument(String packageName, Intent intent, String argName,
+            BiConsumer<InetAddress, Integer> consumer) {
+        final String addresses = intent.getStringExtra(packageName + "." + argName);
+
+        if (addresses == null || addresses.isEmpty()) {
+            return;
+        }
+
+        final String[] addressesArray = addresses.split(",");
+        for (String address : addressesArray) {
+            Pair<InetAddress, Integer> ipAndMask = NetworkUtils.parseIpAndMask(address);
+            consumer.accept(ipAndMask.first, ipAndMask.second);
+        }
+    }
+
+    private void parseIpPrefixListArgument(String packageName, Intent intent, String argName,
+            Consumer<IpPrefix> consumer) {
+        parseIpAndMaskListArgument(packageName, intent, argName,
+                (inetAddress, prefixLength) -> consumer.accept(
+                        new IpPrefix(inetAddress, prefixLength)));
+    }
+
     private void start(String packageName, Intent intent) {
         Builder builder = new Builder();
 
-        String addresses = intent.getStringExtra(packageName + ".addresses");
-        if (addresses != null) {
-            String[] addressArray = addresses.split(",");
-            for (int i = 0; i < addressArray.length; i++) {
-                String[] prefixAndMask = addressArray[i].split("/");
+        parseIpAndMaskListArgument(packageName, intent, "addresses", builder::addAddress);
+
+        if (SdkLevel.isAtLeastT() && intent.getBooleanExtra(packageName + ".addRoutesByIpPrefix",
+                false)) {
+            parseIpPrefixListArgument(packageName, intent, "routes", (prefix) -> {
                 try {
-                    InetAddress address = InetAddress.getByName(prefixAndMask[0]);
-                    int prefixLength = Integer.parseInt(prefixAndMask[1]);
-                    builder.addAddress(address, prefixLength);
-                } catch (UnknownHostException|NumberFormatException|
-                         ArrayIndexOutOfBoundsException e) {
-                    continue;
+                    VpnServiceBuilderShimImpl.newInstance().addRoute(builder, prefix);
+                } catch (UnsupportedApiLevelException e) {
+                    throw new RuntimeException(e);
                 }
-            }
+            });
+        } else {
+            parseIpAndMaskListArgument(packageName, intent, "routes", builder::addRoute);
         }
 
-        String routes = intent.getStringExtra(packageName + ".routes");
-        if (routes != null) {
-            String[] routeArray = routes.split(",");
-            for (int i = 0; i < routeArray.length; i++) {
-                String[] prefixAndMask = routeArray[i].split("/");
-                try {
-                    InetAddress address = InetAddress.getByName(prefixAndMask[0]);
-                    int prefixLength = Integer.parseInt(prefixAndMask[1]);
-                    builder.addRoute(address, prefixLength);
-                } catch (UnknownHostException|NumberFormatException|
-                         ArrayIndexOutOfBoundsException e) {
-                    continue;
-                }
-            }
+        if (SdkLevel.isAtLeastT()) {
+            parseIpPrefixListArgument(packageName, intent, "excludedRoutes",
+                    (prefix) -> {
+                        try {
+                            VpnServiceBuilderShimImpl.newInstance().excludeRoute(builder, prefix);
+                        } catch (UnsupportedApiLevelException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
         }
 
         String allowed = intent.getStringExtra(packageName + ".allowedapplications");
@@ -139,8 +163,6 @@ public class MyVpnService extends VpnService {
         builder.setSession("MyVpnService");
 
         Log.i(TAG, "Establishing VPN,"
-                + " addresses=" + addresses
-                + " routes=" + routes
                 + " allowedApplications=" + allowed
                 + " disallowedApplications=" + disallowed);
 
