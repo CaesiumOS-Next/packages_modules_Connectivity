@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ddbe7d4_e6fbdfa5",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-05T05:49:28Z",
+      "side": 1,
+      "message": "Doesn\u0027t need to be in this CL, but it might be good to refactor this code into a new (or existing?) library in frameworks/libs/net/common/native and depend on that library in both OffloadUtils and here. We of course have to add whatever library that is to the apex allowed deps list.",
+      "range": {
+        "startLine": 42,
+        "startChar": 11,
+        "endLine": 42,
+        "endChar": 40
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c51d99e1_0ac5c375",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-05T05:49:28Z",
+      "side": 1,
+      "message": "If you wanted to use unique_fd for this, then I think maybe you can just depend on libbase_headers? libbase_headers is allowed in apexes, and probably contains unique_fd.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecf36328_83872891",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-05T05:49:28Z",
+      "side": 1,
+      "message": "Does having these methods actually simplify the code? If not, we can simply replace calls to these methods with direct calls to tcFilterAddDevBpf.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aac2cd80_84480656",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-05T05:49:28Z",
+      "side": 1,
+      "message": "It seems much better from a reliability and concurrency perspective to take an interface index instead of an interface name. If the caller has an interface name already, we should change it now, but we can also add a TODO.\n\nOr we could pass an InterfaceParams instead.",
+      "range": {
+        "startLine": 93,
+        "startChar": 37,
+        "endLine": 93,
+        "endChar": 58
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7a900a8_f558dfc0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-05T05:49:28Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 123,
+        "startChar": 37,
+        "endLine": 123,
+        "endChar": 58
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
