@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72dbc83b_42e53116",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-07T23:26:34Z",
+      "side": 1,
+      "message": "Possibly comment here this will need to be a fake context, else you\u0027ll need INTERACT_ACROSS_USERS",
+      "range": {
+        "startLine": 77,
+        "startChar": 43,
+        "endLine": 77,
+        "endChar": 46
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eed1148_133ac31d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-07T23:26:34Z",
+      "side": 1,
+      "message": "(not introduced by your change)\nMaybe comment here that this needs to be called on the test thread, since it\u0027s only called from outside this file ? So that defaultNetwork is managed correctly. (also that member should be named mDefaultNetwork)",
+      "range": {
+        "startLine": 116,
+        "startChar": 9,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ab05853_08618455",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-07T23:26:34Z",
+      "side": 1,
+      "message": "Does the tethering code even use this still ? This can be easily checked by making this throw and running the tests ; if it\u0027s no longer used, let\u0027s delete this method and the legacyTypeMap member.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 75
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dab4e773_c3a4e546",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-07T23:26:34Z",
+      "side": 1,
+      "message": "If we execute the TODO at the top of this file, this can probably simply be replaced with NetworkAgentWrapper, and the entire file becomes unnecessary.\n\nThis would make the test more realistic, but it would also not isolate the tethering code nearly as much, so I\u0027m not too sure it\u0027s even a good idea in the first place.\n\nI guess keeping the TODO at the top of the file is probably still the best tradeoff until we need to instrument more here, which likely will see the code converge",
+      "range": {
+        "startLine": 226,
+        "startChar": 24,
+        "endLine": 226,
+        "endChar": 40
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fcf61d4_298fff7f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-07T23:26:34Z",
+      "side": 1,
+      "message": "This should probably be in frameworks/libs/net, maybe in NetUtils.java or in a new file in testutils/ to avoid encouraging using it in production code.\n\nDoing this now would force you to make this a topic so I\u0027m not going to ask for it, but maybe a TODO is good – I think we already have multiple copies of similar code across our tests.",
+      "range": {
+        "startLine": 252,
+        "startChar": 27,
+        "endLine": 252,
+        "endChar": 48
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceca4074_d04f2aa2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-07T23:26:34Z",
+      "side": 1,
+      "message": "Yes, but this code will send one broadcast for each request for that type (and in some undefined order at that, courtesy of HashMap iteration), so it sounds like it relies on either only one request per type being registered or the code being happy receiving multiple of these broadcasts in succession – which is kind of fine, but hopefully unrealistic.\n\nDo you want to have a set of legacy types and send the broadcasts only once ?",
+      "range": {
+        "startLine": 272,
+        "startChar": 67,
+        "endLine": 272,
+        "endChar": 70
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
