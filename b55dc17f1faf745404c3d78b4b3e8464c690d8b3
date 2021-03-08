@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2adf231f_2b4e0d97",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T11:30:33Z",
+      "side": 1,
+      "message": "Can you add a brief comment explaining why this is different in different branches, and a TODO to delete them when the differences are gone (presumably, when S goes to AOSP)?",
+      "revId": "b55dc17f1faf745404c3d78b4b3e8464c690d8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db17b8dc_12300707",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T11:30:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to have anything to do with whether the target is updatable or not, it seems to be related to whether something is S+ or not. Maybe rename to something reflecting that?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 9
+      },
+      "revId": "b55dc17f1faf745404c3d78b4b3e8464c690d8b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
