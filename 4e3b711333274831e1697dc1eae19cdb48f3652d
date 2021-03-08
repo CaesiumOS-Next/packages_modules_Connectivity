@@ -1,0 +1,52 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7b3373_3ff0f16a",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T15:11:29Z",
+      "side": 1,
+      "message": "\u003e Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.\n\nPlease fix.",
+      "parentUuid": "98cb01c7_e369da9b",
+      "range": {
+        "startLine": 759,
+        "startChar": 0,
+        "endLine": 759,
+        "endChar": 107
+      },
+      "revId": "4e3b711333274831e1697dc1eae19cdb48f3652d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6d9e728_5482f59d",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T15:11:29Z",
+      "side": 1,
+      "message": "\u003e Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.\n\nPlease fix.",
+      "parentUuid": "7e7f8542_4d9aac45",
+      "range": {
+        "startLine": 760,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 105
+      },
+      "revId": "4e3b711333274831e1697dc1eae19cdb48f3652d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
