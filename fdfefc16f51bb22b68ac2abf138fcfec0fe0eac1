@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01557be7_e762a80d",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-08T11:58:53Z",
+      "side": 1,
+      "message": "Add a TODO and keep this comment as unresolved.",
+      "parentUuid": "4ddbe7d4_e6fbdfa5",
+      "range": {
+        "startLine": 42,
+        "startChar": 11,
+        "endLine": 42,
+        "endChar": 40
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c51d99e1_0ac5c375",
         "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
         "patchSetId": 3
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e830fe3_cc0da776",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-08T11:58:53Z",
+      "side": 1,
+      "message": "I got a compile error while including libbase_headers to libtetherutilsjni.\nSo I keep using int for fd which is really ugly.\n\nerror: packages/modules/Connectivity/Tethering/Android.bp:61:1: dependency \"libbase_headers\" of \"libtetherutilsjni\" missing variant:\n  os:android,image:,arch:arm64_armv8-a,sdk:sdk\navailable variants:\n  os:linux_glibc,arch:x86_64\n  os:linux_glibc,arch:x86\n  os:windows,arch:x86\n  os:windows,arch:x86_64\n  os:android,image:,arch:arm64_armv8-a (alias to os:android,image:,arch:arm64_armv8-a,sdk:)\n  os:android,image:,arch:arm64_armv8-a,sdk:\n  os:android,image:,arch:arm_armv8-a (alias to os:android,image:,arch:arm_armv8-a,sdk:)\n  os:android,image:,arch:arm_armv8-a,sdk:\n  os:android,image:ramdisk,arch:arm64_armv8-a (alias to os:android,image:ramdisk,arch:arm64_armv8-a,sdk:)\n  os:android,image:ramdisk,arch:arm64_armv8-a,sdk:\n  os:android,image:vendor_ramdisk,arch:arm64_armv8-a (alias to os:android,image:vendor_ramdisk,arch:arm64_armv8-a,sdk:)\n  os:android,image:vendor_ramdisk,arch:arm64_armv8-a,sdk:\n  os:android,image:recovery,arch:arm64_armv8-a (alias to os:android,image:recovery,arch:arm64_armv8-a,sdk:)\n  os:android,image:recovery,arch:arm64_armv8-a,sdk:\n  os:android,image:vendor.S,arch:arm64_armv8-a (alias to os:android,image:vendor.S,arch:arm64_armv8-a,sdk:)\n  os:android,image:vendor.S,arch:arm64_armv8-a,sdk:\n  os:android,image:vendor.S,arch:arm_armv8-a (alias to os:android,image:vendor.S,arch:arm_armv8-a,sdk:)\n  os:android,image:vendor.S,arch:arm_armv8-a,sdk:\n  os:android,image:product.S,arch:arm64_armv8-a (alias to os:android,image:product.S,arch:arm64_armv8-a,sdk:)\n  os:android,image:product.S,arch:arm64_armv8-a,sdk:\n  os:android,image:product.S,arch:arm_armv8-a (alias to os:android,image:product.S,arch:arm_armv8-a,sdk:)\n  os:android,image:product.S,arch:arm_armv8-a,sdk:\n17:07:24 soong bootstrap failed with: exit status 1\n\n#### failed to build some targets (25 seconds) ####",
+      "parentUuid": "c51d99e1_0ac5c375",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecf36328_83872891",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
         "patchSetId": 3
@@ -60,6 +108,30 @@
       "writtenOn": "2021-03-05T05:49:28Z",
       "side": 1,
       "message": "Does having these methods actually simplify the code? If not, we can simply replace calls to these methods with direct calls to tcFilterAddDevBpf.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 5
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71fe9bda_25d60e8a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-08T11:58:53Z",
+      "side": 1,
+      "message": "Done. The oneline helper has been removed.",
+      "parentUuid": "ecf36328_83872891",
       "range": {
         "startLine": 68,
         "startChar": 0,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1aca5de_338f966c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-08T11:58:53Z",
+      "side": 1,
+      "message": "Temporarily, leave a TODO. Probably use InterfaceParams as you mentioned because attachProgram/detachProgram require both interface index and name for now.\n\nThe caller is IpServer which is using interface name. We could let ipserver pass the interface index but it will raise another problem that L.70 isEthernet() is using interface name for querying the ether/rawip type via SIOCGIFHWADDR.\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1607973/3..4/Tethering/src/android/net/ip/IpServer.java\n+ mBpfCoordinator.maybeAttachProgram(mIfaceName, ifname);\n  mNetd.tetherAddForward(mIfaceName, ifname);\n  mNetd.ipfwdAddInterfaceForward(mIfaceName, ifname);\n\nisEthernet\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1607973/3..4/Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp#140\n    strncpy(ifr.ifr_name, interface, sizeof(ifr.ifr_name));\n    if (ioctl(fd, SIOCGIFHWADDR, \u0026ifr, sizeof(ifr))) {",
+      "parentUuid": "aac2cd80_84480656",
+      "range": {
+        "startLine": 93,
+        "startChar": 37,
+        "endLine": 93,
+        "endChar": 58
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a7a900a8_f558dfc0",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
         "patchSetId": 3
@@ -106,6 +202,30 @@
       "writtenOn": "2021-03-05T05:49:28Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 123,
+        "startChar": 37,
+        "endLine": 123,
+        "endChar": 58
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b704739f_a8e9b172",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-08T11:58:53Z",
+      "side": 1,
+      "message": "as L.93.",
+      "parentUuid": "a7a900a8_f558dfc0",
       "range": {
         "startLine": 123,
         "startChar": 37,
