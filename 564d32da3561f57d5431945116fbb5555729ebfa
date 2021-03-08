@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2db76e55_fc102a9d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T16:17:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72dbc83b_42e53116",
+      "range": {
+        "startLine": 77,
+        "startChar": 43,
+        "endLine": 77,
+        "endChar": 46
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4eed1148_133ac31d",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-07T23:26:34Z",
       "side": 1,
       "message": "(not introduced by your change)\nMaybe comment here that this needs to be called on the test thread, since it\u0027s only called from outside this file ? So that defaultNetwork is managed correctly. (also that member should be named mDefaultNetwork)",
+      "range": {
+        "startLine": 116,
+        "startChar": 9,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c0754cf_b4cf98c9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T16:17:36Z",
+      "side": 1,
+      "message": "Added a comment at the top of the class explaining the (non-)threading model.",
+      "parentUuid": "4eed1148_133ac31d",
       "range": {
         "startLine": 116,
         "startChar": 9,
@@ -60,6 +108,30 @@
       "writtenOn": "2021-03-07T23:26:34Z",
       "side": 1,
       "message": "Does the tethering code even use this still ? This can be easily checked by making this throw and running the tests ; if it\u0027s no longer used, let\u0027s delete this method and the legacyTypeMap member.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 75
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "241e6013_96f108db",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T16:17:36Z",
+      "side": 1,
+      "message": "Unfortunately yes.\n\nIt uses it because it needs to receive CONNECTIVITY_ACTION broadcasts in order to work correctly, and you only get CONNECTIVITY_ACTION broadcasts for things like DUN and HIPRI if you register a legacy-type-containing request for them.\n\nThrowing in this method causes 14/206 tests in TetheringTests to fail.",
+      "parentUuid": "8ab05853_08618455",
       "range": {
         "startLine": 157,
         "startChar": 0,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "444d29a6_aa2c269d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T16:17:36Z",
+      "side": 1,
+      "message": "I\u0027m very uncomfortable adding a common method for this because the mapping is not 1:1, so the correct behaviour depends on the specific use case. Also there are things like TRANSPORT_WIFI_AWARE has no corresponding legacy type, etc.\n\nRemoved the legacy types by using capabilities instead.",
+      "parentUuid": "3fcf61d4_298fff7f",
+      "range": {
+        "startLine": 252,
+        "startChar": 27,
+        "endLine": 252,
+        "endChar": 48
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ceca4074_d04f2aa2",
@@ -129,6 +225,30 @@
       "writtenOn": "2021-03-07T23:26:34Z",
       "side": 1,
       "message": "Yes, but this code will send one broadcast for each request for that type (and in some undefined order at that, courtesy of HashMap iteration), so it sounds like it relies on either only one request per type being registered or the code being happy receiving multiple of these broadcasts in succession – which is kind of fine, but hopefully unrealistic.\n\nDo you want to have a set of legacy types and send the broadcasts only once ?",
+      "range": {
+        "startLine": 272,
+        "startChar": 67,
+        "endLine": 272,
+        "endChar": 70
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4a698c9_a923efb3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T16:17:36Z",
+      "side": 1,
+      "message": "Why one broadcast for each request? The break statement just after this will ensure only one is sent, no? Yes, obviously if a network matches more than one type the code will be incorrect. But that\u0027s what the comment says.",
+      "parentUuid": "ceca4074_d04f2aa2",
       "range": {
         "startLine": 272,
         "startChar": 67,
