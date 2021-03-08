@@ -18,24 +18,32 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+updatable_tethering_java_libs = ["framework-tethering"]
+non_updatable_tethering_java_libs = updatable_tethering_java_libs + ["service-connectivity"]
+
+updatable_tethering_jni_libs = []
+non_updatable_tethering_jni_libs = updatable_tethering_jni_libs + ["libservice-connectivity"]
+
+updatable_tethering_apps = ["Tethering"]
+non_updatable_tethering_apps = updatable_tethering_apps + []
+
+// Common build rule for the tethering APEX.
+// To edit contents of the APEX, refer to the variables above instead of editing below. This ensures
+// that the updatable / non-updatable configurations can be maintained without merge conflicts
+// between branches.
 apex {
     name: "com.android.tethering",
     // TODO: make updatable again once this contains only updatable artifacts (in particular, this
     // cannot build as updatable unless service-connectivity builds against stable API).
     updatable: false,
     // min_sdk_version: "30",
-    java_libs: [
-        "framework-tethering",
-        "service-connectivity",
-    ],
-    jni_libs: [
-        "libservice-connectivity",
-    ],
+    java_libs: non_updatable_tethering_java_libs,
+    jni_libs: non_updatable_tethering_jni_libs,
     bpfs: [
         "offload.o",
         "test.o",
     ],
-    apps: ["Tethering"],
+    apps: non_updatable_tethering_apps,
     manifest: "manifest.json",
     key: "com.android.tethering.key",
 
