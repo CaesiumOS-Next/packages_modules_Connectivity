@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11b9986e_44f65966",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T13:58:11Z",
+      "side": 1,
+      "message": "LGTM, but I don\u0027t really understand the implications. Can you add more information in the commit message or in comments?",
+      "revId": "5a318e1528167b9b2002658a32dbac3bf0d941d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd0cb54_2665d894",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T13:58:11Z",
+      "side": 1,
+      "message": "If it does fail, what\u0027s the impact? Is the program incorrect?",
+      "range": {
+        "startLine": 119,
+        "startChar": 46,
+        "endLine": 119,
+        "endChar": 47
+      },
+      "revId": "5a318e1528167b9b2002658a32dbac3bf0d941d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c44cc12_3bbe970e",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-08T13:58:11Z",
+      "side": 1,
+      "message": "Looking at tc_cls_act_prologue it looks like any TC BPF program that modifies packet data is always preceded by a prologue that calls bpf_skb_pull_data(skb, 0), which pulls skb_headlen(skb) bytes. Can you add a comment explaining how that interacts with this second pull?",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 93
+      },
+      "revId": "5a318e1528167b9b2002658a32dbac3bf0d941d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
