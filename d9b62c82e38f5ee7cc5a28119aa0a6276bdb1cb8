@@ -33,6 +33,24 @@
       "message": "Have you ran the test manually with this CL?\nNot quite sure, but I\u0027d met a static linking libc++ relevant problem before, which is static linking libc++ would cause the test crash due to gtest lib.\nIf this test can still normally executed, LGTM.",
       "revId": "d9b62c82e38f5ee7cc5a28119aa0a6276bdb1cb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93fe43ec_4f8d7afa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1058860
+      },
+      "writtenOn": "2021-03-09T19:19:19Z",
+      "side": 1,
+      "message": "Yes, this passes on AOSP.  Updated test stanza in commit message.",
+      "parentUuid": "42757c85_c89c3ad9",
+      "revId": "d9b62c82e38f5ee7cc5a28119aa0a6276bdb1cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
