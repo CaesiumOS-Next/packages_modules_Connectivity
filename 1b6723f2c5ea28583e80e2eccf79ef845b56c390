@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d42fd5e_aec904d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-09T07:35:56Z",
+      "side": 1,
+      "message": "TH does not shows any fail related to this topic but constantly show one error. The visible item is only one warning related ime test which is not related to this topic. The build and net related tests are pass. Bypass TH.",
+      "revId": "1b6723f2c5ea28583e80e2eccf79ef845b56c390",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
