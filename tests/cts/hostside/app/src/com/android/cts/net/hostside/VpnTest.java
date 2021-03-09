@@ -50,11 +50,9 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.Proxy;
 import android.net.ProxyInfo;
-import android.net.TransportInfo;
 import android.net.Uri;
 import android.net.VpnManager;
 import android.net.VpnService;
-import android.net.VpnTransportInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Looper;
@@ -76,6 +74,8 @@ import android.util.Log;
 
 import com.android.compatibility.common.util.BlockingBroadcastReceiver;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.networkstack.apishim.VpnTransportInfoShimImpl;
+import com.android.networkstack.apishim.common.VpnTransportInfoShim;
 
 import java.io.Closeable;
 import java.io.FileDescriptor;
@@ -1152,13 +1152,13 @@ public class VpnTest extends InstrumentationTestCase {
         }
     }
 
-    private void maybeExpectVpnTransportInfo(Network network) {
+    private void maybeExpectVpnTransportInfo(Network network) throws Exception {
         if (!SdkLevel.isAtLeastS()) return;
         final NetworkCapabilities vpnNc = mCM.getNetworkCapabilities(network);
         assertTrue(vpnNc.hasTransport(TRANSPORT_VPN));
-        final TransportInfo ti = vpnNc.getTransportInfo();
-        assertTrue(ti instanceof VpnTransportInfo);
-        assertEquals(VpnManager.TYPE_VPN_SERVICE, ((VpnTransportInfo) ti).type);
+        final VpnTransportInfoShim vpnTransportInfo =
+                VpnTransportInfoShimImpl.newInstance(vpnNc.getTransportInfo());
+        assertEquals(VpnManager.TYPE_VPN_SERVICE, vpnTransportInfo.getType());
     }
 
     private void assertDefaultProxy(ProxyInfo expected) {

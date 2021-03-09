@@ -31,6 +31,7 @@ android_test_helper_app {
         "ub-uiautomator",
         "CtsHostsideNetworkTestsAidl",
         "modules-utils-build",
+        "NetworkStackApiCurrentLib",
     ],
     libs: [
         "android.test.runner",
