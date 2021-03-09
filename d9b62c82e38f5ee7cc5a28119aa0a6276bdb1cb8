@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7756b5e_3c1f2f5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-09T06:32:13Z",
+      "side": 1,
+      "message": "LGTM, but Luke should also take a look.",
+      "revId": "d9b62c82e38f5ee7cc5a28119aa0a6276bdb1cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
