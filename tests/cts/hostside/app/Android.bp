@@ -24,13 +24,14 @@ android_test_helper_app {
     //sdk_version: "current",
     platform_apis: true,
     static_libs: [
+        "CtsHostsideNetworkTestsAidl",
+        "NetworkStackApiCurrentLib",
         "androidx.test.rules",
         "androidx.test.ext.junit",
         "compatibility-device-util-axt",
         "ctstestrunner-axt",
-        "ub-uiautomator",
-        "CtsHostsideNetworkTestsAidl",
         "modules-utils-build",
+        "ub-uiautomator",
     ],
     libs: [
         "android.test.runner",
