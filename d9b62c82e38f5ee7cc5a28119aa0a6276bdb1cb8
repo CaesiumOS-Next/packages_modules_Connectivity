@@ -16,6 +16,23 @@
       "message": "LGTM, but Luke should also take a look.",
       "revId": "d9b62c82e38f5ee7cc5a28119aa0a6276bdb1cb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42757c85_c89c3ad9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2021-03-09T07:02:17Z",
+      "side": 1,
+      "message": "Have you ran the test manually with this CL?\nNot quite sure, but I\u0027d met a static linking libc++ relevant problem before, which is static linking libc++ would cause the test crash due to gtest lib.\nIf this test can still normally executed, LGTM.",
+      "revId": "d9b62c82e38f5ee7cc5a28119aa0a6276bdb1cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
