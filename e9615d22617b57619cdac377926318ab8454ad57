@@ -16,6 +16,23 @@
       "message": "Made requested whitespace change.",
       "revId": "e9615d22617b57619cdac377926318ab8454ad57",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8240435_f7e60d26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-09T07:26:25Z",
+      "side": 1,
+      "message": "Fails to build in mainline-prod with:\n\npackages/modules/Connectivity/Tethering/bpf_progs/offload.c:122:5: error: implicit declaration of function \u0027try_make_readable\u0027 is invalid in C99 [-Werror,-Wimplicit-function-declaration]\n    try_make_readable(skb, l2_header_size + IP6_HLEN + TCP_HLEN);\n    ^\n\nbecause try_make_readable is defined in system/netd, which does not automerge to mainline-prod (and the module shouldn\u0027t be using it anyway)",
+      "revId": "e9615d22617b57619cdac377926318ab8454ad57",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
