@@ -257,6 +257,30 @@
       },
       "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c3b9d1_04f680f7",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-09T12:58:09Z",
+      "side": 1,
+      "message": "Somehow I missed the \u0027break\u0027.",
+      "parentUuid": "e4a698c9_a923efb3",
+      "range": {
+        "startLine": 272,
+        "startChar": 67,
+        "endLine": 272,
+        "endChar": 70
+      },
+      "revId": "564d32da3561f57d5431945116fbb5555729ebfa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
