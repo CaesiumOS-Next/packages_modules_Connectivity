@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "688500ee_f32e762d",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-09T00:05:34Z",
+      "side": 1,
+      "message": "There\u0027s checks later that will (most likely) bail.\nSo basically impact is that offload likely won\u0027t happen.\nJust as would have happened if we didn\u0027t call the function in the first place.",
+      "parentUuid": "cfd0cb54_2665d894",
+      "range": {
+        "startLine": 119,
+        "startChar": 46,
+        "endLine": 119,
+        "endChar": 47
+      },
+      "revId": "5a318e1528167b9b2002658a32dbac3bf0d941d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c44cc12_3bbe970e",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-03-08T13:58:11Z",
       "side": 1,
       "message": "Looking at tc_cls_act_prologue it looks like any TC BPF program that modifies packet data is always preceded by a prologue that calls bpf_skb_pull_data(skb, 0), which pulls skb_headlen(skb) bytes. Can you add a comment explaining how that interacts with this second pull?",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 93
+      },
+      "revId": "5a318e1528167b9b2002658a32dbac3bf0d941d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eea92b0_dd15d432",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-09T00:05:34Z",
+      "side": 1,
+      "message": "We don\u0027t modify packet data in these programs.  We read the packet with DPA (direct packet access), but we never write via DPA.  We only write via bpf kernel helpers - which don\u0027t trigger that logic (see bpf_unclone_prologue() checking direct_write).",
+      "parentUuid": "5c44cc12_3bbe970e",
       "range": {
         "startLine": 120,
         "startChar": 4,
