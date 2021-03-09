@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a61b54_0564d870",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-09T00:22:52Z",
+      "side": 1,
+      "message": "Oh, I see you did expand on this in the commit message. Might be good to have this in the code comments as well since those stay around. But LGTM if you just want to put it in the commit message.",
+      "revId": "eabe7f6c139c75e47036a2ddfd256c861b7751b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
