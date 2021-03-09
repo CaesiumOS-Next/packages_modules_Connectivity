@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c19dd93_ad760841",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-09T11:44:14Z",
+      "side": 1,
+      "message": "I am not really familiar with these headers and just found nits which may be not important.",
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32f3df50_a28c902b",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-09T11:44:14Z",
+      "side": 1,
+      "message": "nit: probably keep the byte table for readability (not a strong opinion)\n\nIn old implementation (ra.put), I can understand the fields byte by byte from the table. In the new wrapper (Icmpv6Header, RaHeader), I need to check their definition for understanding what they present for.\n\nProbably something like this make me easier to understand the new structs used for.\nEx:\n..\n   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n  |     Type      |     Code      |          Checksum             | ---\u003e Icmpv6Header\n  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n  | Cur Hop Limit |M|O|H|Prf|P|R|R|       Router Lifetime         | -+\n  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |\n  |                         Reachable Time                        |  +-\u003e RaHeader\n  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  |\n  |                          Retrans Timer                        | -+\n  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n  |   Options ...\n  +-+-+-+-+-+-+-+-+-+-+-+-\n\n\n\nNot a strong opinion. I just not familiar with this headers. Probably this is not a problem for who is familiar with these headers.",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 378,
+        "endChar": 10
+      },
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "663351d0_b48b7f2c",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-09T11:44:14Z",
+      "side": 1,
+      "message": "nit: probably keep the byte table (not a strong opinion)\n\nwithout the table, we may need to check PrefixInformationOption.java to know what is L and A. So does putSlla, putRdnss, ..",
+      "range": {
+        "startLine": 439,
+        "startChar": 87,
+        "endLine": 439,
+        "endChar": 95
+      },
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97e8647d_d6efb187",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-09T11:44:14Z",
+      "side": 1,
+      "message": "nit: do we care about BufferOverflowException if the size of \"rdnssOption \u003e ra\"?\n\nI just saw the original code has a TODO to handle it. The TODO has been removed now. Probably it is not important because it is a test.\n\n@Test\npublic void testByteBuffer() throws Exception {\n    ByteBuffer bufferA \u003d ByteBuffer.allocate(5);\n    ByteBuffer bufferB \u003d ByteBuffer.allocate(10);\n    bufferA.put(bufferB);\n}\n\n[6/23] com.android.networkstack.tethering.BpfCoordinatorTest#testByteBuffer: FAILED (171ms)\n\nSTACKTRACE:\njava.nio.BufferOverflowException\n\tat java.nio.ByteBuffer.put(ByteBuffer.java:611)\n\tat com.android.networkstack.tethering.BpfCoordinatorTest.testByteBuffer(BpfCoordinatorTest.java:1144)",
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
