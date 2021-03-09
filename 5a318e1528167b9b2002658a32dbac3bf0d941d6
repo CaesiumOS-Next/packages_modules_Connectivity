@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f194753_d6aa6240",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-09T00:17:20Z",
+      "side": 1,
+      "message": "LGTM but would be good if you could expand the comments.",
+      "revId": "5a318e1528167b9b2002658a32dbac3bf0d941d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfd0cb54_2665d894",
@@ -65,6 +82,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48a39a08_7a50afce",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-09T00:17:20Z",
+      "side": 1,
+      "message": "Could you expand the comment to explain this?",
+      "parentUuid": "688500ee_f32e762d",
+      "range": {
+        "startLine": 119,
+        "startChar": 46,
+        "endLine": 119,
+        "endChar": 47
+      },
+      "revId": "5a318e1528167b9b2002658a32dbac3bf0d941d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c44cc12_3bbe970e",
@@ -102,6 +143,30 @@
       "side": 1,
       "message": "We don\u0027t modify packet data in these programs.  We read the packet with DPA (direct packet access), but we never write via DPA.  We only write via bpf kernel helpers - which don\u0027t trigger that logic (see bpf_unclone_prologue() checking direct_write).",
       "parentUuid": "5c44cc12_3bbe970e",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 93
+      },
+      "revId": "5a318e1528167b9b2002658a32dbac3bf0d941d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61c24a51_ea2d98d5",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-09T00:17:20Z",
+      "side": 1,
+      "message": "Would be good to briefly mention that here.",
+      "parentUuid": "3eea92b0_dd15d432",
       "range": {
         "startLine": 120,
         "startChar": 4,
