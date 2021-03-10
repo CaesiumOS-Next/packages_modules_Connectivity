@@ -447,6 +447,29 @@ public class OffloadHardwareInterface {
         return results.mSuccess;
     }
 
+    /** Set data warning and limit value to offload management process. */
+    public boolean setDataWarningAndLimit(String iface, long warning, long limit) {
+
+        final String logmsg = String.format("setDataWarningAndLimit(%s, %d)", iface, limit);
+
+        final CbResults results = new CbResults();
+        try {
+            ((android.hardware.tetheroffload.control.V1_1.IOffloadControl) mOffloadControl)
+                    .setDataWarningAndLimit(
+                    iface, warning, limit,
+                            (boolean success, String errMsg) -> {
+                                results.mSuccess = success;
+                                results.mErrMsg = errMsg;
+                            });
+        } catch (RemoteException e) {
+            record(logmsg, e);
+            return false;
+        }
+
+        record(logmsg, results);
+        return results.mSuccess;
+    }
+
     /** Set upstream parameters to offload management process. */
     public boolean setUpstreamParameters(
             String iface, String v4addr, String v4gateway, ArrayList<String> v6gws) {

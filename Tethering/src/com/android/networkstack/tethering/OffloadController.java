@@ -26,6 +26,7 @@ import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED;
 import static android.provider.Settings.Global.TETHER_OFFLOAD_DISABLED;
 
+import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_1_0;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
 
 import android.annotation.NonNull;
@@ -276,6 +277,18 @@ public class OffloadController {
                     }
 
                     @Override
+                    public void onWarningReached() {
+                        if (!started()) return;
+                        mLog.log("onWarningReached");
+
+                        updateStatsForCurrentUpstream();
+                        if (mStatsProvider != null) {
+                            mStatsProvider.pushTetherStats();
+                            mStatsProvider.notifyWarningReached();
+                        }
+                    }
+
+                    @Override
                     public void onNatTimeoutUpdate(int proto,
                                                    String srcAddr, int srcPort,
                                                    String dstAddr, int dstPort) {
@@ -410,7 +423,6 @@ public class OffloadController {
 
         @Override
         public void onSetAlert(long quotaBytes) {
-            // TODO: Ask offload HAL to notify alert without stopping traffic.
             // Post it to handler thread since it access remaining quota bytes.
             mHandler.post(() -> {
                 updateAlertQuota(quotaBytes);
@@ -495,6 +507,7 @@ public class OffloadController {
 
     private boolean isPollingStatsNeeded() {
         return started() && mRemainingAlertQuota > 0
+                && mHwInterface.getOffloadControlVersion() == OFFLOAD_HAL_VERSION_1_0
                 && !TextUtils.isEmpty(currentUpstreamInterface())
                 && mDeps.getTetherConfig() != null
                 && mDeps.getTetherConfig().getOffloadPollInterval()
@@ -509,7 +522,13 @@ public class OffloadController {
         }
 
         InterfaceQuota quota = mInterfaceQuotas.getOrDefault(iface, InterfaceQuota.MAX_VALUE);
-        return mHwInterface.setDataLimit(iface, quota.limitBytes);
+        final boolean ret;
+        if (mHwInterface.getOffloadControlVersion() <= OFFLOAD_HAL_VERSION_1_0) {
+            ret = mHwInterface.setDataLimit(iface, quota.limitBytes);
+        } else {
+            ret = mHwInterface.setDataWarningAndLimit(iface, quota.warningBytes, quota.limitBytes);
+        }
+        return ret;
     }
 
     private void updateStatsForCurrentUpstream() {
