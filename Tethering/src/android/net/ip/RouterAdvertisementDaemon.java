@@ -37,7 +37,7 @@ import android.system.StructTimeval;
 import android.util.Log;
 
 import com.android.internal.annotations.GuardedBy;
-import com.android.internal.util.TrafficStatsConstants;
+import com.android.net.module.util.TrafficStatsConstants;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
