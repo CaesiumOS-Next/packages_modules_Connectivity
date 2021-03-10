@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43257d1e_8dafaad3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-10T11:31:21Z",
+      "side": 1,
+      "message": "This seems plausible, but a few questions here:\n- Is this a bug? Should we fix it?\n- Do all our other tests that use TestNetworkManager adopt both permissions? Or do we need to fix other tests as well?\n- Did this just start happening recently? If not - how did this CL get merged? All our CTS tests should be in presubmit, so the CL that introduced this problem should have failed in presubmit.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 56
+      },
+      "revId": "3cbee3d710b83d08f4eb14f70a32875c30d1a580",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
