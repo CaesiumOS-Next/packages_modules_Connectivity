@@ -38,6 +38,7 @@ import android.os.RemoteException;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
+import android.util.Pair;
 
 import com.android.internal.annotations.VisibleForTesting;
 
@@ -82,6 +83,13 @@ public class OffloadHardwareInterface {
     private final SharedLog mLog;
     private final Dependencies mDeps;
     private IOffloadControl mOffloadControl;
+
+    // TODO: Use major-minor version control to prevent from defining new constants.
+    static final int OFFLOAD_HAL_VERSION_UNKNOWN = 0;
+    static final int OFFLOAD_HAL_VERSION_1_0 = 1;
+    static final int OFFLOAD_HAL_VERSION_1_1 = 2;
+    private int mOffloadControlVersion = OFFLOAD_HAL_VERSION_UNKNOWN;
+
     private TetheringOffloadCallback mTetheringOffloadCallback;
     private ControlCallback mControlCallback;
 
@@ -167,13 +175,26 @@ public class OffloadHardwareInterface {
             }
         }
 
-        public IOffloadControl getOffloadControl() {
+        @NonNull
+        public Pair<IOffloadControl, Integer> getOffloadControl() {
+            IOffloadControl hal = null;
+            int version = OFFLOAD_HAL_VERSION_UNKNOWN;
             try {
-                return IOffloadControl.getService(true /*retry*/);
+                hal = android.hardware.tetheroffload.control
+                        .V1_1.IOffloadControl.getService(true /*retry*/);
+                version = OFFLOAD_HAL_VERSION_1_1;
             } catch (RemoteException | NoSuchElementException e) {
-                mLog.e("tethering offload control not supported: " + e);
-                return null;
             }
+
+            if (hal == null) {
+                try {
+                    hal = IOffloadControl.getService(true /*retry*/);
+                    version = OFFLOAD_HAL_VERSION_1_0;
+                } catch (RemoteException | NoSuchElementException e) {
+                }
+            }
+
+            return new Pair<IOffloadControl, Integer>(hal, version);
         }
 
         public NativeHandle createConntrackSocket(final int groups) {
@@ -309,11 +330,15 @@ public class OffloadHardwareInterface {
         mControlCallback = controlCb;
 
         if (mOffloadControl == null) {
-            mOffloadControl = mDeps.getOffloadControl();
+            final Pair<IOffloadControl, Integer> halAndVersion = mDeps.getOffloadControl();
+            mOffloadControl = halAndVersion.first;
+            mOffloadControlVersion = halAndVersion.second;
             if (mOffloadControl == null) {
                 mLog.e("tethering IOffloadControl.getService() returned null");
                 return false;
             }
+            mLog.i("tethering offload control version "
+                    + mOffloadControlVersion + " is supported.");
         }
 
         final String logmsg = String.format("initOffloadControl(%s)",
@@ -545,6 +570,10 @@ public class OffloadHardwareInterface {
                         params.dst.addr, uint16(params.dst.port));
             });
         }
+    }
+
+    public int getOffloadControlVersion() {
+        return mOffloadControlVersion;
     }
 
     private static int networkProtocolToOsConstant(int proto) {
