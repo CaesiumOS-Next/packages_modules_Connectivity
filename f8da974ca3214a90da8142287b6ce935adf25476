@@ -1,0 +1,28 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8423c1f2_0c681a5a",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-10T06:15:28Z",
+      "side": 1,
+      "message": "Wrapping this 101 character line won\u0027t improve readability.",
+      "parentUuid": "edf1f3c0_714a6365",
+      "range": {
+        "startLine": 706,
+        "startChar": 0,
+        "endLine": 706,
+        "endChar": 101
+      },
+      "revId": "f8da974ca3214a90da8142287b6ce935adf25476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
