@@ -21,6 +21,8 @@ import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_UNIX;
 import static android.system.OsConstants.SOCK_STREAM;
 
+import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_1_1;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -45,6 +47,7 @@ import android.os.test.TestLooper;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
+import android.util.Pair;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -91,8 +94,8 @@ public final class OffloadHardwareInterfaceTest {
         }
 
         @Override
-        public IOffloadControl getOffloadControl() {
-            return mIOffloadControl;
+        public Pair<IOffloadControl, Integer> getOffloadControl() {
+            return new Pair<IOffloadControl, Integer>(mIOffloadControl, OFFLOAD_HAL_VERSION_1_1);
         }
 
         @Override
