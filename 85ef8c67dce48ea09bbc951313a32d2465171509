@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e484937b_64dc4af8",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-10T07:06:20Z",
+      "side": 1,
+      "message": "just a question:\ndoes this equal Struct.getSize(PrefixInformationOption.class) \u003cL.206\u003e?\n\nI saw that ICMPV6_ND_OPTION_PIO and ICMPV6_ND_OPTION_MTU count the total length manually (L.188, L.212) and ICMPV6_ND_OPTION_RDNSS uses Struct.getSize (L.222). Just want to the difference. Thank you",
+      "range": {
+        "startLine": 188,
+        "startChar": 32,
+        "endLine": 188,
+        "endChar": 79
+      },
+      "revId": "85ef8c67dce48ea09bbc951313a32d2465171509",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e4598d_8a4d876b",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-10T07:06:20Z",
+      "side": 1,
+      "message": "poll? popPacket seems to be deprecated\n\nhttps://android.googlesource.com/platform/frameworks/libs/net/+/refs/heads/master/common/devicetests/com/android/testutils/TapPacketReader.java#83\n    /**\n     * @deprecated This method does not actually \"pop\" (which generally means the last packet).\n     * Use {@link #poll(long)}, which has the same behavior, instead.\n     */\n    @Nullable\n    @Deprecated\n    public byte[] popPacket(long timeoutMs) {",
+      "range": {
+        "startLine": 267,
+        "startChar": 47,
+        "endLine": 267,
+        "endChar": 56
+      },
+      "revId": "85ef8c67dce48ea09bbc951313a32d2465171509",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
