@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63ebb3de_c315fb1c",
+        "filename": "tests/cts/hostside/app/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-10T12:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800ccff2_2d3e5a7c",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "dfd8e58c50f59251114e6014576bb99fde51432f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46570648_a62f98a5",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-09T07:03:17Z",
       "side": 1,
       "message": "Following the comment on the other CL, this would end up being:\n\n    assertTrue(VpnTransportInfoShimImpl.isVpnTransportInfo(ti));\n    assertEquals(VpnManager.TYPE_VPN_SERVICE, VpnTransportInfoShim.newInstance(ti).getType());",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1160,
+        "endChar": 79
+      },
+      "revId": "dfd8e58c50f59251114e6014576bb99fde51432f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "843add30_aeca4e04",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-10T12:40:38Z",
+      "side": 1,
+      "message": "As explained in other CL, I end up with this new patch.",
+      "parentUuid": "46570648_a62f98a5",
       "range": {
         "startLine": 1159,
         "startChar": 0,
