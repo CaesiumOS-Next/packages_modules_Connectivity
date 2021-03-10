@@ -1585,7 +1585,8 @@ public class ConnectivityManagerTest {
         // a test network request.
         final TestNetworkManager tnm = runWithShellPermissionIdentity(() ->
                 mContext.getSystemService(TestNetworkManager.class),
-                android.Manifest.permission.MANAGE_TEST_NETWORKS);
+                android.Manifest.permission.MANAGE_TEST_NETWORKS,
+                android.Manifest.permission.NETWORK_SETTINGS);
         final TestNetworkInterface testNetworkInterface = runWithShellPermissionIdentity(() ->
                     tnm.createTunInterface(new LinkAddress[]{TEST_LINKADDR}),
                 android.Manifest.permission.MANAGE_TEST_NETWORKS,
