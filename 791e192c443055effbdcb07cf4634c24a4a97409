@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "164535c0_479288cd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-11T15:25:04Z",
+      "side": 1,
+      "message": "Would reword as:\n\nBefore, S setUids will be a no-op. But because NetworkRequest.Builder sets the UID of the request to the current UID, the request contains the current UID both on S and before S.",
+      "range": {
+        "startLine": 256,
+        "startChar": 55,
+        "endLine": 259,
+        "endChar": 39
+      },
+      "revId": "791e192c443055effbdcb07cf4634c24a4a97409",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
