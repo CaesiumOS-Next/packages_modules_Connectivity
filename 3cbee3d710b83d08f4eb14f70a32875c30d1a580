@@ -22,6 +22,30 @@
       },
       "revId": "3cbee3d710b83d08f4eb14f70a32875c30d1a580",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e3905f8_74b10e95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-03-12T02:04:22Z",
+      "side": 1,
+      "message": "The problem here is that if we use runWithShellPermissionIdentity and specify any permission, then we need to make sure that all the needed permissions are specified.\nOtherwise, this kind of issue will happen if we lose any of needed permissions.\nIn fact, we can also fix this issue by removing permissions and it will get all the permissions that shell has.\nSomething like:\nfinal TestNetworkManager tnm \u003d runWithShellPermissionIdentity(() -\u003e\n        mContext.getSystemService(TestNetworkManager.class));\n\nSo,\n\u003e Is this a bug? Should we fix it?\nYes, this is a bug because we chose using runWithShellPermissionIdentity and specified the permissions but lacked one of the needed permissions.\n\n\u003e Do all our other tests that use TestNetworkManager adopt both permissions? Or do we need to fix other tests as well?\nI didn\u0027t see other tests are using runWithShellPermissionIdentity and specify permissions by themselves, so they should get all the permissions that shell has.\n\n\u003e Did this just start happening recently? If not - how did this CL get merged? All our CTS tests should be in presubmit, so the CL that introduced this problem should have failed in presubmit.\nYes, the interesting thing is that testRequestBackgroundNetwork is a new test for S so it won\u0027t be run in R.\nAnd before aosp/1612014, presubmit only ran CtsNetTestCasesLatestSdk, the latest SDK version is R, so this test won\u0027t be run.",
+      "parentUuid": "43257d1e_8dafaad3",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 56
+      },
+      "revId": "3cbee3d710b83d08f4eb14f70a32875c30d1a580",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
