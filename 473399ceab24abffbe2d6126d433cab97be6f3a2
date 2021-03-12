@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1440ddc_409e803c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-12T14:06:50Z",
+      "side": 1,
+      "message": "Failures are unrelated. This is a test-only change, and the presubmit failure is due to a test in a different package (CtsInputMethodTestCases).",
+      "revId": "473399ceab24abffbe2d6126d433cab97be6f3a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
