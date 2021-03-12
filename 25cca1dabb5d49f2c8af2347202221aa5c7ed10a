@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05abc6e9_12c887bf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-12T09:04:01Z",
+      "side": 1,
+      "message": "I did this because the code wants to call prepareUsbTethering, but it also wants to exercise the real (non-mocked) behaviour of mUpstreamNetworkMonitor. Done this in a better way by moving the code that controls the mock into runUsbTethering, and making the test reimplement most of runUsbTethering (it\u0027s only 3-4 lines or so).",
+      "parentUuid": "586b037d_fd623475",
+      "range": {
+        "startLine": 837,
+        "startChar": 12,
+        "endLine": 837,
+        "endChar": 25
+      },
+      "revId": "25cca1dabb5d49f2c8af2347202221aa5c7ed10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18e2ee97_9af7c230",
