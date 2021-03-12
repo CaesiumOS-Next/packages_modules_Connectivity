@@ -22,6 +22,53 @@
       },
       "revId": "94ae61cc0e9f19d799436273a717c5ae2ecd58f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c0be490_210f9d30",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-12T08:50:07Z",
+      "side": 1,
+      "message": "Thanks, I will try it",
+      "parentUuid": "5dbc13fd_646678ec",
+      "range": {
+        "startLine": 330,
+        "startChar": 8,
+        "endLine": 330,
+        "endChar": 1
+      },
+      "revId": "94ae61cc0e9f19d799436273a717c5ae2ecd58f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aaa944a_6e89ee69",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-12T08:50:07Z",
+      "side": 1,
+      "message": "Stats can\u0027t be set for ipv4-only upstream. (ipv6-only upstream is ok)\n\nIt failed at L.1177. I will fix it.\n\nLog:\n# interface mapping (mInterfaceNames) can\u0027t convert interface index (12) into interface name (L.1177) which is required for query interface quota (L.1180).\n03-12 16:17:04.186  1073  2537  2735 W Tethering: [BpfCoordinator] WARN maybeSetLimit\n03-12 16:17:04.187  1073  2537  2735 E Tethering: [BpfCoordinator] ERROR Fail to get the interface name for index 12\n03-12 16:17:04.187  1073  2537  2735 E Tethering: [BpfCoordinator] ERROR Setting data limit for null failed.\n\ndumpsys:\n# stats is \u003cempty\u003e for ipv4 only network. The v4 rule has been added but no stats\nForwarding stats:\n  \u003cempty\u003e\nForwarding rules:\n  No IPv6 upstream rules\n  No IPv6 rules\n  [IPv4]: iif(iface) oif(iface) src nat dst\n    21(21) 12(12) 192.168.219.210:50999 -\u003e 10.144.8.233:50999 -\u003e 17.252.194.22:443\n    21(21) 12(12) 192.168.219.210:51000 -\u003e 10.144.8.233:51000 -\u003e 52.98.42.194:443\n    21(21) 12(12) 192.168.219.210:62418 -\u003e 10.144.8.233:62418 -\u003e 17.253.117.202:80\n    21(21) 12(12) 192.168.219.210:51001 -\u003e 10.144.8.233:51001 -\u003e 184.26.170.31:443\n    \nRoot cause:\nThe interface \u003cindex : name\u003e mapping is only updated while ipv6 link properties is updated for now.\nBut the stats update needs both interface index (bpf map) and interface name (query quota).\n\nSrc:\n# Only ipv6 upstream updates the mapping for now.\nhttps://android.googlesource.com/platform/frameworks/base.git/+/fc2b39948c607cfa723f72c1ab965ad50d0419d2/packages/Tethering/src/android/net/ip/IpServer.java#763\nprivate void updateUpstreamIPv6LinkProperties(LinkProperties v6only, int ttlAdjustment) {\n    ..\n    mBpfCoordinator.addUpstreamNameToLookupTable(upstreamIfIndex, upstreamIface);",
+      "range": {
+        "startLine": 1195,
+        "startChar": 33,
+        "endLine": 1195,
+        "endChar": 48
+      },
+      "revId": "94ae61cc0e9f19d799436273a717c5ae2ecd58f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
