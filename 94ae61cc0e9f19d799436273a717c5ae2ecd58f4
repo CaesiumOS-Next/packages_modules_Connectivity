@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dbc13fd_646678ec",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-12T03:59:09Z",
+      "side": 1,
+      "message": "We can change forEach from a BiConsumer to a BiFunction\u003cK, V, Boolean\u003e and have the returned boolean encode whether iteration should stop.",
+      "range": {
+        "startLine": 330,
+        "startChar": 8,
+        "endLine": 330,
+        "endChar": 1
+      },
+      "revId": "94ae61cc0e9f19d799436273a717c5ae2ecd58f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
