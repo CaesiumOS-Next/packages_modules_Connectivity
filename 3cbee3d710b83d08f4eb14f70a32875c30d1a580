@@ -63,6 +63,29 @@
       "message": "Junyu, can you take a look? I think you added this test. If this CL seems correct, feel free to go ahead and merge it.",
       "revId": "3cbee3d710b83d08f4eb14f70a32875c30d1a580",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32627c43_0b2900e8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1589,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-03-12T08:52:11Z",
+      "side": 1,
+      "message": "Per offline sync, it seems to me the caller should not be asked for any additional permission because the implementation detail of TestNetworkService.\nThus please try if clear calling indentity in TestnetworkService can solve the problem.",
+      "range": {
+        "startLine": 1588,
+        "startChar": 0,
+        "endLine": 1589,
+        "endChar": 62
+      },
+      "revId": "3cbee3d710b83d08f4eb14f70a32875c30d1a580",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
