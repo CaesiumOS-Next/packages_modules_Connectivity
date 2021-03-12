@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38ee2fb3_23beb06a",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-12T00:20:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4e830fe3_cc0da776",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecf36328_83872891",
@@ -213,6 +237,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28eee4f2_ee36a7fa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-12T00:20:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bf232da5_545bae9c",
+      "range": {
+        "startLine": 93,
+        "startChar": 37,
+        "endLine": 93,
+        "endChar": 58
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7a900a8_f558dfc0",
@@ -250,6 +298,30 @@
       "side": 1,
       "message": "as L.93.",
       "parentUuid": "a7a900a8_f558dfc0",
+      "range": {
+        "startLine": 123,
+        "startChar": 37,
+        "endLine": 123,
+        "endChar": 58
+      },
+      "revId": "fdfefc16f51bb22b68ac2abf138fcfec0fe0eac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c751054_fed27734",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-12T00:20:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b704739f_a8e9b172",
       "range": {
         "startLine": 123,
         "startChar": 37,

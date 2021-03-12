@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42498380_93052837",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-12T00:20:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "78dba3cc_f0af6c54",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "891eb1bedf305bdb7f6b5425805ee136796af3a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c3a5a2d_2d80dc22",
@@ -61,6 +85,30 @@
       "writtenOn": "2021-03-09T02:44:19Z",
       "side": 1,
       "message": "I don\u0027t think any kernel we care about will ever fail this, perhaps drop todo?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 99
+      },
+      "revId": "891eb1bedf305bdb7f6b5425805ee136796af3a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "068f509e_546e8e55",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-12T00:20:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c3a5a2d_2d80dc22",
       "range": {
         "startLine": 55,
         "startChar": 0,
