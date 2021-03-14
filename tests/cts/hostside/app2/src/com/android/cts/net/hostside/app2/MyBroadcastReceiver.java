@@ -41,10 +41,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -152,18 +155,23 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
      *
      */
     // TODO: now that it uses Binder, it counl return a Bundle with the data parts instead...
-    static String checkNetworkStatus(Context context) {
+    static String checkNetworkStatus(Context context, @Nullable Network network) {
         final ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         // TODO: connect to a hostside server instead
         final String address = "http://example.com";
-        final NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        final NetworkInfo networkInfo = network == null
+                ? cm.getActiveNetworkInfo() : cm.getNetworkInfo(network);
         Log.d(TAG, "Running checkNetworkStatus() on thread "
                 + Thread.currentThread().getName() + " for UID " + getUid(context)
                 + "\n\tactiveNetworkInfo: " + networkInfo + "\n\tURL: " + address);
         boolean checkStatus = false;
         String checkDetails = "N/A";
         try {
+            if (network != null && !cm.bindProcessToNetwork(network)) {
+                Log.e(TAG, "bindProcessToNetwork failed for network=" + network);
+                return null;
+            }
             final URL url = new URL(address);
             final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(NETWORK_TIMEOUT_MS);
@@ -177,6 +185,11 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             checkStatus = false;
             checkDetails = "Exception getting " + address + ": " + e;
+        } finally {
+            if (network != null && !cm.bindProcessToNetwork(null)) {
+                Log.e(TAG, "bindProcessToNetwork failed for network=<null>");
+                return null;
+            }
         }
         Log.d(TAG, checkDetails);
         final String state, detailedState;

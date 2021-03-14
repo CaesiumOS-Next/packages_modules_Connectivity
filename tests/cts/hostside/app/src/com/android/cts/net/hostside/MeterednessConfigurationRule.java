@@ -19,7 +19,9 @@ import static com.android.cts.net.hostside.NetworkPolicyTestUtils.setupActiveNet
 import static com.android.cts.net.hostside.Property.METERED_NETWORK;
 import static com.android.cts.net.hostside.Property.NON_METERED_NETWORK;
 
+import android.net.Network;
 import android.util.ArraySet;
+import android.util.Pair;
 
 import com.android.compatibility.common.util.BeforeAfterRule;
 import com.android.compatibility.common.util.ThrowingRunnable;
@@ -29,11 +31,13 @@ import org.junit.runners.model.Statement;
 
 public class MeterednessConfigurationRule extends BeforeAfterRule {
     private ThrowingRunnable mMeterednessResetter;
+    private Network mNetworkInUse;
 
     @Override
     public void onBefore(Statement base, Description description) throws Throwable {
         final ArraySet<Property> requiredProperties
                 = RequiredPropertiesRule.getRequiredProperties();
+        mNetworkInUse = null;
         if (requiredProperties.contains(METERED_NETWORK)) {
             configureNetworkMeteredness(true);
         } else if (requiredProperties.contains(NON_METERED_NETWORK)) {
@@ -44,16 +48,24 @@ public class MeterednessConfigurationRule extends BeforeAfterRule {
     @Override
     public void onAfter(Statement base, Description description) throws Throwable {
         resetNetworkMeteredness();
+        mNetworkInUse = null;
     }
 
     public void configureNetworkMeteredness(boolean metered) throws Exception {
-        mMeterednessResetter = setupActiveNetworkMeteredness(metered);
+        final Pair<Network, ThrowingRunnable> pair = setupActiveNetworkMeteredness(metered);
+        mNetworkInUse = pair.first;
+        mMeterednessResetter = pair.second;
+    }
+
+    public Network getNetworkInUse() {
+        return mNetworkInUse;
     }
 
     public void resetNetworkMeteredness() throws Exception {
         if (mMeterednessResetter != null) {
             mMeterednessResetter.run();
             mMeterednessResetter = null;
+            mNetworkInUse = null;
         }
     }
 }

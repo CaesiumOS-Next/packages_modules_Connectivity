@@ -18,6 +18,7 @@ package com.android.cts.net.hostside.app2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Network;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -51,6 +52,7 @@ public final class Common {
 
     static final String TEST_PKG = "com.android.cts.net.hostside";
     static final String KEY_NETWORK_STATE_OBSERVER = TEST_PKG + ".observer";
+    static final String KEY_NETWORK = TEST_PKG + ".network";
 
     static int getUid(Context context) {
         final String packageName = context.getPackageName();
@@ -71,6 +73,7 @@ public final class Common {
         }
         final INetworkStateObserver observer = INetworkStateObserver.Stub.asInterface(
                 extras.getBinder(KEY_NETWORK_STATE_OBSERVER));
+        final Network network = extras.getParcelable(KEY_NETWORK);
         if (observer != null) {
             try {
                 if (!observer.isForeground()) {
@@ -84,7 +87,7 @@ public final class Common {
             AsyncTask.execute(() -> {
                 try {
                     observer.onNetworkStateChecked(
-                            MyBroadcastReceiver.checkNetworkStatus(context));
+                            MyBroadcastReceiver.checkNetworkStatus(context, network));
                 } catch (RemoteException e) {
                     Log.e(TAG, "Error occurred while notifying the observer: " + e);
                 }

@@ -16,10 +16,12 @@
 
 package com.android.cts.net.hostside;
 
+import android.annotation.Nullable;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Network;
 import android.os.ConditionVariable;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -85,8 +87,8 @@ public class MyServiceClient {
         return mService.getCounters(receiverName, action);
     }
 
-    public String checkNetworkStatus() throws RemoteException {
-        return mService.checkNetworkStatus();
+    public String checkNetworkStatus(@Nullable Network network) throws RemoteException {
+        return mService.checkNetworkStatus(network);
     }
 
     public String getRestrictBackgroundStatus() throws RemoteException {

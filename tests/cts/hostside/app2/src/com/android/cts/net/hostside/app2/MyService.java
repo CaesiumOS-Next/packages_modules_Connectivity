@@ -74,8 +74,8 @@ public class MyService extends Service {
         }
 
         @Override
-        public String checkNetworkStatus() {
-            return MyBroadcastReceiver.checkNetworkStatus(getApplicationContext());
+        public String checkNetworkStatus(Network network) {
+            return MyBroadcastReceiver.checkNetworkStatus(getApplicationContext(), network);
         }
 
         @Override

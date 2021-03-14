@@ -24,6 +24,7 @@ android_test_helper_app {
     sdk_version: "current",
     static_libs: ["CtsHostsideNetworkTestsAidl"],
     srcs: ["src/**/*.java"],
+    libs: ["androidx.annotation_annotation"],
     // Tag this module as a cts test artifact
     test_suites: [
         "cts",
