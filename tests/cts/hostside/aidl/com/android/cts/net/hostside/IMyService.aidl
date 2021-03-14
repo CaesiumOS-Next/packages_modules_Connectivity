@@ -16,12 +16,14 @@
 
 package com.android.cts.net.hostside;
 
+import android.net.Network;
+
 import com.android.cts.net.hostside.INetworkCallback;
 
 interface IMyService {
     void registerBroadcastReceiver();
     int getCounters(String receiverName, String action);
-    String checkNetworkStatus();
+    String checkNetworkStatus(in Network network);
     String getRestrictBackgroundStatus();
     void sendNotification(int notificationId, String notificationType);
     void registerNetworkCallback(in INetworkCallback cb);

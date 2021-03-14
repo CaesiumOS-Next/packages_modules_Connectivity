@@ -41,6 +41,7 @@ import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.net.wifi.WifiManager;
 import android.os.PersistableBundle;
 import android.os.Process;
@@ -49,6 +50,7 @@ import android.telephony.SubscriptionManager;
 import android.telephony.data.ApnSetting;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -57,7 +59,9 @@ import com.android.compatibility.common.util.BatteryUtils;
 import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.compatibility.common.util.ThrowingRunnable;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.Arrays;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class NetworkPolicyTestUtils {
@@ -161,19 +165,26 @@ public class NetworkPolicyTestUtils {
      * @return a {@link ThrowingRunnable} object that can used to reset the meteredness change
      *         made by this method.
      */
-    public static ThrowingRunnable setupActiveNetworkMeteredness(boolean metered) throws Exception {
-        if (isActiveNetworkMetered(metered)) {
-            return null;
+    public static Pair<Network, ThrowingRunnable> setupActiveNetworkMeteredness(boolean metered)
+            throws Exception {
+        final Network activeNetwork = getConnectivityManager().getActiveNetwork();
+        assertNotNull("No active network available", activeNetwork);
+        final NetworkCapabilities networkCapabilities = getConnectivityManager()
+                .getNetworkCapabilities(activeNetwork);
+        if (networkCapabilities.isMetered() == metered) {
+            return Pair.create(activeNetwork, null);
         }
-        final NetworkCapabilities networkCapabilities = getActiveNetworkCapabilities();
         if (networkCapabilities.hasTransport(TRANSPORT_WIFI)) {
             final String ssid = getWifiSsid();
-            setWifiMeteredStatus(ssid, metered);
-            return () -> setWifiMeteredStatus(ssid, !metered);
+            final Network network = setWifiMeteredStatus(networkCapabilities, ssid, metered);
+            return Pair.create(network,
+                    () -> setWifiMeteredStatus(networkCapabilities, ssid, !metered));
         } else if (networkCapabilities.hasTransport(TRANSPORT_CELLULAR)) {
             final int subId = SubscriptionManager.getActiveDataSubscriptionId();
-            setCellularMeteredStatus(subId, metered);
-            return () -> setCellularMeteredStatus(subId, !metered);
+            final Network network = setCellularMeteredStatus(
+                    networkCapabilities, subId, metered);
+            return Pair.create(network,
+                    () -> setCellularMeteredStatus(networkCapabilities, subId, !metered));
         } else {
             // Right now, we don't have a way to change meteredness of networks other
             // than Wi-Fi or Cellular, so just throw an exception.
@@ -204,12 +215,13 @@ public class NetworkPolicyTestUtils {
         return getConnectivityManager().getNetworkCapabilities(activeNetwork);
     }
 
-    private static void setWifiMeteredStatus(String ssid, boolean metered) throws Exception {
+    private static Network setWifiMeteredStatus(NetworkCapabilities networkCapabilities,
+            String ssid, boolean metered) throws Exception {
         assertFalse("SSID should not be empty", TextUtils.isEmpty(ssid));
         final String cmd = "cmd netpolicy set metered-network " + ssid + " " + metered;
         executeShellCommand(cmd);
         assertWifiMeteredStatus(ssid, metered);
-        assertActiveNetworkMetered(metered);
+        return assertNetworkMetered(networkCapabilities, metered);
     }
 
     private static void assertWifiMeteredStatus(String ssid, boolean expectedMeteredStatus) {
@@ -219,37 +231,52 @@ public class NetworkPolicyTestUtils {
                 result.contains(expectedLine));
     }
 
-    private static void setCellularMeteredStatus(int subId, boolean metered) throws Exception {
+    private static Network setCellularMeteredStatus(NetworkCapabilities networkCapabilities,
+            int subId, boolean metered) throws Exception {
         final PersistableBundle bundle = new PersistableBundle();
         bundle.putStringArray(KEY_CARRIER_METERED_APN_TYPES_STRINGS,
                 new String[] {ApnSetting.TYPE_MMS_STRING});
         ShellIdentityUtils.invokeMethodWithShellPermissionsNoReturn(getCarrierConfigManager(),
                 (cm) -> cm.overrideConfig(subId, metered ? null : bundle));
-        assertActiveNetworkMetered(metered);
+        return assertNetworkMetered(networkCapabilities, metered);
     }
 
     // Copied from cts/tests/tests/net/src/android/net/cts/ConnectivityManagerTest.java
-    private static void assertActiveNetworkMetered(boolean expectedMeteredStatus) throws Exception {
-        final CountDownLatch latch = new CountDownLatch(1);
+    private static Network assertNetworkMetered(NetworkCapabilities networkCapabilities,
+            boolean expectedMeteredStatus) throws Exception {
+        final BlockingQueue<Network> blockingQueue = new LinkedBlockingQueue<>();
         final NetworkCallback networkCallback = new NetworkCallback() {
             @Override
             public void onCapabilitiesChanged(Network network, NetworkCapabilities nc) {
+                if (!Arrays.equals(nc.getTransportTypes(),
+                        networkCapabilities.getTransportTypes())) {
+                    return;
+                }
                 final boolean metered = !nc.hasCapability(NET_CAPABILITY_NOT_METERED);
                 if (metered == expectedMeteredStatus) {
-                    latch.countDown();
+                    blockingQueue.offer(network);
                 }
             }
         };
         // Registering a callback here guarantees onCapabilitiesChanged is called immediately
         // with the current setting. Therefore, if the setting has already been changed,
         // this method will return right away, and if not it will wait for the setting to change.
-        getConnectivityManager().registerDefaultNetworkCallback(networkCallback);
+        final NetworkRequest.Builder builder = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+        for (int transportType : networkCapabilities.getTransportTypes()) {
+            builder.addTransportType(transportType);
+        }
+        final NetworkRequest networkRequest = builder.build();
+        getConnectivityManager().registerNetworkCallback(networkRequest, networkCallback);
         try {
-            if (!latch.await(TIMEOUT_CHANGE_METEREDNESS_MS, TimeUnit.MILLISECONDS)) {
+            final Network network = blockingQueue.poll(TIMEOUT_CHANGE_METEREDNESS_MS,
+                    TimeUnit.MILLISECONDS);
+            if (network == null) {
                 fail("Timed out waiting for active network metered status to change to "
                         + expectedMeteredStatus + "; network = "
                         + getConnectivityManager().getActiveNetwork());
             }
+            return network;
         } finally {
             getConnectivityManager().unregisterNetworkCallback(networkCallback);
         }

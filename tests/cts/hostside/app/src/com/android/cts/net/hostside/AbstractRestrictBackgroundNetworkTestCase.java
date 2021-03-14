@@ -25,7 +25,6 @@ import static com.android.cts.net.hostside.NetworkPolicyTestUtils.executeShellCo
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getConnectivityManager;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getContext;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getInstrumentation;
-import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getWifiManager;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDozeModeSupported;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.restrictBackgroundValueToString;
 
@@ -46,12 +45,10 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
-import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.util.Log;
 
@@ -105,6 +102,7 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     private static int PROCESS_STATE_FOREGROUND_SERVICE;
 
     private static final String KEY_NETWORK_STATE_OBSERVER = TEST_PKG + ".observer";
+    private static final String KEY_NETWORK = TEST_PKG + ".network";
 
     protected static final int TYPE_COMPONENT_ACTIVTIY = 0;
     protected static final int TYPE_COMPONENT_FOREGROUND_SERVICE = 1;
@@ -132,9 +130,11 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
     private MyServiceClient mServiceClient;
     private String mDeviceIdleConstantsSetting;
 
+    private MeterednessConfigurationRule mMeterednessConfigurationRule =
+            new MeterednessConfigurationRule();
     @Rule
     public final RuleChain mRuleChain = RuleChain.outerRule(new RequiredPropertiesRule())
-            .around(new MeterednessConfigurationRule());
+            .around(mMeterednessConfigurationRule);
 
     protected void setUp() throws Exception {
 
@@ -368,7 +368,8 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
      * @return error message with the mismatch (or empty if assertion passed).
      */
     private String checkNetworkAccess(boolean expectAvailable) throws Exception {
-        final String resultData = mServiceClient.checkNetworkStatus();
+        final String resultData = mServiceClient.checkNetworkStatus(
+                mMeterednessConfigurationRule.getNetworkInUse());
         return checkForAvailabilityInResultData(resultData, expectAvailable);
     }
 
@@ -750,6 +751,7 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
             final Bundle extras = new Bundle();
             final String[] errors = new String[]{null};
             extras.putBinder(KEY_NETWORK_STATE_OBSERVER, getNewNetworkStateObserver(latch, errors));
+            extras.putParcelable(KEY_NETWORK, mMeterednessConfigurationRule.getNetworkInUse());
             launchIntent.putExtras(extras);
             mContext.startActivity(launchIntent);
             if (latch.await(FOREGROUND_PROC_NETWORK_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
