@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27d31d11_7051bd23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-15T04:05:46Z",
+      "side": 1,
+      "message": "LGTM. My existing comments are minor. Need tier-2 reviewer to comment.",
+      "revId": "85ef8c67dce48ea09bbc951313a32d2465171509",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e484937b_64dc4af8",
