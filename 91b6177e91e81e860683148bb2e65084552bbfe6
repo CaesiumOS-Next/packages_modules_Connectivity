@@ -22,6 +22,30 @@
       },
       "revId": "91b6177e91e81e860683148bb2e65084552bbfe6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "173df31c_24118066",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1616,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-03-15T10:50:37Z",
+      "side": 1,
+      "message": "Update it to have a local var.",
+      "parentUuid": "1107aa09_9bc1c8f3",
+      "range": {
+        "startLine": 1616,
+        "startChar": 20,
+        "endLine": 1616,
+        "endChar": 55
+      },
+      "revId": "91b6177e91e81e860683148bb2e65084552bbfe6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
