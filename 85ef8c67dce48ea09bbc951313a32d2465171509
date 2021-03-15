@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32caf179_adf6d82e",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-15T08:23:34Z",
+      "side": 1,
+      "message": "actually it\u0027s same, PIO size: 32 bytes and MTU option size: 8 bytes. I updated with Struct.getSize(PrefixInformationOption.class), probably it\u0027s more readable. Thanks!",
+      "parentUuid": "e484937b_64dc4af8",
+      "range": {
+        "startLine": 188,
+        "startChar": 32,
+        "endLine": 188,
+        "endChar": 79
+      },
+      "revId": "85ef8c67dce48ea09bbc951313a32d2465171509",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5e4598d_8a4d876b",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-03-10T07:06:20Z",
       "side": 1,
       "message": "poll? popPacket seems to be deprecated\n\nhttps://android.googlesource.com/platform/frameworks/libs/net/+/refs/heads/master/common/devicetests/com/android/testutils/TapPacketReader.java#83\n    /**\n     * @deprecated This method does not actually \"pop\" (which generally means the last packet).\n     * Use {@link #poll(long)}, which has the same behavior, instead.\n     */\n    @Nullable\n    @Deprecated\n    public byte[] popPacket(long timeoutMs) {",
+      "range": {
+        "startLine": 267,
+        "startChar": 47,
+        "endLine": 267,
+        "endChar": 56
+      },
+      "revId": "85ef8c67dce48ea09bbc951313a32d2465171509",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89da4c65_47efac63",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-15T08:23:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5e4598d_8a4d876b",
       "range": {
         "startLine": 267,
         "startChar": 47,
