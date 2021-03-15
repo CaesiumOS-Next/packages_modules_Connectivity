@@ -618,6 +618,7 @@ public class TetheringTest {
         when(mOffloadHardwareInterface.getForwardedStats(any())).thenReturn(mForwardedStats);
 
         mServiceContext = new TestContext(mContext);
+        mServiceContext.setUseRegisteredHandlers(true);
         mContentResolver = new MockContentResolver(mServiceContext);
         mContentResolver.addProvider(Settings.AUTHORITY, new FakeSettingsProvider());
         setTetheringSupported(true /* supported */);
