@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10b11381_cebc7abd",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-15T11:04:43Z",
+      "side": 1,
+      "message": "May I use the concept of std::find_if? Find the first element by a matcher.\nhttp://www.cplusplus.com/reference/algorithm/find_if/\n\nFor forEach, it sounds like that MUST walk through all elements in the map.",
+      "parentUuid": "3c0be490_210f9d30",
+      "range": {
+        "startLine": 330,
+        "startChar": 8,
+        "endLine": 330,
+        "endChar": 1
+      },
+      "revId": "94ae61cc0e9f19d799436273a717c5ae2ecd58f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8aaa944a_6e89ee69",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 8
