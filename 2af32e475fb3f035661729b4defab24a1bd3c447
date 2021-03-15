@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9730d7fa_fb5c28d1",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-15T11:26:34Z",
+      "side": 1,
+      "message": "Nit: this might not be necessary any more. Doesn\u0027t need to be removed in this CL.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 45
+      },
+      "revId": "2af32e475fb3f035661729b4defab24a1bd3c447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40bc3d68_bea3645d",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-15T11:26:34Z",
+      "side": 1,
+      "message": "Nit: actually I think the length depends on how many prefixes are included. Might want to add a comment to explain that this is 4 because the test only expects one PIO in the router advertisement.",
+      "range": {
+        "startLine": 185,
+        "startChar": 24,
+        "endLine": 185,
+        "endChar": 48
+      },
+      "revId": "2af32e475fb3f035661729b4defab24a1bd3c447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "305eab10_b58a37a0",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-15T11:26:34Z",
+      "side": 1,
+      "message": "PIO_FLAG_ONLINK | PIO_FLAG_AUTONOMOUS",
+      "range": {
+        "startLine": 191,
+        "startChar": 37,
+        "endLine": 191,
+        "endChar": 48
+      },
+      "revId": "2af32e475fb3f035661729b4defab24a1bd3c447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e29fc01_5979bffd",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-15T11:26:34Z",
+      "side": 1,
+      "message": "Unexpected",
+      "range": {
+        "startLine": 202,
+        "startChar": 34,
+        "endLine": 202,
+        "endChar": 44
+      },
+      "revId": "2af32e475fb3f035661729b4defab24a1bd3c447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
