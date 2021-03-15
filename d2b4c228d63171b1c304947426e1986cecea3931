@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e11411ef_2191129e",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-15T08:27:37Z",
+      "side": 1,
+      "message": "Thanks for raising this, actually I moved the diagrams and below to frameworks/libs/net/common/device/com/android/net/module/util/structs, where we have structure classes for each header and options used in the ND.\n\ndo you think we should keep two copies or we can centralize them in one place?",
+      "parentUuid": "32f3df50_a28c902b",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 378,
+        "endChar": 10
+      },
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "663351d0_b48b7f2c",
         "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
         "patchSetId": 2
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66cc4f25_dfa5d6ff",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-15T08:27:37Z",
+      "side": 1,
+      "message": "ditto?",
+      "parentUuid": "663351d0_b48b7f2c",
+      "range": {
+        "startLine": 439,
+        "startChar": 87,
+        "endLine": 439,
+        "endChar": 95
+      },
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97e8647d_d6efb187",
         "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
         "patchSetId": 2
@@ -77,6 +125,24 @@
       "writtenOn": "2021-03-09T11:44:14Z",
       "side": 1,
       "message": "nit: do we care about BufferOverflowException if the size of \"rdnssOption \u003e ra\"?\n\nI just saw the original code has a TODO to handle it. The TODO has been removed now. Probably it is not important because it is a test.\n\n@Test\npublic void testByteBuffer() throws Exception {\n    ByteBuffer bufferA \u003d ByteBuffer.allocate(5);\n    ByteBuffer bufferB \u003d ByteBuffer.allocate(10);\n    bufferA.put(bufferB);\n}\n\n[6/23] com.android.networkstack.tethering.BpfCoordinatorTest#testByteBuffer: FAILED (171ms)\n\nSTACKTRACE:\njava.nio.BufferOverflowException\n\tat java.nio.ByteBuffer.put(ByteBuffer.java:611)\n\tat com.android.networkstack.tethering.BpfCoordinatorTest.testByteBuffer(BpfCoordinatorTest.java:1144)",
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "938149ff_b2e8f024",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-15T08:27:37Z",
+      "side": 1,
+      "message": "yes, I think that should be fine probably.\n     mRA \u003d new byte[IPV6_MIN_MTU];\n\nsince we have a 1280bytes ByteBuffer, that should be big enough for the RDNSS options : )",
+      "parentUuid": "97e8647d_d6efb187",
       "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
