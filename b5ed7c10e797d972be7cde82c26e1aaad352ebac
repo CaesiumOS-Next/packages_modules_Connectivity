@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ba76d2_f5fa5a9b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-15T09:54:55Z",
+      "side": 1,
+      "message": "Probably it is okay without this check. So does other maps (L.276..).\n\nThese maps won\u0027t be opened on R because only api31.BpfCoordinatorShimImpl constructor calls get**Map() and getBpfCoordinatorShim() decides to create R shim or S shim object. Moreover, the tests (IpServerTest and BpfCoordinatorTest) uses TestBpfMap or mocked Map for returning get**Map() because they have no permission to access real bpf maps.\n\nCode stack:\n[1] only api31.BpfCoordinatorShimImpl \n\nhttps://android.googlesource.com/platform/packages/modules/Connectivity/+/refs/heads/master/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java#349\npublic BpfCoordinator(@NonNull Dependencies deps) {\n    mBpfCoordinatorShim \u003d BpfCoordinatorShim.getBpfCoordinatorShim(deps);\n\nhttps://android.googlesource.com/platform/packages/modules/Connectivity/+/refs/heads/master/Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java#39\n    public static BpfCoordinatorShim getBpfCoordinatorShim(@NonNull final Dependencies deps) {\n        if (deps.isAtLeastS()) {\n            return new com.android.networkstack.tethering.apishim.api31.BpfCoordinatorShimImpl(\n                    deps);\n        } else {\n            return new com.android.networkstack.tethering.apishim.api30.BpfCoordinatorShimImpl(\n                    deps);\n\nhttps://android.googlesource.com/platform/packages/modules/Connectivity/+/refs/heads/master/Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java?autodive\u003d0%2F%2F%2F#87\n    public BpfCoordinatorShimImpl(@NonNull final Dependencies deps) {\n\n        mBpfDownstream4Map \u003d deps.getBpfDownstream4Map();\n        mBpfUpstream4Map \u003d deps.getBpfUpstream4Map();\n        mBpfDownstream6Map \u003d deps.getBpfDownstream6Map();\n        mBpfUpstream6Map \u003d deps.getBpfUpstream6Map();\n        mBpfStatsMap \u003d deps.getBpfStatsMap();\n        mBpfLimitMap \u003d deps.getBpfLimitMap();\n\n\n[2] BpfCoordinatorTest uses TestBpfMap or mocked Map\n\nhttps://android.googlesource.com/platform/packages/modules/Connectivity/+/refs/heads/master/Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java#187\n\n@Mock private BpfMap\u003cTether4Key, Tether4Value\u003e mBpfDownstream4Map;\n@Mock private BpfMap\u003cTether4Key, Tether4Value\u003e mBpfUpstream4Map;\n@Mock private BpfMap\u003cTetherDownstream6Key, Tether6Value\u003e mBpfDownstream6Map;\n@Mock private BpfMap\u003cTetherUpstream6Key, Tether6Value\u003e mBpfUpstream6Map;\nprivate final TestBpfMap\u003cTetherStatsKey, TetherStatsValue\u003e mBpfStatsMap \u003d\n        spy(new TestBpfMap\u003c\u003e(TetherStatsKey.class, TetherStatsValue.class));\nprivate final TestBpfMap\u003cTetherLimitKey, TetherLimitValue\u003e mBpfLimitMap \u003d\n        spy(new TestBpfMap\u003c\u003e(TetherLimitKey.class, TetherLimitValue.class));\nprivate BpfCoordinator.Dependencies mDeps \u003d\n        spy(new BpfCoordinator.Dependencies() {      \n            @Nullable\n            public BpfMap\u003cTether4Key, Tether4Value\u003e getBpfDownstream4Map() {\n                return mBpfDownstream4Map;\n            }\n            @Nullable\n            public BpfMap\u003cTether4Key, Tether4Value\u003e getBpfUpstream4Map() {\n                return mBpfUpstream4Map;\n            }\n            @Nullable\n            public BpfMap\u003cTetherDownstream6Key, Tether6Value\u003e getBpfDownstream6Map() {\n                return mBpfDownstream6Map;\n            }\n            @Nullable\n            public BpfMap\u003cTetherUpstream6Key, Tether6Value\u003e getBpfUpstream6Map() {\n                return mBpfUpstream6Map;\n            }\n            @Nullable\n            public BpfMap\u003cTetherStatsKey, TetherStatsValue\u003e getBpfStatsMap() {\n                return mBpfStatsMap;\n            }\n            @Nullable\n            public BpfMap\u003cTetherLimitKey, TetherLimitValue\u003e getBpfLimitMap() {\n                return mBpfLimitMap;\n            }",
+      "range": {
+        "startLine": 264,
+        "startChar": 12,
+        "endLine": 264,
+        "endChar": 43
+      },
+      "revId": "b5ed7c10e797d972be7cde82c26e1aaad352ebac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
