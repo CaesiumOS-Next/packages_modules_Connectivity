@@ -82,6 +82,7 @@ public class UpstreamNetworkMonitor {
     public static final int EVENT_ON_CAPABILITIES   = 1;
     public static final int EVENT_ON_LINKPROPERTIES = 2;
     public static final int EVENT_ON_LOST           = 3;
+    public static final int EVENT_ON_UNAVAILABLE    = 4;
     public static final int NOTIFY_LOCAL_PREFIXES   = 10;
     // This value is used by deprecated preferredUpstreamIfaceTypes selection which is default
     // disabled.
@@ -410,6 +411,10 @@ public class UpstreamNetworkMonitor {
         notifyTarget(EVENT_ON_LOST, mNetworkMap.remove(network));
     }
 
+    private void handleUnavailable() {
+        notifyTarget(EVENT_ON_UNAVAILABLE, null);
+    }
+
     private void recomputeLocalPrefixes() {
         final HashSet<IpPrefix> localPrefixes = allLocalPrefixes(mNetworkMap.values());
         if (!mLocalPrefixes.equals(localPrefixes)) {
@@ -488,6 +493,11 @@ public class UpstreamNetworkMonitor {
             if (mCallbackType == CALLBACK_LISTEN_ALL) {
                 recomputeLocalPrefixes();
             }
+        }
+
+        @Override
+        public void onUnavailable() {
+            handleUnavailable();
         }
     }
 
