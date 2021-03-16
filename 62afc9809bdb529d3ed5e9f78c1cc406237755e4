@@ -34,6 +34,24 @@
       "parentUuid": "0c4d275e_0e832de7",
       "revId": "62afc9809bdb529d3ed5e9f78c1cc406237755e4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b278e8a4_14ba0d2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-16T12:44:13Z",
+      "side": 1,
+      "message": "Jean says it\u0027s his change and he\u0027ll fix it.",
+      "parentUuid": "ef8d6351_5d9dced5",
+      "revId": "62afc9809bdb529d3ed5e9f78c1cc406237755e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
