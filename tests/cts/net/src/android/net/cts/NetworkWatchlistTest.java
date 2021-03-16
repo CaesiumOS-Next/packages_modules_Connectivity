@@ -28,6 +28,7 @@ import android.net.ConnectivityManager;
 import android.os.FileUtils;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;
@@ -60,13 +61,14 @@ public class NetworkWatchlistTest {
     // Generated from sha256sum network_watchlist_config_for_test.xml
     private static final String TEST_WATCHLIST_CONFIG_HASH =
             "B5FC4636994180D54E1E912F78178AB1D8BD2BE71D90CA9F5BBC3284E4D04ED4";
+    public static final String AUTOMOTIVE_FEATURE = "android.hardware.type.automotive";
 
     private ConnectivityManager mConnectivityManager;
     private boolean mHasFeature;
 
     @Before
     public void setUp() throws Exception {
-        mHasFeature = isAtLeastP();
+        mHasFeature = hasFeature();
         mConnectivityManager =
                 (ConnectivityManager) InstrumentationRegistry.getContext().getSystemService(
                         Context.CONNECTIVITY_SERVICE);
@@ -168,5 +170,24 @@ public class NetworkWatchlistTest {
 
     private static String runCommand(String command) throws IOException {
         return SystemUtil.runShellCommand(InstrumentationRegistry.getInstrumentation(), command);
+    }
+
+    private boolean hasFeature() throws Exception {
+        if (!isAtLeastP()) {
+            return false;
+        }
+        // Skip if device is automotive and doesn't have
+        // Settings.Global.NETWORK_WATCHLIST_ENABLED enabled. (b/181807910)
+        if (isAutomotive() &&
+                (Settings.Global.getInt(InstrumentationRegistry.getContext().getContentResolver(),
+                        Settings.Global.NETWORK_WATCHLIST_ENABLED, 1) == 0)) {
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isAutomotive() {
+        return InstrumentationRegistry.getContext()
+                .getPackageManager().hasSystemFeature(AUTOMOTIVE_FEATURE);
     }
 }
