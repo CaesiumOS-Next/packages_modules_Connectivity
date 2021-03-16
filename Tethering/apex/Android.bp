@@ -35,10 +35,7 @@ apex {
         "offload.o",
         "test.o",
     ],
-    apps: [
-        "ServiceConnectivityResources",
-        "Tethering",
-    ],
+    apps: ["Tethering"],
     manifest: "manifest.json",
     key: "com.android.tethering.key",
 
