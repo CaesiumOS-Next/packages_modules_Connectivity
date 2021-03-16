@@ -16,6 +16,23 @@
       "message": "If this fixes a test, LGTM, but... why would any() not accept null? It should...",
       "revId": "1705798d13004bcdd5d0860e110f9633bc5d094d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22a0a14e_57502fed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-03-16T14:16:23Z",
+      "side": 1,
+      "message": "Build failure detected by TH is because aosp/1620870 hasn\u0027t merged into master yet. When that merges, the build failure will go away",
+      "revId": "1705798d13004bcdd5d0860e110f9633bc5d094d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
