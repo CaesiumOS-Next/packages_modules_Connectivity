@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b89175_5d8d9529",
+        "filename": "Tethering/tests/unit/src/android/net/util/TetheringUtilsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-16T03:00:47Z",
+      "side": 1,
+      "message": "perhaps an ethernet-header-less",
+      "range": {
+        "startLine": 120,
+        "startChar": 13,
+        "endLine": 120,
+        "endChar": 14
+      },
+      "revId": "32bab7c743084940b416636671b3c595a9bff833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
