@@ -33,6 +33,23 @@
       "message": "Build failure detected by TH is because aosp/1620870 hasn\u0027t merged into master yet. When that merges, the build failure will go away",
       "revId": "1705798d13004bcdd5d0860e110f9633bc5d094d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73cf8352_5bb2e2fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-16T21:02:43Z",
+      "side": 1,
+      "message": "The build failure on a single build on git_master is due to",
+      "revId": "1705798d13004bcdd5d0860e110f9633bc5d094d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
