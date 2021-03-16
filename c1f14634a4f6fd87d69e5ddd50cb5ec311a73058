@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1e6ef1a_aadd6f81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-03-16T03:53:34Z",
+      "side": 1,
+      "message": "careful about topics that have changes that automerge to mainline-prod and others that don\u0027t: there will be races for the automerger to get everything to sc-dev.\n\nIs it possible to just merge just the packages/modules/ changes first ? Otherwise, it may be safer to merge the topic in sc-dev first",
+      "revId": "c1f14634a4f6fd87d69e5ddd50cb5ec311a73058",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
