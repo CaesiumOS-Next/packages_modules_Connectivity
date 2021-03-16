@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a1f467d_c8c1a7af",
+        "filename": "Tethering/tests/unit/src/android/net/util/TetheringUtilsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-16T03:02:09Z",
+      "side": 1,
+      "message": "dead",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 0
+      },
+      "revId": "4c174dca50be32e9091eb8f86c14c5242d606083",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
