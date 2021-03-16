@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c76b155_b4949e7f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-16T06:02:40Z",
+      "side": 1,
+      "message": "btw. was it a bug this didn\u0027t have a check for isUsingBpf()?\n\n[it\u0027s not a bug any more, because after this change \u003e\u003dS implies using bpf]\n\nFor the same reason, the !isUsingBpf() in start could now be removed with no diff in behaviour.",
+      "range": {
+        "startLine": 446,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 40
+      },
+      "revId": "88af08b6bc103116debad4a62257fc7e1ae10d88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
