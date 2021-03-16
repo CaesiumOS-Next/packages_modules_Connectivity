@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c4d275e_0e832de7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-16T12:35:26Z",
+      "side": 1,
+      "message": "Already broken test failure is:\n\nCtsNetTestCases(module-abi\u003dx86_64)  1/598\nandroid.net.cts  1/364\nNetworkAgentTest   1/13\nandroid.net.cts.NetworkAgentTest#testAgentStartsInConnecting\n\njava.lang.NullPointerException: any() must not be null\njava.lang.NullPointerException: any() must not be null\n\tat android.net.cts.NetworkAgentTest.testAgentStartsInConnecting(NetworkAgentTest.kt:634)\n",
+      "revId": "62afc9809bdb529d3ed5e9f78c1cc406237755e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
