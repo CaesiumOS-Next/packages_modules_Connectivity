@@ -2683,6 +2683,24 @@ public class TetheringTest {
         runDualStackUsbTethering(TEST_RNDIS_IFNAME);
         runStopUSBTethering();
     }
+
+    @Test
+    public void testStopTetheringIfTetheringRequestUnavailable() throws Exception {
+        when(mResources.getBoolean(R.bool.config_tether_stop_tethering_if_mobile_unavailable))
+                .thenReturn(true);
+        sendConfigurationChanged();
+
+        final UpstreamNetworkState upstreamState = buildMobileDualStackUpstreamState();
+        runUsbTethering(upstreamState);
+        mTetheringDependencies.mUpstreamNetworkMonitorSM.sendMessage(
+                Tethering.TetherMainSM.EVENT_UPSTREAM_CALLBACK,
+                UpstreamNetworkMonitor.EVENT_ON_UNAVAILABLE,
+                0,
+                null);
+        mLooper.dispatchAll();
+        verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
+    }
+
     // TODO: Test that a request for hotspot mode doesn't interfere with an
     // already operating tethering mode interface.
 }

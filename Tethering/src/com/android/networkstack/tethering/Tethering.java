@@ -842,11 +842,13 @@ public class Tethering {
     }
 
     void untetherAll() {
-        stopTethering(TETHERING_WIFI);
-        stopTethering(TETHERING_WIFI_P2P);
-        stopTethering(TETHERING_USB);
-        stopTethering(TETHERING_BLUETOOTH);
-        stopTethering(TETHERING_ETHERNET);
+        mHandler.post(() -> {
+            stopTethering(TETHERING_WIFI);
+            stopTethering(TETHERING_WIFI_P2P);
+            stopTethering(TETHERING_USB);
+            stopTethering(TETHERING_BLUETOOTH);
+            stopTethering(TETHERING_ETHERNET);
+        });
     }
 
     @VisibleForTesting
@@ -1807,6 +1809,12 @@ public class Tethering {
         void handleUpstreamNetworkMonitorCallback(int arg1, Object o) {
             if (arg1 == UpstreamNetworkMonitor.NOTIFY_LOCAL_PREFIXES) {
                 mOffload.sendOffloadExemptPrefixes((Set<IpPrefix>) o);
+                return;
+            }
+
+            if (mConfig.shouldStopTetheringIfMobileUnavailable()
+                    && arg1 == UpstreamNetworkMonitor.EVENT_ON_UNAVAILABLE) {
+                untetherAll();
                 return;
             }
 

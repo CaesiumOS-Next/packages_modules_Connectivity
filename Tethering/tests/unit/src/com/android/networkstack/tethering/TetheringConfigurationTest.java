@@ -645,4 +645,24 @@ public class TetheringConfigurationTest {
         assertArrayEquals(ncmRegexs, cfg.tetherableNcmRegexs);
     }
 
+    public void testStopTetheringIfMobileUnavailable() throws Exception {
+        // Test default value if config_tether_stop_tethering_if_mobile_unavailable do not be set.
+        assertShouldStopTetheringIfMobileUnavailable(false);
+
+        when(mResources.getBoolean(R.bool.config_tether_stop_tethering_if_mobile_unavailable))
+                .thenReturn(false);
+        assertShouldStopTetheringIfMobileUnavailable(false /* expected */);
+
+        when(mResources.getBoolean(R.bool.config_tether_stop_tethering_if_mobile_unavailable))
+                .thenReturn(true);
+        assertShouldStopTetheringIfMobileUnavailable(true /* expected */);
+
+    }
+
+    private void assertShouldStopTetheringIfMobileUnavailable(boolean expected) {
+        final TetheringConfiguration cfg =
+                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertEquals(expected, cfg.shouldStopTetheringIfMobileUnavailable());
+    }
+
 }
