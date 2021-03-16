@@ -77,6 +77,7 @@ import com.android.dx.mockito.inline.extended.ExtendedMockito;
 import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.TestableNetworkStatsProviderCbBinder;
 
@@ -1168,6 +1169,22 @@ public class BpfCoordinatorTest {
         // [3] Stop monitoring.
         coordinator.stopMonitoring(mIpServer);
         verify(mConntrackMonitor).stop();
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.Q)
+    @IgnoreAfter(Build.VERSION_CODES.R)
+    // Only run this test on Android R.
+    public void testStartStopConntrackMonitoring_R() throws Exception {
+        setupFunctioningNetdInterface();
+
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+
+        coordinator.startMonitoring(mIpServer);
+        verify(mConntrackMonitor, never()).start();
+
+        coordinator.stopMonitoring(mIpServer);
+        verify(mConntrackMonitor, never()).stop();
     }
 
     @Test
