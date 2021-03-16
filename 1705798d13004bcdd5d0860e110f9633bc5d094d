@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a589b92f_62b8bd91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-16T12:54:45Z",
+      "side": 1,
+      "message": "If this fixes a test, LGTM, but... why would any() not accept null? It should...",
+      "revId": "1705798d13004bcdd5d0860e110f9633bc5d094d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
