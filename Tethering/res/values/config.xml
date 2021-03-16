@@ -197,4 +197,9 @@
     <!-- Which USB function should be enabled when TETHERING_USB is requested. 0: RNDIS, 1: NCM.
          -->
     <integer translatable="false" name="config_tether_usb_functions">0</integer>
+
+    <!-- Stop tethering if tethering access is rejected from carrier network. Note: this feature
+         also reply on the implementation in telephony side that NetworkCallback#onUnAvailable
+         need to be called if tethering connection (e.g. DUN) is rejected. -->
+    <bool name="config_tether_stop_tethering_if_mobile_unavailable">false</bool>
 </resources>

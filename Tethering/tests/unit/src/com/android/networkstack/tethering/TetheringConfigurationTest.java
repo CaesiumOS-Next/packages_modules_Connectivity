@@ -600,4 +600,26 @@ public class TetheringConfigurationTest {
     private void setTetherForceUsbFunctions(final int value) {
         setTetherForceUsbFunctions(Integer.toString(value));
     }
+
+    @Test
+    public void testStopTetheringIfMobileUnavailable() throws Exception {
+        // Test default value if config_tether_stop_tethering_if_mobile_unavailable do not be set.
+        assertIsStopTetheringIfMobileUnavailable(false);
+
+        when(mResources.getBoolean(R.bool.config_tether_stop_tethering_if_mobile_unavailable))
+                .thenReturn(false);
+        assertIsStopTetheringIfMobileUnavailable(false /* expected */);
+
+        when(mResources.getBoolean(R.bool.config_tether_stop_tethering_if_mobile_unavailable))
+                .thenReturn(true);
+        assertIsStopTetheringIfMobileUnavailable(true /* expected */);
+
+    }
+
+    private void assertIsStopTetheringIfMobileUnavailable(boolean expected) {
+        final TetheringConfiguration cfg =
+                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertEquals(expected, cfg.isStopTetheringIfMobileUnavailable());
+    }
+
 }

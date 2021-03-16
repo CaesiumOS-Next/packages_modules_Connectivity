@@ -90,6 +90,7 @@ public class UpstreamNetworkMonitor {
     public static final int EVENT_ON_LINKPROPERTIES = 2;
     public static final int EVENT_ON_LOST           = 3;
     public static final int EVENT_DEFAULT_SWITCHED  = 4;
+    public static final int EVENT_ON_UNAVAILABLE    = 5;
     public static final int NOTIFY_LOCAL_PREFIXES   = 10;
     // This value is used by deprecated preferredUpstreamIfaceTypes selection which is default
     // disabled.
@@ -467,6 +468,10 @@ public class UpstreamNetworkMonitor {
         notifyTarget(EVENT_DEFAULT_SWITCHED, ns);
     }
 
+    private void handleUnavailable() {
+        notifyTarget(EVENT_ON_UNAVAILABLE, null);
+    }
+
     private void recomputeLocalPrefixes() {
         final HashSet<IpPrefix> localPrefixes = allLocalPrefixes(mNetworkMap.values());
         if (!mLocalPrefixes.equals(localPrefixes)) {
@@ -571,6 +576,11 @@ public class UpstreamNetworkMonitor {
                 recomputeLocalPrefixes();
             }
         }
+
+        @Override
+        public void onUnavailable() {
+            if (mCallbackType == CALLBACK_MOBILE_REQUEST) handleUnavailable();
+        }
     }
 
     private void releaseCallback(NetworkCallback cb) {
@@ -638,7 +648,8 @@ public class UpstreamNetworkMonitor {
         return (ns != null) && isCellular(ns.networkCapabilities);
     }
 
-    private static boolean isCellular(NetworkCapabilities nc) {
+    /** Check whether upstream is cellular. */
+    static boolean isCellular(NetworkCapabilities nc) {
         return (nc != null) && nc.hasTransport(TRANSPORT_CELLULAR)
                && nc.hasCapability(NET_CAPABILITY_NOT_VPN);
     }

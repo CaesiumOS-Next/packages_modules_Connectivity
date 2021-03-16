@@ -836,11 +836,15 @@ public class Tethering {
     }
 
     void untetherAll() {
-        stopTethering(TETHERING_WIFI);
-        stopTethering(TETHERING_WIFI_P2P);
-        stopTethering(TETHERING_USB);
-        stopTethering(TETHERING_BLUETOOTH);
-        stopTethering(TETHERING_ETHERNET);
+        mHandler.post(() -> untetherAllInternal());
+    }
+
+    void untetherAllInternal() {
+        stopTetheringInternal(TETHERING_WIFI);
+        stopTetheringInternal(TETHERING_WIFI_P2P);
+        stopTetheringInternal(TETHERING_USB);
+        stopTetheringInternal(TETHERING_BLUETOOTH);
+        stopTetheringInternal(TETHERING_ETHERNET);
     }
 
     @VisibleForTesting
@@ -1017,7 +1021,7 @@ public class Tethering {
                 mLog.log("OBSERVED data saver changed");
                 handleDataSaverChanged();
             } else if (action.equals(TetheringNotificationUpdater.ACTION_DISABLE_TETHERING)) {
-                untetherAll();
+                untetherAllInternal();
             }
         }
 
@@ -1151,7 +1155,7 @@ public class Tethering {
 
             mDataSaverEnabled = isDataSaverEnabled;
             if (mDataSaverEnabled) {
-                untetherAll();
+                untetherAllInternal();
             }
         }
     }
@@ -1209,7 +1213,7 @@ public class Tethering {
                 mNotificationUpdater.notifyTetheringDisabledByRestriction();
 
                 // Untether from all downstreams since tethering is disallowed.
-                mTethering.untetherAll();
+                mTethering.untetherAllInternal();
             }
             // TODO(b/148139325): send tetheringSupported on restriction change
         }
@@ -1789,6 +1793,12 @@ public class Tethering {
         void handleUpstreamNetworkMonitorCallback(int arg1, Object o) {
             if (arg1 == UpstreamNetworkMonitor.NOTIFY_LOCAL_PREFIXES) {
                 mOffload.sendOffloadExemptPrefixes((Set<IpPrefix>) o);
+                return;
+            }
+
+            if (mConfig.isStopTetheringIfMobileUnavailable()
+                    && arg1 == UpstreamNetworkMonitor.EVENT_ON_UNAVAILABLE) {
+                untetherAllInternal();
                 return;
             }
 

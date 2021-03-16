@@ -158,6 +158,7 @@ public class TetheringConfiguration {
     private final boolean mEnableWifiP2pDedicatedIp;
 
     private final boolean mEnableSelectAllPrefixRange;
+    private final boolean mStopTetheringIfMobileUnavailable;
     private final int mUsbTetheringFunction;
     protected final ContentResolver mContentResolver;
 
@@ -216,6 +217,10 @@ public class TetheringConfiguration {
         // to turn off the feature, so binary rollback problems do not apply.
         mEnableSelectAllPrefixRange = getDeviceConfigBoolean(
                 TETHER_ENABLE_SELECT_ALL_PREFIX_RANGES, true /* defaultValue */);
+
+        mStopTetheringIfMobileUnavailable = getResourceBoolean(res,
+                R.bool.config_tether_stop_tethering_if_mobile_unavailable,
+                false /* defaultValue */);
 
         configLog.log(toString());
     }
@@ -313,6 +318,9 @@ public class TetheringConfiguration {
 
         pw.print("mUsbTetheringFunction: ");
         pw.println(isUsingNcm() ? "NCM" : "RNDIS");
+
+        pw.print("mStopTetheringIfMobileUnavailable: ");
+        pw.println(mStopTetheringIfMobileUnavailable);
     }
 
     /** Returns the string representation of this object.*/
@@ -376,6 +384,10 @@ public class TetheringConfiguration {
 
     public boolean isSelectAllPrefixRangeEnabled() {
         return mEnableSelectAllPrefixRange;
+    }
+
+    public boolean isStopTetheringIfMobileUnavailable() {
+        return mStopTetheringIfMobileUnavailable;
     }
 
     private int getUsbTetheringFunction(Resources res) {
