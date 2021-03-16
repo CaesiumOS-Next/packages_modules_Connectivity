@@ -61,7 +61,6 @@ override_apex {
     base: "com.android.tethering",
     package_name: "com.android.tethering.inprocess",
     apps: [
-        "ServiceConnectivityResources",
         "InProcessTethering",
     ],
 }
