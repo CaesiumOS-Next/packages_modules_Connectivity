@@ -1810,6 +1810,12 @@ public class Tethering {
                 return;
             }
 
+            if (mConfig.shouldStopTetheringIfMobileUnavailable()
+                    && arg1 == UpstreamNetworkMonitor.EVENT_ON_UNAVAILABLE) {
+                untetherAll();
+                return;
+            }
+
             final UpstreamNetworkState ns = (UpstreamNetworkState) o;
             switch (arg1) {
                 case UpstreamNetworkMonitor.EVENT_ON_LINKPROPERTIES:
