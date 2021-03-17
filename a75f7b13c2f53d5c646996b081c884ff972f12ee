@@ -22,6 +22,30 @@
       },
       "revId": "a75f7b13c2f53d5c646996b081c884ff972f12ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9773841e_d472adc5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-17T11:54:39Z",
+      "side": 1,
+      "message": "You are right. I have tried but I can\u0027t test the code.\n\nI tried to move all map related code into shim (api 31). That will makes that test can\u0027t mock the map because the test doesn\u0027t touch the shim implementation. api 30 has no bpf map but api 31 has. The solution for now is that wrap the maps into |Dependencies| and pass it to shim ctor. It makes that the test don\u0027t need to know that api {30, 31} use the bpf map or not. Let shim to decide it. Test just calls the public functions of coordinator (tetherOffloadRuleAdd, tetherOffloadRuleRemove, ..).\n\nex:\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java;l\u003d831\n        coordinator.tetherOffloadRuleAdd(mIpServer, ruleB);\n..\n        coordinator.tetherOffloadRuleRemove(mIpServer, ruleB);\n\nSo the map path and map creation are still here because of test reason (L.262, L.273, 282, ..). If we can solve the test problem in the future, we would move the map stuff into shim.",
+      "parentUuid": "05034842_4c17868e",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 77
+      },
+      "revId": "a75f7b13c2f53d5c646996b081c884ff972f12ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
