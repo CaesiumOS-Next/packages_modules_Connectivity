@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff634bbe_d27a11c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-17T03:08:40Z",
+      "side": 1,
+      "message": "LGTM. pass to tier-2 reviewer.",
+      "revId": "91554a28a09a6f2d32b31ff96784b5c5accd1291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

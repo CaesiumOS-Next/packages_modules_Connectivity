@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef4dd412_4cceaaf6",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-17T03:08:40Z",
+      "side": 1,
+      "message": "yeah, centralizing in one place may be better",
+      "parentUuid": "e11411ef_2191129e",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 378,
+        "endChar": 10
+      },
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "663351d0_b48b7f2c",
         "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
         "patchSetId": 2
@@ -143,6 +167,24 @@
       "side": 1,
       "message": "yes, I think that should be fine probably.\n     mRA \u003d new byte[IPV6_MIN_MTU];\n\nsince we have a 1280bytes ByteBuffer, that should be big enough for the RDNSS options : )",
       "parentUuid": "97e8647d_d6efb187",
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e090b201_14dae88c",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-17T03:08:40Z",
+      "side": 1,
+      "message": "thanks for your explanation.",
+      "parentUuid": "938149ff_b2e8f024",
       "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
