@@ -106,9 +106,6 @@ public class BpfCoordinator {
     private static final String TETHER_LIMIT_MAP_PATH = makeMapPath("limit");
     private static final String TETHER_ERROR_MAP_PATH = makeMapPath("error");
 
-    /** The names of all the BPF counters defined in bpf_tethering.h. */
-    public static final String[] sBpfCounterNames = getBpfCounterNames();
-
     private static String makeMapPath(String which) {
         return "/sys/fs/bpf/tethering/map_offload_tether_" + which + "_map";
     }
@@ -885,7 +882,10 @@ public class BpfCoordinator {
             map.forEach((k, v) -> {
                 String counterName;
                 try {
-                    counterName = sBpfCounterNames[(int) k.val];
+                    // The names of all the BPF counters defined in bpf_tethering.h.
+                    // TODO: move dumpCounters() into shim and make this as static.
+                    final String[] bpfCounterNames = getBpfCounterNames();
+                    counterName = bpfCounterNames[(int) k.val];
                 } catch (IndexOutOfBoundsException e) {
                     // Should never happen because this code gets the counter name from the same
                     // include file as the BPF program that increments the counter.
