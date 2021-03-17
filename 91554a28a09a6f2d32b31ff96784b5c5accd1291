@@ -16,6 +16,92 @@
       "message": "LGTM. pass to tier-2 reviewer.",
       "revId": "91554a28a09a6f2d32b31ff96784b5c5accd1291",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a35eca77_cfa599ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-17T10:56:14Z",
+      "side": 1,
+      "message": "LGTM but I think there might be a bug in this code. See inline.",
+      "revId": "91554a28a09a6f2d32b31ff96784b5c5accd1291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d445ab1_22caf39b",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-17T10:56:14Z",
+      "side": 1,
+      "message": "pioOption",
+      "range": {
+        "startLine": 441,
+        "startChar": 25,
+        "endLine": 441,
+        "endChar": 33
+      },
+      "revId": "91554a28a09a6f2d32b31ff96784b5c5accd1291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c36f1bc4_45c1d349",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-17T10:56:14Z",
+      "side": 1,
+      "message": "I think this might be incorrect, because:\n\n\u003d\u003d\u003d\u003d\u003d\u003d\nprivate static final byte ICMPV6_ND_ROUTER_SOLICIT \u003d asByte(133);  // -123\n\u003d\u003d\u003d\u003d\u003d\u003d\n\n\u003d\u003d\u003d\u003d\u003d\u003d\npublic static final int ICMPV6_ROUTER_SOLICITATION    \u003d 133;\n\u003d\u003d\u003d\u003d\u003d\u003d\n\n\nFor an RS, mSolicitation[0] will be -123. The old code would compare it to -12 and recognize that as an RS. But the new code would compare it to 133, and decide that it was not an RS, and continue.\n\nBut if the above is correct, then how does testSolicitRouterAdvertisement pass? Is it because the call to buildNewRa sends MAX_URGENT_RTR_ADVERTISEMENTS packets anyway? If you comment out the sendResponse in testSolicitRouterAdvertisement, does the test still pass? If so, that test is buggy...",
+      "range": {
+        "startLine": 581,
+        "startChar": 36,
+        "endLine": 581,
+        "endChar": 82
+      },
+      "revId": "91554a28a09a6f2d32b31ff96784b5c5accd1291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87036d09_563d2f36",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-17T10:56:14Z",
+      "side": 1,
+      "message": "If you delete this line, does the test still pass?",
+      "range": {
+        "startLine": 304,
+        "startChar": 8,
+        "endLine": 304,
+        "endChar": 47
+      },
+      "revId": "91554a28a09a6f2d32b31ff96784b5c5accd1291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

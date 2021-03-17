@@ -187,6 +187,24 @@
       "parentUuid": "938149ff_b2e8f024",
       "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810461b3_29944717",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-17T10:56:14Z",
+      "side": 1,
+      "message": "I still think keeping the comment would be good. If we get lots of flapping between different networks, the RA might end up too large.",
+      "parentUuid": "e090b201_14dae88c",
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
