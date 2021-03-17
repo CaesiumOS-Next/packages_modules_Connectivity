@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05034842_4c17868e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-17T10:56:15Z",
+      "side": 1,
+      "message": "patch obviously acceptable as a short term fix for the module release, but obviously all this, makeMapPath, etc. and the deps.getMap() stuff should IMHO all be in the S shim too.",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 77
+      },
+      "revId": "a75f7b13c2f53d5c646996b081c884ff972f12ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
