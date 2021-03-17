@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b0734fca_7cddd0f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-17T13:09:41Z",
+      "side": 1,
+      "message": "FWIW I\u0027d prefer we not do this. I don\u0027t think running this code on R is harmful, risky or expensive. The only thing it\u0027s doing is populating a native array based on code that\u0027s all in the module.\n\nRunning this inside dumpCounters has the risk that if the JNI code has a bug (e.g., leaks memory), then running \"dumpsys tethering\" on S will leak memory.",
+      "revId": "a75f7b13c2f53d5c646996b081c884ff972f12ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "05034842_4c17868e",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 1
