@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dbedd54_b1382c29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-19T12:41:00Z",
+      "side": 1,
+      "message": "LGTM, need Lorenzo\u0027s help to review.",
+      "revId": "8e17ff216152efe9386775dd717b0069c942914b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
