@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f451e5da_a3e83b25",
+        "filename": "tests/cts/net/src/android/net/cts/VpnServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1054468
+      },
+      "writtenOn": "2021-03-22T12:28:20Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be included as well, for the same reason?",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 40,
+        "endChar": 27
+      },
+      "revId": "8ceedd75715d7edf9800c064f1f7db930d21096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
