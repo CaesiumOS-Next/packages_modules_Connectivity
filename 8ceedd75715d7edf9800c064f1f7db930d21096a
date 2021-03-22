@@ -22,6 +22,30 @@
       },
       "revId": "8ceedd75715d7edf9800c064f1f7db930d21096a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ebbf736_f3d75806",
+        "filename": "tests/cts/net/src/android/net/cts/VpnServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-22T12:30:05Z",
+      "side": 1,
+      "message": "Not sure what you mean. This was already skipped, it\u0027s been marked @AppModeFull since Q.",
+      "parentUuid": "f451e5da_a3e83b25",
+      "range": {
+        "startLine": 40,
+        "startChar": 16,
+        "endLine": 40,
+        "endChar": 27
+      },
+      "revId": "8ceedd75715d7edf9800c064f1f7db930d21096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
