@@ -127,9 +127,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.ArrayUtils;
-import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
-import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.common.ConnectivityManagerShim;
 import com.android.testutils.CompatUtil;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -591,7 +589,7 @@ public class ConnectivityManagerTest {
         final TestNetworkCallback systemDefaultCallback = new TestNetworkCallback();
         final TestNetworkCallback perUidCallback = new TestNetworkCallback();
         final Handler h = new Handler(Looper.getMainLooper());
-        if (shouldTestSApis()) {
+        if (TestUtils.shouldTestSApis()) {
             runWithShellPermissionIdentity(() -> {
                 mCmShim.registerSystemDefaultNetworkCallback(systemDefaultCallback, h);
                 mCmShim.registerDefaultNetworkCallbackAsUid(Process.myUid(), perUidCallback, h);
@@ -614,7 +612,7 @@ public class ConnectivityManagerTest {
             assertNotNull("Did not receive onAvailable on default network callback",
                     defaultNetwork);
 
-            if (shouldTestSApis()) {
+            if (TestUtils.shouldTestSApis()) {
                 assertNotNull("Did not receive onAvailable on system default network callback",
                         systemDefaultCallback.waitForAvailable());
                 final Network perUidNetwork = perUidCallback.waitForAvailable();
@@ -628,7 +626,7 @@ public class ConnectivityManagerTest {
         } finally {
             mCm.unregisterNetworkCallback(callback);
             mCm.unregisterNetworkCallback(defaultTrackingCallback);
-            if (shouldTestSApis()) {
+            if (TestUtils.shouldTestSApis()) {
                 mCm.unregisterNetworkCallback(systemDefaultCallback);
                 mCm.unregisterNetworkCallback(perUidCallback);
             }
@@ -1656,7 +1654,7 @@ public class ConnectivityManagerTest {
 
         final Network network = mCtsNetUtils.ensureWifiConnected();
         final String ssid = unquoteSSID(mWifiManager.getConnectionInfo().getSSID());
-        assertNotNull("Ssid getting from WiifManager is null", ssid);
+        assertNotNull("Ssid getting from WifiManager is null", ssid);
         // This package should have no NETWORK_SETTINGS permission. Verify that no ssid is contained
         // in the NetworkCapabilities.
         verifySsidFromQueriedNetworkCapabilities(network, ssid, false /* hasSsid */);
@@ -1776,13 +1774,5 @@ public class ConnectivityManagerTest {
             }, new String[] { android.Manifest.permission.MANAGE_TEST_NETWORKS });
             mCm.unregisterNetworkCallback(callback);
         }
-    }
-
-    /**
-     * Whether to test S+ APIs. This requires a) that the test be running on an S+ device, and
-     * b) that the code be compiled against shims new enough to access these APIs.
-     */
-    private boolean shouldTestSApis() {
-        return SdkLevel.isAtLeastS() && ConstantsShim.VERSION > Build.VERSION_CODES.R;
     }
 }

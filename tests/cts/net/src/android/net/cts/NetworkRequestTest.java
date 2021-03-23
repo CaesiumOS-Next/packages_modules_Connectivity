@@ -28,6 +28,8 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
+import static junit.framework.Assert.fail;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -395,5 +397,44 @@ public class NetworkRequestTest {
         final NetworkRequest dunRequest = new NetworkRequest.Builder()
                 .addCapability(NET_CAPABILITY_DUN).build();
         assertTrue(dunRequest.hasCapability(ConstantsShim.NET_CAPABILITY_NOT_VCN_MANAGED));
+    }
+
+    private void verifyEqualRequestBuilt(NetworkRequest orig) {
+        if (TestUtils.shouldTestSApis()) {
+            try {
+                final NetworkRequestShim shim = NetworkRequestShimImpl.newInstance();
+                final NetworkRequest copy = shim.newBuilder(orig).build();
+                assertEquals(orig, copy);
+            } catch (UnsupportedApiLevelException e) {
+                fail("NetworkRequestShim.newBuilder should be supported in this SDK version");
+            }
+        }
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testBuildRequestFromExistingRequestWithBuilder() {
+        final NetworkRequest.Builder builder = new NetworkRequest.Builder();
+
+        final NetworkRequest baseRequest = builder.build();
+        verifyEqualRequestBuilt(baseRequest);
+
+        final NetworkRequest requestCellMms = builder
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_MMS)
+                .setSignalStrength(-99).build();
+        verifyEqualRequestBuilt(requestCellMms);
+
+        final WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder()
+                .setSsidPattern(new PatternMatcher(TEST_SSID, PatternMatcher.PATTERN_LITERAL))
+                .setBssidPattern(ARBITRARY_ADDRESS, ARBITRARY_ADDRESS)
+                .build();
+        final NetworkRequest requestWifi = builder
+                .addTransportType(TRANSPORT_WIFI)
+                .removeTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .removeCapability(NET_CAPABILITY_MMS)
+                .setNetworkSpecifier(specifier)
+                .setSignalStrength(-33).build();
+        verifyEqualRequestBuilt(requestWifi);
     }
 }
