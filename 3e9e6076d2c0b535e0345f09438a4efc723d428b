@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c5c1c09_8e4ba48e",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-23T02:50:13Z",
+      "side": 1,
+      "message": "I think we should have a:\n  map[ifindex] -\u003e number of rules\n\n(which is inc/dec when add/del of a v4 or v6 rule succeeded)\n\nthen this becomes simply a is count !\u003d 0",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 57
+      },
+      "revId": "3e9e6076d2c0b535e0345f09438a4efc723d428b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
