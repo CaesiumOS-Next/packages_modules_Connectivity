@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f575e64d_49808cbb",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-24T11:10:11Z",
+      "side": 1,
+      "message": "Would actually suggest adding a new func to BpfMap.java\n\nbool insertOrReplaceEntry(...)\n\nreturns true if inserted, false if replaced, exception otherwise",
+      "parentUuid": "c7012a9a_1f4c4221",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 61
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "472c55ce_66e44759",
         "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
         "patchSetId": 15
