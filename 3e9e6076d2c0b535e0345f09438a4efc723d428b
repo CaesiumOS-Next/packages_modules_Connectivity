@@ -22,6 +22,30 @@
       },
       "revId": "3e9e6076d2c0b535e0345f09438a4efc723d428b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8325733_befedd8a",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-24T09:36:35Z",
+      "side": 1,
+      "message": "Done for v4. \n\nLeave TODO for v6. \n\nv6 needs another commit because v6 rule counting lives in BpfCoordinator#isAnyRuleOnUpstream. All related testing may need to modify.",
+      "parentUuid": "6c5c1c09_8e4ba48e",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 57
+      },
+      "revId": "3e9e6076d2c0b535e0345f09438a4efc723d428b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
