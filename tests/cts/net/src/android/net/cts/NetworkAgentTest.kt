@@ -55,6 +55,7 @@ import android.net.VpnTransportInfo
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAddKeepalivePacketFilter
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAutomaticReconnectDisabled
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnBandwidthUpdateRequested
+import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnNetworkUnwanted
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnRemoveKeepalivePacketFilter
 import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnSaveAcceptUnvalidated
@@ -216,6 +217,7 @@ class NetworkAgentTest {
             object OnAutomaticReconnectDisabled : CallbackEntry()
             data class OnValidationStatus(val status: Int, val uri: Uri?) : CallbackEntry()
             data class OnSignalStrengthThresholdsUpdated(val thresholds: IntArray) : CallbackEntry()
+            object OnNetworkCreated : CallbackEntry()
         }
 
         override fun onBandwidthUpdateRequested() {
@@ -267,6 +269,10 @@ class NetworkAgentTest {
 
         override fun onValidationStatus(status: Int, uri: Uri?) {
             history.add(OnValidationStatus(status, uri))
+        }
+
+        override fun onNetworkCreated() {
+            history.add(OnNetworkCreated)
         }
 
         // Expects the initial validation event that always occurs immediately after registering
@@ -360,6 +366,9 @@ class NetworkAgentTest {
     fun testConnectAndUnregister() {
         val (agent, callback) = createConnectedNetworkAgent()
         callback.expectAvailableThenValidatedCallbacks(agent.network)
+        if (SdkLevel.isAtLeastS()) {
+            agent.expectCallback<OnNetworkCreated>()
+        }
         agent.expectEmptySignalStrengths()
         agent.expectNoInternetValidationStatus()
         agent.unregister()
@@ -374,6 +383,9 @@ class NetworkAgentTest {
     fun testOnBandwidthUpdateRequested() {
         val (agent, callback) = createConnectedNetworkAgent()
         callback.expectAvailableThenValidatedCallbacks(agent.network)
+        if (SdkLevel.isAtLeastS()) {
+            agent.expectCallback<OnNetworkCreated>()
+        }
         agent.expectEmptySignalStrengths()
         agent.expectNoInternetValidationStatus()
         mCM.requestBandwidthUpdate(agent.network)
@@ -396,6 +408,9 @@ class NetworkAgentTest {
         }
         createConnectedNetworkAgent().let { (agent, callback) ->
             callback.expectAvailableThenValidatedCallbacks(agent.network)
+            if (SdkLevel.isAtLeastS()) {
+                agent.expectCallback<OnNetworkCreated>()
+            }
             agent.expectCallback<OnSignalStrengthThresholdsUpdated>().let {
                 assertArrayEquals(it.thresholds, thresholds)
             }
@@ -473,6 +488,9 @@ class NetworkAgentTest {
     @Test
     fun testSendUpdates(): Unit = createConnectedNetworkAgent().let { (agent, callback) ->
         callback.expectAvailableThenValidatedCallbacks(agent.network)
+        if (SdkLevel.isAtLeastS()) {
+            agent.expectCallback<OnNetworkCreated>()
+        }
         agent.expectEmptySignalStrengths()
         agent.expectNoInternetValidationStatus()
         val ifaceName = "adhocIface"
