@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "686f5ef9_8dafb4ee",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-24T11:08:16Z",
+      "side": 1,
+      "message": "can\u0027t this use\n\nget(int key, E valueIfKeyNotFound)\n\nie. ... .get(upstreamIfindex, 0);\n\n\n(and then presumably Integer can maybe even be int)",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 45
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07968daf_bfc65431",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-24T11:08:16Z",
+      "side": 1,
+      "message": "insert",
+      "range": {
+        "startLine": 345,
+        "startChar": 30,
+        "endLine": 345,
+        "endChar": 36
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7012a9a_1f4c4221",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-24T11:08:16Z",
+      "side": 1,
+      "message": "do we need to perhaps fallback and call replaceEntry if insert fails?\n(and then not increment map)",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 61
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472c55ce_66e44759",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-24T11:08:16Z",
+      "side": 1,
+      "message": "/** Remove existing key from eBpf map. Return false if map was not modified. */\n    public boolean deleteEntry(K key) throws ErrnoException {\n        return deleteMapEntry(mMapFd, key.writeToBytes());\n    }\n\nso I think we need to check if it returned true",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 52
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "373040e0_92868657",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-24T11:08:16Z",
+      "side": 1,
+      "message": "this assumes we never store 0 in the map, which is true, but should be commented on",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 58
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
