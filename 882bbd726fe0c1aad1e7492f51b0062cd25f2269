@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000009309372",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1581524?revision\u003d14",
+      "fixSuggestions": [
+        {
+          "fixId": "483dc389_3d5c81be",
+          "description": "Change to \"Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+              "range": {
+                "startLine": 89,
+                "startChar": 7,
+                "endLine": 89,
+                "endChar": 16
+              },
+              "replacement": "succeeded"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "ec72cad3_529b9134",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-03-24T09:17:10Z",
+      "side": 1,
+      "message": "Common typo found: \"successed\" -- should it be \"succeeded\"?\nor successful\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 89,
+        "startChar": 7,
+        "endLine": 89,
+        "endChar": 16
+      },
+      "revId": "882bbd726fe0c1aad1e7492f51b0062cd25f2269",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
