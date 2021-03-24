@@ -66,6 +66,7 @@ import android.os.Build
 import android.os.HandlerThread
 import android.os.Looper
 import android.os.Message
+import android.text.TextUtils
 import android.util.DebugUtils.valueToString
 import androidx.test.InstrumentationRegistry
 import com.android.modules.utils.build.SdkLevel
@@ -547,6 +548,7 @@ class NetworkAgentTest {
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
     fun testSetUnderlyingNetworksAndVpnSpecifier() {
+        val mySessionId = "MySession12345"
         val request = NetworkRequest.Builder()
                 .addTransportType(TRANSPORT_TEST)
                 .addTransportType(TRANSPORT_VPN)
@@ -560,7 +562,7 @@ class NetworkAgentTest {
             addTransportType(TRANSPORT_TEST)
             addTransportType(TRANSPORT_VPN)
             removeCapability(NET_CAPABILITY_NOT_VPN)
-            setTransportInfo(VpnTransportInfo(VpnManager.TYPE_VPN_SERVICE))
+            setTransportInfo(VpnTransportInfo(VpnManager.TYPE_VPN_SERVICE, mySessionId))
             if (SdkLevel.isAtLeastS()) {
                 addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
             }
@@ -580,6 +582,7 @@ class NetworkAgentTest {
         assertNotNull(vpnNc)
         assertEquals(VpnManager.TYPE_VPN_SERVICE,
                 (vpnNc.transportInfo as VpnTransportInfo).type)
+        TextUtils.equals(mySessionId, (vpnNc.transportInfo as VpnTransportInfo).sessionId)
 
         val testAndVpn = intArrayOf(TRANSPORT_TEST, TRANSPORT_VPN)
         assertTrue(hasAllTransports(vpnNc, testAndVpn))
