@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b9d8419_4b9791e9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-03-25T08:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f34377ed_d858fa97",
+      "range": {
+        "startLine": 565,
+        "startChar": 75,
+        "endLine": 565,
+        "endChar": 90
+      },
+      "revId": "50d592da2558b7e3067d4af6f7badfd8f7b2a22b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0596e01e_dac9910f",
@@ -54,6 +78,24 @@
       "writtenOn": "2021-03-25T06:03:46Z",
       "side": 1,
       "message": "Check the session ID in the VpnTransportInfo as well.",
+      "revId": "50d592da2558b7e3067d4af6f7badfd8f7b2a22b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd7f1e71_8fc965ac",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-03-25T08:38:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0596e01e_dac9910f",
       "revId": "50d592da2558b7e3067d4af6f7badfd8f7b2a22b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
