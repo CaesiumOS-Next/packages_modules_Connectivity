@@ -74,6 +74,7 @@ import com.android.testutils.CompatUtil
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
+import com.android.testutils.RecorderCallback.CallbackEntry.Losing
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.TestableNetworkCallback
 import org.junit.After
@@ -739,5 +740,55 @@ class NetworkAgentTest {
         }
 
         // tearDown() will unregister the requests and agents
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    fun testSetLingerTimer() {
+        // This test will create two networks and check that the one with the stronger
+        // score wins out for a request that matches them both. And the weaker agent will
+        // be disconnected after customized linger timer expiry.
+
+        // Connect the first Network
+        val name1 = UUID.randomUUID().toString()
+        val name2 = UUID.randomUUID().toString()
+        val (agent1, callback) = createConnectedNetworkAgent(name = name1)
+        callback.expectAvailableThenValidatedCallbacks(agent1.network!!)
+        // Upgrade agent1 to a better score so that there is no ambiguity when
+        // agent2 connects that agent1 is still better
+        agent1.sendNetworkScore(BETTER_NETWORK_SCORE - 1)
+
+        // Verify invalid linger timer cannot be set.
+        assertFailsWith<IllegalArgumentException> { agent1.setLingerTimer(-1) }
+        assertFailsWith<IllegalArgumentException> { agent1.setLingerTimer(Integer.MIN_VALUE) }
+        // Verify valid linger timer can be set, but it should not take effect since the network
+        // is still needed.
+        agent1.setLingerTimer(Integer.MAX_VALUE)
+        agent1.setLingerTimer(0)
+        callback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+        // Set to the value we want to verify the functionality.
+        agent1.setLingerTimer(300)
+        // Make a listener which can observe agent1 lost later.
+        val callbackWeaker = TestableNetworkCallback()
+        registerNetworkCallback(NetworkRequest.Builder()
+                .clearCapabilities()
+                .addTransportType(TRANSPORT_TEST)
+                .setNetworkSpecifier(CompatUtil.makeEthernetNetworkSpecifier(name1))
+                .build(), callbackWeaker)
+        callbackWeaker.expectAvailableCallbacks(agent1.network!!)
+
+        // Connect the second agent.
+        val agent2 = createNetworkAgent(name = name2)
+        agent2.register()
+        agent2.markConnected()
+        // The callback should not see anything yet
+        callback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+        agent2.sendNetworkScore(BETTER_NETWORK_SCORE)
+        // Now update the score and expect the callback now prefers agent2. And the callback for
+        // agent1 sees the linger expiry.
+        callback.expectAvailableCallbacks(agent2.network!!)
+        callbackWeaker.expectCallback<Losing>(agent1.network!!)
+        callbackWeaker.assertNoCallback(300)
+        callbackWeaker.expectCallback<Lost>(agent1.network!!)
     }
 }
