@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b946cfd_881ce56a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-25T11:21:32Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed. Please take this out of the topic with the frameworks/base change.\n\nThis is because there are two automerger paths to sc-dev, one via mainline-prod (which only this CL can use) and one via other branches which both CLs can use. If the automerger path through mainline-prod is faster than the other one, then this CL will reach mainline-prod before the frameworks/base CL and break the build. If the automerger is blocked, the build will stay broken until it\u0027s unblocked.",
+      "revId": "37839c4bab01f3fe38fbe0e736e03c66471fafbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef3a572e_3594c39b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-25T11:21:32Z",
+      "side": 1,
+      "message": "You don\u0027t need this.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "37839c4bab01f3fe38fbe0e736e03c66471fafbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db758749_95d1df26",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-25T11:21:32Z",
+      "side": 1,
+      "message": "There\u0027s no point creating a VpnConfig object if all you do with it is write a string to it and get back the string you wrote. Just do something like:\n\n    final String sessionId \u003d \"MySession12345\";\n\nand then just use \"sessionId\" instead of \"mConfig.session\".",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 33
+      },
+      "revId": "37839c4bab01f3fe38fbe0e736e03c66471fafbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
