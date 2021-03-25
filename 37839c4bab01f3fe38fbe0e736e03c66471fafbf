@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "600964ea_324c5a9c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-03-25T12:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef3a572e_3594c39b",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "37839c4bab01f3fe38fbe0e736e03c66471fafbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db758749_95d1df26",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-03-25T11:21:32Z",
       "side": 1,
       "message": "There\u0027s no point creating a VpnConfig object if all you do with it is write a string to it and get back the string you wrote. Just do something like:\n\n    final String sessionId \u003d \"MySession12345\";\n\nand then just use \"sessionId\" instead of \"mConfig.session\".",
+      "range": {
+        "startLine": 552,
+        "startChar": 0,
+        "endLine": 553,
+        "endChar": 33
+      },
+      "revId": "37839c4bab01f3fe38fbe0e736e03c66471fafbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55c05c9f_7c2a7e52",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-03-25T12:26:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db758749_95d1df26",
       "range": {
         "startLine": 552,
         "startChar": 0,
