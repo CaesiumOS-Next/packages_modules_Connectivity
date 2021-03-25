@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d105821_0121f1f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-25T06:03:46Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comments in a follow-up.",
+      "revId": "50d592da2558b7e3067d4af6f7badfd8f7b2a22b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34377ed_d858fa97",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-25T06:03:46Z",
+      "side": 1,
+      "message": "mConfig.session is guaranteed to be null here. Maybe use some more interesting value, like a non-null string?",
+      "range": {
+        "startLine": 565,
+        "startChar": 75,
+        "endLine": 565,
+        "endChar": 90
+      },
+      "revId": "50d592da2558b7e3067d4af6f7badfd8f7b2a22b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0596e01e_dac9910f",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-25T06:03:46Z",
+      "side": 1,
+      "message": "Check the session ID in the VpnTransportInfo as well.",
+      "revId": "50d592da2558b7e3067d4af6f7badfd8f7b2a22b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
