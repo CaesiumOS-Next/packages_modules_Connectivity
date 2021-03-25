@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b351a884_17fad00b",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-25T08:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d445ab1_22caf39b",
+      "range": {
+        "startLine": 441,
+        "startChar": 25,
+        "endLine": 441,
+        "endChar": 33
+      },
+      "revId": "91554a28a09a6f2d32b31ff96784b5c5accd1291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c36f1bc4_45c1d349",
@@ -95,6 +119,30 @@
       "side": 1,
       "message": "Thanks for catching, you\u0027re correct. we should convert the int constant to byte.\n\nBesides, this test seems buggy, the reason why the test can still pass is MulticastTransmitter will retransmit the RA to all-nodes address although the device doesn\u0027t response with a unicast RA after receiving RS. But in the test assertRaPacket() doesn\u0027t distinguish the IP destination address(which is multicast or unicast)...\n\nAfter updating the constant type(asByte(ICMPV6_ROUTER_SOLICITATION)), found another problem, since device has no default route to fe80::/64, sendto() fails with ENETUNREACH error:\n    sendto error: android.system.ErrnoException: sendto failed: ENETUNREACH (Network is unreachable)\n\nI tried to fix this problem by adding a default route(fe80::/64 -\u003e ::) manually:\n    // add a default route to fe80::/64.\n    sNetd.networkAddRoute(INetd.LOCAL_NET_ID, mTetheredParams.name, \"fe80::/64\", \"\");\n\nwhich can fix the sendto() ENETUNREACH error, however, i didn\u0027t see any unicast RA captured in the test. still debug for this problem (probably because IPv6 link-local address: fe80::1122:3344:5566:7788 is unresolved)?",
       "parentUuid": "c36f1bc4_45c1d349",
+      "range": {
+        "startLine": 581,
+        "startChar": 36,
+        "endLine": 581,
+        "endChar": 82
+      },
+      "revId": "91554a28a09a6f2d32b31ff96784b5c5accd1291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d0edd6_1ff3d82b",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-25T08:53:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "71db9c66_bdee9f9b",
       "range": {
         "startLine": 581,
         "startChar": 36,

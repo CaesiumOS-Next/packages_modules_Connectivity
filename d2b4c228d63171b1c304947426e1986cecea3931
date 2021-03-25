@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42db9b97_f4a0bd64",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-25T08:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef4dd412_4cceaaf6",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 378,
+        "endChar": 10
+      },
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "663351d0_b48b7f2c",
@@ -126,6 +150,30 @@
       "side": 1,
       "message": "ditto?",
       "parentUuid": "663351d0_b48b7f2c",
+      "range": {
+        "startLine": 439,
+        "startChar": 87,
+        "endLine": 439,
+        "endChar": 95
+      },
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e4e5d24_1e572a18",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-25T08:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66cc4f25_dfa5d6ff",
       "range": {
         "startLine": 439,
         "startChar": 87,
@@ -203,6 +251,24 @@
       "side": 1,
       "message": "I still think keeping the comment would be good. If we get lots of flapping between different networks, the RA might end up too large.",
       "parentUuid": "e090b201_14dae88c",
+      "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57109c17_eb630aee",
+        "filename": "Tethering/src/android/net/ip/RouterAdvertisementDaemon.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-03-25T08:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "810461b3_29944717",
       "revId": "d2b4c228d63171b1c304947426e1986cecea3931",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
