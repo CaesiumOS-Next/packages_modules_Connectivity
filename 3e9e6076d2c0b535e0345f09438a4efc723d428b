@@ -46,6 +46,30 @@
       },
       "revId": "3e9e6076d2c0b535e0345f09438a4efc723d428b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08feb806_3eddc7e9",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-29T12:01:02Z",
+      "side": 1,
+      "message": "I prefer counting rules on BpfMap to avoid out of sync problem. \n\nThe reason is that the rule counter can\u0027t aware the BpfMap.clear calling on the upstream4 map. Or we have to be very careful on any new shim apis which touches the map.",
+      "parentUuid": "b8325733_befedd8a",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 390,
+        "endChar": 57
+      },
+      "revId": "3e9e6076d2c0b535e0345f09438a4efc723d428b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8319ca_a715c551",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-29T12:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "686f5ef9_8dafb4ee",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 45
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07968daf_bfc65431",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-24T11:08:16Z",
       "side": 1,
       "message": "insert",
+      "range": {
+        "startLine": 345,
+        "startChar": 30,
+        "endLine": 345,
+        "endChar": 36
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8393f2f4_59cfe17d",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-29T12:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07968daf_bfc65431",
       "range": {
         "startLine": 345,
         "startChar": 30,
@@ -96,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d60d350_cb560d36",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-29T12:01:02Z",
+      "side": 1,
+      "message": "Here is the reason why drop EEXIST silently.\nWe don\u0027t parse the protocol status CTA_PROTOINFO for now (TCP has one, UDP doesn\u0027t have). TCP conntrack events for one session will be called times because the following tcp status has the same conntrack status (CTA_STATUS). So they all trigger tetherOffloadRuleAdd() times and only tcp status ESTABLISHED can success with insertEntry and others get IllegalStateException (EEXIST) which was dropped.\n\ntcp status:\nESTABLISHED (event UPDATE)\nFIN_WAIT (event UPDATE) \nLAST_ACK (event UPDATE)\nTIME_WAIT (event UPDATE)\n\nNew approaches you mentioned:\n1 . If we need to fallback and call replaceEntry, probably we just call updateEntry which updates (insert or replace) the entry anyway if we don\u0027t care.\n\n2. For insertOrReplaceEntry, do we care inserted or replaced since the rule has changed already? if yes, what we need to do for rule inserted or replaced? ex: inserted: count++; replaced: do nothing?\n\nIf we would like to go new approaches, we may need to fix tcp status first. \n\nThought? Thank you.",
+      "parentUuid": "f575e64d_49808cbb",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 61
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "472c55ce_66e44759",
         "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
         "patchSetId": 15
@@ -119,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a41072d7_55aa4e6e",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-29T12:01:02Z",
+      "side": 1,
+      "message": "May I know what case we would like to be protected by the returning boolean?\n\nNo ErrnoException thrown means that entry was deleted and we only decrease the count in this case. That should be paired to tetherOffloadRuleAdd(by insertEntry) which only increases count if entry was added.",
+      "parentUuid": "472c55ce_66e44759",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 52
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "373040e0_92868657",
         "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
         "patchSetId": 15
@@ -130,6 +226,30 @@
       "writtenOn": "2021-03-24T11:08:16Z",
       "side": 1,
       "message": "this assumes we never store 0 in the map, which is true, but should be commented on",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 58
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38768b96_b3cfc0bb",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-03-29T12:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "373040e0_92868657",
       "range": {
         "startLine": 415,
         "startChar": 0,
