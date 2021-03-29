@@ -93,12 +93,14 @@ public class MyServiceClient {
         return mService.getRestrictBackgroundStatus();
     }
 
-    public void sendNotification(int notificationId, String notificationType) throws RemoteException {
+    public void sendNotification(int notificationId, String notificationType)
+            throws RemoteException {
         mService.sendNotification(notificationId, notificationType);
     }
 
-    public void registerNetworkCallback(INetworkCallback cb) throws RemoteException {
-        mService.registerNetworkCallback(cb);
+    public void registerNetworkCallback(final int[] transports, INetworkCallback cb)
+            throws RemoteException {
+        mService.registerNetworkCallback(transports, cb);
     }
 
     public void unregisterNetworkCallback() throws RemoteException {

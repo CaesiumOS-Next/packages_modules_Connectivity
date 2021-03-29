@@ -90,7 +90,7 @@ public class MyService extends Service {
         }
 
         @Override
-        public void registerNetworkCallback(INetworkCallback cb) {
+        public void registerNetworkCallback(final int[] transports, INetworkCallback cb) {
             if (mNetworkCallback != null) {
                 Log.d(TAG, "unregister previous network callback: " + mNetworkCallback);
                 unregisterNetworkCallback();
@@ -138,7 +138,7 @@ public class MyService extends Service {
                     }
                 }
             };
-            mCm.registerNetworkCallback(makeNetworkRequest(), mNetworkCallback);
+            mCm.registerNetworkCallback(makeNetworkRequest(transports), mNetworkCallback);
             try {
                 cb.asBinder().linkToDeath(() -> unregisterNetworkCallback(), 0);
             } catch (RemoteException e) {
@@ -156,10 +156,13 @@ public class MyService extends Service {
         }
       };
 
-    private NetworkRequest makeNetworkRequest() {
-        return new NetworkRequest.Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build();
+    private NetworkRequest makeNetworkRequest(final int[] transports) {
+        final NetworkRequest.Builder builder = new NetworkRequest.Builder();
+        builder.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+        for (final int transport : transports) {
+            builder.addTransportType(transport);
+        }
+        return builder.build();
     }
 
     @Override

@@ -713,8 +713,11 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         fail("app2 receiver is not ready");
     }
 
-    protected void registerNetworkCallback(INetworkCallback cb) throws Exception {
-        mServiceClient.registerNetworkCallback(cb);
+    protected void registerNetworkCallback(final int[] transports, INetworkCallback cb)
+            throws Exception {
+        Log.i(TAG, "Registering network callback for transports:"
+                + java.util.Arrays.toString(transports));
+        mServiceClient.registerNetworkCallback(transports, cb);
     }
 
     protected void unregisterNetworkCallback() throws Exception {
