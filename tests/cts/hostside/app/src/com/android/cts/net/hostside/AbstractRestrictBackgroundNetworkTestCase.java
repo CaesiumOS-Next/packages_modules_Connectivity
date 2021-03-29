@@ -25,7 +25,6 @@ import static com.android.cts.net.hostside.NetworkPolicyTestUtils.executeShellCo
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getConnectivityManager;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getContext;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getInstrumentation;
-import static com.android.cts.net.hostside.NetworkPolicyTestUtils.getWifiManager;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.isDozeModeSupported;
 import static com.android.cts.net.hostside.NetworkPolicyTestUtils.restrictBackgroundValueToString;
 
@@ -46,12 +45,10 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
-import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.util.Log;
 
@@ -59,6 +56,7 @@ import org.junit.Rule;
 import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
 
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -704,8 +702,11 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         fail("app2 receiver is not ready");
     }
 
-    protected void registerNetworkCallback(INetworkCallback cb) throws Exception {
-        mServiceClient.registerNetworkCallback(cb);
+    protected void registerNetworkCallback(final int[] transports, INetworkCallback cb)
+            throws Exception {
+        Log.i(TAG, "Registering network callback for transports:"
+                + Arrays.toString(transports));
+        mServiceClient.registerNetworkCallback(transports, cb);
     }
 
     protected void unregisterNetworkCallback() throws Exception {
