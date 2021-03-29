@@ -58,6 +58,7 @@ import org.junit.Rule;
 import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
 
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -713,8 +714,11 @@ public abstract class AbstractRestrictBackgroundNetworkTestCase {
         fail("app2 receiver is not ready");
     }
 
-    protected void registerNetworkCallback(INetworkCallback cb) throws Exception {
-        mServiceClient.registerNetworkCallback(cb);
+    protected void registerNetworkCallback(final int[] transports, INetworkCallback cb)
+            throws Exception {
+        Log.i(TAG, "Registering network callback for transports:"
+                + Arrays.toString(transports));
+        mServiceClient.registerNetworkCallback(transports, cb);
     }
 
     protected void unregisterNetworkCallback() throws Exception {
