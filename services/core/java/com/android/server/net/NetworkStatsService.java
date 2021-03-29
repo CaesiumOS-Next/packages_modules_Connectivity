@@ -1693,6 +1693,7 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
         }
 
         @Override
+<<<<<<< HEAD   (9dfe83 Merge "Support Dual ViLTE stats" am: df875106a7 am: 4ea19cf4)
         public void setStatsProviderWarningAndLimitAsync(
                 @NonNull String iface, long warning, long limit) {
             if (LOGV) {
@@ -1701,6 +1702,13 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
             }
             invokeForAllStatsProviderCallbacks((cb) -> cb.mProvider.onSetWarningAndLimit(iface,
                     warning, limit));
+=======
+        public void setStatsProviderLimitAsync(@NonNull String iface, long quota) {
+            if (LOGV) Slog.v(TAG, "setStatsProviderLimitAsync(" + iface + "," + quota + ")");
+            // TODO: Set warning accordingly.
+            invokeForAllStatsProviderCallbacks((cb) -> cb.mProvider.onSetWarningAndLimit(iface,
+                    NetworkStatsProvider.QUOTA_UNLIMITED, quota));
+>>>>>>> BRANCH (c46231 Merge "[SP28] Add API for set data warning" am: f1a1d71020 a)
         }
     }
 

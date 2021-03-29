@@ -147,7 +147,14 @@ public abstract class NetworkStatsProvider {
 
     /**
      * Notify system that the warning set by {@link #onSetWarningAndLimit} has been reached.
+<<<<<<< HEAD   (9dfe83 Merge "Support Dual ViLTE stats" am: df875106a7 am: 4ea19cf4)
      */
+=======
+     *
+     * @hide
+     */
+    // TODO: Expose as system API.
+>>>>>>> BRANCH (c46231 Merge "[SP28] Add API for set data warning" am: f1a1d71020 a)
     public void notifyWarningReached() {
         try {
             // Reuse the code path to notify warning reached with limit reached
@@ -195,6 +202,7 @@ public abstract class NetworkStatsProvider {
      * @param quotaBytes the quota defined as the number of bytes, starting from zero and counting
      *                   from now. A value of {@link #QUOTA_UNLIMITED} indicates there is no limit.
      */
+    // TODO: deprecate this once onSetWarningAndLimit is ready.
     public abstract void onSetLimit(@NonNull String iface, long quotaBytes);
 
     /**
@@ -213,7 +221,14 @@ public abstract class NetworkStatsProvider {
      *                     there is no warning.
      * @param limitBytes the limit defined as the number of bytes, starting from zero and counting
      *                   from now. A value of {@link #QUOTA_UNLIMITED} indicates there is no limit.
+<<<<<<< HEAD   (9dfe83 Merge "Support Dual ViLTE stats" am: df875106a7 am: 4ea19cf4)
      */
+=======
+     *
+     * @hide
+     */
+    // TODO: Expose as system API.
+>>>>>>> BRANCH (c46231 Merge "[SP28] Add API for set data warning" am: f1a1d71020 a)
     public void onSetWarningAndLimit(@NonNull String iface, long warningBytes, long limitBytes) {
         // Backward compatibility for those who didn't override this function.
         onSetLimit(iface, limitBytes);
