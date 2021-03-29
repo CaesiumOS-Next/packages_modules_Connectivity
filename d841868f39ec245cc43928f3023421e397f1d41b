@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0ae9fa_7d45558a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1673,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-03-29T15:35:46Z",
+      "side": 1,
+      "message": "Nit: Suggest put this into NetworkCallback and have get() to get NetworkCapabilities.",
+      "range": {
+        "startLine": 1673,
+        "startChar": 8,
+        "endLine": 1673,
+        "endChar": 87
+      },
+      "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
