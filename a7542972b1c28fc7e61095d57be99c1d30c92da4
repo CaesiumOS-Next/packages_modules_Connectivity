@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40533088_23071285",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-30T03:42:15Z",
+      "side": 0,
+      "message": "Can it happen that interface index is different from the index that we previously calculated in line 1339? If so, could we fetch the interface from the upstream lookup table instead of re-calculating it here? Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 722,
+        "startChar": 12,
+        "endLine": 722,
+        "endChar": 54
+      },
+      "revId": "a7542972b1c28fc7e61095d57be99c1d30c92da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "016ef546_963fecd7",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-03-30T03:42:15Z",
+      "side": 0,
+      "message": "It looks like we are deleting the code that populates the map for IPv6 upstream interfaces.\n\nIn the case where the IPv6 upstream interface is different from the IPv4 interface (e.g., rmnet_data0 vs. v4-rmnet_data0), will the IPv6-only interface be in the map? Will line 1341 have run on \"rmnet_data0\"? Or will it only have run on \"v4-rmnet_data0\"?\n\nThere may be unit tests that you can use to test this assumption. I don\u0027t think there is anything in IpServerTest, because the upstream interface selection code is not there. Perhaps this is, or could be, covered by a unit test in TetheringTest?\n\nOr, we could test this on a real device on T-Mobile. Temporarily hack TetheringConfiguration#checkDunRequired to always return false and see what happens.",
+      "range": {
+        "startLine": 752,
+        "startChar": 28,
+        "endLine": 752,
+        "endChar": 56
+      },
+      "revId": "a7542972b1c28fc7e61095d57be99c1d30c92da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
