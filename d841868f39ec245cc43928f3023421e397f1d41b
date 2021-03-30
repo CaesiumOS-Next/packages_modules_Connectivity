@@ -22,6 +22,30 @@
       },
       "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f45ce89_715f1bbd",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1673,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-30T02:47:45Z",
+      "side": 1,
+      "message": "Per offline discuss, it looks no much benefit in this case. Let\u0027s keep it as it is.",
+      "parentUuid": "8a0ae9fa_7d45558a",
+      "range": {
+        "startLine": 1673,
+        "startChar": 8,
+        "endLine": 1673,
+        "endChar": 87
+      },
+      "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
