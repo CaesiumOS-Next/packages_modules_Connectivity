@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f525f587_1ece5fd7",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-30T08:56:31Z",
+      "side": 1,
+      "message": "AFAICT, this is no longer relevant.",
+      "parentUuid": "10b11381_cebc7abd",
+      "range": {
+        "startLine": 330,
+        "startChar": 8,
+        "endLine": 330,
+        "endChar": 1
+      },
+      "revId": "94ae61cc0e9f19d799436273a717c5ae2ecd58f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8aaa944a_6e89ee69",

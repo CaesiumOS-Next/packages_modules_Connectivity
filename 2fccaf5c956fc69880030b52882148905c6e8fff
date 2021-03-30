@@ -3,6 +3,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d996ad26_0764bf0d",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-30T08:56:31Z",
+      "side": 1,
+      "message": "calls to",
+      "range": {
+        "startLine": 89,
+        "startChar": 76,
+        "endLine": 89,
+        "endChar": 83
+      },
+      "revId": "2fccaf5c956fc69880030b52882148905c6e8fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98891c51_f6d765d7",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-30T08:56:31Z",
+      "side": 1,
+      "message": "successfully",
+      "range": {
+        "startLine": 89,
+        "startChar": 7,
+        "endLine": 89,
+        "endChar": 16
+      },
+      "revId": "2fccaf5c956fc69880030b52882148905c6e8fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56626e09_729b69f3",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-30T08:56:31Z",
+      "side": 1,
+      "message": "clear()",
+      "range": {
+        "startLine": 90,
+        "startChar": 24,
+        "endLine": 90,
+        "endChar": 29
+      },
+      "revId": "2fccaf5c956fc69880030b52882148905c6e8fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3aa07d66_71b4fe5e",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-30T08:56:31Z",
+      "side": 1,
+      "message": "note: it seems like changing from update to insert in the else clause here provides no real benefit.",
+      "range": {
+        "startLine": 342,
+        "startChar": 33,
+        "endLine": 342,
+        "endChar": 44
+      },
+      "revId": "2fccaf5c956fc69880030b52882148905c6e8fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94250cb3_3e9dfc51",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-30T08:56:31Z",
+      "side": 1,
+      "message": "I wonder why you do the counting on downstream\u003dtrue, but not the reverse (ie. on false) - or even on both.  Does it matter?\n\nThe current implementation doesn\u0027t seem to actually match the comments (which talk about rules on upstream interface, not rules redirecting packets to upstream interface).\n\nShould this be reversed?",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 57
+      },
+      "revId": "2fccaf5c956fc69880030b52882148905c6e8fff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d9aff3b8_c7d1c5d9",
         "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
         "patchSetId": 17
