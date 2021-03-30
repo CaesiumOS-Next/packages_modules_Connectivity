@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e809b811_04d7699c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-03-30T23:08:44Z",
+      "side": 1,
+      "message": "Is it guaranteed that this network will be the default network after the meteredness is changed? The test app currently uses default network, so if this network won\u0027t be the default, then the test app will be using a network with meteredness different from what we want. I was looking into a similar issue a while ago (http://ag/13865696) but haven\u0027t finished it.",
+      "range": {
+        "startLine": 201,
+        "startChar": 56,
+        "endLine": 201,
+        "endChar": 84
+      },
+      "revId": "7ede38c3ccddcab97352480a232027cabcf1beff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
