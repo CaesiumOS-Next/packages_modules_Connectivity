@@ -168,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "605b4ecb_00b6d531",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-30T02:19:31Z",
+      "side": 1,
+      "message": "ok, let\u0027s leave a TODO or file a bug to fix this later.",
+      "parentUuid": "7d60d350_cb560d36",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 61
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "472c55ce_66e44759",
         "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
         "patchSetId": 15
@@ -203,6 +227,30 @@
       "side": 1,
       "message": "May I know what case we would like to be protected by the returning boolean?\n\nNo ErrnoException thrown means that entry was deleted and we only decrease the count in this case. That should be paired to tetherOffloadRuleAdd(by insertEntry) which only increases count if entry was added.",
       "parentUuid": "472c55ce_66e44759",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 52
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8dd7536_4dacef36",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-30T02:19:31Z",
+      "side": 1,
+      "message": "????!!!!",
+      "parentUuid": "a41072d7_55aa4e6e",
       "range": {
         "startLine": 360,
         "startChar": 0,
