@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78fef800_447b6b9c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-30T04:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26db15a1_6507d43c",
+      "range": {
+        "startLine": 363,
+        "startChar": 28,
+        "endLine": 363,
+        "endChar": 29
+      },
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f856fcc6_78775be9",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-30T01:57:06Z",
       "side": 1,
       "message": "agent.expectCallback\u003cOnNetworkDisconnected\u003e()?",
+      "range": {
+        "startLine": 450,
+        "startChar": 59,
+        "endLine": 450,
+        "endChar": 60
+      },
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e7c913_511ac612",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-30T04:40:10Z",
+      "side": 1,
+      "message": "No, this lost is caused by the singal strength lost, not a agent lost",
+      "parentUuid": "f856fcc6_78775be9",
       "range": {
         "startLine": 450,
         "startChar": 59,
@@ -64,6 +112,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "403d05ae_159c66cb",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-30T04:40:10Z",
+      "side": 1,
+      "message": "done in createConnectedNetworkAgent",
+      "parentUuid": "8833b350_11f47bb2",
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09278dd4_f146580d",
@@ -81,6 +147,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c2d61ca_3422fe53",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-30T04:40:10Z",
+      "side": 1,
+      "message": "This test did verify any agent callback. There are other pending event before OnNetworkDisconnected. If we want to verify that here, it means we should also verify all of them before this. Thus, I will prefer to not do the verification here. The behavior is verified in other tests.",
+      "parentUuid": "09278dd4_f146580d",
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f053b95c_114f2f04",
@@ -94,6 +178,24 @@
       "writtenOn": "2021-03-30T01:57:06Z",
       "side": 1,
       "message": "agent.expectCallback\u003cOnNetworkCreated\u003e()?",
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24e4bd7a_3d0fd560",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-03-30T04:40:10Z",
+      "side": 1,
+      "message": "Done in createConnectedNetworkAgent",
+      "parentUuid": "f053b95c_114f2f04",
       "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
