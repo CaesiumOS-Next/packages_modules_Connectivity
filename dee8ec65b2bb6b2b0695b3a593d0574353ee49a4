@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26db15a1_6507d43c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-03-30T01:57:06Z",
+      "side": 1,
+      "message": "Suggest put agent.expectCallback\u003cOnNetworkCreated\u003e() check here, then you can remove this check on each test.",
+      "range": {
+        "startLine": 363,
+        "startChar": 28,
+        "endLine": 363,
+        "endChar": 29
+      },
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f856fcc6_78775be9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-03-30T01:57:06Z",
+      "side": 1,
+      "message": "agent.expectCallback\u003cOnNetworkDisconnected\u003e()?",
+      "range": {
+        "startLine": 450,
+        "startChar": 59,
+        "endLine": 450,
+        "endChar": 60
+      },
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8833b350_11f47bb2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-03-30T01:57:06Z",
+      "side": 1,
+      "message": "agent.expectCallback\u003cOnNetworkCreated\u003e()?",
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09278dd4_f146580d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-03-30T01:57:06Z",
+      "side": 1,
+      "message": "agent.expectCallback\u003cOnNetworkDisconnected\u003e()?",
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f053b95c_114f2f04",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-03-30T01:57:06Z",
+      "side": 1,
+      "message": "agent.expectCallback\u003cOnNetworkCreated\u003e()?",
+      "revId": "dee8ec65b2bb6b2b0695b3a593d0574353ee49a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
