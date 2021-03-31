@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee0a730b_5efbf6cc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-03-31T01:48:25Z",
+      "side": 1,
+      "message": "I think you don\u0027t need this because l.133 adds @IgnoreUpTo(Build.VERSION_CODES.R) that NetworkAgentTest only run on S+ device.",
+      "range": {
+        "startLine": 364,
+        "startChar": 8,
+        "endLine": 364,
+        "endChar": 36
+      },
+      "revId": "638adb708cd2805e0ad9fefeb46a5e540527c9dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
