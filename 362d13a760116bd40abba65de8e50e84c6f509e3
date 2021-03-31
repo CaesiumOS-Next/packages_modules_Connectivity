@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d9eafed_b4d557f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-03-31T02:38:44Z",
+      "side": 1,
+      "message": "Nit: \"I\" or \"we\" feels a bit weird to me in cover comments since it\u0027s not very relevant in AOSP",
+      "range": {
+        "startLine": 41,
+        "startChar": 5,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "362d13a760116bd40abba65de8e50e84c6f509e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f39e8d8_7a4e01c1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-03-31T02:38:44Z",
+      "side": 1,
+      "message": "Nit: Pre-existing, but the whole method could return early if this was null (maybe just don\u0027t call it if defaultNetwork is null ?)",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 41
+      },
+      "revId": "362d13a760116bd40abba65de8e50e84c6f509e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a1a917d_605f9a95",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-03-31T02:38:44Z",
+      "side": 1,
+      "message": "Nit: pre-existing, but \"mDefaultNetwork\" would make what\u0027s happening here a bit more clear (doesn\u0027t need to be changed now)",
+      "range": {
+        "startLine": 155,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 22
+      },
+      "revId": "362d13a760116bd40abba65de8e50e84c6f509e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f84bdd3_ce72f474",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-03-31T02:38:44Z",
+      "side": 1,
+      "message": "Should dispatchAll be called here too ?",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "362d13a760116bd40abba65de8e50e84c6f509e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
