@@ -22,6 +22,30 @@
       },
       "revId": "7ede38c3ccddcab97352480a232027cabcf1beff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78e175fa_864a21be",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-03-31T08:50:19Z",
+      "side": 1,
+      "message": "No, after we set the meteredness for wifi, since the network id will be different, we can\u0027t expect it\u0027s the same network anymore.\nBut we can say the capabilitities should be the same except meteredness, that is why I passed the transport types into the app.",
+      "parentUuid": "e809b811_04d7699c",
+      "range": {
+        "startLine": 201,
+        "startChar": 56,
+        "endLine": 201,
+        "endChar": 84
+      },
+      "revId": "7ede38c3ccddcab97352480a232027cabcf1beff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
