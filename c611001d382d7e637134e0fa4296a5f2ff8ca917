@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99dba4ea_b36dd2ec",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-31T22:55:05Z",
+      "side": 1,
+      "message": "remove \u0027the\u0027",
+      "range": {
+        "startLine": 1340,
+        "startChar": 55,
+        "endLine": 1340,
+        "endChar": 58
+      },
+      "revId": "c611001d382d7e637134e0fa4296a5f2ff8ca917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d031a5d2_bea7f16c",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-03-31T22:55:05Z",
+      "side": 1,
+      "message": "interfaces",
+      "range": {
+        "startLine": 1346,
+        "startChar": 73,
+        "endLine": 1346,
+        "endChar": 82
+      },
+      "revId": "c611001d382d7e637134e0fa4296a5f2ff8ca917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
