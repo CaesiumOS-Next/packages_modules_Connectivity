@@ -60,9 +60,11 @@ import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
 import static android.system.OsConstants.AF_UNSPEC;
 
+import static com.android.compatibility.common.util.SystemUtil.callWithShellPermissionIdentity;
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.testutils.MiscAsserts.assertThrows;
+import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
@@ -100,6 +102,7 @@ import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
 import android.net.NetworkRequest;
 import android.net.NetworkUtils;
+import android.net.OemNetworkPreferences;
 import android.net.SocketKeepalive;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
@@ -136,6 +139,7 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRuleKt;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.SkipPresubmit;
+import com.android.testutils.TestNetworkTracker;
 import com.android.testutils.TestableNetworkCallback;
 
 import junit.framework.AssertionFailedError;
@@ -170,6 +174,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -189,6 +194,7 @@ public class ConnectivityManagerTest {
     private static final int INTERVAL_KEEPALIVE_RETRY_MS = 500;
     private static final int MAX_KEEPALIVE_RETRY_COUNT = 3;
     private static final int MIN_KEEPALIVE_INTERVAL = 10;
+    private static final int TIMEOUT_MS = 500;
 
     private static final int NETWORK_CALLBACK_TIMEOUT_MS = 30_000;
     private static final int NUM_TRIES_MULTIPATH_PREF_CHECK = 20;
@@ -1586,9 +1592,21 @@ public class ConnectivityManagerTest {
                 c -> c instanceof CallbackEntry.Available);
     }
 
+    private void waitForAvailable(
+            @NonNull final TestableNetworkCallback cb, @NonNull final Network expectedNetwork) {
+        cb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                c -> expectedNetwork.equals(c.getNetwork()));
+    }
+
     private void waitForLost(@NonNull final TestableNetworkCallback cb) {
         cb.eventuallyExpect(CallbackEntry.LOST, NETWORK_CALLBACK_TIMEOUT_MS,
                 c -> c instanceof CallbackEntry.Lost);
+    }
+
+    private void waitForLost(
+            @NonNull final TestableNetworkCallback cb, @NonNull final Network expectedNetwork) {
+        cb.eventuallyExpect(CallbackEntry.LOST, NETWORK_CALLBACK_TIMEOUT_MS,
+                c -> expectedNetwork.equals(c.getNetwork()));
     }
 
     private void setAndVerifyAirplaneMode(Boolean expectedResult)
@@ -1720,5 +1738,123 @@ public class ConnectivityManagerTest {
      */
     private boolean shouldTestSApis() {
         return SdkLevel.isAtLeastS() && ConstantsShim.VERSION > Build.VERSION_CODES.R;
+    }
+
+    /**
+     * Verify that per-app OEM network preference functions as expected for network preference TEST.
+     * For specified apps, validate networks are prioritized in order: unmetered, TEST transport,
+     * default network.
+     */
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testSetOemNetworkPreferenceForTestPref() throws Exception {
+        final TestNetworkTracker tnt = callWithShellPermissionIdentity(
+                () -> initTestNetwork(mContext, TEST_LINKADDR, TIMEOUT_MS));
+        final TestableNetworkCallback defaultTrackingCallback = new TestableNetworkCallback();
+
+        mCtsNetUtils.ensureWifiConnected();
+        final String ssid = unquoteSSID(mWifiManager.getConnectionInfo().getSSID());
+        final String oldMeteredSetting = getWifiMeteredStatus(ssid);
+        final Network wifiNetwork = callWithShellPermissionIdentity(
+                mWifiManager::getCurrentNetwork);
+
+        try {
+            // This network will be used for unmetered.
+            setWifiMeteredStatus(ssid, "false" /* metered */);
+
+            @OemNetworkPreferences.OemNetworkPreference final int networkPref =
+                    OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
+            final OemNetworkPreferences pref = new OemNetworkPreferences.Builder()
+                    .addNetworkPreference(mContext.getPackageName(), networkPref)
+                    .build();
+            setOemNetworkPreference(pref);
+            mCm.registerDefaultNetworkCallback(defaultTrackingCallback);
+
+            // Validate that an unmetered network is used over other networks.
+            waitForAvailable(defaultTrackingCallback, wifiNetwork);
+
+            // Validate when setting unmetered to metered, unmetered is lost and replaced by the
+            // network with the TEST transport.
+            setWifiMeteredStatus(ssid, "true" /* metered */);
+            waitForLost(defaultTrackingCallback, wifiNetwork);
+            waitForAvailable(defaultTrackingCallback, tnt.getNetwork());
+        } finally {
+            // Validate that removing the test network will fallback to the default network.
+            runWithShellPermissionIdentity(tnt::teardown);
+            waitForLost(defaultTrackingCallback, tnt.getNetwork());
+            waitForAvailable(defaultTrackingCallback);
+
+            // Cleanup any prior test state from setOemNetworkPreference
+            clearOemNetworkPreference();
+            setWifiMeteredStatus(ssid, oldMeteredSetting);
+            mCm.unregisterNetworkCallback(defaultTrackingCallback);
+        }
+    }
+
+    /**
+     * Verify that per-app OEM network preference functions as expected for network pref TEST_ONLY.
+     * For specified apps, validate that only TEST transport type networks are used.
+     */
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testSetOemNetworkPreferenceForTestOnlyPref() throws Exception {
+        final TestNetworkTracker tnt = callWithShellPermissionIdentity(
+                () -> initTestNetwork(mContext, TEST_LINKADDR, TIMEOUT_MS));
+        final TestableNetworkCallback defaultTrackingCallback = new TestableNetworkCallback();
+
+        try {
+            @OemNetworkPreferences.OemNetworkPreference final int networkPref =
+                    OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
+            final OemNetworkPreferences pref = new OemNetworkPreferences.Builder()
+                    .addNetworkPreference(mContext.getPackageName(), networkPref)
+                    .build();
+            setOemNetworkPreference(pref);
+
+            mCm.registerDefaultNetworkCallback(defaultTrackingCallback);
+            waitForAvailable(defaultTrackingCallback, tnt.getNetwork());
+        } finally {
+            runWithShellPermissionIdentity(tnt::teardown);
+            waitForLost(defaultTrackingCallback, tnt.getNetwork());
+
+            // This network preference should only ever use the test network therefore onAvailable
+            // should not trigger when the test network goes down (e.g. switch to cellular).
+            assertNull("Should not receive onAvailable on default network callback",
+                    defaultTrackingCallback.getLastAvailableNetwork());
+
+            // Cleanup any prior test state from setOemNetworkPreference
+            clearOemNetworkPreference();
+
+            // The default (non-test) network should be available as the network pref was cleared.
+            waitForAvailable(defaultTrackingCallback);
+            mCm.unregisterNetworkCallback(defaultTrackingCallback);
+        }
+    }
+
+    private static final class OnCompleteListenerCallback {
+        final CompletableFuture<Object> mDone = new CompletableFuture<>();
+
+        public void onComplete() {
+            mDone.complete(new Object());
+        }
+
+        void expectOnComplete() throws Exception {
+            try {
+                mDone.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+            } catch (TimeoutException e) {
+                fail("Expected onComplete() not received after " + TIMEOUT_MS + " ms");
+            }
+        }
+    }
+
+    private void setOemNetworkPreference(OemNetworkPreferences pref) throws Exception {
+        final OnCompleteListenerCallback oemPrefListener = new OnCompleteListenerCallback();
+        runWithShellPermissionIdentity(() ->
+                mCm.setOemNetworkPreference(
+                        pref, mContext.getMainExecutor(), oemPrefListener::onComplete));
+        oemPrefListener.expectOnComplete();
+    }
+
+    private void clearOemNetworkPreference() throws Exception {
+        setOemNetworkPreference(new OemNetworkPreferences.Builder().build());
     }
 }
