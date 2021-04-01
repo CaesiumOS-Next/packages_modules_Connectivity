@@ -42,11 +42,14 @@ import android.os.Handler;
 import android.util.Log;
 import android.util.SparseIntArray;
 
+import androidx.annotation.NonNull;
+
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.StateMachine;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -82,6 +85,7 @@ public class UpstreamNetworkMonitor {
     public static final int EVENT_ON_CAPABILITIES   = 1;
     public static final int EVENT_ON_LINKPROPERTIES = 2;
     public static final int EVENT_ON_LOST           = 3;
+    public static final int EVENT_DEFAULT_SWITCHED  = 4;
     public static final int NOTIFY_LOCAL_PREFIXES   = 10;
     // This value is used by deprecated preferredUpstreamIfaceTypes selection which is default
     // disabled.
@@ -398,7 +402,7 @@ public class UpstreamNetworkMonitor {
         notifyTarget(EVENT_ON_CAPABILITIES, network);
     }
 
-    private void handleLinkProp(Network network, LinkProperties newLp) {
+    private void updateLinkProperties(Network network, LinkProperties newLp) {
         final UpstreamNetworkState prev = mNetworkMap.get(network);
         if (prev == null || newLp.equals(prev.linkProperties)) {
             // Ignore notifications about networks for which we have not yet
@@ -414,8 +418,10 @@ public class UpstreamNetworkMonitor {
 
         mNetworkMap.put(network, new UpstreamNetworkState(
                 newLp, prev.networkCapabilities, network));
-        // TODO: If sufficient information is available to select a more
-        // preferable upstream, do so now and notify the target.
+    }
+
+    private void handleLinkProp(Network network, LinkProperties newLp) {
+        updateLinkProperties(network, newLp);
         notifyTarget(EVENT_ON_LINKPROPERTIES, network);
     }
 
@@ -443,6 +449,27 @@ public class UpstreamNetworkMonitor {
         // if the current upstream network is gone, notify the target of the
         // fact that we now have no upstream at all.
         notifyTarget(EVENT_ON_LOST, mNetworkMap.remove(network));
+    }
+
+    private void handleNetworkSwitch(@NonNull Network network) {
+        // When the default network callback calls onLinkPropertiesChanged, it means that
+        // all the network information for the default network is known. This is because
+        // onLinkPropertiesChanged is called after onAvailable and onCapabilitiesChanged.
+        final UpstreamNetworkState ns = mNetworkMap.get(network);
+        if (ns == null) {
+            // Can never happen unless there is a bug in ConnectivityService.
+            // We only remove from mNetworkMap when receiving onLost, and onLost for a given network
+            // cannot be followed by onLinkPropertiesChanged without an onAvailable between them.
+            Log.wtf(TAG, "handleNetworkSwitch: no UpstreamNetworkState for " + network);
+            return;
+        }
+
+        if (Objects.equals(mDefaultInternetNetwork, network)) return;
+
+        // Default network changed. Update local data and notify tethering.
+        Log.d(TAG, "New default Internet network: " + network);
+        mDefaultInternetNetwork = network;
+        notifyTarget(EVENT_DEFAULT_SWITCHED, ns);
     }
 
     private void recomputeLocalPrefixes() {
@@ -482,7 +509,21 @@ public class UpstreamNetworkMonitor {
         @Override
         public void onCapabilitiesChanged(Network network, NetworkCapabilities newNc) {
             if (mCallbackType == CALLBACK_DEFAULT_INTERNET) {
-                mDefaultInternetNetwork = network;
+                // NOTE: if this callback is due to a default network switch, then
+                // mDefaultInternetNetwork will be updated as soon as onLinkPropertiesChanged runs
+                // (the system invokes it right after this callback).
+                // mDefaultInternetNetwork cannot be updated here because we only notify Tethering
+                // of the default network switch after the LinkProperties have been updated. This is
+                // to ensure that when Tethering does upstream selection, it gets a complete
+                // NetworkState object including LinkProperties.
+                //
+                // Technically this isn't necessary, because the notification to Tethering is a
+                // message sent to a state machine running on the same thread as this method, so the
+                // notification cannot arrive until after onLinkPropertiesChanged has completed.
+                // However, the fact that Tethering uses multiple state machines running on the
+                // same thread is actually a major source of race conditions in this code, and is
+                // something that should really be fixed. Don't make it harder to fix by relying
+                // on it.
                 final boolean newIsCellular = isCellular(newNc);
                 if (mIsDefaultCellularUpstream != newIsCellular) {
                     mIsDefaultCellularUpstream = newIsCellular;
@@ -496,7 +537,10 @@ public class UpstreamNetworkMonitor {
 
         @Override
         public void onLinkPropertiesChanged(Network network, LinkProperties newLp) {
-            if (mCallbackType == CALLBACK_DEFAULT_INTERNET) return;
+            if (mCallbackType == CALLBACK_DEFAULT_INTERNET) {
+                updateLinkProperties(network, newLp);
+                handleNetworkSwitch(network);
+            }
 
             handleLinkProp(network, newLp);
             // Any non-LISTEN_ALL callback will necessarily concern a network that will
@@ -513,6 +557,8 @@ public class UpstreamNetworkMonitor {
                 mDefaultInternetNetwork = null;
                 mIsDefaultCellularUpstream = false;
                 mEntitlementMgr.notifyUpstream(false);
+                Log.d(TAG, "Lost default Internet network: " + network);
+                notifyTarget(EVENT_DEFAULT_SWITCHED, null);
                 return;
             }
 
