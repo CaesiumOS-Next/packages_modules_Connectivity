@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50c0c68b_5064d4e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-04-01T12:09:25Z",
+      "side": 1,
+      "message": "Let\u0027s see what Lorenzo has to say.",
+      "revId": "dc6715c6f8814d67dd1dc00d630633b70718cbcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
