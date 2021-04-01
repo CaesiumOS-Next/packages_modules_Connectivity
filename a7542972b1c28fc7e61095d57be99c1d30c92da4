@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0eebfdcb_1034e942",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-01T10:33:19Z",
+      "side": 0,
+      "message": "Keep re-calculating index here.\n\nPer talked with mark, he has concern that uses the index which is calculated in CMD_TETHER_CONNECTION_CHANGED which is sent from Tethering. If the upstream is connected/disconnected very quickly, tethering and ipserver may handle the same interface name with different index (probably, but not sure). So we still re-calculate here.\n\nThe upstream map \u003cindex, name\u003e uses the \"index\" to be the key. If the index always has the same name, it is safe. We have a wtf log to check that the same index has different name.\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java;l\u003d631\n    public void addUpstreamNameToLookupTable(int upstreamIfindex, @NonNull String \n..\n        final String iface \u003d mInterfaceNames.get(upstreamIfindex);\n        if (iface \u003d\u003d null) {\n            mInterfaceNames.put(upstreamIfindex, upstreamIface);\n        } else if (!TextUtils.equals(iface, upstreamIface)) {\n            Log.wtf(TAG, \"The upstream interface name \" + upstreamIface\n                    + \" is different from the existing interface name \"\n                    + iface + \" for index \" + upstreamIfindex);\n        }",
+      "parentUuid": "093a433c_50464888",
+      "range": {
+        "startLine": 722,
+        "startChar": 12,
+        "endLine": 722,
+        "endChar": 54
+      },
+      "revId": "a7542972b1c28fc7e61095d57be99c1d30c92da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "016ef546_963fecd7",
         "filename": "Tethering/src/android/net/ip/IpServer.java",
         "patchSetId": 17
