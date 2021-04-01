@@ -187,6 +187,30 @@
       },
       "revId": "362d13a760116bd40abba65de8e50e84c6f509e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5959eed6_050ffc51",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-01T05:52:26Z",
+      "side": 1,
+      "message": "What mSM.quit() does is send SM_QUIT_CMD, so IIUC without dispatchAll, it actually doesn\u0027t do anything. So if the test calls .quit(), it should probably call dispatchAll too.",
+      "parentUuid": "13b6b1e6_e5cd15d5",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "362d13a760116bd40abba65de8e50e84c6f509e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
