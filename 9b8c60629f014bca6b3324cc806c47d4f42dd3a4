@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0abfe995_787220b7",
+        "filename": "Tethering/bpf_progs/bpf_tethering.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-04-02T04:13:42Z",
+      "side": 1,
+      "message": "4 + 6 + 2);  // 12",
+      "range": {
+        "startLine": 163,
+        "startChar": 32,
+        "endLine": 163,
+        "endChar": 34
+      },
+      "revId": "9b8c60629f014bca6b3324cc806c47d4f42dd3a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
