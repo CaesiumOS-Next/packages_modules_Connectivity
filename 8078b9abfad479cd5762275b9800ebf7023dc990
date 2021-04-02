@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "484c848e_c789b715",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-02T04:53:56Z",
+      "side": 1,
+      "message": "consumer",
+      "range": {
+        "startLine": 350,
+        "startChar": 25,
+        "endLine": 350,
+        "endChar": 34
+      },
+      "revId": "8078b9abfad479cd5762275b9800ebf7023dc990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b32157c9_5bb32719",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1515,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-02T04:53:56Z",
+      "side": 1,
+      "message": "I don\u0027t think this is true. The test calls it on the test thread, right? Not on the handler thread?\n\nGiven that this final and immutable it actually doesn\u0027t matter what thread it\u0027s called on. Maybe just remove this line?",
+      "range": {
+        "startLine": 1515,
+        "startChar": 4,
+        "endLine": 1515,
+        "endChar": 59
+      },
+      "revId": "8078b9abfad479cd5762275b9800ebf7023dc990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23f5299e_154776a2",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 8
@@ -42,6 +88,75 @@
         "startChar": 62,
         "endLine": 1274,
         "endChar": 74
+      },
+      "revId": "8078b9abfad479cd5762275b9800ebf7023dc990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1a734ed_589f5dbc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-02T04:53:56Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but could we use toIpv4MappedAddressBytes instead?",
+      "range": {
+        "startLine": 1282,
+        "startChar": 32,
+        "endLine": 1282,
+        "endChar": 58
+      },
+      "revId": "8078b9abfad479cd5762275b9800ebf7023dc990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db6765f5_02cd7ffb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1433,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-02T04:53:56Z",
+      "side": 1,
+      "message": "Nit: would remove the first rule first, just in case the code is order-sensitive.",
+      "range": {
+        "startLine": 1433,
+        "startChar": 70,
+        "endLine": 1433,
+        "endChar": 81
+      },
+      "revId": "8078b9abfad479cd5762275b9800ebf7023dc990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f6031e_16805669",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1439,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-02T04:53:56Z",
+      "side": 1,
+      "message": "runs the cleanup code",
+      "range": {
+        "startLine": 1439,
+        "startChar": 70,
+        "endLine": 1439,
+        "endChar": 93
       },
       "revId": "8078b9abfad479cd5762275b9800ebf7023dc990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
