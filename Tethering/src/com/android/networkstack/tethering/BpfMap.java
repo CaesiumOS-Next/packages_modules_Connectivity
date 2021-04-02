@@ -98,6 +98,7 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
 
     /**
      * Update an existing or create a new key -> value entry in an eBbpf map.
+     * (use insertOrReplaceEntry() if you need to know whether insert or replace happened)
      */
     public void updateEntry(K key, V value) throws ErrnoException {
         writeToMapEntry(mMapFd, key.writeToBytes(), value.writeToBytes(), BPF_ANY);
@@ -130,6 +131,30 @@ public class BpfMap<K extends Struct, V extends Struct> implements AutoCloseable
             if (e.errno == ENOENT) throw new NoSuchElementException(key + " not found");
 
             throw e;
+        }
+    }
+
+    /**
+     * Update an existing or create a new key -> value entry in an eBbpf map.
+     * Returns true if inserted, false if replaced.
+     * (use updateEntry() if you don't care whether insert or replace happened)
+     */
+    public boolean insertOrReplaceEntry(K key, V value)
+            throws ErrnoException {
+        while (true) {
+            try {
+                writeToMapEntry(mMapFd, key.writeToBytes(), value.writeToBytes(), BPF_NOEXIST);
+                return true;   /* insert succeeded */
+            } catch (ErrnoException e) {
+                if (e.errno != EEXIST) throw e;
+            }
+            try {
+                writeToMapEntry(mMapFd, key.writeToBytes(), value.writeToBytes(), BPF_EXIST);
+                return false;   /* replace succeeded */
+            } catch (ErrnoException e) {
+                if (e.errno != ENOENT) throw e;
+            }
+            /* if we reach here somebody deleted after our insert attempt and before our replace */
         }
     }
 
