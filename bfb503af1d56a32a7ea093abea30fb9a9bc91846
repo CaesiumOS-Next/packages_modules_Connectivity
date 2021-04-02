@@ -214,6 +214,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a15559bd_b8a28ab3",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-02T03:49:52Z",
+      "side": 1,
+      "message": "FWIW, we could also just check if the entry exists, and if it does, return early. Given that this map can only be accessed by this caller on this thread, there is no risk of concurrent modification. This is fine for now.",
+      "parentUuid": "c7963ef2_47187e1c",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 61
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "472c55ce_66e44759",

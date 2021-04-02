@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60779bfe_75353265",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-02T03:49:52Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "0eebfdcb_1034e942",
+      "range": {
+        "startLine": 722,
+        "startChar": 12,
+        "endLine": 722,
+        "endChar": 54
+      },
+      "revId": "a7542972b1c28fc7e61095d57be99c1d30c92da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "016ef546_963fecd7",
@@ -109,6 +133,30 @@
       "side": 0,
       "message": "AI: Add the mapping update to CMD_IPV6_TETHER_UPDATE to present the potential timing issue.\n\nI use a hacky way (remove CELLULAR check while starting tethering) to simulate clat case on IPv6-only wifi (GoogleGuest). \n\nTethering class calls TetheringInterfaceUtils::getTetheringInterfaces to find {ipv4, ipv6} interface names and put them in a set (InterfaceSet). With my hack on IPv6-only wifi (GoogleGuest), L.1341 will run on wlan0 (v6) and v4-wlan0 (clat) is dropped by L.1337.\n\nTest steps:\n1. Remove TRANSPORT_CELLULAR check (hack) in getIPv6Interface().\nhttps://android.googlesource.com/platform/frameworks/base.git/+/fc2b39948c607cfa723f72c1ab965ad50d0419d2/packages/Tethering/src/com/android/networkstack/tethering/TetheringInterfaceUtils.java#81\n    public static @Nullable String getIPv6Interface(UpstreamNetworkState ns) {\n        final boolean canTether \u003d\n - \u0026\u0026 ns.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR);\n\n2. connect to Wifi (GoogleGuest, IPv6 only) and check the logging:\n# getTetheringInterfaces() returns v4-wlan0 (v4), wlan0 (v6) in Tethering.java\n03-30 20:59:38.602  2511  2813 E TetheringInterfaceUtils: getTetheringInterfaces if4: v4-wlan0, if6 wlan0\n\n# IpServer gets \"wlan0\" (v6) at L.1341 and \"v4-wlan0\" is dropped by L.1337\n03-30 20:55:39.256  2511  2813 E Tethering: [wlan1] ERROR CMD_TETHER_CONNECTION_CHANGED addUpstreamNameToLookupTable upstreamIfaceParams.index: 20, ifname wlan0\n\n\nSummary:\n1. CMD_TETHER_CONNECTION_CHANGED can get {ipv6, ipv4} interface name set (the same iface name will be in the same entry) \n2. CMD_IPV6_TETHER_UPDATE can get {ipv6} interface name \n\nPer (1) and (2), it is better to have an interface name update in CMD_IPV6_TETHER_UPDATE as well. I am not sure but if IPv6 capability gets ready in CMD_IPV6_TETHER_UPDATE later than CMD_TETHER_CONNECTION_CHANGED, I add update mapping in CMD_IPV6_TETHER_UPDATE as well.\n\nCode stack:\n- IpServer.CMD_TETHER_CONNECTION_CHANGED could get {ipv6, ipv4} interface name SET\n  Tethering::setUpstreamNetwork\n\tTetheringInterfaceUtils::getTetheringInterfaces\n\t\tnew InterfaceSet(if4, if6) \u003c- try to get v4/v6 name if any\n\tTethering::notifyDownstreamsOfNewUpstreamIface\n\t\tipServer.sendMessage(IpServer.CMD_TETHER_CONNECTION_CHANGED, ifaces);\n\n- IpServer.CMD_IPV6_TETHER_UPDATE could get {ipv6} interface name\n  Tethering::handleNewUpstreamNetworkState\n\tIPv6TetheringCoordinator::updateUpstreamNetworkState\n\t\tTetheringInterfaceUtils::getIPv6Interface(ns) \n\t\tIPv6TetheringCoordinator::updateIPv6TetheringInterfaces\n\t\t\tIPv6TetheringCoordinator::getInterfaceIPv6LinkProperties\n\t\t\tIPv6TetheringCoordinator::getIPv6OnlyLinkProperties\n\t\t\t\tsetInterfaceName(lp.getInterfaceName()\n\tipServer.sendMessage(IpServer.CMD_IPV6_TETHER_UPDATE, lp)",
       "parentUuid": "016ef546_963fecd7",
+      "range": {
+        "startLine": 752,
+        "startChar": 28,
+        "endLine": 752,
+        "endChar": 56
+      },
+      "revId": "a7542972b1c28fc7e61095d57be99c1d30c92da4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5de59ce_98f8c358",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-02T03:49:52Z",
+      "side": 0,
+      "message": "For a 464xlat network, IPv4 can appear up after IPv6. For a dual-stack network, I think IPv6 always appears after IPv6 because Tethering sends CMD_TETHER_CONNECTION_CHANGED first before calling IPv6TetheringCoordinator#updateUpstreamNetworkState.\n\nSetting this in two places SGTM for now. I think the right thing to do is to just have BpfCoordinator deal with interface names and maintain an authoritative map between names and indices. But for that to happen I think we\u0027d have to move some of the IPv6 rule addition code from IpServer to BpfCoordinator.",
+      "parentUuid": "a7f41abb_39159174",
       "range": {
         "startLine": 752,
         "startChar": 28,
