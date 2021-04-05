@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd4d2294_a3f21a26",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-05T01:58:28Z",
+      "side": 1,
+      "message": "This used to be CALLBACKS_FIRST, but maybe it doesn\u0027t/shouldn\u0027t matter ?",
+      "range": {
+        "startLine": 181,
+        "startChar": 34,
+        "endLine": 181,
+        "endChar": 49
+      },
+      "revId": "55adc38fa499d6b4a6c314f973754d0ba575acbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
