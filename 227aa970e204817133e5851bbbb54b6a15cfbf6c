@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "640225d9_e52ec862",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T14:14:32Z",
+      "side": 1,
+      "message": "It seems counterintuitive that this function would spin until it succeeds. The retries could mask bugs in the caller and make it difficult to understand what is really happening.\n\nIt seems clearer to insert, and it that fails, replace, and if that fails someone else deleted the entry, treat that as a programming error. That is consistent with insertEntry and replaceEntry, which both fail with an unchecked exception \u003d\u003d programming error) if the entry is not in the expected state.\n\nAccessing a BpfMap from multiple threads or processes is already a bit inadvisable because there are things like concurrent iteration and deletion that don\u0027t work well. For example, I wouldn\u0027t bet that forEach behaves correctly in the presence of concurrent deletions, but even if it does, AFAIK we have no tests that check, so it may stop behaving correctly in the future.\n\nThere are also no tests in this CL for concurrent deletion so it is difficult to test that this loop is working as expected.\n\nThat said, if you feel strongly that this is the right behaviour, I won\u0027t object further.",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 20
+      },
+      "revId": "227aa970e204817133e5851bbbb54b6a15cfbf6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
