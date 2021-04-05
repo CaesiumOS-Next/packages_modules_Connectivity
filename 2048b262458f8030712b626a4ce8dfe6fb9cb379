@@ -41,6 +41,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bb0a064_31452d0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T13:03:24Z",
+      "side": 1,
+      "message": "I think that might break DUN, which doesn\u0027t use mDefaultInternetNetwork like we do here. Also I don\u0027t know what would happen to legacy-type-based upstream selection. I think that might break as well.",
+      "parentUuid": "7aa6946c_3938e098",
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "deee2287_06ced51d",
@@ -54,6 +72,30 @@
       "writtenOn": "2021-04-05T07:13:51Z",
       "side": 1,
       "message": "Instead of adding this new code path, should we simply add EVENT_DEFAULT_SWITCHED to EVENT_UPSTREAM_PERMISSION_CHANGED and CMD_UPSTREAM_CHANGED in l.1876 ?",
+      "range": {
+        "startLine": 1721,
+        "startChar": 0,
+        "endLine": 1726,
+        "endChar": 13
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf12851e_17bc29fe",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T13:03:24Z",
+      "side": 1,
+      "message": "EVENT_UPSTREAM_PERMISSION_CHANGED and CMD_UPSTREAM_CHANGED are not comparable to EVENT_DEFAULT_SWITCHED. The first two are messages understood by TetherMainSM; the third is a \"subtype\" of EVENT_UPSTREAM_CALLBACK (which multiplexes different types of messages using arg1). Yes, this is confusing; unfortunately a lot of this code is.\n\nAs for reusing the code, there\u0027s another issue: line 1876 sets mTryCell to false and I don\u0027t know the implications of that. I *think* it does not do anything, but given the state this code is in, I don\u0027t want to touch it any more than necessary until we have time to write more tests for it.\n\nLeft as is for now.",
+      "parentUuid": "deee2287_06ced51d",
       "range": {
         "startLine": 1721,
         "startChar": 0,
@@ -87,6 +129,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "995a5caa_86d25485",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T13:03:24Z",
+      "side": 1,
+      "message": "Network cannot be null. There is only one caller of this method, and the network object comes directly from the networkcallback and so can never be null.\n\nOr did I misunderstand the comment?",
+      "parentUuid": "a6ea5e45_47550a8d",
+      "range": {
+        "startLine": 459,
+        "startChar": 12,
+        "endLine": 459,
+        "endChar": 22
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97a38dcd_083b891d",
@@ -100,6 +166,30 @@
       "writtenOn": "2021-04-05T01:45:41Z",
       "side": 1,
       "message": "Nit: maybe move to the top of the method ? It would be a bit clearer that this is not only called when the network has changed",
+      "range": {
+        "startLine": 467,
+        "startChar": 8,
+        "endLine": 467,
+        "endChar": 69
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6351080b_e11bc3e8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T13:03:24Z",
+      "side": 1,
+      "message": "Good idea. Done, and also renamed to maybeHandleNetworkSwitch.",
+      "parentUuid": "97a38dcd_083b891d",
       "range": {
         "startLine": 467,
         "startChar": 8,
@@ -133,6 +223,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0b9cf7_a867e6f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T13:03:24Z",
+      "side": 1,
+      "message": "Reworded.",
+      "parentUuid": "54ca2a6b_20a380c7",
+      "range": {
+        "startLine": 515,
+        "startChar": 74,
+        "endLine": 515,
+        "endChar": 76
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bc806cc_04ebdb4b",
@@ -156,6 +270,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4518af78_cc3d54e8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T13:03:24Z",
+      "side": 1,
+      "message": "Oops! Yes.",
+      "parentUuid": "7bc806cc_04ebdb4b",
+      "range": {
+        "startLine": 543,
+        "startChar": 12,
+        "endLine": 543,
+        "endChar": 13
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2eae2a2_907ca252",
@@ -169,6 +307,30 @@
       "writtenOn": "2021-04-05T01:45:41Z",
       "side": 1,
       "message": "Nit: out of date ?",
+      "range": {
+        "startLine": 1172,
+        "startChar": 42,
+        "endLine": 1172,
+        "endChar": 92
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92faf111_2d9a66da",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T13:03:24Z",
+      "side": 1,
+      "message": "Indeed. Removed.",
+      "parentUuid": "e2eae2a2_907ca252",
       "range": {
         "startLine": 1172,
         "startChar": 42,
