@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d1e894e_b3ca4501",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-05T01:45:41Z",
+      "side": 1,
+      "message": "Nit: did you mean to write more stuff here ?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 12
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6ea5e45_47550a8d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-05T01:45:41Z",
+      "side": 1,
+      "message": "Would that happen if network was null ?",
+      "range": {
+        "startLine": 459,
+        "startChar": 12,
+        "endLine": 459,
+        "endChar": 22
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97a38dcd_083b891d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-05T01:45:41Z",
+      "side": 1,
+      "message": "Nit: maybe move to the top of the method ? It would be a bit clearer that this is not only called when the network has changed",
+      "range": {
+        "startLine": 467,
+        "startChar": 8,
+        "endLine": 467,
+        "endChar": 69
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ca2a6b_20a380c7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-05T01:45:41Z",
+      "side": 1,
+      "message": "Nit: go/avoid-we",
+      "range": {
+        "startLine": 515,
+        "startChar": 74,
+        "endLine": 515,
+        "endChar": 76
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc806cc_04ebdb4b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-05T01:45:41Z",
+      "side": 1,
+      "message": "Should this return ? The code that follows will call handleLinkProp again (already called in updateLinkProperties)",
+      "range": {
+        "startLine": 543,
+        "startChar": 12,
+        "endLine": 543,
+        "endChar": 13
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2eae2a2_907ca252",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-05T01:45:41Z",
+      "side": 1,
+      "message": "Nit: out of date ?",
+      "range": {
+        "startLine": 1172,
+        "startChar": 42,
+        "endLine": 1172,
+        "endChar": 92
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
