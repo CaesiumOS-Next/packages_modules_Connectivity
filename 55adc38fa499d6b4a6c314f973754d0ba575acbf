@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c4f3991_69640612",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-05T06:57:31Z",
+      "side": 1,
+      "message": "Please see my comments on the next file. I\u0027m not convinced this is useful.",
+      "range": {
+        "startLine": 159,
+        "startChar": 67,
+        "endLine": 159,
+        "endChar": 95
+      },
+      "revId": "55adc38fa499d6b4a6c314f973754d0ba575acbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dd4d2294_a3f21a26",
@@ -19,6 +42,99 @@
         "startChar": 34,
         "endLine": 181,
         "endChar": 49
+      },
+      "revId": "55adc38fa499d6b4a6c314f973754d0ba575acbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "114d894a_af890342",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-05T06:57:31Z",
+      "side": 1,
+      "message": "+1 on grounds that in practice, the callbacks will arrive first in almost all cases. If any test uses only this because of forgetfulness or something, it\u0027s more important to cover the majority case.\n\nOr, we could try and remove the issue by removing this function and force all callers to specify explicitly.",
+      "parentUuid": "dd4d2294_a3f21a26",
+      "range": {
+        "startLine": 181,
+        "startChar": 34,
+        "endLine": 181,
+        "endChar": 49
+      },
+      "revId": "55adc38fa499d6b4a6c314f973754d0ba575acbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc1461d2_7fab2f06",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-05T06:57:31Z",
+      "side": 1,
+      "message": "Why should this make a difference ?\n\nIf I\u0027m reading the code correctly :\n• TetheringTest is using a BroadcastInterceptingContext with setUseRegisteredHandlers(true) ⇒ calling sendBroadcast will synchronously post a runnable on the handler thread\n• TestConnectivityManager#sendDefaultNetworkCallbacks posts the callbacks on the handler thread stored in the NRI\n\nAs long as the handler used by the context and the callbacks is the same (which it looks to be though I didn\u0027t check very thoroughly), dispatching between sending the broadcast and the callbacks (or the other way around) should have no impact on what is seen in UpstreamNetworkMonitor#getCurrentPreferredUpstream. It shouldn\u0027t matter whether the callback message is enqueued when CONNECTIVITY_ACTION is processed, and as such, calling dispatchAll() after both sendDefaultNetworkCallbacks and sendDefaultNetworkBroadcasts have been called should be sufficient. This would let you simplify the code by removing the runnable, which certainly is pretty intrusive in that its usage requires callers to understand minutely the inner mechanisms of the test.",
+      "range": {
+        "startLine": 1128,
+        "startChar": 0,
+        "endLine": 1129,
+        "endChar": 69
+      },
+      "revId": "55adc38fa499d6b4a6c314f973754d0ba575acbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bcab7a0_b858ae73",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-05T06:57:31Z",
+      "side": 1,
+      "message": "I\u0027m not sure what this might mean in this context. IIUC, what matters is what the thread processing CONNECTIVITY_ACTION sees when querying UpstreamNetworkMonitor.mNetworkMap through #getCurrentPreferredUpstream. If we consider only one event triggering a callback and a broadcast, either the callback has been processed when the map is queried, or not.\n\nWell strictly speaking in fact there are 2 accesses to the map in the function, but none of this matters because everything is processed on the same thread anyway.\n\nUltimately, because all of this is handled on the SM thread, either the callback is handled before the query, or it\u0027s handled after. So I don\u0027t understand what \"both\" may mean.",
+      "range": {
+        "startLine": 1131,
+        "startChar": 64,
+        "endLine": 1131,
+        "endChar": 73
+      },
+      "revId": "55adc38fa499d6b4a6c314f973754d0ba575acbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6237b2c_2beefd90",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-05T06:57:31Z",
+      "side": 1,
+      "message": "// BUG (or similar) ?\n...because although the upstream is now correct, but when the bug is fixed this line should also be fixed to remove never() and say mobile.networkId.",
+      "range": {
+        "startLine": 1146,
+        "startChar": 82,
+        "endLine": 1146,
+        "endChar": 83
       },
       "revId": "55adc38fa499d6b4a6c314f973754d0ba575acbf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
