@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdc2594b_b5036dee",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/DadProxyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T14:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "665f0e04_ed652da7",
+      "range": {
+        "startLine": 255,
+        "startChar": 29,
+        "endLine": 255,
+        "endChar": 36
+      },
+      "revId": "32b4e73c78921b2d0cc0fb8538dda9b40594f301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8c9def0_81640fb1",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-05T14:02:56Z",
       "side": 1,
       "message": "doesn\u0027t really fit !expectForwarded case",
+      "range": {
+        "startLine": 263,
+        "startChar": 27,
+        "endLine": 263,
+        "endChar": 31
+      },
+      "revId": "32b4e73c78921b2d0cc0fb8538dda9b40594f301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fa87e5b_a6aa2fb4",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/DadProxyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-05T14:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8c9def0_81640fb1",
       "range": {
         "startLine": 263,
         "startChar": 27,
