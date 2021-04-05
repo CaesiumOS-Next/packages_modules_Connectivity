@@ -24,6 +24,46 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aa6946c_3938e098",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-05T07:13:51Z",
+      "side": 1,
+      "message": "This has the (benign) side-effect of selecting upstream twice for each default network change : once when the broadcast is received, once when the link properties callback is received.\n\nISTM that with this change, we can simply stop listening to CONNECTIVITY_ACTION in Tethering.java, since eventually all it does is send CMD_UPSTREAM_CHANGED, which should have the same effect as this. Then you can add b/120533402 to the list of bugs fixed by this.",
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "deee2287_06ced51d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1726,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-05T07:13:51Z",
+      "side": 1,
+      "message": "Instead of adding this new code path, should we simply add EVENT_DEFAULT_SWITCHED to EVENT_UPSTREAM_PERMISSION_CHANGED and CMD_UPSTREAM_CHANGED in l.1876 ?",
+      "range": {
+        "startLine": 1721,
+        "startChar": 0,
+        "endLine": 1726,
+        "endChar": 13
+      },
+      "revId": "2048b262458f8030712b626a4ce8dfe6fb9cb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6ea5e45_47550a8d",
