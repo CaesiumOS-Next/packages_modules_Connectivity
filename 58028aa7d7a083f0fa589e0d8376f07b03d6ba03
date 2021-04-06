@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83c21ed0_084f9a8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1463964
+      },
+      "writtenOn": "2021-04-06T00:34:51Z",
+      "side": 1,
+      "message": "Previously reviewed as aosp/1393717. Re-uploaded as a different CL due to Connectivity CTS tests moving from cts to packages/modules/Connectivity",
+      "revId": "58028aa7d7a083f0fa589e0d8376f07b03d6ba03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
