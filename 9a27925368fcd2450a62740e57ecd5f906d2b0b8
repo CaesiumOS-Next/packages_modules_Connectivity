@@ -39,6 +39,30 @@
       },
       "revId": "9a27925368fcd2450a62740e57ecd5f906d2b0b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d4b173_b14566ba",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-06T11:04:23Z",
+      "side": 1,
+      "message": "The current verification way will expect the \"next\" callback but not all of the test actually verify all the networkAgent callback. expectCallback will get unverified legacy callback and cause the test failure. That\u0027s why I did not verify all of them. If we would like to do so, we will need a eventuallyExpect to skip previous callback that we do not care. I can previous another commit to do so.",
+      "parentUuid": "56ceb26e_bf2870c2",
+      "range": {
+        "startLine": 385,
+        "startChar": 8,
+        "endLine": 385,
+        "endChar": 50
+      },
+      "revId": "9a27925368fcd2450a62740e57ecd5f906d2b0b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
