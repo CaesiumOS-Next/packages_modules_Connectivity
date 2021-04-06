@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fee373a6_11bcc019",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-06T08:07:46Z",
+      "side": 1,
+      "message": "If the SSID is null anyway, why unquote it?",
+      "range": {
+        "startLine": 1650,
+        "startChar": 28,
+        "endLine": 1650,
+        "endChar": 39
+      },
+      "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16b7adda_b2000027",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1651,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-06T08:07:46Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 1651,
+        "startChar": 41,
+        "endLine": 1651,
+        "endChar": 45
+      },
+      "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e0cd8c_dbace812",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-06T08:07:46Z",
+      "side": 1,
+      "message": "Why so complicated? Is there a reason you can\u0027t simply do:\n\n    assertEquals(hasSsd, Objects.equals(ssid, nc.getSsid());\n\nor similar? (Or use unquoteSSID if you have to)",
+      "range": {
+        "startLine": 1668,
+        "startChar": 30,
+        "endLine": 1668,
+        "endChar": 74
+      },
+      "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a0ae9fa_7d45558a",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 1
