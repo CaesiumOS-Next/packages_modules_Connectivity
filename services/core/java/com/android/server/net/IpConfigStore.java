@@ -321,10 +321,15 @@ public class IpConfigStore {
                                 if (in.readInt() == 1) {
                                     gateway = InetAddresses.parseNumericAddress(in.readUTF());
                                 }
+<<<<<<< HEAD   (fb5f7a Merge "Fix Wi-Fi SSID null handling" am: cadd76044e am: 0685)
                                 // If the destination is a default IPv4 route, use the gateway
                                 // address unless already set.
                                 if (dest.getAddress() instanceof Inet4Address
                                         && dest.getPrefixLength() == 0 && gatewayAddress == null) {
+=======
+                                RouteInfo route = new RouteInfo(dest, gateway);
+                                if (route.isIPv4Default() && gatewayAddress == null) {
+>>>>>>> BRANCH (83f11c Migrate hidden API in IpConfigStore to formal API am: ace9a3)
                                     gatewayAddress = gateway;
                                 } else {
                                     loge("Non-IPv4 default or duplicate route: "
