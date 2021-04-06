@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a721325e_19080b89",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-06T10:53:00Z",
+      "side": 1,
+      "message": "Just a question: do we care about this?\ntestUnSolicitRouterAdvertisement and testSolicitRouterAdvertisement may not detect the failure in some situation:\n1. isPacketMatched() returns at L.161 (truncated packet)\n2. no packet is polled until timeout at L.282\n[..]\n\nThe helper function names which called assert{..} return boolean value and rely on isPacketMatched() to do assert. L.312, 316, 330 and L.342 also don\u0027t check the return boolean value from:\nassertRaPacket\nassertUnicastRaPacket\nassertMulticastRaPacket\n\u003e\u003e In other words, there is no assert in the test case if isPacketMatched doesn\u0027t fire assert.\n\nI have tried on base (old) code (because this commit conflict on my internal master) and it seems to be passed (expect failure I guess).\n\nSrc:\n@Test\npublic void testAssertRaPacket() throws Exception {\n    // mRaDaemon doesn\u0027t start.\n    final RaParams params1 \u003d createRaParams(\"::1\");\n    assertRaPacket(new TestRaPacket(null, params1));\n}\n\nResult:\n[1/1] android.net.ip.RouterAdvertisementDaemonTest#testAssertRaPacket: PASSED (10.111s)\n\nPlease correct me if I am wrong. I may miss something else. Thank you",
+      "range": {
+        "startLine": 280,
+        "startChar": 20,
+        "endLine": 280,
+        "endChar": 26
+      },
+      "revId": "d92ab0ce99daa2f6974a5b4dd8ed0432392bca06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88ea9407_b42e8f93",
         "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
         "patchSetId": 8
@@ -38,6 +61,30 @@
       "side": 1,
       "message": "per discussion, actually the tap interface will be removed in tearDown, the route and configuration will be deleted as well.\n\nAlso add log in other test case before running, double check that the IPv6 \"forwarding\" param is \"0\".",
       "parentUuid": "88ea9407_b42e8f93",
+      "range": {
+        "startLine": 325,
+        "startChar": 14,
+        "endLine": 325,
+        "endChar": 27
+      },
+      "revId": "d92ab0ce99daa2f6974a5b4dd8ed0432392bca06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b644bfad_1d857657",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-06T10:53:00Z",
+      "side": 1,
+      "message": "Thanks for your confirmation.",
+      "parentUuid": "e30e30c5_d216c72b",
       "range": {
         "startLine": 325,
         "startChar": 14,
