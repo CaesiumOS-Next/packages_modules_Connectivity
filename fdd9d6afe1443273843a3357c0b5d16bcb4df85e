@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bbc4827_0f98ef11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-06T04:36:56Z",
+      "side": 1,
+      "message": "Per VC discussion: I think this is error prone and that it would be better not to provide it because if callers misuse it, then the results will be surprising. But I could be wrong about that, so feel free to merge this, maybe with a comment in the docstring that points out that this can happen.",
+      "revId": "fdd9d6afe1443273843a3357c0b5d16bcb4df85e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
