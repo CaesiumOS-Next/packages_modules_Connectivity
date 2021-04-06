@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97f1712c_c31541be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-06T03:31:10Z",
+      "side": 1,
+      "message": "Addressed trivial review comments, carrying forward +2.",
+      "revId": "b6bffbca95379dde4b2fe989b7b05ab73b20cbca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
