@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22f9b877_cabc95ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-06T07:29:42Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comments in a follow-up if you like.",
+      "revId": "9a27925368fcd2450a62740e57ecd5f906d2b0b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56ceb26e_bf2870c2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-06T07:29:42Z",
+      "side": 1,
+      "message": "Any reason you just do this here? Why not do:\n\n    private fun register(agent: NetworkAgent) {\n        agent.register()\n        agent.expectCallback\u003cOnNetworkCreated\u003e()\n    }\n\n    private fun unregister(agent: NetworkAgent) {\n        agent.unregister()\n        agent.expectCallback\u003cOnNetworkDestroyed\u003e()\n    }\n\nand just use those in every test?",
+      "range": {
+        "startLine": 385,
+        "startChar": 8,
+        "endLine": 385,
+        "endChar": 50
+      },
+      "revId": "9a27925368fcd2450a62740e57ecd5f906d2b0b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
