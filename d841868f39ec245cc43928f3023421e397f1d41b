@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e60a4ad2_fb9c06d8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-06T08:58:44Z",
+      "side": 1,
+      "message": "SSID should be non-null. something misread here?",
+      "parentUuid": "fee373a6_11bcc019",
+      "range": {
+        "startLine": 1650,
+        "startChar": 28,
+        "endLine": 1650,
+        "endChar": 39
+      },
+      "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16b7adda_b2000027",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 1
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f175b52e_e1320b59",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1651,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-06T08:58:44Z",
+      "side": 1,
+      "message": "Will address in follow up",
+      "parentUuid": "16b7adda_b2000027",
+      "range": {
+        "startLine": 1651,
+        "startChar": 41,
+        "endLine": 1651,
+        "endChar": 45
+      },
+      "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6e0cd8c_dbace812",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 1
@@ -60,6 +108,30 @@
       "writtenOn": "2021-04-06T08:07:46Z",
       "side": 1,
       "message": "Why so complicated? Is there a reason you can\u0027t simply do:\n\n    assertEquals(hasSsd, Objects.equals(ssid, nc.getSsid());\n\nor similar? (Or use unquoteSSID if you have to)",
+      "range": {
+        "startLine": 1668,
+        "startChar": 30,
+        "endLine": 1668,
+        "endChar": 74
+      },
+      "revId": "d841868f39ec245cc43928f3023421e397f1d41b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30619dfc_e518f8cb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-06T08:58:44Z",
+      "side": 1,
+      "message": "getSSid() may work if we do not have TransportInfo. However, ssid will also appear in transportInfo. Ideally, we should check all NC contains no ssid without permission.",
+      "parentUuid": "b6e0cd8c_dbace812",
       "range": {
         "startLine": 1668,
         "startChar": 30,
