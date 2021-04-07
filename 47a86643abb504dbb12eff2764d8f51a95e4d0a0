@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6978de99_2afafe6e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-07T00:27:31Z",
+      "side": 1,
+      "message": "Maybe in a followup change :\n• Make sure that the system default network is not affected by this by using registerSystemDefaultNetwork and make sure it doesn\u0027t change to the test network\n• File a vanilla network callback (not just default) to check its behavior.",
+      "range": {
+        "startLine": 1750,
+        "startChar": 16,
+        "endLine": 1750,
+        "endChar": 54
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07cf100c_e4ab7be7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-07T00:27:31Z",
+      "side": 1,
+      "message": "NETWORK_CALLBACK_TIMEOUT_MS",
+      "range": {
+        "startLine": 1752,
+        "startChar": 63,
+        "endLine": 1752,
+        "endChar": 73
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "993b0abd_206a73fa",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1763,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-07T00:27:31Z",
+      "side": 1,
+      "message": "Let\u0027s use waitForActiveNetworkMetered here",
+      "range": {
+        "startLine": 1763,
+        "startChar": 12,
+        "endLine": 1763,
+        "endChar": 32
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c2f49d4_d6735c94",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1819,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-07T00:27:31Z",
+      "side": 1,
+      "message": "Can you make sure onAvailable is not received within the next 200ms (not NETWORK_CALLBACK_TIMEOUT_MS here exceptionally to not incur that long timeout every run) or so ? In unit tests this is called assertNoCallback, not sure if that\u0027s available here.",
+      "range": {
+        "startLine": 1819,
+        "startChar": 12,
+        "endLine": 1819,
+        "endChar": 14
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9838630_3eb986f1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-07T00:27:31Z",
+      "side": 1,
+      "message": "30s timeout constant",
+      "range": {
+        "startLine": 1842,
+        "startChar": 26,
+        "endLine": 1842,
+        "endChar": 36
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
