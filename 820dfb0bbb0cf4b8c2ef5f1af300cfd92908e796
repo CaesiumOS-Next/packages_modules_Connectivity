@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb838492_f85111d1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1712,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-07T06:03:40Z",
+      "side": 1,
+      "message": "Lorenzo: as per discussion this will stop tethering altogether instead of possibly trying to continue tethering with a different upstream. Could this be fixed differently ?",
+      "range": {
+        "startLine": 1712,
+        "startChar": 16,
+        "endLine": 1712,
+        "endChar": 27
+      },
+      "revId": "820dfb0bbb0cf4b8c2ef5f1af300cfd92908e796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
