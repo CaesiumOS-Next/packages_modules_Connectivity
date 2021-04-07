@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c56dc3a_46d95cac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-07T14:05:02Z",
+      "side": 1,
+      "message": "test is going to be merged on aosp/1563332. thanks",
+      "parentUuid": "6a79ecf6_83e1eb5c",
+      "revId": "dc6715c6f8814d67dd1dc00d630633b70718cbcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6d0868e_f583dfb1",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-04-02T03:49:52Z",
       "side": 1,
       "message": "Not for this CL, but why not SparseIntArray?",
+      "range": {
+        "startLine": 100,
+        "startChar": 18,
+        "endLine": 100,
+        "endChar": 38
+      },
+      "revId": "dc6715c6f8814d67dd1dc00d630633b70718cbcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7634df60_139c1871",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-07T14:05:02Z",
+      "side": 1,
+      "message": "I will review SparseIntArray. Thank you\n\nKeep as unresolved.",
+      "parentUuid": "f6d0868e_f583dfb1",
       "range": {
         "startLine": 100,
         "startChar": 18,

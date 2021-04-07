@@ -238,6 +238,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c4a6211_1427ae02",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-07T14:05:02Z",
+      "side": 1,
+      "message": "thanks, it may be an possible approach if the CTA_PROTOINFO is not parsed.",
+      "parentUuid": "a15559bd_b8a28ab3",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 61
+      },
+      "revId": "bfb503af1d56a32a7ea093abea30fb9a9bc91846",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "472c55ce_66e44759",
