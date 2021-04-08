@@ -25,6 +25,7 @@ import static org.junit.Assume.assumeTrue;
 import android.app.UiAutomation;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkWatchlistManager;
 import android.os.FileUtils;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
@@ -108,6 +109,22 @@ public class NetworkWatchlistTest {
         setWatchlistConfig(TEST_WATCHLIST_XML);
         // Test if watchlist config hash value is correct
         byte[] result = mConnectivityManager.getNetworkWatchlistConfigHash();
+        Assert.assertEquals(TEST_WATCHLIST_CONFIG_HASH, byteArrayToHexString(result));
+    }
+
+    /**
+     * Test if NetworkWatchlistManager.getWatchlistConfigHash() correctly returns the hash of config
+     * we set.
+     */
+    @Test
+    @AppModeFull(reason = "Cannot access resource file in instant app mode")
+    public void testGetWatchlistConfigHashByNetworkWatchlistManager() throws Exception {
+        // Set watchlist config file for test
+        setWatchlistConfig(TEST_WATCHLIST_XML);
+        // Test if watchlist config hash value is correct
+        final NetworkWatchlistManager nwm = InstrumentationRegistry.getContext().getSystemService(
+                NetworkWatchlistManager.class);
+        final byte[] result = nwm.getWatchlistConfigHash();
         Assert.assertEquals(TEST_WATCHLIST_CONFIG_HASH, byteArrayToHexString(result));
     }
 
