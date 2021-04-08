@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6294e571_66a10e0b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-08T11:46:23Z",
+      "side": 1,
+      "message": "nit: not for this CL.\nmaybe consider refactor to use ArrayTrackRecord or extend from TestableNetworkCallback",
+      "range": {
+        "startLine": 703,
+        "startChar": 18,
+        "endLine": 703,
+        "endChar": 44
+      },
+      "revId": "829d06d9ded50b29b0f38c69eafd18d9298ad96c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "930e6be4_bb300a33",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-08T11:46:23Z",
+      "side": 1,
+      "message": "Question: what caused the behavior difference between otherUid and myUid?\nIIUC it is not in this function. Maybe add comment to describe more?",
+      "range": {
+        "startLine": 764,
+        "startChar": 8,
+        "endLine": 764,
+        "endChar": 16
+      },
+      "revId": "829d06d9ded50b29b0f38c69eafd18d9298ad96c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b8fcca_87d4a23e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-08T11:46:23Z",
+      "side": 1,
+      "message": "1. Do we also want to assert content of otherUidCallback?\nOtherwise it might pass test even if onAvailable is not called.\n\n2. Is it better if we expectAvailable somewhere?",
+      "range": {
+        "startLine": 791,
+        "startChar": 12,
+        "endLine": 791,
+        "endChar": 82
+      },
+      "revId": "829d06d9ded50b29b0f38c69eafd18d9298ad96c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac3d5059_c3fba237",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-08T11:46:23Z",
+      "side": 1,
+      "message": "Stupid questions: \n1. Do we have any mechanism to prevent developer to call mCm .registerDefaultNetworkCallbackAsUid directly?\nOtherwise this could be super error-prone.\n\n2. How do I know whether the test need to use shim or isAtLeastS is fine?",
+      "range": {
+        "startLine": 597,
+        "startChar": 16,
+        "endLine": 597,
+        "endChar": 59
+      },
+      "revId": "829d06d9ded50b29b0f38c69eafd18d9298ad96c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d637aa97_c273052a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-08T11:46:23Z",
+      "side": 1,
+      "message": "IIRC unregister does not need permission.",
+      "range": {
+        "startLine": 632,
+        "startChar": 16,
+        "endLine": 632,
+        "endChar": 46
+      },
+      "revId": "829d06d9ded50b29b0f38c69eafd18d9298ad96c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
