@@ -55,12 +55,14 @@ import android.net.Uri;
 import android.net.VpnManager;
 import android.net.VpnService;
 import android.net.VpnTransportInfo;
+import android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.os.Process;
 import android.os.SystemProperties;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -742,12 +744,19 @@ public class VpnTest extends InstrumentationTestCase {
         receiver.register();
 
         // Expect the system default network not to change.
-        final NeverChangeNetworkCallback neverChangeCallback = new NeverChangeNetworkCallback();
+        final NeverChangeNetworkCallback systemDefaultCallback = new NeverChangeNetworkCallback();
+        final NeverChangeNetworkCallback otherUidCallback = new NeverChangeNetworkCallback();
+        final TestNetworkCallback myUidCallback = new TestNetworkCallback();
+        final int otherUid = UserHandle.getUid(UserHandle.of(5), Process.FIRST_APPLICATION_UID);
         final Network defaultNetwork = mCM.getActiveNetwork();
         if (SdkLevel.isAtLeastS()) {
-            runWithShellPermissionIdentity(() ->
-                    mCM.registerSystemDefaultNetworkCallback(neverChangeCallback,
-                            new Handler(Looper.getMainLooper())), NETWORK_SETTINGS);
+            final Handler h = new Handler(Looper.getMainLooper());
+            runWithShellPermissionIdentity(() -> {
+                mCM.registerSystemDefaultNetworkCallback(systemDefaultCallback, h);
+                mCM.registerDefaultNetworkCallbackAsUid(otherUid, otherUidCallback, h);
+                mCM.registerDefaultNetworkCallbackAsUid(Process.myUid(), myUidCallback, h);
+            }, NETWORK_SETTINGS);
+            assertEquals(defaultNetwork, myUidCallback.waitForAvailable());
         }
 
         FileDescriptor fd = openSocketFdInOtherApp(TEST_HOST, 80, TIMEOUT_MS);
@@ -767,20 +776,26 @@ public class VpnTest extends InstrumentationTestCase {
 
         checkTrafficOnVpn();
 
-        maybeExpectVpnTransportInfo(mCM.getActiveNetwork());
+        final Network vpnNetwork = myUidCallback.waitForAvailable();
+        assertEquals(vpnNetwork, mCM.getActiveNetwork());
 
-        assertNotEqual(defaultNetwork, mCM.getActiveNetwork());
+        assertNotEqual(defaultNetwork, vpnNetwork);
+        maybeExpectVpnTransportInfo(vpnNetwork);
+
         if (SdkLevel.isAtLeastS()) {
             // Check that system default network callback has not seen any network changes, even
             // though the app's default network changed. This needs to be done before testing
             // private DNS because checkStrictModePrivateDns will set the private DNS server to
             // a nonexistent name, which will cause validation to fail and cause the default
             // network to switch (e.g., from wifi to cellular).
-            assertEquals(defaultNetwork, neverChangeCallback.getFirstNetwork());
-            neverChangeCallback.assertNeverChanged();
-            runWithShellPermissionIdentity(
-                    () -> mCM.unregisterNetworkCallback(neverChangeCallback),
-                    NETWORK_SETTINGS);
+            assertEquals(defaultNetwork, systemDefaultCallback.getFirstNetwork());
+            systemDefaultCallback.assertNeverChanged();
+            otherUidCallback.assertNeverChanged();
+            runWithShellPermissionIdentity(() -> {
+                mCM.unregisterNetworkCallback(systemDefaultCallback);
+                mCM.unregisterNetworkCallback(otherUidCallback);
+                mCM.unregisterNetworkCallback(myUidCallback);
+            }, NETWORK_SETTINGS);
         }
 
         checkStrictModePrivateDns();
