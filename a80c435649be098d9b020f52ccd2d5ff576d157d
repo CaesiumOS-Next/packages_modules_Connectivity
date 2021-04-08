@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5791e77_ba3eedf5",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-04-08T05:16:55Z",
+      "side": 1,
+      "message": "Moving forwarding and local route setup after L126 would be more reasonable, since after that the correct tap interface has been added, then we can operate on that interface.Verified that test can pass with this update.",
+      "revId": "a80c435649be098d9b020f52ccd2d5ff576d157d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
