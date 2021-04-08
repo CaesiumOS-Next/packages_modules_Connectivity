@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6fe2baa_ed621325",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-08T12:02:03Z",
+      "side": 1,
+      "message": "I will address the comments in a follow-up commit. Thank you",
+      "revId": "8078b9abfad479cd5762275b9800ebf7023dc990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "484c848e_c789b715",
