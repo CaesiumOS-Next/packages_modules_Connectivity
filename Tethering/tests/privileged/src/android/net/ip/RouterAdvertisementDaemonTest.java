@@ -139,13 +139,27 @@ public final class RouterAdvertisementDaemonTest {
         }
     }
 
-    private void setupTapInterfaces() {
+    private void setupTapInterfaces() throws Exception {
         // Create tethered test iface.
         mTetheredReader.start(mHandler);
-        mTetheredParams = InterfaceParams.getByName(mTetheredReader.iface.getInterfaceName());
+        final String iface = mTetheredReader.iface.getInterfaceName();
+        mTetheredParams = InterfaceParams.getByName(iface);
         assertNotNull(mTetheredParams);
         mTetheredPacketReader = mTetheredReader.getReader();
         mHandler.post(mTetheredPacketReader::start);
+
+        // Enable IPv6 forwarding is necessary, which makes kernel process RS correctly and
+        // create the neighbor entry for peer's link-layer address and IPv6 address. Otherwise,
+        // when device receives RS with IPv6 link-local address as source address, it has to
+        // initiate the address resolution first before responding the unicast RA.
+        sNetd.setProcSysNet(INetd.IPV6, INetd.CONF, iface, "forwarding", "1");
+
+        // Add a default route "fe80::/64 -> ::" to local network, otherwise, device will fail to
+        // send the unicast RA out due to the ENETUNREACH error(No route to the peer's link-local
+        // address is present).
+        final RouteInfo linkLocalRoute =
+                new RouteInfo(new IpPrefix("fe80::/64"), null, iface, RTN_UNICAST);
+        RouteUtils.addRoutesToLocalNetwork(sNetd, iface, List.of(linkLocalRoute));
     }
 
     private class TestRaPacket {
@@ -318,24 +332,11 @@ public final class RouterAdvertisementDaemonTest {
 
     @Test
     public void testSolicitRouterAdvertisement() throws Exception {
-        // Enable IPv6 forwarding is necessary, which makes kernel process RS correctly and
-        // create the neighbor entry for peer's link-layer address and IPv6 address. Otherwise,
-        // when device receives RS with IPv6 link-local address as source address, it has to
-        // initiate the address resolution first before responding the unicast RA.
-        sNetd.setProcSysNet(INetd.IPV6, INetd.CONF, mTetheredParams.name, "forwarding", "1");
-
         assertTrue(mRaDaemon.start());
         final RaParams params1 = createRaParams("2001:1122:3344::5566");
         mRaDaemon.buildNewRa(null, params1);
         assertMulticastRaPacket(new TestRaPacket(null, params1));
 
-        // Add a default route "fe80::/64 -> ::" to local network, otherwise, device will fail to
-        // send the unicast RA out due to the ENETUNREACH error(No route to the peer's link-local
-        // address is present).
-        final String iface = mTetheredParams.name;
-        final RouteInfo linkLocalRoute =
-                new RouteInfo(new IpPrefix("fe80::/64"), null, iface, RTN_UNICAST);
-        RouteUtils.addRoutesToLocalNetwork(sNetd, iface, List.of(linkLocalRoute));
 
         final ByteBuffer rs = createRsPacket("fe80::1122:3344:5566:7788");
         mTetheredPacketReader.sendResponse(rs);
