@@ -16,6 +16,92 @@
       "message": "LGTM. Pass to tier-2 reviewer.",
       "revId": "0d7a3279bfb4d716ec0a648bbae0f7aa98c41d61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcf43f0b_41588cbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-08T01:52:13Z",
+      "side": 1,
+      "message": "LGTM. If you have the time and it\u0027s not too difficult, it would be really useful to have the test changes in their own CL and merge that first.",
+      "revId": "0d7a3279bfb4d716ec0a648bbae0f7aa98c41d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebc5c09c_c53aa368",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-08T01:52:13Z",
+      "side": 1,
+      "message": "Is there a reason to do this only in this test? Should we do it in all tests by putting it in setUp or setupTapInterfaces?",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 93
+      },
+      "revId": "0d7a3279bfb4d716ec0a648bbae0f7aa98c41d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c16d662_254e96f9",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-08T01:52:13Z",
+      "side": 1,
+      "message": "link-local",
+      "range": {
+        "startLine": 332,
+        "startChar": 17,
+        "endLine": 332,
+        "endChar": 24
+      },
+      "revId": "0d7a3279bfb4d716ec0a648bbae0f7aa98c41d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8647b5ab_6d03b4bf",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/RouterAdvertisementDaemonTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-08T01:52:13Z",
+      "side": 1,
+      "message": "Should this go into setupTapInterfaces as well?",
+      "range": {
+        "startLine": 338,
+        "startChar": 19,
+        "endLine": 338,
+        "endChar": 42
+      },
+      "revId": "0d7a3279bfb4d716ec0a648bbae0f7aa98c41d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
