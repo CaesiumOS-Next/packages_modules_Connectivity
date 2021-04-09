@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c99d2185_a2194c58",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T00:38:35Z",
+      "side": 1,
+      "message": "I added the System default network as you suggested. I tried doing a standard network callback but it didn\u0027t really offer much value unless I tied it directly to a test network (which doesn\u0027t have internet) so I opted to not include that part. Feel free to reopen if you wish to discuss that point more.",
+      "parentUuid": "6978de99_2afafe6e",
+      "range": {
+        "startLine": 1750,
+        "startChar": 16,
+        "endLine": 1750,
+        "endChar": 54
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07cf100c_e4ab7be7",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-07T00:27:31Z",
       "side": 1,
       "message": "NETWORK_CALLBACK_TIMEOUT_MS",
+      "range": {
+        "startLine": 1752,
+        "startChar": 63,
+        "endLine": 1752,
+        "endChar": 73
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e9219bd_0d113d05",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T00:38:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07cf100c_e4ab7be7",
       "range": {
         "startLine": 1752,
         "startChar": 63,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a8be2a2_e348c8cf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1763,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T00:38:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "993b0abd_206a73fa",
+      "range": {
+        "startLine": 1763,
+        "startChar": 12,
+        "endLine": 1763,
+        "endChar": 32
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c2f49d4_d6735c94",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7875d261_a9390087",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1819,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T00:38:35Z",
+      "side": 1,
+      "message": "Done. Added short wait of 200ms before checking the assert. I tried assertNoCallback but that didn\u0027t work unfortunately due to other events being triggered causing it to fail.",
+      "parentUuid": "7c2f49d4_d6735c94",
+      "range": {
+        "startLine": 1819,
+        "startChar": 12,
+        "endLine": 1819,
+        "endChar": 14
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9838630_3eb986f1",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-04-07T00:27:31Z",
       "side": 1,
       "message": "30s timeout constant",
+      "range": {
+        "startLine": 1842,
+        "startChar": 26,
+        "endLine": 1842,
+        "endChar": 36
+      },
+      "revId": "47a86643abb504dbb12eff2764d8f51a95e4d0a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faa3ffa7_9be9186a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T00:38:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9838630_3eb986f1",
       "range": {
         "startLine": 1842,
         "startChar": 26,
