@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "718c2bd3_11dc63d2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1869,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T23:41:06Z",
+      "side": 1,
+      "message": "Done. Fixing this actually addressed the flakiness I was seeing. I hadn\u0027t considered two available callbacks coming for both Cellular and Wi-Fi (due to metered changes) so nice catch on that.",
+      "parentUuid": "ae408d3e_4509f144",
+      "range": {
+        "startLine": 1869,
+        "startChar": 12,
+        "endLine": 1869,
+        "endChar": 52
+      },
+      "revId": "4f7f4ea28b6e1e162ec51b5c116b98172e701fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9fd2aed_9cd8a461",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-09T02:01:37Z",
       "side": 1,
       "message": "leftover ?",
+      "range": {
+        "startLine": 1876,
+        "startChar": 12,
+        "endLine": 1876,
+        "endChar": 13
+      },
+      "revId": "4f7f4ea28b6e1e162ec51b5c116b98172e701fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90628420_7e3d38a5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T23:41:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9fd2aed_9cd8a461",
       "range": {
         "startLine": 1876,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31c1e810_3ad9079a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1881,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T23:41:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "897d96ad_6ce24140",
+      "range": {
+        "startLine": 1881,
+        "startChar": 12,
+        "endLine": 1881,
+        "endChar": 32
+      },
+      "revId": "4f7f4ea28b6e1e162ec51b5c116b98172e701fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "463b9b1a_b3f4ca24",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-04-09T02:01:37Z",
       "side": 1,
       "message": "Can we instead test for the callbacks that we actually receive, and then assertNoCallback with the timeout ? Just to avoid the bad form of sleeping in a test.",
+      "range": {
+        "startLine": 1925,
+        "startChar": 12,
+        "endLine": 1925,
+        "endChar": 48
+      },
+      "revId": "4f7f4ea28b6e1e162ec51b5c116b98172e701fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9526c8b5_c156183f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1925,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-09T23:41:06Z",
+      "side": 1,
+      "message": "assertNoCallback seems to be working now so switched to that.",
+      "parentUuid": "463b9b1a_b3f4ca24",
       "range": {
         "startLine": 1925,
         "startChar": 12,
