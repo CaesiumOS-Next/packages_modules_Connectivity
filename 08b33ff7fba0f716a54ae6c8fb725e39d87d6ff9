@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f321b0c_63fef1c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-09T15:16:15Z",
+      "side": 1,
+      "message": "The only test failure was unrelated: android.net.cts.Ikev2VpnTest#testStartStopVpnProfileV6 , which is  b/184819933.",
+      "revId": "08b33ff7fba0f716a54ae6c8fb725e39d87d6ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
