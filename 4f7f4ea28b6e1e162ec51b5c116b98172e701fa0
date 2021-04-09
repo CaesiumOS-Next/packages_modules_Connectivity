@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae408d3e_4509f144",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1869,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-09T02:01:37Z",
+      "side": 1,
+      "message": "Let\u0027s wait for available for WiFi, failing if you get available on a TEST network, but ignoring any other network in case cell is connected\n\n  waitForAvailable(systemDefaultCallback, caps -\u003e {\n    if (caps.hasTransport(TEST)) fail()\n    return caps.hasTransport(WIFI);\n  });\n\nThe point is to leave the systemDefaultCallback object in a known state.",
+      "range": {
+        "startLine": 1869,
+        "startChar": 12,
+        "endLine": 1869,
+        "endChar": 52
+      },
+      "revId": "4f7f4ea28b6e1e162ec51b5c116b98172e701fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9fd2aed_9cd8a461",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-09T02:01:37Z",
+      "side": 1,
+      "message": "leftover ?",
+      "range": {
+        "startLine": 1876,
+        "startChar": 12,
+        "endLine": 1876,
+        "endChar": 13
+      },
+      "revId": "4f7f4ea28b6e1e162ec51b5c116b98172e701fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "897d96ad_6ce24140",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1881,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-09T02:01:37Z",
+      "side": 1,
+      "message": "waitForActiveNetworkMetered",
+      "range": {
+        "startLine": 1881,
+        "startChar": 12,
+        "endLine": 1881,
+        "endChar": 32
+      },
+      "revId": "4f7f4ea28b6e1e162ec51b5c116b98172e701fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "463b9b1a_b3f4ca24",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1925,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-09T02:01:37Z",
+      "side": 1,
+      "message": "Can we instead test for the callbacks that we actually receive, and then assertNoCallback with the timeout ? Just to avoid the bad form of sleeping in a test.",
+      "range": {
+        "startLine": 1925,
+        "startChar": 12,
+        "endLine": 1925,
+        "endChar": 48
+      },
+      "revId": "4f7f4ea28b6e1e162ec51b5c116b98172e701fa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
