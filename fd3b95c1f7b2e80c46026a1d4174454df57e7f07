@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59da5eb2_384431b1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyActivity.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-09T03:01:33Z",
+      "side": 1,
+      "message": "This seems asynchronous. But unlikely we care since we poll and wait for the result.",
+      "range": {
+        "startLine": 42,
+        "startChar": 48,
+        "endLine": 42,
+        "endChar": 70
+      },
+      "revId": "fd3b95c1f7b2e80c46026a1d4174454df57e7f07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
