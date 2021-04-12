@@ -722,7 +722,7 @@ public class VpnTest extends InstrumentationTestCase {
         final TestableNetworkCallback otherUidCallback = new TestableNetworkCallback();
         final TestableNetworkCallback myUidCallback = new TestableNetworkCallback();
         if (SdkLevel.isAtLeastS()) {
-            final int otherUid = UserHandle.getUid(UserHandle.of(5), Process.FIRST_APPLICATION_UID);
+            final int otherUid = UserHandle.of(5).getUid(Process.FIRST_APPLICATION_UID);
             final Handler h = new Handler(Looper.getMainLooper());
             runWithShellPermissionIdentity(() -> {
                 mCM.registerSystemDefaultNetworkCallback(systemDefaultCallback, h);
