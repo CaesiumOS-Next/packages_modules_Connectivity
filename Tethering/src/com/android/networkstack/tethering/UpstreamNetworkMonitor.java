@@ -402,13 +402,14 @@ public class UpstreamNetworkMonitor {
         notifyTarget(EVENT_ON_CAPABILITIES, network);
     }
 
-    private void updateLinkProperties(Network network, LinkProperties newLp) {
+    private UpstreamNetworkState updateLinkProperties(@NonNull Network network,
+            LinkProperties newLp) {
         final UpstreamNetworkState prev = mNetworkMap.get(network);
         if (prev == null || newLp.equals(prev.linkProperties)) {
             // Ignore notifications about networks for which we have not yet
             // received onAvailable() (should never happen) and any duplicate
             // notifications (e.g. matching more than one of our callbacks).
-            return;
+            return null;
         }
 
         if (VDBG) {
@@ -416,13 +417,17 @@ public class UpstreamNetworkMonitor {
                     network, newLp));
         }
 
-        mNetworkMap.put(network, new UpstreamNetworkState(
-                newLp, prev.networkCapabilities, network));
+        final UpstreamNetworkState ns = new UpstreamNetworkState(newLp, prev.networkCapabilities,
+                network);
+        mNetworkMap.put(network, ns);
+        return ns;
     }
 
     private void handleLinkProp(Network network, LinkProperties newLp) {
-        updateLinkProperties(network, newLp);
-        notifyTarget(EVENT_ON_LINKPROPERTIES, network);
+        final UpstreamNetworkState ns = updateLinkProperties(network, newLp);
+        if (ns != null) {
+            notifyTarget(EVENT_ON_LINKPROPERTIES, ns);
+        }
     }
 
     private void handleLost(Network network) {
