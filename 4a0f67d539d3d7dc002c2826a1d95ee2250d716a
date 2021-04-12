@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66d9d705_e9d62032",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-04-12T12:13:14Z",
+      "side": 1,
+      "message": "This commit uses UserHandle#getUid() which is modified by Chiachang at aosp/1669185(unmerged).\n+Chiachang to take notice of the usage of UserHnadle#getUid().",
+      "revId": "4a0f67d539d3d7dc002c2826a1d95ee2250d716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfaaa51e_44b1ebae",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-04-12T12:13:14Z",
+      "side": 1,
+      "message": "This will need to be changed to \"UserHandle.of(5 /* userId */).getUid(Process.FIRST_APPLICATION_UID);\" if aosp/1669185 is merged first.",
+      "range": {
+        "startLine": 1826,
+        "startChar": 29,
+        "endLine": 1826,
+        "endChar": 81
+      },
+      "revId": "4a0f67d539d3d7dc002c2826a1d95ee2250d716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6483337d_9a144b8a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1860,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-04-12T12:13:14Z",
+      "side": 1,
+      "message": "Did you miss some comments here?",
+      "range": {
+        "startLine": 1860,
+        "startChar": 85,
+        "endLine": 1860,
+        "endChar": 89
+      },
+      "revId": "4a0f67d539d3d7dc002c2826a1d95ee2250d716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
