@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bf23773_d149384f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-04-12T11:34:20Z",
+      "side": 1,
+      "message": "Nit: /* userId */",
+      "range": {
+        "startLine": 725,
+        "startChar": 47,
+        "endLine": 725,
+        "endChar": 48
+      },
+      "revId": "b549749317973f86e0ec5b375537fe991061f0ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
