@@ -22,6 +22,30 @@
       },
       "revId": "c4a531e7d6512b6fd2082c4059674d339412450d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66e7a62a_6493ea4e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-12T15:11:35Z",
+      "side": 0,
+      "message": "The fact that this code compiles even after it\u0027s removed shows that it was not necessary :-)",
+      "parentUuid": "1e85ef0b_35a85ce9",
+      "range": {
+        "startLine": 1708,
+        "startChar": 47,
+        "endLine": 1708,
+        "endChar": 63
+      },
+      "revId": "c4a531e7d6512b6fd2082c4059674d339412450d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

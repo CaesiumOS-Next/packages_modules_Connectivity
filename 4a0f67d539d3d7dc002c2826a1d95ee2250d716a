@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c016988_f01cbdc9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1826,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-12T15:11:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dfaaa51e_44b1ebae",
+      "range": {
+        "startLine": 1826,
+        "startChar": 29,
+        "endLine": 1826,
+        "endChar": 81
+      },
+      "revId": "4a0f67d539d3d7dc002c2826a1d95ee2250d716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6483337d_9a144b8a",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-12T12:13:14Z",
       "side": 1,
       "message": "Did you miss some comments here?",
+      "range": {
+        "startLine": 1860,
+        "startChar": 85,
+        "endLine": 1860,
+        "endChar": 89
+      },
+      "revId": "4a0f67d539d3d7dc002c2826a1d95ee2250d716a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2fcae5d_c2520da2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1860,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-12T15:11:35Z",
+      "side": 1,
+      "message": "Actually, removed. They are no longer necessary.",
+      "parentUuid": "6483337d_9a144b8a",
       "range": {
         "startLine": 1860,
         "startChar": 85,
