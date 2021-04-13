@@ -70,6 +70,30 @@
       },
       "revId": "77e22832f166686efd3b2feac1c23b11146d7840",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b8c968c_962cb34f",
+        "filename": "tests/cts/hostside/TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1330217
+      },
+      "writtenOn": "2021-04-13T15:38:09Z",
+      "side": 1,
+      "message": "We have already a test to guard the misconfiguration of \"test name\" but not \"test group\", so yes, in that case the tests will be ignored silently. We\u0027ll re-think this situation. Thanks for the feedback!",
+      "parentUuid": "c5ab31e3_e3e5fa1a",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 19
+      },
+      "revId": "77e22832f166686efd3b2feac1c23b11146d7840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
