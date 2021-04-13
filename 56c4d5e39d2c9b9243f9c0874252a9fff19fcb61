@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40eb8aff_886e4133",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-13T13:54:17Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "56c4d5e39d2c9b9243f9c0874252a9fff19fcb61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cdf68ca_77aef299",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-13T13:54:17Z",
+      "side": 1,
+      "message": "This should never happen because this method is only called on S or above. If it ever does, it\u0027s a programming error and the test should fail.\n\nSo would suggest throwing this exception instead of catching it (e.g., by adding \"throws UnsupportedApiLevelException\" or \"throws Exception\" to the method signature). Often many of our tests just use \"throws Exception\" everywhere.",
+      "range": {
+        "startLine": 404,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 9
+      },
+      "revId": "56c4d5e39d2c9b9243f9c0874252a9fff19fcb61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19b627bf_11f1f226",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-13T13:54:17Z",
+      "side": 1,
+      "message": "Keeping around this shim object is a bit confusing because AFAICS NetworkRequestShim is a fully-static class that has no state and only contains utility methods. I\u0027d just do:\n\n    private void checkBuildRequestFromExistingRequest(NetworkRequest orig)\n            throws Exception {\n        final NetworkRequestShim shim \u003d NetworkRequestShimImpl.newInstance();\n        final NetworkRequest copy \u003d shim.newBuilder(orig).build();\n        assertEquals(orig, copy);\n    }",
+      "range": {
+        "startLine": 412,
+        "startChar": 8,
+        "endLine": 412,
+        "endChar": 91
+      },
+      "revId": "56c4d5e39d2c9b9243f9c0874252a9fff19fcb61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
