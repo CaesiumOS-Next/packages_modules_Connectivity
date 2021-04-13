@@ -29,6 +29,7 @@ import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
+import static android.net.TetheringManager.CONNECTIVITY_TYPE_LOCAL_ONLY;
 import static android.net.TetheringManager.EXTRA_ACTIVE_LOCAL_ONLY;
 import static android.net.TetheringManager.EXTRA_ACTIVE_TETHER;
 import static android.net.TetheringManager.EXTRA_AVAILABLE_TETHER;
@@ -951,6 +952,19 @@ public class Tethering {
             mTetherMainSM.sendMessage(TetherMainSM.CMD_UPSTREAM_CHANGED);
         }
 
+        private int getRequestedState(int type) {
+            final TetheringRequestParcel request = mActiveTetheringRequests.get(type);
+            if (request == null) {
+                // The request could have been deleted before we had a chance to complete it.
+                // Assume that it was for tethering, not local-only.
+                return IpServer.STATE_TETHERED;
+            }
+
+            return request.connectivityType == CONNECTIVITY_TYPE_LOCAL_ONLY
+                    ? IpServer.STATE_LOCAL_ONLY
+                    : IpServer.STATE_TETHERED;
+        }
+
         private void handleUsbAction(Intent intent) {
             final boolean usbConnected = intent.getBooleanExtra(USB_CONNECTED, false);
             final boolean usbConfigured = intent.getBooleanExtra(USB_CONFIGURED, false);
@@ -982,9 +996,11 @@ public class Tethering {
                     mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_USB);
                 } else if (usbConfigured && rndisEnabled) {
                     // Tether if rndis is enabled and usb is configured.
-                    tetherMatchingInterfaces(IpServer.STATE_TETHERED, TETHERING_USB);
+                    final int state = getRequestedState(TETHERING_USB);
+                    tetherMatchingInterfaces(state, TETHERING_USB);
                 } else if (usbConnected && ncmEnabled) {
-                    tetherMatchingInterfaces(IpServer.STATE_LOCAL_ONLY, TETHERING_NCM);
+                    final int state = getRequestedState(TETHERING_NCM);
+                    tetherMatchingInterfaces(state, TETHERING_NCM);
                 }
                 mRndisEnabled = usbConfigured && rndisEnabled;
             }

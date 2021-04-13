@@ -557,6 +557,30 @@ public class TetheringManager {
     }
 
     /**
+     * Indicates that this tethering connection will provide connectivity beyond this device (e.g.,
+     * Internet access).
+     */
+    public static final int CONNECTIVITY_TYPE_TETHERING =
+            TetheringRequestParcel.CONNECTIVITY_TYPE_TETHERING;
+
+    /**
+     * Indicates that this tethering connection will only provide local connectivity.
+     */
+    public static final int CONNECTIVITY_TYPE_LOCAL_ONLY =
+            TetheringRequestParcel.CONNECTIVITY_TYPE_LOCAL_ONLY;
+
+    /**
+     * Connectivity types for {@link TetheringRequest.Builder#setConnectivityType}.
+     * @hide
+     */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(prefix = "CONNECTIVITY_TYPE_", value = {
+            CONNECTIVITY_TYPE_TETHERING,
+            CONNECTIVITY_TYPE_LOCAL_ONLY,
+    })
+    public @interface ConnectivityType {}
+
+    /**
      *  Use with {@link #startTethering} to specify additional parameters when starting tethering.
      */
     public static class TetheringRequest {
@@ -565,6 +589,12 @@ public class TetheringManager {
 
         private TetheringRequest(final TetheringRequestParcel request) {
             mRequestParcel = request;
+        }
+
+        private static @ConnectivityType int getDefaultConnectivityType(int tetheringType) {
+            return tetheringType != TETHERING_NCM
+                    ? CONNECTIVITY_TYPE_TETHERING
+                    : CONNECTIVITY_TYPE_LOCAL_ONLY;
         }
 
         /** Builder used to create TetheringRequest. */
@@ -579,6 +609,7 @@ public class TetheringManager {
                 mBuilderParcel.staticClientAddress = null;
                 mBuilderParcel.exemptFromEntitlementCheck = false;
                 mBuilderParcel.showProvisioningUi = true;
+                mBuilderParcel.connectivityType = getDefaultConnectivityType(type);
             }
 
             /**
@@ -621,6 +652,20 @@ public class TetheringManager {
             @NonNull
             public Builder setShouldShowEntitlementUi(boolean showUi) {
                 mBuilderParcel.showProvisioningUi = showUi;
+                return this;
+            }
+
+            /**
+             * Sets the connectivity type to be provided by this tethering downstream.
+             */
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setConnectivityType(@ConnectivityType int connectivityType) {
+                if (!checkConnectivityType(mBuilderParcel.tetheringType, connectivityType)) {
+                    throw new IllegalArgumentException("Invalid server or client addresses");
+                }
+
+                mBuilderParcel.connectivityType = connectivityType;
                 return this;
             }
 
@@ -676,6 +721,15 @@ public class TetheringManager {
                     && localIPv4Address.isIpv4() && clientAddress.isIpv4()
                     && new IpPrefix(localIPv4Address.toString()).equals(
                     new IpPrefix(clientAddress.toString()));
+        }
+
+        /**
+         * Check whether the requested connectivity type is allowed.
+         * @hide
+         */
+        public static boolean checkConnectivityType(int type, int connectivityType) {
+            if (connectivityType == CONNECTIVITY_TYPE_TETHERING) return true;
+            return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM;
         }
 
         /**
