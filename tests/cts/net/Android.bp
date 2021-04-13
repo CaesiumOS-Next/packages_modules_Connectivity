@@ -44,6 +44,7 @@ java_defaults {
         "bouncycastle-unbundled",
         "FrameworksNetCommonTests",
         "core-tests-support",
+        "ctstestserver",
         "cts-net-utils",
         "ctstestrunner-axt",
         "junit",
