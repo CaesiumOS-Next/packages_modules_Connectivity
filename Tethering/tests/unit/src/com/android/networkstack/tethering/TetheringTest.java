@@ -2386,7 +2386,7 @@ public class TetheringTest {
         mTethering.interfaceStatusChanged(TEST_BT_IFNAME, false);
         mTethering.interfaceStatusChanged(TEST_BT_IFNAME, true);
         final ResultListener tetherResult = new ResultListener(TETHER_ERROR_NO_ERROR);
-        mTethering.tether(TEST_BT_IFNAME, tetherResult);
+        mTethering.tether(TEST_BT_IFNAME, IpServer.STATE_TETHERED, tetherResult);
         mLooper.dispatchAll();
         tetherResult.assertHasResult();
 
