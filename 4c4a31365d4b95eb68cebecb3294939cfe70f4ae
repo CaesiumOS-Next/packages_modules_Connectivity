@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85b5706b_09cc3ff4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-04-13T19:07:44Z",
+      "side": 1,
+      "message": "In general this exceeds my ability to understand, so Lorenzo will definitely need to look at this.\nI don\u0027t see anything wrong, besides the potential problem with deletions while iterating...",
+      "revId": "4c4a31365d4b95eb68cebecb3294939cfe70f4ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5df52ce_abbcb454",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-04-13T19:07:44Z",
+      "side": 1,
+      "message": "we should really follow up with a deletion for this all over",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 42
+      },
+      "revId": "4c4a31365d4b95eb68cebecb3294939cfe70f4ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "029c2839_966ea8c8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-04-13T19:07:44Z",
+      "side": 1,
+      "message": "is this deleting from the map while traversing it?\nI\u0027m not sure if that\u0027s kosher...\nas in I don\u0027t think this is guaranteed to traverse everything exactly once.\n\nyou probably need traverse once finding what needs to be deleted and putting it in a temp vector, and only then iterating through it and deleting everything\n\n(or convince me that such iterate + delete through a bpf map is safe -- maybe it is, but I\u0027d be wary)",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 70
+      },
+      "revId": "4c4a31365d4b95eb68cebecb3294939cfe70f4ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
