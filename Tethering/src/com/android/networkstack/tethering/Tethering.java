@@ -29,6 +29,7 @@ import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.TetheringManager.ACTION_TETHER_STATE_CHANGED;
+import static android.net.TetheringManager.CONNECTIVITY_TYPE_LOCAL_ONLY;
 import static android.net.TetheringManager.EXTRA_ACTIVE_LOCAL_ONLY;
 import static android.net.TetheringManager.EXTRA_ACTIVE_TETHER;
 import static android.net.TetheringManager.EXTRA_AVAILABLE_TETHER;
@@ -155,8 +156,8 @@ import java.util.concurrent.RejectedExecutionException;
 public class Tethering {
 
     private static final String TAG = Tethering.class.getSimpleName();
-    private static final boolean DBG = false;
-    private static final boolean VDBG = false;
+    private static final boolean DBG = true;
+    private static final boolean VDBG = true;
 
     private static final Class[] sMessageClasses = {
             Tethering.class, TetherMainSM.class, IpServer.class
@@ -731,7 +732,7 @@ public class Tethering {
                     return;
                 }
                 maybeTrackNewInterfaceLocked(iface, TETHERING_ETHERNET);
-                changeInterfaceState(iface, IpServer.STATE_TETHERED);
+                changeInterfaceState(iface, getRequestedState(TETHERING_ETHERNET));
                 mConfiguredEthernetIface = iface;
             }
         }
@@ -748,11 +749,7 @@ public class Tethering {
         }
     }
 
-    int tether(String iface) {
-        return tether(iface, IpServer.STATE_TETHERED);
-    }
-
-    private int tether(String iface, int requestedState) {
+    int tether(String iface, int requestedState) {
         if (DBG) Log.d(TAG, "Tethering " + iface);
         synchronized (mPublicSync) {
             TetherState tetherState = mTetherStates.get(iface);
@@ -841,6 +838,19 @@ public class Tethering {
             return false;
         }
         return true;
+    }
+
+    private int getRequestedState(int type) {
+        final TetheringRequestParcel request = mActiveTetheringRequests.get(type);
+        if (request == null) {
+            // The request could have been deleted before we had a chance to complete it.
+            // Assume that it was for tethering, not local-only.
+            return IpServer.STATE_TETHERED;
+        }
+
+        return request.connectivityType == CONNECTIVITY_TYPE_LOCAL_ONLY
+                ? IpServer.STATE_LOCAL_ONLY
+                : IpServer.STATE_TETHERED;
     }
 
     // TODO: Figure out how to update for local hotspot mode interfaces.
@@ -982,9 +992,11 @@ public class Tethering {
                     mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_USB);
                 } else if (usbConfigured && rndisEnabled) {
                     // Tether if rndis is enabled and usb is configured.
-                    tetherMatchingInterfaces(IpServer.STATE_TETHERED, TETHERING_USB);
+                    final int state = getRequestedState(TETHERING_USB);
+                    tetherMatchingInterfaces(state, TETHERING_USB);
                 } else if (usbConnected && ncmEnabled) {
-                    tetherMatchingInterfaces(IpServer.STATE_LOCAL_ONLY, TETHERING_NCM);
+                    final int state = getRequestedState(TETHERING_NCM);
+                    tetherMatchingInterfaces(state, TETHERING_NCM);
                 }
                 mRndisEnabled = usbConfigured && rndisEnabled;
             }

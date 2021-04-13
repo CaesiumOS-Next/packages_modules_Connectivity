@@ -557,6 +557,30 @@ public class TetheringManager {
     }
 
     /**
+     * Indicates that this tethering connection will provide connectivity beyond this device (e.g.,
+     * Internet access).
+     */
+    public static final int CONNECTIVITY_TYPE_TETHERING =
+            TetheringRequestParcel.CONNECTIVITY_TYPE_TETHERING;
+
+    /**
+     * Indicates that this tethering connection will only provide local connectivity.
+     */
+    public static final int CONNECTIVITY_TYPE_LOCAL_ONLY =
+            TetheringRequestParcel.CONNECTIVITY_TYPE_LOCAL_ONLY;
+
+    /**
+     * Connectivity types for {@link TetheringRequest.Builder#setConnectivityType}.
+     * @hide
+     */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(prefix = "CONNECTIVITY_TYPE_", value = {
+            CONNECTIVITY_TYPE_TETHERING,
+            CONNECTIVITY_TYPE_LOCAL_ONLY,
+    })
+    public @interface ConnectivityType {}
+
+    /**
      *  Use with {@link #startTethering} to specify additional parameters when starting tethering.
      */
     public static class TetheringRequest {
@@ -565,6 +589,12 @@ public class TetheringManager {
 
         private TetheringRequest(final TetheringRequestParcel request) {
             mRequestParcel = request;
+        }
+
+        private static @ConnectivityType int getDefaultConnectivityType(int tetheringType) {
+            return tetheringType != TETHERING_NCM
+                    ? CONNECTIVITY_TYPE_TETHERING
+                    : CONNECTIVITY_TYPE_LOCAL_ONLY;
         }
 
         /** Builder used to create TetheringRequest. */
@@ -579,6 +609,7 @@ public class TetheringManager {
                 mBuilderParcel.staticClientAddress = null;
                 mBuilderParcel.exemptFromEntitlementCheck = false;
                 mBuilderParcel.showProvisioningUi = true;
+                mBuilderParcel.connectivityType = getDefaultConnectivityType(type);
             }
 
             /**
@@ -624,6 +655,20 @@ public class TetheringManager {
                 return this;
             }
 
+            /**
+             * Sets the connectivity type to be provided by this tethering downstream.
+             */
+            @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+            @NonNull
+            public Builder setConnectivityType(@ConnectivityType int connectivityType) {
+                if (!checkConnectivityType(mBuilderParcel.tetheringType, connectivityType)) {
+                    throw new IllegalArgumentException("Invalid server or client addresses");
+                }
+
+                mBuilderParcel.connectivityType = connectivityType;
+                return this;
+            }
+
             /** Build {@link TetheringRequest] with the currently set configuration. */
             @NonNull
             public TetheringRequest build() {
@@ -655,6 +700,12 @@ public class TetheringManager {
             return mRequestParcel.tetheringType;
         }
 
+        /** Get connectivity type */
+        @ConnectivityType
+        public int getConnectivityType() {
+            return mRequestParcel.connectivityType;
+        }
+
         /** Check if exempt from entitlement check. */
         public boolean isExemptFromEntitlementCheck() {
             return mRequestParcel.exemptFromEntitlementCheck;
@@ -676,6 +727,15 @@ public class TetheringManager {
                     && localIPv4Address.isIpv4() && clientAddress.isIpv4()
                     && new IpPrefix(localIPv4Address.toString()).equals(
                     new IpPrefix(clientAddress.toString()));
+        }
+
+        /**
+         * Check whether the requested connectivity type is allowed.
+         * @hide
+         */
+        public static boolean checkConnectivityType(int type, int connectivityType) {
+            if (connectivityType == CONNECTIVITY_TYPE_TETHERING) return true;
+            return type == TETHERING_USB || type == TETHERING_ETHERNET || type == TETHERING_NCM;
         }
 
         /**
@@ -940,6 +1000,15 @@ public class TetheringManager {
         default void onTetheredInterfacesChanged(@NonNull List<String> interfaces) {}
 
         /**
+         * Called when there was a change in the list of local-only interfaces.
+         *
+         * <p>This will be called immediately after the callback is registered, and may be called
+         * multiple times later upon changes.
+         * @param interfaces The list of 0 or more String of active local-only interface names.
+         */
+        default void onLocalOnlyInterfacesChanged(@NonNull List<String> interfaces) {}
+
+        /**
          * Called when an error occurred configuring tethering.
          *
          * <p>This will be called immediately after the callback is registered if the latest status
@@ -1045,6 +1114,7 @@ public class TetheringManager {
                 private final HashMap<String, Integer> mErrorStates = new HashMap<>();
                 private String[] mLastTetherableInterfaces = null;
                 private String[] mLastTetheredInterfaces = null;
+                private String[] mLastLocalOnlyInterfaces = null;
 
                 @Override
                 public void onUpstreamChanged(Network network) throws RemoteException {
@@ -1082,6 +1152,14 @@ public class TetheringManager {
                             Collections.unmodifiableList(Arrays.asList(mLastTetheredInterfaces)));
                 }
 
+                private synchronized void maybeSendLocalOnlyIfacesChangedCallback(
+                        final TetherStatesParcel newStates) {
+                    if (Arrays.equals(mLastLocalOnlyInterfaces, newStates.localOnlyList)) return;
+                    mLastLocalOnlyInterfaces = newStates.localOnlyList.clone();
+                    callback.onLocalOnlyInterfacesChanged(
+                            Collections.unmodifiableList(Arrays.asList(mLastLocalOnlyInterfaces)));
+                }
+
                 // Called immediately after the callbacks are registered.
                 @Override
                 public void onCallbackStarted(TetheringCallbackStartedParcel parcel) {
@@ -1092,6 +1170,7 @@ public class TetheringManager {
                         sendRegexpsChanged(parcel.config);
                         maybeSendTetherableIfacesChangedCallback(parcel.states);
                         maybeSendTetheredIfacesChangedCallback(parcel.states);
+                        maybeSendLocalOnlyIfacesChangedCallback(parcel.states);
                         callback.onClientsChanged(parcel.tetheredClients);
                         callback.onOffloadStatusChanged(parcel.offloadStatus);
                     });
@@ -1122,6 +1201,7 @@ public class TetheringManager {
                         sendErrorCallbacks(states);
                         maybeSendTetherableIfacesChangedCallback(states);
                         maybeSendTetheredIfacesChangedCallback(states);
+                        maybeSendLocalOnlyIfacesChangedCallback(states);
                     });
                 }
 
