@@ -22,6 +22,30 @@
       },
       "revId": "491999292b0a3778f91cea5e13c1dbb4a1c35cd0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dab040be_14dd3b7b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-13T16:49:38Z",
+      "side": 1,
+      "message": "Made this null in aosp/1674236 along with another fix.",
+      "parentUuid": "ed544f41_51ab439e",
+      "range": {
+        "startLine": 469,
+        "startChar": 45,
+        "endLine": 469,
+        "endChar": 47
+      },
+      "revId": "491999292b0a3778f91cea5e13c1dbb4a1c35cd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
