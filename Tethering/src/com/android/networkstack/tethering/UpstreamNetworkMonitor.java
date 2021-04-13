@@ -410,12 +410,6 @@ public class UpstreamNetworkMonitor {
             // Ignore notifications about networks for which we have not yet
             // received onAvailable() (should never happen) and any duplicate
             // notifications (e.g. matching more than one of our callbacks).
-            //
-            // Also, it can happen that onLinkPropertiesChanged is called after
-            // onLost removed the state from mNetworkMap. This appears to be due
-            // to a bug in disconnectAndDestroyNetwork, which calls
-            // nai.clatd.update() after the onLost callbacks.
-            // TODO: fix the bug and make this method void.
             return null;
         }
 
@@ -468,9 +462,10 @@ public class UpstreamNetworkMonitor {
 
         final UpstreamNetworkState ns = mNetworkMap.get(network);
         if (ns == null) {
-            // Can never happen unless there is a bug in ConnectivityService. Entries are only
-            // removed from mNetworkMap when receiving onLost, and onLost for a given network can
-            // never be followed by any other callback on that network.
+            // Can never happen unless there is a bug in ConnectivityService and/or the handling of
+            // mLastLostNetwork above. Other than that bug, entries are only removed from
+            // mNetworkMap when receiving onLost, and onLost for a given network can never be
+            // followed by any other callback on that network.
             Log.wtf(TAG, "maybeHandleNetworkSwitch: no UpstreamNetworkState for " + network);
             return;
         }
@@ -478,7 +473,7 @@ public class UpstreamNetworkMonitor {
         // Default network changed. Update local data and notify tethering.
         Log.d(TAG, "New default Internet network: " + network);
         mDefaultInternetNetwork = network;
-        notifyTarget(EVENT_DEFAULT_SWITCHED, ns);
+        notifyTarget(EVENT_DEFAULT_SWITCHED, null /* unused */);
     }
 
     private void recomputeLocalPrefixes() {
@@ -506,12 +501,26 @@ public class UpstreamNetworkMonitor {
     private class UpstreamNetworkCallback extends NetworkCallback {
         private final int mCallbackType;
 
+        // It can happen that onLinkPropertiesChanged is called immediately after onLost.
+        // This appears to be due to a bug in disconnectAndDestroyNetwork, which calls
+        // nai.clatd.update() after the onLost callbacks. Avoid this problem by keeping track of the
+        // last network to receive onLost.
+        //
+        // TODO: fix the bug in ConnectivityService and remove this workaround when buggy versions
+        // are no longer supported.
+        private Network mLastLostNetwork;
+
         UpstreamNetworkCallback(int callbackType) {
             mCallbackType = callbackType;
         }
 
         @Override
         public void onAvailable(Network network) {
+            // Clear mLastLostNetwork in case its netId is being reused for a new network.
+            // This only needs to be done in onAvailable because when a new network connects the
+            // first callback is always onAvailable.
+            mLastLostNetwork = null;
+
             handleAvailable(network);
         }
 
@@ -547,6 +556,10 @@ public class UpstreamNetworkMonitor {
 
         @Override
         public void onLinkPropertiesChanged(Network network, LinkProperties newLp) {
+            // Spurious callback. Don't get confused.
+            if (network.equals(mLastLostNetwork)) return;
+            mLastLostNetwork = null;
+
             if (mCallbackType == CALLBACK_DEFAULT_INTERNET) {
                 updateLinkProperties(network, newLp);
                 // When the default network callback calls onLinkPropertiesChanged, it means that
@@ -568,6 +581,8 @@ public class UpstreamNetworkMonitor {
 
         @Override
         public void onLost(Network network) {
+            mLastLostNetwork = network;
+
             if (mCallbackType == CALLBACK_DEFAULT_INTERNET) {
                 mDefaultInternetNetwork = null;
                 mIsDefaultCellularUpstream = false;
