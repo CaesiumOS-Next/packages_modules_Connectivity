@@ -28,4 +28,8 @@ parcelable TetheringRequestParcel {
     LinkAddress staticClientAddress;
     boolean exemptFromEntitlementCheck;
     boolean showProvisioningUi;
+
+    const int CONNECTIVITY_SCOPE_GLOBAL = 1;
+    const int CONNECTIVITY_SCOPE_LOCAL = 2;
+    int connectivityScope;
 }

@@ -106,7 +106,7 @@ public class TetheringService extends Service {
             if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener)) return;
 
             try {
-                listener.onResult(mTethering.tether(iface));
+                listener.onResult(mTethering.tether(iface, IpServer.STATE_TETHERED));
             } catch (RemoteException e) { }
         }
 
