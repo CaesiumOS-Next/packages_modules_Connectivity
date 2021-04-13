@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0f6537_f6ed32aa",
+        "filename": "tests/cts/hostside/TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-13T13:58:14Z",
+      "side": 1,
+      "message": "Should this be \"large\" not \"larget\"?",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 19
+      },
+      "revId": "77e22832f166686efd3b2feac1c23b11146d7840",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
