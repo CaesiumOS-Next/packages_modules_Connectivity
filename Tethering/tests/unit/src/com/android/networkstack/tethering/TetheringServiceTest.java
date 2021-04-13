@@ -37,6 +37,7 @@ import android.net.IIntResultListener;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
 import android.net.TetheringRequestParcel;
+import android.net.ip.IpServer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -156,10 +157,11 @@ public final class TetheringServiceTest {
     }
 
     private void runTether(final TestTetheringResult result) throws Exception {
-        when(mTethering.tether(TEST_IFACE_NAME)).thenReturn(TETHER_ERROR_NO_ERROR);
+        when(mTethering.tether(TEST_IFACE_NAME, IpServer.STATE_TETHERED))
+                .thenReturn(TETHER_ERROR_NO_ERROR);
         mTetheringConnector.tether(TEST_IFACE_NAME, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG, result);
         verify(mTethering).isTetheringSupported();
-        verify(mTethering).tether(TEST_IFACE_NAME);
+        verify(mTethering).tether(TEST_IFACE_NAME, IpServer.STATE_TETHERED);
         result.assertResult(TETHER_ERROR_NO_ERROR);
     }
 
