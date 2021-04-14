@@ -28,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
+import android.annotation.NonNull;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
@@ -205,8 +206,8 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
         mMeterednessConfiguration.configureNetworkMeteredness(true);
 
         // Register callback
-        registerNetworkCallback(new NetworkRequest.Builder()
-                        .setCapabilities(networkCapabilities).build(), mTestNetworkCallback);
+        registerNetworkCallback(makeInternetRequestForTransports(
+                networkCapabilities.getTransportTypes()), mTestNetworkCallback);
         // Wait for onAvailable() callback to ensure network is available before the test
         // and store the default network.
         mNetwork = mTestNetworkCallback.expectAvailableCallbackAndGetNetwork();
@@ -214,6 +215,16 @@ public class NetworkCallbackTest extends AbstractRestrictBackgroundNetworkTestCa
         mTestNetworkCallback.expectCapabilitiesCallbackEventually(mNetwork,
                 false /* hasCapability */, NET_CAPABILITY_NOT_METERED);
         mTestNetworkCallback.expectBlockedStatusCallback(mNetwork, false);
+    }
+
+    @NonNull
+    private static NetworkRequest makeInternetRequestForTransports(final int[] transports) {
+        final NetworkRequest.Builder builder = new NetworkRequest.Builder();
+        builder.addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+        for (final int transport : transports) {
+            builder.addTransportType(transport);
+        }
+        return builder.build();
     }
 
     @After
