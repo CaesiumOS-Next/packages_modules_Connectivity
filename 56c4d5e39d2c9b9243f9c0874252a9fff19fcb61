@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7adb3635_a33e873d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-14T13:41:57Z",
+      "side": 1,
+      "message": "Please don\u0027t do this, it\u0027s confusing and error-prone to have a verifyFoo() method that sometimes just does nothing. In this case the test should be skipped. Take a look at ConnectivityManagerTest#shouldTestSApis for one way to do this.",
+      "parentUuid": "763deca6_1105e42d",
+      "range": {
+        "startLine": 404,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 9
+      },
+      "revId": "56c4d5e39d2c9b9243f9c0874252a9fff19fcb61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19b627bf_11f1f226",
         "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
         "patchSetId": 1
