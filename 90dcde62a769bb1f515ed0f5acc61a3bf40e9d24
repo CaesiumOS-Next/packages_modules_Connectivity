@@ -46,6 +46,30 @@
       },
       "revId": "90dcde62a769bb1f515ed0f5acc61a3bf40e9d24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7da000f4_3d957f2e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-14T11:03:23Z",
+      "side": 1,
+      "message": "Still not working since we\u0027ll need the instrumentation object to call adoptShellPermissionIdentity in the app2.\nOtherwise it would throw\njava.lang.IllegalStateException: No instrumentation registered! Must run under a registering instrumentation.\n\nThings I tried:\n  1. get from InstrumentationRegistry.getInstrumentation(), failed with above exception.\n  2. pass instrumentation from the test seems not feasible since it is not parcelable.\n  3. Create a new instrumentation inside app2, not sure about this but investigating.",
+      "parentUuid": "2da35047_a662542b",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 5
+      },
+      "revId": "90dcde62a769bb1f515ed0f5acc61a3bf40e9d24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
