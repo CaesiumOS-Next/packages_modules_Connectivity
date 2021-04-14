@@ -1905,4 +1905,23 @@ public class ConnectivityManagerTest {
     private boolean shouldTestSApis() {
         return SdkLevel.isAtLeastS() && ConstantsShim.VERSION > Build.VERSION_CODES.R;
     }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testSystemReady() {
+        assertThrows(SecurityException.class, () -> mCm.systemReady());
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testGetIpSecNetIdRange() {
+        final int lower = 64512;
+        final int upper = 65535;
+        final int median = (lower + upper) / 2;
+        assertTrue(lower == ConnectivityManager.getIpSecNetIdRange().getLower());
+        assertTrue(upper == ConnectivityManager.getIpSecNetIdRange().getUpper());
+        assertTrue(ConnectivityManager.getIpSecNetIdRange().contains(median));
+        assertFalse(ConnectivityManager.getIpSecNetIdRange().contains(lower - 100));
+        assertFalse(ConnectivityManager.getIpSecNetIdRange().contains(upper + 100));
+    }
 }
