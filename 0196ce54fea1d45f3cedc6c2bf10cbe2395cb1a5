@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40591799_33ced505",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-14T10:31:53Z",
+      "side": 1,
+      "message": "I don\u0027t find \"TETHERING\" very suggestive here. If this is meant to be the opposite of LOCAL, isn\u0027t INTERNET more appropriate ? Is there anything that this includes that\u0027s not Internet access ?",
+      "range": {
+        "startLine": 564,
+        "startChar": 53,
+        "endLine": 564,
+        "endChar": 62
+      },
+      "revId": "0196ce54fea1d45f3cedc6c2bf10cbe2395cb1a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecfb9172_f9367a8f",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-14T10:31:53Z",
+      "side": 1,
+      "message": "Is \"addresses\" appropriate here ? This is a mismatch between the tethering type and the connectivity type, so I don\u0027t find the error message extremely accurate.",
+      "range": {
+        "startLine": 665,
+        "startChar": 81,
+        "endLine": 665,
+        "endChar": 90
+      },
+      "revId": "0196ce54fea1d45f3cedc6c2bf10cbe2395cb1a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514d1c04_15b13314",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-14T10:31:53Z",
+      "side": 1,
+      "message": "Are these changes intentional ?",
+      "range": {
+        "startLine": 159,
+        "startChar": 39,
+        "endLine": 159,
+        "endChar": 43
+      },
+      "revId": "0196ce54fea1d45f3cedc6c2bf10cbe2395cb1a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26cd410_a37244a7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-14T10:31:53Z",
+      "side": 1,
+      "message": "Maybe say why",
+      "range": {
+        "startLine": 847,
+        "startChar": 63,
+        "endLine": 847,
+        "endChar": 64
+      },
+      "revId": "0196ce54fea1d45f3cedc6c2bf10cbe2395cb1a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9d013f9_f197d467",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-14T10:31:53Z",
+      "side": 1,
+      "message": "Very optional : compute a deadline first, so that the timeout passed to this method actually behaves like one",
+      "range": {
+        "startLine": 260,
+        "startChar": 39,
+        "endLine": 260,
+        "endChar": 48
+      },
+      "revId": "0196ce54fea1d45f3cedc6c2bf10cbe2395cb1a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de32c9c3_dbfaf784",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-14T10:31:53Z",
+      "side": 1,
+      "message": "Remove this last line ?",
+      "range": {
+        "startLine": 308,
+        "startChar": 1,
+        "endLine": 308,
+        "endChar": 33
+      },
+      "revId": "0196ce54fea1d45f3cedc6c2bf10cbe2395cb1a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1477ed1_30592445",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-14T10:31:53Z",
+      "side": 1,
+      "message": "That\u0027s a limitation of MyTetheringEventCallback though. It may well happen that the same interface is used in both ways on the same device without a reboot.\n\nMaybe clarify that in the message ?",
+      "range": {
+        "startLine": 420,
+        "startChar": 22,
+        "endLine": 420,
+        "endChar": 70
+      },
+      "revId": "0196ce54fea1d45f3cedc6c2bf10cbe2395cb1a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
