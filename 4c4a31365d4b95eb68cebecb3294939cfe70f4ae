@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d12ea3_de367fe1",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-14T13:22:59Z",
+      "side": 1,
+      "message": "I agree. We should do it.",
+      "parentUuid": "b5df52ce_abbcb454",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 42
+      },
+      "revId": "4c4a31365d4b95eb68cebecb3294939cfe70f4ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "029c2839_966ea8c8",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-13T19:07:44Z",
       "side": 1,
       "message": "is this deleting from the map while traversing it?\nI\u0027m not sure if that\u0027s kosher...\nas in I don\u0027t think this is guaranteed to traverse everything exactly once.\n\nyou probably need traverse once finding what needs to be deleted and putting it in a temp vector, and only then iterating through it and deleting everything\n\n(or convince me that such iterate + delete through a bpf map is safe -- maybe it is, but I\u0027d be wary)",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 70
+      },
+      "revId": "4c4a31365d4b95eb68cebecb3294939cfe70f4ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e211f280_6f4ecb55",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-14T13:22:59Z",
+      "side": 1,
+      "message": "Do you prefer the implementation in my earlier patchset 3? \n\nThe earlier implementation also makes the rule reference count easier because we only call tetherOffloadRuleRemove() to delete rule. But it needs to get all rules in a memory location and iterate them again for finding targets.\n\nSteps of patchset 3:\n1. gets all entries into a temp map.\n2. find the targets in the temp amp and then remove them from the bpf map\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1579873/3/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java#715\n// Fetch the rules on the upstream interface(s).\nfinal HashMap\u003cTether4Key, Tether4Value\u003e upstreamRules \u003d mBpfCoordinatorShim\n        .tetherOffloadGetRules4(UPSTREAM);\n\n// Clear the rules for a given client address.\nfor (Map.Entry\u003cTether4Key, Tether4Value\u003e u : upstreamRules.entrySet()) {\n    final Tether4Key k \u003d u.getKey();\n    if (Arrays.equals(k.src4, clientAddr.getAddress())) {\n        mBpfCoordinatorShim.tetherOffloadRuleRemove(UPSTREAM, k);\n    }\n} \n\n\nBy the way, I have wrote a test for checking that each entry was accessed once. But I can\u0027t prove it is safe.\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1579873/9/Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java#424\nfinal AtomicInteger count \u003d new AtomicInteger();\nfinal HashMap\u003cTetherDownstream6Key, Tether6Value\u003e resultMap \u003d\n        mTestMap.deleteEntryIf((key, value) -\u003e {\n            count.incrementAndGet();\n..\n        });\nassertEquals(TEST_MAP_SIZE, count.get());\n\nIn our easier discussion with lorenzo, we only discuss that delete *all* keys but *some*  key during the iteration.\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1498277/8/Tethering/src/com/android/networkstack/tethering/BpfMap.java#180\n\n\nIf you prefer the implementation of temp vector (patchset 3 style I think), I will change the code. Please advice me. Thank you.",
+      "parentUuid": "029c2839_966ea8c8",
       "range": {
         "startLine": 186,
         "startChar": 0,
