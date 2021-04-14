@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "797a4b2f_1991dd55",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-14T14:43:57Z",
+      "side": 1,
+      "message": "This seems a lot more complicated than it needs to be. I don\u0027t actually understand it, but I do think I understand that you\u0027re allowing the caller to pass in a predicate, but never use it and always default to { true }. That make the predicate useless - just remove \"\u0026\u0026 predicate(it)\". At that point I\u0027m not even sure you need the crossinline.",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 14
+      },
+      "revId": "58024ac38084e9f06ce4c0bc9908906cff400cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
