@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "763deca6_1105e42d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-14T02:32:52Z",
+      "side": 1,
+      "message": "If test it with CtsNetTestCasesLatestSdk in S device, the test itself will build with R SDK but running in S device. Test will run but shim will refer to R SDK. Then it result an exception. This may probably be needed.",
+      "parentUuid": "7cdf68ca_77aef299",
+      "range": {
+        "startLine": 404,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 9
+      },
+      "revId": "56c4d5e39d2c9b9243f9c0874252a9fff19fcb61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19b627bf_11f1f226",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-13T13:54:17Z",
       "side": 1,
       "message": "Keeping around this shim object is a bit confusing because AFAICS NetworkRequestShim is a fully-static class that has no state and only contains utility methods. I\u0027d just do:\n\n    private void checkBuildRequestFromExistingRequest(NetworkRequest orig)\n            throws Exception {\n        final NetworkRequestShim shim \u003d NetworkRequestShimImpl.newInstance();\n        final NetworkRequest copy \u003d shim.newBuilder(orig).build();\n        assertEquals(orig, copy);\n    }",
+      "range": {
+        "startLine": 412,
+        "startChar": 8,
+        "endLine": 412,
+        "endChar": 91
+      },
+      "revId": "56c4d5e39d2c9b9243f9c0874252a9fff19fcb61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6930ecc8_cb0a8713",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-14T02:32:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19b627bf_11f1f226",
       "range": {
         "startLine": 412,
         "startChar": 8,
