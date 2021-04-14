@@ -22,6 +22,30 @@
       },
       "revId": "90dcde62a769bb1f515ed0f5acc61a3bf40e9d24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2da35047_a662542b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-14T06:34:11Z",
+      "side": 1,
+      "message": "Per discussion:\n- What this test is actually trying to do is reconnect the same network after a metering switch.\n- It only supports the default network.\n- It supports cell or wifi.\n\nThis code is not super robust, because transports do not identify networks. It looks like it will break for STA+STA. We could fix this by copying the SSID specifically, but that seems ad-hoc.\n\nIt seems easiest to just copy the network\u0027s capabilities and remove whatever capabilities are not allowed in registerNetworkCallback. AFAICS it will need to pass these checks:\n\n        ensureSufficientPermissionsForRequest(networkCapabilities,\n                Binder.getCallingPid(), callingUid, callingPackageName);\n        restrictRequestUidsForCallerAndSetRequestorInfo(nc, callingUid, callingPackageName);\n        // Apps without the CHANGE_NETWORK_STATE permission can\u0027t use background networks, so\n        // make all their listens include NET_CAPABILITY_FOREGROUND. That way, they will get\n        // onLost and onAvailable callbacks when networks move in and out of the background.\n        // There is no need to do this for requests because an app without CHANGE_NETWORK_STATE\n        // can\u0027t request networks.\n        restrictBackgroundRequestForCaller(nc);\n        ensureValid(nc);\n\nIt seems like if you have NETWORK_SETTINGS, most callback requests will be allowed, with the exception perhaps of the signal strength, which requires SIGNAL_STRENGTH_WAKEUP.",
+      "parentUuid": "43440966_2635c86a",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 5
+      },
+      "revId": "90dcde62a769bb1f515ed0f5acc61a3bf40e9d24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
