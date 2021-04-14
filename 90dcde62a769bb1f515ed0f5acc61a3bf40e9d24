@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43440966_2635c86a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkCallbackTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-14T06:00:50Z",
+      "side": 1,
+      "message": "No objection to this, and sorry for suggesting the code that broke the test. :-(\n\nThat said - what is the actual intent of this code? Is the code trying to find out the capabilities of one specific Network object? If so, then why do it this way? We can simply do:\n\n\n    class SpecificNetworkCallback extends NetworkCallback {\n        private final Network mNetwork;\n\n        public SpecificNetworkCallback(Network network) {\n            mNetwork \u003d network;\n        }\n\n        @Override\n        public void onAvailable(Network network) {\n            if (!network.equals(mNetwork)) return;\n            ...\n        }\n\n        @Override\n        public void onCapabilitiesChangedNetwork network, NetworkCapabilities nc) {\n            if (!network.equals(mNetwork)) return;\n            ...\n        }",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 5
+      },
+      "revId": "90dcde62a769bb1f515ed0f5acc61a3bf40e9d24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
