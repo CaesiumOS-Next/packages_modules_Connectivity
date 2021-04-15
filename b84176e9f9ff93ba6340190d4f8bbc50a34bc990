@@ -16,6 +16,23 @@
       "message": "Latest treehugger run:\n\nhttps://android-build.googleplex.com/builds/treetop/android-review/1671528?revision\u003d5\n\nshows no failures and no running tasks. I\u0027m not sure why it hasn\u0027t succeeded, but I don\u0027t think it\u0027s going to find any new failures if it\u0027s not running anything.",
       "revId": "b84176e9f9ff93ba6340190d4f8bbc50a34bc990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54c1dd22_80279c1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1351609
+      },
+      "writtenOn": "2021-04-15T00:43:00Z",
+      "side": 1,
+      "message": "test_suites_x86_64 is broken on git_mainline-prod after this change, and the build error is:\n\npackages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java:31: error: cannot find symbol\nimport static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;\n^\n  symbol:   static BLOCKED_REASON_LOCKDOWN_VPN\n  location: class ConnectivityManager\npackages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java:32: error: cannot find symbol\nimport static android.net.ConnectivityManager.BLOCKED_REASON_NONE;\n...\n\nThis is block presubmit for changes on mainline-prod because the test suite can\u0027t be built, e.g. ag/14190126. Could you take a look or revert this change for now?",
+      "revId": "b84176e9f9ff93ba6340190d4f8bbc50a34bc990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
