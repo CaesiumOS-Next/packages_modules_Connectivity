@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d79040f5_929ff933",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-15T14:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49256723_25209cfd",
+      "range": {
+        "startLine": 403,
+        "startChar": 8,
+        "endLine": 403,
+        "endChar": 42
+      },
+      "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73fd26e7_7793e98c",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-04-15T12:30:23Z",
       "side": 1,
       "message": "Any reason you created a new TestUtils class instead of reusing an existing class such as CtsNetUtils? Seems better to put it there...",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d4a04ef_5ae40e8b",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-15T14:29:24Z",
+      "side": 1,
+      "message": "It requires ConstantsShim that compiles with different sdk. CtsNetUtils build only against specific one. It may not work to put it there.",
+      "parentUuid": "73fd26e7_7793e98c",
       "range": {
         "startLine": 27,
         "startChar": 13,
