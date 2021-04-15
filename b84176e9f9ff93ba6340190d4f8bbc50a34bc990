@@ -33,6 +33,23 @@
       "message": "test_suites_x86_64 is broken on git_mainline-prod after this change, and the build error is:\n\npackages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java:31: error: cannot find symbol\nimport static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;\n^\n  symbol:   static BLOCKED_REASON_LOCKDOWN_VPN\n  location: class ConnectivityManager\npackages/modules/Connectivity/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java:32: error: cannot find symbol\nimport static android.net.ConnectivityManager.BLOCKED_REASON_NONE;\n...\n\nThis is block presubmit for changes on mainline-prod because the test suite can\u0027t be built, e.g. ag/14190126. Could you take a look or revert this change for now?",
       "revId": "b84176e9f9ff93ba6340190d4f8bbc50a34bc990",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08f3cf30_811fe75c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T02:01:38Z",
+      "side": 1,
+      "message": "\u003e Fixes uploaded at . Hopefully TH will bless them and autosubmit them, at which point they\u0027ll automerge to mainline-prod and unbreak the build.\n\n... at https://android-review.googlesource.com/q/topic:connectivitymanager-blockedreason-shim .\n\n",
+      "revId": "b84176e9f9ff93ba6340190d4f8bbc50a34bc990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
