@@ -22,6 +22,30 @@
       },
       "revId": "58024ac38084e9f06ce4c0bc9908906cff400cbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e207c99_8dba9566",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-15T12:42:03Z",
+      "side": 1,
+      "message": "My previous thought was keep the possiblity here that previous caller could take a extra predicate to verify. But it\u0027s true it\u0027s not current needed. We could add it later if the use cases come out.\n\nRemove it to just check the callback type.",
+      "parentUuid": "797a4b2f_1991dd55",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 14
+      },
+      "revId": "58024ac38084e9f06ce4c0bc9908906cff400cbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
