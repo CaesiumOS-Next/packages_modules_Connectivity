@@ -16,6 +16,397 @@
       "message": "Over to Lorenzo for OWNERS\n",
       "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1efbe2c_91879138",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "A timeout of 200ms is almost never useful, because it\u0027s too short to fire reliably on test infra (and thus makes the test flaky) and it\u0027s usually too long to use it often without making the test too slow.\n\nThat said - this looks unused? If so, just remove it.",
+      "range": {
+        "startLine": 198,
+        "startChar": 29,
+        "endLine": 198,
+        "endChar": 45
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cbcba70_784e1f71",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "In a recent CL Junyu convinced me that you don\u0027t need to adopt the shell permissions to unregister a callback, even if the callback was filed with the shell permissions.",
+      "range": {
+        "startLine": 868,
+        "startChar": 0,
+        "endLine": 869,
+        "endChar": 92
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89ba33f8_25439264",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1627,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "Why not just do:\n\n    cb.expectCallback(CallbackEntry.AVAILABLE, ...);\n\n? You might want to use eventuallyExpect to \"skip\" callbacks without failing the test, but that can be a double-edged sword since it will miss cases where the code sends incorrect callbacks. Also, generally nothing happens before onAvailable.",
+      "range": {
+        "startLine": 1623,
+        "startChar": 0,
+        "endLine": 1627,
+        "endChar": 5
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00d13f9_4246215b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1840,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "ConnectivityManagerTest must pass on devices that don\u0027t have wifi. Does this test really require wifi? If so, then you\u0027ll have to arrange to skip it on devices that don\u0027t have wifi, such as:\n\n    assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));\n\nBonus points for cleaning up all occurrences of code like this:\n\n        if (!mPackageManager.hasSystemFeature(FEATURE_WIFI)) {\n            Log.i(TAG, \"testSocketKeepaliveLimitWifi cannot execute unless device\"\n                    + \" supports WiFi\");\n            return;\n        }\n\nand replacing them with assumeTrue().",
+      "range": {
+        "startLine": 1840,
+        "startChar": 21,
+        "endLine": 1840,
+        "endChar": 40
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "979def67_5567128a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1841,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "Get the SSID from NetworkCapabilities instead, because WifiManager#getConnectionInfo will not work well if multiple wifi networks are connected at the same time.",
+      "range": {
+        "startLine": 1841,
+        "startChar": 40,
+        "endLine": 1841,
+        "endChar": 82
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "631d4c8f_e58801ad",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1842,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "Why not get the metered bit from the NetworkCapabilities instead?",
+      "range": {
+        "startLine": 1842,
+        "startChar": 39,
+        "endLine": 1842,
+        "endChar": 59
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f676d69_f0086427",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1844,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "You don\u0027t need this, just get the Network from the return value of ensureWifiConnected.",
+      "range": {
+        "startLine": 1843,
+        "startChar": 8,
+        "endLine": 1844,
+        "endChar": 49
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4949f980_5b37ba3c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1874,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "It looks like a test network is becoming the default network for some application.\n\nHow does this work? I thought it was disallowed, because otherwise an app could capture network traffic.\n\nThe comments on NetworkCapabilities.TEST_NETWORKS_ALLOWED_CAPABILITIES say that test networks should never have any capabilities that are generally useful to the system, and those capabilities do not contain INTERNET.",
+      "range": {
+        "startLine": 1874,
+        "startChar": 12,
+        "endLine": 1874,
+        "endChar": 54
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec8cebc_c1e167b6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "Why compare the capabilities? The test knows the netId of the test network it created, doesn\u0027t it? It can just compare Network objects or netIds.",
+      "range": {
+        "startLine": 1884,
+        "startChar": 0,
+        "endLine": 1885,
+        "endChar": 62
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "600bd0b6_452821a7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1891,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "This try clause is very long. Is it possible to factor it out to a helper method, such that it just becomes:\n\n    try {\n        // only a few lines\n        testHelperMethod();\n    } finally {\n        // only a few lines\n    }",
+      "range": {
+        "startLine": 1891,
+        "startChar": 8,
+        "endLine": 1891,
+        "endChar": 9
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc33b8ca_d8818b1f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "If you get this from the capabilities, maybe this can\u0027t happen?",
+      "range": {
+        "startLine": 1900,
+        "startChar": 13,
+        "endLine": 1900,
+        "endChar": 76
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "331222a8_ff14c0f6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1904,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "Ditto, you don\u0027t need to adopt shell permissions to unregister callbacks that were registered with permissions.",
+      "range": {
+        "startLine": 1904,
+        "startChar": 12,
+        "endLine": 1904,
+        "endChar": 42
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a91203a_e4b142a2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1916,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "Since this test exercises S API, @IgnoreUpTo is not sufficient, you need to use shouldTestSApis().",
+      "range": {
+        "startLine": 1916,
+        "startChar": 4,
+        "endLine": 1916,
+        "endChar": 38
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41406adc_2d007a44",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1925,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1924,
+        "startChar": 8,
+        "endLine": 1925,
+        "endChar": 49
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b5068ae_93963f8a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1937,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "I think this will not compile in mainline-prod and TH will reject this CL until it does. You\u0027ll need to use mCmShim.registerSystemDefaultNetworkCallback.",
+      "range": {
+        "startLine": 1937,
+        "startChar": 20,
+        "endLine": 1937,
+        "endChar": 60
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18a30151_16bdd3f6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1941,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "Ditto, these try and catch clauses are quite long. Could they be refactored?",
+      "range": {
+        "startLine": 1941,
+        "startChar": 8,
+        "endLine": 1941,
+        "endChar": 9
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f544200d_750716d4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T15:20:17Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1956,
+        "startChar": 12,
+        "endLine": 1956,
+        "endChar": 42
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
