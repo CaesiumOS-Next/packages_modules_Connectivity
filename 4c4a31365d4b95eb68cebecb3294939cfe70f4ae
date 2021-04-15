@@ -110,6 +110,30 @@
       },
       "revId": "4c4a31365d4b95eb68cebecb3294939cfe70f4ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcf50b67_2e1ff31d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfMap.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-15T12:38:46Z",
+      "side": 1,
+      "message": "Based on your advice, here is a new approach. Please help me to review. Thank you.\n\nSteps:\n1. Use foreach (iteration) to find and record deleting rules in a temp map\n2. iterate the temp map to delete entry from bpf map\n\nSrc:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1579873/8..10/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java#694\n\nThanks for your advice.",
+      "parentUuid": "e211f280_6f4ecb55",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 70
+      },
+      "revId": "4c4a31365d4b95eb68cebecb3294939cfe70f4ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

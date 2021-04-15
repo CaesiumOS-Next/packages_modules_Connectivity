@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b2fd15_2b59efbb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-15T12:38:46Z",
+      "side": 1,
+      "message": "TODO: probably key only.",
+      "range": {
+        "startLine": 704,
+        "startChar": 36,
+        "endLine": 704,
+        "endChar": 39
+      },
+      "revId": "74136377da0c80ae03c25bb7270377ba86b28d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
