@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25583709_ce56f9c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-15T09:26:06Z",
+      "side": 1,
+      "message": "TH blocked by the absence of aosp/1676427 on mainline-prod, let\u0027s wait for the automerger.",
+      "revId": "3a7d92513fa4fce0c9ecaba53f3e6ae8f8662782",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
