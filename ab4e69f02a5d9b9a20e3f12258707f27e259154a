@@ -16,6 +16,24 @@
       "message": "Thanks for coming out this CL. This looks good to me except for missing ipServer part:\nFor \"localOnly\" NCM tethering (used for mirrorlink), dhcp subnet(\"x\" of 192.168.x.y) will change if dhcp server received dhcp decline[1]. We should avoid this feature when ncm tethering is configure as global mode.\n\ne.g.\n    class BaseServingState extends State {\n-        @Override\n-        public void enter() {\n+        public void enter(boolean isGlobalMode) {\n            startConntrackMonitoring();\n\n            if (!startIPv4(isGlobalMode)) {\n                mLastError \u003d TetheringManager.TETHER_ERROR_IFACE_CFG_ERROR;\n                return;\n            }\n\n            try {\n                NetdUtils.tetherInterface(mNetd, mIfaceName, asIpPrefix(mIpv4Address));\n            } catch (RemoteException | ServiceSpecificException | IllegalStateException e) {\n                mLog.e(\"Error Tethering\", e);\n                mLastError \u003d TetheringManager.TETHER_ERROR_TETHER_IFACE_ERROR;\n                return;\n            }\n...\n   class LocalHotspotState extends BaseServingState {\n        @Override\n        public void enter() {\n-            super.enter();\n+            super.enter(false /** isGlobalMode */);\n            if (mLastError !\u003d TetheringManager.TETHER_ERROR_NO_ERROR) {\n                transitionTo(mInitialState);\n            }\n...\n    class TetheredState extends BaseServingState {\n        @Override\n        public void enter() {\n            super.enter();\n+            super.enter(true /** isGlobalMode */);\n            if (mLastError !\u003d TetheringManager.TETHER_ERROR_NO_ERROR) {\n                transitionTo(mInitialState);\n            }\n...\n    private boolean startIPv4(boolean isGlobalMode) {\n    private boolean configureIPv4(boolean enabled, boolean isGlobalMode) {\n    private boolean configureDhcp(boolean enable, final LinkAddress serverAddr,\n            final LinkAddress clientAddr, boolean isGlobalMode) {\n\n    private DhcpServingParamsParcel makeServingParams(@NonNull final Inet4Address defaultRouter,\n            @NonNull final Inet4Address dnsServer, @NonNull LinkAddress serverAddr,\n            @Nullable Inet4Address clientAddr, boolean isGlobalMode) {\n        final boolean changePrefixOnDecline \u003d\n-                (mInterfaceType \u003d\u003d TetheringManager.TETHERING_NCM \u0026\u0026 clientAddr \u003d\u003d null);\n+                (isGlobalMode \u0026\u0026 mInterfaceType \u003d\u003d TetheringManager.TETHERING_NCM \u0026\u0026 clientAddr \u003d\u003d null);\n\n\n[1] https://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/android/net/ip/IpServer.java;l\u003d527?q\u003dipserver.java\u0026sq\u003dpackage:aosp-master",
       "revId": "ab4e69f02a5d9b9a20e3f12258707f27e259154a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbb5a77d_201118c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-15T11:49:06Z",
+      "side": 1,
+      "message": "After offline discss, probably leave the it as is.\n1. We can use getCurrentState() to know current state, but that\u0027s frowned upon because using it in enter method.\n2. NCM only supports one client anyway, so just leave it as is make thing clear that on NCM, if we get a decline, we\u0027ll change the prefix",
+      "parentUuid": "91ff1b95_d064422c",
+      "revId": "ab4e69f02a5d9b9a20e3f12258707f27e259154a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
