@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ada714e_c03d157e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-15T06:39:59Z",
+      "side": 1,
+      "message": "Nit: Add a comment says it refers to ConnectivityManager.TUN_INTF_NETID_START? maybe clearer for these magic numbers?\n\nDitto for upper(ConnectivityManager.TUN_INTF_NETID_START+ConnectivityManager.TUN_INTF_NETID_RANGE-1)",
+      "range": {
+        "startLine": 1918,
+        "startChar": 26,
+        "endLine": 1918,
+        "endChar": 32
+      },
+      "revId": "15a625e97017ace003a06566a873c0249fbb29e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
