@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cf0b0c4_6148d8d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T12:30:23Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49256723_25209cfd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T12:30:23Z",
+      "side": 1,
+      "message": "This line makes all of the code in testBuildRequestFromExistingRequestWithBuilder a no-op. In practice, the whole test will look like it passes, but it actually doesn\u0027t check anything. This is not obvious and may confuse people.\n\nInstead I would suggest: remove this if; remove the @IgnoreUpTo(Build.VERSION_CODES.R) in the test; and do:\n\n    @Test\n    public void testBuildRequestFromExistingRequestWithBuilder() {\n        assumeTrue(TestUtils.shouldTestSApis());",
+      "range": {
+        "startLine": 403,
+        "startChar": 8,
+        "endLine": 403,
+        "endChar": 42
+      },
+      "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73fd26e7_7793e98c",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T12:30:23Z",
+      "side": 1,
+      "message": "Any reason you created a new TestUtils class instead of reusing an existing class such as CtsNetUtils? Seems better to put it there...",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

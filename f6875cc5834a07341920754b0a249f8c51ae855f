@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96f68fc0_eb96ef80",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1905,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-15T12:30:23Z",
+      "side": 0,
+      "message": "Since you uploaded this CL I think I added some more usages of shouldTestSApis in this file (e.g., testBlockedStatusCallback). I think you\u0027ll have to sync and change those new usages as well before you can delete the method.",
+      "range": {
+        "startLine": 1905,
+        "startChar": 4,
+        "endLine": 1905,
+        "endChar": 39
+      },
+      "revId": "f6875cc5834a07341920754b0a249f8c51ae855f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
