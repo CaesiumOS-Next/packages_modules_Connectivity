@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e5fd47_69a70150",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-16T13:30:25Z",
+      "side": 1,
+      "message": "Not sure that testServicesRegistered provides any value since other CTS tests (ConnectivityManagerTest, ConnectivityDiagnosticsManagerTest, ...) already cover getting those services. But I suppose more testing doesn\u0027t hurt.",
+      "revId": "944d87d1791a210c73ef261370a37a835b06272f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6ae268d_3caa762b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityFrameworkInitializerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-16T13:30:25Z",
+      "side": 1,
+      "message": "Surprised this isn\u0027t SecurityException::class.",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "944d87d1791a210c73ef261370a37a835b06272f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
