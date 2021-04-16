@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d10b26a5_123b6032",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1923,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-04-16T17:04:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ac6744c_cb7b74af",
+      "range": {
+        "startLine": 1923,
+        "startChar": 8,
+        "endLine": 1923,
+        "endChar": 47
+      },
+      "revId": "e0c59ac2698d23172a69b7e2dcf7c5a3af0375a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "baa2ecae_6ee5a1b0",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c0881bd_de506c82",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1924,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-04-16T17:04:46Z",
+      "side": 1,
+      "message": "Well, assertEquals only supports long but I can cast it.\nUpdated.",
+      "parentUuid": "baa2ecae_6ee5a1b0",
+      "range": {
+        "startLine": 1924,
+        "startChar": 8,
+        "endLine": 1924,
+        "endChar": 27
+      },
+      "revId": "e0c59ac2698d23172a69b7e2dcf7c5a3af0375a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06aceece_2994139b",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-04-16T14:11:43Z",
       "side": 1,
       "message": "You don\u0027t need this, it\u0027s tested in RangeTest.",
+      "range": {
+        "startLine": 1926,
+        "startChar": 0,
+        "endLine": 1928,
+        "endChar": 84
+      },
+      "revId": "e0c59ac2698d23172a69b7e2dcf7c5a3af0375a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b1187e8_70dcdf0b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-04-16T17:04:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06aceece_2994139b",
       "range": {
         "startLine": 1926,
         "startChar": 0,
