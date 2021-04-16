@@ -18,6 +18,7 @@ package android.net.cts.util;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.net.ConnectivityManager.PRIVATE_DNS_MODE_NONE;
 import static android.net.ConnectivityManager.PRIVATE_DNS_MODE_OPPORTUNISTIC;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
@@ -103,7 +104,7 @@ public final class CtsNetUtils {
     private final ContentResolver mCR;
     private final WifiManager mWifiManager;
     private TestNetworkCallback mCellNetworkCallback;
-    private String mOldPrivateDnsMode;
+    private int mOldPrivateDnsMode;
     private String mOldPrivateDnsSpecifier;
 
     public CtsNetUtils(Context context) {
@@ -509,22 +510,22 @@ public final class CtsNetUtils {
 
     public void storePrivateDnsSetting() {
         // Store private DNS setting
-        mOldPrivateDnsMode = Settings.Global.getString(mCR, Settings.Global.PRIVATE_DNS_MODE);
+        mOldPrivateDnsMode = ConnectivityManager.getPrivateDnsMode(mContext);
         mOldPrivateDnsSpecifier = Settings.Global.getString(mCR,
                 Settings.Global.PRIVATE_DNS_SPECIFIER);
         // It's possible that there is no private DNS default value in Settings.
         // Give it a proper default mode which is opportunistic mode.
-        if (mOldPrivateDnsMode == null) {
+        if (mOldPrivateDnsMode == PRIVATE_DNS_MODE_NONE) {
             mOldPrivateDnsSpecifier = "";
             mOldPrivateDnsMode = PRIVATE_DNS_MODE_OPPORTUNISTIC;
             Settings.Global.putString(mCR,
                     Settings.Global.PRIVATE_DNS_SPECIFIER, mOldPrivateDnsSpecifier);
-            Settings.Global.putString(mCR, Settings.Global.PRIVATE_DNS_MODE, mOldPrivateDnsMode);
+            ConnectivityManager.setPrivateDnsMode(mContext, mOldPrivateDnsMode);
         }
     }
 
     public void restorePrivateDnsSetting() throws InterruptedException {
-        if (mOldPrivateDnsMode == null || mOldPrivateDnsSpecifier == null) {
+        if (mOldPrivateDnsMode == PRIVATE_DNS_MODE_NONE || mOldPrivateDnsSpecifier == null) {
             return;
         }
         // restore private DNS setting
@@ -534,7 +535,7 @@ public final class CtsNetUtils {
                     mCm.getActiveNetwork(),
                     mOldPrivateDnsSpecifier, true);
         } else {
-            Settings.Global.putString(mCR, Settings.Global.PRIVATE_DNS_MODE, mOldPrivateDnsMode);
+            ConnectivityManager.setPrivateDnsMode(mContext, mOldPrivateDnsMode);
         }
     }
 
