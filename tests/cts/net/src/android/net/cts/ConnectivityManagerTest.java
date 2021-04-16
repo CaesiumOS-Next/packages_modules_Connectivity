@@ -1912,4 +1912,22 @@ public class ConnectivityManagerTest {
         assertNull(NetworkInformationShimImpl.newInstance()
                 .getCapabilityCarrierName(ConstantsShim.NET_CAPABILITY_NOT_VCN_MANAGED));
     }
+
+    @Test
+    public void testSystemReady() {
+        assumeTrue(shouldTestSApis());
+        assertThrows(SecurityException.class, () -> mCm.systemReady());
+    }
+
+    @Test
+    public void testGetIpSecNetIdRange() {
+        assumeTrue(shouldTestSApis());
+        // The lower refers to ConnectivityManager.TUN_INTF_NETID_START.
+        final long lower = 64512;
+        // The upper refers to ConnectivityManager.TUN_INTF_NETID_START
+        // + ConnectivityManager.TUN_INTF_NETID_RANGE - 1
+        final long upper = 65535;
+        assertEquals(lower, (long) ConnectivityManager.getIpSecNetIdRange().getLower());
+        assertEquals(upper, (long) ConnectivityManager.getIpSecNetIdRange().getUpper());
+    }
 }
