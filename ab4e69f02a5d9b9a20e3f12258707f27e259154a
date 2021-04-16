@@ -34,6 +34,75 @@
       "parentUuid": "91ff1b95_d064422c",
       "revId": "ab4e69f02a5d9b9a20e3f12258707f27e259154a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a7f7fc_62ef3a6c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-16T06:59:20Z",
+      "side": 1,
+      "message": "Unused out of the builder – private/package private ?",
+      "range": {
+        "startLine": 741,
+        "startChar": 8,
+        "endLine": 741,
+        "endChar": 14
+      },
+      "revId": "ab4e69f02a5d9b9a20e3f12258707f27e259154a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27be41d4_a2b33358",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-16T06:59:20Z",
+      "side": 1,
+      "message": "Not consistent – this is going to return a scope instead of IpServer.STATE_.\nYou probably wanted something like\n\n  final int scope;\n  if (request !\u003d null) {\n    scope \u003d request.connectivityScope;\n  } else {\n    // comments\n    scope \u003d getDefault(type)\n  }\n  return ...",
+      "range": {
+        "startLine": 851,
+        "startChar": 12,
+        "endLine": 851,
+        "endChar": 18
+      },
+      "revId": "ab4e69f02a5d9b9a20e3f12258707f27e259154a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bcfe4ac_814d27ee",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-16T06:59:20Z",
+      "side": 1,
+      "message": "When timeout, this will be null, and ByteBuffer.wrap() will throw with NPE. I guess that\u0027s going to fail the test all the same :)",
+      "range": {
+        "startLine": 261,
+        "startChar": 19,
+        "endLine": 261,
+        "endChar": 22
+      },
+      "revId": "ab4e69f02a5d9b9a20e3f12258707f27e259154a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

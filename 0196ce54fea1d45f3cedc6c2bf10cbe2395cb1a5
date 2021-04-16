@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ce6d683_11b6a39c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-16T06:59:20Z",
+      "side": 1,
+      "message": "Yes, I like this.",
+      "parentUuid": "1add1156_b9ef6183",
+      "range": {
+        "startLine": 564,
+        "startChar": 53,
+        "endLine": 564,
+        "endChar": 62
+      },
+      "revId": "0196ce54fea1d45f3cedc6c2bf10cbe2395cb1a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecfb9172_f9367a8f",
