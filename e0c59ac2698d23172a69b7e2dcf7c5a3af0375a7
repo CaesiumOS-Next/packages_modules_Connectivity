@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14ae2bd_7c4ae815",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-04-16T03:21:09Z",
+      "side": 1,
+      "message": "It seems like the target - test_suites_x86_64 wasn\u0027t built so some of tests couldn\u0027t run, keep THing...",
+      "revId": "e0c59ac2698d23172a69b7e2dcf7c5a3af0375a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
