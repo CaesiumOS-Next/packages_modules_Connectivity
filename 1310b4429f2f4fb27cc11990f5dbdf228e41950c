@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42bfc328_7738d466",
+        "filename": "tests/cts/net/src/android/net/cts/ProxyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-16T09:19:41Z",
+      "side": 1,
+      "message": "This looks wrongly indented ; did you skip preuploads ?",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 12
+      },
+      "revId": "1310b4429f2f4fb27cc11990f5dbdf228e41950c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f49c6f2_e5fa8297",
+        "filename": "tests/cts/net/src/android/net/cts/ProxyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-04-16T09:19:41Z",
+      "side": 1,
+      "message": "Should you not get them first, in case they are set to something else ?",
+      "range": {
+        "startLine": 72,
+        "startChar": 44,
+        "endLine": 72,
+        "endChar": 48
+      },
+      "revId": "1310b4429f2f4fb27cc11990f5dbdf228e41950c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
