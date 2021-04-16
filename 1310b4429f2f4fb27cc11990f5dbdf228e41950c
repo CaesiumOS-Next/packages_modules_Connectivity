@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aad49dd_517bc69e",
+        "filename": "tests/cts/net/src/android/net/cts/ProxyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-16T10:05:41Z",
+      "side": 1,
+      "message": "No this passes ktlint too; added 2 tabs still.",
+      "parentUuid": "42bfc328_7738d466",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 12
+      },
+      "revId": "1310b4429f2f4fb27cc11990f5dbdf228e41950c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f49c6f2_e5fa8297",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-16T09:19:41Z",
       "side": 1,
       "message": "Should you not get them first, in case they are set to something else ?",
+      "range": {
+        "startLine": 72,
+        "startChar": 44,
+        "endLine": 72,
+        "endChar": 48
+      },
+      "revId": "1310b4429f2f4fb27cc11990f5dbdf228e41950c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d96ee9e2_197c7bee",
+        "filename": "tests/cts/net/src/android/net/cts/ProxyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-16T10:05:41Z",
+      "side": 1,
+      "message": "Good point; I think we may be able to test that there\u0027s no proxy set by default too, but restored the configuration as per getDefaultProxy to be more conservative.",
+      "parentUuid": "4f49c6f2_e5fa8297",
       "range": {
         "startLine": 72,
         "startChar": 44,
