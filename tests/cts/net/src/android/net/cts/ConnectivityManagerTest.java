@@ -1911,4 +1911,22 @@ public class ConnectivityManagerTest {
     private boolean shouldTestSApis() {
         return SdkLevel.isAtLeastS() && ConstantsShim.VERSION > Build.VERSION_CODES.R;
     }
+
+    @Test
+    public void testSystemReady() {
+        assumeTrue(shouldTestSApis());
+        assertThrows(SecurityException.class, () -> mCm.systemReady());
+    }
+
+    @Test
+    public void testGetIpSecNetIdRange() {
+        assumeTrue(shouldTestSApis());
+        // The lower refers to ConnectivityManager.TUN_INTF_NETID_START.
+        final long lower = 64512;
+        // The upper refers to ConnectivityManager.TUN_INTF_NETID_START
+        // + ConnectivityManager.TUN_INTF_NETID_RANGE - 1
+        final long upper = 65535;
+        assertEquals(lower, (long) ConnectivityManager.getIpSecNetIdRange().getLower());
+        assertEquals(upper, (long) ConnectivityManager.getIpSecNetIdRange().getUpper());
+    }
 }
