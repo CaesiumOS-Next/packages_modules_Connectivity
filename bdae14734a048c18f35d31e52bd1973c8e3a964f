@@ -206,6 +206,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d1af673_61151b74",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1840,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-04-19T21:15:27Z",
+      "side": 1,
+      "message": "I\u0027ll go ahead and resolve this for now and go ahead and reopen if you\u0027d like me to add this check to testGetMultipathPreference() as well.",
+      "parentUuid": "33c87196_d42e5245",
+      "range": {
+        "startLine": 1840,
+        "startChar": 21,
+        "endLine": 1840,
+        "endChar": 40
+      },
+      "revId": "bdae14734a048c18f35d31e52bd1973c8e3a964f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "979def67_5567128a",
