@@ -39,6 +39,30 @@
       },
       "revId": "944d87d1791a210c73ef261370a37a835b06272f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be20986f_56595582",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityFrameworkInitializerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-19T01:29:20Z",
+      "side": 1,
+      "message": "Registering a service just adds an entry in the SystemServiceRegistry for the current process, so it\u0027s not really security sensitive (worst thing that can happen is the process messing up its own registered services). That\u0027s why SecurityException isn\u0027t thrown I think.",
+      "parentUuid": "e6ae268d_3caa762b",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "944d87d1791a210c73ef261370a37a835b06272f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
