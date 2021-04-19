@@ -39,6 +39,30 @@
       },
       "revId": "5159352d98803ddbd8e06d97bf45a93ccccb0728",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa33bbd_d5ecaaef",
+        "filename": "tests/cts/net/src/android/net/cts/ProxyTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-19T05:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f439445a_8ebbe092",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "5159352d98803ddbd8e06d97bf45a93ccccb0728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
