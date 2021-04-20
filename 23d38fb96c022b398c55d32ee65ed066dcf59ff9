@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2328fe79_96f348b5",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-20T09:01:09Z",
+      "side": 1,
+      "message": "is it any possible to become an infinite loop if the target message has never found?",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 19
+      },
+      "revId": "23d38fb96c022b398c55d32ee65ed066dcf59ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc77f6d_9f761b0c",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-20T09:01:09Z",
+      "side": 1,
+      "message": "IPCTNL_MSG_CT_DELETE messages may have tuples and the original code (L.118) checks nlmsg_type (IPCTNL_MSG_CT_NEW) as well.\n\nFor current test \"testIpv4ConntrackSocket\", it may always find IPCTNL_MSG_CT_NEW because the conntrack dump checking (L.136) before closing the sockets at L.142-145. The test will find the following event what it expected:\n\n04-20 15:02:12.690 10425 10451 D ConntrackSocketTest: Got netlink message: ConntrackMessage{nlmsghdr{StructNlMsgHdr{ nlmsg_len{244}, nlmsg_type{256(IPCTNL_MSG_CT_NEW)}, nlmsg_flags{2(NLM_F_MULTI))}, nlmsg_seq{0}, nlmsg_pid{10425} }}, nfgenmsg{NfGenMsg{ nfgen_family{AF_INET}, version{0}, res_id{0} }}, tuple_orig{Tuple{IPPROTO_TCP: 127.0.0.1:38680 -\u003e 127.0.0.1:38637}}, tuple_reply{Tuple{IPPROTO_TCP: 127.0.0.1:38637 -\u003e 127.0.0.1:38680}}, status{398(IPS_SEEN_REPLY|IPS_ASSURED|IPS_CONFIRMED|IPS_SRC_NAT_DONE|IPS_DST_NAT_DONE)}, timeout_sec{431999}}\n\n - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \nBut the test will also pass with IPCTNL_MSG_CT_DELETE event in the following case. This may be different from original test which expects IPCTNL_MSG_CT_NEW at L.118.\n\nSrc (close socket before L.133):\n+ socket.close();\n+ serverSocket.close();\n+ acceptedSocket.close();\n+ Thread.sleep(121000); // wait for nf_conntrack_tcp_timeout_fin_wait (120s) expired\nmOffloadHw.requestSocketDump(handle);\n\nLog:\n04-20 16:08:33.568 15984 16009 D ConntrackSocketTest: Got netlink message: ConntrackMessage{nlmsghdr{StructNlMsgHdr{ nlmsg_len{140}, nlmsg_type{258(IPCTNL_MSG_CT_DELETE)}, nlmsg_flags{0())}, nlmsg_seq{0}, nlmsg_pid{0} }}, nfgenmsg{NfGenMsg{ nfgen_family{AF_INET}, version{0}, res_id{0} }}, tuple_orig{Tuple{IPPROTO_TCP: 127.0.0.1:37226 -\u003e 127.0.0.1:37643}}, tuple_reply{Tuple{IPPROTO_TCP: 127.0.0.1:37643 -\u003e 127.0.0.1:37226}}, status{910(IPS_SEEN_REPLY|IPS_ASSURED|IPS_CONFIRMED|IPS_SRC_NAT_DONE|IPS_DST_NAT_DONE|IPS_DYING)}, timeout_sec{0}}\n\nResult (passed but not expected):\n[1/1] com.android.networkstack.tethering.ConntrackSocketTest#testIpv4ConntrackSocket: PASSED (02m1.103s)\n\n - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+      "range": {
+        "startLine": 102,
+        "startChar": 54,
+        "endLine": 102,
+        "endChar": 58
+      },
+      "revId": "23d38fb96c022b398c55d32ee65ed066dcf59ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb9cf9ca_b5e984a4",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/ConntrackSocketTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-04-20T09:01:09Z",
+      "side": 1,
+      "message": "lookForConnection() can\u0027t distinguish NEW and DELETE because it doesn\u0027t check the nlmsg_type. If we enable both of them, we may be interesting with what message type we really got. \n\nBut I think that deleting event may be hard to test because the default nf_conntrack_tcp_timeout_fin_wait is 120s.",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 71
+      },
+      "revId": "23d38fb96c022b398c55d32ee65ed066dcf59ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
