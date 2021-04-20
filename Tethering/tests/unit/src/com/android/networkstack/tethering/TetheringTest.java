@@ -25,6 +25,7 @@ import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
 import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_DISABLED;
 import static android.net.ConnectivityManager.RESTRICT_BACKGROUND_STATUS_ENABLED;
+import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
 import static android.net.ConnectivityManager.TYPE_NONE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
@@ -199,6 +200,7 @@ public class TetheringTest {
     private static final int IFINDEX_OFFSET = 100;
 
     private static final String TEST_MOBILE_IFNAME = "test_rmnet_data0";
+    private static final String TEST_DUN_IFNAME = "test_dun0";
     private static final String TEST_XLAT_MOBILE_IFNAME = "v4-test_rmnet_data0";
     private static final String TEST_USB_IFNAME = "test_rndis0";
     private static final String TEST_WIFI_IFNAME = "test_wlan0";
@@ -336,12 +338,13 @@ public class TetheringTest {
                             || ifName.equals(TEST_WLAN_IFNAME)
                             || ifName.equals(TEST_WIFI_IFNAME)
                             || ifName.equals(TEST_MOBILE_IFNAME)
+                            || ifName.equals(TEST_DUN_IFNAME)
                             || ifName.equals(TEST_P2P_IFNAME)
                             || ifName.equals(TEST_NCM_IFNAME)
                             || ifName.equals(TEST_ETH_IFNAME));
             final String[] ifaces = new String[] {
                     TEST_USB_IFNAME, TEST_WLAN_IFNAME, TEST_WIFI_IFNAME, TEST_MOBILE_IFNAME,
-                    TEST_P2P_IFNAME, TEST_NCM_IFNAME, TEST_ETH_IFNAME};
+                    TEST_DUN_IFNAME, TEST_P2P_IFNAME, TEST_NCM_IFNAME, TEST_ETH_IFNAME};
             return new InterfaceParams(ifName, ArrayUtils.indexOf(ifaces, ifName) + IFINDEX_OFFSET,
                     MacAddress.ALL_ZEROS_ADDRESS);
         }
@@ -582,7 +585,7 @@ public class TetheringTest {
 
     private static UpstreamNetworkState buildDunUpstreamState() {
         return new UpstreamNetworkState(
-                buildUpstreamLinkProperties(TEST_MOBILE_IFNAME, true /* IPv4 */, true /* IPv6 */,
+                buildUpstreamLinkProperties(TEST_DUN_IFNAME, true /* IPv4 */, true /* IPv6 */,
                         false /* 464xlat */),
                 buildUpstreamCapabilities(TRANSPORT_CELLULAR, NET_CAPABILITY_DUN),
                 new Network(DUN_NETID));
@@ -1189,6 +1192,70 @@ public class TetheringTest {
         mobile.fakeDisconnect();
         mobile.sendLinkProperties();
         mLooper.dispatchAll();
+    }
+
+    @Test
+    public void testChooseDunUpstream() throws Exception {
+        // Enable automatic upstream selection.
+        when(mResources.getBoolean(R.bool.config_tether_upstream_automatic)).thenReturn(true);
+        when(mTelephonyManager.isTetheringApnRequired()).thenReturn(true);
+        sendConfigurationChanged();
+        mLooper.dispatchAll();
+
+        InOrder inOrder = inOrder(mCm, mUpstreamNetworkMonitor);
+
+        // Start USB tethering with no current upstream.
+        prepareUsbTethering();
+        sendUsbBroadcast(true, true, true, TETHERING_USB);
+        inOrder.verify(mUpstreamNetworkMonitor).startObserveAllNetworks();
+        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(true);
+        ArgumentCaptor<NetworkCallback> captor = ArgumentCaptor.forClass(NetworkCallback.class);
+        inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
+                captor.capture());
+        final NetworkCallback dunNetworkCallback1 = captor.getValue();
+
+        // Pretend cellular connected and expect the upstream to be set.
+        TestNetworkAgent mobile = new TestNetworkAgent(mCm, buildMobileDualStackUpstreamState());
+        mobile.fakeConnect();
+        mCm.makeDefaultNetwork(mobile, BROADCAST_FIRST);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(mobile.networkId);
+
+        final Runnable doDispatchAll = () -> mLooper.dispatchAll();
+        TestNetworkAgent dun = new TestNetworkAgent(mCm, buildDunUpstreamState());
+        dun.fakeConnect(BROADCAST_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
+
+        TestNetworkAgent wifi = new TestNetworkAgent(mCm, buildWifiUpstreamState());
+        wifi.fakeConnect();
+        mCm.makeDefaultNetwork(wifi, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setTryCell(false);
+        inOrder.verify(mCm).unregisterNetworkCallback(eq(dunNetworkCallback1));
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(wifi.networkId);
+        dun.fakeDisconnect(BROADCAST_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor, never()).setCurrentUpstream(any());
+
+        mCm.makeDefaultNetwork(mobile, CALLBACKS_FIRST);
+        mLooper.dispatchAll();
+        inOrder.verify(mCm).requestNetwork(any(), eq(0), eq(TYPE_MOBILE_DUN), any(),
+                captor.capture());
+        final NetworkCallback dunNetworkCallback2 = captor.getValue();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);
+        dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
+
+        dun.fakeDisconnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(null);
+        inOrder.verify(mCm, never()).unregisterNetworkCallback(any(NetworkCallback.class));
+
+        dun.fakeConnect(CALLBACKS_FIRST, doDispatchAll);
+        mLooper.dispatchAll();
+        inOrder.verify(mUpstreamNetworkMonitor).setCurrentUpstream(dun.networkId);
     }
 
     private void runNcmTethering() {

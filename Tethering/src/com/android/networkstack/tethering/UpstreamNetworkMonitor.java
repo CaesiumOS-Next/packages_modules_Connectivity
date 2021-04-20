@@ -647,7 +647,8 @@ public class UpstreamNetworkMonitor {
         return prefixSet;
     }
 
-    private static boolean isCellular(UpstreamNetworkState ns) {
+    /** Check whether upstream is cellular. */
+    public static boolean isCellular(UpstreamNetworkState ns) {
         return (ns != null) && isCellular(ns.networkCapabilities);
     }
 
