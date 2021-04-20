@@ -16,6 +16,24 @@
       "message": "I am not sure if this codes are on going or not.\n\nCurrently, it seems it will withdraw DUN request which is filed at line#1564",
       "revId": "4353faac93276d9d778d9fbd16d2e214490f8c82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de3e6fb4_ee254867",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1571,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-20T10:01:54Z",
+      "side": 1,
+      "message": "Thanks for catching this :)",
+      "parentUuid": "4abf45c2_38fd02de",
+      "revId": "4353faac93276d9d778d9fbd16d2e214490f8c82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
