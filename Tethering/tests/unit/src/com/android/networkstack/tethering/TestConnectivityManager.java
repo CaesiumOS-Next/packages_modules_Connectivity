@@ -313,14 +313,26 @@ public class TestConnectivityManager extends ConnectivityManager {
             return matchesLegacyType(networkCapabilities, legacyType);
         }
 
-        public void fakeConnect() {
-            for (NetworkRequestInfo nri : cm.mRequested.values()) {
-                if (matchesLegacyType(nri.request.legacyType)) {
-                    cm.sendConnectivityAction(legacyType, true /* connected */);
+        private void maybeSendConnectivityBroadcast(int type, boolean connected) {
+            for (Integer requestedLegacyType : cm.mLegacyTypeMap.values()) {
+                if (requestedLegacyType.intValue() == legacyType) {
+                    cm.sendConnectivityAction(type, connected /* connected */);
                     // In practice, a given network can match only one legacy type.
                     break;
                 }
             }
+        }
+
+        public void fakeConnect() {
+            fakeConnect(BROADCAST_FIRST, null);
+        }
+
+        public void fakeConnect(boolean order, @Nullable Runnable inBetween) {
+            if (order == BROADCAST_FIRST) {
+                maybeSendConnectivityBroadcast(legacyType, true /* connected */);
+                if (inBetween != null) inBetween.run();
+            }
+
             for (NetworkCallback cb : cm.mListening.keySet()) {
                 final NetworkRequestInfo nri = cm.mListening.get(cb);
                 nri.handler.post(() -> cb.onAvailable(networkId));
@@ -328,18 +340,31 @@ public class TestConnectivityManager extends ConnectivityManager {
                         networkId, copy(networkCapabilities)));
                 nri.handler.post(() -> cb.onLinkPropertiesChanged(networkId, copy(linkProperties)));
             }
+
+            if (order == CALLBACKS_FIRST) {
+                if (inBetween != null) inBetween.run();
+                maybeSendConnectivityBroadcast(legacyType, true /* connected */);
+            }
             // mTrackingDefault will be updated if/when the caller calls makeDefaultNetwork
         }
 
         public void fakeDisconnect() {
-            for (NetworkRequestInfo nri : cm.mRequested.values()) {
-                if (matchesLegacyType(nri.request.legacyType)) {
-                    cm.sendConnectivityAction(legacyType, false /* connected */);
-                    break;
-                }
+            fakeDisconnect(BROADCAST_FIRST, null);
+        }
+
+        public void fakeDisconnect(boolean order, @Nullable Runnable inBetween) {
+            if (order == BROADCAST_FIRST) {
+                maybeSendConnectivityBroadcast(legacyType, false /* connected */);
+                if (inBetween != null) inBetween.run();
             }
+
             for (NetworkCallback cb : cm.mListening.keySet()) {
                 cb.onLost(networkId);
+            }
+
+            if (order == CALLBACKS_FIRST) {
+                if (inBetween != null) inBetween.run();
+                maybeSendConnectivityBroadcast(legacyType, false /* connected */);
             }
             // mTrackingDefault will be updated if/when the caller calls makeDefaultNetwork
         }
