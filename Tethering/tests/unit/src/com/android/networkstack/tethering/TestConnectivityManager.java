@@ -74,6 +74,7 @@ public class TestConnectivityManager extends ConnectivityManager {
 
     private int mNetworkId = 100;
     private TestNetworkAgent mDefaultNetwork = null;
+    private TestNetworkAgent mDunNetwork = null;
 
     /**
      * Constructs a TestConnectivityManager.
@@ -179,6 +180,12 @@ public class TestConnectivityManager extends ConnectivityManager {
 
     void makeDefaultNetwork(TestNetworkAgent agent) {
         makeDefaultNetwork(agent, BROADCAST_FIRST, null /* inBetween */);
+    }
+
+    void makeDunNetwork(TestNetworkAgent agent) {
+        if (Objects.equals(mDunNetwork, agent)) return;
+
+        mDunNetwork = agent;
     }
 
     @Override
