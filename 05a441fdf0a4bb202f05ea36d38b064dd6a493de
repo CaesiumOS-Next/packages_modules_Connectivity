@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "243e93b4_1d7002d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-04-21T03:38:50Z",
+      "side": 1,
+      "message": "Carry-forward +2 from internal branch.",
+      "revId": "05a441fdf0a4bb202f05ea36d38b064dd6a493de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
