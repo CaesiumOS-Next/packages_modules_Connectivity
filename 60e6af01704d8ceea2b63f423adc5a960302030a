@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2650350_e808a031",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-21T07:19:29Z",
+      "side": 1,
+      "message": "Tethering should track underlying network instead of VCN\u0027s network ?\n\nOr I misunderstand the meaning of NOT_VCN_MANAGED",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "60e6af01704d8ceea2b63f423adc5a960302030a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
