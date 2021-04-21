@@ -317,6 +317,7 @@ public class TetheringService extends Service {
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
                         .build();
                 return trackDefaultRequest;
             }
