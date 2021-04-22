@@ -151,6 +151,30 @@
       },
       "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5233c92_658ceb43",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-22T09:58:43Z",
+      "side": 1,
+      "message": "I will update it in a follow up.",
+      "parentUuid": "43cddfb9_64d21ee9",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
