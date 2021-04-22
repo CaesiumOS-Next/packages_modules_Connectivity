@@ -175,6 +175,30 @@
       },
       "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38756162_800e3bdf",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-22T10:22:19Z",
+      "side": 1,
+      "message": "Updated in aosp/1684726",
+      "parentUuid": "b5233c92_658ceb43",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
