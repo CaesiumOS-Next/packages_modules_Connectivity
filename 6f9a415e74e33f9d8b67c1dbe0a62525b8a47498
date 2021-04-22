@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22737d23_04354f0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-22T13:03:55Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed (looks like this change can\u0027t be merged as is because it doesn\u0027t apply cleanly).",
+      "revId": "6f9a415e74e33f9d8b67c1dbe0a62525b8a47498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "582154e5_6cb8d6f6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1910,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-22T13:03:55Z",
+      "side": 1,
+      "message": "The other tests in this file use:\n\n    assumeTrue(shouldTestSApis());\n\n, maybe be consistent?",
+      "range": {
+        "startLine": 1910,
+        "startChar": 8,
+        "endLine": 1910,
+        "endChar": 39
+      },
+      "revId": "6f9a415e74e33f9d8b67c1dbe0a62525b8a47498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
