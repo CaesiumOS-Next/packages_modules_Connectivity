@@ -45,6 +45,30 @@
       },
       "revId": "60e6af01704d8ceea2b63f423adc5a960302030a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc209d5d_f056f7a4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-22T03:09:58Z",
+      "side": 1,
+      "message": "+1, we should use that. In fact, we could change this code to always call mCmShim.registerSystemDefaultNetworkCallback, and make the API 30 shim of registerDefaultNetworkCallback create a request like this one.",
+      "parentUuid": "5635b30f_251abd8a",
+      "range": {
+        "startLine": 312,
+        "startChar": 34,
+        "endLine": 312,
+        "endChar": 58
+      },
+      "revId": "60e6af01704d8ceea2b63f423adc5a960302030a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
