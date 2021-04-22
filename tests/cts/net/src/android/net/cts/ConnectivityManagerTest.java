@@ -1068,7 +1068,11 @@ public class ConnectivityManagerTest {
         final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
 
         // Get number of supported concurrent keepalives for testing network.
-        final int[] keepalivesPerTransport = KeepaliveUtils.getSupportedKeepalives(mContext);
+        // TODO (b/186093901): fix KeepaliveUtils not to require QUERY_ALL_PACKAGES
+        // permissions for connectivity resources access
+        final int[] keepalivesPerTransport = runAsShell(
+            android.Manifest.permission.QUERY_ALL_PACKAGES,
+            () -> KeepaliveUtils.getSupportedKeepalives(mContext));
         return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
                 keepalivesPerTransport, nc);
     }
