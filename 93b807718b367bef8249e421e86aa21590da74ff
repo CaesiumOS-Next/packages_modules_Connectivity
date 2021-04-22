@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ade2aab_1e6c3bec",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-22T09:52:37Z",
+      "side": 1,
+      "message": "Nit: you could also add \"throws Exception\" to the signature of this method and of testBuildRequestFromExistingRequestWithBuilder and remove this try/catch. LGTM either way.",
+      "range": {
+        "startLine": 409,
+        "startChar": 12,
+        "endLine": 409,
+        "endChar": 16
+      },
+      "revId": "93b807718b367bef8249e421e86aa21590da74ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

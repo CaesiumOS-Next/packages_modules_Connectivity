@@ -127,6 +127,30 @@
       },
       "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43cddfb9_64d21ee9",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-22T09:52:37Z",
+      "side": 1,
+      "message": "Not for this CL since it\u0027s treehugged, but I don\u0027t understand the comment. What does \"that behave different against compiled SDK\" mean? Did you mean \"that behave differently depending on the SDK against which they are compiled\"?",
+      "parentUuid": "6d4a04ef_5ae40e8b",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "bda1a505117e9f9b36b470f1d458f64604d673bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
