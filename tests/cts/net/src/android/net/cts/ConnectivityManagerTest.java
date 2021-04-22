@@ -132,6 +132,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.ArrayUtils;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.NetworkInformationShimImpl;
@@ -1421,7 +1422,10 @@ public class ConnectivityManagerTest {
             return;
         }
 
-        final int firstSdk = Build.VERSION.DEVICE_INITIAL_SDK_INT;
+        final int firstSdk = SdkLevel.isAtLeastS()
+                ? Build.VERSION.DEVICE_INITIAL_SDK_INT
+                // DEVICE_INITIAL_SDK_INT did not exist before S (was FIRST_SDK_INT)
+                : SystemProperties.getInt("ro.product.first_api_level", 0);
         if (firstSdk < Build.VERSION_CODES.Q) {
             Log.i(TAG, "testSocketKeepaliveLimitTelephony: skip test for devices launching"
                     + " before Q: " + firstSdk);
