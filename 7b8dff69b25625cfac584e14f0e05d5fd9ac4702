@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e40a7663_aeb6e217",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-22T04:52:28Z",
+      "side": 1,
+      "message": "Per discussion: this duplicates the releaseMobileNetworkRequest call in selectPreferredUpstreamType. I think we have two options here:\n\n1. Delete that code and rely only on the code you\u0027re adding here.\n2. Only make this CL apply in automatic mode, by doing:\n\n-            } else if (!isCellular(ns)) {\n+            } else if (!isCellular(ns) \u0026\u0026 config.chooseUpstreamAutomatically) {\n+                // TODO: de-duplicate this code with the releaseMobileNetworkRequest\n+                // call in selectPreferredUpstreamType\n                 mUpstreamNetworkMonitor.setTryCell(false);\n             }\n\nand then do the delete in a follow-up.",
+      "range": {
+        "startLine": 1570,
+        "startChar": 12,
+        "endLine": 1570,
+        "endChar": 41
+      },
+      "revId": "7b8dff69b25625cfac584e14f0e05d5fd9ac4702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb21b5a1_ec26e200",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-22T04:52:28Z",
+      "side": 1,
+      "message": "Nit: I think this could be package-private instead of public (\"static boolean\" instead of \"public static boolean\").",
+      "range": {
+        "startLine": 651,
+        "startChar": 4,
+        "endLine": 651,
+        "endChar": 10
+      },
+      "revId": "7b8dff69b25625cfac584e14f0e05d5fd9ac4702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
