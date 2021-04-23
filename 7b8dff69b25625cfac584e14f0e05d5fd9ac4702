@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e6ffe8_4e334c8f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-23T04:18:11Z",
+      "side": 1,
+      "message": "Thanks for code review and discussion. Per talk offline, lets go option 1 otherwise we may end up never delete the TDO above 😊",
+      "parentUuid": "e40a7663_aeb6e217",
+      "range": {
+        "startLine": 1570,
+        "startChar": 12,
+        "endLine": 1570,
+        "endChar": 41
+      },
+      "revId": "7b8dff69b25625cfac584e14f0e05d5fd9ac4702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb21b5a1_ec26e200",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-22T04:52:28Z",
       "side": 1,
       "message": "Nit: I think this could be package-private instead of public (\"static boolean\" instead of \"public static boolean\").",
+      "range": {
+        "startLine": 651,
+        "startChar": 4,
+        "endLine": 651,
+        "endChar": 10
+      },
+      "revId": "7b8dff69b25625cfac584e14f0e05d5fd9ac4702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc9c650_974dfd0e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-23T04:18:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb21b5a1_ec26e200",
       "range": {
         "startLine": 651,
         "startChar": 4,
