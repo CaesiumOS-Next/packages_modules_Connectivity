@@ -106,7 +106,6 @@ import android.net.SocketKeepalive;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.net.cts.util.CtsNetUtils;
-import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
@@ -1064,15 +1063,6 @@ public class ConnectivityManagerTest {
         return s;
     }
 
-    private int getSupportedKeepalivesForNet(@NonNull Network network) throws Exception {
-        final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
-
-        // Get number of supported concurrent keepalives for testing network.
-        final int[] keepalivesPerTransport = KeepaliveUtils.getSupportedKeepalives(mContext);
-        return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
-                keepalivesPerTransport, nc);
-    }
-
     private static boolean isTcpKeepaliveSupportedByKernel() {
         final String kVersionString = VintfRuntimeInfo.getKernelVersion();
         return compareMajorMinorVersion(kVersionString, "4.8") >= 0;
@@ -1136,7 +1126,7 @@ public class ConnectivityManagerTest {
         }
 
         final Network network = mCtsNetUtils.ensureWifiConnected();
-        if (getSupportedKeepalivesForNet(network) != 0) return;
+        if (mCm.getSupportedKeepalivesForNetwork(network) != 0) return;
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
 
@@ -1156,7 +1146,7 @@ public class ConnectivityManagerTest {
         }
 
         final Network network = mCtsNetUtils.ensureWifiConnected();
-        if (getSupportedKeepalivesForNet(network) == 0) return;
+        if (mCm.getSupportedKeepalivesForNetwork(network) == 0) return;
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
 
@@ -1367,7 +1357,7 @@ public class ConnectivityManagerTest {
         }
 
         final Network network = mCtsNetUtils.ensureWifiConnected();
-        final int supported = getSupportedKeepalivesForNet(network);
+        final int supported = mCm.getSupportedKeepalivesForNetwork(network);
         if (supported == 0) {
             return;
         }
@@ -1428,7 +1418,7 @@ public class ConnectivityManagerTest {
         }
 
         final Network network = mCtsNetUtils.connectToCell();
-        final int supported = getSupportedKeepalivesForNet(network);
+        final int supported = mCm.getSupportedKeepalivesForNetwork(network);
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
 
@@ -1464,7 +1454,7 @@ public class ConnectivityManagerTest {
         }
 
         final Network network = mCtsNetUtils.ensureWifiConnected();
-        final int supported = getSupportedKeepalivesForNet(network);
+        final int supported = mCm.getSupportedKeepalivesForNetwork(network);
         if (supported == 0) {
             return;
         }
