@@ -37,6 +37,7 @@ java_defaults {
         "android.hardware.tetheroffload.config-V1.0-java",
         "android.hardware.tetheroffload.control-V1.0-java",
         "android.hardware.tetheroffload.control-V1.1-java",
+        "TetheringHalCurrentShims",
         "net-utils-framework-common",
         "net-utils-device-common",
         "netd-client",

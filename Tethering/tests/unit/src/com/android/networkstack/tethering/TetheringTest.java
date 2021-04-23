@@ -63,13 +63,13 @@ import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
 import static com.android.net.module.util.Inet4AddressUtils.inet4AddressToIntHTH;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
-import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_1_0;
-import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_NONE;
 import static com.android.networkstack.tethering.TestConnectivityManager.BROADCAST_FIRST;
 import static com.android.networkstack.tethering.TestConnectivityManager.CALLBACKS_FIRST;
 import static com.android.networkstack.tethering.Tethering.UserRestrictionActionListener;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.EVENT_ON_CAPABILITIES;
+import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_1_0;
+import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_NONE;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -178,6 +178,7 @@ import com.android.internal.util.StateMachine;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
+import com.android.networkstack.tethering.halshim.control.common.OffloadControlShim;
 import com.android.testutils.MiscAsserts;
 
 import org.junit.After;
@@ -1890,7 +1891,7 @@ public class TetheringTest {
     }
 
     private void initOffloadConfiguration(final boolean offloadConfig,
-            @OffloadHardwareInterface.OffloadHalVersion final int offloadControlVersion,
+            @OffloadControlShim.OffloadHalVersion final int offloadControlVersion,
             final int defaultDisabled) {
         when(mOffloadHardwareInterface.initOffloadConfig()).thenReturn(offloadConfig);
         when(mOffloadHardwareInterface.initOffloadControl(any())).thenReturn(offloadControlVersion);

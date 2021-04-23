@@ -20,7 +20,11 @@ import static android.net.netlink.StructNlMsgHdr.NLM_F_DUMP;
 import static android.net.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 import static android.net.util.TetheringUtils.uint16;
 
-import android.annotation.IntDef;
+import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_1_0;
+import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_1_1;
+import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_NONE;
+import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.halVerToString;
+
 import android.annotation.NonNull;
 import android.hardware.tetheroffload.config.V1_0.IOffloadConfig;
 import android.hardware.tetheroffload.control.V1_0.IOffloadControl;
@@ -42,12 +46,11 @@ import android.system.OsConstants;
 import android.util.Pair;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.networkstack.tethering.halshim.control.common.OffloadControlShim;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InterruptedIOException;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.net.SocketAddress;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
@@ -87,35 +90,8 @@ public class OffloadHardwareInterface {
     private final Dependencies mDeps;
     private IOffloadControl mOffloadControl;
 
-    // TODO: Use major-minor version control to prevent from defining new constants.
-    static final int OFFLOAD_HAL_VERSION_NONE = 0;
-    static final int OFFLOAD_HAL_VERSION_1_0 = 1;
-    static final int OFFLOAD_HAL_VERSION_1_1 = 2;
-    /** @hide */
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef(prefix = "OFFLOAD_HAL_VERSION_", value = {
-            OFFLOAD_HAL_VERSION_NONE,
-            OFFLOAD_HAL_VERSION_1_0,
-            OFFLOAD_HAL_VERSION_1_1
-    })
-    public @interface OffloadHalVersion {}
-    @OffloadHalVersion
+    @OffloadControlShim.OffloadHalVersion
     private int mOffloadControlVersion = OFFLOAD_HAL_VERSION_NONE;
-
-    @NonNull
-    static String halVerToString(int version) {
-        switch(version) {
-            case OFFLOAD_HAL_VERSION_1_0:
-                return "1.0";
-            case OFFLOAD_HAL_VERSION_1_1:
-                return "1.1";
-            case OFFLOAD_HAL_VERSION_NONE:
-                return "None";
-            default:
-                throw new IllegalArgumentException("Unsupported version int " + version);
-        }
-
-    }
 
     private TetheringOffloadCallback mTetheringOffloadCallback;
     private ControlCallback mControlCallback;

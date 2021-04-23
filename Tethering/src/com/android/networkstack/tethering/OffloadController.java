@@ -26,8 +26,9 @@ import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED;
 import static android.provider.Settings.Global.TETHER_OFFLOAD_DISABLED;
 
-import static com.android.networkstack.tethering.OffloadHardwareInterface.OFFLOAD_HAL_VERSION_NONE;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
+import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_NONE;
+import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.halVerToString;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -55,6 +56,7 @@ import android.util.Log;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.networkstack.tethering.OffloadHardwareInterface.ForwardedStats;
+import com.android.networkstack.tethering.halshim.control.common.OffloadControlShim;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -97,7 +99,7 @@ public class OffloadController {
     private final SharedLog mLog;
     private final HashMap<String, LinkProperties> mDownstreams;
     private boolean mConfigInitialized;
-    @OffloadHardwareInterface.OffloadHalVersion
+    @OffloadControlShim.OffloadHalVersion
     private int mControlHalVersion;
     private LinkProperties mUpstreamLinkProperties;
     // The complete set of offload-exempt prefixes passed in via Tethering from
@@ -699,7 +701,7 @@ public class OffloadController {
         final boolean isStarted = started();
         pw.println("Offload HALs " + (isStarted ? "started" : "not started"));
         pw.println("Offload Control HAL version: "
-                + OffloadHardwareInterface.halVerToString(mControlHalVersion));
+                + halVerToString(mControlHalVersion));
         LinkProperties lp = mUpstreamLinkProperties;
         String upstream = (lp != null) ? lp.getInterfaceName() : null;
         pw.println("Current upstream: " + upstream);
