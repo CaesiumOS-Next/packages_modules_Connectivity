@@ -16,6 +16,23 @@
       "message": "LGTM. Thanks for adding all the test coverage. Feel free to address nits in a follow-up.",
       "revId": "d5096f504dc49caa68c3459e8831934c111c5ade",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a02ab59_74fe2eea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-23T11:48:25Z",
+      "side": 1,
+      "message": "Thanks for code review, will have follow up to addressing the comments",
+      "revId": "d5096f504dc49caa68c3459e8831934c111c5ade",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
