@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94378847_1bb872ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-23T11:30:15Z",
+      "side": 1,
+      "message": "LGTM. Thanks for adding all the test coverage. Feel free to address nits in a follow-up.",
+      "revId": "d5096f504dc49caa68c3459e8831934c111c5ade",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
