@@ -62,6 +62,7 @@ import static android.system.OsConstants.AF_UNSPEC;
 
 import static com.android.compatibility.common.util.SystemUtil.runShellCommand;
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
+import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_LOCKDOWN_VPN;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_NONE;
 import static com.android.testutils.MiscAsserts.assertThrows;
@@ -106,7 +107,6 @@ import android.net.SocketKeepalive;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.net.cts.util.CtsNetUtils;
-import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
@@ -1065,12 +1065,18 @@ public class ConnectivityManagerTest {
     }
 
     private int getSupportedKeepalivesForNet(@NonNull Network network) throws Exception {
-        final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
-
-        // Get number of supported concurrent keepalives for testing network.
-        final int[] keepalivesPerTransport = KeepaliveUtils.getSupportedKeepalives(mContext);
-        return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
-                keepalivesPerTransport, nc);
+        if (isAtLeastS()) {
+            return runAsShell(NETWORK_SETTINGS,
+                    () -> mCm.getSupportedKeepalivesForNetwork(network));
+        }
+        // Before S, supported keepalives were queried with
+        // KeepaliveUtils.getSupportedKeepalives(Context)
+        final Class<?> keepaliveUtils = Class.forName("android.net.util.KeepaliveUtils");
+        final int[] keepalivesPerTransport = (int[]) keepaliveUtils.getMethod(
+                "getSupportedKeepalives", Context.class).invoke(null, mContext);
+        return (int) keepaliveUtils.getMethod("getSupportedKeepalivesForNetworkCapabilities",
+                int[].class, NetworkCapabilities.class).invoke(null, keepalivesPerTransport,
+                mCm.getNetworkCapabilities(network));
     }
 
     private static boolean isTcpKeepaliveSupportedByKernel() {
