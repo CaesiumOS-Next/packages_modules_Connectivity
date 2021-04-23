@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca4dee0_86338d4c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-04-23T08:27:13Z",
+      "side": 0,
+      "message": "I think we should explain in the commit message why this code is safe to delete. This will be particularly useful if we later on discover that deleting it was incorrect. Something like:\n\nThis CL removes unnecessary code from selectPreferredUpstreamType. In particular:\n- When a DUN or HIPRI upstream is selected, calling registerMobileNetworkRequest is unnecessary. A mobile NetworkRequest is always registered unless a non-mobile upstream is selected.\n- When a non-mobile upstream is found, releasing the mobile NetworkRequest is unnecessary in selectPreferredUpstreamType because it will be done by chooseUpstreamType immediately after selectPreferredUpstreamType returns.\n- When no upstream is found and cellular upstream is not permitted, it is not necessary to release the mobile NetworkRequest. When cellular is not permitted, no such NetworkRequest will be filed because registerMobileNetworkRequest checks with EntitlementManager before actually requesting the network. If cellular becomes the upstream and then later becomes not permitted because of an entitlement failure, all tethering will be stopped by Settings.",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 332,
+        "endChar": 46
+      },
+      "revId": "bea56fbe11a8d66ceb3ff112eae0c1ca75a997fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
