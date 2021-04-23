@@ -106,7 +106,6 @@ import android.net.SocketKeepalive;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.net.cts.util.CtsNetUtils;
-import android.net.util.KeepaliveUtils;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
@@ -1064,13 +1063,8 @@ public class ConnectivityManagerTest {
         return s;
     }
 
-    private int getSupportedKeepalivesForNet(@NonNull Network network) throws Exception {
-        final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
-
-        // Get number of supported concurrent keepalives for testing network.
-        final int[] keepalivesPerTransport = KeepaliveUtils.getSupportedKeepalives(mContext);
-        return KeepaliveUtils.getSupportedKeepalivesForNetworkCapabilities(
-                keepalivesPerTransport, nc);
+    private int getSupportedKeepalivesForNet(@NonNull Network network) {
+        return runAsShell(NETWORK_SETTINGS, () -> mCm.getSupportedKeepalivesForNetwork(network));
     }
 
     private static boolean isTcpKeepaliveSupportedByKernel() {
