@@ -39,6 +39,30 @@
       },
       "revId": "6f9a415e74e33f9d8b67c1dbe0a62525b8a47498",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6df89a40_8f073aa6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1910,
+      "author": {
+        "id": 1542950
+      },
+      "writtenOn": "2021-04-23T00:01:44Z",
+      "side": 1,
+      "message": "Done. Also fixed the merge confict.",
+      "parentUuid": "582154e5_6cb8d6f6",
+      "range": {
+        "startLine": 1910,
+        "startChar": 8,
+        "endLine": 1910,
+        "endChar": 39
+      },
+      "revId": "6f9a415e74e33f9d8b67c1dbe0a62525b8a47498",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
