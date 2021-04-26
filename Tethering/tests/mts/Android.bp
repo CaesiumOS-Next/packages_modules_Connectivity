@@ -21,6 +21,9 @@ android_test {
     // don't use Tethering mainline module.
     name: "MtsTetheringTest",
 
+    min_sdk_version: "30",
+    target_sdk_version: "30",
+
     libs: [
         "android.test.base",
     ],
@@ -30,6 +33,9 @@ android_test {
     ],
 
     static_libs: [
+        "TetheringCommonTests",
+        "TetheringIntegrationTestsStableLib",
+        "CtsTetheringTestStableLib",
         "androidx.test.rules",
         // mockito-target-extended-minus-junit4 used in this lib have dependency with
         // jni_libs libdexmakerjvmtiagent and libstaticjvmtiagent.
