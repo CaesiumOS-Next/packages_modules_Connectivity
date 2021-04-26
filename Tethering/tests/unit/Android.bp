@@ -36,8 +36,8 @@ java_library {
         "framework-tethering.impl",
     ],
     visibility: [
-        "//cts/tests/tests/tethering",
         "//packages/modules/Connectivity/tests/cts/tethering",
+        "//packages/modules/Connectivity/Tethering/tests/mts",
     ],
 }
 
