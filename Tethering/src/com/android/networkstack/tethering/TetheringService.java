@@ -48,13 +48,13 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.ResultReceiver;
-import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.networkstack.apishim.common.SettingsShim;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -302,8 +302,8 @@ public class TetheringService extends Service {
     boolean checkAndNoteWriteSettingsOperation(@NonNull Context context, int uid,
             @NonNull String callingPackage, @Nullable String callingAttributionTag,
             boolean throwException) {
-        return Settings.checkAndNoteWriteSettingsOperation(context, uid, callingPackage,
-                throwException);
+        return SettingsShim.checkAndNoteWriteSettingsOperation(context, uid, callingPackage,
+                callingAttributionTag, throwException);
     }
 
     /**
