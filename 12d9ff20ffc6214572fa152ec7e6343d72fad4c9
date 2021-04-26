@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3165ca74_daaecaf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-04-26T05:10:46Z",
+      "side": 1,
+      "message": "Note this cherry-pick should NOT be submitted without the change on top, as it breaks the test on on Q/R",
+      "revId": "12d9ff20ffc6214572fa152ec7e6343d72fad4c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
