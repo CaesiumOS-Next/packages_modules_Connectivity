@@ -397,7 +397,7 @@ JNIEXPORT jint Java_android_net_cts_MultinetworkApiTest_runDatagramCheck(
         JNIEnv*, jclass, jlong nethandle) {
     const struct addrinfo kHints = {
         .ai_flags = AI_ADDRCONFIG,
-        .ai_family = AF_UNSPEC,
+        .ai_family = AF_INET,
         .ai_socktype = SOCK_DGRAM,
         .ai_protocol = IPPROTO_UDP,
     };
