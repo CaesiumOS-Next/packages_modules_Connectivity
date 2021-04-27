@@ -206,10 +206,10 @@ public class ConnectivityDiagnosticsManagerTest {
     public void testRegisterCallbackWithCarrierPrivileges() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
 
-        final int subId = SubscriptionManager.getDefaultSubscriptionId();
+        final int subId = SubscriptionManager.getDefaultDataSubscriptionId();
         if (subId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
-            fail("Need an active subscription. Please ensure that the device has working mobile"
-                    + " data.");
+            fail("Need an active data subscription. Please ensure that the device has working"
+                    + " mobile data.");
         }
 
         final CarrierConfigReceiver carrierConfigReceiver = new CarrierConfigReceiver(subId);
@@ -270,7 +270,9 @@ public class ConnectivityDiagnosticsManagerTest {
         }
 
         final Network network = testNetworkCallback.waitForAvailable();
-        assertNotNull(network);
+        assertNotNull(
+                "Cell network not available. Please ensure the device has working mobile data.",
+                network);
 
         assertTrue("Didn't receive broadcast for ACTION_CARRIER_CONFIG_CHANGED for subId=" + subId,
                 carrierConfigReceiver.waitForCarrierConfigChanged());
