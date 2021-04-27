@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "babdf0fb_64557c86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-27T02:59:16Z",
+      "side": 1,
+      "message": "This is CL can\u0027t be merged till Settings#checkAndNoteWriteSettingsOperation with callingAttributionTag parameter API is added to aosp branch (current it is only in internal branch)",
+      "revId": "e2e300d498f08d5fefd506e44382285f32a4e594",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
