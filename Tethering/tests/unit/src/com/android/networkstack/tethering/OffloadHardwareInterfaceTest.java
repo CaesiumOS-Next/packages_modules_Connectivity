@@ -33,8 +33,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.hardware.tetheroffload.config.V1_0.IOffloadConfig;
-import android.hardware.tetheroffload.control.V1_0.IOffloadControl;
-import android.hardware.tetheroffload.control.V1_0.ITetheringOffloadCallback;
 import android.hardware.tetheroffload.control.V1_0.NatTimeoutUpdate;
 import android.hardware.tetheroffload.control.V1_0.NetworkProtocol;
 import android.hardware.tetheroffload.control.V1_0.OffloadCallbackEvent;
@@ -51,6 +49,10 @@ import android.util.Pair;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.android.networkstack.tethering.halshim.control.OffloadCallbackShimImpl;
+import com.android.networkstack.tethering.halshim.control.common.OffloadCallbackShim;
+import com.android.networkstack.tethering.halshim.control.common.OffloadControlShim;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -72,11 +74,11 @@ public final class OffloadHardwareInterfaceTest {
     private final TestLooper mTestLooper = new TestLooper();
 
     private OffloadHardwareInterface mOffloadHw;
-    private ITetheringOffloadCallback mTetheringOffloadCallback;
+    private OffloadCallbackShim mTetheringOffloadCallback;
     private OffloadHardwareInterface.ControlCallback mControlCallback;
 
     @Mock private IOffloadConfig mIOffloadConfig;
-    @Mock private IOffloadControl mIOffloadControl;
+    @Mock private OffloadControlShim mOffloadControl;
     @Mock private NativeHandle mNativeHandle;
 
     // Random values to test Netlink message.
@@ -94,8 +96,8 @@ public final class OffloadHardwareInterfaceTest {
         }
 
         @Override
-        public Pair<IOffloadControl, Integer> getOffloadControl() {
-            return new Pair<IOffloadControl, Integer>(mIOffloadControl, OFFLOAD_HAL_VERSION_1_0);
+        public Pair<OffloadControlShim, Integer> getOffloadControl() {
+            return new Pair<>(mOffloadControl, OFFLOAD_HAL_VERSION_1_0);
         }
 
         @Override
@@ -117,9 +119,9 @@ public final class OffloadHardwareInterfaceTest {
     private void startOffloadHardwareInterface() throws Exception {
         mOffloadHw.initOffloadConfig();
         mOffloadHw.initOffloadControl(mControlCallback);
-        final ArgumentCaptor<ITetheringOffloadCallback> mOffloadCallbackCaptor =
-                ArgumentCaptor.forClass(ITetheringOffloadCallback.class);
-        verify(mIOffloadControl).initOffload(mOffloadCallbackCaptor.capture(), any());
+        final ArgumentCaptor<OffloadCallbackShimImpl> mOffloadCallbackCaptor =
+                ArgumentCaptor.forClass(OffloadCallbackShimImpl.class);
+        verify(mOffloadControl).initOffload(mOffloadCallbackCaptor.capture(), any());
         mTetheringOffloadCallback = mOffloadCallbackCaptor.getValue();
     }
 
@@ -127,7 +129,7 @@ public final class OffloadHardwareInterfaceTest {
     public void testGetForwardedStats() throws Exception {
         startOffloadHardwareInterface();
         final OffloadHardwareInterface.ForwardedStats stats = mOffloadHw.getForwardedStats(RMNET0);
-        verify(mIOffloadControl).getForwardedStats(eq(RMNET0), any());
+        verify(mOffloadControl).getForwardedStats(eq(RMNET0), any());
         assertNotNull(stats);
     }
 
@@ -138,7 +140,7 @@ public final class OffloadHardwareInterfaceTest {
         localPrefixes.add("127.0.0.0/8");
         localPrefixes.add("fe80::/64");
         mOffloadHw.setLocalPrefixes(localPrefixes);
-        verify(mIOffloadControl).setLocalPrefixes(eq(localPrefixes), any());
+        verify(mOffloadControl).setLocalPrefixes(eq(localPrefixes), any());
     }
 
     @Test
@@ -146,7 +148,7 @@ public final class OffloadHardwareInterfaceTest {
         startOffloadHardwareInterface();
         final long limit = 12345;
         mOffloadHw.setDataLimit(RMNET0, limit);
-        verify(mIOffloadControl).setDataLimit(eq(RMNET0), eq(limit), any());
+        verify(mOffloadControl).setDataLimit(eq(RMNET0), eq(limit), any());
     }
 
     @Test
@@ -157,13 +159,13 @@ public final class OffloadHardwareInterfaceTest {
         final ArrayList<String> v6gws = new ArrayList<>(0);
         v6gws.add("2001:db8::1");
         mOffloadHw.setUpstreamParameters(RMNET0, v4addr, v4gateway, v6gws);
-        verify(mIOffloadControl).setUpstreamParameters(eq(RMNET0), eq(v4addr), eq(v4gateway),
+        verify(mOffloadControl).setUpstreamParameters(eq(RMNET0), eq(v4addr), eq(v4gateway),
                 eq(v6gws), any());
 
         final ArgumentCaptor<ArrayList<String>> mArrayListCaptor =
                 ArgumentCaptor.forClass(ArrayList.class);
         mOffloadHw.setUpstreamParameters(null, null, null, null);
-        verify(mIOffloadControl).setUpstreamParameters(eq(""), eq(""), eq(""),
+        verify(mOffloadControl).setUpstreamParameters(eq(""), eq(""), eq(""),
                 mArrayListCaptor.capture(), any());
         assertEquals(mArrayListCaptor.getValue().size(), 0);
     }
@@ -174,10 +176,10 @@ public final class OffloadHardwareInterfaceTest {
         final String ifName = "wlan1";
         final String prefix = "192.168.43.0/24";
         mOffloadHw.addDownstreamPrefix(ifName, prefix);
-        verify(mIOffloadControl).addDownstream(eq(ifName), eq(prefix), any());
+        verify(mOffloadControl).addDownstream(eq(ifName), eq(prefix), any());
 
         mOffloadHw.removeDownstreamPrefix(ifName, prefix);
-        verify(mIOffloadControl).removeDownstream(eq(ifName), eq(prefix), any());
+        verify(mOffloadControl).removeDownstream(eq(ifName), eq(prefix), any());
     }
 
     @Test
