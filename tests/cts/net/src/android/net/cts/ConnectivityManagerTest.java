@@ -102,6 +102,7 @@ import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
 import android.net.NetworkRequest;
 import android.net.NetworkUtils;
+import android.net.ProxyInfo;
 import android.net.SocketKeepalive;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
@@ -1900,5 +1901,16 @@ public class ConnectivityManagerTest {
         // shims, and @IgnoreUpTo does not check that.
         assumeTrue(TestUtils.shouldTestSApis());
         runWithShellPermissionIdentity(() -> doTestLegacyLockdownEnabled(), NETWORK_SETTINGS);
+    }
+
+    @Test
+    public void testGlobalProxy() {
+        assumeTrue(TestUtils.shouldTestSApis());
+        try {
+            // Behavior is verified in gts. Verify exception thrown w/o permission.
+            mCm.setGlobalProxy(
+                    ProxyInfo.buildDirectProxy("example.com" /* host */, 8080 /* port */));
+            fail("No exception thrown when setting global proxy without proper permission");
+        } catch (SecurityException expected) { }
     }
 }
