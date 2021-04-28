@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca62029f_f664e1de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-28T09:04:31Z",
+      "side": 1,
+      "message": "ConnectivityManagerPermissionTest is outside MTS scope. It cannot verify with different sdk. From the test coverage point of view, I think we should verify it in the test within module. Otherwise, the test will not run when we have new rollout in the future. Those tests in ConnectivityManagerPermissionTest should proberly move into CtsNetTestCases.",
+      "parentUuid": "61588354_1cd3b442",
+      "revId": "5920956573691973dd65d22333c6f9a0693d97ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc426848_67d1c4a5",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-04-28T08:18:21Z",
       "side": 1,
       "message": "Nit: Suggest use assertThrows.",
+      "range": {
+        "startLine": 1920,
+        "startChar": 8,
+        "endLine": 1925,
+        "endChar": 48
+      },
+      "revId": "5920956573691973dd65d22333c6f9a0693d97ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7d844f_28004e7f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1925,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-04-28T09:04:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc426848_67d1c4a5",
       "range": {
         "startLine": 1920,
         "startChar": 8,
