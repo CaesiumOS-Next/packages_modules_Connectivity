@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61588354_1cd3b442",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-04-28T08:18:21Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we put ConnectivityManager permission relevant tests to cts/tests/tests/permission/src/android/permission/cts/ConnectivityManagerPermissionTest.java?",
+      "revId": "5920956573691973dd65d22333c6f9a0693d97ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc426848_67d1c4a5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1925,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-04-28T08:18:21Z",
+      "side": 1,
+      "message": "Nit: Suggest use assertThrows.",
+      "range": {
+        "startLine": 1920,
+        "startChar": 8,
+        "endLine": 1925,
+        "endChar": 48
+      },
+      "revId": "5920956573691973dd65d22333c6f9a0693d97ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
