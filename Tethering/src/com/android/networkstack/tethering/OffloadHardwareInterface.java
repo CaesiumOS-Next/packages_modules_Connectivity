@@ -20,18 +20,13 @@ import static android.net.netlink.StructNlMsgHdr.NLM_F_DUMP;
 import static android.net.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 import static android.net.util.TetheringUtils.uint16;
 
-import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_1_0;
-import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_1_1;
 import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.OFFLOAD_HAL_VERSION_NONE;
 import static com.android.networkstack.tethering.halshim.control.common.OffloadControlShim.halVerToString;
 
 import android.annotation.NonNull;
 import android.hardware.tetheroffload.config.V1_0.IOffloadConfig;
-import android.hardware.tetheroffload.control.V1_0.IOffloadControl;
-import android.hardware.tetheroffload.control.V1_0.ITetheringOffloadCallback;
 import android.hardware.tetheroffload.control.V1_0.NatTimeoutUpdate;
 import android.hardware.tetheroffload.control.V1_0.NetworkProtocol;
-import android.hardware.tetheroffload.control.V1_0.OffloadCallbackEvent;
 import android.net.netlink.NetlinkSocket;
 import android.net.netlink.StructNfGenMsg;
 import android.net.netlink.StructNlMsgHdr;
@@ -46,6 +41,9 @@ import android.system.OsConstants;
 import android.util.Pair;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.networkstack.tethering.halshim.control.OffloadCallbackShimImpl;
+import com.android.networkstack.tethering.halshim.control.OffloadControlShimImpl;
+import com.android.networkstack.tethering.halshim.control.common.OffloadCallbackEventShim;
 import com.android.networkstack.tethering.halshim.control.common.OffloadControlShim;
 
 import java.io.FileDescriptor;
@@ -88,7 +86,7 @@ public class OffloadHardwareInterface {
     private final Handler mHandler;
     private final SharedLog mLog;
     private final Dependencies mDeps;
-    private IOffloadControl mOffloadControl;
+    private OffloadControlShim mOffloadControl;
 
     @OffloadControlShim.OffloadHalVersion
     private int mOffloadControlVersion = OFFLOAD_HAL_VERSION_NONE;
@@ -179,29 +177,9 @@ public class OffloadHardwareInterface {
         }
 
         @NonNull
-        public Pair<IOffloadControl, Integer> getOffloadControl() {
-            IOffloadControl hal = null;
-            int version = OFFLOAD_HAL_VERSION_NONE;
-            try {
-                hal = android.hardware.tetheroffload.control
-                        .V1_1.IOffloadControl.getService(true /*retry*/);
-                version = OFFLOAD_HAL_VERSION_1_1;
-            } catch (NoSuchElementException e) {
-                // Unsupported by device.
-            } catch (RemoteException e) {
-                mLog.e("Unable to get offload control " + OFFLOAD_HAL_VERSION_1_1);
-            }
-            if (hal == null) {
-                try {
-                    hal = IOffloadControl.getService(true /*retry*/);
-                    version = OFFLOAD_HAL_VERSION_1_0;
-                } catch (NoSuchElementException e) {
-                    // Unsupported by device.
-                } catch (RemoteException e) {
-                    mLog.e("Unable to get offload control " + OFFLOAD_HAL_VERSION_1_0);
-                }
-            }
-            return new Pair<IOffloadControl, Integer>(hal, version);
+        public Pair<OffloadControlShim, Integer> getOffloadControl() {
+            final OffloadControlShim hal = OffloadControlShimImpl.newInstance();
+            return new Pair<>(hal, hal != null ? hal.getVersion() : OFFLOAD_HAL_VERSION_NONE);
         }
 
         public NativeHandle createConntrackSocket(final int groups) {
@@ -342,7 +320,7 @@ public class OffloadHardwareInterface {
         mControlCallback = controlCb;
 
         if (mOffloadControl == null) {
-            final Pair<IOffloadControl, Integer> halAndVersion = mDeps.getOffloadControl();
+            final Pair<OffloadControlShim, Integer> halAndVersion = mDeps.getOffloadControl();
             mOffloadControl = halAndVersion.first;
             mOffloadControlVersion = halAndVersion.second;
             if (mOffloadControl == null) {
@@ -537,7 +515,7 @@ public class OffloadHardwareInterface {
         }
     }
 
-    private static class TetheringOffloadCallback extends ITetheringOffloadCallback.Stub {
+    private static class TetheringOffloadCallback extends OffloadCallbackShimImpl {
         public final Handler handler;
         public final ControlCallback controlCb;
         public final SharedLog log;
@@ -552,25 +530,30 @@ public class OffloadHardwareInterface {
         public void onEvent(int event) {
             handler.post(() -> {
                 switch (event) {
-                    case OffloadCallbackEvent.OFFLOAD_STARTED:
+                    case OffloadCallbackEventShim.OFFLOAD_STARTED:
                         controlCb.onStarted();
                         break;
-                    case OffloadCallbackEvent.OFFLOAD_STOPPED_ERROR:
+                    case OffloadCallbackEventShim.OFFLOAD_STOPPED_ERROR:
                         controlCb.onStoppedError();
                         break;
-                    case OffloadCallbackEvent.OFFLOAD_STOPPED_UNSUPPORTED:
+                    case OffloadCallbackEventShim.OFFLOAD_STOPPED_UNSUPPORTED:
                         controlCb.onStoppedUnsupported();
                         break;
-                    case OffloadCallbackEvent.OFFLOAD_SUPPORT_AVAILABLE:
+                    case OffloadCallbackEventShim.OFFLOAD_SUPPORT_AVAILABLE:
                         controlCb.onSupportAvailable();
                         break;
-                    case OffloadCallbackEvent.OFFLOAD_STOPPED_LIMIT_REACHED:
+                    case OffloadCallbackEventShim.OFFLOAD_STOPPED_LIMIT_REACHED:
                         controlCb.onStoppedLimitReached();
                         break;
                     default:
                         log.e("Unsupported OffloadCallbackEvent: " + event);
                 }
             });
+        }
+
+        @Override
+        public void onEvent_1_1(int event) {
+            // TODO: Handle v1.1 events.
         }
 
         @Override
