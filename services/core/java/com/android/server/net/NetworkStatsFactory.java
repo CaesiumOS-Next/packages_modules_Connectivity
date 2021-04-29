@@ -382,8 +382,13 @@ public class NetworkStatsFactory {
 
         // Migrate data usage over a VPN to the TUN network.
         for (UnderlyingNetworkInfo info : vpnArray) {
+<<<<<<< HEAD   (c6e149 Rename *Iface* APIs to *Interface*)
             delta.migrateTun(info.getOwnerUid(), info.getInterface(),
                     info.getUnderlyingInterfaces());
+=======
+            delta.migrateTun(info.getOwnerUid(), info.getIface(),
+                    info.getUnderlyingIfaces());
+>>>>>>> BRANCH (a93cae Merge "Add getters to UnderlyingNetworkInfo" am: 05d884470a )
             // Filter out debug entries as that may lead to over counting.
             delta.filterDebugEntries();
         }

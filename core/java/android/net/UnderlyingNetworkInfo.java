@@ -71,6 +71,7 @@ public final class UnderlyingNetworkInfo implements Parcelable {
 
     /** Get the interface name of this network. */
     @NonNull
+<<<<<<< HEAD   (c6e149 Rename *Iface* APIs to *Interface*)
     public String getInterface() {
         return mIface;
     }
@@ -78,6 +79,15 @@ public final class UnderlyingNetworkInfo implements Parcelable {
     /** Get the names of the interfaces underlying this network. */
     @NonNull
     public List<String> getUnderlyingInterfaces() {
+=======
+    public String getIface() {
+        return mIface;
+    }
+
+    /** Get the names of the interfaces underlying this network. */
+    @NonNull
+    public List<String> getUnderlyingIfaces() {
+>>>>>>> BRANCH (a93cae Merge "Add getters to UnderlyingNetworkInfo" am: 05d884470a )
         return mUnderlyingIfaces;
     }
 
@@ -124,8 +134,13 @@ public final class UnderlyingNetworkInfo implements Parcelable {
         if (!(o instanceof UnderlyingNetworkInfo)) return false;
         final UnderlyingNetworkInfo that = (UnderlyingNetworkInfo) o;
         return mOwnerUid == that.getOwnerUid()
+<<<<<<< HEAD   (c6e149 Rename *Iface* APIs to *Interface*)
                 && Objects.equals(mIface, that.getInterface())
                 && Objects.equals(mUnderlyingIfaces, that.getUnderlyingInterfaces());
+=======
+                && Objects.equals(mIface, that.getIface())
+                && Objects.equals(mUnderlyingIfaces, that.getUnderlyingIfaces());
+>>>>>>> BRANCH (a93cae Merge "Add getters to UnderlyingNetworkInfo" am: 05d884470a )
     }
 
     @Override
