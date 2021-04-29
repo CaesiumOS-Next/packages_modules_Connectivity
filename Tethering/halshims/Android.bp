@@ -40,7 +40,7 @@ java_library {
     name: "TetheringHalCurrentShims",
     defaults: ["TetheringHalShimsDefaults"],
     static_libs: [
-        "OffloadControl10Shims",
+        "OffloadControl11Shims",
     ],
     sdk_version: "module_current",
     visibility: [
@@ -67,7 +67,6 @@ java_library {
 
 java_library {
     name: "OffloadControl11Shims",
-    enabled: false, // Disabled since unused for now.
     defaults: ["TetheringHalShimsDefaults"],
     srcs: [
         "src/com/android/networkstack/tethering/halshim/control/v1_1/**/*.java",
