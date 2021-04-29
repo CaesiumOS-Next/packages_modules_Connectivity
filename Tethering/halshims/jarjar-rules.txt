@@ -1,2 +1,2 @@
 # Use the latest available HAL shim as main HAL shim.
-rule com.android.networkstack.tethering.halshim.control.v1_0.** com.android.networkstack.tethering.halshim.control.@1
+rule com.android.networkstack.tethering.halshim.control.v1_1.** com.android.networkstack.tethering.halshim.control.@1

@@ -40,7 +40,7 @@ java_library {
     name: "TetheringHalCurrentShims",
     defaults: ["TetheringHalShimsDefaults"],
     static_libs: [
-        "OffloadControl10Shims",
+        "OffloadControl11Shims",
     ],
     sdk_version: "module_current",
     visibility: [
