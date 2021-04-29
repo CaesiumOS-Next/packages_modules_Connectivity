@@ -247,6 +247,7 @@ public class Tethering {
     private InterfaceSet mCurrentUpstreamIfaceSet;
 
     private boolean mRndisEnabled;       // track the RNDIS function enabled state
+    private boolean mNcmEnabled;         // track the NCM function enabled state
     // True iff. WiFi tethering should be started when soft AP is ready.
     private boolean mWifiTetherRequested;
     private Network mTetherUpstream;
@@ -1007,19 +1008,30 @@ public class Tethering {
             //
             // For more explanation, see b/62552150 .
             synchronized (Tethering.this.mPublicSync) {
-                if (!usbConnected && mRndisEnabled) {
-                    // Turn off tethering if it was enabled and there is a disconnect.
-                    tetherMatchingInterfaces(IpServer.STATE_AVAILABLE, TETHERING_USB);
-                    mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_USB);
-                } else if (usbConfigured && rndisEnabled) {
-                    // Tether if rndis is enabled and usb is configured.
-                    final int state = getRequestedState(TETHERING_USB);
-                    tetherMatchingInterfaces(state, TETHERING_USB);
-                } else if (usbConnected && ncmEnabled) {
-                    final int state = getRequestedState(TETHERING_NCM);
-                    tetherMatchingInterfaces(state, TETHERING_NCM);
+                if (!usbConnected) {
+                    if (mRndisEnabled) {
+                        // Turn off tethering if it was enabled and there is a disconnect.
+                        tetherMatchingInterfaces(IpServer.STATE_AVAILABLE, TETHERING_USB);
+                        mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_USB);
+                    }
+                    if (mNcmEnabled) {
+                        // Turn off tethering if it was enabled and there is a disconnect.
+                        tetherMatchingInterfaces(IpServer.STATE_AVAILABLE, TETHERING_NCM);
+                        mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_NCM);
+                    }
+                } else if (usbConfigured) {
+                    if (rndisEnabled) {
+                        // Tether if rndis is enabled and usb is configured.
+                        final int state = getRequestedState(TETHERING_USB);
+                        tetherMatchingInterfaces(state, TETHERING_USB);
+                    }
+                    if (ncmEnabled) {
+                        final int state = getRequestedState(TETHERING_NCM);
+                        tetherMatchingInterfaces(state, TETHERING_NCM);
+                    }
                 }
                 mRndisEnabled = usbConfigured && rndisEnabled;
+                mNcmEnabled = usbConfigured && ncmEnabled;
             }
         }
 
