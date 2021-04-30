@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9909a1f_81484f9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-30T01:53:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5c1e8e7_a149cdec",
+      "range": {
+        "startLine": 7,
+        "startChar": 22,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "378d99c17bae42521ac36601595cb14db41241d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45e16f20_8a48fc82",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-27T12:13:08Z",
       "side": 1,
       "message": "Nit: Tethering",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 37
+      },
+      "revId": "378d99c17bae42521ac36601595cb14db41241d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbba2ce0_f06e5b8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-30T01:53:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45e16f20_8a48fc82",
       "range": {
         "startLine": 9,
         "startChar": 28,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "001ce996_e88d0335",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-30T01:53:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1b907e3_38a44cd5",
+      "range": {
+        "startLine": 47,
+        "startChar": 11,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "378d99c17bae42521ac36601595cb14db41241d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b640b1c_15440db4",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b50fbef7_5f861711",
+        "filename": "tests/cts/tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-30T01:53:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b640b1c_15440db4",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 15
+      },
+      "revId": "378d99c17bae42521ac36601595cb14db41241d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbce9ac1_d0196ed5",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-04-27T12:13:08Z",
       "side": 1,
       "message": "The naming used for CtsNetTestCases is \"CtsNetTestCasesLatestSdk\"; to avoid confusion in our many test targets I think it would be better to have consistent naming.\nHow about \"CtsTetheringTestLatestSdk\" ?\n\n\"StableLib\" is also what we use for shims to differentiate \"builds against stable SDK\" and \"builds against current SDK\", but here the main difference is on the target SDK, not the build SDK.",
+      "range": {
+        "startLine": 54,
+        "startChar": 11,
+        "endLine": 54,
+        "endChar": 36
+      },
+      "revId": "378d99c17bae42521ac36601595cb14db41241d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27210c5d_1c2a1f38",
+        "filename": "tests/cts/tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-04-30T01:53:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbce9ac1_d0196ed5",
       "range": {
         "startLine": 54,
         "startChar": 11,
