@@ -68,6 +68,7 @@ import android.os.Build
 import android.os.HandlerThread
 import android.os.Looper
 import android.os.Message
+import android.telephony.TelephonyManager
 import android.util.DebugUtils.valueToString
 import androidx.test.InstrumentationRegistry
 import com.android.modules.utils.build.SdkLevel
@@ -328,6 +329,8 @@ class NetworkAgentTest {
     private fun createNetworkAgent(
         context: Context = realContext,
         name: String? = null,
+        legacySubtype: Int = 0,
+        legacySubtypeName: String = "",
         initialNc: NetworkCapabilities? = null,
         initialLp: LinkProperties? = null
     ): TestableNetworkAgent {
@@ -349,13 +352,23 @@ class NetworkAgentTest {
             addLinkAddress(LinkAddress(LOCAL_IPV4_ADDRESS, 32))
             addRoute(RouteInfo(IpPrefix("0.0.0.0/0"), null, null))
         }
-        val config = NetworkAgentConfig.Builder().build()
+        val configBuilder = NetworkAgentConfig.Builder()
+        if (SdkLevel.isAtLeastS()) {
+            configBuilder.setLegacySubTypeName(legacySubtypeName)
+            configBuilder.setLegacySubType(legacySubtype)
+        }
+        val config = configBuilder.build()
         return TestableNetworkAgent(context, mHandlerThread.looper, nc, lp, config).also {
             agentsToCleanUp.add(it)
         }
     }
 
-    private fun createConnectedNetworkAgent(context: Context = realContext, name: String? = null):
+    private fun createConnectedNetworkAgent(
+        context: Context = realContext,
+        name: String? = null,
+        legacySubtype: Int = 0,
+        legacySubtypeName: String = ""
+    ):
             Pair<TestableNetworkAgent, TestableNetworkCallback> {
         val request: NetworkRequest = NetworkRequest.Builder()
                 .clearCapabilities()
@@ -363,7 +376,7 @@ class NetworkAgentTest {
                 .build()
         val callback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
         requestNetwork(request, callback)
-        val agent = createNetworkAgent(context, name)
+        val agent = createNetworkAgent(context, name, legacySubtype, legacySubtypeName)
         agent.setTeardownDelayMillis(0)
         agent.register()
         agent.markConnected()
@@ -373,6 +386,43 @@ class NetworkAgentTest {
 
     private fun createNetworkAgentWithFakeCS() = createNetworkAgent().also {
         mFakeConnectivityService.connect(it.registerForTest(Network(FAKE_NET_ID)))
+    }
+
+    @Test
+    fun testSubtypeNameLteByAgentConfig() {
+        val subtypeLTE = TelephonyManager.NETWORK_TYPE_LTE
+        val subtypeNameLTE = "LTE"
+        val (agent, callback) = createConnectedNetworkAgent(legacySubtype = subtypeLTE,
+                legacySubtypeName = subtypeNameLTE)
+        val networkInfo = mCM.getNetworkInfo(agent.network)
+        assertEquals(subtypeLTE, networkInfo.getSubtype())
+        assertEquals(subtypeNameLTE, networkInfo.getSubtypeName())
+    }
+
+    @Test
+    fun testSetLegacySubtypeInNetworkAgent() {
+        val subtypeLTE = TelephonyManager.NETWORK_TYPE_LTE
+        val subtypeUMTS = TelephonyManager.NETWORK_TYPE_UMTS
+        val subtypeNameLTE = "LTE"
+        val subtypeNameUMTS = "UMTS"
+        createConnectedNetworkAgent(legacySubtype = subtypeLTE,
+                legacySubtypeName = subtypeNameLTE).let { (agent, callback) ->
+            callback.expectAvailableThenValidatedCallbacks(agent.network)
+            agent.setLegacySubtype(subtypeUMTS, subtypeNameUMTS)
+
+            // There is no callback when networkInfo changes,
+            // so use the NetworkCapabilities callback to ensure
+            // that networkInfo is ready for verification.
+            val nc = NetworkCapabilities(agent.nc)
+            nc.addCapability(NET_CAPABILITY_NOT_METERED)
+            agent.sendNetworkCapabilities(nc)
+            callback.expectCapabilitiesThat(agent.network) {
+                it.hasCapability(NET_CAPABILITY_NOT_METERED)
+            }
+            val networkInfo = mCM.getNetworkInfo(agent.network)
+            assertEquals(subtypeUMTS, networkInfo.getSubtype())
+            assertEquals(subtypeNameUMTS, networkInfo.getSubtypeName())
+        }
     }
 
     @Test
