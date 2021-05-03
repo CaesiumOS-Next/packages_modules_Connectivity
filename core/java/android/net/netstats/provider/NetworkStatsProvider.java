@@ -147,7 +147,14 @@ public abstract class NetworkStatsProvider {
 
     /**
      * Notify system that the warning set by {@link #onSetWarningAndLimit} has been reached.
+<<<<<<< HEAD   (72ca24 [automerger skipped] Merge "Add getters to NetworkStateSnaps)
      */
+=======
+     *
+     * @hide
+     */
+    // TODO: Expose as system API.
+>>>>>>> BRANCH (bfce07 [SP29] Send interface warning bytes to NetworkStatsProvider)
     public void notifyWarningReached() {
         try {
             // Reuse the code path to notify warning reached with limit reached
@@ -195,6 +202,7 @@ public abstract class NetworkStatsProvider {
      * @param quotaBytes the quota defined as the number of bytes, starting from zero and counting
      *                   from now. A value of {@link #QUOTA_UNLIMITED} indicates there is no limit.
      */
+    // TODO: deprecate this once onSetWarningAndLimit is ready.
     public abstract void onSetLimit(@NonNull String iface, long quotaBytes);
 
     /**
@@ -213,7 +221,14 @@ public abstract class NetworkStatsProvider {
      *                     there is no warning.
      * @param limitBytes the limit defined as the number of bytes, starting from zero and counting
      *                   from now. A value of {@link #QUOTA_UNLIMITED} indicates there is no limit.
+<<<<<<< HEAD   (72ca24 [automerger skipped] Merge "Add getters to NetworkStateSnaps)
      */
+=======
+     *
+     * @hide
+     */
+    // TODO: Expose as system API.
+>>>>>>> BRANCH (bfce07 [SP29] Send interface warning bytes to NetworkStatsProvider)
     public void onSetWarningAndLimit(@NonNull String iface, long warningBytes, long limitBytes) {
         // Backward compatibility for those who didn't override this function.
         onSetLimit(iface, limitBytes);
