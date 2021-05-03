@@ -350,8 +350,12 @@ class NetworkAgentTest {
         }
     }
 
-    private fun createConnectedNetworkAgent(context: Context = realContext, name: String? = null):
-            Pair<TestableNetworkAgent, TestableNetworkCallback> {
+    private fun createConnectedNetworkAgent(
+        context: Context = realContext,
+        name: String? = null,
+        legacySubtype: Int? = null,
+        legacySubtypeName: String? = null
+    ): Pair<TestableNetworkAgent, TestableNetworkCallback> {
         val request: NetworkRequest = NetworkRequest.Builder()
                 .clearCapabilities()
                 .addTransportType(TRANSPORT_TEST)
@@ -359,6 +363,7 @@ class NetworkAgentTest {
         val callback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
         requestNetwork(request, callback)
         val agent = createNetworkAgent(context, name)
+        if (legacySubtype != null) agent.setLegacySubtype(legacySubtype, legacySubtypeName)
         agent.setTeardownDelayMs(0)
         agent.register()
         agent.markConnected()
@@ -372,8 +377,14 @@ class NetworkAgentTest {
 
     @Test
     fun testConnectAndUnregister() {
-        val (agent, callback) = createConnectedNetworkAgent()
+        val testSubtype = 1234
+        val testSubtypeName = "mySubtypeName"
+        val (agent, callback) = createConnectedNetworkAgent(legacySubtype = testSubtype,
+                legacySubtypeName = testSubtypeName)
         callback.expectAvailableThenValidatedCallbacks(agent.network)
+        val networkinfo = mCM.getNetworkInfo(agent.network)
+        assertEquals(networkinfo.getSubtypeName(), testSubtypeName)
+        assertEquals(networkinfo.getSubtype(), testSubtype)
         agent.expectEmptySignalStrengths()
         agent.expectNoInternetValidationStatus()
         agent.unregister()
