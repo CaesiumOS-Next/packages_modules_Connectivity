@@ -1717,6 +1717,7 @@ public class ConnectivityManagerTest {
      * Verify background request can only be requested when acquiring
      * {@link android.Manifest.permission.NETWORK_SETTINGS}.
      */
+    @AppModeFull(reason = "Cannot get test network in instant app mode")
     @Test
     public void testRequestBackgroundNetwork() {
         // Cannot use @IgnoreUpTo(Build.VERSION_CODES.R) because this test also requires API 31
