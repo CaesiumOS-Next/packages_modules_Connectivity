@@ -51,15 +51,20 @@ import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.net.cts.PacketUtils.Payload;
 import android.net.cts.util.CtsNetUtils;
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.platform.test.annotations.AppModeFull;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -71,6 +76,8 @@ import java.net.NetworkInterface;
 @RunWith(AndroidJUnit4.class)
 @AppModeFull(reason = "MANAGE_TEST_NETWORKS permission can't be granted to instant apps")
 public class IpSecManagerTunnelTest extends IpSecBaseTest {
+    @Rule public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
     private static final String TAG = IpSecManagerTunnelTest.class.getSimpleName();
 
     private static final InetAddress LOCAL_OUTER_4 = InetAddress.parseNumericAddress("192.0.2.1");
@@ -1004,6 +1011,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET, AF_INET, false, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV4InV4() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1024,6 +1032,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET, AF_INET, true, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV4InV4UdpEncap() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1044,6 +1053,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET, AF_INET6, false, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV4InV6() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1064,6 +1074,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET6, AF_INET, false, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV6InV4() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1084,6 +1095,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET6, AF_INET, true, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV6InV4UdpEncap() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1104,6 +1116,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET, AF_INET6, false, true);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTransportInTunnelModeV6InV6() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1125,6 +1138,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET, AF_INET, false, false);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV4InV4() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1145,6 +1159,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET, AF_INET, true, false);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV4InV4UdpEncap() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1165,6 +1180,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET, AF_INET6, false, false);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV4InV6() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1205,6 +1221,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET6, AF_INET, true, false);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV6InV4UdpEncap() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
@@ -1225,6 +1242,7 @@ public class IpSecManagerTunnelTest extends IpSecBaseTest {
         checkTunnelInput(AF_INET6, AF_INET6, false, false);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testMigrateTunnelV6InV6() throws Exception {
         assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
