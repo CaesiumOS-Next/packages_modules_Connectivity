@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "698df99a_da254ac9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-04T21:56:17Z",
+      "side": 1,
+      "message": "Will depend on presubmit (suite/test-mapping-mainline-presubmit-retry_cloud-tf on mainline_modules-userdebug on git_master) to make sure tests are skipped on older platform",
+      "revId": "e78a115e540d3ed7257562ae8f27827f0036feb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
