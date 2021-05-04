@@ -22,6 +22,53 @@
       },
       "revId": "8e2daf3afaa1f14532272dd7af0b223020bd10f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24a817c3_6cbae06c",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-04T21:26:20Z",
+      "side": 1,
+      "message": "I have tried, it is quite easy to put them into setup(). However, I don\u0027t think Jean will be reviewing IPsec CTSs. There was one time that he said he does not have enough context for it.",
+      "parentUuid": "c6c76ab0_8c17ff67",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 40
+      },
+      "revId": "8e2daf3afaa1f14532272dd7af0b223020bd10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f3e43c3_9e58ebd2",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-04T21:26:20Z",
+      "side": 1,
+      "message": "Move these to the followup CLs and handle backwards compatibility there",
+      "range": {
+        "startLine": 989,
+        "startChar": 2,
+        "endLine": 989,
+        "endChar": 38
+      },
+      "revId": "8e2daf3afaa1f14532272dd7af0b223020bd10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
