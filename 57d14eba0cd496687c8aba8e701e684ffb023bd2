@@ -34,6 +34,29 @@
       "parentUuid": "d2faec25_2a28c85d",
       "revId": "57d14eba0cd496687c8aba8e701e684ffb023bd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09063688_bd43c694",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-05-05T16:27:49Z",
+      "side": 1,
+      "message": "you don\u0027t really need this macro... could just use sizeof directly down below...\n\nalso CLS_KIND_NAME should perhaps be BPF_CLS_KIND_NAME",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 47
+      },
+      "revId": "57d14eba0cd496687c8aba8e701e684ffb023bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
