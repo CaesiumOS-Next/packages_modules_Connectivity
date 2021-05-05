@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "493ebb63_7dec1ff8",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-05T22:30:05Z",
+      "side": 1,
+      "message": "The test below looks safe enough if run in R, no?",
+      "range": {
+        "startLine": 707,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 38
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91fd6b8c_82f2c2ff",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-05T22:30:05Z",
+      "side": 1,
+      "message": "Specifically, this check looks like it guards the assertion?",
+      "range": {
+        "startLine": 737,
+        "startChar": 16,
+        "endLine": 737,
+        "endChar": 58
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2287c1a2_0ba3511d",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-05T22:30:05Z",
+      "side": 1,
+      "message": "Ditto; is the ignoreUpTo required?",
+      "range": {
+        "startLine": 748,
+        "startChar": 13,
+        "endLine": 748,
+        "endChar": 43
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f45b4dd8_42431193",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-05T22:30:05Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 951,
+        "startChar": 13,
+        "endLine": 951,
+        "endChar": 30
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dccb3b3_9e11bcf7",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-05T22:30:05Z",
+      "side": 1,
+      "message": "If this is necessary, it should be in the CL that adds the test",
+      "range": {
+        "startLine": 1473,
+        "startChar": 0,
+        "endLine": 1473,
+        "endChar": 38
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70698783_5441225b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-05T22:30:05Z",
+      "side": 1,
+      "message": "This looks IPsec specific; is there a bigger reason why it needs to be in CtsNetUtils as a whole? perhaps CtsIpSecUtils?",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 66
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
