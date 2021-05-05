@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ab60169_63b2cc48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-05T01:27:24Z",
+      "side": 1,
+      "message": "This CL is identical with aosp/1396894, except line 487 was changed from final to non-final",
+      "revId": "f05faef021c7ff11e438aecc868f78906fb3108d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
