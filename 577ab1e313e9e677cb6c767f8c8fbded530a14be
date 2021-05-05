@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b93146f_ea500a1e",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-05T23:18:58Z",
+      "side": 1,
+      "message": "IpSecAlgorithm.getSupportedAlgorithms does not exist in R. So we need to skip this test in R",
+      "parentUuid": "493ebb63_7dec1ff8",
+      "range": {
+        "startLine": 707,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 38
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91fd6b8c_82f2c2ff",
@@ -60,6 +84,30 @@
       "writtenOn": "2021-05-05T22:30:05Z",
       "side": 1,
       "message": "Ditto; is the ignoreUpTo required?",
+      "range": {
+        "startLine": 748,
+        "startChar": 13,
+        "endLine": 748,
+        "endChar": 43
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c2a9c76_c80af9a2",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-05T23:18:58Z",
+      "side": 1,
+      "message": "Good point. isFirstLaunchVersionSOrGreater has a higher bar",
+      "parentUuid": "2287c1a2_0ba3511d",
       "range": {
         "startLine": 748,
         "startChar": 13,
@@ -129,6 +177,30 @@
       "writtenOn": "2021-05-05T22:30:05Z",
       "side": 1,
       "message": "This looks IPsec specific; is there a bigger reason why it needs to be in CtsNetUtils as a whole? perhaps CtsIpSecUtils?",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 66
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77314167_2b663b81",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-05T23:18:58Z",
+      "side": 1,
+      "message": "I saw hasIpsecTunnelsFeature also is in this file, so I defined hasIpSecAlgorithm and MANDATORY_IPSEC_ALGOS_SINCE_P in this file.\n\nI can move hasIpSecAlgorithm to IpSecBaseTest. Thoughts?",
+      "parentUuid": "70698783_5441225b",
       "range": {
         "startLine": 126,
         "startChar": 37,
