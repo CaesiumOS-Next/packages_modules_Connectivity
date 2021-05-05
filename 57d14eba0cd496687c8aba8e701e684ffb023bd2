@@ -57,6 +57,29 @@
       },
       "revId": "57d14eba0cd496687c8aba8e701e684ffb023bd2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b9be16c_20156804",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-05-05T16:39:17Z",
+      "side": 1,
+      "message": "btw. I *think* the real problem is here, technically this should be ifirc the unaligned length, but the obvious fix is null-stripping in kernel to match behaviour of old kernels.\n\nYour current approach of moving to \"bpf\\0\" is fine, because the kernel does strip one trailing null (and will fix it to strip more then one if needed).",
+      "range": {
+        "startLine": 252,
+        "startChar": 55,
+        "endLine": 252,
+        "endChar": 71
+      },
+      "revId": "57d14eba0cd496687c8aba8e701e684ffb023bd2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
