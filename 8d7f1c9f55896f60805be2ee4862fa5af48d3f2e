@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1755a810_61f99689",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-05T02:01:48Z",
+      "side": 1,
+      "message": "This CL is identical with aosp/1396902",
+      "revId": "8d7f1c9f55896f60805be2ee4862fa5af48d3f2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
