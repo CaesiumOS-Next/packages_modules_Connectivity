@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c60fdd82_ced5f6e3",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-05T13:47:16Z",
+      "side": 1,
+      "message": "If it\u0027s an int, it should not possible to be null.",
+      "range": {
+        "startLine": 326,
+        "startChar": 31,
+        "endLine": 326,
+        "endChar": 42
+      },
+      "revId": "32a977e04ded5b01a9c0a1a60d1b92d27596e967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc50aa5e_04753387",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-05T13:47:16Z",
+      "side": 1,
+      "message": "Why do you have double subType/subTypeName? I expect \nlegacySubtype \u003d legacySubtypeToConfig\nlegacySubtypeName \u003d legacySubtypeNameToConfig\n\none of them are redundant\n\nMaybe remove legacySubtypeToConfig/legacySubtypeNameToConfig since you even do not configure them.",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 366,
+        "endChar": 41
+      },
+      "revId": "32a977e04ded5b01a9c0a1a60d1b92d27596e967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bb203ca_e6f5e7b5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-05T13:47:16Z",
+      "side": 1,
+      "message": "I think you may need to separately test it. You override the value again. Those parameter taken  for NetworkAgentConfig have no effect.",
+      "range": {
+        "startLine": 374,
+        "startChar": 8,
+        "endLine": 376,
+        "endChar": 91
+      },
+      "revId": "32a977e04ded5b01a9c0a1a60d1b92d27596e967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13184800_2abe7481",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-05T13:47:16Z",
+      "side": 1,
+      "message": "Please put in other test. It\u0027s not the intention for this test.",
+      "range": {
+        "startLine": 390,
+        "startChar": 8,
+        "endLine": 397,
+        "endChar": 59
+      },
+      "revId": "32a977e04ded5b01a9c0a1a60d1b92d27596e967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
