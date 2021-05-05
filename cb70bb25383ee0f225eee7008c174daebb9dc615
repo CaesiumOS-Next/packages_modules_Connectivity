@@ -16,6 +16,23 @@
       "message": "Identical to aosp/1405088",
       "revId": "cb70bb25383ee0f225eee7008c174daebb9dc615",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5ccd136_eb381faa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-05T22:31:07Z",
+      "side": 1,
+      "message": "Reviewed in aosp/1405088; identical",
+      "revId": "cb70bb25383ee0f225eee7008c174daebb9dc615",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
