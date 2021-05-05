@@ -16,9 +16,13 @@
 
 package android.net.cts;
 
+import static android.net.IpSecAlgorithm.AUTH_AES_CMAC;
 import static android.net.IpSecAlgorithm.AUTH_AES_XCBC;
 import static android.net.IpSecAlgorithm.AUTH_CRYPT_CHACHA20_POLY1305;
 import static android.net.IpSecAlgorithm.CRYPT_AES_CTR;
+import static android.net.cts.PacketUtils.AES_CMAC;
+import static android.net.cts.PacketUtils.AES_CMAC_ICV_LEN;
+import static android.net.cts.PacketUtils.AES_CMAC_KEY_LEN;
 import static android.net.cts.PacketUtils.AES_CTR;
 import static android.net.cts.PacketUtils.AES_CTR_BLK_SIZE;
 import static android.net.cts.PacketUtils.AES_CTR_IV_LEN;
@@ -60,11 +64,16 @@ import android.net.cts.PacketUtils.EspCryptCipher;
 import android.net.cts.PacketUtils.EspHeader;
 import android.net.cts.PacketUtils.IpHeader;
 import android.net.cts.PacketUtils.UdpHeader;
+import android.os.Build;
 import android.platform.test.annotations.AppModeFull;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -76,6 +85,8 @@ import java.util.Arrays;
 @RunWith(AndroidJUnit4.class)
 @AppModeFull(reason = "Socket cannot bind in instant app mode")
 public class IpSecAlgorithmImplTest extends IpSecBaseTest {
+    @Rule public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
     private static final InetAddress LOCAL_ADDRESS =
             InetAddress.parseNumericAddress("2001:db8:1::1");
     private static final InetAddress REMOTE_ADDRESS =
@@ -206,6 +217,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
                 espCipher, EspAuthNull.getInstance())));
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtr160() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -215,6 +227,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
         checkAesCtr(AES_CTR_KEY_LEN_20);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtr224() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -224,6 +237,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
         checkAesCtr(AES_CTR_KEY_LEN_28);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesCtr288() throws Exception {
         if (!hasIpSecAlgorithm(CRYPT_AES_CTR)) {
@@ -233,6 +247,7 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
         checkAesCtr(AES_CTR_KEY_LEN_36);
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testAesXcbc() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_AES_XCBC)) {
@@ -249,6 +264,24 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
                 EspCipherNull.getInstance(), espAuth)));
     }
 
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    @Test
+    public void testAesCmac() throws Exception {
+        if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
+            return;
+        }
+
+        final byte[] authKey = getKeyBytes(AES_CMAC_KEY_LEN);
+        final IpSecAlgorithm ipsecAuthAlgo =
+                new IpSecAlgorithm(IpSecAlgorithm.AUTH_AES_CMAC, authKey, AES_CMAC_ICV_LEN * 8);
+        final EspAuth espAuth = new EspAuth(AES_CMAC, authKey, AES_CMAC_ICV_LEN);
+
+        runWithShellPermissionIdentity(new TestNetworkRunnable(new CheckCryptoImplTest(
+                null /* ipsecEncryptAlgo */, ipsecAuthAlgo, null /* ipsecAeadAlgo */,
+                EspCipherNull.getInstance(), espAuth)));
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testChaCha20Poly1305() throws Exception {
         if (!hasIpSecAlgorithm(AUTH_CRYPT_CHACHA20_POLY1305)) {
