@@ -16,9 +16,13 @@
 
 package android.net.cts;
 
+import static android.net.IpSecAlgorithm.AUTH_AES_CMAC;
 import static android.net.IpSecAlgorithm.AUTH_AES_XCBC;
 import static android.net.IpSecAlgorithm.AUTH_CRYPT_CHACHA20_POLY1305;
 import static android.net.IpSecAlgorithm.CRYPT_AES_CTR;
+import static android.net.cts.PacketUtils.AES_CMAC;
+import static android.net.cts.PacketUtils.AES_CMAC_ICV_LEN;
+import static android.net.cts.PacketUtils.AES_CMAC_KEY_LEN;
 import static android.net.cts.PacketUtils.AES_CTR;
 import static android.net.cts.PacketUtils.AES_CTR_BLK_SIZE;
 import static android.net.cts.PacketUtils.AES_CTR_IV_LEN;
@@ -243,6 +247,22 @@ public class IpSecAlgorithmImplTest extends IpSecBaseTest {
         final IpSecAlgorithm ipsecAuthAlgo =
                 new IpSecAlgorithm(IpSecAlgorithm.AUTH_AES_XCBC, authKey, AES_XCBC_ICV_LEN * 8);
         final EspAuth espAuth = new EspAuth(AES_XCBC, authKey, AES_XCBC_ICV_LEN);
+
+        runWithShellPermissionIdentity(new TestNetworkRunnable(new CheckCryptoImplTest(
+                null /* ipsecEncryptAlgo */, ipsecAuthAlgo, null /* ipsecAeadAlgo */,
+                EspCipherNull.getInstance(), espAuth)));
+    }
+
+    @Test
+    public void testAesCmac() throws Exception {
+        if (!hasIpSecAlgorithm(AUTH_AES_CMAC)) {
+            return;
+        }
+
+        final byte[] authKey = getKeyBytes(AES_CMAC_KEY_LEN);
+        final IpSecAlgorithm ipsecAuthAlgo =
+                new IpSecAlgorithm(IpSecAlgorithm.AUTH_AES_CMAC, authKey, AES_CMAC_ICV_LEN * 8);
+        final EspAuth espAuth = new EspAuth(AES_CMAC, authKey, AES_CMAC_ICV_LEN);
 
         runWithShellPermissionIdentity(new TestNetworkRunnable(new CheckCryptoImplTest(
                 null /* ipsecEncryptAlgo */, ipsecAuthAlgo, null /* ipsecAeadAlgo */,
