@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6935caac_8d09e64c",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-05T22:24:08Z",
+      "side": 1,
+      "message": "I think it\u0027s better to make then static because bringing up test network takes time. On cuttlefish tests it may take 1-2 seconds.",
+      "parentUuid": "b979af7d_1673e173",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 40
+      },
+      "revId": "8e2daf3afaa1f14532272dd7af0b223020bd10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9f3e43c3_9e58ebd2",
         "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
         "patchSetId": 2
