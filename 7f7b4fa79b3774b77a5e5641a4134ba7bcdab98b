@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ef2fd78_81d7da6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-05T21:05:54Z",
+      "side": 1,
+      "message": "This should be squashed on the one above; it should always go in with that.",
+      "revId": "7f7b4fa79b3774b77a5e5641a4134ba7bcdab98b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
