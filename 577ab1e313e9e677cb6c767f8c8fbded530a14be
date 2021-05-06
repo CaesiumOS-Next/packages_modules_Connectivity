@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d8cdf5d_0d152b40",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-06T18:03:21Z",
+      "side": 1,
+      "message": "As clarified offline, this line is checking the first SDK, but  @IgnoreUpTo(Build.VERSION_CODES.R) is checking the current SDK.\n\nWe want testGetSupportedAlgorithms to only run if current SDK \u003e\u003dS. And in the test we expect getSupportedAlgorithms return different values according to its first SDK.",
+      "parentUuid": "91fd6b8c_82f2c2ff",
+      "range": {
+        "startLine": 737,
+        "startChar": 16,
+        "endLine": 737,
+        "endChar": 58
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2287c1a2_0ba3511d",
@@ -202,6 +226,30 @@
       "writtenOn": "2021-05-05T22:30:05Z",
       "side": 1,
       "message": "If this is necessary, it should be in the CL that adds the test",
+      "range": {
+        "startLine": 1473,
+        "startChar": 0,
+        "endLine": 1473,
+        "endChar": 38
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4748d58f_59417953",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1473,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-06T18:03:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dccb3b3_9e11bcf7",
       "range": {
         "startLine": 1473,
         "startChar": 0,
