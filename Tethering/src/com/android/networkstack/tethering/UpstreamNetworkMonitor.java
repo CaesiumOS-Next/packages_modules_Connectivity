@@ -47,6 +47,7 @@ import androidx.annotation.Nullable;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.StateMachine;
+import com.android.modules.utils.build.SdkLevel;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -152,7 +153,6 @@ public class UpstreamNetworkMonitor {
     }
 
     private NetworkRequest makeDefaultNetworkRequest() {
-        // TODO: b/147280869, add a proper system API to replace this.
         final NetworkRequest trackDefaultRequest = new NetworkRequest.Builder()
                 .clearCapabilities()
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
@@ -170,13 +170,19 @@ public class UpstreamNetworkMonitor {
      * UpstreamNetworkMonitor
      */
     public void startTrackDefaultNetwork(EntitlementManager entitle) {
-        // defaultNetworkRequest is not really a "request", just a way of tracking the system
-        // default network. It's guaranteed not to actually bring up any networks because it's
-        // the should be the same request as the ConnectivityService default request, and thus
-        // shares fate with it. We can't use registerDefaultNetworkCallback because it will not
-        // track the system default network if there is a VPN that applies to our UID.
-        if (mDefaultNetworkCallback == null) {
-            mDefaultNetworkCallback = new UpstreamNetworkCallback(CALLBACK_DEFAULT_INTERNET);
+        if (mDefaultNetworkCallback != null) {
+            Log.wtf(TAG, "default network callback is already registered");
+            return;
+        }
+        mDefaultNetworkCallback = new UpstreamNetworkCallback(CALLBACK_DEFAULT_INTERNET);
+        if (SdkLevel.isAtLeastS()) {
+            cm().registerSystemDefaultNetworkCallback(mDefaultNetworkCallback, mHandler);
+        } else {
+            // defaultNetworkRequest is not really a "request", just a way of tracking the system
+            // default network. It's guaranteed not to actually bring up any networks because it's
+            // the should be the same request as the ConnectivityService default request, and thus
+            // shares fate with it. We can't use registerDefaultNetworkCallback because it will not
+            // track the system default network if there is a VPN that applies to our UID.
             cm().requestNetwork(makeDefaultNetworkRequest(), mDefaultNetworkCallback, mHandler);
         }
         if (mEntitlementMgr == null) {

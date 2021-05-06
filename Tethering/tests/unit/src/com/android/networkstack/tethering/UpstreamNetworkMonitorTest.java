@@ -58,6 +58,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.tethering.TestConnectivityManager.NetworkRequestInfo;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 
@@ -166,14 +167,19 @@ public class UpstreamNetworkMonitorTest {
 
     @Test
     public void testCallbacksRegistered() {
-        // Verify the fired default request matches expectation.
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
-        ArgumentCaptor<NetworkRequest> requestCaptor =
-                ArgumentCaptor.forClass(NetworkRequest.class);
-        verify(mCM, times(1)).requestNetwork(
-                requestCaptor.capture(), any(NetworkCallback.class), any(Handler.class));
-        assertEquals(0, requestCaptor.getValue().getTransportTypes().length);
-        assertTrue(requestCaptor.getValue().hasCapability(NET_CAPABILITY_INTERNET));
+        if (SdkLevel.isAtLeastS()) {
+            verify(mCM, times(1)).registerSystemDefaultNetworkCallback(
+                    any(NetworkCallback.class), any(Handler.class));
+        } else {
+            // Verify the fired default request matches expectation.
+            final ArgumentCaptor<NetworkRequest> requestCaptor =
+                    ArgumentCaptor.forClass(NetworkRequest.class);
+            verify(mCM, times(1)).requestNetwork(
+                    requestCaptor.capture(), any(NetworkCallback.class), any(Handler.class));
+            assertEquals(0, requestCaptor.getValue().getTransportTypes().length);
+            assertTrue(requestCaptor.getValue().hasCapability(NET_CAPABILITY_INTERNET));
+        }
 
         mUNM.startObserveAllNetworks();
         verify(mCM, times(1)).registerNetworkCallback(

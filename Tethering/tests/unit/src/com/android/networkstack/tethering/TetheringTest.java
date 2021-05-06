@@ -174,6 +174,7 @@ import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.StateMachine;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 import com.android.testutils.MiscAsserts;
 
@@ -638,9 +639,6 @@ public class TetheringTest {
         mServiceContext.registerReceiver(mBroadcastReceiver,
                 new IntentFilter(ACTION_TETHER_STATE_CHANGED));
 
-        // TODO: add NOT_VCN_MANAGED here, but more importantly in the production code.
-        // TODO: even better, change TetheringDependencies.getDefaultNetworkRequest() to use
-        // registerSystemDefaultNetworkCallback() on S and above.
         mCm = spy(new TestConnectivityManager(mServiceContext, mock(IConnectivityManager.class)));
 
         mTethering = makeTethering();
@@ -781,9 +779,15 @@ public class TetheringTest {
     }
 
     private void verifyDefaultNetworkRequestFiled() {
-        ArgumentCaptor<NetworkCallback> captor = ArgumentCaptor.forClass(NetworkCallback.class);
-        verify(mCm, times(1)).requestNetwork(any(NetworkRequest.class),
-                captor.capture(), any(Handler.class));
+        final ArgumentCaptor<NetworkCallback> captor =
+                ArgumentCaptor.forClass(NetworkCallback.class);
+        if (SdkLevel.isAtLeastS()) {
+            verify(mCm, times(1))
+                    .registerSystemDefaultNetworkCallback(captor.capture(), any(Handler.class));
+        } else {
+            verify(mCm, times(1)).requestNetwork(any(NetworkRequest.class),
+                    captor.capture(), any(Handler.class));
+        }
         mDefaultNetworkCallback = captor.getValue();
         assertNotNull(mDefaultNetworkCallback);
 
