@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c63f6321_e9e78295",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-06T17:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c2a9c76_c80af9a2",
+      "range": {
+        "startLine": 748,
+        "startChar": 13,
+        "endLine": 748,
+        "endChar": 43
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f45b4dd8_42431193",
@@ -131,6 +155,30 @@
       "writtenOn": "2021-05-05T22:30:05Z",
       "side": 1,
       "message": "Same",
+      "range": {
+        "startLine": 951,
+        "startChar": 13,
+        "endLine": 951,
+        "endChar": 30
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1e0c2ad_2c243bc0",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-06T17:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f45b4dd8_42431193",
       "range": {
         "startLine": 951,
         "startChar": 13,
