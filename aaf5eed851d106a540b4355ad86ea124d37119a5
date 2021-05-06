@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50de1860_05be6793",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-06T08:02:59Z",
+      "side": 1,
+      "message": "Do we know what changed such that new kernels only count 2 packets and not 3? Was the old kernel code incorrect, or is this a regression? For example, could it be a regression in how the data usage subsystem counts packets?\n\nWhat about devices running on older kernels? The test needs to pass on all Android devices. It looks like the old code accepted at least 3 packets but the new code accepts at least 2 packets.\n\nCCing Benedict, who probably knows more about this test than I do.",
+      "revId": "aaf5eed851d106a540b4355ad86ea124d37119a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "795bd20f_a255e68c",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-06T08:02:59Z",
+      "side": 1,
+      "message": "What about older kernels for which the value 3 is correct?",
+      "range": {
+        "startLine": 184,
+        "startChar": 39,
+        "endLine": 184,
+        "endChar": 40
+      },
+      "revId": "aaf5eed851d106a540b4355ad86ea124d37119a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
