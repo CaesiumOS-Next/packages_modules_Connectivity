@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3beb1ed_11e9d772",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-06T17:26:22Z",
+      "side": 1,
+      "message": "Backward compatibility is verified by mainline_modules-userdebug test on git_master\nhttps://fusion2.corp.google.com/invocations/0d28eb50-8f59-4b77-82e8-2003366ef6d6/targets;showStatuses\u003dflaky,passed/x86_64%20CtsNetTestCasesLatestSdk%5BCaptivePortalLoginGoogle.apk%2BNetworkStackGoogle.apk%2Bcom.google.android.resolv.apex%5D;config\u003ddefault/tests;query\u003dipsecman",
+      "revId": "5fef7fb79bcb4c2d10dcdb57a101a8f17ed08f89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
