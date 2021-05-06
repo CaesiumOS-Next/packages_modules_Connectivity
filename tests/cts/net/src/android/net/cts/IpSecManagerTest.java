@@ -52,7 +52,6 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -182,7 +181,7 @@ public class IpSecManagerTest extends IpSecBaseTest {
         }
 
         // Wait for TCP handshake packets to be counted
-        StatsChecker.waitForNumPackets(3); // (SYN, SYN+ACK, ACK)
+        StatsChecker.waitForNumPackets(2); // (SYN, SYN+ACK, ACK)
 
         // Reset StatsChecker, to ignore negotiation overhead.
         StatsChecker.initStatsChecker();
