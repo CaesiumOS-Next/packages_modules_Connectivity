@@ -16,6 +16,8 @@
 
 package com.android.networkstack.tethering;
 
+import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
@@ -69,7 +71,6 @@ public class TestConnectivityManager extends ConnectivityManager {
     final Map<NetworkCallback, NetworkRequestInfo> mRequested = new ArrayMap<>();
     final Map<NetworkCallback, Integer> mLegacyTypeMap = new ArrayMap<>();
 
-    private final NetworkRequest mDefaultRequest;
     private final Context mContext;
 
     private int mNetworkId = 100;
@@ -80,13 +81,10 @@ public class TestConnectivityManager extends ConnectivityManager {
      * @param ctx the context to use. Must be a fake or a mock because otherwise the test will
      *            attempt to send real broadcasts and resulting in permission denials.
      * @param svc an IConnectivityManager. Should be a fake or a mock.
-     * @param defaultRequest the default NetworkRequest that will be used by Tethering.
      */
-    public TestConnectivityManager(Context ctx, IConnectivityManager svc,
-            NetworkRequest defaultRequest) {
+    public TestConnectivityManager(Context ctx, IConnectivityManager svc) {
         super(ctx, svc);
         mContext = ctx;
-        mDefaultRequest = defaultRequest;
     }
 
     class NetworkRequestInfo {
@@ -185,7 +183,7 @@ public class TestConnectivityManager extends ConnectivityManager {
     public void requestNetwork(NetworkRequest req, NetworkCallback cb, Handler h) {
         assertFalse(mAllCallbacks.containsKey(cb));
         mAllCallbacks.put(cb, new NetworkRequestInfo(req, h));
-        if (mDefaultRequest.equals(req)) {
+        if (req.hasCapability(NET_CAPABILITY_INTERNET) && req.getTransportTypes().length == 0) {
             assertFalse(mTrackingDefault.containsKey(cb));
             mTrackingDefault.put(cb, new NetworkRequestInfo(req, h));
         } else {
