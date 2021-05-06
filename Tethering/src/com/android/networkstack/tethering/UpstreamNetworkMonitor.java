@@ -151,16 +151,25 @@ public class UpstreamNetworkMonitor {
         mCM = cm;
     }
 
+    private NetworkRequest makeDefaultNetworkRequest() {
+        // TODO: b/147280869, add a proper system API to replace this.
+        final NetworkRequest trackDefaultRequest = new NetworkRequest.Builder()
+                .clearCapabilities()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build();
+        return trackDefaultRequest;
+    }
+
     /**
      * Tracking the system default network. This method should be called when system is ready.
      *
-     * @param defaultNetworkRequest should be the same as ConnectivityService default request
      * @param entitle a EntitlementManager object to communicate between EntitlementManager and
      * UpstreamNetworkMonitor
      */
-    public void startTrackDefaultNetwork(NetworkRequest defaultNetworkRequest,
-            EntitlementManager entitle) {
-
+    public void startTrackDefaultNetwork(EntitlementManager entitle) {
         // defaultNetworkRequest is not really a "request", just a way of tracking the system
         // default network. It's guaranteed not to actually bring up any networks because it's
         // the should be the same request as the ConnectivityService default request, and thus
@@ -168,7 +177,7 @@ public class UpstreamNetworkMonitor {
         // track the system default network if there is a VPN that applies to our UID.
         if (mDefaultNetworkCallback == null) {
             mDefaultNetworkCallback = new UpstreamNetworkCallback(CALLBACK_DEFAULT_INTERNET);
-            cm().requestNetwork(defaultNetworkRequest, mDefaultNetworkCallback, mHandler);
+            cm().requestNetwork(makeDefaultNetworkRequest(), mDefaultNetworkCallback, mHandler);
         }
         if (mEntitlementMgr == null) {
             mEntitlementMgr = entitle;
