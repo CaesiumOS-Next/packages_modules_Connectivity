@@ -305,6 +305,30 @@
       },
       "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cb13009_e5e272be",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-07T21:11:20Z",
+      "side": 1,
+      "message": "hasIpSecTunnels is used in VPNs as well; unless we intend to use the IPsec algos in more places than just IPsec tests, suggest moving those to IpSecBaseTest",
+      "parentUuid": "77314167_2b663b81",
+      "range": {
+        "startLine": 126,
+        "startChar": 37,
+        "endLine": 126,
+        "endChar": 66
+      },
+      "revId": "577ab1e313e9e677cb6c767f8c8fbded530a14be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
