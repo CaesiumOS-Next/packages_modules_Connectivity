@@ -173,6 +173,7 @@ import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.StateMachine;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
+import com.android.networkstack.apishim.common.ShimUtils;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 import com.android.testutils.MiscAsserts;
 
@@ -776,10 +777,17 @@ public class TetheringTest {
     }
 
     private void verifyDefaultNetworkRequestFiled() {
-        ArgumentCaptor<NetworkRequest> reqCaptor = ArgumentCaptor.forClass(NetworkRequest.class);
-        verify(mCm, times(1)).requestNetwork(reqCaptor.capture(),
-                any(NetworkCallback.class), any(Handler.class));
-        assertTrue(TestConnectivityManager.looksLikeDefaultRequest(reqCaptor.getValue()));
+        if (ShimUtils.isAtLeastS()) {
+            verify(mCm, times(1)).registerSystemDefaultNetworkCallback(
+                    any(NetworkCallback.class), any(Handler.class));
+        } else {
+            ArgumentCaptor<NetworkRequest> reqCaptor = ArgumentCaptor.forClass(
+                    NetworkRequest.class);
+            verify(mCm, times(1)).requestNetwork(reqCaptor.capture(),
+                    any(NetworkCallback.class), any(Handler.class));
+            assertTrue(TestConnectivityManager.looksLikeDefaultRequest(reqCaptor.getValue()));
+        }
+
         // The default network request is only ever filed once.
         verifyNoMoreInteractions(mCm);
         mUpstreamNetworkMonitor.startTrackDefaultNetwork(mEntitleMgr);

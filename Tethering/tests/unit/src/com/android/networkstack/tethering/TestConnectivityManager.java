@@ -36,6 +36,7 @@ import android.os.Handler;
 import android.os.UserHandle;
 import android.util.ArrayMap;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Map;
@@ -245,6 +246,15 @@ public class TestConnectivityManager extends ConnectivityManager {
     @Override
     public void registerDefaultNetworkCallback(NetworkCallback cb) {
         fail("Should never be called.");
+    }
+
+    @Override
+    public void registerSystemDefaultNetworkCallback(@NonNull NetworkCallback cb,
+            @NonNull Handler h) {
+        assertFalse(mAllCallbacks.containsKey(cb));
+        mAllCallbacks.put(cb, new NetworkRequestInfo(null, h));
+        assertFalse(mTrackingDefault.containsKey(cb));
+        mTrackingDefault.put(cb, new NetworkRequestInfo(null /*NetworkRequest*/, h));
     }
 
     @Override
