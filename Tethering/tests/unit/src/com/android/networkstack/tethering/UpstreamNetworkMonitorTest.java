@@ -59,6 +59,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.networkstack.apishim.common.ShimUtils;
 import com.android.networkstack.tethering.TestConnectivityManager.NetworkRequestInfo;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 
@@ -169,16 +170,21 @@ public class UpstreamNetworkMonitorTest {
     @Test
     public void testCallbacksRegistered() {
         mUNM.startTrackDefaultNetwork(mEntitleMgr);
-        // Verify the fired default request matches expectation.
-        final ArgumentCaptor<NetworkRequest> requestCaptor =
-                ArgumentCaptor.forClass(NetworkRequest.class);
-        verify(mCM, times(1)).requestNetwork(
-                requestCaptor.capture(), any(NetworkCallback.class), any(Handler.class));
-        // For R- devices, Tethering will invoke this function in 2 cases, one is to
-        // request mobile network, the other is to track system default network. Verify
-        // the request is the one tracks default network.
-        assertFalse(requestCaptor.getValue().hasTransport(TRANSPORT_CELLULAR));
-        assertTrue(requestCaptor.getValue().hasCapability(NET_CAPABILITY_INTERNET));
+        if (ShimUtils.isAtLeastS()) {
+            verify(mCM, times(1)).registerSystemDefaultNetworkCallback(
+                    any(NetworkCallback.class), any(Handler.class));
+        } else {
+            // Verify the fired default request matches expectation.
+            final ArgumentCaptor<NetworkRequest> requestCaptor =
+                    ArgumentCaptor.forClass(NetworkRequest.class);
+            verify(mCM, times(1)).requestNetwork(
+                    requestCaptor.capture(), any(NetworkCallback.class), any(Handler.class));
+            // For R- devices, Tethering will invoke this function in 2 cases, one is to
+            // request mobile network, the other is to track system default network. Verify
+            // the request is the one tracks default network.
+            assertFalse(requestCaptor.getValue().hasTransport(TRANSPORT_CELLULAR));
+            assertTrue(requestCaptor.getValue().hasCapability(NET_CAPABILITY_INTERNET));
+        }
 
         mUNM.startObserveAllNetworks();
         verify(mCM, times(1)).registerNetworkCallback(

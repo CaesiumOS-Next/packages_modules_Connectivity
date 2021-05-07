@@ -173,6 +173,7 @@ import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.StateMachine;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
+import com.android.networkstack.apishim.common.ShimUtils;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
 import com.android.testutils.MiscAsserts;
 
@@ -776,8 +777,13 @@ public class TetheringTest {
     }
 
     private void verifyDefaultNetworkRequestFiled() {
-        verify(mCm, times(1)).requestNetwork(any(NetworkRequest.class),
-                any(NetworkCallback.class), any(Handler.class));
+        if (ShimUtils.isAtLeastS()) {
+            verify(mCm, times(1)).registerSystemDefaultNetworkCallback(
+                    any(NetworkCallback.class), any(Handler.class));
+        } else {
+            verify(mCm, times(1)).requestNetwork(any(NetworkRequest.class),
+                    any(NetworkCallback.class), any(Handler.class));
+        }
 
         // The default network request is only ever filed once.
         verifyNoMoreInteractions(mCm);
