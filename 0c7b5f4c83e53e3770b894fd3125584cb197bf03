@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000010588340",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1697371?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d1457215_19a426a6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-05-07T12:16:04Z",
+      "side": 1,
+      "message": "Prefer to use ctx.getSystemService(ConnectivityManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 148,
+        "startChar": 14,
+        "endLine": 148,
+        "endChar": 57
+      },
+      "revId": "0c7b5f4c83e53e3770b894fd3125584cb197bf03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
