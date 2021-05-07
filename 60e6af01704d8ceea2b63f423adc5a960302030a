@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8143adfa_d05170ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T02:53:06Z",
+      "side": 1,
+      "message": "Removed.\nTo give you more context, the network with NOT_VCN_MANAGED means top level networks, which includes generic mobile, wifi and VCN network (you can think that is another kind of VPN). User can use them directly.\n\nFor network w/o NOT_VCN_MANAGED, that means the network is for VCN to create tunnel, should not be accessed by the normaal users.",
+      "parentUuid": "b2650350_e808a031",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "60e6af01704d8ceea2b63f423adc5a960302030a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5635b30f_251abd8a",
