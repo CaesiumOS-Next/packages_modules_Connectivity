@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb852023_4ae5e93a",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/SettingsShim.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T08:10:07Z",
+      "side": 1,
+      "message": "Instead of adding separate shims for tethering, can we put these into the networkstack shims?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 27
+      },
+      "revId": "5578ea06c746bd6d224e69bba3687a8ae9754628",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
