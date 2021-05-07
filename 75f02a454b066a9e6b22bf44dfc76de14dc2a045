@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d35f06_3f29e215",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T08:07:12Z",
+      "side": 1,
+      "message": "The other build targets called xyzLatestSdk are all tests, but this is a library. Maybe call this TetheringIntegrationTestsLib, like NetworkStackIntegrationTestsLib, or TetheringIntegrationTestsStableLib, or TetheringIntegrationTestsApiStableLib?\n\nTetheringIntegrationTestsStableLib would also allow the target below (line 59) to be called something very similar, such as TetheringIntegrationTestsCurrentLib",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 47,
+        "endChar": 45
+      },
+      "revId": "75f02a454b066a9e6b22bf44dfc76de14dc2a045",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810b67cb_dbe9ad38",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T08:07:12Z",
+      "side": 1,
+      "message": "Perhaps you can put this min_sdk attribute (and the other one in line 60) into TetheringIntegrationTestsDefaults?",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 26
+      },
+      "revId": "75f02a454b066a9e6b22bf44dfc76de14dc2a045",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34627a2d_45df6734",
+        "filename": "Tethering/tests/mts/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T08:07:12Z",
+      "side": 1,
+      "message": "Is this necessary? I think what you\u0027re trying to do here is ensure that when we run the tethering MTS suite, that we also run the integration tests in addition to the CTS tests. But you don\u0027t need to do this by including the tests in this build target. You can also do it by changing the MTS tethering test plan to run both MtsTetheringTest and the tethering CTS tests. I think al you need is to add:\n\n    test_suites: [\n        \"mts-tethering\",\n    ],\n\nto the CtsTetheringTest build rule.\n\nEven better - if the intent is to run all the tethering CTS tests in MTS in addition to the tests in Tethering/tests/mts/... then why keep a separate MtsTetheringTest target and directory at all? There\u0027s only one file in Tethering/tests/mts/... , and we could just move it under Tethering/tests/cts/. Then we could delete MtsTetheringTest and Tethering/tests/mts/ entirely.\n\nThat doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "75f02a454b066a9e6b22bf44dfc76de14dc2a045",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d1d131_0b7d7466",
+        "filename": "tests/cts/tethering/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T08:07:12Z",
+      "side": 1,
+      "message": "The other build targets called xyzLatestSdk are all tests, but this is a library. Maybe call it something like TetheringCtsStableLib?",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "75f02a454b066a9e6b22bf44dfc76de14dc2a045",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
