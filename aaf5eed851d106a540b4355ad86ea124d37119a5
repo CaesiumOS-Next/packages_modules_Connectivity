@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "657a930f_abe6e9d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-07T21:39:42Z",
+      "side": 1,
+      "message": "If the ACK is delayed (waiting over a second to send seems like a long delay), perhaps there\u0027s a socket option to decrease that wait timeout? or perhaps as a last resort, to increase the timeout?",
+      "parentUuid": "ddb37fd2_4cfeb5d4",
+      "revId": "aaf5eed851d106a540b4355ad86ea124d37119a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "795bd20f_a255e68c",
         "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
         "patchSetId": 2
