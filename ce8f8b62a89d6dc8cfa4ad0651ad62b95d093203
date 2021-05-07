@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24ea7256_1415f255",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T09:38:56Z",
+      "side": 1,
+      "message": "Right. That\u0027s one of the two purposes of the shims: simplify production code by abstracting away the differences between releases. It should be very simple, just:\n\npackage com.android.networkstack.apishim.api30;\n\n...\n\npublic class ConnectivityManagerShimImpl\n        extends com.android.networkstack.apishim.api29.ConnectivityManagerShimImpl {\n\n...\n\n    @Override\n    public void registerSystemDefaultNetworkCallback(@NonNull NetworkCallback networkCallback,\n            @NonNull Handler handler) {\n        final NetworkRequest request \u003d new NetworkRequest.Builder()\n                .clearCapabilities()\n                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)\n                .addCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)\n                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)\n                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)\n                .build();\n        mCm.requestNetwork(request, networkCallback, handler);\n    }\n}",
+      "parentUuid": "f8093f1c_bbbc11a4",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 36
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ab482fd9_e9ba5884",
         "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
         "patchSetId": 2
