@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddb37fd2_4cfeb5d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-07T21:35:26Z",
+      "side": 1,
+      "message": "Agreed, it\u0027d be nice to know why this has changed. Given that the device is hosting both the client socket and server socket, i\u0027d expect to see all three packets (SYN, SYNACK, ACK) on the interface.\n\nOr perhaps is this a delayed ACK that isn\u0027t being sent, pending some additional data? It\u0027d be interesting to see which packet is omitted in the new kernels.",
+      "parentUuid": "b013303b_21eb3ff5",
+      "revId": "aaf5eed851d106a540b4355ad86ea124d37119a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "795bd20f_a255e68c",
         "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
         "patchSetId": 2
