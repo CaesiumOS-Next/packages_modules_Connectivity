@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36ce3f87_b06024cf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T17:39:04Z",
+      "side": 1,
+      "message": "Might want to be a bit more specific about this request (e.g., ensure no legacy type set, no DUN capability, etc.). Could factor that out to a looksLikeDefaultRequest method or something.",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 93
+      },
+      "revId": "bfb353d78595b490b28e43eb27d7908513ca2452",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5305049a_f3fe686d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T17:39:04Z",
+      "side": 1,
+      "message": "Can you check some things about this request (e.g., that it has INTERNET, no transports, no legacy types, and no DUN capability)? See other comment about looksLikeDefaultRequest().",
+      "range": {
+        "startLine": 785,
+        "startChar": 45,
+        "endLine": 785,
+        "endChar": 48
+      },
+      "revId": "bfb353d78595b490b28e43eb27d7908513ca2452",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5365a9f_b7797ade",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T17:39:04Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 176,
+        "startChar": 44,
+        "endLine": 176,
+        "endChar": 57
+      },
+      "revId": "bfb353d78595b490b28e43eb27d7908513ca2452",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
