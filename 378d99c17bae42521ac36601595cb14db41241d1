@@ -234,6 +234,30 @@
       },
       "revId": "378d99c17bae42521ac36601595cb14db41241d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69530fd0_60f7456e",
+        "filename": "tests/cts/tethering/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T15:55:46Z",
+      "side": 1,
+      "message": "Hmmm... there is a build time component to CtsNetTestCasesLatestSdk, too. Specifically, it needs to build in mainline-prod. So it does have to build against previous release hidden APIs. In that sense, StableLib does make sense. But you\u0027re right that StableLib also implies builds against stable APIs",
+      "parentUuid": "27210c5d_1c2a1f38",
+      "range": {
+        "startLine": 54,
+        "startChar": 11,
+        "endLine": 54,
+        "endChar": 36
+      },
+      "revId": "378d99c17bae42521ac36601595cb14db41241d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
