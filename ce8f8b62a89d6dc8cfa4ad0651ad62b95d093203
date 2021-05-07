@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3cb5bec_8e9e3cca",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-05-07T04:29:30Z",
+      "side": 1,
+      "message": "Can you please add a quick comment saying this function is only ever called once and the callback is never unregistered ? It took me a few minutes to figure that out.",
+      "range": {
+        "startLine": 174,
+        "startChar": 12,
+        "endLine": 174,
+        "endChar": 75
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8093f1c_bbbc11a4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-05-07T04:29:30Z",
+      "side": 1,
+      "message": "Can you at least add a TODO to make the shim that Lorenzo suggested ? Or do it, of course, which would be even better.",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 36
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab482fd9_e9ba5884",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-05-07T04:29:30Z",
+      "side": 1,
+      "message": "it",
+      "range": {
+        "startLine": 182,
+        "startChar": 94,
+        "endLine": 182,
+        "endChar": 98
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8edee1bc_0234aede",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-05-07T04:29:30Z",
+      "side": 1,
+      "message": "Suggested rewording :\n\n  In API \u003c\u003d R, registerSystemDefaultNetworkCallback is not available, and\n  registerDefaultNetworkCallback will not track the system default when a VPN\n  applies to the UID of this process.",
+      "range": {
+        "startLine": 184,
+        "startChar": 36,
+        "endLine": 185,
+        "endChar": 90
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed2bcc1a_16275068",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-05-07T04:29:30Z",
+      "side": 1,
+      "message": "Maybe add a quick comment here that this contains the callbacks tracking the system default network, whether it\u0027s registered with registerSystemDefaultNetworkCallback (S+) or with a custom request (R-)",
+      "range": {
+        "startLine": 70,
+        "startChar": 51,
+        "endLine": 70,
+        "endChar": 67
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f87f0e56_0539ef02",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-05-07T04:29:30Z",
+      "side": 1,
+      "message": "While you\u0027re here. Remove this write-only member, and replace the captor with the any(NetworkCallback.class).",
+      "range": {
+        "startLine": 791,
+        "startChar": 8,
+        "endLine": 791,
+        "endChar": 31
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
