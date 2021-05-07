@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebebefce_82543b89",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T12:32:10Z",
+      "side": 1,
+      "message": "Done in the underlying CL.\nRevised what we have in the javadoc.\nSee if it works for you.\nIf not I can add it here.",
+      "parentUuid": "a3cb5bec_8e9e3cca",
+      "range": {
+        "startLine": 174,
+        "startChar": 12,
+        "endLine": 174,
+        "endChar": 75
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8093f1c_bbbc11a4",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18f03f63_1ea237bf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T12:32:10Z",
+      "side": 1,
+      "message": "Yes needless to say this is a good idea.\nI just missed the comment.\nIIUC It is even simpler by using this approach.",
+      "parentUuid": "f8093f1c_bbbc11a4",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 36
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab482fd9_e9ba5884",
@@ -84,6 +132,30 @@
       "writtenOn": "2021-05-07T04:29:30Z",
       "side": 1,
       "message": "it",
+      "range": {
+        "startLine": 182,
+        "startChar": 94,
+        "endLine": 182,
+        "endChar": 98
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9343ea50_50ff0842",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T12:32:10Z",
+      "side": 1,
+      "message": "Done in the counter-part CL.",
+      "parentUuid": "ab482fd9_e9ba5884",
       "range": {
         "startLine": 182,
         "startChar": 94,
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4de3356_161a00e9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T12:32:10Z",
+      "side": 1,
+      "message": "Done in the counter-part CL.",
+      "parentUuid": "8edee1bc_0234aede",
+      "range": {
+        "startLine": 184,
+        "startChar": 36,
+        "endLine": 185,
+        "endChar": 90
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed2bcc1a_16275068",
@@ -140,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb078e3_f30c9644",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TestConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T12:32:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed2bcc1a_16275068",
+      "range": {
+        "startLine": 70,
+        "startChar": 51,
+        "endLine": 70,
+        "endChar": 67
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f87f0e56_0539ef02",
@@ -153,6 +273,30 @@
       "writtenOn": "2021-05-07T04:29:30Z",
       "side": 1,
       "message": "While you\u0027re here. Remove this write-only member, and replace the captor with the any(NetworkCallback.class).",
+      "range": {
+        "startLine": 791,
+        "startChar": 8,
+        "endLine": 791,
+        "endChar": 31
+      },
+      "revId": "ce8f8b62a89d6dc8cfa4ad0651ad62b95d093203",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e170773_ac9079bf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T12:32:10Z",
+      "side": 1,
+      "message": "Ah thanks for catching this.",
+      "parentUuid": "f87f0e56_0539ef02",
       "range": {
         "startLine": 791,
         "startChar": 8,

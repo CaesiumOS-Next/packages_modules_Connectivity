@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d6fa551_0440a99a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T12:32:10Z",
+      "side": 1,
+      "message": "This CL cannot pass TetheringCoverageTests but can pass TetheringTests.\nThis is because TetheringCoverageTests includes NetworkStackTestsLib,\nwhere NetworkStackTestsLib is built from NetworkStackApiStableLib.\nWith jarjar rule there, the Tethering uses ConnectvityManagerShim of api30,\ninstead of api31 which is specified in this patch.\n\nNot sure how to fix this, also +reminv@ to input.\n",
+      "revId": "0f03577f6d734131ac22f154576c7da9f1e69428",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
