@@ -22,6 +22,30 @@
       },
       "revId": "c3181238f57a55854caa2e7ed8011bd28cfb2187",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a024ccf2_c2affe47",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-07T17:36:27Z",
+      "side": 1,
+      "message": "I think we need to work with Mark to ensure that we have two build targets for tethering like we do for networkstack.\n\nAfter the May cut (5/19 I think?) we should be able to remove the automerger to mainline-prod, so waiting might be an option as well.",
+      "parentUuid": "213c262f_fe00c72a",
+      "range": {
+        "startLine": 33,
+        "startChar": 9,
+        "endLine": 33,
+        "endChar": 36
+      },
+      "revId": "c3181238f57a55854caa2e7ed8011bd28cfb2187",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
