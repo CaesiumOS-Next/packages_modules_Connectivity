@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "893daae5_b01ba302",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-07T21:08:04Z",
+      "side": 1,
+      "message": "TunNetworkWrapper? or TunNetworkInfo?",
+      "range": {
+        "startLine": 171,
+        "startChar": 35,
+        "endLine": 171,
+        "endChar": 42
+      },
+      "revId": "d574fc38f98ca6570ee1c6563ecb40ddb6425899",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
