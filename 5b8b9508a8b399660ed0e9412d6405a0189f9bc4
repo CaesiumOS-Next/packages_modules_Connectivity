@@ -22,6 +22,30 @@
       },
       "revId": "5b8b9508a8b399660ed0e9412d6405a0189f9bc4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d272c3f8_f9280142",
+        "filename": "Tethering/tests/unit/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-07T08:33:22Z",
+      "side": 1,
+      "message": "Yes, because this test lib would be include to TetheringCoverageTests. If we don\u0027t set any target sdk version in this lib, this default version is current. Then TetheringCoverageTests would end up in build failure because its dependence lib have higher target sdk than it.",
+      "parentUuid": "50f150fd_14d2b812",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 29
+      },
+      "revId": "5b8b9508a8b399660ed0e9412d6405a0189f9bc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
