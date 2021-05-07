@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "213c262f_fe00c72a",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-07T15:33:39Z",
+      "side": 1,
+      "message": "Presubmit failed because this\nis not going to build on R-derived branch since this target is disabled.\nNot sure how to address this properly.\nAlso +reminv@ to input if any idea.",
+      "range": {
+        "startLine": 33,
+        "startChar": 9,
+        "endLine": 33,
+        "endChar": 36
+      },
+      "revId": "c3181238f57a55854caa2e7ed8011bd28cfb2187",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
