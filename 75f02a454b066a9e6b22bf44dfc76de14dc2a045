@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3023ac28_60e45dd9",
+        "filename": "Tethering/tests/mts/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-10T11:09:20Z",
+      "side": 1,
+      "message": "Why can\u0027t we just have all the tests in one suite though? Is there a reason the tests right now in mts/ *shouldn\u0027t* be in cts/? We already have lots of test targets and it would be good to reduce the number if we can. And I don\u0027t think we have a separate MTS directory for any of the other modules.\n\nFor this CL, is it feasible to use the suggestion above and add \"mts-tethering\" to the test suites of the other target instead of including the code from the other target into this target? That should at least reduce the amount of code that needs to be built to run the tests.",
+      "parentUuid": "fa31d973_32bc7407",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "75f02a454b066a9e6b22bf44dfc76de14dc2a045",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "83d1d131_0b7d7466",
         "filename": "tests/cts/tethering/Android.bp",
         "patchSetId": 4
