@@ -46,6 +46,30 @@
       },
       "revId": "c3181238f57a55854caa2e7ed8011bd28cfb2187",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1cfc47c_6f06bc69",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-11T06:42:46Z",
+      "side": 1,
+      "message": "Two build target work for me, but I don\u0027t want add two build target at this stage and tune it in mainlne-prod.\n\nI prefer to add this two build target after 5/19, please file a bug to me.\n\nFor now, I also have in-flight CLs which waiting for review. It use NetworkStackApiCurrentShims in sc-dev and aosp. And use NetworkStackApiStableShims in mainline-prod. If those CLs can get approval, you just need to rebase your change on them.\n\naosp: https://android-review.googlesource.com/q/topic:add-settingsshim\nmainline-prod: https://googleplex-android-review.git.corp.google.com/q/topic:add-settingsshim-mainlineprod\nsc-dev: https://googleplex-android-review.git.corp.google.com/q/topic:add-settingsshim",
+      "parentUuid": "a024ccf2_c2affe47",
+      "range": {
+        "startLine": 33,
+        "startChar": 9,
+        "endLine": 33,
+        "endChar": 36
+      },
+      "revId": "c3181238f57a55854caa2e7ed8011bd28cfb2187",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
