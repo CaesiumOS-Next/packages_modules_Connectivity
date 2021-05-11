@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c958ed23_7d9029c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-05-11T15:02:16Z",
+      "side": 1,
+      "message": "shouldn\u0027t this fallback to if_nametoindex (possibly prefixed with something to clarify internal lookup failed) and only return an int string if interface doesn\u0027t even exist any more?",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26e49b2_e29804e6",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 2
