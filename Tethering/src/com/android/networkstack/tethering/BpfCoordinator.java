@@ -105,12 +105,17 @@ public class BpfCoordinator {
     private static final String TETHER_STATS_MAP_PATH = makeMapPath("stats");
     private static final String TETHER_LIMIT_MAP_PATH = makeMapPath("limit");
     private static final String TETHER_ERROR_MAP_PATH = makeMapPath("error");
+    private static final String TETHER_XDP_DEVMAP_PATH = makeMapPath("xdp_devmap", false);
 
     /** The names of all the BPF counters defined in bpf_tethering.h. */
     public static final String[] sBpfCounterNames = getBpfCounterNames();
 
+    private static String makeMapPath(String which, boolean hasSuffix) {
+        return "/sys/fs/bpf/tethering/map_offload_tether_" + which + (hasSuffix ? "_map" : "");
+    }
+
     private static String makeMapPath(String which) {
-        return "/sys/fs/bpf/tethering/map_offload_tether_" + which + "_map";
+        return makeMapPath(which, true);
     }
 
     private static String makeMapPath(boolean downstream, int ipVersion) {
@@ -337,6 +342,18 @@ public class BpfCoordinator {
                 return null;
             }
         }
+
+        /** Get xdp devmap BPF map. */
+        @Nullable public BpfMap<TetherDevMapKey, TetherDevMapValue> getBpfDevMap() {
+            if (!isAtLeastS()) return null;
+            try {
+                return new BpfMap<>(TETHER_XDP_DEVMAP_PATH,
+                    BpfMap.BPF_F_RDWR, TetherDevMapKey.class, TetherDevMapValue.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create xdp devmap: " + e);
+                return null;
+            }
+        }
     }
 
     @VisibleForTesting
@@ -490,6 +507,13 @@ public class BpfCoordinator {
                     Ipv6ForwardingRule>());
         }
         LinkedHashMap<Inet6Address, Ipv6ForwardingRule> rules = mIpv6ForwardingRules.get(ipServer);
+
+        // Add upstream and downstram interface index to the map.
+        // TODO: just add once for each interface to reduce the duplicate work.
+        // TODO: remove it form map while the interface has been removed because the map size
+        // is only 64 entries.
+        mBpfCoordinatorShim.addDevMap(rule.downstreamIfindex);
+        mBpfCoordinatorShim.addDevMap(rule.upstreamIfindex);
 
         // When the first rule is added to an upstream, setup upstream forwarding and data limit.
         maybeSetLimit(rule.upstreamIfindex);
@@ -761,6 +785,11 @@ public class BpfCoordinator {
             dumpIpv4ForwardingRules(pw);
             pw.decreaseIndent();
 
+            pw.println("XDP device map:");
+            pw.increaseIndent();
+            dumpDevmap(pw);
+            pw.decreaseIndent();
+
             pw.println();
             pw.println("Forwarding counters:");
             pw.increaseIndent();
@@ -897,6 +926,31 @@ public class BpfCoordinator {
         } catch (ErrnoException e) {
             pw.println("Error dumping counter map: " + e);
         }
+    }
+
+    private void dumpDevmap(@NonNull IndentingPrintWriter pw) {
+        try (BpfMap<TetherDevMapKey, TetherDevMapValue> map = mDeps.getBpfDevMap()) {
+            if (map == null) {
+                pw.println("No xdp devmap support");
+                return;
+            }
+            if (map.isEmpty()) {
+                pw.println("No interface index");
+                return;
+            }
+            pw.println("ifindex -> ifindex (iface)");
+            pw.increaseIndent();
+            map.forEach((k, v) -> {
+                // Get upstream interface name. Just do the best to make the index readable.
+                // TODO: get downstream interface name because the index is either upstrema or
+                // downstream interface in dev map.
+                pw.println(String.format("%d -> %d (%s)", k.ifindex, v.ifindex,
+                        getIfName(v.ifindex)));
+            });
+        } catch (ErrnoException e) {
+            pw.println("Error dumping xdp devma map: " + e);
+        }
+        pw.decreaseIndent();
     }
 
     /** IPv6 forwarding rule class. */
@@ -1237,6 +1291,12 @@ public class BpfCoordinator {
             final Tether4Value upstream4Value = makeTetherUpstream4Value(e, upstreamIndex);
             final Tether4Value downstream4Value = makeTetherDownstream4Value(e, tetherClient,
                     upstreamIndex);
+
+            // TODO: just add once for each interface to reduce the duplicate work.
+            // TODO: remove it form map while the interface has been removed because the map size
+            // is only 64 entries.
+            mBpfCoordinatorShim.addDevMap(tetherClient.downstreamIfindex);
+            mBpfCoordinatorShim.addDevMap(upstreamIndex);
 
             maybeSetLimit(upstreamIndex);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM, upstream4Key, upstream4Value);

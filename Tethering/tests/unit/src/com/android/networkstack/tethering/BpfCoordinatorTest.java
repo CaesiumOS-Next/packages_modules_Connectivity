@@ -207,6 +207,7 @@ public class BpfCoordinatorTest {
     @Mock private BpfMap<Tether4Key, Tether4Value> mBpfUpstream4Map;
     @Mock private BpfMap<TetherDownstream6Key, Tether6Value> mBpfDownstream6Map;
     @Mock private BpfMap<TetherUpstream6Key, Tether6Value> mBpfUpstream6Map;
+    @Mock private BpfMap<TetherDevMapKey, TetherDevMapValue> mBpfDevMap;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -283,6 +284,11 @@ public class BpfCoordinatorTest {
                     @Nullable
                     public BpfMap<TetherLimitKey, TetherLimitValue> getBpfLimitMap() {
                         return mBpfLimitMap;
+                    }
+
+                    @Nullable
+                    public BpfMap<TetherDevMapKey, TetherDevMapValue> getBpfDevMap() {
+                        return mBpfDevMap;
                     }
             });
 
