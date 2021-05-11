@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39422396_c95d05e2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-11T16:13:58Z",
+      "side": 1,
+      "message": "Good catch. Done.",
+      "parentUuid": "4f716bc0_9a25d073",
+      "range": {
+        "startLine": 1277,
+        "startChar": 8,
+        "endLine": 1277,
+        "endChar": 23
+      },
+      "revId": "5c87926227dd08cc258476ba4f7822a3155f9156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e7befd7_905b8716",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-11T09:54:13Z",
       "side": 1,
       "message": "I believe this is not used now. delete it ?",
+      "range": {
+        "startLine": 1319,
+        "startChar": 4,
+        "endLine": 1323,
+        "endChar": 5
+      },
+      "revId": "5c87926227dd08cc258476ba4f7822a3155f9156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28bfa6ae_ea73ff21",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-11T16:13:58Z",
+      "side": 1,
+      "message": "Well spotted. Deleted in a follow-up CL.",
+      "parentUuid": "7e7befd7_905b8716",
       "range": {
         "startLine": 1319,
         "startChar": 4,
