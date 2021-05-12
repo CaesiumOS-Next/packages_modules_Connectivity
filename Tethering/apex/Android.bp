@@ -24,8 +24,10 @@ apex {
     // cannot build as updatable unless service-connectivity builds against stable API).
     updatable: false,
     // min_sdk_version: "30",
+    bootclasspath_fragments: [
+        "com.android.tethering-bootclasspath-fragment",
+    ],
     java_libs: [
-        "framework-tethering",
         "service-connectivity",
     ],
     jni_libs: [
@@ -64,4 +66,10 @@ override_apex {
         "ServiceConnectivityResources",
         "InProcessTethering",
     ],
+}
+
+bootclasspath_fragment {
+    name: "com.android.tethering-bootclasspath-fragment",
+    contents: ["framework-tethering"],
+    apex_available: ["com.android.tethering"],
 }
