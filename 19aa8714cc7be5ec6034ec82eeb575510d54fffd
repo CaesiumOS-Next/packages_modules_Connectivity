@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "588ed08d_8d002662",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Some dump functions are using getIfName(). Maybe need to update existing behavior of getIfName() as you mentioned in another commit. Keep this as unresolved\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java;l\u003d805\n\n    private String ipv6UpstreamRuletoString(TetherUpstream6Key key, Tether6Value value) {\n        return String.format(\"%d(%s) %s -\u003e %d(%s) %04x %s %s\",\n                key.iif, getIfName(key.iif), key.dstMac, value.oif, getIfName(value.oif),",
+      "parentUuid": "c958ed23_7d9029c9",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a26e49b2_e29804e6",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-11T15:00:35Z",
       "side": 1,
       "message": "my suggestion would be to add _map suffixes here",
+      "range": {
+        "startLine": 105,
+        "startChar": 68,
+        "endLine": 107,
+        "endChar": 76
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c7570c1_0428e9f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a26e49b2_e29804e6",
       "range": {
         "startLine": 105,
         "startChar": 68,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b1b830_2ffad9b8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done. Use \"map_offload_tether_dev_map\" now",
+      "parentUuid": "756991a9_5566bfc8",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 90
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8b62e0d_ff49aa78",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-05-11T15:00:35Z",
       "side": 1,
       "message": "instead of adding this boolean\n\n--\n\n(also: alternatively this boolean could be \u0027boolean devmap\u0027)",
+      "range": {
+        "startLine": 113,
+        "startChar": 49,
+        "endLine": 113,
+        "endChar": 69
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96d27c13_72757b73",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done. Because of rename dev_map, don\u0027t need anymore",
+      "parentUuid": "a8b62e0d_ff49aa78",
       "range": {
         "startLine": 113,
         "startChar": 49,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7340e419_860be523",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done. Because of rename dev_map, don\u0027t need anymore",
+      "parentUuid": "740e3de9_2e57bceb",
+      "range": {
+        "startLine": 122,
+        "startChar": 79,
+        "endLine": 122,
+        "endChar": 80
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c5ea321_1f6ddcf6",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-05-11T15:00:35Z",
       "side": 1,
       "message": "devmap is a special type of map, which is why there was no _\n\nThe more I think about this, the more I realize \u0027xdp\u0027 in the name is inappropriate,\nsince longer term we might want to use this for \u0027tc\u0027 programs too (it is slightly more efficient).\n\nWould XDP_DEVMAP -\u003e DEV_MAP throughout make things easier on you?\nI think it would.",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 38
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24cc74a6_73112c07",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done. Rename to dev_map and it looks more consistent with other maps",
+      "parentUuid": "6c5ea321_1f6ddcf6",
       "range": {
         "startLine": 346,
         "startChar": 0,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2f3f2dd_a5d678f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3200e649_01fc14cc",
+      "range": {
+        "startLine": 513,
+        "startChar": 27,
+        "endLine": 513,
+        "endChar": 31
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaa41e3f_180452fd",
@@ -175,6 +343,30 @@
       "writtenOn": "2021-05-11T15:00:35Z",
       "side": 1,
       "message": "technically should have (%s) here too",
+      "range": {
+        "startLine": 947,
+        "startChar": 44,
+        "endLine": 947,
+        "endChar": 45
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baa5f70e_5a420e1d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaa41e3f_180452fd",
       "range": {
         "startLine": 947,
         "startChar": 44,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7922b26e_f63697f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1d08318_4db5c037",
+      "range": {
+        "startLine": 948,
+        "startChar": 24,
+        "endLine": 948,
+        "endChar": 33
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe7ac5fe_ab7fca70",
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cda2b839_589866e0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe7ac5fe_ab7fca70",
+      "range": {
+        "startLine": 951,
+        "startChar": 42,
+        "endLine": 951,
+        "endChar": 47
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1f81d57_102ecc40",
@@ -244,6 +484,30 @@
       "writtenOn": "2021-05-11T15:00:35Z",
       "side": 1,
       "message": "would it make sense to just have TetherDevMapKey[Or]Value ?",
+      "range": {
+        "startLine": 24,
+        "startChar": 13,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "19aa8714cc7be5ec6034ec82eeb575510d54fffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63d5bc5b_73b24b87",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetherDevMapKey.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-12T13:44:08Z",
+      "side": 1,
+      "message": "Do you mean use a unique name for both key and value?\nIf yes, I afraid that may be confused because we may not be able to know the field is key or value from the class name.\n\nex:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1703125/4/Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java#1471\nFrom\nverify(..).updateEntry(eq(new TetherDevKey(..)), eq(new TetherDevValue(..)));\n\nTo (?):\nverify(..).updateEntry(eq(new TetherDevKey(..)), eq(new TetherDevKey(..)));\nverify(..).updateEntry(eq(new TetherDevMapKeyOrValue(..)), eq(new TetherDevMapKeyOrValue(..)));\n\n\nIf I am misunderstanding, please let me know.",
+      "parentUuid": "d1f81d57_102ecc40",
       "range": {
         "startLine": 24,
         "startChar": 13,
