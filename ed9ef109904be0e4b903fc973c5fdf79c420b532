@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11bd71e_468f8b75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-12T04:06:42Z",
+      "side": 1,
+      "message": "nits: update commit message to reflect what you did last patch (Patchset 5) ?\n- setUsbTethering: called by\n   - setUsbTethering(boolean, IIntResultListener): posted to mHandler\n   - enableTetheringInternal\n- setNcmTethering: called only by enableTetheringInternal (see above)",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "ed9ef109904be0e4b903fc973c5fdf79c420b532",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "642d9f07_58457ad5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-12T04:06:42Z",
+      "side": 1,
+      "message": "Thanks for improving the code. LGTM, only nits.",
+      "revId": "ed9ef109904be0e4b903fc973c5fdf79c420b532",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
