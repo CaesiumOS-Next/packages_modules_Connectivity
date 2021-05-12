@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e69c068_fe89f711",
+        "filename": "Tethering/tests/mts/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-12T04:06:59Z",
+      "side": 1,
+      "message": "Thanks for suggestion, done.",
+      "parentUuid": "3023ac28_60e45dd9",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "75f02a454b066a9e6b22bf44dfc76de14dc2a045",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83d1d131_0b7d7466",
