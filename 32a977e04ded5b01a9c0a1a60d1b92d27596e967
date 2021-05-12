@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dccc069_2b225255",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-12T11:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c60fdd82_ced5f6e3",
+      "range": {
+        "startLine": 326,
+        "startChar": 31,
+        "endLine": 326,
+        "endChar": 42
+      },
+      "revId": "32a977e04ded5b01a9c0a1a60d1b92d27596e967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc50aa5e_04753387",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-05T13:47:16Z",
       "side": 1,
       "message": "Why do you have double subType/subTypeName? I expect \nlegacySubtype \u003d legacySubtypeToConfig\nlegacySubtypeName \u003d legacySubtypeNameToConfig\n\none of them are redundant\n\nMaybe remove legacySubtypeToConfig/legacySubtypeNameToConfig since you even do not configure them.",
+      "range": {
+        "startLine": 363,
+        "startChar": 8,
+        "endLine": 366,
+        "endChar": 41
+      },
+      "revId": "32a977e04ded5b01a9c0a1a60d1b92d27596e967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7dff7ed_b54c7ecd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-12T11:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc50aa5e_04753387",
       "range": {
         "startLine": 363,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0add9518_c48cbe56",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-12T11:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bb203ca_e6f5e7b5",
+      "range": {
+        "startLine": 374,
+        "startChar": 8,
+        "endLine": 376,
+        "endChar": 91
+      },
+      "revId": "32a977e04ded5b01a9c0a1a60d1b92d27596e967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13184800_2abe7481",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-05-05T13:47:16Z",
       "side": 1,
       "message": "Please put in other test. It\u0027s not the intention for this test.",
+      "range": {
+        "startLine": 390,
+        "startChar": 8,
+        "endLine": 397,
+        "endChar": 59
+      },
+      "revId": "32a977e04ded5b01a9c0a1a60d1b92d27596e967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e758ec_98c4f030",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-12T11:54:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13184800_2abe7481",
       "range": {
         "startLine": 390,
         "startChar": 8,
