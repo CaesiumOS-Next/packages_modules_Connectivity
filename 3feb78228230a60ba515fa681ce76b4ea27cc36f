@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bded4829_72529d6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-05-13T18:57:47Z",
+      "side": 1,
+      "message": "though note that removal is important because filling 64 is trivial if tethering downstream interfaces get new ifindex on each tether on/off event",
+      "revId": "3feb78228230a60ba515fa681ce76b4ea27cc36f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6c5cbb0_47621a38",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-05-13T18:57:47Z",
+      "side": 1,
+      "message": "not sure this is needed, and if so the message seems suboptimal, perhapy just \"Empty\".",
+      "range": {
+        "startLine": 926,
+        "startChar": 12,
+        "endLine": 929,
+        "endChar": 13
+      },
+      "revId": "3feb78228230a60ba515fa681ce76b4ea27cc36f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d126435_4d85a176",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-05-13T18:57:47Z",
+      "side": 1,
+      "message": "upstream",
+      "range": {
+        "startLine": 934,
+        "startChar": 83,
+        "endLine": 934,
+        "endChar": 91
+      },
+      "revId": "3feb78228230a60ba515fa681ce76b4ea27cc36f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
