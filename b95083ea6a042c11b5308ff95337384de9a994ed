@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d74f31f0_923c7caa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-13T11:16:16Z",
+      "side": 1,
+      "message": "Carry-forward +2 since the trivial comments are addressed.",
+      "revId": "b95083ea6a042c11b5308ff95337384de9a994ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
