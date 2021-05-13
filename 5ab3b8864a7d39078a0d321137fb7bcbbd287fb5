@@ -1,0 +1,82 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000010756434",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1705131?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "3fc33005_0707ad05",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-05-13T09:21:32Z",
+      "side": 1,
+      "message": "Prefer to use mContext.getSystemService(ConnectivityManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 100,
+        "startChar": 14,
+        "endLine": 100,
+        "endChar": 62
+      },
+      "revId": "5ab3b8864a7d39078a0d321137fb7bcbbd287fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000010756434",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1705131?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "be199220_96e47f62",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-05-13T09:21:32Z",
+      "side": 1,
+      "message": "Prefer to use mContext.getSystemService(PacProxyManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 101,
+        "startChar": 27,
+        "endLine": 101,
+        "endChar": 71
+      },
+      "revId": "5ab3b8864a7d39078a0d321137fb7bcbbd287fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000010756434",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1705131?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "92832d40_6d713bfd",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-05-13T09:21:32Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 102
+      },
+      "revId": "5ab3b8864a7d39078a0d321137fb7bcbbd287fb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
