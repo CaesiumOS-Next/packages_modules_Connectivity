@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cb040ef_dff2b4f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-14T18:55:35Z",
+      "side": 1,
+      "message": "Carrying over +2, after resolving merge conflicts",
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
