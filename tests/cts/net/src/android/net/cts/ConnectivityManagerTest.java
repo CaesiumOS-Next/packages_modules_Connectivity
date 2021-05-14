@@ -69,9 +69,11 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
@@ -101,9 +103,12 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
 import android.net.NetworkRequest;
+import android.net.NetworkSpecifier;
+import android.net.NetworkStateSnapshot;
 import android.net.NetworkUtils;
 import android.net.ProxyInfo;
 import android.net.SocketKeepalive;
+import android.net.TelephonyNetworkSpecifier;
 import android.net.TestNetworkInterface;
 import android.net.TestNetworkManager;
 import android.net.cts.util.CtsNetUtils;
@@ -121,6 +126,7 @@ import android.os.UserHandle;
 import android.os.VintfRuntimeInfo;
 import android.platform.test.annotations.AppModeFull;
 import android.provider.Settings;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.ArraySet;
@@ -132,6 +138,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.ArrayUtils;
+import com.android.internal.util.CollectionUtils;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
@@ -172,6 +179,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
@@ -425,6 +433,58 @@ public class ConnectivityManagerTest {
             }
             assertTrue("Unexpected foundCount of " + foundCount + " for type " + type,
                     foundCount == desiredFoundCount);
+        }
+    }
+
+    private String getSubscriberIdForCellNetwork(Network cellNetwork) {
+        final NetworkCapabilities cellCaps = mCm.getNetworkCapabilities(cellNetwork);
+        final NetworkSpecifier specifier = cellCaps.getNetworkSpecifier();
+        assertTrue(specifier instanceof TelephonyNetworkSpecifier);
+        // Get subscription from Telephony network specifier.
+        final int subId = ((TelephonyNetworkSpecifier) specifier).getSubscriptionId();
+        assertNotEquals(SubscriptionManager.INVALID_SUBSCRIPTION_ID, subId);
+
+        // Get subscriber Id from telephony manager.
+        final TelephonyManager tm = mContext.getSystemService(TelephonyManager.class);
+        return runWithShellPermissionIdentity(() -> tm.getSubscriberId(subId),
+                android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE);
+    }
+
+    @Test
+    public void testGetAllNetworkStateSnapshots() throws InterruptedException {
+        // Cannot use @IgnoreUpTo(Build.VERSION_CODES.R) because this test also requires API 31
+        // shims, and @IgnoreUpTo does not check that.
+        assumeTrue(TestUtils.shouldTestSApis());
+
+        // Make sure cell is active to retrieve IMSI for verification in later step.
+        final Network cellNetwork = mCtsNetUtils.connectToCell();
+        final String subscriberId = getSubscriberIdForCellNetwork(cellNetwork);
+        assertFalse(TextUtils.isEmpty(subscriberId));
+
+        // Verify the API cannot be called without proper permission.
+        assertThrows(SecurityException.class, () -> mCm.getAllNetworkStateSnapshots());
+
+        // Get all networks, verify the result of getAllNetworkStateSnapshots matches the result
+        // got from other APIs.
+        final Network[] networks = mCm.getAllNetworks();
+        assertGreaterOrEqual(networks.length, 1);
+        final List<NetworkStateSnapshot> snapshots = runWithShellPermissionIdentity(
+                () -> mCm.getAllNetworkStateSnapshots(), NETWORK_SETTINGS);
+        assertEquals(networks.length, snapshots.size());
+        for (final Network network : networks) {
+            final NetworkStateSnapshot snapshot =
+                    CollectionUtils.find(snapshots, (it) -> it.getNetwork().equals(network));
+            assertNotNull(snapshot);
+            final NetworkCapabilities caps =
+                    Objects.requireNonNull(mCm.getNetworkCapabilities(network));
+            assertEquals("", caps.describeImmutableDifferences(
+                    snapshot.getNetworkCapabilities()));
+            assertEquals(mCm.getLinkProperties(network), snapshot.getLinkProperties());
+            assertEquals(mCm.getNetworkInfo(network).getType(), snapshot.getLegacyType());
+
+            if (network.equals(cellNetwork)) {
+                assertEquals(subscriberId, snapshot.getSubscriberId());
+            }
         }
     }
 
