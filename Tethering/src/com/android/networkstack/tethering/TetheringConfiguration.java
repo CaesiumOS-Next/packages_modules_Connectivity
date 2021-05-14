@@ -198,8 +198,8 @@ public class TetheringConfiguration {
         configLog.log(toString());
     }
 
-    /** Check whether input interface belong to usb.*/
-    public boolean isUsb(String iface) {
+    /** Check whether input interface belong to usb's rndis function.*/
+    public boolean isRndis(String iface) {
         return matchesDownstreamRegexs(iface, tetherableUsbRegexs);
     }
 
@@ -223,12 +223,12 @@ public class TetheringConfiguration {
         return (tetherableWifiP2pRegexs == null || tetherableWifiP2pRegexs.length == 0);
     }
 
-    /** Check whether input interface belong to bluetooth.*/
+    /** Check whether input interface belong to bluetooth. */
     public boolean isBluetooth(String iface) {
         return matchesDownstreamRegexs(iface, tetherableBluetoothRegexs);
     }
 
-    /** Check if interface is ncm */
+    /** Check if interface is usb's ncm function. */
     public boolean isNcm(String iface) {
         return matchesDownstreamRegexs(iface, tetherableNcmRegexs);
     }

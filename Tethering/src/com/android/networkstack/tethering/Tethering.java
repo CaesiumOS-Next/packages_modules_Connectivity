@@ -247,6 +247,7 @@ public class Tethering {
     private InterfaceSet mCurrentUpstreamIfaceSet;
 
     private boolean mRndisEnabled;       // track the RNDIS function enabled state
+    private boolean mNcmEnabled;         // track the NCM function enabled state
     // True iff. WiFi tethering should be started when soft AP is ready.
     private boolean mWifiTetherRequested;
     private Network mTetherUpstream;
@@ -522,8 +523,10 @@ public class Tethering {
             return TETHERING_WIGIG;
         } else if (cfg.isWifiP2p(iface)) {
             return TETHERING_WIFI_P2P;
-        } else if (cfg.isUsb(iface)) {
-            return TETHERING_USB;
+        } else if (cfg.isRndis(iface)) {
+            return TETHERING_RNDIS;
+        } else if (cfg.isNcm(iface)) {
+            return TETHERING_NCM;
         } else if (cfg.isBluetooth(iface)) {
             return TETHERING_BLUETOOTH;
         } else if (cfg.isNcm(iface)) {
@@ -586,13 +589,16 @@ public class Tethering {
                 result = setWifiTethering(enable);
                 break;
             case TETHERING_USB:
-                result = setUsbTethering(enable);
+                result = setUsbTethering(enable, TETHERING_USB);
                 break;
             case TETHERING_BLUETOOTH:
                 setBluetoothTethering(enable, listener);
                 break;
+            case TETHERING_RNDIS:
+                result = setUsbTethering(enable, TETHERING_RNDIS);
+                break;
             case TETHERING_NCM:
-                result = setNcmTethering(enable);
+                result = setUsbTethering(enable, TETHERING_NCM);
                 break;
             case TETHERING_ETHERNET:
                 result = setEthernetTethering(enable);
@@ -835,7 +841,10 @@ public class Tethering {
     }
 
     private int getRequestedState(int type) {
-        final TetheringRequestParcel request = mActiveTetheringRequests.get(type);
+        TetheringRequestParcel request = mActiveTetheringRequests.get(type);
+        if (request == null && type == TETHERING_NCM || type == TETHERING_RNDIS) {
+            request = mActiveTetheringRequests.get(TETHERING_USB);
+        }
 
         // The request could have been deleted before we had a chance to complete it.
         // If so, assume that the scope is the default scope for this tethering type.
@@ -980,19 +989,28 @@ public class Tethering {
             //       functions are ready to use.
             //
             // For more explanation, see b/62552150 .
-            if (!usbConnected && mRndisEnabled) {
+            if (!usbConnected) {
                 // Turn off tethering if it was enabled and there is a disconnect.
-                tetherMatchingInterfaces(IpServer.STATE_AVAILABLE, TETHERING_USB);
+                if (mRndisEnabled) {
+                    tetherMatchingInterfaces(IpServer.STATE_AVAILABLE, TETHERING_RNDIS);
+                }
+                if (mNcmEnabled) {
+                    tetherMatchingInterfaces(IpServer.STATE_AVAILABLE, TETHERING_NCM);
+                }
                 mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_USB);
-            } else if (usbConfigured && rndisEnabled) {
+            } else if (usbConfigured) {
                 // Tether if rndis is enabled and usb is configured.
-                final int state = getRequestedState(TETHERING_USB);
-                tetherMatchingInterfaces(state, TETHERING_USB);
-            } else if (usbConnected && ncmEnabled) {
-                final int state = getRequestedState(TETHERING_NCM);
-                tetherMatchingInterfaces(state, TETHERING_NCM);
+                if (rndisEnabled) {
+                    final int state = getRequestedState(TETHERING_RNDIS);
+                    tetherMatchingInterfaces(state, TETHERING_RNDIS);
+                }
+                if (ncmEnabled) {
+                    final int state = getRequestedState(TETHERING_NCM);
+                    tetherMatchingInterfaces(state, TETHERING_NCM);
+                }
             }
             mRndisEnabled = usbConfigured && rndisEnabled;
+            mNcmEnabled = usbConfigured && ncmEnabled;
         }
 
         private void handleWifiApAction(Intent intent) {
@@ -1283,27 +1301,28 @@ public class Tethering {
     void setUsbTethering(boolean enable, IIntResultListener listener) {
         mHandler.post(() -> {
             try {
-                listener.onResult(setUsbTethering(enable));
+                listener.onResult(setUsbTethering(enable, TETHERING_USB));
             } catch (RemoteException e) { }
         });
     }
 
-    private int setUsbTethering(boolean enable) {
+    private int setUsbTethering(boolean enable, int type) {
         if (VDBG) Log.d(TAG, "setUsbTethering(" + enable + ")");
         UsbManager usbManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
         if (usbManager == null) {
             mLog.e("setUsbTethering: failed to get UsbManager!");
             return TETHER_ERROR_SERVICE_UNAVAIL;
         }
-        usbManager.setCurrentFunctions(enable ? UsbManager.FUNCTION_RNDIS
-                : UsbManager.FUNCTION_NONE);
-        return TETHER_ERROR_NO_ERROR;
-    }
 
-    private int setNcmTethering(boolean enable) {
-        if (VDBG) Log.d(TAG, "setNcmTethering(" + enable + ")");
-        UsbManager usbManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
-        usbManager.setCurrentFunctions(enable ? UsbManager.FUNCTION_NCM : UsbManager.FUNCTION_NONE);
+        long usbFunctions = UsbManager.FUNCTION_NONE;
+        if (type == TETHERING_USB) {
+            usbFunctions = UsbManager.FUNCTION_RNDIS | UsbManager.FUNCTION_NCM;
+        } else if (type == TETHERING_NCM) {
+            usbFunctions = UsbManager.FUNCTION_NCM;
+        } else {
+            usbFunctions = UsbManager.FUNCTION_RNDIS;
+        }
+        usbManager.setCurrentFunctions(enable ? usbFunctions : UsbManager.FUNCTION_NONE);
         return TETHER_ERROR_NO_ERROR;
     }
 

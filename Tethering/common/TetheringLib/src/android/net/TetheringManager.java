@@ -176,6 +176,13 @@ public class TetheringManager {
      */
     public static final int TETHERING_WIGIG = 6;
 
+    /**
+     * RNDIS tethering type. This type is used to enable rndis function for usb tethering.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int TETHERING_RNDIS = 7;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(value = {
