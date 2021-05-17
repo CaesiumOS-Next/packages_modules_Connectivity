@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87f42fa4_402371dd",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T15:45:57Z",
+      "side": 1,
+      "message": "TetherInterface doesn\u0027t sound right because \"Tether\" is a verb. You could call it TetheringInterface maybe?",
+      "parentUuid": "611a330d_852eca0f",
+      "range": {
+        "startLine": 4,
+        "startChar": 21,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24268dce_88b3d41f",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
         "patchSetId": 1
@@ -384,6 +408,30 @@
       "side": 1,
       "message": "Bhe same name would cause build error: \"java generics name clash , XXX has the same erasure\". The name is the same and the parameter are both be List. After erasure in parameter, the tow function end up with clash.",
       "parentUuid": "142f9f4a_d5b10b08",
+      "range": {
+        "startLine": 1004,
+        "startChar": 21,
+        "endLine": 1004,
+        "endChar": 51
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc470691_4c7eccd4",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T15:45:57Z",
+      "side": 1,
+      "message": "Ouch, that\u0027s not good. Is it possible to keep the same method name by making it pass a map Integer to list of interfaces? If so we might want to do that. Unless you want to deprecate the old names as well...",
+      "parentUuid": "10db5282_8884ca73",
       "range": {
         "startLine": 1004,
         "startChar": 21,

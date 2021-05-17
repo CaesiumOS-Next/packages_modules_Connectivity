@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48ec8b5_a167826e",
+        "filename": "Tethering/common/TetheringLib/api/module-lib-current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T15:45:57Z",
+      "side": 1,
+      "message": "Can this class be deprecated, too?",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "b60cb7dd32e29620dd9df8c3cca31f73fc71c4a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf44d79f_ba24f146",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T15:45:57Z",
+      "side": 1,
+      "message": "use",
+      "range": {
+        "startLine": 87,
+        "startChar": 37,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "b60cb7dd32e29620dd9df8c3cca31f73fc71c4a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b59713_5028e5a1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T15:45:57Z",
+      "side": 1,
+      "message": "clients",
+      "range": {
+        "startLine": 87,
+        "startChar": 23,
+        "endLine": 87,
+        "endChar": 29
+      },
+      "revId": "b60cb7dd32e29620dd9df8c3cca31f73fc71c4a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec2b50bd_1c7b6d36",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T15:45:57Z",
+      "side": 1,
+      "message": "determine",
+      "range": {
+        "startLine": 985,
+        "startChar": 87,
+        "endLine": 985,
+        "endChar": 97
+      },
+      "revId": "b60cb7dd32e29620dd9df8c3cca31f73fc71c4a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
