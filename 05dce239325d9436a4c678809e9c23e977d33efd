@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db703951_8263210c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-17T03:21:55Z",
+      "side": 1,
+      "message": "Nit: This does not fit what the intention of the test case(testBypassingVcnFor\"NonInternet\"Request).  You may want to put it in other tests?",
+      "range": {
+        "startLine": 405,
+        "startChar": 64,
+        "endLine": 405,
+        "endChar": 87
+      },
+      "revId": "05dce239325d9436a4c678809e9c23e977d33efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
