@@ -22,6 +22,30 @@
       },
       "revId": "05dce239325d9436a4c678809e9c23e977d33efd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a72ddf7_b64bde86",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-17T06:23:17Z",
+      "side": 1,
+      "message": "Renamed test.\nThought about split the test but it makes more confuses",
+      "parentUuid": "db703951_8263210c",
+      "range": {
+        "startLine": 405,
+        "startChar": 64,
+        "endLine": 405,
+        "endChar": 87
+      },
+      "revId": "05dce239325d9436a4c678809e9c23e977d33efd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
