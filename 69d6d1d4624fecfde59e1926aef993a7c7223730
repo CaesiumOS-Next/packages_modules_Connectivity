@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b8d6fe86_2e27f24a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2566f7a_fddc95ab",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a73f8a69_925a7ffc",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "611a330d_852eca0f",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "This is used for the mapping between type and interface. And the interface status could be available, localOnly, tethered. So TetheredInterface seems confuse.",
+      "parentUuid": "311b216d_50b9cef1",
+      "range": {
+        "startLine": 4,
+        "startChar": 21,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24268dce_88b3d41f",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
         "patchSetId": 1
@@ -77,6 +125,30 @@
       "writtenOn": "2021-05-17T13:32:50Z",
       "side": 1,
       "message": "@TetheringType int",
+      "range": {
+        "startLine": 36,
+        "startChar": 27,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b8ceeb8_35272beb",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24268dce_88b3d41f",
       "range": {
         "startLine": 36,
         "startChar": 27,
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e896977_ba028a6f",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Ohh, indeed. Thanks for catching.",
+      "parentUuid": "edcefc3e_f7595858",
+      "range": {
+        "startLine": 71,
+        "startChar": 50,
+        "endLine": 71,
+        "endChar": 52
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60b04986_3a580f87",
@@ -123,6 +219,30 @@
       "writtenOn": "2021-05-17T13:32:50Z",
       "side": 1,
       "message": "\u003d",
+      "range": {
+        "startLine": 97,
+        "startChar": 38,
+        "endLine": 97,
+        "endChar": 39
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab179ca_9e5e8297",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60b04986_3a580f87",
       "range": {
         "startLine": 97,
         "startChar": 38,
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d50d801d_5158729a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34d45d8c_5a532c5d",
+      "range": {
+        "startLine": 98,
+        "startChar": 31,
+        "endLine": 98,
+        "endChar": 32
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c50fb332_df8ebd57",
@@ -169,6 +313,30 @@
       "writtenOn": "2021-05-17T13:32:50Z",
       "side": 1,
       "message": "Can we deprecate this and the TetheringInterfaceRegexps class?\n\nI wonder, could we even deprecate ACTION_TETHER_STATE_CHANGED?",
+      "range": {
+        "startLine": 984,
+        "startChar": 21,
+        "endLine": 984,
+        "endChar": 56
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4f72518_dbca6da2",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Yes, done.",
+      "parentUuid": "c50fb332_df8ebd57",
       "range": {
         "startLine": 984,
         "startChar": 21,
@@ -202,6 +370,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10db5282_8884ca73",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Bhe same name would cause build error: \"java generics name clash , XXX has the same erasure\". The name is the same and the parameter are both be List. After erasure in parameter, the tow function end up with clash.",
+      "parentUuid": "142f9f4a_d5b10b08",
+      "range": {
+        "startLine": 1004,
+        "startChar": 21,
+        "endLine": 1004,
+        "endChar": 51
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84574eb4_71865329",
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73400a64_ffe10e6d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Same reason as above.",
+      "parentUuid": "84574eb4_71865329",
+      "range": {
+        "startLine": 1026,
+        "startChar": 21,
+        "endLine": 1026,
+        "endChar": 49
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea68c7c2_700804d7",
@@ -238,6 +454,30 @@
       "writtenOn": "2021-05-17T13:32:50Z",
       "side": 1,
       "message": "Is this useful, I wonder? Does it give the user information that they couldn\u0027t get from the other version of onError?",
+      "range": {
+        "startLine": 1072,
+        "startChar": 21,
+        "endLine": 1072,
+        "endChar": 59
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "003018bf_a3016b38",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T14:35:00Z",
+      "side": 1,
+      "message": "Yes, it can let user know which tethering type is error. The other onError only let user know which interface is error. Assume we deprecate the getXXXRegex. User need to get interface type from the error callback without using regex. Consider user just register callback and the interface on errored, how user know this interface is belong to which interface type ?",
+      "parentUuid": "ea68c7c2_700804d7",
       "range": {
         "startLine": 1072,
         "startChar": 21,
