@@ -16,6 +16,23 @@
       "message": "Carrying over +2, after resolving merge conflicts",
       "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37bc7ec6_800a5211",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-17T22:44:09Z",
+      "side": 1,
+      "message": "This stack of CLs are blocked by:\n- aosp/1686171, without which AOSP and internal CLs have to be made different\n- b/186608065, without which existing and newly added TCP6 tests will be broken",
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
