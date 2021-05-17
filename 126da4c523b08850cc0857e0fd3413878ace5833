@@ -16,6 +16,23 @@
       "message": "Conflict because lacking of ag/14126020 and ag/14272000.\nWill check if it is feasible to cherry-pick them.",
       "revId": "126da4c523b08850cc0857e0fd3413878ace5833",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcdf4768_6290acc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-17T13:55:29Z",
+      "side": 1,
+      "message": "Please continue at ag/14598438",
+      "revId": "126da4c523b08850cc0857e0fd3413878ace5833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
