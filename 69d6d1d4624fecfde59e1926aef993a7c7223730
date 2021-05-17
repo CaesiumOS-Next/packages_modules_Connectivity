@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2566f7a_fddc95ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "Maybe \"Add the tethering type to TetheringEventCallback methods\"?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a73f8a69_925a7ffc",
@@ -14,6 +37,213 @@
       "writtenOn": "2021-05-17T12:54:18Z",
       "side": 1,
       "message": "upload the code first, test is working in progress.",
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "311b216d_50b9cef1",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "This should probably be \"TetheredInterface\".",
+      "range": {
+        "startLine": 4,
+        "startChar": 21,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24268dce_88b3d41f",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "@TetheringType int",
+      "range": {
+        "startLine": 36,
+        "startChar": 27,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edcefc3e_f7595858",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "This needs to be equals(), not \u003d\u003d.",
+      "range": {
+        "startLine": 71,
+        "startChar": 50,
+        "endLine": 71,
+        "endChar": 52
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60b04986_3a580f87",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "\u003d",
+      "range": {
+        "startLine": 97,
+        "startChar": 38,
+        "endLine": 97,
+        "endChar": 39
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34d45d8c_5a532c5d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetherInterface.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "\u003d",
+      "range": {
+        "startLine": 98,
+        "startChar": 31,
+        "endLine": 98,
+        "endChar": 32
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c50fb332_df8ebd57",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "Can we deprecate this and the TetheringInterfaceRegexps class?\n\nI wonder, could we even deprecate ACTION_TETHER_STATE_CHANGED?",
+      "range": {
+        "startLine": 984,
+        "startChar": 21,
+        "endLine": 984,
+        "endChar": 56
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142f9f4a_d5b10b08",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "Why change the name of this method? It\u0027s basically the same as onTetherableInterfacesChanged, it just communicates a bit more information and has a different method signature. So it should probably be called onTetherableInterfacesChanged as well.\n\nEven if we think that onTetherableDownstreamsChanged is a better name, we should probably keep using the existing name for consistency and to avoid confusion.",
+      "range": {
+        "startLine": 1004,
+        "startChar": 21,
+        "endLine": 1004,
+        "endChar": 51
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84574eb4_71865329",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "Ditto, onTetheredInterfacesChanged?",
+      "range": {
+        "startLine": 1026,
+        "startChar": 21,
+        "endLine": 1026,
+        "endChar": 49
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea68c7c2_700804d7",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1072,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-17T13:32:50Z",
+      "side": 1,
+      "message": "Is this useful, I wonder? Does it give the user information that they couldn\u0027t get from the other version of onError?",
+      "range": {
+        "startLine": 1072,
+        "startChar": 21,
+        "endLine": 1072,
+        "endChar": 59
+      },
       "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
