@@ -136,6 +136,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48b4af40_97b5d605",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T16:48:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87f42fa4_402371dd",
+      "range": {
+        "startLine": 4,
+        "startChar": 21,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24268dce_88b3d41f",
@@ -456,6 +480,54 @@
       "side": 1,
       "message": "To clarify, this would be something like:\n\n        default void onTetherableInterfacesChanged(Map\u003cInteger, List\u003cString\u003e\u003e interfaces) {\n\nor maybe, since the interfaces aren\u0027t ordered, we could use a set?\n\n        default void onTetherableInterfacesChanged(Set\u003cTetheringInterface\u003e interfaces) {",
       "parentUuid": "fc470691_4c7eccd4",
+      "range": {
+        "startLine": 1004,
+        "startChar": 21,
+        "endLine": 1004,
+        "endChar": 51
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06bac4d4_7d3f1611",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T16:48:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43d3aaa0_e1e473af",
+      "range": {
+        "startLine": 1004,
+        "startChar": 21,
+        "endLine": 1004,
+        "endChar": 51
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4513505_8a6828a1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-17T16:48:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43d3aaa0_e1e473af",
       "range": {
         "startLine": 1004,
         "startChar": 21,
