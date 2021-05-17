@@ -78,6 +78,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.hardware.usb.UsbManager;
 import android.net.ConnectivityManager;
+import android.net.DownstreamInterface;
 import android.net.EthernetManager;
 import android.net.IIntResultListener;
 import android.net.INetd;
@@ -860,20 +861,30 @@ public class Tethering {
         final ArrayList<String> erroredList = new ArrayList<>();
         final ArrayList<Integer> lastErrorList = new ArrayList<>();
 
+        final ArrayList<DownstreamInterface> availableInterfaceList = new ArrayList<>();
+        final ArrayList<DownstreamInterface> tetheredInterfaceList = new ArrayList<>();
+        final ArrayList<DownstreamInterface> localOnlyInterfaceList = new ArrayList<>();
+        final ArrayList<DownstreamInterface> erroredInterfaceList = new ArrayList<>();
+
         final TetheringConfiguration cfg = mConfig;
         mTetherStatesParcel = new TetherStatesParcel();
 
         int downstreamTypesMask = DOWNSTREAM_NONE;
         for (int i = 0; i < mTetherStates.size(); i++) {
-            TetherState tetherState = mTetherStates.valueAt(i);
-            String iface = mTetherStates.keyAt(i);
+            final TetherState tetherState = mTetherStates.valueAt(i);
+            final int type = tetherState.ipServer.interfaceType();
+            final String iface = mTetherStates.keyAt(i);
+            final DownstreamInterface tetherIface = new DownstreamInterface(type, iface);
             if (tetherState.lastError != TETHER_ERROR_NO_ERROR) {
                 erroredList.add(iface);
+                erroredInterfaceList.add(tetherIface);
                 lastErrorList.add(tetherState.lastError);
             } else if (tetherState.lastState == IpServer.STATE_AVAILABLE) {
                 availableList.add(iface);
+                availableInterfaceList.add(tetherIface);
             } else if (tetherState.lastState == IpServer.STATE_LOCAL_ONLY) {
                 localOnlyList.add(iface);
+                localOnlyInterfaceList.add(tetherIface);
             } else if (tetherState.lastState == IpServer.STATE_TETHERED) {
                 if (cfg.isUsb(iface)) {
                     downstreamTypesMask |= (1 << TETHERING_USB);
@@ -883,13 +894,18 @@ public class Tethering {
                     downstreamTypesMask |= (1 << TETHERING_BLUETOOTH);
                 }
                 tetherList.add(iface);
+                tetheredInterfaceList.add(tetherIface);
             }
         }
 
-        mTetherStatesParcel.availableList = availableList.toArray(new String[0]);
-        mTetherStatesParcel.tetheredList = tetherList.toArray(new String[0]);
-        mTetherStatesParcel.localOnlyList = localOnlyList.toArray(new String[0]);
-        mTetherStatesParcel.erroredIfaceList = erroredList.toArray(new String[0]);
+        mTetherStatesParcel.availableList = availableInterfaceList.toArray(
+                new DownstreamInterface[0]);
+        mTetherStatesParcel.tetheredList = tetheredInterfaceList.toArray(
+                new DownstreamInterface[0]);
+        mTetherStatesParcel.localOnlyList = localOnlyInterfaceList.toArray(
+                new DownstreamInterface[0]);
+        mTetherStatesParcel.erroredIfaceList = erroredInterfaceList.toArray(
+                new DownstreamInterface[0]);
         mTetherStatesParcel.lastErrorList = new int[lastErrorList.size()];
         Iterator<Integer> iterator = lastErrorList.iterator();
         for (int i = 0; i < lastErrorList.size(); i++) {
@@ -2083,10 +2099,10 @@ public class Tethering {
 
     private TetherStatesParcel emptyTetherStatesParcel() {
         final TetherStatesParcel parcel = new TetherStatesParcel();
-        parcel.availableList = new String[0];
-        parcel.tetheredList = new String[0];
-        parcel.localOnlyList = new String[0];
-        parcel.erroredIfaceList = new String[0];
+        parcel.availableList = new DownstreamInterface[0];
+        parcel.tetheredList = new DownstreamInterface[0];
+        parcel.localOnlyList = new DownstreamInterface[0];
+        parcel.erroredIfaceList = new DownstreamInterface[0];
         parcel.lastErrorList = new int[0];
 
         return parcel;
