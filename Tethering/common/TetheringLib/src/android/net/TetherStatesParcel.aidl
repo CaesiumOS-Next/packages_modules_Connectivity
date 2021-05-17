@@ -16,15 +16,17 @@
 
 package android.net;
 
+import android.net.TetherInterface;
+
 /**
  * Status details for tethering downstream interfaces.
  * {@hide}
  */
 parcelable TetherStatesParcel {
-    String[] availableList;
-    String[] tetheredList;
-    String[] localOnlyList;
-    String[] erroredIfaceList;
+    TetherInterface[] availableList;
+    TetherInterface[] tetheredList;
+    TetherInterface[] localOnlyList;
+    TetherInterface[] erroredIfaceList;
     // List of Last error code corresponding to each errored iface in erroredIfaceList. */
     // TODO: Improve this as b/143122247.
     int[] lastErrorList;

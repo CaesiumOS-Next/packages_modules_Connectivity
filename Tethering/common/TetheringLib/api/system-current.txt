@@ -1,6 +1,15 @@
 // Signature format: 2.0
 package android.net {
 
+  public final class TetherInterface implements android.os.Parcelable {
+    ctor public TetherInterface(int, @NonNull String);
+    method public int describeContents();
+    method @NonNull public String getInterface();
+    method public int getType();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.TetherInterface> CREATOR;
+  }
+
   public final class TetheredClient implements android.os.Parcelable {
     ctor public TetheredClient(@NonNull android.net.MacAddress, @NonNull java.util.Collection<android.net.TetheredClient.AddressInfo>, int);
     method public int describeContents();
@@ -74,9 +83,13 @@ package android.net {
   public static interface TetheringManager.TetheringEventCallback {
     method public default void onClientsChanged(@NonNull java.util.Collection<android.net.TetheredClient>);
     method public default void onError(@NonNull String, int);
+    method public default void onError(@NonNull android.net.TetherInterface, int);
+    method public default void onLocalOnlyDownstreamsChanged(@NonNull java.util.List<android.net.TetherInterface>);
     method public default void onLocalOnlyInterfacesChanged(@NonNull java.util.List<java.lang.String>);
     method public default void onOffloadStatusChanged(int);
+    method public default void onTetherableDownstreamsChanged(@NonNull java.util.List<android.net.TetherInterface>);
     method public default void onTetherableInterfacesChanged(@NonNull java.util.List<java.lang.String>);
+    method public default void onTetheredDownstreamsChanged(@NonNull java.util.List<android.net.TetherInterface>);
     method public default void onTetheredInterfacesChanged(@NonNull java.util.List<java.lang.String>);
     method public default void onTetheringSupported(boolean);
     method public default void onUpstreamChanged(@Nullable android.net.Network);

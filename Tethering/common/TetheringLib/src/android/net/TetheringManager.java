@@ -994,6 +994,20 @@ public class TetheringManager {
         default void onTetherableInterfacesChanged(@NonNull List<String> interfaces) {}
 
         /**
+         * Called when there was a change in the list of tetherable interfaces. Tetherable
+         * interface means this interface is available and can be used for tethering.
+         *
+         * <p>This will be called immediately after the callback is registered, and may be called
+         * multiple times later upon changes.
+         * @param interfaces The list of TetherInterface of currently tetherable interface.
+         */
+        default void onTetherableDownstreamsChanged(@NonNull List<TetherInterface> interfaces) {
+            // By default, the new callback calls the old callback, so apps
+            // implementing the old callback just work.
+            onTetherableInterfacesChanged(tetherInterfaceToIfaces(interfaces));
+        }
+
+        /**
          * Called when there was a change in the list of tethered interfaces.
          *
          * <p>This will be called immediately after the callback is registered, and may be called
@@ -1001,6 +1015,19 @@ public class TetheringManager {
          * @param interfaces The list of 0 or more String of currently tethered interface names.
          */
         default void onTetheredInterfacesChanged(@NonNull List<String> interfaces) {}
+
+        /**
+         * Called when there was a change in the list of tethered interfaces.
+         *
+         * <p>This will be called immediately after the callback is registered, and may be called
+         * multiple times later upon changes.
+         * @param interfaces The list of 0 or more TetherInterface of currently tethered interface.
+         */
+        default void onTetheredDownstreamsChanged(@NonNull List<TetherInterface> interfaces) {
+            // By default, the new callback calls the old callback, so apps
+            // implementing the old callback just work.
+            onTetheredInterfacesChanged(tetherInterfaceToIfaces(interfaces));
+        }
 
         /**
          * Called when there was a change in the list of local-only interfaces.
@@ -1012,6 +1039,19 @@ public class TetheringManager {
         default void onLocalOnlyInterfacesChanged(@NonNull List<String> interfaces) {}
 
         /**
+         * Called when there was a change in the list of local-only interfaces.
+         *
+         * <p>This will be called immediately after the callback is registered, and may be called
+         * multiple times later upon changes.
+         * @param interfaces The list of 0 or more TetherInterface of active local-only interface.
+         */
+        default void onLocalOnlyDownstreamsChanged(@NonNull List<TetherInterface> interfaces) {
+            // By default, the new callback calls the old callback, so apps
+            // implementing the old callback just work.
+            onLocalOnlyInterfacesChanged(tetherInterfaceToIfaces(interfaces));
+        }
+
+        /**
          * Called when an error occurred configuring tethering.
          *
          * <p>This will be called immediately after the callback is registered if the latest status
@@ -1020,6 +1060,20 @@ public class TetheringManager {
          * @param error One of {@code TetheringManager#TETHER_ERROR_*}.
          */
         default void onError(@NonNull String ifName, @TetheringIfaceError int error) {}
+
+        /**
+         * Called when an error occurred configuring tethering.
+         *
+         * <p>This will be called immediately after the callback is registered if the latest status
+         * on the interface is an error, and may be called multiple times later upon changes.
+         * @param iface A mapping of tethering type and interface.
+         * @param error One of {@code TetheringManager#TETHER_ERROR_*}.
+         */
+        default void onError(@NonNull TetherInterface iface, @TetheringIfaceError int error) {
+            // By default, the new callback calls the old callback, so apps
+            // implementing the old callback just work.
+            onError(iface.getInterface(), error);
+        }
 
         /**
          * Called when the list of tethered clients changes.
@@ -1042,6 +1096,25 @@ public class TetheringManager {
          */
         default void onOffloadStatusChanged(@TetherOffloadStatus int status) {}
     }
+
+    private static List<String> tetherInterfaceToIfaces(List<TetherInterface> tetherIfaces) {
+        final ArrayList<String> ifaces = new ArrayList<>();
+        for (TetherInterface tether : tetherIfaces) {
+            ifaces.add(tether.getInterface());
+        }
+
+        return ifaces;
+    }
+
+    private static String[] tetherInterfaceToIfaces(TetherInterface[] tetherIfaces) {
+        final String[] ifaces = new String[tetherIfaces.length];
+        for (int i = 0; i < tetherIfaces.length; i++) {
+            ifaces[i] = tetherIfaces[i].getInterface();
+        }
+
+        return ifaces;
+    }
+
 
     /**
      * Regular expressions used to identify tethering interfaces.
@@ -1114,10 +1187,10 @@ public class TetheringManager {
             }
             final ITetheringEventCallback remoteCallback = new ITetheringEventCallback.Stub() {
                 // Only accessed with a lock on this object
-                private final HashMap<String, Integer> mErrorStates = new HashMap<>();
-                private String[] mLastTetherableInterfaces = null;
-                private String[] mLastTetheredInterfaces = null;
-                private String[] mLastLocalOnlyInterfaces = null;
+                private final HashMap<TetherInterface, Integer> mErrorStates = new HashMap<>();
+                private TetherInterface[] mLastTetherableInterfaces = null;
+                private TetherInterface[] mLastTetheredInterfaces = null;
+                private TetherInterface[] mLastLocalOnlyInterfaces = null;
 
                 @Override
                 public void onUpstreamChanged(Network network) throws RemoteException {
@@ -1128,14 +1201,14 @@ public class TetheringManager {
 
                 private synchronized void sendErrorCallbacks(final TetherStatesParcel newStates) {
                     for (int i = 0; i < newStates.erroredIfaceList.length; i++) {
-                        final String iface = newStates.erroredIfaceList[i];
-                        final Integer lastError = mErrorStates.get(iface);
+                        final TetherInterface tetherIface = newStates.erroredIfaceList[i];
+                        final Integer lastError = mErrorStates.get(tetherIface);
                         final int newError = newStates.lastErrorList[i];
                         if (newError != TETHER_ERROR_NO_ERROR
                                 && !Objects.equals(lastError, newError)) {
-                            callback.onError(iface, newError);
+                            callback.onError(tetherIface, newError);
                         }
-                        mErrorStates.put(iface, newError);
+                        mErrorStates.put(tetherIface, newError);
                     }
                 }
 
@@ -1143,7 +1216,7 @@ public class TetheringManager {
                         final TetherStatesParcel newStates) {
                     if (Arrays.equals(mLastTetherableInterfaces, newStates.availableList)) return;
                     mLastTetherableInterfaces = newStates.availableList.clone();
-                    callback.onTetherableInterfacesChanged(
+                    callback.onTetherableDownstreamsChanged(
                             Collections.unmodifiableList(Arrays.asList(mLastTetherableInterfaces)));
                 }
 
@@ -1151,7 +1224,7 @@ public class TetheringManager {
                         final TetherStatesParcel newStates) {
                     if (Arrays.equals(mLastTetheredInterfaces, newStates.tetheredList)) return;
                     mLastTetheredInterfaces = newStates.tetheredList.clone();
-                    callback.onTetheredInterfacesChanged(
+                    callback.onTetheredDownstreamsChanged(
                             Collections.unmodifiableList(Arrays.asList(mLastTetheredInterfaces)));
                 }
 
@@ -1159,7 +1232,7 @@ public class TetheringManager {
                         final TetherStatesParcel newStates) {
                     if (Arrays.equals(mLastLocalOnlyInterfaces, newStates.localOnlyList)) return;
                     mLastLocalOnlyInterfaces = newStates.localOnlyList.clone();
-                    callback.onLocalOnlyInterfacesChanged(
+                    callback.onLocalOnlyDownstreamsChanged(
                             Collections.unmodifiableList(Arrays.asList(mLastLocalOnlyInterfaces)));
                 }
 
@@ -1262,8 +1335,8 @@ public class TetheringManager {
         if (mTetherStatesParcel == null) return TETHER_ERROR_NO_ERROR;
 
         int i = 0;
-        for (String errored : mTetherStatesParcel.erroredIfaceList) {
-            if (iface.equals(errored)) return mTetherStatesParcel.lastErrorList[i];
+        for (TetherInterface errored : mTetherStatesParcel.erroredIfaceList) {
+            if (iface.equals(errored.getInterface())) return mTetherStatesParcel.lastErrorList[i];
 
             i++;
         }
@@ -1327,7 +1400,7 @@ public class TetheringManager {
         mCallback.waitForStarted();
         if (mTetherStatesParcel == null) return new String[0];
 
-        return mTetherStatesParcel.availableList;
+        return tetherInterfaceToIfaces(mTetherStatesParcel.availableList);
     }
 
     /**
@@ -1341,7 +1414,7 @@ public class TetheringManager {
         mCallback.waitForStarted();
         if (mTetherStatesParcel == null) return new String[0];
 
-        return mTetherStatesParcel.tetheredList;
+        return tetherInterfaceToIfaces(mTetherStatesParcel.tetheredList);
     }
 
     /**
@@ -1361,7 +1434,7 @@ public class TetheringManager {
         mCallback.waitForStarted();
         if (mTetherStatesParcel == null) return new String[0];
 
-        return mTetherStatesParcel.erroredIfaceList;
+        return tetherInterfaceToIfaces(mTetherStatesParcel.erroredIfaceList);
     }
 
     /**
