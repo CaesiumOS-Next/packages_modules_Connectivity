@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000010841589",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1705131?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "52d9283c_ce445aba",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-05-17T03:53:42Z",
+      "side": 1,
+      "message": "Prefer to use mContext.getSystemService(ConnectivityManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 93,
+        "startChar": 14,
+        "endLine": 93,
+        "endChar": 62
+      },
+      "revId": "4de6bc7a55dd9ba58e9143c70e0340e15808838d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000010841589",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1705131?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b5147ee1_96a2c3c2",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-05-17T03:53:42Z",
+      "side": 1,
+      "message": "Prefer to use mContext.getSystemService(PacProxyManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 94,
+        "startChar": 27,
+        "endLine": 94,
+        "endChar": 71
+      },
+      "revId": "4de6bc7a55dd9ba58e9143c70e0340e15808838d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
