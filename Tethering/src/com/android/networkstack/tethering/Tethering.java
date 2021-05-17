@@ -51,6 +51,7 @@ import static android.net.TetheringManager.TETHER_ERROR_UNKNOWN_TYPE;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_FAILED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STARTED;
 import static android.net.TetheringManager.TETHER_HARDWARE_OFFLOAD_STOPPED;
+import static android.net.TetheringManager.toIfaces;
 import static android.net.util.TetheringMessageBase.BASE_MAIN_SM;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_INTERFACE_NAME;
 import static android.net.wifi.WifiManager.EXTRA_WIFI_AP_MODE;
@@ -78,6 +79,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.hardware.usb.UsbManager;
 import android.net.ConnectivityManager;
+import android.net.DownstreamInterface;
 import android.net.EthernetManager;
 import android.net.IIntResultListener;
 import android.net.INetd;
@@ -143,7 +145,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
@@ -854,26 +855,27 @@ public class Tethering {
     private void sendTetherStateChangedBroadcast() {
         if (!isTetheringSupported()) return;
 
-        final ArrayList<String> availableList = new ArrayList<>();
-        final ArrayList<String> tetherList = new ArrayList<>();
-        final ArrayList<String> localOnlyList = new ArrayList<>();
-        final ArrayList<String> erroredList = new ArrayList<>();
-        final ArrayList<Integer> lastErrorList = new ArrayList<>();
+        final ArrayList<DownstreamInterface> available = new ArrayList<>();
+        final ArrayList<DownstreamInterface> tethered = new ArrayList<>();
+        final ArrayList<DownstreamInterface> localOnly = new ArrayList<>();
+        final ArrayList<DownstreamInterface> errored = new ArrayList<>();
+        final ArrayList<Integer> lastErrors = new ArrayList<>();
 
         final TetheringConfiguration cfg = mConfig;
-        mTetherStatesParcel = new TetherStatesParcel();
 
         int downstreamTypesMask = DOWNSTREAM_NONE;
         for (int i = 0; i < mTetherStates.size(); i++) {
-            TetherState tetherState = mTetherStates.valueAt(i);
-            String iface = mTetherStates.keyAt(i);
+            final TetherState tetherState = mTetherStates.valueAt(i);
+            final int type = tetherState.ipServer.interfaceType();
+            final String iface = mTetherStates.keyAt(i);
+            final DownstreamInterface downstreamIface = new DownstreamInterface(type, iface);
             if (tetherState.lastError != TETHER_ERROR_NO_ERROR) {
-                erroredList.add(iface);
-                lastErrorList.add(tetherState.lastError);
+                errored.add(downstreamIface);
+                lastErrors.add(tetherState.lastError);
             } else if (tetherState.lastState == IpServer.STATE_AVAILABLE) {
-                availableList.add(iface);
+                available.add(downstreamIface);
             } else if (tetherState.lastState == IpServer.STATE_LOCAL_ONLY) {
-                localOnlyList.add(iface);
+                localOnly.add(downstreamIface);
             } else if (tetherState.lastState == IpServer.STATE_TETHERED) {
                 if (cfg.isUsb(iface)) {
                     downstreamTypesMask |= (1 << TETHERING_USB);
@@ -882,38 +884,61 @@ public class Tethering {
                 } else if (cfg.isBluetooth(iface)) {
                     downstreamTypesMask |= (1 << TETHERING_BLUETOOTH);
                 }
-                tetherList.add(iface);
+                tethered.add(downstreamIface);
             }
         }
 
-        mTetherStatesParcel.availableList = availableList.toArray(new String[0]);
-        mTetherStatesParcel.tetheredList = tetherList.toArray(new String[0]);
-        mTetherStatesParcel.localOnlyList = localOnlyList.toArray(new String[0]);
-        mTetherStatesParcel.erroredIfaceList = erroredList.toArray(new String[0]);
-        mTetherStatesParcel.lastErrorList = new int[lastErrorList.size()];
-        Iterator<Integer> iterator = lastErrorList.iterator();
-        for (int i = 0; i < lastErrorList.size(); i++) {
-            mTetherStatesParcel.lastErrorList[i] = iterator.next().intValue();
-        }
+        mTetherStatesParcel = buildTetherStatesParcel(available, localOnly, tethered, errored,
+                lastErrors);
         reportTetherStateChanged(mTetherStatesParcel);
 
-        final Intent bcast = new Intent(ACTION_TETHER_STATE_CHANGED);
-        bcast.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
-        bcast.putStringArrayListExtra(EXTRA_AVAILABLE_TETHER, availableList);
-        bcast.putStringArrayListExtra(EXTRA_ACTIVE_LOCAL_ONLY, localOnlyList);
-        bcast.putStringArrayListExtra(EXTRA_ACTIVE_TETHER, tetherList);
-        bcast.putStringArrayListExtra(EXTRA_ERRORED_TETHER, erroredList);
-        mContext.sendStickyBroadcastAsUser(bcast, UserHandle.ALL);
+        mContext.sendStickyBroadcastAsUser(buildStateChangeIntent(available, localOnly, tethered,
+                errored), UserHandle.ALL);
         if (DBG) {
             Log.d(TAG, String.format(
-                    "sendTetherStateChangedBroadcast %s=[%s] %s=[%s] %s=[%s] %s=[%s]",
-                    "avail", TextUtils.join(",", availableList),
-                    "local_only", TextUtils.join(",", localOnlyList),
-                    "tether", TextUtils.join(",", tetherList),
-                    "error", TextUtils.join(",", erroredList)));
+                    "reportTetherStateChanged %s=[%s] %s=[%s] %s=[%s] %s=[%s]",
+                    "avail", TextUtils.join(",", available),
+                    "local_only", TextUtils.join(",", localOnly),
+                    "tether", TextUtils.join(",", tethered),
+                    "error", TextUtils.join(",", errored)));
         }
 
         mNotificationUpdater.onDownstreamChanged(downstreamTypesMask);
+    }
+
+    private TetherStatesParcel buildTetherStatesParcel(
+            final ArrayList<DownstreamInterface> available,
+            final ArrayList<DownstreamInterface> localOnly,
+            final ArrayList<DownstreamInterface> tethered,
+            final ArrayList<DownstreamInterface> errored,
+            final ArrayList<Integer> lastErrors) {
+        final TetherStatesParcel parcel = new TetherStatesParcel();
+
+        parcel.availableList = available.toArray(new DownstreamInterface[0]);
+        parcel.tetheredList = tethered.toArray(new DownstreamInterface[0]);
+        parcel.localOnlyList = localOnly.toArray(new DownstreamInterface[0]);
+        parcel.erroredIfaceList = errored.toArray(new DownstreamInterface[0]);
+        parcel.lastErrorList = new int[lastErrors.size()];
+        for (int i = 0; i < lastErrors.size(); i++) {
+            parcel.lastErrorList[i] = lastErrors.get(i);
+        }
+
+        return parcel;
+    }
+
+    private Intent buildStateChangeIntent(final ArrayList<DownstreamInterface> available,
+            final ArrayList<DownstreamInterface> localOnly,
+            final ArrayList<DownstreamInterface> tethered,
+            final ArrayList<DownstreamInterface> errored) {
+        final Intent bcast = new Intent(ACTION_TETHER_STATE_CHANGED);
+        bcast.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+
+        bcast.putStringArrayListExtra(EXTRA_AVAILABLE_TETHER, toIfaces(available));
+        bcast.putStringArrayListExtra(EXTRA_ACTIVE_LOCAL_ONLY, toIfaces(localOnly));
+        bcast.putStringArrayListExtra(EXTRA_ACTIVE_TETHER, toIfaces(tethered));
+        bcast.putStringArrayListExtra(EXTRA_ERRORED_TETHER, toIfaces(errored));
+
+        return bcast;
     }
 
     private class StateReceiver extends BroadcastReceiver {
@@ -2083,10 +2108,10 @@ public class Tethering {
 
     private TetherStatesParcel emptyTetherStatesParcel() {
         final TetherStatesParcel parcel = new TetherStatesParcel();
-        parcel.availableList = new String[0];
-        parcel.tetheredList = new String[0];
-        parcel.localOnlyList = new String[0];
-        parcel.erroredIfaceList = new String[0];
+        parcel.availableList = new DownstreamInterface[0];
+        parcel.tetheredList = new DownstreamInterface[0];
+        parcel.localOnlyList = new DownstreamInterface[0];
+        parcel.erroredIfaceList = new DownstreamInterface[0];
         parcel.lastErrorList = new int[0];
 
         return parcel;
