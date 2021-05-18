@@ -129,6 +129,7 @@ public class TetheringConfiguration {
     public final String[] legacyDhcpRanges;
     public final String[] defaultIPv4DNS;
     public final boolean enableLegacyDhcpServer;
+    public final boolean enableLegacyDnsProxyServer;
 
     public final String[] provisioningApp;
     public final String provisioningAppNoUi;
@@ -174,6 +175,7 @@ public class TetheringConfiguration {
         defaultIPv4DNS = copy(DEFAULT_IPV4_DNS);
         mEnableBpfOffload = getEnableBpfOffload(res);
         enableLegacyDhcpServer = getEnableLegacyDhcpServer(res);
+        enableLegacyDnsProxyServer = getEnableLegacyDnsProxyServer();
 
         provisioningApp = getResourceStringArray(res, R.array.config_mobile_hotspot_provision_app);
         provisioningAppNoUi = getResourceString(res,
@@ -285,6 +287,9 @@ public class TetheringConfiguration {
 
         pw.print("mEnableSelectAllPrefixRange: ");
         pw.println(mEnableSelectAllPrefixRange);
+
+        pw.print("enableLegacyDnsProxyServer: ");
+        pw.println(enableLegacyDnsProxyServer);
     }
 
     /** Returns the string representation of this object.*/
@@ -305,6 +310,7 @@ public class TetheringConfiguration {
         sj.add(String.format("provisioningAppNoUi:%s", provisioningAppNoUi));
         sj.add(String.format("enableBpfOffload:%s", mEnableBpfOffload));
         sj.add(String.format("enableLegacyDhcpServer:%s", enableLegacyDhcpServer));
+        sj.add(String.format("enableLegacyDnsProxyServer:%s", enableLegacyDnsProxyServer));
         return String.format("TetheringConfiguration{%s}", sj.toString());
     }
 
@@ -406,6 +412,11 @@ public class TetheringConfiguration {
             return fromResource;
         }
         return copy(LEGACY_DHCP_DEFAULT_RANGE);
+    }
+
+    private static boolean getEnableLegacyDnsProxyServer() {
+        // TODO: Disable legacy DnsProxyServer
+        return true;
     }
 
     private static String getResourceString(Resources res, final int resId) {
