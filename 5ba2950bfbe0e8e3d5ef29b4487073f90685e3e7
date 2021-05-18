@@ -16,6 +16,23 @@
       "message": "LGTM. Remi?",
       "revId": "5ba2950bfbe0e8e3d5ef29b4487073f90685e3e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "800f0d7c_e9d086c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2021-05-18T14:06:56Z",
+      "side": 1,
+      "message": "Internal version has been submitted.",
+      "revId": "5ba2950bfbe0e8e3d5ef29b4487073f90685e3e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
