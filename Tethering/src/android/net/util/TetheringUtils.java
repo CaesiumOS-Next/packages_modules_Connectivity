@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import com.android.networkstack.tethering.TetherStatsValue;
 
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.net.Inet6Address;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -174,6 +175,18 @@ public class TetheringUtils {
             Log.wtf("TetheringUtils", "Failed to construct Inet6Address from "
                     + Arrays.toString(ALL_NODES) + " and scopedId " + scopeId);
             return null;
+        }
+    }
+
+    /**
+     * Close a socket, ignoring any exception while closing.
+     */
+    // TODO: move closeSocketQuietly to
+    // frameworks/base/core/java/android/net/util/SocketUtils.java.
+    public static void closeSocketQuietly(FileDescriptor fd) {
+        try {
+            SocketUtils.closeSocket(fd);
+        } catch (IOException ignored) {
         }
     }
 }
