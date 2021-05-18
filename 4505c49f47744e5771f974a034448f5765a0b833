@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "604d3cf1_bd953735",
+        "filename": "Tethering/common/TetheringLib/api/system-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "DownstreamInterface?",
+      "range": {
+        "startLine": 22,
+        "startChar": 21,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb580142_b166c18d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "Remove extra space?",
+      "range": {
+        "startLine": 98,
+        "startChar": 42,
+        "endLine": 98,
+        "endChar": 43
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df614d09_ad68adc3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringInterface.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 99,
+        "startChar": 32,
+        "endLine": 99,
+        "endChar": 33
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1337cdae_a18ca3c0",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "that pass {@link TetheringInterface} objects",
+      "range": {
+        "startLine": 986,
+        "startChar": 59,
+        "endLine": 986,
+        "endChar": 82
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec7636e7_1b264d7b",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "should",
+      "range": {
+        "startLine": 986,
+        "startChar": 35,
+        "endLine": 986,
+        "endChar": 40
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6247d3d5_b0bb18a9",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "set",
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c431f6d_fc0b6d0e",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "set",
+      "range": {
+        "startLine": 1034,
+        "startChar": 33,
+        "endLine": 1034,
+        "endChar": 37
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "911077ad_ccc102af",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "set",
+      "range": {
+        "startLine": 1057,
+        "startChar": 33,
+        "endLine": 1057,
+        "endChar": 37
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4421f1f2_15761c9e",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "The interface that experienced the error.",
+      "range": {
+        "startLine": 1081,
+        "startChar": 24,
+        "endLine": 1081,
+        "endChar": 51
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04b4fb00_2fc5b24d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "Any reason you didn\u0027t keep the existing model of returning an unmodifiable copy? Something like:\n\n    callback.onTetherableInterfaceChanged(\n            Collections.unmodifiableSet(mLastTetherableInterfaces));\n\nAlso elsewhere.",
+      "range": {
+        "startLine": 1235,
+        "startChar": 59,
+        "endLine": 1235,
+        "endChar": 71
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0014332b_2c24cf27",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-18T02:22:49Z",
+      "side": 1,
+      "message": "Would be nice to use something like tetheringInterfaceToIfaces() and remove these local variables, but that would require making that method public in TetheringManager. Not sure if we want to do that. In any case, doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 858,
+        "startChar": 0,
+        "endLine": 862,
+        "endChar": 67
+      },
+      "revId": "4505c49f47744e5771f974a034448f5765a0b833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
