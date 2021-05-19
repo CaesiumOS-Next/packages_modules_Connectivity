@@ -16,6 +16,23 @@
       "message": "link the bug id for tracking.",
       "revId": "ec831a187ec11b1dd473a66ebcec67de7de86c88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "970eccc3_824874e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-19T11:28:12Z",
+      "side": 1,
+      "message": "Can you explain how this will be used? Without an ND proxying implementation, I cannot see how this will work in the general case.\n\nSpecifically: if a user turns on wifi hotspot (or enables USB tethering), and then plugs into a standard Ethernet network, today, things work with IPv4 only. But after this CL, things will break, because IPv6 will be configured and will not work. The device will send out an RA, and packets will be forwarded to the Internet, but packets coming from the Internet will get stuck at the upstream network and never make it to the device because there is no ND proxy.\n\nIt is possible to support this if we extend the DadProxy written by twear@ into a more general ND proxy that forwards NS and NA packets in addition to just DAD packets. I think that would be a useful feature and we\u0027d be happy to review it if you have the time to write it.",
+      "revId": "ec831a187ec11b1dd473a66ebcec67de7de86c88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
