@@ -16,6 +16,24 @@
       "message": "Instead of removing the test, I prefer change wtf to error or warning. Although the behavior of testing is not realistic, but it did test the protection, right ?",
       "revId": "7ba566dbf7cb9df22f957346873b6dfdd04894ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3e3d33b_1078fd81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-19T08:36:38Z",
+      "side": 1,
+      "message": "With current production code, I think it is better since it does protect from multiple entrance, but it also provide log.wtf so you can spot a bug like this.\nBut no strong opinion, +lorenzo to input.",
+      "parentUuid": "62905a1a_bb8742f8",
+      "revId": "7ba566dbf7cb9df22f957346873b6dfdd04894ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
