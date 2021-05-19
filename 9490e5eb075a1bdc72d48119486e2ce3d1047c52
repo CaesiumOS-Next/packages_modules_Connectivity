@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc0e1a42_8300d33d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14b31978_a864be3d",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08acb2df_17ebef60",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-14T02:03:44Z",
       "side": 1,
       "message": "Do you verify it in R and S? If yes, please specify it.",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 44
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4bff214_f3e696fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08acb2df_17ebef60",
       "range": {
         "startLine": 15,
         "startChar": 6,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27cf9f6e_bd1ff085",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0ed5cb9_cbf78a02",
+      "range": {
+        "startLine": 327,
+        "startChar": 26,
+        "endLine": 327,
+        "endChar": 27
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c977b2c_07f4e9cb",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-05-14T02:03:44Z",
       "side": 1,
       "message": "Style: B",
+      "range": {
+        "startLine": 350,
+        "startChar": 18,
+        "endLine": 350,
+        "endChar": 19
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d336f0_a5634fd0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c977b2c_07f4e9cb",
       "range": {
         "startLine": 350,
         "startChar": 18,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47089f63_e6a40973",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "710c46ff_712c3110",
+      "range": {
+        "startLine": 351,
+        "startChar": 8,
+        "endLine": 351,
+        "endChar": 65
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d28228e_f594b718",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-05-14T02:03:44Z",
       "side": 1,
       "message": "You do not use the updated createConnectedNetworkAgent. If you do not need this, you don\u0027t need  to update this.",
+      "range": {
+        "startLine": 361,
+        "startChar": 16,
+        "endLine": 361,
+        "endChar": 43
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b23b3018_391da46c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d28228e_f594b718",
       "range": {
         "startLine": 361,
         "startChar": 16,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a696dcbf_3ea05f57",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e239c846_1d45a93f",
+      "range": {
+        "startLine": 386,
+        "startChar": 10,
+        "endLine": 386,
+        "endChar": 44
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86e1ebfd_a0f588fb",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-05-14T02:03:44Z",
       "side": 1,
       "message": "Nit: sugguest to split up this into small tests.\nSee go/unit-testing-practices#structure\n\none for agent part; one for agent2 part",
+      "range": {
+        "startLine": 387,
+        "startChar": 8,
+        "endLine": 387,
+        "endChar": 39
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88d49913_49b2bc7e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e1ebfd_a0f588fb",
       "range": {
         "startLine": 387,
         "startChar": 8,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b466c4f_46609027",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "057ebeee_75f2a80e",
+      "range": {
+        "startLine": 390,
+        "startChar": 12,
+        "endLine": 390,
+        "endChar": 29
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "048c67ff_1c7f9525",
@@ -238,6 +454,30 @@
       "writtenOn": "2021-05-14T02:03:44Z",
       "side": 1,
       "message": "You set it for agent but not for agent2, why?",
+      "range": {
+        "startLine": 394,
+        "startChar": 14,
+        "endLine": 394,
+        "endChar": 36
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5da45be_b03e3c61",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Yes, both should be the same",
+      "parentUuid": "048c67ff_1c7f9525",
       "range": {
         "startLine": 394,
         "startChar": 14,
@@ -271,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c315d77_750e89f2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "The case is depended on agent.markConnected() to sync the networkinfo from NetworkAgent to NetworkAgentInfo.\nSo, if we use createConnectedNetworkAgent to replace it.\nThe markConnected be called after following 2 commands, so it could work.\nconfigBuilder.setLegacySubTypeName(legacySubtypeName)        configBuilder.setLegacySubType(legacySubtype)\n\nbut test agent.setLegacySubtype test will fail , because no EVENT_NETWORK_INFO_CHANGED be sent out from NetworkAgent and update the NetworkInfo when the NetworkInfo changes.",
+      "parentUuid": "e1513d01_d43a55a6",
+      "range": {
+        "startLine": 392,
+        "startChar": 8,
+        "endLine": 397,
+        "endChar": 48
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cc60568_83ccd5f8",
@@ -284,6 +548,30 @@
       "writtenOn": "2021-05-14T02:03:44Z",
       "side": 1,
       "message": "I",
+      "range": {
+        "startLine": 398,
+        "startChar": 19,
+        "endLine": 398,
+        "endChar": 20
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4de82f6_834d669c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cc60568_83ccd5f8",
       "range": {
         "startLine": 398,
         "startChar": 19,
@@ -317,6 +605,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "344ef238_4edf155c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7546ccb_9d90a614",
+      "range": {
+        "startLine": 403,
+        "startChar": 8,
+        "endLine": 408,
+        "endChar": 49
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7567e5cb_14978248",
@@ -330,6 +642,30 @@
       "writtenOn": "2021-05-14T02:03:44Z",
       "side": 1,
       "message": "Style: I",
+      "range": {
+        "startLine": 409,
+        "startChar": 19,
+        "endLine": 409,
+        "endChar": 20
+      },
+      "revId": "9490e5eb075a1bdc72d48119486e2ce3d1047c52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd04ada6_cd165301",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-19T17:26:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7567e5cb_14978248",
       "range": {
         "startLine": 409,
         "startChar": 19,
