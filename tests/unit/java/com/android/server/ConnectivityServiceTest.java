@@ -9937,6 +9937,9 @@ public class ConnectivityServiceTest {
     public void testConnectivityDiagnosticsCallbackOnConnectivityReported() throws Exception {
         setUpConnectivityDiagnosticsCallback();
 
+        // reset to ignore callbacks from setup
+        reset(mConnectivityDiagnosticsCallback);
+
         final Network n = mCellNetworkAgent.getNetwork();
         final boolean hasConnectivity = true;
         mService.reportNetworkConnectivity(n, hasConnectivity);
@@ -9947,6 +9950,8 @@ public class ConnectivityServiceTest {
         // Verify onNetworkConnectivityReported fired
         verify(mConnectivityDiagnosticsCallback)
                 .onNetworkConnectivityReported(eq(n), eq(hasConnectivity));
+        verify(mConnectivityDiagnosticsCallback).onConnectivityReportAvailable(
+                argThat(report -> areConnDiagCapsRedacted(report.getNetworkCapabilities())));
 
         final boolean noConnectivity = false;
         mService.reportNetworkConnectivity(n, noConnectivity);
@@ -9957,6 +9962,12 @@ public class ConnectivityServiceTest {
         // Wait for onNetworkConnectivityReported to fire
         verify(mConnectivityDiagnosticsCallback)
                 .onNetworkConnectivityReported(eq(n), eq(noConnectivity));
+
+        // Also expect a ConnectivityReport after NetworkMonitor asynchronously re-validates
+        verify(mConnectivityDiagnosticsCallback, timeout(TIMEOUT_MS).times(2))
+                .onConnectivityReportAvailable(
+                        argThat(report ->
+                                areConnDiagCapsRedacted(report.getNetworkCapabilities())));
     }
 
     @Test
