@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62905a1a_bb8742f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-19T08:27:54Z",
+      "side": 1,
+      "message": "Instead of removing the test, I prefer change wtf to error or warning. Although the behavior of testing is not realistic, but it did test the protection, right ?",
+      "revId": "7ba566dbf7cb9df22f957346873b6dfdd04894ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
