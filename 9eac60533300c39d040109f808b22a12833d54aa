@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7252d0e_455856bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-19T15:13:03Z",
+      "side": 1,
+      "message": "The change aosp/1708088 break the unit test in R.\nWhy this is miss: the test could pass in S (I don\u0027t manual run it in R 😞). Ideally this could be catched by TH, TH did test this in mainline-prod branch. But the test is flatky, so TH don\u0027t bock this and be merged by Autosubmit :(",
+      "revId": "9eac60533300c39d040109f808b22a12833d54aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
