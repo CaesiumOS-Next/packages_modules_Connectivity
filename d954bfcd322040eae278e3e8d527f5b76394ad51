@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46dcdcf6_a937e549",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-20T01:50:17Z",
+      "side": 1,
+      "message": "This change let tethering test run in R platform which could avoid the break e.g. aosp/1711436.\nThis looks good to me. I want to hold the change till aosp/1711436, so just +1 first. Otherwise TH would reject all incoming tethering CLs. I will take care of this CL, thanks for the fix.",
+      "revId": "d954bfcd322040eae278e3e8d527f5b76394ad51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
