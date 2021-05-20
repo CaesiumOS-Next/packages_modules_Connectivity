@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0623a0b_62b55aa0",
+        "filename": "tests/cts/net/jni/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-20T03:30:48Z",
+      "side": 1,
+      "message": "Nit: min sdk ?",
+      "range": {
+        "startLine": 34,
+        "startChar": 44,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "c2520adb5726cb7bf14114785084abd35512acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a21b1e9_2901de00",
+        "filename": "tests/cts/net/jni/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-20T03:30:48Z",
+      "side": 1,
+      "message": "Why not \"30\" or \"current\" instead of using an old build SDK ? It\u0027s fine if a newer SDK is not needed at the moment though.",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "c2520adb5726cb7bf14114785084abd35512acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "798888bd_bf87d08e",
+        "filename": "tests/cts/net/native/dns/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-20T03:30:48Z",
+      "side": 1,
+      "message": "Nit: min",
+      "range": {
+        "startLine": 27,
+        "startChar": 43,
+        "endLine": 27,
+        "endChar": 45
+      },
+      "revId": "c2520adb5726cb7bf14114785084abd35512acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
