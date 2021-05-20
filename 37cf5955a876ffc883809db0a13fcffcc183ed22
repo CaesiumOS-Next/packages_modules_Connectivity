@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "761579ee_02814103",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1961,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-05-20T09:22:02Z",
+      "side": 1,
+      "message": "nit: I think using PRIVATE_DNS_MODE_OFF directly is more clear to me. But ... it\u0027s up to you, I don\u0027t have strong feeling.",
+      "range": {
+        "startLine": 1961,
+        "startChar": 68,
+        "endLine": 1961,
+        "endChar": 89
+      },
+      "revId": "37cf5955a876ffc883809db0a13fcffcc183ed22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
