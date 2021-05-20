@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a246367_945f4b6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1343198
+      },
+      "writtenOn": "2021-05-20T13:15:57Z",
+      "side": 1,
+      "message": "DnsProxyServer commits that are aosp/1354345, aosp/1354344 and aosp/1354343 merged conflict because of path modified or some relevant definition removed. Create commits again to fix it.\n",
+      "revId": "43262a51e6850fb6f930702c8c95477e8fd4297e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
