@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27f8d0ac_37f83b38",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-20T01:52:39Z",
+      "side": 1,
+      "message": "Nit: would it be possible to use \"\" as the default value for legacySubtypeName, and avoid having this condition ?",
+      "range": {
+        "startLine": 351,
+        "startChar": 13,
+        "endLine": 351,
+        "endChar": 37
+      },
+      "revId": "dc9eea61839af8a0a0ba6fe9ae3415a0b5195cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47ce86dc_97aeab23",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-20T01:52:39Z",
+      "side": 1,
+      "message": "createNetworkAgent is used in tests that also run on R (like our CTS tests in general). I\u0027m guessing this will crash on R since it doesn\u0027t exist yet ?\nYou probably need a isAtLeastS() check.\nTo verify on R, you can use \"atest CtsNetTestCasesLatestSdk:android.net.cts.NetworkAgentTest\" with a R device connected.",
+      "range": {
+        "startLine": 352,
+        "startChar": 26,
+        "endLine": 352,
+        "endChar": 46
+      },
+      "revId": "dc9eea61839af8a0a0ba6fe9ae3415a0b5195cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c8b3ba4_cfe86f51",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-20T01:52:39Z",
+      "side": 1,
+      "message": "Why not use createConnectedNetworkAgent here ?\nWithout having a NetworkRequest, the agent may be torn down immediately, so the test may be flaky",
+      "range": {
+        "startLine": 403,
+        "startChar": 20,
+        "endLine": 403,
+        "endChar": 38
+      },
+      "revId": "dc9eea61839af8a0a0ba6fe9ae3415a0b5195cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
