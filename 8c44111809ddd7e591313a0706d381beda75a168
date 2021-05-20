@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebb36088_badf15db",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-20T08:36:25Z",
+      "side": 1,
+      "message": "Needed because there are some conditions which may not be covered \n1. turn off usb tethering or wifi hotspot but upstream is not changed (L.1282)\n2. error handling (L.1369)\n\nFor 1, BpfCoordinator#updateUpstreamNetworkState won\u0027t be called in test base b.4 case because there is one more downstream and upstream is not changed.\n\n    b. Loss downstream interfaces while tethering\n      1. Enable WIFI tethering\n      2. Enable USB tethering\n      3. Disable USB tethering\n      4. Check the USB tether rules are removed.\n      5. Disable WIFI tethering\n      6. Check the WIFI tether rules are removed.\n\nFor 2, it is ok for now because the tethering is initialized failed. If any code (future) uses cleanupUpstream() to do error handling while tethering is connected. The rules may not be cleared by Tethering.java -\u003e BpfCoordinator#updateUpstreamNetworkState",
+      "parentUuid": "2072a9d9_5eedc30a",
+      "range": {
+        "startLine": 1290,
+        "startChar": 12,
+        "endLine": 1290,
+        "endChar": 36
+      },
+      "revId": "8c44111809ddd7e591313a0706d381beda75a168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31959709_4df04fa0",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 13
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-19T10:26:52Z",
       "side": 1,
       "message": "Just like the TODO you add, you only use key. So you can just use List or Set instead of HashMap. Any reason you want to maintain the key and value mapping ? E.g. printing the log for debug ?",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
+        "endLine": 700,
+        "endChar": 56
+      },
+      "revId": "8c44111809ddd7e591313a0706d381beda75a168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d836d4aa_29719b39",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 700,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-05-20T08:36:25Z",
+      "side": 1,
+      "message": "Done. Just wait for next upload cycle :)",
+      "parentUuid": "31959709_4df04fa0",
       "range": {
         "startLine": 696,
         "startChar": 0,
