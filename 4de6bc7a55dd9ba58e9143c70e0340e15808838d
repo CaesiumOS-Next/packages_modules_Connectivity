@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a10fa2e_07ee875e",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-21T09:23:11Z",
+      "side": 1,
+      "message": "Our tests generally use com.android.testutils.TestHttpServer (see CaptivePortalTest, NetworkValidationTest): maybe use that one instead ?\nIt\u0027s smaller and not based on deprecated apache library.\nYou may need to add a method to add a response with a map of arbitrary headers.",
+      "range": {
+        "startLine": 37,
+        "startChar": 26,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "4de6bc7a55dd9ba58e9143c70e0340e15808838d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b11122bc_d493367d",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-21T09:23:11Z",
+      "side": 1,
+      "message": "Why is this necessary ? Would it be possible to just use TestPermissionUtil.runAsShell with just the required permissions for the calls that require it, if it\u0027s not many ?",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 39
+      },
+      "revId": "4de6bc7a55dd9ba58e9143c70e0340e15808838d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e33d8730_0ad856d1",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-21T09:23:11Z",
+      "side": 1,
+      "message": "Unused ?",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 53
+      },
+      "revId": "4de6bc7a55dd9ba58e9143c70e0340e15808838d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "420e7cd0_cc76d019",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-21T09:23:11Z",
+      "side": 1,
+      "message": "Is this really 0 and not 1 ? If yes maybe explain with a comment ?",
+      "range": {
+        "startLine": 138,
+        "startChar": 37,
+        "endLine": 138,
+        "endChar": 38
+      },
+      "revId": "4de6bc7a55dd9ba58e9143c70e0340e15808838d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d912593_3c667e79",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-21T09:23:11Z",
+      "side": 1,
+      "message": "Can you also compare other attributes ? Why not assertEquals(mProxy, proxy) ?",
+      "range": {
+        "startLine": 139,
+        "startChar": 36,
+        "endLine": 139,
+        "endChar": 49
+      },
+      "revId": "4de6bc7a55dd9ba58e9143c70e0340e15808838d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
