@@ -69,6 +69,24 @@
       "message": "Would it better to make the 2nd request a no-op (and not log.wtf) instead of fixing the test?",
       "revId": "7ba566dbf7cb9df22f957346873b6dfdd04894ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c897c0d_44d543b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-21T02:40:01Z",
+      "side": 1,
+      "message": "Thats the original code.\nAs lorenzo mentioned it is an error in the caller and I think we want to catch those error as long as it won\u0027t impact release build.",
+      "parentUuid": "f011163c_a6a8c828",
+      "revId": "7ba566dbf7cb9df22f957346873b6dfdd04894ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

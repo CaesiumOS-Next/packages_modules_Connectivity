@@ -22,6 +22,30 @@
       },
       "revId": "a59a146b368d513c330c78bc834b6ed17c6dc145",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fcf5269_59cf4eaa",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-21T02:40:01Z",
+      "side": 0,
+      "message": "Ack, will remove that in follow-up CL if any.\nWill merge this as is since TH is very hard to pleasure.",
+      "parentUuid": "cd607e13_48e59b7a",
+      "range": {
+        "startLine": 783,
+        "startChar": 8,
+        "endLine": 783,
+        "endChar": 63
+      },
+      "revId": "a59a146b368d513c330c78bc834b6ed17c6dc145",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
