@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90c89475_44e6a890",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-21T08:09:43Z",
+      "side": 1,
+      "message": "-1 because I think this test will fail on devices that don\u0027t support wifi tethering.",
+      "revId": "37cf5955a876ffc883809db0a13fcffcc183ed22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbe936e5_59ff36ec",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-21T08:09:43Z",
+      "side": 1,
+      "message": "If there is an exception, where is the shell permission identity dropped? Seems like we should put this in the try block, so we can drop the shell permission identity in the finally block.\n\nI think you\u0027ll need to put the registration of the tethering callback in the block as well, because that requires NETWORK_SETTINGS.\n\nThe ConnectivitySettingsManager calls don\u0027t appear to need NETWORK_SETTINGS.",
+      "range": {
+        "startLine": 1950,
+        "startChar": 22,
+        "endLine": 1950,
+        "endChar": 50
+      },
+      "revId": "37cf5955a876ffc883809db0a13fcffcc183ed22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f64de4f_9d0d044e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1958,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-21T08:09:43Z",
+      "side": 1,
+      "message": "Looks like the test will fail at line 2007 if the device does not support wifi tethering. If so, then that\u0027s unacceptable, CTS must pass on all devices. You could ask Mark how to check whether wifi tethering is supported.",
+      "range": {
+        "startLine": 1958,
+        "startChar": 12,
+        "endLine": 1958,
+        "endChar": 30
+      },
+      "revId": "37cf5955a876ffc883809db0a13fcffcc183ed22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "761579ee_02814103",
@@ -38,6 +101,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "761579ee_02814103",
+      "range": {
+        "startLine": 1961,
+        "startChar": 68,
+        "endLine": 1961,
+        "endChar": 89
+      },
+      "revId": "37cf5955a876ffc883809db0a13fcffcc183ed22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5acbf36_1dfad7a6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1961,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-21T08:09:43Z",
+      "side": 1,
+      "message": "+1 actually. I think PRIVATE_DNS_MODE_OFF would be clearer because it\u0027s pretty obvious that PRIVATE_DNS_MODE_OFF is not the same as the PRIVATE_DNS_MODE_OPPORTUNISTIC in line 1969. But anyone reading the code won\u0027t know that unless they look up the value of TEST_PRIVATE_DNS_MODE. Same for TEST_AVOID_BAD_WIFI_SETTING.\n\nI don\u0027t feel strongly about this either, but if you respin this patchset, you could consider it.",
+      "parentUuid": "ffa0b973_489389b8",
       "range": {
         "startLine": 1961,
         "startChar": 68,
