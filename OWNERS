@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (d9de9d Merge "Add bootclasspath_fragment.")
 codewiz@google.com
 jchalard@google.com
 junyulai@google.com
@@ -5,3 +6,8 @@ lorenzo@google.com
 maze@google.com
 reminv@google.com
 satk@google.com
+=======
+set noparent
+
+include platform/frameworks/base:/services/core/java/com/android/server/net/OWNERS
+>>>>>>> BRANCH (999427 Merge "Move config_apf* resources to NetworkStack")
