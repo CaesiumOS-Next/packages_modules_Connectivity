@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bde8dcd4_b09fea84",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-21T08:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27f8d0ac_37f83b38",
+      "range": {
+        "startLine": 351,
+        "startChar": 13,
+        "endLine": 351,
+        "endChar": 37
+      },
+      "revId": "dc9eea61839af8a0a0ba6fe9ae3415a0b5195cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47ce86dc_97aeab23",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eb06470_2d539745",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-21T08:56:08Z",
+      "side": 1,
+      "message": "I add the SdkLevel.isAtLeastS(), but actually the test already ignored R by  @IgnoreUpTo(Build.VERSION_CODES.R), so the test doesn\u0027t run in R.",
+      "parentUuid": "47ce86dc_97aeab23",
+      "range": {
+        "startLine": 352,
+        "startChar": 26,
+        "endLine": 352,
+        "endChar": 46
+      },
+      "revId": "dc9eea61839af8a0a0ba6fe9ae3415a0b5195cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c8b3ba4_cfe86f51",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-05-20T01:52:39Z",
       "side": 1,
       "message": "Why not use createConnectedNetworkAgent here ?\nWithout having a NetworkRequest, the agent may be torn down immediately, so the test may be flaky",
+      "range": {
+        "startLine": 403,
+        "startChar": 20,
+        "endLine": 403,
+        "endChar": 38
+      },
+      "revId": "dc9eea61839af8a0a0ba6fe9ae3415a0b5195cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3643a70e_547fbbce",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-21T08:56:08Z",
+      "side": 1,
+      "message": "Previous code, the test is waiting for the OnNetworkCreated callback to make sure the netowrkinfo has been pass to netowrkagentinfo already.\n\nIf I use the api createConnectedNetworkAgent to avoid the flaky, I add the following to make sure the netowrkinfo is updated to netowrkagentInfo\n1. requestBandwidthUpdate\n2. agent.expectCallback\u003cOnBandwidthUpdateRequested\u003e()  \n\nWithout the about 1,2 the test will fail, because we can\u0027t get correct subtype and subtypename from the networkInfo ( \u003d mCM.getNetworkInfo())",
+      "parentUuid": "0c8b3ba4_cfe86f51",
       "range": {
         "startLine": 403,
         "startChar": 20,
