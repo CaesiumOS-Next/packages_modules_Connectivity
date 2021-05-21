@@ -16,7 +16,6 @@
 package com.android.networkstack.tethering;
 
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
-import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
 import static android.net.util.PrefixUtils.asIpPrefix;
 
@@ -34,7 +33,6 @@ import android.net.Network;
 import android.net.ip.IpServer;
 import android.util.ArrayMap;
 import android.util.ArraySet;
-import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,8 +74,9 @@ public class PrivateAddressCoordinator {
     private final List<IpPrefix> mTetheringPrefixes;
     private final ConnectivityManager mConnectivityMgr;
     private final TetheringConfiguration mConfig;
-    // keyed by downstream type(TetheringManager.TETHERING_*).
-    private final SparseArray<LinkAddress> mCachedAddresses;
+    // The map used to track cached LinkAddress for each interface.
+    private final ArrayMap<String, LinkAddress> mCachedAddresses;
+    private final ArraySet<IpPrefix> mReservedPrefixes;
 
     public PrivateAddressCoordinator(Context context, TetheringConfiguration config) {
         mDownstreams = new ArraySet<>();
@@ -85,10 +84,11 @@ public class PrivateAddressCoordinator {
         mConnectivityMgr = (ConnectivityManager) context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         mConfig = config;
-        mCachedAddresses = new SparseArray<>();
+        mCachedAddresses = new ArrayMap<>();
         // Reserved static addresses for bluetooth and wifi p2p.
-        mCachedAddresses.put(TETHERING_BLUETOOTH, new LinkAddress(LEGACY_BLUETOOTH_IFACE_ADDRESS));
-        mCachedAddresses.put(TETHERING_WIFI_P2P, new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS));
+        mReservedPrefixes = new ArraySet<>();
+        mReservedPrefixes.add(new IpPrefix(LEGACY_BLUETOOTH_IFACE_ADDRESS));
+        mReservedPrefixes.add(new IpPrefix(LEGACY_WIFI_P2P_IFACE_ADDRESS));
 
         mTetheringPrefixes = new ArrayList<>(Arrays.asList(new IpPrefix("192.168.0.0/16")));
         if (config.isSelectAllPrefixRangeEnabled()) {
@@ -175,7 +175,7 @@ public class PrivateAddressCoordinator {
             return new LinkAddress(LEGACY_WIFI_P2P_IFACE_ADDRESS);
         }
 
-        final LinkAddress cachedAddress = mCachedAddresses.get(ipServer.interfaceType());
+        final LinkAddress cachedAddress = mCachedAddresses.get(ipServer.interfaceName());
         if (useLastAddress && cachedAddress != null
                 && !isConflictWithUpstream(asIpPrefix(cachedAddress))) {
             mDownstreams.add(ipServer);
@@ -186,7 +186,7 @@ public class PrivateAddressCoordinator {
             final LinkAddress newAddress = chooseDownstreamAddress(prefixRange);
             if (newAddress != null) {
                 mDownstreams.add(ipServer);
-                mCachedAddresses.put(ipServer.interfaceType(), newAddress);
+                mCachedAddresses.put(ipServer.interfaceName(), newAddress);
                 return newAddress;
             }
         }
@@ -374,6 +374,10 @@ public class PrivateAddressCoordinator {
             if (isConflictPrefix(prefix, target)) return target;
         }
 
+        for (IpPrefix reserved : mReservedPrefixes) {
+            if (isConflictPrefix(prefix, reserved)) return reserved;
+        }
+
         return null;
     }
 
@@ -402,7 +406,7 @@ public class PrivateAddressCoordinator {
         pw.println("mDownstreams:");
         pw.increaseIndent();
         for (IpServer ipServer : mDownstreams) {
-            pw.println(ipServer.interfaceType() + " - " + ipServer.getAddress());
+            pw.println(ipServer.interfaceName() + " - " + ipServer.getAddress());
         }
         pw.decreaseIndent();
 
@@ -412,5 +416,13 @@ public class PrivateAddressCoordinator {
             pw.println(mCachedAddresses.keyAt(i) + " - " + mCachedAddresses.valueAt(i));
         }
         pw.decreaseIndent();
+
+        pw.println("mReservedPrefixes:");
+        pw.increaseIndent();
+        for (IpPrefix reserved : mReservedPrefixes) {
+            pw.println(reserved);
+        }
+        pw.decreaseIndent();
+
     }
 }
