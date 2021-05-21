@@ -101,7 +101,7 @@ public class TetheringModuleTest {
         TestNetworkTracker tnt = null;
         try {
             tetherEventCallback.assumeTetheringSupported();
-            assumeTrue(isWifiTetheringSupported(tetherEventCallback));
+            assumeTrue(isWifiTetheringSupported(mContext, tetherEventCallback));
 
             mCtsTetheringUtils.startWifiTethering(tetherEventCallback);
 

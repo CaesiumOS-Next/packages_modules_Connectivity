@@ -382,8 +382,22 @@ public final class CtsTetheringUtils {
         return callback.getTetheringInterfaceRegexps().getTetherableWifiRegexs();
     }
 
-    public static boolean isWifiTetheringSupported(final TestTetheringEventCallback callback) {
-        return !getWifiTetherableInterfaceRegexps(callback).isEmpty();
+    public static boolean isWifiTetheringSupported(final Context ctx,
+            final TestTetheringEventCallback callback) throws Exception {
+        final PackageManager pm = ctx.getPackageManager();
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_WIFI)) return false;
+
+        final WifiManager wm = ctx.getSystemService(WifiManager.class);
+        // Wifi feature flags only work when wifi is on.
+        final boolean previousWifiEnabledState = wm.isWifiEnabled();
+        try {
+            if (!previousWifiEnabledState) SystemUtil.runShellCommand("svc wifi enable");
+            waitForWifiEnabled(ctx);
+            return !getWifiTetherableInterfaceRegexps(callback).isEmpty()
+                    && wm.isPortableHotspotSupported();
+        } finally {
+            if (!previousWifiEnabledState) SystemUtil.runShellCommand("svc wifi disable");
+        }
     }
 
     public void startWifiTethering(final TestTetheringEventCallback callback)
