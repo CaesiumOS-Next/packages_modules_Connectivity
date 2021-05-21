@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd19debb_f50dd34f",
+        "filename": "tests/cts/net/jni/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1273909
+      },
+      "writtenOn": "2021-05-21T04:16:45Z",
+      "side": 1,
+      "message": "I thought min_sdk_version 29 is all you needed. It means \"I want to run on a device with API version 29 or greater\".\n\nsdk_version 29 for a native binary means \"show my only symbols that existed in SDK 29\". But often we want to see newer APIs so we can conditionally use them with a runtime check.\n\nBut I have a question for Remi: why did we need to explicitly request sdk_version current? The DnsResolver does not require any of that.",
+      "parentUuid": "eabde085_d0fbc8ad",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "c2520adb5726cb7bf14114785084abd35512acbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "798888bd_bf87d08e",
         "filename": "tests/cts/net/native/dns/Android.bp",
         "patchSetId": 1
