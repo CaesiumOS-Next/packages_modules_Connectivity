@@ -43,6 +43,8 @@ import static com.android.networkstack.tethering.BpfCoordinator.StatsType;
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType.STATS_PER_IFACE;
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType.STATS_PER_UID;
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
+import static com.android.networkstack.tethering.BpfUtils.IPV4;
+import static com.android.networkstack.tethering.BpfUtils.IPV6;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
 
@@ -1119,8 +1121,10 @@ public class BpfCoordinatorTest {
             // [1] Add the forwarding pair <wlan1, rmnet_data0>. Expect that attach both wlan1 and
             // rmnet_data0.
             coordinator.maybeAttachProgram(intIface1, extIface);
-            ExtendedMockito.verify(() -> BpfUtils.attachProgram(extIface, DOWNSTREAM));
-            ExtendedMockito.verify(() -> BpfUtils.attachProgram(intIface1, UPSTREAM));
+            ExtendedMockito.verify(() -> BpfUtils.attachProgram(extIface, DOWNSTREAM, IPV6));
+            ExtendedMockito.verify(() -> BpfUtils.attachProgram(extIface, DOWNSTREAM, IPV4));
+            ExtendedMockito.verify(() -> BpfUtils.attachProgram(intIface1, UPSTREAM, IPV6));
+            ExtendedMockito.verify(() -> BpfUtils.attachProgram(intIface1, UPSTREAM, IPV4));
             ExtendedMockito.verifyNoMoreInteractions(mockMarkerBpfUtils);
             ExtendedMockito.clearInvocations(mockMarkerBpfUtils);
 
@@ -1131,21 +1135,25 @@ public class BpfCoordinatorTest {
 
             // [3] Add the forwarding pair <rndis0, rmnet_data0>. Expect that attach rndis0 only.
             coordinator.maybeAttachProgram(intIface2, extIface);
-            ExtendedMockito.verify(() -> BpfUtils.attachProgram(intIface2, UPSTREAM));
+            ExtendedMockito.verify(() -> BpfUtils.attachProgram(intIface2, UPSTREAM, IPV6));
+            ExtendedMockito.verify(() -> BpfUtils.attachProgram(intIface2, UPSTREAM, IPV4));
             ExtendedMockito.verifyNoMoreInteractions(mockMarkerBpfUtils);
             ExtendedMockito.clearInvocations(mockMarkerBpfUtils);
 
             // [4] Remove the forwarding pair <rndis0, rmnet_data0>. Expect detach rndis0 only.
             coordinator.maybeDetachProgram(intIface2, extIface);
-            ExtendedMockito.verify(() -> BpfUtils.detachProgram(intIface2));
+            ExtendedMockito.verify(() -> BpfUtils.detachProgram(intIface2, IPV6));
+            ExtendedMockito.verify(() -> BpfUtils.detachProgram(intIface2, IPV4));
             ExtendedMockito.verifyNoMoreInteractions(mockMarkerBpfUtils);
             ExtendedMockito.clearInvocations(mockMarkerBpfUtils);
 
             // [5] Remove the forwarding pair <wlan1, rmnet_data0>. Expect that detach both wlan1
             // and rmnet_data0.
             coordinator.maybeDetachProgram(intIface1, extIface);
-            ExtendedMockito.verify(() -> BpfUtils.detachProgram(extIface));
-            ExtendedMockito.verify(() -> BpfUtils.detachProgram(intIface1));
+            ExtendedMockito.verify(() -> BpfUtils.detachProgram(extIface, IPV6));
+            ExtendedMockito.verify(() -> BpfUtils.detachProgram(extIface, IPV4));
+            ExtendedMockito.verify(() -> BpfUtils.detachProgram(intIface1, IPV6));
+            ExtendedMockito.verify(() -> BpfUtils.detachProgram(intIface1, IPV4));
             ExtendedMockito.verifyNoMoreInteractions(mockMarkerBpfUtils);
             ExtendedMockito.clearInvocations(mockMarkerBpfUtils);
         } finally {

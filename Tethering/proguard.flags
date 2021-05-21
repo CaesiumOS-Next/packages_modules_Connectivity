@@ -15,3 +15,7 @@
 -keepclassmembers class android.net.ip.IpServer {
     static final int CMD_*;
 }
+
+-keep class com.android.networkstack.tethering.BpfUtils {
+    native <methods>;
+}

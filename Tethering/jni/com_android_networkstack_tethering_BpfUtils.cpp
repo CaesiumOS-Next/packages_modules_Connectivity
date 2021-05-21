@@ -39,6 +39,9 @@
 // Classifier name. See cls_bpf_ops in net/sched/cls_bpf.c.
 #define CLS_BPF_KIND_NAME "bpf"
 
+// Clsact qdisc name. See clsact_qdisc_ops in net/sched/sch_ingress.c.
+#define CLSACT_QDISC_NAME "clsact"
+
 namespace android {
 // Sync from system/netd/server/NetlinkCommands.h
 const uint16_t NETLINK_REQUEST_FLAGS = NLM_F_REQUEST | NLM_F_ACK;
@@ -331,6 +334,63 @@ static void com_android_networkstack_tethering_BpfUtils_tcFilterDelDev(JNIEnv* e
     sendAndProcessNetlinkResponse(env, &req, sizeof(req));
 }
 
+// For test only. Used by #tcQdiscAddDevClsact, #tcQdiscDelDevClsact.
+// ADD:     nlMsgType=RTM_NEWQDISC nlMsgFlags=NLM_F_EXCL|NLM_F_CREATE
+// REPLACE: nlMsgType=RTM_NEWQDISC nlMsgFlags=NLM_F_CREATE|NLM_F_REPLACE
+// DEL:     nlMsgType=RTM_DELQDISC nlMsgFlags=0
+void doTcQdiscClsact(JNIEnv* env, int ifIndex, uint16_t nlMsgType, uint16_t nlMsgFlags) {
+    // sizeof() includes the terminating NULL
+    static constexpr size_t ASCIIZ_LEN_CLSACT = sizeof(CLSACT_QDISC_NAME);
+
+    const struct {
+        nlmsghdr n;
+        tcmsg t;
+        struct {
+            nlattr attr;
+            char str[NLMSG_ALIGN(ASCIIZ_LEN_CLSACT)];
+        } kind;
+    } req = {
+            .n =
+                    {
+                            .nlmsg_len = sizeof(req),
+                            .nlmsg_type = nlMsgType,
+                            .nlmsg_flags = static_cast<__u16>(NETLINK_REQUEST_FLAGS | nlMsgFlags),
+                    },
+            .t =
+                    {
+                            .tcm_family = AF_UNSPEC,
+                            .tcm_ifindex = ifIndex,
+                            .tcm_handle = TC_H_MAKE(TC_H_CLSACT, 0),
+                            .tcm_parent = TC_H_CLSACT,
+                    },
+            .kind =
+                    {
+                            .attr =
+                                    {
+                                            .nla_len = NLA_HDRLEN + ASCIIZ_LEN_CLSACT,
+                                            .nla_type = TCA_KIND,
+                                    },
+                            .str = CLSACT_QDISC_NAME,
+                    },
+    };
+
+    return sendAndProcessNetlinkResponse(env, &req, sizeof(req));
+}
+
+// For test only. See #tcQdiscAddDevClsact in
+// packages\modules\Connectivity\Tethering\src\com\android\networkstack\tethering\BpfUtils.java
+static void com_android_networkstack_tethering_BpfUtils_tcQdiscAddDevClsact(JNIEnv* env,
+        jobject clazz, int ifIndex) {
+    return doTcQdiscClsact(env, ifIndex, RTM_NEWQDISC, NLM_F_EXCL | NLM_F_CREATE);
+}
+
+// For test only. See #tcQdiscDelDevClsact in
+// packages\modules\Connectivity\Tethering\src\com\android\networkstack\tethering\BpfUtils.java
+static void com_android_networkstack_tethering_BpfUtils_tcQdiscDelDevClsact(JNIEnv* env,
+        jobject clazz, int ifIndex) {
+    return doTcQdiscClsact(env, ifIndex, RTM_DELQDISC, 0);
+}
+
 /*
  * JNI registration.
  */
@@ -342,6 +402,11 @@ static const JNINativeMethod gMethods[] = {
          (void*)com_android_networkstack_tethering_BpfUtils_tcFilterAddDevBpf},
         {"tcFilterDelDev", "(IZSS)V",
          (void*)com_android_networkstack_tethering_BpfUtils_tcFilterDelDev},
+        // Test only.
+        {"tcQdiscAddDevClsact", "(I)V",
+         (void*)com_android_networkstack_tethering_BpfUtils_tcQdiscAddDevClsact},
+        {"tcQdiscDelDevClsact", "(I)V",
+         (void*)com_android_networkstack_tethering_BpfUtils_tcQdiscDelDevClsact},
 };
 
 int register_com_android_networkstack_tethering_BpfUtils(JNIEnv* env) {

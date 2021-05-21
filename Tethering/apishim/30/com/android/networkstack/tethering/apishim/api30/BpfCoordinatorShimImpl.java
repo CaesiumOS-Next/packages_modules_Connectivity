@@ -161,13 +161,13 @@ public class BpfCoordinatorShimImpl
     }
 
     @Override
-    public boolean attachProgram(String iface, boolean downstream) {
+    public boolean attachProgram(String iface, boolean downstream, boolean ipv6) {
         /* no op */
         return true;
     }
 
     @Override
-    public boolean detachProgram(String iface) {
+    public boolean detachProgram(String iface, boolean ipv6) {
         /* no op */
         return true;
     }

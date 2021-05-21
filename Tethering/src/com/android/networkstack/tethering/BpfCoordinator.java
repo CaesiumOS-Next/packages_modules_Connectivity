@@ -29,6 +29,8 @@ import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
+import static com.android.networkstack.tethering.BpfUtils.IPV4;
+import static com.android.networkstack.tethering.BpfUtils.IPV6;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
 
@@ -716,6 +718,7 @@ public class BpfCoordinator {
      * Attach BPF program
      *
      * TODO: consider error handling if the attach program failed.
+     * TODO: consider attaching IPv4/IPv6 BPF program by the s capability.
      */
     public void maybeAttachProgram(@NonNull String intIface, @NonNull String extIface) {
         if (forwardingPairExists(intIface, extIface)) return;
@@ -723,10 +726,12 @@ public class BpfCoordinator {
         boolean firstDownstreamForThisUpstream = !isAnyForwardingPairOnUpstream(extIface);
         forwardingPairAdd(intIface, extIface);
 
-        mBpfCoordinatorShim.attachProgram(intIface, UPSTREAM);
+        mBpfCoordinatorShim.attachProgram(intIface, UPSTREAM, IPV6);
+        mBpfCoordinatorShim.attachProgram(intIface, UPSTREAM, IPV4);
         // Attach if the upstream is the first time to be used in a forwarding pair.
         if (firstDownstreamForThisUpstream) {
-            mBpfCoordinatorShim.attachProgram(extIface, DOWNSTREAM);
+            mBpfCoordinatorShim.attachProgram(extIface, DOWNSTREAM, IPV6);
+            mBpfCoordinatorShim.attachProgram(extIface, DOWNSTREAM, IPV4);
         }
     }
 
@@ -737,10 +742,12 @@ public class BpfCoordinator {
         forwardingPairRemove(intIface, extIface);
 
         // Detaching program may fail because the interface has been removed already.
-        mBpfCoordinatorShim.detachProgram(intIface);
+        mBpfCoordinatorShim.detachProgram(intIface, IPV6);
+        mBpfCoordinatorShim.detachProgram(intIface, IPV4);
         // Detach if no more forwarding pair is using the upstream.
         if (!isAnyForwardingPairOnUpstream(extIface)) {
-            mBpfCoordinatorShim.detachProgram(extIface);
+            mBpfCoordinatorShim.detachProgram(extIface, IPV6);
+            mBpfCoordinatorShim.detachProgram(extIface, IPV4);
         }
     }
 

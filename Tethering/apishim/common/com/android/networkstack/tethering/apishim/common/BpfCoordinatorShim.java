@@ -158,14 +158,14 @@ public abstract class BpfCoordinatorShim {
      *
      * TODO: consider using InterfaceParams to replace interface name.
      */
-    public abstract boolean attachProgram(@NonNull String iface, boolean downstream);
+    public abstract boolean attachProgram(@NonNull String iface, boolean downstream, boolean ipv6);
 
     /**
      * Detach BPF program.
      *
      * TODO: consider using InterfaceParams to replace interface name.
      */
-    public abstract boolean detachProgram(@NonNull String iface);
+    public abstract boolean detachProgram(@NonNull String iface, boolean ipv6);
 
     /**
      * Add interface index mapping.
