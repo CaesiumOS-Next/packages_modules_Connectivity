@@ -58,6 +58,10 @@ import java.util.Arrays;
 @SmallTest
 public final class PrivateAddressCoordinatorTest {
     private static final String TEST_IFNAME = "test0";
+    private static final String TEST_WIFI_IFNAME = "test_wlan0";
+    private static final String TEST_USB_IFNAME = "test_usb0";
+    private static final String TEST_ETH_IFNAME = "test_eth0";
+    private static final String TEST_P2P_IFNAME = "test_p2p0";
 
     @Mock private IpServer mHotspotIpServer;
     @Mock private IpServer mUsbIpServer;
@@ -87,9 +91,13 @@ public final class PrivateAddressCoordinatorTest {
 
     private void setUpIpServers() throws Exception {
         when(mUsbIpServer.interfaceType()).thenReturn(TETHERING_USB);
+        when(mUsbIpServer.interfaceName()).thenReturn(TEST_USB_IFNAME);
         when(mEthernetIpServer.interfaceType()).thenReturn(TETHERING_ETHERNET);
+        when(mEthernetIpServer.interfaceName()).thenReturn(TEST_ETH_IFNAME);
         when(mHotspotIpServer.interfaceType()).thenReturn(TETHERING_WIFI);
+        when(mHotspotIpServer.interfaceName()).thenReturn(TEST_WIFI_IFNAME);
         when(mWifiP2pIpServer.interfaceType()).thenReturn(TETHERING_WIFI_P2P);
+        when(mWifiP2pIpServer.interfaceName()).thenReturn(TEST_P2P_IFNAME);
     }
 
     @Before
@@ -306,10 +314,8 @@ public final class PrivateAddressCoordinatorTest {
         final UpstreamNetworkState v4OnlyWifi = buildUpstreamNetworkState(mWifiNetwork,
                 new LinkAddress("192.168.43.5/24"), null, makeNetworkCapabilities(TRANSPORT_WIFI));
         mPrivateAddressCoordinator.updateUpstreamPrefix(v4OnlyWifi);
-        verify(mHotspotIpServer).sendMessage(IpServer.CMD_NOTIFY_PREFIX_CONFLICT);
-        reset(mHotspotIpServer);
+        verifyNotifyConflictAndRelease(mHotspotIpServer);
         // - Restart hotspot again and its prefix is different previous.
-        mPrivateAddressCoordinator.releaseDownstream(mHotspotIpServer);
         final LinkAddress hotspotAddr2 = requestDownstreamAddress(mHotspotIpServer,
                 true /* useLastAddress */);
         final IpPrefix hotspotPrefix2 = asIpPrefix(hotspotAddr2);
