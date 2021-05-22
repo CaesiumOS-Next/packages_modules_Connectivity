@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f89ea2b5_9c994993",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-22T05:21:39Z",
+      "side": 1,
+      "message": "LGTM but see suggested improvement inline. (Doesn\u0027t need to be in this CL.)\n\nIf we want to get this into July (assuming we have time), don\u0027t forget to work with Natasha to cherry-pick this to mainline-prod and request a respin.",
+      "revId": "89f2670b653be25ce2aca8977e067800d97068ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "030eaed1_ea0b5009",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-22T05:21:39Z",
+      "side": 1,
+      "message": "I think this is correct, but it\u0027s a bit confusing that most of the time, setTryCell is called by Tethering, but some of the time, it\u0027s called by UpstreamNetworkMonitor internally.\n\nI think it might be less confusing for us in the future if we:\n- Remove this call to releaseMobileNetworkRequest\n- Ensure that the only caller of stop (i.e., TetherModeAliveState#exit) calls setTryCell(false) just before calling stop.",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 26
+      },
+      "revId": "89f2670b653be25ce2aca8977e067800d97068ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
