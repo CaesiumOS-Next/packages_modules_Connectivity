@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD   (14e14a Merge "Unify the verification for unregister a NetworkAgent")
   "presubmit": [
     // Run in addition to mainline-presubmit as mainline-presubmit is not
     // supported in every branch.
@@ -45,3 +46,23 @@
     }
   ]
 }
+=======
+  "imports": [
+    {
+      "path": "frameworks/base/core/java/android/net"
+    },
+    {
+      "path": "packages/modules/NetworkStack"
+    },
+    {
+      "path": "packages/modules/CaptivePortalLogin"
+    },
+    {
+      "path": "packages/modules/Connectivity"
+    },
+    {
+      "path": "packages/modules/Connectivity/Tethering"
+    }
+  ]
+}
+>>>>>>> BRANCH (3dcbca Merge "Add OWNERS block for migration")
