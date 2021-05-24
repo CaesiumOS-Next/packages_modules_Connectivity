@@ -83,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26068815_d0d2e3cf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-24T05:59:51Z",
+      "side": 1,
+      "message": "Noted thatt I did not put the registration of the tethering callback after adoptShellPermissionIdentity since it does not require a NETWORK_SETTINGS permission but ACCESS_NETWORK_STATE. Test had the permission, so I did not put the registration after adoptShellPermissionIdentity.",
+      "parentUuid": "f15dd9fd_f285f479",
+      "range": {
+        "startLine": 1950,
+        "startChar": 22,
+        "endLine": 1950,
+        "endChar": 50
+      },
+      "revId": "37cf5955a876ffc883809db0a13fcffcc183ed22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f64de4f_9d0d044e",
