@@ -39,6 +39,30 @@
       },
       "revId": "89f2670b653be25ce2aca8977e067800d97068ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50af494e_39367778",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-05-24T02:27:02Z",
+      "side": 1,
+      "message": "Thanks suggestion. Will fix this in follow up",
+      "parentUuid": "030eaed1_ea0b5009",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 26
+      },
+      "revId": "89f2670b653be25ce2aca8977e067800d97068ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
