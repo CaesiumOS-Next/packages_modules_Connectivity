@@ -16,6 +16,24 @@
       "message": "LGTM, assuming the concerns at https://b.corp.google.com/issues/178713634#comment7 are resolved?",
       "revId": "31cef5ebe20d9d301396c64888a5eae840204b46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2878fa9d_6368e7bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1439319
+      },
+      "writtenOn": "2021-05-25T12:51:16Z",
+      "side": 1,
+      "message": "Yes. That has been resolved as part of b/185708645.",
+      "parentUuid": "f1722d86_50e1a015",
+      "revId": "31cef5ebe20d9d301396c64888a5eae840204b46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
