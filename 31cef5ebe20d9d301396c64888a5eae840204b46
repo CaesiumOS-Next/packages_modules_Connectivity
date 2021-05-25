@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1722d86_50e1a015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-25T12:27:39Z",
+      "side": 1,
+      "message": "LGTM, assuming the concerns at https://b.corp.google.com/issues/178713634#comment7 are resolved?",
+      "revId": "31cef5ebe20d9d301396c64888a5eae840204b46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
