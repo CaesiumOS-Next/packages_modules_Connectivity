@@ -16,6 +16,23 @@
       "message": "Thanks for your finding on this issue.",
       "revId": "86f56a135a7f04f6217016bd8b4c5f1ac0677a85",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d2a03b_0c3c27b4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-05-25T18:40:11Z",
+      "side": 1,
+      "message": "sc-dev cherrypick: https://googleplex-android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/14713334",
+      "revId": "86f56a135a7f04f6217016bd8b4c5f1ac0677a85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
