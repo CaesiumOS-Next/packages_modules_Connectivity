@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2375131_0970e58a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1463964
+      },
+      "writtenOn": "2021-05-25T20:26:37Z",
+      "side": 1,
+      "message": "Originally uploaded as aosp/1393736 in frameworks/base. Moved to packages/modules/Connectivity due to b/186628461",
+      "revId": "50e9f2bf969e204551686845fd1cdc5e28fcd1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
