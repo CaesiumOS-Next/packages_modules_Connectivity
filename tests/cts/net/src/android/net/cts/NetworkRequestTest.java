@@ -30,6 +30,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import static junit.framework.Assert.fail;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -415,6 +416,23 @@ public class NetworkRequestTest {
             assertEquals(orig, copy);
         } catch (UnsupportedApiLevelException e) {
             fail("NetworkRequestShim.newBuilder should be supported in this SDK version");
+        }
+    }
+
+    @Test
+    public void testGetCapabilities() {
+        final int[] netCapabilities = new int[] {
+                NET_CAPABILITY_INTERNET,
+                NET_CAPABILITY_NOT_ROAMING };
+        final NetworkCapabilities nc = new NetworkCapabilities();
+        nc.clearAll();
+        nc.setCapabilities(netCapabilities);
+        final NetworkRequest nr = new NetworkRequest.Builder()
+                .clearCapabilities()
+                .setCapabilities(nc)
+                .build();
+        if (SdkLevel.isAtLeastS()) {
+            assertArrayEquals(netCapabilities, nr.getCapabilities());
         }
     }
 
