@@ -299,7 +299,9 @@ import com.android.internal.util.WakeupMessage;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.net.module.util.ArrayTrackRecord;
+import com.android.net.module.util.CollectionUtils;
 import com.android.server.ConnectivityService.ConnectivityDiagnosticsCallbackInfo;
+import com.android.server.ConnectivityService.NetworkRequestInfo;
 import com.android.server.connectivity.ConnectivityConstants;
 import com.android.server.connectivity.MockableSystemProperties;
 import com.android.server.connectivity.Nat464Xlat;
@@ -415,6 +417,7 @@ public class ConnectivityServiceTest {
     private static final String VPN_IFNAME = "tun10042";
     private static final String TEST_PACKAGE_NAME = "com.android.test.package";
     private static final int TEST_PACKAGE_UID = 123;
+    private static final int TEST_PACKAGE_UID2 = 321;
     private static final String ALWAYS_ON_PACKAGE = "com.android.test.alwaysonvpn";
 
     private static final String INTERFACE_NAME = "interface";
@@ -1536,6 +1539,8 @@ public class ConnectivityServiceTest {
     private static final UserInfo PRIMARY_USER_INFO = new UserInfo(PRIMARY_USER, "",
             UserInfo.FLAG_PRIMARY);
     private static final UserHandle PRIMARY_USER_HANDLE = new UserHandle(PRIMARY_USER);
+    private static final int SECONDARY_USER = 10;
+    private static final UserHandle SECONDARY_USER_HANDLE = new UserHandle(SECONDARY_USER);
 
     private static final int RESTRICTED_USER = 1;
     private static final UserInfo RESTRICTED_USER_INFO = new UserInfo(RESTRICTED_USER, "",
@@ -10050,7 +10055,7 @@ public class ConnectivityServiceTest {
         mCm.registerNetworkCallback(cellRequest, cellNetworkCallback);
         waitForIdle();
 
-        final ConnectivityService.NetworkRequestInfo[] nriOutput = mService.requestsSortedById();
+        final NetworkRequestInfo[] nriOutput = mService.requestsSortedById();
 
         assertTrue(nriOutput.length > 1);
         for (int i = 0; i < nriOutput.length - 1; i++) {
@@ -10333,8 +10338,7 @@ public class ConnectivityServiceTest {
                 .thenReturn(hasFeature);
     }
 
-    private Range<Integer> getNriFirstUidRange(
-            @NonNull final ConnectivityService.NetworkRequestInfo nri) {
+    private Range<Integer> getNriFirstUidRange(@NonNull final NetworkRequestInfo nri) {
         return nri.mRequests.get(0).networkCapabilities.getUids().iterator().next();
     }
 
@@ -10373,7 +10377,7 @@ public class ConnectivityServiceTest {
                 OEM_NETWORK_PREFERENCE_OEM_PAID;
 
         // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
-        final ArraySet<ConnectivityService.NetworkRequestInfo> nris =
+        final ArraySet<NetworkRequestInfo> nris =
                 mService.new OemNetworkRequestFactory()
                         .createNrisFromOemNetworkPreferences(
                                 createDefaultOemNetworkPreferences(prefToTest));
@@ -10402,7 +10406,7 @@ public class ConnectivityServiceTest {
                 OEM_NETWORK_PREFERENCE_OEM_PAID_NO_FALLBACK;
 
         // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
-        final ArraySet<ConnectivityService.NetworkRequestInfo> nris =
+        final ArraySet<NetworkRequestInfo> nris =
                 mService.new OemNetworkRequestFactory()
                         .createNrisFromOemNetworkPreferences(
                                 createDefaultOemNetworkPreferences(prefToTest));
@@ -10428,7 +10432,7 @@ public class ConnectivityServiceTest {
                 OEM_NETWORK_PREFERENCE_OEM_PAID_ONLY;
 
         // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
-        final ArraySet<ConnectivityService.NetworkRequestInfo> nris =
+        final ArraySet<NetworkRequestInfo> nris =
                 mService.new OemNetworkRequestFactory()
                         .createNrisFromOemNetworkPreferences(
                                 createDefaultOemNetworkPreferences(prefToTest));
@@ -10451,7 +10455,7 @@ public class ConnectivityServiceTest {
                 OEM_NETWORK_PREFERENCE_OEM_PRIVATE_ONLY;
 
         // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
-        final ArraySet<ConnectivityService.NetworkRequestInfo> nris =
+        final ArraySet<NetworkRequestInfo> nris =
                 mService.new OemNetworkRequestFactory()
                         .createNrisFromOemNetworkPreferences(
                                 createDefaultOemNetworkPreferences(prefToTest));
@@ -10484,7 +10488,7 @@ public class ConnectivityServiceTest {
                 .build();
 
         // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
-        final ArraySet<ConnectivityService.NetworkRequestInfo> nris =
+        final ArraySet<NetworkRequestInfo> nris =
                 mService.new OemNetworkRequestFactory().createNrisFromOemNetworkPreferences(pref);
 
         assertNotNull(nris);
@@ -10509,7 +10513,7 @@ public class ConnectivityServiceTest {
                 .build();
 
         // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
-        final List<ConnectivityService.NetworkRequestInfo> nris =
+        final List<NetworkRequestInfo> nris =
                 new ArrayList<>(
                         mService.new OemNetworkRequestFactory().createNrisFromOemNetworkPreferences(
                                 pref));
@@ -10541,7 +10545,7 @@ public class ConnectivityServiceTest {
                 .build();
 
         // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
-        final List<ConnectivityService.NetworkRequestInfo> nris =
+        final List<NetworkRequestInfo> nris =
                 new ArrayList<>(
                         mService.new OemNetworkRequestFactory().createNrisFromOemNetworkPreferences(
                                 pref));
@@ -10583,7 +10587,7 @@ public class ConnectivityServiceTest {
                 .build();
 
         // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
-        final ArraySet<ConnectivityService.NetworkRequestInfo> nris =
+        final ArraySet<NetworkRequestInfo> nris =
                 mService.new OemNetworkRequestFactory().createNrisFromOemNetworkPreferences(pref);
 
         assertEquals(expectedNumOfNris, nris.size());
@@ -10676,8 +10680,7 @@ public class ConnectivityServiceTest {
         // each time to confirm it doesn't change under test.
         final int expectedDefaultNetworkRequestsSize = 2;
         assertEquals(expectedDefaultNetworkRequestsSize, mService.mDefaultNetworkRequests.size());
-        for (final ConnectivityService.NetworkRequestInfo defaultRequest
-                : mService.mDefaultNetworkRequests) {
+        for (final NetworkRequestInfo defaultRequest : mService.mDefaultNetworkRequests) {
             final Network defaultNetwork = defaultRequest.getSatisfier() == null
                     ? null : defaultRequest.getSatisfier().network();
             // If this is the default request.
@@ -12505,5 +12508,81 @@ public class ConnectivityServiceTest {
                 mCm.unregisterNetworkCallback(cb);
             }
         }
+    }
+
+    private void assertCreateNrisFromMobileDataPreferences(Set<Integer> preferences) {
+        final Set<NetworkRequestInfo> nris =
+                mService.createNrisFromMobileDataPreferences(preferences);
+        final NetworkRequestInfo nri = nris.iterator().next();
+        // Verify that one NRI is created with multilayer requests. Because one NRI can contain
+        // multple uid ranges, so it only need create one NRI here.
+        assertEquals(1, nris.size());
+        assertTrue(nri.isMultilayerRequest());
+
+        // Verify all uid ranges should set to the NRI. Get uid ranges from NetworkCapabilities
+        // of first NR because NRI#getUids() is private but they are same logic.
+        final Set<UidRange> uidRanges = uidRangesForUids(CollectionUtils.toIntArray(preferences));
+        final NetworkCapabilities nc = nri.mRequests.get(0).networkCapabilities;
+        assertEquals(nc.getUidRanges(), uidRanges);
+    }
+
+    /**
+     * Test createNrisFromMobileDataPreferences returns correct NetworkRequestInfo.
+     */
+    @Test
+    public void testCreateNrisFromMobileDataPreferences() {
+        // Verify that empty uid set should not create any NRI for it.
+        final Set<NetworkRequestInfo> nrisNoUid =
+                mService.createNrisFromMobileDataPreferences(new ArraySet<>());
+        assertEquals(0, nrisNoUid.size());
+
+        final int primaryTestPkgUid = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID);
+        final int primaryTestPkgUid2 = PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2);
+        final int secondaryTestPkgUid = SECONDARY_USER_HANDLE.getUid(TEST_PACKAGE_UID);
+        assertCreateNrisFromMobileDataPreferences(
+                new ArraySet<>(new Integer[] { primaryTestPkgUid }));
+        assertCreateNrisFromMobileDataPreferences(
+                new ArraySet<>(new Integer[] { primaryTestPkgUid, secondaryTestPkgUid }));
+        assertCreateNrisFromMobileDataPreferences(
+                new ArraySet<>(new Integer[] { primaryTestPkgUid, primaryTestPkgUid2 }));
+    }
+
+    private void setMobileDataPreferredUidsAndUpdateSetting(Set<Integer> preferences) {
+        ConnectivitySettingsManager.setMobileDataPreferredUids(mServiceContext, preferences);
+        mService.updateMobileDataPreferredUidsSettings();
+        waitForIdle();
+    }
+
+    /**
+     * Test that MOBILE_DATA_PREFERRED_APPS changes will send correct net id and uid ranges to netd.
+     */
+    @Test
+    public void testMobileDataPreferredUidsChanged() throws Exception {
+        final InOrder inorder = inOrder(mMockNetd);
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        waitForIdle();
+
+        final int cellNetId = mCellNetworkAgent.getNetwork().netId;
+        inorder.verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(
+                cellNetId, INetd.PERMISSION_NONE));
+
+        final Set<Integer> preferences1 =
+                new ArraySet<>(new Integer[] {PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)});
+        final UidRangeParcel[] uidRanges1 = toUidRangeStableParcels(uidRangesForUids(
+                CollectionUtils.toIntArray(preferences1)));
+        setMobileDataPreferredUidsAndUpdateSetting(preferences1);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges1);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(cellNetId, uidRanges1);
+
+        final Set<Integer> preferences2 =  new ArraySet<>(new Integer[] {
+                PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID),
+                PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2),
+                SECONDARY_USER_HANDLE.getUid(TEST_PACKAGE_UID) });
+        final UidRangeParcel[] uidRanges2 = toUidRangeStableParcels(uidRangesForUids(
+                CollectionUtils.toIntArray(preferences2)));
+        setMobileDataPreferredUidsAndUpdateSetting(preferences2);
+        inorder.verify(mMockNetd, times(1)).networkRemoveUidRanges(cellNetId, uidRanges1);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges2);
     }
 }
