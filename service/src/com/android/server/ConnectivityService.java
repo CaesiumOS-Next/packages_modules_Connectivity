@@ -7282,6 +7282,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mDnsManager.updateTransportsForNetwork(
                     nai.network.getNetId(), newNc.getTransportTypes());
         }
+
+        maybeSendProxyBroadcast(nai, prevNc, newNc);
     }
 
     /** Convenience method to update the capabilities for a given network. */
@@ -7368,6 +7370,31 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     " on netId " + nai.network.netId + ". " + e);
         }
         maybeCloseSockets(nai, ranges, exemptUids);
+    }
+
+    private boolean isProxySetOnAnyDefaultNetwork() {
+        ensureRunningOnConnectivityServiceThread();
+        for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
+            final NetworkAgentInfo nai = nri.getSatisfier();
+            if (nai != null && nai.linkProperties.getHttpProxy() != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void maybeSendProxyBroadcast(NetworkAgentInfo nai, NetworkCapabilities prevNc,
+            NetworkCapabilities newNc) {
+        // If mUids is changed, it means that there is any app which is added to the VPN or removed
+        // from the VPN. In this case, send a proxy broadcast if the proxy of VPN or the proxy of
+        // any default network is set, so that the app can update its proxy data.
+        // TODO: Current condition check is not perfect, there might be false alarms when the uid
+        // is removed from the VPN to any default network and their proxy are the same, and vice
+        // versa. Try to improve the condition check to prevent false alarms.
+        if (nai.isVPN() && !NetworkCapabilities.hasSameUids(prevNc, newNc)
+                && (nai.linkProperties.getHttpProxy() != null || isProxySetOnAnyDefaultNetwork())) {
+            mProxyTracker.sendProxyBroadcast();
+        }
     }
 
     private void updateUids(NetworkAgentInfo nai, NetworkCapabilities prevNc,
