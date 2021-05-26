@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "825fea3f_6814a21f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-26T23:20:04Z",
+      "side": 1,
+      "message": "Is any of this testable? Do we do any testing around this method?\n\nOtherwise, suggest at least running Ikev2VpnTest and IpSecManagerTunnelTest.\n\nAnd perhaps making sure that it runs with the VCN tests if you have those already.",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 14
+      },
+      "revId": "b35d57c988d598d2f5fcc9f472dfed141e9a03d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
