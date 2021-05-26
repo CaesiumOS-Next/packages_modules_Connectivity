@@ -122,6 +122,9 @@ class TestNetworkService extends ITestNetworkManager.Stub {
                         addr.getPrefixLength());
             }
 
+            PermissionUtils.enforceNetworkStackPermission(mContext);
+            NetdUtils.setInterfaceUp(mNetd, iface);
+
             return new TestNetworkInterface(tunIntf, iface);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
@@ -323,14 +326,6 @@ class TestNetworkService extends ITestNetworkManager.Stub {
         }
 
         try {
-            final long token = Binder.clearCallingIdentity();
-            try {
-                PermissionUtils.enforceNetworkStackPermission(mContext);
-                NetdUtils.setInterfaceUp(mNetd, iface);
-            } finally {
-                Binder.restoreCallingIdentity(token);
-            }
-
             // Synchronize all accesses to mTestNetworkTracker to prevent the case where:
             // 1. TestNetworkAgent successfully binds to death of binder
             // 2. Before it is added to the mTestNetworkTracker, binder dies, binderDied() is called
