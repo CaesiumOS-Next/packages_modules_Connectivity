@@ -42,6 +42,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_SUPL;
 import static android.net.ConnectivityManager.TYPE_PROXY;
 import static android.net.ConnectivityManager.TYPE_VPN;
 import static android.net.ConnectivityManager.TYPE_WIFI_P2P;
+import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_PROVIDER_HOSTNAME;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_IMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
@@ -90,6 +91,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.ConnectivitySettingsManager;
 import android.net.InetAddresses;
 import android.net.IpSecManager;
 import android.net.IpSecManager.UdpEncapsulationSocket;
@@ -577,6 +579,25 @@ public class ConnectivityManagerTest {
         return new NetworkRequest.Builder()
                 .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                 .build();
+    }
+
+    @Test
+    public void testIsPrivateDnsBroken() {
+        final boolean previousWifiEnabledState = mWifiManager.isWifiEnabled();
+        ConnectivitySettingsManager.setPrivateDnsMode(mContext,
+                PRIVATE_DNS_MODE_PROVIDER_HOSTNAME);
+        ConnectivitySettingsManager.setPrivateDnsHostname(mContext, "invalidHostname.com");
+        if (previousWifiEnabledState) {
+            mCtsNetUtils.ensureWifiDisconnected(null);
+        }
+        final Network network = mCtsNetUtils.ensureWifiConnected();
+        for (int i = 0; i < 1000; ++i) {
+            if (mCm.getNetworkCapabilities(network).isPrivateDnsBroken()) {
+                break;
+            }
+            SystemClock.sleep(10);
+        }
+        assertTrue(mCm.getNetworkCapabilities(network).isPrivateDnsBroken());
     }
 
     /**
