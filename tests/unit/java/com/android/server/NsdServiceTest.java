@@ -57,6 +57,7 @@ import org.mockito.MockitoAnnotations;
 public class NsdServiceTest {
 
     static final int PROTOCOL = NsdManager.PROTOCOL_DNS_SD;
+    private static final long CLEANUP_DELAY_MS = 500;
 
     long mTimeoutMs = 100; // non-final so that tests can adjust the value.
 
@@ -86,20 +87,27 @@ public class NsdServiceTest {
     }
 
     @Test
-    public void testClientsCanConnectAndDisconnect() {
+    public void testNoDaemonStartedWhenClientsConnect() {
         when(mSettings.isEnabled()).thenReturn(true);
 
         NsdService service = makeService();
 
+        // Creating an NsdManager will not cause any cmds executed, which means
+        // no daemon is started.
         NsdManager client1 = connectClient(service);
-        verify(mDaemon, timeout(100).times(1)).start();
+        verify(mDaemon, never()).execute(any());
 
+        // Creating another NsdManager will not cause any cmds executed.
         NsdManager client2 = connectClient(service);
+        verify(mDaemon, never()).execute(any());
 
         client1.disconnect();
-        client2.disconnect();
+        // Still 1 client remains, daemon shouldn't be stopped.
+        verify(mDaemon, never()).maybeStop();
 
-        verify(mDaemon, timeout(mTimeoutMs).times(1)).stop();
+        client2.disconnect();
+        // All clients are disconnected, stop the daemon if necessary.
+        verify(mDaemon, timeout(mTimeoutMs).times(1)).maybeStop();
 
         client1.disconnect();
         client2.disconnect();
@@ -113,7 +121,7 @@ public class NsdServiceTest {
         NsdService service = makeService();
         NsdManager client = connectClient(service);
 
-        verify(mDaemon, timeout(100).times(1)).start();
+        verify(mDaemon, never()).execute(any());
 
         NsdServiceInfo request = new NsdServiceInfo("a_name", "a_type");
         request.setPort(2201);
@@ -135,7 +143,7 @@ public class NsdServiceTest {
 
         // Client disconnects
         client.disconnect();
-        verify(mDaemon, timeout(mTimeoutMs).times(1)).stop();
+        verify(mDaemon, timeout(mTimeoutMs).times(1)).maybeStop();
 
         // checks that request are cleaned
         verifyDaemonCommands("stop-register 2", "stop-discover 3", "stop-resolve 4");
@@ -143,12 +151,41 @@ public class NsdServiceTest {
         client.disconnect();
     }
 
+    @Test
+    public void testCleanupDelay() {
+        when(mSettings.isEnabled()).thenReturn(true);
+        when(mDaemon.execute(any())).thenReturn(true);
+
+        NsdService service = makeService();
+        NsdManager client = connectClient(service);
+
+        NsdServiceInfo request = new NsdServiceInfo("a_name", "a_type");
+        request.setPort(2201);
+        NsdManager.RegistrationListener listener1 = mock(NsdManager.RegistrationListener.class);
+        client.registerService(request, PROTOCOL, listener1);
+        verifyDaemonCommand("register 2 a_name a_type 2201");
+
+        client.unregisterService(listener1);
+        verifyDaemonCommand("stop-register 2");
+
+        // Stop daemon shouldn't be called immediately.
+        verify(mDaemon, timeout(mTimeoutMs).times(0)).maybeStop();
+        final long expectedDelay = CLEANUP_DELAY_MS + mTimeoutMs;
+        // Clean up the daemon after CLEANUP_DELAY_MS.
+        verify(mDaemon, timeout(expectedDelay)).maybeStop();
+
+        client.disconnect();
+        // If necessary, disconnecting the client will stop the daemon.
+        verify(mDaemon, timeout(mTimeoutMs).times(1)).maybeStop();
+    }
+
     NsdService makeService() {
         DaemonConnectionSupplier supplier = (callback) -> {
             mDaemonCallback = callback;
             return mDaemon;
         };
-        NsdService service = new NsdService(mContext, mSettings, mHandler, supplier);
+        NsdService service = new NsdService(mContext, mSettings,
+                mHandler, supplier, CLEANUP_DELAY_MS);
         verify(mDaemon, never()).execute(any(String.class));
         return service;
     }
