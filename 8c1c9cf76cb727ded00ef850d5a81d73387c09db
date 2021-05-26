@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0377b13c_d2193520",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-26T14:47:03Z",
+      "side": 1,
+      "message": "Maybe describe this in a high-level way.\nSee if below is better \u0026 correct:\n\nSend a proxy broadcast when apps moved from/to a VPN\n\nWhen apps moved from/to a VPN, a proxy broadcast is needed\nto inform apps if the proxy is changed since the default network satisfies the app has changed. Since the framework does not track defautlt network of every app, thus, this is done when:\n 1. VPN connects/disconnects.\n 2. List of uids that applies by the VPN has changed.\nWhile 1 is already covered by the current design, the CL implements 2 in order to fulfill the OEM requirement.",
+      "range": {
+        "startLine": 7,
+        "startChar": 27,
+        "endLine": 7,
+        "endChar": 67
+      },
+      "revId": "8c1c9cf76cb727ded00ef850d5a81d73387c09db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f67b0fda_7cf0b439",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-26T14:47:03Z",
+      "side": 1,
+      "message": "IIUC the test is missing?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 4
+      },
+      "revId": "8c1c9cf76cb727ded00ef850d5a81d73387c09db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b768ebf9_2ec24bd6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7388,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-26T14:47:03Z",
+      "side": 1,
+      "message": "might want to update this?\nsee the other comment.",
+      "range": {
+        "startLine": 7388,
+        "startChar": 8,
+        "endLine": 7388,
+        "endChar": 9
+      },
+      "revId": "8c1c9cf76cb727ded00ef850d5a81d73387c09db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d8de82_dfe971e1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7393,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-26T14:47:03Z",
+      "side": 1,
+      "message": "Maybe more specific? e.g.\nTry to track the default network that apps see and only send proxy broadcast when that happens to prevent from false alarms?",
+      "range": {
+        "startLine": 7393,
+        "startChar": 17,
+        "endLine": 7393,
+        "endChar": 76
+      },
+      "revId": "8c1c9cf76cb727ded00ef850d5a81d73387c09db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
