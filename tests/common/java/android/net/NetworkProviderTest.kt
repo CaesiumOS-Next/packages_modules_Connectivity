@@ -316,9 +316,7 @@ class NetworkProviderTest {
                 LinkProperties(), scoreWeaker, config, provider) {}
         agent.register()
         agent.markConnected()
-        // TODO: The request is satisying by offer 2 instead of offer 1, thus it should not be
-        //  considered as needed.
-        offerCallback1.expectOnNetworkNeeded(ncFilter2)
+        offerCallback1.assertNoCallback()
         offerCallback2.assertNoCallback()
         offerCallback3.assertNoCallback()
         offerCallback4.expectOnNetworkUnneeded(ncFilter4)
