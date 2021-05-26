@@ -419,6 +419,7 @@ public class ConnectivityServiceTest {
     private static final String TEST_PACKAGE_NAME = "com.android.test.package";
     private static final int TEST_PACKAGE_UID = 123;
     private static final int TEST_PACKAGE_UID2 = 321;
+    private static final int TEST_PACKAGE_UID3 = 456;
     private static final String ALWAYS_ON_PACKAGE = "com.android.test.alwaysonvpn";
 
     private static final String INTERFACE_NAME = "interface";
@@ -12329,38 +12330,6 @@ public class ConnectivityServiceTest {
     }
 
     /**
-     * Make sure that OEM preference and per-profile preference can't be used at the same
-     * time and throw ISE if tried
-     */
-    @Test
-    public void testOemPreferenceAndProfilePreferenceExclusive() throws Exception {
-        final UserHandle testHandle = UserHandle.of(TEST_WORK_PROFILE_USER_ID);
-        mServiceContext.setWorkProfile(testHandle, true);
-        final TestOnCompleteListener listener = new TestOnCompleteListener();
-
-        setupMultipleDefaultNetworksForOemNetworkPreferenceNotCurrentUidTest(
-                OEM_NETWORK_PREFERENCE_OEM_PAID_ONLY);
-        assertThrows("Should not be able to set per-profile pref while OEM prefs present",
-                IllegalStateException.class, () ->
-                        mCm.setProfileNetworkPreference(testHandle,
-                                PROFILE_NETWORK_PREFERENCE_ENTERPRISE,
-                                r -> r.run(), listener));
-
-        // Empty the OEM prefs
-        final TestOemListenerCallback oemPrefListener = new TestOemListenerCallback();
-        final OemNetworkPreferences emptyOemPref = new OemNetworkPreferences.Builder().build();
-        mService.setOemNetworkPreference(emptyOemPref, oemPrefListener);
-        oemPrefListener.expectOnComplete();
-
-        mCm.setProfileNetworkPreference(testHandle, PROFILE_NETWORK_PREFERENCE_ENTERPRISE,
-                r -> r.run(), listener);
-        listener.expectOnComplete();
-        assertThrows("Should not be able to set OEM prefs while per-profile pref is on",
-                IllegalStateException.class , () ->
-                        mService.setOemNetworkPreference(emptyOemPref, oemPrefListener));
-    }
-
-    /**
      * Make sure wrong preferences for per-profile default networking are rejected.
      */
     @Test
@@ -12800,5 +12769,54 @@ public class ConnectivityServiceTest {
             mService.updateMobileDataPreferredUidsSettings();
             waitForIdle();
         });
+    }
+
+    @Test
+    public void testSetOemNetworkPreferenceAndMobileDataPreferredUidsChangedCoexisted()
+            throws Exception {
+        final InOrder inorder = inOrder(mMockNetd);
+        @OemNetworkPreferences.OemNetworkPreference final int networkPref =
+                OEM_NETWORK_PREFERENCE_OEM_PAID;
+
+        setOemNetworkPreferenceAgentConnected(TRANSPORT_CELLULAR, true);
+        final int cellNetId = mCellNetworkAgent.getNetwork().netId;
+        inorder.verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(
+                cellNetId, INetd.PERMISSION_NONE));
+
+        final int[] uids1 = new int[] { PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID) };
+        final UidRangeParcel[] uidRanges1 = toUidRangeStableParcels(uidRangesForUids(uids1));
+        setupSetOemNetworkPreferenceForPreferenceTest(networkPref, uidRanges1, TEST_PACKAGE_NAME);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges1);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(cellNetId, uidRanges1);
+
+        final Set<Integer> preferences1 =
+                new ArraySet<>(new Integer[] {PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2)});
+        final UidRangeParcel[] uidRanges2 = toUidRangeStableParcels(uidRangesForUids(
+                CollectionUtils.toIntArray(preferences1)));
+        setMobileDataPreferredUidsAndUpdateSetting(preferences1);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(cellNetId, uidRanges1);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(cellNetId, uidRanges2);
+        inorder.verify(mMockNetd, times(0)).networkAddUidRanges(cellNetId, uidRanges1);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges2);
+
+        final int[] uids2 = new int[] { PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID3) };
+        final UidRangeParcel[] uidRanges3 = toUidRangeStableParcels(uidRangesForUids(uids2));
+        setupSetOemNetworkPreferenceForPreferenceTest(networkPref, uidRanges3, "com.android.test");
+        inorder.verify(mMockNetd, times(1)).networkRemoveUidRanges(cellNetId, uidRanges1);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(cellNetId, uidRanges2);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges3);
+        inorder.verify(mMockNetd, times(0)).networkAddUidRanges(cellNetId, uidRanges2);
+
+        final Set<Integer> preferences2 = new ArraySet<>(new Integer[] {
+                PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID),
+                PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2),
+                SECONDARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)});
+        final UidRangeParcel[] uidRanges4 = toUidRangeStableParcels(uidRangesForUids(
+                CollectionUtils.toIntArray(preferences2)));
+        setMobileDataPreferredUidsAndUpdateSetting(preferences2);
+        inorder.verify(mMockNetd, times(1)).networkRemoveUidRanges(cellNetId, uidRanges2);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(cellNetId, uidRanges3);
+        inorder.verify(mMockNetd, times(0)).networkAddUidRanges(cellNetId, uidRanges2);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges4);
     }
 }

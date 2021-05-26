@@ -4184,10 +4184,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         cancelNpiRequests(nri);
     }
 
-    private void handleRemoveNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris) {
+    private void handleRemoveNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris,
+            @NonNull final NetworkPreferenceSource preference) {
         for (final NetworkRequestInfo nri : nris) {
             if (mDefaultRequest == nri) {
                 // Make sure we never remove the default request.
+                continue;
+            }
+            final NetworkPreferenceSource networkPref = nri.getNetworkPreferenceSource();
+            if (!NetworkPreferenceSource.NOT_A_PREFERENCE.equals(networkPref)
+                    && !preference.equals((networkPref))) {
+                // Skip the request which is set to other preference. Because its uid range rule
+                // should not be removed from netd.
                 continue;
             }
             handleRemoveNetworkRequest(nri);
@@ -6416,6 +6424,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return (mDefaultNetworkRequests.contains(nri) && mDefaultRequest != nri);
     }
 
+    private boolean isHigherPriorityNetworkRequest(final NetworkRequestInfo current,
+            final NetworkRequestInfo target) {
+        // Compare two preference's priority number, larger value means lower priority.
+        return current.getNetworkPreferenceSource().mPriority
+                > target.getNetworkPreferenceSource().mPriority;
+    }
+
     /**
      * Return the default network request currently tracking the given uid.
      * @param uid the uid to check.
@@ -6423,6 +6438,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @NonNull
     private NetworkRequestInfo getDefaultRequestTrackingUid(final int uid) {
+        NetworkRequestInfo requestInfo = null;
         for (final NetworkRequestInfo nri : mDefaultNetworkRequests) {
             if (nri == mDefaultRequest) {
                 continue;
@@ -6430,10 +6446,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Checking the first request is sufficient as only multilayer requests will have more
             // than one request and for multilayer, all requests will track the same uids.
             if (nri.mRequests.get(0).networkCapabilities.appliesToUid(uid)) {
-                return nri;
+                // Find out the highest priority request.
+                if (requestInfo == null || isHigherPriorityNetworkRequest(requestInfo, nri)) {
+                    requestInfo = nri;
+                }
             }
         }
-        return mDefaultRequest;
+        return requestInfo == null ? mDefaultRequest : requestInfo;
     }
 
     /**
@@ -9746,15 +9765,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (!um.isManagedProfile(profile.getIdentifier())) {
             throw new IllegalArgumentException("Profile must be a managed profile");
         }
-        // Strictly speaking, mOemNetworkPreferences should only be touched on the
-        // handler thread. However it is an immutable object, so reading the reference is
-        // safe - it's just possible the value is slightly outdated. For the final check,
-        // see #handleSetProfileNetworkPreference. But if this can be caught here it is a
-        // lot easier to understand, so opportunistically check it.
-        // TODO: Have a priority for each preference.
-        if (!mOemNetworkPreferences.isEmpty() || !mMobileDataPreferences.isEmpty()) {
-            throwConcurrentPreferenceException();
-        }
         final NetworkCapabilities nc;
         switch (preference) {
             case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT:
@@ -9806,20 +9816,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void handleSetProfileNetworkPreference(
             @NonNull final ProfileNetworkPreferences.Preference preference,
             @Nullable final IOnCompleteListener listener) {
-        // setProfileNetworkPreference and setOemNetworkPreference are mutually exclusive, in
-        // particular because it's not clear what preference should win in case both apply
-        // to the same app.
-        // The binder call has already checked this, but as mOemNetworkPreferences is only
-        // touched on the handler thread, it's theoretically not impossible that it has changed
-        // since.
-        // TODO: Have a priority for each preference.
-        if (!mOemNetworkPreferences.isEmpty() || !mMobileDataPreferences.isEmpty()) {
-            // This may happen on a device with an OEM preference set when a user is removed.
-            // In this case, it's safe to ignore. In particular this happens in the tests.
-            loge("handleSetProfileNetworkPreference, but OEM network preferences not empty");
-            return;
-        }
-
         validateNetworkCapabilitiesOfProfileNetworkPreference(preference.capabilities);
 
         mProfileNetworkPreferences = mProfileNetworkPreferences.plus(preference);
@@ -9828,7 +9824,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 () -> {
                     final ArraySet<NetworkRequestInfo> nris =
                             createNrisFromProfileNetworkPreferences(mProfileNetworkPreferences);
-                    replaceDefaultNetworkRequestsForPreference(nris);
+                    replaceDefaultNetworkRequestsForPreference(
+                            nris, NetworkPreferenceSource.PROFILE_PREFERENCE);
                 });
         // Finally, rematch.
         rematchAllNetworksAndRequests();
@@ -9872,21 +9869,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void handleSetMobileDataPreference() {
-        // Ignore update preference because it's not clear what preference should win in case both
-        // apply to the same app.
-        // TODO: Have a priority for each preference.
-        if (!mOemNetworkPreferences.isEmpty() || !mProfileNetworkPreferences.isEmpty()) {
-            loge("Ignore mobile data preference change because other preferences are not empty");
-            return;
-        }
-
         mMobileDataPreferences = ConnectivitySettingsManager.getMobileDataPreferredUids(mContext);
         mSystemNetworkRequestCounter.transact(
                 mDeps.getCallingUid(), 1 /* numOfNewRequests */,
                 () -> {
                     final ArraySet<NetworkRequestInfo> nris =
                             createNrisFromMobileDataPreferences(mMobileDataPreferences);
-                    replaceDefaultNetworkRequestsForPreference(nris);
+                    replaceDefaultNetworkRequestsForPreference(
+                            nris, NetworkPreferenceSource.CELLULAR_PRIORITY_PREFERENCE);
                 });
         // Finally, rematch.
         rematchAllNetworksAndRequests();
@@ -9921,16 +9911,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceAutomotiveDevice();
         enforceOemNetworkPreferencesPermission();
 
-        // TODO: Have a priority for each preference.
-        if (!mProfileNetworkPreferences.isEmpty() || !mMobileDataPreferences.isEmpty()) {
-            // Strictly speaking, mProfileNetworkPreferences should only be touched on the
-            // handler thread. However it is an immutable object, so reading the reference is
-            // safe - it's just possible the value is slightly outdated. For the final check,
-            // see #handleSetOemPreference. But if this can be caught here it is a
-            // lot easier to understand, so opportunistically check it.
-            throwConcurrentPreferenceException();
-        }
-
         Objects.requireNonNull(preference, "OemNetworkPreferences must be non-null");
         validateOemNetworkPreferences(preference);
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_OEM_NETWORK_PREFERENCE,
@@ -9954,17 +9934,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (DBG) {
             log("set OEM network preferences :" + preference.toString());
         }
-        // setProfileNetworkPreference and setOemNetworkPreference are mutually exclusive, in
-        // particular because it's not clear what preference should win in case both apply
-        // to the same app.
-        // The binder call has already checked this, but as mOemNetworkPreferences is only
-        // touched on the handler thread, it's theoretically not impossible that it has changed
-        // since.
-        // TODO: Have a priority for each preference.
-        if (!mProfileNetworkPreferences.isEmpty() || !mMobileDataPreferences.isEmpty()) {
-            logwtf("handleSetOemPreference, but per-profile network preferences not empty");
-            return;
-        }
 
         mOemNetworkPreferencesLogs.log("UPDATE INITIATED: " + preference);
         final int uniquePreferenceCount = new ArraySet<>(
@@ -9975,7 +9944,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     final ArraySet<NetworkRequestInfo> nris =
                             new OemNetworkRequestFactory()
                                     .createNrisFromOemNetworkPreferences(preference);
-                    replaceDefaultNetworkRequestsForPreference(nris);
+                    replaceDefaultNetworkRequestsForPreference(
+                            nris, NetworkPreferenceSource.OEM_PREFERENCE);
                 });
         mOemNetworkPreferences = preference;
 
@@ -9989,13 +9959,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void replaceDefaultNetworkRequestsForPreference(
-            @NonNull final Set<NetworkRequestInfo> nris) {
+            @NonNull final Set<NetworkRequestInfo> nris,
+            @NonNull final NetworkPreferenceSource preference) {
         // Pass in a defensive copy as this collection will be updated on remove.
-        handleRemoveNetworkRequests(new ArraySet<>(mDefaultNetworkRequests));
-        addPerAppDefaultNetworkRequests(nris);
+        handleRemoveNetworkRequests(new ArraySet<>(mDefaultNetworkRequests), preference);
+        addPerAppDefaultNetworkRequests(nris, preference);
     }
 
-    private void addPerAppDefaultNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris) {
+    private void addPerAppDefaultNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris,
+            @NonNull final NetworkPreferenceSource preference) {
         ensureRunningOnConnectivityServiceThread();
         mDefaultNetworkRequests.addAll(nris);
         final ArraySet<NetworkRequestInfo> perAppCallbackRequestsToUpdate =
@@ -10006,7 +9978,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 () -> {
                     nrisToRegister.addAll(
                             createPerAppCallbackRequestsToRegister(perAppCallbackRequestsToUpdate));
-                    handleRemoveNetworkRequests(perAppCallbackRequestsToUpdate);
+                    handleRemoveNetworkRequests(perAppCallbackRequestsToUpdate, preference);
                     handleRegisterNetworkRequests(nrisToRegister);
                 });
     }
