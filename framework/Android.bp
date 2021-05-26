@@ -16,11 +16,15 @@
 
 package {
     // See: http://go/android-license-faq
+<<<<<<< HEAD   (b2e0bd Merge "Add OWNERS block for migration")
     // A large-scale-change added 'default_applicable_licenses' to import
     // all of the 'license_kinds' from "frameworks_base_license"
     // to get the below license kinds:
     //   SPDX-license-identifier-Apache-2.0
     default_applicable_licenses: ["frameworks_base_license"],
+=======
+    default_applicable_licenses: ["Android-Apache-2.0"],
+>>>>>>> BRANCH (c8a6e5 Revert "Fix memory access violation in NetworkStack")
 }
 
 java_library {

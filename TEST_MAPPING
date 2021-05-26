@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD   (b2e0bd Merge "Add OWNERS block for migration")
   "imports": [
     {
       "path": "frameworks/base/core/java/android/net"
@@ -17,3 +18,68 @@
     }
   ]
 }
+=======
+  "presubmit": [
+    // Run in addition to mainline-presubmit as mainline-presubmit is not
+    // supported in every branch.
+    // CtsNetTestCasesLatestSdk uses stable API shims, so does not exercise
+    // some latest APIs. Run CtsNetTestCases to get coverage of newer APIs.
+    {
+      "name": "CtsNetTestCases",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.SkipPresubmit"
+        }
+      ]
+    },
+    {
+      "name": "TetheringTests"
+    },
+    {
+      "name": "TetheringIntegrationTests"
+    }
+  ],
+  "mainline-presubmit": [
+    {
+      "name": "CtsNetTestCasesLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.SkipPresubmit"
+        }
+      ]
+    }
+  ],
+  "mainline-postsubmit": [
+    // Tests on physical devices with SIM cards: postsubmit only for capacity constraints
+    {
+      "name": "CtsNetTestCasesLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]",
+      "keywords": ["sim"]
+    },
+    {
+      "name": "TetheringCoverageTests[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
+    }
+  ],
+  "imports": [
+    {
+      "path": "packages/modules/NetworkStack"
+    }
+  ],
+  "imports": [
+    {
+      "path": "frameworks/base/core/java/android/net"
+    },
+    {
+      "path": "packages/modules/NetworkStack"
+    },
+    {
+      "path": "packages/modules/CaptivePortalLogin"
+    },
+    {
+      "path": "packages/modules/Connectivity"
+    },
+    {
+      "path": "packages/modules/Connectivity/Tethering"
+    }
+  ]
+}
+>>>>>>> BRANCH (c8a6e5 Revert "Fix memory access violation in NetworkStack")
