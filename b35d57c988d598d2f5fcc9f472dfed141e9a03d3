@@ -22,6 +22,30 @@
       },
       "revId": "b35d57c988d598d2f5fcc9f472dfed141e9a03d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ac2282c_9cf2a83f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1463964
+      },
+      "writtenOn": "2021-05-26T23:54:24Z",
+      "side": 1,
+      "message": "This is verified with the CTS added in aosp/1672166. Will re-run all to verify (and include them in the commit msg)\n\nDone",
+      "parentUuid": "825fea3f_6814a21f",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 14
+      },
+      "revId": "b35d57c988d598d2f5fcc9f472dfed141e9a03d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

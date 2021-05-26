@@ -46,6 +46,30 @@
       },
       "revId": "1102ce53a2a5b50cbaf6390b48f8dcd94c9fa903",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4e915c4_7fe29474",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1463964
+      },
+      "writtenOn": "2021-05-26T23:54:24Z",
+      "side": 1,
+      "message": "ack - sounds reasonable to me",
+      "parentUuid": "ce5e81d9_54ad20f9",
+      "range": {
+        "startLine": 846,
+        "startChar": 8,
+        "endLine": 846,
+        "endChar": 43
+      },
+      "revId": "1102ce53a2a5b50cbaf6390b48f8dcd94c9fa903",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
