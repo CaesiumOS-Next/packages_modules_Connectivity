@@ -301,6 +301,7 @@ import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.net.module.util.ArrayTrackRecord;
 import com.android.net.module.util.CollectionUtils;
 import com.android.server.ConnectivityService.ConnectivityDiagnosticsCallbackInfo;
+import com.android.server.ConnectivityService.NetworkPreferenceSource;
 import com.android.server.ConnectivityService.NetworkRequestInfo;
 import com.android.server.connectivity.ConnectivityConstants;
 import com.android.server.connectivity.MockableSystemProperties;
@@ -10382,8 +10383,9 @@ public class ConnectivityServiceTest {
                 mService.new OemNetworkRequestFactory()
                         .createNrisFromOemNetworkPreferences(
                                 createDefaultOemNetworkPreferences(prefToTest));
-
-        final List<NetworkRequest> mRequests = nris.iterator().next().mRequests;
+        final NetworkRequestInfo nri = nris.iterator().next();
+        assertEquals(NetworkPreferenceSource.OEM_PREFERENCE, nri.getNetworkPreferenceSource());
+        final List<NetworkRequest> mRequests = nri.mRequests;
         assertEquals(expectedNumOfNris, nris.size());
         assertEquals(expectedNumOfRequests, mRequests.size());
         assertTrue(mRequests.get(0).isListen());
@@ -10411,8 +10413,9 @@ public class ConnectivityServiceTest {
                 mService.new OemNetworkRequestFactory()
                         .createNrisFromOemNetworkPreferences(
                                 createDefaultOemNetworkPreferences(prefToTest));
-
-        final List<NetworkRequest> mRequests = nris.iterator().next().mRequests;
+        final NetworkRequestInfo nri = nris.iterator().next();
+        assertEquals(NetworkPreferenceSource.OEM_PREFERENCE, nri.getNetworkPreferenceSource());
+        final List<NetworkRequest> mRequests = nri.mRequests;
         assertEquals(expectedNumOfNris, nris.size());
         assertEquals(expectedNumOfRequests, mRequests.size());
         assertTrue(mRequests.get(0).isListen());
@@ -10437,8 +10440,9 @@ public class ConnectivityServiceTest {
                 mService.new OemNetworkRequestFactory()
                         .createNrisFromOemNetworkPreferences(
                                 createDefaultOemNetworkPreferences(prefToTest));
-
-        final List<NetworkRequest> mRequests = nris.iterator().next().mRequests;
+        final NetworkRequestInfo nri = nris.iterator().next();
+        assertEquals(NetworkPreferenceSource.OEM_PREFERENCE, nri.getNetworkPreferenceSource());
+        final List<NetworkRequest> mRequests = nri.mRequests;
         assertEquals(expectedNumOfNris, nris.size());
         assertEquals(expectedNumOfRequests, mRequests.size());
         assertTrue(mRequests.get(0).isRequest());
@@ -10460,8 +10464,9 @@ public class ConnectivityServiceTest {
                 mService.new OemNetworkRequestFactory()
                         .createNrisFromOemNetworkPreferences(
                                 createDefaultOemNetworkPreferences(prefToTest));
-
-        final List<NetworkRequest> mRequests = nris.iterator().next().mRequests;
+        final NetworkRequestInfo nri = nris.iterator().next();
+        assertEquals(NetworkPreferenceSource.OEM_PREFERENCE, nri.getNetworkPreferenceSource());
+        final List<NetworkRequest> mRequests = nri.mRequests;
         assertEquals(expectedNumOfNris, nris.size());
         assertEquals(expectedNumOfRequests, mRequests.size());
         assertTrue(mRequests.get(0).isRequest());
@@ -12522,6 +12527,8 @@ public class ConnectivityServiceTest {
         // multple uid ranges, so it only need create one NRI here.
         assertEquals(1, nris.size());
         assertTrue(nri.isMultilayerRequest());
+        assertEquals(NetworkPreferenceSource.CELLULAR_PRIORITY_PREFERENCE,
+                nri.getNetworkPreferenceSource());
 
         // Verify all uid ranges should set to the NRI. Get uid ranges from NetworkCapabilities
         // of first NR because NRI#getUids() is private but they are same logic.
