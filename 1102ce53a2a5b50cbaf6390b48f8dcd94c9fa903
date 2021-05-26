@@ -22,6 +22,30 @@
       },
       "revId": "1102ce53a2a5b50cbaf6390b48f8dcd94c9fa903",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce5e81d9_54ad20f9",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-05-26T23:18:11Z",
+      "side": 1,
+      "message": "Meh; it\u0027s a test network, this seems fine to not restrict it. If someone has access to creating a test network, they\u0027re more or less guaranteed to be running as the shell permission identity, so they\u0027ve got root access.",
+      "parentUuid": "6f4c564c_1f345d01",
+      "range": {
+        "startLine": 846,
+        "startChar": 8,
+        "endLine": 846,
+        "endChar": 43
+      },
+      "revId": "1102ce53a2a5b50cbaf6390b48f8dcd94c9fa903",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
