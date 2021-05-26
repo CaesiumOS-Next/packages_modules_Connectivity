@@ -42,6 +42,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_SUPL;
 import static android.net.ConnectivityManager.TYPE_PROXY;
 import static android.net.ConnectivityManager.TYPE_VPN;
 import static android.net.ConnectivityManager.TYPE_WIFI_P2P;
+import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_PROVIDER_HOSTNAME;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_IMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
@@ -145,6 +146,7 @@ import com.android.networkstack.apishim.NetworkInformationShimImpl;
 import com.android.networkstack.apishim.common.ConnectivityManagerShim;
 import com.android.testutils.CompatUtil;
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRuleKt;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.SkipPresubmit;
@@ -589,6 +591,33 @@ public class ConnectivityManagerTest {
         return new NetworkRequest.Builder()
                 .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                 .build();
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testIsPrivateDnsBroken() {
+        final boolean previousWifiEnabledState = mWifiManager.isWifiEnabled();
+        final int originalMode = ConnectivitySettingsManager.getPrivateDnsMode(mContext);
+        final String originalhostname = ConnectivitySettingsManager.getPrivateDnsHostname(mContext);
+        mCtsNetUtils.ensureWifiDisconnected(null);
+        ConnectivitySettingsManager.setPrivateDnsMode(mContext,
+                PRIVATE_DNS_MODE_PROVIDER_HOSTNAME);
+        ConnectivitySettingsManager.setPrivateDnsHostname(mContext, "invalidhostname.example.com");
+        final TestableNetworkCallback cb = new TestableNetworkCallback();
+        mCm.registerNetworkCallback(makeWifiNetworkRequest(), cb);
+        try {
+            final Network  network = mCtsNetUtils.ensureWifiConnected();
+            cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> (((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                            .isPrivateDnsBroken()) && network.equals(entry.getNetwork()));
+        } finally {
+            mCtsNetUtils.ensureWifiDisconnected(null);
+            ConnectivitySettingsManager.setPrivateDnsMode(mContext, originalMode);
+            ConnectivitySettingsManager.setPrivateDnsHostname(mContext, originalhostname);
+            final Network network = mCtsNetUtils.ensureWifiConnected();
+            cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> (!((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                            .isPrivateDnsBroken()) && network.equals(entry.getNetwork()));
+        }
     }
 
     /**
