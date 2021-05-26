@@ -455,6 +455,7 @@ public class ConnectivityServiceTest {
     private TestNetworkCallback mDefaultNetworkCallback;
     private TestNetworkCallback mSystemDefaultNetworkCallback;
     private TestNetworkCallback mProfileDefaultNetworkCallback;
+    private TestNetworkCallback mCellularPreferredDefaultNetworkCallback;
 
     // State variables required to emulate NetworkPolicyManagerService behaviour.
     private int mBlockedReasons = BLOCKED_REASON_NONE;
@@ -10748,6 +10749,9 @@ public class ConnectivityServiceTest {
         if (null != mProfileDefaultNetworkCallback) {
             mCm.unregisterNetworkCallback(mProfileDefaultNetworkCallback);
         }
+        if (null != mCellularPreferredDefaultNetworkCallback) {
+            mCm.unregisterNetworkCallback(mCellularPreferredDefaultNetworkCallback);
+        }
     }
 
     private void setupMultipleDefaultNetworksForOemNetworkPreferenceNotCurrentUidTest(
@@ -12553,20 +12557,30 @@ public class ConnectivityServiceTest {
         waitForIdle();
     }
 
+    private void registerMobileDataPreferredNetworkCallbacks(int uid) {
+        mDefaultNetworkCallback = new TestNetworkCallback();
+        mCellularPreferredDefaultNetworkCallback = new TestNetworkCallback();
+        mCm.registerDefaultNetworkCallback(mDefaultNetworkCallback);
+        registerDefaultNetworkCallbackAsUid(mCellularPreferredDefaultNetworkCallback, uid);
+    }
+
     /**
-     * Test that MOBILE_DATA_PREFERRED_APPS changes will send correct net id and uid ranges to netd.
+     * Test that MOBILE_DATA_PREFERRED_UIDS changes will send correct net id and uid ranges to netd.
      */
     @Test
     public void testMobileDataPreferredUidsChanged() throws Exception {
         final InOrder inorder = inOrder(mMockNetd);
+        registerMobileDataPreferredNetworkCallbacks(TEST_PACKAGE_UID);
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mCellNetworkAgent.connect(true);
-        waitForIdle();
+        mCellularPreferredDefaultNetworkCallback
+                .expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
 
         final int cellNetId = mCellNetworkAgent.getNetwork().netId;
         inorder.verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(
                 cellNetId, INetd.PERMISSION_NONE));
 
+        // Set MOBILE_DATA_PREFERRED_UIDS setting and verify that net id and uid ranges send to netd
         final Set<Integer> preferences1 =
                 new ArraySet<>(new Integer[] {PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)});
         final UidRangeParcel[] uidRanges1 = toUidRangeStableParcels(uidRangesForUids(
@@ -12575,6 +12589,8 @@ public class ConnectivityServiceTest {
         inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges1);
         inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(cellNetId, uidRanges1);
 
+        // Set MOBILE_DATA_PREFERRED_UIDS setting again and verify that old rules are removed and
+        // new rules are added.
         final Set<Integer> preferences2 =  new ArraySet<>(new Integer[] {
                 PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID),
                 PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2),
@@ -12584,5 +12600,198 @@ public class ConnectivityServiceTest {
         setMobileDataPreferredUidsAndUpdateSetting(preferences2);
         inorder.verify(mMockNetd, times(1)).networkRemoveUidRanges(cellNetId, uidRanges1);
         inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges2);
+    }
+
+    /**
+     * Test that MOBILE_DATA_PREFERRED_UIDS changes will send correct net id and uid ranges to netd
+     * without cellular network.
+     */
+    @Test
+    public void testMobileDataPreferredUidsChanged_NoCellularNetwork() throws Exception {
+        final InOrder inorder = inOrder(mMockNetd);
+        registerMobileDataPreferredNetworkCallbacks(TEST_PACKAGE_UID);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        mWiFiNetworkAgent.connect(true);
+        mCellularPreferredDefaultNetworkCallback
+                .expectAvailableThenValidatedCallbacks(mWiFiNetworkAgent);
+
+        final int wifiNetId = mWiFiNetworkAgent.getNetwork().netId;
+        inorder.verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(
+                wifiNetId, INetd.PERMISSION_NONE));
+
+        // Set MOBILE_DATA_PREFERRED_UIDS setting and verify that wifi net id and uid ranges send to
+        // netd.
+        final Set<Integer> preferences1 =
+                new ArraySet<>(new Integer[] {PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)});
+        final UidRangeParcel[] uidRanges1 = toUidRangeStableParcels(uidRangesForUids(
+                CollectionUtils.toIntArray(preferences1)));
+        setMobileDataPreferredUidsAndUpdateSetting(preferences1);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(wifiNetId, uidRanges1);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(wifiNetId, uidRanges1);
+
+        // Set MOBILE_DATA_PREFERRED_UIDS setting again and verify that old rules are removed and
+        // new rules are added.
+        final Set<Integer> preferences2 =  new ArraySet<>(new Integer[] {
+                PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID),
+                PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID2),
+                SECONDARY_USER_HANDLE.getUid(TEST_PACKAGE_UID) });
+        final UidRangeParcel[] uidRanges2 = toUidRangeStableParcels(uidRangesForUids(
+                CollectionUtils.toIntArray(preferences2)));
+        setMobileDataPreferredUidsAndUpdateSetting(preferences2);
+        inorder.verify(mMockNetd, times(1)).networkRemoveUidRanges(wifiNetId, uidRanges1);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(wifiNetId, uidRanges2);
+    }
+
+    /**
+     * Make sure mobile data preference behaves as expected when the cellular network
+     * goes up and down while the preference is active. Make sure they behave as expected whether
+     * there is a general default network or not.
+     */
+    @Test
+    public void testMobileDataPreferenceForCellularNetworkUpDown() throws Exception {
+        final InOrder inorder = inOrder(mMockNetd);
+        registerMobileDataPreferredNetworkCallbacks(TEST_PACKAGE_UID);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        mWiFiNetworkAgent.connect(true);
+        mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mWiFiNetworkAgent);
+        mCellularPreferredDefaultNetworkCallback
+                .expectAvailableThenValidatedCallbacks(mWiFiNetworkAgent);
+
+        final int wifiNetId = mWiFiNetworkAgent.getNetwork().netId;
+        inorder.verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(
+                wifiNetId, INetd.PERMISSION_NONE));
+
+        // Set MOBILE_DATA_PREFERRED_UIDS setting and verify that wifi net id and uid ranges send to
+        // netd.
+        final Set<Integer> preferences =
+                new ArraySet<>(new Integer[] {PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)});
+        final UidRangeParcel[] uidRanges = toUidRangeStableParcels(uidRangesForUids(
+                CollectionUtils.toIntArray(preferences)));
+        setMobileDataPreferredUidsAndUpdateSetting(preferences);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(wifiNetId, uidRanges);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(wifiNetId, uidRanges);
+
+        // Cellular network connected. mCellularPreferredDefaultNetworkCallback should receive
+        // callback with cellular network and net id and uid ranges should be updated to netd.
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        mDefaultNetworkCallback.assertNoCallback();
+        mCellularPreferredDefaultNetworkCallback
+                .expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+
+        final int cellNetId = mCellNetworkAgent.getNetwork().netId;
+        inorder.verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(
+                cellNetId, INetd.PERMISSION_NONE));
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId, uidRanges);
+        inorder.verify(mMockNetd, times(1)).networkRemoveUidRanges(wifiNetId, uidRanges);
+
+        // Cellular network disconnected. mCellularPreferredDefaultNetworkCallback should receive
+        // callback with wifi network from fallback request.
+        mCellNetworkAgent.disconnect();
+        mDefaultNetworkCallback.assertNoCallback();
+        mCellularPreferredDefaultNetworkCallback.expectCallback(
+                CallbackEntry.LOST, mCellNetworkAgent);
+        mCellularPreferredDefaultNetworkCallback
+                .expectAvailableCallbacksValidated(mWiFiNetworkAgent);
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(wifiNetId, uidRanges);
+        inorder.verify(mMockNetd).networkDestroy(cellNetId);
+
+        // Cellular network comes back. mCellularPreferredDefaultNetworkCallback should receive
+        // callback with cellular network.
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        mDefaultNetworkCallback.assertNoCallback();
+        mCellularPreferredDefaultNetworkCallback
+                .expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+
+        final int cellNetId2 = mCellNetworkAgent.getNetwork().netId;
+        inorder.verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(
+                cellNetId2, INetd.PERMISSION_NONE));
+        inorder.verify(mMockNetd, times(1)).networkAddUidRanges(cellNetId2, uidRanges);
+        inorder.verify(mMockNetd, times(1)).networkRemoveUidRanges(wifiNetId, uidRanges);
+
+        // Wifi network disconnected. mCellularPreferredDefaultNetworkCallback should not receive
+        // any callback.
+        mWiFiNetworkAgent.disconnect();
+        mDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mWiFiNetworkAgent);
+        mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+        mCellularPreferredDefaultNetworkCallback.assertNoCallback();
+        waitForIdle();
+        inorder.verify(mMockNetd, times(0)).networkAddUidRanges(cellNetId2, uidRanges);
+        inorder.verify(mMockNetd, times(0)).networkRemoveUidRanges(wifiNetId, uidRanges);
+        inorder.verify(mMockNetd).networkDestroy(wifiNetId);
+    }
+
+    @Test
+    public void testSetMobileDataPreferredUids_noIssueToFactory() throws Exception {
+        // Prepare mock cellular factory without INTENET capability.
+        final HandlerThread handlerThread = new HandlerThread("MockCellularFactory");
+        handlerThread.start();
+        NetworkCapabilities filter = new NetworkCapabilities()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
+        final MockNetworkFactory testFactory = new MockNetworkFactory(handlerThread.getLooper(),
+                mServiceContext, "testFactory", filter, mCsHandlerThread);
+        testFactory.setScoreFilter(40);
+
+        try {
+            // Register the factory and expect it will see default request, because all requests
+            // are sent to all factories.
+            testFactory.register();
+            testFactory.expectRequestAdd();
+            testFactory.assertRequestCountEquals(1);
+            // The factory won't try to start the network since the default request doesn't
+            // match the filter (no INTERNET capability).
+            assertFalse(testFactory.getMyStartRequested());
+
+            // Set mobile data preferred uid, verify the facotry will not see the request.
+            final Set<Integer> preferences =
+                    new ArraySet<>(new Integer[] {PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)});
+            final UidRangeParcel[] uidRanges = toUidRangeStableParcels(uidRangesForUids(
+                    CollectionUtils.toIntArray(preferences)));
+            setMobileDataPreferredUidsAndUpdateSetting(preferences);
+            HandlerUtils.waitForIdle(handlerThread, TIMEOUT_MS);
+            expectNoRequestChanged(testFactory);
+            testFactory.assertRequestCountEquals(1);
+            assertFalse(testFactory.getMyStartRequested());
+
+            // Fire a request with NET_CAPABILITY_NOT_VCN_MANAGED, verify the factory will only see
+            // the request.
+            final TestNetworkCallback nonVcnNetworkCallback = new TestNetworkCallback();
+            final NetworkRequest nonVcnRequest = new NetworkRequest.Builder()
+                    .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED).build();
+            mCm.requestNetwork(nonVcnRequest, nonVcnNetworkCallback);
+            testFactory.expectRequestAdd();
+            testFactory.assertRequestCountEquals(2);
+            assertTrue(testFactory.getMyStartRequested());
+
+            // Unset mobile data preferred uid, verify factory see no change.
+            setMobileDataPreferredUidsAndUpdateSetting(new ArraySet<>());
+            HandlerUtils.waitForIdle(handlerThread, TIMEOUT_MS);
+            expectNoRequestChanged(testFactory);
+            testFactory.assertRequestCountEquals(2);
+            assertTrue(testFactory.getMyStartRequested());
+        } finally {
+            testFactory.terminate();
+        }
+    }
+
+    /**
+     * Validate request counts are counted accurately on MOBILE_DATA_PREFERRED_UIDS change
+     * on set/replace.
+     */
+    @Test
+    public void testMobileDataPreferredUidsChangedCountsRequestsCorrectlyOnSet() throws Exception {
+        ConnectivitySettingsManager.setMobileDataPreferredUids(mServiceContext,
+                new ArraySet<>(new Integer[] {PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)}));
+        testRequestCountLimits(() -> {
+            // Set initially to test the limit prior to having existing requests.
+            mService.updateMobileDataPreferredUidsSettings();
+            waitForIdle();
+
+            // re-set so as to test the limit as part of replacing existing requests.
+            mService.updateMobileDataPreferredUidsSettings();
+            waitForIdle();
+        });
     }
 }
