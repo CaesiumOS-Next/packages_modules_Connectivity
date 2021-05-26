@@ -151,6 +151,7 @@ import com.android.networkstack.apishim.NetworkInformationShimImpl;
 import com.android.networkstack.apishim.common.ConnectivityManagerShim;
 import com.android.testutils.CompatUtil;
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRuleKt;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.SkipPresubmit;
@@ -658,6 +659,27 @@ public class ConnectivityManagerTest {
         return new NetworkRequest.Builder()
                 .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                 .build();
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
+    public void testIsPrivateDnsBroken()   throws InterruptedException {
+        final TestableNetworkCallback cb = new TestableNetworkCallback();
+        mCm.registerNetworkCallback(makeWifiNetworkRequest(), cb);
+        mCtsNetUtils.storePrivateDnsSetting();
+        final Network network =  mCtsNetUtils.ensureWifiConnected();
+        cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
+                entry -> (!((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                .isPrivateDnsBroken()) && network.equals(entry.getNetwork()));
+        try {
+            mCtsNetUtils.ensureWifiDisconnected(null);
+            mCtsNetUtils.setPrivateDnsStrictMode("invalidhostname.example.com");
+            final Network brokenNetwork = mCtsNetUtils.ensureWifiConnected();
+            cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> (((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                    .isPrivateDnsBroken()) && brokenNetwork.equals(entry.getNetwork()));
+        } finally {
+            mCtsNetUtils.restorePrivateDnsSetting();
+        }
     }
 
     /**
