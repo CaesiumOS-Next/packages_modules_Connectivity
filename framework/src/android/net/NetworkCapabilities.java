@@ -817,6 +817,7 @@ public final class NetworkCapabilities implements Parcelable {
         final int originalOwnerUid = getOwnerUid();
         final int[] originalAdministratorUids = getAdministratorUids();
         final TransportInfo originalTransportInfo = getTransportInfo();
+        final Set<Integer> originalSubIds = getSubscriptionIds();
         clearAll();
         if (0 != (originalCapabilities & NET_CAPABILITY_NOT_RESTRICTED)) {
             // If the test network is not restricted, then it is only allowed to declare some
@@ -842,6 +843,7 @@ public final class NetworkCapabilities implements Parcelable {
         if (CollectionUtils.contains(originalAdministratorUids, creatorUid)) {
             setAdministratorUids(new int[] {creatorUid});
         }
+        setSubscriptionIds(originalSubIds);
         // There is no need to clear the UIDs, they have already been cleared by clearAll() above.
     }
 
