@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f4c564c_1f345d01",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1463964
+      },
+      "writtenOn": "2021-05-26T23:08:55Z",
+      "side": 1,
+      "message": "Not sure what restrictions are appropriate here. We can check SubscriptionManager#isActiveSubscriptionId() (would require a Binder call) or only keep this if originaOwnerlUid \u003d\u003d creatorUid?",
+      "range": {
+        "startLine": 846,
+        "startChar": 8,
+        "endLine": 846,
+        "endChar": 43
+      },
+      "revId": "1102ce53a2a5b50cbaf6390b48f8dcd94c9fa903",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
