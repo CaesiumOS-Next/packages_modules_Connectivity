@@ -42,6 +42,8 @@ import android.net.TetheringManager.TetheringInterfaceRegexps;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.wifi.WifiClient;
 import android.net.wifi.WifiManager;
+import android.net.wifi.WifiManager.LocalOnlyHotspotCallback;
+import android.net.wifi.WifiManager.LocalOnlyHotspotReservation;
 import android.net.wifi.WifiManager.SoftApCallback;
 import android.os.ConditionVariable;
 
@@ -162,6 +164,7 @@ public final class CtsTetheringUtils {
             ON_TETHERABLE_REGEX,
             ON_TETHERABLE_IFACES,
             ON_TETHERED_IFACES,
+            ON_LOCALONLY_IFACES,
             ON_ERROR,
             ON_CLIENTS,
             ON_OFFLOAD_STATUS,
@@ -188,6 +191,7 @@ public final class CtsTetheringUtils {
         private TetheringInterfaceRegexps mTetherableRegex;
         private List<String> mTetherableIfaces;
         private List<String> mTetheredIfaces;
+        private List<String> mLocalOnlyIfaces;
         private String mErrorIface;
         private int mErrorCode;
 
@@ -235,6 +239,18 @@ public final class CtsTetheringUtils {
         }
 
         @Override
+        public void onLocalOnlyInterfacesChanged(List<String> interfaces) {
+            mLocalOnlyIfaces = interfaces;
+        }
+
+        @Override
+        public void onLocalOnlyInterfacesChanged(Set<TetheringInterface> interfaces) {
+            TetheringEventCallback.super.onLocalOnlyInterfacesChanged(interfaces);
+            assertHasAllTetheringInterfaces(interfaces, mLocalOnlyIfaces);
+            mHistory.add(new CallbackValue(CallbackType.ON_LOCALONLY_IFACES, interfaces, 0));
+        }
+
+        @Override
         public void onError(String ifName, int error) {
             mErrorIface = ifName;
             mErrorCode = error;
@@ -270,17 +286,6 @@ public final class CtsTetheringUtils {
             }
         }
 
-        public void expectTetherableInterfacesChanged(@NonNull final List<String> regexs,
-                final int type) {
-            assertNotNull("No expected tetherable ifaces callback", mCurrent.poll(TIMEOUT_MS,
-                (cv) -> {
-                    if (cv.callbackType != CallbackType.ON_TETHERABLE_IFACES) return false;
-                    final Set<TetheringInterface> interfaces =
-                            (Set<TetheringInterface>) cv.callbackParam;
-                    return getFirstMatchingTetheringInterface(regexs, type, interfaces) != null;
-                }));
-        }
-
         public void expectNoTetheringActive() {
             assertNotNull("At least one tethering type unexpectedly active",
                     mCurrent.poll(TIMEOUT_MS, (cv) -> {
@@ -290,15 +295,30 @@ public final class CtsTetheringUtils {
                     }));
         }
 
+        public TetheringInterface expectTetherableInterfacesChanged(
+                @NonNull final List<String> regexs, final int type) {
+            return expectInterfacesChanged(regexs, type, CallbackType.ON_TETHERABLE_IFACES);
+        }
+
         public TetheringInterface expectTetheredInterfacesChanged(
                 @NonNull final List<String> regexs, final int type) {
+            return expectInterfacesChanged(regexs, type, CallbackType.ON_TETHERED_IFACES);
+        }
+
+        public TetheringInterface expectLocalOnlyInterfacesChanged(
+                @NonNull final List<String> regexs, final int type) {
+            return expectInterfacesChanged(regexs, type, CallbackType.ON_LOCALONLY_IFACES);
+        }
+
+        private TetheringInterface expectInterfacesChanged(@NonNull final List<String> regexs,
+                final int type, final CallbackType callbackType) {
             while (true) {
                 final CallbackValue cv = mCurrent.poll(TIMEOUT_MS, c -> true);
                 if (cv == null) {
-                    fail("No expected tethered ifaces callback, expected type: " + type);
+                    fail("No expected ifaces callback, expected type: " + type);
                 }
 
-                if (cv.callbackType != CallbackType.ON_TETHERED_IFACES) continue;
+                if (cv.callbackType != callbackType) continue;
 
                 final Set<TetheringInterface> interfaces =
                         (Set<TetheringInterface>) cv.callbackParam;
@@ -310,6 +330,27 @@ public final class CtsTetheringUtils {
             }
         }
 
+        public void verifyTetheringStop(final int type, boolean isLocalOnly) {
+            while (true) {
+                final CallbackValue cv = mCurrent.poll(TIMEOUT_MS, c -> true);
+                if (cv == null) {
+                    fail("Tethering not stopped, type: " + type);
+                }
+
+                if (isLocalOnly && cv.callbackType != CallbackType.ON_LOCALONLY_IFACES) continue;
+
+                if (!isLocalOnly && cv.callbackType != CallbackType.ON_TETHERED_IFACES) continue;
+
+                final Set<TetheringInterface> interfaces =
+                        (Set<TetheringInterface>) cv.callbackParam;
+
+                for (TetheringInterface iface : interfaces) {
+                    if (iface.getType() == type) fail("Tethering is still enabled:  " + iface);
+                }
+
+                return;
+            }
+        }
         public void expectCallbackStarted() {
             // This method uses its own readhead because it just check whether last tethering status
             // is updated after TetheringEventCallback get registered but do not check content
@@ -464,22 +505,39 @@ public final class CtsTetheringUtils {
 
     public TetheringInterface startWifiTethering(final TestTetheringEventCallback callback)
             throws InterruptedException {
-        final List<String> wifiRegexs = getWifiTetherableInterfaceRegexps(callback);
+        startWifiTetheringInternal();
+        return verifyWifiTetheringEnabled(callback, false /* isLocalOnly */);
+    }
 
+    private void startWifiTetheringInternal() throws InterruptedException {
         final StartTetheringCallback startTetheringCallback = new StartTetheringCallback();
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_WIFI)
                 .setShouldShowEntitlementUi(false).build();
         mTm.startTethering(request, c -> c.run() /* executor */, startTetheringCallback);
         startTetheringCallback.verifyTetheringStarted();
+    }
 
-        final TetheringInterface iface =
-                callback.expectTetheredInterfacesChanged(wifiRegexs, TETHERING_WIFI);
+    public TetheringInterface verifyWifiTetheringEnabled(final TestTetheringEventCallback callback,
+            boolean isLocalOnly) {
+        final List<String> wifiRegexs = getWifiTetherableInterfaceRegexps(callback);
 
-        callback.expectOneOfOffloadStatusChanged(
-                TETHER_HARDWARE_OFFLOAD_STARTED,
-                TETHER_HARDWARE_OFFLOAD_FAILED);
+        final TetheringInterface iface = isLocalOnly
+                ? callback.expectLocalOnlyInterfacesChanged(wifiRegexs, TETHERING_WIFI)
+                : callback.expectTetheredInterfacesChanged(wifiRegexs, TETHERING_WIFI);
+
+        if (!isLocalOnly) {
+            callback.expectOneOfOffloadStatusChanged(
+                    TETHER_HARDWARE_OFFLOAD_STARTED,
+                    TETHER_HARDWARE_OFFLOAD_FAILED);
+        }
 
         return iface;
+    }
+
+    public LocalOnlyHotspotReservation startLocalOnlyWifiTethering() {
+        final TestLocalOnlyHotspotCallback callback = new TestLocalOnlyHotspotCallback();
+        mWm.startLocalOnlyHotspot(callback, null /* Handler */);
+        return callback.waitForStarted();
     }
 
     private static class StopSoftApCallback implements SoftApCallback {
@@ -519,7 +577,54 @@ public final class CtsTetheringUtils {
     public void stopWifiTethering(final TestTetheringEventCallback callback) {
         mTm.stopTethering(TETHERING_WIFI);
         expectSoftApDisabled();
-        callback.expectNoTetheringActive();
+        callback.verifyTetheringStop(TETHERING_WIFI, false /* isLocalOnly */);
         callback.expectOneOfOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
+    }
+
+    public void stopLocalOnlyWifiTethering(final LocalOnlyHotspotReservation localOnly,
+            final TestTetheringEventCallback callback) {
+        localOnly.close();
+        expectSoftApDisabled();
+        callback.verifyTetheringStop(TETHERING_WIFI, true /* isLocalOnly */);
+    }
+
+    private static class TestLocalOnlyHotspotCallback extends LocalOnlyHotspotCallback {
+        private static final int ON_STOPPED = 1;
+        private static final int ON_STARTED = 2;
+        private static final int ON_FAILED  = 3;
+
+        private final ConditionVariable mWaiting = new ConditionVariable();
+        private int mState = -1;
+        private int mFailureReason = -1;
+        private LocalOnlyHotspotReservation mLocalOnly;
+
+        @Override
+        public void onStarted(LocalOnlyHotspotReservation r) {
+            mState = ON_STARTED;
+            mLocalOnly = r;
+            mWaiting.open();
+        }
+
+        @Override
+        public void onStopped() {
+            mState = ON_STOPPED;
+            mWaiting.open();
+        }
+
+        @Override
+        public void onFailed(int reason) {
+            mState = ON_FAILED;
+            mFailureReason = reason;
+            mWaiting.open();
+        }
+
+        public LocalOnlyHotspotReservation waitForStarted() {
+            if (!mWaiting.block(DEFAULT_TIMEOUT_MS)) {
+                fail("start localOnly hotspot Timeout");
+            }
+            assertEquals("fail to started, failreason: " + mFailureReason, ON_STARTED, mState);
+
+            return mLocalOnly;
+        }
     }
 }
