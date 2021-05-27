@@ -1692,6 +1692,11 @@ public class Tethering {
                 return;
             }
 
+            if (arg1 == UpstreamNetworkMonitor.EVENT_DEFAULT_AVAILABLE) {
+                chooseUpstreamType(true);
+                return;
+            }
+
             if (ns == null || !pertainsToCurrentUpstream(ns)) {
                 // TODO: In future, this is where upstream evaluation and selection
                 // could be handled for notifications which include sufficient data.
@@ -1750,7 +1755,7 @@ public class Tethering {
                 if (upstreamWanted()) {
                     mUpstreamWanted = true;
                     mOffload.start();
-                    chooseUpstreamType(true);
+                    //chooseUpstreamType(true);
                     mTryCell = false;
                 }
 

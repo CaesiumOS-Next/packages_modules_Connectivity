@@ -90,6 +90,7 @@ public class UpstreamNetworkMonitor {
     public static final int EVENT_ON_LINKPROPERTIES = 2;
     public static final int EVENT_ON_LOST           = 3;
     public static final int EVENT_DEFAULT_SWITCHED  = 4;
+    public static final int EVENT_DEFAULT_AVAILABLE = 5;
     public static final int NOTIFY_LOCAL_PREFIXES   = 10;
     // This value is used by deprecated preferredUpstreamIfaceTypes selection which is default
     // disabled.
@@ -368,6 +369,10 @@ public class UpstreamNetworkMonitor {
         mNetworkMap.put(network, new UpstreamNetworkState(null, null, network));
     }
 
+    private void handleDefaultAvailable(Network network) {
+        notifyTarget(EVENT_DEFAULT_AVAILABLE, network);
+    }
+
     private void handleNetCap(Network network, NetworkCapabilities newNc) {
         final UpstreamNetworkState prev = mNetworkMap.get(network);
         if (prev == null || newNc.equals(prev.networkCapabilities)) {
@@ -499,6 +504,10 @@ public class UpstreamNetworkMonitor {
         @Override
         public void onAvailable(Network network) {
             handleAvailable(network);
+
+            if (network.equals(mDefaultInternetNetwork) && mCallbackType == CALLBACK_LISTEN_ALL) {
+                handleDefaultAvailable(network);
+            }
         }
 
         @Override
