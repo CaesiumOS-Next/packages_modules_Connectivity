@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8736370d_d5083817",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-27T06:45:40Z",
+      "side": 1,
+      "message": "you may need to rebase your commit to solve the conflict",
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da50eceb_9459ee7c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-27T06:45:40Z",
+      "side": 1,
+      "message": "style: B",
+      "range": {
+        "startLine": 387,
+        "startChar": 26,
+        "endLine": 387,
+        "endChar": 27
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56cf7ce5_76884c1c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-27T06:45:40Z",
+      "side": 1,
+      "message": "Optional: testSetLegacySubtypeInNetworkAgent.\n\nbecause \na)the API you test is setLegacySubtype, not really SubtypeName\nb) Umts is not a meaningful term here",
+      "range": {
+        "startLine": 398,
+        "startChar": 12,
+        "endLine": 398,
+        "endChar": 27
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a365d951_98afe1ba",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-27T06:45:40Z",
+      "side": 1,
+      "message": "Maybe add a comment to explain why you do this.",
+      "range": {
+        "startLine": 406,
+        "startChar": 8,
+        "endLine": 407,
+        "endChar": 58
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7249e9a6_7bb374d9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-27T06:45:40Z",
+      "side": 1,
+      "message": "I expect this should be umts?",
+      "range": {
+        "startLine": 409,
+        "startChar": 8,
+        "endLine": 410,
+        "endChar": 66
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

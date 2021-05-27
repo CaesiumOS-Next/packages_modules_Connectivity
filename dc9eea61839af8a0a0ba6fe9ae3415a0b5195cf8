@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31ac0383_f2fb0d0a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-05-27T06:45:40Z",
+      "side": 1,
+      "message": "Yes, whole class are annotated with @IgnoreUpTo(Build.VERSION_CODES.R).  SdkLevel.isAtLeastS() is not necessary?",
+      "parentUuid": "1eb06470_2d539745",
+      "range": {
+        "startLine": 352,
+        "startChar": 26,
+        "endLine": 352,
+        "endChar": 46
+      },
+      "revId": "dc9eea61839af8a0a0ba6fe9ae3415a0b5195cf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c8b3ba4_cfe86f51",
