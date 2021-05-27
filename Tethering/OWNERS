@@ -1,2 +1,4 @@
 include platform/packages/modules/NetworkStack/:/OWNERS
-markchien@google.com
+
+# Owners block: ongoing migration
+# markchien@google.com
