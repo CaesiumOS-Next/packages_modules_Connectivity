@@ -26,23 +26,19 @@ import static android.system.OsConstants.ETIMEDOUT;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
-import android.net.ConnectivityManager.NetworkCallback;
 import android.net.DnsResolver;
-import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkRequest;
 import android.net.ParseException;
 import android.net.cts.util.CtsNetUtils;
 import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
 import android.platform.test.annotations.AppModeFull;
-import android.provider.Settings;
 import android.system.ErrnoException;
 import android.test.AndroidTestCase;
 import android.util.Log;
@@ -97,6 +93,7 @@ public class DnsResolverTest extends AndroidTestCase {
     private Executor mExecutor;
     private Executor mExecutorInline;
     private DnsResolver mDns;
+    private TestUtils mTestUtils;
 
     private String mOldMode;
     private String mOldDnsSpecifier;
@@ -110,13 +107,14 @@ public class DnsResolverTest extends AndroidTestCase {
         mExecutorInline = (Runnable r) -> r.run();
         mCR = getContext().getContentResolver();
         mCtsNetUtils = new CtsNetUtils(getContext());
-        mCtsNetUtils.storePrivateDnsSetting();
+        mTestUtils = new TestUtils();
+        mTestUtils.storePrivateDnsSetting(getContext());
         mPackageManager = mContext.getPackageManager();
     }
 
     @Override
     protected void tearDown() throws Exception {
-        mCtsNetUtils.restorePrivateDnsSetting();
+        mTestUtils.restorePrivateDnsSetting(getContext());
         super.tearDown();
     }
 
@@ -406,12 +404,13 @@ public class DnsResolverTest extends AndroidTestCase {
         final String msg = "RawQuery " + TEST_NX_DOMAIN + " with private DNS";
         // Enable private DNS strict mode and set server to dns.google before doing NxDomain test.
         // b/144521720
-        mCtsNetUtils.setPrivateDnsStrictMode(GOOGLE_PRIVATE_DNS_SERVER);
+        mTestUtils.setPrivateDnsStrictMode(getContext(), GOOGLE_PRIVATE_DNS_SERVER);
         for (Network network :  getTestableNetworks()) {
             final Network networkForPrivateDns =
                     (network != null) ? network : mCM.getActiveNetwork();
             assertNotNull("Can't find network to await private DNS on", networkForPrivateDns);
-            mCtsNetUtils.awaitPrivateDnsSetting(msg + " wait private DNS setting timeout",
+            mTestUtils.awaitPrivateDnsSetting(getContext(),
+                    msg + " wait private DNS setting timeout",
                     networkForPrivateDns, GOOGLE_PRIVATE_DNS_SERVER, true);
             final VerifyCancelCallback callback = new VerifyCancelCallback(msg);
             mDns.rawQuery(network, TEST_NX_DOMAIN, CLASS_IN, TYPE_AAAA, FLAG_NO_CACHE_LOOKUP,
@@ -677,7 +676,7 @@ public class DnsResolverTest extends AndroidTestCase {
         final Network[] testNetworks = getTestableNetworks();
 
         // Set an invalid private DNS server
-        mCtsNetUtils.setPrivateDnsStrictMode(INVALID_PRIVATE_DNS_SERVER);
+        mTestUtils.setPrivateDnsStrictMode(getContext(), INVALID_PRIVATE_DNS_SERVER);
         final String msg = "Test PrivateDnsBypass " + TEST_DOMAIN;
         for (Network network : testNetworks) {
             // This test cannot be ran with null network because we need to explicitly pass a
@@ -685,7 +684,8 @@ public class DnsResolverTest extends AndroidTestCase {
             if (network == null) continue;
 
             // wait for private DNS setting propagating
-            mCtsNetUtils.awaitPrivateDnsSetting(msg + " wait private DNS setting timeout",
+            mTestUtils.awaitPrivateDnsSetting(getContext(),
+                    msg + " wait private DNS setting timeout",
                     network, INVALID_PRIVATE_DNS_SERVER, false);
 
             final CountDownLatch latch = new CountDownLatch(1);
