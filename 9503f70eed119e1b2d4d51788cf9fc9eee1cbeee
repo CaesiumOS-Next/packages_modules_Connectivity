@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "628ada28_3a8f70f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-27T09:18:36Z",
+      "side": 1,
+      "message": "LGTM but let\u0027s not submit right now (migration in progress)",
+      "revId": "9503f70eed119e1b2d4d51788cf9fc9eee1cbeee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
