@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b73d5e4e_ed7258be",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1758,
+      "author": {
+        "id": 1424063
+      },
+      "writtenOn": "2021-05-27T09:57:19Z",
+      "side": 1,
+      "message": "At this point, mNetworkMap is empty. So it could file unnecessary networkRequest.",
+      "revId": "588f68683c2bbd4a90e9481e7f5360f2a887551b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d7f622_a2b8504b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1424063
+      },
+      "writtenOn": "2021-05-27T09:57:19Z",
+      "side": 1,
+      "message": "Only call chooseUpstreamType(true) in case of default network\u0027s listen event.",
+      "revId": "588f68683c2bbd4a90e9481e7f5360f2a887551b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
