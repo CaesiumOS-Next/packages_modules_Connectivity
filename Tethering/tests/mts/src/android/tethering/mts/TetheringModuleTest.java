@@ -15,6 +15,7 @@
  */
 package android.tethering.mts;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
@@ -39,6 +40,7 @@ import android.net.TetheringInterface;
 import android.net.TetheringManager;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
+import android.net.wifi.WifiManager.LocalOnlyHotspotReservation;
 import android.provider.DeviceConfig;
 
 import androidx.annotation.NonNull;
@@ -70,7 +72,8 @@ public class TetheringModuleTest {
     @Before
     public void setUp() throws Exception {
         mUiAutomation.adoptShellPermissionIdentity(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS,
-                WRITE_SETTINGS, READ_DEVICE_CONFIG, TETHER_PRIVILEGED, ACCESS_WIFI_STATE);
+                WRITE_SETTINGS, READ_DEVICE_CONFIG, TETHER_PRIVILEGED, ACCESS_WIFI_STATE,
+                ACCESS_FINE_LOCATION);
         mContext = InstrumentationRegistry.getContext();
         mTm = mContext.getSystemService(TetheringManager.class);
         mCtsTetheringUtils = new CtsTetheringUtils(mContext);
@@ -180,5 +183,24 @@ public class TetheringModuleTest {
 
     public static boolean isFeatureEnabled(final String name, final boolean defaultValue) {
         return DeviceConfig.getBoolean(NAMESPACE_CONNECTIVITY, name, defaultValue);
+    }
+
+    @Test
+    public void testLocalOnlyHotspot() throws Exception {
+        final TestTetheringEventCallback tetherEventCallback =
+                mCtsTetheringUtils.registerTetheringEventCallback();
+        LocalOnlyHotspotReservation reservation = null;
+        try {
+            tetherEventCallback.assumeWifiTetheringSupported(mContext);
+
+            reservation = mCtsTetheringUtils.startLocalOnlyWifiTethering();
+            mCtsTetheringUtils.verifyWifiTetheringEnabled(tetherEventCallback,
+                    true /* isLocalOnly */);
+        } finally {
+            if (reservation != null) {
+                mCtsTetheringUtils.stopLocalOnlyWifiTethering(reservation, tetherEventCallback);
+            }
+            mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
+        }
     }
 }
