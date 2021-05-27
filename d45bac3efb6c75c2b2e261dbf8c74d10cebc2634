@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ba5654_51aca0f0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-27T09:16:03Z",
+      "side": 1,
+      "message": "Does this fail on R ? Or on Q ? Assuming you use the old private DNS mode settings on those\nI think isPrivateDnsBroken existed in R, even if it wasn\u0027t API. It would still be a valuable test to verify that it\u0027s not broken on R at least, Q if possible",
+      "range": {
+        "startLine": 585,
+        "startChar": 21,
+        "endLine": 585,
+        "endChar": 43
+      },
+      "revId": "d45bac3efb6c75c2b2e261dbf8c74d10cebc2634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3322400f_ac5f495d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-27T09:16:03Z",
+      "side": 1,
+      "message": "Nit: maybe replace \"break\" with \"return\", and have a fail with an error message here like:\n\n    fail(\"isPrivateDnsBroken was not true after 10 seconds\")",
+      "range": {
+        "startLine": 601,
+        "startChar": 8,
+        "endLine": 601,
+        "endChar": 77
+      },
+      "revId": "d45bac3efb6c75c2b2e261dbf8c74d10cebc2634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce698d33_78b2fd97",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-27T09:16:03Z",
+      "side": 1,
+      "message": "Don\u0027t forget to restore the private DNS settings to what they were (even if the test fails, so in a try/finally for example), and to reconnect wifi",
+      "range": {
+        "startLine": 602,
+        "startChar": 4,
+        "endLine": 602,
+        "endChar": 5
+      },
+      "revId": "d45bac3efb6c75c2b2e261dbf8c74d10cebc2634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
