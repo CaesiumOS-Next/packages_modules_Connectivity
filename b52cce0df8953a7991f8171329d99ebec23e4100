@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95d622f0_6d4ce535",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-05-27T09:07:28Z",
+      "side": 1,
+      "message": "Nit: it\u0027s assertEquals(expected, actual), so:\n  \n    assertEquals(subtypeLTE, networkInfo.getSubtype())",
+      "range": {
+        "startLine": 393,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 20
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56cf7ce5_76884c1c",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 6
