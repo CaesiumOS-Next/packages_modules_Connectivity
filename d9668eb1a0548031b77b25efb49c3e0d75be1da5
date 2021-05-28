@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a977aad_b95b026f",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecBaseTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-28T01:27:10Z",
+      "side": 1,
+      "message": "OEM should not be able to use the new algorithms if their current SDK version is smaller than S because the new algorithms (algorithm constants, logic to validate the key length and truncation length) are added in S",
+      "parentUuid": "60828f20_4d5f52cf",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 36
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a7271df_8f0d59d5",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-05-24T09:38:24Z",
       "side": 1,
       "message": "What about the Google Requirements Freeze? Do we need to do something like what\u0027s in this slide:\n\nhttps://docs.google.com/presentation/d/19Y50voglrcrRqrnJKmP4x5ANvGtRoPXH4ZkFnReSGd8/edit#slide\u003did.g79653c3c3a_0_3\n\nand do something like:\n\n    final int grfVersion \u003d Integer.valueOf(SystemProperties.get(\"ro.board.first_api_level\"));\n    return Math.min(DEVICE_INITIAL_SDK_INT, grfVersion) \u003e Build.VERSION_CODES.R;\n\n?",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 5
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adfaac13_19f4aa87",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecBaseTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-28T01:27:10Z",
+      "side": 1,
+      "message": "Removed it cause it will not be used anymore when testSupportAlgosRequiredOnDevicesFisrtLaunchedInSOrLater is removed",
+      "parentUuid": "5a7271df_8f0d59d5",
       "range": {
         "startLine": 127,
         "startChar": 0,
@@ -104,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89ff208d_0625462e",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-28T01:27:10Z",
+      "side": 1,
+      "message": "Currently S is 10000. I want to make sure new algorithm tests can be covered on cuttlefish, whose first sdk version is 31.\n\nI expect on cuttlefish, all new algorithms are mandatory and I want the following code block can verify that and can throw if cuttlefish does not support any new algorithm\n\n```\n        // Verify all mandatory algorithms are supported\n        for (Entry\u003cString, Integer\u003e entry : algoToRequiredFirstSdk.entrySet()) {\n            if (Build.VERSION.FIRST_SDK_INT \u003e\u003d entry.getValue()) {\n                assertTrue(\n                        \"Fail to support \" + entry.getKey(),\n                        supportedAlgos.contains(entry.getKey()));\n            }\n        }\n```\n\nOn the other side, if we use S in the map, than on the new algorithms, \"if (Build.VERSION.FIRST_SDK_INT \u003e\u003d entry.getValue())\" will return false which means the new algorithms are not expected to be mandatory and then we will skip the \"assertTrue\" check.",
+      "parentUuid": "fd5256b9_99ff4087",
+      "range": {
+        "startLine": 715,
+        "startChar": 70,
+        "endLine": 715,
+        "endChar": 75
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bacbd1d_437a7e3e",
@@ -117,6 +189,30 @@
       "writtenOn": "2021-05-24T09:38:24Z",
       "side": 1,
       "message": "Probably need the GRF version here as well.",
+      "range": {
+        "startLine": 729,
+        "startChar": 16,
+        "endLine": 729,
+        "endChar": 43
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32baf779_ef3690f9",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-28T01:27:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bacbd1d_437a7e3e",
       "range": {
         "startLine": 729,
         "startChar": 16,
@@ -150,6 +246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9ec56af_15a2b91e",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-28T01:27:10Z",
+      "side": 1,
+      "message": "removed it cause it is covered in #testGetSupportedAlgorithms",
+      "parentUuid": "2c7c1ebe_b35d64e2",
+      "range": {
+        "startLine": 739,
+        "startChar": 8,
+        "endLine": 740,
+        "endChar": 19
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59379eb4_8669b348",
@@ -163,6 +283,30 @@
       "writtenOn": "2021-05-24T09:38:24Z",
       "side": 1,
       "message": "Ditto, assumeTrue. Also elsewhere.",
+      "range": {
+        "startLine": 945,
+        "startChar": 8,
+        "endLine": 945,
+        "endChar": 48
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d0e7da7_bcdb96ad",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-28T01:27:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59379eb4_8669b348",
       "range": {
         "startLine": 945,
         "startChar": 8,
@@ -198,6 +342,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "723b1413_af22f251",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-28T01:27:10Z",
+      "side": 1,
+      "message": "SHA-512 is not tied to AES-CTR. We already have 8 tests for AesCbcHmacSha512 (e.g. testAesCbcHmacSha512Tcp4, testAesCbcHmacSha512Tcp4UdpEncap).\n\nThe main purpose here is to test AES-CTR but I don\u0027t think we need to cover all the combinations of AES-CTR and all 7 authentication algorithms so I only choose HmacSha512 here. Thoughts?",
+      "parentUuid": "7339eff4_a88e04d1",
+      "range": {
+        "startLine": 957,
+        "startChar": 8,
+        "endLine": 957,
+        "endChar": 48
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "104e8f9a_8e4db9d1",
         "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
         "patchSetId": 8
@@ -209,6 +377,30 @@
       "writtenOn": "2021-05-24T09:38:24Z",
       "side": 1,
       "message": "Not for this CL, but these tests are quite repetitive and difficult to review. It would be good if we could find a way to parameterize them, or even to refactor them with helper methods.",
+      "range": {
+        "startLine": 1383,
+        "startChar": 0,
+        "endLine": 1392,
+        "endChar": 5
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "599cc187_3b076935",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-05-28T01:27:10Z",
+      "side": 1,
+      "message": "Filed b/189122062 for tracking it.",
+      "parentUuid": "104e8f9a_8e4db9d1",
       "range": {
         "startLine": 1383,
         "startChar": 0,
