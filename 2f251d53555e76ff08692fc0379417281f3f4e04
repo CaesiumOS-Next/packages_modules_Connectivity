@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dfe4c3d_be4f79b9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-30T14:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "809eb301_1b46951f",
+      "range": {
+        "startLine": 429,
+        "startChar": 11,
+        "endLine": 429,
+        "endChar": 26
+      },
+      "revId": "2f251d53555e76ff08692fc0379417281f3f4e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbce1c4e_931ef920",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-27T09:10:42Z",
       "side": 1,
       "message": "Just skip the whole test before S otherwise it doesn\u0027t test anything: you can just add @IgnoreUpTo(Build.VERSION_CODES.R) to the method.",
+      "range": {
+        "startLine": 434,
+        "startChar": 8,
+        "endLine": 436,
+        "endChar": 9
+      },
+      "revId": "2f251d53555e76ff08692fc0379417281f3f4e04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8a48f9f_8a066986",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-05-30T14:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbce1c4e_931ef920",
       "range": {
         "startLine": 434,
         "startChar": 8,
