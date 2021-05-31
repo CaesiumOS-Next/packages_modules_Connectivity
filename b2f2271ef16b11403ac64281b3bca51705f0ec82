@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4279c8a_1b2cf140",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-05-31T03:56:05Z",
+      "side": 1,
+      "message": "Verified that this doesn\u0027t change the contents of the repo but adds back history:\n\n$ git fetch https://android.googlesource.com/platform/packages/modules/Connectivity refs/changes/50/1722650/2 \u0026\u0026 git checkout FETCH_HEAD\nFrom https://android.googlesource.com/platform/packages/modules/Connectivity\n * branch                refs/changes/50/1722650/2 -\u003e FETCH_HEAD\nHEAD is now at b2f2271ef Merge fixed history of Connectivity\n$ git diff aosp/master\n$ git log | grep ^Date: | sed -re \"s/.* (20[0-9][0-9]) .*/\\1/\" | sort | uniq -c\n      2 2008\n    117 2009\n    172 2010\n    494 2011\n    206 2012\n    443 2013\n    788 2014\n    798 2015\n   1426 2016\n   1911 2017\n   2236 2018\n   3759 2019\n   9003 2020\n   1904 2021\n$",
+      "revId": "b2f2271ef16b11403ac64281b3bca51705f0ec82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
