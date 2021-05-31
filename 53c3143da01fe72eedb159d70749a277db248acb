@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83fc6318_20a6a6ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-31T07:17:46Z",
+      "side": 1,
+      "message": "LGTM with nit that can be ignored.",
+      "revId": "53c3143da01fe72eedb159d70749a277db248acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "611185ef_e8f8c174",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1572,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-31T07:17:46Z",
+      "side": 1,
+      "message": "Not sure if we want to put this into NetworkCapabilitiesUtils.\nUnlikely to me since it might not that useful for other places.",
+      "range": {
+        "startLine": 1572,
+        "startChar": 26,
+        "endLine": 1572,
+        "endChar": 37
+      },
+      "revId": "53c3143da01fe72eedb159d70749a277db248acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1829f82_7a129109",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10136,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-05-31T07:17:46Z",
+      "side": 1,
+      "message": "Why 2?\nIIUC you need reset(mProxyTracker) after 10131?",
+      "range": {
+        "startLine": 10136,
+        "startChar": 36,
+        "endLine": 10136,
+        "endChar": 37
+      },
+      "revId": "53c3143da01fe72eedb159d70749a277db248acb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
