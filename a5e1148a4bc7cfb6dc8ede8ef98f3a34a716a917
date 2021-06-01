@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50743576_18deec9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T14:52:47Z",
+      "side": 1,
+      "message": "Identical to the parts of ag/13929764 that have moved to p/m/C.",
+      "revId": "a5e1148a4bc7cfb6dc8ede8ef98f3a34a716a917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
