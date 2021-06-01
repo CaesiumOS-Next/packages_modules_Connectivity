@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "382f091c_ad1d87b4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9840,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-01T03:32:18Z",
+      "side": 1,
+      "message": "Yeah, good point. This could happen however given how unlikely this is to occur, it\u0027s probably not worth the tradeoff of the added complexity. That said, it is worth pointing out therefore I added a comment to that effect in case we decide to revisit in the future.",
+      "parentUuid": "6c6e7b36_22fe124e",
+      "range": {
+        "startLine": 9840,
+        "startChar": 46,
+        "endLine": 9840,
+        "endChar": 68
+      },
+      "revId": "14c4f8d03ef30fcbb3a93ed5f66da347403309e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7790e86_b0ea2578",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-01T02:13:56Z",
       "side": 1,
       "message": "Should this be \"continue\" ?\n\nOr invert the condition and throw inside the \"if\"",
+      "range": {
+        "startLine": 9855,
+        "startChar": 16,
+        "endLine": 9855,
+        "endChar": 23
+      },
+      "revId": "14c4f8d03ef30fcbb3a93ed5f66da347403309e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4dfdee_50de7007",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9855,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-01T03:32:18Z",
+      "side": 1,
+      "message": "Yep, agreed.",
+      "parentUuid": "d7790e86_b0ea2578",
       "range": {
         "startLine": 9855,
         "startChar": 16,
