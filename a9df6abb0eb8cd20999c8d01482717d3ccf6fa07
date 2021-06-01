@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3bae93f_18a99221",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T07:30:44Z",
+      "side": 1,
+      "message": "Generally LGTM but see inline comments about sending the broadcast when the network connects, and about a possible race condition.",
+      "revId": "a9df6abb0eb8cd20999c8d01482717d3ccf6fa07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "603c349f_6a78aea5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 7393,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T07:30:44Z",
+      "side": 1,
+      "message": "Do you need \"\u0026\u0026 nai.everConnected\" here, to ensure that no proxy broadcasts are sent before the network is actually connected?",
+      "range": {
+        "startLine": 7393,
+        "startChar": 24,
+        "endLine": 7393,
+        "endChar": 26
+      },
+      "revId": "a9df6abb0eb8cd20999c8d01482717d3ccf6fa07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cb6c737_ae5e1b92",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10138,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T07:30:44Z",
+      "side": 1,
+      "message": "Can you also add a unit test that when a VPN that already has a proxy connects, the broadcast is sent? I think the code will do this, but I\u0027m not sure.\n\nEven if it does, though: is the broadcast correctly sent *after* the VPN goes into CONNECTED state? Looking at the code I think it can happen that the broadcast is sent before the VPN goes into CONNECTED state. This could create a race where if an app calls ConnectivityManager#getDefaultProxy as soon as it receives the broadcast (e.g., in the BroadCastReceiver registered to receive the broadcast), it could get null because the VPN isn\u0027t actually connected yet.",
+      "range": {
+        "startLine": 10138,
+        "startChar": 4,
+        "endLine": 10138,
+        "endChar": 5
+      },
+      "revId": "a9df6abb0eb8cd20999c8d01482717d3ccf6fa07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
