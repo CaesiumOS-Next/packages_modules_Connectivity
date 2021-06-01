@@ -88,6 +88,7 @@ import static java.util.Map.Entry;
 
 import android.Manifest;
 import android.annotation.BoolRes;
+import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.app.AppOpsManager;
@@ -253,7 +254,8 @@ import libcore.io.IoUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
-import java.net.Inet4Address;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
@@ -2747,7 +2749,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Reads the network specific MTU size from resources.
      * and set it on it's iface.
      */
-    private void updateMtu(LinkProperties newLp, LinkProperties oldLp) {
+    private void updateMtu(@NonNull NetworkRuleReassignment rules, LinkProperties newLp,
+            LinkProperties oldLp) {
         final String iface = newLp.getInterfaceName();
         final int mtu = newLp.getMtu();
         if (oldLp == null && mtu == 0) {
@@ -2769,18 +2772,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
 
-        try {
-            if (VDBG || DDBG) log("Setting MTU size: " + iface + ", " + mtu);
-            mNetd.interfaceSetMtu(iface, mtu);
-        } catch (RemoteException | ServiceSpecificException e) {
-            loge("exception in interfaceSetMtu()" + e);
-        }
+        if (VDBG || DDBG) log("Setting MTU size: " + iface + ", " + mtu);
+        rules.addNetworkRuleToAdd(new NetworkRuleReassignment.MtuRule(iface, mtu));
     }
 
     @VisibleForTesting
     protected static final String DEFAULT_TCP_BUFFER_SIZES = "4096,87380,110208,4096,16384,110208";
 
-    private void updateTcpBufferSizes(String tcpBufferSizes) {
+    private void updateTcpBufferSizes(@NonNull NetworkRuleReassignment rules,
+            String tcpBufferSizes) {
         String[] values = null;
         if (tcpBufferSizes != null) {
             values = tcpBufferSizes.split(",");
@@ -2794,16 +2794,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (tcpBufferSizes.equals(mCurrentTcpBufferSizes)) return;
 
-        try {
-            if (VDBG || DDBG) log("Setting tx/rx TCP buffers to " + tcpBufferSizes);
+        if (VDBG || DDBG) log("Setting tx/rx TCP buffers to " + tcpBufferSizes);
 
-            String rmemValues = String.join(" ", values[0], values[1], values[2]);
-            String wmemValues = String.join(" ", values[3], values[4], values[5]);
-            mNetd.setTcpRWmemorySize(rmemValues, wmemValues);
-            mCurrentTcpBufferSizes = tcpBufferSizes;
-        } catch (RemoteException | ServiceSpecificException e) {
-            loge("Can't set TCP buffer sizes:" + e);
-        }
+        String rmemValues = String.join(" ", values[0], values[1], values[2]);
+        String wmemValues = String.join(" ", values[3], values[4], values[5]);
+        rules.addNetworkRuleToAdd(
+                new NetworkRuleReassignment.TcpBufferRule(rmemValues, wmemValues));
+        mCurrentTcpBufferSizes = tcpBufferSizes;
     }
 
     @Override
@@ -3739,10 +3736,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyNetworkCallbacks(nai, ConnectivityManager.CALLBACK_LOST);
         mKeepaliveTracker.handleStopAllKeepalives(nai, SocketKeepalive.ERROR_INVALID_NETWORK);
 
+        final NetworkRuleReassignment rules = new NetworkRuleReassignment();
         mQosCallbackTracker.handleNetworkReleased(nai.network);
         for (String iface : nai.linkProperties.getAllInterfaceNames()) {
             // Disable wakeup packet monitoring for each interface.
-            wakeupModifyInterface(iface, nai.networkCapabilities, false);
+            wakeupModifyInterface(rules, iface, nai.networkCapabilities, false);
         }
         nai.networkMonitor().notifyNetworkDisconnected();
         mNetworkAgentInfos.remove(nai);
@@ -6703,31 +6701,378 @@ public class ConnectivityService extends IConnectivityManager.Stub
         nai.networkAgentPortalData = lp.getCaptivePortalData();
     }
 
+    // An accumulator class to gather the list of network rules updates to netd.
+    private static class NetworkRuleReassignment {
+        static final int RULE_INTERFACE = 1;
+        static final int RULE_MTU = 2;
+        static final int RULE_ROUTE = 3;
+        static final int RULE_TCP_BUFFER = 4;
+        static final int RULE_UID_INTERFACE = 5;
+        static final int RULE_WAKE_UP_INTERFACE = 6;
+
+        static final int ACTION_REMOVE = 0;
+        static final int ACTION_ADD = 1;
+        static final int ACTION_UPDATE = 2;
+
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef(prefix = { "RULE_" }, value = {
+                RULE_INTERFACE,
+                RULE_MTU,
+                RULE_ROUTE,
+                RULE_TCP_BUFFER,
+                RULE_UID_INTERFACE,
+                RULE_WAKE_UP_INTERFACE
+        })
+        @interface RuleType {}
+
+        private abstract static class NetworkRule {
+            protected final int mRuleType;
+            NetworkRule(@RuleType int ruleType) {
+                mRuleType = ruleType;
+            }
+        }
+
+        static final class InterfaceRule extends NetworkRule {
+            @NonNull final String mIface;
+            final int mNetId;
+
+            InterfaceRule(int netId, @NonNull String iface) {
+                super(RULE_INTERFACE);
+                mIface = iface;
+                mNetId = netId;
+            }
+
+            @Override
+            public String toString() {
+                return "[InterfaceRule] netId=" + mNetId + ", iface=" + mIface;
+            }
+        }
+
+        static final class WakeupInterfaceRule extends NetworkRule {
+            @NonNull final String mIface;
+            @NonNull final String mPrefix;
+            final int mMark;
+            final int mMask;
+            WakeupInterfaceRule(@NonNull String iface, @NonNull String prefix, int mark, int mask) {
+                super(RULE_WAKE_UP_INTERFACE);
+                mIface = iface;
+                mPrefix = prefix;
+                mMark = mark;
+                mMask = mask;
+            }
+
+            @Override
+            public String toString() {
+                return "[WakeupInterfaceRule] " + mIface + ", " + mPrefix + ", " + mMark
+                        + "/" + mMask;
+            }
+        }
+
+        static final class RouteRule extends NetworkRule {
+            @NonNull final RouteInfoParcel mRouteInfo;
+            final int mNetId;
+            RouteRule(int netId, @NonNull RouteInfoParcel routeInfo) {
+                super(RULE_ROUTE);
+                mNetId = netId;
+                mRouteInfo = routeInfo;
+            }
+
+            @Override
+            public String toString() {
+                return "[RouteRule] netId=" + mNetId;
+            }
+        }
+
+        static final class UidRangeRule extends NetworkRule {
+            @Nullable final Set<UidRange> mRanges;
+            @NonNull final String mIface;
+            final int mVpnAppUid;
+
+            UidRangeRule(@NonNull String iface, @Nullable Set<UidRange> ranges, int vpnAppUid) {
+                super(RULE_UID_INTERFACE);
+                mRanges = ranges;
+                mVpnAppUid = vpnAppUid;
+                mIface = iface;
+            }
+
+            @Override
+            public String toString() {
+                return "[UidRangeRule] iface=" + mIface + ", vpn app uid:" + mVpnAppUid;
+            }
+        }
+
+        static final class MtuRule extends NetworkRule {
+            @NonNull final String mIface;
+            final int mMtu;
+            MtuRule(@NonNull String iface, int mtu) {
+                super(RULE_MTU);
+                mIface = iface;
+                mMtu = mtu;
+            }
+            @Override
+            public String toString() {
+                return "[MtuRule] Set " + mMtu + " to " + mIface;
+            }
+        }
+
+        static final class TcpBufferRule extends NetworkRule {
+            @NonNull final String mRmem;
+            @NonNull final String mWmem;
+            TcpBufferRule(@NonNull String rmemValues, @NonNull String wmemValues) {
+                super(RULE_TCP_BUFFER);
+                mRmem = rmemValues;
+                mWmem = wmemValues;
+            }
+            @Override
+            public String toString() {
+                return "[TcpBufferRule] " + mRmem + "/" + mWmem;
+            }
+        }
+
+        @NonNull private final ArrayList<NetworkRule> mRulesToAdd = new ArrayList<>();
+        @NonNull private final ArrayList<NetworkRule> mRulesToRemove = new ArrayList<>();
+        @NonNull private final ArrayList<NetworkRule> mRulesToUpdate = new ArrayList<>();
+
+        void addNetworkRuleToAdd(NetworkRule rule) {
+            mRulesToAdd.add(rule);
+        }
+
+        void addNetworkRuleToRemove(NetworkRule rule) {
+            mRulesToRemove.add(rule);
+        }
+
+        void addNetworkRuleToUpdate(NetworkRule rule) {
+            mRulesToUpdate.add(rule);
+        }
+
+        String dumpRules() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append("NetworkRules :");
+            sb.append("\nAdd :");
+            for (final NetworkRule r: mRulesToAdd) {
+                sb.append("\n  ").append(r);
+            }
+            sb.append("\nRemove :");
+            for (final NetworkRule r: mRulesToRemove) {
+                sb.append("\n  ").append(r);
+            }
+            sb.append("\nUpdate :");
+            for (final NetworkRule r: mRulesToUpdate) {
+                sb.append("\n  ").append(r);
+            }
+            return sb.append("\n").toString();
+        }
+
+        void applyReassignments(@NonNull INetd netd, @NonNull PermissionMonitor permissionMonitor) {
+            // Add rules first before removing.
+            for (final NetworkRule assignment : mRulesToAdd) {
+                applyRule(assignment, ACTION_ADD, netd, permissionMonitor);
+            }
+
+            for (final NetworkRule assignment : mRulesToRemove) {
+                applyRule(assignment, ACTION_REMOVE, netd, permissionMonitor);
+            }
+
+            for (final NetworkRule assignment : mRulesToUpdate) {
+                applyRule(assignment, ACTION_UPDATE, netd, permissionMonitor);
+            }
+        }
+
+        private void applyRule(@NonNull NetworkRule assignment, int action, @NonNull INetd netd,
+                @NonNull PermissionMonitor pm) {
+            switch(assignment.mRuleType) {
+                case RULE_INTERFACE:
+                    if (!(assignment instanceof InterfaceRule)) {
+                        logwtf("Incorrect rule type. Expect InterfaceRule but got " + assignment);
+                        break;
+                    }
+
+                    final InterfaceRule ifaceRule = (InterfaceRule) assignment;
+                    applyInterfaceRule(action, netd, ifaceRule.mNetId, ifaceRule.mIface);
+                    break;
+                case RULE_WAKE_UP_INTERFACE:
+                    if (!(assignment instanceof WakeupInterfaceRule)) {
+                        logwtf("Incorrect rule type. Expect WakeupInterfaceRule but got "
+                                + assignment);
+                        break;
+                    }
+
+                    final WakeupInterfaceRule wIfaceRule = (WakeupInterfaceRule) assignment;
+                    applyWakeupInterfaceRule(action, netd, wIfaceRule.mIface, wIfaceRule.mPrefix,
+                            wIfaceRule.mMark, wIfaceRule.mMask);
+                    break;
+                case RULE_ROUTE:
+                    if (!(assignment instanceof RouteRule)) {
+                        logwtf("Incorrect rule type. Expect RouteRule but got " + assignment);
+                        break;
+                    }
+
+                    final RouteRule rRule = (RouteRule) assignment;
+                    applyRouteRule(action, netd, rRule.mNetId, rRule.mRouteInfo);
+                    break;
+                case RULE_UID_INTERFACE:
+                    if (!(assignment instanceof UidRangeRule)) {
+                        logwtf("Incorrect rule type. Expect UidRangeRule but got " + assignment);
+                        break;
+                    }
+
+                    final UidRangeRule uRule = (UidRangeRule) assignment;
+                    applyVpnUidRangesRule(
+                            action, pm, uRule.mRanges, uRule.mVpnAppUid, uRule.mIface);
+                    break;
+                case RULE_MTU:
+                    if (!(assignment instanceof MtuRule)) {
+                        logwtf("Incorrect rule type. Expect MtuRule but got " + assignment);
+                        break;
+                    }
+
+                    final MtuRule mtuRule = (MtuRule) assignment;
+                    applyMtuRule(netd, mtuRule.mIface, mtuRule.mMtu);
+                    break;
+                case RULE_TCP_BUFFER:
+                    if (!(assignment instanceof TcpBufferRule)) {
+                        logwtf("Incorrect rule type. Expect TcpBufferRule but got " + assignment);
+                    }
+
+                    final TcpBufferRule tRule = (TcpBufferRule) assignment;
+                    applyTcpBufferRule(netd, tRule.mRmem, tRule.mWmem);
+                    break;
+                default:
+                    logw("applyRule got unexpected rule type:" + assignment.mRuleType);
+                    break;
+            }
+        }
+
+        private static void applyInterfaceRule(int action, @NonNull INetd netd, int netId,
+                @NonNull String iface) {
+            try {
+                switch (action) {
+                    case ACTION_REMOVE:
+                        netd.networkRemoveInterface(netId, iface);
+                        break;
+                    case ACTION_ADD:
+                        netd.networkAddInterface(netId, iface);
+                        break;
+                    default:
+                        logw("applyInterfaceRule got unexpected action type:" + action);
+                        break;
+                }
+            } catch (Exception e) {
+                // Never crash!
+                loge("Exception updating interface: " + e);
+            }
+        }
+
+        private static void applyWakeupInterfaceRule(int action, @NonNull INetd netd,
+                @NonNull String iface, @NonNull String prefix, int mark, int mask) {
+            try {
+                switch (action) {
+                    case ACTION_REMOVE:
+                        netd.wakeupDelInterface(iface, prefix, mark, mask);
+                        break;
+                    case ACTION_ADD:
+                        netd.wakeupAddInterface(iface, prefix, mark, mask);
+                        break;
+                    default:
+                        logw("applyWakeupInterfaceRule got unexpected action type:" + action);
+                        break;
+                }
+            } catch (Exception e) {
+                // Never crash!
+                loge("Exception modifying wakeup packet monitoring: " + e);
+            }
+        }
+
+        private static void applyRouteRule(int action, @NonNull INetd netd, int netId,
+                @NonNull RouteInfoParcel route) {
+            try {
+                switch (action) {
+                    case ACTION_REMOVE:
+                        netd.networkRemoveRouteParcel(netId, route);
+                        break;
+                    case ACTION_ADD:
+                        netd.networkAddRouteParcel(netId, route);
+                        break;
+                    case ACTION_UPDATE:
+                        netd.networkUpdateRouteParcel(netId, route);
+                        break;
+                    default:
+                        logw("applyRouteRule got unexpected action type:" + action);
+                        break;
+                }
+            } catch (Exception e) {
+                // Never crash!
+                loge("Exception updating route: " + e);
+            }
+        }
+
+        private static void applyVpnUidRangesRule(int action, @NonNull PermissionMonitor pm,
+                @Nullable Set<UidRange> ranges, int vpnAppUid, String iface) {
+            switch (action) {
+                case ACTION_REMOVE:
+                    pm.onVpnUidRangesRemoved(iface, ranges, vpnAppUid);
+                    break;
+                case ACTION_ADD:
+                    pm.onVpnUidRangesAdded(iface, ranges, vpnAppUid);
+                    break;
+                default:
+                    logw("applyVpnUidRangesRule got unexpected action type:" + action);
+                    break;
+            }
+        }
+
+        private static void applyMtuRule(@NonNull INetd netd, @NonNull String iface, int mtu) {
+            try {
+                netd.interfaceSetMtu(iface, mtu);
+            } catch (Exception e) {
+                // Never crash!
+                loge("Exception setting mtu: " + e);
+            }
+        }
+
+        private static void applyTcpBufferRule(@NonNull INetd netd, @NonNull String rmem,
+                @NonNull String wmem) {
+            try {
+                netd.setTcpRWmemorySize(rmem, wmem);
+            } catch (Exception e) {
+                // Never crash!
+                loge("Exception setting tcp buffer size: " + e);
+            }
+        }
+    }
+
     private void updateLinkProperties(NetworkAgentInfo networkAgent, @NonNull LinkProperties newLp,
             @NonNull LinkProperties oldLp) {
         int netId = networkAgent.network.getNetId();
 
+        final NetworkRuleReassignment rules = new NetworkRuleReassignment();
         // The NetworkAgent does not know whether clatd is running on its network or not, or whether
         // a NAT64 prefix was discovered by the DNS resolver. Before we do anything else, make sure
         // the LinkProperties for the network are accurate.
         networkAgent.clatd.fixupLinkProperties(oldLp, newLp);
 
-        updateInterfaces(newLp, oldLp, netId, networkAgent.networkCapabilities);
+        updateInterfaces(rules, newLp, oldLp, netId, networkAgent.networkCapabilities);
 
         // update filtering rules, need to happen after the interface update so netd knows about the
         // new interface (the interface name -> index map becomes initialized)
-        updateVpnFiltering(newLp, oldLp, networkAgent);
+        updateVpnFiltering(rules, newLp, oldLp, networkAgent);
 
-        updateMtu(newLp, oldLp);
+        updateMtu(rules, newLp, oldLp);
         // TODO - figure out what to do for clat
 //        for (LinkProperties lp : newLp.getStackedLinks()) {
 //            updateMtu(lp, null);
 //        }
         if (isDefaultNetwork(networkAgent)) {
-            updateTcpBufferSizes(newLp.getTcpBufferSizes());
+            updateTcpBufferSizes(rules, newLp.getTcpBufferSizes());
         }
 
-        updateRoutes(newLp, oldLp, netId);
+        updateRoutes(rules, newLp, oldLp, netId);
+        // Apply the rules update.
+        if (VDBG || DDBG) {
+            log(rules.dumpRules());
+        }
+        rules.applyReassignments(mNetd, mPermissionMonitor);
+
         updateDnses(newLp, oldLp, netId);
         // Make sure LinkProperties represents the latest private DNS status.
         // This does not need to be done before updateDnses because the
@@ -6816,7 +7161,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return captivePortalBuilder.build();
     }
 
-    private void wakeupModifyInterface(String iface, NetworkCapabilities caps, boolean add) {
+    private void wakeupModifyInterface(NetworkRuleReassignment rules, String iface,
+            NetworkCapabilities caps, boolean add) {
         // Marks are only available on WiFi interfaces. Checking for
         // marks on unsupported interfaces is harmless.
         if (!caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
@@ -6841,21 +7187,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         final String prefix = "iface:" + iface;
-        try {
-            if (add) {
-                mNetd.wakeupAddInterface(iface, prefix, mark, mask);
-            } else {
-                mNetd.wakeupDelInterface(iface, prefix, mark, mask);
-            }
-        } catch (Exception e) {
-            loge("Exception modifying wakeup packet monitoring: " + e);
-        }
 
+        if (add) {
+            rules.addNetworkRuleToAdd(
+                    new NetworkRuleReassignment.WakeupInterfaceRule(iface, prefix, mark, mask));
+        } else {
+            rules.addNetworkRuleToRemove(
+                    new NetworkRuleReassignment.WakeupInterfaceRule(iface, prefix, mark, mask));
+        }
     }
 
-    private void updateInterfaces(final @Nullable LinkProperties newLp,
-            final @Nullable LinkProperties oldLp, final int netId,
-            final @NonNull NetworkCapabilities caps) {
+    private void updateInterfaces(final @NonNull NetworkRuleReassignment rules,
+            final @Nullable LinkProperties newLp, final @Nullable LinkProperties oldLp,
+            final int netId, final @NonNull NetworkCapabilities caps) {
         final CompareResult<String> interfaceDiff = new CompareResult<>(
                 oldLp != null ? oldLp.getAllInterfaceNames() : null,
                 newLp != null ? newLp.getAllInterfaceNames() : null);
@@ -6863,8 +7207,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             for (final String iface : interfaceDiff.added) {
                 try {
                     if (DBG) log("Adding iface " + iface + " to network " + netId);
-                    mNetd.networkAddInterface(netId, iface);
-                    wakeupModifyInterface(iface, caps, true);
+                    rules.addNetworkRuleToAdd(
+                            new NetworkRuleReassignment.InterfaceRule(netId, iface));
+                    wakeupModifyInterface(rules, iface, caps, true);
                     mDeps.reportNetworkInterfaceForTransports(mContext, iface,
                             caps.getTransportTypes());
                 } catch (Exception e) {
@@ -6875,8 +7220,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (final String iface : interfaceDiff.removed) {
             try {
                 if (DBG) log("Removing iface " + iface + " from network " + netId);
-                wakeupModifyInterface(iface, caps, false);
-                mNetd.networkRemoveInterface(netId, iface);
+                rules.addNetworkRuleToRemove(
+                        new NetworkRuleReassignment.InterfaceRule(netId, iface));
+                wakeupModifyInterface(rules, iface, caps, false);
             } catch (Exception e) {
                 loge("Exception removing interface: " + e);
             }
@@ -6919,7 +7265,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Have netd update routes from oldLp to newLp.
      * @return true if routes changed between oldLp and newLp
      */
-    private boolean updateRoutes(LinkProperties newLp, LinkProperties oldLp, int netId) {
+    private boolean updateRoutes(@NonNull NetworkRuleReassignment rules, LinkProperties newLp,
+            LinkProperties oldLp, int netId) {
         // compare the route diff to determine which routes have been updated
         final CompareOrUpdateResult<RouteInfo.RouteKey, RouteInfo> routeDiff =
                 new CompareOrUpdateResult<>(
@@ -6931,44 +7278,30 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         // do this twice, adding non-next-hop routes first, then routes they are dependent on
         for (RouteInfo route : routeDiff.added) {
+            // Add non-gateway route
             if (route.hasGateway()) continue;
             if (VDBG || DDBG) log("Adding Route [" + route + "] to network " + netId);
-            try {
-                mNetd.networkAddRouteParcel(netId, convertRouteInfo(route));
-            } catch (Exception e) {
-                if ((route.getDestination().getAddress() instanceof Inet4Address) || VDBG) {
-                    loge("Exception in networkAddRouteParcel for non-gateway: " + e);
-                }
-            }
+            rules.addNetworkRuleToAdd(
+                    new NetworkRuleReassignment.RouteRule(netId, convertRouteInfo(route)));
         }
         for (RouteInfo route : routeDiff.added) {
+            // Add gateway route
             if (!route.hasGateway()) continue;
             if (VDBG || DDBG) log("Adding Route [" + route + "] to network " + netId);
-            try {
-                mNetd.networkAddRouteParcel(netId, convertRouteInfo(route));
-            } catch (Exception e) {
-                if ((route.getGateway() instanceof Inet4Address) || VDBG) {
-                    loge("Exception in networkAddRouteParcel for gateway: " + e);
-                }
-            }
+            rules.addNetworkRuleToAdd(
+                    new NetworkRuleReassignment.RouteRule(netId, convertRouteInfo(route)));
         }
 
         for (RouteInfo route : routeDiff.removed) {
             if (VDBG || DDBG) log("Removing Route [" + route + "] from network " + netId);
-            try {
-                mNetd.networkRemoveRouteParcel(netId, convertRouteInfo(route));
-            } catch (Exception e) {
-                loge("Exception in networkRemoveRouteParcel: " + e);
-            }
+            rules.addNetworkRuleToRemove(
+                    new NetworkRuleReassignment.RouteRule(netId, convertRouteInfo(route)));
         }
 
         for (RouteInfo route : routeDiff.updated) {
             if (VDBG || DDBG) log("Updating Route [" + route + "] from network " + netId);
-            try {
-                mNetd.networkUpdateRouteParcel(netId, convertRouteInfo(route));
-            } catch (Exception e) {
-                loge("Exception in networkUpdateRouteParcel: " + e);
-            }
+            rules.addNetworkRuleToUpdate(
+                    new NetworkRuleReassignment.RouteRule(netId, convertRouteInfo(route)));
         }
         return !routeDiff.added.isEmpty() || !routeDiff.removed.isEmpty()
                 || !routeDiff.updated.isEmpty();
@@ -6991,8 +7324,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void updateVpnFiltering(LinkProperties newLp, LinkProperties oldLp,
-            NetworkAgentInfo nai) {
+    private void updateVpnFiltering(@NonNull NetworkRuleReassignment rules, LinkProperties newLp,
+            LinkProperties oldLp, NetworkAgentInfo nai) {
         final String oldIface = oldLp != null ? oldLp.getInterfaceName() : null;
         final String newIface = newLp != null ? newLp.getInterfaceName() : null;
         final boolean wasFiltering = requiresVpnIsolation(nai, nai.networkCapabilities, oldLp);
@@ -7015,10 +7348,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // make eBPF support two allowlisted interfaces so here new rules can be added before the
         // old rules are being removed.
         if (wasFiltering) {
-            mPermissionMonitor.onVpnUidRangesRemoved(oldIface, ranges, vpnAppUid);
+            rules.addNetworkRuleToRemove(
+                    new NetworkRuleReassignment.UidRangeRule(oldIface, ranges, vpnAppUid));
         }
         if (needsFiltering) {
-            mPermissionMonitor.onVpnUidRangesAdded(newIface, ranges, vpnAppUid);
+            rules.addNetworkRuleToAdd(
+                    new NetworkRuleReassignment.UidRangeRule(newIface, ranges, vpnAppUid));
         }
     }
 
@@ -7744,8 +8079,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mNetworkActivityTracker.updateDataActivityTracking(newDefaultNetwork, oldDefaultNetwork);
         handleApplyDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
-        updateTcpBufferSizes(null != newDefaultNetwork
+
+        final NetworkRuleReassignment rules = new NetworkRuleReassignment();
+        updateTcpBufferSizes(rules, null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getTcpBufferSizes() : null);
+        rules.applyReassignments(mNetd, mPermissionMonitor);
+
         notifyIfacesChangedForNetworkStats();
     }
 
