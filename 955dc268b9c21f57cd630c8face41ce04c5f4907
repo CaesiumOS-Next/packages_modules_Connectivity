@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011343752",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1723154?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "175a8836_09cbaca1",
+          "description": "Change to \"service/src/com/android/server/ConnectivityService.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 7070,
+                "startChar": 17,
+                "endLine": 7070,
+                "endChar": 24
+              },
+              "replacement": "the"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "c7f69ff4_9ee5ee1e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7070,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-01T11:00:30Z",
+      "side": 1,
+      "message": "Common typo found: \"the the\" -- should it be \"the\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 7070,
+        "startChar": 17,
+        "endLine": 7070,
+        "endChar": 24
+      },
+      "revId": "955dc268b9c21f57cd630c8face41ce04c5f4907",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
