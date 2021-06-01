@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce24abfc_caa35a4f",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T12:54:33Z",
+      "side": 1,
+      "message": "NetworkCapabilities.Builder.withoutDefaultCapabilities();",
+      "range": {
+        "startLine": 427,
+        "startChar": 52,
+        "endLine": 428,
+        "endChar": 46
+      },
+      "revId": "b0488242d5a68cec8bbb07ab94fcfe16227b090b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc3917af_ee77e9ed",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T12:54:33Z",
+      "side": 1,
+      "message": "Nit: I think doing .withoutDefaultCapabilities() and then do clearCapabilities() in NetworkRequest is kind of redundant. You do not need these two step I think.",
+      "range": {
+        "startLine": 428,
+        "startChar": 16,
+        "endLine": 428,
+        "endChar": 46
+      },
+      "revId": "b0488242d5a68cec8bbb07ab94fcfe16227b090b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
