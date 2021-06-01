@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011340512",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1722746?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "85841477_a928ebb5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-01T09:00:43Z",
+      "side": 1,
+      "message": "Prefer to use context.getSystemService(IBinder.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 1248,
+        "startChar": 39,
+        "endLine": 1248,
+        "endChar": 74
+      },
+      "revId": "76911aebcc32471dcc8628e7675e34e7655946c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011340512",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1722746?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a0bb75dc_34948e9b",
+        "filename": "service/src/com/android/server/TestNetworkService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-01T09:00:43Z",
+      "side": 1,
+      "message": "Prefer to use context.getSystemService(IBinder.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 89,
+        "startChar": 39,
+        "endLine": 89,
+        "endChar": 74
+      },
+      "revId": "76911aebcc32471dcc8628e7675e34e7655946c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
