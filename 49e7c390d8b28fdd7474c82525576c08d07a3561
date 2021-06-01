@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4f8a196_f5486d8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-01T09:21:38Z",
+      "side": 1,
+      "message": "Clean cherry-pick (split in 2 repo)",
+      "revId": "49e7c390d8b28fdd7474c82525576c08d07a3561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
