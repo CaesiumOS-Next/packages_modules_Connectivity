@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88eaa8ce_b79eaa02",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-01T05:40:51Z",
+      "side": 1,
+      "message": "It fails in R, because we don\u0027t have \n1. ConnectivitySettingsManager.setPrivateDnsMode\n2. ConnectivitySettingsManager.setPrivateDnsHostname",
+      "parentUuid": "a3ba5654_51aca0f0",
+      "range": {
+        "startLine": 585,
+        "startChar": 21,
+        "endLine": 585,
+        "endChar": 43
+      },
+      "revId": "d45bac3efb6c75c2b2e261dbf8c74d10cebc2634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3322400f_ac5f495d",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-27T09:16:03Z",
       "side": 1,
       "message": "Nit: maybe replace \"break\" with \"return\", and have a fail with an error message here like:\n\n    fail(\"isPrivateDnsBroken was not true after 10 seconds\")",
+      "range": {
+        "startLine": 601,
+        "startChar": 8,
+        "endLine": 601,
+        "endChar": 77
+      },
+      "revId": "d45bac3efb6c75c2b2e261dbf8c74d10cebc2634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a203b35_f4fbbd84",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-01T05:40:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3322400f_ac5f495d",
       "range": {
         "startLine": 601,
         "startChar": 8,
@@ -60,6 +108,30 @@
       "writtenOn": "2021-05-27T09:16:03Z",
       "side": 1,
       "message": "Don\u0027t forget to restore the private DNS settings to what they were (even if the test fails, so in a try/finally for example), and to reconnect wifi",
+      "range": {
+        "startLine": 602,
+        "startChar": 4,
+        "endLine": 602,
+        "endChar": 5
+      },
+      "revId": "d45bac3efb6c75c2b2e261dbf8c74d10cebc2634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cb1e599_2bc20c8e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-01T05:40:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce698d33_78b2fd97",
       "range": {
         "startLine": 602,
         "startChar": 4,
