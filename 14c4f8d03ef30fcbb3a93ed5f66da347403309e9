@@ -16,6 +16,52 @@
       "message": "Migrated from this CL https://r.android.com/1659164 since the changed files were moved into a different repo.",
       "revId": "14c4f8d03ef30fcbb3a93ed5f66da347403309e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6e7b36_22fe124e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9840,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-01T02:13:56Z",
+      "side": 1,
+      "message": "Since this is not called on the handler thread, it may change between the check and the preference change, which would be incorrect (test permissions shouldn\u0027t allow clearing a non-test preference).\n\nThat\u0027s an edge case and probably low impact, but for correctness you could send a boolean to EVENT_SET_OEM_NETWORK_PREFERENCE saying it\u0027s a \"clear test\" request, or have a different EVENT_SET_TEST_OEM_NETWORK_PREFERENCE, and recheck mOemNetworkPreferences in the event instead.\n\nThis doesn\u0027t need to block this change I think.",
+      "range": {
+        "startLine": 9840,
+        "startChar": 46,
+        "endLine": 9840,
+        "endChar": 68
+      },
+      "revId": "14c4f8d03ef30fcbb3a93ed5f66da347403309e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7790e86_b0ea2578",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9855,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-01T02:13:56Z",
+      "side": 1,
+      "message": "Should this be \"continue\" ?\n\nOr invert the condition and throw inside the \"if\"",
+      "range": {
+        "startLine": 9855,
+        "startChar": 16,
+        "endLine": 9855,
+        "endChar": 23
+      },
+      "revId": "14c4f8d03ef30fcbb3a93ed5f66da347403309e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
