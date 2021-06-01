@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "171e98ee_67b0713b",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T08:27:45Z",
+      "side": 1,
+      "message": "Nit: I am not sure storing something in the utils class is good or not. It\u0027s kind of different from the purpose  of a utils class?\n\nit\u0027s aligned with legacy design though..",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 26
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f4104a0_249ba451",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T08:27:45Z",
+      "side": 1,
+      "message": "Nit: I may prefer to move it to other method or have a clearer doc for this. Waiting for private dns works is not a MUST item if I would like to just restore the setting?  E.g. The old setting is a bad setting. Then test may fail to wait for a validated private dns?",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 9
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aa5636d_8f00473d",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T08:27:45Z",
+      "side": 1,
+      "message": "Nit: I think a doc will help to undersand given the parameter naming is not very clear. or update to clear naming, such as server to privateDnsServer",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 75
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cf01b50_c4d790b4",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T08:27:45Z",
+      "side": 1,
+      "message": "Nit: s is not necessary? multiple server required?",
+      "range": {
+        "startLine": 91,
+        "startChar": 43,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9ba498c_063a0f57",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T08:27:45Z",
+      "side": 1,
+      "message": "Nit: In current usage, it\u0027s kind of duplicate code. cm could be taken from restorePrivateDnsSetting.\nThe caller usually will need to invoke with ConnectivityManager. I think it\u0027s fair to leave it to caller to take as a parameter? Or the usage may cause lots of interaction with getSystemService. Maybe no really many usages though given this is test code",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 91
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2908effb_674bac9a",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T08:27:45Z",
+      "side": 1,
+      "message": "Nit: final\n\nAlso l.94 request",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 22
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fceeca5e_9f256f9b",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T08:27:45Z",
+      "side": 1,
+      "message": "Nit: For 1 time event, it was suggested to use CompletableFuture.",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 53
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
