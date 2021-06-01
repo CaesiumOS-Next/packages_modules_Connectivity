@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f375fc15_7eb20d3c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T12:44:57Z",
+      "side": 1,
+      "message": "You may combine your test with DnsResolverTest#testPrivateDnsBypass. There is an existing infra for you.",
+      "range": {
+        "startLine": 586,
+        "startChar": 16,
+        "endLine": 586,
+        "endChar": 38
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
