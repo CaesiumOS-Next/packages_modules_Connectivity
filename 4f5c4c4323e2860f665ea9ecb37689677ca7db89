@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6103bed5_633baf53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-01T07:46:39Z",
+      "side": 1,
+      "message": "clean sync from ag/14692494. Carry-forward Mark\u0027s +2",
+      "revId": "4f5c4c4323e2860f665ea9ecb37689677ca7db89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
