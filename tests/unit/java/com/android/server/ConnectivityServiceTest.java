@@ -477,6 +477,7 @@ public class ConnectivityServiceTest {
     @Mock VpnProfileStore mVpnProfileStore;
     @Mock SystemConfigManager mSystemConfigManager;
     @Mock Resources mResources;
+    @Mock ProxyTracker mProxyTracker;
 
     private ArgumentCaptor<ResolverParamsParcel> mResolverParamsParcelCaptor =
             ArgumentCaptor.forClass(ResolverParamsParcel.class);
@@ -1237,6 +1238,15 @@ public class ConnectivityServiceTest {
             return lp;
         }
 
+        private void markConnectedAndSetNetworkCapabilitiesAndNetworkAgent() throws Exception {
+            if (mMockNetworkAgent == null) {
+                throw new IllegalStateException("NetworkAgent hasn't created");
+            }
+            updateState(NetworkInfo.DetailedState.CONNECTED, "registerAgent");
+            mNetworkCapabilities.set(mMockNetworkAgent.getNetworkCapabilities());
+            mNetworkAgent = mMockNetworkAgent.getNetworkAgent();
+        }
+
         private void registerAgent(boolean isAlwaysMetered, Set<UidRange> uids, LinkProperties lp)
                 throws Exception {
             if (mAgentRegistered) throw new IllegalStateException("already registered");
@@ -1259,13 +1269,11 @@ public class ConnectivityServiceTest {
             mAgentRegistered = true;
             verify(mMockNetd).networkCreate(nativeNetworkConfigVpn(getNetwork().netId,
                     !mMockNetworkAgent.isBypassableVpn(), mVpnType));
-            updateState(NetworkInfo.DetailedState.CONNECTED, "registerAgent");
-            mNetworkCapabilities.set(mMockNetworkAgent.getNetworkCapabilities());
-            mNetworkAgent = mMockNetworkAgent.getNetworkAgent();
         }
 
         private void registerAgent(Set<UidRange> uids) throws Exception {
             registerAgent(false /* isAlwaysMetered */, uids, makeLinkProperties());
+            markConnectedAndSetNetworkCapabilitiesAndNetworkAgent();
         }
 
         private void connect(boolean validated, boolean hasInternet, boolean isStrictMode) {
@@ -1280,11 +1288,16 @@ public class ConnectivityServiceTest {
             return mMockNetworkAgent;
         }
 
-        public void establish(LinkProperties lp, int uid, Set<UidRange> ranges, boolean validated,
-                boolean hasInternet, boolean isStrictMode) throws Exception {
+        private void setOwnerAndAdminUid(int uid) throws Exception {
             mNetworkCapabilities.setOwnerUid(uid);
             mNetworkCapabilities.setAdministratorUids(new int[]{uid});
+        }
+
+        public void establish(LinkProperties lp, int uid, Set<UidRange> ranges, boolean validated,
+                boolean hasInternet, boolean isStrictMode) throws Exception {
+            setOwnerAndAdminUid(uid);
             registerAgent(false, ranges, lp);
+            markConnectedAndSetNetworkCapabilitiesAndNetworkAgent();
             connect(validated, hasInternet, isStrictMode);
             waitForIdle();
         }
@@ -1634,7 +1647,7 @@ public class ConnectivityServiceTest {
         doReturn(mNetIdManager).when(deps).makeNetIdManager();
         doReturn(mNetworkStack).when(deps).getNetworkStack();
         doReturn(mSystemProperties).when(deps).getSystemProperties();
-        doReturn(mock(ProxyTracker.class)).when(deps).makeProxyTracker(any(), any());
+        doReturn(mProxyTracker).when(deps).makeProxyTracker(any(), any());
         doReturn(true).when(deps).queryUserAccess(anyInt(), any(), any());
         doAnswer(inv -> {
             mPolicyTracker = new WrappedMultinetworkPolicyTracker(
@@ -10092,16 +10105,23 @@ public class ConnectivityServiceTest {
 
     @Test
     public void testVpnUidRangesUpdate() throws Exception {
-        LinkProperties lp = new LinkProperties();
+        // Set up a WiFi network without proxy.
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        mWiFiNetworkAgent.connect(true);
+        waitForIdle();
+        assertNull(mService.getProxyForNetwork(null));
+
+        final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName("tun0");
         lp.addRoute(new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null));
         lp.addRoute(new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null));
         final UidRange vpnRange = PRIMARY_UIDRANGE;
-        Set<UidRange> vpnRanges = Collections.singleton(vpnRange);
+        final Set<UidRange> vpnRanges = Collections.singleton(vpnRange);
         mMockVpn.establish(lp, VPN_UID, vpnRanges);
         assertVpnUidRangesUpdated(true, vpnRanges, VPN_UID);
+        // VPN is connected but proxy is not set, so there is no need to send proxy broadcast.
+        verify(mProxyTracker, never()).sendProxyBroadcast();
 
-        reset(mMockNetd);
         // Update to new range which is old range minus APP1, i.e. only APP2
         final Set<UidRange> newRanges = new HashSet<>(Arrays.asList(
                 new UidRange(vpnRange.start, APP1_UID - 1),
@@ -10111,6 +10131,53 @@ public class ConnectivityServiceTest {
 
         assertVpnUidRangesUpdated(true, newRanges, VPN_UID);
         assertVpnUidRangesUpdated(false, vpnRanges, VPN_UID);
+
+        // Uid has changed but proxy is not set, so there is no need to send proxy broadcast.
+        verify(mProxyTracker, never()).sendProxyBroadcast();
+
+        final ProxyInfo testProxyInfo = ProxyInfo.buildDirectProxy("test", 8888);
+        lp.setHttpProxy(testProxyInfo);
+        mMockVpn.sendLinkProperties(lp);
+        waitForIdle();
+        // Proxy is set, so send a proxy broadcast.
+        verify(mProxyTracker, times(1)).sendProxyBroadcast();
+        reset(mProxyTracker);
+
+        mMockVpn.setUids(vpnRanges);
+        waitForIdle();
+        // Uid has changed and proxy is already set, so send a proxy broadcast.
+        verify(mProxyTracker, times(1)).sendProxyBroadcast();
+    }
+
+    @Test
+    public void testProxyBroadcastWillBeSentWhenVpnHasProxyAndConnects() throws Exception {
+        // Set up a WiFi network without proxy.
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        mWiFiNetworkAgent.connect(true);
+        waitForIdle();
+        assertNull(mService.getProxyForNetwork(null));
+
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName("tun0");
+        lp.addRoute(new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null));
+        lp.addRoute(new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null));
+        final ProxyInfo testProxyInfo = ProxyInfo.buildDirectProxy("test", 8888);
+        lp.setHttpProxy(testProxyInfo);
+        final UidRange vpnRange = PRIMARY_UIDRANGE;
+        final Set<UidRange> vpnRanges = Collections.singleton(vpnRange);
+        mMockVpn.setOwnerAndAdminUid(VPN_UID);
+        mMockVpn.registerAgent(false, vpnRanges, lp);
+        // In any case, the proxy broadcast won't be sent before VPN goes into CONNECTED state.
+        // Otherwise, the app that calls ConnectivityManager#getDefaultProxy() when it receives the
+        // proxy broadcast will get null.
+        verify(mProxyTracker, never()).sendProxyBroadcast();
+        mMockVpn.markConnectedAndSetNetworkCapabilitiesAndNetworkAgent();
+        mMockVpn.connect(true /* validated */, true /* hasInternet */, false /* isStrictMode */);
+        waitForIdle();
+        assertVpnUidRangesUpdated(true, vpnRanges, VPN_UID);
+        // Vpn is connected with proxy and its underlying network doesn't have proxy, so the proxy
+        // broadcast will be sent to inform the apps to update their proxy data.
+        verify(mProxyTracker, times(1)).sendProxyBroadcast();
     }
 
     @Test
