@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c0bcd0f_84b785b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-01T01:49:32Z",
+      "side": 1,
+      "message": "Migrated from this CL https://r.android.com/1659164 since the changed files were moved into a different repo.",
+      "revId": "14c4f8d03ef30fcbb3a93ed5f66da347403309e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
