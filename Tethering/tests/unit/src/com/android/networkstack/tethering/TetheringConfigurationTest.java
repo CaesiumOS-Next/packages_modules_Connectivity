@@ -180,6 +180,7 @@ public class TetheringConfigurationTest {
                 false);
         when(mResources.getBoolean(R.bool.config_tether_enable_legacy_wifi_p2p_dedicated_ip))
                 .thenReturn(false);
+        initializeDnsProxyServerConfiguration(true, null /* unset */);
         initializeBpfOffloadConfiguration(true, null /* unset */);
         initEnableSelectAllPrefixRangeFlag(null /* unset */);
 
@@ -341,6 +342,51 @@ public class TetheringConfigurationTest {
         assertTrue(upstreamIterator.hasNext());
         assertEquals(TYPE_MOBILE_HIPRI, upstreamIterator.next().intValue());
         assertFalse(upstreamIterator.hasNext());
+    }
+
+    private void initializeDnsProxyServerConfiguration(
+            final boolean fromRes, final String fromDevConfig) {
+        when(mResources.getBoolean(
+                R.bool.config_tether_enable_legacy_dns_proxy_server)).thenReturn(fromRes);
+        doReturn(fromDevConfig).when(
+                () -> DeviceConfig.getProperty(eq(NAMESPACE_CONNECTIVITY),
+                eq(TetheringConfiguration.TETHER_ENABLE_LEGACY_DNS_PROXY_SERVER)));
+    }
+
+    @Test
+    public void testDnsProxyServerEnabledByResource() {
+        initializeDnsProxyServerConfiguration(true, null /* unset */);
+        final TetheringConfiguration enableByRes =
+                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertTrue(enableByRes.enableLegacyDnsProxyServer);
+    }
+
+    @Test
+    public void testDnsProxyServerEnabledByDeviceConfigOverride() {
+        for (boolean res : new boolean[]{true, false}) {
+            initializeDnsProxyServerConfiguration(res, "true");
+            final TetheringConfiguration enableByDevConOverride =
+                    new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+            assertTrue(enableByDevConOverride.enableLegacyDnsProxyServer);
+        }
+    }
+
+    @Test
+    public void testDnsProxyServerDisabledByResource() {
+        initializeDnsProxyServerConfiguration(false, null /* unset */);
+        final TetheringConfiguration disableByRes =
+                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertFalse(disableByRes.enableLegacyDnsProxyServer);
+    }
+
+    @Test
+    public void testDnsProxyServerDisabledByDeviceConfigOverride() {
+        for (boolean res : new boolean[]{true, false}) {
+            initializeDnsProxyServerConfiguration(res, "false");
+            final TetheringConfiguration disableByDevConOverride =
+                    new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+            assertFalse(disableByDevConOverride.enableLegacyDnsProxyServer);
+        }
     }
 
     private void initializeBpfOffloadConfiguration(

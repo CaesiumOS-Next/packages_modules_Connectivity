@@ -84,6 +84,13 @@ public class TetheringConfiguration {
     public static final int TETHER_USB_NCM_FUNCTION   = 1;
 
     /**
+     * Override enabling dnsmasq DHCP server configuration for tethering.
+     */
+    public static final String TETHER_ENABLE_LEGACY_DNS_PROXY_SERVER =
+            "tether_enable_legacy_dns_proxy_server";
+
+
+    /**
      * Override enabling BPF offload configuration for tethering.
      */
     public static final String OVERRIDE_TETHER_ENABLE_BPF_OFFLOAD =
@@ -144,6 +151,8 @@ public class TetheringConfiguration {
     public final String[] legacyDhcpRanges;
     public final String[] defaultIPv4DNS;
     public final boolean enableLegacyDhcpServer;
+    // TODO: Add to TetheringConfigurationParcel if required.
+    public final boolean enableLegacyDnsProxyServer;
 
     public final String[] provisioningApp;
     public final String provisioningAppNoUi;
@@ -192,6 +201,7 @@ public class TetheringConfiguration {
 
         legacyDhcpRanges = getLegacyDhcpRanges(res);
         defaultIPv4DNS = copy(DEFAULT_IPV4_DNS);
+        enableLegacyDnsProxyServer = getEnableLegacyDnsProxyServer(res);
         mEnableBpfOffload = getEnableBpfOffload(res);
         enableLegacyDhcpServer = getEnableLegacyDhcpServer(res);
 
@@ -299,6 +309,9 @@ public class TetheringConfiguration {
         pw.print("provisioningAppNoUi: ");
         pw.println(provisioningAppNoUi);
 
+        pw.print("enableLegacyDnsProxyServer: ");
+        pw.println(enableLegacyDnsProxyServer);
+
         pw.print("enableBpfOffload: ");
         pw.println(mEnableBpfOffload);
 
@@ -331,6 +344,7 @@ public class TetheringConfiguration {
                 toIntArray(preferredUpstreamIfaceTypes)));
         sj.add(String.format("provisioningApp:%s", makeString(provisioningApp)));
         sj.add(String.format("provisioningAppNoUi:%s", provisioningAppNoUi));
+        sj.add(String.format("enableLegacyDnsProxyServer:%s", enableLegacyDnsProxyServer));
         sj.add(String.format("enableBpfOffload:%s", mEnableBpfOffload));
         sj.add(String.format("enableLegacyDhcpServer:%s", enableLegacyDhcpServer));
         return String.format("TetheringConfiguration{%s}", sj.toString());
@@ -487,6 +501,18 @@ public class TetheringConfiguration {
         } catch (Resources.NotFoundException e404) {
             return defaultValue;
         }
+    }
+
+    // TODO: Disable legacy DnsProxyServer by default
+    private boolean getEnableLegacyDnsProxyServer(final Resources res) {
+        // Get DNS proxy server config
+        // true: dnsmasq
+        // false: dns proxy server
+        final boolean defaultValue = getResourceBoolean(
+                res, R.bool.config_tether_enable_legacy_dns_proxy_server,
+                true /** default value */);
+
+        return getDeviceConfigBoolean(TETHER_ENABLE_LEGACY_DNS_PROXY_SERVER, defaultValue);
     }
 
     private boolean getEnableBpfOffload(final Resources res) {
