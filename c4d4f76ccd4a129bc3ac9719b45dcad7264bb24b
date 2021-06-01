@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7ba33a0_2a9fd954",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T08:02:29Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "c4d4f76ccd4a129bc3ac9719b45dcad7264bb24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b86dc3e_0c37549d",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T08:02:29Z",
+      "side": 1,
+      "message": "Before this, should you also verify that the daemon was started, like the old code used to do at line 116?",
+      "range": {
+        "startLine": 132,
+        "startChar": 60,
+        "endLine": 132,
+        "endChar": 61
+      },
+      "revId": "c4d4f76ccd4a129bc3ac9719b45dcad7264bb24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8881a386_9fe93b2f",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T08:02:29Z",
+      "side": 1,
+      "message": "ditto, should you verify start here?",
+      "range": {
+        "startLine": 166,
+        "startChar": 8,
+        "endLine": 166,
+        "endChar": 27
+      },
+      "revId": "c4d4f76ccd4a129bc3ac9719b45dcad7264bb24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f24c62e_667354e3",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T08:02:29Z",
+      "side": 1,
+      "message": "Actually, I\u0027m not sure that this is what line 179 does. I think the verify with times(1) will check that maybeStop() was called exactly once *since the mock was created*... but the code has already checked this in line 175.\n\nIf the above is correct, then a better comment would be:\n\n    // Disconnecting the client will not call maybeStop().\n\nBut that doesn\u0027t really make sense. I would expect disconnect() to call maybeStop in all cases, even if the daemon is already stopped. Perhaps I don\u0027t actually know mockito enough to understand what is happening here.\n\nIf your original comment is correct, then perhaps it should be worded as follows:\n\n    // Disconnecting the client calls maybeStop even though the daemon is already stopped.",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "c4d4f76ccd4a129bc3ac9719b45dcad7264bb24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
