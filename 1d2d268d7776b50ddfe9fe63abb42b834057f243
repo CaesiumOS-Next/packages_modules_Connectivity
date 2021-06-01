@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb02c48_9ea1529b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6668,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-01T09:48:31Z",
+      "side": 1,
+      "message": "Nit: the original sc-dev CL lacks this blank line. No need to fix unless this causes a merge conflict.",
+      "revId": "1d2d268d7776b50ddfe9fe63abb42b834057f243",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
