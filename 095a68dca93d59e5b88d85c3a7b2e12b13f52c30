@@ -22,6 +22,30 @@
       },
       "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7de70985_51202cf6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-02T21:02:12Z",
+      "side": 1,
+      "message": "As talked, the IsPrivateDnsBroken is connectivity api, and is not suitable for adding tests in cts/tests/tests/net/src/android/net/cts/DnsResolverTest.java.\nSo I still keep the original test structure.",
+      "parentUuid": "f375fc15_7eb20d3c",
+      "range": {
+        "startLine": 586,
+        "startChar": 16,
+        "endLine": 586,
+        "endChar": 38
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
