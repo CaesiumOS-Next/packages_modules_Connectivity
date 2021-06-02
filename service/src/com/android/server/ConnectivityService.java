@@ -2896,7 +2896,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         pw.println();
 
-        pw.print("Current per-app default networks: ");
+        pw.println("Current per-app default networks: ");
         pw.increaseIndent();
         dumpPerAppNetworkPreferences(pw);
         pw.decreaseIndent();
@@ -3050,7 +3050,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             pw.increaseIndent();
             pw.println(isActive);
             if (isActive) {
-                pw.println("Active network: " + defaultRequest.getSatisfier().network.netId);
+                final int netId = defaultRequest.getSatisfier().network.netId;
+                final String noService = defaultRequest.getSatisfier() == mNoServiceNetwork
+                        ? " no service network" : "";
+                pw.println("Active network: " + netId + noService);
             }
             pw.println("Tracked UIDs:");
             pw.increaseIndent();
