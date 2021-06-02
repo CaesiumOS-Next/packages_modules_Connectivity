@@ -34,6 +34,24 @@
       "parentUuid": "bb9d4952_40a9d37a",
       "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d7381ec_d6940644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-02T16:33:26Z",
+      "side": 1,
+      "message": "Note for added context, this is much more of an issue in Automotive (which is why we didn\u0027t initially catch it on phone) since user 0 is used only for System services while user 10+ is used for foreground users. Therefore a lot of apps are not working in Automotive causing issues in QA. Thanks!",
+      "parentUuid": "204c855f_c75ed8f6",
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
