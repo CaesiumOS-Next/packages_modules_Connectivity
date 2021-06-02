@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04dc4c1e_71dbf828",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-02T02:48:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da50eceb_9459ee7c",
+      "range": {
+        "startLine": 387,
+        "startChar": 26,
+        "endLine": 387,
+        "endChar": 27
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95d622f0_6d4ce535",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-05-27T09:07:28Z",
       "side": 1,
       "message": "Nit: it\u0027s assertEquals(expected, actual), so:\n  \n    assertEquals(subtypeLTE, networkInfo.getSubtype())",
+      "range": {
+        "startLine": 393,
+        "startChar": 8,
+        "endLine": 393,
+        "endChar": 20
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9350107d_140dfd10",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-02T02:48:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95d622f0_6d4ce535",
       "range": {
         "startLine": 393,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ff833b9_885a9bff",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-02T02:48:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56cf7ce5_76884c1c",
+      "range": {
+        "startLine": 398,
+        "startChar": 12,
+        "endLine": 398,
+        "endChar": 27
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a365d951_98afe1ba",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86bea104_1416eab9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-02T02:48:06Z",
+      "side": 1,
+      "message": "The OnBandwidthUpdateRequested callback can not work to ensure that networkInfo is ready for verification. I change it to wait for the callback of NetworkCapabilities changes to ensure that networkInfo is ready for verification. And also adding the comment to explain it.",
+      "parentUuid": "a365d951_98afe1ba",
+      "range": {
+        "startLine": 406,
+        "startChar": 8,
+        "endLine": 407,
+        "endChar": 58
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7249e9a6_7bb374d9",
@@ -123,6 +219,30 @@
       "writtenOn": "2021-05-27T06:45:40Z",
       "side": 1,
       "message": "I expect this should be umts?",
+      "range": {
+        "startLine": 409,
+        "startChar": 8,
+        "endLine": 410,
+        "endChar": 66
+      },
+      "revId": "b52cce0df8953a7991f8171329d99ebec23e4100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0da7befb_f9bca015",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-02T02:48:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7249e9a6_7bb374d9",
       "range": {
         "startLine": 409,
         "startChar": 8,
