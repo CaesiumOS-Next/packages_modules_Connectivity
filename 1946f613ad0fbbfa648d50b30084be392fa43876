@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaeb77d5_ffd8d0c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-02T05:51:32Z",
+      "side": 1,
+      "message": "LGTM but I\u0027d prefer to delay merging before we figure out b/186628461 as this doesn\u0027t look urgent",
+      "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
