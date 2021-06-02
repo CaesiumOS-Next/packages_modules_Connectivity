@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb9d4952_40a9d37a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-02T05:54:19Z",
+      "side": 1,
+      "message": "LGTM but Junyu should have a look for network selection\n\nNote that I\u0027d prefer to delay merging until we figure out b/186628461, if not urgent",
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
