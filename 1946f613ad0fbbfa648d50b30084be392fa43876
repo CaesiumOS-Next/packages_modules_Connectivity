@@ -16,6 +16,24 @@
       "message": "LGTM but I\u0027d prefer to delay merging before we figure out b/186628461 as this doesn\u0027t look urgent",
       "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae1f8354_6d0699e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-02T16:30:16Z",
+      "side": 1,
+      "message": "Yep, np. I\u0027ll cc\u0027 myself to that bug and will hold off on merging this until the above is resolved. Thanks!",
+      "parentUuid": "aaeb77d5_ffd8d0c7",
+      "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
