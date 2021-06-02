@@ -10306,29 +10306,30 @@ public class ConnectivityServiceTest {
         fail("TOO_MANY_REQUESTS never thrown");
     }
 
-    private UidRange createUidRange(int userId) {
-        return UidRange.createForUser(UserHandle.of(userId));
+    private void mockGetApplicationInfo(@NonNull final String packageName, final int uid) {
+        mockGetApplicationInfo(packageName, uid, PRIMARY_USER_HANDLE);
     }
 
-    private void mockGetApplicationInfo(@NonNull final String packageName, @NonNull final int uid) {
+    private void mockGetApplicationInfo(@NonNull final String packageName, final int uid,
+            @NonNull final UserHandle user) {
         final ApplicationInfo applicationInfo = new ApplicationInfo();
         applicationInfo.uid = uid;
         try {
-            when(mPackageManager.getApplicationInfo(eq(packageName), anyInt()))
+            when(mPackageManager.getApplicationInfoAsUser(eq(packageName), anyInt(), eq(user)))
                     .thenReturn(applicationInfo);
         } catch (Exception e) {
             fail(e.getMessage());
         }
     }
 
-    private void mockGetApplicationInfoThrowsNameNotFound(@NonNull final String packageName)
+    private void mockGetApplicationInfoThrowsNameNotFound(@NonNull final String packageName,
+            @NonNull final UserHandle user)
             throws Exception {
-        when(mPackageManager.getApplicationInfo(eq(packageName), anyInt()))
+        when(mPackageManager.getApplicationInfoAsUser(eq(packageName), anyInt(), eq(user)))
                 .thenThrow(new PackageManager.NameNotFoundException(packageName));
     }
 
-    private void mockHasSystemFeature(@NonNull final String featureName,
-            @NonNull final boolean hasFeature) {
+    private void mockHasSystemFeature(@NonNull final String featureName, final boolean hasFeature) {
         when(mPackageManager.hasSystemFeature(eq(featureName)))
                 .thenReturn(hasFeature);
     }
@@ -10523,16 +10524,18 @@ public class ConnectivityServiceTest {
     }
 
     @Test
-    public void testOemNetworkRequestFactoryMultipleUsersCorrectlySetsUids()
+    public void testOemNetworkRequestFactoryMultipleUsersSetsUids()
             throws Exception {
         // Arrange users
         final int secondUser = 10;
         final UserHandle secondUserHandle = new UserHandle(secondUser);
+        final int secondUserTestPackageUid = UserHandle.getUid(secondUser, TEST_PACKAGE_UID);
         when(mUserManager.getUserHandles(anyBoolean())).thenReturn(
                 Arrays.asList(PRIMARY_USER_HANDLE, secondUserHandle));
 
         // Arrange PackageManager mocks
-        mockGetApplicationInfo(TEST_PACKAGE_NAME, TEST_PACKAGE_UID);
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, TEST_PACKAGE_UID, PRIMARY_USER_HANDLE);
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, secondUserTestPackageUid, secondUserHandle);
 
         // Build OemNetworkPreferences object
         final int testOemPref = OEM_NETWORK_PREFERENCE_OEM_PAID;
@@ -10555,11 +10558,46 @@ public class ConnectivityServiceTest {
 
         // Sort by uid to access nris by index
         uids.sort(Comparator.comparingInt(uid -> uid.getLower()));
-        final int secondUserTestPackageUid = UserHandle.getUid(secondUser, TEST_PACKAGE_UID);
         assertEquals(TEST_PACKAGE_UID, (int) uids.get(0).getLower());
         assertEquals(TEST_PACKAGE_UID, (int) uids.get(0).getUpper());
         assertEquals(secondUserTestPackageUid, (int) uids.get(1).getLower());
         assertEquals(secondUserTestPackageUid, (int) uids.get(1).getUpper());
+    }
+
+    @Test
+    public void testOemNetworkRequestFactoryMultipleUsersPrimaryMissingPackageSetsUids()
+            throws Exception {
+        // Arrange users
+        final int secondUser = 10;
+        final UserHandle secondUserHandle = new UserHandle(secondUser);
+        final int secondUserTestPackageUid = UserHandle.getUid(secondUser, TEST_PACKAGE_UID);
+        when(mUserManager.getUserHandles(anyBoolean())).thenReturn(
+                Arrays.asList(PRIMARY_USER_HANDLE, secondUserHandle));
+
+        // Arrange PackageManager mocks
+        mockGetApplicationInfoThrowsNameNotFound(TEST_PACKAGE_NAME, PRIMARY_USER_HANDLE);
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, secondUserTestPackageUid, secondUserHandle);
+
+        // Build OemNetworkPreferences object
+        final int testOemPref = OEM_NETWORK_PREFERENCE_OEM_PAID;
+        final OemNetworkPreferences pref = new OemNetworkPreferences.Builder()
+                .addNetworkPreference(TEST_PACKAGE_NAME, testOemPref)
+                .build();
+
+        // Act on OemNetworkRequestFactory.createNrisFromOemNetworkPreferences()
+        final List<ConnectivityService.NetworkRequestInfo> nris =
+                new ArrayList<>(
+                        mService.new OemNetworkRequestFactory().createNrisFromOemNetworkPreferences(
+                                pref));
+
+        // UIDs for all users and all managed packages should be present.
+        // Two users with only a single user having a package.
+        final int expectedUidSize = 1;
+        final List<Range<Integer>> uids =
+                new ArrayList<>(nris.get(0).mRequests.get(0).networkCapabilities.getUids());
+        assertEquals(expectedUidSize, uids.size());
+        assertEquals(secondUserTestPackageUid, (int) uids.get(0).getLower());
+        assertEquals(secondUserTestPackageUid, (int) uids.get(0).getUpper());
     }
 
     @Test
@@ -11361,6 +11399,7 @@ public class ConnectivityServiceTest {
         final UidRangeParcel[] uidRanges =
                 toUidRangeStableParcels(
                         uidRangesForUids(TEST_PACKAGE_UID, secondUserTestPackageUid));
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, secondUserTestPackageUid, secondUserHandle);
         setupSetOemNetworkPreferenceForPreferenceTest(networkPref, uidRanges, TEST_PACKAGE_NAME);
 
         // Verify the starting state. No networks should be connected.
@@ -11403,6 +11442,7 @@ public class ConnectivityServiceTest {
         final UidRangeParcel[] uidRangesBothUsers =
                 toUidRangeStableParcels(
                         uidRangesForUids(TEST_PACKAGE_UID, secondUserTestPackageUid));
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, secondUserTestPackageUid, secondUserHandle);
         setupSetOemNetworkPreferenceForPreferenceTest(
                 networkPref, uidRangesSingleUser, TEST_PACKAGE_NAME);
 
@@ -11459,7 +11499,7 @@ public class ConnectivityServiceTest {
         final UidRangeParcel[] uidRangesSinglePackage =
                 toUidRangeStableParcels(uidRangesForUids(TEST_PACKAGE_UID));
         mockGetApplicationInfo(TEST_PACKAGE_NAME, TEST_PACKAGE_UID);
-        mockGetApplicationInfoThrowsNameNotFound(packageToInstall);
+        mockGetApplicationInfoThrowsNameNotFound(packageToInstall, PRIMARY_USER_HANDLE);
         setOemNetworkPreference(networkPref, TEST_PACKAGE_NAME, packageToInstall);
         grantUsingBackgroundNetworksPermissionForUid(Binder.getCallingUid(), packageToInstall);
 
@@ -11493,7 +11533,7 @@ public class ConnectivityServiceTest {
                 false /* shouldDestroyNetwork */);
 
         // Set the system to no longer recognize the package to be installed
-        mockGetApplicationInfoThrowsNameNotFound(packageToInstall);
+        mockGetApplicationInfoThrowsNameNotFound(packageToInstall, PRIMARY_USER_HANDLE);
 
         // Send a broadcast indicating a package was removed.
         final Intent removedIntent = new Intent(ACTION_PACKAGE_REMOVED);
