@@ -10306,15 +10306,16 @@ public class ConnectivityServiceTest {
         fail("TOO_MANY_REQUESTS never thrown");
     }
 
-    private UidRange createUidRange(int userId) {
-        return UidRange.createForUser(UserHandle.of(userId));
+    private void mockGetApplicationInfo(@NonNull final String packageName, final int uid) {
+        mockGetApplicationInfo(packageName, uid, PRIMARY_USER_HANDLE);
     }
 
-    private void mockGetApplicationInfo(@NonNull final String packageName, @NonNull final int uid) {
+    private void mockGetApplicationInfo(@NonNull final String packageName, final int uid,
+            @NonNull final UserHandle user) {
         final ApplicationInfo applicationInfo = new ApplicationInfo();
         applicationInfo.uid = uid;
         try {
-            when(mPackageManager.getApplicationInfo(eq(packageName), anyInt()))
+            when(mPackageManager.getApplicationInfoAsUser(eq(packageName), anyInt(), eq(user)))
                     .thenReturn(applicationInfo);
         } catch (Exception e) {
             fail(e.getMessage());
@@ -10323,12 +10324,11 @@ public class ConnectivityServiceTest {
 
     private void mockGetApplicationInfoThrowsNameNotFound(@NonNull final String packageName)
             throws Exception {
-        when(mPackageManager.getApplicationInfo(eq(packageName), anyInt()))
+        when(mPackageManager.getApplicationInfoAsUser(eq(packageName), anyInt(), any()))
                 .thenThrow(new PackageManager.NameNotFoundException(packageName));
     }
 
-    private void mockHasSystemFeature(@NonNull final String featureName,
-            @NonNull final boolean hasFeature) {
+    private void mockHasSystemFeature(@NonNull final String featureName, final boolean hasFeature) {
         when(mPackageManager.hasSystemFeature(eq(featureName)))
                 .thenReturn(hasFeature);
     }
@@ -10528,11 +10528,13 @@ public class ConnectivityServiceTest {
         // Arrange users
         final int secondUser = 10;
         final UserHandle secondUserHandle = new UserHandle(secondUser);
+        final int secondUserTestPackageUid = UserHandle.getUid(secondUser, TEST_PACKAGE_UID);
         when(mUserManager.getUserHandles(anyBoolean())).thenReturn(
                 Arrays.asList(PRIMARY_USER_HANDLE, secondUserHandle));
 
         // Arrange PackageManager mocks
-        mockGetApplicationInfo(TEST_PACKAGE_NAME, TEST_PACKAGE_UID);
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, TEST_PACKAGE_UID, PRIMARY_USER_HANDLE);
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, secondUserTestPackageUid, secondUserHandle);
 
         // Build OemNetworkPreferences object
         final int testOemPref = OEM_NETWORK_PREFERENCE_OEM_PAID;
@@ -10555,7 +10557,6 @@ public class ConnectivityServiceTest {
 
         // Sort by uid to access nris by index
         uids.sort(Comparator.comparingInt(uid -> uid.getLower()));
-        final int secondUserTestPackageUid = UserHandle.getUid(secondUser, TEST_PACKAGE_UID);
         assertEquals(TEST_PACKAGE_UID, (int) uids.get(0).getLower());
         assertEquals(TEST_PACKAGE_UID, (int) uids.get(0).getUpper());
         assertEquals(secondUserTestPackageUid, (int) uids.get(1).getLower());
@@ -11361,6 +11362,7 @@ public class ConnectivityServiceTest {
         final UidRangeParcel[] uidRanges =
                 toUidRangeStableParcels(
                         uidRangesForUids(TEST_PACKAGE_UID, secondUserTestPackageUid));
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, secondUserTestPackageUid, secondUserHandle);
         setupSetOemNetworkPreferenceForPreferenceTest(networkPref, uidRanges, TEST_PACKAGE_NAME);
 
         // Verify the starting state. No networks should be connected.
@@ -11403,6 +11405,7 @@ public class ConnectivityServiceTest {
         final UidRangeParcel[] uidRangesBothUsers =
                 toUidRangeStableParcels(
                         uidRangesForUids(TEST_PACKAGE_UID, secondUserTestPackageUid));
+        mockGetApplicationInfo(TEST_PACKAGE_NAME, secondUserTestPackageUid, secondUserHandle);
         setupSetOemNetworkPreferenceForPreferenceTest(
                 networkPref, uidRangesSingleUser, TEST_PACKAGE_NAME);
 
