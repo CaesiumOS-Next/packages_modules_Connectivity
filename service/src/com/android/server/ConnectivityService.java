@@ -2997,7 +2997,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         pw.println();
 
-        pw.print("Current per-app default networks: ");
+        pw.println("Current per-app default networks: ");
         pw.increaseIndent();
         dumpPerAppNetworkPreferences(pw);
         pw.decreaseIndent();
@@ -3128,35 +3128,35 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void dumpPerAppNetworkPreferences(IndentingPrintWriter pw) {
-        pw.println("Per-App Network Preference:");
-        pw.increaseIndent();
-        if (0 == mOemNetworkPreferences.getNetworkPreferences().size()) {
+        if (mOemNetworkPreferences.isEmpty() && mProfileNetworkPreferences.isEmpty()) {
             pw.println("none");
         } else {
-            pw.println(mOemNetworkPreferences.toString());
+            if (!mProfileNetworkPreferences.isEmpty()) {
+                pw.println(mProfileNetworkPreferences.preferences);
+            }
+            if (!mOemNetworkPreferences.isEmpty()) {
+                pw.println(mOemNetworkPreferences);
+            }
         }
-        pw.decreaseIndent();
 
         for (final NetworkRequestInfo defaultRequest : mDefaultNetworkRequests) {
             if (mDefaultRequest == defaultRequest) {
                 continue;
             }
 
-            final boolean isActive = null != defaultRequest.getSatisfier();
-            pw.println("Is per-app network active:");
             pw.increaseIndent();
-            pw.println(isActive);
-            if (isActive) {
-                pw.println("Active network: " + defaultRequest.getSatisfier().network.netId);
-            }
-            pw.println("Tracked UIDs:");
-            pw.increaseIndent();
-            if (0 == defaultRequest.mRequests.size()) {
-                pw.println("none, this should never occur.");
+            final NetworkAgentInfo satisfier = defaultRequest.getSatisfier();
+            final String networkOutput;
+            if (null == satisfier) {
+                networkOutput = "null";
+            } else if (mNoServiceNetwork.equals(satisfier)) {
+                networkOutput = "no service network";
             } else {
-                pw.println(defaultRequest.mRequests.get(0).networkCapabilities.getUidRanges());
+                networkOutput = String.valueOf(satisfier.network.netId);
             }
-            pw.decreaseIndent();
+            final String satisfierOutput = "Satisfier: [" + networkOutput + "] Tracked UIDs: "
+                    + defaultRequest.mRequests.get(0).networkCapabilities.getUidRanges();
+            pw.println(satisfierOutput);
             pw.decreaseIndent();
         }
     }
