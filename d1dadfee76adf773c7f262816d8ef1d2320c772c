@@ -16,6 +16,24 @@
       "message": "LGTM but Junyu should have a look for network selection\n\nNote that I\u0027d prefer to delay merging until we figure out b/186628461, if not urgent",
       "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "204c855f_c75ed8f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-02T16:28:57Z",
+      "side": 1,
+      "message": "Thanks Remi. I\u0027ll follow up with Junyu. As for urgency, this is actually a pretty significant bug so it does fall into the \"urgent\" bucket unfortunately so we\u0027ll need to get this merged sooner rather than later. Please feel free to reach out (or unresolve this comment) if that\u0027s a major issue and happy to work with you on it otherwise I\u0027d like to get this in when ready to unblock QA. Thanks again for your help on this!",
+      "parentUuid": "bb9d4952_40a9d37a",
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
