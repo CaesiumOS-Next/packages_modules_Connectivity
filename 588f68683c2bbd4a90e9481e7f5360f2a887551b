@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e823991_a1afa90b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1758,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-02T06:43:35Z",
+      "side": 1,
+      "message": "Although chosseUpstreamType here would always force request be filed, it is not perfect but this cover a condition that file a initial request when there is no network available. Imagine that if all of network is not available(no wifi and mobile default network). Removing chooseUpstreamType here may let tethering never file dun request till any default network is available. This is not we want. If there is no network, at least tethering should try dun although dun likely also fail but tethering should try it. You can have some modification to cover the case I point out, then remove this line.",
+      "parentUuid": "b73d5e4e_ed7258be",
+      "revId": "588f68683c2bbd4a90e9481e7f5360f2a887551b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7d7f622_a2b8504b",
         "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
         "patchSetId": 1
