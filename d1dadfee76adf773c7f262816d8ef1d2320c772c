@@ -52,6 +52,121 @@
       "parentUuid": "204c855f_c75ed8f6",
       "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "458ad23e_329f4691",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9990,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-03T11:18:10Z",
+      "side": 1,
+      "message": "Question:\n sorry for lack of context, does the given preference applies to all users?",
+      "range": {
+        "startLine": 9990,
+        "startChar": 31,
+        "endLine": 9990,
+        "endChar": 52
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c081a206_efc06fec",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9991,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-03T11:18:10Z",
+      "side": 1,
+      "message": "Sorry for lack of context.\nIt takes me a lot of time to know what\u0027s inside the object.\nMaybe add comments about the key and value stored in the structure?",
+      "range": {
+        "startLine": 9991,
+        "startChar": 44,
+        "endLine": 9991,
+        "endChar": 48
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6ccdfe1_6de7f3ed",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10011,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-03T11:18:10Z",
+      "side": 1,
+      "message": "This confuses me.\nTo me uids is like a list of uid.\nIIUC the key is one of the OemNetworkPreference constants, and the value is list of uids that shoud applies to the preference.\nIf so maybe name it more specifically, such as uidsForPreference?\nNo strong opinion.",
+      "range": {
+        "startLine": 10011,
+        "startChar": 24,
+        "endLine": 10011,
+        "endChar": 48
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9c019a8_fd8e2b5d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10526,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-03T11:18:10Z",
+      "side": 1,
+      "message": "nit: for tests we are verify the behaviors are correct, right?\nThus it seems not too useful to me where the naming contains Correctly.\nMaybe remove it if you think it is better.\nNo strong opinion.",
+      "range": {
+        "startLine": 10526,
+        "startChar": 57,
+        "endLine": 10526,
+        "endChar": 66
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "551ed6bc_94f259eb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10537,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-03T11:18:10Z",
+      "side": 1,
+      "message": "IIUC the none of the tests verify the case you mentioned in the commit message, right?\nMaybe modify the test case with the scenario you mentioned (app removed for user 0) if it is not too hard?",
+      "range": {
+        "startLine": 10537,
+        "startChar": 8,
+        "endLine": 10537,
+        "endChar": 30
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
