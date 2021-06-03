@@ -93,6 +93,30 @@
       },
       "revId": "b0488242d5a68cec8bbb07ab94fcfe16227b090b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84664f77_ca67bccd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-03T05:26:34Z",
+      "side": 1,
+      "message": "what I think is:\nin l.434 assertArrayEquals(builder.build(), nr.getCapabilities());\n\nThe intention is to verify the netCap gotten the same with set, right? This provides the coverage. Up to you.",
+      "parentUuid": "dd3b351c_950e1a0a",
+      "range": {
+        "startLine": 428,
+        "startChar": 16,
+        "endLine": 428,
+        "endChar": 46
+      },
+      "revId": "b0488242d5a68cec8bbb07ab94fcfe16227b090b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
