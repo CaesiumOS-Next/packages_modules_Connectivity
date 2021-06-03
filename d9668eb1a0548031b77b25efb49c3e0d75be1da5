@@ -364,6 +364,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96329f8b_03161dfe",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T07:48:14Z",
+      "side": 1,
+      "message": "You\u0027re right. I was misreading this. This test method is trying to test AES-CTR, and in order to do that it must be available.",
+      "parentUuid": "723b1413_af22f251",
+      "range": {
+        "startLine": 957,
+        "startChar": 8,
+        "endLine": 957,
+        "endChar": 48
+      },
+      "revId": "d9668eb1a0548031b77b25efb49c3e0d75be1da5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "104e8f9a_8e4db9d1",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ddee6ec_38e51ee2",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T07:48:14Z",
+      "side": 1,
+      "message": "Is this regression still current? I thought we had fixed it. If the regression is fixed, can you remove all these @SkipPresubmits? Doesn\u0027t need to be in this CL I suppose.",
+      "range": {
+        "startLine": 946,
+        "startChar": 4,
+        "endLine": 946,
+        "endChar": 94
+      },
+      "revId": "c531598cf87dbd3c0d42ce59a5c84b96a4b6738e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
