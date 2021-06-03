@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a37ce3f_233758f3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "Instead of adding a new method below, update the callers of this one?",
+      "range": {
+        "startLine": 841,
+        "startChar": 0,
+        "endLine": 845,
+        "endChar": 5
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb603741_1dd48613",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "Could this re-use setWifiMeteredStatusAndWait?",
+      "range": {
+        "startLine": 946,
+        "startChar": 0,
+        "endLine": 947,
+        "endChar": 62
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "195cf09d_82d6bcd8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1624,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "It\u0027s strange for a method called waitForAvailable to take a network that should *not* be available. In particular it will be confusing because the overload just below in line 1637 takes the network that *should* be available.\n\nI guess you\u0027re using this to confirm that the network that becomes available is in fact *newly* available, and was not previously connected, and as such, you don\u0027t know its netId? If so, maybe put this in the method name? Something like waitForAvailableNetworkOtherThan?\n\nAlso, is this actually needed? For example: if |expectedTransport| is sufficient to distinguish the network you want, then you could just remove the unexpectedNetwork parameter.",
+      "range": {
+        "startLine": 1624,
+        "startChar": 41,
+        "endLine": 1624,
+        "endChar": 81
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f3e6e83_c7ff2ce3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1658,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "Nit: I wonder if these methods actually add value, given that they\u0027re just one line each. If you\u0027re using them primarily to reduce verbosity and line wrapping, then maybe you can simply not pass in the timeout and rely on the default timeout of TestableNetworkCallback? Is that timeout too low?",
+      "range": {
+        "startLine": 1648,
+        "startChar": 0,
+        "endLine": 1658,
+        "endChar": 5
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25f70fa3_8ad213d6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "Put this method just after the waitForActiveNetworkMetered method that it relies on?",
+      "range": {
+        "startLine": 2041,
+        "startChar": 0,
+        "endLine": 2046,
+        "endChar": 5
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef14b4c6_0fe22b9a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2087,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "How does this work? If defaultCallback already got onLost for wifiNetwork, then in general there should be no further callbacks for wifiNetwork on defaultNetworkCallback.\n\nonLost is a disconnect, and in general, nothing happens to networks after they disconnect. Are you really observing onLinkPropertiesChanged after onLost?",
+      "range": {
+        "startLine": 2087,
+        "startChar": 12,
+        "endLine": 2087,
+        "endChar": 40
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f93f7dd_00463efe",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "There\u0027s a lot of duplication of setup code here. Would it make sense to merge this test with the previous one? Maybe you can just move the important part of this test (basically, lines 2127-2130) to line 2075 and delete this method entirely?",
+      "range": {
+        "startLine": 2119,
+        "startChar": 0,
+        "endLine": 2122,
+        "endChar": 92
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d9cb73b_1b6b3ee9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2170,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "Nit: since this future doesn\u0027t actually contain anything, CountDownLatch might be more appropriate. Either way.",
+      "range": {
+        "startLine": 2170,
+        "startChar": 27,
+        "endLine": 2170,
+        "endChar": 39
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "761b1240_95bd5d19",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2183,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "Might want to call this setOemNetworkPreferenceForMyPackage.",
+      "range": {
+        "startLine": 2183,
+        "startChar": 17,
+        "endLine": 2183,
+        "endChar": 40
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eedc56bd_f3e86d5a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2202,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T06:18:01Z",
+      "side": 1,
+      "message": "What will happen when this test runs on a car where the OEM has actually used setOemNetworkPreference?\n\nDo we need to restore the preference that was currently set when this test was started? (Is that even possible?)",
+      "range": {
+        "startLine": 2200,
+        "startChar": 0,
+        "endLine": 2202,
+        "endChar": 5
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
