@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8db2126a_c1470625",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T07:39:53Z",
+      "side": 1,
+      "message": "Could we put this into the \n\n    if (0 !\u003d (originalCapabilities \u0026 NET_CAPABILITY_NOT_RESTRICTED)) {\n\nstatement above?\n\nCreating a network with TRANSPORT_TEST | TRANSPORT_CELLULAR and subIds might be realistic enough that some code could get confused.\n\nIf you need the ability to set subIds on a network with arbitrary transports, I think we can live with having this here.",
+      "range": {
+        "startLine": 846,
+        "startChar": 8,
+        "endLine": 846,
+        "endChar": 43
+      },
+      "revId": "a6ea16d090731cf50dc01365b93bb02666ba05d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
