@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21382ce4_59347909",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-03T03:03:09Z",
+      "side": 1,
+      "message": "Identical to ag/13929760 merged into sc-dev.",
+      "revId": "40f2f0674e96b414a150a78b4b6238dfbb473b1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
