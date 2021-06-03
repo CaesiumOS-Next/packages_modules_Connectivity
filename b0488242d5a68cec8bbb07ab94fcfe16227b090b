@@ -45,6 +45,54 @@
       },
       "revId": "b0488242d5a68cec8bbb07ab94fcfe16227b090b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcb379f5_5082ac84",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-03T02:27:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce24abfc_caa35a4f",
+      "range": {
+        "startLine": 427,
+        "startChar": 52,
+        "endLine": 428,
+        "endChar": 46
+      },
+      "revId": "b0488242d5a68cec8bbb07ab94fcfe16227b090b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd3b351c_950e1a0a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-03T02:27:54Z",
+      "side": 1,
+      "message": "No, both will have extra Capabilities need to be clear. So, we remove each one will fail.",
+      "parentUuid": "cc3917af_ee77e9ed",
+      "range": {
+        "startLine": 428,
+        "startChar": 16,
+        "endLine": 428,
+        "endChar": 46
+      },
+      "revId": "b0488242d5a68cec8bbb07ab94fcfe16227b090b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
