@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "188ae79e_aeba5b46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-04T06:18:02Z",
+      "side": 1,
+      "message": "Some style nit:\n\nTest: \u003cthe test you performed\u003e\nBug: 189868426\n\nAlso please format the description so each line could be 70 chars or less.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "4cb355c4ab120a4b0f77b9eb8c579ec03c46e478",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf29259f_88520709",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6186,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-04T06:18:02Z",
+      "side": 1,
+      "message": "It is suprising that the bug could hide in such way.\nCould you kindly modify/add test in ConnectivityServiceTest so we can detect this bug?\nRefer to testNetworkCallbackMaximum",
+      "range": {
+        "startLine": 6186,
+        "startChar": 8,
+        "endLine": 6186,
+        "endChar": 16
+      },
+      "revId": "4cb355c4ab120a4b0f77b9eb8c579ec03c46e478",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
