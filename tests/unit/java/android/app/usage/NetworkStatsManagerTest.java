@@ -26,6 +26,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -49,12 +50,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 
+import java.util.Objects;
+
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class NetworkStatsManagerTest {
 
     private @Mock INetworkStatsService mService;
     private @Mock INetworkStatsSession mStatsSession;
+    private final String mTestSubscriberId = "subid";
 
     private NetworkStatsManager mManager;
 
@@ -69,7 +73,6 @@ public class NetworkStatsManagerTest {
 
     @Test
     public void testQueryDetails() throws RemoteException {
-        final String subscriberId = "subid";
         final long startTime = 1;
         final long endTime = 100;
         final int uid1 = 10001;
@@ -113,7 +116,7 @@ public class NetworkStatsManagerTest {
                 .then((InvocationOnMock inv) -> {
                     NetworkTemplate template = inv.getArgument(0);
                     assertEquals(MATCH_MOBILE_ALL, template.getMatchRule());
-                    assertEquals(subscriberId, template.getSubscriberId());
+                    assertEquals(mTestSubscriberId, template.getSubscriberId());
                     return history1;
                 });
 
@@ -124,13 +127,13 @@ public class NetworkStatsManagerTest {
                 .then((InvocationOnMock inv) -> {
                     NetworkTemplate template = inv.getArgument(0);
                     assertEquals(MATCH_MOBILE_ALL, template.getMatchRule());
-                    assertEquals(subscriberId, template.getSubscriberId());
+                    assertEquals(mTestSubscriberId, template.getSubscriberId());
                     return history2;
                 });
 
 
         NetworkStats stats = mManager.queryDetails(
-                ConnectivityManager.TYPE_MOBILE, subscriberId, startTime, endTime);
+                ConnectivityManager.TYPE_MOBILE, mTestSubscriberId, startTime, endTime);
 
         NetworkStats.Bucket bucket = new NetworkStats.Bucket();
 
@@ -166,40 +169,56 @@ public class NetworkStatsManagerTest {
         assertFalse(stats.hasNextBucket());
     }
 
-    @Test
-    public void testQueryDetails_NoSubscriberId() throws RemoteException {
+    private void runQueryDetailsAndCheckTemplate(int networkType, String subscriberId,
+            NetworkTemplate expectedTemplate) throws RemoteException {
         final long startTime = 1;
         final long endTime = 100;
         final int uid1 = 10001;
         final int uid2 = 10002;
 
+        reset(mStatsSession);
         when(mService.openSessionForUsageStats(anyInt(), anyString())).thenReturn(mStatsSession);
         when(mStatsSession.getRelevantUids()).thenReturn(new int[] { uid1, uid2 });
-
-        NetworkStats stats = mManager.queryDetails(
-                ConnectivityManager.TYPE_MOBILE, null, startTime, endTime);
-
         when(mStatsSession.getHistoryIntervalForUid(any(NetworkTemplate.class),
                 anyInt(), anyInt(), anyInt(), anyInt(), anyLong(), anyLong()))
                 .thenReturn(new NetworkStatsHistory(10, 0));
+        NetworkStats stats = mManager.queryDetails(
+                networkType, subscriberId, startTime, endTime);
 
         verify(mStatsSession, times(1)).getHistoryIntervalForUid(
                 argThat((NetworkTemplate t) ->
-                        // No subscriberId: MATCH_MOBILE_WILDCARD template
-                        t.getMatchRule() == NetworkTemplate.MATCH_MOBILE_WILDCARD),
+                        Objects.equals(expectedTemplate, t)),
                 eq(uid1), eq(android.net.NetworkStats.SET_ALL),
                 eq(android.net.NetworkStats.TAG_NONE),
                 eq(NetworkStatsHistory.FIELD_ALL), eq(startTime), eq(endTime));
 
         verify(mStatsSession, times(1)).getHistoryIntervalForUid(
                 argThat((NetworkTemplate t) ->
-                        // No subscriberId: MATCH_MOBILE_WILDCARD template
-                        t.getMatchRule() == NetworkTemplate.MATCH_MOBILE_WILDCARD),
+                        Objects.equals(expectedTemplate, t)),
                 eq(uid2), eq(android.net.NetworkStats.SET_ALL),
                 eq(android.net.NetworkStats.TAG_NONE),
                 eq(NetworkStatsHistory.FIELD_ALL), eq(startTime), eq(endTime));
 
         assertFalse(stats.hasNextBucket());
+    }
+
+    @Test
+    public void testNetworkTemplateWhenRunningQueryDetails_NoSubscriberId() throws RemoteException {
+        runQueryDetailsAndCheckTemplate(ConnectivityManager.TYPE_MOBILE,
+                null /* subscriberId */, NetworkTemplate.buildTemplateMobileWildcard());
+        runQueryDetailsAndCheckTemplate(ConnectivityManager.TYPE_WIFI,
+                "" /* subscriberId */, NetworkTemplate.buildTemplateWifiWildcard());
+        runQueryDetailsAndCheckTemplate(ConnectivityManager.TYPE_WIFI,
+                null /* subscriberId */, NetworkTemplate.buildTemplateWifiWildcard());
+    }
+
+    @Test
+    public void testNetworkTemplateWhenRunningQueryDetails_MergedCarrierWifi()
+            throws RemoteException {
+        runQueryDetailsAndCheckTemplate(ConnectivityManager.TYPE_WIFI,
+                mTestSubscriberId,
+                NetworkTemplate.buildTemplateWifi(NetworkTemplate.WIFI_NETWORKID_ALL,
+                mTestSubscriberId));
     }
 
     private void assertBucketMatches(Entry expected, NetworkStats.Bucket actual) {
