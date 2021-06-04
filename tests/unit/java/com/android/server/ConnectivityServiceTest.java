@@ -5556,6 +5556,46 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testNetworkCallbackWithPendingIntentMaximum() throws Exception {
+        final int MAX_REQUESTS = 100;
+        final int DIFF_INTENTS = MAX_REQUESTS-1;
+        final int SAME_INTENTS = 10;
+        NetworkRequest networkRequest = new NetworkRequest.Builder().build();
+        ArrayList<PendingIntent> registered = new ArrayList<>();
+        int j = 0;
+        while (j++ < DIFF_INTENTS / 2) {
+            final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0 /* requestCode */,
+                    new Intent("a" + j), FLAG_IMMUTABLE);
+            mCm.requestNetwork(networkRequest, pi);
+            registered.add(pi);
+        }
+        while (j++ < DIFF_INTENTS) {
+            final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0 /* requestCode */,
+                    new Intent("b" + j), FLAG_IMMUTABLE);
+            mCm.registerNetworkCallback(networkRequest, pi);
+            registered.add(pi);
+        }
+        final PendingIntent same_pi = PendingIntent.getBroadcast(mContext, 0 /* requestCode */,
+                new Intent("same"), FLAG_IMMUTABLE);
+        while (j++ < SAME_INTENTS) {
+            mCm.registerNetworkCallback(networkRequest, same_pi);
+        }
+        registered.add(same_pi);
+        assertThrows(TooManyRequestsException.class, () ->
+                mCm.requestNetwork(networkRequest,
+                        PendingIntent.getBroadcast(mContext, 0 /* requestCode */,
+                                new Intent("c"), FLAG_IMMUTABLE))
+        );
+        assertThrows(TooManyRequestsException.class, () ->
+                mCm.registerNetworkCallback(networkRequest,
+                        PendingIntent.getBroadcast(mContext, 0 /* requestCode */,
+                                new Intent("d"), FLAG_IMMUTABLE))
+        );
+        for (PendingIntent pi : registered) {
+            mCm.unregisterNetworkCallback(pi);
+        }
+    }
+    @Test
     public void testNetworkCallbackMaximum() throws Exception {
         final int MAX_REQUESTS = 100;
         final int CALLBACKS = 89;
