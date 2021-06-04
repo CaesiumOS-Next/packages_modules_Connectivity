@@ -46,6 +46,121 @@
       },
       "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "533a572e_933c5051",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-04T03:05:45Z",
+      "side": 1,
+      "message": "Nit: it\u0027s actually the previous/original mode, not the one used by the test; so maybe \"previousMode\" or \"originalMode\" ? (same for hostname)",
+      "range": {
+        "startLine": 588,
+        "startChar": 18,
+        "endLine": 588,
+        "endChar": 26
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc151210_0942f5af",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-04T03:05:45Z",
+      "side": 1,
+      "message": "This belongs to someone, who could decide to make private DNS work on their domain, or anything else\n\nMaybe use invalidhostname.example.com (example.com is maintained as a reserved domain by IANA as per rfc6761).",
+      "range": {
+        "startLine": 592,
+        "startChar": 69,
+        "endLine": 592,
+        "endChar": 88
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1f2417c_563872e2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-04T03:05:45Z",
+      "side": 1,
+      "message": "It would be nice to verify:\n\n  final Network n \u003d mCtsNetUtils.ensureWifiConnected();\n  assertFalse(mCm.getNetworkCapabilities(network).isPrivateDnsBroken())\n\nbefore breaking it",
+      "range": {
+        "startLine": 593,
+        "startChar": 8,
+        "endLine": 593,
+        "endChar": 13
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "579473e4_8c205489",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-04T03:05:45Z",
+      "side": 1,
+      "message": "Just mCtsNetUtils.ensureWifiDisconnected(null) should be enough",
+      "range": {
+        "startLine": 594,
+        "startChar": 12,
+        "endLine": 596,
+        "endChar": 13
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aaea102_7da581ba",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-04T03:05:45Z",
+      "side": 1,
+      "message": "I know I suggested polling, but since this is NetworkCapabilities it would be better to use the callbacks:\n\n  final TestableNetworkCallback cb \u003d new TestableNetworkCallback();\n  mCm.registerNetworkCallback(makeWifiNetworkRequest(), cb);\n  cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, timeout,\n      entry -\u003e network.equals(entry.getNetwork()) \u0026\u0026 entry.getCaps().isPrivateDnsBroken());",
+      "range": {
+        "startLine": 599,
+        "startChar": 24,
+        "endLine": 599,
+        "endChar": 46
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
