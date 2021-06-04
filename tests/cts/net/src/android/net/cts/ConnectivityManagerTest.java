@@ -939,10 +939,7 @@ public class ConnectivityManagerTest {
             // noticeably flaky.
             Thread.sleep(NO_CALLBACK_TIMEOUT_MS);
 
-            // TODO: BUG (b/189868426): this should also apply to listens
-            if (!useListen) {
-                assertEquals("PendingIntent should only be received once", 1, receivedCount.get());
-            }
+            assertEquals("PendingIntent should only be received once", 1, receivedCount.get());
         } finally {
             if (firstIntent != null) mCm.unregisterNetworkCallback(firstIntent);
             if (secondIntent != null) mCm.unregisterNetworkCallback(secondIntent);
@@ -957,8 +954,6 @@ public class ConnectivityManagerTest {
         if (isAtLeastS() && useListen && broadcasted == null) return;
         assertArrayEquals(filed.networkCapabilities.getCapabilities(),
                 broadcasted.networkCapabilities.getCapabilities());
-        // TODO: BUG (b/189868426): this should also apply to listens
-        if (useListen) return;
         assertArrayEquals(filed.networkCapabilities.getTransportTypes(),
                 broadcasted.networkCapabilities.getTransportTypes());
     }
