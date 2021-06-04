@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8fd0836d_f8847fce",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T06:48:07Z",
+      "side": 1,
+      "message": "You could perhaps turn mDaemon into a spy instead of a mock, so that by default its methods will still run as they normally do unless you tell it otherwise . You can do something like:\n\n    doNothing().when(mDaemon).execute(anyString());\n\nThat way, you can still call verify() on maybeStartDaemon if you want, but you can also do things like:\n\n    verify(mDaemon, never()).execute(\"start-service\");\n\nDoesn\u0027t need to be in this CL I guess.",
+      "parentUuid": "8220c2d5_2940ce14",
+      "range": {
+        "startLine": 132,
+        "startChar": 60,
+        "endLine": 132,
+        "endChar": 61
+      },
+      "revId": "c4d4f76ccd4a129bc3ac9719b45dcad7264bb24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8881a386_9fe93b2f",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 1
