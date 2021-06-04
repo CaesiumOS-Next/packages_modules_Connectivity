@@ -166,8 +166,8 @@ public class NetworkStatsManagerTest {
         assertFalse(stats.hasNextBucket());
     }
 
-    @Test
-    public void testQueryDetails_NoSubscriberId() throws RemoteException {
+    private void testQueryDetails_NoSubscriberId(int networkType, String subscriberId,
+            int expectedMatchRule) throws RemoteException {
         final long startTime = 1;
         final long endTime = 100;
         final int uid1 = 10001;
@@ -175,31 +175,46 @@ public class NetworkStatsManagerTest {
 
         when(mService.openSessionForUsageStats(anyInt(), anyString())).thenReturn(mStatsSession);
         when(mStatsSession.getRelevantUids()).thenReturn(new int[] { uid1, uid2 });
-
-        NetworkStats stats = mManager.queryDetails(
-                ConnectivityManager.TYPE_MOBILE, null, startTime, endTime);
-
         when(mStatsSession.getHistoryIntervalForUid(any(NetworkTemplate.class),
                 anyInt(), anyInt(), anyInt(), anyInt(), anyLong(), anyLong()))
                 .thenReturn(new NetworkStatsHistory(10, 0));
 
+        NetworkStats stats = mManager.queryDetails(
+                networkType, subscriberId, startTime, endTime);
+
         verify(mStatsSession, times(1)).getHistoryIntervalForUid(
                 argThat((NetworkTemplate t) ->
-                        // No subscriberId: MATCH_MOBILE_WILDCARD template
-                        t.getMatchRule() == NetworkTemplate.MATCH_MOBILE_WILDCARD),
+                        t.getMatchRule() == expectedMatchRule),
                 eq(uid1), eq(android.net.NetworkStats.SET_ALL),
                 eq(android.net.NetworkStats.TAG_NONE),
                 eq(NetworkStatsHistory.FIELD_ALL), eq(startTime), eq(endTime));
 
         verify(mStatsSession, times(1)).getHistoryIntervalForUid(
                 argThat((NetworkTemplate t) ->
-                        // No subscriberId: MATCH_MOBILE_WILDCARD template
-                        t.getMatchRule() == NetworkTemplate.MATCH_MOBILE_WILDCARD),
+                        t.getMatchRule() == expectedMatchRule),
                 eq(uid2), eq(android.net.NetworkStats.SET_ALL),
                 eq(android.net.NetworkStats.TAG_NONE),
                 eq(NetworkStatsHistory.FIELD_ALL), eq(startTime), eq(endTime));
 
         assertFalse(stats.hasNextBucket());
+    }
+
+    @Test
+    public void testQueryMobileDetails_NullSubscriberId() throws RemoteException {
+        testQueryDetails_NoSubscriberId(ConnectivityManager.TYPE_MOBILE, null /* subscriberId */,
+                NetworkTemplate.MATCH_MOBILE_WILDCARD);
+    }
+
+    @Test
+    public void testQueryWifiDetails_EmptySubscriberId() throws RemoteException {
+        testQueryDetails_NoSubscriberId(ConnectivityManager.TYPE_WIFI, "" /* subscriberId */,
+                NetworkTemplate.MATCH_WIFI_WILDCARD);
+    }
+
+    @Test
+    public void testQueryWifiDetails_NullSubscriberId() throws RemoteException {
+        testQueryDetails_NoSubscriberId(ConnectivityManager.TYPE_WIFI, null /* subscriberId */,
+                NetworkTemplate.MATCH_WIFI_WILDCARD);
     }
 
     private void assertBucketMatches(Entry expected, NetworkStats.Bucket actual) {
