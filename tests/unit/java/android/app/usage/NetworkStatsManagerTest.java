@@ -26,6 +26,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -48,6 +49,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
+
+import java.util.Objects;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -166,40 +169,57 @@ public class NetworkStatsManagerTest {
         assertFalse(stats.hasNextBucket());
     }
 
-    @Test
-    public void testQueryDetails_NoSubscriberId() throws RemoteException {
+    private void runQueryDetailsAndCheckTemplate(int networkType, String subscriberId,
+            NetworkTemplate expectedTemplate) throws RemoteException {
         final long startTime = 1;
         final long endTime = 100;
         final int uid1 = 10001;
         final int uid2 = 10002;
 
+        reset(mStatsSession);
         when(mService.openSessionForUsageStats(anyInt(), anyString())).thenReturn(mStatsSession);
         when(mStatsSession.getRelevantUids()).thenReturn(new int[] { uid1, uid2 });
-
-        NetworkStats stats = mManager.queryDetails(
-                ConnectivityManager.TYPE_MOBILE, null, startTime, endTime);
-
         when(mStatsSession.getHistoryIntervalForUid(any(NetworkTemplate.class),
                 anyInt(), anyInt(), anyInt(), anyInt(), anyLong(), anyLong()))
                 .thenReturn(new NetworkStatsHistory(10, 0));
+        NetworkStats stats = mManager.queryDetails(
+                networkType, subscriberId, startTime, endTime);
 
         verify(mStatsSession, times(1)).getHistoryIntervalForUid(
                 argThat((NetworkTemplate t) ->
-                        // No subscriberId: MATCH_MOBILE_WILDCARD template
-                        t.getMatchRule() == NetworkTemplate.MATCH_MOBILE_WILDCARD),
+                        Objects.equals(expectedTemplate, t)),
                 eq(uid1), eq(android.net.NetworkStats.SET_ALL),
                 eq(android.net.NetworkStats.TAG_NONE),
                 eq(NetworkStatsHistory.FIELD_ALL), eq(startTime), eq(endTime));
 
         verify(mStatsSession, times(1)).getHistoryIntervalForUid(
                 argThat((NetworkTemplate t) ->
-                        // No subscriberId: MATCH_MOBILE_WILDCARD template
-                        t.getMatchRule() == NetworkTemplate.MATCH_MOBILE_WILDCARD),
+                        Objects.equals(expectedTemplate, t)),
                 eq(uid2), eq(android.net.NetworkStats.SET_ALL),
                 eq(android.net.NetworkStats.TAG_NONE),
                 eq(NetworkStatsHistory.FIELD_ALL), eq(startTime), eq(endTime));
 
         assertFalse(stats.hasNextBucket());
+    }
+
+    @Test
+    public void testNetworkTemplateWhenRunningQueryDetails_NoSubscriberId() throws RemoteException {
+        runQueryDetailsAndCheckTemplate(ConnectivityManager.TYPE_MOBILE,
+                null /* subscriberId */, NetworkTemplate.buildTemplateMobileWildcard());
+        runQueryDetailsAndCheckTemplate(ConnectivityManager.TYPE_WIFI,
+                "" /* subscriberId */, NetworkTemplate.buildTemplateWifiWildcard());
+        runQueryDetailsAndCheckTemplate(ConnectivityManager.TYPE_WIFI,
+                null /* subscriberId */, NetworkTemplate.buildTemplateWifiWildcard());
+    }
+
+    @Test
+    public void testNetworkTemplateWhenRunningQueryDetails_MergedCarrierWifi()
+            throws RemoteException {
+        final String testSubscriberId = "testSubscriberId";
+        runQueryDetailsAndCheckTemplate(ConnectivityManager.TYPE_WIFI,
+                testSubscriberId /* subscriberId */,
+                NetworkTemplate.buildTemplateWifi(NetworkTemplate.WIFI_NETWORKID_ALL,
+                testSubscriberId));
     }
 
     private void assertBucketMatches(Entry expected, NetworkStats.Bucket actual) {
