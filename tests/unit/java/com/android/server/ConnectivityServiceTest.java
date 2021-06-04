@@ -5559,9 +5559,11 @@ public class ConnectivityServiceTest {
     public void testNetworkCallbackMaximum() throws Exception {
         final int MAX_REQUESTS = 100;
         final int CALLBACKS = 89;
-        final int INTENTS = 11;
+        final int DIFF_INTENTS = 10;
+        final int SAME_INTENTS = 10; 
         final int SYSTEM_ONLY_MAX_REQUESTS = 250;
-        assertEquals(MAX_REQUESTS, CALLBACKS + INTENTS);
+        //DIFF_INTENTS + CALLBACKS = MAX_REQUESTS-1, leave one to test same intent
+        assertEquals(MAX_REQUESTS, CALLBACKS + DIFF_INTENTS + 1);
 
         NetworkRequest networkRequest = new NetworkRequest.Builder().build();
         ArrayList<Object> registered = new ArrayList<>();
@@ -5578,18 +5580,25 @@ public class ConnectivityServiceTest {
             registered.add(cb);
         }
         j = 0;
-        while (j++ < INTENTS / 2) {
+        while (j++ < DIFF_INTENTS / 2) {
             final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0 /* requestCode */,
                     new Intent("a" + j), FLAG_IMMUTABLE);
             mCm.requestNetwork(networkRequest, pi);
             registered.add(pi);
         }
-        while (j++ < INTENTS) {
+        while (j++ < DIFF_INTENTS) {
             final PendingIntent pi = PendingIntent.getBroadcast(mContext, 0 /* requestCode */,
                     new Intent("b" + j), FLAG_IMMUTABLE);
             mCm.registerNetworkCallback(networkRequest, pi);
             registered.add(pi);
         }
+        j = 0;
+        final PendingIntent same_pi = PendingIntent.getBroadcast(mContext, 0 /* requestCode */,
+                new Intent("same"), FLAG_IMMUTABLE);
+        while (j++ < SAME_INTENTS) {
+            mCm.registerNetworkCallback(networkRequest, same_pi);
+        }
+        registered.add(same_pi);
 
         // Test that the limit is enforced when MAX_REQUESTS simultaneous requests are added.
         assertThrows(TooManyRequestsException.class, () ->
