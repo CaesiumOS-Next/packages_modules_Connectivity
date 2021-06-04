@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "783651a7_9959666d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T09:17:21Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "27ebc5f26896d94df28478fa5380c5aee62aec25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71ef76d5_61a6330c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 7394,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T09:17:21Z",
+      "side": 1,
+      "message": "Do we actually send a proxy broadcast when any default network changes proxy? I\u0027m pretty sure we do send a broadcast when the system default network changes proxy, but not sure about when a per-app default network changes proxy. If we don\u0027t, then we probably should. Doesn\u0027t need to be in this CL, but maybe add a TODO?",
+      "range": {
+        "startLine": 7394,
+        "startChar": 65,
+        "endLine": 7394,
+        "endChar": 94
+      },
+      "revId": "27ebc5f26896d94df28478fa5380c5aee62aec25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "753b53c9_36cffe72",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T09:17:21Z",
+      "side": 1,
+      "message": "IIRC this is not needed because connect(true) waits for a NetworkCallback. If so, you can remove it.",
+      "range": {
+        "startLine": 10103,
+        "startChar": 8,
+        "endLine": 10103,
+        "endChar": 22
+      },
+      "revId": "27ebc5f26896d94df28478fa5380c5aee62aec25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c23216aa_9fcd9ad8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T09:17:21Z",
+      "side": 1,
+      "message": "Maybe also check that mCm.getDefaultProxy() returns null?",
+      "range": {
+        "startLine": 10104,
+        "startChar": 53,
+        "endLine": 10104,
+        "endChar": 54
+      },
+      "revId": "27ebc5f26896d94df28478fa5380c5aee62aec25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cadf6c1_f970d682",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10142,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T09:17:21Z",
+      "side": 1,
+      "message": "Can you also test that the broadcast is sent when:\n- the proxy is removed\n- a proxy is added to the wifi network\n?",
+      "range": {
+        "startLine": 10142,
+        "startChar": 4,
+        "endLine": 10142,
+        "endChar": 5
+      },
+      "revId": "27ebc5f26896d94df28478fa5380c5aee62aec25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d867e9f7_33fabbaf",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 10169,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T09:17:21Z",
+      "side": 1,
+      "message": "Does it actually matter whether the underlying network of the VPN has a proxy? If not, maybe remove this text?",
+      "range": {
+        "startLine": 10169,
+        "startChar": 43,
+        "endLine": 10169,
+        "endChar": 84
+      },
+      "revId": "27ebc5f26896d94df28478fa5380c5aee62aec25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
