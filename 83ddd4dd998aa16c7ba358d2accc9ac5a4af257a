@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d21a9d05_0485611b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-04T02:35:36Z",
+      "side": 1,
+      "message": "So as per discussion, this is not necessary ? (You could just remove all calls to isAtLeastS in the class while you\u0027re at it)",
+      "range": {
+        "startLine": 356,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 36
+      },
+      "revId": "83ddd4dd998aa16c7ba358d2accc9ac5a4af257a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e003ef2_a7b79c57",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-04T02:35:36Z",
+      "side": 1,
+      "message": "Nit: the syntax you used above:\n  \n  val (agent, callback) \u003d ...\n  \navoids nesting a large block of code (generally it\u0027s clearer to avoid nesting when possible)",
+      "range": {
+        "startLine": 409,
+        "startChar": 52,
+        "endLine": 409,
+        "endChar": 55
+      },
+      "revId": "83ddd4dd998aa16c7ba358d2accc9ac5a4af257a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
