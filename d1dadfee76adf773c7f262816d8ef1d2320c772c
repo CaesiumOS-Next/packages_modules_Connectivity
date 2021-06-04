@@ -77,6 +77,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9892a33c_98fc07ca",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9990,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-04T01:08:16Z",
+      "side": 1,
+      "message": "Yeah, no problem on the question and to answer it, yes, the preference applies to all users,",
+      "parentUuid": "458ad23e_329f4691",
+      "range": {
+        "startLine": 9990,
+        "startChar": 31,
+        "endLine": 9990,
+        "endChar": 52
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c081a206_efc06fec",
@@ -90,6 +114,30 @@
       "writtenOn": "2021-06-03T11:18:10Z",
       "side": 1,
       "message": "Sorry for lack of context.\nIt takes me a lot of time to know what\u0027s inside the object.\nMaybe add comments about the key and value stored in the structure?",
+      "range": {
+        "startLine": 9991,
+        "startChar": 44,
+        "endLine": 9991,
+        "endChar": 48
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc42236d_cff64763",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9991,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-04T01:08:16Z",
+      "side": 1,
+      "message": "I see what you mean. Instead of a comment, I renamed the variable to better indicate what\u0027s inside which also aligns with the other comment you have on here.",
+      "parentUuid": "c081a206_efc06fec",
       "range": {
         "startLine": 9991,
         "startChar": 44,
@@ -123,6 +171,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "626ca4e0_4f6ec59a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10011,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-04T01:08:16Z",
+      "side": 1,
+      "message": "Agree on the naming. I went instead with prefToUids. Feel free to reopen if you\u0027d rather have uidsForPreference.",
+      "parentUuid": "f6ccdfe1_6de7f3ed",
+      "range": {
+        "startLine": 10011,
+        "startChar": 24,
+        "endLine": 10011,
+        "endChar": 48
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9c019a8_fd8e2b5d",
@@ -146,6 +218,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "154f374c_95045ad8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10526,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-04T01:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9c019a8_fd8e2b5d",
+      "range": {
+        "startLine": 10526,
+        "startChar": 57,
+        "endLine": 10526,
+        "endChar": 66
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "551ed6bc_94f259eb",
@@ -159,6 +255,30 @@
       "writtenOn": "2021-06-03T11:18:10Z",
       "side": 1,
       "message": "IIUC the none of the tests verify the case you mentioned in the commit message, right?\nMaybe modify the test case with the scenario you mentioned (app removed for user 0) if it is not too hard?",
+      "range": {
+        "startLine": 10537,
+        "startChar": 8,
+        "endLine": 10537,
+        "endChar": 30
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ce2315f_f64862cd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10537,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-04T01:08:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "551ed6bc_94f259eb",
       "range": {
         "startLine": 10537,
         "startChar": 8,
