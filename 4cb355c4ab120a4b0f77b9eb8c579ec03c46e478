@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f600b83_f67b4b3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-04T22:09:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "188ae79e_aeba5b46",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "4cb355c4ab120a4b0f77b9eb8c579ec03c46e478",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf29259f_88520709",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-04T06:18:02Z",
       "side": 1,
       "message": "It is suprising that the bug could hide in such way.\nCould you kindly modify/add test in ConnectivityServiceTest so we can detect this bug?\nRefer to testNetworkCallbackMaximum",
+      "range": {
+        "startLine": 6186,
+        "startChar": 8,
+        "endLine": 6186,
+        "endChar": 16
+      },
+      "revId": "4cb355c4ab120a4b0f77b9eb8c579ec03c46e478",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a433ba2_e54bee99",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6186,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-04T22:09:36Z",
+      "side": 1,
+      "message": "Junyu,  some questions about ConnectivityServiceTest\n1. What\u0027s your thought about testing this case ? registerNetworkCallback with diff PendingIntent 99 times, then registerNetworkCallback with Same PendingIntent 10 times, expect no TooManyRequestsException ?\n2. plz suggest a function name to test this case: \"testNetworkRequestsWithSamePendingIntent\" ?\n3. I think , to run cases in ConnectivityServiceTest, that need env to run \"atest\". I may not have env to run that. Will Google system auto execute it before merging the gerrit ?\n4. the \"Test: \u003cthe test you performed\u003e\" in gerrit comment need to list this new added test case,  or not ? if yes,  what\u0027s the correct format ?",
+      "parentUuid": "cf29259f_88520709",
       "range": {
         "startLine": 6186,
         "startChar": 8,
