@@ -1247,6 +1247,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public boolean getCellular464XlatEnabled() {
             return NetworkProperties.isCellular464XlatEnabled().orElse(true);
         }
+
+        /**
+         * @see PendingIntent#intentFilterEquals
+         */
+        public boolean intentFilterEquals(PendingIntent a, PendingIntent b) {
+            return a.intentFilterEquals(b);
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -3892,7 +3899,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (Map.Entry<NetworkRequest, NetworkRequestInfo> entry : mNetworkRequests.entrySet()) {
             PendingIntent existingPendingIntent = entry.getValue().mPendingIntent;
             if (existingPendingIntent != null &&
-                    existingPendingIntent.intentFilterEquals(pendingIntent)) {
+                    mDeps.intentFilterEquals(existingPendingIntent, pendingIntent)) {
                 return entry.getValue();
             }
         }
