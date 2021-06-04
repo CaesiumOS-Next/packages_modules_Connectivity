@@ -285,6 +285,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1ea37d3_4ff2cb48",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2087,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T09:27:57Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s what\u0027s happening. If wifi were disconnecting and reconnecting, then the new wifi network would be a different Network object, and also the callbacks would see onAvailable, onCapabilitiesChanged, etc. and not just onLinkPropertiesChanged. Can you check what the callback actually contains? It could be a bug in ConnectivityService...",
+      "parentUuid": "88ba14c7_c2e3a58e",
+      "range": {
+        "startLine": 2087,
+        "startChar": 12,
+        "endLine": 2087,
+        "endChar": 40
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f93f7dd_00463efe",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 10
@@ -461,6 +485,30 @@
       "side": 1,
       "message": "Unfortunately, we don\u0027t have any way of setting the policy again AFAIK to what it was previously since there is no API to GET the existing policy therefore if an OEM were to run this test after a policy was set, they would need to reapply the policy after.\n\nI added a comment to that effect. We could always add an API in the future for this if needed but feel free to reopen/comment further if you think we can do more. Thanks!",
       "parentUuid": "eedc56bd_f3e86d5a",
+      "range": {
+        "startLine": 2200,
+        "startChar": 0,
+        "endLine": 2202,
+        "endChar": 5
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "032097cc_b3de40e8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2202,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-04T09:27:57Z",
+      "side": 1,
+      "message": "Ack. this is not great, but at least it\u0027s clearly stated in the comments.",
+      "parentUuid": "774b4978_723a3449",
       "range": {
         "startLine": 2200,
         "startChar": 0,
