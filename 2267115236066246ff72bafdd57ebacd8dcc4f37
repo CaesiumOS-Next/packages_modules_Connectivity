@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e6e426_ef5653fd",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-06T16:21:34Z",
+      "side": 1,
+      "message": "Nit: \"http://localhost:${httpServer.listeningPort}$path\"",
+      "range": {
+        "startLine": 212,
+        "startChar": 40,
+        "endLine": 212,
+        "endChar": 93
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07d3a357_3631c744",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-06T16:21:34Z",
+      "side": 1,
+      "message": "configTestServer(Status.INTERNAL_ERROR)",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 51
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d534d1f_7e678617",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-06T16:21:34Z",
+      "side": 1,
+      "message": "Should we verify the returning network is same as l.267?",
+      "range": {
+        "startLine": 276,
+        "startChar": 12,
+        "endLine": 276,
+        "endChar": 41
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0949219c_15a17171",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-06T16:21:34Z",
+      "side": 1,
+      "message": "IIUC this is incorrect. If wifi was disconnected before test, we shouldn\u0027t make wifi as connected state after test. You should record wifi state and restore it after test.",
+      "range": {
+        "startLine": 280,
+        "startChar": 12,
+        "endLine": 280,
+        "endChar": 27
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36dcb74b_a8c403c6",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-06T16:21:34Z",
+      "side": 1,
+      "message": "makeWifiRequest()?",
+      "range": {
+        "startLine": 313,
+        "startChar": 30,
+        "endLine": 313,
+        "endChar": 95
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf2d7a68_e8439cfc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-06T16:21:34Z",
+      "side": 1,
+      "message": "Same as l.267. Should we verifty network \u003d\u003d lostNetwork?",
+      "range": {
+        "startLine": 326,
+        "startChar": 16,
+        "endLine": 326,
+        "endChar": 27
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52201038_c76f8812",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-06T16:21:34Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 333,
+        "startChar": 12,
+        "endLine": 333,
+        "endChar": 39
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
