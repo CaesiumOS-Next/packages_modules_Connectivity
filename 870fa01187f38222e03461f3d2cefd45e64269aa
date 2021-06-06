@@ -307,6 +307,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a439eb6_6961e35c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2087,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-06T00:22:03Z",
+      "side": 1,
+      "message": "You\u0027re right regarding it not being Wi-fi going from down to up. Looking into it some more, the history of the callback at this point is:\n ...\n Lost -\u003e Wi-fi\n LinkPropertiesChanged -\u003e Wi-fi\n Available -\u003e Test network\n Cap Changed -\u003e Test network\n LinkPropertiesChanged -\u003e Test network\n ...\n \n\nTherefore it looks to be as you expect minus the LinkPropertiesChanged on Wi-fi after the lost.\n\nDebugging the code, it looks like this is all happening in ConnectivityService#disconnectAndDestroyNetwork.\n\nFirst CALLBACK_LOST is sent here:\nhttp://cs/android/packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java?l\u003d3770\n\nThen, prior to destroying the network,  CALLBACK_IP_CHANGED is sent by nai.clatd.update() here:\nnai.clatd.update() -\u003e Nat464Xlat#stop -\u003e ConnectivityService#handleUpdateLinkProperties...\nhttps://source.corp.google.com/android/packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d3780?q\u003ddisconnectanddestroy%20f:connectivityservice.java\u0026sq\u003dpackage:%5Eandroid$\n\nI took a quick look at Android 11 and it looks like it has the same flow in there as well for disconnectAndDestroyNetwork:\n    - send lost\n    - do nai.clatd.update()\n    \n\nTherefore this looks to be expected? Feel free to reopen in case I missed something. Thanks.",
+      "parentUuid": "e1ea37d3_4ff2cb48",
+      "range": {
+        "startLine": 2087,
+        "startChar": 12,
+        "endLine": 2087,
+        "endChar": 40
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f93f7dd_00463efe",
