@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "935e6740_3fc81fec",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:40:44Z",
+      "side": 1,
+      "message": "Nit: Android generally prefers ArraySet for small sets.",
+      "range": {
+        "startLine": 669,
+        "startChar": 68,
+        "endLine": 669,
+        "endChar": 75
+      },
+      "revId": "56a0d53e9389e9a00ea931814933e2ad05331118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
