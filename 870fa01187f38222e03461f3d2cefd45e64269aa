@@ -333,6 +333,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0c05ccd_41e11e1b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2087,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T07:35:34Z",
+      "side": 1,
+      "message": "If the LinkProperties update only happens on 464xlat networks, then will this test fail on networks that don\u0027t have 464xlat? If so then we can\u0027t check it in as is.\n\nI uploaded aosp/1727829 to prevent the system from sending that spurious LinkProperties update. Does that LGTY?",
+      "parentUuid": "4a439eb6_6961e35c",
+      "range": {
+        "startLine": 2087,
+        "startChar": 12,
+        "endLine": 2087,
+        "endChar": 40
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f93f7dd_00463efe",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 10
