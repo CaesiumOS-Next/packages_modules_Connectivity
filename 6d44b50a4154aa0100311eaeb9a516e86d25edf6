@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc233a45_4ab14672",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2021-06-07T07:46:31Z",
+      "side": 1,
+      "message": "The correct order of set up interface would be \n 1. networkAddInterface(newIface)\n 2. networkAddRoute(newIface)\n 3. networkRemoveRoute(oldIface)\n 4. networkRemoveInterface(oldIface)\n\nBut the order of firewall stuff might need to be the same because firewallRemoveUidInterfaceRules would remove all matched uids directly.\n\nHence, iirc it could be,\n 1. networkAddInterface(newIface)\n 2. networkAddRoute(newIface)\n 3. networkRemoveRoute(oldIface)\n 4. networkRemoveInterface(oldIface)\n 5. firewallRemoveUidInterfaceRules() \n 6. firewallAddUidInterfaceRules(newIface)\n\nOr\n 1. networkAddInterface(newIface)\n 2. networkAddRoute(newIface)\n 3. firewallRemoveUidInterfaceRules() \n 4. firewallAddUidInterfaceRules(newIface) \n 5. networkRemoveRoute(oldIface)\n 6. networkRemoveInterface(oldIface)",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "6d44b50a4154aa0100311eaeb9a516e86d25edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
