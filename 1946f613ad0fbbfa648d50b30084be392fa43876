@@ -34,6 +34,121 @@
       "parentUuid": "aaeb77d5_ffd8d0c7",
       "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa00b90d_95445c59",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3034,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T04:18:38Z",
+      "side": 1,
+      "message": "Not sure why we need 2 titles ( the other one is l.2899)?\nMaybe just keep one of them?",
+      "range": {
+        "startLine": 3034,
+        "startChar": 8,
+        "endLine": 3034,
+        "endChar": 50
+      },
+      "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aad63c9_c8b061bc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3043,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T04:18:38Z",
+      "side": 1,
+      "message": "IIUC some of the requests are from enterprise slicing as well?",
+      "range": {
+        "startLine": 3043,
+        "startChar": 55,
+        "endLine": 3043,
+        "endChar": 78
+      },
+      "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f10d6115_76429936",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3051,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T04:18:38Z",
+      "side": 1,
+      "message": "It seems to me this boolean is redundant information since we can know this with the content of below output.\nIs it clearer if we do:\n\nActive per-app network:\n   Satisfier: [\"no serivce network\" | \u003cnetid\u003e | \"null\"] Tracked UIDs: ...\n   Satisfier: [\"no serivce network\" | \u003cnetid\u003e | \"null\"] Tracked UIDs: ...\n   ...",
+      "range": {
+        "startLine": 3051,
+        "startChar": 11,
+        "endLine": 3051,
+        "endChar": 33
+      },
+      "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bba2aef_30ad153c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3054,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T04:18:38Z",
+      "side": 1,
+      "message": "I\u0027m a little worried about comparing object reference.\nIs it feasible to use mNoServiceNetwork.equals(...)?",
+      "range": {
+        "startLine": 3054,
+        "startChar": 40,
+        "endLine": 3054,
+        "endChar": 41
+      },
+      "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3f9135d_5e1e1eb7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3056,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T04:18:38Z",
+      "side": 1,
+      "message": "Not sure why we need this if this is constant for no service network.",
+      "range": {
+        "startLine": 3056,
+        "startChar": 48,
+        "endLine": 3056,
+        "endChar": 53
+      },
+      "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
