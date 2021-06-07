@@ -22,6 +22,30 @@
       },
       "revId": "c531598cf87dbd3c0d42ce59a5c84b96a4b6738e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f904dcc_c214aecb",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-07T22:17:00Z",
+      "side": 1,
+      "message": "All @SkipPresubmits removed in aosp/1729418\n\nI uploaded new patches to remove @SkipPresubmit in this CL and aosp/1690132 before carefully reading this comment. Now I have reverted them. Can you re +2 this CL and aosp/1690132?",
+      "parentUuid": "8ddee6ec_38e51ee2",
+      "range": {
+        "startLine": 946,
+        "startChar": 4,
+        "endLine": 946,
+        "endChar": 94
+      },
+      "revId": "c531598cf87dbd3c0d42ce59a5c84b96a4b6738e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
