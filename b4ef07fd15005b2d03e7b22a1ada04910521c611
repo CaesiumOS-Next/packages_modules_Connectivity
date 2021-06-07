@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5ad91c0_70fa39d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1787007
+      },
+      "writtenOn": "2021-06-07T11:18:22Z",
+      "side": 1,
+      "message": "We are in the process of requesting mainline modules to stop using baselines and address their problems individually to reduce the risk of run-time crashes.\n\nRather than adding these findings to a baseline file, assuming you know they are never called on API 30, can you `@SuppressLint(\"NewApi\")` or `@TargetSdk(31)` instead?\n\n(Update: in chat, reminv@ said he will fix this in AOSP after the CP)",
+      "revId": "b4ef07fd15005b2d03e7b22a1ada04910521c611",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
