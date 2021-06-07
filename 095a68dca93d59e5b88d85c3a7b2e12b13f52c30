@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1132f0b5_edaa7d1f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-07T17:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "533a572e_933c5051",
+      "range": {
+        "startLine": 588,
+        "startChar": 18,
+        "endLine": 588,
+        "endChar": 26
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc151210_0942f5af",
@@ -84,6 +108,30 @@
       "writtenOn": "2021-06-04T03:05:45Z",
       "side": 1,
       "message": "This belongs to someone, who could decide to make private DNS work on their domain, or anything else\n\nMaybe use invalidhostname.example.com (example.com is maintained as a reserved domain by IANA as per rfc6761).",
+      "range": {
+        "startLine": 592,
+        "startChar": 69,
+        "endLine": 592,
+        "endChar": 88
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97ecf59d_a8ab4ad4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-07T17:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc151210_0942f5af",
       "range": {
         "startLine": 592,
         "startChar": 69,
@@ -140,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b6d75b3_93abeb31",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-07T17:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "579473e4_8c205489",
+      "range": {
+        "startLine": 594,
+        "startChar": 12,
+        "endLine": 596,
+        "endChar": 13
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1aaea102_7da581ba",
@@ -153,6 +225,30 @@
       "writtenOn": "2021-06-04T03:05:45Z",
       "side": 1,
       "message": "I know I suggested polling, but since this is NetworkCapabilities it would be better to use the callbacks:\n\n  final TestableNetworkCallback cb \u003d new TestableNetworkCallback();\n  mCm.registerNetworkCallback(makeWifiNetworkRequest(), cb);\n  cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, timeout,\n      entry -\u003e network.equals(entry.getNetwork()) \u0026\u0026 entry.getCaps().isPrivateDnsBroken());",
+      "range": {
+        "startLine": 599,
+        "startChar": 24,
+        "endLine": 599,
+        "endChar": 46
+      },
+      "revId": "095a68dca93d59e5b88d85c3a7b2e12b13f52c30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d454ae1_96e94b78",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-07T17:38:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aaea102_7da581ba",
       "range": {
         "startLine": 599,
         "startChar": 24,
