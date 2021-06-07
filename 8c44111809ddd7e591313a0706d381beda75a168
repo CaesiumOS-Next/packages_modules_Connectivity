@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "982bd430_2aea6a0e",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-07T03:54:49Z",
+      "side": 1,
+      "message": "tetherOffloadClientClear() won\u0027t be called in test case #a, because changing upstream from rawip to ether \u003cnot support\u003e interface doesn\u0027t call stopIPv4() \u003cdownstream alive\u003e.\n\na. Loss upstream interface while tethering\n  1. Enable WIFI tethering\n  2. Disable upstream interface\n  3. Check the rules are removed.",
+      "parentUuid": "2ed433c6_2e5bc555",
+      "range": {
+        "startLine": 1290,
+        "startChar": 12,
+        "endLine": 1290,
+        "endChar": 36
+      },
+      "revId": "8c44111809ddd7e591313a0706d381beda75a168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31959709_4df04fa0",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 13

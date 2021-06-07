@@ -22,6 +22,30 @@
       },
       "revId": "50cd2aa57d4d707559f8b95ca8606ae66389e29e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9a4c302_96ef6cc1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-07T03:54:49Z",
+      "side": 1,
+      "message": "Yes, I will update in next patchset. Thank you",
+      "parentUuid": "27058ab6_be0b2aa4",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 717,
+        "endChar": 81
+      },
+      "revId": "50cd2aa57d4d707559f8b95ca8606ae66389e29e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
