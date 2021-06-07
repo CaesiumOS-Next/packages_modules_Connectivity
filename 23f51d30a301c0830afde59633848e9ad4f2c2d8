@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e010d5c_5d3ab833",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "411945d1_e69c6f28",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "Why is this SentenceCase? This is a method, not a class. Shouldn\u0027t it be camelCase? Also, why rename the test at all? It tests the same thing that it tested before this CL, right?",
+      "range": {
+        "startLine": 476,
+        "startChar": 16,
+        "endLine": 476,
+        "endChar": 47
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b16b12e_85cec3f8",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "Why place this requirement? It would be easier to use this class if it took care of adopting the shell permission identity whenever it needed it.\n\nI think adoptShellPermissionIdentity calls don\u0027t nest, so you can\u0027t just adopt/drop shell permission identity in this class, because if the caller had already adopted the permission identity, then this class would drop it.\n\nBut perhaps you could call checkPermission to see if the code has the MANAGE_TEST_NETWORKS_PERMISSION, and if it doesn\u0027t, then adopt the shell permission identity and note that fact? Might be as simple as:\n\n    private void runWithManageTestNetworksPermission(ThrowingRunnable r) {\n        if (sContext.checkSelfPermission(MANAGE_TEST_NETWORKS)) {\n            r.run();\n        } else {\n            runWithShellPermissionIdentity(r, MANAGE_TEST_NETWORKS);\n        }\n    }",
+      "range": {
+        "startLine": 36,
+        "startChar": 59,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d61791f_447d68be",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "Suggest renaming to sContext.",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 40
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80856e5c_56a654de",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "Suggest sCm or sConnectivityManager.",
+      "range": {
+        "startLine": 44,
+        "startChar": 45,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16344847_87fc2317",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "Could these lines be outside the try block? It\u0027s generally good practice to make try blocks as short as possible, and these lines don\u0027t allocate any resources that might need to be freed later.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 13
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdc939fd_30162b5a",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "Can this be out of the try block as well?",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 76,
+        "endChar": 69
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d33e0d_8b40ac0c",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "Suggest putting this in a try/catch of its own. That ensures that if it throws, the rest of the cleanup steps are still executed.",
+      "range": {
+        "startLine": 81,
+        "startChar": 12,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18bbcbcb_8d985047",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "I think you don\u0027t need public here because all interface methods are public by default.",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 14
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bdf5acd_25d01b77",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:07:25Z",
+      "side": 1,
+      "message": "Suggest adding a default implementation that returns something sensible (e.g, 192.2.0.2 and 2001:db8:1::2).",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 14
+      },
+      "revId": "23f51d30a301c0830afde59633848e9ad4f2c2d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
