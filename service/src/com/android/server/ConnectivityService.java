@@ -6581,6 +6581,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + networkCapabilities + " vs. " + defaultNc);
         }
 
+        String opStr = getNetworkTypeOpstr(networkCapabilities);
+        if (opStr != null) {
+            int mode = mAppOpsManager.noteOpNoThrow(opStr, nri.mUid, callingPackageName,
+                    callingAttributionTag, null);
+            if (mode != AppOpsManager.MODE_ALLOWED && mode != AppOpsManager.MODE_DEFAULT) {
+                if (DDBG) {
+                    log("requestNetwork: Calling app has the permission that run this API,"
+                            + " but it cannot be called because run is restricted via app ops.");
+                }
+                throw new SecurityException("Network request is restricted via app ops.");
+            }
+        }
+
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_REGISTER_NETWORK_REQUEST, nri));
         if (timeoutMs > 0) {
             mHandler.sendMessageDelayed(mHandler.obtainMessage(EVENT_TIMEOUT_NETWORK_REQUEST,
@@ -11215,5 +11228,31 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    private String getNetworkTypeOpstr(NetworkCapabilities netCap) {
+        String retStr = null;
+        if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+            retStr = AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_CELLULAR;
+        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+            retStr = AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_WIFI;
+        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
+            retStr = AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_BLUETOOTH;
+        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+            retStr = null;
+        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+            retStr = null;
+        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
+            retStr = null;
+        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_LOWPAN)) {
+            retStr = null;
+        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_TEST)) {
+            retStr = null;
+        } else if (netCap.hasTransport(NetworkCapabilities.TRANSPORT_USB)) {
+            retStr = null;
+        } else {
+            retStr = AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_DEFAULT;
+        }
+        return retStr;
     }
 }

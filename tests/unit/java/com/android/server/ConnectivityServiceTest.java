@@ -107,6 +107,7 @@ import static android.net.NetworkCapabilities.REDACT_FOR_ACCESS_FINE_LOCATION;
 import static android.net.NetworkCapabilities.REDACT_FOR_LOCAL_MAC_ADDRESS;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.REDACT_NONE;
+import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
@@ -15568,5 +15569,61 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         assertNull(readHead.poll(TEST_CALLBACK_TIMEOUT_MS, it -> true));
+    }
+
+    @Test
+    public void testNotifyNetworkTypeWithAppOpsTypeNotSpecified() throws Exception {
+        // Test app ops on network request that transport type is not specified.
+        final TestNetworkCallback defaultNetworkCallback = new TestNetworkCallback();
+        final NetworkRequest defaultRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build();
+        mCm.requestNetwork(defaultRequest, defaultNetworkCallback);
+
+        verify(mAppOpsManager).noteOpNoThrow(
+                eq(AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_DEFAULT), anyInt(),
+                eq(mContext.getPackageName()), eq(null), eq(null));
+    }
+
+    @Test
+    public void testNotifyNetworkTypeWithAppOpsOnCellular() throws Exception {
+        // Test app ops on network request that transport type is specified cellular.
+        final TestNetworkCallback cellNetworkCallback = new TestNetworkCallback();
+        final NetworkRequest cellRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addTransportType(TRANSPORT_CELLULAR).build();
+        mCm.requestNetwork(cellRequest, cellNetworkCallback);
+
+        verify(mAppOpsManager).noteOpNoThrow(
+                eq(AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_CELLULAR), anyInt(),
+                eq(mContext.getPackageName()), eq(null), eq(null));
+    }
+
+    @Test
+    public void testNotifyNetworkTypeWithAppOpsOnWifi() throws Exception {
+        // Test app ops on network request that transport type is specified Wi-Fi.
+        final TestNetworkCallback wifiNetworkCallback = new TestNetworkCallback();
+        final NetworkRequest wifiRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addTransportType(TRANSPORT_WIFI).build();
+        mCm.requestNetwork(wifiRequest, wifiNetworkCallback);
+
+        verify(mAppOpsManager).noteOpNoThrow(
+                eq(AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_WIFI), anyInt(),
+                eq(mContext.getPackageName()), eq(null), eq(null));
+    }
+
+    @Test
+    public void testNotifyNetworkTypeWithAppOpsOnBluetooth() throws Exception {
+       // Test app ops on network request that transport type is specified BlueTooth.
+        final TestNetworkCallback bluetoothNetworkCallback = new TestNetworkCallback();
+        final NetworkRequest bluetoothRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addTransportType(TRANSPORT_BLUETOOTH).build();
+        mCm.requestNetwork(bluetoothRequest, bluetoothNetworkCallback);
+
+        verify(mAppOpsManager).noteOpNoThrow(
+                eq(AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_BLUETOOTH), anyInt(),
+                eq(mContext.getPackageName()), eq(null), eq(null));
     }
 }
