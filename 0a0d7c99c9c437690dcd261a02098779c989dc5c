@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "176380a4_7908cadc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10327,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T16:00:44Z",
+      "side": 0,
+      "message": "Optional: is it worth keeping this as well, and special casing user 0? Something like:\n\n            when(mPackageManager.getApplicationInfoAsUser(eq(packageName), anyInt(), eq(user)))\n                    .thenReturn(applicationInfo);\n            if (PRIMARY_USER_HANDLE.equals(user)) {\n                when(mPackageManager.getApplicationInfo(eq(packageName), anyInt()))\n                        .thenReturn(applicationInfo);\n            }",
+      "range": {
+        "startLine": 10326,
+        "startChar": 0,
+        "endLine": 10327,
+        "endChar": 49
+      },
+      "revId": "0a0d7c99c9c437690dcd261a02098779c989dc5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

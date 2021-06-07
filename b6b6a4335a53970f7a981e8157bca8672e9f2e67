@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a923aba7_3d0d31d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T16:00:44Z",
+      "side": 1,
+      "message": "LGTM except what happens if users are added or removed? (See inline comment.)",
+      "revId": "b6b6a4335a53970f7a981e8157bca8672e9f2e67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b089e22_90f4b553",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10083,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T16:00:44Z",
+      "side": 1,
+      "message": "What happens when users are added or removed? Will the preferences set by this method become stale? Or will another system component call this method again?",
+      "range": {
+        "startLine": 10083,
+        "startChar": 65,
+        "endLine": 10083,
+        "endChar": 79
+      },
+      "revId": "b6b6a4335a53970f7a981e8157bca8672e9f2e67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
