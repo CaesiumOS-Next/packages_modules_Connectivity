@@ -139,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67e5914a_6687b5b4",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T13:37:16Z",
+      "side": 1,
+      "message": "Also: can you simply do:\n\n    verifyDaemonCommand(\"start-service\");\n\n?",
+      "parentUuid": "a45ee283_9aee050b",
+      "range": {
+        "startLine": 132,
+        "startChar": 60,
+        "endLine": 132,
+        "endChar": 61
+      },
+      "revId": "c4d4f76ccd4a129bc3ac9719b45dcad7264bb24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8881a386_9fe93b2f",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 1
