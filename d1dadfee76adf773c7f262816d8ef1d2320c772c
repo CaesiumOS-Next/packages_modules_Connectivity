@@ -287,6 +287,30 @@
       },
       "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ab7fe2_daa48a8f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10537,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T03:43:15Z",
+      "side": 1,
+      "message": "Make the test explicit is also good.\nBut as a trade off of code side I\u0027ll prefer removing test package removed for first user, and maybe add mock for 3rd user since it is less code and the coverage is the same.",
+      "parentUuid": "6ce2315f_f64862cd",
+      "range": {
+        "startLine": 10537,
+        "startChar": 8,
+        "endLine": 10537,
+        "endChar": 30
+      },
+      "revId": "d1dadfee76adf773c7f262816d8ef1d2320c772c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

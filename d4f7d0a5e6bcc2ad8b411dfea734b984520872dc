@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c42c2a7_beaf8c3a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10579,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T03:43:15Z",
+      "side": 1,
+      "message": "nit: maybe define SECOND_USER_HANDLE as well given that this is second test use that.",
+      "range": {
+        "startLine": 10579,
+        "startChar": 76,
+        "endLine": 10579,
+        "endChar": 92
+      },
+      "revId": "d4f7d0a5e6bcc2ad8b411dfea734b984520872dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33c470b1_280e856b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10597,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T03:43:15Z",
+      "side": 1,
+      "message": "nit: After this CL https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1716396/3/service/src/com/android/server/ConnectivityService.java#5635\nIIUC you can use nris.get(0).getUids().\nOr you can keep this as is if you don\u0027t want to reabse.",
+      "range": {
+        "startLine": 10597,
+        "startChar": 32,
+        "endLine": 10597,
+        "endChar": 44
+      },
+      "revId": "d4f7d0a5e6bcc2ad8b411dfea734b984520872dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
