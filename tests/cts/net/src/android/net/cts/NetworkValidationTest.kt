@@ -36,8 +36,10 @@ import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.net.Uri
 import android.net.ConnectivityManager.NetworkCallback
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
+import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.cts.NetworkValidationTestUtil.clearValidationTestUrlsDeviceConfig
 import android.net.cts.NetworkValidationTestUtil.setHttpUrlDeviceConfig
 import android.net.cts.NetworkValidationTestUtil.setHttpsUrlDeviceConfig
@@ -88,6 +90,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
@@ -343,6 +346,92 @@ class NetworkValidationTest {
             assertEquals(network, lostNetwork)
         } finally {
             cm.unregisterNetworkCallback(wifiCb)
+            // Wifi will not automatically reconnect to the network. Turn off wifi first and restart
+            // to restore
+            SystemUtil.runShellCommand("svc wifi disable")
+            utils.ensureWifiConnected()
+        }
+    }
+
+    @Test
+    fun testSetUnvalidated_NoPermission_GetException() {
+        assumeTrue(TestUtils.shouldTestSApis())
+        val network = cm.getActiveNetwork()
+        network?.let {
+            assertThrows(SecurityException::class.java, ExceptionUtils.ThrowingRunnable {
+                cm.setAcceptUnvalidated(network, false /* accept */, false /* always */)
+                })
+        } ?: run {
+            fail("CTS requires a working Internet connection")
+        }
+    }
+
+    @Test
+    fun testRejectUnvalidated_TearDownNetwork() {
+        assumeTrue(TestUtils.shouldTestSApis())
+        assumeTrue(pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+        assumeTrue(pm.hasSystemFeature(PackageManager.FEATURE_WIFI))
+        val cellNetwork = utils.connectToCell()
+
+        // Verify cell network is validated
+        val cellReq = NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build()
+        val cellCb = TestableNetworkCallback(timeoutMs = TEST_TIMEOUT_MS)
+        cm.registerNetworkCallback(cellReq, cellCb)
+        val cb = cellCb.eventuallyExpectOrNull<CallbackEntry.CapabilitiesChanged> {
+            it.network == cellNetwork && it.caps.hasCapability(NET_CAPABILITY_VALIDATED)
+        }
+        assertNotNull(cb, "Mobile network $cellNetwork has no access to the internet. " +
+                "Check the mobile data connection.")
+
+        // Configure response code for unvalidated network
+        configTestServer(httpsStatusCode = Status.INTERNAL_ERROR,
+                httpStatusCode = Status.INTERNAL_ERROR)
+
+        val wifiNetworkFuture = CompletableFuture<Network>()
+        val wifiLostFuture = CompletableFuture<Network>()
+        val wifiCb = object : NetworkCallback() {
+            override fun onCapabilitiesChanged(
+                network: Network,
+                nc: NetworkCapabilities
+            ) {
+                if (!nc.hasCapability(NET_CAPABILITY_VALIDATED)) {
+                    wifiNetworkFuture.complete(network)
+                }
+            }
+
+            override fun onLost(network: Network) {
+                wifiLostFuture.complete(network)
+            }
+        }
+
+        try {
+            // Disconnect wifi first then start wifi network with configuration.
+            utils.ensureWifiDisconnected(null /* wifiNetworkToCheck */)
+
+            cm.requestNetwork(makeWifiRequest(), wifiCb)
+
+            utils.ensureWifiConnected()
+            // Wait for unvalidated network to be detected on the network
+            val network = wifiNetworkFuture.assertGet(WIFI_CONNECT_TIMEOUT_MS,
+                    "Unvalidated network is not detected after ${WIFI_CONNECT_TIMEOUT_MS}ms")
+            // Default network should not be wifi.
+            assertNotEquals(network, cm.getActiveNetwork())
+            runAsShell(NETWORK_SETTINGS) {
+                // The always bit is verified in NetworkAgentTest. There is no easy configuration to
+                // set an explicitly selected network. Verify the accepted case also in
+                // NetworkAgentTest.
+                cm.setAcceptUnvalidated(network, false /* accept */, false /* always */)
+            }
+            // Reject unvalidated network should cause the network being torn down
+            val lostNetwork = wifiLostFuture.assertGet(WIFI_CONNECT_TIMEOUT_MS,
+                    "Wifi is not disconnected after ${WIFI_CONNECT_TIMEOUT_MS}ms")
+            assertEquals(network, lostNetwork)
+        } finally {
+            cm.unregisterNetworkCallback(wifiCb)
+            clearValidationTestUrlsDeviceConfig()
             // Wifi will not automatically reconnect to the network. Turn off wifi first and restart
             // to restore
             SystemUtil.runShellCommand("svc wifi disable")
