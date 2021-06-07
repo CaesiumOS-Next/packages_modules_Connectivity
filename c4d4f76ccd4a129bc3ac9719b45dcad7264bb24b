@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a45ee283_9aee050b",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T09:04:26Z",
+      "side": 1,
+      "message": "Hmm. I was suggesting that you spy mDaemon, which is of type DaemonConnection and is not final. Am I missing something? (Not for this CL, in any case.)",
+      "parentUuid": "dfcca051_8e28d552",
+      "range": {
+        "startLine": 132,
+        "startChar": 60,
+        "endLine": 132,
+        "endChar": 61
+      },
+      "revId": "c4d4f76ccd4a129bc3ac9719b45dcad7264bb24b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8881a386_9fe93b2f",
         "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
         "patchSetId": 1
