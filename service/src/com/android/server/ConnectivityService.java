@@ -4564,6 +4564,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
             rematchAllNetworksAndRequests();
         }
 
+        // There are cases where AppOps decides the release in rematchNetworksAndRequests, so check
+        // it here.
+        for (final NetworkRequestInfo nri : nris) {
+            for (final NetworkRequest req : nri.mRequests) {
+                if (hasReleaseNetworkRequestAndCallOnUnavailable(req)) {
+                    return;
+                }
+            }
+        }
+
         // Requests that have not been matched to a network will not have been sent to the
         // providers, because the old satisfier and the new satisfier are the same (null in this
         // case). Send these requests to the providers.
@@ -8799,9 +8809,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 bestNetwork = mNoServiceNetwork;
             }
             if (nri.getSatisfier() != bestNetwork) {
-                // bestNetwork may be null if no network can satisfy this request.
-                changes.addRequestReassignment(new NetworkReassignment.RequestReassignment(
-                        nri, nri.mActiveRequest, bestRequest, nri.getSatisfier(), bestNetwork));
+                if (canRequestNetworkWithAppOps(bestNetwork, nri)) {
+                    // bestNetwork may be null if no network can satisfy this request.
+                    changes.addRequestReassignment(new NetworkReassignment.RequestReassignment(
+                            nri, nri.mActiveRequest, bestRequest, nri.getSatisfier(), bestNetwork));
+                } else {
+                    if (DDBG) {
+                        log("computeNetworkReassignment: Calling app has the permission that run"
+                                + " requestNetwork, but it cannot be called because run is"
+                                + " restricted via app ops.");
+                    }
+                    releaseNetworkRequestAndCallOnUnavailable(bestRequest);
+                }
             }
         }
         return changes;
@@ -11346,5 +11365,55 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    private boolean hasReleaseNetworkRequestAndCallOnUnavailable(NetworkRequest networkRequest) {
+        return mHandler.hasMessages(EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE,
+                networkRequest);
+    }
+
+    private boolean canRequestNetworkWithAppOps(NetworkAgentInfo nai, NetworkRequestInfo nri) {
+        final String opStr = getNetworkTypeOpstr(nai);
+        final String packageName = getRequestorPackageNameFromNetworkRequest(nri);
+        if (opStr != null && packageName != null) {
+            int mode = mAppOpsManager.noteOpNoThrow(opStr, nri.mUid, packageName,
+                    nri.mCallingAttributionTag, null);
+            if (mode != AppOpsManager.MODE_ALLOWED && mode != AppOpsManager.MODE_DEFAULT) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String getRequestorPackageNameFromNetworkRequest(NetworkRequestInfo nri) {
+        final NetworkRequest req = nri.isMultilayerRequest()
+                ? nri.getActiveRequest() : nri.mRequests.get(0);
+        String packageName = null;
+        try {
+            packageName = req.getRequestorPackageName();
+        } catch (NullPointerException e) {
+            loge("Catching the NPE because NetworkRequest.networkCapabilities can be null in "
+                    + "ConnectivityServiceTest.", e);
+        }
+
+        return packageName;
+    }
+
+    private String getNetworkTypeOpstr(NetworkAgentInfo nai) {
+        String opStr = null;
+        try {
+            if (nai.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                opStr = AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_CELLULAR;
+            } else if (nai.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                opStr = AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_WIFI;
+            } else if (nai.networkCapabilities.hasTransport(
+                    NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
+                opStr = AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_BLUETOOTH;
+            }
+        } catch (NullPointerException e) {
+            loge("Catching the NPE because NetworkAgentInfo.networkCapabilities can be null in "
+                    + "ConnectivityServiceTest.", e);
+        }
+        return opStr;
     }
 }
