@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "637e95fb_7aceba46",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-06-07T05:05:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2019d0f7_59909d06",
+      "range": {
+        "startLine": 218,
+        "startChar": 3,
+        "endLine": 220,
+        "endChar": 60
+      },
+      "revId": "1c5ef3bbfc06b1024046378d4480007d97afab92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39a7bf73_64bd7c6c",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-04T11:36:34Z",
       "side": 1,
       "message": "Is it better if we refactor this function and merge these 3 tests?",
+      "range": {
+        "startLine": 258,
+        "startChar": 7,
+        "endLine": 264,
+        "endChar": 79
+      },
+      "revId": "1c5ef3bbfc06b1024046378d4480007d97afab92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "928cecfd_c2e7ad95",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-06-07T05:05:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39a7bf73_64bd7c6c",
       "range": {
         "startLine": 258,
         "startChar": 7,
