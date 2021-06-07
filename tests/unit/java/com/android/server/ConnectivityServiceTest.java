@@ -108,6 +108,7 @@ import static android.net.NetworkCapabilities.REDACT_FOR_ACCESS_FINE_LOCATION;
 import static android.net.NetworkCapabilities.REDACT_FOR_LOCAL_MAC_ADDRESS;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.REDACT_NONE;
+import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
@@ -721,6 +722,12 @@ public class ConnectivityServiceTest {
         public int checkPermission(String permission, int pid, int uid) {
             return checkMockedPermission(permission, pid, uid,
                     () -> super.checkPermission(permission, pid, uid));
+        }
+
+        @Override
+        public int checkSelfPermission(String permission) {
+            return checkMockedPermission(permission, Process.myPid(), Process.myUid(),
+                    () -> super.checkSelfPermission(permission));
         }
 
         @Override
@@ -15770,5 +15777,39 @@ public class ConnectivityServiceTest {
         waitForValidationBlock.block(150);
         mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
         mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+    }
+
+    @Test
+    public void testNotifyNetworkTypeWithAppOpsOnCellular() throws Exception {
+        // Test app ops on network request that transport type is specified cellular.
+        TestNetworkAgentWrapper testNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        testNetworkAgent.connect(true);
+
+        verify(mAppOpsManager, atLeastOnce()).noteOpNoThrow(
+                eq(AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_CELLULAR), anyInt(),
+                eq(mContext.getPackageName()), eq(null), eq(null));
+    }
+
+    @Test
+    public void testNotifyNetworkTypeWithAppOpsOnWifi() throws Exception {
+        // Test app ops on network request that transport type is specified Wi-Fi.
+        TestNetworkAgentWrapper testNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        testNetworkAgent.connect(true);
+
+        verify(mAppOpsManager, atLeastOnce()).noteOpNoThrow(
+                eq(AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_WIFI), anyInt(),
+                eq(mContext.getPackageName()), eq(null), eq(null));
+    }
+
+    @Test
+    public void testNotifyNetworkTypeWithAppOpsOnBluetooth() throws Exception {
+        // Test app ops on network request that transport type is specified BlueTooth.
+        TestNetworkAgentWrapper testNetworkAgent = new TestNetworkAgentWrapper(
+                TRANSPORT_BLUETOOTH);
+        testNetworkAgent.connect(true);
+
+        verify(mAppOpsManager, atLeastOnce()).noteOpNoThrow(
+                eq(AppOpsManager.OPSTR_REQUEST_NETWORK_TRANSPORT_BLUETOOTH), anyInt(),
+                eq(mContext.getPackageName()), eq(null), eq(null));
     }
 }
