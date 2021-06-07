@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa5c7d97_8d9f7ca3",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:25:21Z",
+      "side": 1,
+      "message": "Out of curiosity: how does this class know whether it\u0027s operating in tunnel or transport mode?",
+      "range": {
+        "startLine": 353,
+        "startChar": 14,
+        "endLine": 353,
+        "endChar": 29
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c02407_da7c36f9",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:25:21Z",
+      "side": 1,
+      "message": "Out of curiosity, why is the iv protected if the key is public? What is gained by hiding it from other classes?\n\nAlso, can it be final? I don\u0027t see you assigning it anywhere else but the constructor.",
+      "range": {
+        "startLine": 471,
+        "startChar": 8,
+        "endLine": 471,
+        "endChar": 28
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d86bce_7c102f56",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:25:21Z",
+      "side": 1,
+      "message": "static final",
+      "range": {
+        "startLine": 509,
+        "startChar": 11,
+        "endLine": 509,
+        "endChar": 17
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0600b2ca_e710dccf",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:25:21Z",
+      "side": 1,
+      "message": "Nit: suggest renaming to sInstance. Also elsewhere.",
+      "range": {
+        "startLine": 514,
+        "startChar": 43,
+        "endLine": 514,
+        "endChar": 51
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bad68947_a74e697e",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-07T15:25:21Z",
+      "side": 1,
+      "message": "static final",
+      "range": {
+        "startLine": 582,
+        "startChar": 11,
+        "endLine": 582,
+        "endChar": 17
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
