@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf6ab0ac_b73e15eb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8309,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T14:07:14Z",
+      "side": 1,
+      "message": "Style: should this be 8 spaces?\nalso for l.8305.",
+      "range": {
+        "startLine": 8309,
+        "startChar": 8,
+        "endLine": 8309,
+        "endChar": 55
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f711b5d_f07d3067",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8517,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T14:07:14Z",
+      "side": 1,
+      "message": "The comment says disconnecting but the code is connecting.\nIIUC the comment is not for this section but for all new codes below.\nIf so, \n1. maybe add another comment just for below section instead of attach this to below section?\ne.g.\n // Test disconnecting a network that is running 464xlat.\n \n // Set up network with 464xlat.\n \u003ccodes\u003e\n \n2. Is it feasible to seperate this into a new test?\nConsider that the test failed at the end, it might be hard to narrow down the problematic code quickly if the test is super long.",
+      "range": {
+        "startLine": 8517,
+        "startChar": 7,
+        "endLine": 8517,
+        "endChar": 64
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2598af77_42245c1d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8528,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T14:07:14Z",
+      "side": 1,
+      "message": "nit: IIUC this is not useful if we want to setup ipv4 route, maybe name it more specifically, e.g. ipv6DefaultRoute? No strong opinion.",
+      "range": {
+        "startLine": 8528,
+        "startChar": 49,
+        "endLine": 8528,
+        "endChar": 61
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ffe2e20_a5724e90",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8533,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T14:07:14Z",
+      "side": 1,
+      "message": "maybe /*up*/?",
+      "range": {
+        "startLine": 8533,
+        "startChar": 62,
+        "endLine": 8533,
+        "endChar": 63
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1df9db8_64b05eff",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8535,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T14:07:14Z",
+      "side": 1,
+      "message": "Question: Can we assert it is kNat64Prefix?",
+      "range": {
+        "startLine": 8535,
+        "startChar": 79,
+        "endLine": 8535,
+        "endChar": 87
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "904ac5d9_1e193ef3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8537,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T14:07:14Z",
+      "side": 1,
+      "message": "Stupid question: I don\u0027t really get why. do you mean since it was *NOT* reset?",
+      "range": {
+        "startLine": 8537,
+        "startChar": 43,
+        "endLine": 8537,
+        "endChar": 68
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72de7fd5_a9142910",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8538,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T14:07:14Z",
+      "side": 1,
+      "message": "Should this be inside assertRouteAdded?",
+      "range": {
+        "startLine": 8538,
+        "startChar": 8,
+        "endLine": 8538,
+        "endChar": 94
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41bf6f39_39bdbebf",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8540,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-07T14:07:14Z",
+      "side": 1,
+      "message": "nit: It annoys me that sometimes we put the reset after a sequence of asserts, but sometimes we put it at the beginning, e.g. l.8518. Which is better?\nBoth way SGTM but do we want a consistent style for that?",
+      "range": {
+        "startLine": 8540,
+        "startChar": 8,
+        "endLine": 8540,
+        "endChar": 25
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
