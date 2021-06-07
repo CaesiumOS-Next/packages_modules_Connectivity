@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2fa6fd9_e94f074c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10534,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-07T04:38:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0a6f0ad_68e97f9b",
+      "range": {
+        "startLine": 10534,
+        "startChar": 25,
+        "endLine": 10534,
+        "endChar": 40
+      },
+      "revId": "b49aed4a3e92de984025f132e1be65160f676de9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d29f72fd_c4dd14ee",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-07T04:24:39Z",
       "side": 1,
       "message": "IIUC you need to update this.",
+      "range": {
+        "startLine": 10556,
+        "startChar": 20,
+        "endLine": 10556,
+        "endChar": 73
+      },
+      "revId": "b49aed4a3e92de984025f132e1be65160f676de9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6366a57_367ae5d8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10556,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-07T04:38:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d29f72fd_c4dd14ee",
       "range": {
         "startLine": 10556,
         "startChar": 20,
