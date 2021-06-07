@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011484672",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1705131?revision\u003d9",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d9758615_96d82c59",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-07T02:34:01Z",
+      "side": 1,
+      "message": "Prefer to use mContext.getSystemService(PacProxyManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 87,
+        "startChar": 27,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "131940531dc578cb9bb4995b7af2c59dde181639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
