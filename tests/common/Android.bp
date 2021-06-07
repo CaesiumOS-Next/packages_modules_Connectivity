@@ -32,7 +32,7 @@ java_library {
         "androidx.core_core",
         "androidx.test.rules",
         "junit",
-        "mockito-target-minus-junit4",
+        "mockito-target-extended-minus-junit4",
         "modules-utils-build",
         "net-tests-utils",
         "net-utils-framework-common",
@@ -41,6 +41,37 @@ java_library {
     libs: [
         "android.test.base.stubs",
     ],
+}
+
+android_test {
+    name: "ConnectivityCoverageTests",
+    min_sdk_version: "30",
+    target_sdk_version: "30",
+    test_suites: ["device-tests", "mts"],
+    defaults: [
+        "FrameworksNetTests-jni-defaults",
+        "libnetworkstackutilsjni_deps",
+    ],
+    manifest: "AndroidManifest_coverage.xml",
+    test_config: "AndroidTest_Coverage.xml",
+    static_libs: [
+        "FrameworksNetTestsLib",
+        "modules-utils-native-coverage-listener",
+        "NetdStaticLibTestsLib",
+        "NetworkStaticLibTestsLib",
+        "NetworkStackTestsLib",
+        "TetheringTestsLatestSdkLib",
+        "TetheringIntegrationTestsLatestSdkLib",
+    ],
+    jni_libs: [
+        // For mockito extended
+        "libdexmakerjvmtiagent",
+        "libstaticjvmtiagent",
+        // For NetworkStackUtils included in NetworkStackBase
+        "libnetworkstackutilsjni",
+        "libtetherutilsjni",
+    ],
+    compile_multilib: "both",
 }
 
 // defaults for tests that need to build against framework-connectivity's @hide APIs
