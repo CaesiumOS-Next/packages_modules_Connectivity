@@ -355,6 +355,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ef9de3a_c53c89df",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2087,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-08T05:55:15Z",
+      "side": 1,
+      "message": "Yep, what you say makes sense. I removed the LINK_PROPERTIES_CHANGED after LOST expectCallback, reviewed aosp/1727829 and it LGTM. Let me know if this looks good and I\u0027ll wait to merge this until aosp/1727829 merges. Thanks.",
+      "parentUuid": "a0c05ccd_41e11e1b",
+      "range": {
+        "startLine": 2087,
+        "startChar": 12,
+        "endLine": 2087,
+        "endChar": 40
+      },
+      "revId": "870fa01187f38222e03461f3d2cefd45e64269aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f93f7dd_00463efe",
