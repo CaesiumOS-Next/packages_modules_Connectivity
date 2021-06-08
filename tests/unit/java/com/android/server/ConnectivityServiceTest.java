@@ -8514,24 +8514,50 @@ public class ConnectivityServiceTest {
         verify(mMockNetd).networkDestroy(cellNetId);
         verifyNoMoreInteractions(mMockNetd);
         reset(mMockNetd);
+    }
 
-        // Test disconnecting a network that is running 464xlat.
+    @Test
+    public void testDisconnectClatNetwork() throws Exception {
+        final LinkAddress myIpv4 = new LinkAddress("1.2.3.4/24");
+        final LinkAddress myIpv6 = new LinkAddress("2001:db8:1::1/64");
+        final String kNat64PrefixString = "2001:db8:64:64:64:64::";
+        final IpPrefix kNat64Prefix = new IpPrefix(InetAddress.getByName(kNat64PrefixString), 96);
+        final RouteInfo ipv6Default =
+                new RouteInfo((IpPrefix) null, myIpv6.getAddress(), MOBILE_IFNAME);
+        final RouteInfo ipv6Subnet = new RouteInfo(myIpv6, null, MOBILE_IFNAME);
+        final RouteInfo stackedDefault =
+                new RouteInfo((IpPrefix) null, myIpv4.getAddress(), CLAT_MOBILE_IFNAME);
+
+        final NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addTransportType(TRANSPORT_CELLULAR)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .build();
+        final TestNetworkCallback networkCallback = new TestNetworkCallback();
+        mCm.registerNetworkCallback(networkRequest, networkCallback);
 
         // Connect a network with a NAT64 prefix.
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        cellLp.addLinkAddress(myIpv6);
+        cellLp.addRoute(ipv6Default);
+        cellLp.addRoute(ipv6Subnet);
+        cellLp.setNat64Prefix(kNat64Prefix);
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        reset(mMockNetd);
+
         when(mMockNetd.interfaceGetCfg(CLAT_MOBILE_IFNAME))
                 .thenReturn(getClatInterfaceConfigParcel(myIpv4));
-        cellLp.setNat64Prefix(kNat64Prefix);
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
         mCellNetworkAgent.connect(false /* validated */);
         networkCallback.expectAvailableCallbacksUnvalidated(mCellNetworkAgent);
-        cellNetId = mCellNetworkAgent.getNetwork().netId;
+        final int cellNetId = mCellNetworkAgent.getNetwork().netId;
         verify(mMockNetd, times(1)).networkCreate(nativeNetworkConfigPhysical(cellNetId,
                 INetd.PERMISSION_NONE));
         assertRoutesAdded(cellNetId, ipv6Subnet, ipv6Default);
 
         // Clatd is started and clat iface comes up. Expect stacked link to be added.
         verify(mMockNetd).clatdStart(MOBILE_IFNAME, kNat64Prefix.toString());
-        clat = getNat464Xlat(mCellNetworkAgent);
+        final Nat464Xlat clat = getNat464Xlat(mCellNetworkAgent);
         clat.interfaceLinkStateChanged(CLAT_MOBILE_IFNAME, true /* up */);
         networkCallback.expectLinkPropertiesThat(mCellNetworkAgent,
                 (lp) -> lp.getStackedLinks().size() == 1
