@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37d5da01_23c4a2e2",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2021-06-08T10:12:24Z",
+      "side": 1,
+      "message": "After this CL, looks like this might be null. We probably need to fix it.",
+      "range": {
+        "startLine": 554,
+        "startChar": 12,
+        "endLine": 554,
+        "endChar": 34
+      },
+      "revId": "5becf1eb01ed55ce838ba9f2ca545a245f9e23f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
