@@ -34,6 +34,7 @@ import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
+import static android.net.ConnectivityManager.CALLBACK_IP_CHANGED;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
 import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
@@ -5645,7 +5646,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case EVENT_PROXY_HAS_CHANGED: {
                     final Pair<Network, ProxyInfo> arg = (Pair<Network, ProxyInfo>) msg.obj;
-                    handleApplyDefaultProxy(arg.second);
+                    handleProxyHasChanged(arg.second);
                     break;
                 }
                 case EVENT_REGISTER_NETWORK_PROVIDER: {
@@ -6100,12 +6101,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return mProxyTracker.getGlobalProxy();
     }
 
-    private void handleApplyDefaultProxy(@Nullable ProxyInfo proxy) {
-        if (proxy != null && TextUtils.isEmpty(proxy.getHost())
-                && Uri.EMPTY.equals(proxy.getPacFileUrl())) {
-            proxy = null;
-        }
+    private void handleProxyHasChanged(@Nullable ProxyInfo proxy) {
         mProxyTracker.setDefaultProxy(proxy);
+        final NetworkAgentInfo nai = getDefaultNetwork();
+        if (null == nai) return;
+        // PAC proxies only work on the default network. Therefore, only the default network
+        // should have its link properties fixed up for PAC proxies.
+        mProxyTracker.updateDefaultNetworkProxy(nai.linkProperties, nai.network);
+        if (nai.everConnected()) {
+            notifyNetworkCallbacks(nai, ConnectivityManager.CALLBACK_IP_CHANGED);
+        }
     }
 
     // If the proxy has changed from oldLp to newLp, resend proxy broadcast. This method gets called
@@ -7931,6 +7936,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 //            updateMtu(lp, null);
 //        }
         if (isDefaultNetwork(networkAgent)) {
+            mProxyTracker.updateDefaultNetworkProxy(newLp, null);
             updateTcpBufferSizes(newLp.getTcpBufferSizes());
         }
 
@@ -7943,7 +7949,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDnsManager.updatePrivateDnsStatus(netId, newLp);
 
         if (isDefaultNetwork(networkAgent)) {
-            handleApplyDefaultProxy(newLp.getHttpProxy());
+            mProxyTracker.setDefaultProxy(newLp.getHttpProxy());
         } else if (networkAgent.everConnected()) {
             updateProxy(newLp, oldLp);
         }
@@ -8992,6 +8998,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private void resetHttpProxyForNonDefaultNetwork(NetworkAgentInfo oldDefaultNetwork) {
+        if (null == oldDefaultNetwork) return;
+        // The network stopped being the default. If it was using a PAC proxy, then the
+        // proxy needs to be reset, otherwise HTTP requests on this network may be sent
+        // to the local proxy server, which would forward them over the newly default network.
+        final ProxyInfo proxyInfo = oldDefaultNetwork.linkProperties.getHttpProxy();
+        if (null == proxyInfo || !proxyInfo.isPacProxy()) return;
+        oldDefaultNetwork.linkProperties.setHttpProxy(new ProxyInfo(proxyInfo.getPacFileUrl()));
+        notifyNetworkCallbacks(oldDefaultNetwork, CALLBACK_IP_CHANGED);
+    }
+
     private void makeDefault(@NonNull final NetworkRequestInfo nri,
             @Nullable final NetworkAgentInfo oldDefaultNetwork,
             @Nullable final NetworkAgentInfo newDefaultNetwork) {
@@ -9017,8 +9034,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
         mNetworkActivityTracker.updateDataActivityTracking(newDefaultNetwork, oldDefaultNetwork);
-        handleApplyDefaultProxy(null != newDefaultNetwork
+        mProxyTracker.setDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
+        resetHttpProxyForNonDefaultNetwork(oldDefaultNetwork);
         updateTcpBufferSizes(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getTcpBufferSizes() : null);
         notifyIfacesChangedForNetworkStats();
