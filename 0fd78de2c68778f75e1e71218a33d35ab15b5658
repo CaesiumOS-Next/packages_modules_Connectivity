@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b58311df_25d93e38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-08T05:03:37Z",
+      "side": 1,
+      "message": "LGTM considering that ag/14880565 has more in-depth testing of the functionality",
+      "revId": "0fd78de2c68778f75e1e71218a33d35ab15b5658",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
