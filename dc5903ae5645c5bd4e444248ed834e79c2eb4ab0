@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba0eff93_8d56af47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-08T08:00:02Z",
+      "side": 1,
+      "message": "Carry Lorenzo\u0027s +2 approval from https://googleplex-android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/14673213/7",
+      "revId": "dc5903ae5645c5bd4e444248ed834e79c2eb4ab0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
