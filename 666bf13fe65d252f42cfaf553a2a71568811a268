@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9639a6e2_09c74f39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-08T07:59:28Z",
+      "side": 1,
+      "message": "I do not have objection on this but maybe Lorenzo would like to take a look at this since using mockito-extended was reviewed in aosp/1475900",
+      "revId": "666bf13fe65d252f42cfaf553a2a71568811a268",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a9545a_485504ae",
+        "filename": "tests/unit/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-08T07:59:28Z",
+      "side": 1,
+      "message": "Is this also necessary to use mockito-extended?\n\nIf yes, are we able to add some comment here or in the commit message? I find it\u0027s not easy to connect this change to the usage of mockito-extended",
+      "range": {
+        "startLine": 53,
+        "startChar": 17,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "666bf13fe65d252f42cfaf553a2a71568811a268",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35911d2b_f9e6ecab",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-08T07:59:28Z",
+      "side": 1,
+      "message": "Nit: do we like to do something similar to this?",
+      "range": {
+        "startLine": 134,
+        "startChar": 8,
+        "endLine": 134,
+        "endChar": 91
+      },
+      "revId": "666bf13fe65d252f42cfaf553a2a71568811a268",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
