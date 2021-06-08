@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44afc1d6_bce834d0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-08T06:27:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7664487_41be7a73",
+      "range": {
+        "startLine": 242,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 96
+      },
+      "revId": "36229774d0005e89d28817c864157914b36d8968",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19bc209d_036eb31b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-08T03:28:43Z",
       "side": 1,
       "message": "I don\u0027t think you need a active network for testing CM#setAcceptPartialConnectivity because CS will enforce permission check at beginning.",
+      "range": {
+        "startLine": 246,
+        "startChar": 12,
+        "endLine": 246,
+        "endChar": 62
+      },
+      "revId": "36229774d0005e89d28817c864157914b36d8968",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d945577_23419321",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-08T06:27:36Z",
+      "side": 1,
+      "message": "It\u0027s required a Network as the parameter. Even we know the permission will run at the begining, I will still need a network.",
+      "parentUuid": "19bc209d_036eb31b",
       "range": {
         "startLine": 246,
         "startChar": 12,

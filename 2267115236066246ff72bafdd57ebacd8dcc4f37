@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46342271_c393f03a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-08T06:27:36Z",
+      "side": 1,
+      "message": "Remove default value, but I think default value only provide opinion that caller could skip the parameter. These two things are not mutually exclusive.",
+      "parentUuid": "567b0dfc_897bc8a6",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 51
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d534d1f_7e678617",
@@ -250,6 +274,30 @@
       "writtenOn": "2021-06-08T03:38:40Z",
       "side": 1,
       "message": "Maybe you can check whether there is a active network on setUp() like ConnectivityManagerTest to reminder tester this test needs a wifi connection.",
+      "parentUuid": "8252c5d4_8b551761",
+      "range": {
+        "startLine": 280,
+        "startChar": 12,
+        "endLine": 280,
+        "endChar": 27
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2180a3a_18100ada",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-08T06:27:36Z",
+      "side": 1,
+      "message": "If tester run a single test, tester should connect to a working wifi. I think it\u0027s the presumption. Also, it\u0027s what we did in ConnectivityManagerTest as my previous comment.\n\n\nNot all the tests in NetworkValidationTest",
       "parentUuid": "8252c5d4_8b551761",
       "range": {
         "startLine": 280,
