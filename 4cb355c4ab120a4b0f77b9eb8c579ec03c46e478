@@ -93,6 +93,30 @@
       },
       "revId": "4cb355c4ab120a4b0f77b9eb8c579ec03c46e478",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfae22f9_99db6de9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6186,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T06:40:00Z",
+      "side": 1,
+      "message": "1. SGTM, but maybe add 1 different callback at the end and expect TooManyRequestsException.\n2. maybe testNetworkCallbackWithPendingIntentMaximum, since we are testing its maximum.\n3. a. IIUC atest is available for aosp, refer to https://source.android.com/compatibility/tests/development/atest\n     and at least it should work for aosp image for cuttlefish or pixel targets.\n   b. Yes, but if you are able to run this locally, it will significantly increase \n       your debugging speed. Since running atest need 1~2 mins while Presubmit \n       Verify takes 3~5 hours and I\u0027m not sure if you can access the fail log.\n4. There is no correct answer. Personally I\u0027ll put the atest command for verifying \n      related code, but not too much detail. For your case, it could be:\n\nTest: atest ConnectivityServiceTest#testNetworkCallbackWithPendingIntentMaximum\nTest:  1. Use test app to file callback with same PendingIntent\n       2. Check dumpsys output\n       \nDon\u0027t worry too much about format and style, we\u0027ll help you to deal with it in the review process.",
+      "parentUuid": "7a433ba2_e54bee99",
+      "range": {
+        "startLine": 6186,
+        "startChar": 8,
+        "endLine": 6186,
+        "endChar": 16
+      },
+      "revId": "4cb355c4ab120a4b0f77b9eb8c579ec03c46e478",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
