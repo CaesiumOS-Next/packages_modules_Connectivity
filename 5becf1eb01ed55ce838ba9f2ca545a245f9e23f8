@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc91cd5b_54363eea",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-08T10:46:59Z",
+      "side": 1,
+      "message": "Yes, sure.\nPlease use this CL to fix the flaky test first.",
+      "parentUuid": "7ce5f02c_2bb00bf7",
+      "range": {
+        "startLine": 527,
+        "startChar": 8,
+        "endLine": 529,
+        "endChar": 9
+      },
+      "revId": "5becf1eb01ed55ce838ba9f2ca545a245f9e23f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37d5da01_23c4a2e2",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Exctally. That\u0027s required to reduce the flaky rate.",
       "parentUuid": "83f73fdd_24e9f9d7",
+      "range": {
+        "startLine": 554,
+        "startChar": 12,
+        "endLine": 554,
+        "endChar": 34
+      },
+      "revId": "5becf1eb01ed55ce838ba9f2ca545a245f9e23f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f1a465_77ae8a6d",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-08T10:46:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7841aaee_509551bf",
       "range": {
         "startLine": 554,
         "startChar": 12,
