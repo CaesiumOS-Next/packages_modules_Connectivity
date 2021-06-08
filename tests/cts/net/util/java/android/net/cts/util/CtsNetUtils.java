@@ -524,8 +524,8 @@ public final class CtsNetUtils {
     }
 
     public void restorePrivateDnsSetting() throws InterruptedException {
-        if (mOldPrivateDnsMode == null || mOldPrivateDnsSpecifier == null) {
-            return;
+        if (mOldPrivateDnsMode == null) {
+            fail("restorePrivateDnsSetting without storing settings first");
         }
         // restore private DNS setting
         if ("hostname".equals(mOldPrivateDnsMode)) {
