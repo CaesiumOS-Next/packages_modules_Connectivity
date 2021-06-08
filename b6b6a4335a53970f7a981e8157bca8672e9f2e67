@@ -39,6 +39,30 @@
       },
       "revId": "b6b6a4335a53970f7a981e8157bca8672e9f2e67",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cffb0f76_8cb2cb54",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10083,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-08T05:15:47Z",
+      "side": 1,
+      "message": "Good question Lorenzo. In this case, we have hooks at l.5470 to handle user add/removal which will then update the policy to take user changes into account.",
+      "parentUuid": "6b089e22_90f4b553",
+      "range": {
+        "startLine": 10083,
+        "startChar": 65,
+        "endLine": 10083,
+        "endChar": 79
+      },
+      "revId": "b6b6a4335a53970f7a981e8157bca8672e9f2e67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

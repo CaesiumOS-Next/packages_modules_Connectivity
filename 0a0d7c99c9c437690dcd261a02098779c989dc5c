@@ -22,6 +22,30 @@
       },
       "revId": "0a0d7c99c9c437690dcd261a02098779c989dc5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fa3f5d2_50c25390",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10327,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-08T05:15:47Z",
+      "side": 0,
+      "message": "Let\u0027s defer on this if optional since the CL has passed TH. Thanks though and I\u0027ll keep in mind for the future.",
+      "parentUuid": "176380a4_7908cadc",
+      "range": {
+        "startLine": 10326,
+        "startChar": 0,
+        "endLine": 10327,
+        "endChar": 49
+      },
+      "revId": "0a0d7c99c9c437690dcd261a02098779c989dc5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
