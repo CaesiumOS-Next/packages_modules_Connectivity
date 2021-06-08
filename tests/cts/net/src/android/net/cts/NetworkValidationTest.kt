@@ -100,38 +100,11 @@ class NetworkValidationTest {
             .addTransportType(TRANSPORT_TEST).build()
     private val ethRequestCb = TestableNetworkCallback()
 
-    private lateinit var iface: TestNetworkInterface
-    private lateinit var reader: TapPacketReader
     private lateinit var capportUrl: Uri
-
-    private var testSkipped = false
 
     @Before
     fun setUp() {
-        // This test requires using a tap interface as an ethernet interface.
-        val pm = context.getPackageManager()
-        testSkipped = !pm.hasSystemFeature(PackageManager.FEATURE_ETHERNET) &&
-                context.getSystemService(EthernetManager::class.java) == null
-        assumeFalse(testSkipped)
-
-        // Register a request so the network does not get torn down
-        cm.requestNetwork(ethRequest, ethRequestCb)
-        runAsShell(NETWORK_SETTINGS, MANAGE_TEST_NETWORKS) {
-            eth.setIncludeTestInterfaces(true)
-            // Keeping a reference to the test interface also makes sure the ParcelFileDescriptor
-            // does not go out of scope, which would cause it to close the underlying FileDescriptor
-            // in its finalizer.
-            iface = tnm.createTapInterface()
-        }
-
-        handlerThread.start()
-        reader = TapPacketReader(
-                handlerThread.threadHandler,
-                iface.fileDescriptor.fileDescriptor,
-                MAX_PACKET_LENGTH)
-        reader.startAsyncForTest()
         httpServer.start()
-
         // Pad the listening port to make sure it is always of length 5. This ensures the URL has
         // always the same length so the test can use constant IP and UDP header lengths.
         // The maximum port number is 65535 so a length of 5 is always enough.
@@ -140,21 +113,36 @@ class NetworkValidationTest {
 
     @After
     fun tearDown() {
-        if (testSkipped) return
-        cm.unregisterNetworkCallback(ethRequestCb)
-
-        runAsShell(NETWORK_SETTINGS) { eth.setIncludeTestInterfaces(false) }
-
         httpServer.stop()
-        handlerThread.threadHandler.post { reader.stop() }
-        handlerThread.quitSafely()
-
-        iface.fileDescriptor.close()
     }
 
     @Test
     fun testCapportApiCallbacks() {
-        httpServer.addResponse(capportUrl, Status.OK, content = """
+        // This test requires using a tap interface as an ethernet interface.
+        val pm = context.getPackageManager()
+        assumeFalse(!pm.hasSystemFeature(PackageManager.FEATURE_ETHERNET) &&
+                context.getSystemService(EthernetManager::class.java) == null)
+        lateinit var iface: TestNetworkInterface
+        lateinit var reader: TapPacketReader
+        try {
+            // Register a request so the network does not get torn down
+            cm.requestNetwork(ethRequest, ethRequestCb)
+            runAsShell(NETWORK_SETTINGS, MANAGE_TEST_NETWORKS) {
+                eth.setIncludeTestInterfaces(true)
+                // Keeping a reference to the test interface also makes sure the ParcelFileDescriptor
+                // does not go out of scope, which would cause it to close the underlying FileDescriptor
+                // in its finalizer.
+                iface = tnm.createTapInterface()
+            }
+
+            handlerThread.start()
+            reader = TapPacketReader(
+                    handlerThread.threadHandler,
+                    iface.fileDescriptor.fileDescriptor,
+                    MAX_PACKET_LENGTH)
+            reader.startAsyncForTest()
+
+            httpServer.addResponse(capportUrl, Status.OK, content = """
                 |{
                 |  "captive": true,
                 |  "user-portal-url": "$TEST_LOGIN_URL",
@@ -162,46 +150,57 @@ class NetworkValidationTest {
                 |}
             """.trimMargin())
 
-        // Handle the DHCP handshake that includes the capport API URL
-        val discover = reader.assertDhcpPacketReceived(
-                DhcpDiscoverPacket::class.java, TEST_TIMEOUT_MS, DHCP_MESSAGE_TYPE_DISCOVER)
-        reader.sendResponse(makeOfferPacket(discover.clientMac, discover.transactionId))
+            // Handle the DHCP handshake that includes the capport API URL
+            val discover = reader.assertDhcpPacketReceived(
+                    DhcpDiscoverPacket::class.java, TEST_TIMEOUT_MS, DHCP_MESSAGE_TYPE_DISCOVER)
+            reader.sendResponse(makeOfferPacket(discover.clientMac, discover.transactionId))
 
-        val request = reader.assertDhcpPacketReceived(
-                DhcpRequestPacket::class.java, TEST_TIMEOUT_MS, DHCP_MESSAGE_TYPE_REQUEST)
-        assertEquals(discover.transactionId, request.transactionId)
-        assertEquals(clientIpAddr, request.mRequestedIp)
-        reader.sendResponse(makeAckPacket(request.clientMac, request.transactionId))
+            val request = reader.assertDhcpPacketReceived(
+                    DhcpRequestPacket::class.java, TEST_TIMEOUT_MS, DHCP_MESSAGE_TYPE_REQUEST)
+            assertEquals(discover.transactionId, request.transactionId)
+            assertEquals(clientIpAddr, request.mRequestedIp)
+            reader.sendResponse(makeAckPacket(request.clientMac, request.transactionId))
 
-        // The first request received by the server should be for the portal API
-        assertTrue(httpServer.requestsRecord.poll(TEST_TIMEOUT_MS, 0)?.matches(capportUrl) ?: false,
-                "The device did not fetch captive portal API data within timeout")
+            // The first request received by the server should be for the portal API
+            assertTrue(httpServer.requestsRecord.poll(TEST_TIMEOUT_MS, 0)?.matches(capportUrl)
+                    ?: false,
+                    "The device did not fetch captive portal API data within timeout")
 
-        // Expect network callbacks with capport info
-        val testCb = TestableNetworkCallback(TEST_TIMEOUT_MS)
-        // LinkProperties do not contain captive portal info if the callback is registered without
-        // NETWORK_SETTINGS permissions.
-        val lp = runAsShell(NETWORK_SETTINGS) {
-            cm.registerNetworkCallback(ethRequest, testCb)
+            // Expect network callbacks with capport info
+            val testCb = TestableNetworkCallback(TEST_TIMEOUT_MS)
+            // LinkProperties do not contain captive portal info if the callback is registered without
+            // NETWORK_SETTINGS permissions.
+            val lp = runAsShell(NETWORK_SETTINGS) {
+                cm.registerNetworkCallback(ethRequest, testCb)
 
-            try {
-                val ncCb = testCb.eventuallyExpect<CallbackEntry.CapabilitiesChanged> {
-                    it.caps.hasCapability(NET_CAPABILITY_CAPTIVE_PORTAL)
+                try {
+                    val ncCb = testCb.eventuallyExpect<CallbackEntry.CapabilitiesChanged> {
+                        it.caps.hasCapability(NET_CAPABILITY_CAPTIVE_PORTAL)
+                    }
+                    testCb.eventuallyExpect<CallbackEntry.LinkPropertiesChanged> {
+                        it.network == ncCb.network && it.lp.captivePortalData != null
+                    }.lp
+                } finally {
+                    cm.unregisterNetworkCallback(testCb)
                 }
-                testCb.eventuallyExpect<CallbackEntry.LinkPropertiesChanged> {
-                    it.network == ncCb.network && it.lp.captivePortalData != null
-                }.lp
-            } finally {
-                cm.unregisterNetworkCallback(testCb)
             }
-        }
 
-        assertEquals(capportUrl, lp.captivePortalApiUrl)
-        with(lp.captivePortalData) {
-            assertNotNull(this)
-            assertTrue(isCaptive)
-            assertEquals(Uri.parse(TEST_LOGIN_URL), userPortalUrl)
-            assertEquals(Uri.parse(TEST_VENUE_INFO_URL), venueInfoUrl)
+            assertEquals(capportUrl, lp.captivePortalApiUrl)
+            with(lp.captivePortalData) {
+                assertNotNull(this)
+                assertTrue(isCaptive)
+                assertEquals(Uri.parse(TEST_LOGIN_URL), userPortalUrl)
+                assertEquals(Uri.parse(TEST_VENUE_INFO_URL), venueInfoUrl)
+            }
+        } finally {
+            cm.unregisterNetworkCallback(ethRequestCb)
+
+            runAsShell(NETWORK_SETTINGS) { eth.setIncludeTestInterfaces(false) }
+
+            handlerThread.threadHandler.post { reader.stop() }
+            handlerThread.quitSafely()
+
+            iface.fileDescriptor.close()
         }
     }
 
