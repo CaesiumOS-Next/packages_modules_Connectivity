@@ -4888,7 +4888,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case EVENT_PROXY_HAS_CHANGED: {
                     final Pair<Network, ProxyInfo> arg = (Pair<Network, ProxyInfo>) msg.obj;
-                    handleApplyDefaultProxy(arg.second);
+                    handleProxyHasChanged(arg.second);
                     break;
                 }
                 case EVENT_REGISTER_NETWORK_PROVIDER: {
@@ -5283,12 +5283,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return mProxyTracker.getGlobalProxy();
     }
 
-    private void handleApplyDefaultProxy(ProxyInfo proxy) {
-        if (proxy != null && TextUtils.isEmpty(proxy.getHost())
-                && Uri.EMPTY.equals(proxy.getPacFileUrl())) {
-            proxy = null;
-        }
+    private void handleProxyHasChanged(ProxyInfo proxy) {
         mProxyTracker.setDefaultProxy(proxy);
+        final NetworkAgentInfo nai = getDefaultNetwork();
+        if (null == nai) return;
+        // PAC proxies only work on the default network. Therefore, only the default network
+        // should have its link properties fixed up for PAC proxies.
+        mProxyTracker.fixupLinkProperties(nai.linkProperties);
     }
 
     // If the proxy has changed from oldLp to newLp, resend proxy broadcast. This method gets called
@@ -6994,6 +6995,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 //            updateMtu(lp, null);
 //        }
         if (isDefaultNetwork(networkAgent)) {
+            mProxyTracker.fixupLinkProperties(newLp);
             updateTcpBufferSizes(newLp.getTcpBufferSizes());
         }
 
@@ -7006,7 +7008,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDnsManager.updatePrivateDnsStatus(netId, newLp);
 
         if (isDefaultNetwork(networkAgent)) {
-            handleApplyDefaultProxy(newLp.getHttpProxy());
+            mProxyTracker.setDefaultProxy(newLp.getHttpProxy());
         } else {
             updateProxy(newLp, oldLp);
         }
@@ -7939,6 +7941,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             // reassignment only contains those instances where the satisfying network changed.
             isDefaultChanged = true;
+            resetHttpProxyForNonDefaultNetwork(reassignment.mOldNetwork);
             // Notify system services of the new default.
             makeDefault(defaultRequestInfo, reassignment.mOldNetwork, reassignment.mNewNetwork);
         }
@@ -7947,6 +7950,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Hold a wakelock for a short time to help apps in migrating to a new default.
             scheduleReleaseNetworkTransitionWakelock();
         }
+    }
+
+    private void resetHttpProxyForNonDefaultNetwork(NetworkAgentInfo oldDefaultNetwork) {
+        if (null == oldDefaultNetwork) return;
+        // The network stopped being the default. If it was using a PAC proxy, then the
+        // proxy needs to be reset, otherwise HTTP requests on this network may be sent
+        // to the local proxy server, which would forward them over the newly default network.
+        final ProxyInfo proxyInfo = oldDefaultNetwork.linkProperties.getHttpProxy();
+        if (null == proxyInfo || !proxyInfo.isPacProxy()) return;
+        oldDefaultNetwork.linkProperties.setHttpProxy(new ProxyInfo(proxyInfo.getPacFileUrl()));
     }
 
     private void makeDefault(@NonNull final NetworkRequestInfo nri,
@@ -7974,7 +7987,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mLingerMonitor.noteLingerDefaultNetwork(oldDefaultNetwork, newDefaultNetwork);
         }
         mNetworkActivityTracker.updateDataActivityTracking(newDefaultNetwork, oldDefaultNetwork);
-        handleApplyDefaultProxy(null != newDefaultNetwork
+        mProxyTracker.setDefaultProxy(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getHttpProxy() : null);
         updateTcpBufferSizes(null != newDefaultNetwork
                 ? newDefaultNetwork.linkProperties.getTcpBufferSizes() : null);
