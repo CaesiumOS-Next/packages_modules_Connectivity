@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c76f3a20_e7654ed0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8296,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-08T05:27:46Z",
+      "side": 1,
+      "message": "nit; might be worth renaming this test? I\u0027m not an expert on clatd but it looks like the entire lifecycle of these interfaces are being validated and I didn\u0027t get that impression from the test name.",
+      "range": {
+        "startLine": 8296,
+        "startChar": 16,
+        "endLine": 8296,
+        "endChar": 41
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf6ab0ac_b73e15eb",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 2
