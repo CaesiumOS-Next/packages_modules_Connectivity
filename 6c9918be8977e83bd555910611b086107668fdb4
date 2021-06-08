@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a128059a_e5971bf6",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2021-06-08T02:16:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "874797ce_130bab3e",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 31
+      },
+      "revId": "6c9918be8977e83bd555910611b086107668fdb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "368bd295_38bf894e",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-07T13:37:16Z",
       "side": 1,
       "message": "ditto, might need a timeout or a waitForIdle.",
+      "range": {
+        "startLine": 125,
+        "startChar": 24,
+        "endLine": 125,
+        "endChar": 31
+      },
+      "revId": "6c9918be8977e83bd555910611b086107668fdb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51096d23_2d296fa5",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2021-06-08T02:16:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "368bd295_38bf894e",
       "range": {
         "startLine": 125,
         "startChar": 24,
