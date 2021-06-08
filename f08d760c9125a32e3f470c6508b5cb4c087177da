@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40cdda21_8ff1bd96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T03:23:32Z",
+      "side": 1,
+      "message": "LGTM with nits, feel free to ignore.",
+      "revId": "f08d760c9125a32e3f470c6508b5cb4c087177da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "814b4da9_b028b81c",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T03:23:32Z",
+      "side": 1,
+      "message": "nit: It\u0027s a constant so IIUC it should be something like TEST_SUBSCRIBER_ID.",
+      "range": {
+        "startLine": 61,
+        "startChar": 25,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "f08d760c9125a32e3f470c6508b5cb4c087177da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
