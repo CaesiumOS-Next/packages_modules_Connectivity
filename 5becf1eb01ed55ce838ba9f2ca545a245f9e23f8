@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3d0afe4_9d8a258c",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-08T10:21:23Z",
+      "side": 1,
+      "message": "Actually, I will remove this check in aosp/1715792 because after merging aosp/1715693, mOldPrivateDnsMode will not be null.",
+      "range": {
+        "startLine": 527,
+        "startChar": 8,
+        "endLine": 529,
+        "endChar": 9
+      },
+      "revId": "5becf1eb01ed55ce838ba9f2ca545a245f9e23f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37d5da01_23c4a2e2",
         "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
         "patchSetId": 1
@@ -14,6 +37,30 @@
       "writtenOn": "2021-06-08T10:12:24Z",
       "side": 1,
       "message": "After this CL, looks like this might be null. We probably need to fix it.",
+      "range": {
+        "startLine": 554,
+        "startChar": 12,
+        "endLine": 554,
+        "endChar": 34
+      },
+      "revId": "5becf1eb01ed55ce838ba9f2ca545a245f9e23f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b9f3385_f60362e9",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-08T10:21:23Z",
+      "side": 1,
+      "message": "Luke, I wonder why do we need to call awaitPrivateDnsSetting() when restoring the settings?\nWhy can\u0027t we just restore the settings?\nIf the server is invalid by some reasons, the test will fail, right?",
+      "parentUuid": "37d5da01_23c4a2e2",
       "range": {
         "startLine": 554,
         "startChar": 12,
