@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8995bcd_bfd842fa",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-08T01:36:31Z",
+      "side": 1,
+      "message": "done in aosp/1729418",
+      "parentUuid": "e0d86bce_7c102f56",
+      "range": {
+        "startLine": 509,
+        "startChar": 11,
+        "endLine": 509,
+        "endChar": 17
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0600b2ca_e710dccf",
@@ -141,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e05155b1_2f5206d0",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-08T01:36:31Z",
+      "side": 1,
+      "message": "done in aosp/1729418",
+      "parentUuid": "0600b2ca_e710dccf",
+      "range": {
+        "startLine": 514,
+        "startChar": 43,
+        "endLine": 514,
+        "endChar": 51
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bad68947_a74e697e",
@@ -154,6 +202,30 @@
       "writtenOn": "2021-06-07T15:25:21Z",
       "side": 1,
       "message": "static final",
+      "range": {
+        "startLine": 582,
+        "startChar": 11,
+        "endLine": 582,
+        "endChar": 17
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25990c56_550a7c48",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-08T01:36:31Z",
+      "side": 1,
+      "message": "done in aosp/1729418",
+      "parentUuid": "bad68947_a74e697e",
       "range": {
         "startLine": 582,
         "startChar": 11,
