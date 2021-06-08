@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9177f89b_fb931d3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T08:33:03Z",
+      "side": 1,
+      "message": "Maybe use/adapt below title if you think it is clearer?\nRelease previous network callback if PendingIntent is the same\nor\nFix network callback with the same PendingIntent does not release\n\nAlso tried to reword description as below, feel free to use/modify it if you think it is better:\nCurrently, ConnectivityService uses EVENT_REGISTER_NETWORK_LISTENER to dispatch registering network callback with pending intent, this is wrong since the code flow will not check if the pending intent is duplicated. Thus, the registration will be duplicated if the caller uses the same pending intent and register multiple times.\n\nThis change fixes the logic by using EVENT_REGISTER_NETWORK_LISTENER_WITH_INTENT\ninstead of EVENT_REGISTER_NETWORK_LISTENER when dispatching register network callback with pending intent.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "6fb2ee65701a2c57b8c8c5baf00e9b060607420f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
