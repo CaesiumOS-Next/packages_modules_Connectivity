@@ -96,6 +96,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0629b80d_8c8850e0",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-08T10:48:39Z",
+      "side": 1,
+      "message": "Done.\n\nPer discussed, just rely on IpServer#stopIPv4 (test case a, b, enabling NAT failure) and BpfCoordinator#updateUpstreamNetworkState (test case c) to cleanup the rules. Here is the test cases and its logging.\n\n    Test cases:\n    a. Loss upstream interface while tethering\n      1. Enable WIFI tethering\n      2. Disable upstream interface\n      3. Check the rules are removed.\n    b. Loss downstream interfaces while tethering\n      1. Enable WIFI tethering\n      2. Enable BT tethering\n      3. Disable BT tethering\n      4. Check the BT tether rules are removed.\n      5. Disable WIFI tethering\n      6. Check the WIFI tether rules are removed.\n    c. Switch upstream interface while tethering\n      1. Enable WIFI tethering\n      2. Enable BT tethering\n      3. Switch upstream interface from cellular to wifi.\n      4. Check all rules are removed.\n    \n    Log:\n    - Both Test case a and b rely on IpServer#stopIPv4 to clear rules.\n    - Test case c rely on BpfCoordinator#updateUpstreamNetworkState to\n      clear rules.\n    - Enabling NAT failure relies on IpServer#stopIPv4 to clear rules.\n    \n    Test case a\n    06-08 12:37:59.963  [..] Tethering: [wlan2] cleanupUpstream wlan2\n    06-08 12:37:59.966  [..] Tethering: [wlan2] stopIPv4 wlan2\n    \n    Test case b\n    06-07 22:17:51.886  [..] Tethering: [bt-pan] cleanupUpstream bt-pan\n    06-07 22:17:51.888  [..] Tethering: [bt-pan] stopIPv4 bt-pan\n    06-07 22:18:23.769  [..] Tethering: [wlan2] cleanupUpstream wlan2\n    06-07 22:18:23.772  [..] Tethering: [wlan2] stopIPv4 wlan2\n    \n    Test case c\n    06-08 11:11:48.277  [..] Tethering: [BpfCoordinator]\n                    updateUpstreamNetworkState tetherOffloadRule4Clear bt-pan\n    06-08 11:11:48.396  [..] Tethering: [BpfCoordinator]\n                    updateUpstreamNetworkState tetherOffloadRule4Clear wlan2\n    06-08 11:11:48.579  [..] Tethering: [wlan2] cleanupUpstreamInterface wlan2\n    06-08 11:11:48.808  [..] Tethering: [bt-pan] cleanupUpstreamInterface bt-pan\n    \n    Enabling NAT failure\n    06-08 13:04:18.117  [..] Tethering: [wlan2] Exception enabling NAT [..]\n    06-08 13:04:18.234  [..] Tethering: [wlan2] cleanupUpstream wlan2\n    06-08 13:04:18.246  [..] Tethering: [wlan2] stopIPv4 wlan2",
+      "parentUuid": "982bd430_2aea6a0e",
+      "range": {
+        "startLine": 1290,
+        "startChar": 12,
+        "endLine": 1290,
+        "endChar": 36
+      },
+      "revId": "8c44111809ddd7e591313a0706d381beda75a168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31959709_4df04fa0",
