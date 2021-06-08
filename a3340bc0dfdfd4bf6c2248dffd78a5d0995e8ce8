@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8311884b_df98eaa6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-08T04:12:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "356b29d7_c67c624c",
+      "range": {
+        "startLine": 11,
+        "startChar": 29,
+        "endLine": 13,
+        "endChar": 32
+      },
+      "revId": "a3340bc0dfdfd4bf6c2248dffd78a5d0995e8ce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bebd4e6_e117c682",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cde6a2e_b8b072d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-08T04:12:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bebd4e6_e117c682",
+      "range": {
+        "startLine": 14,
+        "startChar": 50,
+        "endLine": 16,
+        "endChar": 3
+      },
+      "revId": "a3340bc0dfdfd4bf6c2248dffd78a5d0995e8ce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67117389_be8b382a",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-08T03:47:46Z",
       "side": 1,
       "message": "Maybe:\n To prevent races from re-entrance of stop(), return if the state is already stopping. This might happen if multiple event sources stop keepalive in a short time. Such as network disconnect after user calls stop(), or tear down socket after binder died.",
+      "range": {
+        "startLine": 376,
+        "startChar": 12,
+        "endLine": 379,
+        "endChar": 50
+      },
+      "revId": "a3340bc0dfdfd4bf6c2248dffd78a5d0995e8ce8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543f8d65_aff6a2b1",
+        "filename": "service/src/com/android/server/connectivity/KeepaliveTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-08T04:12:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67117389_be8b382a",
       "range": {
         "startLine": 376,
         "startChar": 12,
