@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d7c83a_064871cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T00:54:36Z",
+      "side": 1,
+      "message": "A?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 1
+      },
+      "revId": "0ea8b726c9bbfec4aa409341c007a136a894b475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b18374a7_787dcddc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T00:54:36Z",
+      "side": 1,
+      "message": "LGTM except some nits.",
+      "revId": "0ea8b726c9bbfec4aa409341c007a136a894b475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67b94f2a_4e803dfb",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T00:54:36Z",
+      "side": 1,
+      "message": "nit: Maybe define it as constant and also replace the variable at l.75?\nNo strong opinion, feel free to keep it as is.",
+      "range": {
+        "startLine": 218,
+        "startChar": 21,
+        "endLine": 218,
+        "endChar": 37
+      },
+      "revId": "0ea8b726c9bbfec4aa409341c007a136a894b475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6854cd77_5ef36a51",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T00:54:36Z",
+      "side": 1,
+      "message": "nit: it seems we don\u0027t need this?\nno strong opinion.",
+      "range": {
+        "startLine": 220,
+        "startChar": 33,
+        "endLine": 220,
+        "endChar": 51
+      },
+      "revId": "0ea8b726c9bbfec4aa409341c007a136a894b475",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

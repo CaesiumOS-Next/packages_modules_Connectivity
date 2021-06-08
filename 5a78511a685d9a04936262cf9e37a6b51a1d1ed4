@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b88a849_4faf9ecc",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T00:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd98145_b8522a23",
+      "range": {
+        "startLine": 169,
+        "startChar": 17,
+        "endLine": 169,
+        "endChar": 48
+      },
+      "revId": "5a78511a685d9a04936262cf9e37a6b51a1d1ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b3c5b72_651eab36",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-07T09:38:02Z",
       "side": 1,
       "message": "Is it better if we merge these 3 and name it something like \ntestQueryDetails_NoSubscriberId ?",
+      "range": {
+        "startLine": 203,
+        "startChar": 16,
+        "endLine": 203,
+        "endChar": 55
+      },
+      "revId": "5a78511a685d9a04936262cf9e37a6b51a1d1ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b019223_b408d55f",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-08T00:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b3c5b72_651eab36",
       "range": {
         "startLine": 203,
         "startChar": 16,
