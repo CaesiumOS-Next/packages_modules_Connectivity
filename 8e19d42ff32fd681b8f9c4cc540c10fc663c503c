@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14d262a7_c687d56d",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-08T00:15:47Z",
+      "side": 1,
+      "message": "This class is not able to know the mode of the payload. I believe this doc is just informational.",
+      "parentUuid": "aa5c7d97_8d9f7ca3",
+      "range": {
+        "startLine": 353,
+        "startChar": 14,
+        "endLine": 353,
+        "endChar": 29
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68c02407_da7c36f9",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-07T15:25:21Z",
       "side": 1,
       "message": "Out of curiosity, why is the iv protected if the key is public? What is gained by hiding it from other classes?\n\nAlso, can it be final? I don\u0027t see you assigning it anywhere else but the constructor.",
+      "range": {
+        "startLine": 471,
+        "startChar": 8,
+        "endLine": 471,
+        "endChar": 28
+      },
+      "revId": "8e19d42ff32fd681b8f9c4cc540c10fc663c503c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c100d1b_0e23df0b",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-08T00:15:47Z",
+      "side": 1,
+      "message": "It is protected because it is not final and thus I want to give it more restrictions. It cannot be private because subclass need to access it. (e.g. EspCryptCipher#getCipherText)\n\nIt cannot be final because we need to update the IV in the followup CL. See https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1503694/12/tests/cts/net/src/android/net/cts/PacketUtils.java#499).\n\nI think to make code review easier I should have made \"iv\" public final in this CL and changed it later when we need to update it. Sorry for the inconvenience.",
+      "parentUuid": "68c02407_da7c36f9",
       "range": {
         "startLine": 471,
         "startChar": 8,
