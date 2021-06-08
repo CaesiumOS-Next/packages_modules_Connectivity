@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "567b0dfc_897bc8a6",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T03:33:26Z",
+      "side": 1,
+      "message": "If you think it\u0027s clearer to set these two arguments every time, you can remove the default value on configTestServer().",
+      "parentUuid": "e98eebb5_a3179405",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 241,
+        "endChar": 51
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d534d1f_7e678617",
