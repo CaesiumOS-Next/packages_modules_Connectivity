@@ -46,6 +46,8 @@ public class ProxyInfo implements Parcelable {
     private final int mPort;
     private final String mExclusionList;
     private final String[] mParsedExclusionList;
+    // Uri.EMPTY if none.
+    @NonNull
     private final Uri mPacFileUrl;
 
     /**
@@ -253,6 +255,14 @@ public class ProxyInfo implements Parcelable {
             }
         }
         return proxy;
+    }
+
+    /**
+     * @hide
+     * @return whether this proxy uses a Proxy Auto Configuration URL.
+     */
+    public boolean isPacProxy() {
+        return !Uri.EMPTY.equals(mPacFileUrl);
     }
 
     @Override
