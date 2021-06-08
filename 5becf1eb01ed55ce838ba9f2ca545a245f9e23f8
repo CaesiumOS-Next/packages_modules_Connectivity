@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ce5f02c_2bb00bf7",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-08T10:34:42Z",
+      "side": 1,
+      "message": "Got it; I think we need to fix this quickly though because tests are very flaky and/or failing sometimes in presubmit. If your changes don\u0027t go in before tomorrow I think we should fix it with a smaller fix here.",
+      "parentUuid": "f3d0afe4_9d8a258c",
+      "range": {
+        "startLine": 527,
+        "startChar": 8,
+        "endLine": 529,
+        "endChar": 9
+      },
+      "revId": "5becf1eb01ed55ce838ba9f2ca545a245f9e23f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37d5da01_23c4a2e2",
         "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
         "patchSetId": 1
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "Luke, I wonder why do we need to call awaitPrivateDnsSetting() when restoring the settings?\nWhy can\u0027t we just restore the settings?\nIf the server is invalid by some reasons, the test will fail, right?",
       "parentUuid": "37d5da01_23c4a2e2",
+      "range": {
+        "startLine": 554,
+        "startChar": 12,
+        "endLine": 554,
+        "endChar": 34
+      },
+      "revId": "5becf1eb01ed55ce838ba9f2ca545a245f9e23f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83f73fdd_24e9f9d7",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-08T10:34:42Z",
+      "side": 1,
+      "message": "Added a check before awaitPrivateDnsSetting.\nI suspect some tests may race with the setting being applied if there\u0027s no wait, but not sure",
+      "parentUuid": "5b9f3385_f60362e9",
       "range": {
         "startLine": 554,
         "startChar": 12,
