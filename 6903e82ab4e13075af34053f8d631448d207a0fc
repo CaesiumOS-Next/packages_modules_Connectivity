@@ -62,6 +62,30 @@
       },
       "revId": "6903e82ab4e13075af34053f8d631448d207a0fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4bbd37a_82875f6a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-08T08:12:02Z",
+      "side": 1,
+      "message": "It\u0027s a check to prevent it\u0027s updated to an unexpected number.",
+      "parentUuid": "56a0d60a_3820c142",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 75
+      },
+      "revId": "6903e82ab4e13075af34053f8d631448d207a0fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
