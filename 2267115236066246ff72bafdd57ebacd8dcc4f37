@@ -239,6 +239,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c004a09a_060ac6f4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T03:38:40Z",
+      "side": 1,
+      "message": "Maybe you can check whether there is a active network on setUp() like ConnectivityManagerTest to reminder tester this test needs a wifi connection.",
+      "parentUuid": "8252c5d4_8b551761",
+      "range": {
+        "startLine": 280,
+        "startChar": 12,
+        "endLine": 280,
+        "endChar": 27
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36dcb74b_a8c403c6",
         "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
         "patchSetId": 2
