@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32951498_280ca003",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-08T10:12:59Z",
+      "side": 1,
+      "message": "Thanks, adding Lorenzo",
+      "parentUuid": "9639a6e2_09c74f39",
+      "revId": "666bf13fe65d252f42cfaf553a2a71568811a268",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96a9545a_485504ae",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42e78e1a_8fc09622",
+        "filename": "tests/unit/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-08T10:12:59Z",
+      "side": 1,
+      "message": "Added comment",
+      "parentUuid": "96a9545a_485504ae",
+      "range": {
+        "startLine": 53,
+        "startChar": 17,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "666bf13fe65d252f42cfaf553a2a71568811a268",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35911d2b_f9e6ecab",
@@ -54,6 +96,30 @@
       "writtenOn": "2021-06-08T07:59:28Z",
       "side": 1,
       "message": "Nit: do we like to do something similar to this?",
+      "range": {
+        "startLine": 134,
+        "startChar": 8,
+        "endLine": 134,
+        "endChar": 91
+      },
+      "revId": "666bf13fe65d252f42cfaf553a2a71568811a268",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c17bf58e_1cc8c9a4",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-08T10:12:59Z",
+      "side": 1,
+      "message": "This is already done on L.139, is that what you mean ?\nL.141 is now necessary because getSystemService(Class\u003c?\u003e) is final, so it does not use default behavior with mockito extended, which would call getSystemServiceName and getSystemService(String).",
+      "parentUuid": "35911d2b_f9e6ecab",
       "range": {
         "startLine": 134,
         "startChar": 8,
