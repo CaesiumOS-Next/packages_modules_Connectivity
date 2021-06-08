@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9328ea_ee062a38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T07:11:03Z",
+      "side": 1,
+      "message": "LGTM only nits. Feel free to ignore them.",
+      "revId": "6903e82ab4e13075af34053f8d631448d207a0fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4db2aa6_4055231a",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T07:11:03Z",
+      "side": 1,
+      "message": "Nit: Fit for one line.",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 7
+      },
+      "revId": "6903e82ab4e13075af34053f8d631448d207a0fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56a0d60a_3820c142",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T07:11:03Z",
+      "side": 1,
+      "message": "Nit: Is this always true? WIFI_CONNECT_TIMEOUT_MS is constant and always less than 10 mins.",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 75
+      },
+      "revId": "6903e82ab4e13075af34053f8d631448d207a0fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
