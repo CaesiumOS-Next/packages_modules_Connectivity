@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8252c5d4_8b551761",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T03:28:43Z",
+      "side": 1,
+      "message": "I think it\u0027s not ture. You can\u0027t assume wifi is turned on before running this test. If tester is running this single test, suppose that tester is not aware of the wifi state without any failed message. Then wifi will be turned on after testing. WDYT?",
+      "parentUuid": "5c4aab16_1dbc7987",
+      "range": {
+        "startLine": 280,
+        "startChar": 12,
+        "endLine": 280,
+        "endChar": 27
+      },
+      "revId": "2267115236066246ff72bafdd57ebacd8dcc4f37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36dcb74b_a8c403c6",
         "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
         "patchSetId": 2

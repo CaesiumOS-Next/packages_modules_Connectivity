@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7664487_41be7a73",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T03:28:43Z",
+      "side": 1,
+      "message": "In Kotlin, you can use assertFailsWith instead of using assertThrows() by Java.\nExample: assertFailsWith\u003cSecurityException\u003e() { cm.setAcceptPartialConnectivity(network, false /* accept */, false /* always */) }",
+      "range": {
+        "startLine": 242,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 96
+      },
+      "revId": "36229774d0005e89d28817c864157914b36d8968",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19bc209d_036eb31b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T03:28:43Z",
+      "side": 1,
+      "message": "I don\u0027t think you need a active network for testing CM#setAcceptPartialConnectivity because CS will enforce permission check at beginning.",
+      "range": {
+        "startLine": 246,
+        "startChar": 12,
+        "endLine": 246,
+        "endChar": 62
+      },
+      "revId": "36229774d0005e89d28817c864157914b36d8968",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
