@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68acce58_3cde143e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T09:58:04Z",
+      "side": 1,
+      "message": "But you still can start/stop the server in the test, right? If there is a new test that doesn\u0027t need use httpServer, it doesn\u0027t need start/stop the server. Or you can just start the server immediately when creating the server if you think start server is necessary. It looks to me the setUp/tearDown method is redundant. WDYT?",
+      "parentUuid": "e2d0187c_9074c780",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 26
+      },
+      "revId": "ec2eea59057c188c1fbbda2b4f20e0f91dd62021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca4e3533_34329763",
         "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
         "patchSetId": 2
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I move the initialization into the test but the var is also used in other method. I prefer to keep it globally since it does not make too much benefit to make it a local val and take into other methods. The method are not reused with other parameters.",
       "parentUuid": "ca4e3533_34329763",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 99
+      },
+      "revId": "ec2eea59057c188c1fbbda2b4f20e0f91dd62021",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0be6f382_897e222e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-08T09:58:04Z",
+      "side": 1,
+      "message": "It\u0027s not correct to move the initializion to test but keep the parameter as lateinit var. That means this parameter will only initialize on testCapportApiCallbacks(). If someone use that parameter but not do initializaion, it may get NPE. Make it locally or make it as val.",
+      "parentUuid": "14b8f54e_300dded9",
       "range": {
         "startLine": 111,
         "startChar": 8,
