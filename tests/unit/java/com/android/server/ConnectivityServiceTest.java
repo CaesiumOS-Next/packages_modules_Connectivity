@@ -668,6 +668,8 @@ public class ConnectivityServiceTest {
         public Intent registerReceiverForAllUsers(@Nullable BroadcastReceiver receiver,
                 @NonNull IntentFilter filter, @Nullable String broadcastPermission,
                 @Nullable Handler scheduler) {
+            // TODO: ensure MultinetworkPolicyTracker's BroadcastReceiver is tested; just returning
+            // null should not pass the test
             return null;
         }
     }
@@ -1227,7 +1229,9 @@ public class ConnectivityServiceTest {
                                 // Settings keys not marked as @Readable are not readable from
                                 // non-privileged apps, unless marked as testOnly=true
                                 // (atest refuses to install testOnly=true apps), even if mocked
-                                // in the content provider.
+                                // in the content provider, because
+                                // Settings.Secure.NameValueCache#getStringForUser checks the key
+                                // before querying the mock settings provider.
                                 case Settings.Secure.ALWAYS_ON_VPN_APP:
                                     return null;
                                 default:
