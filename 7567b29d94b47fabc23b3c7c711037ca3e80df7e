@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22774a77_60f37e5b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-09T13:03:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5273b140_1a1da5bc",
+      "range": {
+        "startLine": 384,
+        "startChar": 8,
+        "endLine": 384,
+        "endChar": 79
+      },
+      "revId": "7567b29d94b47fabc23b3c7c711037ca3e80df7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3ee569a_9d4b4d12",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-09T07:04:19Z",
       "side": 1,
       "message": "Nit: This could be removed. It\u0027s verified in createConnectedNetworkAgent?",
+      "range": {
+        "startLine": 531,
+        "startChar": 8,
+        "endLine": 531,
+        "endChar": 72
+      },
+      "revId": "7567b29d94b47fabc23b3c7c711037ca3e80df7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07e20e78_a8efa0a0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-09T13:03:23Z",
+      "side": 1,
+      "message": "Yes and no.\nIf we remove this one, it will fail l.543 since the event is still in the queue.\nThe callback we verified is the unused(_) callback.",
+      "parentUuid": "a3ee569a_9d4b4d12",
       "range": {
         "startLine": 531,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8fd6954_b2ae8bcb",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-09T13:03:23Z",
+      "side": 1,
+      "message": "This is to keep the style consistency with l.530~l.536,\nif we also use scoped function for agent1, since the variable will only be available inside the scope, we\u0027ll need to do nested code like the original code.\nWhich I think is bad for readibility.\n\nIf we keep current style for agent1, but use scoped function for agent2.\nIt is a bit of weird to me since the style is not consistent, but I can do that if you feel strongly.",
+      "parentUuid": "c99048e9_2430ca83",
+      "range": {
+        "startLine": 539,
+        "startChar": 8,
+        "endLine": 550,
+        "endChar": 0
+      },
+      "revId": "7567b29d94b47fabc23b3c7c711037ca3e80df7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "391f411c_cb29b9f5",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-06-09T07:04:19Z",
       "side": 1,
       "message": "why do you do register/connect here instead of using createConnectedNetworkAgent?",
+      "range": {
+        "startLine": 757,
+        "startChar": 7,
+        "endLine": 760,
+        "endChar": 83
+      },
+      "revId": "7567b29d94b47fabc23b3c7c711037ca3e80df7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4541cfac_97333a04",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-09T13:03:23Z",
+      "side": 1,
+      "message": "createConnectedNetworkAgent will create a callback that holds the connection.\nThat is what we don\u0027t need, since we are testing linger.",
+      "parentUuid": "391f411c_cb29b9f5",
       "range": {
         "startLine": 757,
         "startChar": 7,
