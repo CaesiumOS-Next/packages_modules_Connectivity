@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3732f70_0a609326",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T08:16:54Z",
+      "side": 1,
+      "message": "LGTM, but see questions inline.",
+      "revId": "bba8ec0d43ff4c9219f259bdfe1cc4f05faa609b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d98fd818_0b06a7b0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T08:16:54Z",
+      "side": 1,
+      "message": "Why do we need this? Is there code in the test that calls registerReceiverForAllUsers, and will now get a SecurityException? But if so, why is returning null here correct? Presumably that means the receiver won\u0027t actually work, so why doesn\u0027t the test fail? Is the code that calls this method not covered by tests?",
+      "range": {
+        "startLine": 668,
+        "startChar": 12,
+        "endLine": 668,
+        "endChar": 24
+      },
+      "revId": "bba8ec0d43ff4c9219f259bdfe1cc4f05faa609b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59fcb770_aeffe0a2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T08:16:54Z",
+      "side": 1,
+      "message": "Not sure what this means. Is this actually a bug in FakeSettingsProvider that we should fix?",
+      "range": {
+        "startLine": 1226,
+        "startChar": 82,
+        "endLine": 1227,
+        "endChar": 59
+      },
+      "revId": "bba8ec0d43ff4c9219f259bdfe1cc4f05faa609b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
