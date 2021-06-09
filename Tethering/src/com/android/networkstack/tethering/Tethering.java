@@ -76,7 +76,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.hardware.usb.UsbManager;
 import android.net.ConnectivityManager;
@@ -550,15 +549,20 @@ public class Tethering {
     // This method needs to exist because TETHERING_BLUETOOTH before Android T and TETHERING_WIGIG
     // can't use enableIpServing.
     private void processInterfaceStateChange(final String iface, boolean enabled) {
-        // Do not listen to USB interface state changes or USB interface add/removes. USB tethering
-        // is driven only by USB_ACTION broadcasts.
-        final int type = ifaceNameToType(iface);
-        if (type == TETHERING_USB || type == TETHERING_NCM) return;
+        if (SdkLevel.isAtLeastT()) return;
 
-        if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
+        final int type = ifaceNameToType(iface);
+        if (type != TETHERING_BLUETOOTH && type != TETHERING_WIGIG) {
+            // Except for bt and wigig, tracking interface by framework intent or callback instead
+            // of netlink interface status change event. E.g. monitor WiFi AP status through the
+            // WifiManager.WIFI_AP_STATE_CHANGED_ACTION intent.
+            if (VDBG) Log.d(TAG, "ignore tracking iface " + iface + ", " + enabled);
+
+            return;
+        }
 
         if (enabled) {
-            ensureIpServerStarted(iface);
+            ensureIpServerStarted(iface, type, false /* isNcm */);
         } else {
             ensureIpServerStopped(iface);
         }
@@ -568,16 +572,6 @@ public class Tethering {
         // Never called directly: only called from interfaceLinkStateChanged.
         // See NetlinkHandler.cpp: notifyInterfaceChanged.
         if (VDBG) Log.d(TAG, "interfaceStatusChanged " + iface + ", " + up);
-
-        final int type = ifaceNameToType(iface);
-        if (!up && type != TETHERING_BLUETOOTH && type != TETHERING_WIGIG) {
-            // Ignore usb interface down after enabling RNDIS.
-            // We will handle disconnect in interfaceRemoved.
-            // Similarly, ignore interface down for WiFi.  We monitor WiFi AP status
-            // through the WifiManager.WIFI_AP_STATE_CHANGED_ACTION intent.
-            if (VDBG) Log.d(TAG, "ignore interface down for " + iface);
-            return;
-        }
 
         processInterfaceStateChange(iface, up);
     }
@@ -1266,7 +1260,7 @@ public class Tethering {
 
             // if no group is formed, bring it down if needed.
             if (p2pInfo == null || !p2pInfo.groupFormed) {
-                disableWifiP2pIpServingIfNeeded(mWifiP2pTetherInterface);
+                ensureIpServerStopped(mWifiP2pTetherInterface);
                 mWifiP2pTetherInterface = null;
                 return;
             }
@@ -1282,12 +1276,17 @@ public class Tethering {
                 mLog.w("P2P tethered interface " + mWifiP2pTetherInterface
                         + "is different from current interface "
                         + group.getInterface() + ", re-tether it");
-                disableWifiP2pIpServingIfNeeded(mWifiP2pTetherInterface);
+                ensureIpServerStopped(mWifiP2pTetherInterface);
             }
 
             // Finally bring up serving on the new interface
             mWifiP2pTetherInterface = group.getInterface();
-            enableWifiIpServing(mWifiP2pTetherInterface, IFACE_IP_MODE_LOCAL_ONLY);
+            if (!TextUtils.isEmpty(mWifiP2pTetherInterface)) {
+                enableIpServing(TETHERING_WIFI_P2P, mWifiP2pTetherInterface,
+                        IpServer.STATE_LOCAL_ONLY);
+            } else {
+                mLog.e("Error enable P2p IP serving; no interface name specified");
+            }
         }
 
         private void handleUserRestrictionAction() {
@@ -1378,47 +1377,16 @@ public class Tethering {
         changeInterfaceState(ifname, ipServingMode);
     }
 
-    private void disableWifiIpServingCommon(int tetheringType, String ifname, int apState) {
-        mLog.log("Canceling WiFi tethering request -"
-                + " type=" + tetheringType
-                + " interface=" + ifname
-                + " state=" + apState);
-
-        if (!TextUtils.isEmpty(ifname)) {
-            final TetherState ts = mTetherStates.get(ifname);
-            if (ts != null) {
-                ts.ipServer.unwanted();
-                return;
-            }
-        }
-
-        for (int i = 0; i < mTetherStates.size(); i++) {
-            final IpServer ipServer = mTetherStates.valueAt(i).ipServer;
-            if (ipServer.interfaceType() == tetheringType) {
-                ipServer.unwanted();
-                return;
-            }
-        }
-
-        mLog.log("Error disabling Wi-Fi IP serving; "
-                + (TextUtils.isEmpty(ifname) ? "no interface name specified"
-                                           : "specified interface: " + ifname));
-    }
-
     private void disableWifiIpServing(String ifname, int apState) {
         // Regardless of whether we requested this transition, the AP has gone
         // down.  Don't try to tether again unless we're requested to do so.
-        // TODO: Remove this altogether, once Wi-Fi reliably gives us an
-        // interface name with every broadcast.
         mWifiTetherRequested = false;
 
-        disableWifiIpServingCommon(TETHERING_WIFI, ifname, apState);
-    }
-
-    private void disableWifiP2pIpServingIfNeeded(String ifname) {
-        if (TextUtils.isEmpty(ifname)) return;
-
-        disableWifiIpServingCommon(TETHERING_WIFI_P2P, ifname, /* fake */ 0);
+        if (!TextUtils.isEmpty(ifname)) {
+            ensureIpServerStopped(ifname);
+        } else {
+            mLog.e("Error disabling Wi-Fi IP serving; no interface name specified");
+        }
     }
 
     private void enableWifiIpServing(String ifname, int wifiIpMode) {
@@ -1438,8 +1406,7 @@ public class Tethering {
         }
 
         if (!TextUtils.isEmpty(ifname)) {
-            ensureIpServerStarted(ifname);
-            changeInterfaceState(ifname, ipServingMode);
+            enableIpServing(TETHERING_WIFI, ifname, ipServingMode);
         } else {
             mLog.e(String.format(
                     "Cannot enable IP serving in mode %s on missing interface name",
@@ -2720,29 +2687,6 @@ public class Tethering {
                 iface, IpServer.getStateString(state), newLp));
         final int which = TetherMainSM.EVENT_IFACE_UPDATE_LINKPROPERTIES;
         mTetherMainSM.sendMessage(which, state, 0, newLp);
-    }
-
-    private void ensureIpServerStarted(final String iface) {
-        // If we don't care about this type of interface, ignore.
-        final int interfaceType = ifaceNameToType(iface);
-        if (interfaceType == TETHERING_INVALID) {
-            mLog.log(iface + " is not a tetherable iface, ignoring");
-            return;
-        }
-
-        final PackageManager pm = mContext.getPackageManager();
-        if ((interfaceType == TETHERING_WIFI || interfaceType == TETHERING_WIGIG)
-                && !pm.hasSystemFeature(PackageManager.FEATURE_WIFI)) {
-            mLog.log(iface + " is not tetherable, because WiFi feature is disabled");
-            return;
-        }
-        if (interfaceType == TETHERING_WIFI_P2P
-                && !pm.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)) {
-            mLog.log(iface + " is not tetherable, because WiFi Direct feature is disabled");
-            return;
-        }
-
-        ensureIpServerStarted(iface, interfaceType, false /* isNcm */);
     }
 
     private void ensureIpServerStarted(final String iface, int interfaceType, boolean isNcm) {
