@@ -247,8 +247,8 @@ public class Tethering {
     private volatile TetheringConfiguration mConfig;
     private InterfaceSet mCurrentUpstreamIfaceSet;
 
-    private boolean mRndisEnabled;       // track the RNDIS function enabled state
-    private boolean mNcmEnabled;         // track the NCM function enabled state
+    private boolean mRndisEnabled = false;       // track the RNDIS function enabled state
+    private boolean mNcmEnabled = false;         // track the NCM function enabled state
     // True iff. WiFi tethering should be started when soft AP is ready.
     private boolean mWifiTetherRequested;
     private Network mTetherUpstream;
@@ -491,24 +491,40 @@ public class Tethering {
         }
     }
 
+    // Ingore interface up, down, add and remove netlink event. Listen framework event to monitor
+    // downstream status. E.g. ACTION_USB_STATE.
+    private void maybeHandleTrackingInterface(final String iface, boolean enabled) {
+        final int type = ifaceNameToType(iface);
+
+        switch (type) {
+            case TETHERING_USB:
+            case TETHERING_NCM:
+                return;
+            default:
+                // Do nothing.
+        }
+
+        if (enabled) {
+            maybeTrackNewInterface(iface);
+        } else {
+            stopTrackingInterface(iface);
+        }
+    }
+
     void interfaceStatusChanged(String iface, boolean up) {
         // Never called directly: only called from interfaceLinkStateChanged.
         // See NetlinkHandler.cpp: notifyInterfaceChanged.
         if (VDBG) Log.d(TAG, "interfaceStatusChanged " + iface + ", " + up);
-        if (up) {
-            maybeTrackNewInterface(iface);
-        } else {
-            if (ifaceNameToType(iface) == TETHERING_BLUETOOTH
-                    || ifaceNameToType(iface) == TETHERING_WIGIG) {
-                stopTrackingInterface(iface);
-            } else {
-                // Ignore usb0 down after enabling RNDIS.
-                // We will handle disconnect in interfaceRemoved.
-                // Similarly, ignore interface down for WiFi.  We monitor WiFi AP status
-                // through the WifiManager.WIFI_AP_STATE_CHANGED_ACTION intent.
-                if (VDBG) Log.d(TAG, "ignore interface down for " + iface);
-            }
+
+        final int type = ifaceNameToType(iface);
+        if (!up && type != TETHERING_BLUETOOTH && type != TETHERING_WIGIG) {
+            // Will handle disconnect in interfaceRemoved or framework event. E.g. monitor WiFi
+            // AP status through the WifiManager.WIFI_AP_STATE_CHANGED_ACTION intent.
+            if (VDBG) Log.d(TAG, "ignore interface down for " + iface);
+            return;
         }
+
+        maybeHandleTrackingInterface(iface, up);
     }
 
     void interfaceLinkStateChanged(String iface, boolean up) {
@@ -536,12 +552,12 @@ public class Tethering {
 
     void interfaceAdded(String iface) {
         if (VDBG) Log.d(TAG, "interfaceAdded " + iface);
-        maybeTrackNewInterface(iface);
+        maybeHandleTrackingInterface(iface, true /* enabled */);
     }
 
     void interfaceRemoved(String iface) {
         if (VDBG) Log.d(TAG, "interfaceRemoved " + iface);
-        stopTrackingInterface(iface);
+        maybeHandleTrackingInterface(iface, false /* enabled */);
     }
 
     void startTethering(final TetheringRequestParcel request, final IIntResultListener listener) {
@@ -992,11 +1008,11 @@ public class Tethering {
         private void handleUsbAction(Intent intent) {
             final boolean usbConnected = intent.getBooleanExtra(USB_CONNECTED, false);
             final boolean usbConfigured = intent.getBooleanExtra(USB_CONFIGURED, false);
-            final boolean rndisEnabled = intent.getBooleanExtra(USB_FUNCTION_RNDIS, false);
-            final boolean ncmEnabled = intent.getBooleanExtra(USB_FUNCTION_NCM, false);
+            final boolean usbRndis = intent.getBooleanExtra(USB_FUNCTION_RNDIS, false);
+            final boolean usbNcm = intent.getBooleanExtra(USB_FUNCTION_NCM, false);
 
-            mLog.log(String.format("USB bcast connected:%s configured:%s rndis:%s ncm:%s",
-                    usbConnected, usbConfigured, rndisEnabled, ncmEnabled));
+            mLog.i(String.format("USB bcast connected:%s configured:%s rndis:%s ncm:%s",
+                    usbConnected, usbConfigured, usbRndis, usbNcm));
 
             // There are three types of ACTION_USB_STATE:
             //
@@ -1013,22 +1029,35 @@ public class Tethering {
             //       functions are ready to use.
             //
             // For more explanation, see b/62552150 .
-            if (!usbConnected && (mRndisEnabled || mNcmEnabled)) {
-                // Turn off tethering if it was enabled and there is a disconnect.
-                tetherMatchingInterfaces(IpServer.STATE_AVAILABLE, TETHERING_USB);
-                mEntitlementMgr.stopProvisioningIfNeeded(TETHERING_USB);
-            } else if (usbConfigured && rndisEnabled) {
-                // Tether if rndis is enabled and usb is configured.
-                final int type = getRequestedUsbType(false /* isNcm */);
-                final int state = getRequestedState(type);
-                tetherMatchingInterfaces(state, type);
-            } else if (usbConfigured && ncmEnabled) {
-                final int type = getRequestedUsbType(true /* isNcm */);
-                final int state = getRequestedState(type);
-                tetherMatchingInterfaces(state, type);
+            boolean rndisEnabled = usbConfigured && usbRndis;
+            boolean ncmEnabled = usbConfigured && usbNcm;
+            if (!usbConnected) {
+                maybeStopUsbProvisioning();
+                rndisEnabled = false;
+                ncmEnabled = false;
             }
-            mRndisEnabled = usbConfigured && rndisEnabled;
-            mNcmEnabled = usbConfigured && ncmEnabled;
+
+            if (mRndisEnabled != rndisEnabled) {
+                changeUsbIpServing(rndisEnabled, false /* isNcm */);
+                mRndisEnabled = rndisEnabled;
+            }
+
+            if (mNcmEnabled != ncmEnabled) {
+                changeUsbIpServing(ncmEnabled, true /* isNcm */);
+                mNcmEnabled = ncmEnabled;
+            }
+        }
+
+        private void maybeStopUsbProvisioning() {
+            // Don't stop provisioning if function is disabled but usb is still connected. The
+            // function may be disable/enable to handle ip conflict condition. Normally the
+            // provisioning should be stopped by stopTethering(int)
+            for (int i = 0; i < mTetherStates.size(); i++) {
+                final int type = mTetherStates.valueAt(i).ipServer.interfaceType();
+                if (type == TETHERING_USB || type == TETHERING_NCM) {
+                    mEntitlementMgr.stopProvisioningIfNeeded(type);
+                }
+            }
         }
 
         private void handleWifiApAction(Intent intent) {
@@ -1177,8 +1206,10 @@ public class Tethering {
 
 
     private void disableIpServingCommon(String ifname) {
-        mLog.log("Canceling IP serving request -" + " interface=" + ifname);
-        if (TextUtils.isEmpty(ifname)) return;
+        if (TextUtils.isEmpty(ifname)) {
+            mLog.e("Cannot disable IP serving on missing interface name");
+            return;
+        }
 
         stopTrackingInterface(ifname);
     }
@@ -1192,6 +1223,57 @@ public class Tethering {
                     "Cannot enable type(%s) IP serving in mode %s on missing interface name",
                     tetheringType, ipServingMode));
         }
+    }
+
+    private void changeUsbIpServing(boolean enable, boolean isNcm) {
+        if (enable) {
+            // enable ip serving if function is enabled and usb is configured.
+            enableUsbIpServing(isNcm);
+        } else {
+            disableUsbIpServing(isNcm);
+        }
+    }
+
+    // Only serve first matching interface in interfaceGetList() order of a given usb function.
+    private void enableUsbIpServing(boolean isNcm) {
+        String[] ifaces = null;
+        try {
+            ifaces = mNetd.interfaceGetList();
+        } catch (RemoteException | ServiceSpecificException e) {
+            mLog.e("Cannot enableUsbIpServing due to error listing Interfaces" + e);
+            return;
+        }
+
+        String chosenIface = null;
+        if (ifaces != null) {
+            for (String iface : ifaces) {
+                if (isUsbInterface(iface, isNcm)) {
+                    chosenIface = iface;
+                    break;
+                }
+            }
+        }
+
+        enableIpServingCommon(getRequestedUsbType(isNcm), chosenIface,
+                getRequestedState(getRequestedUsbType(isNcm)));
+    }
+
+    private void disableUsbIpServing(boolean isNcm) {
+        String chosenIface = null;
+        for (int i = 0; i < mTetherStates.size(); i++) {
+            if (isUsbInterface(mTetherStates.keyAt(i), isNcm)) {
+                chosenIface = mTetherStates.keyAt(i);
+                break;
+            }
+        }
+
+        disableIpServingCommon(chosenIface);
+    }
+
+    private boolean isUsbInterface(final String iface, boolean isNcm) {
+        if (isNcm && !mConfig.isUsingNcm()) return mConfig.isNcm(iface);
+
+        return mConfig.isUsb(iface);
     }
 
     private void disableWifiIpServingCommon(int tetheringType, String ifname, int apState) {
