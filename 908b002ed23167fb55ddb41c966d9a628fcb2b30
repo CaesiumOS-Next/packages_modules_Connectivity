@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61064d33_1dd8b040",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T05:33:06Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comment in a follow-up.",
+      "revId": "908b002ed23167fb55ddb41c966d9a628fcb2b30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "886ff3f5_5bac92e9",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T05:33:06Z",
+      "side": 1,
+      "message": "When this happens, the device is guaranteed to have broke networking, right? That seems bad. Maybe set it to OPPORTUNISTIC instead?",
+      "range": {
+        "startLine": 535,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 13
+      },
+      "revId": "908b002ed23167fb55ddb41c966d9a628fcb2b30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
