@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fa42323_ffee04c8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T08:36:12Z",
+      "side": 1,
+      "message": "registerReceiverForAllUsers is used in MultinetworkPolicyTracker. Just returning null doesn\u0027t fail the test, so I guess additional coverage is needed.\nAdded TODO in followup.",
+      "parentUuid": "d98fd818_0b06a7b0",
+      "range": {
+        "startLine": 668,
+        "startChar": 12,
+        "endLine": 668,
+        "endChar": 24
+      },
+      "revId": "bba8ec0d43ff4c9219f259bdfe1cc4f05faa609b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59fcb770_aeffe0a2",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-09T08:16:54Z",
       "side": 1,
       "message": "Not sure what this means. Is this actually a bug in FakeSettingsProvider that we should fix?",
+      "range": {
+        "startLine": 1226,
+        "startChar": 82,
+        "endLine": 1227,
+        "endChar": 59
+      },
+      "revId": "bba8ec0d43ff4c9219f259bdfe1cc4f05faa609b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3241390d_88c33ef0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T08:36:12Z",
+      "side": 1,
+      "message": "It\u0027s an unfortunate architecture of the new check in Settings:\nhttp://cs/sc-dev/frameworks/base/core/java/android/provider/Settings.java?l\u003d2857\n\nIt\u0027s on the NameValueCache class that can\u0027t be mocked, and happens before querying the ContentProvider.\n\nClarified the comment in followup.",
+      "parentUuid": "59fcb770_aeffe0a2",
       "range": {
         "startLine": 1226,
         "startChar": 82,
