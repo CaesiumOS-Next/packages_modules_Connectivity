@@ -20,6 +20,7 @@ import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.Intent.ACTION_UID_REMOVED;
 import static android.content.Intent.EXTRA_UID;
+import static android.content.pm.PackageManager.PERMISSION_DENIED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.ConnectivityManager.TYPE_WIFI;
@@ -209,7 +210,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         @Override
         public void enforceCallingOrSelfPermission(String permission, @Nullable String message) {
             if (checkCallingOrSelfPermission(permission) != PERMISSION_GRANTED) {
-                super.enforceCallingOrSelfPermission(permission, message);
+                throw new SecurityException("Test does not have mocked permission " + permission);
             }
         }
 
@@ -221,7 +222,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 case UPDATE_DEVICE_STATS:
                     return PERMISSION_GRANTED;
                 default:
-                    return super.checkCallingOrSelfPermission(permission);
+                    return PERMISSION_DENIED;
             }
 
         }
