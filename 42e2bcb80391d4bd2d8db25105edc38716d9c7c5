@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9fe5deb_38058f61",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8517,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-09T00:02:12Z",
+      "side": 1,
+      "message": "Thanks, will take a look on that CL.\nBut for this CL let\u0027s keep it as is.",
+      "parentUuid": "bbf65320_51079478",
+      "range": {
+        "startLine": 8517,
+        "startChar": 7,
+        "endLine": 8517,
+        "endChar": 64
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2598af77_42245c1d",
