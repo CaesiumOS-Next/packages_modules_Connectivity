@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1acd7f2_b16a8b53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T15:23:35Z",
+      "side": 1,
+      "message": "LGTM, but Mark should take a look as well.\n\nAre the various .xml files in this CL all needed? For many of our tests soong an autogenerate them.",
+      "revId": "2587364ba407d4dd52ec247b57797adbf30cef42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bedffb6b_7b135197",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T15:23:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be 31? Maybe add a comment to explain why? Is it because 31 doesn\u0027t exist in AOSP?",
+      "range": {
+        "startLine": 48,
+        "startChar": 22,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "2587364ba407d4dd52ec247b57797adbf30cef42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4577f2e_8e5c4d70",
+        "filename": "tests/common/AndroidManifest_coverage.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T15:23:35Z",
+      "side": 1,
+      "message": "1",
+      "range": {
+        "startLine": 2,
+        "startChar": 22,
+        "endLine": 2,
+        "endChar": 23
+      },
+      "revId": "2587364ba407d4dd52ec247b57797adbf30cef42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
