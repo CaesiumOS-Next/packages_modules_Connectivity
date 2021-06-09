@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0890d475_5638af80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T00:58:51Z",
+      "side": 1,
+      "message": "Clean cherry-pick of commit db6feeab42936510fbf7e49ed6a1b79190a0b65d in downstream history",
+      "revId": "3912c80e9993c2fb92230d9ac09b6c91282c0c17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
