@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "585fc410_665b80f0",
+        "filename": "tests/unit/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-09T11:59:47Z",
+      "side": 0,
+      "message": "These two are also signature permissions. Is there anything reason to keep them?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 72
+      },
+      "revId": "95bc8d70679df34e6f0da86361633f28e33e2317",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
