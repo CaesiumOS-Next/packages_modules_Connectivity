@@ -570,6 +570,40 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     @Test
+    public void testVcnStats() throws Exception {
+        final String vcnIface = "ipsec1";
+
+        // pretend first VCN network comes online
+        expectDefaultSettings();
+        NetworkStateSnapshot[] states = new NetworkStateSnapshot[] {
+                buildMobile3gState(IMSI_1), buildVcnState(vcnIface, IMSI_1)};
+        expectNetworkStatsSummary(buildEmptyStats());
+        expectNetworkStatsUidDetail(buildEmptyStats());
+
+        mService.notifyNetworkStatus(NETWORKS_MOBILE, states, getActiveIface(states),
+                new UnderlyingNetworkInfo[0]);
+
+        // create some traffic on VCN network
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        expectDefaultSettings();
+        expectNetworkStatsSummary(new NetworkStats(getElapsedRealtime(), 2)
+                .insertEntry(vcnIface, 2048L, 16L, 512L, 4L) // On VCN network
+                .insertEntry(TEST_IFACE, 3096L, 24L, 768L, 6L)); // On underlying network
+        expectNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 3)
+                .insertEntry(vcnIface, UID_RED, SET_DEFAULT, TAG_NONE, 1536L, 12L, 512L, 4L, 0L)
+                .insertEntry(vcnIface, UID_RED, SET_DEFAULT, 0xF00D, 512L, 4L, 512L, 4L, 0L)
+                .insertEntry(vcnIface, UID_BLUE, SET_DEFAULT, TAG_NONE, 512L, 4L, 0L, 0L, 0L));
+        mService.incrementOperationCount(UID_RED, 0xF00D, 10);
+
+        forcePollAndWaitForIdle();
+
+        // Verify that for VCNs, network totals are not recorded, but UID totals are
+        assertNetworkTotal(sTemplateImsi1, 3096L, 24L, 768L, 6L, 0);
+        assertUidTotal(sTemplateImsi1, UID_RED, 1536L, 12L, 512L, 4L, 10);
+        assertUidTotal(sTemplateImsi1, UID_BLUE, 512L, 4L, 0L, 0L, 0);
+    }
+
+    @Test
     public void testUidRemovedIsMoved() throws Exception {
         // pretend that network comes online
         expectDefaultSettings();
@@ -1717,6 +1751,17 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         capabilities.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
         capabilities.setSSID(TEST_SSID);
         return new NetworkStateSnapshot(WIFI_NETWORK, capabilities, prop, subscriberId, TYPE_WIFI);
+    }
+
+    private static NetworkStateSnapshot buildVcnState(@NonNull String iface, String subscriberId) {
+        final LinkProperties prop = new LinkProperties();
+        prop.setInterfaceName(iface);
+        final NetworkCapabilities capabilities = new NetworkCapabilities();
+        capabilities.setCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED, false);
+        capabilities.setCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING, true);
+        capabilities.addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);
+        return new NetworkStateSnapshot(
+                MOBILE_NETWORK, capabilities, prop, subscriberId, TYPE_MOBILE);
     }
 
     private static NetworkStateSnapshot buildMobile3gState(String subscriberId) {
