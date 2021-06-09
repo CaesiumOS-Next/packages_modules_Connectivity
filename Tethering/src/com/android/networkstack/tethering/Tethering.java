@@ -702,7 +702,7 @@ public class Tethering {
 
     private void stopEthernetTethering() {
         if (mConfiguredEthernetIface != null) {
-            stopTrackingInterface(mConfiguredEthernetIface);
+            disableIpServingCommon(mConfiguredEthernetIface);
             mConfiguredEthernetIface = null;
         }
         if (mEthernetCallback != null) {
@@ -719,8 +719,7 @@ public class Tethering {
                 // Ethernet callback arrived after Ethernet tethering stopped. Ignore.
                 return;
             }
-            maybeTrackNewInterface(iface, TETHERING_ETHERNET);
-            changeInterfaceState(iface, getRequestedState(TETHERING_ETHERNET));
+            enableIpServingCommon(TETHERING_ETHERNET, iface, getRequestedState(TETHERING_ETHERNET));
             mConfiguredEthernetIface = iface;
         }
 
@@ -884,12 +883,14 @@ public class Tethering {
             } else if (tetherState.lastState == IpServer.STATE_LOCAL_ONLY) {
                 localOnly.add(tetheringIface);
             } else if (tetherState.lastState == IpServer.STATE_TETHERED) {
-                if (cfg.isUsb(iface)) {
-                    downstreamTypesMask |= (1 << TETHERING_USB);
-                } else if (cfg.isWifi(iface)) {
-                    downstreamTypesMask |= (1 << TETHERING_WIFI);
-                } else if (cfg.isBluetooth(iface)) {
-                    downstreamTypesMask |= (1 << TETHERING_BLUETOOTH);
+                switch (type) {
+                    case TETHERING_USB:
+                    case TETHERING_WIFI:
+                    case TETHERING_BLUETOOTH:
+                        downstreamTypesMask |= (1 << type);
+                        break;
+                    default:
+                        // Do nothing.
                 }
                 tethered.add(tetheringIface);
             }
@@ -1171,6 +1172,25 @@ public class Tethering {
                 mTethering.untetherAll();
             }
             // TODO(b/148139325): send tetheringSupported on restriction change
+        }
+    }
+
+
+    private void disableIpServingCommon(String ifname) {
+        mLog.log("Canceling IP serving request -" + " interface=" + ifname);
+        if (TextUtils.isEmpty(ifname)) return;
+
+        stopTrackingInterface(ifname);
+    }
+
+    private void enableIpServingCommon(int tetheringType, String ifname, int ipServingMode) {
+        if (!TextUtils.isEmpty(ifname)) {
+            maybeTrackNewInterface(ifname, tetheringType);
+            changeInterfaceState(ifname, ipServingMode);
+        } else {
+            mLog.e(String.format(
+                    "Cannot enable type(%s) IP serving in mode %s on missing interface name",
+                    tetheringType, ipServingMode));
         }
     }
 
@@ -2485,7 +2505,7 @@ public class Tethering {
             return;
         }
 
-        mLog.log("adding TetheringInterfaceStateMachine for: " + iface);
+        mLog.log("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
                 new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
                              makeControlCallback(), mConfig.enableLegacyDhcpServer,
@@ -2502,7 +2522,7 @@ public class Tethering {
             return;
         }
         tetherState.ipServer.stop();
-        mLog.log("removing TetheringInterfaceStateMachine for: " + iface);
+        mLog.log("removing IpServer for: " + iface);
         mTetherStates.remove(iface);
     }
 
