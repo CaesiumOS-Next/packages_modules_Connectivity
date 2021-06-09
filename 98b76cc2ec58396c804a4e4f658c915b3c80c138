@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a749265_dd6cb33a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T08:10:02Z",
+      "side": 1,
+      "message": "LGTM assuming Chiachang is happy with it as well.",
+      "revId": "98b76cc2ec58396c804a4e4f658c915b3c80c138",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcc44910_abf2d942",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T08:10:02Z",
+      "side": 1,
+      "message": "Optional: I think it\u0027s confusing for enforceCallingOrSelfPermission to call checkCallingOrSelfPermission. That\u0027s not what the production code does, right? Would this perhaps be better?\n\n   private boolean hasPermission(String permission) {\n       switch (permission) {\n            case PERMISSION_MAINLINE_NETWORK_STACK:\n            case READ_NETWORK_USAGE_HISTORY:\n            case UPDATE_DEVICE_STATS:\n                return PERMISSION_GRANTED;\n           default:\n               return PERMISSION_DENIED;\n       }\n   }",
+      "range": {
+        "startLine": 210,
+        "startChar": 16,
+        "endLine": 210,
+        "endChar": 44
+      },
+      "revId": "98b76cc2ec58396c804a4e4f658c915b3c80c138",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "617f1216_abf71cc7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-09T08:10:02Z",
+      "side": 1,
+      "message": "Per discussion, move to other CL?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 13
+      },
+      "revId": "98b76cc2ec58396c804a4e4f658c915b3c80c138",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
