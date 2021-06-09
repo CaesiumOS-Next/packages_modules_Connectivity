@@ -2160,6 +2160,53 @@ public class ConnectivityManagerTest {
         }
     }
 
+    @Test
+    public void testSetAcceptUnvalidated_NoPermission_GetException() {
+        assumeTrue(TestUtils.shouldTestSApis());
+        assertThrows(SecurityException.class, () -> mCm.setAcceptUnvalidated(
+                mCm.getActiveNetwork(), false /* accept */ , false /* always */));
+    }
+
+    @AppModeFull(reason = "WRITE_DEVICE_CONFIG permission can't be granted to instant apps")
+    @Test
+    public void testRejectUnvalidated_TearDownNetwork() throws Exception {
+        assumeTrue(TestUtils.shouldTestSApis());
+        final boolean canRunTest = mPackageManager.hasSystemFeature(FEATURE_WIFI)
+                && mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
+        assumeTrue("testAcceptPartialConnectivity_validatedNetwork cannot execute"
+                        + " unless device supports WiFi and telephony", canRunTest);
+
+        final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
+        try {
+            mCtsNetUtils.connectToCell();
+            prepareHttpServer();
+            // Configure response code for unvalidated network
+            configTestServer(Status.INTERNAL_ERROR, Status.INTERNAL_ERROR);
+
+            // Disconnect wifi first then start wifi network with configuration.
+            mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+
+            mCm.registerNetworkCallback(makeWifiNetworkRequest(), wifiCb);
+            final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+            wifiCb.expectAvailableCallbacks(wifiNetwork, false /* suspended */,
+                    false /*validated */, false /* blocked */, NETWORK_CALLBACK_TIMEOUT_MS);
+            // Default network should not be wifi.
+            assertNotSame(wifiNetwork, mCm.getActiveNetwork());
+
+            runAsShell(NETWORK_SETTINGS, () -> {
+                mCm.setAcceptUnvalidated(wifiNetwork, false /* accept */, false /* always */);
+            });
+            waitForLost(wifiCb);
+        } finally {
+            mCm.unregisterNetworkCallback(wifiCb);
+            resetHttpConfig();
+            /// Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
+            // apply here. Thus, turn off wifi first and restart to restore.
+            runShellCommand("svc wifi disable");
+            mCtsNetUtils.ensureWifiConnected();
+        }
+    }
+
     private Network verifyNetworkWithCap(int expectedNetCap) throws Exception {
         final CompletableFuture<Network> future = new CompletableFuture();
         final NetworkCallback cb = new NetworkCallback() {
@@ -2184,7 +2231,7 @@ public class ConnectivityManagerTest {
         mHttpServer.stop();
     }
 
-    private Network preparePartialConnectivity() throws Exception {
+    private void prepareHttpServer() throws Exception {
         runAsShell(READ_DEVICE_CONFIG, () -> {
             // Verify that the test URLs are not normally set on the device, but do not fail if the
             // test URLs are set to what this test uses (URLs on localhost), in case the test was
@@ -2196,6 +2243,10 @@ public class ConnectivityManagerTest {
         NetworkValidationTestUtil.clearValidationTestUrlsDeviceConfig();
 
         mHttpServer.start();
+    }
+
+    private Network preparePartialConnectivity() throws Exception {
+        prepareHttpServer();
         // Configure response code for partial connectivity
         configTestServer(Status.INTERNAL_ERROR, Status.NO_CONTENT);
         // Disconnect wifi first then start wifi network with configuration.
