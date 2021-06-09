@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "354b37ae_94bb0c7d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8522,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-09T00:15:03Z",
+      "side": 1,
+      "message": "Maybe not worth to sperate this into another test if it has 30 lines of duplication.\nBut is it better if we:\n1. define some of them (e.g. l.8523~l8530) as global constants and share them among tests?\n2. Make small refacotring function such as makeIpv6LinkProperties(MOBILE_IFNAME) or makeTestLinkProperties(false /*ipv4*/, true /*ipv6*/, MOBILE_IFACE).\n\nMaybe not a good idea since tests might need different customization of their own.",
+      "range": {
+        "startLine": 8522,
+        "startChar": 16,
+        "endLine": 8522,
+        "endChar": 41
+      },
+      "revId": "728a7e374ac8cbd247c0fc8cff2b144c1a0edb42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
