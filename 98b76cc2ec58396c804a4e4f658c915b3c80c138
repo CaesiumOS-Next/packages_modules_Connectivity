@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd15b0a9_b5dd5ac9",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T08:39:14Z",
+      "side": 1,
+      "message": "Done in followup",
+      "parentUuid": "fcc44910_abf2d942",
+      "range": {
+        "startLine": 210,
+        "startChar": 16,
+        "endLine": 210,
+        "endChar": 44
+      },
+      "revId": "98b76cc2ec58396c804a4e4f658c915b3c80c138",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "617f1216_abf71cc7",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-09T08:10:02Z",
       "side": 1,
       "message": "Per discussion, move to other CL?",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 13
+      },
+      "revId": "98b76cc2ec58396c804a4e4f658c915b3c80c138",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "567717db_7b009792",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T08:39:14Z",
+      "side": 1,
+      "message": "Since this is treehugged with the next CL, I\u0027d prefer to merge them both now",
+      "parentUuid": "617f1216_abf71cc7",
       "range": {
         "startLine": 218,
         "startChar": 0,

@@ -152,6 +152,30 @@
       },
       "revId": "666bf13fe65d252f42cfaf553a2a71568811a268",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4c27e4f_4c3f4ecd",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T08:39:14Z",
+      "side": 1,
+      "message": "Oh I see\nTechnically it works because PermissionMonitor queries with Context.USER_SERVICE, but added in followup change for completeness",
+      "parentUuid": "98cbc274_a23ea04e",
+      "range": {
+        "startLine": 134,
+        "startChar": 8,
+        "endLine": 134,
+        "endChar": 91
+      },
+      "revId": "666bf13fe65d252f42cfaf553a2a71568811a268",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
