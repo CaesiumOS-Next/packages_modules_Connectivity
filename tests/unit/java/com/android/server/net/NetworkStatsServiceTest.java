@@ -81,6 +81,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.net.DataUsageRequest;
+import android.net.INetd;
 import android.net.INetworkManagementEventObserver;
 import android.net.INetworkStatsSession;
 import android.net.LinkProperties;
@@ -93,6 +94,7 @@ import android.net.NetworkTemplate;
 import android.net.TelephonyNetworkSpecifier;
 import android.net.UnderlyingNetworkInfo;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
+import android.net.vcn.VcnManager;
 import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -171,6 +173,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private File mStatsDir;
     private MockContext mServiceContext;
     private @Mock TelephonyManager mTelephonyManager;
+    private @Mock VcnManager mVcnManager;
     private @Mock INetworkManagementService mNetManager;
     private @Mock NetworkStatsFactory mStatsFactory;
     private @Mock NetworkStatsSettings mSettings;
@@ -197,7 +200,14 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         @Override
         public Object getSystemService(String name) {
             if (Context.TELEPHONY_SERVICE.equals(name)) return mTelephonyManager;
+            if (Context.VCN_MANAGEMENT_SERVICE.equals(name)) return mVcnManager;
             return mBaseContext.getSystemService(name);
+        }
+
+        @Override
+        public String getSystemServiceName(Class<?> serviceClass) {
+            if (serviceClass.equals(VcnManager.class)) return Context.VCN_MANAGEMENT_SERVICE;
+            return mBaseContext.getSystemServiceName(serviceClass);
         }
     }
 
@@ -567,6 +577,43 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertNetworkTotal(sTemplateWifi, 0L, 0L, 0L, 0L, 0);
         assertUidTotal(sTemplateImsi2, UID_BLUE, 128L, 1L, 1024L, 8L, 10);
 
+    }
+
+    @Test
+    public void testVcnStats() throws Exception {
+        final String vcnIface = INetd.IPSEC_INTERFACE_PREFIX + "1";
+        NetworkStateSnapshot vcnSnapshot = buildVcnState(vcnIface, IMSI_1);
+        doReturn(true).when(mVcnManager).isVcnNetwork(
+                vcnSnapshot.getNetworkCapabilities(), vcnSnapshot.getLinkProperties());
+
+        // pretend first VCN network comes online
+        expectDefaultSettings();
+        NetworkStateSnapshot[] states = new NetworkStateSnapshot[] {
+                buildMobile3gState(IMSI_1), buildVcnState(vcnIface, IMSI_1)};
+        expectNetworkStatsSummary(buildEmptyStats());
+        expectNetworkStatsUidDetail(buildEmptyStats());
+
+        mService.notifyNetworkStatus(
+                NETWORKS_MOBILE, states, getActiveIface(states), new UnderlyingNetworkInfo[0]);
+
+        // create some traffic on VCN network
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        expectDefaultSettings();
+        expectNetworkStatsSummary(new NetworkStats(getElapsedRealtime(), 2)
+                .insertEntry(vcnIface, 2048L, 16L, 512L, 4L) // On VCN network
+                .insertEntry(TEST_IFACE, 3096L, 24L, 768L, 6L)); // On underlying network
+        expectNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 3)
+                .insertEntry(vcnIface, UID_RED, SET_DEFAULT, TAG_NONE, 1536L, 12L, 512L, 4L, 0L)
+                .insertEntry(vcnIface, UID_RED, SET_DEFAULT, 0xF00D, 512L, 4L, 512L, 4L, 0L)
+                .insertEntry(vcnIface, UID_BLUE, SET_DEFAULT, TAG_NONE, 512L, 4L, 0L, 0L, 0L));
+        mService.incrementOperationCount(UID_RED, 0xF00D, 10);
+
+        forcePollAndWaitForIdle();
+
+        // Verify that for VCNs, network totals are not recorded, but UID totals are
+        assertNetworkTotal(sTemplateImsi1, 3096L, 24L, 768L, 6L, 0);
+        assertUidTotal(sTemplateImsi1, UID_RED, 1536L, 12L, 512L, 4L, 10);
+        assertUidTotal(sTemplateImsi1, UID_BLUE, 512L, 4L, 0L, 0L, 0);
     }
 
     @Test
@@ -1717,6 +1764,18 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         capabilities.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
         capabilities.setSSID(TEST_SSID);
         return new NetworkStateSnapshot(WIFI_NETWORK, capabilities, prop, subscriberId, TYPE_WIFI);
+    }
+
+    private static NetworkStateSnapshot buildVcnState(@NonNull String iface, String subscriberId) {
+        final LinkProperties prop = new LinkProperties();
+        prop.setInterfaceName(iface);
+        final NetworkCapabilities capabilities = new NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .build();
+        return new NetworkStateSnapshot(
+                MOBILE_NETWORK, capabilities, prop, subscriberId, TYPE_MOBILE);
     }
 
     private static NetworkStateSnapshot buildMobile3gState(String subscriberId) {
