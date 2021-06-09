@@ -39,6 +39,30 @@
       },
       "revId": "908b002ed23167fb55ddb41c966d9a628fcb2b30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9984a65_35fdf972",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T05:45:16Z",
+      "side": 1,
+      "message": "Good idea, addressed in aosp/1730543",
+      "parentUuid": "886ff3f5_5bac92e9",
+      "range": {
+        "startLine": 535,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 13
+      },
+      "revId": "908b002ed23167fb55ddb41c966d9a628fcb2b30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
