@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86af9350_28c2fd6d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2543,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-09T15:34:42Z",
+      "side": 0,
+      "message": "Remove this protection is fine. This protection is added by android auto that wifi feature is not supported but wlanX interface which matching wifi regexs(not sure whether that interface is used for wifi or not) is available. Before this change, IpServer would be created and it end up getting WifiManager which caused crash(wifi is not supported). Now we don\u0027t have this case because IpServer always be created after receiving wifi\u0027s notification.",
+      "range": {
+        "startLine": 2533,
+        "startChar": 0,
+        "endLine": 2543,
+        "endChar": 9
+      },
+      "revId": "577c0f9ecbd3111a5832f488fe7344d3338d9ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
