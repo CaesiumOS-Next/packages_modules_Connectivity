@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ee569a_9d4b4d12",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-09T07:04:19Z",
+      "side": 1,
+      "message": "Nit: This could be removed. It\u0027s verified in createConnectedNetworkAgent?",
+      "range": {
+        "startLine": 531,
+        "startChar": 8,
+        "endLine": 531,
+        "endChar": 72
+      },
+      "revId": "7567b29d94b47fabc23b3c7c711037ca3e80df7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c99048e9_2430ca83",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-09T07:04:19Z",
+      "side": 1,
+      "message": "Is anything worse to keep?\n\ncreateConnectedNetworkAgent().let { (agent2, _) -\u003e\n                // The callback should not see anything yet. With int ranking, agent1 was upgraded\n                // to a stronger score beforehand. With policy ranking, agent1 is preferred by\n                // virtue of already satisfying the request.\n                callback.assertNoCallback(NO_CALLBACK_TIMEOUT)\n                // Now downgrade the score and expect the callback now prefers agent2\n                agent1.sendNetworkScore(NetworkScore.Builder()\n                        .setLegacyInt(WORSE_NETWORK_SCORE)\n                        .setExiting(true)\n                        .build())\n                callback.expectCallback\u003cAvailable\u003e(agent2.network)\n            }",
+      "range": {
+        "startLine": 539,
+        "startChar": 8,
+        "endLine": 550,
+        "endChar": 0
+      },
+      "revId": "7567b29d94b47fabc23b3c7c711037ca3e80df7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "391f411c_cb29b9f5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-09T07:04:19Z",
+      "side": 1,
+      "message": "why do you do register/connect here instead of using createConnectedNetworkAgent?",
+      "range": {
+        "startLine": 757,
+        "startChar": 7,
+        "endLine": 760,
+        "endChar": 83
+      },
+      "revId": "7567b29d94b47fabc23b3c7c711037ca3e80df7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
