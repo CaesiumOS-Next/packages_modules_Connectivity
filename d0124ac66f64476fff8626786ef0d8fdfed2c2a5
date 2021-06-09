@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6acff5_c9cca6ac",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T03:03:26Z",
+      "side": 1,
+      "message": "Unused ?\nInstead of this you could just use mCtsNetUtils.ensureWifiConnected\n\nThen test for !NetworkCapabilities.isPrivateDnsBroken here, instead of in the \"finally\", because it\u0027s expected that NetworkCapabilities won\u0027t have isPrivateDnsBroken immediately after reconnection even if it ends up being really broken (it takes some time to detect that it\u0027s broken).",
+      "range": {
+        "startLine": 598,
+        "startChar": 22,
+        "endLine": 598,
+        "endChar": 46
+      },
+      "revId": "d0124ac66f64476fff8626786ef0d8fdfed2c2a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c43537df_82201d24",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-09T03:03:26Z",
+      "side": 1,
+      "message": "You could use CtsNetUtils.storePrivateDnsSetting, CtsNetUtils.restorePrivateDnsSetting, CtsNetUtils.setPrivateDnsStrictMode to do this, then the test should be able to run on R (Lucas is refactoring them to use ConnectivitySettingsManager when appropriate)",
+      "range": {
+        "startLine": 599,
+        "startChar": 8,
+        "endLine": 600,
+        "endChar": 100
+      },
+      "revId": "d0124ac66f64476fff8626786ef0d8fdfed2c2a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
