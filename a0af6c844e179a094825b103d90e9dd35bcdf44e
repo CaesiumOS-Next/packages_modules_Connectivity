@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67639815_8dde0e60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-10T02:34:16Z",
+      "side": 1,
+      "message": "LGTM, only nits which don\u0027t block this CL.",
+      "revId": "a0af6c844e179a094825b103d90e9dd35bcdf44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad70533_d70f2d04",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-10T02:34:16Z",
+      "side": 1,
+      "message": "nits: we can make this more general that calling maybeSetPermissions here and clear them at l.160.\n\nprivate void maybeSetPermissions(String... permissions, Integer granted) {\n    for (int i \u003d 0; i \u003c permissions.length; i++) {\n        // Allow the test to run even if permission was granted at the APK level\n        if (!CollectionUtils.contains(permissions, permissions[i])) {\n            mMockConnector.setPermission(permissions[i], PERMISSION_DENIED);\n        }\n    }\n}\n\nprivate void clearMockPermissions(String... permissions) {\n    for (int i \u003d 0; i \u003c permissions.length; i++) {\n        mMockConnector.setPermission(permissions[i], null);\n    }\n}",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 9
+      },
+      "revId": "a0af6c844e179a094825b103d90e9dd35bcdf44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
