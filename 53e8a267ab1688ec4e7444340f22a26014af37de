@@ -22,6 +22,30 @@
       },
       "revId": "53e8a267ab1688ec4e7444340f22a26014af37de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c64fee_fcc91a72",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10151,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-10T15:31:00Z",
+      "side": 1,
+      "message": "It\u0027s because wifi is the default network, the sendProxyBroadcast() will not be called directly in CS but will be called in setDefaultProxy() indirectly.\n\nYou could look at updateLinkProperties():\n// updateLinkProperties()\nif (isDefaultNetwork(networkAgent)) {\n    handleApplyDefaultProxy(newLp.getHttpProxy());\n} else {\n    updateProxy(newLp, oldLp);\n}\n\nand\n\nprivate void handleApplyDefaultProxy(ProxyInfo proxy) {\n    if (proxy !\u003d null \u0026\u0026 TextUtils.isEmpty(proxy.getHost())\n            \u0026\u0026 Uri.EMPTY.equals(proxy.getPacFileUrl())) {\n        proxy \u003d null;\n    }\n    mProxyTracker.setDefaultProxy(proxy);\n}",
+      "parentUuid": "5a42e428_5b5c3669",
+      "range": {
+        "startLine": 10151,
+        "startChar": 52,
+        "endLine": 10151,
+        "endChar": 82
+      },
+      "revId": "53e8a267ab1688ec4e7444340f22a26014af37de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
