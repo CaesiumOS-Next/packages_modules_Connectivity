@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a42e428_5b5c3669",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10151,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-10T13:57:37Z",
+      "side": 1,
+      "message": "Why is a proxy broadcast not sent here? It seems like it should be. Is that a bug in the code? Or did you just not happen to add a check in the test?",
+      "range": {
+        "startLine": 10151,
+        "startChar": 52,
+        "endLine": 10151,
+        "endChar": 82
+      },
+      "revId": "53e8a267ab1688ec4e7444340f22a26014af37de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
