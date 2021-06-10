@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4491a69b_aceb4948",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-10T06:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a6acff5_c9cca6ac",
+      "range": {
+        "startLine": 598,
+        "startChar": 22,
+        "endLine": 598,
+        "endChar": 46
+      },
+      "revId": "d0124ac66f64476fff8626786ef0d8fdfed2c2a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c43537df_82201d24",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-09T03:03:26Z",
       "side": 1,
       "message": "You could use CtsNetUtils.storePrivateDnsSetting, CtsNetUtils.restorePrivateDnsSetting, CtsNetUtils.setPrivateDnsStrictMode to do this, then the test should be able to run on R (Lucas is refactoring them to use ConnectivitySettingsManager when appropriate)",
+      "range": {
+        "startLine": 599,
+        "startChar": 8,
+        "endLine": 600,
+        "endChar": 100
+      },
+      "revId": "d0124ac66f64476fff8626786ef0d8fdfed2c2a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a58599a_f014a334",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-06-10T06:00:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c43537df_82201d24",
       "range": {
         "startLine": 599,
         "startChar": 8,
