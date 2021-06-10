@@ -18,7 +18,6 @@ package com.android.server.connectivity
 
 import android.net.NetworkAgentConfig
 import android.net.NetworkCapabilities
-import android.net.NetworkScore.KEEP_CONNECTED_NONE
 import android.text.TextUtils
 import android.util.ArraySet
 import androidx.test.filters.SmallTest
@@ -61,11 +60,11 @@ class FullScoreTest {
 
     @Test
     fun testGetLegacyInt() {
-        val ns = FullScore(50, 0L /* policy */, KEEP_CONNECTED_NONE)
+        val ns = FullScore(50, 0L /* policy */)
         assertEquals(10, ns.legacyInt) // -40 penalty for not being validated
         assertEquals(50, ns.legacyIntAsValidated)
 
-        val vpnNs = FullScore(101, 0L /* policy */, KEEP_CONNECTED_NONE).withPolicies(vpn = true)
+        val vpnNs = FullScore(101, 0L /* policy */).withPolicies(vpn = true)
         assertEquals(101, vpnNs.legacyInt) // VPNs are not subject to unvalidation penalty
         assertEquals(101, vpnNs.legacyIntAsValidated)
         assertEquals(101, vpnNs.withPolicies(validated = true).legacyInt)
@@ -84,7 +83,7 @@ class FullScoreTest {
 
     @Test
     fun testToString() {
-        val string = FullScore(10, 0L /* policy */, KEEP_CONNECTED_NONE)
+        val string = FullScore(10, 0L /* policy */)
                 .withPolicies(vpn = true, acceptUnvalidated = true).toString()
         assertTrue(string.contains("Score(10"), string)
         assertTrue(string.contains("ACCEPT_UNVALIDATED"), string)
@@ -108,7 +107,7 @@ class FullScoreTest {
 
     @Test
     fun testHasPolicy() {
-        val ns = FullScore(50, 0L /* policy */, KEEP_CONNECTED_NONE)
+        val ns = FullScore(50, 0L /* policy */)
         assertFalse(ns.hasPolicy(POLICY_IS_VALIDATED))
         assertFalse(ns.hasPolicy(POLICY_IS_VPN))
         assertFalse(ns.hasPolicy(POLICY_EVER_USER_SELECTED))
