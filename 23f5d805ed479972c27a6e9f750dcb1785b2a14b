@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe20ca12_99e2e4f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-10T05:47:41Z",
+      "side": 1,
+      "message": "LGTM. But should we share it with netd in frameworks/libs/net/common/native?",
+      "revId": "23f5d805ed479972c27a6e9f750dcb1785b2a14b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
