@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab50cbe_5dfc5a62",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-10T05:46:24Z",
+      "side": 1,
+      "message": "Nit: unused",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 70
+      },
+      "revId": "3f1e890d6e0cc7af647e351321685693c8e71972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
