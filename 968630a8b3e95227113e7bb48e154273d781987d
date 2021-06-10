@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10c241e8_0ebe342f",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-10T01:25:37Z",
+      "side": 1,
+      "message": "Well, but it will be called in two places, so maybe it\u0027s fine to put this method here so that the callers don\u0027t need to maintain the same method in different places.",
+      "parentUuid": "171e98ee_67b0713b",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 26
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f4104a0_249ba451",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-01T08:27:45Z",
       "side": 1,
       "message": "Nit: I may prefer to move it to other method or have a clearer doc for this. Waiting for private dns works is not a MUST item if I would like to just restore the setting?  E.g. The old setting is a bad setting. Then test may fail to wait for a validated private dns?",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 9
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b64e14_d0b3d87a",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-10T01:25:37Z",
+      "side": 1,
+      "message": "After confirming the purpose of waiting validated server, the author said it can reduce the race that the next test is running but the settings is not ready.\nI\u0027ll add a comment for it.\n\nFor bad setting, I think we don\u0027t expect that the user has configured an invalid private DNS by themselves.\nIf they do, then I think it\u0027s expected that the test will get fail.\nI think it\u0027s something like the user connects to a WiFi which doesn\u0027t have internet and expects the test case which relies on internet can pass.",
+      "parentUuid": "1f4104a0_249ba451",
       "range": {
         "startLine": 68,
         "startChar": 8,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b000b2d_972d28ee",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-10T01:25:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9aa5636d_8f00473d",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 75
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beda619d_75f369e0",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-10T01:25:37Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t get what you mean.",
+      "parentUuid": "3cf01b50_c4d790b4",
+      "range": {
+        "startLine": 91,
+        "startChar": 43,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9ba498c_063a0f57",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-06-01T08:27:45Z",
       "side": 1,
       "message": "Nit: In current usage, it\u0027s kind of duplicate code. cm could be taken from restorePrivateDnsSetting.\nThe caller usually will need to invoke with ConnectivityManager. I think it\u0027s fair to leave it to caller to take as a parameter? Or the usage may cause lots of interaction with getSystemService. Maybe no really many usages though given this is test code",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 91
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a88dee9_3f4caa33",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-10T01:25:37Z",
+      "side": 1,
+      "message": "In fact, restorePrivateDnsSetting is not the only caller who calls this method.\nIf a caller who doesn\u0027t have CM before, then it still needs to declare one and pass into this method.\nSo I prefer to keep the current design.",
+      "parentUuid": "b9ba498c_063a0f57",
       "range": {
         "startLine": 92,
         "startChar": 8,
@@ -157,6 +277,54 @@
         "startChar": 8,
         "endLine": 93,
         "endChar": 53
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d969cec_753d93a4",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-10T01:25:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fceeca5e_9f256f9b",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 53
+      },
+      "revId": "968630a8b3e95227113e7bb48e154273d781987d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f41f0276_ecf8e3d4",
+        "filename": "tests/cts/net/src/android/net/cts/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-10T01:25:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2908effb_674bac9a",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 22
       },
       "revId": "968630a8b3e95227113e7bb48e154273d781987d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
