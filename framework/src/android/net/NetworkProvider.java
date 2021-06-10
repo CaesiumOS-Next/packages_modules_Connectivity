@@ -168,16 +168,12 @@ public class NetworkProvider {
     }
 
     /** @hide */
-    @SystemApi
+    // TODO : make @SystemApi when the impl is complete
     public interface NetworkOfferCallback {
-        /**
-         * Called by the system when a network for this offer is needed to satisfy some
-         * networking request.
-         */
-        void onNetworkNeeded(@NonNull NetworkRequest request);
-        /**
-         * Called by the system when this offer is no longer valuable for this request.
-         */
+        /** Called by the system when a network for this offer is needed to satisfy some
+         *  networking request. */
+        void onNetworkNeeded(@NonNull NetworkRequest request, int providerId);
+        /** Called by the system when this offer is no longer valuable for this request. */
         void onNetworkUnneeded(@NonNull NetworkRequest request);
     }
 
@@ -192,8 +188,9 @@ public class NetworkProvider {
         }
 
         @Override
-        public void onNetworkNeeded(final @NonNull NetworkRequest request) {
-            mExecutor.execute(() -> callback.onNetworkNeeded(request));
+        public void onNetworkNeeded(final @NonNull NetworkRequest request,
+                final int providerId) {
+            mExecutor.execute(() -> callback.onNetworkNeeded(request, providerId));
         }
 
         @Override
@@ -257,11 +254,8 @@ public class NetworkProvider {
      *
      * The capabilities and score act as filters as to what requests the provider will see.
      * They are not promises, but for best performance, the providers should strive to put
-     * as much known information as possible in the offer. For the score, it should put as
-     * strong a score as the networks will have, since this will filter what requests the
-     * provider sees – it's not a promise, it only serves to avoid sending requests that
-     * the provider can't ever hope to satisfy better than any current network. For capabilities,
-     * it should put all NetworkAgent-managed capabilities a network may have, even if it doesn't
+     * as much known information as possible in the offer. For capabilities in particular, it
+     * should put all NetworkAgent-managed capabilities a network may have, even if it doesn't
      * have them at first. This applies to INTERNET, for example ; if a provider thinks the
      * network it can bring up for this offer may offer Internet access it should include the
      * INTERNET bit. It's fine if the brought up network ends up not actually having INTERNET.
@@ -274,9 +268,9 @@ public class NetworkProvider {
      *
      * @hide
      */
-    @SystemApi
+    // TODO : make @SystemApi when the impl is complete
     @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY)
-    public void registerNetworkOffer(@NonNull final NetworkScore score,
+    public void offerNetwork(@NonNull final NetworkScore score,
             @NonNull final NetworkCapabilities caps, @NonNull final Executor executor,
             @NonNull final NetworkOfferCallback callback) {
         // Can't offer a network with a provider that is not yet registered or already unregistered.
@@ -313,9 +307,9 @@ public class NetworkProvider {
      *
      * @hide
      */
-    @SystemApi
+    // TODO : make @SystemApi when the impl is complete
     @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY)
-    public void unregisterNetworkOffer(final @NonNull NetworkOfferCallback callback) {
+    public void unofferNetwork(final @NonNull NetworkOfferCallback callback) {
         final NetworkOfferCallbackProxy proxy = findProxyForCallback(callback);
         if (null == proxy) return;
         mProxies.remove(proxy);
