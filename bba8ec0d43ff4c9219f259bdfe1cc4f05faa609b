@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "740c7370_b30f5125",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1096830
+      },
+      "writtenOn": "2021-06-10T05:45:23Z",
+      "side": 1,
+      "message": "This CL seems to have broken com.android.server.ConnectivityServiceTest. Creating a revert.",
+      "revId": "bba8ec0d43ff4c9219f259bdfe1cc4f05faa609b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d98fd818_0b06a7b0",
