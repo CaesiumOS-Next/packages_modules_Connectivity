@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee826d0f_d84546a2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2163,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:28:38Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "ca2d0a12_5fad6ee9",
+      "range": {
+        "startLine": 2163,
+        "startChar": 20,
+        "endLine": 2163,
+        "endChar": 40
+      },
+      "revId": "576814b6a5d51ac4a1a3603510c8f3e99d3ceed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db58d89f_8be0ebb7",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-11T09:42:02Z",
       "side": 1,
       "message": "Suggest renaming to resetValidationConfig, since validation uses HTTPS as well as HTTP, and since this changes the validation URL as well as the server configuration.",
+      "range": {
+        "startLine": 2182,
+        "startChar": 22,
+        "endLine": 2182,
+        "endChar": 26
+      },
+      "revId": "576814b6a5d51ac4a1a3603510c8f3e99d3ceed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7732395_6cb270d7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2182,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:28:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db58d89f_8be0ebb7",
       "range": {
         "startLine": 2182,
         "startChar": 22,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99dbffd2_8174bbe2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2200,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:28:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20320e65_e4250b32",
+      "range": {
+        "startLine": 2200,
+        "startChar": 25,
+        "endLine": 2200,
+        "endChar": 65
+      },
+      "revId": "576814b6a5d51ac4a1a3603510c8f3e99d3ceed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d52a88a6_4cd742a6",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-06-11T09:42:02Z",
       "side": 1,
       "message": "This will always return false. Use equals() instead.",
+      "range": {
+        "startLine": 2215,
+        "startChar": 61,
+        "endLine": 2215,
+        "endChar": 63
+      },
+      "revId": "576814b6a5d51ac4a1a3603510c8f3e99d3ceed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5f18517_44505ef7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2215,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:28:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d52a88a6_4cd742a6",
       "range": {
         "startLine": 2215,
         "startChar": 61,
