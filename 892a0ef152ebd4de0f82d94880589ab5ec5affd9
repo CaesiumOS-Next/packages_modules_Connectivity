@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92e0515c_c39f78a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-11T01:25:58Z",
+      "side": 1,
+      "message": "Treehugger failing to cherry-pick change due to omg/35377 (see https://b.corp.google.com/issues/190622577#comment31).",
+      "revId": "892a0ef152ebd4de0f82d94880589ab5ec5affd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
