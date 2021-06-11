@@ -4704,6 +4704,20 @@ public class ConnectivityManager {
     }
 
     /**
+     * Set temporary override value for {@code config_networkAvoidBadWifi}. The value will expire
+     * after a period of time. See ConnectivityService.TEST_AVOID_BAD_WIFI_RESOURCE_DELAY_MS.
+     *
+     * @hide
+     */
+    public void setTestAvoidBadWifiResouceConfig(int value) {
+        try {
+            mService.setTestAvoidBadWifiResouceConfig(value);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Requests that the system open the captive portal app on the specified network.
      *
      * <p>This is to be used on networks where a captive portal was detected, as per

@@ -63,6 +63,8 @@ import java.util.concurrent.RejectedExecutionException;
 public class MultinetworkPolicyTracker {
     private static String TAG = MultinetworkPolicyTracker.class.getSimpleName();
 
+    private static final int UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG = -1;
+
     private final Context mContext;
     private final ConnectivityResources mResources;
     private final Handler mHandler;
@@ -75,6 +77,7 @@ public class MultinetworkPolicyTracker {
     private volatile boolean mAvoidBadWifi = true;
     private volatile int mMeteredMultipathPreference;
     private int mActiveSubId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+    private volatile int mTestAvoidBadWifiConfig = UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG;
 
     // Mainline module can't use internal HandlerExecutor, so add an identical executor here.
     private static class HandlerExecutor implements Executor {
@@ -165,7 +168,28 @@ public class MultinetworkPolicyTracker {
         // TODO: use R.integer.config_networkAvoidBadWifi directly
         final int id = mResources.get().getIdentifier("config_networkAvoidBadWifi",
                 "integer", mResources.getResourcesContext().getPackageName());
-        return (getResourcesForActiveSubId().getInteger(id) == 0);
+        final boolean tempTestConfigSet =
+                (mTestAvoidBadWifiConfig != UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG);
+        return tempTestConfigSet ? (mTestAvoidBadWifiConfig == 0) :
+                (getResourcesForActiveSubId().getInteger(id) == 0);
+    }
+
+    /**
+     * Set temporary override value for R.integer.config_networkAvoidBadWifi.
+     */
+    public void setTestAvoidBadWifiResouceConfig(int value) {
+        Log.d(TAG, "setTestAvoidBadWifiResouceConfig: " + mTestAvoidBadWifiConfig + "->" + value);
+        mTestAvoidBadWifiConfig = value;
+        updateAvoidBadWifi();
+    }
+
+    /**
+     * Reset temporary override value for R.integer.config_networkAvoidBadWifi.
+     */
+    public void clearTestAvoidBadWifiResouceConfig() {
+        Log.d(TAG, "Reset avoid bad wifi resouce config");
+        mTestAvoidBadWifiConfig = UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG;
+        updateAvoidBadWifi();
     }
 
     @NonNull
