@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0b06586_856d28c5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2061,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-11T10:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acfa3b14_2e01315e",
+      "range": {
+        "startLine": 2061,
+        "startChar": 4,
+        "endLine": 2061,
+        "endChar": 55
+      },
+      "revId": "93805d1513d576279b73ce2c42f3e78f83d2d684",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5d0369d_5a72a8f3",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-11T10:18:20Z",
       "side": 1,
       "message": "Nit: Can be simpler by using assertThrows like aosp/1730545.",
+      "range": {
+        "startLine": 2064,
+        "startChar": 8,
+        "endLine": 2071,
+        "endChar": 8
+      },
+      "revId": "93805d1513d576279b73ce2c42f3e78f83d2d684",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3708acf5_3c681ad4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2071,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-11T10:26:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5d0369d_5a72a8f3",
       "range": {
         "startLine": 2064,
         "startChar": 8,
