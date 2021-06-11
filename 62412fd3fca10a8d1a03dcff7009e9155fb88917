@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69bb299c_4baa6da0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2021-06-11T22:35:24Z",
+      "side": 1,
+      "message": "I don\u0027t know NetworkStatsService well enough to have an opinion on this test. Suggest to just send this on to L.",
+      "revId": "62412fd3fca10a8d1a03dcff7009e9155fb88917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
