@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16c31c8e_7d78d243",
+        "filename": "tests/cts/net/src/android/net/cts/TestNetworkRunnable.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T06:54:06Z",
+      "side": 1,
+      "message": "a way to unindent this code to make it more readable? See go/tott/455\n\nI think you can just get rid of the ThrowingRunnable and move all the code in it to a method. Something like:\n\n    private void runTest() throws Exception {\n        ... all this code, except with a lot less indendation...\n    }\n\n    @Override\n    public void run() throws Exception {\n        if (sContext.checkSelfPermission(MANAGE_TEST_NETWORKS) \u003d\u003d PERMISSION_GRANTED) {\n            runTest();\n        } else {\n            runWithShellPermissionIdentity(this::runTest, MANAGE_TEST_NETWORKS);\n        }\n    }",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "6171ddbbdce2d7ac6fa82be148b420bcf713eaef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
