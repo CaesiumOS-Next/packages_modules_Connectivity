@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "144ad9dd_21f291ba",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8296,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T02:44:40Z",
+      "side": 1,
+      "message": "Ack. A subsequent CL in the stack - aosp/1729156 - splits it into two, so effectively renames it. Maybe look at that one?",
+      "parentUuid": "c76f3a20_e7654ed0",
+      "range": {
+        "startLine": 8296,
+        "startChar": 16,
+        "endLine": 8296,
+        "endChar": 41
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf6ab0ac_b73e15eb",
