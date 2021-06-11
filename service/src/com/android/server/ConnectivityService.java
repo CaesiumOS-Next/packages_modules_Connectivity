@@ -326,6 +326,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @VisibleForTesting
     static final int MAX_NETWORK_REQUESTS_PER_SYSTEM_UID = 250;
 
+    // The expire timer to reset temporary override value for R.integer.config_networkAvoidBadWifi.
+    private static final int TEST_AVOID_BAD_WIFI_RESOURCE_DELAY_MS = 2 * 60 * 1000;
+
     @VisibleForTesting
     protected int mLingerDelayMs;  // Can't be final, or test subclass constructors can't change it.
     @VisibleForTesting
@@ -621,6 +624,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Used internally when MOBILE_DATA_PREFERRED_UIDS setting changed.
      */
     private static final int EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED = 54;
+
+    /**
+     * Event to set temporary override value for R.integer.config_networkAvoidBadWifi.
+     */
+    private static final int EVENT_SET_TEST_AVOID_BAD_WIFI_RESOURCE = 55;
+
+    /**
+     * Event to reset the temporary override value for R.integer.config_networkAvoidBadWifi.
+     */
+    private static final int EVENT_CLEAR_TEST_AVOID_BAD_WIFI_RESOURCE = 56;
 
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
@@ -4284,6 +4297,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_AVOID_UNVALIDATED, network));
     }
 
+    @Override
+    public void setTestAvoidBadWifiResourceConfig(int value) {
+        enforceNetworkStackSettingsOrSetup();
+        mHandler.sendMessage(
+                mHandler.obtainMessage(EVENT_SET_TEST_AVOID_BAD_WIFI_RESOURCE, value, 0));
+    }
+
+    private void handleSetTestAvoidBadWifiResourceConfig(int value) {
+        mMultinetworkPolicyTracker.setTestAvoidBadWifiResourceConfig(value);
+        mHandler.removeMessages(EVENT_CLEAR_TEST_AVOID_BAD_WIFI_RESOURCE);
+        mHandler.sendMessageDelayed(
+                mHandler.obtainMessage(EVENT_CLEAR_TEST_AVOID_BAD_WIFI_RESOURCE),
+                TEST_AVOID_BAD_WIFI_RESOURCE_DELAY_MS);
+    }
+
+    private void handleClearTestAvoidBadWifiResourceConfig() {
+        mMultinetworkPolicyTracker.clearTestAvoidBadWifiResourceConfig();
+    }
+
     private void handleSetAcceptUnvalidated(Network network, boolean accept, boolean always) {
         if (DBG) log("handleSetAcceptUnvalidated network=" + network +
                 " accept=" + accept + " always=" + always);
@@ -4825,6 +4857,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
+                    break;
+                case EVENT_SET_TEST_AVOID_BAD_WIFI_RESOURCE:
+                    handleSetTestAvoidBadWifiResourceConfig(msg.arg1);
+                    break;
+                case EVENT_CLEAR_TEST_AVOID_BAD_WIFI_RESOURCE:
+                    handleClearTestAvoidBadWifiResourceConfig();
                     break;
             }
         }

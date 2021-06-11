@@ -462,7 +462,6 @@ public class ConnectivityServiceTest {
     private TestNetworkCallback mDefaultNetworkCallback;
     private TestNetworkCallback mSystemDefaultNetworkCallback;
     private TestNetworkCallback mProfileDefaultNetworkCallback;
-
     // State variables required to emulate NetworkPolicyManagerService behaviour.
     private int mBlockedReasons = BLOCKED_REASON_NONE;
 
@@ -1478,6 +1477,7 @@ public class ConnectivityServiceTest {
     private static class WrappedMultinetworkPolicyTracker extends MultinetworkPolicyTracker {
         volatile boolean mConfigRestrictsAvoidBadWifi;
         volatile int mConfigMeteredMultipathPreference;
+        volatile boolean mOverrideConfigAvoidBadWifi = false;
 
         WrappedMultinetworkPolicyTracker(Context c, Handler h, Runnable r) {
             super(c, h, r);
@@ -1485,7 +1485,19 @@ public class ConnectivityServiceTest {
 
         @Override
         public boolean configRestrictsAvoidBadWifi() {
-            return mConfigRestrictsAvoidBadWifi;
+            return mOverrideConfigAvoidBadWifi
+                    ? super.configRestrictsAvoidBadWifi() : mConfigRestrictsAvoidBadWifi;
+        }
+
+        @Override
+        public void setTestAvoidBadWifiResourceConfig(int value) {
+            if (value == UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG) {
+                mOverrideConfigAvoidBadWifi = false;
+                return;
+            }
+
+            super.setTestAvoidBadWifiResourceConfig(value);
+            mOverrideConfigAvoidBadWifi = true;
         }
 
         @Override
@@ -4619,40 +4631,61 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testOverrideAvoidBadWifiConfig() throws Exception {
+        mService.setTestAvoidBadWifiResourceConfig(1);
+        waitForIdle();
+        testAvoidBadWifiConfig(false /* disable */);
+
+        mService.setTestAvoidBadWifiResourceConfig(0);
+        waitForIdle();
+        testAvoidBadWifiConfig(true /* disable */);
+    }
+
+    private void testAvoidBadWifiConfig(boolean disable) {
+        final ContentResolver cr = mServiceContext.getContentResolver();
+        final String settingName = ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI;
+
+        if (disable) {
+            Settings.Global.putInt(cr, settingName, 0);
+            mPolicyTracker.reevaluate();
+            waitForIdle();
+            assertFalse(mService.avoidBadWifi());
+            assertFalse(mPolicyTracker.shouldNotifyWifiUnvalidated());
+
+            Settings.Global.putInt(cr, settingName, 1);
+            mPolicyTracker.reevaluate();
+            waitForIdle();
+            assertTrue(mService.avoidBadWifi());
+            assertFalse(mPolicyTracker.shouldNotifyWifiUnvalidated());
+
+            Settings.Global.putString(cr, settingName, null);
+            mPolicyTracker.reevaluate();
+            waitForIdle();
+            assertFalse(mService.avoidBadWifi());
+            assertTrue(mPolicyTracker.shouldNotifyWifiUnvalidated());
+        } else {
+            String[] values = new String[] {null, "0", "1"};
+            for (int i = 0; i < values.length; i++) {
+                Settings.Global.putInt(cr, settingName, 1);
+                mPolicyTracker.reevaluate();
+                waitForIdle();
+                String msg = String.format("config=false, setting=%s", values[i]);
+                assertTrue(mService.avoidBadWifi());
+                assertFalse(msg, mPolicyTracker.shouldNotifyWifiUnvalidated());
+            }
+        }
+    }
+
+    @Test
     public void testAvoidBadWifiSetting() throws Exception {
         final ContentResolver cr = mServiceContext.getContentResolver();
         final String settingName = ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI;
 
         mPolicyTracker.mConfigRestrictsAvoidBadWifi = false;
-        String[] values = new String[] {null, "0", "1"};
-        for (int i = 0; i < values.length; i++) {
-            Settings.Global.putInt(cr, settingName, 1);
-            mPolicyTracker.reevaluate();
-            waitForIdle();
-            String msg = String.format("config=false, setting=%s", values[i]);
-            assertTrue(mService.avoidBadWifi());
-            assertFalse(msg, mPolicyTracker.shouldNotifyWifiUnvalidated());
-        }
+        testAvoidBadWifiConfig(false /* disable */);
 
         mPolicyTracker.mConfigRestrictsAvoidBadWifi = true;
-
-        Settings.Global.putInt(cr, settingName, 0);
-        mPolicyTracker.reevaluate();
-        waitForIdle();
-        assertFalse(mService.avoidBadWifi());
-        assertFalse(mPolicyTracker.shouldNotifyWifiUnvalidated());
-
-        Settings.Global.putInt(cr, settingName, 1);
-        mPolicyTracker.reevaluate();
-        waitForIdle();
-        assertTrue(mService.avoidBadWifi());
-        assertFalse(mPolicyTracker.shouldNotifyWifiUnvalidated());
-
-        Settings.Global.putString(cr, settingName, null);
-        mPolicyTracker.reevaluate();
-        waitForIdle();
-        assertFalse(mService.avoidBadWifi());
-        assertTrue(mPolicyTracker.shouldNotifyWifiUnvalidated());
+        testAvoidBadWifiConfig(true /* disable */);
     }
 
     @Ignore("Refactoring in progress b/178071397")
