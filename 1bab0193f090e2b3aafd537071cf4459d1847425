@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b968bb_e4dafc43",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T01:52:36Z",
+      "side": 1,
+      "message": "You have a restriction on l.2157 that this value should be lower than 10 mins. Maybe add a reminder here for someone who may increase this value in the future but doesn\u0027t know this restriction. The worst case is the restriction will be removed and cause test flaky or other problem.",
+      "range": {
+        "startLine": 249,
+        "startChar": 56,
+        "endLine": 249,
+        "endChar": 63
+      },
+      "revId": "1bab0193f090e2b3aafd537071cf4459d1847425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b7c6d35_934ba12f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2030,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T01:52:36Z",
+      "side": 1,
+      "message": "Can these tests run on instant mode? If not, please add @AppModeFull",
+      "range": {
+        "startLine": 2030,
+        "startChar": 4,
+        "endLine": 2030,
+        "endChar": 9
+      },
+      "revId": "1bab0193f090e2b3aafd537071cf4459d1847425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db60e381_a5d7c0e9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2042,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T01:52:36Z",
+      "side": 1,
+      "message": "Nit: Extra blank.",
+      "range": {
+        "startLine": 2042,
+        "startChar": 8,
+        "endLine": 2042,
+        "endChar": 16
+      },
+      "revId": "1bab0193f090e2b3aafd537071cf4459d1847425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b77d2105_0f4d36a9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2068,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T01:52:36Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 2068,
+        "startChar": 8,
+        "endLine": 2068,
+        "endChar": 16
+      },
+      "revId": "1bab0193f090e2b3aafd537071cf4459d1847425",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
