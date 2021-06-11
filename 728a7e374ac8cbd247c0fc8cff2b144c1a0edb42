@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ac9a62e_30f4b5b3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8515,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-11T05:56:06Z",
+      "side": 1,
+      "message": "This seems to be done in testDisconnectClatNetwork as well? Seems more appropriate to verify in that test by the naming in which case we might be able to remove this here?",
+      "range": {
+        "startLine": 8509,
+        "startChar": 8,
+        "endLine": 8515,
+        "endChar": 44
+      },
+      "revId": "728a7e374ac8cbd247c0fc8cff2b144c1a0edb42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f1f96f1_bcbfe32d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8516,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-11T05:56:06Z",
+      "side": 1,
+      "message": "Is this still needed?",
+      "range": {
+        "startLine": 8516,
+        "startChar": 8,
+        "endLine": 8516,
+        "endChar": 25
+      },
+      "revId": "728a7e374ac8cbd247c0fc8cff2b144c1a0edb42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "354b37ae_94bb0c7d",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 2
@@ -14,6 +60,30 @@
       "writtenOn": "2021-06-09T00:15:03Z",
       "side": 1,
       "message": "Maybe not worth to sperate this into another test if it has 30 lines of duplication.\nBut is it better if we:\n1. define some of them (e.g. l.8523~l8530) as global constants and share them among tests?\n2. Make small refacotring function such as makeIpv6LinkProperties(MOBILE_IFNAME) or makeTestLinkProperties(false /*ipv4*/, true /*ipv6*/, MOBILE_IFACE).\n\nMaybe not a good idea since tests might need different customization of their own.",
+      "range": {
+        "startLine": 8522,
+        "startChar": 16,
+        "endLine": 8522,
+        "endChar": 41
+      },
+      "revId": "728a7e374ac8cbd247c0fc8cff2b144c1a0edb42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5948c22_9432ad8b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8522,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-11T05:56:06Z",
+      "side": 1,
+      "message": "Another option would be to create an internal wrapper class that has all of the shared local variables.",
+      "parentUuid": "354b37ae_94bb0c7d",
       "range": {
         "startLine": 8522,
         "startChar": 16,
