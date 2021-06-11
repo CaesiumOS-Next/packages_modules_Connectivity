@@ -651,6 +651,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED = 54;
 
     /**
+     * Event to set temporary unrestrict for R.integer.config_networkAvoidBadWifi.
+     */
+    private static final int EVENT_SET_TEST_UNRESTRICT_BAD_WIFI_UNTIL = 55;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -4334,6 +4339,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_AVOID_UNVALIDATED, network));
     }
 
+    @Override
+    public void setTestUnrestrictBadWifiUntil(long timeMs) {
+        enforceSettingsPermission();
+        mHandler.sendMessage(
+                mHandler.obtainMessage(EVENT_SET_TEST_UNRESTRICT_BAD_WIFI_UNTIL, timeMs));
+    }
+
     private void handleSetAcceptUnvalidated(Network network, boolean accept, boolean always) {
         if (DBG) log("handleSetAcceptUnvalidated network=" + network +
                 " accept=" + accept + " always=" + always);
@@ -4875,6 +4887,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case EVENT_MOBILE_DATA_PREFERRED_UIDS_CHANGED:
                     handleMobileDataPreferredUidsChanged();
+                    break;
+                case EVENT_SET_TEST_UNRESTRICT_BAD_WIFI_UNTIL:
+                    final long timeMs = ((Long) msg.obj).longValue();
+                    mMultinetworkPolicyTracker.setTestUnrestrictBadWifiUntil(timeMs);
                     break;
             }
         }

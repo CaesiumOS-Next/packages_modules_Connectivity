@@ -4704,6 +4704,22 @@ public class ConnectivityManager {
     }
 
     /**
+     * Set temporary unrestricted bad wifi resource for {@code config_networkAvoidBadWifi}. The
+     * value works when the time set is more than {@link System.currentTimeMillis()}.
+     *
+     * @param timeMs the expired current time
+     *
+     * @hide
+     */
+    public void setTestUnrestrictBadWifiUntil(long timeMs) {
+        try {
+            mService.setTestUnrestrictBadWifiUntil(timeMs);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Requests that the system open the captive portal app on the specified network.
      *
      * <p>This is to be used on networks where a captive portal was detected, as per
