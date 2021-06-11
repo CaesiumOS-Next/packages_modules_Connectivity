@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acfa3b14_2e01315e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2061,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T10:18:20Z",
+      "side": 1,
+      "message": "Should you use assumeTrue(TestUtils.shouldTestSApis()) instead?",
+      "range": {
+        "startLine": 2061,
+        "startChar": 4,
+        "endLine": 2061,
+        "endChar": 55
+      },
+      "revId": "93805d1513d576279b73ce2c42f3e78f83d2d684",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5d0369d_5a72a8f3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2071,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T10:18:20Z",
+      "side": 1,
+      "message": "Nit: Can be simpler by using assertThrows like aosp/1730545.",
+      "range": {
+        "startLine": 2064,
+        "startChar": 8,
+        "endLine": 2071,
+        "endChar": 8
+      },
+      "revId": "93805d1513d576279b73ce2c42f3e78f83d2d684",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
