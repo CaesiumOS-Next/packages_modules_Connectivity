@@ -2125,8 +2125,7 @@ public class ConnectivityManagerTest {
         } finally {
             resetHttpConfig();
             // Reconnect wifi to reset the wifi status
-            mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
-            mCtsNetUtils.ensureWifiConnected();
+            reconnectWifi();
         }
     }
 
@@ -2200,6 +2199,74 @@ public class ConnectivityManagerTest {
         }
     }
 
+    @Test
+    public void testSetAvoidUnvalidated() throws Exception {
+        assumeTrue(TestUtils.shouldTestSApis());
+        final boolean canRunTest = mPackageManager.hasSystemFeature(FEATURE_WIFI)
+                && mPackageManager.hasSystemFeature(FEATURE_TELEPHONY);
+        assumeTrue("testSetAvoidUnvalidated cannot execute"
+                + " unless device supports WiFi and telephony", canRunTest);
+
+        final TestableNetworkCallback wifiCb = new TestableNetworkCallback();
+        final TestableNetworkCallback defaultCb = new TestableNetworkCallback();
+        final int previsouAvoidBadWifi =
+                ConnectivitySettingsManager.getNetworkAvoidBadWifi(mContext);
+
+        try {
+            configAvoidBadWifi(true /* disableAvoidBadWifiConfig */,
+                    ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI_IGNORE);
+
+            final Network cellNetwork = mCtsNetUtils.connectToCell();
+            final Network wifiNetwork = prepareValidatedNetwork();
+
+            mCm.registerDefaultNetworkCallback(defaultCb);
+            mCm.registerNetworkCallback(makeWifiNetworkRequest(), wifiCb);
+            // Verify wifi is the default network network.
+            defaultCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                    a -> wifiNetwork.equals(a.getNetwork()));
+            wifiCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                    a -> wifiNetwork.equals(a.getNetwork()));
+            assertTrue(mCm.getNetworkCapabilities(wifiNetwork).hasCapability(
+                    NET_CAPABILITY_VALIDATED));
+
+            // Configure response code for unvalidated network
+            configTestServer(Status.INTERNAL_ERROR, Status.INTERNAL_ERROR);
+            mCm.reportNetworkConnectivity(wifiNetwork, false);
+            // Default network should stay on unvalidated wifi because avoid bad wifi is disabled.
+            defaultCb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                    NETWORK_CALLBACK_TIMEOUT_MS,
+                    c -> !((CallbackEntry.CapabilitiesChanged) c).getCaps()
+                            .hasCapability(NET_CAPABILITY_VALIDATED));
+            wifiCb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED,
+                    NETWORK_CALLBACK_TIMEOUT_MS,
+                    c -> !((CallbackEntry.CapabilitiesChanged) c).getCaps()
+                            .hasCapability(NET_CAPABILITY_VALIDATED));
+
+            runAsShell(NETWORK_SETTINGS, () -> {
+                mCm.setAvoidUnvalidated(wifiNetwork);
+            });
+            // Default network should be updated to validated cellular network.
+            defaultCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                    a -> cellNetwork.equals(a.getNetwork()));
+            // No update on wifi callback.
+            wifiCb.assertNoCallback();
+        } finally {
+            mCm.unregisterNetworkCallback(wifiCb);
+            mCm.unregisterNetworkCallback(defaultCb);
+            configAvoidBadWifi(false /* disableAvoidBadWifiConfig */, previsouAvoidBadWifi);
+            resetHttpConfig();
+            // Reconnect wifi to reset the wifi status
+            reconnectWifi();
+        }
+    }
+
+    private void configAvoidBadWifi(boolean disableAvoidBadWifiConfig, int settingValue) {
+        runAsShell(NETWORK_SETTINGS, () -> {
+            mCm.setTestAvoidBadWifiResouceConfig(disableAvoidBadWifiConfig ? 0 : -1);
+        });
+        ConnectivitySettingsManager.setNetworkAvoidBadWifi(mContext, settingValue);
+    }
+
     private Network verifyNetworkWithCap(int expectedNetCap) throws Exception {
         final CompletableFuture<Network> future = new CompletableFuture();
         final NetworkCallback cb = new NetworkCallback() {
@@ -2238,14 +2305,27 @@ public class ConnectivityManagerTest {
         mHttpServer.start();
     }
 
+    private void reconnectWifi() {
+        mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+        mCtsNetUtils.ensureWifiConnected();
+    }
+
+    private Network prepareValidatedNetwork() throws Exception {
+        prepareHttpServer();
+        configTestServer(Status.NO_CONTENT, Status.NO_CONTENT);
+        // Disconnect wifi first then start wifi network with configuration.
+        reconnectWifi();
+
+        return verifyNetworkWithCap(NET_CAPABILITY_VALIDATED);
+    }
+
     private Network preparePartialConnectivity() throws Exception {
         prepareHttpServer();
         // Configure response code for partial connectivity
         configTestServer(Status.INTERNAL_ERROR  /* httpsStatusCode */,
                 Status.NO_CONTENT  /* httpStatusCode */);
         // Disconnect wifi first then start wifi network with configuration.
-        mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
-        mCtsNetUtils.ensureWifiConnected();
+        reconnectWifi();
 
         return verifyNetworkWithCap(NET_CAPABILITY_PARTIAL_CONNECTIVITY);
     }
