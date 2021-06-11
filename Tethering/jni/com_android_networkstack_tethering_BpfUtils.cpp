@@ -23,8 +23,8 @@
 #include <linux/pkt_sched.h>
 #include <linux/rtnetlink.h>
 #include <nativehelper/JNIHelp.h>
+#include <netlinkutils/NetlinkUtils.h>
 #include <net/if.h>
-#include <stdio.h>
 #include <sys/socket.h>
 
 // TODO: use unique_fd.
@@ -42,102 +42,17 @@
 namespace android {
 // Sync from system/netd/server/NetlinkCommands.h
 const uint16_t NETLINK_REQUEST_FLAGS = NLM_F_REQUEST | NLM_F_ACK;
-const sockaddr_nl KERNEL_NLADDR = {AF_NETLINK, 0, 0, 0};
+
+static void sendAndProcessNetlinkResponse(JNIEnv* env, const void* req, int len) {
+    bool success = android::netlinkutils::sendAndProcessNetlinkResponse(req, len);
+    if (!success) {
+        jniThrowExceptionFmt(env, "java/io/IOException",
+                             "Error occurred during sendAndProcessNetlinkResponse");
+    }
+}
 
 // TODO: move to frameworks/libs/net/common/native for sharing with
 // system/netd/server/OffloadUtils.{c, h}.
-static void sendAndProcessNetlinkResponse(JNIEnv* env, const void* req, int len) {
-    int fd = socket(AF_NETLINK, SOCK_RAW | SOCK_CLOEXEC, NETLINK_ROUTE);  // TODO: use unique_fd
-    if (fd == -1) {
-        jniThrowExceptionFmt(env, "java/io/IOException",
-                             "socket(AF_NETLINK, SOCK_RAW | SOCK_CLOEXEC, NETLINK_ROUTE): %s",
-                             strerror(errno));
-        return;
-    }
-
-    static constexpr int on = 1;
-    if (setsockopt(fd, SOL_NETLINK, NETLINK_CAP_ACK, &on, sizeof(on))) {
-        jniThrowExceptionFmt(env, "java/io/IOException",
-                             "setsockopt(fd, SOL_NETLINK, NETLINK_CAP_ACK, %d)", on);
-        close(fd);
-        return;
-    }
-
-    // this is needed to get valid strace netlink parsing, it allocates the pid
-    if (bind(fd, (const struct sockaddr*)&KERNEL_NLADDR, sizeof(KERNEL_NLADDR))) {
-        jniThrowExceptionFmt(env, "java/io/IOException", "bind(fd, {AF_NETLINK, 0, 0}): %s",
-                             strerror(errno));
-        close(fd);
-        return;
-    }
-
-    // we do not want to receive messages from anyone besides the kernel
-    if (connect(fd, (const struct sockaddr*)&KERNEL_NLADDR, sizeof(KERNEL_NLADDR))) {
-        jniThrowExceptionFmt(env, "java/io/IOException", "connect(fd, {AF_NETLINK, 0, 0}): %s",
-                             strerror(errno));
-        close(fd);
-        return;
-    }
-
-    int rv = send(fd, req, len, 0);
-
-    if (rv == -1) {
-        jniThrowExceptionFmt(env, "java/io/IOException", "send(fd, req, len, 0): %s",
-                             strerror(errno));
-        close(fd);
-        return;
-    }
-
-    if (rv != len) {
-        jniThrowExceptionFmt(env, "java/io/IOException", "send(fd, req, len, 0): %s",
-                             strerror(EMSGSIZE));
-        close(fd);
-        return;
-    }
-
-    struct {
-        nlmsghdr h;
-        nlmsgerr e;
-        char buf[256];
-    } resp = {};
-
-    rv = recv(fd, &resp, sizeof(resp), MSG_TRUNC);
-
-    if (rv == -1) {
-        jniThrowExceptionFmt(env, "java/io/IOException", "recv() failed: %s", strerror(errno));
-        close(fd);
-        return;
-    }
-
-    if (rv < (int)NLMSG_SPACE(sizeof(struct nlmsgerr))) {
-        jniThrowExceptionFmt(env, "java/io/IOException", "recv() returned short packet: %d", rv);
-        close(fd);
-        return;
-    }
-
-    if (resp.h.nlmsg_len != (unsigned)rv) {
-        jniThrowExceptionFmt(env, "java/io/IOException",
-                             "recv() returned invalid header length: %d != %d", resp.h.nlmsg_len,
-                             rv);
-        close(fd);
-        return;
-    }
-
-    if (resp.h.nlmsg_type != NLMSG_ERROR) {
-        jniThrowExceptionFmt(env, "java/io/IOException",
-                             "recv() did not return NLMSG_ERROR message: %d", resp.h.nlmsg_type);
-        close(fd);
-        return;
-    }
-
-    if (resp.e.error) {  // returns 0 on success
-        jniThrowExceptionFmt(env, "java/io/IOException", "NLMSG_ERROR message return error: %s",
-                             strerror(-resp.e.error));
-    }
-    close(fd);
-    return;
-}
-
 static int hardwareAddressType(const char* interface) {
     int fd = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
     if (fd < 0) return -errno;
