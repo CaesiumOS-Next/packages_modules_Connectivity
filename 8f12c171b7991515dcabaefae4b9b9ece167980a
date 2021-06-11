@@ -1,0 +1,434 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "366b35b6_4b68977b",
+          "description": "Change to \"framework/src/android/net/ConnectivityManager.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/ConnectivityManager.java",
+              "range": {
+                "startLine": 4712,
+                "startChar": 35,
+                "endLine": 4712,
+                "endChar": 42
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "e8e106fd_977e6abb",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4712,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 4712,
+        "startChar": 35,
+        "endLine": 4712,
+        "endChar": 42
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "d822dfc5_6623bef3",
+          "description": "Change to \"framework/src/android/net/ConnectivityManager.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/ConnectivityManager.java",
+              "range": {
+                "startLine": 4714,
+                "startChar": 40,
+                "endLine": 4714,
+                "endChar": 47
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "fca667ad_2ea2b8b4",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4714,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 4714,
+        "startChar": 40,
+        "endLine": 4714,
+        "endChar": 47
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "bd5ce96f_080d34c3",
+          "description": "Change to \"framework/src/android/net/IConnectivityManager.aidl\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/IConnectivityManager.aidl",
+              "range": {
+                "startLine": 230,
+                "startChar": 28,
+                "endLine": 230,
+                "endChar": 35
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "ea2030a3_703fc83b",
+        "filename": "framework/src/android/net/IConnectivityManager.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 230,
+        "startChar": 28,
+        "endLine": 230,
+        "endChar": 35
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "0e3f24e6_be6f9890",
+          "description": "Change to \"framework/src/android/net/util/MultinetworkPolicyTracker.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+              "range": {
+                "startLine": 180,
+                "startChar": 35,
+                "endLine": 180,
+                "endChar": 42
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "f3fd1de3_17ade4f6",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 180,
+        "startChar": 35,
+        "endLine": 180,
+        "endChar": 42
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "3eba7eab_4f3a3bd9",
+          "description": "Change to \"framework/src/android/net/util/MultinetworkPolicyTracker.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+              "range": {
+                "startLine": 181,
+                "startChar": 39,
+                "endLine": 181,
+                "endChar": 46
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "55b697b5_38cfdc18",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 181,
+        "startChar": 39,
+        "endLine": 181,
+        "endChar": 46
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "20233869_a775967e",
+          "description": "Change to \"framework/src/android/net/util/MultinetworkPolicyTracker.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+              "range": {
+                "startLine": 189,
+                "startChar": 37,
+                "endLine": 189,
+                "endChar": 44
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "0735a283_426e602c",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 189,
+        "startChar": 37,
+        "endLine": 189,
+        "endChar": 44
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "8c86dc61_6204adcd",
+          "description": "Change to \"framework/src/android/net/util/MultinetworkPolicyTracker.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+              "range": {
+                "startLine": 190,
+                "startChar": 41,
+                "endLine": 190,
+                "endChar": 48
+              },
+              "replacement": "resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "f23a853f_b2afa005",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"resouce\" -- should it be \"resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 190,
+        "startChar": 41,
+        "endLine": 190,
+        "endChar": 48
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "1f046bb2_ee1bd8ea",
+          "description": "Change to \"service/src/com/android/server/ConnectivityService.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 4301,
+                "startChar": 35,
+                "endLine": 4301,
+                "endChar": 42
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "d87d301c_3aaa1331",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4301,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 4301,
+        "startChar": 35,
+        "endLine": 4301,
+        "endChar": 42
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "3a65cc71_117e1d89",
+          "description": "Change to \"service/src/com/android/server/ConnectivityService.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 4307,
+                "startChar": 42,
+                "endLine": 4307,
+                "endChar": 49
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "12a3baf7_5fbd69fe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4307,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 4307,
+        "startChar": 42,
+        "endLine": 4307,
+        "endChar": 49
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011682442",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1733788?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "0b96d954_34e9251b",
+          "description": "Change to \"service/src/com/android/server/ConnectivityService.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 4862,
+                "startChar": 45,
+                "endLine": 4862,
+                "endChar": 52
+              },
+              "replacement": "Resource"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "465917ce_5d41319a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4862,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T13:48:04Z",
+      "side": 1,
+      "message": "Common typo found: \"Resouce\" -- should it be \"Resource\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 4862,
+        "startChar": 45,
+        "endLine": 4862,
+        "endChar": 52
+      },
+      "revId": "8f12c171b7991515dcabaefae4b9b9ece167980a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
