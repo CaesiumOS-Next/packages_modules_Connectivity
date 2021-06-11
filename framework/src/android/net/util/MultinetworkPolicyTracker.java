@@ -75,6 +75,7 @@ public class MultinetworkPolicyTracker {
     private volatile boolean mAvoidBadWifi = true;
     private volatile int mMeteredMultipathPreference;
     private int mActiveSubId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+    private volatile long mTestUnrestrictBadWifiUntilMs = 0;
 
     // Mainline module can't use internal HandlerExecutor, so add an identical executor here.
     private static class HandlerExecutor implements Executor {
@@ -162,10 +163,26 @@ public class MultinetworkPolicyTracker {
      * Whether the device or carrier configuration disables avoiding bad wifi by default.
      */
     public boolean configRestrictsAvoidBadWifi() {
+        final boolean unrestrictBadWifiSet =
+                mTestUnrestrictBadWifiUntilMs > System.currentTimeMillis();
+        // If the config returns true, then avoid bad wifi design can be controlled by the
+        // NETWORK_AVOID_BAD_WIFI setting.
+        if (unrestrictBadWifiSet) return true;
+
         // TODO: use R.integer.config_networkAvoidBadWifi directly
         final int id = mResources.get().getIdentifier("config_networkAvoidBadWifi",
                 "integer", mResources.getResourcesContext().getPackageName());
-        return (getResourcesForActiveSubId().getInteger(id) == 0);
+        return getResourcesForActiveSubId().getInteger(id) == 0;
+    }
+
+    /**
+     * Set temporary unrestricted bad wifi resource for {@code config_networkAvoidBadWifi}. The
+     * value works when the time set is more than {@link System.currentTimeMillis()}.
+     */
+    public void setTestUnrestrictBadWifiUntil(long timeMs) {
+        Log.d(TAG, "setTestUnrestrictBadWifiUntil: " + mTestUnrestrictBadWifiUntilMs);
+        mTestUnrestrictBadWifiUntilMs = timeMs;
+        updateAvoidBadWifi();
     }
 
     @NonNull
