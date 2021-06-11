@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c39ff3ad_0bce0fdb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9d52bc7_c88dcd10",
+      "range": {
+        "startLine": 674,
+        "startChar": 16,
+        "endLine": 674,
+        "endChar": 25
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86612644_9a500551",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-11T09:58:24Z",
       "side": 1,
       "message": "... and here too, while you\u0027re at it?",
+      "range": {
+        "startLine": 680,
+        "startChar": 16,
+        "endLine": 680,
+        "endChar": 25
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c01cc31f_8c8b44bf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86612644_9a500551",
       "range": {
         "startLine": 680,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbb98c06_bc4a94f3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2186,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "944ae287_02802811",
+      "range": {
+        "startLine": 2185,
+        "startChar": 0,
+        "endLine": 2186,
+        "endChar": 65
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db3ba635_44bf2572",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23937f64_04d037a5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2192,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:31:22Z",
+      "side": 1,
+      "message": "No, reject the unvalidated network will tear down the network directly. It will not be blocked by that.",
+      "parentUuid": "db3ba635_44bf2572",
+      "range": {
+        "startLine": 2192,
+        "startChar": 12,
+        "endLine": 2192,
+        "endChar": 23
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1171ba9f_5ee8bf1d",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-06-11T09:58:24Z",
       "side": 1,
       "message": "You could shorten this to just:\n\n    return verifyNetworkWithCap(NET_CAPABILITY_INTERNET);",
+      "range": {
+        "startLine": 2259,
+        "startChar": 0,
+        "endLine": 2268,
+        "endChar": 9
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a99463f9_513d2ceb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2268,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T14:31:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1171ba9f_5ee8bf1d",
       "range": {
         "startLine": 2259,
         "startChar": 0,
