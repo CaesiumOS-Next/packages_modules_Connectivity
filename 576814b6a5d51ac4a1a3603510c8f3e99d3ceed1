@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca2d0a12_5fad6ee9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:42:02Z",
+      "side": 1,
+      "message": "This looks strange.\n\n1. The name of this method is generic (\"verifyNetworkWithCap\"), but the method actually only works on wifi.\n2. The method returns the first wifi network that has the specified capability. Then the caller checks that that network is the same as the network it configured. But what I think the caller really wants to do is check that the network prepared in line 2144 has the expected capability.\n\nI think it would be better to do something like this:\n\n    private void expectNetworkHasCapability(Network network, int expectedCapability) throws Exception {\n        ...\n            public void onCapabilitiesChanged(Network n, NetworkCapabilities nc) {\n                if (n.equals(network) \u0026\u0026 nc.hasCapability(expectedCapability)) {\n                    future.complete(network);\n                }",
+      "range": {
+        "startLine": 2163,
+        "startChar": 20,
+        "endLine": 2163,
+        "endChar": 40
+      },
+      "revId": "576814b6a5d51ac4a1a3603510c8f3e99d3ceed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db58d89f_8be0ebb7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2182,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:42:02Z",
+      "side": 1,
+      "message": "Suggest renaming to resetValidationConfig, since validation uses HTTPS as well as HTTP, and since this changes the validation URL as well as the server configuration.",
+      "range": {
+        "startLine": 2182,
+        "startChar": 22,
+        "endLine": 2182,
+        "endChar": 26
+      },
+      "revId": "576814b6a5d51ac4a1a3603510c8f3e99d3ceed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20320e65_e4250b32",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2200,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:42:02Z",
+      "side": 1,
+      "message": "Status.INTERNAL_ERROR /* httpsStatusCode */, Status.NO_CONTENT /* httpStatusCode */",
+      "range": {
+        "startLine": 2200,
+        "startChar": 25,
+        "endLine": 2200,
+        "endChar": 65
+      },
+      "revId": "576814b6a5d51ac4a1a3603510c8f3e99d3ceed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d52a88a6_4cd742a6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2215,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:42:02Z",
+      "side": 1,
+      "message": "This will always return false. Use equals() instead.",
+      "range": {
+        "startLine": 2215,
+        "startChar": 61,
+        "endLine": 2215,
+        "endChar": 63
+      },
+      "revId": "576814b6a5d51ac4a1a3603510c8f3e99d3ceed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
