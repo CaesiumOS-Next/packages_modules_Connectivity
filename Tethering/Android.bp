@@ -80,6 +80,7 @@ cc_library {
     ],
     static_libs: [
         "libnetjniutils",
+        "libnetlinkutils",
     ],
 
     // We cannot use plain "libc++" here to link libc++ dynamically because it results in:
