@@ -63,6 +63,9 @@ import java.util.concurrent.RejectedExecutionException;
 public class MultinetworkPolicyTracker {
     private static String TAG = MultinetworkPolicyTracker.class.getSimpleName();
 
+    @VisibleForTesting
+    protected static final int UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG = -1;
+
     private final Context mContext;
     private final ConnectivityResources mResources;
     private final Handler mHandler;
@@ -75,6 +78,7 @@ public class MultinetworkPolicyTracker {
     private volatile boolean mAvoidBadWifi = true;
     private volatile int mMeteredMultipathPreference;
     private int mActiveSubId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+    private volatile int mTestAvoidBadWifiConfig = UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG;
 
     // Mainline module can't use internal HandlerExecutor, so add an identical executor here.
     private static class HandlerExecutor implements Executor {
@@ -162,10 +166,32 @@ public class MultinetworkPolicyTracker {
      * Whether the device or carrier configuration disables avoiding bad wifi by default.
      */
     public boolean configRestrictsAvoidBadWifi() {
+        final boolean tempTestConfigSet =
+                (mTestAvoidBadWifiConfig != UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG);
+        if (tempTestConfigSet) return mTestAvoidBadWifiConfig == 0;
+
         // TODO: use R.integer.config_networkAvoidBadWifi directly
         final int id = mResources.get().getIdentifier("config_networkAvoidBadWifi",
                 "integer", mResources.getResourcesContext().getPackageName());
-        return (getResourcesForActiveSubId().getInteger(id) == 0);
+        return getResourcesForActiveSubId().getInteger(id) == 0;
+    }
+
+    /**
+     * Set temporary override value for R.integer.config_networkAvoidBadWifi.
+     */
+    public void setTestAvoidBadWifiResourceConfig(int value) {
+        Log.d(TAG, "setTestAvoidBadWifiResourceConfig: " + mTestAvoidBadWifiConfig + "->" + value);
+        mTestAvoidBadWifiConfig = value;
+        updateAvoidBadWifi();
+    }
+
+    /**
+     * Reset temporary override value for R.integer.config_networkAvoidBadWifi.
+     */
+    public void clearTestAvoidBadWifiResourceConfig() {
+        Log.d(TAG, "Reset avoid bad wifi resource config");
+        mTestAvoidBadWifiConfig = UNSET_AVOID_BAD_WIFI_RESOURCE_CONFIG;
+        updateAvoidBadWifi();
     }
 
     @NonNull
