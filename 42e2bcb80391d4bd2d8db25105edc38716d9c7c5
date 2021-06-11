@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bb1953b_0cef85ac",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8296,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-11T05:57:10Z",
+      "side": 1,
+      "message": "Yep, just reviewed aosp/1729156. Thanks.",
+      "parentUuid": "144ad9dd_21f291ba",
+      "range": {
+        "startLine": 8296,
+        "startChar": 16,
+        "endLine": 8296,
+        "endChar": 41
+      },
+      "revId": "42e2bcb80391d4bd2d8db25105edc38716d9c7c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf6ab0ac_b73e15eb",
