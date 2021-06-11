@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6e9ff49_ac1f7bc3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2181,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T03:03:51Z",
+      "side": 1,
+      "message": "Is this necessary? I don\u0027t see cell network is using on this test.",
+      "range": {
+        "startLine": 2181,
+        "startChar": 12,
+        "endLine": 2181,
+        "endChar": 41
+      },
+      "revId": "1fc2d578b8ef478573b879b2eb5d8a47d3b824e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09281a1e_d480c8ba",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2190,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T03:03:51Z",
+      "side": 1,
+      "message": "Nit: Maybe make these as prepareUnvalidatedConnectivity(), it should be a useful method.",
+      "range": {
+        "startLine": 2182,
+        "startChar": 12,
+        "endLine": 2190,
+        "endChar": 75
+      },
+      "revId": "1fc2d578b8ef478573b879b2eb5d8a47d3b824e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ea812c_56b0c8b6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2194,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-11T03:03:51Z",
+      "side": 1,
+      "message": "Question: Why are you using assertNotSame instead of assertNotEquals?",
+      "range": {
+        "startLine": 2194,
+        "startChar": 12,
+        "endLine": 2194,
+        "endChar": 25
+      },
+      "revId": "1fc2d578b8ef478573b879b2eb5d8a47d3b824e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
