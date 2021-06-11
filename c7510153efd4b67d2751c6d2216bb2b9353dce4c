@@ -1,0 +1,99 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011675683",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1734694?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "02bec0dd_3452cf7e",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T08:44:06Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 49,
+        "startChar": 56,
+        "endLine": 49,
+        "endChar": 57
+      },
+      "revId": "c7510153efd4b67d2751c6d2216bb2b9353dce4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011675680",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1734694?revision\u003d2",
+      "fixSuggestions": [
+        {
+          "fixId": "4eba2f19_17ac2ebf",
+          "description": "Change to \"Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp\"",
+          "replacements": [
+            {
+              "path": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+              "range": {
+                "startLine": 50,
+                "startChar": 36,
+                "endLine": 50,
+                "endChar": 43
+              },
+              "replacement": "occurred"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "6e71d9ca_fa7dd5f3",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T08:44:06Z",
+      "side": 1,
+      "message": "Common typo found: \"occured\" -- should it be \"occurred\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 50,
+        "startChar": 36,
+        "endLine": 50,
+        "endChar": 43
+      },
+      "revId": "c7510153efd4b67d2751c6d2216bb2b9353dce4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011675683",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1734694?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f3dfc08a_d839ff43",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T08:44:06Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 50,
+        "startChar": 83,
+        "endLine": 50,
+        "endChar": 84
+      },
+      "revId": "c7510153efd4b67d2751c6d2216bb2b9353dce4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
