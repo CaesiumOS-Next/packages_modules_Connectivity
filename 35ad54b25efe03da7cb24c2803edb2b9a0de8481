@@ -16,6 +16,23 @@
       "message": "clean cherry-pick from internal",
       "revId": "35ad54b25efe03da7cb24c2803edb2b9a0de8481",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "878a2e8e_27a6d53c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1356587
+      },
+      "writtenOn": "2021-06-11T21:44:08Z",
+      "side": 1,
+      "message": "Hi I have a concern for deprecating ACTION_TETHER_STATE_CHANGED. See below...",
+      "revId": "35ad54b25efe03da7cb24c2803edb2b9a0de8481",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

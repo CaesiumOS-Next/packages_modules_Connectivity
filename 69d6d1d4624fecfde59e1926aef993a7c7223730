@@ -397,6 +397,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7429fa08_8869be9c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1356587
+      },
+      "writtenOn": "2021-06-11T21:44:08Z",
+      "side": 1,
+      "message": "Hi I would like to point out an issue for deprecating ACTION_TETHER_STATE_CHANGED. The current API does not provide a way to retrieve errored iface list (EXTRA_ERRORED_TETHER). Even though the method onError is called every time some interface is added to the errored list, it is not called when the interface is removed from the errored list. Furthermore, the callee of onError cannot reliably distinguish whether the interface just erred, or the interface has erred a long time ago and was just sitting in the errored list. Could you refine this API for error reporting before deprecating ACTION_TETHER_STATE_CHANGED?",
+      "parentUuid": "b4f72518_dbca6da2",
+      "range": {
+        "startLine": 984,
+        "startChar": 21,
+        "endLine": 984,
+        "endChar": 56
+      },
+      "revId": "69d6d1d4624fecfde59e1926aef993a7c7223730",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "142f9f4a_d5b10b08",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 1
