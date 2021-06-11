@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c975cee_a2eda764",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2181,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T03:41:06Z",
+      "side": 1,
+      "message": "Test should ensure another default network candidate active. When an unvalidated wifi is connected, we could verify the default network is not wifi. Otherwise, wifi may be the default network.\n\nAdd a comment to help to understand it.",
+      "parentUuid": "d6e9ff49_ac1f7bc3",
+      "range": {
+        "startLine": 2181,
+        "startChar": 12,
+        "endLine": 2181,
+        "endChar": 41
+      },
+      "revId": "1fc2d578b8ef478573b879b2eb5d8a47d3b824e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09281a1e_d480c8ba",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d86e16_18b5716f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2190,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T03:41:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09281a1e_d480c8ba",
+      "range": {
+        "startLine": 2182,
+        "startChar": 12,
+        "endLine": 2190,
+        "endChar": 75
+      },
+      "revId": "1fc2d578b8ef478573b879b2eb5d8a47d3b824e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44ea812c_56b0c8b6",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-11T03:03:51Z",
       "side": 1,
       "message": "Question: Why are you using assertNotSame instead of assertNotEquals?",
+      "range": {
+        "startLine": 2194,
+        "startChar": 12,
+        "endLine": 2194,
+        "endChar": 25
+      },
+      "revId": "1fc2d578b8ef478573b879b2eb5d8a47d3b824e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e23d4fa_471e3c0f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2194,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-11T03:41:06Z",
+      "side": 1,
+      "message": "humm, should be assertNotEquals. Update to assertNotEquals",
+      "parentUuid": "44ea812c_56b0c8b6",
       "range": {
         "startLine": 2194,
         "startChar": 12,
