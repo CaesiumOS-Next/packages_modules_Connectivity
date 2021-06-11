@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d52bc7_c88dcd10",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:58:24Z",
+      "side": 1,
+      "message": "Your new tests implicitly rely on the wifi network having Internet access and potentially becoming the default. Maybe put NET_CAPABILITY_INTERNET here as well?",
+      "range": {
+        "startLine": 674,
+        "startChar": 16,
+        "endLine": 674,
+        "endChar": 25
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86612644_9a500551",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:58:24Z",
+      "side": 1,
+      "message": "... and here too, while you\u0027re at it?",
+      "range": {
+        "startLine": 680,
+        "startChar": 16,
+        "endLine": 680,
+        "endChar": 25
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "944ae287_02802811",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:58:24Z",
+      "side": 1,
+      "message": "Nit: checking that wifi is not the default network isn\u0027t really useful. Even if wifi has Internet access and would validate, the test might pass because wifi has not validated yet.\n\nThe test is still correct, though, because it checks that setAcceptUnvalidated disconnects. So you might just want to add a comment that checking that wifi is not the default doesn\u0027t guarantee that it won\u0027t become the default in the future.",
+      "range": {
+        "startLine": 2185,
+        "startChar": 0,
+        "endLine": 2186,
+        "endChar": 65
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db3ba635_44bf2572",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2192,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:58:24Z",
+      "side": 1,
+      "message": "Will this cause the test to take at least PROMPT_UNVALIDATED_DELAY_MS (\u003d 8 seconds?) That\u0027s unfortunate because slow tests are a drain on developer time. Can we fix that somehow?",
+      "range": {
+        "startLine": 2192,
+        "startChar": 12,
+        "endLine": 2192,
+        "endChar": 23
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1171ba9f_5ee8bf1d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2268,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-11T09:58:24Z",
+      "side": 1,
+      "message": "You could shorten this to just:\n\n    return verifyNetworkWithCap(NET_CAPABILITY_INTERNET);",
+      "range": {
+        "startLine": 2259,
+        "startChar": 0,
+        "endLine": 2268,
+        "endChar": 9
+      },
+      "revId": "4935d2055a5a2afa9bbd4768995a00d02b0367c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
