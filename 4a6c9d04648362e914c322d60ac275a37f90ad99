@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "403dea50_46aeb95d",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-11T07:06:21Z",
+      "side": 1,
+      "message": "Do you want to verify that the provider2 doesn\u0027t get callback as well?",
+      "revId": "4a6c9d04648362e914c322d60ac275a37f90ad99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "982092bc_68bb6bde",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-11T07:06:21Z",
+      "side": 1,
+      "message": "Copy the comment from ag/14730721.\n\nDon\u0027t you need to do something before verifying this? e.g. requestNetwork",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 341,
+        "endChar": 41
+      },
+      "revId": "4a6c9d04648362e914c322d60ac275a37f90ad99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
