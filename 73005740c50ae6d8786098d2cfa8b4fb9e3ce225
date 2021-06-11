@@ -1,0 +1,99 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011675648",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1734694?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "7248fa85_c4e7649b",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T08:41:17Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 112
+      },
+      "revId": "73005740c50ae6d8786098d2cfa8b4fb9e3ce225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011675650",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1734694?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "d5a3a873_553beb77",
+          "description": "Change to \"Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp\"",
+          "replacements": [
+            {
+              "path": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+              "range": {
+                "startLine": 49,
+                "startChar": 64,
+                "endLine": 49,
+                "endChar": 71
+              },
+              "replacement": "occurred"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "450f54e3_3bc23268",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T08:41:17Z",
+      "side": 1,
+      "message": "Common typo found: \"occured\" -- should it be \"occurred\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 49,
+        "startChar": 64,
+        "endLine": 49,
+        "endChar": 71
+      },
+      "revId": "73005740c50ae6d8786098d2cfa8b4fb9e3ce225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011675648",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1734694?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "5f63bb5f_74cb32a0",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-11T08:41:17Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 49,
+        "startChar": 111,
+        "endLine": 49,
+        "endChar": 112
+      },
+      "revId": "73005740c50ae6d8786098d2cfa8b4fb9e3ce225",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
