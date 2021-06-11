@@ -1374,8 +1374,8 @@ public class BpfCoordinator {
         return null;
     }
 
-    @NonNull
-    private byte[] toIpv4MappedAddressBytes(Inet4Address ia4) {
+    @VisibleForTesting
+    static byte[] toIpv4MappedAddressBytes(Inet4Address ia4) {
         final byte[] addr4 = ia4.getAddress();
         final byte[] addr6 = new byte[16];
         addr6[10] = (byte) 0xff;
