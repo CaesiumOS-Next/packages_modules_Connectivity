@@ -28,6 +28,7 @@ import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.content.pm.PackageManager.FEATURE_WIFI_DIRECT;
 import static android.content.pm.PackageManager.GET_PERMISSIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE_CBS;
@@ -2050,6 +2051,23 @@ public class ConnectivityManagerTest {
             mTm.unregisterTetheringEventCallback(tetherEventCallback);
             mTm.stopAllTethering();
             mUiAutomation.dropShellPermissionIdentity();
+        }
+    }
+
+    /**
+     * Verify that {@link ConnectivityManager#setProfileNetworkPreference} cannot be called
+     * without required NETWORK_STACK permissions.
+     */
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+    @Test
+    public void testSetProfileNetworkPreference_NoPermission() {
+        try {
+            mCm.setProfileNetworkPreference(UserHandle.of(0),
+                    PROFILE_NETWORK_PREFERENCE_ENTERPRISE,
+                    null /* executor */, null /* listener */);
+            fail("Was able to call setProfileNetworkPreference");
+        } catch (SecurityException e) {
+            // expected
         }
     }
 
