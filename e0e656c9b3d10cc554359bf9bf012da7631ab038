@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56363b6_356380e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-14T07:20:10Z",
+      "side": 1,
+      "message": "Gaurav: how does this device support tethering? Does it only support tethering to wifi networks? If it supports tethering to mobile networks, then how does entitlement work? Generally, on carriers that use entitlement, not performing entitlement checks is not allowed.",
+      "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
