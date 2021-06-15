@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23caf971_b607c52e",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-06-15T04:07:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3ec6a45_8d127cb3",
+      "range": {
+        "startLine": 189,
+        "startChar": 16,
+        "endLine": 190,
+        "endChar": 60
+      },
+      "revId": "3da6d6e6b89786d1f1e36f9734c44c869e325977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf3e3fc0_46e34bfe",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36e60698_95e8ffd5",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-06-15T04:07:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf3e3fc0_46e34bfe",
+      "range": {
+        "startLine": 196,
+        "startChar": 16,
+        "endLine": 197,
+        "endChar": 60
+      },
+      "revId": "3da6d6e6b89786d1f1e36f9734c44c869e325977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94485a67_61a3714c",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-14T06:54:52Z",
       "side": 1,
       "message": "This should be indented by 8 characters compared to the line above it, right?",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 221,
+        "endChar": 37
+      },
+      "revId": "3da6d6e6b89786d1f1e36f9734c44c869e325977",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eff54cb_6cac8185",
+        "filename": "tests/unit/java/android/app/usage/NetworkStatsManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-06-15T04:07:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94485a67_61a3714c",
       "range": {
         "startLine": 221,
         "startChar": 16,
