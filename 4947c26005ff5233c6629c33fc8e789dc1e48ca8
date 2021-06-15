@@ -34,6 +34,24 @@
       "parentUuid": "28defd66_cc2100ff",
       "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "338a39c8_99293e4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T08:40:27Z",
+      "side": 1,
+      "message": "I suppose we could put 4 IP address/port pairs in the dump. That would result in printing redundant information because of those 4, only 3 should ever be different. I can do that if you like, though this output is already quite long.",
+      "parentUuid": "740d76cd_3e031137",
+      "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
