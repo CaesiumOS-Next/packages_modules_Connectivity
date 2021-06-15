@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9d6bc8d_afd618f9",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-15T02:44:06Z",
+      "side": 1,
+      "message": "Removed, should be verified at the end of test.",
+      "parentUuid": "403dea50_46aeb95d",
+      "revId": "4a6c9d04648362e914c322d60ac275a37f90ad99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "982092bc_68bb6bde",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-06-11T07:06:21Z",
       "side": 1,
       "message": "Copy the comment from ag/14730721.\n\nDon\u0027t you need to do something before verifying this? e.g. requestNetwork",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 341,
+        "endChar": 41
+      },
+      "revId": "4a6c9d04648362e914c322d60ac275a37f90ad99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1368ee85_3d36dd61",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-15T02:44:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "982092bc_68bb6bde",
       "range": {
         "startLine": 338,
         "startChar": 8,
