@@ -22,6 +22,53 @@
       },
       "revId": "bd2c002e8c4549d0dddc063277bf14a5cefbe867",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c230a72_144d4ac2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5559,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-15T19:04:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8d67d5d_d3acca63",
+      "range": {
+        "startLine": 5559,
+        "startChar": 16,
+        "endLine": 5559,
+        "endChar": 59
+      },
+      "revId": "bd2c002e8c4549d0dddc063277bf14a5cefbe867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a509b9d6_73f15e4e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5580,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-15T19:04:53Z",
+      "side": 1,
+      "message": "Be honest, I didn\u0027t run this code, since I don\u0027t have Linux env + Pixel.\n\nWhen I review it again,  found issue here:\nj++, reached DIFF_INTENTS (99),  larger than SAME_INTENTS (10), that will cause same_pi part not being executed.\n\nwill fix it",
+      "range": {
+        "startLine": 5580,
+        "startChar": 21,
+        "endLine": 5580,
+        "endChar": 33
+      },
+      "revId": "bd2c002e8c4549d0dddc063277bf14a5cefbe867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
