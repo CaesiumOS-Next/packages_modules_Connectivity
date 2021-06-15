@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf202627_cb822ad2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T09:47:17Z",
+      "side": 1,
+      "message": "Code mostly LGTM but I haven\u0027t looked at the tests yet. I do have a question though, see inline. ",
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84aaeaea_5edf80c0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T09:47:17Z",
+      "side": 1,
+      "message": "I\u0027m concerned that this method is making a decision based on state (mActiveTetheringRequests) that is forgotten soon after this method runs. I think that could potentially cause incorrect behaviour when stopping tethering.\n\nWhat is the intent of this method? Is it so that a given device can support using NCM for USB tethering (e.g., enabled by startTethering(TETHERING_USB) but also support using NCM tethering enabled by startTethering(TETHERING_NCM)?\n\nIf so, is that something that we need to support?\n\nCould we simply say that if a device has set config_tether_usb_functions to 1 (i.e., set USB tethering to use NCM by default) then calling startTethering(TETHERING_NCM) is exactly the same as calling startTethering(TETHERING_USB)?",
+      "range": {
+        "startLine": 855,
+        "startChar": 0,
+        "endLine": 859,
+        "endChar": 5
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
