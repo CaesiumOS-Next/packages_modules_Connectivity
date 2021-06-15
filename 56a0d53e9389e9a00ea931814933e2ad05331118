@@ -22,6 +22,30 @@
       },
       "revId": "56a0d53e9389e9a00ea931814933e2ad05331118",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dd215c7_9acfc91a",
+        "filename": "tests/cts/net/src/android/net/cts/PacketUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T09:12:28Z",
+      "side": 1,
+      "message": "Done in aosp/1729418.",
+      "parentUuid": "935e6740_3fc81fec",
+      "range": {
+        "startLine": 669,
+        "startChar": 68,
+        "endLine": 669,
+        "endChar": 75
+      },
+      "revId": "56a0d53e9389e9a00ea931814933e2ad05331118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
