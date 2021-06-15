@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "643c8b70_f5cf5f6f",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-15T01:48:15Z",
+      "side": 1,
+      "message": "Considering that the only value that needs to be set in tests is configRestrictsAvoidBadWifi\u003dfalse (because then it is controlled by the NETWORK_AVOID_BAD_WIFI setting), we don\u0027t really need 3 states for mTestAvoidBadWifiConfig; so you could also make it a timestamp, like \"mTestUnrestrictBadWifiUntilMs\", so that if mTestUnrestrictBadWifiUntilMs \u003e 0 and mTestUnrestrictBadWifiUntilMs \u003c System.currentTimeMillis, configRestrictsAvoidBadWifi returns false.\n\nThen there\u0027s no need for the delayed message logic to clear the setting",
+      "range": {
+        "startLine": 168,
+        "startChar": 19,
+        "endLine": 168,
+        "endChar": 46
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "087fec35_41f328e0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4302,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-15T01:48:15Z",
+      "side": 1,
+      "message": "Would enforceSettingsPermission be enough ? Tests can get NETWORK_SETTINGS via shell",
+      "range": {
+        "startLine": 4302,
+        "startChar": 8,
+        "endLine": 4302,
+        "endChar": 42
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea86c881_363e912e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4312,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-15T01:48:15Z",
+      "side": 1,
+      "message": "How about storing the expiration timestamp of the setting, and removing this logic ? This would simplify code a bit (see suggestion earlier).",
+      "range": {
+        "startLine": 4312,
+        "startChar": 16,
+        "endLine": 4312,
+        "endChar": 53
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c99007d_5ba27aba",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1477,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-15T01:48:15Z",
+      "side": 1,
+      "message": "Your test doesn\u0027t really test important parts of the actual code because of this, since this test class overrides it.\n\nIs it actually useful ? Could the test just use MultinetworkPolicyTracker as-is, and use Settings.Global.put to mock the settings (they already use a MockContentProvider) and mock resources as is done in makeDependencies() ?",
+      "range": {
+        "startLine": 1477,
+        "startChar": 25,
+        "endLine": 1477,
+        "endChar": 57
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "537a8625_7bd62166",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4666,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-15T01:48:15Z",
+      "side": 1,
+      "message": "Could the two branches be in different methods ? They do very different things, so instead of putting both in a single method that selects behavior based on a boolean, I think having 2 methods with different names would be clearer.",
+      "range": {
+        "startLine": 4666,
+        "startChar": 10,
+        "endLine": 4666,
+        "endChar": 14
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
