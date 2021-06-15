@@ -22,6 +22,30 @@
       },
       "revId": "a0af6c844e179a094825b103d90e9dd35bcdf44e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb9e12fe_bd92b212",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-15T10:21:55Z",
+      "side": 0,
+      "message": "This creates a unique directory every time, so tests don\u0027t affect each other even if the previous dir was not removed. TestIoUtils doesn\u0027t provide a utility to remove the directory; I think the idea is the temp dir will be removed when the test suite finishes anyway.",
+      "parentUuid": "592f5d8a_6ca479f5",
+      "range": {
+        "startLine": 91,
+        "startChar": 19,
+        "endLine": 91,
+        "endChar": 33
+      },
+      "revId": "a0af6c844e179a094825b103d90e9dd35bcdf44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
