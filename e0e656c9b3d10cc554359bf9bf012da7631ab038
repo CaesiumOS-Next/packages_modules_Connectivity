@@ -34,6 +34,24 @@
       "parentUuid": "e56363b6_356380e0",
       "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8263a5c2_e0df793c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-15T19:17:29Z",
+      "side": 1,
+      "message": "The associated bug\u0027s device failing CTS won\u0027t tether over a mobile transport since it\u0027s using ethernet -\u003e off board modem for connectivity which shows up as an eth connection. There isn\u0027t a sim and therefore, no valid sub id as this test will expect in l.395.\n\nIt seems like this test expects a mobile connection? In which case perhaps this current CL makes sense. That, or maybe update the test to not expect a sub ID but I\u0027m not sure that makes sense as it is testing entitlement.",
+      "parentUuid": "83fdfa89_9897e440",
+      "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
