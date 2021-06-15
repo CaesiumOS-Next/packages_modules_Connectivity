@@ -799,6 +799,21 @@ public class BpfCoordinator {
             pw.println(String.format("%d(%s) - %s", upstreamIfindex, mInterfaceNames.get(
                     upstreamIfindex), stats.toString()));
         }
+
+        try (BpfMap<TetherStatsKey, TetherStatsValue> map = mDeps.getBpfStatsMap()) {
+            if (map == null) {
+                pw.println("No BPF stats map");
+                return;
+            }
+            if (map.isEmpty()) {
+                pw.println("No stats");
+            }
+            map.forEach((k, v) -> {
+                pw.println(String.format("%s: %s", k, v));
+            });
+        } catch (ErrnoException e) {
+            pw.println("Error dumping BPF stats map: " + e);
+        }
     }
 
     private void dumpIpv6ForwardingRules(@NonNull IndentingPrintWriter pw) {
