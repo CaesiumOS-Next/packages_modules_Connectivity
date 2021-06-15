@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d41e7e0a_fd75fc88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baad4d77_950395cb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Nit: would rename to forNcmFunction.",
+      "range": {
+        "startLine": 855,
+        "startChar": 44,
+        "endLine": 855,
+        "endChar": 49
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adbd4cf2_87e73598",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Actually I think this comment should be the opposite?\n\n    // TETHERING_NCM is only used if the device does not use NCM for regular USB\n    // tethering.",
+      "range": {
+        "startLine": 856,
+        "startChar": 0,
+        "endLine": 857,
+        "endChar": 25
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b42f5a58_bda3f9dc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Remove extra space here.",
+      "range": {
+        "startLine": 225,
+        "startChar": 36,
+        "endLine": 225,
+        "endChar": 37
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b487fe3a_8c4cd987",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Do we need a SettingsObserver for this setting? Or will the tethering configuration always be re-read whenever tethering is enabled?",
+      "range": {
+        "startLine": 384,
+        "startChar": 15,
+        "endLine": 384,
+        "endChar": 34
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bda4fe86_2013f6ec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "What happens if this throws NumberFormatException (or anything else)? Will it crash the networkstack process? Can you add a test for this? (Also test null if you can.)",
+      "range": {
+        "startLine": 390,
+        "startChar": 39,
+        "endLine": 390,
+        "endChar": 47
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b949aeb5_0df6907e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Nit: this method only takes one function, so it shouldn\u0027t be called \"functions\" plural.\n\nAlso, isXyzEnabled would make sense for a boolean method that only takes one parameter, but this method takes two parameters.\n\ntetherUsbFunctionMatches?",
+      "range": {
+        "startLine": 741,
+        "startChar": 20,
+        "endLine": 741,
+        "endChar": 38
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3640176d_90c95778",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Why add this?",
+      "range": {
+        "startLine": 928,
+        "startChar": 12,
+        "endLine": 928,
+        "endChar": 17
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af69bd47_5b51e016",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Maybe make this one be NCM instead of rndis for variety?",
+      "range": {
+        "startLine": 1060,
+        "startChar": 54,
+        "endLine": 1060,
+        "endChar": 59
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4790d30c_a06f1246",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2171,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Ditto, maybe use NCM in a few places instead of just RNDIS.",
+      "range": {
+        "startLine": 2171,
+        "startChar": 47,
+        "endLine": 2171,
+        "endChar": 52
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c0bb4ac_b344c9f0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2597,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T16:12:10Z",
+      "side": 1,
+      "message": "Remove extra space?",
+      "range": {
+        "startLine": 2597,
+        "startChar": 42,
+        "endLine": 2597,
+        "endChar": 43
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
