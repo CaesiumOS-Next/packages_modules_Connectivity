@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02e30bd5_a85c5220",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-06-15T04:07:51Z",
+      "side": 1,
+      "message": "Patch#6 addressed the comments from Lorenzo.",
+      "revId": "a0592d3e06a03abc2d9b5ce1ba1932ee6a4a1334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
