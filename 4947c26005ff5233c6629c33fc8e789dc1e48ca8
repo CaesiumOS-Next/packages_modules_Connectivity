@@ -52,6 +52,110 @@
       "parentUuid": "740d76cd_3e031137",
       "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a0f60a5_c3172a8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-15T12:20:01Z",
+      "side": 1,
+      "message": "\"key -\u003e value\" may look like the follows for one conntrack entry. It is a long logging.\n\n# Downstream\nk: iif: 14, dstMac: 00:00:00:00:00:00, l4proto: 6, src4: /140.112.8.116, dst4: /10.40.84.202, srcPort: 443, dstPort: 39092\nv: oif: 30, ethDstMac: 66:af:1d:c5:56:05, ethSrcMac: 22:c1:60:a3:08:ff, ethProto: 2048, pmtu: 1500, src46: /140.112.8.116, dst46: /192.168.35.82, srcPort: 443, dstPort: 39092, lastUsed: 89766662030\n\n# Upstream\nk: iif: 30, dstMac: 22:c1:60:a3:08:ff, l4proto: 6, src4: /192.168.35.82, dst4: /140.112.8.116, srcPort: 39092, dstPort: 443\nv: oif: 14, ethDstMac: 00:00:00:00:00:00, ethSrcMac: 00:00:00:00:00:00, ethProto: 2048, pmtu: 1500, src46: /10.40.84.202, dst46: /140.112.8.116, srcPort: 39092, dstPort: 443, lastUsed: 0",
+      "parentUuid": "338a39c8_99293e4a",
+      "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ef675a_99f55538",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-15T12:20:01Z",
+      "side": 1,
+      "message": "\u003e Patch Set 1: Code-Review+2\n\u003e \n\u003e (1 comment)\n\u003e \n\u003e By voting Code-Review+2 the following files are now code-owner approved by \u003cGERRIT_ACCOUNT_1003247\u003e:\n\u003e * Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java\n\u003e \n\n",
+      "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f07b50f_1e7a8c64",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 891,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-15T12:20:01Z",
+      "side": 1,
+      "message": "nit: there are 4 or 16 byte-array (src4, dst4, src46, dst46)",
+      "range": {
+        "startLine": 891,
+        "startChar": 38,
+        "endLine": 891,
+        "endChar": 39
+      },
+      "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e31bcef_fe4ab532",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-15T12:20:01Z",
+      "side": 1,
+      "message": "nit: use DOWNSTREAM\n\nwe have these defination already.\nimport static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;\nimport static com.android.networkstack.tethering.BpfUtils.UPSTREAM;",
+      "range": {
+        "startLine": 921,
+        "startChar": 43,
+        "endLine": 921,
+        "endChar": 65
+      },
+      "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6686cde6_8da864a5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-15T12:20:01Z",
+      "side": 1,
+      "message": "nit: use UPSTREAM. see L.921",
+      "range": {
+        "startLine": 926,
+        "startChar": 43,
+        "endLine": 926,
+        "endChar": 64
+      },
+      "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
