@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe7f8e96_d277b7af",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-15T06:26:23Z",
+      "side": 1,
+      "message": "nit: the diff may be a minus value if the rules are updated after L.905",
+      "range": {
+        "startLine": 884,
+        "startChar": 22,
+        "endLine": 884,
+        "endChar": 43
+      },
+      "revId": "70f43ee58e78edadd644663fbb8d96346769a35f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4d7c00b_785f2492",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-06-15T06:26:23Z",
+      "side": 1,
+      "message": "nit: use \", \" for stack or split two maps into two try-catch. Or we don\u0027t know which map throws the error.",
+      "range": {
+        "startLine": 919,
+        "startChar": 49,
+        "endLine": 919,
+        "endChar": 51
+      },
+      "revId": "70f43ee58e78edadd644663fbb8d96346769a35f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
