@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28defd66_cc2100ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-06-15T08:25:17Z",
+      "side": 1,
+      "message": "Honestly, the current output just doesn\u0027t make much sense to me.",
+      "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
