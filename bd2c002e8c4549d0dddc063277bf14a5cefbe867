@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d67d5d_d3acca63",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5559,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-15T06:14:29Z",
+      "side": 1,
+      "message": "Nice test, thanks for implement this.\nHowever, given that ConnectivityServiceTest is now 13k lines.\nI hope we can add such coverage with less code if it is not acceptable.\nThus, is it better if we merged this into testNetworkCallbackMaximum?\nThat means:\n  1. change INTENTS to DIFF_INTENTS and SAME_INTENTS\n  2. add \"same\" intent at l.5632 as you did in this test.\n  3. assert TooManyRequestsException as you did in this test.",
+      "range": {
+        "startLine": 5559,
+        "startChar": 16,
+        "endLine": 5559,
+        "endChar": 59
+      },
+      "revId": "bd2c002e8c4549d0dddc063277bf14a5cefbe867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
