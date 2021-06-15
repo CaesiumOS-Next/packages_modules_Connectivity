@@ -16,6 +16,24 @@
       "message": "Honestly, the current output just doesn\u0027t make much sense to me.",
       "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "740d76cd_3e031137",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-06-15T08:26:01Z",
+      "side": 1,
+      "message": "(as in I think of this as key -\u003e value, not src -\u003e nat -\u003e dst)",
+      "parentUuid": "28defd66_cc2100ff",
+      "revId": "4947c26005ff5233c6629c33fc8e789dc1e48ca8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
