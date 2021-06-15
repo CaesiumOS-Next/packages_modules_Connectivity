@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "136749bd_a4d47402",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-15T04:52:32Z",
+      "side": 1,
+      "message": "This was failing presubmit in mainline_modules-userdebug since junit was unable to resolve methods with OemNetworkPreferences in the signature on devices \u003c Android 12. Reached out to reminv@ and the fix is to remove OemNetworkPreferences from any method signatures.\n\nRunner reported an invalid method \u0027initializationError\u0027 (android.net.cts.ConnectivityManagerTest#initializationError). Something went wrong, Skipping its reporting. Stack:java.lang.NoClassDefFoundError: Failed resolution of: Landroid/net/OemNetworkPreferences;",
+      "revId": "c07caf98097b30d77b6356656b03250fc222d6c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
