@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066537ab_1bc9370e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T13:51:31Z",
+      "side": 1,
+      "message": "Does this mean that the test now requires extended mockito? Or does it mean that the test does not require extended mockito, but if it does use extended mockito, then it must be mocked? Would be good to clarify.",
+      "range": {
+        "startLine": 492,
+        "startChar": 40,
+        "endLine": 492,
+        "endChar": 77
+      },
+      "revId": "0fb1807c92ae79ea6adb05b26fd4dd20a92f70cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
