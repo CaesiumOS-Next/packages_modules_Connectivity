@@ -46,6 +46,30 @@
       },
       "revId": "53e8a267ab1688ec4e7444340f22a26014af37de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a74fbb5a_3f8ad25f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10151,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-15T05:50:38Z",
+      "side": 1,
+      "message": "I see. So instead of testing that setDefaultProxy is called, maybe we can check that a proxy broadcast is actually sent? (In a similar way to how we check that other broadcasts are sent, such as CONNECTIVITY_ACTION.) Doesn\u0027t need to be in this CL.",
+      "parentUuid": "96c64fee_fcc91a72",
+      "range": {
+        "startLine": 10151,
+        "startChar": 52,
+        "endLine": 10151,
+        "endChar": 82
+      },
+      "revId": "53e8a267ab1688ec4e7444340f22a26014af37de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
