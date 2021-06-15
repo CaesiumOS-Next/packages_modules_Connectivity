@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a32edba7_ea9636ce",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-06-15T08:35:56Z",
+      "side": 1,
+      "message": "I say we just ignore it.  Negative is arguably most correct thing to print.\n\nWe\u0027re relatively unlikely to hit -1 anyway, since we\u0027d need to spend a full millisecond running this for loop (which I guess is possible if scheduler delays us...)",
+      "parentUuid": "ec89b510_5ac53f19",
+      "range": {
+        "startLine": 884,
+        "startChar": 22,
+        "endLine": 884,
+        "endChar": 43
+      },
+      "revId": "70f43ee58e78edadd644663fbb8d96346769a35f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4d7c00b_785f2492",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 5
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I agree that this is not 100% correct, but not sure if this needs fixing since it should never happen.",
       "parentUuid": "b4d7c00b_785f2492",
+      "range": {
+        "startLine": 919,
+        "startChar": 49,
+        "endLine": 919,
+        "endChar": 51
+      },
+      "revId": "70f43ee58e78edadd644663fbb8d96346769a35f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "566b8b25_6a8e3f32",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-06-15T08:35:56Z",
+      "side": 1,
+      "message": "When Nucca makes these maps globals, and adds crash if tethering module can\u0027t initialize them on startup, then this logic goes away.  So this is really a bit of a TODO for Nucca :-)  I\u0027d argue that should happen in S, but someone will probably say it\u0027s too risky... :-(",
+      "parentUuid": "a8e9803b_88c4d6b5",
       "range": {
         "startLine": 919,
         "startChar": 49,
