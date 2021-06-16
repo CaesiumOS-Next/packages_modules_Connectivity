@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb34dacb_b987c502",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1477,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T11:04:44Z",
+      "side": 1,
+      "message": "Hmm that\u0027s not very clean (2 different ways to use the class controlled by a boolean)\n\nHow about just removing mConfigRestrictsAvoidBadWifi, and having the tests that use it mock the resource ? There shouldn\u0027t be too many",
+      "parentUuid": "5c36db6f_6de22465",
+      "range": {
+        "startLine": 1477,
+        "startChar": 25,
+        "endLine": 1477,
+        "endChar": 57
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "537a8625_7bd62166",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
