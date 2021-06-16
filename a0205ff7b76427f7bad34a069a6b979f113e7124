@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c20a334b_00f355e4",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-16T18:43:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "890a5f89_9379818a",
+      "range": {
+        "startLine": 172,
+        "startChar": 42,
+        "endLine": 172,
+        "endChar": 47
+      },
+      "revId": "a0205ff7b76427f7bad34a069a6b979f113e7124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "069f5e97_73a70056",
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e24190f_2145b419",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-16T18:43:22Z",
+      "side": 1,
+      "message": "Yes. I want to cover both cases of migrating to v4 and v6.\nAlternatively, I can add a boolean as an input of #getIpSecTunnelTestRunnable to control if the test should migrate to v4 or v6.",
+      "parentUuid": "069f5e97_73a70056",
+      "range": {
+        "startLine": 535,
+        "startChar": 20,
+        "endLine": 535,
+        "endChar": 39
+      },
+      "revId": "a0205ff7b76427f7bad34a069a6b979f113e7124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7708baf_e5ae662d",
         "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
         "patchSetId": 7
@@ -77,6 +125,30 @@
       "writtenOn": "2021-06-16T14:14:40Z",
       "side": 1,
       "message": "You have similar code in many tests. How about you define a helper like:\n\n    private void doTestMigrateTunnel(int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode) {\n        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());\n        checkTunnelOutput(innerFamily, outerFamily, useEncap, transportInTunnelMode);\n        checkTunnelInput(innerFamily, outerFamily, useEncap, transportInTunnelMode);\n    }\n\nand just use that?",
+      "range": {
+        "startLine": 1080,
+        "startChar": 0,
+        "endLine": 1082,
+        "endChar": 64
+      },
+      "revId": "a0205ff7b76427f7bad34a069a6b979f113e7124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b8bc33_a96e06fd",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-16T18:43:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7708baf_e5ae662d",
       "range": {
         "startLine": 1080,
         "startChar": 0,
