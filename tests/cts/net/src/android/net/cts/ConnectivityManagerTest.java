@@ -252,6 +252,7 @@ public class ConnectivityManagerTest {
     private final ArraySet<Integer> mNetworkTypes = new ArraySet<>();
     private UiAutomation mUiAutomation;
     private CtsNetUtils mCtsNetUtils;
+    private TestUtils mTestUtils;
     private TetheringManager mTm;
 
     // Used for cleanup purposes.
@@ -266,6 +267,7 @@ public class ConnectivityManagerTest {
         mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         mPackageManager = mContext.getPackageManager();
         mCtsNetUtils = new CtsNetUtils(mContext);
+        mTestUtils = new TestUtils();
         mTm = mContext.getSystemService(TetheringManager.class);
 
         if (DevSdkIgnoreRuleKt.isDevSdkInRange(null /* minExclusive */,
@@ -666,24 +668,24 @@ public class ConnectivityManagerTest {
     public void testIsPrivateDnsBroken() throws InterruptedException {
         final String invalidPrivateDnsServer = "invalidhostname.example.com";
         final String goodPrivateDnsServer = "dns.google";
-        mCtsNetUtils.storePrivateDnsSetting();
+        mTestUtils.storePrivateDnsSetting(mContext);
         final TestableNetworkCallback cb = new TestableNetworkCallback();
         mCm.registerNetworkCallback(makeWifiNetworkRequest(), cb);
         try {
             // Verifying the good private DNS sever
-            mCtsNetUtils.setPrivateDnsStrictMode(goodPrivateDnsServer);
+            mTestUtils.setPrivateDnsStrictMode(mContext, goodPrivateDnsServer);
             final Network networkForPrivateDns =  mCtsNetUtils.ensureWifiConnected();
             cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
                     entry -> (!((CallbackEntry.CapabilitiesChanged) entry).getCaps()
                     .isPrivateDnsBroken()) && networkForPrivateDns.equals(entry.getNetwork()));
 
             // Verifying the broken private DNS sever
-            mCtsNetUtils.setPrivateDnsStrictMode(invalidPrivateDnsServer);
+            mTestUtils.setPrivateDnsStrictMode(mContext, invalidPrivateDnsServer);
             cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
                     entry -> (((CallbackEntry.CapabilitiesChanged) entry).getCaps()
                     .isPrivateDnsBroken()) && networkForPrivateDns.equals(entry.getNetwork()));
         } finally {
-            mCtsNetUtils.restorePrivateDnsSetting();
+            mTestUtils.restorePrivateDnsSetting(mContext);
         }
     }
 

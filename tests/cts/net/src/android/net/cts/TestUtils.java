@@ -16,21 +16,134 @@
 
 package android.net.cts;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import android.annotation.NonNull;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.os.Build;
+import android.text.TextUtils;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.net.module.util.ConnectivitySettingsUtils;
+import com.android.networkstack.apishim.ConnectivitySettingsManagerShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
+import com.android.networkstack.apishim.common.ConnectivitySettingsManagerShim;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Utils class to provide common shared test helper methods or constants that behave differently
  * depending on the SDK against which they are compiled.
  */
 public class TestUtils {
+    private static final String TAG = TestUtils.class.getSimpleName();
+    private static final int PRIVATE_DNS_SETTING_TIMEOUT_MS = 10_000;
+    private static final int PRIVATE_DNS_PROBE_MS = 1_000;
+    private int mOldPrivateDnsMode;
+    private String mOldPrivateDnsSpecifier;
+    final ConnectivitySettingsManagerShim mCsmShim =
+            ConnectivitySettingsManagerShimImpl.newInstance();
+
     /**
      * Whether to test S+ APIs. This requires a) that the test be running on an S+ device, and
      * b) that the code be compiled against shims new enough to access these APIs.
      */
     public static boolean shouldTestSApis() {
         return SdkLevel.isAtLeastS() && ConstantsShim.VERSION > Build.VERSION_CODES.R;
+    }
+
+    public void storePrivateDnsSetting(@NonNull Context context) {
+        mOldPrivateDnsMode = mCsmShim.getPrivateDnsMode(context);
+        mOldPrivateDnsSpecifier = mCsmShim.getPrivateDnsHostname(context);
+    }
+
+    public void restorePrivateDnsSetting(@NonNull Context context) throws InterruptedException {
+        // restore private DNS setting
+        if (mOldPrivateDnsMode == ConnectivitySettingsUtils.PRIVATE_DNS_MODE_PROVIDER_HOSTNAME) {
+            // In case of invalid setting, set to opportunistic to avoid a bad state and fail
+            if (TextUtils.isEmpty(mOldPrivateDnsSpecifier)) {
+                mCsmShim.setPrivateDnsMode(context,
+                        ConnectivitySettingsUtils.PRIVATE_DNS_MODE_OPPORTUNISTIC);
+                fail("Invalid private DNS setting: no hostname specified in strict mode");
+            }
+            setPrivateDnsStrictMode(context, mOldPrivateDnsSpecifier);
+
+            final ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
+            // There might be a race before private DNS setting is applied and the next test is
+            // running. So waiting private DNS to be validated can reduce the flaky rate of test.
+            awaitPrivateDnsSetting(context, "restorePrivateDnsSetting timeout",
+                    cm.getActiveNetwork(),
+                    mOldPrivateDnsSpecifier, true /* requiresValidatedServer */);
+        } else {
+            mCsmShim.setPrivateDnsMode(context, mOldPrivateDnsMode);
+        }
+    }
+
+    public void setPrivateDnsStrictMode(@NonNull Context context, String server) {
+        // To reduce flake rate, set PRIVATE_DNS_SPECIFIER before PRIVATE_DNS_MODE. This ensures
+        // that if the previous private DNS mode was not "hostname", the system only sees one
+        // EVENT_PRIVATE_DNS_SETTINGS_CHANGED event instead of two.
+        mCsmShim.setPrivateDnsHostname(context, server);
+        final int mode = mCsmShim.getPrivateDnsMode(context);
+        // If current private DNS mode is "hostname", we only need to set PRIVATE_DNS_SPECIFIER.
+        if (mode != ConnectivitySettingsUtils.PRIVATE_DNS_MODE_PROVIDER_HOSTNAME) {
+            mCsmShim.setPrivateDnsMode(context,
+                    ConnectivitySettingsUtils.PRIVATE_DNS_MODE_PROVIDER_HOSTNAME);
+        }
+    }
+
+    /**
+     * Waiting for the new private DNS setting to be validated.
+     * This method is helpful when the new private DNS setting is configured and ensure the new
+     * setting is applied and workable. It can also reduce the flaky rate when the next test is
+     * running.
+     *
+     * @param context A context for getting the system service.
+     * @param msg A message that will be printed when the validation of private DNS is timeout.
+     * @param network A network which will apply the new private DNS setting.
+     * @param privateDnsServerName The hostname of private DNS.
+     * @param requiresValidatedServer A boolean to decide if it's needed to wait private DNS to be
+     *                                 validated or not.
+     * @throws InterruptedException If the thread is interrupted.
+     */
+    public void awaitPrivateDnsSetting(@NonNull Context context, @NonNull String msg,
+            @NonNull Network network, @NonNull String privateDnsServerName,
+            boolean requiresValidatedServer) throws InterruptedException {
+        final ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
+        final CountDownLatch latch = new CountDownLatch(1);
+        final NetworkRequest request = new NetworkRequest.Builder().clearCapabilities().build();
+        ConnectivityManager.NetworkCallback callback = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onLinkPropertiesChanged(Network n, LinkProperties lp) {
+                if (requiresValidatedServer && lp.getValidatedPrivateDnsServers().isEmpty()) {
+                    return;
+                }
+                if (network.equals(n)
+                        && privateDnsServerName.equals(lp.getPrivateDnsServerName())) {
+                    latch.countDown();
+                }
+            }
+        };
+        cm.registerNetworkCallback(request, callback);
+        assertTrue(msg, latch.await(PRIVATE_DNS_SETTING_TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        cm.unregisterNetworkCallback(callback);
+        // Wait some time for NetworkMonitor's private DNS probe to complete. If we do not do
+        // this, then the test could complete before the NetworkMonitor private DNS probe
+        // completes. This would result in tearDown disabling private DNS, and the NetworkMonitor
+        // private DNS probe getting stuck because there are no longer any private DNS servers to
+        // query. This then results in the next test not being able to change the private DNS
+        // setting within the timeout, because the NetworkMonitor thread is blocked in the
+        // private DNS probe. There is no way to know when the probe has completed: because the
+        // network is likely already validated, there is no callback that we can listen to, so
+        // just sleep.
+        if (requiresValidatedServer) {
+            Thread.sleep(PRIVATE_DNS_PROBE_MS);
+        }
     }
 }
