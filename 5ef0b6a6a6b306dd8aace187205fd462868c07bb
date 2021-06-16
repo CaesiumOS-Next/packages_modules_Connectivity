@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6d9df1_44936a57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T12:02:48Z",
+      "side": 1,
+      "message": "I don\u0027t know much about this code, but this seems like an improvement.\n\nThat said... isn\u0027t the code still incorrect? Suppose there is a request R, and a factory has two offers A and B that can satisfy it. Suppose A is preferred to B. Shouldn\u0027t B get unneeded?",
+      "revId": "5ef0b6a6a6b306dd8aace187205fd462868c07bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6ea1842_ed82bb81",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 8203,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T12:02:48Z",
+      "side": 1,
+      "message": "Out of curiosity, why does mightBeat not immediately return false if |offer| cannot satisfy |activeRequest|? It definitely seems incorrect for mightBeat to say that a given offer can beat the current satisfier if the offer can\u0027t even satisfy the request. \n\nIf mightBeat already does check this, then adding canSatisfy here is presumably unnecessary.",
+      "range": {
+        "startLine": 8203,
+        "startChar": 52,
+        "endLine": 8203,
+        "endChar": 61
+      },
+      "revId": "5ef0b6a6a6b306dd8aace187205fd462868c07bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
