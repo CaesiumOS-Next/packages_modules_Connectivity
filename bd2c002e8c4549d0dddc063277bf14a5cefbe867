@@ -69,6 +69,30 @@
       },
       "revId": "bd2c002e8c4549d0dddc063277bf14a5cefbe867",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78b1d73e_a5f3c02c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5580,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-16T08:19:53Z",
+      "side": 1,
+      "message": "I think this is a solid proof of an error-prone code.\nI know you are not the one who wrote the first version.\nBut could you kindly help to change them to use for-loop syntax if it is less error-prone?",
+      "parentUuid": "a509b9d6_73f15e4e",
+      "range": {
+        "startLine": 5580,
+        "startChar": 21,
+        "endLine": 5580,
+        "endChar": 33
+      },
+      "revId": "bd2c002e8c4549d0dddc063277bf14a5cefbe867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
