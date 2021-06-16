@@ -87,6 +87,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b06f4e3a_20f1d43e",
+        "filename": "Tethering/res/values/config.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffb14dca_c48aabe7",
+      "range": {
+        "startLine": 197,
+        "startChar": 61,
+        "endLine": 197,
+        "endChar": 66
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14e23656_7e550ea3",
+        "filename": "Tethering/res/values/config.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75a5ab7b_2f66a4e7",
+      "range": {
+        "startLine": 197,
+        "startChar": 9,
+        "endLine": 197,
+        "endChar": 56
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "820c3710_f6e5f2be",
+        "filename": "Tethering/res/values/config.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4af75bcb_430629e5",
+      "range": {
+        "startLine": 197,
+        "startChar": 71,
+        "endLine": 197,
+        "endChar": 74
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84aaeaea_5edf80c0",
@@ -157,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fb7103f_72ab4bcb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Yes, this would make thing complicated. If return error only if enable is true, caller could call stopTethering with TETHERING_ETHERNET to disable TETHERING_USB which is not ideal. For the case you list, user still can disable NCM via ON/OFF TETHEIRNG_USB or unplug/plug the cable. I prefer to leave it as is. If we want to cover this edge case, another option is stop TETHEIRNG_NCM and TETHEIRNG_USB when configuration change.",
+      "parentUuid": "32c05550_1f754a18",
+      "range": {
+        "startLine": 1346,
+        "startChar": 8,
+        "endLine": 1346,
+        "endChar": 70
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cc80d3f_53c9ff47",
@@ -170,6 +266,30 @@
       "writtenOn": "2021-06-15T16:12:10Z",
       "side": 1,
       "message": "Instead of providing this help text, would actually print the value. Something like:\n\n    pw.print(\"mUsbTetheringFunction: \");\n    pw.println(isUsingNcm() ? \"NCM\" : \"RNDIS\");",
+      "range": {
+        "startLine": 314,
+        "startChar": 39,
+        "endLine": 314,
+        "endChar": 58
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7c7b297_78542400",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cc80d3f_53c9ff47",
       "range": {
         "startLine": 314,
         "startChar": 39,
@@ -203,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de1c818c_7ea333ea",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/MockTetheringConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5749be61_4560ed95",
+      "range": {
+        "startLine": 24,
+        "startChar": 13,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f74c7df_75c90d04",
@@ -216,6 +360,30 @@
       "writtenOn": "2021-06-15T16:12:10Z",
       "side": 1,
       "message": "Curious why this is necessary in this CL. It doesn\u0027t seem to be related.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49df761a_5a3c3448",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Because MockContentResolver would use applicationInfo to read targetSdkVersion, then cause NPE.\n\njava.lang.NullPointerException: Attempt to read from field \u0027int android.content.pm.ApplicationInfo.targetSdkVersion\u0027 on a null object reference\n\tat android.content.ContentResolver.\u003cinit\u003e(ContentResolver.java:791)\n\tat android.content.ContentResolver.\u003cinit\u003e(ContentResolver.java:783)\n\tat android.test.mock.MockContentResolver.\u003cinit\u003e(MockContentResolver.java:71)\n\tat com.android.networkstack.tethering.TetheringConfigurationTest.setUp(Unknown Source:331)",
+      "parentUuid": "4f74c7df_75c90d04",
       "range": {
         "startLine": 118,
         "startChar": 0,
@@ -249,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc740304_b29717a9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "This is used to test default. If both resource(current is 0, but OEM could override it to null) and settings do not be configured, the default value should be RNDIS.",
+      "parentUuid": "b25320fe_ed4b2e6b",
+      "range": {
+        "startLine": 568,
+        "startChar": 8,
+        "endLine": 568,
+        "endChar": 24
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af15e1fb_651713f0",
@@ -262,6 +454,30 @@
       "writtenOn": "2021-06-15T16:12:10Z",
       "side": 1,
       "message": "Nit: would rename to \"expected\".",
+      "range": {
+        "startLine": 585,
+        "startChar": 42,
+        "endLine": 585,
+        "endChar": 50
+      },
+      "revId": "d3db192e941813478f84f57d15a2c1217366e8a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0bbf146_a7595b3c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af15e1fb_651713f0",
       "range": {
         "startLine": 585,
         "startChar": 42,

@@ -22,6 +22,30 @@
       },
       "revId": "a3f12dd52cc61b9bd9666e1ceae60b5c31ed5bfb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02e252c7_4012ff50",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 0,
+      "message": "This is not be removed, it just move to l.936. And yes, it is because interface might be TEST_USB_IFNAME or TEST_NCM_IFNAME. Also check whether addActiveDownstream here inside sendIPv6TetherUpdates don\u0027t make sense. addActiveDownstream only be added once when downstream started, but sendIPv6TetherUpdates could be called multiple times when ipv6 upstream has change.",
+      "parentUuid": "1af71d4a_3993ba60",
+      "range": {
+        "startLine": 926,
+        "startChar": 0,
+        "endLine": 928,
+        "endChar": 45
+      },
+      "revId": "a3f12dd52cc61b9bd9666e1ceae60b5c31ed5bfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

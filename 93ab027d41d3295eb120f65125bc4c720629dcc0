@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39f548d1_08833ede",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baad4d77_950395cb",
+      "range": {
+        "startLine": 855,
+        "startChar": 44,
+        "endLine": 855,
+        "endChar": 49
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adbd4cf2_87e73598",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-15T16:12:10Z",
       "side": 1,
       "message": "Actually I think this comment should be the opposite?\n\n    // TETHERING_NCM is only used if the device does not use NCM for regular USB\n    // tethering.",
+      "range": {
+        "startLine": 856,
+        "startChar": 0,
+        "endLine": 857,
+        "endChar": 25
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9884225e_2ecb0005",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adbd4cf2_87e73598",
       "range": {
         "startLine": 856,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ef653ea_25af2392",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b42f5a58_bda3f9dc",
+      "range": {
+        "startLine": 225,
+        "startChar": 36,
+        "endLine": 225,
+        "endChar": 37
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b487fe3a_8c4cd987",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-06-15T16:12:10Z",
       "side": 1,
       "message": "Do we need a SettingsObserver for this setting? Or will the tethering configuration always be re-read whenever tethering is enabled?",
+      "range": {
+        "startLine": 384,
+        "startChar": 15,
+        "endLine": 384,
+        "endChar": 34
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a53a8b_53f1c959",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b487fe3a_8c4cd987",
       "range": {
         "startLine": 384,
         "startChar": 15,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78de9792_79c3fc6f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Current test already cover null. Update the test to cover NumberFormatException",
+      "parentUuid": "bda4fe86_2013f6ec",
+      "range": {
+        "startLine": 390,
+        "startChar": 39,
+        "endLine": 390,
+        "endChar": 47
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b949aeb5_0df6907e",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-06-15T16:12:10Z",
       "side": 1,
       "message": "Nit: this method only takes one function, so it shouldn\u0027t be called \"functions\" plural.\n\nAlso, isXyzEnabled would make sense for a boolean method that only takes one parameter, but this method takes two parameters.\n\ntetherUsbFunctionMatches?",
+      "range": {
+        "startLine": 741,
+        "startChar": 20,
+        "endLine": 741,
+        "endChar": 38
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a271fa9_a498526b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b949aeb5_0df6907e",
       "range": {
         "startLine": 741,
         "startChar": 20,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b110d83_6da17b83",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Because ipv6 tethering only support for first downstream, this is a bug in this test if we start multiple downstream with ipv6 upstream.",
+      "parentUuid": "3640176d_90c95778",
+      "range": {
+        "startLine": 928,
+        "startChar": 12,
+        "endLine": 928,
+        "endChar": 17
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af69bd47_5b51e016",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-06-15T16:12:10Z",
       "side": 1,
       "message": "Maybe make this one be NCM instead of rndis for variety?",
+      "range": {
+        "startLine": 1060,
+        "startChar": 54,
+        "endLine": 1060,
+        "endChar": 59
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3843bbf6_c7e62df5",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af69bd47_5b51e016",
       "range": {
         "startLine": 1060,
         "startChar": 54,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05aba14d_b48c2dc0",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2171,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4790d30c_a06f1246",
+      "range": {
+        "startLine": 2171,
+        "startChar": 47,
+        "endLine": 2171,
+        "endChar": 52
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c0bb4ac_b344c9f0",
@@ -238,6 +454,30 @@
       "writtenOn": "2021-06-15T16:12:10Z",
       "side": 1,
       "message": "Remove extra space?",
+      "range": {
+        "startLine": 2597,
+        "startChar": 42,
+        "endLine": 2597,
+        "endChar": 43
+      },
+      "revId": "93ab027d41d3295eb120f65125bc4c720629dcc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2379e9a_341b4d71",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2597,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-16T11:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c0bb4ac_b344c9f0",
       "range": {
         "startLine": 2597,
         "startChar": 42,
