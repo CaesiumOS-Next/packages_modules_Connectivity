@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a538e320_c68e1601",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T11:35:20Z",
+      "side": 1,
+      "message": "Also add a TODO to use the constant once it\u0027s available in all branches",
+      "range": {
+        "startLine": 51,
+        "startChar": 60,
+        "endLine": 51,
+        "endChar": 86
+      },
+      "revId": "a4bc806c767c82a50a09503e9acd77fc07f1ca51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d90681b_2fe0d9a7",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T11:35:20Z",
+      "side": 1,
+      "message": "Also comment that the battery stats are updated when a network stops being the default network.\nSo instead of this you could make sure wifi is disabled when the test starts, then enable it here (otherwise cell is only default for a very short time).\n\nWould it be possible to disconnect cell instead ? This would be more reliable as there\u0027s no good guarantee that cell actually becomes default when there\u0027s no wifi",
+      "range": {
+        "startLine": 89,
+        "startChar": 25,
+        "endLine": 89,
+        "endChar": 35
+      },
+      "revId": "a4bc806c767c82a50a09503e9acd77fc07f1ca51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16fba356_846e81a1",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T11:35:20Z",
+      "side": 1,
+      "message": "This should poll for reliability (check the stats every 10ms, for up to 10 seconds for example, fail if they haven\u0027t all increased after 10 secs); otherwise 200ms would either be too short or make the test slow",
+      "range": {
+        "startLine": 91,
+        "startChar": 19,
+        "endLine": 91,
+        "endChar": 24
+      },
+      "revId": "a4bc806c767c82a50a09503e9acd77fc07f1ca51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6878322f_0ac58b57",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T11:35:20Z",
+      "side": 1,
+      "message": "Can this be moved to a separate method that takes two CellularBatteryStats ?\nAlso it may be OK to have the \"getNumBytesTx()\" inline instead of using the 8 variables, since the method would use shorter names for CellularBatteryStats parameters",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 103,
+        "endChar": 77
+      },
+      "revId": "a4bc806c767c82a50a09503e9acd77fc07f1ca51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e318ae99_d3ff06b5",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T11:35:20Z",
+      "side": 1,
+      "message": "How about disabling here, with a comment saying that stats are updated when the network goes away ? Toggling may work but it\u0027s really fast so more complicated than it should be\n\n(make sure the test reconnects both wifi and mobile at the end in any case)",
+      "range": {
+        "startLine": 117,
+        "startChar": 25,
+        "endLine": 117,
+        "endChar": 35
+      },
+      "revId": "a4bc806c767c82a50a09503e9acd77fc07f1ca51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72abbb03_cf94b381",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T11:35:20Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary since you\u0027re using network.openConnection below",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 49
+      },
+      "revId": "a4bc806c767c82a50a09503e9acd77fc07f1ca51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2775ffb7_a368aac7",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T11:35:20Z",
+      "side": 1,
+      "message": "Instead of this maybe check that getResponseCode() \u003d\u003d 204 ? .connect() is not very clear on what it does",
+      "range": {
+        "startLine": 158,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 32
+      },
+      "revId": "a4bc806c767c82a50a09503e9acd77fc07f1ca51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
