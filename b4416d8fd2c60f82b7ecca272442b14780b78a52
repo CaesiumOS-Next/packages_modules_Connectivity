@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1928632_8a7188cd",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultipathPolicyTrackerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-16T00:52:59Z",
+      "side": 1,
+      "message": "do we need to change to use doReturn? ditto in PermissionMonitorTest.",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 12
+      },
+      "revId": "b4416d8fd2c60f82b7ecca272442b14780b78a52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
