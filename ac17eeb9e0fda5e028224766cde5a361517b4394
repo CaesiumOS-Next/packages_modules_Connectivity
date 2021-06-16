@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "def4887e_388db5c1",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-16T08:32:34Z",
+      "side": 1,
+      "message": "Done, but should it return true instead? This return value stands for disabling avoid bad wifi.",
+      "parentUuid": "643c8b70_f5cf5f6f",
+      "range": {
+        "startLine": 168,
+        "startChar": 19,
+        "endLine": 168,
+        "endChar": 46
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "087fec35_41f328e0",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96919ea6_7cf7b15c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4302,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-16T08:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "087fec35_41f328e0",
+      "range": {
+        "startLine": 4302,
+        "startChar": 8,
+        "endLine": 4302,
+        "endChar": 42
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea86c881_363e912e",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-15T01:48:15Z",
       "side": 1,
       "message": "How about storing the expiration timestamp of the setting, and removing this logic ? This would simplify code a bit (see suggestion earlier).",
+      "range": {
+        "startLine": 4312,
+        "startChar": 16,
+        "endLine": 4312,
+        "endChar": 53
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7231c5a4_a8cfc273",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4312,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-16T08:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea86c881_363e912e",
       "range": {
         "startLine": 4312,
         "startChar": 16,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c36db6f_6de22465",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1477,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-16T08:32:34Z",
+      "side": 1,
+      "message": "Use MultinetworkPolicyTracker directly may need to change a lots due to the way we setup in ConnectivityService. I replace with a flag to calling its parent which is MultinetworkPolicyTracker. Design should verify MultinetworkPolicyTracker as the flag is set. (I did not touch configMeteredMultipathPreference since it should not relate to what I intended to test.) See if it\u0027s ok to you",
+      "parentUuid": "4c99007d_5ba27aba",
+      "range": {
+        "startLine": 1477,
+        "startChar": 25,
+        "endLine": 1477,
+        "endChar": 57
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "537a8625_7bd62166",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
@@ -106,6 +202,30 @@
       "writtenOn": "2021-06-15T01:48:15Z",
       "side": 1,
       "message": "Could the two branches be in different methods ? They do very different things, so instead of putting both in a single method that selects behavior based on a boolean, I think having 2 methods with different names would be clearer.",
+      "range": {
+        "startLine": 4666,
+        "startChar": 10,
+        "endLine": 4666,
+        "endChar": 14
+      },
+      "revId": "ac17eeb9e0fda5e028224766cde5a361517b4394",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aba7414_128e6c87",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4666,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-16T08:32:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "537a8625_7bd62166",
       "range": {
         "startLine": 4666,
         "startChar": 10,
