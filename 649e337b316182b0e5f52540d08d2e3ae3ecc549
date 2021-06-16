@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe16bdcd_ee162977",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2386,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T10:56:17Z",
+      "side": 1,
+      "message": "This still makes the method specific to wifi. But it doesn\u0027t need to be: now that you have the n.equals(network) in line 2379, this method will work on any type of network. You can just call registerNetworkCallback with an empty request.\n\nAlso would be good to pass in the timeout instead of using WIFI_CONNECT_TIMEOUT_MS. That\u0027s the other thing that currently makes this method wifi-specific.",
+      "range": {
+        "startLine": 2386,
+        "startChar": 12,
+        "endLine": 2386,
+        "endChar": 61
+      },
+      "revId": "649e337b316182b0e5f52540d08d2e3ae3ecc549",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
