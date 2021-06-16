@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc3ebf9_0c248b31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T14:14:40Z",
+      "side": 1,
+      "message": "Ben, could you also take another look? I find this test really hard to read.",
+      "revId": "a0205ff7b76427f7bad34a069a6b979f113e7124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "890a5f89_9379818a",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T14:14:40Z",
+      "side": 1,
+      "message": "Remove \"tun\" from the names of these members since the name of the class already contains Tun.",
+      "range": {
+        "startLine": 172,
+        "startChar": 42,
+        "endLine": 172,
+        "endChar": 47
+      },
+      "revId": "a0205ff7b76427f7bad34a069a6b979f113e7124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "069f5e97_73a70056",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T14:14:40Z",
+      "side": 1,
+      "message": "Can you explain why you call this twice? Do you first migrate the tunnel to a new IPv4 address pair, then to a new IPv6 address pair?",
+      "range": {
+        "startLine": 535,
+        "startChar": 20,
+        "endLine": 535,
+        "endChar": 39
+      },
+      "revId": "a0205ff7b76427f7bad34a069a6b979f113e7124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7708baf_e5ae662d",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T14:14:40Z",
+      "side": 1,
+      "message": "You have similar code in many tests. How about you define a helper like:\n\n    private void doTestMigrateTunnel(int innerFamily, int outerFamily, boolean useEncap, boolean transportInTunnelMode) {\n        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());\n        checkTunnelOutput(innerFamily, outerFamily, useEncap, transportInTunnelMode);\n        checkTunnelInput(innerFamily, outerFamily, useEncap, transportInTunnelMode);\n    }\n\nand just use that?",
+      "range": {
+        "startLine": 1080,
+        "startChar": 0,
+        "endLine": 1082,
+        "endChar": 64
+      },
+      "revId": "a0205ff7b76427f7bad34a069a6b979f113e7124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
