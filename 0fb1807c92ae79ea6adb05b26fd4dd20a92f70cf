@@ -22,6 +22,30 @@
       },
       "revId": "0fb1807c92ae79ea6adb05b26fd4dd20a92f70cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "797f0ce0_d758169d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-16T07:33:42Z",
+      "side": 1,
+      "message": "No this is just to explain why this is mocking IBatteryStats instead of mocking BatteryStatsManager.\nExpanded the comment; it\u0027s a hack, but the only simple way I found to avoid using mockito extended.",
+      "parentUuid": "066537ab_1bc9370e",
+      "range": {
+        "startLine": 492,
+        "startChar": 40,
+        "endLine": 492,
+        "endChar": 77
+      },
+      "revId": "0fb1807c92ae79ea6adb05b26fd4dd20a92f70cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
