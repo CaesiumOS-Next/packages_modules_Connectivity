@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4709aaba_03a7d829",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T11:39:25Z",
+      "side": 1,
+      "message": "This code mutates a capability filter that has already been passed to a previous call to registerNetworkOffer.\n\n\nOut of curiosity, does registerNetworkOffer make a defensive callback of the filter argument?\n\nIf it does not, then this code (and any code that mutates a capability filter and then registers another offer with a new filter) will behave differently depending on whether it is running outside the system server (where the capability filter for the second offer is re-created based on a parcel) or inside the system server (where modifying the capability filter for the second offer also modifies the capability filter for the first offer).",
+      "range": {
+        "startLine": 291,
+        "startChar": 18,
+        "endLine": 291,
+        "endChar": 31
+      },
+      "revId": "f20360649fb951825ce18406c9ea7f55870f2d5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
