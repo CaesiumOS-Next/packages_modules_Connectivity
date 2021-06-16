@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e9290c_2202e317",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T14:28:57Z",
+      "side": 1,
+      "message": "LGTM assuming the String.format() does not crash.",
+      "revId": "992a6b7bd17ec4b678157179f57bab774e287c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662b14c0_1afcaa8c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-16T14:28:57Z",
+      "side": 1,
+      "message": "Is %s correct here? String.format has the nasty habit of crashing at runtime when the wrong format specifier is used. tetheringType is an int, should this be %d?",
+      "range": {
+        "startLine": 1192,
+        "startChar": 40,
+        "endLine": 1192,
+        "endChar": 42
+      },
+      "revId": "992a6b7bd17ec4b678157179f57bab774e287c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
