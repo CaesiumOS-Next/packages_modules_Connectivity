@@ -30,6 +30,7 @@ import android.database.ContentObserver;
 import android.net.ConnectivityResources;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyCallback;
@@ -75,6 +76,7 @@ public class MultinetworkPolicyTracker {
     private volatile boolean mAvoidBadWifi = true;
     private volatile int mMeteredMultipathPreference;
     private int mActiveSubId = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+    private volatile long mTestAllowBadWifiUntilMs = 0;
 
     // Mainline module can't use internal HandlerExecutor, so add an identical executor here.
     private static class HandlerExecutor implements Executor {
@@ -125,7 +127,6 @@ public class MultinetworkPolicyTracker {
 
         ctx.getSystemService(TelephonyManager.class).registerTelephonyCallback(
                 new HandlerExecutor(handler), new ActiveDataSubscriptionIdListener());
-
         updateAvoidBadWifi();
         updateMeteredMultipathPreference();
     }
@@ -162,14 +163,33 @@ public class MultinetworkPolicyTracker {
      * Whether the device or carrier configuration disables avoiding bad wifi by default.
      */
     public boolean configRestrictsAvoidBadWifi() {
+        // TODO: Allow in debuggable ROM only. To be replaced by FabricatedOverlay
+        final boolean debuggable = "1".equals(SystemProperties.get("ro.debuggable", ""));
+        final boolean allowBadWifi = debuggable && mTestAllowBadWifiUntilMs > 0
+                && mTestAllowBadWifiUntilMs > System.currentTimeMillis();
+        // If the config returns true, then avoid bad wifi design can be controlled by the
+        // NETWORK_AVOID_BAD_WIFI setting.
+        if (allowBadWifi) return true;
+
         // TODO: use R.integer.config_networkAvoidBadWifi directly
         final int id = mResources.get().getIdentifier("config_networkAvoidBadWifi",
                 "integer", mResources.getResourcesContext().getPackageName());
         return (getResourcesForActiveSubId().getInteger(id) == 0);
     }
 
+    /**
+     * Temporarily allow bad wifi to override {@code config_networkAvoidBadWifi} configuration.
+     * The value works when the time set is more than {@link System.currentTimeMillis()}.
+     */
+    public void setTestAllowBadWifiUntil(long timeMs) {
+        Log.d(TAG, "setTestAllowBadWifiUntil: " + mTestAllowBadWifiUntilMs);
+        mTestAllowBadWifiUntilMs = timeMs;
+        updateAvoidBadWifi();
+    }
+
+    @VisibleForTesting
     @NonNull
-    private Resources getResourcesForActiveSubId() {
+    protected Resources getResourcesForActiveSubId() {
         return SubscriptionManager.getResourcesForSubId(
                 mResources.getResourcesContext(), mActiveSubId);
     }
