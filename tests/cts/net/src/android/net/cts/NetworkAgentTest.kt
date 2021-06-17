@@ -23,7 +23,6 @@ import android.net.INetworkAgent
 import android.net.INetworkAgentRegistry
 import android.net.InetAddresses
 import android.net.IpPrefix
-import android.net.KeepalivePacketData
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NattKeepalivePacketData
@@ -53,22 +52,9 @@ import android.net.SocketKeepalive
 import android.net.Uri
 import android.net.VpnManager
 import android.net.VpnTransportInfo
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAddKeepalivePacketFilter
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnAutomaticReconnectDisabled
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnBandwidthUpdateRequested
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnNetworkDestroyed
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnNetworkUnwanted
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnRemoveKeepalivePacketFilter
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnSaveAcceptUnvalidated
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnSignalStrengthThresholdsUpdated
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnStartSocketKeepalive
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnStopSocketKeepalive
-import android.net.cts.NetworkAgentTest.TestableNetworkAgent.CallbackEntry.OnValidationStatus
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
-import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
 import android.telephony.TelephonyManager
@@ -77,16 +63,26 @@ import androidx.test.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
 import com.android.compatibility.common.util.ThrowingSupplier
 import com.android.modules.utils.build.SdkLevel
-import com.android.net.module.util.ArrayTrackRecord
 import com.android.testutils.CompatUtil
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.RecorderCallback.CallbackEntry.Available
 import com.android.testutils.RecorderCallback.CallbackEntry.Losing
 import com.android.testutils.RecorderCallback.CallbackEntry.Lost
+import com.android.testutils.TestableNetworkAgent
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnAddKeepalivePacketFilter
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnAutomaticReconnectDisabled
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnBandwidthUpdateRequested
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkCreated
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkDestroyed
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnNetworkUnwanted
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnRemoveKeepalivePacketFilter
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnSaveAcceptUnvalidated
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnStartSocketKeepalive
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnStopSocketKeepalive
+import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnValidationStatus
 import com.android.testutils.TestableNetworkCallback
 import org.junit.After
-import org.junit.Assert.assertArrayEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -147,9 +143,6 @@ class NetworkAgentTest {
     private val mHandlerThread = HandlerThread("${javaClass.simpleName} handler thread")
     private val mFakeConnectivityService = FakeConnectivityService()
 
-    private class Provider(context: Context, looper: Looper) :
-            NetworkProvider(context, looper, "NetworkAgentTest NetworkProvider")
-
     private val agentsToCleanUp = mutableListOf<NetworkAgent>()
     private val callbacksToCleanUp = mutableListOf<TestableNetworkCallback>()
 
@@ -196,127 +189,6 @@ class NetworkAgentTest {
         }
 
         fun disconnect() = agent.onDisconnected()
-    }
-
-    private open class TestableNetworkAgent(
-        context: Context,
-        looper: Looper,
-        val nc: NetworkCapabilities,
-        val lp: LinkProperties,
-        conf: NetworkAgentConfig
-    ) : NetworkAgent(context, looper, TestableNetworkAgent::class.java.simpleName /* tag */,
-            nc, lp, TEST_NETWORK_SCORE, conf, Provider(context, looper)) {
-        private val history = ArrayTrackRecord<CallbackEntry>().newReadHead()
-
-        sealed class CallbackEntry {
-            object OnBandwidthUpdateRequested : CallbackEntry()
-            object OnNetworkUnwanted : CallbackEntry()
-            data class OnAddKeepalivePacketFilter(
-                val slot: Int,
-                val packet: KeepalivePacketData
-            ) : CallbackEntry()
-            data class OnRemoveKeepalivePacketFilter(val slot: Int) : CallbackEntry()
-            data class OnStartSocketKeepalive(
-                val slot: Int,
-                val interval: Int,
-                val packet: KeepalivePacketData
-            ) : CallbackEntry()
-            data class OnStopSocketKeepalive(val slot: Int) : CallbackEntry()
-            data class OnSaveAcceptUnvalidated(val accept: Boolean) : CallbackEntry()
-            object OnAutomaticReconnectDisabled : CallbackEntry()
-            data class OnValidationStatus(val status: Int, val uri: Uri?) : CallbackEntry()
-            data class OnSignalStrengthThresholdsUpdated(val thresholds: IntArray) : CallbackEntry()
-            object OnNetworkCreated : CallbackEntry()
-            object OnNetworkDestroyed : CallbackEntry()
-        }
-
-        override fun onBandwidthUpdateRequested() {
-            history.add(OnBandwidthUpdateRequested)
-        }
-
-        override fun onNetworkUnwanted() {
-            history.add(OnNetworkUnwanted)
-        }
-
-        override fun onAddKeepalivePacketFilter(slot: Int, packet: KeepalivePacketData) {
-            history.add(OnAddKeepalivePacketFilter(slot, packet))
-        }
-
-        override fun onRemoveKeepalivePacketFilter(slot: Int) {
-            history.add(OnRemoveKeepalivePacketFilter(slot))
-        }
-
-        override fun onStartSocketKeepalive(
-            slot: Int,
-            interval: Duration,
-            packet: KeepalivePacketData
-        ) {
-            history.add(OnStartSocketKeepalive(slot, interval.seconds.toInt(), packet))
-        }
-
-        override fun onStopSocketKeepalive(slot: Int) {
-            history.add(OnStopSocketKeepalive(slot))
-        }
-
-        override fun onSaveAcceptUnvalidated(accept: Boolean) {
-            history.add(OnSaveAcceptUnvalidated(accept))
-        }
-
-        override fun onAutomaticReconnectDisabled() {
-            history.add(OnAutomaticReconnectDisabled)
-        }
-
-        override fun onSignalStrengthThresholdsUpdated(thresholds: IntArray) {
-            history.add(OnSignalStrengthThresholdsUpdated(thresholds))
-        }
-
-        fun expectSignalStrengths(thresholds: IntArray? = intArrayOf()) {
-            expectCallback<OnSignalStrengthThresholdsUpdated>().let {
-                assertArrayEquals(thresholds, it.thresholds)
-            }
-        }
-
-        override fun onValidationStatus(status: Int, uri: Uri?) {
-            history.add(OnValidationStatus(status, uri))
-        }
-
-        override fun onNetworkCreated() {
-            history.add(OnNetworkCreated)
-        }
-
-        override fun onNetworkDestroyed() {
-            history.add(OnNetworkDestroyed)
-        }
-
-        // Expects the initial validation event that always occurs immediately after registering
-        // a NetworkAgent whose network does not require validation (which test networks do
-        // not, since they lack the INTERNET capability). It always contains the default argument
-        // for the URI.
-        fun expectValidationBypassedStatus() = expectCallback<OnValidationStatus>().let {
-            assertEquals(it.status, VALID_NETWORK)
-            // The returned Uri is parsed from the empty string, which means it's an
-            // instance of the (private) Uri.StringUri. There are no real good ways
-            // to check this, the least bad is to just convert it to a string and
-            // make sure it's empty.
-            assertEquals("", it.uri.toString())
-        }
-
-        inline fun <reified T : CallbackEntry> expectCallback(): T {
-            val foundCallback = history.poll(DEFAULT_TIMEOUT_MS)
-            assertTrue(foundCallback is T, "Expected ${T::class} but found $foundCallback")
-            return foundCallback
-        }
-
-        inline fun <reified T : CallbackEntry> eventuallyExpect() =
-                history.poll(DEFAULT_TIMEOUT_MS) { it is T }.also {
-                    assertNotNull(it, "Callback ${T::class} not received")
-        } as T
-
-        fun assertNoCallback() {
-            assertTrue(waitForIdle(DEFAULT_TIMEOUT_MS),
-                    "Handler didn't became idle after ${DEFAULT_TIMEOUT_MS}ms")
-            assertNull(history.peek())
-        }
     }
 
     private fun requestNetwork(request: NetworkRequest, callback: TestableNetworkCallback) {
@@ -379,7 +251,8 @@ class NetworkAgentTest {
             addRoute(RouteInfo(IpPrefix("0.0.0.0/0"), null, null))
         }
         val config = initialConfig ?: NetworkAgentConfig.Builder().build()
-        return TestableNetworkAgent(context, mHandlerThread.looper, nc, lp, config).also {
+        return TestableNetworkAgent(context, mHandlerThread.looper, nc, lp,
+                TEST_NETWORK_SCORE, config, DEFAULT_TIMEOUT_MS, NO_CALLBACK_TIMEOUT).also {
             agentsToCleanUp.add(it)
         }
     }
