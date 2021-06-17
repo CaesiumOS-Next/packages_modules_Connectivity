@@ -22,6 +22,30 @@
       },
       "revId": "f20360649fb951825ce18406c9ea7f55870f2d5b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3113bb8c_c2db4315",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-17T10:44:16Z",
+      "side": 1,
+      "message": "Ah you are right.\nIIUC the answer is no.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d6311;drc\u003dmaster;bpv\u003d1;bpt\u003d1?q\u003dofferNetwork\u0026ss\u003dandroid%2Fplatform%2Fsuperproject\nWill address that in follow-ups.",
+      "parentUuid": "4709aaba_03a7d829",
+      "range": {
+        "startLine": 291,
+        "startChar": 18,
+        "endLine": 291,
+        "endChar": 31
+      },
+      "revId": "f20360649fb951825ce18406c9ea7f55870f2d5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
