@@ -39,6 +39,30 @@
       },
       "revId": "992a6b7bd17ec4b678157179f57bab774e287c5f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf72d473_d215ffcc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-17T07:18:24Z",
+      "side": 1,
+      "message": "It won\u0027t crash, java %s format specifier accept any type. Tethering.java use %s for String format everywhere which the arguments are integer, boolean and String. If this is unintuitive for read. I can have follow up CL to change all of them.",
+      "parentUuid": "662b14c0_1afcaa8c",
+      "range": {
+        "startLine": 1192,
+        "startChar": 40,
+        "endLine": 1192,
+        "endChar": 42
+      },
+      "revId": "992a6b7bd17ec4b678157179f57bab774e287c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
