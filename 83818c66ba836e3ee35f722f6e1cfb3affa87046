@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7dd75a9e_12cb8e98",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-17T20:47:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84dc83da_9e8615d1",
+      "range": {
+        "startLine": 558,
+        "startChar": 0,
+        "endLine": 558,
+        "endChar": 55
+      },
+      "revId": "83818c66ba836e3ee35f722f6e1cfb3affa87046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c97cb81_f2355399",
@@ -72,6 +96,30 @@
       "writtenOn": "2021-06-17T05:38:57Z",
       "side": 1,
       "message": "Suggest just inlining this with the above",
+      "range": {
+        "startLine": 607,
+        "startChar": 21,
+        "endLine": 607,
+        "endChar": 54
+      },
+      "revId": "83818c66ba836e3ee35f722f6e1cfb3affa87046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d203e4a2_debdfed8",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-17T20:47:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c97cb81_f2355399",
       "range": {
         "startLine": 607,
         "startChar": 21,
