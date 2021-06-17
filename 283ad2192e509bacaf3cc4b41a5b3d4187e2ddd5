@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5559d02_1819a281",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-17T08:36:18Z",
+      "side": 1,
+      "message": "Generally, no code should ever synchronize on the instance lock of public API classes. Use a dedicated lock object instead (or another pattern, like AtomicReference).",
+      "range": {
+        "startLine": 939,
+        "startChar": 4,
+        "endLine": 939,
+        "endChar": 22
+      },
+      "revId": "283ad2192e509bacaf3cc4b41a5b3d4187e2ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
