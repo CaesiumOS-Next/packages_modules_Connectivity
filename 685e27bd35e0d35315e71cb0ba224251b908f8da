@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17d77027_dae60085",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-17T09:33:30Z",
+      "side": 1,
+      "message": "PingTest changes LGTM. +evitayan@ and benedictwong@ for IpSecBaseTest. What you are doing seems very complex and elaborate, but there may be no better alternative given that there are already multiple different socket classes in this file.",
+      "revId": "685e27bd35e0d35315e71cb0ba224251b908f8da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
