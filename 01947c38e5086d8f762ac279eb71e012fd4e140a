@@ -39,6 +39,30 @@
       },
       "revId": "01947c38e5086d8f762ac279eb71e012fd4e140a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d02f29_819cde61",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2640,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-17T09:05:43Z",
+      "side": 1,
+      "message": "Yes, it is not necessary for current test. I add them because they simulate the result of stopTethering. If we add the code in following in the future, it would be help.",
+      "parentUuid": "868e6f0d_9e0885ab",
+      "range": {
+        "startLine": 2639,
+        "startChar": 0,
+        "endLine": 2640,
+        "endChar": 56
+      },
+      "revId": "01947c38e5086d8f762ac279eb71e012fd4e140a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

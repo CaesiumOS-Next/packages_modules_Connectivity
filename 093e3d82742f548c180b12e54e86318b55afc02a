@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60cc2666_a961c149",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-17T09:05:43Z",
+      "side": 1,
+      "message": "Yes, it is complicated because we don\u0027t reserved request currently. Per talk offline, keep this as it is.",
+      "parentUuid": "12b186b3_ff6069b0",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 378,
+        "endChar": 9
+      },
+      "revId": "093e3d82742f548c180b12e54e86318b55afc02a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c77f0ff3_d50553f2",
