@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31ff0f52_37cd89dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-17T05:38:57Z",
+      "side": 1,
+      "message": "Added minor comments, but my personal thoughts are that this follows the paradigm of the underlying tests decently well; it unfortunately adds one more layer of nesting due to the need to test-migrate-test, but the structure of the existing tests is mostly preserved.",
+      "revId": "83818c66ba836e3ee35f722f6e1cfb3affa87046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84dc83da_9e8615d1",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-17T05:38:57Z",
+      "side": 1,
+      "message": "This can probably use use the class variable",
+      "range": {
+        "startLine": 558,
+        "startChar": 0,
+        "endLine": 558,
+        "endChar": 55
+      },
+      "revId": "83818c66ba836e3ee35f722f6e1cfb3affa87046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c97cb81_f2355399",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-17T05:38:57Z",
+      "side": 1,
+      "message": "Suggest just inlining this with the above",
+      "range": {
+        "startLine": 607,
+        "startChar": 21,
+        "endLine": 607,
+        "endChar": 54
+      },
+      "revId": "83818c66ba836e3ee35f722f6e1cfb3affa87046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
