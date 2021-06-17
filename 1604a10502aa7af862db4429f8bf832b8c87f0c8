@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c78f6e5_daabef72",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2546,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-17T18:06:12Z",
+      "side": 1,
+      "message": "Do you want to use the same message like below? \"on per-UID default\"",
+      "range": {
+        "startLine": 2546,
+        "startChar": 55,
+        "endLine": 2546,
+        "endChar": 65
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3fe8095_809c4652",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2548,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-17T18:06:12Z",
+      "side": 1,
+      "message": "The first parameter should be \"expected\" and the second parameter should be \"actual\".\nSo the sequence should be:\nassertEquals(wifiNetwork, latestDefaultNetwork1);",
+      "range": {
+        "startLine": 2548,
+        "startChar": 12,
+        "endLine": 2548,
+        "endChar": 61
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
