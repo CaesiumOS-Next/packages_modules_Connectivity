@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a23823c8_3e775856",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-17T20:58:30Z",
+      "side": 1,
+      "message": "Why do we need to change meteredness? The APIs under test take meteredness as an argument and doesn\u0027t actually use the meteredness of the device",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dda7971_6d6180f9",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-17T20:58:30Z",
+      "side": 1,
+      "message": "nit: Not a strong opinion but I think it\u0027s better not to refer to these constants. These are internal implementation details and can change and it would be difficult to keep these in sync.",
+      "range": {
+        "startLine": 88,
+        "startChar": 28,
+        "endLine": 88,
+        "endChar": 47
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd629c6d_36a8fcd4",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-17T20:58:30Z",
+      "side": 1,
+      "message": "nit: Keep this in try-finally block",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 69
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4547ad_bad39866",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-17T20:58:30Z",
+      "side": 1,
+      "message": "nit: Use empty new lines to visually separate different cases to make it more readable and use try-finally statements to reset the state correctly.",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 44
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abdb77f8_05ef9070",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideNetworkPolicyManagerTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-17T20:58:30Z",
+      "side": 1,
+      "message": "nit: It\u0027s not clear what normal status mean here? Can we rename this, perhaps _withUidNotBlocked?",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 59
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
