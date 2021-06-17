@@ -19,6 +19,8 @@ package com.android.server.connectivity
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.NetworkScore.KEEP_CONNECTED_NONE
+import android.os.Build
+import androidx.test.filters.SdkSuppress
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import org.junit.Test
@@ -31,6 +33,7 @@ import kotlin.test.assertNull
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
+@SdkSuppress(minSdkVersion = Build.VERSION_CODES.S, codeName = "S")
 class NetworkRankerTest {
     private val ranker = NetworkRanker()
 
