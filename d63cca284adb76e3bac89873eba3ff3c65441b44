@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc3a0d61_0a061180",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-17T08:49:30Z",
+      "side": 1,
+      "message": "Do we want to check this value? Perhaps we could store it in a public lastProxyInfo member, and then have the caller of the listener do \"assertEquals(..., listener.lastProxyInfo)\"? Not necessarily for this CL.",
+      "range": {
+        "startLine": 103,
+        "startChar": 57,
+        "endLine": 103,
+        "endChar": 72
+      },
+      "revId": "d63cca284adb76e3bac89873eba3ff3c65441b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d8ccf1b_bade8531",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-17T08:49:30Z",
+      "side": 1,
+      "message": "Nit: this isn\u0027t an error, so it shouldn\u0027t be \"e\".",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 17
+      },
+      "revId": "d63cca284adb76e3bac89873eba3ff3c65441b44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
