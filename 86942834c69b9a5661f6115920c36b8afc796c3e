@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64bb8e0d_743020d9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4708,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-17T14:55:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3392f50f_3a98624d",
+      "range": {
+        "startLine": 4708,
+        "startChar": 84,
+        "endLine": 4708,
+        "endChar": 85
+      },
+      "revId": "86942834c69b9a5661f6115920c36b8afc796c3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "513a7f33_61fedbcb",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-16T11:04:44Z",
       "side": 1,
       "message": "Nit: also test that it\u0027s \u003e 0 before that, so that you don\u0027t have to call System.currentTimeMillis most of the time",
+      "range": {
+        "startLine": 167,
+        "startChar": 16,
+        "endLine": 167,
+        "endChar": 74
+      },
+      "revId": "86942834c69b9a5661f6115920c36b8afc796c3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc70c65f_3097f137",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-17T14:55:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "513a7f33_61fedbcb",
       "range": {
         "startLine": 167,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b478ce8f_e320f583",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-17T14:55:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "537d876d_741e54f5",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 32
+      },
+      "revId": "86942834c69b9a5661f6115920c36b8afc796c3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cd9e0a0_1270b8c2",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-06-16T11:04:44Z",
       "side": 1,
       "message": "Similarly, \"TestAllowBadWifi\" ?",
+      "range": {
+        "startLine": 182,
+        "startChar": 23,
+        "endLine": 182,
+        "endChar": 40
+      },
+      "revId": "86942834c69b9a5661f6115920c36b8afc796c3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ba426d4_0c6bef85",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-17T14:55:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cd9e0a0_1270b8c2",
       "range": {
         "startLine": 182,
         "startChar": 23,
