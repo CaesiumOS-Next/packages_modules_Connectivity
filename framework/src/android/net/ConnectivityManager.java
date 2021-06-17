@@ -800,6 +800,12 @@ public class ConnectivityManager {
     public static final int REQUEST_ID_UNSET = 0;
 
     /**
+     * The maximum alive time to unrestrict bad wifi configuration for testing.
+     * @hide
+     */
+    private static final long MAX_TEST_UNRESTRICT_BAD_WIFI_UNTIL = 5 * 60 * 1000L;
+
+    /**
      * Static unique request used as a tombstone for NetworkCallbacks that have been unregistered.
      * This allows to distinguish when unregistering NetworkCallbacks those that were never
      * registered from those that were already unregistered.
@@ -4698,6 +4704,27 @@ public class ConnectivityManager {
     public void setAvoidUnvalidated(@NonNull Network network) {
         try {
             mService.setAvoidUnvalidated(network);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Temporarily allow bad wifi to override {@code config_networkAvoidBadWifi} configuration.
+     *
+     * @param timeMs The expired current time. The value should be set within a limited time from
+     *               now. See MAX_TEST_UNRESTRICT_BAD_WIFI_UNTIL for the limitation
+     *
+     * @hide
+     */
+    public void setTestAllowBadWifiUntil(long timeMs) {
+        if (timeMs > System.currentTimeMillis() + MAX_TEST_UNRESTRICT_BAD_WIFI_UNTIL) {
+            throw new IllegalArgumentException("It should not exceed "
+                    + MAX_TEST_UNRESTRICT_BAD_WIFI_UNTIL + "s from now");
+        }
+
+        try {
+            mService.setTestAllowBadWifiUntil(timeMs);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
