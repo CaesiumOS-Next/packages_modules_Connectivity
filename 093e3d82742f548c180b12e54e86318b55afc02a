@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3d4b3cc_c0ec5873",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-17T03:38:53Z",
+      "side": 1,
+      "message": "If we don\u0027t stop it, then it need to be stop by stopTethering(TETHERING_USB). But yes, this may let tethering be confuse. So force TETHERING_USB or TETHEING_NCM to stop if configuration change. If TETHERING_USB or TETHEING_NCM is not started, then this just a no-op calls.",
+      "parentUuid": "59621184_b421a561",
+      "range": {
+        "startLine": 378,
+        "startChar": 8,
+        "endLine": 378,
+        "endChar": 9
+      },
+      "revId": "093e3d82742f548c180b12e54e86318b55afc02a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c77f0ff3_d50553f2",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-16T14:22:49Z",
       "side": 1,
       "message": "In assertions the expected value usually comes first. So swap the order here?",
+      "range": {
+        "startLine": 593,
+        "startChar": 21,
+        "endLine": 593,
+        "endChar": 47
+      },
+      "revId": "093e3d82742f548c180b12e54e86318b55afc02a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4919f5fc_7f2ca1a3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-17T03:38:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c77f0ff3_d50553f2",
       "range": {
         "startLine": 593,
         "startChar": 21,
