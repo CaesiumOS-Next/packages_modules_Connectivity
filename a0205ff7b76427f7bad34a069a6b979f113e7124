@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afa3b5a2_6b47a7fd",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-17T05:43:24Z",
+      "side": 1,
+      "message": "Suggest adding a comment; this test ensures that not only can we migrate across interfaces, we can migrate to a different address on the same interface if we switch to a ADDITIONAL_SA_ADDRESS",
+      "parentUuid": "0e24190f_2145b419",
+      "range": {
+        "startLine": 535,
+        "startChar": 20,
+        "endLine": 535,
+        "endChar": 39
+      },
+      "revId": "a0205ff7b76427f7bad34a069a6b979f113e7124",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7708baf_e5ae662d",
         "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
         "patchSetId": 7
