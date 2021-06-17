@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "218fe039_8401b609",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-17T10:05:21Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.\n",
+      "revId": "c150d0eb2604fb46132ad35af34a0a12fe8304cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43632717_0c4cec7e",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-17T10:05:21Z",
+      "side": 1,
+      "message": "This might be low enough to make the test flaky. Is there a reason it\u0027s so low? Are there tests that need this timeout to fire even when they pass? If no tests need the timeout to fire even when they pass, we can increase this substantially (e.g., to 500ms or even 1s).\n\nAlso looks like this actually can be final since nothing ever changes it. It\u0027s also only used in waitForIdle and in verifyDelayMaybeStopDaemon. Suggest making it static final (and ALL_CAPS) and raising it to something like 500ms or 1s. If verifyDelayMaybeStopDaemon needs a lower timeout to ensure the test runs quickly, would introduce a different timeout constant (also static final) for that test only.",
+      "range": {
+        "startLine": 66,
+        "startChar": 22,
+        "endLine": 66,
+        "endChar": 25
+      },
+      "revId": "c150d0eb2604fb46132ad35af34a0a12fe8304cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6213de47_83fb7201",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-17T10:05:21Z",
+      "side": 1,
+      "message": "Why make this a class member? It\u0027s only used in verifyDaemonCommand, and that method re-initializes it every time. Can you just make it a local variable in verifyDaemonCommand?",
+      "range": {
+        "startLine": 67,
+        "startChar": 35,
+        "endLine": 67,
+        "endChar": 51
+      },
+      "revId": "c150d0eb2604fb46132ad35af34a0a12fe8304cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
