@@ -39,6 +39,30 @@
       },
       "revId": "430c2294ff32ffc7a3163e866f871bc7d8f6e6b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3793e60_a346ed4f",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTunnelTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2021-06-18T01:18:27Z",
+      "side": 1,
+      "message": "This should be transport mode. It is for testing transport-in-tunnel-mode case in TestRunnableFactory",
+      "parentUuid": "38b3cb5c_83b85aa5",
+      "range": {
+        "startLine": 574,
+        "startChar": 55,
+        "endLine": 574,
+        "endChar": 64
+      },
+      "revId": "430c2294ff32ffc7a3163e866f871bc7d8f6e6b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
