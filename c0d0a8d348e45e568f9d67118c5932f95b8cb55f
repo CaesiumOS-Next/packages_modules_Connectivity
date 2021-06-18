@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8151304_aef1ab39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T03:35:44Z",
+      "side": 1,
+      "message": "Can you explain in the commit message why you are moving the code from CtsNetUtils to TestUtils? Also, please make sure that you\u0027re moving the latest code. See inline.",
+      "revId": "c0d0a8d348e45e568f9d67118c5932f95b8cb55f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

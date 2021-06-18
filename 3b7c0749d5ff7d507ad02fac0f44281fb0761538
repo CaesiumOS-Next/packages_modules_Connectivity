@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c31b5564_c1fdc38a",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T03:35:44Z",
+      "side": 0,
+      "message": "This code isn\u0027t in the new TestUtils.java. Can you make sure all the code you\u0027re moving is correctly included?",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 9
+      },
+      "revId": "3b7c0749d5ff7d507ad02fac0f44281fb0761538",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99be3e6d_cc89cfff",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T03:35:44Z",
+      "side": 0,
+      "message": "The code you moved to TestUtils is different (uses TextUtils.isEmpty() instad of \"\u003d\u003d null\"). Is that intentional?",
+      "range": {
+        "startLine": 533,
+        "startChar": 16,
+        "endLine": 533,
+        "endChar": 47
+      },
+      "revId": "3b7c0749d5ff7d507ad02fac0f44281fb0761538",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
