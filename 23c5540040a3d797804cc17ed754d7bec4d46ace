@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44564039_1e965a14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-18T06:15:55Z",
+      "side": 1,
+      "message": "Can you also add tests for [get|set]PrivateDnsMode() \u0026 [get|set]PrivateDnsHostname?\nIn fact, I think you should test all the APIs in ConnectivitySettingsManagerTest.kt no matter some of them are tested in other tests.\nThe reason is that if other tests remove the usage of the APIs that we miss here, then we will lose the test coverage.",
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "253b6fdf_1bbdab6d",
