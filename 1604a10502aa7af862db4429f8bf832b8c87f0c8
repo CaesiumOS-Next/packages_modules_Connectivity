@@ -3,6 +3,144 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7813688b_6ec8eb13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T01:08:42Z",
+      "side": 1,
+      "message": "Could you update it or have some description to say what API you intend to test?",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5641c07d_cfd87450",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2527,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T01:08:42Z",
+      "side": 1,
+      "message": "You may want to also do it when wifi and telephony feature supported since this test requires both telephony and wifi.",
+      "range": {
+        "startLine": 2527,
+        "startChar": 8,
+        "endLine": 2527,
+        "endChar": 18
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b834441_408322c8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2536,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T01:08:42Z",
+      "side": 1,
+      "message": "It will be safer to use ensureWifiConnected. connectToWifi() will call to connectToWifi(true /* expectLegacyBroadcast */ ) with higher flaky rate.",
+      "range": {
+        "startLine": 2536,
+        "startChar": 49,
+        "endLine": 2536,
+        "endChar": 62
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b044eaa_63ea3dc9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2542,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T01:08:42Z",
+      "side": 1,
+      "message": "what do you mean here?",
+      "range": {
+        "startLine": 2542,
+        "startChar": 38,
+        "endLine": 2542,
+        "endChar": 60
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac9b1c47_4e7a65fe",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2542,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T01:08:42Z",
+      "side": 1,
+      "message": "u?",
+      "range": {
+        "startLine": 2542,
+        "startChar": 31,
+        "endLine": 2542,
+        "endChar": 32
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5954b1_1d197bdc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2545,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T01:08:42Z",
+      "side": 1,
+      "message": "Optional: maybe name it shouldBeWifiNetwork(or expectWifiNetwork) and shouldBeCellNetwork((or expectCellNetwork)) for latestDefaultNetwork2",
+      "range": {
+        "startLine": 2545,
+        "startChar": 26,
+        "endLine": 2545,
+        "endChar": 47
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8c78f6e5_daabef72",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
