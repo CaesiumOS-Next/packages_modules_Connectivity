@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee77c35c_e5905fa0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2461,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T00:37:47Z",
+      "side": 1,
+      "message": "No, expectAvailableThenValidatedCallbacks expect a unvalidated network first then become validated. The situation here is usually a validated network available. expectAvailableThenValidatedCallbacks will fail to wait for a unvalidated network.",
+      "parentUuid": "8673e3f1_c56ca44c",
+      "range": {
+        "startLine": 2458,
+        "startChar": 12,
+        "endLine": 2461,
+        "endChar": 47
+      },
+      "revId": "e1edfb5eb0284f3aaf7009487955cec3745d5012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "859ed64d_140af76d",
@@ -60,6 +84,30 @@
       "writtenOn": "2021-06-17T16:37:01Z",
       "side": 1,
       "message": "Nit: You use both a and c for this paramenter, it looks confused to me. Maybe align all usage and name them more specific.",
+      "range": {
+        "startLine": 2469,
+        "startChar": 20,
+        "endLine": 2469,
+        "endChar": 21
+      },
+      "revId": "e1edfb5eb0284f3aaf7009487955cec3745d5012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65e69d9f_5b12c438",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2469,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T00:37:47Z",
+      "side": 1,
+      "message": "rename them to entry.",
+      "parentUuid": "859ed64d_140af76d",
       "range": {
         "startLine": 2469,
         "startChar": 20,
