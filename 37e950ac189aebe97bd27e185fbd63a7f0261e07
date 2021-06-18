@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85d28e0f_7dab82e9",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T09:29:26Z",
+      "side": 1,
+      "message": "Can you also move the loop to a common function ? This would remove duplication with the wifi one, and make it easier by allowing you to just \"return\" when the condition is matched.\n\nSomething like:\n\n  public void \u003cT\u003e assertStatsEventually(Supplier\u003cT\u003e statsGetter, Predicate\u003cT\u003e statsChecker)\n  \nWhere you\u0027d call it like:\n\n  assertEventually(mBsm::getCellularBatteryStats,\n      newStats -\u003e cellularBatteryStatsIncreased(statsBefore, newStats));",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 15
+      },
+      "revId": "37e950ac189aebe97bd27e185fbd63a7f0261e07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1baa9aeb_1f4c3bb4",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T09:29:26Z",
+      "side": 1,
+      "message": "Nit: this could be assertEquals(204, ...)",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 20
+      },
+      "revId": "37e950ac189aebe97bd27e185fbd63a7f0261e07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f8cee4d_f9dbc212",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T09:29:26Z",
+      "side": 1,
+      "message": "Nit: this doesn\u0027t really assert as it just returns true/false; maybe just \"cellBatteryStatsIncreased\" ? (same with wifi below)",
+      "range": {
+        "startLine": 166,
+        "startChar": 27,
+        "endLine": 166,
+        "endChar": 33
+      },
+      "revId": "37e950ac189aebe97bd27e185fbd63a7f0261e07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
