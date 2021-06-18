@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "253b6fdf_1bbdab6d",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T01:43:43Z",
+      "side": 1,
+      "message": "Although it looks good in the test, I think it\u0027s a bit confusing to have a \"resetToOriginal\" method on String that resets Settings.Global; String is very generic so tying it to Settings doesn\u0027t seem very natural.\nIt\u0027s also not the string that gets reset to the original, but the settings that get reset to that string.\n\nMaybe just use a setSettings(type, name, value) function ?\nOr see suggestion below on having a class-level list of values to restore in tearDown",
+      "range": {
+        "startLine": 111,
+        "startChar": 16,
+        "endLine": 111,
+        "endChar": 22
+      },
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0f450fd_1b41eacb",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T01:43:43Z",
+      "side": 1,
+      "message": "Also use try/finally to make sure it\u0027s reset in case of failure\n\nOr you could have a list of mSettingsToRestore at the class level, add to it before each test (with a method that takes the setting name/type as argument, or just have the Set method save the previous value if it wasn\u0027t already recorded), and restore everything in @After tearDown()",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 32
+      },
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51cf6994_769aa9c1",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T01:43:43Z",
+      "side": 1,
+      "message": "Could you have a generic method to test getters/setters ?\n\nSomething like:\n\n  fun \u003cT\u003e testSetting(name: String, type: String, value1: T, value2: T, def: T, \n      getter: (c: Context, d: T) -\u003e T,\n      setter: (c: Context, v: T) -\u003e Unit)\n\nAlso it should test that the default value is returned as expected",
+      "range": {
+        "startLine": 141,
+        "startChar": 32,
+        "endLine": 141,
+        "endChar": 58
+      },
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
