@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f1ebea8_455882b9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2538,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T04:47:09Z",
+      "side": 1,
+      "message": "I think we should not just fail the test if the test case uid is contained in MOBILE_DATA_PREFERRED_UIDS. We would like to test the design. Maybe we should remove the test case uid out from MOBILE_DATA_PREFERRED_UIDS if it\u0027s set in MOBILE_DATA_PREFERRED_UIDS. It does \nnot looks like a blocking reason that we should fail it. thought?",
+      "range": {
+        "startLine": 2536,
+        "startChar": 8,
+        "endLine": 2538,
+        "endChar": 59
+      },
+      "revId": "e4e32b777623fd932fb267792f374e0f53af6a55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
