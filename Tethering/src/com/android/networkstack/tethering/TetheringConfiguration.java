@@ -170,8 +170,14 @@ public class TetheringConfiguration {
 
         mUsbTetheringFunction = getUsbTetheringFunction(res);
 
-        tetherableUsbRegexs = getResourceStringArray(res, R.array.config_tether_usb_regexs);
         tetherableNcmRegexs = getResourceStringArray(res, R.array.config_tether_ncm_regexs);
+        // If usb tethering use NCM and config_tether_ncm_regexs is not empty, use
+        // config_tether_ncm_regexs for tetherableUsbRegexs.
+        if (isUsingNcm() && (tetherableNcmRegexs.length != 0)) {
+            tetherableUsbRegexs = tetherableNcmRegexs;
+        } else {
+            tetherableUsbRegexs = getResourceStringArray(res, R.array.config_tether_usb_regexs);
+        }
         // TODO: Evaluate deleting this altogether now that Wi-Fi always passes
         // us an interface name. Careful consideration needs to be given to
         // implications for Settings and for provisioning checks.
