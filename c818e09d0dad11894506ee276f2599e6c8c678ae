@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a08510e8_128f9c82",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T01:21:01Z",
+      "side": 1,
+      "message": "Nit: _MS (or just MAX_TEST_ALLOW_BAD_WIFI_MS)",
+      "range": {
+        "startLine": 806,
+        "startChar": 59,
+        "endLine": 806,
+        "endChar": 60
+      },
+      "revId": "c818e09d0dad11894506ee276f2599e6c8c678ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8096c79a_7eaa4693",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 4722,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T01:21:01Z",
+      "side": 1,
+      "message": "The test should be in ConnectivityService, otherwise one can set a long time by calling ConnectivityService directly (or adb shell service call ...)",
+      "range": {
+        "startLine": 4722,
+        "startChar": 22,
+        "endLine": 4722,
+        "endChar": 46
+      },
+      "revId": "c818e09d0dad11894506ee276f2599e6c8c678ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7b7eab1_40aee00a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1727,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T01:21:01Z",
+      "side": 1,
+      "message": "Nit: would fit in one line",
+      "range": {
+        "startLine": 1726,
+        "startChar": 78,
+        "endLine": 1727,
+        "endChar": 24
+      },
+      "revId": "c818e09d0dad11894506ee276f2599e6c8c678ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3545e8e_70f0fbe9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 4654,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T01:21:01Z",
+      "side": 1,
+      "message": "Nit: Also try/finally to reset the value in case this fails",
+      "range": {
+        "startLine": 4654,
+        "startChar": 8,
+        "endLine": 4654,
+        "endChar": 51
+      },
+      "revId": "c818e09d0dad11894506ee276f2599e6c8c678ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbf2cef1_fab1b7d4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 4691,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-18T01:21:01Z",
+      "side": 1,
+      "message": "pre-existing, but I think this should have been values[i]",
+      "range": {
+        "startLine": 4691,
+        "startChar": 52,
+        "endLine": 4691,
+        "endChar": 53
+      },
+      "revId": "c818e09d0dad11894506ee276f2599e6c8c678ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
