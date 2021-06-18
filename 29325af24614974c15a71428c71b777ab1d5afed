@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c73d6d10_d39e0902",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2534,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T02:32:16Z",
+      "side": 0,
+      "message": "This method is not called only when a new interface appears. It can also be called when an interface comes up. Should we rename it? How about maybeStartDownstream? maybeStartIpServer?",
+      "range": {
+        "startLine": 2534,
+        "startChar": 17,
+        "endLine": 2534,
+        "endChar": 39
+      },
+      "revId": "29325af24614974c15a71428c71b777ab1d5afed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
