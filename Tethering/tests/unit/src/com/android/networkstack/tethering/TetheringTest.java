@@ -234,6 +234,8 @@ public class TetheringTest {
     private static final int WIFI_NETID = 101;
     private static final int DUN_NETID = 102;
 
+    private static final int TETHER_USB_RNDIS_NCM_FUNCTIONS = 2;
+
     private static final int DHCPSERVER_START_TIMEOUT_MS = 1000;
 
     @Mock private ApplicationInfo mApplicationInfo;
@@ -648,17 +650,17 @@ public class TetheringTest {
                 TetheringConfiguration.TETHER_USB_RNDIS_FUNCTION);
         // Setup tetherable configuration.
         when(mResources.getStringArray(R.array.config_tether_usb_regexs))
-                .thenReturn(new String[] { TEST_RNDIS_REGEX});
+                .thenReturn(new String[] {TEST_RNDIS_REGEX});
         when(mResources.getStringArray(R.array.config_tether_wifi_regexs))
-                .thenReturn(new String[] { TEST_WIFI_REGEX });
+                .thenReturn(new String[] {TEST_WIFI_REGEX});
         when(mResources.getStringArray(R.array.config_tether_wifi_p2p_regexs))
-                .thenReturn(new String[] { TEST_P2P_REGEX });
+                .thenReturn(new String[] {TEST_P2P_REGEX});
         when(mResources.getStringArray(R.array.config_tether_bluetooth_regexs))
-                .thenReturn(new String[] { TEST_BT_REGEX });
+                .thenReturn(new String[] {TEST_BT_REGEX});
         when(mResources.getStringArray(R.array.config_tether_ncm_regexs))
-                .thenReturn(new String[] { TEST_NCM_REGEX });
+                .thenReturn(new String[] {TEST_NCM_REGEX});
         when(mResources.getIntArray(R.array.config_tether_upstream_types)).thenReturn(
-                new int[] { TYPE_WIFI, TYPE_MOBILE_DUN });
+                new int[] {TYPE_WIFI, TYPE_MOBILE_DUN});
         when(mResources.getBoolean(R.bool.config_tether_upstream_automatic)).thenReturn(true);
     }
 
@@ -738,7 +740,16 @@ public class TetheringTest {
         mLooper.dispatchAll();
     }
 
+    // enableType:
+    // No function enabled            = -1
+    // TETHER_USB_RNDIS_FUNCTION      = 0
+    // TETHER_USB_NCM_FUNCTIONS       = 1
+    // TETHER_USB_RNDIS_NCM_FUNCTIONS = 2
     private boolean tetherUsbFunctionMatches(int function, int enabledType) {
+        if (enabledType < 0) return false;
+
+        if (enabledType == TETHER_USB_RNDIS_NCM_FUNCTIONS) return function < enabledType;
+
         return function == enabledType;
     }
 
@@ -822,8 +833,6 @@ public class TetheringTest {
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_NCM), null);
         mLooper.dispatchAll();
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
-
-        mTethering.interfaceStatusChanged(TEST_NCM_IFNAME, true);
     }
 
     private void prepareUsbTethering() {
@@ -1903,7 +1912,6 @@ public class TetheringTest {
     private void runStopUSBTethering() {
         mTethering.stopTethering(TETHERING_USB);
         mLooper.dispatchAll();
-        mTethering.interfaceRemoved(TEST_RNDIS_IFNAME);
         sendUsbBroadcast(true, true, -1 /* function */);
         mLooper.dispatchAll();
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
@@ -2087,7 +2095,7 @@ public class TetheringTest {
         setDataSaverEnabled(true);
         // Verify that tethering should be disabled.
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
-        mTethering.interfaceRemoved(TEST_RNDIS_IFNAME);
+        sendUsbBroadcast(true, true, -1 /* function */);
         mLooper.dispatchAll();
         assertEquals(mTethering.getTetheredIfaces(), new String[0]);
         reset(mUsbManager, mIPv6TetheringCoordinator);
@@ -2350,14 +2358,14 @@ public class TetheringTest {
         final String ipv4Address = ifaceConfigCaptor.getValue().ipv4Addr;
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS).times(1)).startWithCallbacks(
                 any(), any());
-        reset(mNetd, mUsbManager);
+        reset(mUsbManager);
 
         // Cause a prefix conflict by assigning a /30 out of the downstream's /24 to the upstream.
         updateV4Upstream(new LinkAddress(InetAddresses.parseNumericAddress(ipv4Address), 30),
                 wifiNetwork, TEST_WIFI_IFNAME, TRANSPORT_WIFI);
         // verify turn off usb tethering
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
-        mTethering.interfaceRemoved(TEST_RNDIS_IFNAME);
+        sendUsbBroadcast(true, true, -1 /* function */);
         mLooper.dispatchAll();
         // verify restart usb tethering
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
@@ -2398,7 +2406,7 @@ public class TetheringTest {
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
         // verify turn off ethernet tethering
         verify(mockRequest).release();
-        mTethering.interfaceRemoved(TEST_RNDIS_IFNAME);
+        sendUsbBroadcast(true, true, -1 /* function */);
         ethCallback.onUnavailable();
         mLooper.dispatchAll();
         // verify restart usb tethering
@@ -2680,6 +2688,24 @@ public class TetheringTest {
         // Run TETHERING_USB with rndis configuration.
         runDualStackUsbTethering(TEST_RNDIS_IFNAME);
         runStopUSBTethering();
+    }
+
+    @Test
+    public void testIgnoreNcmIfRndisIsAvailable() throws Exception {
+        // Run TETHERING_USB with rndis configuration.
+        runDualStackUsbTethering(TEST_RNDIS_IFNAME);
+        reset(mUsbManager, mNetd, mDhcpServer, mRouterAdvertisementDaemon,
+                mIPv6TetheringCoordinator, mDadProxy);
+
+        when(mNetd.interfaceGetList()).thenReturn(
+                new String[] {TEST_RNDIS_IFNAME, TEST_NCM_IFNAME});
+        sendUsbBroadcast(true, true, TETHER_USB_RNDIS_NCM_FUNCTIONS);
+        assertContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_RNDIS_IFNAME);
+        assertNotContains(Arrays.asList(mTethering.getTetheredIfaces()), TEST_NCM_IFNAME);
+    }
+
+    private static <T> void assertNotContains(Collection<T> collection, T element) {
+        assertFalse(element + " found in " + collection, collection.contains(element));
     }
     // TODO: Test that a request for hotspot mode doesn't interfere with an
     // already operating tethering mode interface.
