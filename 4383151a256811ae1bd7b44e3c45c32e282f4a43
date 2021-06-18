@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "015b95fb_393e6f72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-18T10:52:47Z",
+      "side": 1,
+      "message": "You may also want to verify behavior for synchronize calls like getActiveNetworkForUid",
+      "revId": "4383151a256811ae1bd7b44e3c45c32e282f4a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
