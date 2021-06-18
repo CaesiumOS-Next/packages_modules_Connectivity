@@ -110,11 +110,15 @@ import android.net.IpSecManager.UdpEncapsulationSocket;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.Network;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
 import android.net.NetworkInfo.State;
+import android.net.NetworkProvider;
 import android.net.NetworkRequest;
+import android.net.NetworkScore;
 import android.net.NetworkSpecifier;
 import android.net.NetworkStateSnapshot;
 import android.net.NetworkUtils;
@@ -237,6 +241,9 @@ public class ConnectivityManagerTest {
 
     // Airplane Mode BroadcastReceiver Timeout
     private static final long AIRPLANE_MODE_CHANGE_TIMEOUT_MS = 10_000L;
+
+    // Timeout for applying uids allowed on restricted networks
+    private static final long APPLYING_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_TIMEOUT_MS = 3_000L;
 
     // Minimum supported keepalive counts for wifi and cellular.
     public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT = 1;
@@ -2582,6 +2589,104 @@ public class ConnectivityManagerTest {
             // Restore setting.
             ConnectivitySettingsManager.setMobileDataPreferredUids(
                     mContext, mobileDataPreferredUids);
+        }
+    }
+
+    private class TestNetworkAgent extends NetworkAgent {
+        TestNetworkAgent(Context context, Looper looper, String logTag,
+                NetworkCapabilities nc, LinkProperties lp, NetworkScore score,
+                NetworkAgentConfig config, NetworkProvider provider) {
+            super(context, looper, logTag, nc, lp, score, config, provider);
+        }
+    }
+
+    private NetworkAgent createTestNetworkAgent() {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                .build();
+        final NetworkAgentConfig config = new NetworkAgentConfig.Builder()
+                .setExplicitlySelected(false)
+                .setUnvalidatedConnectivityAcceptable(false)
+                .build();
+        final NetworkScore score = new NetworkScore.Builder()
+                .setExiting(false)
+                .setTransportPrimary(false)
+                .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_FOR_HANDOVER)
+                .build();
+        final NetworkProvider provider = new NetworkProvider(mContext, Looper.getMainLooper(),
+                "ConnectivityManagerTest provider");
+        final NetworkAgent agent = new TestNetworkAgent(mContext, Looper.getMainLooper(),
+                "ConnectivityManagerTest agent", nc, new LinkProperties(), score, config,
+                provider);
+        runWithShellPermissionIdentity(() -> agent.register(),
+                android.Manifest.permission.MANAGE_TEST_NETWORKS);
+        agent.markConnected();
+        return agent;
+    }
+
+    @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
+    @Test
+    public void testUidsAllowedOnRestrictedNetworks() throws Exception {
+        assumeTrue(TestUtils.shouldTestSApis());
+
+        final int uid = mPackageManager.getPackageUid(mContext.getPackageName(), 0 /* flag */);
+        final Set<Integer> uidsAllowedOnRestrictedNetworks =
+                ConnectivitySettingsManager.getMobileDataPreferredUids(mContext);
+        final Handler h = new Handler(Looper.getMainLooper());
+        final TestableNetworkCallback testNetworkCb = new TestableNetworkCallback();
+        mCm.registerBestMatchingNetworkCallback(new NetworkRequest.Builder().clearCapabilities()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST).build(), testNetworkCb, h);
+
+        // Create test network agent with restricted network.
+        final NetworkAgent agent = createTestNetworkAgent();
+        final Network network = agent.getNetwork();
+
+        try {
+            testNetworkCb.expectAvailableThenValidatedCallbacks(
+                    network, NETWORK_CALLBACK_TIMEOUT_MS);
+            // Verify that the network is restricted.
+            final NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
+            assertNotNull(nc);
+            assertFalse(nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED));
+            // CtsNetTestCases package doesn't hold CONNECTIVITY_USE_RESTRICTED_NETWORKS, so it
+            // does not allow to bind socket to restricted network.
+            assertThrows(IOException.class, () -> network.bindSocket(new Socket()));
+
+            // Add CtsNetTestCases uid to UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting, then it can
+            // bind socket to restricted network normally.
+            final Set<Integer> newUidsAllowedOnRestrictedNetworks =
+                    new ArraySet<>(uidsAllowedOnRestrictedNetworks);
+            newUidsAllowedOnRestrictedNetworks.add(uid);
+            ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks(mContext,
+                    newUidsAllowedOnRestrictedNetworks);
+            // Wait a while for sending allowed using restricted networks uids to netd.
+            // TODD: Have a significant signal to know the uids has been send to netd.
+            Thread.sleep(APPLYING_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_TIMEOUT_MS);
+            network.bindSocket(new Socket());
+
+            // Remove CtsNetTestCases uid from UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting, then it
+            // can not bind socket to restricted network without holding
+            // CONNECTIVITY_USE_RESTRICTED_NETWORKS.
+            newUidsAllowedOnRestrictedNetworks.remove(uid);
+            ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks(mContext,
+                    newUidsAllowedOnRestrictedNetworks);
+            // Wait a while for sending allowed using restricted networks uids to netd.
+            // TODD: Have a significant signal to know the uids has been send to netd.
+            Thread.sleep(APPLYING_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_TIMEOUT_MS);
+            assertThrows(IOException.class, () -> network.bindSocket(new Socket()));
+        } finally {
+            mCm.unregisterNetworkCallback(testNetworkCb);
+            agent.unregister();
+
+            // Restore setting.
+            ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks(mContext,
+                    uidsAllowedOnRestrictedNetworks);
         }
     }
 }
