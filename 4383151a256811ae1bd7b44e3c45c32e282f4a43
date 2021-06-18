@@ -16,6 +16,24 @@
       "message": "You may also want to verify behavior for synchronize calls like getActiveNetworkForUid",
       "revId": "4383151a256811ae1bd7b44e3c45c32e282f4a43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a040eb7f_27cdab6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T14:53:28Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "015b95fb_393e6f72",
+      "revId": "4383151a256811ae1bd7b44e3c45c32e282f4a43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
