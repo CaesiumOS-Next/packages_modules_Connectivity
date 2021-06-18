@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83166455_859815da",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-18T04:27:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d3ae4ba_010d4434",
+      "range": {
+        "startLine": 252,
+        "startChar": 33,
+        "endLine": 252,
+        "endChar": 41
+      },
+      "revId": "6654c7247fa6e85a8b2bc2a7b28e8b30bbdc380f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55534861_e233bff8",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fae910b_449ebd4c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-18T04:27:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "55534861_e233bff8",
+      "range": {
+        "startLine": 528,
+        "startChar": 0,
+        "endLine": 534,
+        "endChar": 9
+      },
+      "revId": "6654c7247fa6e85a8b2bc2a7b28e8b30bbdc380f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5dc424f_a17a2292",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-18T02:32:16Z",
       "side": 1,
       "message": "Per discussion, most of the behaviour changes in this CL are here and in interfaceStatusChanged. Do you think you could put these behaviour changes in a separate CL, and squash everything else in this CL to the previous CL (\"Add enable and disable ip serving common functions\")?",
+      "range": {
+        "startLine": 1073,
+        "startChar": 0,
+        "endLine": 1081,
+        "endChar": 13
+      },
+      "revId": "6654c7247fa6e85a8b2bc2a7b28e8b30bbdc380f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb2ab4e_cee25d4c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-18T04:27:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e5dc424f_a17a2292",
       "range": {
         "startLine": 1073,
         "startChar": 0,
