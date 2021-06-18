@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c747d0a5_a16e42b5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:58:54Z",
+      "side": 1,
+      "message": "Per discussion, if the following happens:\n\n1. startTethering(TETHERING_NCM).\n2. NCM IpServer is started.\n3. Cable is unplugged, handleUsbAction tells us that the NCM function has gone away.\n4. We call changeUsbServing(false, true)\n\nit looks like the IpServer is never stopped.\n\nCan you add a test for starting/stopping NCM tethering before this CL? Doing it after aosp/1730548 is merged is fine because aosp/1730548 will be a no-op refactoring. Then once we have a test, this CL should fail it.",
+      "range": {
+        "startLine": 1073,
+        "startChar": 31,
+        "endLine": 1073,
+        "endChar": 41
+      },
+      "revId": "bee52bca70e226c651fbbc8ba2d183d6eade25fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "372ecd80_1870653a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:58:54Z",
+      "side": 1,
+      "message": "What happens if the config changes after NCM is started? I think there are two cases:\n\n1. NCM is started for TETHERING_NCM and then the config changes to use NCM for TETHERING_USB.\n2. NCM is started for TETHERING_USB and then the config changes to use RNDIS (not NCM) for TETHERING_USB.\n\nI think we added a unit test for one of these two cases recently? If not, can you add some?",
+      "range": {
+        "startLine": 1378,
+        "startChar": 30,
+        "endLine": 1378,
+        "endChar": 51
+      },
+      "revId": "bee52bca70e226c651fbbc8ba2d183d6eade25fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
