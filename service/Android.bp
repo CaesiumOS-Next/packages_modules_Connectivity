@@ -84,6 +84,12 @@ java_library {
 }
 
 java_library {
+    name: "test_whatever_library",
+    sdk_version: "system_server_current", // Also fails with module_current
+    srcs: ["src/com/android/server/TestWhatever.java"],
+}
+
+java_library {
     name: "service-connectivity-protos",
     sdk_version: "system_current",
     min_sdk_version: "30",
