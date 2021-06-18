@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8153f6fd_4c8e01f2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "Per discussion, rename to startOrStopIpServer?\n\nAlso add a comment explaining that this method needs to exist because not all tethering types can use enableIpServingCommon or enableIpServingCommon or disableIpServingCommon, and say what those types are.",
+      "range": {
+        "startLine": 523,
+        "startChar": 17,
+        "endLine": 523,
+        "endChar": 45
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e90cc32a_a90b7b45",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "Could this just be called disableIpServing?",
+      "range": {
+        "startLine": 1217,
+        "startChar": 33,
+        "endLine": 1217,
+        "endChar": 39
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcb2c6ad_093361be",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "How can this happen? Can we just remove this?\n\nOnce we do remove this, do we still need this method? Maybe we need it in a future CL, in which case it\u0027s fine to keep it.",
+      "range": {
+        "startLine": 1219,
+        "startChar": 8,
+        "endLine": 1219,
+        "endChar": 46
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b538dea1_3b6dde3b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1224,
+        "startChar": 32,
+        "endLine": 1224,
+        "endChar": 38
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df7afb95_ac677e7f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "This is a bug in the caller. Can you fix the callers so they do not do this? We can always log the error in the caller.",
+      "range": {
+        "startLine": 1229,
+        "startChar": 0,
+        "endLine": 1231,
+        "endChar": 51
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bb42e5c_07ee462a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1347,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "Per discussion: this is a behaviour change. Specifically, it looks like unplugging the USB cable will log \"Tried to Untether an unknown iface\".\n\nCan you move this code change to the next CL? For now I think we can just replace these lines with a copy of lines 1297-1305. That would mean this CL is really a no-op.",
+      "range": {
+        "startLine": 1341,
+        "startChar": 0,
+        "endLine": 1347,
+        "endChar": 9
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a07a52e3_0de5189a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2552,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "Can we rename this to ensureIpServerStarted?",
+      "range": {
+        "startLine": 2552,
+        "startChar": 17,
+        "endLine": 2552,
+        "endChar": 35
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbebdb3a_9023750e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2569,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "This doesn\u0027t necessarily stop an IpServer. It might simply do nothing. Rename to ensureIpServerStopped?",
+      "range": {
+        "startLine": 2569,
+        "startChar": 17,
+        "endLine": 2569,
+        "endChar": 29
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "190020a8_5bef5b60",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2572,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-18T07:40:32Z",
+      "side": 1,
+      "message": "This log is likely very confusing to folks trying to debug this code so we should probably remove it.",
+      "range": {
+        "startLine": 2572,
+        "startChar": 12,
+        "endLine": 2572,
+        "endChar": 85
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
