@@ -22,6 +22,30 @@
       },
       "revId": "e4e32b777623fd932fb267792f374e0f53af6a55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74a4111b_b1b81fed",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2538,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T10:11:29Z",
+      "side": 1,
+      "message": "Yeah, you are right. Remove accordingly.",
+      "parentUuid": "0f1ebea8_455882b9",
+      "range": {
+        "startLine": 2536,
+        "startChar": 8,
+        "endLine": 2538,
+        "endChar": 59
+      },
+      "revId": "e4e32b777623fd932fb267792f374e0f53af6a55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
