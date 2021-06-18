@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca8da184_72c92103",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-18T23:07:55Z",
+      "side": 1,
+      "message": "I just found that if the network is non-metered, then assertBackgroundNetworkAccess(false) will fail because in checkNetworkStatus() it will call getActiveNetworkInfo()(which will call isUidNetworkingBlocked() indirectly) and if the network is non-metered, the isUidNetworkingBlocked() will return false and the state of NetworkInfo will be CONNECTED.\nI think the problem is that when power saver mode is enabled(for example), NetworkPolicy needs some time to update the uid rule, so if isUidNetworkingBlocked() is called before the uid rule has updated, then the return value of isUidNetworkingBlocked() might be wrong.\n\nI replaced assertBackgroundNetworkAccess() with isUidNetworkingBlockedWithRetry() to make sure the uid rules has updated correctly.",
+      "parentUuid": "a23823c8_3e775856",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dda7971_6d6180f9",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-17T20:58:30Z",
       "side": 1,
       "message": "nit: Not a strong opinion but I think it\u0027s better not to refer to these constants. These are internal implementation details and can change and it would be difficult to keep these in sync.",
+      "range": {
+        "startLine": 88,
+        "startChar": 28,
+        "endLine": 88,
+        "endChar": 47
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "541b3b1d_6f689a53",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-18T23:07:55Z",
+      "side": 1,
+      "message": "Modified the comment.",
+      "parentUuid": "5dda7971_6d6180f9",
       "range": {
         "startLine": 88,
         "startChar": 28,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b70fe9_14a70a6d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-18T23:07:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd629c6d_36a8fcd4",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 69
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e4547ad_bad39866",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "401977cb_de4d15cf",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-18T23:07:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e4547ad_bad39866",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 44
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abdb77f8_05ef9070",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-06-17T20:58:30Z",
       "side": 1,
       "message": "nit: It\u0027s not clear what normal status mean here? Can we rename this, perhaps _withUidNotBlocked?",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 59
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "815576b9_98d0cdfb",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideNetworkPolicyManagerTests.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-18T23:07:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abdb77f8_05ef9070",
       "range": {
         "startLine": 33,
         "startChar": 43,
