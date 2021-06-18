@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "206da05e_d09f945c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-18T08:16:28Z",
+      "side": 1,
+      "message": "After chatting with Paul, we agree that if other tests have a good use case to test the APIs, then we don\u0027t need to verify it again.\n\nI also did a search:\n- [set|get]PrivateDnsMode() are already covered by ConnectivityManagerTest.java \u0026 NetworkResetTest.java, PrivateDnsPolicyTest.java and DevicePolicySafetyCheckerIntegrationTest.java also cover setPrivateDnsMode() indirectly.\n- setPrivateDnsHostname() is covered by PrivateDnsPolicyTest.java and DevicePolicySafetyCheckerIntegrationTest.java indirectly.\n- getPrivateDnsHostname() is not called by anyone. i.e. There is no usage for this API.",
+      "parentUuid": "44564039_1e965a14",
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "253b6fdf_1bbdab6d",
