@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f475ead_15cf85a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T03:19:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7813688b_6ec8eb13",
+      "range": {
+        "startLine": 7,
+        "startChar": 17,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5641c07d_cfd87450",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed8c475_af5e815d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2527,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T03:19:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5641c07d_cfd87450",
+      "range": {
+        "startLine": 2527,
+        "startChar": 8,
+        "endLine": 2527,
+        "endChar": 18
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b834441_408322c8",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-18T01:08:42Z",
       "side": 1,
       "message": "It will be safer to use ensureWifiConnected. connectToWifi() will call to connectToWifi(true /* expectLegacyBroadcast */ ) with higher flaky rate.",
+      "range": {
+        "startLine": 2536,
+        "startChar": 49,
+        "endLine": 2536,
+        "endChar": 62
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "768b4a5f_11b3dc20",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2536,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T03:19:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6b834441_408322c8",
       "range": {
         "startLine": 2536,
         "startChar": 49,
@@ -118,6 +190,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "eb0e77fe_bbc22217",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2542,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T03:19:41Z",
+      "side": 1,
+      "message": "I mean the uid is not listed in MOBILE_DATA_PREFERRED_UIDS setting. Update the messge accordingly.",
+      "parentUuid": "8b044eaa_63ea3dc9",
+      "range": {
+        "startLine": 2542,
+        "startChar": 38,
+        "endLine": 2542,
+        "endChar": 60
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39331d34_feb39711",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2542,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T03:19:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac9b1c47_4e7a65fe",
+      "range": {
+        "startLine": 2542,
+        "startChar": 31,
+        "endLine": 2542,
+        "endChar": 32
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ed5954b1_1d197bdc",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
@@ -129,6 +249,30 @@
       "writtenOn": "2021-06-18T01:08:42Z",
       "side": 1,
       "message": "Optional: maybe name it shouldBeWifiNetwork(or expectWifiNetwork) and shouldBeCellNetwork((or expectCellNetwork)) for latestDefaultNetwork2",
+      "range": {
+        "startLine": 2545,
+        "startChar": 26,
+        "endLine": 2545,
+        "endChar": 47
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3862545_457d3cd9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2545,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T03:19:41Z",
+      "side": 1,
+      "message": "This parameter is gone.",
+      "parentUuid": "ed5954b1_1d197bdc",
       "range": {
         "startLine": 2545,
         "startChar": 26,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "397107f3_8e953aaf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2546,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T03:19:41Z",
+      "side": 1,
+      "message": "This message is gone.",
+      "parentUuid": "8c78f6e5_daabef72",
+      "range": {
+        "startLine": 2546,
+        "startChar": 55,
+        "endLine": 2546,
+        "endChar": 65
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3fe8095_809c4652",
@@ -175,6 +343,30 @@
       "writtenOn": "2021-06-17T18:06:12Z",
       "side": 1,
       "message": "The first parameter should be \"expected\" and the second parameter should be \"actual\".\nSo the sequence should be:\nassertEquals(wifiNetwork, latestDefaultNetwork1);",
+      "range": {
+        "startLine": 2548,
+        "startChar": 12,
+        "endLine": 2548,
+        "endChar": 61
+      },
+      "revId": "1604a10502aa7af862db4429f8bf832b8c87f0c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f78ad29_ba477e55",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2548,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-18T03:19:41Z",
+      "side": 1,
+      "message": "This check is gone.",
+      "parentUuid": "a3fe8095_809c4652",
       "range": {
         "startLine": 2548,
         "startChar": 12,
