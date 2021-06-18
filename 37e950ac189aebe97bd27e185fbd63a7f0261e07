@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba8ee74_f9542f40",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-06-18T15:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85d28e0f_7dab82e9",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 15
+      },
+      "revId": "37e950ac189aebe97bd27e185fbd63a7f0261e07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1baa9aeb_1f4c3bb4",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df4256b6_4e07524e",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-06-18T15:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1baa9aeb_1f4c3bb4",
+      "range": {
+        "startLine": 155,
+        "startChar": 16,
+        "endLine": 155,
+        "endChar": 20
+      },
+      "revId": "37e950ac189aebe97bd27e185fbd63a7f0261e07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f8cee4d_f9dbc212",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-18T09:29:26Z",
       "side": 1,
       "message": "Nit: this doesn\u0027t really assert as it just returns true/false; maybe just \"cellBatteryStatsIncreased\" ? (same with wifi below)",
+      "range": {
+        "startLine": 166,
+        "startChar": 27,
+        "endLine": 166,
+        "endChar": 33
+      },
+      "revId": "37e950ac189aebe97bd27e185fbd63a7f0261e07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bb97ab9_7c3c392e",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-06-18T15:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f8cee4d_f9dbc212",
       "range": {
         "startLine": 166,
         "startChar": 27,
