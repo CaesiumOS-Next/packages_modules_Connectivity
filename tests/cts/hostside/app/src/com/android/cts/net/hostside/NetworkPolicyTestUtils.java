@@ -43,6 +43,7 @@ import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkPolicyManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.ActionListener;
@@ -76,10 +77,13 @@ public class NetworkPolicyTestUtils {
             "carrier_metered_apn_types_strings";
 
     private static final int TIMEOUT_CHANGE_METEREDNESS_MS = 10_000;
+    private static final int RETRY_DELAY_MILLIS = 500;
+    private static final int RETRY_TIMES = 5;
 
     private static ConnectivityManager mCm;
     private static WifiManager mWm;
     private static CarrierConfigManager mCarrierConfigManager;
+    private static NetworkPolicyManager sNpm;
 
     private static Boolean mBatterySaverSupported;
     private static Boolean mDataSaverSupported;
@@ -401,11 +405,55 @@ public class NetworkPolicyTestUtils {
         return mCarrierConfigManager;
     }
 
+    public static NetworkPolicyManager getNetworkPolicyManager() {
+        if (sNpm == null) {
+            sNpm = getContext().getSystemService(NetworkPolicyManager.class);
+        }
+        return sNpm;
+    }
+
     public static Context getContext() {
         return getInstrumentation().getContext();
     }
 
     public static Instrumentation getInstrumentation() {
         return InstrumentationRegistry.getInstrumentation();
+    }
+
+    // When power saver mode or restrict background enabled or adding any white/black list into
+    // those modes, NetworkPolicy may need to take some time to update the rules of uids. So having
+    // a retry function to reduce the flaky rate.
+    public static boolean isUidNetworkingBlockedWithRetry(int uid, boolean metered,
+            boolean expectedResult) throws Exception {
+        final UiAutomation uiAutomation = getInstrumentation().getUiAutomation();
+        try {
+            for (int i = 0; i < RETRY_TIMES; i++) {
+                if (expectedResult == isUidNetworkingBlocked(uid, metered)) return expectedResult;
+                Thread.sleep(RETRY_DELAY_MILLIS);
+            }
+            return !expectedResult;
+        } finally {
+            uiAutomation.dropShellPermissionIdentity();
+        }
+    }
+
+    public static boolean isUidNetworkingBlocked(int uid, boolean meteredNetwork) {
+        final UiAutomation uiAutomation = getInstrumentation().getUiAutomation();
+        try {
+            uiAutomation.adoptShellPermissionIdentity();
+            return getNetworkPolicyManager().isUidNetworkingBlocked(uid, meteredNetwork);
+        } finally {
+            uiAutomation.dropShellPermissionIdentity();
+        }
+    }
+
+    public static boolean isUidRestrictedOnMeteredNetworks(int uid) {
+        final UiAutomation uiAutomation = getInstrumentation().getUiAutomation();
+        try {
+            uiAutomation.adoptShellPermissionIdentity();
+            return getNetworkPolicyManager().isUidRestrictedOnMeteredNetworks(uid);
+        } finally {
+            uiAutomation.dropShellPermissionIdentity();
+        }
     }
 }
