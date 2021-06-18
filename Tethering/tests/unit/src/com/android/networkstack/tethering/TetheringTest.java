@@ -645,17 +645,17 @@ public class TetheringTest {
                 TetheringConfiguration.TETHER_USB_RNDIS_FUNCTION);
         // Setup tetherable configuration.
         when(mResources.getStringArray(R.array.config_tether_usb_regexs))
-                .thenReturn(new String[] { TEST_RNDIS_REGEX});
+                .thenReturn(new String[] {TEST_RNDIS_REGEX, TEST_NCM_REGEX});
         when(mResources.getStringArray(R.array.config_tether_wifi_regexs))
-                .thenReturn(new String[] { TEST_WIFI_REGEX });
+                .thenReturn(new String[] {TEST_WIFI_REGEX});
         when(mResources.getStringArray(R.array.config_tether_wifi_p2p_regexs))
-                .thenReturn(new String[] { TEST_P2P_REGEX });
+                .thenReturn(new String[] {TEST_P2P_REGEX});
         when(mResources.getStringArray(R.array.config_tether_bluetooth_regexs))
-                .thenReturn(new String[] { TEST_BT_REGEX });
+                .thenReturn(new String[] {TEST_BT_REGEX});
         when(mResources.getStringArray(R.array.config_tether_ncm_regexs))
-                .thenReturn(new String[] { TEST_NCM_REGEX });
+                .thenReturn(new String[] {TEST_NCM_REGEX});
         when(mResources.getIntArray(R.array.config_tether_upstream_types)).thenReturn(
-                new int[] { TYPE_WIFI, TYPE_MOBILE_DUN });
+                new int[] {TYPE_WIFI, TYPE_MOBILE_DUN});
         when(mResources.getBoolean(R.bool.config_tether_upstream_automatic)).thenReturn(true);
     }
 
@@ -812,8 +812,6 @@ public class TetheringTest {
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_NCM), null);
         mLooper.dispatchAll();
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
-
-        mTethering.interfaceStatusChanged(TEST_NCM_IFNAME, true);
     }
 
     private void prepareUsbTethering() {
@@ -1893,7 +1891,6 @@ public class TetheringTest {
     private void runStopUSBTethering() {
         mTethering.stopTethering(TETHERING_USB);
         mLooper.dispatchAll();
-        mTethering.interfaceRemoved(TEST_RNDIS_IFNAME);
         sendUsbBroadcast(true, true, -1 /* function */);
         mLooper.dispatchAll();
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
@@ -2076,7 +2073,7 @@ public class TetheringTest {
         setDataSaverEnabled(true);
         // Verify that tethering should be disabled.
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NONE);
-        mTethering.interfaceRemoved(TEST_RNDIS_IFNAME);
+        sendUsbBroadcast(true, true, -1 /* function */);
         mLooper.dispatchAll();
         assertEquals(mTethering.getTetheredIfaces(), new String[0]);
         reset(mUsbManager, mIPv6TetheringCoordinator);
@@ -2339,14 +2336,14 @@ public class TetheringTest {
         final String ipv4Address = ifaceConfigCaptor.getValue().ipv4Addr;
         verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS).times(1)).startWithCallbacks(
                 any(), any());
-        reset(mNetd, mUsbManager);
+        reset(mUsbManager);
 
         // Cause a prefix conflict by assigning a /30 out of the downstream's /24 to the upstream.
         updateV4Upstream(new LinkAddress(InetAddresses.parseNumericAddress(ipv4Address), 30),
                 wifiNetwork, TEST_WIFI_IFNAME, TRANSPORT_WIFI);
         // verify turn off usb tethering
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
-        mTethering.interfaceRemoved(TEST_RNDIS_IFNAME);
+        sendUsbBroadcast(true, true, -1 /* function */);
         mLooper.dispatchAll();
         // verify restart usb tethering
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_RNDIS);
@@ -2387,7 +2384,7 @@ public class TetheringTest {
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
         // verify turn off ethernet tethering
         verify(mockRequest).release();
-        mTethering.interfaceRemoved(TEST_RNDIS_IFNAME);
+        sendUsbBroadcast(true, true, -1 /* function */);
         ethCallback.onUnavailable();
         mLooper.dispatchAll();
         // verify restart usb tethering
@@ -2645,12 +2642,6 @@ public class TetheringTest {
         // RNDIS (the default), tethering is stopped.
         forceUsbTetheringUse(TETHER_USB_NCM_FUNCTION);
         verifyUsbTetheringStopDueToSettingChange(TEST_NCM_IFNAME);
-
-        // TODO: move this into setup after allowing configure TEST_NCM_REGEX into
-        // config_tether_usb_regexs and config_tether_ncm_regexs at the same time.
-        when(mResources.getStringArray(R.array.config_tether_usb_regexs))
-                .thenReturn(new String[] {TEST_RNDIS_REGEX, TEST_NCM_REGEX});
-        sendConfigurationChanged();
 
         // If TETHERING_USB is forced to use ncm function, TETHERING_NCM would no longer be
         // available.
