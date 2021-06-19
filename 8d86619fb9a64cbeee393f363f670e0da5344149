@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af67d29b_4532bc07",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-19T10:42:38Z",
+      "side": 1,
+      "message": "Checking with retry makes sense but I don\u0027t think we need to change the meteredness in these tests. To be clear what I mean is, we can start an activity in the test app and verify isUidNetworkingBlocked() returns expected result but doesn\u0027t need to do the network call from the app. We already have this verification and I don\u0027t think there is a need to duplicate is, especially as this test suite takes too long to run.",
+      "parentUuid": "ca8da184_72c92103",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5dda7971_6d6180f9",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
         "patchSetId": 4
