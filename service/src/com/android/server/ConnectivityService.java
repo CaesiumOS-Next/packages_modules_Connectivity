@@ -5858,8 +5858,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         @Override
         public void binderDied() {
             log("ConnectivityService NetworkRequestInfo binderDied(" +
-                    mRequests + ", " + mBinder + ")");
-            releaseNetworkRequests(mRequests);
+                    "uid/pid:" + mUid + "/" + mPid + ", " + mBinder + ")");
+            // handleReleaseNetworkRequest will look up this NRI based off of the passed in
+            // NetworkRequest therefore this method need only be called once for an NRI regardless
+            // of how many requests it is tracking.
+            releaseNetworkRequest(mRequests.get(0));
         }
 
         @Override
@@ -6288,12 +6291,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return mNextNetworkProviderId.getAndIncrement();
     }
 
-    private void releaseNetworkRequests(List<NetworkRequest> networkRequests) {
-        for (int i = 0; i < networkRequests.size(); i++) {
-            releaseNetworkRequest(networkRequests.get(i));
-        }
-    }
-
+    // TODO http://b/177608132 releaseNetworkRequest should take in an NRI and not NetworkRequest.
     @Override
     public void releaseNetworkRequest(NetworkRequest networkRequest) {
         ensureNetworkRequestHasType(networkRequest);
