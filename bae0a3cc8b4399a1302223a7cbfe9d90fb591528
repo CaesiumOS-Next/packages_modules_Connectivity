@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000011980107",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1741953?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "7f23802f_a2bea154",
+          "description": "Change to \"service/src/com/android/server/ConnectivityService.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 5832,
+                "startChar": 88,
+                "endLine": 5832,
+                "endChar": 100
+              },
+              "replacement": "regardless"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "3e7245ab_2c6f4641",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5832,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-20T23:39:49Z",
+      "side": 1,
+      "message": "Common typo found: \"irregardless\" -- should it be \"regardless\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 5832,
+        "startChar": 88,
+        "endLine": 5832,
+        "endChar": 100
+      },
+      "revId": "bae0a3cc8b4399a1302223a7cbfe9d90fb591528",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
