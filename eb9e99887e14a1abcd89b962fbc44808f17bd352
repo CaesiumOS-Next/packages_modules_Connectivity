@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58cc25c3_194e0d1d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-20T07:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb42a3f2_f8ef2c65",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 45
+      },
+      "revId": "eb9e99887e14a1abcd89b962fbc44808f17bd352",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b395162_f444b842",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-19T20:56:50Z",
       "side": 1,
       "message": "nit: Let\u0027s call isUidNetworkingBlocked() call directly, no need to adopt and drop shell identity in a loop here.",
+      "range": {
+        "startLine": 432,
+        "startChar": 58,
+        "endLine": 432,
+        "endChar": 80
+      },
+      "revId": "eb9e99887e14a1abcd89b962fbc44808f17bd352",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f61becc_7c8c9218",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyTestUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-20T07:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b395162_f444b842",
       "range": {
         "startLine": 432,
         "startChar": 58,

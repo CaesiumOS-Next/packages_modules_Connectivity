@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e1b3856_20a37d8f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-20T07:43:16Z",
+      "side": 1,
+      "message": "Hmmm...sorry, I don\u0027t see any action needs to do in your previous comment.\n\nYou said we don\u0027t need to change the meteredness, so I remove \"mMeterednessConfiguration.configureNetworkMeteredness(true);\" from setUp().\n\nAnd you said we can start an activity in the test app and verify isUidNetworkingBlocked() returns expected result but doesn\u0027t need to do the network call from the app, that\u0027s what testIsUidNetworkingBlocked_withDataSaverMode() did, right?\n\ntestIsUidNetworkingBlocked_withDataSaverMode():\n...\nlaunchComponentAndAssertNetworkAccess(TYPE_COMPONENT_ACTIVTIY);\nassertForegroundState();\nassertNetworkingBlockedStatusForUid(mUid, METERED, false /* expectedResult */);\n...",
+      "parentUuid": "9e6ddaed_5dcb8805",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5dda7971_6d6180f9",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
         "patchSetId": 4
