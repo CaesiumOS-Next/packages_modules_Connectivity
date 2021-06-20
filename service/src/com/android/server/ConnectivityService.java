@@ -4187,13 +4187,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleRemoveNetworkRequest(@NonNull final NetworkRequestInfo nri) {
         ensureRunningOnConnectivityServiceThread();
-        nri.unlinkDeathRecipient();
+        // isNriTracked is used in case this method is called twice for the same NRI.
+        boolean isNriTracked = false;
         for (final NetworkRequest req : nri.mRequests) {
-            mNetworkRequests.remove(req);
+            if (null == mNetworkRequests.remove(req)) {
+                continue;
+            }
+            isNriTracked = true;
             if (req.isListen()) {
                 removeListenRequestFromNetworks(req);
             }
         }
+        if (!isNriTracked) {
+            return;
+        }
+        nri.unlinkDeathRecipient();
         if (mDefaultNetworkRequests.remove(nri)) {
             // If this request was one of the defaults, then the UID rules need to be updated
             // WARNING : if the app(s) for which this network request is the default are doing
@@ -5858,8 +5866,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         @Override
         public void binderDied() {
             log("ConnectivityService NetworkRequestInfo binderDied(" +
-                    mRequests + ", " + mBinder + ")");
-            releaseNetworkRequests(mRequests);
+                    "uid/pid:" + mUid + "/" + mPid + ", " + mBinder + ")");
+            mHandler.post(() -> handleRemoveNetworkRequest(this));
         }
 
         @Override
@@ -6288,12 +6296,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return mNextNetworkProviderId.getAndIncrement();
     }
 
-    private void releaseNetworkRequests(List<NetworkRequest> networkRequests) {
-        for (int i = 0; i < networkRequests.size(); i++) {
-            releaseNetworkRequest(networkRequests.get(i));
-        }
-    }
-
+    // TODO http://b/177608132 releaseNetworkRequest should take in an NRI and not NetworkRequest.
     @Override
     public void releaseNetworkRequest(NetworkRequest networkRequest) {
         ensureNetworkRequestHasType(networkRequest);
