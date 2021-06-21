@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e83f6f_65130a5b",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-21T08:53:32Z",
+      "side": 1,
+      "message": "In fact, these strings is not used in this file anymore, so I just removed them.\nAnd change above settings to refer to the constants defined in ConnectivitySettingsUtils.",
+      "parentUuid": "690d31aa_eaecd0f2",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 87
+      },
+      "revId": "7d29fabcee0b7459ed0c97846610b0645bcfc3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb649031_9c79b922",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb82970_c261697d",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-21T08:53:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb649031_9c79b922",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 9
+      },
+      "revId": "7d29fabcee0b7459ed0c97846610b0645bcfc3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae581996_e36275d7",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-06-21T07:44:20Z",
       "side": 1,
       "message": "Nit: I found the older name (\"server\") to be more readable, mostly because it was shorter. You could also use \"specifier\" if you want. I don\u0027t feel too strongly about it though.",
+      "range": {
+        "startLine": 563,
+        "startChar": 28,
+        "endLine": 563,
+        "endChar": 48
+      },
+      "revId": "7d29fabcee0b7459ed0c97846610b0645bcfc3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a868b95_d69a1695",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-21T08:53:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae581996_e36275d7",
       "range": {
         "startLine": 563,
         "startChar": 28,
