@@ -178,6 +178,14 @@ class CaptivePortalTest {
             val wifiDefaultMessage = "Wifi should not be the default network when a captive " +
                     "portal was detected and another network (mobile data) can provide internet " +
                     "access."
+
+            for (i in 0..7) {
+                if (network == cm.activeNetwork) {
+                    Thread.sleep(1000)
+                } else {
+                    break
+                }
+            }
             assertNotEquals(network, cm.activeNetwork, wifiDefaultMessage)
 
             val startPortalAppPermission =
