@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "727e07ed_f91dca8e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2551,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T08:39:43Z",
+      "side": 1,
+      "message": "Per discussed offline, add the check on l.2539 to ensure the initial state is correct.",
+      "parentUuid": "ea4851f5_4af04b7e",
+      "range": {
+        "startLine": 2551,
+        "startChar": 12,
+        "endLine": 2551,
+        "endChar": 29
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46c4fd31_f33d3b5d",
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "Why, theoretically we should not receive anthing for system default callback since the default doesn\u0027t change anything at all, right?\nIIUC capabilities changes is caused by l.2544 instead of setMobileDataPreferredUids. \nIf so, I think you will need to absorb those callbacks before setMobileDataPreferredUids by using expectAvaiableThenXXXCallbacks.",
       "parentUuid": "fb02c675_805f45cb",
+      "range": {
+        "startLine": 2565,
+        "startChar": 38,
+        "endLine": 2565,
+        "endChar": 53
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f2eb39f_efd8a5c2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2565,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T08:39:43Z",
+      "side": 1,
+      "message": "After adjust the callback check on l.2549, it can use assertNoCallback() now.",
+      "parentUuid": "ce252a5e_3de486f5",
       "range": {
         "startLine": 2565,
         "startChar": 38,
