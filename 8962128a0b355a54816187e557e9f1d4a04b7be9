@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83365ed5_ded83673",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T10:05:08Z",
+      "side": 1,
+      "message": "Nit: you don\u0027t need this, the Java spec guarantees it\u0027s initialized to 0. No need to fix.",
+      "range": {
+        "startLine": 107,
+        "startChar": 34,
+        "endLine": 107,
+        "endChar": 38
+      },
+      "revId": "8962128a0b355a54816187e557e9f1d4a04b7be9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
