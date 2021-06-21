@@ -3,6 +3,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74d76577_02fd70a8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2531,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-21T03:37:55Z",
+      "side": 1,
+      "message": "nit: both",
+      "range": {
+        "startLine": 2531,
+        "startChar": 42,
+        "endLine": 2531,
+        "endChar": 43
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9108ad02_a7b86ad4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2534,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-21T03:37:55Z",
+      "side": 1,
+      "message": "Since you have newMobileDataPreferredUids, does it clearer if you name this oppsite??",
+      "range": {
+        "startLine": 2534,
+        "startChar": 27,
+        "endLine": 2534,
+        "endChar": 50
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a5e2d2_f9895712",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2551,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-21T03:37:55Z",
+      "side": 1,
+      "message": "IIUC this assumes the old one does not contain CTS uid.\nIf yes, maybe assert that, or explicitly remove that when retrieve the old list?",
+      "range": {
+        "startLine": 2551,
+        "startChar": 12,
+        "endLine": 2551,
+        "endChar": 29
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46c4fd31_f33d3b5d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2565,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-21T03:37:55Z",
+      "side": 1,
+      "message": "Maybe also assertNoCallback?",
+      "range": {
+        "startLine": 2565,
+        "startChar": 38,
+        "endLine": 2565,
+        "endChar": 53
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18322edc_cf25d41c",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 5
@@ -19,6 +111,52 @@
         "startChar": 71,
         "endLine": 2566,
         "endChar": 79
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "993eff18_d38a1e24",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2570,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-21T03:37:55Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 2570,
+        "startChar": 23,
+        "endLine": 2570,
+        "endChar": 29
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6033057_8617558e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2571,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-21T03:37:55Z",
+      "side": 1,
+      "message": "nit: Maybe just use the old one?",
+      "range": {
+        "startLine": 2571,
+        "startChar": 12,
+        "endLine": 2571,
+        "endChar": 51
       },
       "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
