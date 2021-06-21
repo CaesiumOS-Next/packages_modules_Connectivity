@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "684037b8_b10532bc",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecBaseTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2021-06-21T10:07:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88ef82a7_599dc204",
+      "range": {
+        "startLine": 375,
+        "startChar": 25,
+        "endLine": 375,
+        "endChar": 51
+      },
+      "revId": "685e27bd35e0d35315e71cb0ba224251b908f8da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00472dcf_dc40f0a8",
@@ -81,6 +105,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69cd893a_ace5e7e1",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecBaseTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2021-06-21T10:07:51Z",
+      "side": 1,
+      "message": "https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/net/IpSecManager.java;l\u003d374?q\u003dIpSecManager\n\nIn IpSecManager.applyTransportModeTransform",
+      "parentUuid": "00472dcf_dc40f0a8",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 495,
+        "endChar": 49
+      },
+      "revId": "685e27bd35e0d35315e71cb0ba224251b908f8da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7b9708e_419f875b",
@@ -94,6 +142,30 @@
       "writtenOn": "2021-06-17T23:35:10Z",
       "side": 1,
       "message": "Could we annotate what this is? \n\n\u003e 10 /* backlog */",
+      "range": {
+        "startLine": 605,
+        "startChar": 30,
+        "endLine": 605,
+        "endChar": 32
+      },
+      "revId": "685e27bd35e0d35315e71cb0ba224251b908f8da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f926638_e9425a4b",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecBaseTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2021-06-21T10:07:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7b9708e_419f875b",
       "range": {
         "startLine": 605,
         "startChar": 30,
