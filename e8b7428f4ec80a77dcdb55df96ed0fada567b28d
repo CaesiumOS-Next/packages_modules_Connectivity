@@ -260,6 +260,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "577c1abd_a8fbaadf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-21T08:15:27Z",
+      "side": 1,
+      "message": "mNetdCallback(interfaceStatusChanged, interfaceAdded and interfaceRemoved) never call this function. enableIpServing is new added function. Currently(in this CL) this function only called at EthernetCallback#onAvailable and it seems can\u0027t be null. The follow up CLs which use enableIpServing would added the check in caller.",
+      "parentUuid": "a9a67c07_8506c981",
+      "range": {
+        "startLine": 1229,
+        "startChar": 0,
+        "endLine": 1231,
+        "endChar": 51
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bb42e5c_07ee462a",

@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7a83f0d_2965ceaf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-21T08:15:27Z",
+      "side": 1,
+      "message": "Ack, will rename this in next CL.",
+      "parentUuid": "16572509_e1745562",
+      "range": {
+        "startLine": 525,
+        "startChar": 17,
+        "endLine": 525,
+        "endChar": 36
+      },
+      "revId": "76e2e1c7028c5bae343f1c471caf469709d763bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edef4bde_01a20eab",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-21T05:08:27Z",
       "side": 1,
       "message": "Nit: I think this could be:\n\n    enableIpServing(ifname, ipServingMode);\n\nDoesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 1283,
+        "startChar": 0,
+        "endLine": 1284,
+        "endChar": 56
+      },
+      "revId": "76e2e1c7028c5bae343f1c471caf469709d763bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b8e6664_d8b3ea32",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-21T08:15:27Z",
+      "side": 1,
+      "message": "Yes, but can\u0027t in this CL.\nWhat enableIpServing do is:\n        ensureIpServerStarted(ifname, tetheringType);\n        changeInterfaceState(ifname, ipServingMode);\nThe ensureIpServerStarted need tetheringType but here don\u0027t have interfaceType because this function shared with TETHEIRNG_WIFI and TETHERING_WIFI_P2P.\nThis will be fixed at follow-up wifi refactor CL.",
+      "parentUuid": "edef4bde_01a20eab",
       "range": {
         "startLine": 1283,
         "startChar": 0,
