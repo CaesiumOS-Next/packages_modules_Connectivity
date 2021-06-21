@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb203a12_2bdd8f41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T23:14:20Z",
+      "side": 1,
+      "message": "Feel free to address nit comment in a follow-up (or not at all).",
+      "revId": "8c96badb5dbf1d545aa658586d7da3e827d654da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27e5c2d7_e564dbc4",
