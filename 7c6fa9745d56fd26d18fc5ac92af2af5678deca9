@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e57f80_62fa1b51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T10:45:17Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comments in a follow-up (or not at all.)",
+      "revId": "7c6fa9745d56fd26d18fc5ac92af2af5678deca9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34cb899b_c5fdad8c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T10:45:17Z",
+      "side": 1,
+      "message": "test, since transport are ORed",
+      "range": {
+        "startLine": 861,
+        "startChar": 38,
+        "endLine": 861,
+        "endChar": 42
+      },
+      "revId": "7c6fa9745d56fd26d18fc5ac92af2af5678deca9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
