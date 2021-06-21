@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b411c842_16641ec6",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-06-21T04:20:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf931d48_d7f32f9f",
+      "range": {
+        "startLine": 123,
+        "startChar": 43,
+        "endLine": 123,
+        "endChar": 56
+      },
+      "revId": "a48d88fd606aff35cf5abc81c0d3c0d7f7ed7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d821dc1_664a9202",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-21T02:12:04Z",
       "side": 1,
       "message": "Nit: instead of nesting a condition for the last loop iteration, you can use \"return\" instead of \"break\", and just put the \"fail\" as the last line of the method; this is more common and should be easier to read.",
+      "range": {
+        "startLine": 153,
+        "startChar": 16,
+        "endLine": 153,
+        "endChar": 33
+      },
+      "revId": "a48d88fd606aff35cf5abc81c0d3c0d7f7ed7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "070277e7_95a4fe3d",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-06-21T04:20:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d821dc1_664a9202",
       "range": {
         "startLine": 153,
         "startChar": 16,
