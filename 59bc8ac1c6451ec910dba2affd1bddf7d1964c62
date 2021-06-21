@@ -51,6 +51,167 @@
       "message": "Carry-forward +2 from Jean since this is rebase with minor changes.",
       "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bcb163c_f9b7e134",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T11:43:02Z",
+      "side": 1,
+      "message": "This will fail if another process in the system (including another instance of this test) is running or has run recently. Instead of doing this, bind() to port 0 and get the port via Socket#getLocalPort().",
+      "range": {
+        "startLine": 1037,
+        "startChar": 57,
+        "endLine": 1037,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e25039e0_6c6d9272",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T11:43:02Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 1063,
+        "startChar": 57,
+        "endLine": 1063,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea5c8b36_0aad8524",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T11:43:02Z",
+      "side": 1,
+      "message": "EMAGICCONSTANT. Can you add a comment to explain why this choice? Is it just arbitrary number that has no constraints on it? (That seems fine.) Could it be a random number instead?",
+      "range": {
+        "startLine": 1071,
+        "startChar": 38,
+        "endLine": 1071,
+        "endChar": 48
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10401d0e_a22d4f78",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T11:43:02Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1107,
+        "startChar": 57,
+        "endLine": 1107,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6a07e15_11cedee0",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T11:43:02Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1145,
+        "startChar": 57,
+        "endLine": 1145,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d07bc4c_08d3316d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T11:43:02Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 1185,
+        "startChar": 57,
+        "endLine": 1185,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5515d9aa_ab3587de",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T11:43:02Z",
+      "side": 1,
+      "message": "Change to IPv6 or support both IPv4 and IPv6 (e.g., by having the caller pass in IPv4 a few times and IPv6 a few times).",
+      "range": {
+        "startLine": 1217,
+        "startChar": 46,
+        "endLine": 1217,
+        "endChar": 57
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
