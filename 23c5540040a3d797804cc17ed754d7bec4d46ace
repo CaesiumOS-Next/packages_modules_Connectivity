@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "677367f8_c31ac0aa",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T02:56:48Z",
+      "side": 1,
+      "message": "Done. Have a resetSettings method for resetting both string and int settings.",
+      "parentUuid": "253b6fdf_1bbdab6d",
+      "range": {
+        "startLine": 111,
+        "startChar": 16,
+        "endLine": 111,
+        "endChar": 22
+      },
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0f450fd_1b41eacb",
@@ -84,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3d548df_0f527d34",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T02:56:48Z",
+      "side": 1,
+      "message": "I think it\u0027s more complicated to use a single list to reset both int and string settings. So I prefer to add try/finally in each test.",
+      "parentUuid": "a0f450fd_1b41eacb",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 32
+      },
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51cf6994_769aa9c1",
         "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
         "patchSetId": 1
@@ -95,6 +143,30 @@
       "writtenOn": "2021-06-18T01:43:43Z",
       "side": 1,
       "message": "Could you have a generic method to test getters/setters ?\n\nSomething like:\n\n  fun \u003cT\u003e testSetting(name: String, type: String, value1: T, value2: T, def: T, \n      getter: (c: Context, d: T) -\u003e T,\n      setter: (c: Context, v: T) -\u003e Unit)\n\nAlso it should test that the default value is returned as expected",
+      "range": {
+        "startLine": 141,
+        "startChar": 32,
+        "endLine": 141,
+        "endChar": 58
+      },
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce4fbc17_9bae0b74",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T02:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51cf6994_769aa9c1",
       "range": {
         "startLine": 141,
         "startChar": 32,
