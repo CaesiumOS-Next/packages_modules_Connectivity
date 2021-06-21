@@ -39,6 +39,30 @@
       },
       "revId": "a0af6c844e179a094825b103d90e9dd35bcdf44e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d449bf8_14b89c45",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-21T10:18:58Z",
+      "side": 1,
+      "message": "This would mean having a list of permissions to un-grant if they are not in the input array right ?\nAgree that would be useful if we want to expand that list of permissions; for now keeping the code simple.",
+      "parentUuid": "cad70533_d70f2d04",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 9
+      },
+      "revId": "a0af6c844e179a094825b103d90e9dd35bcdf44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
