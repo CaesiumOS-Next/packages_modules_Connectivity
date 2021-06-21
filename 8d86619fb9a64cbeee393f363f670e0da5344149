@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a03e668f_6ea14565",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-21T23:55:39Z",
+      "side": 1,
+      "message": "\u003e And you said we can start an activity in the test app and verify isUidNetworkingBlocked() returns expected result but doesn\u0027t need to do the network call from the app, that\u0027s what testIsUidNetworkingBlocked_withDataSaverMode() did, right?\n\nlaunchComponentAndAssertNetworkAccess() will launch the activity and make a network call which is covered in DataSaverModeTest and so is redundant here. Plus, since we are not actually changing the meteredness, that check passing doesn\u0027t necessarily imply that network is available because it is in foreground, so in this case it is redundant and not giving any extra signals. So, my suggestion is to launch the activity and but not actually do any network calls.",
+      "parentUuid": "3e1b3856_20a37d8f",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 68
+      },
+      "revId": "8d86619fb9a64cbeee393f363f670e0da5344149",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5dda7971_6d6180f9",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
         "patchSetId": 4

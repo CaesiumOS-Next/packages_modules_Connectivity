@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de55d13_c3bdc156",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-21T23:55:39Z",
+      "side": 1,
+      "message": "No need for this as we are not actually changing meteredness in this test.",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 43,
+        "endChar": 0
+      },
+      "revId": "0639afa9ca4a7c3a90007182c2419cb2cf3e41da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47147067_153df713",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/NetworkPolicyManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-06-21T23:55:39Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 48,
+        "startChar": 7,
+        "endLine": 48,
+        "endChar": 56
+      },
+      "revId": "0639afa9ca4a7c3a90007182c2419cb2cf3e41da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
