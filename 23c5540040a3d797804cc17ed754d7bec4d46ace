@@ -130,6 +130,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e74fca8f_725e4f06",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-21T07:51:11Z",
+      "side": 1,
+      "message": "Sounds good, thanks",
+      "parentUuid": "b3d548df_0f527d34",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 32
+      },
+      "revId": "23c5540040a3d797804cc17ed754d7bec4d46ace",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51cf6994_769aa9c1",
