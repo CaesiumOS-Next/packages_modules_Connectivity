@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deb9eb03_975bb3a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1878533
+      },
+      "writtenOn": "2021-06-21T06:43:09Z",
+      "side": 1,
+      "message": "dev https://android-review.googlesource.com/c/platform/cts/+/1741853",
+      "revId": "d2d1da4a793c04c39041b9a2873c7f85815801f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
