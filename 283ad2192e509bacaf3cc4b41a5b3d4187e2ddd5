@@ -22,6 +22,30 @@
       },
       "revId": "283ad2192e509bacaf3cc4b41a5b3d4187e2ddd5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19f195c6_f3c13fbd",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-21T02:03:08Z",
+      "side": 1,
+      "message": "Done - reused mTetheringEventCallbacks that always needed to be used together with TetheringManager anyway. This should save a few memory bytes compared to a new property.",
+      "parentUuid": "f5559d02_1819a281",
+      "range": {
+        "startLine": 939,
+        "startChar": 4,
+        "endLine": 939,
+        "endChar": 22
+      },
+      "revId": "283ad2192e509bacaf3cc4b41a5b3d4187e2ddd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
