@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b327259f_f0615a6d",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T07:44:20Z",
+      "side": 0,
+      "message": "Can we avoid removing this check? Maybe initialize mOldPrivateDnsMode to an illegal value like 0, and here say \"if (mOldPrivateDnsMode \u003d\u003d 0)\"?",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 9
+      },
+      "revId": "27586f82108a5d742882c52edc948bedc8162a63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

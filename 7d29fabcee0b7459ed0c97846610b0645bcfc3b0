@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e00055b_4a49acfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T07:44:20Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "7d29fabcee0b7459ed0c97846610b0645bcfc3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "690d31aa_eaecd0f2",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T07:44:20Z",
+      "side": 1,
+      "message": "It looks like these - and also the settings above, e.g., \"public static final int PRIVATE_DNS_MODE_OFF \u003d 1;\" also exist in ConnectivitySettingsUtils. Can we remove the duplication? If nothing else I think you can make the constants here just copy the constants there, such as:\n\n    \n    private static final String PRIVATE_DNS_MODE_OFF_STRING \u003d\n            ConnectivitySettingsUtils.PRIVATE_DNS_MODE_OFF_STRING;",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 87
+      },
+      "revId": "7d29fabcee0b7459ed0c97846610b0645bcfc3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb649031_9c79b922",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T07:44:20Z",
+      "side": 1,
+      "message": "Nit: would de-indent as follows:\n\n    public void restorePrivateDnsSetting() throws InterruptedException {\n        if (mOldPrivateDnsMode !\u003d  {ConnectivitySettingsUtils.PRIVATE_DNS_MODE_PROVIDER_HOSTNAME) {\n            ConnectivitySettingsUtils.setPrivateDnsMode(mContext, mOldPrivateDnsMode);\n            return;\n        }\n\n        // ... the rest of the code in this method.",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 9
+      },
+      "revId": "7d29fabcee0b7459ed0c97846610b0645bcfc3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae581996_e36275d7",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T07:44:20Z",
+      "side": 1,
+      "message": "Nit: I found the older name (\"server\") to be more readable, mostly because it was shorter. You could also use \"specifier\" if you want. I don\u0027t feel too strongly about it though.",
+      "range": {
+        "startLine": 563,
+        "startChar": 28,
+        "endLine": 563,
+        "endChar": 48
+      },
+      "revId": "7d29fabcee0b7459ed0c97846610b0645bcfc3b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
