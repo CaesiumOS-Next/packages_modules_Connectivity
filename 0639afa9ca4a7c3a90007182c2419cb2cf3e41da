@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efd317e0_36889ccb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-21T23:58:41Z",
+      "side": 1,
+      "message": "Thanks, Sudheer!\nI\u0027ll address your comments in a follow-up commit.",
+      "revId": "0639afa9ca4a7c3a90007182c2419cb2cf3e41da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1de55d13_c3bdc156",
