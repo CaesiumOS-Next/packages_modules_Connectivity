@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8dff8de_fcf10aa0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2603,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "Optional: There is similar mechansim in TestNetworkWrapper.java. You may do some updates there to adopt your need.",
+      "range": {
+        "startLine": 2597,
+        "startChar": 4,
+        "endLine": 2603,
+        "endChar": 5
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2990f087_bf311dcb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2606,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "This nc is quite restricted. It makes createTestNetworkAgent create specific one. The nc may probably better to be taken as a parameter.\n\nMaybe ditto for the NetworkAgentConfig/NetworkScore configuration. E.g. will a  new NetworkScore.Builder().build() not enough? If yes, maybe add some comment on that",
+      "range": {
+        "startLine": 2606,
+        "startChar": 34,
+        "endLine": 2606,
+        "endChar": 36
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf92024_33e314f6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2611,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "why do you need to do this? A new NC will only contains DEFAULT_CAPABILITIES which does not contain NET_CAPABILITY_INTERNET. It seems unnecessary",
+      "range": {
+        "startLine": 2611,
+        "startChar": 16,
+        "endLine": 2611,
+        "endChar": 78
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "568f9b9c_3e87004e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2616,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "Does this only work on network that was not explicitly selected by the user? If not, why do you need to set this?",
+      "range": {
+        "startLine": 2616,
+        "startChar": 16,
+        "endLine": 2616,
+        "endChar": 45
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "648160af_3d04e780",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2649,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "It seems that you do not have special requirement for the test network. You may just use TestNetworkTracker to create a test network.",
+      "range": {
+        "startLine": 2649,
+        "startChar": 35,
+        "endLine": 2649,
+        "endChar": 57
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ffcb5b2_447a3394",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "Could you add a comment to explain why it will be validated? It\u0027s not very easy to understand here.",
+      "range": {
+        "startLine": 2653,
+        "startChar": 45,
+        "endLine": 2653,
+        "endChar": 54
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "900f7e39_d6c956e8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2661,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "Optional: This may move to another test. It\u0027s clearer to me to review.",
+      "range": {
+        "startLine": 2661,
+        "startChar": 12,
+        "endLine": 2661,
+        "endChar": 84
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15868d5a_f0cdd6f7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2672,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "It will cause test at least take 6s to finish(including sleep in 2683). Will it be better to do retry with small delay(100ms)? total max to 3 seconds.\n\nActually, I found that you do just have two tests. One to ensure test case uid is not in the allowed uid and try to bind socket. Another to set the uid to allowed list. Test case could bind socket successfully in second case. Then you will only need one sleep(if you keep current mechanism) assuming test case uid is not in the allowed list. Block in l.2678-l.2684 verify the same behavior with l.2661.",
+      "range": {
+        "startLine": 2672,
+        "startChar": 25,
+        "endLine": 2672,
+        "endChar": 80
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2235668f_101102a5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2681,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-21T06:53:01Z",
+      "side": 1,
+      "message": "I am not quite understand it. \nDo you mean \"sending allowed uids on the restricted network\"?",
+      "range": {
+        "startLine": 2681,
+        "startChar": 32,
+        "endLine": 2681,
+        "endChar": 78
+      },
+      "revId": "f3f8b215c68ce3649690a20035e320b30e0548e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
