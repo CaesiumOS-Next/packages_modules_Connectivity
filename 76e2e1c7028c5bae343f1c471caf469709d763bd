@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16572509_e1745562",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T05:08:27Z",
+      "side": 1,
+      "message": "Nit: might want to rename again to ensureIpServerState. Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 525,
+        "startChar": 17,
+        "endLine": 525,
+        "endChar": 36
+      },
+      "revId": "76e2e1c7028c5bae343f1c471caf469709d763bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edef4bde_01a20eab",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T05:08:27Z",
+      "side": 1,
+      "message": "Nit: I think this could be:\n\n    enableIpServing(ifname, ipServingMode);\n\nDoesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 1283,
+        "startChar": 0,
+        "endLine": 1284,
+        "endChar": 56
+      },
+      "revId": "76e2e1c7028c5bae343f1c471caf469709d763bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

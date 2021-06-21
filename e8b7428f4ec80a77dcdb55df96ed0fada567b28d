@@ -236,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9a67c07_8506c981",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T05:08:27Z",
+      "side": 1,
+      "message": "How did you fix the callers? I don\u0027t see any null checks added in this CL.\n\nAre you expecting that mNetdCallback will never get a null or empty interface name? That does seem like a reasonable assumption.",
+      "parentUuid": "35581407_1fc4851a",
+      "range": {
+        "startLine": 1229,
+        "startChar": 0,
+        "endLine": 1231,
+        "endChar": 51
+      },
+      "revId": "e8b7428f4ec80a77dcdb55df96ed0fada567b28d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bb42e5c_07ee462a",
