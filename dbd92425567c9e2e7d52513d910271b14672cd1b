@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc0ef7bb_13531ca9",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T15:57:21Z",
+      "side": 1,
+      "message": "Yeah, using getString for all settings should be simpler and easier to read/write setting. Update accordingly.",
+      "parentUuid": "8bd8df71_d5e5a58d",
+      "range": {
+        "startLine": 105,
+        "startChar": 12,
+        "endLine": 105,
+        "endChar": 23
+      },
+      "revId": "dbd92425567c9e2e7d52513d910271b14672cd1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2912c9a3_f89ce2ed",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-21T07:51:11Z",
       "side": 1,
       "message": "Looks like you\u0027re only using this for Int settings, with always the same defValue, getSetting and putSetting; maybe have a \"testIntSetting\" method that handles that common case, based on this one ?",
+      "range": {
+        "startLine": 112,
+        "startChar": 15,
+        "endLine": 112,
+        "endChar": 26
+      },
+      "revId": "dbd92425567c9e2e7d52513d910271b14672cd1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79deebec_4d5f8675",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T15:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2912c9a3_f89ce2ed",
       "range": {
         "startLine": 112,
         "startChar": 15,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff255798_e2d7ef91",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T15:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca999dd1_d020609f",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 19
+      },
+      "revId": "dbd92425567c9e2e7d52513d910271b14672cd1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbb5b9aa_1b559c87",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-06-21T07:51:11Z",
       "side": 1,
       "message": "Could this be:      \n                \n  testSetting(\n    value1 \u003d Range(1, 63),\n    value2 \u003d Range(2, 62),\n    getter \u003d { getDnsResolverSampleRanges(context) },\n    setter \u003d { setDnsResolverSampleRanges(context, it) },\n    getSetting \u003d { Pair\u003cstring?, string?\u003e(\n      Settings.Global.getString(resolver, DNS_RESOLVER_MIN_SAMPLES, null),\n      Settings.Global.getString(resolver, DNS_RESOLVER_MAX_SAMPLES, null)) },\n    putSetting \u003d { \n      Settings.Global.putInt(resolver, DNS_RESOLVER_MIN_SAMPLES, it.lower)\n      Settings.Global.putInt(resolver, DNS_RESOLVER_MIN_SAMPLES, it.upper) },\n    resetSetting \u003d {\n      (original: Pair\u003cstring?, string?\u003e) -\u003e\n        resetSettings(DNS_RESOLVER_MIN_SAMPLES, \"global\", original.first)\n        resetSettings(DNS_RESOLVER_MIN_SAMPLES, \"global\", original.second)\n    })\n\n\nWith this design testIntSetting would be something like:\n\n  fun testIntSetting(...) \u003d testSetting(\n    value1 \u003d value1,\n    value2 \u003d value2,\n    getter \u003d getter,\n    setter \u003d setter,\n    getSetting \u003d { \n      // int settings are just parsed String settings. Use String to get\n      // the original value so the difference between unset (null) and\n      // set to empty is known.\n      if (type \u003d\u003d global) Settings.Global.getString(resolver, name, null)\n      else Settings.Secure.getString(resolver, name, null)\n    },\n    putSetting \u003d {\n      if (type \u003d\u003d global) Settings.Global.putString(resolver, name, toStringSetting(it))\n      else Settings.Secure.putString(resolver, name, toStringSetting(it))\n    },\n    resetSetting \u003d {\n        resetSettings(name, type, it)\n    })",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 35
+      },
+      "revId": "dbd92425567c9e2e7d52513d910271b14672cd1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6027de9e_8df14dce",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T15:57:21Z",
+      "side": 1,
+      "message": "Done. Thanks for suggestion.",
+      "parentUuid": "fbb5b9aa_1b559c87",
       "range": {
         "startLine": 194,
         "startChar": 8,
