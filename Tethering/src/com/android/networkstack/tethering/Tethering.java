@@ -1039,7 +1039,7 @@ public class Tethering {
             final boolean rndisEnabled = intent.getBooleanExtra(USB_FUNCTION_RNDIS, false);
             final boolean ncmEnabled = intent.getBooleanExtra(USB_FUNCTION_NCM, false);
 
-            mLog.log(String.format("USB bcast connected:%s configured:%s rndis:%s ncm:%s",
+            mLog.i(String.format("USB bcast connected:%s configured:%s rndis:%s ncm:%s",
                     usbConnected, usbConfigured, rndisEnabled, ncmEnabled));
 
             // There are three types of ACTION_USB_STATE:
@@ -2558,7 +2558,7 @@ public class Tethering {
             return;
         }
 
-        mLog.log("adding IpServer for: " + iface);
+        mLog.i("adding IpServer for: " + iface);
         final TetherState tetherState = new TetherState(
                 new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
                              makeControlCallback(), mConfig.enableLegacyDhcpServer,
@@ -2573,7 +2573,7 @@ public class Tethering {
         if (tetherState == null) return;
 
         tetherState.ipServer.stop();
-        mLog.log("removing IpServer for: " + iface);
+        mLog.i("removing IpServer for: " + iface);
         mTetherStates.remove(iface);
     }
 
