@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c03503ab_229b9ecd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-21T10:05:18Z",
+      "side": 1,
+      "message": "Rebased version approved by Jean in previous patchset",
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
