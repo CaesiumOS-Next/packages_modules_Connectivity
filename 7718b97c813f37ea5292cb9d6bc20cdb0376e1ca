@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfcbc405_2162276d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2531,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T06:51:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74d76577_02fd70a8",
+      "range": {
+        "startLine": 2531,
+        "startChar": 42,
+        "endLine": 2531,
+        "endChar": 43
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9108ad02_a7b86ad4",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-21T03:37:55Z",
       "side": 1,
       "message": "Since you have newMobileDataPreferredUids, does it clearer if you name this oppsite??",
+      "range": {
+        "startLine": 2534,
+        "startChar": 27,
+        "endLine": 2534,
+        "endChar": 50
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "883aa4fe_0e44b74a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2534,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T06:51:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this should name to oldMobileDataPreferredUids because it\u0027s the current setting not the old setting really. And the new setting just for testing, the setting value will still restore to this value.",
+      "parentUuid": "9108ad02_a7b86ad4",
       "range": {
         "startLine": 2534,
         "startChar": 27,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10b32696_8d1d1852",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2551,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T06:51:22Z",
+      "side": 1,
+      "message": "\u003e IIUC this assumes the old one does not contain CTS uid.\n\u003e If yes, maybe assert that,\nThis is checking what you are talking.\n\n\u003e or explicitly remove that when retrieve the old list?\nI think l.2571 already tests that.",
+      "parentUuid": "c9a5e2d2_f9895712",
+      "range": {
+        "startLine": 2551,
+        "startChar": 12,
+        "endLine": 2551,
+        "endChar": 29
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46c4fd31_f33d3b5d",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-06-21T03:37:55Z",
       "side": 1,
       "message": "Maybe also assertNoCallback?",
+      "range": {
+        "startLine": 2565,
+        "startChar": 38,
+        "endLine": 2565,
+        "endChar": 53
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb02c675_805f45cb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2565,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T06:51:22Z",
+      "side": 1,
+      "message": "No, systemDefaultCb would still receive another callback such as capabilities change.",
+      "parentUuid": "46c4fd31_f33d3b5d",
       "range": {
         "startLine": 2565,
         "startChar": 38,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad08ef4d_223c3e10",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2566,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T06:51:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18322edc_cf25d41c",
+      "range": {
+        "startLine": 2566,
+        "startChar": 71,
+        "endLine": 2566,
+        "endChar": 79
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "993eff18_d38a1e24",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "208b9c56_61c2d170",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2570,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T06:51:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "993eff18_d38a1e24",
+      "range": {
+        "startLine": 2570,
+        "startChar": 23,
+        "endLine": 2570,
+        "endChar": 29
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6033057_8617558e",
@@ -152,6 +296,30 @@
       "writtenOn": "2021-06-21T03:37:55Z",
       "side": 1,
       "message": "nit: Maybe just use the old one?",
+      "range": {
+        "startLine": 2571,
+        "startChar": 12,
+        "endLine": 2571,
+        "endChar": 51
+      },
+      "revId": "7718b97c813f37ea5292cb9d6bc20cdb0376e1ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c933b122_bfdf65a0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2571,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-21T06:51:22Z",
+      "side": 1,
+      "message": "I prefer to keep current design because it can see the available and default network changed after removing uid.",
+      "parentUuid": "f6033057_8617558e",
       "range": {
         "startLine": 2571,
         "startChar": 12,
