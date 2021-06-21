@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b8755f7_071af435",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2021-06-21T04:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43632717_0c4cec7e",
+      "range": {
+        "startLine": 66,
+        "startChar": 22,
+        "endLine": 66,
+        "endChar": 25
+      },
+      "revId": "c150d0eb2604fb46132ad35af34a0a12fe8304cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6213de47_83fb7201",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-17T10:05:21Z",
       "side": 1,
       "message": "Why make this a class member? It\u0027s only used in verifyDaemonCommand, and that method re-initializes it every time. Can you just make it a local variable in verifyDaemonCommand?",
+      "range": {
+        "startLine": 67,
+        "startChar": 35,
+        "endLine": 67,
+        "endChar": 51
+      },
+      "revId": "c150d0eb2604fb46132ad35af34a0a12fe8304cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a562675b_37e4629c",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2021-06-21T04:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6213de47_83fb7201",
       "range": {
         "startLine": 67,
         "startChar": 35,
