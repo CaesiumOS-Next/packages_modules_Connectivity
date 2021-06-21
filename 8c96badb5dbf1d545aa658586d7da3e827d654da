@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27e5c2d7_e564dbc4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2537,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-21T23:13:33Z",
+      "side": 1,
+      "message": "has just been installed",
+      "range": {
+        "startLine": 2536,
+        "startChar": 96,
+        "endLine": 2537,
+        "endChar": 29
+      },
+      "revId": "8c96badb5dbf1d545aa658586d7da3e827d654da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1a721ae_a45aa2a8",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 8
