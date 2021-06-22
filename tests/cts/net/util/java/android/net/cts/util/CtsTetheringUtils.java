@@ -522,4 +522,8 @@ public final class CtsTetheringUtils {
         callback.expectNoTetheringActive();
         callback.expectOneOfOffloadStatusChanged(TETHER_HARDWARE_OFFLOAD_STOPPED);
     }
+
+    public void stopAllTethering() {
+        mTm.stopAllTethering();
+    }
 }
