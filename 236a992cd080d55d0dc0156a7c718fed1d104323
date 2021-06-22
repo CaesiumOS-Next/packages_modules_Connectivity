@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffff3adb_db648e66",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-22T23:51:11Z",
+      "side": 1,
+      "message": "Nit: \"value1AsInts\" would have been clearer I think (it\u0027s not clear what this value is used for)\n\nBut don\u0027t respin for that now.",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 21
+      },
+      "revId": "236a992cd080d55d0dc0156a7c718fed1d104323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
