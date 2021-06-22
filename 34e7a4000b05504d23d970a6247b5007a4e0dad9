@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d1078a6_0adceae8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-22T03:25:06Z",
+      "side": 1,
+      "message": "I had to use .networkCapabilities below anyway to assert on Q/R, so used that",
+      "parentUuid": "12afdb02_5042a149",
+      "range": {
+        "startLine": 866,
+        "startChar": 24,
+        "endLine": 866,
+        "endChar": 25
+      },
+      "revId": "34e7a4000b05504d23d970a6247b5007a4e0dad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e3e08ab_6cf11822",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-22T02:08:12Z",
       "side": 1,
       "message": "Looks like this patchset no longer has any coverage on R. Might be good to keep that.",
+      "range": {
+        "startLine": 910,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 78
+      },
+      "revId": "34e7a4000b05504d23d970a6247b5007a4e0dad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ac00d33_65cce34d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-22T03:25:06Z",
+      "side": 1,
+      "message": "As discussed in chat it does but it\u0027s not very readable. Clarified with a variable.",
+      "parentUuid": "7e3e08ab_6cf11822",
       "range": {
         "startLine": 910,
         "startChar": 0,
