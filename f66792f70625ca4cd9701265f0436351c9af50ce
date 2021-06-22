@@ -1,0 +1,441 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3f1f449_a6de0e3b",
+        "filename": "Tethering/apishim/31/com/android/networkstack/tethering/apishim/api31/BpfCoordinatorShimImpl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "It\u0027s not clear what this means. Maybe say:\n\n    // Rule did not exist.\n\n?",
+      "range": {
+        "startLine": 384,
+        "startChar": 73,
+        "endLine": 384,
+        "endChar": 90
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89017c70_af7f7165",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "This contradicts the previous statement: that one says that if the operation was a no-op it returns false. But if the operation was a no-op, then the map was not modified, and this statement says that if the map was not modified, this method returns false. Perhaps:\n\n     * @return true iff the map was modified, false if the key did not exist or there was an error.\n\nor just:\n\n     * @return true iff the map was modified.",
+      "range": {
+        "startLine": 153,
+        "startChar": 65,
+        "endLine": 153,
+        "endChar": 88
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f0e3fcc_d648d0f9",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "deletion",
+      "range": {
+        "startLine": 161,
+        "startChar": 76,
+        "endLine": 161,
+        "endChar": 86
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "457fba89_dab86209",
+        "filename": "Tethering/apishim/common/com/android/networkstack/tethering/apishim/common/BpfCoordinatorShim.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Suggest using a capital E (forEach) for consistency BpfMap and with:\n\nhttps://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html#forEach-java.util.function.Consumer-",
+      "range": {
+        "startLine": 165,
+        "startChar": 42,
+        "endLine": 165,
+        "endChar": 49
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "086c11e3_a2579a48",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Tracks",
+      "range": {
+        "startLine": 231,
+        "startChar": 7,
+        "endLine": 231,
+        "endChar": 15
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0c6da8b_514e5bd5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "How does this deal with the fact that the different IpServers do not hear about the upstream change at the same time? When the upstream changes, IPv6TetheringCoordinator does:\n\n    private void updateIPv6TetheringInterfaces() {\n        for (IpServer ipServer : mNotifyList) {\n            final LinkProperties lp \u003d getInterfaceIPv6LinkProperties(ipServer);\n            ipServer.sendMessage(IpServer.CMD_IPV6_TETHER_UPDATE, getTtlAdjustment(), 0, lp);\n            break;\n        }\n    }\n\nwhich means that the IpServers only hear about the change one by one.",
+      "range": {
+        "startLine": 232,
+        "startChar": 7,
+        "endLine": 232,
+        "endChar": 47
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76963fa6_de92ee2f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "This could get expensive if a client has dozens/hundreds of rules, because each rule will require an allocation and a memory copy, and the allocations will all need to be garbage collected immediately after this method completes.\n\nBpfMap#forEach allows the passed-in BiConsumer to delete the entries as they are being iterated over, could we use that here?\n\nNot for this CL, but perhaps add a TODO?",
+      "range": {
+        "startLine": 717,
+        "startChar": 8,
+        "endLine": 717,
+        "endChar": 84
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9196d86a_15a81ba5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Why not move this after line 722 (and, likely also after line 727) and remove this loop?",
+      "range": {
+        "startLine": 754,
+        "startChar": 12,
+        "endLine": 754,
+        "endChar": 47
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0e543d_85fa70b7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Is there any code in this class that can be called from a thread that is not the handler thread? If not, or if there are only a few, let\u0027s stop adding \"this method can only be called on the handler thread\" comments, and just put one comment at the top that all methods must be called on the handler thread (and maybe add comments to any methods that *can* be called from other threads).",
+      "range": {
+        "startLine": 766,
+        "startChar": 0,
+        "endLine": 766,
+        "endChar": 59
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b0402c2_49e65891",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Is this check actually needed? Would it be correct to run this code even if polling was not started yet?",
+      "range": {
+        "startLine": 791,
+        "startChar": 8,
+        "endLine": 791,
+        "endChar": 37
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adb8cba0_7d31309c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Is it correct to put this check here?\n\nIs there any reason we can\u0027t do something like:\n\n    if (mLastIPv4UpstreamIndex \u003d\u003d upstreamIndex) return;\n\nright after line 805?\n\nAre there cases where mLastIPv4UpstreamIndex \u003d\u003d upstreamIndex, but we still need to run this code?",
+      "range": {
+        "startLine": 813,
+        "startChar": 45,
+        "endLine": 813,
+        "endChar": 86
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eea8d3f_186f2b19",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Otherwise",
+      "range": {
+        "startLine": 820,
+        "startChar": 81,
+        "endLine": 820,
+        "endChar": 91
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a935259e_09062534",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": ", to ensure that any conntrack events that arrive after the upstream is lost do not incorrectly add rules pointing at the upstream.",
+      "range": {
+        "startLine": 821,
+        "startChar": 47,
+        "endLine": 823,
+        "endChar": 17
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d59e0cf_e95b5342",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Reduce nesting using:\n\n    if (!(addr instanceof Inet4Address)) continue;",
+      "range": {
+        "startLine": 829,
+        "startChar": 16,
+        "endLine": 829,
+        "endChar": 51
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e18ee5f0_b9ca73a2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Suggest factoring this out to a simple static method. Something like:\n\n    private boolean isValidUpstreamIpv4Address(InetAddress addr) {\n        if (!(addr instanceof Inet4Address)) return false;\n        Inet4Address v4 \u003d (Inet4Address) addr;\n        if (v4.isAnyLocalAddress() || v4.isLinkLocalAddress()\n                || v4.isLoopbackAddress() || v4.isMulticastAddress()) {\n            return false;\n        }\n        return true;\n    }",
+      "range": {
+        "startLine": 831,
+        "startChar": 20,
+        "endLine": 832,
+        "endChar": 90
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bafb91de_d0d3df0f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "This could be placed earlier: it could definitely move to line 819, or, if my comment at line 813 is correct, you could put it right after the \"if (mLastIPv4UpstreamIndex \u003d\u003d upstreamIndex) return;\" just after line 805.\n\nThis would allow you to reduce nesting by doing something like:\n\n    if (upstreamIndex \u003d\u003d 0) {\n        mIpv4UpstreamIndices.clear()\n        return;\n    }",
+      "range": {
+        "startLine": 839,
+        "startChar": 8,
+        "endLine": 839,
+        "endChar": 49
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bad05fe_fd4ec9dc",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "FWIW we usually call LinkProperties variables \"lp\".",
+      "range": {
+        "startLine": 1367,
+        "startChar": 29,
+        "endLine": 1367,
+        "endChar": 33
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7970a711_8da39161",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "This doesn\u0027t matter, but it\u0027s confusing because network numbers are fundamentally different from interface index numbers. You\u0027re better off using an arbitrary constant like 42.",
+      "range": {
+        "startLine": 1373,
+        "startChar": 28,
+        "endLine": 1373,
+        "endChar": 44
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7243eef_cb55015a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 1388,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:36:27Z",
+      "side": 1,
+      "message": "Not sure what this means. Did you mean \"BpfConntrackEventConsumer#accept only performs cleanup when both upstream and downstream rules are removed\"?",
+      "range": {
+        "startLine": 1388,
+        "startChar": 11,
+        "endLine": 1388,
+        "endChar": 59
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
