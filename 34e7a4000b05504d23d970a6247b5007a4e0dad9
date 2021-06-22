@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12afdb02_5042a149",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:08:12Z",
+      "side": 1,
+      "message": "This request needs to be \"the same as firstRequest, except with TRANSPORT_TEST as well\", right? Can we find a way to ensure that if someone changes firstRequest, that invariant will remain true?\n\nIf we use hidden APIs that should be easy, one way is just to do:\n\n    secondRequest.networkCapabilities \u003d new NetworkCapabilities(firstRequest.networkCapabilities);\n    secondRequest.addTransportType(TRANSPORT_TEST);\n\nNot sure how to do that with public APIs.\n\nOr you could have a makeWifiAndTestNetworkRequest method that you put right next to makeWifiNetworkRequest, and add a comment to keep them in sync.",
+      "range": {
+        "startLine": 866,
+        "startChar": 24,
+        "endLine": 866,
+        "endChar": 25
+      },
+      "revId": "34e7a4000b05504d23d970a6247b5007a4e0dad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e3e08ab_6cf11822",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T02:08:12Z",
+      "side": 1,
+      "message": "Looks like this patchset no longer has any coverage on R. Might be good to keep that.",
+      "range": {
+        "startLine": 910,
+        "startChar": 0,
+        "endLine": 910,
+        "endChar": 78
+      },
+      "revId": "34e7a4000b05504d23d970a6247b5007a4e0dad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
