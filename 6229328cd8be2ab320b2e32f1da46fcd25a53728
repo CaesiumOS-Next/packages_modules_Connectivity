@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d325015f_a78d9425",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-22T06:26:46Z",
+      "side": 1,
+      "message": "I still find this super hard to read. How about something like this instead?\n\n    private void assertPendingIntentRequestMatches(NetworkRequest broadcasted, NetworkRequest filed,\n            boolean useListen) {\n        // TODO: BUG (b/191713869): on S the request extra is null on listens\n        if (isAtLeastS() \u0026\u0026 useListen \u0026\u0026 broadcasted \u003d\u003d null) return;\n        assertArrayEquals(filed.networkCapabilities.getCapabilities(),\n                broadcasted.networkCapabilities.getCapabilities());\n\n        // TODO: BUG (b/189868426): this should also apply to listens\n        if (isAtLeastS() \u0026\u0026 !useListen) return;\n        assertArrayEquals(filed.networkCapabilities.getTransportTypes(),\n                broadcasted.networkCapabilities.getTransportTypes());\n    }\n\nIt\u0027s not the same, because what you have will not check the transport types on R. But it seems that we should check those as well?",
+      "range": {
+        "startLine": 912,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 25
+      },
+      "revId": "6229328cd8be2ab320b2e32f1da46fcd25a53728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
