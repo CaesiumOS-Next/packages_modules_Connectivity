@@ -16,6 +16,46 @@
       "message": "Junyu, can you take a look?",
       "revId": "1b6c418414005163a88d858657f71234f7fd38c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ada0f18_ea6d6652",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-23T01:46:36Z",
+      "side": 1,
+      "message": "LGTM with nit",
+      "revId": "1b6c418414005163a88d858657f71234f7fd38c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5431fb86_8d053f52",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5833,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-23T01:46:36Z",
+      "side": 1,
+      "message": "IIUC this is super error-prone.\nThe comment is clear but other callers might make the same mistake.\nIIRC there is a tracking bug b/177608132 created by you.\nMaybe add a todo on top of releaseNetworkRequest and put the bug link in it?",
+      "range": {
+        "startLine": 5831,
+        "startChar": 12,
+        "endLine": 5833,
+        "endChar": 51
+      },
+      "revId": "1b6c418414005163a88d858657f71234f7fd38c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
