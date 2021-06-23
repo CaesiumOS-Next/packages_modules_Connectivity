@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae6334cb_fd2da0cd",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2641,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T16:30:47Z",
+      "side": 1,
+      "message": "Will addresss it in a follow-up commit.",
+      "parentUuid": "c2ffa79a_38242e0b",
+      "range": {
+        "startLine": 2641,
+        "startChar": 17,
+        "endLine": 2641,
+        "endChar": 26
+      },
+      "revId": "d2662851727d134f698ebf658e476760cf1120e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6f2638cb_a77fc11c",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 7
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-23T16:24:46Z",
       "side": 1,
       "message": "Suggest waiting less than 100ms. Creating and binding sockets is cheap. You could do it every 10ms even.",
+      "range": {
+        "startLine": 2655,
+        "startChar": 30,
+        "endLine": 2655,
+        "endChar": 33
+      },
+      "revId": "d2662851727d134f698ebf658e476760cf1120e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d62e982b_a5f9e2cf",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2655,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T16:30:47Z",
+      "side": 1,
+      "message": "Will addresss it in a follow-up commit.",
+      "parentUuid": "6f2638cb_a77fc11c",
       "range": {
         "startLine": 2655,
         "startChar": 30,
