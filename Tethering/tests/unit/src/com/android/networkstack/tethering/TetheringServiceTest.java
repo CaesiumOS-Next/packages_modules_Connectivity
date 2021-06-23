@@ -26,6 +26,8 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERM
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
@@ -40,10 +42,12 @@ import android.content.Intent;
 import android.net.IIntResultListener;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
+import android.net.TetheringManager;
 import android.net.TetheringRequestParcel;
 import android.net.ip.IpServer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.ResultReceiver;
 
 import androidx.test.InstrumentationRegistry;
@@ -59,8 +63,13 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.function.Supplier;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -113,7 +122,7 @@ public final class TetheringServiceTest {
                 InstrumentationRegistry.getTargetContext(),
                 MockTetheringService.class);
         mMockConnector = (MockTetheringConnector) mServiceTestRule.bindService(mMockServiceIntent);
-        mTetheringConnector = mMockConnector.getTetheringConnector();
+        mTetheringConnector = ITetheringConnector.Stub.asInterface(mMockConnector.getIBinder());
         final MockTetheringService service = mMockConnector.getService();
         mTethering = service.getTethering();
     }
@@ -491,6 +500,69 @@ public final class TetheringServiceTest {
             runIsTetheringSupported(result);
             verify(mTethering).isTetherProvisioningRequired();
             verifyNoMoreInteractionsForTethering();
+        });
+    }
+
+    @Test
+    public void testTetheringManagerLeak() throws Exception {
+        tetheringManagerLeakTest(true);
+    }
+
+    @Test
+    public void testTetheringManagerLeakWhenConnectorIsNotAvailable() throws Exception {
+        tetheringManagerLeakTest(false);
+    }
+
+    private void tetheringManagerLeakTest(final boolean hasConnector) throws Exception {
+        runAsAccessNetworkState((none) -> {
+            final ArrayList<ITetheringEventCallback> callbacks = new ArrayList<>();
+            doAnswer((invocation) -> {
+                final Object[] args = invocation.getArguments();
+                callbacks.add((ITetheringEventCallback) args[0]);
+                return null;
+            }).when(mTethering).registerTetheringEventCallback(Matchers.anyObject());
+
+            doAnswer((invocation) -> {
+                final Object[] args = invocation.getArguments();
+                callbacks.remove((ITetheringEventCallback) args[0]);
+                return null;
+            }).when(mTethering).unregisterTetheringEventCallback(Matchers.anyObject());
+
+            final Supplier<IBinder> supplier;
+            if (hasConnector) {
+                supplier = () -> mMockConnector.getIBinder();
+            } else {
+                supplier = () -> {
+                    return null;
+                };
+            }
+
+            TetheringManager tm = new TetheringManager(mMockConnector.getService(), supplier);
+            assertNotNull(tm);
+            if (hasConnector) {
+                assertEquals("Internal callback is not registered", 1, callbacks.size());
+            } else {
+                assertEquals("Internal callback should not be registered", 0, callbacks.size());
+            }
+
+            final WeakReference weakTm = new WeakReference(tm);
+            assertNotNull(weakTm.get());
+
+            tm = null;
+            final int attempts = 100;
+            final long waitIntervalMs = 50;
+            for (int i = 0; i < attempts; i++) {
+                System.gc();
+                System.runFinalization();
+                System.gc();
+                if (weakTm.get() == null) break;
+
+                Thread.sleep(waitIntervalMs);
+            }
+            assertNull("TetheringManager weak reference still not null after " + attempts
+                    + " attempts", weakTm.get());
+
+            assertEquals("Internal callback is not unregistered", 0, callbacks.size());
         });
     }
 }

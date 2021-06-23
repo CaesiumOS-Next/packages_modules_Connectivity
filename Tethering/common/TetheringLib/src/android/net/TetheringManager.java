@@ -37,6 +37,7 @@ import com.android.internal.annotations.GuardedBy;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -64,6 +65,7 @@ public class TetheringManager {
     @GuardedBy("mConnectorWaitQueue")
     @Nullable
     private ITetheringConnector mConnector;
+    private boolean mIsDead;
     @GuardedBy("mConnectorWaitQueue")
     @NonNull
     private final List<ConnectorConsumer> mConnectorWaitQueue = new ArrayList<>();
@@ -76,6 +78,7 @@ public class TetheringManager {
 
     private volatile TetheringConfigurationParcel mTetheringConfiguration;
     private volatile TetherStatesParcel mTetherStatesParcel;
+    private volatile Thread mPollingThread;
 
     /**
      * Broadcast Action: A tetherable connection has come or gone.
@@ -265,7 +268,7 @@ public class TetheringManager {
     public TetheringManager(@NonNull final Context context,
             @NonNull Supplier<IBinder> connectorSupplier) {
         mContext = context;
-        mCallback = new TetheringCallbackInternal();
+        mCallback = new TetheringCallbackInternal(this);
         mConnectorSupplier = connectorSupplier;
 
         final String pkgName = mContext.getOpPackageName();
@@ -282,15 +285,46 @@ public class TetheringManager {
         if (connector != null) {
             mConnector = ITetheringConnector.Stub.asInterface(connector);
         } else {
-            startPollingForConnector();
+            Log.i(TAG, "service is not connected, start polling connector");
+            mPollingThread = new Thread(new ConnectorPollingRunner(this));
+            mPollingThread.start();
         }
 
         Log.i(TAG, "registerTetheringEventCallback:" + pkgName);
-        getConnector(c -> c.registerTetheringEventCallback(mCallback, pkgName));
+        getConnector(c -> {
+            if (!mIsDead) c.registerTetheringEventCallback(mCallback, pkgName);
+        });
     }
 
-    private void startPollingForConnector() {
-        new Thread(() -> {
+    /** @hide */
+    @Override
+    protected void finalize() throws Throwable {
+        mIsDead = true;
+        if (mPollingThread != null && mPollingThread.isAlive()) mPollingThread.interrupt();
+
+        synchronized (mConnectorWaitQueue) {
+            final ITetheringConnector c = mConnector;
+            if (c != null) {
+                try {
+                    Log.i(TAG, "unregisterTetheringEventCallback:" + mContext.getOpPackageName());
+                    c.unregisterTetheringEventCallback(mCallback, mContext.getOpPackageName());
+                } catch (Exception e) {
+                    Log.e(TAG, "Error unregistering callback in finalize" + e);
+                }
+            }
+        }
+        super.finalize();
+    }
+
+    private static class ConnectorPollingRunner implements Runnable {
+        private final WeakReference<TetheringManager> mTetheringMgrRef;
+
+        ConnectorPollingRunner(final TetheringManager tm) {
+            mTetheringMgrRef = new WeakReference<>(tm);
+        }
+
+        @Override
+        public void run() {
             while (true) {
                 try {
                     Thread.sleep(CONNECTOR_POLL_INTERVAL_MILLIS);
@@ -298,13 +332,33 @@ public class TetheringManager {
                     // Not much to do here, the system needs to wait for the connector
                 }
 
-                final IBinder connector = mConnectorSupplier.get();
-                if (connector != null) {
-                    onTetheringConnected(ITetheringConnector.Stub.asInterface(connector));
+                if (isTetheringManagerDead()) {
+                    Log.i(TAG, "TetheringManager is gone, stop polling service connector");
                     return;
                 }
+
+                if (pollingConnector()) return;
             }
-        }).start();
+        }
+
+        private boolean pollingConnector() {
+            TetheringManager tm = mTetheringMgrRef.get();
+            if (tm == null) return false;
+
+            final IBinder connector = tm.mConnectorSupplier.get();
+            if (connector != null) {
+                Log.i(TAG, "polling successful, service is connected");
+                tm.onTetheringConnected(ITetheringConnector.Stub.asInterface(connector));
+                return true;
+            }
+
+            return false;
+        }
+
+        private boolean isTetheringManagerDead() {
+            TetheringManager tm = mTetheringMgrRef.get();
+            return tm != null ? tm.mIsDead : true;
+        }
     }
 
     private interface ConnectorConsumer {
@@ -387,9 +441,10 @@ public class TetheringManager {
     // Used to dispatch legacy ConnectivityManager methods that expect tethering to be able to
     // return results and perform operations synchronously.
     // TODO: remove once there are no callers of these legacy methods.
-    private class RequestDispatcher {
+    private static class RequestDispatcher {
         private final ConditionVariable mWaiting;
-        public volatile int mRemoteResult;
+        private volatile int mRemoteResult;
+        private final WeakReference<TetheringManager> mTetheringMgrRef;
 
         private final IIntResultListener mListener = new IIntResultListener.Stub() {
                 @Override
@@ -399,12 +454,16 @@ public class TetheringManager {
                 }
         };
 
-        RequestDispatcher() {
+        RequestDispatcher(final TetheringManager tm) {
             mWaiting = new ConditionVariable();
+            mTetheringMgrRef = new WeakReference<>(tm);
         }
 
         int waitForResult(final RequestHelper request) {
-            getConnector(c -> request.runRequest(c, mListener));
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr == null) return TETHER_ERROR_SERVICE_UNAVAIL;
+
+            tetheringMgr.getConnector(c -> request.runRequest(c, mListener));
             if (!mWaiting.block(DEFAULT_TIMEOUT_MS)) {
                 throw new IllegalStateException("Callback timeout");
             }
@@ -415,7 +474,7 @@ public class TetheringManager {
         }
     }
 
-    private void throwIfPermissionFailure(final int errorCode) {
+    private static void throwIfPermissionFailure(final int errorCode) {
         switch (errorCode) {
             case TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION:
                 throw new SecurityException("No android.permission.TETHER_PRIVILEGED"
@@ -426,21 +485,40 @@ public class TetheringManager {
         }
     }
 
-    private class TetheringCallbackInternal extends ITetheringEventCallback.Stub {
+    private static class TetheringCallbackInternal extends ITetheringEventCallback.Stub {
         private volatile int mError = TETHER_ERROR_NO_ERROR;
         private final ConditionVariable mWaitForCallback = new ConditionVariable();
+        // This object is never garbage collected because the Tethering code running in
+        // the system server always maintains a reference to it for as long as
+        // mCallback is registered.
+        //
+        // Don't keep a strong reference to TetheringManager because otherwise
+        // TetheringManager cannot be garbage collected, and because TetheringManager
+        // stores the Context that it was created from, this will prevent the calling
+        // Activity from being garbage collected as well.
+        private final WeakReference<TetheringManager> mTetheringMgrRef;
+
+        TetheringCallbackInternal(final TetheringManager tm) {
+            mTetheringMgrRef = new WeakReference<>(tm);
+        }
 
         @Override
         public void onCallbackStarted(TetheringCallbackStartedParcel parcel) {
-            mTetheringConfiguration = parcel.config;
-            mTetherStatesParcel = parcel.states;
-            mWaitForCallback.open();
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr != null) {
+                tetheringMgr.mTetheringConfiguration = parcel.config;
+                tetheringMgr.mTetherStatesParcel = parcel.states;
+                mWaitForCallback.open();
+            }
         }
 
         @Override
         public void onCallbackStopped(int errorCode) {
-            mError = errorCode;
-            mWaitForCallback.open();
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr != null) {
+                mError = errorCode;
+                mWaitForCallback.open();
+            }
         }
 
         @Override
@@ -448,12 +526,14 @@ public class TetheringManager {
 
         @Override
         public void onConfigurationChanged(TetheringConfigurationParcel config) {
-            mTetheringConfiguration = config;
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr != null) tetheringMgr.mTetheringConfiguration = config;
         }
 
         @Override
         public void onTetherStatesChanged(TetherStatesParcel states) {
-            mTetherStatesParcel = states;
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr != null) tetheringMgr.mTetherStatesParcel = states;
         }
 
         @Override
@@ -490,7 +570,7 @@ public class TetheringManager {
     public int tether(@NonNull final String iface) {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "tether caller:" + callerPkg);
-        final RequestDispatcher dispatcher = new RequestDispatcher();
+        final RequestDispatcher dispatcher = new RequestDispatcher(this);
 
         return dispatcher.waitForResult((connector, listener) -> {
             try {
@@ -522,7 +602,7 @@ public class TetheringManager {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "untether caller:" + callerPkg);
 
-        final RequestDispatcher dispatcher = new RequestDispatcher();
+        final RequestDispatcher dispatcher = new RequestDispatcher(this);
 
         return dispatcher.waitForResult((connector, listener) -> {
             try {
@@ -549,7 +629,7 @@ public class TetheringManager {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "setUsbTethering caller:" + callerPkg);
 
-        final RequestDispatcher dispatcher = new RequestDispatcher();
+        final RequestDispatcher dispatcher = new RequestDispatcher(this);
 
         return dispatcher.waitForResult((connector, listener) -> {
             try {
@@ -1501,7 +1581,7 @@ public class TetheringManager {
     @SystemApi(client = MODULE_LIBRARIES)
     public boolean isTetheringSupported(@NonNull final String callerPkg) {
 
-        final RequestDispatcher dispatcher = new RequestDispatcher();
+        final RequestDispatcher dispatcher = new RequestDispatcher(this);
         final int ret = dispatcher.waitForResult((connector, listener) -> {
             try {
                 connector.isTetheringSupported(callerPkg, getAttributionTag(), listener);
