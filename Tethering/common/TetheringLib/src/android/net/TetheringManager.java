@@ -37,6 +37,7 @@ import com.android.internal.annotations.GuardedBy;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -265,7 +266,7 @@ public class TetheringManager {
     public TetheringManager(@NonNull final Context context,
             @NonNull Supplier<IBinder> connectorSupplier) {
         mContext = context;
-        mCallback = new TetheringCallbackInternal();
+        mCallback = new TetheringCallbackInternal(this);
         mConnectorSupplier = connectorSupplier;
 
         final String pkgName = mContext.getOpPackageName();
@@ -415,7 +416,7 @@ public class TetheringManager {
         }
     }
 
-    private void throwIfPermissionFailure(final int errorCode) {
+    private static void throwIfPermissionFailure(final int errorCode) {
         switch (errorCode) {
             case TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION:
                 throw new SecurityException("No android.permission.TETHER_PRIVILEGED"
@@ -426,21 +427,32 @@ public class TetheringManager {
         }
     }
 
-    private class TetheringCallbackInternal extends ITetheringEventCallback.Stub {
+    private static class TetheringCallbackInternal extends ITetheringEventCallback.Stub {
         private volatile int mError = TETHER_ERROR_NO_ERROR;
         private final ConditionVariable mWaitForCallback = new ConditionVariable();
+        private final WeakReference<TetheringManager> mTetheringMgrRef;
+
+        TetheringCallbackInternal(final TetheringManager tm) {
+            mTetheringMgrRef = new WeakReference<>(tm);
+        }
 
         @Override
         public void onCallbackStarted(TetheringCallbackStartedParcel parcel) {
-            mTetheringConfiguration = parcel.config;
-            mTetherStatesParcel = parcel.states;
-            mWaitForCallback.open();
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr != null) {
+                tetheringMgr.mTetheringConfiguration = parcel.config;
+                tetheringMgr.mTetherStatesParcel = parcel.states;
+                mWaitForCallback.open();
+            }
         }
 
         @Override
         public void onCallbackStopped(int errorCode) {
-            mError = errorCode;
-            mWaitForCallback.open();
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr != null) {
+                mError = errorCode;
+                mWaitForCallback.open();
+            }
         }
 
         @Override
@@ -448,12 +460,14 @@ public class TetheringManager {
 
         @Override
         public void onConfigurationChanged(TetheringConfigurationParcel config) {
-            mTetheringConfiguration = config;
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr != null) tetheringMgr.mTetheringConfiguration = config;
         }
 
         @Override
         public void onTetherStatesChanged(TetherStatesParcel states) {
-            mTetherStatesParcel = states;
+            TetheringManager tetheringMgr = mTetheringMgrRef.get();
+            if (tetheringMgr != null) tetheringMgr.mTetherStatesParcel = states;
         }
 
         @Override
