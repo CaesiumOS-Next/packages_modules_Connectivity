@@ -76,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2e585b6_7a932c2b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-23T00:52:13Z",
+      "side": 1,
+      "message": "Done - looks like the port wasn\u0027t used elsewhere.",
+      "parentUuid": "8bcb163c_f9b7e134",
+      "range": {
+        "startLine": 1037,
+        "startChar": 57,
+        "endLine": 1037,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e25039e0_6c6d9272",
@@ -89,6 +113,30 @@
       "writtenOn": "2021-06-21T11:43:02Z",
       "side": 1,
       "message": "Ditto",
+      "range": {
+        "startLine": 1063,
+        "startChar": 57,
+        "endLine": 1063,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ebb12de_dc0f70da",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1063,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-23T00:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e25039e0_6c6d9272",
       "range": {
         "startLine": 1063,
         "startChar": 57,
@@ -124,6 +172,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0dad13e_17ece87e",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-23T00:52:13Z",
+      "side": 1,
+      "message": "Sorry not sure since I just rebased this; I expect this is an arbitrary number",
+      "parentUuid": "ea5c8b36_0aad8524",
+      "range": {
+        "startLine": 1071,
+        "startChar": 38,
+        "endLine": 1071,
+        "endChar": 48
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10401d0e_a22d4f78",
         "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
         "patchSetId": 3
@@ -135,6 +207,30 @@
       "writtenOn": "2021-06-21T11:43:02Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 1107,
+        "startChar": 57,
+        "endLine": 1107,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3013913f_b071965d",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-23T00:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10401d0e_a22d4f78",
       "range": {
         "startLine": 1107,
         "startChar": 57,
@@ -168,6 +264,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a1c99cc_cf33e4f5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-23T00:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6a07e15_11cedee0",
+      "range": {
+        "startLine": 1145,
+        "startChar": 57,
+        "endLine": 1145,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d07bc4c_08d3316d",
@@ -191,6 +311,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "169a77d5_497a3e87",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-23T00:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d07bc4c_08d3316d",
+      "range": {
+        "startLine": 1185,
+        "startChar": 57,
+        "endLine": 1185,
+        "endChar": 62
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5515d9aa_ab3587de",
@@ -204,6 +348,30 @@
       "writtenOn": "2021-06-21T11:43:02Z",
       "side": 1,
       "message": "Change to IPv6 or support both IPv4 and IPv6 (e.g., by having the caller pass in IPv4 a few times and IPv6 a few times).",
+      "range": {
+        "startLine": 1217,
+        "startChar": 46,
+        "endLine": 1217,
+        "endChar": 57
+      },
+      "revId": "59bc8ac1c6451ec910dba2affd1bddf7d1964c62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c3c94df_14a9f275",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-23T00:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5515d9aa_ab3587de",
       "range": {
         "startLine": 1217,
         "startChar": 46,
