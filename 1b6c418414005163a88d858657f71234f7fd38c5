@@ -104,6 +104,30 @@
       },
       "revId": "1b6c418414005163a88d858657f71234f7fd38c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff4ef93b_343733b3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5833,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-23T02:34:58Z",
+      "side": 1,
+      "message": "No problem. This is easy enough to fix. I went ahead and moved. Let me know if this is what you had in mind? Thanks.",
+      "parentUuid": "fe98fc47_b7cdde94",
+      "range": {
+        "startLine": 5831,
+        "startChar": 12,
+        "endLine": 5833,
+        "endChar": 51
+      },
+      "revId": "1b6c418414005163a88d858657f71234f7fd38c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
