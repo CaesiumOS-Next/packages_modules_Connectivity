@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bd3f9e8_1e5490c8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T01:38:17Z",
+      "side": 1,
+      "message": "Question: why do you need to add this here instead of others?",
+      "range": {
+        "startLine": 2653,
+        "startChar": 17,
+        "endLine": 2653,
+        "endChar": 22
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "487de23a_ceec21ac",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2659,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T01:38:17Z",
+      "side": 1,
+      "message": "Alternative: use CompletableFuture if only 1",
+      "range": {
+        "startLine": 2659,
+        "startChar": 56,
+        "endLine": 2659,
+        "endChar": 57
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7e69d9_60f5cbc7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2661,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T01:38:17Z",
+      "side": 1,
+      "message": "Do you want to stop the thread when latch timeout? otherwise, it may be a leak?",
+      "range": {
+        "startLine": 2661,
+        "startChar": 12,
+        "endLine": 2661,
+        "endChar": 18
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfeddf80_c3168157",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2664,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T01:38:17Z",
+      "side": 1,
+      "message": "You may need to close the socket",
+      "range": {
+        "startLine": 2664,
+        "startChar": 39,
+        "endLine": 2664,
+        "endChar": 51
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aece7497_d82b9651",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T01:38:17Z",
+      "side": 1,
+      "message": "Nit: Name it oriUidsAllowedOnRestrictedNetworks/previousUidsAllowedOnRestrictedNetworks or something clearer to know it\u0027s used for resetting would be clearer.",
+      "range": {
+        "startLine": 2680,
+        "startChar": 27,
+        "endLine": 2680,
+        "endChar": 58
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23a910dc_db3eda28",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2685,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T01:38:17Z",
+      "side": 1,
+      "message": "You remove the uid here, then it\u0027s not the original one. It does not sound reasonable to restore just this in finally. Is this intended?",
+      "range": {
+        "startLine": 2685,
+        "startChar": 8,
+        "endLine": 2685,
+        "endChar": 39
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
