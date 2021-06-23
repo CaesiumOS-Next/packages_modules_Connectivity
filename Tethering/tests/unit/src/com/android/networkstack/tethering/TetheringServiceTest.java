@@ -26,6 +26,8 @@ import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERM
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
@@ -40,6 +42,7 @@ import android.content.Intent;
 import android.net.IIntResultListener;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
+import android.net.TetheringManager;
 import android.net.TetheringRequestParcel;
 import android.net.ip.IpServer;
 import android.os.Bundle;
@@ -61,6 +64,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.lang.ref.WeakReference;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -113,7 +118,7 @@ public final class TetheringServiceTest {
                 InstrumentationRegistry.getTargetContext(),
                 MockTetheringService.class);
         mMockConnector = (MockTetheringConnector) mServiceTestRule.bindService(mMockServiceIntent);
-        mTetheringConnector = mMockConnector.getTetheringConnector();
+        mTetheringConnector = ITetheringConnector.Stub.asInterface(mMockConnector.getIBinder());
         final MockTetheringService service = mMockConnector.getService();
         mTethering = service.getTethering();
     }
@@ -492,5 +497,28 @@ public final class TetheringServiceTest {
             verify(mTethering).isTetherProvisioningRequired();
             verifyNoMoreInteractionsForTethering();
         });
+    }
+
+    @Test
+    public void testTetheringManagerLeak() throws Exception {
+        TetheringManager tm = new TetheringManager(mMockConnector.getService(),
+                () -> mMockConnector.getIBinder());
+        assertNotNull(tm);
+        final WeakReference weakTm = new WeakReference(tm);
+        assertNotNull(weakTm.get());
+
+        tm = null;
+        final int attempts = 100;
+        final long waitIntervalMs = 50;
+        for (int i = 0; i < attempts; i++) {
+            System.gc();
+            System.runFinalization();
+            System.gc();
+            if (weakTm.get() == null) break;
+
+            Thread.sleep(waitIntervalMs);
+        }
+        assertNull("TetheringManager weak reference still not null after " + attempts
+                + " attempts", weakTm.get());
     }
 }
