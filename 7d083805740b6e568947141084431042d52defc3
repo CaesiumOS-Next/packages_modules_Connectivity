@@ -22,6 +22,30 @@
       },
       "revId": "7d083805740b6e568947141084431042d52defc3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fbc6e8f_cd67952d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-23T04:34:21Z",
+      "side": 1,
+      "message": "Full disclosure; I have not been able to reproduce the bug. Even with a seemingly similar set up with many of the same events in my logs occurring as those who have experienced the crash when turning work items on/off at all different cadences.\n\nLooking at the code and the events in the logs, it looks as if the crash is always precipitated by NetworkRequestInfo#binderDied  which calls handleReleaseNetworkRequest and finally NetworkRequestInfo#unlinkDeathRecipient.\n\nIf NetworkRequestInfo#unlinkDeathRecipient is called twice for the same NRI, it will cause the crash in the bug.\n\nMy hypothesis is that somehow, when queueing up multiple releaseNetworkRequest events for the same NRI, it is somehow calling NetworkRequestInfo#unlinkDeathRecipient twice for that same NRI. Now feasibly, this shouldn\u0027t happen since the NRI is removed from mNetworkRequests in handleRemoveNetworkRequest on the handler thread therefore subsequent calls should return before unlinkDeathRecipient is called again.\n\nThat said, this change looks to be on the critical path of the bug and should be made in any case since there is no reason to be queuing up multiple release events for the same NRI. I\u0027d like to at a minimum fix this behavior to rule out this uncertainty, monitor if this bug still occurs after and continue investigating to see if, as you mention, we are still somehow looking up the same NRI even after it has been removed.",
+      "parentUuid": "c0fdbfb6_38707e75",
+      "range": {
+        "startLine": 13,
+        "startChar": 42,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "7d083805740b6e568947141084431042d52defc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
