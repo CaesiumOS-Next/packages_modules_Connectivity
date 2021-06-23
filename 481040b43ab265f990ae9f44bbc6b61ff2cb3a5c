@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e22f20a_d5c763a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T05:57:54Z",
+      "side": 1,
+      "message": "Build.isDebuggable is added in S. I need to udpate the sequence to check sdk version first to prevent failure in suite/test-mapping-mainline-presubmit-retry_cloud-tf-R-base-image",
+      "revId": "481040b43ab265f990ae9f44bbc6b61ff2cb3a5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
