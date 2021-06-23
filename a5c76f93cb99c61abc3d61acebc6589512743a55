@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66d0b67_8521f4c5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2651,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T07:38:07Z",
+      "side": 1,
+      "message": "Nit: newSingleThreadExecutor()",
+      "range": {
+        "startLine": 2651,
+        "startChar": 51,
+        "endLine": 2651,
+        "endChar": 72
+      },
+      "revId": "a5c76f93cb99c61abc3d61acebc6589512743a55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae234732_632b92fe",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2724,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T07:38:07Z",
+      "side": 1,
+      "message": "also close this one",
+      "range": {
+        "startLine": 2724,
+        "startChar": 69,
+        "endLine": 2724,
+        "endChar": 81
+      },
+      "revId": "a5c76f93cb99c61abc3d61acebc6589512743a55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

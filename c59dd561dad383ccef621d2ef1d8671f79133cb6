@@ -328,6 +328,30 @@
       },
       "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b054d3a9_4f7b014a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2685,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-06-23T07:38:07Z",
+      "side": 1,
+      "message": "Then it\u0027s not the real original one, but I am not sure if it\u0027s reasonable to remove it after test. If there is no concern from other reviewers, maybe it\u0027s fine",
+      "parentUuid": "0c288481_e2ae37d5",
+      "range": {
+        "startLine": 2685,
+        "startChar": 8,
+        "endLine": 2685,
+        "endChar": 39
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
