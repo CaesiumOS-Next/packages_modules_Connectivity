@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b40655d_bc138547",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2639,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-23T03:39:35Z",
+      "side": 1,
+      "message": "This won\u0027t work on Q/R because the test runner scans methods in the class before running anything, and will crash if some parameters are unknown types (like NetworkScore on R).\nThat\u0027s why treehugger is not happy with this change.\n\nOne workaround is to move the method to another class (could be an inner static class, e.g. \"private static class SdkSUtils { ... }\"), which won\u0027t be scanned by the test runner",
+      "range": {
+        "startLine": 2639,
+        "startChar": 51,
+        "endLine": 2639,
+        "endChar": 63
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2bd3f9e8_1e5490c8",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 4
