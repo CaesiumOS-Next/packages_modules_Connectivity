@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0fdbfb6_38707e75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-23T04:03:53Z",
+      "side": 1,
+      "message": "Can you also explain why queueing up multiple events is harmful? In other words, can you explain why this change is necessary?\n\nAlso: if the issue is that the handleReleaseNetworkRequest call caused by the death recipient can happen after the request is already released, then how does scheduling only one release fix the problem? Even that first handleReleaseNetworkRequest could have this problem, no?",
+      "range": {
+        "startLine": 13,
+        "startChar": 42,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "7d083805740b6e568947141084431042d52defc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
