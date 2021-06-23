@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccfe80e8_939d5e9f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2639,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T07:02:05Z",
+      "side": 1,
+      "message": "Thanks for your information. Just delete this method and move the code into test. Also verity this test on R build.",
+      "parentUuid": "2b40655d_bc138547",
+      "range": {
+        "startLine": 2639,
+        "startChar": 51,
+        "endLine": 2639,
+        "endChar": 63
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bd3f9e8_1e5490c8",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-23T01:38:17Z",
       "side": 1,
       "message": "Question: why do you need to add this here instead of others?",
+      "range": {
+        "startLine": 2653,
+        "startChar": 17,
+        "endLine": 2653,
+        "endChar": 22
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69a141fb_d3752a8a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2653,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T07:02:05Z",
+      "side": 1,
+      "message": "Oops, it\u0027s unnecessary. Remove accordingly.",
+      "parentUuid": "2bd3f9e8_1e5490c8",
       "range": {
         "startLine": 2653,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efc8a890_446dee65",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2659,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T07:02:05Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "487de23a_ceec21ac",
+      "range": {
+        "startLine": 2659,
+        "startChar": 56,
+        "endLine": 2659,
+        "endChar": 57
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef7e69d9_60f5cbc7",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-06-23T01:38:17Z",
       "side": 1,
       "message": "Do you want to stop the thread when latch timeout? otherwise, it may be a leak?",
+      "range": {
+        "startLine": 2661,
+        "startChar": 12,
+        "endLine": 2661,
+        "endChar": 18
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f69b4fd_fafa05d6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2661,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T07:02:05Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ef7e69d9_60f5cbc7",
       "range": {
         "startLine": 2661,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12add448_5b98a619",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2664,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T07:02:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfeddf80_c3168157",
+      "range": {
+        "startLine": 2664,
+        "startChar": 39,
+        "endLine": 2664,
+        "endChar": 51
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aece7497_d82b9651",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e148032a_3e4a999c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T07:02:05Z",
+      "side": 1,
+      "message": "Ranme to originalUidsAllowedOnRestrictedNetworks",
+      "parentUuid": "aece7497_d82b9651",
+      "range": {
+        "startLine": 2680,
+        "startChar": 27,
+        "endLine": 2680,
+        "endChar": 58
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23a910dc_db3eda28",
@@ -152,6 +296,30 @@
       "writtenOn": "2021-06-23T01:38:17Z",
       "side": 1,
       "message": "You remove the uid here, then it\u0027s not the original one. It does not sound reasonable to restore just this in finally. Is this intended?",
+      "range": {
+        "startLine": 2685,
+        "startChar": 8,
+        "endLine": 2685,
+        "endChar": 39
+      },
+      "revId": "c59dd561dad383ccef621d2ef1d8671f79133cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c288481_e2ae37d5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2685,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-23T07:02:05Z",
+      "side": 1,
+      "message": "Yes, as the comments above.",
+      "parentUuid": "23a910dc_db3eda28",
       "range": {
         "startLine": 2685,
         "startChar": 8,
