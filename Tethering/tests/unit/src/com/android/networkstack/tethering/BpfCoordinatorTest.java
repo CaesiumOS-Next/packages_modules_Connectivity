@@ -257,6 +257,7 @@ public class BpfCoordinatorTest {
     // Late init since the object must be initialized by the BPF coordinator instance because
     // it has to access the non-static function of BPF coordinator.
     private BpfConntrackEventConsumer mConsumer;
+    private HashMap<IpServer, HashMap<Inet4Address, ClientInfo>> mTetherClients;
 
     private long mElapsedRealtimeNanos = 0;
     private final ArgumentCaptor<ArrayList> mStringArrayCaptor =
@@ -362,6 +363,8 @@ public class BpfCoordinatorTest {
         final BpfCoordinator coordinator = new BpfCoordinator(mDeps);
 
         mConsumer = coordinator.getBpfConntrackEventConsumerForTesting();
+        mTetherClients = coordinator.getTetherClientsForTesting();
+
         final ArgumentCaptor<BpfCoordinator.BpfTetherStatsProvider>
                 tetherStatsProviderCaptor =
                 ArgumentCaptor.forClass(BpfCoordinator.BpfTetherStatsProvider.class);
@@ -1793,13 +1796,19 @@ public class BpfCoordinatorTest {
         assertEquals(DOWNSTREAM4_RULE_VALUE_B, mBpfDownstream4Map.getValue(
                 DOWNSTREAM4_RULE_KEY_B));
 
+        // Clear client information for mIpServer only.
+        assertNull(mTetherClients.get(mIpServer));
+        assertNotNull(mTetherClients.get(mIpServer2));
+
         // [2] Remove the second downstream. Remove the remaining rules.
         coordinator.tetherOffloadClientClear(mIpServer2);
         assertNull(mBpfUpstream4Map.getValue(UPSTREAM4_RULE_KEY_B));
         assertNull(mBpfDownstream4Map.getValue(DOWNSTREAM4_RULE_KEY_B));
+
+        // Clear client information for mIpServer2.
+        assertNull(mTetherClients.get(mIpServer2));
     }
 
-    // TODO: check the client information is not removed.
     @Test
     @IgnoreUpTo(Build.VERSION_CODES.R)
     public void testTetherOffloadRule4Clear_ChangeOrRemoveUpstream() throws Exception {
@@ -1840,5 +1849,67 @@ public class BpfCoordinatorTest {
         assertNull(mBpfDownstream4Map.getValue(DOWNSTREAM4_RULE_KEY_A));
         assertNull(mBpfUpstream4Map.getValue(UPSTREAM4_RULE_KEY_B));
         assertNull(mBpfDownstream4Map.getValue(DOWNSTREAM4_RULE_KEY_B));
+
+        // Client information should be not deleted.
+        HashMap<Inet4Address, ClientInfo> clinetInfo = mTetherClients.get(mIpServer);
+        assertNotNull(clinetInfo);
+        assertEquals(CLIENT_INFO_A, clinetInfo.get(CLIENT_INFO_A.clientAddress));
+        clinetInfo = mTetherClients.get(mIpServer2);
+        assertNotNull(clinetInfo);
+        assertEquals(CLIENT_INFO_B, clinetInfo.get(CLIENT_INFO_B.clientAddress));
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testTetherOffloadClientAddRemove() throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+
+        // [1] Add client information.
+        final ClientInfo clientA = new ClientInfo(DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
+                PRIVATE_ADDR, MAC_A);
+        final ClientInfo clientB = new ClientInfo(DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC,
+                PRIVATE_ADDR2, MAC_B);
+        coordinator.tetherOffloadClientAdd(mIpServer, clientA);
+        coordinator.tetherOffloadClientAdd(mIpServer, clientB);
+        final HashMap<Inet4Address, ClientInfo> clinetInfo = mTetherClients.get(mIpServer);
+        assertNotNull(clinetInfo);
+        assertEquals(clientA, clinetInfo.get(clientA.clientAddress));
+        assertEquals(clientB, clinetInfo.get(clientB.clientAddress));
+
+        // Add the rules for client A and B.
+        final Tether4Key upstream4KeyA = makeUpstream4Key(
+                DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC, PRIVATE_ADDR, PRIVATE_PORT);
+        final Tether4Value upstream4ValueA = makeUpstream4Value(PUBLIC_PORT);
+        final Tether4Key downstream4KeyA = makeDownstream4Key(PUBLIC_PORT);
+        final Tether4Value downstream4ValueA = makeDownstream4Value(
+                DOWNSTREAM_IFINDEX, MAC_A, DOWNSTREAM_MAC, PRIVATE_ADDR, PRIVATE_PORT);
+        final Tether4Key upstream4KeyB = makeUpstream4Key(
+                DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC2, PRIVATE_ADDR2, PRIVATE_PORT2);
+        final Tether4Value upstream4ValueB = makeUpstream4Value(PUBLIC_PORT2);
+        final Tether4Key downstream4KeyB = makeDownstream4Key(PUBLIC_PORT2);
+        final Tether4Value downstream4ValueB = makeDownstream4Value(
+                DOWNSTREAM_IFINDEX, MAC_B, DOWNSTREAM_MAC2, PRIVATE_ADDR2, PRIVATE_PORT2);
+
+        mBpfUpstream4Map.insertEntry(upstream4KeyA, upstream4ValueA);
+        mBpfDownstream4Map.insertEntry(downstream4KeyA, downstream4ValueA);
+        mBpfUpstream4Map.insertEntry(upstream4KeyB, upstream4ValueB);
+        mBpfDownstream4Map.insertEntry(downstream4KeyB, downstream4ValueB);
+
+        // [2] Remove client information.
+        coordinator.tetherOffloadClientRemove(mIpServer, clientA);
+        assertNull(clinetInfo.get(clientA.clientAddress));
+        assertEquals(clientB, clinetInfo.get(clientB.clientAddress));
+        assertNull(mBpfUpstream4Map.getValue(upstream4KeyA));
+        assertNull(mBpfDownstream4Map.getValue(downstream4KeyA));
+        assertEquals(upstream4ValueB, mBpfUpstream4Map.getValue(upstream4KeyB));
+        assertEquals(downstream4ValueB, mBpfDownstream4Map.getValue(downstream4KeyB));
+
+        coordinator.tetherOffloadClientRemove(mIpServer, clientB);
+        assertNull(clinetInfo.get(clientA.clientAddress));
+        assertNull(clinetInfo.get(clientB.clientAddress));
+        assertNull(mBpfUpstream4Map.getValue(upstream4KeyA));
+        assertNull(mBpfDownstream4Map.getValue(downstream4KeyA));
+        assertNull(mBpfUpstream4Map.getValue(upstream4KeyB));
+        assertNull(mBpfDownstream4Map.getValue(downstream4KeyB));
     }
 }

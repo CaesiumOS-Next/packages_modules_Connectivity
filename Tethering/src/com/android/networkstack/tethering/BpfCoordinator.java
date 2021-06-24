@@ -1962,5 +1962,13 @@ public class BpfCoordinator {
         return mBpfConntrackEventConsumer;
     }
 
+    // Return tethering client information. This is used for testing only.
+    @NonNull
+    @VisibleForTesting
+    final HashMap<IpServer, HashMap<Inet4Address, ClientInfo>>
+            getTetherClientsForTesting() {
+        return mTetherClients;
+    }
+
     private static native String[] getBpfCounterNames();
 }
