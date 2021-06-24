@@ -44,6 +44,7 @@ import android.net.QosFilter;
 import android.net.QosFilterParcelable;
 import android.net.QosSession;
 import android.net.TcpKeepalivePacketData;
+import android.net.TelephonyNetworkSpecifier;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -874,6 +875,29 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo> {
                         networkCapabilities);
     }
 
+    /** Whether this network is a virtualized network. */
+    public boolean isVirtualNetwork() {
+        return isVPN() || isVcn();
+    }
+
+    /** Whether this network is a VCN network. */
+    private boolean isVcn() {
+        if (linkProperties == null
+                || linkProperties.getInterfaceName() == null
+                || networkCapabilities == null) {
+            return false;
+        }
+
+        return linkProperties.getInterfaceName().startsWith(INetd.IPSEC_INTERFACE_PREFIX)
+                && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                && networkCapabilities.hasCapability(
+                        NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                && networkCapabilities.getTransportInfo() != null
+                && !(networkCapabilities.getNetworkSpecifier()
+                        instanceof TelephonyNetworkSpecifier);
+    }
+
     /** Whether this network is a VPN. */
     public boolean isVPN() {
         return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
@@ -881,6 +905,11 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo> {
 
     /** Whether this network might have underlying networks. Currently only true for VPNs. */
     public boolean supportsUnderlyingNetworks() {
+        return isVirtualNetwork();
+    }
+
+    /** Whether this network might have underlying networks. Currently only true for VPNs. */
+    public boolean shouldApplyUnderlyingTransports() {
         return isVPN();
     }
 

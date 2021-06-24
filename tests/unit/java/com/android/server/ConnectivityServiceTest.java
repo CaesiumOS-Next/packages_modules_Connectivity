@@ -6384,8 +6384,9 @@ public class ConnectivityServiceTest {
         assertTrue(lp.getDnsServers().containsAll(dnsServers));
     }
 
-    @Test
-    public void testApplyUnderlyingCapabilities() throws Exception {
+    private void verifyApplyUnderlyingCapabilities(@NonNull NetworkCapabilities initialCaps,
+            @NonNull NetworkCapabilities withNoUnderlying,
+            boolean expectUnderlyingTransportsApplied) throws Exception {
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
         mCellNetworkAgent.connect(false /* validated */);
@@ -6413,34 +6414,25 @@ public class ConnectivityServiceTest {
         final Network mobile = mCellNetworkAgent.getNetwork();
         final Network wifi = mWiFiNetworkAgent.getNetwork();
 
-        final NetworkCapabilities initialCaps = new NetworkCapabilities();
-        initialCaps.addTransportType(TRANSPORT_VPN);
-        initialCaps.addCapability(NET_CAPABILITY_INTERNET);
-        initialCaps.removeCapability(NET_CAPABILITY_NOT_VPN);
-
-        final NetworkCapabilities withNoUnderlying = new NetworkCapabilities();
-        withNoUnderlying.addCapability(NET_CAPABILITY_INTERNET);
-        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_CONGESTED);
-        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_ROAMING);
-        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_SUSPENDED);
-        withNoUnderlying.addTransportType(TRANSPORT_VPN);
-        withNoUnderlying.removeCapability(NET_CAPABILITY_NOT_VPN);
-
         final NetworkCapabilities withMobileUnderlying = new NetworkCapabilities(withNoUnderlying);
-        withMobileUnderlying.addTransportType(TRANSPORT_CELLULAR);
+        if (expectUnderlyingTransportsApplied) {
+            withMobileUnderlying.addTransportType(TRANSPORT_CELLULAR);
+        }
         withMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_ROAMING);
         withMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_SUSPENDED);
         withMobileUnderlying.setLinkDownstreamBandwidthKbps(10);
 
         final NetworkCapabilities withWifiUnderlying = new NetworkCapabilities(withNoUnderlying);
-        withWifiUnderlying.addTransportType(TRANSPORT_WIFI);
+        if (expectUnderlyingTransportsApplied) withWifiUnderlying.addTransportType(TRANSPORT_WIFI);
         withWifiUnderlying.addCapability(NET_CAPABILITY_NOT_METERED);
         withWifiUnderlying.setLinkUpstreamBandwidthKbps(20);
 
         final NetworkCapabilities withWifiAndMobileUnderlying =
                 new NetworkCapabilities(withNoUnderlying);
-        withWifiAndMobileUnderlying.addTransportType(TRANSPORT_CELLULAR);
-        withWifiAndMobileUnderlying.addTransportType(TRANSPORT_WIFI);
+        if (expectUnderlyingTransportsApplied) {
+            withWifiAndMobileUnderlying.addTransportType(TRANSPORT_CELLULAR);
+            withWifiAndMobileUnderlying.addTransportType(TRANSPORT_WIFI);
+        }
         withWifiAndMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_METERED);
         withWifiAndMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_ROAMING);
         withWifiAndMobileUnderlying.setLinkDownstreamBandwidthKbps(10);
@@ -6486,6 +6478,51 @@ public class ConnectivityServiceTest {
 
         mService.applyUnderlyingCapabilities(null, initialCapsNotMetered, caps);
         assertEquals(withWifiUnderlying, caps);
+    }
+
+    @Test
+    public void testApplyUnderlyingCapabilities() throws Exception {
+        final NetworkCapabilities initialCaps = new NetworkCapabilities();
+        initialCaps.addTransportType(TRANSPORT_VPN);
+        initialCaps.addCapability(NET_CAPABILITY_INTERNET);
+        initialCaps.removeCapability(NET_CAPABILITY_NOT_VPN);
+
+        final NetworkCapabilities withNoUnderlying = new NetworkCapabilities();
+        withNoUnderlying.addCapability(NET_CAPABILITY_INTERNET);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_CONGESTED);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_ROAMING);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_SUSPENDED);
+        withNoUnderlying.addTransportType(TRANSPORT_VPN);
+        withNoUnderlying.removeCapability(NET_CAPABILITY_NOT_VPN);
+
+        verifyApplyUnderlyingCapabilities(
+                initialCaps, withNoUnderlying, true /* expectUnderlyingTransportsApplied */);
+    }
+
+    @Test
+    public void testApplyUnderlyingCapabilities_vcnDoesNotMergeTransports() throws Exception {
+        final TransportInfo transportInfo = mock(TransportInfo.class);
+        doReturn(transportInfo).when(transportInfo).makeCopy(anyLong());
+
+        final NetworkCapabilities initialCaps = new NetworkCapabilities();
+        initialCaps.addTransportType(TRANSPORT_CELLULAR);
+        initialCaps.addCapability(NET_CAPABILITY_INTERNET);
+        initialCaps.addCapability(NET_CAPABILITY_NOT_VPN);
+        initialCaps.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
+        initialCaps.setTransportInfo(transportInfo);
+
+        final NetworkCapabilities withNoUnderlying = new NetworkCapabilities();
+        withNoUnderlying.addTransportType(TRANSPORT_CELLULAR);
+        withNoUnderlying.addCapability(NET_CAPABILITY_INTERNET);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_VPN);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_CONGESTED);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_ROAMING);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_SUSPENDED);
+        withNoUnderlying.setTransportInfo(transportInfo);
+
+        verifyApplyUnderlyingCapabilities(
+                initialCaps, withNoUnderlying, true /* expectUnderlyingTransportsApplied */);
     }
 
     @Test
