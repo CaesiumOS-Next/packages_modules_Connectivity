@@ -16,6 +16,29 @@
       "message": "dev https://android-review.googlesource.com/c/platform/cts/+/1741853",
       "revId": "d2d1da4a793c04c39041b9a2873c7f85815801f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1be69264_b83a74e2",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-24T06:40:53Z",
+      "side": 1,
+      "message": "Actually I think this already takes care of the case described in the comments ?\nThis was added to the test to fix some occasional flakes (but not in android11-tests-dev).",
+      "range": {
+        "startLine": 141,
+        "startChar": 17,
+        "endLine": 143,
+        "endChar": 9
+      },
+      "revId": "d2d1da4a793c04c39041b9a2873c7f85815801f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
