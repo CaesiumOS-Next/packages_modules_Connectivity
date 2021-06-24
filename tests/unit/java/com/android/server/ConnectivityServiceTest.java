@@ -6572,8 +6572,12 @@ public class ConnectivityServiceTest {
         assertTrue(lp.getDnsServers().containsAll(dnsServers));
     }
 
-    @Test
-    public void testApplyUnderlyingCapabilities() throws Exception {
+    private void verifyApplyUnderlyingCapabilities(
+            @NonNull NetworkCapabilities initialCaps,
+            @NonNull NetworkCapabilities withNoUnderlying,
+            @NonNull LinkProperties lp,
+            boolean expectUnderlyingTransportsApplied)
+            throws Exception {
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
         mCellNetworkAgent.connect(false /* validated */);
@@ -6601,6 +6605,83 @@ public class ConnectivityServiceTest {
         final Network mobile = mCellNetworkAgent.getNetwork();
         final Network wifi = mWiFiNetworkAgent.getNetwork();
 
+        final NetworkCapabilities withMobileUnderlying = new NetworkCapabilities(withNoUnderlying);
+        if (expectUnderlyingTransportsApplied) {
+            withMobileUnderlying.addTransportType(TRANSPORT_CELLULAR);
+        }
+        withMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_ROAMING);
+        withMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_SUSPENDED);
+        withMobileUnderlying.setLinkDownstreamBandwidthKbps(10);
+
+        final NetworkCapabilities withWifiUnderlying = new NetworkCapabilities(withNoUnderlying);
+        if (expectUnderlyingTransportsApplied) withWifiUnderlying.addTransportType(TRANSPORT_WIFI);
+        withWifiUnderlying.addCapability(NET_CAPABILITY_NOT_METERED);
+        withWifiUnderlying.setLinkUpstreamBandwidthKbps(20);
+
+        final NetworkCapabilities withWifiAndMobileUnderlying =
+                new NetworkCapabilities(withNoUnderlying);
+        if (expectUnderlyingTransportsApplied) {
+            withWifiAndMobileUnderlying.addTransportType(TRANSPORT_CELLULAR);
+            withWifiAndMobileUnderlying.addTransportType(TRANSPORT_WIFI);
+        }
+        withWifiAndMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_METERED);
+        withWifiAndMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_ROAMING);
+        withWifiAndMobileUnderlying.setLinkDownstreamBandwidthKbps(10);
+        withWifiAndMobileUnderlying.setLinkUpstreamBandwidthKbps(20);
+
+        final NetworkCapabilities initialCapsNotMetered = new NetworkCapabilities(initialCaps);
+        initialCapsNotMetered.addCapability(NET_CAPABILITY_NOT_METERED);
+
+        final NetworkInfo dummyInfo = mock(NetworkInfo.class);
+
+        NetworkCapabilities caps = new NetworkCapabilities(initialCaps);
+        mService.applyUnderlyingCapabilities(
+                fakeNai(initialCapsNotMetered, lp, new Network[] {}, dummyInfo), caps);
+        assertEquals(withNoUnderlying, caps);
+
+        caps = new NetworkCapabilities(initialCaps);
+        mService.applyUnderlyingCapabilities(
+                fakeNai(initialCapsNotMetered, lp, new Network[] {null}, dummyInfo), caps);
+        assertEquals(withNoUnderlying, caps);
+
+        caps = new NetworkCapabilities(initialCaps);
+        mService.applyUnderlyingCapabilities(
+                fakeNai(initialCapsNotMetered, lp, new Network[] {mobile}, dummyInfo), caps);
+        assertEquals(withMobileUnderlying, caps);
+
+        mService.applyUnderlyingCapabilities(
+                fakeNai(initialCapsNotMetered, lp, new Network[] {wifi}, dummyInfo), caps);
+        assertEquals(withWifiUnderlying, caps);
+
+        withWifiUnderlying.removeCapability(NET_CAPABILITY_NOT_METERED);
+        caps = new NetworkCapabilities(initialCaps);
+        mService.applyUnderlyingCapabilities(
+                fakeNai(initialCaps, lp, new Network[] {wifi}, dummyInfo), caps);
+        assertEquals(withWifiUnderlying, caps);
+
+        caps = new NetworkCapabilities(initialCaps);
+        mService.applyUnderlyingCapabilities(
+                fakeNai(initialCaps, lp, new Network[] {mobile, wifi}, dummyInfo), caps);
+        assertEquals(withWifiAndMobileUnderlying, caps);
+
+        withWifiUnderlying.addCapability(NET_CAPABILITY_NOT_METERED);
+        caps = new NetworkCapabilities(initialCaps);
+        mService.applyUnderlyingCapabilities(fakeNai(initialCapsNotMetered, lp,
+                new Network[]{null, mobile, null, wifi}, dummyInfo), caps);
+        assertEquals(withWifiAndMobileUnderlying, caps);
+
+        caps = new NetworkCapabilities(initialCaps);
+        mService.applyUnderlyingCapabilities(fakeNai(initialCapsNotMetered, lp,
+                new Network[]{null, mobile, null, wifi}, dummyInfo), caps);
+        assertEquals(withWifiAndMobileUnderlying, caps);
+
+        mService.applyUnderlyingCapabilities(
+                fakeNai(initialCapsNotMetered, lp, null, dummyInfo), caps);
+        assertEquals(withWifiUnderlying, caps);
+    }
+
+    @Test
+    public void testApplyUnderlyingCapabilities() throws Exception {
         final NetworkCapabilities initialCaps = new NetworkCapabilities();
         initialCaps.addTransportType(TRANSPORT_VPN);
         initialCaps.addCapability(NET_CAPABILITY_INTERNET);
@@ -6614,66 +6695,37 @@ public class ConnectivityServiceTest {
         withNoUnderlying.addTransportType(TRANSPORT_VPN);
         withNoUnderlying.removeCapability(NET_CAPABILITY_NOT_VPN);
 
-        final NetworkCapabilities withMobileUnderlying = new NetworkCapabilities(withNoUnderlying);
-        withMobileUnderlying.addTransportType(TRANSPORT_CELLULAR);
-        withMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_ROAMING);
-        withMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_SUSPENDED);
-        withMobileUnderlying.setLinkDownstreamBandwidthKbps(10);
+        verifyApplyUnderlyingCapabilities(initialCaps, withNoUnderlying, new LinkProperties(),
+                true /* expectUnderlyingTransportsApplied */);
+    }
 
-        final NetworkCapabilities withWifiUnderlying = new NetworkCapabilities(withNoUnderlying);
-        withWifiUnderlying.addTransportType(TRANSPORT_WIFI);
-        withWifiUnderlying.addCapability(NET_CAPABILITY_NOT_METERED);
-        withWifiUnderlying.setLinkUpstreamBandwidthKbps(20);
+    @Test
+    public void testApplyUnderlyingCapabilities_vcnDoesNotMergeTransports() throws Exception {
+        final TransportInfo transportInfo = mock(TransportInfo.class);
+        doReturn(transportInfo).when(transportInfo).makeCopy(anyLong());
 
-        final NetworkCapabilities withWifiAndMobileUnderlying =
-                new NetworkCapabilities(withNoUnderlying);
-        withWifiAndMobileUnderlying.addTransportType(TRANSPORT_CELLULAR);
-        withWifiAndMobileUnderlying.addTransportType(TRANSPORT_WIFI);
-        withWifiAndMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_METERED);
-        withWifiAndMobileUnderlying.removeCapability(NET_CAPABILITY_NOT_ROAMING);
-        withWifiAndMobileUnderlying.setLinkDownstreamBandwidthKbps(10);
-        withWifiAndMobileUnderlying.setLinkUpstreamBandwidthKbps(20);
+        final NetworkCapabilities initialCaps = new NetworkCapabilities();
+        initialCaps.addTransportType(TRANSPORT_CELLULAR);
+        initialCaps.addCapability(NET_CAPABILITY_INTERNET);
+        initialCaps.addCapability(NET_CAPABILITY_NOT_VPN);
+        initialCaps.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
+        initialCaps.setTransportInfo(transportInfo);
 
-        final NetworkCapabilities initialCapsNotMetered = new NetworkCapabilities(initialCaps);
-        initialCapsNotMetered.addCapability(NET_CAPABILITY_NOT_METERED);
+        final NetworkCapabilities withNoUnderlying = new NetworkCapabilities();
+        withNoUnderlying.addTransportType(TRANSPORT_CELLULAR);
+        withNoUnderlying.addCapability(NET_CAPABILITY_INTERNET);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_VPN);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_CONGESTED);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_ROAMING);
+        withNoUnderlying.addCapability(NET_CAPABILITY_NOT_SUSPENDED);
+        withNoUnderlying.setTransportInfo(transportInfo);
 
-        NetworkCapabilities caps = new NetworkCapabilities(initialCaps);
-        mService.applyUnderlyingCapabilities(new Network[]{}, initialCapsNotMetered, caps);
-        assertEquals(withNoUnderlying, caps);
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(INetd.IPSEC_INTERFACE_PREFIX + "1");
 
-        caps = new NetworkCapabilities(initialCaps);
-        mService.applyUnderlyingCapabilities(new Network[]{null}, initialCapsNotMetered, caps);
-        assertEquals(withNoUnderlying, caps);
-
-        caps = new NetworkCapabilities(initialCaps);
-        mService.applyUnderlyingCapabilities(new Network[]{mobile}, initialCapsNotMetered, caps);
-        assertEquals(withMobileUnderlying, caps);
-
-        mService.applyUnderlyingCapabilities(new Network[]{wifi}, initialCapsNotMetered, caps);
-        assertEquals(withWifiUnderlying, caps);
-
-        withWifiUnderlying.removeCapability(NET_CAPABILITY_NOT_METERED);
-        caps = new NetworkCapabilities(initialCaps);
-        mService.applyUnderlyingCapabilities(new Network[]{wifi}, initialCaps, caps);
-        assertEquals(withWifiUnderlying, caps);
-
-        caps = new NetworkCapabilities(initialCaps);
-        mService.applyUnderlyingCapabilities(new Network[]{mobile, wifi}, initialCaps, caps);
-        assertEquals(withWifiAndMobileUnderlying, caps);
-
-        withWifiUnderlying.addCapability(NET_CAPABILITY_NOT_METERED);
-        caps = new NetworkCapabilities(initialCaps);
-        mService.applyUnderlyingCapabilities(new Network[]{null, mobile, null, wifi},
-                initialCapsNotMetered, caps);
-        assertEquals(withWifiAndMobileUnderlying, caps);
-
-        caps = new NetworkCapabilities(initialCaps);
-        mService.applyUnderlyingCapabilities(new Network[]{null, mobile, null, wifi},
-                initialCapsNotMetered, caps);
-        assertEquals(withWifiAndMobileUnderlying, caps);
-
-        mService.applyUnderlyingCapabilities(null, initialCapsNotMetered, caps);
-        assertEquals(withWifiUnderlying, caps);
+        verifyApplyUnderlyingCapabilities(
+                initialCaps, withNoUnderlying, lp, false /* expectUnderlyingTransportsApplied */);
     }
 
     @Test
@@ -9961,14 +10013,29 @@ public class ConnectivityServiceTest {
                 ConnectivityManager.getNetworkTypeName(TYPE_WIFI), "" /* subtypeName */);
         return fakeNai(wifiNc, info);
     }
-
     private NetworkAgentInfo fakeNai(NetworkCapabilities nc, NetworkInfo networkInfo) {
-        return new NetworkAgentInfo(null, new Network(NET_ID), networkInfo, new LinkProperties(),
-                nc, new NetworkScore.Builder().setLegacyInt(0).build(),
+        return fakeNai(nc, new LinkProperties(), null, networkInfo);
+    }
+
+    private NetworkAgentInfo fakeNai(NetworkCapabilities nc, LinkProperties lp,
+            Network[] underlyingNetworks, NetworkInfo networkInfo) {
+        final NetworkAgentInfo info = new NetworkAgentInfo(null, new Network(NET_ID), networkInfo,
+                lp, nc, new NetworkScore.Builder().setLegacyInt(0).build(),
                 mServiceContext, null, new NetworkAgentConfig(), mService, null, null, 0,
                 INVALID_UID, TEST_LINGER_DELAY_MS, mQosCallbackTracker,
                 new ConnectivityService.Dependencies());
+
+        if (info.supportsUnderlyingNetworks()) {
+            info.declaredCapabilities = nc;
+
+            if (underlyingNetworks != null) {
+                info.declaredUnderlyingNetworks =
+                        Arrays.copyOf(underlyingNetworks, underlyingNetworks.length);
+            }
+        }
+        return info;
     }
+
 
     @Test
     public void testCheckConnectivityDiagnosticsPermissionsNetworkStack() throws Exception {

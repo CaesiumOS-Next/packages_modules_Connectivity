@@ -5277,7 +5277,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      *         information, e.g underlying ifaces.
      */
     private UnderlyingNetworkInfo createVpnInfo(NetworkAgentInfo nai) {
-        if (!nai.isVPN()) return null;
+        if (!nai.supportsUnderlyingNetworks()) return null;
 
         Network[] underlyingNetworks = nai.declaredUnderlyingNetworks;
         // see VpnService.setUnderlyingNetworks()'s javadoc about how to interpret
@@ -7184,12 +7184,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         nai.declaredCapabilities = new NetworkCapabilities(nc);
     }
 
-    /** Modifies |newNc| based on the capabilities of |underlyingNetworks| and |agentCaps|. */
+    /** Modifies |newNc| based on the capabilities of NAI's underlying networks and capabilities */
     @VisibleForTesting
-    void applyUnderlyingCapabilities(@Nullable Network[] underlyingNetworks,
-            @NonNull NetworkCapabilities agentCaps, @NonNull NetworkCapabilities newNc) {
-        underlyingNetworks = underlyingNetworksOrDefault(
-                agentCaps.getOwnerUid(), underlyingNetworks);
+    void applyUnderlyingCapabilities(
+            @NonNull NetworkAgentInfo nai, @NonNull NetworkCapabilities newNc) {
+        final NetworkCapabilities agentCaps = nai.declaredCapabilities;
+        final Network[] underlyingNetworks = underlyingNetworksOrDefault(
+                agentCaps.getOwnerUid(), nai.declaredUnderlyingNetworks);
         long transportTypes = NetworkCapabilitiesUtils.packBits(agentCaps.getTransportTypes());
         int downKbps = NetworkCapabilities.LINK_BANDWIDTH_UNSPECIFIED;
         int upKbps = NetworkCapabilities.LINK_BANDWIDTH_UNSPECIFIED;
@@ -7208,8 +7209,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
                 final NetworkCapabilities underlyingCaps = underlying.networkCapabilities;
                 hadUnderlyingNetworks = true;
-                for (int underlyingType : underlyingCaps.getTransportTypes()) {
-                    transportTypes |= 1L << underlyingType;
+
+                if (nai.shouldApplyUnderlyingTransports()) {
+                    for (int underlyingType : underlyingCaps.getTransportTypes()) {
+                        transportTypes |= 1L << underlyingType;
+                    }
                 }
 
                 // Merge capabilities of this underlying network. For bandwidth, assume the
@@ -7304,8 +7308,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (nai.supportsUnderlyingNetworks()) {
-            applyUnderlyingCapabilities(nai.declaredUnderlyingNetworks, nai.declaredCapabilities,
-                    newNc);
+            applyUnderlyingCapabilities(nai, newNc);
         }
 
         return newNc;
