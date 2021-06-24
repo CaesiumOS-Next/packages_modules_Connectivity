@@ -39,6 +39,30 @@
       },
       "revId": "d2d1da4a793c04c39041b9a2873c7f85815801f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89124772_14d21819",
+        "filename": "tests/cts/net/src/android/net/cts/CaptivePortalTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1878469
+      },
+      "writtenOn": "2021-06-24T07:51:07Z",
+      "side": 1,
+      "message": "yes, you are right, the TEST_TIMEOUT_MS is 10s.",
+      "parentUuid": "1be69264_b83a74e2",
+      "range": {
+        "startLine": 141,
+        "startChar": 17,
+        "endLine": 143,
+        "endChar": 9
+      },
+      "revId": "d2d1da4a793c04c39041b9a2873c7f85815801f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
