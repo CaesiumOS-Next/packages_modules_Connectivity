@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6874126d_1386e6aa",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-24T06:31:59Z",
+      "side": 1,
+      "message": "Done in new patchset.",
+      "parentUuid": "2ca01fc0_0ce38d71",
+      "range": {
+        "startLine": 335,
+        "startChar": 35,
+        "endLine": 335,
+        "endChar": 49
+      },
+      "revId": "d84965fe750e9d9713e1a021848937b4453b54a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90cd4a24_8d1a1c97",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-15T01:55:36Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 802,
+        "startChar": 16,
+        "endLine": 806,
+        "endChar": 13
+      },
+      "revId": "d84965fe750e9d9713e1a021848937b4453b54a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ae6faa9_7abff43b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-24T06:31:59Z",
+      "side": 1,
+      "message": "Done in new patchset.",
+      "parentUuid": "90cd4a24_8d1a1c97",
       "range": {
         "startLine": 802,
         "startChar": 16,
