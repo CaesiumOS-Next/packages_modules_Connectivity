@@ -16,6 +16,23 @@
       "message": "Carry-forward +2 from internal branch.",
       "revId": "92c29c56d7e5d968a1beb2b79a509eba7df4313e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26d1c428_2f40aaac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-24T08:12:46Z",
+      "side": 1,
+      "message": "Verified clean cherry-pick",
+      "revId": "92c29c56d7e5d968a1beb2b79a509eba7df4313e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
