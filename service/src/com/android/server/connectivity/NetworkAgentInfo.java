@@ -45,6 +45,7 @@ import android.net.QosFilter;
 import android.net.QosFilterParcelable;
 import android.net.QosSession;
 import android.net.TcpKeepalivePacketData;
+import android.net.TelephonyNetworkSpecifier;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -893,13 +894,41 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
                         networkCapabilities);
     }
 
+    /** Whether this network is a VCN network. */
+    private boolean isVcn() {
+        if (linkProperties.getInterfaceName() == null) {
+            return false;
+        }
+
+        // Distinguish between an IPsec VPN (based on NET_CAP_NOT_VCN), Non-VCN Macro Cellular
+        // (based on IPsec interface name), IWLAN (based on TelephonyNetworkSpecifier &
+        // TransportInfo; VcnTransportInfo is @hide, so cannot be used here) and a VCN
+        return linkProperties.getInterfaceName().startsWith(INetd.IPSEC_INTERFACE_PREFIX)
+                && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                && networkCapabilities.hasCapability(
+                        NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                && networkCapabilities.getTransportInfo() != null
+                && !(networkCapabilities.getNetworkSpecifier()
+                        instanceof TelephonyNetworkSpecifier);
+    }
+
     /** Whether this network is a VPN. */
     public boolean isVPN() {
         return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
     }
 
-    /** Whether this network might have underlying networks. Currently only true for VPNs. */
+    /** Whether this network might have underlying networks. */
     public boolean supportsUnderlyingNetworks() {
+        return isVPN() || isVcn();
+    }
+
+    /**
+     * Whether this transports of underlying networks should be merged into the NetworkCapabilities.
+     *
+     * <p>Currently only true for VPNs.
+     */
+    public boolean shouldApplyUnderlyingTransports() {
         return isVPN();
     }
 
