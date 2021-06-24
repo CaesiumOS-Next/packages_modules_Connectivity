@@ -22,6 +22,30 @@
       },
       "revId": "820dfb0bbb0cf4b8c2ef5f1af300cfd92908e796",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51f2cd44_c58108c6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1712,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-24T15:08:20Z",
+      "side": 1,
+      "message": "Per talk offline, just stop dun without any UI warning may confuse user. Device\u0027s internet cellular data icon would be exist but user don\u0027t know tethering won\u0027t sharing cellular data and they may just found the client devices don\u0027t have internet. Keep Milim\u0027s proposal that turn off tethering first. It is more easily for users to recognize tethering is unavailable. For long term, we can have a notification or UI, then change to only stop DUN instead turn off tethering.",
+      "parentUuid": "eb838492_f85111d1",
+      "range": {
+        "startLine": 1712,
+        "startChar": 16,
+        "endLine": 1712,
+        "endChar": 27
+      },
+      "revId": "820dfb0bbb0cf4b8c2ef5f1af300cfd92908e796",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
