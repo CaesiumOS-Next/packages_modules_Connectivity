@@ -1,0 +1,606 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "46530f8a_242fefb3",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1854,
+                "startChar": 42,
+                "endLine": 1854,
+                "endChar": 48
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "ac065fc5_30383953",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1854,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1854,
+        "startChar": 42,
+        "endLine": 1854,
+        "endChar": 48
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "801f5dce_31196f49",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1855,
+                "startChar": 22,
+                "endLine": 1855,
+                "endChar": 28
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "a87dfc28_b5c76d65",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1855,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1855,
+        "startChar": 22,
+        "endLine": 1855,
+        "endChar": 28
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "ce64de94_cc88652d",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1856,
+                "startChar": 36,
+                "endLine": 1856,
+                "endChar": 42
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "332388eb_838a5b61",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1856,
+        "startChar": 36,
+        "endLine": 1856,
+        "endChar": 42
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "16106eb0_dc34c5cb",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1857,
+                "startChar": 8,
+                "endLine": 1857,
+                "endChar": 14
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "3929c727_86ce8247",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1857,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1857,
+        "startChar": 8,
+        "endLine": 1857,
+        "endChar": 14
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "1fa8a1a6_2912600a",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1858,
+                "startChar": 22,
+                "endLine": 1858,
+                "endChar": 28
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "c589fcef_11058e7a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1858,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1858,
+        "startChar": 22,
+        "endLine": 1858,
+        "endChar": 28
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "59987fdb_1806083c",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1859,
+                "startChar": 36,
+                "endLine": 1859,
+                "endChar": 42
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "377fe9cd_66e93b07",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1859,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1859,
+        "startChar": 36,
+        "endLine": 1859,
+        "endChar": 42
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "2e689bb7_49cfa168",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1874,
+                "startChar": 48,
+                "endLine": 1874,
+                "endChar": 54
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "8644e508_ecb048b8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1874,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1874,
+        "startChar": 48,
+        "endLine": 1874,
+        "endChar": 54
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "b33b0650_e8afa83d",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1875,
+                "startChar": 22,
+                "endLine": 1875,
+                "endChar": 28
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "0bf82ee4_96b26e21",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1875,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1875,
+        "startChar": 22,
+        "endLine": 1875,
+        "endChar": 28
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "776b2612_6bca416d",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1876,
+                "startChar": 30,
+                "endLine": 1876,
+                "endChar": 36
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "5f87ffa7_5a3120cb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1876,
+        "startChar": 30,
+        "endLine": 1876,
+        "endChar": 36
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "235c3e97_0fa4d229",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1877,
+                "startChar": 30,
+                "endLine": 1877,
+                "endChar": 36
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "97767d90_20270602",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1877,
+        "startChar": 30,
+        "endLine": 1877,
+        "endChar": 36
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "6600ecee_7ad668d0",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1900,
+                "startChar": 19,
+                "endLine": 1900,
+                "endChar": 25
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "9b811130_337aa30a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1900,
+        "startChar": 19,
+        "endLine": 1900,
+        "endChar": 25
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "aaddbdae_a0c08cc7",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1901,
+                "startChar": 30,
+                "endLine": 1901,
+                "endChar": 36
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "27633815_fbb163c9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1901,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1901,
+        "startChar": 30,
+        "endLine": 1901,
+        "endChar": 36
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "f2dd1b3f_429777bf",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1908,
+                "startChar": 19,
+                "endLine": 1908,
+                "endChar": 25
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "7b711b79_0ffcf41f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1908,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1908,
+        "startChar": 19,
+        "endLine": 1908,
+        "endChar": 25
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012183119",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1744606?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "ebabac71_56b5a30f",
+          "description": "Change to \"Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+              "range": {
+                "startLine": 1909,
+                "startChar": 19,
+                "endLine": 1909,
+                "endChar": 25
+              },
+              "replacement": "client"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "ac35a001_82d10b99",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1909,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-24T09:59:55Z",
+      "side": 1,
+      "message": "Common typo found: \"clinet\" -- should it be \"client\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1909,
+        "startChar": 19,
+        "endLine": 1909,
+        "endChar": 25
+      },
+      "revId": "a78436f029610d9ccf68b61e5a9849d96c262d71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
