@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb9dcdc1_dcb08047",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5563,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-25T19:35:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2977ad5_0deb06f2",
+      "range": {
+        "startLine": 5563,
+        "startChar": 36,
+        "endLine": 5563,
+        "endChar": 37
+      },
+      "revId": "b2010961dba1a1ee5b837ad6051b09706a4009c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f032cc3_8de662e3",
@@ -82,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce61b275_274bdcda",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5565,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-25T19:35:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f032cc3_8de662e3",
+      "range": {
+        "startLine": 5565,
+        "startChar": 8,
+        "endLine": 5565,
+        "endChar": 22
+      },
+      "revId": "b2010961dba1a1ee5b837ad6051b09706a4009c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0faac6a2_b53074e0",
@@ -95,6 +143,30 @@
       "writtenOn": "2021-06-16T08:19:53Z",
       "side": 1,
       "message": "For those who doesn\u0027t really have the background knowledge,\nmaybe add comment to describe why this is working beyond the MAX_REQUESTS?\ne.g.\n// Since ConnectivityService will de-duplicate the request with the same intent, register multiple times does not really increase multiple requests.",
+      "range": {
+        "startLine": 5598,
+        "startChar": 8,
+        "endLine": 5600,
+        "endChar": 9
+      },
+      "revId": "b2010961dba1a1ee5b837ad6051b09706a4009c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "146bcf97_c93345f1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 5600,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-25T19:35:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0faac6a2_b53074e0",
       "range": {
         "startLine": 5598,
         "startChar": 8,
