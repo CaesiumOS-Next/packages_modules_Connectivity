@@ -283,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0697b58e_97ac19d8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "Ack. Basically the reason is that for IPv4, the upstream is only changed once, here.",
+      "parentUuid": "cbe575f0_584eaa92",
+      "range": {
+        "startLine": 232,
+        "startChar": 7,
+        "endLine": 232,
+        "endChar": 47
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76963fa6_de92ee2f",
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "Add a TODO\n\nCurrently, the reason for using rule caches is because we may have concern which deleting \"some\" rules in the BPF map iteration can still walk through every entry (refer to the below earlier comment). Maybe it not guaranteed every entry is iterated in this case. It seems that the safer way for deleting some rules is restarting iteration after every deletion. Leave this as unresolved for further discussion if any further thought.\n\n- BpfMap#forEach\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1498277/8/Tethering/src/com/android/networkstack/tethering/BpfMap.java#180\n(lorenzo)\n\"The current code allows the user to delete *all* the keys, yes. But it does not allow the user to delete some of the keys without restarting the iteration.\"\n\n- BpfMap#deleteEntryIf(BiFunction\u003cK, V, Boolean\u003e ..) (not existing anymore)\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1579873/8..16/Tethering/src/com/android/networkstack/tethering/BpfMap.java#b186\n(maze)\n\"is this deleting from the map while traversing it?\nI\u0027m not sure if that\u0027s kosher...\nas in I don\u0027t think this is guaranteed to traverse everything exactly once.\"",
       "parentUuid": "76963fa6_de92ee2f",
+      "range": {
+        "startLine": 717,
+        "startChar": 8,
+        "endLine": 717,
+        "endChar": 84
+      },
+      "revId": "f66792f70625ca4cd9701265f0436351c9af50ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da6f7af7_1b80feb6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "Per VC: this is documented in BpfMap#forEach: \"The given BiConsumer may to delete the passed-in entry, but is not allowed to perform any other structural modifications to the map, such as adding entries or deleting other entries.\" So as long as you only delete the rule that is currently being passed in, that should work.",
+      "parentUuid": "6b7c2566_082230c1",
       "range": {
         "startLine": 717,
         "startChar": 8,

@@ -1,0 +1,487 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca07a0d8_97ce1554",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "when?",
+      "range": {
+        "startLine": 1286,
+        "startChar": 81,
+        "endLine": 1286,
+        "endChar": 86
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1127254b_030b356e",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "Note that unlike IPv6, IPv4",
+      "range": {
+        "startLine": 1286,
+        "startChar": 11,
+        "endLine": 1286,
+        "endChar": 25
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5cab541_d62864fc",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "Why mention \"from offload supported interface to offload non-supported interface here\"? Is it relevant? Rules must be cleared any time the upstream changes, right? For example, we\u0027d need to clear them if the upstream changes from one cellular interface to another, even if both interfaces support offload.\n\nIf so, then maybe just drop that part of the comment and say, \"When the upstream changes, CMD_TETHER_CONNECTION changed calls...\"",
+      "range": {
+        "startLine": 1288,
+        "startChar": 54,
+        "endLine": 1289,
+        "endChar": 43
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3e76ef4_dc63a8a2",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "supported",
+      "range": {
+        "startLine": 1289,
+        "startChar": 23,
+        "endLine": 1289,
+        "endChar": 33
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "486989b9_0dfa6bff",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "I don\u0027t understand this. Do you mean \"CMD_TETHER_CONNECTION_CHANGED calls #cleanupUpstreamInterface, but not #cleanupUpstream, because\"?",
+      "range": {
+        "startLine": 1290,
+        "startChar": 11,
+        "endLine": 1290,
+        "endChar": 57
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d70f1b1_90601355",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "newUpstreamIfaceSet",
+      "range": {
+        "startLine": 1290,
+        "startChar": 66,
+        "endLine": 1290,
+        "endChar": 86
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ae7c64b_99f81d73",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "when",
+      "range": {
+        "startLine": 1292,
+        "startChar": 81,
+        "endLine": 1292,
+        "endChar": 83
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1909e26_a50534d4",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "unwinding?",
+      "range": {
+        "startLine": 1292,
+        "startChar": 84,
+        "endLine": 1292,
+        "endChar": 93
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d17968_7477970a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1294,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "which",
+      "range": {
+        "startLine": 1294,
+        "startChar": 60,
+        "endLine": 1294,
+        "endChar": 65
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "636a7227_ee57a318",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "Optional: for clarity, might want to rename to mIfIndexForUpstreamIpv4.",
+      "range": {
+        "startLine": 222,
+        "startChar": 49,
+        "endLine": 222,
+        "endChar": 69
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41cef247_9e3cf931",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "the clients are removed by the iteration.",
+      "range": {
+        "startLine": 705,
+        "startChar": 47,
+        "endLine": 705,
+        "endChar": 1
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af19e42d_7e2f47ae",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": ", because",
+      "range": {
+        "startLine": 716,
+        "startChar": 74,
+        "endLine": 716,
+        "endChar": 78
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "119ebe8b_25ee1601",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "... so this could just be:\n\n    int downstreamRulesDeleted \u003d 0;\n    int upstreamRulesDeleted \u003d 0;\n\n    mBpfCoordinatorShim.tetherOffloadRuleForEach(UPSTREAM, (k, v) -\u003e {\n        if (Arrays.equals(k.src4, clientAddr.getAddress())) {\n            tetherOffloadRuleRemove(UPSTREAM, k);\n            upstreamRulesDeleted++;\n        }\n    }\n\n    ...",
+      "range": {
+        "startLine": 724,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 11
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04fbf0e5_426d5df1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "TODO: check if this set can be deleted my making maybeClearLimit idempotent.",
+      "range": {
+        "startLine": 757,
+        "startChar": 90,
+        "endLine": 757,
+        "endChar": 91
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3441c90e_4602a778",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "Out of curiosity, why do clear all existing rules, instead of, say, just rules that have an interface index of mLastIPv4UpstreamIfindex? Per VC: this could probably be done either way, and given that we only support one upstream at a time anyway, it really doesn\u0027t matter.\n\nMight want to add a comment explaining that if we support multiple upstreams we\u0027ll need to delete only the rules from the old upstream.",
+      "range": {
+        "startLine": 817,
+        "startChar": 11,
+        "endLine": 817,
+        "endChar": 31
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a397faa_33980517",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "Per discussion:\n\nThe rules must be cleared before mIpv4UpstreamIndices is cleared because otherwise they can no longer be deleted (since the interface indices are no longer known).",
+      "range": {
+        "startLine": 817,
+        "startChar": 67,
+        "endLine": 820,
+        "endChar": 41
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f32b145_cf34725e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "as is done in",
+      "range": {
+        "startLine": 820,
+        "startChar": 88,
+        "endLine": 820,
+        "endChar": 90
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c3593ee_aca044d8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "What do you mean \"may not\"? I thought the behaviour was deterministic: this method is called by handleNewUpstreamNetworkState, and that *always* happens before the IpServers are notified that the upstream has changed. If that\u0027s correct, then \"may not\" -\u003e \"does not\", or even say \"because IpServers are notified of upstream interface changes only after this code runs\".",
+      "range": {
+        "startLine": 821,
+        "startChar": 84,
+        "endLine": 821,
+        "endChar": 91
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65a960d4_832f5b13",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "this code clears the",
+      "range": {
+        "startLine": 822,
+        "startChar": 60,
+        "endLine": 822,
+        "endChar": 68
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af364f71_78439436",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "FWIW, I think we could remove this if since if mLastIPv4UpstreamIfindex \u003d\u003d 0 there should be no rules in the map anyway. Up to you. It might be clearer to keep what you have.",
+      "range": {
+        "startLine": 823,
+        "startChar": 8,
+        "endLine": 823,
+        "endChar": 44
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa0ebde_1e3740e1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:13:12Z",
+      "side": 1,
+      "message": "mLastIPv4UpstreamIfindex can only be cleared after deleting the rules because it is checked above.",
+      "range": {
+        "startLine": 830,
+        "startChar": 11,
+        "endLine": 831,
+        "endChar": 68
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
