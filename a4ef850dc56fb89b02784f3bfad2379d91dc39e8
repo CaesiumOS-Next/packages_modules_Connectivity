@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb259cc3_378bab73",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-25T09:24:33Z",
+      "side": 1,
+      "message": "Maybe also doesn\u0027t need to run this?",
+      "range": {
+        "startLine": 522,
+        "startChar": 8,
+        "endLine": 522,
+        "endChar": 68
+      },
+      "revId": "a4ef850dc56fb89b02784f3bfad2379d91dc39e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad643551_23b5d131",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/OffloadControllerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-25T09:24:33Z",
+      "side": 1,
+      "message": "Question: not sure how do you pass this on R device?\nPer discussion this will not be called on R, right?",
+      "range": {
+        "startLine": 667,
+        "startChar": 31,
+        "endLine": 667,
+        "endChar": 64
+      },
+      "revId": "a4ef850dc56fb89b02784f3bfad2379d91dc39e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
