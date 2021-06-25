@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08012fa4_a4a36597",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "Code LGTM. Inline comments can wait until a follow-up.",
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9040155_d3711019",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "INTERVAL\n\nOr, rename to CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS",
+      "range": {
+        "startLine": 127,
+        "startChar": 39,
+        "endLine": 127,
+        "endChar": 46
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5624a29c_8964b8e3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "mScheduledConntrackTimeoutUpdate",
+      "range": {
+        "startLine": 253,
+        "startChar": 27,
+        "endLine": 253,
+        "endChar": 60
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0820be76_aa23df3d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "@VisibleForTesting",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 14
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "399aebd7_9eccd395",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1456,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "You don\u0027t need this, the InetAddress.getByAddress() call in parseIPv4Address is perfectly capable of taking a 16-byte mapped address and converting it to an Inet4Address.",
+      "range": {
+        "startLine": 1444,
+        "startChar": 0,
+        "endLine": 1456,
+        "endChar": 30
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0daa2a56_d15f4572",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1860,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "Can this code actually throw IAE?",
+      "range": {
+        "startLine": 1860,
+        "startChar": 38,
+        "endLine": 1860,
+        "endChar": 66
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "552e273d_1935a14d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "I don\u0027t think this can ever happen. If you think it might, then just \"return\" with no error is _not_ the right response. Maybe:\n\n    { Log.wtf(\"...\"); return }",
+      "range": {
+        "startLine": 1870,
+        "startChar": 42,
+        "endLine": 1870,
+        "endChar": 48
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a842c9_272b6d6c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1895,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "Why \"maybe\"? Generally, convention in our code is that a method named maybeXyz will perform action xyz only if some condition is met. This method always does something - update the timeouts (though potentially there might be 0 timeouts to update).\n\nSuggest renaming to refreshAllConntrackTimeouts.",
+      "range": {
+        "startLine": 1895,
+        "startChar": 17,
+        "endLine": 1895,
+        "endChar": 22
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e25ee33_52602be8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1898,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "Nit: suggest putting this *after* the downstream iteration. This allows the reader to understand better that the direction is reversed.",
+      "range": {
+        "startLine": 1898,
+        "startChar": 11,
+        "endLine": 1898,
+        "endChar": 83
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f23d8c8d_b18a964a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1899,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "refreshes",
+      "range": {
+        "startLine": 1899,
+        "startChar": 35,
+        "endLine": 1899,
+        "endChar": 42
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "961c794a_4df05b8d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "TODO: there is no need to update TCP timeouts every 60 seconds. The TCP timeout is so long that even just one update per day would be plenty.",
+      "range": {
+        "startLine": 1900,
+        "startChar": 63,
+        "endLine": 1900,
+        "endChar": 64
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fc025f_0d9629c7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1913,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "if ((now - v.lastUsed) / 1_000_000 \u003e\u003d POLLING_CONNTRACK_TIMEOUT_MS) continue;",
+      "range": {
+        "startLine": 1913,
+        "startChar": 12,
+        "endLine": 1913,
+        "endChar": 80
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb05250_df525208",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T10:06:52Z",
+      "side": 1,
+      "message": "maybeScheduleConntrackTimeoutUpdate",
+      "range": {
+        "startLine": 1930,
+        "startChar": 17,
+        "endLine": 1930,
+        "endChar": 53
+      },
+      "revId": "c27ec7c4a2e3a1aaffc19b0ece6e0585ab530775",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
