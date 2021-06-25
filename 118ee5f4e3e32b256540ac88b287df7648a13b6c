@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58197048_c91a42d8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5592,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-25T19:39:18Z",
+      "side": 1,
+      "message": "Because ConnectivityService side incrementCountOrThrow in binder, decrementCount in handler thread,  We have to waitForIdle to ensure decrementCount being invoked for same intent requests,  before doing further tests.",
+      "range": {
+        "startLine": 5592,
+        "startChar": 8,
+        "endLine": 5592,
+        "endChar": 19
+      },
+      "revId": "118ee5f4e3e32b256540ac88b287df7648a13b6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
