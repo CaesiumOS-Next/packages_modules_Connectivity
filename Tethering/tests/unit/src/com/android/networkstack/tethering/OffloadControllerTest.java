@@ -66,6 +66,7 @@ import android.net.NetworkStats.Entry;
 import android.net.RouteInfo;
 import android.net.netstats.provider.NetworkStatsProvider;
 import android.net.util.SharedLog;
+import android.os.Build;
 import android.os.Handler;
 import android.os.test.TestLooper;
 import android.provider.Settings;
@@ -76,10 +77,13 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.internal.util.test.FakeSettingsProvider;
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.TestableNetworkStatsProviderCbBinder;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -95,6 +99,9 @@ import java.util.Set;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class OffloadControllerTest {
+    @Rule
+    public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
     private static final String RNDIS0 = "test_rndis0";
     private static final String RMNET0 = "test_rmnet_data0";
     private static final String WLAN0 = "test_wlan0";
@@ -654,13 +661,17 @@ public class OffloadControllerTest {
         enableOffload();
         startOffloadController(OFFLOAD_HAL_VERSION_1_0, true /*expectStart*/);
 
-        OffloadHardwareInterface.ControlCallback callback = mControlCallbackCaptor.getValue();
+        final OffloadHardwareInterface.ControlCallback callback = mControlCallbackCaptor.getValue();
         callback.onStoppedLimitReached();
         mTetherStatsProviderCb.expectNotifyStatsUpdated();
         mTetherStatsProviderCb.expectNotifyWarningOrLimitReached();
+    }
 
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)  // HAL 1.1 is only supported from S
+    public void testDataWarningCallback() throws Exception {
         startOffloadController(OFFLOAD_HAL_VERSION_1_1, true /*expectStart*/);
-        callback = mControlCallbackCaptor.getValue();
+        final OffloadHardwareInterface.ControlCallback callback = mControlCallbackCaptor.getValue();
         callback.onWarningReached();
         mTetherStatsProviderCb.expectNotifyStatsUpdated();
         mTetherStatsProviderCb.expectNotifyWarningOrLimitReached();
