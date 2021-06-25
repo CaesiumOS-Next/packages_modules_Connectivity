@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dbde71c_7121f9af",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5865,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T14:38:14Z",
+      "side": 1,
+      "message": "It\u0027s not safe to touch any mutable data in this method since it runs on an arbitrary binder thread. ArrayList is not thread-safe, and even if it were, this get() could throw IndexOutOfBoundsException if all requests had already been removed from the list by a call to handleRemoveNetworkRequest(NetworkRequestInfo) run on another thread.\n\nNot sure what to do about this. Would this work, or does it not perform the right operations?\n\n    mHandler.post(() -\u003e handleRemoveNetworkRequest(this));",
+      "range": {
+        "startLine": 5865,
+        "startChar": 43,
+        "endLine": 5865,
+        "endChar": 50
+      },
+      "revId": "efd357a281d28998c1392f4282c3d23a2f0f1562",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
