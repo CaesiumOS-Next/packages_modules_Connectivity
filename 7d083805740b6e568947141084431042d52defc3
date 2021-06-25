@@ -46,6 +46,30 @@
       },
       "revId": "7d083805740b6e568947141084431042d52defc3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b58254b4_2ba16354",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-25T02:58:06Z",
+      "side": 1,
+      "message": "As per our offline discussion, updated the CL with a detailed explanation of the chain of events which can cause the associated crash to occur along with how this fix resolves it.",
+      "parentUuid": "7fbc6e8f_cd67952d",
+      "range": {
+        "startLine": 13,
+        "startChar": 42,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "7d083805740b6e568947141084431042d52defc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
