@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29568296_21d141e2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7602,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-25T20:09:16Z",
+      "side": 1,
+      "message": "This check can be removed. AFAIK, there should never be an NRI that doesn\u0027t have a request.",
+      "parentUuid": "c467af3e_3d2b5036",
+      "range": {
+        "startLine": 7602,
+        "startChar": 73,
+        "endLine": 7602,
+        "endChar": 97
+      },
+      "revId": "ea40d75ebd068f09627b5f389096f351ffcde807",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "775a48d2_9e31b2ca",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-25T10:57:54Z",
       "side": 1,
       "message": "Not sure if we have other cases which will reach here, too.\nIt is unlikely, but should we follow the same condition below to get the request.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d8033;drc\u003dmaster?ss\u003dandroid\u0026q\u003dConnectivityService\n\nAnd maybe add log.wtf if nri.getActiveRequest() \u003d\u003d null ?\n\nThe benefit is you fix the exact case you mentioned in the comment, and if we have other cases that causes nri.getActiveRequest() \u003d\u003d null, we\u0027ll know.\nNot sure if this is a good idea.",
+      "range": {
+        "startLine": 7603,
+        "startChar": 23,
+        "endLine": 7603,
+        "endChar": 69
+      },
+      "revId": "ea40d75ebd068f09627b5f389096f351ffcde807",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d11f6059_8139506d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7603,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-25T20:09:16Z",
+      "side": 1,
+      "message": "Agree with Junyu on the check referenced by the link. Really, you can simplify this code to this:\n\n    final NetworkRequest req \u003d nri.isMultilayerRequest() ? \n        nri.getActiveRequest() : nri.mRequests.get(0);\n        \nAdditionally you should update the comment to:\n\n    // Non-multilayer listen requests do not have an active request.\n    \nA multilayer requests will have something for nri.getActiveRequest() on CALLBACK_AVAILABLE whether it is a listen or request type. The only case it won\u0027t have one is for a non-multilayer listen which you did a good job of catching.\n\nAs for the log:\n\n    log.wtf if nri.getActiveRequest() \u003d\u003d null\n    \nI\u0027ll defer to you on the log, but the check would be:\n\n    if (nri.isMultilayerRequest() \u0026\u0026 nri.getActiveRequest() \u003d\u003d null) log.wtf",
+      "parentUuid": "775a48d2_9e31b2ca",
       "range": {
         "startLine": 7603,
         "startChar": 23,
