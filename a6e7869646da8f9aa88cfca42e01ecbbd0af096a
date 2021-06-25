@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6575ec3_c844f76e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:26:56Z",
+      "side": 1,
+      "message": "LGTM for now. Lots of comments, but I don\u0027t think they should block submission of this CL.",
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca07a0d8_97ce1554",
@@ -325,6 +342,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6d6a87d_d9157c73",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:26:56Z",
+      "side": 1,
+      "message": "This is private and has only one caller. Delete this method and move the 3 lines of actual code (776-778) inline in tetherOffloadClientClear.",
+      "range": {
+        "startLine": 768,
+        "startChar": 17,
+        "endLine": 768,
+        "endChar": 40
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44412daf_6b005d46",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:26:56Z",
+      "side": 1,
+      "message": "Per discussion: this cannot happen. This code is only called by updateUpstreamNetworkState, which *gets* the ipServer from mTetheredClients.keySet().",
+      "range": {
+        "startLine": 772,
+        "startChar": 8,
+        "endLine": 772,
+        "endChar": 36
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3441c90e_4602a778",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 18
@@ -456,6 +519,29 @@
         "startChar": 8,
         "endLine": 823,
         "endChar": 44
+      },
+      "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79247347_2077257a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-25T09:26:56Z",
+      "side": 1,
+      "message": "Could be:\n\n    for (HashMap\u003cInet4Address, ClientInfo\u003e clients : mTetherClients.values()) {\n        tetherOffloadRule4Clear(clients);\n    }",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 13
       },
       "revId": "a6e7869646da8f9aa88cfca42e01ecbbd0af096a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
