@@ -532,15 +532,13 @@ public class ConnectivityManagerTest {
                 }
             }
             assertNotNull(snapshot);
-            final NetworkCapabilities caps =
-                    Objects.requireNonNull(mCm.getNetworkCapabilities(network));
-            // Redact specifier of the capabilities of the snapshot before comparing since
-            // the result returned from getNetworkCapabilities always get redacted.
-            final NetworkSpecifier redactedSnapshotCapSpecifier =
-                    snapshot.getNetworkCapabilities().getNetworkSpecifier().redact();
+            // Remove the specifier of the capabilities before comparing, since it will not always
+            // be attached. For example, NetworkSpecifier of wifi network is only attached when
+            // a wifi network is created in response to a network request with specifier attached.
+            final NetworkCapabilities caps = Objects.requireNonNull(
+                    mCm.getNetworkCapabilities(network)).setNetworkSpecifier(null);
             assertEquals("", caps.describeImmutableDifferences(
-                    snapshot.getNetworkCapabilities()
-                            .setNetworkSpecifier(redactedSnapshotCapSpecifier)));
+                    snapshot.getNetworkCapabilities().setNetworkSpecifier(null)));
             assertEquals(mCm.getLinkProperties(network), snapshot.getLinkProperties());
             assertEquals(mCm.getNetworkInfo(network).getType(), snapshot.getLegacyType());
 
