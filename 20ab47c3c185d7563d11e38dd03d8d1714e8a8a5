@@ -22,6 +22,30 @@
       },
       "revId": "20ab47c3c185d7563d11e38dd03d8d1714e8a8a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006699a2_3cda84f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1074459
+      },
+      "writtenOn": "2021-06-25T04:35:55Z",
+      "side": 1,
+      "message": "NetworkSpecifier is only attached when a wifi network is created in response to a network request with specifier attached. For regular wifi connections, NetworkSpecifier is not attached to the wifi NetworkAgent.",
+      "parentUuid": "463e9b8d_a1e74e25",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "20ab47c3c185d7563d11e38dd03d8d1714e8a8a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
