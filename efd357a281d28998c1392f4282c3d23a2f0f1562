@@ -22,6 +22,30 @@
       },
       "revId": "efd357a281d28998c1392f4282c3d23a2f0f1562",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "495ba419_4d0fd5cb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5865,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-26T03:52:49Z",
+      "side": 1,
+      "message": "Good catch and what you suggest works as long as I make sure not to run the remove code for an NRI that\u0027s already been removed therefore let\u0027s go with that. Thanks!",
+      "parentUuid": "7dbde71c_7121f9af",
+      "range": {
+        "startLine": 5865,
+        "startChar": 43,
+        "endLine": 5865,
+        "endChar": 50
+      },
+      "revId": "efd357a281d28998c1392f4282c3d23a2f0f1562",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
