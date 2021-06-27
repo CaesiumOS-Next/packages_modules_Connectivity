@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08962839_0c085661",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2630,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-27T13:54:23Z",
+      "side": 1,
+      "message": "Hmm, it is because stop TETHERING_NCM won\u0027t call setCurrentFunctions FUNCTION_NONE if the ncm is used for rnids. Although there is no bug now (because stop TETHERING_USB would set usb function to FUNCTION_NONE), but this make confuse and may cause the bug in the future. Make a code change here: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1740778/2/Tethering/src/com/android/networkstack/tethering/Tethering.java#1419",
+      "parentUuid": "78ee29fa_270d2e1c",
+      "range": {
+        "startLine": 2630,
+        "startChar": 57,
+        "endLine": 2630,
+        "endChar": 62
+      },
+      "revId": "7ef75d0d568502b552a7ee9c26f9b69c786539c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e080b059_5f771c18",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-26T01:01:31Z",
       "side": 1,
       "message": "no functions enabled",
+      "range": {
+        "startLine": 2633,
+        "startChar": 43,
+        "endLine": 2633,
+        "endChar": 51
+      },
+      "revId": "7ef75d0d568502b552a7ee9c26f9b69c786539c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156fcc96_65a7c6ed",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2633,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-27T13:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e080b059_5f771c18",
       "range": {
         "startLine": 2633,
         "startChar": 43,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be3e2b04_ee1cff45",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2640,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-27T13:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ad71d62_65a81cbd",
+      "range": {
+        "startLine": 2640,
+        "startChar": 15,
+        "endLine": 2640,
+        "endChar": 28
+      },
+      "revId": "7ef75d0d568502b552a7ee9c26f9b69c786539c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4196fbc_685ad53c",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-06-26T01:01:31Z",
       "side": 1,
       "message": "Might want to add an assertion right after this call to make it clear to the reader that at this point NCM tethering is now running.\n\nYou might be able to use runDualStackUsbTethering, or re-use most of the code in it, but if that gets messy, I wouldn\u0027t bother. As long as it\u0027s clear to the reader that at this point NCM tethering is started, that\u0027s fine.",
+      "range": {
+        "startLine": 2641,
+        "startChar": 25,
+        "endLine": 2641,
+        "endChar": 26
+      },
+      "revId": "7ef75d0d568502b552a7ee9c26f9b69c786539c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ac168b_3696d8f8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2641,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-27T13:54:23Z",
+      "side": 1,
+      "message": "Done, runNcmTethering is test local only tethering. So it can\u0027t re-use most of runDualStackUsbTethering.",
+      "parentUuid": "e4196fbc_685ad53c",
       "range": {
         "startLine": 2641,
         "startChar": 25,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeea8657_6bae0226",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2643,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-27T13:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8bb6646_1353d1f8",
+      "range": {
+        "startLine": 2643,
+        "startChar": 8,
+        "endLine": 2643,
+        "endChar": 28
+      },
+      "revId": "7ef75d0d568502b552a7ee9c26f9b69c786539c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20be4d02_c648626d",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-06-26T01:01:31Z",
       "side": 1,
       "message": "It looks like this test is checking what happens when changing the setting on a device that supports both NCM and USB. If so, might want to put this resources configuration at the beginning of this test (e.g., line 2640)? That would be more realistic, because on such a device, the regexps always need to match both NCM and RNDIS, and the resources typically won\u0027t change at runtime.",
+      "range": {
+        "startLine": 2646,
+        "startChar": 0,
+        "endLine": 2647,
+        "endChar": 77
+      },
+      "revId": "7ef75d0d568502b552a7ee9c26f9b69c786539c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2ad26a1_9e55a56a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2647,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-27T13:54:23Z",
+      "side": 1,
+      "message": "No, current code don\u0027t support put ncm interface regexs into config_tether_usb_regexs and config_tether_ncm_regexs at the same time. It would let ncm interface always be identify as TETHERING_USB (see https://source.corp.google.com/android/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/Tethering.java;l\u003d558;bpv\u003d0;bpt\u003d0). And this is fixed in follow up CL(start/stop IpServer according to usb intent instead of netlink event) aosp/1731453.",
+      "parentUuid": "20be4d02_c648626d",
       "range": {
         "startLine": 2646,
         "startChar": 0,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cced061_797354c9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2657,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-27T13:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83b03cab_fd9c136b",
+      "range": {
+        "startLine": 2657,
+        "startChar": 15,
+        "endLine": 2657,
+        "endChar": 28
+      },
+      "revId": "7ef75d0d568502b552a7ee9c26f9b69c786539c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ac9730d_86dbf651",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-06-26T01:01:31Z",
       "side": 1,
       "message": "typo",
+      "range": {
+        "startLine": 2664,
+        "startChar": 15,
+        "endLine": 2664,
+        "endChar": 28
+      },
+      "revId": "7ef75d0d568502b552a7ee9c26f9b69c786539c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea9283d5_0e37a5d1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2664,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-27T13:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ac9730d_86dbf651",
       "range": {
         "startLine": 2664,
         "startChar": 15,
