@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0deb61de_2420ad46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-28T03:35:12Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "31f71e75_8231bb38",
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98e1235e_88ab1699",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-06-28T03:24:41Z",
       "side": 1,
       "message": "Nit: app ids now",
+      "range": {
+        "startLine": 97,
+        "startChar": 20,
+        "endLine": 97,
+        "endChar": 24
+      },
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea1c892_4d67883a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-28T03:35:12Z",
+      "side": 1,
+      "message": "Will address in ag/14772860.",
+      "parentUuid": "98e1235e_88ab1699",
       "range": {
         "startLine": 97,
         "startChar": 20,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "669aa9a7_c24ed096",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-28T03:35:12Z",
+      "side": 1,
+      "message": "I think so. Will remove in ag/14772860.",
+      "parentUuid": "47801a4d_6763e519",
+      "range": {
+        "startLine": 449,
+        "startChar": 8,
+        "endLine": 450,
+        "endChar": 47
+      },
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60ca6768_ce572ce1",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 2
@@ -77,6 +143,30 @@
       "writtenOn": "2021-06-28T03:24:41Z",
       "side": 1,
       "message": "Nit: also addressed here ?",
+      "range": {
+        "startLine": 504,
+        "startChar": 8,
+        "endLine": 505,
+        "endChar": 47
+      },
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d342461e_7931c08c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-28T03:35:12Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "60ca6768_ce572ce1",
       "range": {
         "startLine": 504,
         "startChar": 8,
