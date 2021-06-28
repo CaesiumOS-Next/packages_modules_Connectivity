@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f24d0e78_56f7ff34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330217
+      },
+      "writtenOn": "2021-06-28T09:31:23Z",
+      "side": 1,
+      "message": "LGTM.\n\nSorry about missing that in the previous change this morning.",
+      "revId": "507d09437384143734f5184a392a1e77a1b2d310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
