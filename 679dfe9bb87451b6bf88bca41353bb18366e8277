@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7100587_c4ea9497",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-28T02:25:10Z",
+      "side": 1,
+      "message": "Nope, there was also 2 ways to check for the same thing. De-duplicated.",
+      "parentUuid": "b8284e74_fa926c8e",
+      "range": {
+        "startLine": 2227,
+        "startChar": 16,
+        "endLine": 2227,
+        "endChar": 40
+      },
+      "revId": "679dfe9bb87451b6bf88bca41353bb18366e8277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2694131e_272b737b",
@@ -84,6 +108,30 @@
       "writtenOn": "2021-06-28T02:01:57Z",
       "side": 1,
       "message": "Why can\u0027t you re-use the tetherUtils defined at line 2220?",
+      "range": {
+        "startLine": 2228,
+        "startChar": 16,
+        "endLine": 2228,
+        "endChar": 47
+      },
+      "revId": "679dfe9bb87451b6bf88bca41353bb18366e8277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fbac3e0_e5ca5060",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2228,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-28T02:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2694131e_272b737b",
       "range": {
         "startLine": 2228,
         "startChar": 16,
