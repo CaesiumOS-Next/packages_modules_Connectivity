@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "245f3b17_1bf4b16d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T02:01:57Z",
+      "side": 1,
+      "message": "This CL is written to fix Q, but I don\u0027t see how this will work on Q, because CtsTetheringUtils#registerTetheringEventCallback calls TetheringManager, which didn\u0027t exist on Q. What am I missing?",
+      "range": {
+        "startLine": 2222,
+        "startChar": 46,
+        "endLine": 2222,
+        "endChar": 76
+      },
+      "revId": "679dfe9bb87451b6bf88bca41353bb18366e8277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8284e74_fa926c8e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T02:01:57Z",
+      "side": 1,
+      "message": "Is this necessary given that the preceding line calls assumeWifiTetheringSupported? If it\u0027s necessary for some non-obvious reason (e.g., differing behaviour on different releases), then please state that in a comment.",
+      "range": {
+        "startLine": 2227,
+        "startChar": 16,
+        "endLine": 2227,
+        "endChar": 40
+      },
+      "revId": "679dfe9bb87451b6bf88bca41353bb18366e8277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2694131e_272b737b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2228,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T02:01:57Z",
+      "side": 1,
+      "message": "Why can\u0027t you re-use the tetherUtils defined at line 2220?",
+      "range": {
+        "startLine": 2228,
+        "startChar": 16,
+        "endLine": 2228,
+        "endChar": 47
+      },
+      "revId": "679dfe9bb87451b6bf88bca41353bb18366e8277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
