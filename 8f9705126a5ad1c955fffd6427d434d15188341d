@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b69b1be_8fd2cab7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:50:51Z",
+      "side": 1,
+      "message": "LGTM based on confirmation in b/176520801 that this code will no longer be used on S devices.",
+      "revId": "8f9705126a5ad1c955fffd6427d434d15188341d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
