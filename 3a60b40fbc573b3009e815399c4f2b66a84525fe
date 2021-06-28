@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fc6ace7_da5d0875",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 5773,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-28T17:41:49Z",
+      "side": 1,
+      "message": "Actually, from SDK: https://developer.android.com/reference/android/net/ConnectivityManager#requestNetwork(android.net.NetworkRequest,%20android.app.PendingIntent)\n\nTwo APIs for pendingIntent: \nmCm.requestNetwork\nmCm.registerNetworkCallback\n\nAlthough the patch only fixed issue on mCm.registerNetworkCallback,  Should we setup SAME_INTENTS test for mCm.requestNetwork as well ? (like DIFF_INTENTS)",
+      "range": {
+        "startLine": 5773,
+        "startChar": 16,
+        "endLine": 5773,
+        "endChar": 39
+      },
+      "revId": "3a60b40fbc573b3009e815399c4f2b66a84525fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "45ece3e1_08ca5efc",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 7
