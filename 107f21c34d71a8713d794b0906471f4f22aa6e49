@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "867a51f7_785396f5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-28T03:02:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2499a3bd_4fd23a83",
+      "range": {
+        "startLine": 1419,
+        "startChar": 32,
+        "endLine": 1419,
+        "endChar": 42
+      },
+      "revId": "107f21c34d71a8713d794b0906471f4f22aa6e49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ff5fd49_4f9a429f",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-06-28T02:14:49Z",
       "side": 1,
       "message": "Why does this set FUNCTION_NONE twice? I would expect it to set it only once. Is that a bug, or am I missing something? No need to fix in this CL, but we might want to add a comment in a future CL.",
+      "range": {
+        "startLine": 2630,
+        "startChar": 28,
+        "endLine": 2630,
+        "endChar": 36
+      },
+      "revId": "107f21c34d71a8713d794b0906471f4f22aa6e49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e160167a_454c527a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2630,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-28T03:02:07Z",
+      "side": 1,
+      "message": "When configuration change, tethering both stop TETHERING_USB and TETHERING_NCM.",
+      "parentUuid": "7ff5fd49_4f9a429f",
       "range": {
         "startLine": 2630,
         "startChar": 28,
