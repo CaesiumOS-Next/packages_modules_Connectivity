@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f71e75_8231bb38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-28T03:24:41Z",
+      "side": 1,
+      "message": "No need to respin the change for the nits I think (they could be addressed in aosp/14772860 that will need to be rebased anyway)",
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e1235e_88ab1699",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-28T03:24:41Z",
+      "side": 1,
+      "message": "Nit: app ids now",
+      "range": {
+        "startLine": 97,
+        "startChar": 20,
+        "endLine": 97,
+        "endChar": 24
+      },
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47801a4d_6763e519",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-28T03:24:41Z",
+      "side": 1,
+      "message": "Nit: Is this TODO addressed now ?",
+      "range": {
+        "startLine": 449,
+        "startChar": 8,
+        "endLine": 450,
+        "endChar": 47
+      },
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60ca6768_ce572ce1",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-28T03:24:41Z",
+      "side": 1,
+      "message": "Nit: also addressed here ?",
+      "range": {
+        "startLine": 504,
+        "startChar": 8,
+        "endLine": 505,
+        "endChar": 47
+      },
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
