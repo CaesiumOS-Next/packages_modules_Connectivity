@@ -106,5 +106,6 @@ android_test {
         "libtetherutilsjni",
     ],
     compile_multilib: "both",
+    jarjar_rules: ":TetheringTestsJarJarRules",
     manifest: "AndroidManifest_coverage.xml",
 }
