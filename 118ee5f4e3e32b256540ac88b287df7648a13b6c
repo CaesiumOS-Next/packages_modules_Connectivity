@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "373d9772_c7a03a38",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 5585,
+      "author": {
+        "id": 1022843
+      },
+      "writtenOn": "2021-06-28T16:54:57Z",
+      "side": 1,
+      "message": "That is same reason as code \"waitForIdle\". ConnectivityService side SYNC call incrementCountOrThrow in binder thread, but AYNC call decrementCount in handler thread.  In Race-condition, ConnectivityService may SYNC call incrementCountOrThrow SAME_INTENTS times, but not AYNC call decrementCount yet. To pass this Race-condition, We should run SAME_INTENTS case Before DIFF_INTENTS, AND ensure DIFF_INTENTS \u003e\u003d SAME_INTENTS,  it is to ensure ConnectivityService has enough Free request slots for SAME_INTENTS when SYNC call incrementCountOrThrow\n\n###########\nI reviewed your patch.\nYou did waitForIdle after each registerNetworkCallback(networkRequest, same_pi);\nIf that, SAME_INTENTS can be whatever Before or After DIFF_INTENTS",
+      "parentUuid": "e3a7c003_8a832d79",
+      "range": {
+        "startLine": 5584,
+        "startChar": 8,
+        "endLine": 5585,
+        "endChar": 72
+      },
+      "revId": "118ee5f4e3e32b256540ac88b287df7648a13b6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58197048_c91a42d8",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 6
