@@ -381,6 +381,23 @@ public class TetheringManager {
         }
     }
 
+    /**
+     * @hide
+     */
+    @Override
+    protected void finalize() throws Throwable {
+        Log.d(TAG, "finalize running, unregistering mCallback");
+        final ITetheringConnector c = mConnector;
+        if (c != null) {
+            try {
+                c.unregisterTetheringEventCallback(mCallback, mContext.getOpPackageName());
+            } catch (Exception e) {
+                Log.e(TAG, "Error unregistering callback in finalize" + e);
+            }
+        }
+        super.finalize();
+    }
+
     private interface RequestHelper {
         void runRequest(ITetheringConnector connector, IIntResultListener listener);
     }
