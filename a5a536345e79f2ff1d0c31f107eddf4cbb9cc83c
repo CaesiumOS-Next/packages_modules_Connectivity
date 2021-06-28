@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6858f0b8_b4eeff25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-28T16:09:31Z",
+      "side": 1,
+      "message": "I spend 2 hours try to add the test, finally I found this seems not easy. The main problem is TetheringManager would be reference by Context after it is created. I don\u0027t find a easy way to destroy context without kill the process. Not sure whether you have any good idea for this.",
+      "parentUuid": "dfbed070_a495747c",
+      "revId": "a5a536345e79f2ff1d0c31f107eddf4cbb9cc83c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8f34fc3_f87aa177",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-06-28T03:16:56Z",
       "side": 1,
       "message": "Can you explain why this needs to be weak? If I understand correctly (but I\u0027m not sure I do), it might be something like this:\n\n    // This object is never garbage collected because the Tethering code running in\n    // the system server always maintains a reference to it for as long as\n    // mCallback is registered.\n    //\n    // Don\u0027t keep a strong reference to TetheringManager because otherwise\n    // TetheringManager cannot be garbage collected, and because TetheringManager\n    // stores the Context that it was created from, this will prevent the calling\n    // Activity from being garbage collected as well.\n\nIf the above is correct, then there is still a leak here: because mCallback is never unregistered, then the system server callback entry will never be freed, and no TetheringCallbackInternal objects will ever be freed. I think you might be able to fix that by adding a finalize method to TM, like so:\n\n    public void finalize() {\n        getConnector(c -\u003e c.unregisterTetheringEventCallback(mCallback,\n                mContext.getOpPackageName()));\n    }\n\n... but let\u0027s not do that in this CL.\n\nPer IM discussion: before we merge this CL, let\u0027s add check whether the comment suggested above is correct, and if so, add it. I think we can check by adding code to Tethering#doDump that prints all the elements of mTetheringEventCallbacks (assuming that can be done safely without locking problems) or at least prints the result of mTetheringEventCallbacks.getRegisteredCallbackCount().",
+      "range": {
+        "startLine": 433,
+        "startChar": 8,
+        "endLine": 433,
+        "endChar": 71
+      },
+      "revId": "a5a536345e79f2ff1d0c31f107eddf4cbb9cc83c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f1ac0db_05b3f757",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-28T16:09:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8f34fc3_f87aa177",
       "range": {
         "startLine": 433,
         "startChar": 8,
