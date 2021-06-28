@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4556356d_82b5e74b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "Per comment below, would change this from a boolean to an \"int usbFunction\" integer. Doesn\u0027t need to be in this CL.\n\nIt feels like what we really need here is to put it this information in the TetheringRequest, and have the TetherState or the IpServer store the TetheringRequest that caused the code to set up tethering. Until we do that, much of the code will not have the right information and will be forced to guess what USB function was picked when USB tethering was enabled. Currently that information is fetched from mConfig at various points in time, but I think that could be incorrect and out of date because mConfig could change at any time.\n\nExample:\n1. startTethering(TETHERING_USB)\n2. mConfig is set to use NCM for USB. Tethering starts NCM.\n3. mConfig changes to use RNDIS for USB. Configuration change happens.\n4. USB broadcast happens. enableUsbIpServing is called with isNcm set to true, calls mConfig.isNcm() which returns false. I don\u0027t know what happens at this point, but it\u0027s likely not what the user wanted.",
+      "range": {
+        "startLine": 185,
+        "startChar": 29,
+        "endLine": 185,
+        "endChar": 34
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "533b1f0d_11adf8d2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "or USB interface add/removes.",
+      "range": {
+        "startLine": 529,
+        "startChar": 55,
+        "endLine": 529,
+        "endChar": 56
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d77d4b6_0cc551a0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "Is it guaranteed that when the USB_ACTION broadcast is received, the interface has been created? If not, it could happen that enabling USB tethering is flaky: when this code runs the interface does not exist yet. In previous code things would work because when the interfaceAdded notification arrived, the code would create the IpServer. But that code is being deleted in this CL. Do you think there might be devices in the field running R that depend on this behaviour?\n\nThe kernel code appears to do do the right thing: register_netdevice is called when the gadget is bound, and I think that is a synchronous operation that has to complete before the function is actually enabled and the broadcast can be sent. So this *should* work...\n\nI wonder if on R we should continue to have the interfaceAdded continue to bring up the IpServer for safety? Or maybe just structure the code so that we can do that easily in case some devices have problems with the new code?",
+      "range": {
+        "startLine": 532,
+        "startChar": 8,
+        "endLine": 532,
+        "endChar": 67
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43a93372_c84e3af6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "What should the code do if both of these are true and the configuration says to use NCM for USB tethering?\n\nIn such a case, I don\u0027t think Tethering will ever ask UsbManager to enable both functions at the same time, but other parts of the system might talk to UsbManager directly and enable both functions at the same time. If they do, this code should do something sensible, or at least not crash... do we have a test that checks what happens in this case?\n\nI think the previous code would just ignore NCM and bring up RNDIS. We could do the same in the new code perhaps.",
+      "range": {
+        "startLine": 1065,
+        "startChar": 0,
+        "endLine": 1066,
+        "endChar": 57
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06adc581_1c01e707",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "I don\u0027t understand this comment. This code does not seem to check whether USB is connected or not. And this code is never called unless connected is false, and you are not changing that in this CL.\n\nAre you just documenting a limitation in the code? If so - should this comment be at line 1068 instead of here?",
+      "range": {
+        "startLine": 1094,
+        "startChar": 15,
+        "endLine": 1094,
+        "endChar": 62
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c77700d_7975bca5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "(disabling the function is necessary to ensure the connected device sees a disconnect).",
+      "range": {
+        "startLine": 1095,
+        "startChar": 77,
+        "endLine": 1095,
+        "endChar": 78
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70e6fa63_4e9704dc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "Would rename to forNcmFunction to avoid confusion about what the boolean means. Just \"isNcm\" could mean \"this is TETHERING_NCM, not TETHERING_USB\" or \"this is FUNCTION_NCM, not FUNCTION_RNDIS\". Calling it forNcmFunction makes it clear that this boolean refers to the function, not the tethering type. We should rename it everywhere in this file.\n\nBetter yet, could this be an \"int function\" instead of a boolean? Perhaps not for this CL.",
+      "range": {
+        "startLine": 1334,
+        "startChar": 44,
+        "endLine": 1334,
+        "endChar": 49
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cde8e3ff_a6d76849",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "Per comment above: if the \"force USB function\" setting changed since it was read at line 1425, then this type might be incorrect. Can you add a comment explaining what can happen?\n\nI think one thing that can happen is that if someone starts TETHERING_USB and we pick NCM, but then the config changes to us RNDIS for tethering, then this code won\u0027t start any IpServers, but the NCM function will remain enabled. I don\u0027t know what happens after that if someone stops TETHERING_NCM, or stops TETHERING_USB, or if the SettingsObserver calls stopTetheringInternal for the functions. Will the system crash? ...? Can you look into it?\n\nIf nothing particularly bad happens, then maybe we can just add a comment here explaining what happens.\n\nThat said - per earlier comment it seems more correct to put this in the TetheringRequest. As soon as a request for USB or NCM tethering was processed, we could check the configuration and decide what function to enable (including enabling no functions and returning an error if NCM is requested but the config option to use NCM for TETHERING_USB is enabled). Then, when handleUsbAction is called, the code can look at the existing requests to see which one matches the function that was enabled. That will tell the code what tethering type was requested, without having to guess it from the configuration. For teardown, we could have the IpServer store the TetheringRequestParcel. That way, disableUsbIpServing could just get the function to disable by asking the IpServer for what function was in the original request.\n\nMaybe add a TODO for this?",
+      "range": {
+        "startLine": 1335,
+        "startChar": 34,
+        "endLine": 1335,
+        "endChar": 53
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29251228_2ad73a3a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "Would rename to tetheringType because an NCM interface might be used for either TETHERING_USB or TETHERING_NCM.",
+      "range": {
+        "startLine": 1335,
+        "startChar": 18,
+        "endLine": 1335,
+        "endChar": 31
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62d8ad55_dfd6a376",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T07:48:27Z",
+      "side": 1,
+      "message": "Can you add a comment explaining why this does not use ifaceNameToType? Initially I thought it was the same, but then I saw the changes to the unit test... Is it because the same interface name might actually match multiple types, depending on what type was requested?\n\nBut if so - what about all the other calls to ifaceNameForType? Are they now incorrect? Is there a way we can continue to use ifaceNameForType, to be consistent with the rest of the code? Perhaps we could simply not make this change now? A device that wants to use NCM for USB tethering can just add the NCM interface(s) to the USB regexp, right?",
+      "range": {
+        "startLine": 1347,
+        "startChar": 20,
+        "endLine": 1348,
+        "endChar": 83
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
