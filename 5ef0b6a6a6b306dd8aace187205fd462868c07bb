@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56c21946_b68967cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-28T12:45:06Z",
+      "side": 1,
+      "message": "Yes that is a good question.\nThat is why TODO at l.325 of NetworkProviderTest.kt is still there.\nIIUC there is no reliable way to map between offers and agents.\nSo if a strong agent is actually provided by a weaker offer, I think it will be a connect-disconnect loop.\nI think we\u0027ll need more time or discuss with Jean before making such change.\nThus I\u0027ll say keep this as is for now.",
+      "parentUuid": "3a6d9df1_44936a57",
+      "revId": "5ef0b6a6a6b306dd8aace187205fd462868c07bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6ea1842_ed82bb81",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-06-16T12:02:48Z",
       "side": 1,
       "message": "Out of curiosity, why does mightBeat not immediately return false if |offer| cannot satisfy |activeRequest|? It definitely seems incorrect for mightBeat to say that a given offer can beat the current satisfier if the offer can\u0027t even satisfy the request. \n\nIf mightBeat already does check this, then adding canSatisfy here is presumably unnecessary.",
+      "range": {
+        "startLine": 8203,
+        "startChar": 52,
+        "endLine": 8203,
+        "endChar": 61
+      },
+      "revId": "5ef0b6a6a6b306dd8aace187205fd462868c07bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9440133_bfbb0b22",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 8203,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-28T12:45:06Z",
+      "side": 1,
+      "message": "Ahh, yes you are right, removed.",
+      "parentUuid": "a6ea1842_ed82bb81",
       "range": {
         "startLine": 8203,
         "startChar": 52,
