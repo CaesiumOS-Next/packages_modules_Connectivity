@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ca92ca_6b4cc2ec",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T02:04:07Z",
+      "side": 1,
+      "message": "Never mind, it\u0027s on the very next line:\n\n    assumeTrue(TestUtils.shouldTestSApis());",
+      "parentUuid": "245f3b17_1bf4b16d",
+      "range": {
+        "startLine": 2222,
+        "startChar": 46,
+        "endLine": 2222,
+        "endChar": 76
+      },
+      "revId": "679dfe9bb87451b6bf88bca41353bb18366e8277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8284e74_fa926c8e",
