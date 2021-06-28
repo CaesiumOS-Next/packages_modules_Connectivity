@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4be3f46d_10b24a1e",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-28T08:07:26Z",
+      "side": 1,
+      "message": "I think it is still relevant that netd *TrafficController* permissions (e.g., INTERNET, UPDATE_DEVICE_STATS) are based on appId, but regular network permissions are based on uid.",
+      "parentUuid": "669aa9a7_c24ed096",
+      "range": {
+        "startLine": 449,
+        "startChar": 8,
+        "endLine": 450,
+        "endChar": 47
+      },
+      "revId": "1e5d7425965fca4c96aa282ab0e791b9344142d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "60ca6768_ce572ce1",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 2
