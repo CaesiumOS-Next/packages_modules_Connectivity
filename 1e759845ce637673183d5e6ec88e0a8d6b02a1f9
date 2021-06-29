@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012460305",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1731453?revision\u003d11",
+      "fixSuggestions": [
+        {
+          "fixId": "99cb8853_88d0c13b",
+          "description": "Change to \"Tethering/src/com/android/networkstack/tethering/Tethering.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1083,
+                "startChar": 24,
+                "endLine": 1083,
+                "endChar": 30
+              },
+              "replacement": "ignore"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "a9883bd9_70a8dbad",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-29T10:36:27Z",
+      "side": 1,
+      "message": "Common typo found: \"ingore\" -- should it be \"ignore\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1083,
+        "startChar": 24,
+        "endLine": 1083,
+        "endChar": 30
+      },
+      "revId": "1e759845ce637673183d5e6ec88e0a8d6b02a1f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012460305",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1731453?revision\u003d11",
+      "fixSuggestions": [
+        {
+          "fixId": "0321a6c2_4053ae28",
+          "description": "Change to \"Tethering/src/com/android/networkstack/tethering/Tethering.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 1348,
+                "startChar": 81,
+                "endLine": 1348,
+                "endChar": 88
+              },
+              "replacement": "enabled"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "d78f60ed_5ea88e48",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-06-29T10:36:27Z",
+      "side": 1,
+      "message": "Common typo found: \"eanbled\" -- should it be \"enabled\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1348,
+        "startChar": 81,
+        "endLine": 1348,
+        "endChar": 88
+      },
+      "revId": "1e759845ce637673183d5e6ec88e0a8d6b02a1f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
