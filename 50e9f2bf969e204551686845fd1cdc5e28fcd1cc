@@ -16,6 +16,121 @@
       "message": "Originally uploaded as aosp/1393736 in frameworks/base. Moved to packages/modules/Connectivity due to b/186628461",
       "revId": "50e9f2bf969e204551686845fd1cdc5e28fcd1cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc65d905_1c012279",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3552,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-29T13:24:43Z",
+      "side": 1,
+      "message": "You\u0027ve already returned, so no need for else if. Suggest unindenting:\n\n        if ((validationResult \u0026 NETWORK_VALIDATION_RESULT_SKIPPED) !\u003d 0) {\n            return ConnectivityReport.NETWORK_VALIDATION_RESULT_SKIPPED;\n        }\n\n        if ((validationResult \u0026 NETWORK_VALIDATION_RESULT_VALID) \u003d\u003d 0) {\n            return ConnectivityReport.NETWORK_VALIDATION_RESULT_INVALID;\n        }\n\n        return (validationResult \u0026 NETWORK_VALIDATION_RESULT_PARTIAL) !\u003d 0)\n                ? ConnectivityReport.NETWORK_VALIDATION_RESULT_PARTIALLY_VALID\n                : ConnectivityReport.NETWORK_VALIDATION_RESULT_VALID;",
+      "range": {
+        "startLine": 3552,
+        "startChar": 8,
+        "endLine": 3552,
+        "endChar": 17
+      },
+      "revId": "50e9f2bf969e204551686845fd1cdc5e28fcd1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9acf8185_250fa9fc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4968,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-29T13:24:43Z",
+      "side": 1,
+      "message": "FWIW I think we can simplify this code by moving this null to handleReportNetworkConnectivity, which already needs to run a lot of checks anyway. (Don\u0027t forget to mark it @Nullable.)",
+      "range": {
+        "startLine": 4964,
+        "startChar": 0,
+        "endLine": 4968,
+        "endChar": 9
+      },
+      "revId": "50e9f2bf969e204551686845fd1cdc5e28fcd1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d353423_a643db62",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4977,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-29T13:24:43Z",
+      "side": 1,
+      "message": "Per comment above, might be good to move to here the check for nai !\u003d null.\n\nMight want to check that nai \u003d\u003d getNetworkAgentInfoForNetwork(nai.network) as well.",
+      "range": {
+        "startLine": 4976,
+        "startChar": 12,
+        "endLine": 4977,
+        "endChar": 79
+      },
+      "revId": "50e9f2bf969e204551686845fd1cdc5e28fcd1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36e7aef7_7901aa52",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4997,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-29T13:24:43Z",
+      "side": 1,
+      "message": "Could you cemove this hunk from this CL and just leave the \"return\" statement that we currently have? The code being added here is being deleted in the next CL, and there\u0027s no point in adding it just to delete it right afterwards.",
+      "range": {
+        "startLine": 4982,
+        "startChar": 0,
+        "endLine": 4997,
+        "endChar": 34
+      },
+      "revId": "50e9f2bf969e204551686845fd1cdc5e28fcd1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a2780d_f85a6602",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9173,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-29T13:24:43Z",
+      "side": 1,
+      "message": "Ditto, can you remove these changes from this CL? They\u0027re being deleted in the next CL in the stack and there\u0027s no point adding them only to remove them immediately after.",
+      "range": {
+        "startLine": 9155,
+        "startChar": 0,
+        "endLine": 9173,
+        "endChar": 35
+      },
+      "revId": "50e9f2bf969e204551686845fd1cdc5e28fcd1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
