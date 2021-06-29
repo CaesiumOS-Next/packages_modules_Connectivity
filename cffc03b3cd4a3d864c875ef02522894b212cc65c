@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc2d403_787bd501",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-29T10:03:39Z",
+      "side": 1,
+      "message": "This looks similar as TetheringCoverageTests in Tethering/tests/intergration/Android.bp\n\nHow about move this into Tethering/tests/integration/Android.bp and use this both for TetheringCoverageTests and ConnectivityCoverageTests ? In the future, if we want to add new lib for TetheringCoverageTest, we don\u0027t need to add to two places (just need to add to TetheringCoverageTestsLib).\n\nOr you can have a java_defaults inside Tethering/tests/integration/Android.bp\njava_defaults {\n    name: \"TetheringCoverageTestsDefaults\",\n    min_sdk_version: \"30\",\n    static_libs: [\n        \"NetdStaticLibTestsLib\",\n        \"NetworkStackTestsLib\",\n        \"NetworkStaticLibTestsLib\",\n        \"TetheringTestsLatestSdkLib\",\n        \"TetheringIntegrationTestsLatestSdkLib\",\n    ],\n    jarjar_rules: \":TetheringTestsJarJarRules\",\n    manifest: \"AndroidManifest_coverage.xml\",\n}\n\nAnd both include this default in here and TetheringCoverageTests\n\nandroid_library {\n    name: \"TetheringCoverageTestsLib\",\n    defaults: [\"TetheringCoverageTestsDefaults\"],\n    visibility: [\"//visibility:private\"],\n}",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 41
+      },
+      "revId": "cffc03b3cd4a3d864c875ef02522894b212cc65c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
