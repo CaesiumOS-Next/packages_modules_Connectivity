@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd0f7f14_cf870fbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-29T17:32:11Z",
+      "side": 1,
+      "message": "IIUC, you should \nalso update ConnectivityServiceTest#testSetMobileDataPreferredUids_noIssueToFactory. Not sure why you can pass the test.",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "c9ca70ced58b735fb18ac1dcf1070424c9758e6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32954b09_b555d5f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-29T17:32:11Z",
+      "side": 1,
+      "message": "IIUC, you should al",
+      "revId": "c9ca70ced58b735fb18ac1dcf1070424c9758e6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
