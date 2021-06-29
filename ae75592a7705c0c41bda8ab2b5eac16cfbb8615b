@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b607ccc6_d8e302c1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4191,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-29T01:23:56Z",
+      "side": 1,
+      "message": "Thanks for the detailed comment.\n\nI agree, we can probably remove this tracked boolean.\n\nFor decrementRequestCount, I don\u0027t believe that will work since a particular app/uid can have multiple NRIs tracked. E.g., an app with 2 NRIs tracked, upon release of one of them we would still expect the per UID request count to be greater than 0.\n\nThat said, I think what I have now should work? I removed the tracked boolean as suggested and since at this point the cleanup should be complete, I added a wtf in case the bookkeeping is wrong which should aid in case we run into a similar issue in the future.\n\nPlease feel free to reopen if you see some further improvements here. Thanks!",
+      "parentUuid": "70a41f8f_1668ea74",
+      "range": {
+        "startLine": 4190,
+        "startChar": 0,
+        "endLine": 4191,
+        "endChar": 37
+      },
+      "revId": "ae75592a7705c0c41bda8ab2b5eac16cfbb8615b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8aec1f3_b42bae1f",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-29T00:14:09Z",
       "side": 1,
       "message": "I don\u0027t think this comment is correct. The @Override here suggests this is a method on IConnectivityManager, which means this call is coming from an app. Therefore it cannot have an NRI, because NRIs are information stored only in ConnectivityService. (Also this code cannot access any CS state because it\u0027s not running on the hanler thread.)",
+      "range": {
+        "startLine": 6299,
+        "startChar": 31,
+        "endLine": 6299,
+        "endChar": 97
+      },
+      "revId": "ae75592a7705c0c41bda8ab2b5eac16cfbb8615b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c8bf3d2_264809c1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6299,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-06-29T01:23:56Z",
+      "side": 1,
+      "message": "Ack. Removed.",
+      "parentUuid": "e8aec1f3_b42bae1f",
       "range": {
         "startLine": 6299,
         "startChar": 31,
