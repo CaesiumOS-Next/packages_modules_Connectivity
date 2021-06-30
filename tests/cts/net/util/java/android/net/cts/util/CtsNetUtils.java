@@ -79,6 +79,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import javax.annotation.Nullable;
+
 public final class CtsNetUtils {
     private static final String TAG = CtsNetUtils.class.getSimpleName();
     private static final int SOCKET_TIMEOUT_MS = 2000;
@@ -481,6 +483,33 @@ public final class CtsNetUtils {
         return new NetworkRequest.Builder()
                 .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                 .build();
+    }
+
+    public boolean isNetworkConnected(int transportType, @Nullable Integer capability) {
+        ConnectivityManager connManager = mContext.getSystemService(ConnectivityManager.class);
+        if (connManager == null) {
+            return false;
+        }
+
+        Network[] networks = connManager.getAllNetworks();
+        for (Network network : networks) {
+            if (network == null) {
+                continue;
+            }
+
+            NetworkCapabilities caps = connManager.getNetworkCapabilities(network);
+            if (caps == null) {
+                continue;
+            }
+
+            if (caps.hasTransport(transportType)) {
+                if(capability != null && caps.hasCapability(capability)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void testHttpRequest(Socket s) throws IOException {
