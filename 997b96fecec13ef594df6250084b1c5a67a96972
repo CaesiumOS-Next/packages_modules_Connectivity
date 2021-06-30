@@ -135,6 +135,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e7cf143_379e241d",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T12:30:26Z",
+      "side": 1,
+      "message": "Stupid question: how is this different from testMigrateTun?",
+      "range": {
+        "startLine": 733,
+        "startChar": 6,
+        "endLine": 733,
+        "endChar": 49
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97210f0a_6e7a281c",
         "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
         "patchSetId": 3
@@ -220,6 +243,29 @@
         "startChar": 16,
         "endLine": 749,
         "endChar": 100
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "861cb2de_118fa29d",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T12:30:26Z",
+      "side": 1,
+      "message": "Maybe describe how?\nIt might benefit the debugging if the test case somehow failed unexpectedly.",
+      "range": {
+        "startLine": 764,
+        "startChar": 45,
+        "endLine": 764,
+        "endChar": 56
       },
       "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
