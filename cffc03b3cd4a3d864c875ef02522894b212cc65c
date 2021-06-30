@@ -22,6 +22,30 @@
       },
       "revId": "cffc03b3cd4a3d864c875ef02522894b212cc65c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3f5209c_efd0513e",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-30T07:03:47Z",
+      "side": 1,
+      "message": "I went with the first option to move it to Tethering/tests/integration and include in both.\n\nActually my intention was to remove TetheringCoverageTests eventually (since it\u0027s a subset of ConnectivityCoverageTests), that\u0027s why I kept them separate. But this can be moved back when TetheringCoverageTests is removed, and not sure when that will happen, so done as suggested.",
+      "parentUuid": "2dc2d403_787bd501",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 41
+      },
+      "revId": "cffc03b3cd4a3d864c875ef02522894b212cc65c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
