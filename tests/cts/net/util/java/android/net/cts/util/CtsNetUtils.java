@@ -17,6 +17,7 @@
 package android.net.cts.util;
 
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
+import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
@@ -58,6 +59,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.system.Os;
 import android.system.OsConstants;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -475,6 +477,15 @@ public final class CtsNetUtils {
 
     public boolean cellConnectAttempted() {
         return mCellNetworkCallback != null;
+    }
+
+    // Toggle mobile data twice to reconnect cell network, leaving it enabled
+    public void toggleCell() {
+        final TelephonyManager tm = mContext.getSystemService(TelephonyManager.class);
+        runAsShell(MODIFY_PHONE_STATE, () -> {
+            tm.setDataEnabledForReason(TelephonyManager.DATA_ENABLED_REASON_USER, false);
+            tm.setDataEnabledForReason(TelephonyManager.DATA_ENABLED_REASON_USER, true);
+        });
     }
 
     private NetworkRequest makeWifiNetworkRequest() {

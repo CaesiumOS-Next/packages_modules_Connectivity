@@ -2617,6 +2617,9 @@ public class ConnectivityManagerTest {
 
         allowBadWifi();
 
+        // Reconnect wifi and cellular network to apply avoid bad wifi policy. Refer to
+        // NetworkRanker.getBestNetworkByPolicy for details.
+        mCtsNetUtils.toggleCell();
         final Network cellNetwork = mCtsNetUtils.connectToCell();
         final Network wifiNetwork = prepareValidatedNetwork();
 
