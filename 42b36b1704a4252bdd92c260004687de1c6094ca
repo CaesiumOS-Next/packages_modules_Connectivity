@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b200fe58_6bd2b77f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-30T15:31:22Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed. Most comments are minor, but it would be good to have a test for the new behaviour. Hopefully this is not too difficult (see suggestion inline). If it turns out to be too hard, then we can try to do that in a separate CL.",
+      "revId": "42b36b1704a4252bdd92c260004687de1c6094ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8adfb26b_a18c7a65",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4893,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-30T15:31:22Z",
+      "side": 1,
+      "message": "Nit: might want to rename to EVENT_REPORT_NETWORK_CONNECTIVITY.",
+      "range": {
+        "startLine": 4893,
+        "startChar": 21,
+        "endLine": 4893,
+        "endChar": 45
+      },
+      "revId": "42b36b1704a4252bdd92c260004687de1c6094ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be235697_8efd60bf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5072,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-30T15:31:22Z",
+      "side": 1,
+      "message": "Pre-existing, but I don\u0027t think DISCONNECTING is actually very useful here. ConnectivityService doesn\u0027t use it, and the new NetworkAgent API never sets it. I don\u0027t think it can happen in practice. Consider removing in this CL.",
+      "range": {
+        "startLine": 5072,
+        "startChar": 19,
+        "endLine": 5072,
+        "endChar": 80
+      },
+      "revId": "42b36b1704a4252bdd92c260004687de1c6094ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f477de5_b803fc67",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9388,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-30T15:31:22Z",
+      "side": 1,
+      "message": "This overload does not seem useful. The only caller can simply pass in Process.INVALID_UID to the the 2-arg version right below.",
+      "range": {
+        "startLine": 9384,
+        "startChar": 0,
+        "endLine": 9388,
+        "endChar": 5
+      },
+      "revId": "42b36b1704a4252bdd92c260004687de1c6094ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c073d40f_648159b0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9409,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-30T15:31:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct. The ConnDiags event could still have been caused by an app. What this INVALID_UID actually means is send callbacks to everybody. Maybe just replace this with \"send callbacks to all UIDs\"?",
+      "range": {
+        "startLine": 9409,
+        "startChar": 31,
+        "endLine": 9409,
+        "endChar": 69
+      },
+      "revId": "42b36b1704a4252bdd92c260004687de1c6094ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ca8a7a0_4f23eba2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10230,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-30T15:31:22Z",
+      "side": 1,
+      "message": "Is it easy to add a test that when another UID requests a revalidation, and revalidation is skipped, this UID does not receive a connectivity report? You should be able to use doAsUid() to call reportNetworkConnectivity as another UID.",
+      "revId": "42b36b1704a4252bdd92c260004687de1c6094ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

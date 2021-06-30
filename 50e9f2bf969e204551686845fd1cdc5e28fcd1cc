@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a62e6b45_f1a483fe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4977,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-06-30T15:31:22Z",
+      "side": 1,
+      "message": "getNetworkAgentInfoForNetwork checks that the nai is still live, i.e., hasn\u0027t been removed from the hash tables (specifically, mNetworkForNetId) and potentially replaced by another nai with the same network.\n\nYour check for DISCONNECTING and DISCONNECTED might be sufficient to prevent against this though.",
+      "parentUuid": "2bf2c8eb_69776b80",
+      "range": {
+        "startLine": 4976,
+        "startChar": 12,
+        "endLine": 4977,
+        "endChar": 79
+      },
+      "revId": "50e9f2bf969e204551686845fd1cdc5e28fcd1cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36e7aef7_7901aa52",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
