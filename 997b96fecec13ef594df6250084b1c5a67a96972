@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aecc6aad_917bad81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "Stupid Question:\nSorry for lack of context, from the bug, I don\u0027t think I get your problem clearly.\nIs there any exmaple to illustrate the problem you met and how you want to solve it?",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22849cb7_fa18db29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "Not finished but here are some comments.\nSince I\u0027m lack of context, most of them are very basic questions.\nIt\u0027ll help if they are answered to help me understand the whole concept.",
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69eed167_c986a854",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7193,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "Stupid Question:  Does this imply the underlyingNetworks cannot be changed after registration network agent?\nIf so, what was the reason of passing underlyingNetworks into this function?\nAnd why do we need this modification?",
+      "range": {
+        "startLine": 7193,
+        "startChar": 45,
+        "endLine": 7193,
+        "endChar": 71
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfd59910_8f90528a",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "It looks to me some null checks are unnecessary.\nSee l.353.",
+      "range": {
+        "startLine": 899,
+        "startChar": 12,
+        "endLine": 899,
+        "endChar": 34
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2685d38_eebdc91c",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "Question: Why we check this? Are we expecting to see specific content of TransportInfo?",
+      "range": {
+        "startLine": 910,
+        "startChar": 39,
+        "endLine": 910,
+        "endChar": 65
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45f5051_4a5667d4",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "Question: What kind of NetworkSpecifier are we expecting?\nCan we just check that?",
+      "range": {
+        "startLine": 911,
+        "startChar": 19,
+        "endLine": 911,
+        "endChar": 20
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97210f0a_6e7a281c",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "Question:\nI don\u0027t really get what do you mean tunUid, does it mean the uid that creates the tun interface?",
+      "range": {
+        "startLine": 737,
+        "startChar": 18,
+        "endLine": 737,
+        "endChar": 24
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a7bb12b_f6b69e80",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "IIUC you want to update this?",
+      "range": {
+        "startLine": 741,
+        "startChar": 58,
+        "endLine": 741,
+        "endChar": 62
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea5277fd_a112dcad",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "Stupid question: What does the system mean here? system uid?",
+      "range": {
+        "startLine": 746,
+        "startChar": 19,
+        "endLine": 746,
+        "endChar": 25
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3d34565_6ad35b0d",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T10:21:08Z",
+      "side": 1,
+      "message": "Stupid question: Does this correspond to the entry at l.742, or this is a unrelated usage?\nIf it is unrelated, where is the underlying traffic of the tunIface?",
+      "range": {
+        "startLine": 749,
+        "startChar": 16,
+        "endLine": 749,
+        "endChar": 100
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
