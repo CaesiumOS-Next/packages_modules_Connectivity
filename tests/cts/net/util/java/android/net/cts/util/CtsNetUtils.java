@@ -483,6 +483,31 @@ public final class CtsNetUtils {
                 .build();
     }
 
+    public boolean isNetworkConnected(int transportType) {
+        ConnectivityManager connManager = mContext.getSystemService(ConnectivityManager.class);
+        if (connManager == null) {
+            return false;
+        }
+
+        Network[] networks = connManager.getAllNetworks();
+        for (Network network : networks) {
+            if (network == null) {
+                continue;
+            }
+
+            NetworkCapabilities caps = connManager.getNetworkCapabilities(network);
+            if (caps == null) {
+                continue;
+            }
+
+            if (caps.hasTransport(transportType)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void testHttpRequest(Socket s) throws IOException {
         OutputStream out = s.getOutputStream();
         InputStream in = s.getInputStream();
