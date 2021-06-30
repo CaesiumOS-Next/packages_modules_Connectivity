@@ -70,6 +70,29 @@
       "parentUuid": "8263a5c2_e0df793c",
       "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f8a21da_8670dfbe",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-06-30T15:01:04Z",
+      "side": 1,
+      "message": "Suggest also have change here(also l.403), the intention of overrideCarrierConfig is to bypass entitlement check. But the entitlement check won\u0027t be triggered if subId is invalid(no SIM or SIM is not ready), so we don\u0027t need to override config in this case.\n\nfinal int subId \u003d SubscriptionManager.getDefaultSubscriptionId();\nif (subId !\u003d SubScriptionManager.INVALID_SUBSCRIPTION_ID) overrideCarrierConfig(bundle, subId);\n\n\nprivate void overrideCarrierConfig(PersistableBundle bundle, int subId) {\n    final CarrierConfigManager configManager \u003d (CarrierConfigManager) mContext\n            .getSystemService(Context.CARRIER_CONFIG_SERVICE);\n    configManager.overrideConfig(subId, bundle);\n}",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 395,
+        "endChar": 38
+      },
+      "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
