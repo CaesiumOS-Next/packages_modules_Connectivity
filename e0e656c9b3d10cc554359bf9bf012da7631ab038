@@ -93,6 +93,30 @@
       },
       "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d2a139f_60cf94cf",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1110792
+      },
+      "writtenOn": "2021-06-30T16:13:24Z",
+      "side": 1,
+      "message": "Hello Mark, thanks for review. I am not familiar with this portion of the code and do not have other platform to test. Can you make these changes? Hope this is ok.",
+      "parentUuid": "7f8a21da_8670dfbe",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 395,
+        "endChar": 38
+      },
+      "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
