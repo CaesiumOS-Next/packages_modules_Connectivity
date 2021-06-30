@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28ecd81a_173d858d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-30T08:41:50Z",
+      "side": 0,
+      "message": "Since this is only fixed on S, this should be if (isAtLeastS())",
+      "range": {
+        "startLine": 943,
+        "startChar": 17,
+        "endLine": 943,
+        "endChar": 26
+      },
+      "revId": "33b4929cfecacd1bff552041ab8b846210e5f326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e23a20b2_b37d96dc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-30T08:41:50Z",
+      "side": 0,
+      "message": "Same here: if (!isAtLeastS())",
+      "range": {
+        "startLine": 961,
+        "startChar": 12,
+        "endLine": 961,
+        "endChar": 21
+      },
+      "revId": "33b4929cfecacd1bff552041ab8b846210e5f326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
