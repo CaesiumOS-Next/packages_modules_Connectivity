@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08d4afe8_061da832",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-30T00:06:46Z",
+      "side": 1,
+      "message": "LGTM but I don\u0027t think this can be merged without having it merged in sc-mainline-prod (which is downstream of AOSP for this project but not for build/soong, libcore or art).",
+      "revId": "c3815ee3583caa73172d48af4ecedc25d5821274",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
