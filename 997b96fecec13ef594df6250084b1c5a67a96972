@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "008739ef_c3d85b3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "As an example:\n\nUser sets up platform VPN (or VCN) over cellular data\nUser downloads 100MB using Chrome\nUser checks mobile data usage, total usage is correct (increased by 100MB + Overhead), but app data shows chrome has used 0 data\n\nThe above example is because there is per-app data usage to migrate from the underlying network and associated owner to attribute across other apps.\n\nSolution is to migrate based on the usage of the TUN for the platform VPN case. We lose overhead, but this is the most accurate we can get without significant kernel changes.",
+      "parentUuid": "aecc6aad_917bad81",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "22849cb7_fa18db29",
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a640d69a_749b4fb3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7193,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "No, the underlying networks can always be updated; they\u0027re done through a NetworkAgent.setUnderlyingNetworks() call, and then updated in the NAI\u0027s declaredUnderlyingNetworks (see handling for \"case NetworkAgent.EVENT_UNDERLYING_NETWORKS_CHANGED\")\n\nThis change here is made so we can use the nai.shouldApplyUnderlyingTransports() below, instead of increasing the number of parameters that are encapsulated by the NAI. It\u0027s functionally a no-op change by passing a NAI instead of capabilities and underlying networks separately.",
+      "parentUuid": "69eed167_c986a854",
+      "range": {
+        "startLine": 7193,
+        "startChar": 45,
+        "endLine": 7193,
+        "endChar": 71
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dfd59910_8f90528a",
         "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
         "patchSetId": 3
@@ -77,6 +125,30 @@
       "writtenOn": "2021-06-30T10:21:08Z",
       "side": 1,
       "message": "It looks to me some null checks are unnecessary.\nSee l.353.",
+      "range": {
+        "startLine": 899,
+        "startChar": 12,
+        "endLine": 899,
+        "endChar": 34
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c989d71_e2377893",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "Removed the linkProperties check, seems like interface name can still be null",
+      "parentUuid": "dfd59910_8f90528a",
       "range": {
         "startLine": 899,
         "startChar": 12,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "399aa23c_626f138b",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "We\u0027re expecting a VcnTransportInfo, but that\u0027s hidden API; so we can\u0027t check it here.",
+      "parentUuid": "c2685d38_eebdc91c",
+      "range": {
+        "startLine": 910,
+        "startChar": 39,
+        "endLine": 910,
+        "endChar": 65
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b45f5051_4a5667d4",
         "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
         "patchSetId": 3
@@ -123,6 +219,30 @@
       "writtenOn": "2021-06-30T10:21:08Z",
       "side": 1,
       "message": "Question: What kind of NetworkSpecifier are we expecting?\nCan we just check that?",
+      "range": {
+        "startLine": 911,
+        "startChar": 19,
+        "endLine": 911,
+        "endChar": 20
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aea3ef1c_763bdb6e",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "None for the moment; we expect this to be null, but in future this may be some other NetworkSpecifier",
+      "parentUuid": "b45f5051_4a5667d4",
       "range": {
         "startLine": 911,
         "startChar": 19,
@@ -158,6 +278,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40d9655c_8e137e63",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "In platform VPNs, there is no underlying network UID stats to migrate from. So no math related to overhead is performed.",
+      "parentUuid": "5e7cf143_379e241d",
+      "range": {
+        "startLine": 733,
+        "startChar": 6,
+        "endLine": 733,
+        "endChar": 49
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97210f0a_6e7a281c",
         "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
         "patchSetId": 3
@@ -169,6 +313,30 @@
       "writtenOn": "2021-06-30T10:21:08Z",
       "side": 1,
       "message": "Question:\nI don\u0027t really get what do you mean tunUid, does it mean the uid that creates the tun interface?",
+      "range": {
+        "startLine": 737,
+        "startChar": 18,
+        "endLine": 737,
+        "endChar": 24
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4f2a08e_2b93cdc8",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s existing nomenclature.\n\nChanged to ownerUid",
+      "parentUuid": "97210f0a_6e7a281c",
       "range": {
         "startLine": 737,
         "startChar": 18,
@@ -202,6 +370,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8dab277_90257ef4",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a7bb12b_f6b69e80",
+      "range": {
+        "startLine": 741,
+        "startChar": 58,
+        "endLine": 741,
+        "endChar": 62
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea5277fd_a112dcad",
@@ -215,6 +407,30 @@
       "writtenOn": "2021-06-30T10:21:08Z",
       "side": 1,
       "message": "Stupid question: What does the system mean here? system uid?",
+      "range": {
+        "startLine": 746,
+        "startChar": 19,
+        "endLine": 746,
+        "endChar": 25
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa92a070_efa941dd",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "Yeah; system server.",
+      "parentUuid": "ea5277fd_a112dcad",
       "range": {
         "startLine": 746,
         "startChar": 19,
@@ -250,6 +466,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c5c1327_96809cc7",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "Unrelated; the problem is that there is no underlying traffic of the tunIface, by virtue of the eBPF data accounting running only on the socket send/receive. Thus, when going through kernel IPsec, it never gets triggered on the underlying interface.\n\nThis is the purpose of this patch, to fix that.",
+      "parentUuid": "e3d34565_6ad35b0d",
+      "range": {
+        "startLine": 749,
+        "startChar": 16,
+        "endLine": 749,
+        "endChar": 100
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "861cb2de_118fa29d",
         "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
         "patchSetId": 3
@@ -261,6 +501,30 @@
       "writtenOn": "2021-06-30T12:30:26Z",
       "side": 1,
       "message": "Maybe describe how?\nIt might benefit the debugging if the test case somehow failed unexpectedly.",
+      "range": {
+        "startLine": 764,
+        "startChar": 45,
+        "endLine": 764,
+        "endChar": 56
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d81e9629_7b062ee6",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-06-30T18:45:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "861cb2de_118fa29d",
       "range": {
         "startLine": 764,
         "startChar": 45,
