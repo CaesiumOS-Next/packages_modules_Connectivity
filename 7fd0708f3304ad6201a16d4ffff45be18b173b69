@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37795d81_0aa30143",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T06:16:29Z",
+      "side": 1,
+      "message": "style: please move to another line.",
+      "range": {
+        "startLine": 9,
+        "startChar": 69,
+        "endLine": 9,
+        "endChar": 84
+      },
+      "revId": "7fd0708f3304ad6201a16d4ffff45be18b173b69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338aa7b1_add6569b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T06:16:29Z",
+      "side": 1,
+      "message": "nit: maybe specify related test method names?",
+      "range": {
+        "startLine": 13,
+        "startChar": 12,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "7fd0708f3304ad6201a16d4ffff45be18b173b69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "718725b5_55c5edd3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 13381,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T06:16:29Z",
+      "side": 1,
+      "message": "It looks to me a multi-layer request contains 2 cellular requests could easily fool this test and get pass. Do we have a better way to test this? e.g. connect to a wifi instead of cellular?",
+      "range": {
+        "startLine": 13381,
+        "startChar": 28,
+        "endLine": 13381,
+        "endChar": 48
+      },
+      "revId": "7fd0708f3304ad6201a16d4ffff45be18b173b69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08e09b28_65aa5737",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 13387,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T06:16:29Z",
+      "side": 1,
+      "message": "is? I don\u0027t see multiple factories here.",
+      "range": {
+        "startLine": 13387,
+        "startChar": 44,
+        "endLine": 13387,
+        "endChar": 47
+      },
+      "revId": "7fd0708f3304ad6201a16d4ffff45be18b173b69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
