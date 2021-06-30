@@ -16,6 +16,24 @@
       "message": "Can we have a test similar to this?\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java;l\u003d5363?ss\u003dandroid\u0026q\u003dConnectivityServiceTest",
       "revId": "f66d73732cf89ecc778b58547ca3582274cc8224",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5734cc2_000b6a5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-06-30T18:31:54Z",
+      "side": 1,
+      "message": "I think we can just call stop() twice and make sure there is no exception.",
+      "parentUuid": "4466c259_418a7230",
+      "revId": "f66d73732cf89ecc778b58547ca3582274cc8224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
