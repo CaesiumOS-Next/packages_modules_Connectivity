@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa2c5f04_282ca9ac",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T09:23:13Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "28ecd81a_173d858d",
+      "range": {
+        "startLine": 943,
+        "startChar": 17,
+        "endLine": 943,
+        "endChar": 26
+      },
+      "revId": "33b4929cfecacd1bff552041ab8b846210e5f326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e23a20b2_b37d96dc",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-30T08:41:50Z",
       "side": 0,
       "message": "Same here: if (!isAtLeastS())",
+      "range": {
+        "startLine": 961,
+        "startChar": 12,
+        "endLine": 961,
+        "endChar": 21
+      },
+      "revId": "33b4929cfecacd1bff552041ab8b846210e5f326",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff315aa2_976ac062",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-06-30T09:23:13Z",
+      "side": 0,
+      "message": "Done but still check useListen for R- framework.\nSee if it works for you.",
+      "parentUuid": "e23a20b2_b37d96dc",
       "range": {
         "startLine": 961,
         "startChar": 12,
