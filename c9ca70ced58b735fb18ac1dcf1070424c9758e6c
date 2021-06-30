@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5e620126_b4609b3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-06-30T03:11:04Z",
+      "side": 1,
+      "message": "The test can pass because the NetworkFactory doesn\u0027t have cellular transport type. Just update that test and run CTS tests as well.",
+      "parentUuid": "cd0f7f14_cf870fbf",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "c9ca70ced58b735fb18ac1dcf1070424c9758e6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "32954b09_b555d5f3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
