@@ -16,14 +16,18 @@
 
 package android.net.cts;
 
+import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
+
 import android.content.ContentResolver;
 import android.content.Context;
+import android.net.Network;
+import android.net.cts.util.CtsNetUtils;
 import android.platform.test.annotations.AppModeFull;
 import android.provider.Settings;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import java.lang.Thread;
+import org.junit.Assert;
 
 @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
 public class AirplaneModeTest extends AndroidTestCase {
@@ -34,15 +38,17 @@ public class AirplaneModeTest extends AndroidTestCase {
     private boolean mHasFeature;
     private Context mContext;
     private ContentResolver resolver;
+    private CtsNetUtils mCtsNetUtils;
 
     public void setup() {
         mContext= getContext();
         resolver = mContext.getContentResolver();
         mHasFeature = (mContext.getPackageManager().hasSystemFeature(FEATURE_BLUETOOTH)
                        || mContext.getPackageManager().hasSystemFeature(FEATURE_WIFI));
+        mCtsNetUtils = new CtsNetUtils(mContext);
     }
 
-    public void testAirplaneMode() {
+    public void testAirplaneMode() throws Exception {
         setup();
         if (!mHasFeature) {
             Log.i(TAG, "The device doesn't support network bluetooth or wifi feature");
@@ -52,9 +58,12 @@ public class AirplaneModeTest extends AndroidTestCase {
         for (int testCount = 0; testCount < 2; testCount++) {
             if (!doOneTest()) {
                 fail("Airplane mode failed to change in " + TIMEOUT_MS + "msec");
+                restoreConnections();
                 return;
             }
         }
+
+        restoreConnections();
     }
 
     private boolean doOneTest() {
@@ -82,5 +91,17 @@ public class AirplaneModeTest extends AndroidTestCase {
         // Read the system setting for airplane mode
         return Settings.Global.getInt(mContext.getContentResolver(),
                                       Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+    }
+
+    private void restoreConnections() throws Exception {
+        if (mContext.getPackageManager().hasSystemFeature(FEATURE_WIFI)) {
+            Network wifiNetwork = mCtsNetUtils.connectToWifi();
+            Assert.assertNotNull("Must have connected to a Wifi network", wifiNetwork);
+        }
+
+        if (mContext.getPackageManager().hasSystemFeature(FEATURE_TELEPHONY)) {
+            Network cellNetwork = mCtsNetUtils.connectToCell();
+            Assert.assertNotNull("Must have connected to a cell network", cellNetwork);
+        }
     }
 }
