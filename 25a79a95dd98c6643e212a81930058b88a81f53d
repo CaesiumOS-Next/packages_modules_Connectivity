@@ -16,6 +16,23 @@
       "message": "LGTM but see comments to make TH happy",
       "revId": "25a79a95dd98c6643e212a81930058b88a81f53d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "369ba8f3_5e160cdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-06-30T08:41:53Z",
+      "side": 1,
+      "message": "LGTM but see comments to make TH happy",
+      "revId": "25a79a95dd98c6643e212a81930058b88a81f53d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
