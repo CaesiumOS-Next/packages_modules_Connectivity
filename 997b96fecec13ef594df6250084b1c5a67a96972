@@ -206,6 +206,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a56734d2_69ebf66b",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-07-01T07:04:11Z",
+      "side": 1,
+      "message": "Added comments regarding the types of networks that must be distinguished here.",
+      "parentUuid": "399aa23c_626f138b",
+      "range": {
+        "startLine": 910,
+        "startChar": 39,
+        "endLine": 910,
+        "endChar": 65
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b45f5051_4a5667d4",
@@ -243,6 +267,30 @@
       "side": 1,
       "message": "None for the moment; we expect this to be null, but in future this may be some other NetworkSpecifier",
       "parentUuid": "b45f5051_4a5667d4",
+      "range": {
+        "startLine": 911,
+        "startChar": 19,
+        "endLine": 911,
+        "endChar": 20
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57177c8c_f7c8dcc6",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-07-01T07:04:11Z",
+      "side": 1,
+      "message": "Added comments regarding the types of networks that must be distinguished here.",
+      "parentUuid": "aea3ef1c_763bdb6e",
       "range": {
         "startLine": 911,
         "startChar": 19,
