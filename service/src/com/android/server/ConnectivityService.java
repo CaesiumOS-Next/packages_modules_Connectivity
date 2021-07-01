@@ -10472,7 +10472,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private boolean isLocationPermissionRequiredForConnectivityDiagnostics(
             @NonNull NetworkAgentInfo nai) {
         // TODO(b/188483916): replace with a transport-agnostic location-aware check
-        return nai.networkCapabilities.hasTransport(TRANSPORT_WIFI);
+        return !nai.networkCapabilities.hasTransport(TRANSPORT_VPN)
+                && nai.networkCapabilities.hasTransport(TRANSPORT_WIFI);
     }
 
     private boolean hasLocationPermission(String packageName, int uid) {
