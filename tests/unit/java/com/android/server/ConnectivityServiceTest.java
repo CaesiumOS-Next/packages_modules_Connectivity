@@ -31,6 +31,7 @@ import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.content.Intent.ACTION_PACKAGE_ADDED;
 import static android.content.Intent.ACTION_PACKAGE_REMOVED;
 import static android.content.Intent.ACTION_PACKAGE_REPLACED;
+import static android.content.Intent.ACTION_UID_REMOVED;
 import static android.content.Intent.ACTION_USER_ADDED;
 import static android.content.Intent.ACTION_USER_REMOVED;
 import static android.content.Intent.ACTION_USER_UNLOCKED;
@@ -13557,6 +13558,50 @@ public class ConnectivityServiceTest {
             mService.updateMobileDataPreferredUids();
             waitForIdle();
         });
+    }
+
+    @Test
+    public void testMobileDataPreferredUidsAppRemoved() throws Exception {
+        final Set<Integer> uids = Set.of(TEST_PACKAGE_UID);
+
+        // Initial mobile data preferred uids status.
+        setAndUpdateMobileDataPreferredUids(uids);
+
+        assertTrue(ConnectivitySettingsManager.getMobileDataPreferredUids(mServiceContext)
+                .contains(TEST_PACKAGE_UID));
+
+        // Remove TEST_PACKAGE_UID
+        final Intent removedIntent = new Intent(ACTION_UID_REMOVED);
+        removedIntent.putExtra(Intent.EXTRA_UID, TEST_PACKAGE_UID);
+        processBroadcast(removedIntent);
+
+        // Expect that MobileDataPreferredUids are empty.
+        assertEmpty(ConnectivitySettingsManager.getMobileDataPreferredUids(mServiceContext));
+    }
+
+    @Test
+    public void testMobileDataPreferredUidsUserRemoved() throws Exception {
+        final int secondUserTestPackageUid = UserHandle.getUid(SECONDARY_USER, TEST_PACKAGE_UID);
+        final Set<Integer> uids = Set.of(TEST_PACKAGE_UID, secondUserTestPackageUid);
+
+        // Initial mobile data preferred uids status.
+        setAndUpdateMobileDataPreferredUids(uids);
+
+        final Set<Integer> currentUids = ConnectivitySettingsManager
+                .getMobileDataPreferredUids(mServiceContext);
+        assertTrue(currentUids.contains(TEST_PACKAGE_UID));
+        assertTrue(currentUids.contains(secondUserTestPackageUid));
+
+        // Send a USER_REMOVED broadcast and expect to lose the UID range for the secondary user.
+        final Intent userRemovedIntent = new Intent(ACTION_USER_REMOVED);
+        userRemovedIntent.putExtra(Intent.EXTRA_USER, UserHandle.of(SECONDARY_USER));
+        processBroadcast(userRemovedIntent);
+
+        // Expect that secondUserTestPackageUid is removed in MobileDataPreferredUids.
+        final Set<Integer> currentUids2 = ConnectivitySettingsManager
+                .getMobileDataPreferredUids(mServiceContext);
+        assertTrue(currentUids2.contains(TEST_PACKAGE_UID));
+        assertFalse(currentUids2.contains(secondUserTestPackageUid));
     }
 
     @Test
