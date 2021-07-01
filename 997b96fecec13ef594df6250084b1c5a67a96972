@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b52327be_e2e3e808",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-01T08:08:05Z",
+      "side": 1,
+      "message": "Ack, thanks for explanation.",
+      "parentUuid": "008739ef_c3d85b3c",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "22849cb7_fa18db29",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "No, the underlying networks can always be updated; they\u0027re done through a NetworkAgent.setUnderlyingNetworks() call, and then updated in the NAI\u0027s declaredUnderlyingNetworks (see handling for \"case NetworkAgent.EVENT_UNDERLYING_NETWORKS_CHANGED\")\n\nThis change here is made so we can use the nai.shouldApplyUnderlyingTransports() below, instead of increasing the number of parameters that are encapsulated by the NAI. It\u0027s functionally a no-op change by passing a NAI instead of capabilities and underlying networks separately.",
       "parentUuid": "69eed167_c986a854",
+      "range": {
+        "startLine": 7193,
+        "startChar": 45,
+        "endLine": 7193,
+        "endChar": 71
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea10f515_64a5af22",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7193,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-01T08:08:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a640d69a_749b4fb3",
       "range": {
         "startLine": 7193,
         "startChar": 45,
@@ -350,6 +398,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b6cb919_313b1406",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-01T08:08:05Z",
+      "side": 1,
+      "message": "Nit: Ack, maybe add what you said into the comments to benefit later readers?\nDoesn\u0027t need to be this CL.",
+      "parentUuid": "40d9655c_8e137e63",
+      "range": {
+        "startLine": 733,
+        "startChar": 6,
+        "endLine": 733,
+        "endChar": 49
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97210f0a_6e7a281c",
         "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
         "patchSetId": 3
@@ -385,6 +457,30 @@
       "side": 1,
       "message": "Yeah, that\u0027s existing nomenclature.\n\nChanged to ownerUid",
       "parentUuid": "97210f0a_6e7a281c",
+      "range": {
+        "startLine": 737,
+        "startChar": 18,
+        "endLine": 737,
+        "endChar": 24
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d561989_20438280",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-01T08:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4f2a08e_2b93cdc8",
       "range": {
         "startLine": 737,
         "startChar": 18,
@@ -526,6 +622,30 @@
       "side": 1,
       "message": "Unrelated; the problem is that there is no underlying traffic of the tunIface, by virtue of the eBPF data accounting running only on the socket send/receive. Thus, when going through kernel IPsec, it never gets triggered on the underlying interface.\n\nThis is the purpose of this patch, to fix that.",
       "parentUuid": "e3d34565_6ad35b0d",
+      "range": {
+        "startLine": 749,
+        "startChar": 16,
+        "endLine": 749,
+        "endChar": 100
+      },
+      "revId": "997b96fecec13ef594df6250084b1c5a67a96972",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f822f4a_410312b7",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-01T08:08:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7c5c1327_96809cc7",
       "range": {
         "startLine": 749,
         "startChar": 16,
