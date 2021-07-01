@@ -275,6 +275,7 @@ import java.util.SortedSet;
 import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * @hide
@@ -1410,6 +1411,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         packageIntentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
         packageIntentFilter.addDataScheme("package");
         mUserAllContext.registerReceiver(mPackageIntentReceiver, packageIntentFilter,
+                null /* broadcastPermission */, mHandler);
+
+        final IntentFilter uidIntentFilter = new IntentFilter();
+        uidIntentFilter.addAction(Intent.ACTION_UID_REMOVED);
+        mUserAllContext.registerReceiver(mUidIntentReceiver, uidIntentFilter,
                 null /* broadcastPermission */, mHandler);
 
         mNetworkActivityTracker = new LegacyNetworkActivityTracker(mContext, mHandler, mNetd);
@@ -5520,6 +5526,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
         }
+
+        Set<Integer> mobileDataPreferredUids =
+                ConnectivitySettingsManager.getMobileDataPreferredUids(mContext);
+        ConnectivitySettingsManager.setMobileDataPreferredUids(mContext,
+                mobileDataPreferredUids.stream()
+                .filter(uid -> !user.equals(UserHandle.getUserHandleForUid(uid)))
+                .collect(Collectors.toSet()));
     }
 
     private void onPackageChanged(@NonNull final String packageName) {
@@ -5530,6 +5543,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // leaves a UID with a preference).
         if (isMappedInOemNetworkPreference(packageName)) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
+        }
+    }
+
+    private void onUidRemoved(int uid) {
+        Set<Integer> mobileDataPreferredUids =
+                ConnectivitySettingsManager.getMobileDataPreferredUids(mContext);
+
+        if (mobileDataPreferredUids.contains(uid)) {
+            mobileDataPreferredUids.remove(uid);
+            ConnectivitySettingsManager.setMobileDataPreferredUids(mContext,
+                    mobileDataPreferredUids);
         }
     }
 
@@ -5565,6 +5589,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case Intent.ACTION_PACKAGE_REMOVED:
                 case Intent.ACTION_PACKAGE_REPLACED:
                     onPackageChanged(intent.getData().getSchemeSpecificPart());
+                    break;
+                default:
+                    Log.wtf(TAG, "received unexpected intent: " + intent.getAction());
+            }
+        }
+    };
+
+    private final BroadcastReceiver mUidIntentReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ensureRunningOnConnectivityServiceThread();
+            final int uid = intent.getIntExtra(Intent.EXTRA_UID, -1);
+            if (uid == -1) return;
+
+            switch (intent.getAction()) {
+                case Intent.ACTION_UID_REMOVED:
+                    onUidRemoved(uid);
                     break;
                 default:
                     Log.wtf(TAG, "received unexpected intent: " + intent.getAction());
