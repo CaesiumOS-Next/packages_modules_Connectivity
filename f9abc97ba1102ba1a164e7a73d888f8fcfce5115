@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6927c315_1249731e",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-01T09:50:42Z",
+      "side": 1,
+      "message": "Double-checked that the first problem is CHANGE_NETWORK_STATE: the test can\u0027t request a cell network. It could still set wifi on/off via shell although it would likely also fail to check wifi info since it can\u0027t get WifiManager.\n\nAdded more info to the reason.",
+      "parentUuid": "40884207_a9cacb4c",
+      "range": {
+        "startLine": 84,
+        "startChar": 38,
+        "endLine": 84,
+        "endChar": 58
+      },
+      "revId": "f9abc97ba1102ba1a164e7a73d888f8fcfce5115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "783ae9cf_22eecef1",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-07-01T09:16:08Z",
       "side": 1,
       "message": "What does \"for local server\" mean? Do you mean one of the following?\n\n- Instant apps can\u0027t listen for TCP connections\n- Instant apps can\u0027t bind to localhost\n- ...?",
+      "range": {
+        "startLine": 149,
+        "startChar": 62,
+        "endLine": 149,
+        "endChar": 78
+      },
+      "revId": "f9abc97ba1102ba1a164e7a73d888f8fcfce5115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19d93cef_9c01e8e5",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-01T09:50:42Z",
+      "side": 1,
+      "message": "It could not bind to localhost; clarified the reason.",
+      "parentUuid": "783ae9cf_22eecef1",
       "range": {
         "startLine": 149,
         "startChar": 62,
