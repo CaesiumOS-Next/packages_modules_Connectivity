@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db19e011_c1090be5",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-01T07:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f30a37a_72bfb130",
+      "range": {
+        "startLine": 84,
+        "startChar": 34,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "fd43ffe293d5e7dc12f99c039506d954e52d3be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81511739_eef5fe8b",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-07-01T07:00:41Z",
       "side": 1,
       "message": "autoCancel",
+      "range": {
+        "startLine": 252,
+        "startChar": 66,
+        "endLine": 252,
+        "endChar": 73
+      },
+      "revId": "fd43ffe293d5e7dc12f99c039506d954e52d3be7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61062298_d121a359",
+        "filename": "tests/unit/java/com/android/server/connectivity/NetworkNotificationManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-01T07:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81511739_eef5fe8b",
       "range": {
         "startLine": 252,
         "startChar": 66,
