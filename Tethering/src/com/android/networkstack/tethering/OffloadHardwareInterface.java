@@ -16,9 +16,10 @@
 
 package com.android.networkstack.tethering;
 
-import static android.net.netlink.StructNlMsgHdr.NLM_F_DUMP;
-import static android.net.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 import static android.net.util.TetheringUtils.uint16;
+
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 
 import android.annotation.NonNull;
 import android.hardware.tetheroffload.config.V1_0.IOffloadConfig;
@@ -27,9 +28,6 @@ import android.hardware.tetheroffload.control.V1_0.ITetheringOffloadCallback;
 import android.hardware.tetheroffload.control.V1_0.NatTimeoutUpdate;
 import android.hardware.tetheroffload.control.V1_0.NetworkProtocol;
 import android.hardware.tetheroffload.control.V1_0.OffloadCallbackEvent;
-import android.net.netlink.NetlinkSocket;
-import android.net.netlink.StructNfGenMsg;
-import android.net.netlink.StructNlMsgHdr;
 import android.net.util.SharedLog;
 import android.net.util.SocketUtils;
 import android.os.Handler;
@@ -40,6 +38,9 @@ import android.system.Os;
 import android.system.OsConstants;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.netlink.NetlinkSocket;
+import com.android.net.module.util.netlink.StructNfGenMsg;
+import com.android.net.module.util.netlink.StructNlMsgHdr;
 
 import java.io.FileDescriptor;
 import java.io.IOException;

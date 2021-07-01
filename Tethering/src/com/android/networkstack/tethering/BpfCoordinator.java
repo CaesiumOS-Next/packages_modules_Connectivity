@@ -42,7 +42,6 @@ import android.net.TetherOffloadRuleParcel;
 import android.net.ip.ConntrackMonitor;
 import android.net.ip.ConntrackMonitor.ConntrackEventConsumer;
 import android.net.ip.IpServer;
-import android.net.netlink.NetlinkConstants;
 import android.net.netstats.provider.NetworkStatsProvider;
 import android.net.util.InterfaceParams;
 import android.net.util.SharedLog;
@@ -62,6 +61,7 @@ import com.android.internal.util.IndentingPrintWriter;
 import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
+import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.networkstack.tethering.apishim.common.BpfCoordinatorShim;
 
 import java.net.Inet4Address;
