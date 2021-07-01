@@ -35,6 +35,7 @@ import android.os.BatteryStatsManager;
 import android.os.Build;
 import android.os.connectivity.CellularBatteryStats;
 import android.os.connectivity.WifiBatteryStats;
+import android.platform.test.annotations.AppModeFull;
 import android.util.Log;
 
 import androidx.test.runner.AndroidJUnit4;
@@ -79,8 +80,9 @@ public class BatteryStatsManagerTest{
         mCtsNetUtils = new CtsNetUtils(mContext);
     }
 
-    @Test
+    @AppModeFull(reason = "Cannot request network in instant app mode")
     @SkipPresubmit(reason = "Virtual hardware does not support wifi battery stats")
+    @Test
     public void testReportNetworkInterfaceForTransports() throws Exception {
         try {
             final Network cellNetwork = mCtsNetUtils.connectToCell();
@@ -131,6 +133,7 @@ public class BatteryStatsManagerTest{
         }
     }
 
+    @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testReportNetworkInterfaceForTransports_throwsSecurityException()
