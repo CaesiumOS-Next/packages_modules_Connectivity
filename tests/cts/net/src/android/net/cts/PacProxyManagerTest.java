@@ -35,6 +35,7 @@ import android.net.Proxy;
 import android.net.ProxyInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.platform.test.annotations.AppModeFull;
 import android.util.Log;
 import android.util.Range;
 
@@ -145,6 +146,7 @@ public final class PacProxyManagerTest {
         }
     }
 
+    @AppModeFull(reason = "Instant apps can't bind to sockets for local server")
     @Test
     public void testSetCurrentProxyScriptUrl() throws Exception {
         // Register a PacProxyInstalledListener
