@@ -2164,6 +2164,21 @@ public class Tethering {
         });
     }
 
+    // Only support getting TetheringConfigurationParcel and TetherStatesParcel event.
+    void getTetheringEvents(ITetheringEventCallback callback) {
+        mHandler.post(() -> {
+            final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
+            parcel.config = mConfig.toStableParcelable();
+            parcel.states =
+                    mTetherStatesParcel != null ? mTetherStatesParcel : emptyTetherStatesParcel();
+            try {
+                callback.onCallbackStarted(parcel);
+            } catch (RemoteException e) {
+                // Not really very much to do here.
+            }
+        });
+    }
+
     /** Register tethering event callback */
     void registerTetheringEventCallback(ITetheringEventCallback callback) {
         final boolean hasListPermission =

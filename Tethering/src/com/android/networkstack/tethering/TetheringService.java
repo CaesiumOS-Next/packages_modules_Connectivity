@@ -155,6 +155,17 @@ public class TetheringService extends Service {
         }
 
         @Override
+        public void getTetheringEvents(ITetheringEventCallback callback) {
+            try {
+                if (!hasTetherAccessPermission()) {
+                    callback.onCallbackStopped(TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION);
+                    return;
+                }
+                mTethering.getTetheringEvents(callback);
+            } catch (RemoteException e) { }
+        }
+
+        @Override
         public void registerTetheringEventCallback(ITetheringEventCallback callback,
                 String callerPkg) {
             try {

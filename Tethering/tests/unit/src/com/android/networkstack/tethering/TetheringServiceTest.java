@@ -20,12 +20,18 @@ import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.Manifest.permission.WRITE_SETTINGS;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
+import static android.net.TetheringManager.TETHERING_BLUETOOTH;
+import static android.net.TetheringManager.TETHERING_USB;
 import static android.net.TetheringManager.TETHERING_WIFI;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION;
 import static android.net.TetheringManager.TETHER_ERROR_NO_ERROR;
+import static android.net.TetheringManager.TETHER_ERROR_SERVICE_UNAVAIL;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
@@ -36,15 +42,22 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.app.UiAutomation;
+import android.content.Context;
 import android.content.Intent;
 import android.net.IIntResultListener;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
+import android.net.TetherStatesParcel;
+import android.net.TetheringCallbackStartedParcel;
+import android.net.TetheringConfigurationParcel;
+import android.net.TetheringInterface;
+import android.net.TetheringManager;
 import android.net.TetheringRequestParcel;
 import android.net.ip.IpServer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.os.ServiceManager;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
@@ -59,8 +72,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.lang.ref.WeakReference;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -68,6 +84,16 @@ public final class TetheringServiceTest {
     private static final String TEST_IFACE_NAME = "test_wlan0";
     private static final String TEST_CALLER_PKG = "com.android.shell";
     private static final String TEST_ATTRIBUTION_TAG = null;
+    private static final String[] TEST_USB_REGEXS = {"test_usb\\d"};
+    private static final String[] TEST_WIFI_REGEXS = {"test_wlan\\d"};
+    private static final String[] TEST_BT_REGEXS = {"test_pan\\d"};
+    private static final TetheringInterface TEST_WIFI_IF =
+            new TetheringInterface(TETHERING_WIFI, "test_wlan1");
+    private static final TetheringInterface TEST_USB_IF =
+            new TetheringInterface(TETHERING_USB, "test_usb0");
+    private static final TetheringInterface TEST_BT_IF =
+            new TetheringInterface(TETHERING_BLUETOOTH, "test_pan0");
+    private static final String[] TEST_DHCP_RANGE = {"192.168.43.1", "192.168.43.255"};
     @Mock private ITetheringEventCallback mITetheringEventCallback;
     @Rule public ServiceTestRule mServiceTestRule;
     private Tethering mTethering;
@@ -113,7 +139,7 @@ public final class TetheringServiceTest {
                 InstrumentationRegistry.getTargetContext(),
                 MockTetheringService.class);
         mMockConnector = (MockTetheringConnector) mServiceTestRule.bindService(mMockServiceIntent);
-        mTetheringConnector = mMockConnector.getTetheringConnector();
+        mTetheringConnector = ITetheringConnector.Stub.asInterface(mMockConnector.getIBinder());
         final MockTetheringService service = mMockConnector.getService();
         mTethering = service.getTethering();
     }
@@ -491,6 +517,76 @@ public final class TetheringServiceTest {
             runIsTetheringSupported(result);
             verify(mTethering).isTetherProvisioningRequired();
             verifyNoMoreInteractionsForTethering();
+        });
+    }
+
+    @Test
+    public void testTetheringManagerLeak() throws Exception {
+        TetheringManager tm = new TetheringManager(InstrumentationRegistry.getContext(),
+                () -> ServiceManager.getService(Context.TETHERING_SERVICE));
+        assertNotNull(tm);
+        final WeakReference weakTm = new WeakReference(tm);
+        assertNotNull(weakTm.get());
+
+        tm = null;
+        final int attempts = 100;
+        final long waitIntervalMs = 50;
+        for (int i = 0; i < attempts; i++) {
+            System.gc();
+            System.runFinalization();
+            System.gc();
+            if (weakTm.get() == null) break;
+
+            Thread.sleep(waitIntervalMs);
+        }
+        assertNull("TetheringManager weak reference still not null after " + attempts
+                + " attempts", weakTm.get());
+    }
+
+    private void assertTetheringInterfaces(String[] actual, TetheringInterface... expected) {
+        assertEquals(expected.length, actual.length);
+        for (int i = 0; i < actual.length; i++) {
+            assertEquals(expected[i].getInterface(), actual[i]);
+        }
+    }
+
+    @Test
+    public void testGetTetheringEvents() throws Exception {
+        final TetheringConfigurationParcel config = new TetheringConfigurationParcel();
+        config.tetherableUsbRegexs = TEST_USB_REGEXS;
+        config.tetherableWifiRegexs = TEST_WIFI_REGEXS;
+        config.tetherableBluetoothRegexs = TEST_BT_REGEXS;
+        config.legacyDhcpRanges = TEST_DHCP_RANGE;
+
+        final TetherStatesParcel states = new TetherStatesParcel();
+        states.availableList = new TetheringInterface[] {TEST_WIFI_IF};
+        states.tetheredList = new TetheringInterface[] {TEST_USB_IF};
+        states.erroredIfaceList = new TetheringInterface[] {TEST_BT_IF};
+        states.lastErrorList = new int[] {TETHER_ERROR_SERVICE_UNAVAIL};
+
+        final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
+        parcel.config = config;
+        parcel.states = states;
+
+        runAsAccessNetworkState((none) -> {
+            doAnswer((invocation) -> {
+                final Object[] args = invocation.getArguments();
+                final ITetheringEventCallback callback = (ITetheringEventCallback) args[0];
+                callback.onCallbackStarted(parcel);
+                return null;
+            }).when(mTethering).getTetheringEvents(Matchers.anyObject());
+
+            TetheringManager tm = new TetheringManager(mMockConnector.getService(),
+                    () -> mMockConnector.getIBinder());
+
+            assertEquals(TETHER_ERROR_SERVICE_UNAVAIL, tm.getLastTetherError("test_pan0"));
+            assertArrayEquals(TEST_USB_REGEXS, tm.getTetherableUsbRegexs());
+            assertArrayEquals(TEST_WIFI_REGEXS, tm.getTetherableWifiRegexs());
+            assertArrayEquals(TEST_BT_REGEXS, tm.getTetherableBluetoothRegexs());
+            assertArrayEquals(TEST_DHCP_RANGE, tm.getTetheredDhcpRanges());
+            assertTetheringInterfaces(tm.getTetherableIfaces(), TEST_WIFI_IF);
+            assertTetheringInterfaces(tm.getTetheredIfaces(), TEST_USB_IF);
+            assertTetheringInterfaces(tm.getTetheringErroredIfaces(), TEST_BT_IF);
         });
     }
 }
