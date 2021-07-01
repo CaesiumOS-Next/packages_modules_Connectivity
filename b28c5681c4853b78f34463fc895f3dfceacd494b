@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6263d52a_66863957",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-01T09:41:39Z",
+      "side": 1,
+      "message": "nit: maybe describe with example for this?\nReaders might confuse what kind of data is this.\nNot necessary for this CL.\nNo strong opinion.",
+      "range": {
+        "startLine": 746,
+        "startChar": 40,
+        "endLine": 746,
+        "endChar": 44
+      },
+      "revId": "b28c5681c4853b78f34463fc895f3dfceacd494b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
