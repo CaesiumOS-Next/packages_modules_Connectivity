@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11a6db01_95e6eef9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-01T15:22:41Z",
+      "side": 1,
+      "message": "Do all the tests in this class have this problem? If so, maybe put this in setUp()?",
+      "range": {
+        "startLine": 1038,
+        "startChar": 0,
+        "endLine": 1040,
+        "endChar": 62
+      },
+      "revId": "f9d8719d64169a32ef26f17e715778d714189e36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
