@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9782b104_4d305ff8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-01T07:02:42Z",
+      "side": 1,
+      "message": "LGTM with nits that could be ignored.",
+      "revId": "605e77055cebc750c0aa9df1ae8620e108263a7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c428a97_ebe429d2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13391,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-01T07:02:42Z",
+      "side": 1,
+      "message": "nit: Not for this CL, it will be better if connect a cell and assert no request.\nNo strong opinion.",
+      "revId": "605e77055cebc750c0aa9df1ae8620e108263a7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
