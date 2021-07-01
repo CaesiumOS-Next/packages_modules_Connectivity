@@ -16,6 +16,23 @@
       "message": "Junyu, could you take a look?",
       "revId": "4f0546ccbe48113b67d102d3a91ff1ad7c2e4dbf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e8c1cd3_a20035e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1110792
+      },
+      "writtenOn": "2021-07-01T00:18:20Z",
+      "side": 1,
+      "message": "Friendly ping.",
+      "revId": "4f0546ccbe48113b67d102d3a91ff1ad7c2e4dbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
