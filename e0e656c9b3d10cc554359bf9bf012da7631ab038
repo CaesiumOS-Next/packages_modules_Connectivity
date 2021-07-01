@@ -134,6 +134,30 @@
       },
       "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51465df8_eb600593",
+        "filename": "tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-01T03:09:27Z",
+      "side": 1,
+      "message": "ok, separate my suggestion and your currently change is fine. I think the change you made already solve your problem and it make sense that if device don\u0027t support telephony then entitlement test is not required.",
+      "parentUuid": "6d2a139f_60cf94cf",
+      "range": {
+        "startLine": 395,
+        "startChar": 8,
+        "endLine": 395,
+        "endChar": 38
+      },
+      "revId": "e0e656c9b3d10cc554359bf9bf012da7631ab038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
