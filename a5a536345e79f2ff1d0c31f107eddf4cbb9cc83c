@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b50c646f_52692b96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-01T06:48:56Z",
+      "side": 1,
+      "message": "In a unit test, I think you can just construct a TetheringManager using its constructor. SystemServiceRegistry creates it like this\n\n                return new TetheringManager(\n                        ctx, () -\u003e ServiceManager.getService(Context.TETHERING_SERVICE));\n\nFor the context you could pass in a Mockito mock of a Context object, or a MockContext. This object must support getOpPackageName().\n\nSo perhaps you could do something like:\n\n    final Context context \u003d mock(Context.class);\n    when(context.getOpPackageName()).thenReturn(\"com.android.myapp\");\n    final TetheringManager tm \u003d new TetheringManager(context,\n            () -\u003e ServiceManager.getService(Context.TETHERING_SERVICE));",
+      "parentUuid": "d1f14777_027f9eec",
+      "revId": "a5a536345e79f2ff1d0c31f107eddf4cbb9cc83c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8f34fc3_f87aa177",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 1
