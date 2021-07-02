@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2b1bcad_b4168b40",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-02T11:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55740ad6_e2a5fed8",
+      "range": {
+        "startLine": 578,
+        "startChar": 82,
+        "endLine": 578,
+        "endChar": 83
+      },
+      "revId": "0544dd258337315e4a818bd5690d2fc77aad991e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "975c14c9_ce7d8a05",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-07-02T09:57:53Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 579,
+        "startChar": 66,
+        "endLine": 579,
+        "endChar": 67
+      },
+      "revId": "0544dd258337315e4a818bd5690d2fc77aad991e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d786149_2ce4f462",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-02T11:33:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975c14c9_ce7d8a05",
       "range": {
         "startLine": 579,
         "startChar": 66,
