@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce5462c5_7bbda362",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3251,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-07-02T07:05:59Z",
+      "side": 0,
+      "message": "This seems like a worthwhile todo to keep",
+      "range": {
+        "startLine": 3251,
+        "startChar": 20,
+        "endLine": 3251,
+        "endChar": 93
+      },
+      "revId": "5440e0b8e8949f29f7a5f7ed0dd1ad3962137f8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
