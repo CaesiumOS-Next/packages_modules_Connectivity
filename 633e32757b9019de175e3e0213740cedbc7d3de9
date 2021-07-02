@@ -16,6 +16,29 @@
       "message": "Code looks correct; I think there might be minor compilation errors\n\n",
       "revId": "633e32757b9019de175e3e0213740cedbc7d3de9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "991997e0_c0c063c4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 6206,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-07-02T07:30:45Z",
+      "side": 1,
+      "message": "Nit/Optional: If rev\u0027ing, 1000 (or Process.SYSTEM_UID) is probably more representative of the use case",
+      "range": {
+        "startLine": 6206,
+        "startChar": 29,
+        "endLine": 6206,
+        "endChar": 34
+      },
+      "revId": "633e32757b9019de175e3e0213740cedbc7d3de9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
