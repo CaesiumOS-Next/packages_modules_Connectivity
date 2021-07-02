@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e9203e7_67fd04e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-02T14:39:49Z",
+      "side": 1,
+      "message": "Clean cherry-pick and reviewed by ag/14772860",
+      "revId": "8a4ce40acb0944ca150827facbe29514d3ecd80b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
