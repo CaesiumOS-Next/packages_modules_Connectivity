@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13a27bff_a548d102",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-02T09:48:56Z",
+      "side": 1,
+      "message": "Ack, thanks for testing!",
+      "parentUuid": "78afab41_6fd14947",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 4
+      },
+      "revId": "8f1ea1c28b236794ab59fc2d64928574be09e30b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e4fc0a8_e602bb4b",
@@ -202,6 +226,30 @@
       "writtenOn": "2021-07-02T07:05:59Z",
       "side": 1,
       "message": "TRANSPORT_CELL? That, or suggest rename of NetworkAgent (currently named mCellNetworkAgent)",
+      "range": {
+        "startLine": 6241,
+        "startChar": 66,
+        "endLine": 6241,
+        "endChar": 74
+      },
+      "revId": "8f1ea1c28b236794ab59fc2d64928574be09e30b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5870c3dd_5a0fe24a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6241,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-02T09:48:56Z",
+      "side": 1,
+      "message": "Oops. :-) Done",
+      "parentUuid": "7b1ee402_d919ce6c",
       "range": {
         "startLine": 6241,
         "startChar": 66,
