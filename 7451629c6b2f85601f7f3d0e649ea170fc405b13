@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b63ddc69_7c2038c3",
+        "filename": "tests/unit/java/android/net/IpSecAlgorithmTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-02T08:01:16Z",
+      "side": 1,
+      "message": "Do you try to the bug ? If so, could you explain it in commit message ? The Set CollectionUtils.filter return is ArraySet. Why we need to change to HashSet ?",
+      "range": {
+        "startLine": 197,
+        "startChar": 15,
+        "endLine": 197,
+        "endChar": 28
+      },
+      "revId": "7451629c6b2f85601f7f3d0e649ea170fc405b13",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
