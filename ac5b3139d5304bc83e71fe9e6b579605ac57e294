@@ -22,6 +22,30 @@
       },
       "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953b9408_d84c236f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4240,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-02T22:45:32Z",
+      "side": 1,
+      "message": "We could do that, but I am not sure by itself how it would prevent the crash caused by calling nri.unlinkDeathRecipient() twice for the same NRI?\n\nWould it work if we do what you suggest and add a check right before l.4199 to return if there was no requests? E.g.,\n\n    if (nri.mRequests.isEmpty()) {\n        logwtf(\"some error message here since this shouldn\u0027t happen\");\n        return;\n    }\n\nThis way we don\u0027t call nri.unlinkDeathRecipient() twice and essentially have a no-op. This was more or less what I intended with the checked boolean previously which was only true if mNetworkRequests.remove on l.4191 wasn\u0027t null.\n\nI also included a wtf log above to give us visibility into potential issues with our nri management. Let me know if you\u0027d rather I not.",
+      "parentUuid": "3dfa6c92_dc50b418",
+      "range": {
+        "startLine": 4240,
+        "startChar": 4,
+        "endLine": 4240,
+        "endChar": 5
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
