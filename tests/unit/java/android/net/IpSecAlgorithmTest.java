@@ -30,7 +30,7 @@ import android.os.Parcel;
 
 import androidx.test.filters.SmallTest;
 
-import com.android.internal.util.CollectionUtils;
+import com.android.net.module.util.CollectionUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
@@ -194,15 +194,15 @@ public class IpSecAlgorithmTest {
     }
 
     private static Set<String> getMandatoryAlgos() {
-        return CollectionUtils.filter(
+        return new HashSet<>(CollectionUtils.filter(
                 ALGO_TO_REQUIRED_FIRST_SDK.keySet(),
-                i -> Build.VERSION.FIRST_SDK_INT >= ALGO_TO_REQUIRED_FIRST_SDK.get(i));
+                i -> Build.VERSION.FIRST_SDK_INT >= ALGO_TO_REQUIRED_FIRST_SDK.get(i)));
     }
 
     private static Set<String> getOptionalAlgos() {
-        return CollectionUtils.filter(
+        return new HashSet<>(CollectionUtils.filter(
                 ALGO_TO_REQUIRED_FIRST_SDK.keySet(),
-                i -> Build.VERSION.FIRST_SDK_INT < ALGO_TO_REQUIRED_FIRST_SDK.get(i));
+                i -> Build.VERSION.FIRST_SDK_INT < ALGO_TO_REQUIRED_FIRST_SDK.get(i)));
     }
 
     @Test
