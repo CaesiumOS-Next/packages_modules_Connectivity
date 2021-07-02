@@ -16,6 +16,52 @@
       "message": "ConnectivityService \u0026 NetworkInfo changes descoped in favor of approach in aosp/1753619\n\nThis CL kept for NetworkStats tests",
       "revId": "1117e853f939021306dd58871d090fd0af8dd970",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "331e9c2f_b83a8290",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-02T10:31:56Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but this really is not a tun. vpnIface? ipsecIface?",
+      "range": {
+        "startLine": 738,
+        "startChar": 21,
+        "endLine": 738,
+        "endChar": 29
+      },
+      "revId": "1117e853f939021306dd58871d090fd0af8dd970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87cfb0e3_6c38a67f",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-02T10:31:56Z",
+      "side": 1,
+      "message": "Nit: would be better to name these app1, app2, etc. (or uid1, uid2...).",
+      "range": {
+        "startLine": 742,
+        "startChar": 39,
+        "endLine": 742,
+        "endChar": 44
+      },
+      "revId": "1117e853f939021306dd58871d090fd0af8dd970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
