@@ -16,6 +16,69 @@
       "message": "(manual testing still needed)",
       "revId": "0544dd258337315e4a818bd5690d2fc77aad991e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe24de6f_d532300d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-02T09:57:53Z",
+      "side": 1,
+      "message": "Need other reviewer to review.",
+      "revId": "0544dd258337315e4a818bd5690d2fc77aad991e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55740ad6_e2a5fed8",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-02T09:57:53Z",
+      "side": 1,
+      "message": "nit: probably use \"sz2\" (L.598) consistently",
+      "range": {
+        "startLine": 578,
+        "startChar": 82,
+        "endLine": 578,
+        "endChar": 83
+      },
+      "revId": "0544dd258337315e4a818bd5690d2fc77aad991e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975c14c9_ce7d8a05",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-02T09:57:53Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 579,
+        "startChar": 66,
+        "endLine": 579,
+        "endChar": 67
+      },
+      "revId": "0544dd258337315e4a818bd5690d2fc77aad991e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
