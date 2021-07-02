@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07142d64_8907d1e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-02T11:48:33Z",
+      "side": 1,
+      "message": "imho, let\u0027s do this every hour instead...",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "44998a6e7aec9bfccc804515d5bc5cda69e7322b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
