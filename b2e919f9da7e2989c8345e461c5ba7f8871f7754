@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f5fd2c_c56847c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-02T04:35:53Z",
+      "side": 1,
+      "message": "Good riddance! Great to see this hack go away.",
+      "revId": "b2e919f9da7e2989c8345e461c5ba7f8871f7754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
