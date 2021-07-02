@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7139b143_5c298c6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-02T00:27:04Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "4a93c01b2c2224e2293163e1d9758ceee23f423f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6665e2e6_0d07ef56",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10250,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-02T00:27:04Z",
+      "side": 1,
+      "message": "did not fire",
+      "range": {
+        "startLine": 10250,
+        "startChar": 48,
+        "endLine": 10250,
+        "endChar": 53
+      },
+      "revId": "4a93c01b2c2224e2293163e1d9758ceee23f423f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
