@@ -22,6 +22,30 @@
       },
       "revId": "e0c08f81f090afab4ad30928884488e0f4abc1e6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63d2092c_3c901d7d",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1874659
+      },
+      "writtenOn": "2021-07-02T11:06:03Z",
+      "side": 1,
+      "message": "\u003e  If there is no valid wifi network to connect, it doesn\u0027t really make sense for the airplane test to fail.\n\nGood point. Changed the logic to reconnect only if networks were connected before the test.\n\n\u003e Why not simply do \"SystemUtil.runShellCommand(\"svc wifi enable\");\" here to make sure wifi gets toggled on.\n\nReconnecting is not instant and the following test may fail if it relies on connected wifi, so it\u0027s more reliable to restore the state in this test.",
+      "parentUuid": "13528990_84deeb59",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 63
+      },
+      "revId": "e0c08f81f090afab4ad30928884488e0f4abc1e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
