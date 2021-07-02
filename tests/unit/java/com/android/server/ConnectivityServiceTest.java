@@ -1301,9 +1301,10 @@ public class ConnectivityServiceTest {
             mAgentRegistered = true;
             verify(mMockNetd).networkCreate(nativeNetworkConfigVpn(getNetwork().netId,
                     !mMockNetworkAgent.isBypassableVpn(), mVpnType));
+            mNetworkAgent = mMockNetworkAgent.getNetworkAgent();
+            mNetworkAgent.setUnderlyingNetworks(null);
             updateState(NetworkInfo.DetailedState.CONNECTED, "registerAgent");
             mNetworkCapabilities.set(mMockNetworkAgent.getNetworkCapabilities());
-            mNetworkAgent = mMockNetworkAgent.getNetworkAgent();
         }
 
         private void registerAgent(Set<UidRange> uids) throws Exception {
