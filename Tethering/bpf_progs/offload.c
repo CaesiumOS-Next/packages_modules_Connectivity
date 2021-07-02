@@ -569,6 +569,15 @@ static inline __always_inline int do_forward4(struct __sk_buff* skb, const bool 
     // For a rawip tx interface it will simply be a bunch of zeroes and later stripped.
     *eth = v->macHeader;
 
+    // Decrement the IPv4 TTL, we already know it's greater than 1.
+    // u8 TTL field is followed by u8 protocol to make a u16 for ipv4 header checksum update.
+    // Since we're keeping the ipv4 checksum valid (which means the checksum of the entire
+    // ipv4 header remains 0), the overall checksum of the entire packet does not change.
+    const __be16 old_ttl_proto = *(__be16 *)&ip->ttl;
+    const __be16 new_ttl_proto = old_ttl_proto - htons(0x0100);
+    bpf_l3_csum_replace(skb, ETH_IP4_OFFSET(check), old_ttl_proto, new_ttl_proto, 2);
+    bpf_skb_store_bytes(skb, ETH_IP4_OFFSET(ttl), &new_ttl_proto, 2, 0);
+
     const int l4_offs_csum = is_tcp ? ETH_IP4_TCP_OFFSET(check) : ETH_IP4_UDP_OFFSET(check);
     const int sz4 = sizeof(__be32);
     // UDP 0 is special and stored as FFFF (this flag also causes a csum of 0 to be unmodified)
@@ -596,8 +605,6 @@ static inline __always_inline int do_forward4(struct __sk_buff* skb, const bool 
     bpf_l4_csum_replace(skb, l4_offs_csum, k.dstPort, v->dstPort, sz2 | l4_flags);
     bpf_skb_store_bytes(skb, is_tcp ? ETH_IP4_TCP_OFFSET(dest) : ETH_IP4_UDP_OFFSET(dest),
                         &v->dstPort, sz2, 0);
-
-    // TEMP HACK: lack of TTL decrement
 
     // This requires the bpf_ktime_get_boot_ns() helper which was added in 5.8,
     // and backported to all Android Common Kernel 4.14+ trees.
