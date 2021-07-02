@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dfa6c92_dc50b418",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4240,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-02T15:19:26Z",
+      "side": 1,
+      "message": "Should this method also remove all requests from nri.mRequests? That way, if the method is called again for the same NRI, it should be a no-op that does not trigger the WTF at line 4192.",
+      "range": {
+        "startLine": 4240,
+        "startChar": 4,
+        "endLine": 4240,
+        "endChar": 5
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
