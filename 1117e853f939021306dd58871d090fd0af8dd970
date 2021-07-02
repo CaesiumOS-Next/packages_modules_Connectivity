@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16a4f1a4_ff14cef7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-07-02T07:43:09Z",
+      "side": 1,
+      "message": "ConnectivityService \u0026 NetworkInfo changes descoped in favor of approach in aosp/1753619\n\nThis CL kept for NetworkStats tests",
+      "revId": "1117e853f939021306dd58871d090fd0af8dd970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
