@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d51c3f47_50c493d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T03:04:39Z",
+      "side": 1,
+      "message": "LGTM, assume comment is addressed.",
+      "revId": "912b4a87ee3131cc3e44462f1a87aa5fec021255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d526f20_1bff760b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T03:04:39Z",
+      "side": 1,
+      "message": "nit: If the error may be expected, should we change the log level from error to warning ?\nmLog.e(\"Error updating ...\") -\u003e mLog.w(\"Warning updating ...\")",
+      "range": {
+        "startLine": 1900,
+        "startChar": 15,
+        "endLine": 1900,
+        "endChar": 37
+      },
+      "revId": "912b4a87ee3131cc3e44462f1a87aa5fec021255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
