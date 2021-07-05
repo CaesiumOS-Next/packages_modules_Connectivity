@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "507d666f_c6cbf825",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T08:06:32Z",
+      "side": 1,
+      "message": "No, it\u0027s 0~999 according to NativeUidRangeConfig.",
+      "range": {
+        "startLine": 406,
+        "startChar": 45,
+        "endLine": 406,
+        "endChar": 51
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d317a7_656eba35",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T08:06:32Z",
+      "side": 1,
+      "message": "that don\u0027t have a default network preference.",
+      "range": {
+        "startLine": 409,
+        "startChar": 64,
+        "endLine": 410,
+        "endChar": 52
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bea03d7_36771d0e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T08:06:32Z",
+      "side": 1,
+      "message": "If a larger value means a lower priority, this should be 999.",
+      "range": {
+        "startLine": 412,
+        "startChar": 53,
+        "endLine": 412,
+        "endChar": 54
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40057f3a_a0f8626a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T08:06:32Z",
+      "side": 1,
+      "message": "This sounds like a default priority – I don\u0027t think the prefix is clear. How about\n\n  PREFERENCE_PRIORITY_NONE\n  PREFERENCE_PRIORITY_OEM\n  PREFERENCE_PRIORITY_PROFILE\n  PREFERENCE_PRIORITY_MOBILE_DATA_PREFERERRED",
+      "range": {
+        "startLine": 412,
+        "startChar": 21,
+        "endLine": 412,
+        "endChar": 45
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c0ab12_c669e708",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T08:06:32Z",
+      "side": 1,
+      "message": "This is correct but confusing in the context, because the priority in the name of the constant has nothing to do with the priority meant in this comment. How about :\n\n...even when networks with better scores are connected.\n\n?",
+      "range": {
+        "startLine": 422,
+        "startChar": 14,
+        "endLine": 422,
+        "endChar": 22
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "408156c4_3f443327",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5624,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T08:06:32Z",
+      "side": 1,
+      "message": "mPreferencePriority",
+      "range": {
+        "startLine": 5624,
+        "startChar": 26,
+        "endLine": 5624,
+        "endChar": 49
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97e4ee1f_7f01b485",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5626,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T08:06:32Z",
+      "side": 1,
+      "message": "Considering this is package private anyway, I think the member should just be package private and you can remove this accessor. All members in this class already are like this anyway.",
+      "range": {
+        "startLine": 5626,
+        "startChar": 12,
+        "endLine": 5626,
+        "endChar": 37
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
