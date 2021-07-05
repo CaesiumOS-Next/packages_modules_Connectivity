@@ -3,6 +3,161 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "511d798c_18dc5a0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:06:38Z",
+      "side": 1,
+      "message": "That\u0027s not what the change does, is it ? Instead, it takes the (cleaner) route to remove the NRI directly.",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e73533bc_250ebe26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:06:38Z",
+      "side": 1,
+      "message": "All of this also needs update for the same reason",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae90e1a2_5705a9b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:06:38Z",
+      "side": 1,
+      "message": "I think we should expand a little bit on the comment because I had trouble figuring out how this can happen (I thought only the system server ever files multi-layer requests).\n\nExample wording :\nThis can happen for a TRACK_DEFAULT request filed by a UID on a different preference than the default, which copies the request list.",
+      "range": {
+        "startLine": 21,
+        "startChar": 35,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feaf3721_de3b4f0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:06:38Z",
+      "side": 1,
+      "message": "I don\u0027t understand the context for this \"should\" here. IIUC, when NRI#binderDied is called with a multi-layer NRI, this will always happen right ? I guess it \"should\" not happen in the sense that it will crash, but I don\u0027t understand what the race condition is.",
+      "range": {
+        "startLine": 34,
+        "startChar": 41,
+        "endLine": 34,
+        "endChar": 58
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "233871ed_47b706ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:06:38Z",
+      "side": 1,
+      "message": "Likewise, this is not what the change does now",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 12
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7492319_ac9483ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:06:38Z",
+      "side": 1,
+      "message": "Happy with the code but I think the cover comment needs to be updated",
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16841ba7_cee3523b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4199,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:06:38Z",
+      "side": 1,
+      "message": "Curious : why move this ? AFAICT this is exactly the same. (I don\u0027t mind if we do move it though, since it\u0027s the same).",
+      "range": {
+        "startLine": 4199,
+        "startChar": 12,
+        "endLine": 4199,
+        "endChar": 32
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3dfa6c92_dc50b418",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 8
@@ -38,6 +193,30 @@
       "side": 1,
       "message": "We could do that, but I am not sure by itself how it would prevent the crash caused by calling nri.unlinkDeathRecipient() twice for the same NRI?\n\nWould it work if we do what you suggest and add a check right before l.4199 to return if there was no requests? E.g.,\n\n    if (nri.mRequests.isEmpty()) {\n        logwtf(\"some error message here since this shouldn\u0027t happen\");\n        return;\n    }\n\nThis way we don\u0027t call nri.unlinkDeathRecipient() twice and essentially have a no-op. This was more or less what I intended with the checked boolean previously which was only true if mNetworkRequests.remove on l.4191 wasn\u0027t null.\n\nI also included a wtf log above to give us visibility into potential issues with our nri management. Let me know if you\u0027d rather I not.",
       "parentUuid": "3dfa6c92_dc50b418",
+      "range": {
+        "startLine": 4240,
+        "startChar": 4,
+        "endLine": 4240,
+        "endChar": 5
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfe4d9a6_a6ed0e9c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:06:38Z",
+      "side": 1,
+      "message": "IIUC Lorenzo\u0027s comment it would not be meant to prevent the crash, just to prevent the WTF.\nI would not favor doing this though, since in spirit nri.mRequests is immutable for a given NRI. We never add or remove requests once the NRI is created ; in a sense you could imagine passing a ref to a released NRI to some logging function and still expect to see what NRs it used to contain.",
+      "parentUuid": "953b9408_d84c236f",
       "range": {
         "startLine": 4240,
         "startChar": 4,
