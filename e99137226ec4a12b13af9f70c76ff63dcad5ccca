@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d94ebbf_9483d7c4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-05T16:17:51Z",
+      "side": 1,
+      "message": "Yeah, correct it in ag/14731887.",
+      "parentUuid": "507d666f_c6cbf825",
+      "range": {
+        "startLine": 406,
+        "startChar": 45,
+        "endLine": 406,
+        "endChar": 51
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8d317a7_656eba35",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-05T08:06:32Z",
       "side": 1,
       "message": "that don\u0027t have a default network preference.",
+      "range": {
+        "startLine": 409,
+        "startChar": 64,
+        "endLine": 410,
+        "endChar": 52
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8cfac75_b956ed1d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-05T16:17:51Z",
+      "side": 1,
+      "message": "Done in ag/14731887.",
+      "parentUuid": "d8d317a7_656eba35",
       "range": {
         "startLine": 409,
         "startChar": 64,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "335fe042_23d65633",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-05T16:17:51Z",
+      "side": 1,
+      "message": "Done in ag/14731887.",
+      "parentUuid": "3bea03d7_36771d0e",
+      "range": {
+        "startLine": 412,
+        "startChar": 53,
+        "endLine": 412,
+        "endChar": 54
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d80aabb7_0ea12a27",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-05T16:17:51Z",
+      "side": 1,
+      "message": "Done in ag/14731887.",
+      "parentUuid": "40057f3a_a0f8626a",
+      "range": {
+        "startLine": 412,
+        "startChar": 21,
+        "endLine": 412,
+        "endChar": 45
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05c0ab12_c669e708",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-07-05T08:06:32Z",
       "side": 1,
       "message": "This is correct but confusing in the context, because the priority in the name of the constant has nothing to do with the priority meant in this comment. How about :\n\n...even when networks with better scores are connected.\n\n?",
+      "range": {
+        "startLine": 422,
+        "startChar": 14,
+        "endLine": 422,
+        "endChar": 22
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0654c9d_bb7909a7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-05T16:17:51Z",
+      "side": 1,
+      "message": "Done in ag/14731887.",
+      "parentUuid": "05c0ab12_c669e708",
       "range": {
         "startLine": 422,
         "startChar": 14,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9425709_a3144ac6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5624,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-05T16:17:51Z",
+      "side": 1,
+      "message": "Done in ag/14731887.",
+      "parentUuid": "408156c4_3f443327",
+      "range": {
+        "startLine": 5624,
+        "startChar": 26,
+        "endLine": 5624,
+        "endChar": 49
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97e4ee1f_7f01b485",
@@ -152,6 +296,30 @@
       "writtenOn": "2021-07-05T08:06:32Z",
       "side": 1,
       "message": "Considering this is package private anyway, I think the member should just be package private and you can remove this accessor. All members in this class already are like this anyway.",
+      "range": {
+        "startLine": 5626,
+        "startChar": 12,
+        "endLine": 5626,
+        "endChar": 37
+      },
+      "revId": "e99137226ec4a12b13af9f70c76ff63dcad5ccca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2fcb1d7_88694d98",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5626,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-05T16:17:51Z",
+      "side": 1,
+      "message": "Done in ag/14731887.",
+      "parentUuid": "97e4ee1f_7f01b485",
       "range": {
         "startLine": 5626,
         "startChar": 12,
