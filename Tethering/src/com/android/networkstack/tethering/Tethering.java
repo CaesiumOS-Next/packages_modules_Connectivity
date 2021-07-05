@@ -605,7 +605,7 @@ public class Tethering {
 
             if (request.exemptFromEntitlementCheck) {
                 mEntitlementMgr.setExemptedDownstreamType(request.tetheringType);
-            } else {
+            } else if (IpServer.STATE_TETHERED == getRequestedState(request.tetheringType)) {
                 mEntitlementMgr.startProvisioningIfNeeded(request.tetheringType,
                         request.showProvisioningUi);
             }

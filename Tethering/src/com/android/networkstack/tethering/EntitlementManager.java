@@ -504,6 +504,7 @@ public class EntitlementManager {
             case TETHERING_ETHERNET:
             case TETHERING_USB:
             case TETHERING_WIFI:
+            case TETHERING_NCM:
                 return true;
             default:
                 return false;
