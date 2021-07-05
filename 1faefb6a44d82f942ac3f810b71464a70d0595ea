@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a52e7c1_2893153f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T10:34:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "91584c7e_2f9a99f0",
+      "range": {
+        "startLine": 177,
+        "startChar": 32,
+        "endLine": 177,
+        "endChar": 53
+      },
+      "revId": "1faefb6a44d82f942ac3f810b71464a70d0595ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffaaf368_f3e1e971",
@@ -131,6 +155,30 @@
       "writtenOn": "2021-07-05T08:33:13Z",
       "side": 1,
       "message": "This doesn\u0027t look like it belongs in this CL, and the commit message doesn\u0027t mention it. is it needed to fulfil the purpose of this CL? If not, can you move it to another CL?",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 9
+      },
+      "revId": "1faefb6a44d82f942ac3f810b71464a70d0595ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e57f26bb_1263ed3a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T10:34:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffaaf368_f3e1e971",
       "range": {
         "startLine": 174,
         "startChar": 0,
