@@ -97,6 +97,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "91584c7e_2f9a99f0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-05T10:14:46Z",
+      "side": 1,
+      "message": "Per discussion, we\u0027re going to move this to another CL, but... should this code also make that tetherableNcmRegexs empty? Something like:\n\n    tetherableNcmRegexs \u003d new String[0];",
+      "range": {
+        "startLine": 177,
+        "startChar": 32,
+        "endLine": 177,
+        "endChar": 53
+      },
+      "revId": "1faefb6a44d82f942ac3f810b71464a70d0595ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffaaf368_f3e1e971",
         "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
         "patchSetId": 12
