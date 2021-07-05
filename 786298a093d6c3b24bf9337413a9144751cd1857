@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ebb998f_330ae7e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T15:12:33Z",
+      "side": 1,
+      "message": "Ohh, we already have test for it, just removing manual switch regex to proof that TETHERING_NCM and TETHEIRNG_USB could be both started successfully after switch settings configuration.",
+      "parentUuid": "74056f76_6f449af2",
+      "revId": "786298a093d6c3b24bf9337413a9144751cd1857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f2e4470_cb2633c7",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-07-05T14:19:38Z",
       "side": 1,
       "message": "Maybe also call setTetherForceUsbFunctions(RNDIS) and check that the code behaves as expected, i.e., does not overwrite the USB regex with the NCM regex?",
+      "range": {
+        "startLine": 628,
+        "startChar": 4,
+        "endLine": 628,
+        "endChar": 5
+      },
+      "revId": "786298a093d6c3b24bf9337413a9144751cd1857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "731f0e02_20271167",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T15:12:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f2e4470_cb2633c7",
       "range": {
         "startLine": 628,
         "startChar": 4,
