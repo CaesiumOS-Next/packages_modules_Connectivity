@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "da749dcc_d6f96010",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-05T08:56:59Z",
+      "side": 1,
+      "message": "Ack but appending the detail to the linked bug in order to make the commit message cleaner.",
+      "parentUuid": "fecfd628_9d6d71e5",
+      "revId": "dc3a7a39d462cd758d2c483dcb80c1b5ed57447d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3283aeb0_457e7db4",
         "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
         "patchSetId": 7
@@ -31,6 +49,30 @@
       "writtenOn": "2021-07-05T05:53:09Z",
       "side": 1,
       "message": "It\u0027s a little bit cloudier than this. Really the way offers are defined today, the providers should pass the strongest possible score the network may have, so that this case may not happen. As a result, if a provider makes a network stronger than the associated offer, the behavior is officially undefined (as you can see, in implementation we say the offer is needed).\n\nNote that if we change this according to your TODO, we run the risk of having the make-unneed-teardown-need loop. In a sense, it\u0027s a bug in the provider, so maybe it\u0027s okay, but I\u0027m not sure what we\u0027d gain by changing this.\n\nOf course, really you\u0027re uncovering the real issue that it would be much better if the behavior was, in fact, defined. Then we could have it whichever way we like.",
+      "range": {
+        "startLine": 325,
+        "startChar": 17,
+        "endLine": 325,
+        "endChar": 64
+      },
+      "revId": "dc3a7a39d462cd758d2c483dcb80c1b5ed57447d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37bbecd3_bca4a42b",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-05T08:56:59Z",
+      "side": 1,
+      "message": "Yes, I\u0027m aware of this problem.\nHowever, I believe we could fix it in some way in the future.\nFor example, if we could link the agent to the offer accurately, e.g. by attaching some kind of offerId in the agent. We could determine whether a specific weaker offer could be unneeded, right?",
+      "parentUuid": "3283aeb0_457e7db4",
       "range": {
         "startLine": 325,
         "startChar": 17,
