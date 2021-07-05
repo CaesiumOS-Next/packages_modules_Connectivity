@@ -214,25 +214,19 @@ public final class CtsNetUtils {
         boolean connected = false;
         final String err = "Wifi must be configured to connect to an access point for this test";
         try {
+            // Clear the wifi config blacklist (not the BSSID blacklist)
             clearWifiBlacklist();
             SystemUtil.runShellCommand("svc wifi enable");
-            final WifiConfiguration config = maybeAddVirtualWifiConfiguration();
-            if (config == null) {
-                // TODO: this may not clear the BSSID blacklist, as opposed to
-                // mWifiManager.connect(config)
-                assertTrue("Error reconnecting wifi", runAsShell(NETWORK_SETTINGS,
-                        mWifiManager::reconnect));
-            } else {
-                // When running CTS, devices are expected to have wifi networks pre-configured.
-                // This condition is only hit on virtual devices.
-                final Integer error = runAsShell(NETWORK_SETTINGS, () -> {
-                    final ConnectWifiListener listener = new ConnectWifiListener();
-                    mWifiManager.connect(config, listener);
-                    return listener.connectFuture.get(
-                            CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS);
-                });
-                assertNull("Error connecting to wifi: " + error, error);
-            }
+            final WifiConfiguration config = getOrCreateWifiConfiguration();
+
+            final Integer error = runAsShell(NETWORK_SETTINGS, () -> {
+                final ConnectWifiListener listener = new ConnectWifiListener();
+                mWifiManager.connect(config, listener);
+                return listener.connectFuture.get(
+                        CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS);
+            });
+            assertNull("Error connecting to wifi: " + error, error);
+
             // Ensure we get an onAvailable callback and possibly a CONNECTIVITY_ACTION.
             wifiNetwork = callback.waitForAvailable();
             assertNotNull(err + ": onAvailable callback not received", wifiNetwork);
@@ -264,7 +258,7 @@ public final class CtsNetUtils {
         }
     }
 
-    private WifiConfiguration maybeAddVirtualWifiConfiguration() {
+    private WifiConfiguration getOrCreateWifiConfiguration() {
         final List<WifiConfiguration> configs = runAsShell(NETWORK_SETTINGS,
                 mWifiManager::getConfiguredNetworks);
         // If no network is configured, add a config for virtual access points if applicable
@@ -275,8 +269,19 @@ public final class CtsNetUtils {
 
             return virtualConfig;
         }
-        // No need to add a configuration: there is already one
-        return null;
+        // No need to add a configuration: there is already one.
+        if (configs.size() > 1) {
+            // For convenience in case of local testing on devices with multiple saved configs,
+            // prefer the first configuration that is in range.
+            // In actual tests, the first configuration should be usable (as assumed by
+            // WifiManagerTest.testConnect)
+            Log.w(TAG, "Multiple wifi configurations found: " + configs);
+            final List<ScanResult> scanResults = getWifiScanResults();
+            return configs.stream().filter(
+                    c -> scanResults.stream().anyMatch(s -> s.SSID.equals(c.SSID)))
+                    .findFirst().orElse(configs.get(0));
+        }
+        return configs.get(0);
     }
 
     private List<ScanResult> getWifiScanResults() {
