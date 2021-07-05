@@ -39,6 +39,30 @@
       },
       "revId": "912b4a87ee3131cc3e44462f1a87aa5fec021255",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b0fd4c4_09ad58c8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1900,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-05T11:46:50Z",
+      "side": 1,
+      "message": "Keep the log level as an error.\n\nOnly this case I observed is excepted, other ErrnoException may be an error.",
+      "parentUuid": "4d526f20_1bff760b",
+      "range": {
+        "startLine": 1900,
+        "startChar": 15,
+        "endLine": 1900,
+        "endChar": 37
+      },
+      "revId": "912b4a87ee3131cc3e44462f1a87aa5fec021255",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
