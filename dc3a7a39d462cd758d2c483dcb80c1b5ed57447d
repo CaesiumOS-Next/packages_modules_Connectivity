@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fecfd628_9d6d71e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:53:09Z",
+      "side": 1,
+      "message": "Suggest adding a concrete case where this has an actual impact to help readers understand.\n\n• Suppose a factory has 2 offers : one for WiFi and one for Mobile.\n• An application requests WiFi.\n• The factory brings up both the mobile network and the WiFi network.\n• Before this change, the system will tell the factory the Mobile offer is needed to serve the WiFi request, which is incorrect.\n\nYou can also note that this only fixes the issue when the offers are different, but strictly speaking the incorrect path still exists (and can\u0027t be fixed) when two offers both can satisfy the same request (and is harmless in practice for the reason below).\n\nOf course in practice this doesn\u0027t really make a difference because we don\u0027t yet have factories with disjoint offers (or even multiple offers), and even if we had it would be considered needed only when it\u0027s already up for something else so the damage would almost certainly be nil. But still, it\u0027s a bugfix.",
+      "revId": "dc3a7a39d462cd758d2c483dcb80c1b5ed57447d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3283aeb0_457e7db4",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T05:53:09Z",
+      "side": 1,
+      "message": "It\u0027s a little bit cloudier than this. Really the way offers are defined today, the providers should pass the strongest possible score the network may have, so that this case may not happen. As a result, if a provider makes a network stronger than the associated offer, the behavior is officially undefined (as you can see, in implementation we say the offer is needed).\n\nNote that if we change this according to your TODO, we run the risk of having the make-unneed-teardown-need loop. In a sense, it\u0027s a bug in the provider, so maybe it\u0027s okay, but I\u0027m not sure what we\u0027d gain by changing this.\n\nOf course, really you\u0027re uncovering the real issue that it would be much better if the behavior was, in fact, defined. Then we could have it whichever way we like.",
+      "range": {
+        "startLine": 325,
+        "startChar": 17,
+        "endLine": 325,
+        "endChar": 64
+      },
+      "revId": "dc3a7a39d462cd758d2c483dcb80c1b5ed57447d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
