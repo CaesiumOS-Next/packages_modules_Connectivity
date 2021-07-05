@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3898a217_3d8391f5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T08:53:10Z",
+      "side": 1,
+      "message": "Yes, your understanding is correct.",
+      "parentUuid": "b7442f8b_fba3415b",
+      "range": {
+        "startLine": 532,
+        "startChar": 8,
+        "endLine": 532,
+        "endChar": 67
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43a93372_c84e3af6",
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "I see. Maybe better to do that in a sepatate CL, though? If this doesn\u0027t work on currently-shipping code, then we should try to avoid changing the behaviour in this CL. This CL is scary enough as it is :-)\n\n\n... that said - is my comment actually correct that the previous code would not enable both at the same time? It looks like if UsbManager first sends CONNECTED with NCM enabled, then we would turn on NCM. Then if UsbManager sends CONFIGURED with both NCM and RNDIS enabled, both would be turned on. Can this actually happen?",
       "parentUuid": "051ca125_f581915d",
+      "range": {
+        "startLine": 1065,
+        "startChar": 0,
+        "endLine": 1066,
+        "endChar": 57
+      },
+      "revId": "bfcb4cf6c56c0ca49c5bcec4c0f7002b6c24eaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac65881b_9f872a25",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T08:53:10Z",
+      "side": 1,
+      "message": "In the case you mentioned, this CL would not enable NCM, only RNDIS is enabled. But if NCM is enabled with usb configured first, then rndis is enabled. Then ncm ipserver would be created first, then try to create rndis ipServer but usb ipServer may fail to create because of TETHERING_USB is already be used for ncm. (If ncm interface is used for TETHEIRNG_NCM, then rndis ipServer would be created with type TETHEIRNG_USB). And this is behavior is the same as previous.",
+      "parentUuid": "f4a1934b_ad1e5d3d",
       "range": {
         "startLine": 1065,
         "startChar": 0,

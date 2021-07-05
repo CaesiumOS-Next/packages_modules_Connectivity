@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a157e933_4b1f5a58",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T08:53:10Z",
+      "side": 1,
+      "message": "Your suggestion code don\u0027t cover below cases(I don\u0027t think pixel have such case, but just worry about OEM cases)\n\n1. usb intent rnids \u003d ture, ncm \u003dfalse\n2. usb intent rndis \u003d false, ncm \u003d true",
+      "parentUuid": "f8beb024_9bb77fcc",
+      "range": {
+        "startLine": 1078,
+        "startChar": 16,
+        "endLine": 1078,
+        "endChar": 53
+      },
+      "revId": "1faefb6a44d82f942ac3f810b71464a70d0595ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af21e5cb_f7da0e33",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-05T08:33:13Z",
       "side": 1,
       "message": "This text is very hard for me to understand. Maybe we can chat about it together?",
+      "range": {
+        "startLine": 1346,
+        "startChar": 0,
+        "endLine": 1353,
+        "endChar": 36
+      },
+      "revId": "1faefb6a44d82f942ac3f810b71464a70d0595ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebb2454e_d1543fe3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1353,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T08:53:10Z",
+      "side": 1,
+      "message": "sure.",
+      "parentUuid": "af21e5cb_f7da0e33",
       "range": {
         "startLine": 1346,
         "startChar": 0,
