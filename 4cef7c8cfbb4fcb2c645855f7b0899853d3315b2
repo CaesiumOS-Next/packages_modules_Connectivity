@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3e093f_d4bf1da1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 10306,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T10:18:16Z",
+      "side": 1,
+      "message": "Should remove this",
+      "range": {
+        "startLine": 10306,
+        "startChar": 0,
+        "endLine": 10306,
+        "endChar": 63
+      },
+      "revId": "4cef7c8cfbb4fcb2c645855f7b0899853d3315b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
