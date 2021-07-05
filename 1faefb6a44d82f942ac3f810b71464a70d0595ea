@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa482f0c_f671cf29",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1353,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T14:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebb2454e_d1543fe3",
+      "range": {
+        "startLine": 1346,
+        "startChar": 0,
+        "endLine": 1353,
+        "endChar": 36
+      },
+      "revId": "1faefb6a44d82f942ac3f810b71464a70d0595ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91584c7e_2f9a99f0",

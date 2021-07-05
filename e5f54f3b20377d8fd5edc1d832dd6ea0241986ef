@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38248522_225ee888",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T14:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeb1b576_19e4d774",
+      "range": {
+        "startLine": 529,
+        "startChar": 17,
+        "endLine": 529,
+        "endChar": 41
+      },
+      "revId": "e5f54f3b20377d8fd5edc1d832dd6ea0241986ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7dbb75fc_95c28dee",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-05T14:11:19Z",
       "side": 1,
       "message": "forNcmFunction",
+      "range": {
+        "startLine": 1079,
+        "startChar": 58,
+        "endLine": 1079,
+        "endChar": 63
+      },
+      "revId": "e5f54f3b20377d8fd5edc1d832dd6ea0241986ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61b8c724_cc24f254",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T14:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dbb75fc_95c28dee",
       "range": {
         "startLine": 1079,
         "startChar": 58,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f9ffad_c6a3c585",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T14:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18c18573_f2f2f2af",
+      "range": {
+        "startLine": 1084,
+        "startChar": 55,
+        "endLine": 1084,
+        "endChar": 60
+      },
+      "revId": "e5f54f3b20377d8fd5edc1d832dd6ea0241986ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "146f1adc_75ef136f",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-07-05T14:11:19Z",
       "side": 1,
       "message": "forNcmFunction",
+      "range": {
+        "startLine": 1089,
+        "startChar": 64,
+        "endLine": 1089,
+        "endChar": 69
+      },
+      "revId": "e5f54f3b20377d8fd5edc1d832dd6ea0241986ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c85fe17_ee62a17c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T14:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "146f1adc_75ef136f",
       "range": {
         "startLine": 1089,
         "startChar": 64,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab805ff3_df612797",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T14:54:01Z",
+      "side": 1,
+      "message": "upload https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1756409 to fix this, although that CL do not have unit test at the moment I add this comment.",
+      "parentUuid": "044db82c_01ef872a",
+      "range": {
+        "startLine": 1102,
+        "startChar": 36,
+        "endLine": 1102,
+        "endChar": 60
+      },
+      "revId": "e5f54f3b20377d8fd5edc1d832dd6ea0241986ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54e45639_d56a02d8",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-07-05T14:11:19Z",
       "side": 1,
       "message": "Note: TetheringConfiguration#isUsingNcm can change between the call to startTethering(TETHERING_USB) and the ACTION_USB_STATE broadcast. If the USB tethering function changes from NCM to RNDIS, this can lead to Tethering starting NCM tethering as local-only. But if this happens, the SettingsObserver will call stopTetheringInternal for both TETHERING_USB and TETHERING_NCM, so the local-only NCM interface will be stopped immediately.",
+      "range": {
+        "startLine": 1338,
+        "startChar": 0,
+        "endLine": 1339,
+        "endChar": 42
+      },
+      "revId": "e5f54f3b20377d8fd5edc1d832dd6ea0241986ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2a17e53_8d1bd399",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1339,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-05T14:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54e45639_d56a02d8",
       "range": {
         "startLine": 1338,
         "startChar": 0,
