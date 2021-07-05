@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74dcd18c_09ca6111",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4644,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-05T10:28:55Z",
+      "side": 1,
+      "message": "Unfortunately this means we lose the check here.\nWe could call terminate() and assertNoRequestChanged() inside try() as terminate() is idempotent (it only prints a log on the second call).\nAlternatively we could just move revert the changes to the function and move this call to inside the try{}. After all, other test methods don\u0027t really clean up and there is not a lot of ill side effects from simply leaving a provider registered if the test fails (the binder death event will reap it, and in the mean time it\u0027s not the end of the world)",
+      "range": {
+        "startLine": 4644,
+        "startChar": 24,
+        "endLine": 4644,
+        "endChar": 33
+      },
+      "revId": "925d960af3dea487506e14e5c6d627fe71b4383c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
