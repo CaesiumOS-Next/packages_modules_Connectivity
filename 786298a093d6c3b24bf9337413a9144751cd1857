@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74056f76_6f449af2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-05T14:19:38Z",
+      "side": 1,
+      "message": "LGTM, but could you add a test to TetheringTest that checks that if the OEM configures \"ncm\\\\d\" as NCM regexps and \"usb\\\\d\" as USB regexps, that starting TETHERING_USB will use the NCM interface even though it\u0027s not in the USB regexps?",
+      "revId": "786298a093d6c3b24bf9337413a9144751cd1857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f2e4470_cb2633c7",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-05T14:19:38Z",
+      "side": 1,
+      "message": "Maybe also call setTetherForceUsbFunctions(RNDIS) and check that the code behaves as expected, i.e., does not overwrite the USB regex with the NCM regex?",
+      "range": {
+        "startLine": 628,
+        "startChar": 4,
+        "endLine": 628,
+        "endChar": 5
+      },
+      "revId": "786298a093d6c3b24bf9337413a9144751cd1857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
