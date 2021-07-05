@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012788023",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1755630?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "8a52e438_68cf1ba3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10266,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-07-05T06:59:47Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 10266,
+        "startChar": 64,
+        "endLine": 10266,
+        "endChar": 65
+      },
+      "revId": "e6ce4f65882195d3bfa5a479757bec765ab3c8a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012788023",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1755630?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "380929b0_5c41b385",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10299,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-07-05T06:59:47Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 10299,
+        "startChar": 41,
+        "endLine": 10299,
+        "endChar": 42
+      },
+      "revId": "e6ce4f65882195d3bfa5a479757bec765ab3c8a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
