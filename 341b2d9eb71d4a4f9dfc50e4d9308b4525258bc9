@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cef2ab1_1acadfc1",
+        "filename": "Tethering/res/values/config.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-06T06:51:41Z",
+      "side": 1,
+      "message": "Yes, thanks for wording.",
+      "parentUuid": "143c7d4c_2fd14895",
+      "range": {
+        "startLine": 202,
+        "startChar": 14,
+        "endLine": 203,
+        "endChar": 29
+      },
+      "revId": "341b2d9eb71d4a4f9dfc50e4d9308b4525258bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2b95393_655424e6",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-06T06:20:34Z",
       "side": 1,
       "message": "This is the biggest behavior change on common devices; I can\u0027t see how this would break stuff since previous code probably posted all messages to the handler before the first one was processed, so unless anything is \"inserting\" itself in the handler queue (which I don\u0027t think is done) it won\u0027t change ordering.\n\nYou may want to mention this change in the cover comment in any case.",
+      "range": {
+        "startLine": 842,
+        "startChar": 9,
+        "endLine": 842,
+        "endChar": 28
+      },
+      "revId": "341b2d9eb71d4a4f9dfc50e4d9308b4525258bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d6b019f_76c99643",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-06T06:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2b95393_655424e6",
       "range": {
         "startLine": 842,
         "startChar": 9,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22d79e64_70515f3b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-06T06:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90e3c4e6_3226eaca",
+      "range": {
+        "startLine": 471,
+        "startChar": 17,
+        "endLine": 471,
+        "endChar": 34
+      },
+      "revId": "341b2d9eb71d4a4f9dfc50e4d9308b4525258bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "209c81f2_61ae437e",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-07-06T06:20:34Z",
       "side": 1,
       "message": "Can this stay private ?",
+      "range": {
+        "startLine": 652,
+        "startChar": 4,
+        "endLine": 652,
+        "endChar": 10
+      },
+      "revId": "341b2d9eb71d4a4f9dfc50e4d9308b4525258bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "460e6066_75c8adda",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-06T06:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "209c81f2_61ae437e",
       "range": {
         "startLine": 652,
         "startChar": 4,
