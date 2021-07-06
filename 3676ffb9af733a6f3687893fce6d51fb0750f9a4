@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe4a6157_c6fc4116",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T03:58:16Z",
+      "side": 1,
+      "message": "FWIW, if the word \"blocklist\" is not already used in wifi code, consider renaming to reenableAllWifiNetworks or reenableWifiDisabledNetworks or clearWifiDisabledNetworks.",
+      "range": {
+        "startLine": 218,
+        "startChar": 12,
+        "endLine": 218,
+        "endChar": 30
+      },
+      "revId": "3676ffb9af733a6f3687893fce6d51fb0750f9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11552380_2323ac7f",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T03:58:16Z",
+      "side": 1,
+      "message": "Technically this is only really true for presubmit testing, right? It might not be true for testing on real devices? In particular it might cause problems for OEM test labs where there are multiple networks of which only one supports IPv6.\n\nI think this is fine for now if it will make our presubmits less flaky but we might want to ask the wifi team for advice. For example: if there is a way to clear the BSSID blacklist is well, then that might be better than what you have in this CL.",
+      "range": {
+        "startLine": 278,
+        "startChar": 15,
+        "endLine": 278,
+        "endChar": 30
+      },
+      "revId": "3676ffb9af733a6f3687893fce6d51fb0750f9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bece023_c27e5b97",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T03:58:16Z",
+      "side": 1,
+      "message": "Might want to print something else like signal strength (if it\u0027s easy to do).",
+      "range": {
+        "startLine": 283,
+        "startChar": 41,
+        "endLine": 283,
+        "endChar": 45
+      },
+      "revId": "3676ffb9af733a6f3687893fce6d51fb0750f9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
