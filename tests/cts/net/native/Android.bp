@@ -31,14 +31,19 @@ cc_test {
         },
     },
 
-    srcs: ["src/NativeQtaguidTest.cpp"],
+    srcs: [
+        "src/BpfCompatTest.cpp",
+        "src/NativeQtaguidTest.cpp",
+    ],
 
     shared_libs: [
+        "libbase",
         "libutils",
         "liblog",
     ],
 
     static_libs: [
+        "libbpf_android",
         "libgtest",
         "libqtaguid",
     ],
