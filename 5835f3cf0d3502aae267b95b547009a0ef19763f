@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0577f3b4_c832757a",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T08:50:53Z",
+      "side": 1,
+      "message": "Use SystemClock.sleep instead?",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 13
+      },
+      "revId": "5835f3cf0d3502aae267b95b547009a0ef19763f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
