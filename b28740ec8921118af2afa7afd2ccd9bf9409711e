@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8cff338_d62326df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T03:38:00Z",
+      "side": 1,
+      "message": "LGTM. Would be really good to have a test in TetheringTest that sets isUsingNcm to true and checks that tethering behaves as expected (i.e., startTethering(TETHERING_USB) starts NCM tethering). Doesn\u0027t need to be in this CL.",
+      "revId": "b28740ec8921118af2afa7afd2ccd9bf9409711e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
