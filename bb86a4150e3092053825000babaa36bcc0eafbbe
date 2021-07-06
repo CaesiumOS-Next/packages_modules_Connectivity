@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000012809285",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1756011?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "133d9d19_f2ff8355",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-07-06T02:06:25Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027deny list\u0027 or \u0027allow list\u0027; see https://developers.google.com/style/word-list#blacklist for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 217,
+        "startChar": 37,
+        "endLine": 217,
+        "endChar": 46
+      },
+      "revId": "bb86a4150e3092053825000babaa36bcc0eafbbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
