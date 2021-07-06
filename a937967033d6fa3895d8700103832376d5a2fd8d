@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd19bf29_59f03cfd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-06T19:31:53Z",
+      "side": 1,
+      "message": "IMHO, there\u0027s way too much happening in this commit.\nIt makes it hard to review.  What are just comment changes, vs just function/arg renames, vs actual functional changes.  Refactors should be done separately...\n\nAnyway, I\u0027ve done my best to review this,\nmost of the comments are I think just FYIs or trivial to handle (add comment/etc)",
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7037e2a_bb5c905e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-06T19:31:53Z",
+      "side": 1,
+      "message": "while this probably works, might be safer to check \u003e\u003d 5 mins",
+      "range": {
+        "startLine": 1577,
+        "startChar": 0,
+        "endLine": 1577,
+        "endChar": 77
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64bc8cec_2f58004c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-06T19:31:53Z",
+      "side": 1,
+      "message": "perhaps add a TODO here - continue to offload half-closed tcp connections",
+      "range": {
+        "startLine": 1582,
+        "startChar": 21,
+        "endLine": 1582,
+        "endChar": 22
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14739576_71a6ce27",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-06T19:31:53Z",
+      "side": 1,
+      "message": "technically this should be established \u0026\u0026 (upadded || downadded)",
+      "range": {
+        "startLine": 1620,
+        "startChar": 36,
+        "endLine": 1620,
+        "endChar": 68
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a78b3a0e_d307a0d6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1621,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-06T19:31:53Z",
+      "side": 1,
+      "message": "probably not something to fix in this CL,\n\nbut I think this function should actually take the timeout to set (ie. number of seconds).\n\nin the lastused was updated case, we should actually be doing\n\ntimeout we want - (now - lastUsed)\n\nso that if it was lastUsed 5 seconds ago, the timeout we set is 5 seconds smaller.\n\n--\n\nalternatively the function could take a \u0027timeout offset\u0027, ie. relative to how many seconds ago to set the timeout.\n\nhere you\u0027d pass 0, and set to 432000 - 0,\nbut in the udp update case you\u0027d pass now - lastUsed, and set to udpTimeout - arg",
+      "range": {
+        "startLine": 1621,
+        "startChar": 16,
+        "endLine": 1621,
+        "endChar": 38
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8e20cc1_8aaf0c93",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1941,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-06T19:31:53Z",
+      "side": 1,
+      "message": "this looks dangerous, if you get unlucky and you run just a little bit later then scheduled - then you can miss updating things.\n\n(btw. unlucky is probably the common case)\n\nyou might need to do:\n  \u003c slack CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS\ninstead\n\nwhere slack could be 1.5* for example, or even just 2*, or X+ for some slack value of X, or even X+1.5* or something.\n\nI\u0027m not sure what sort of real time guarantees java/scheduler offer us... but probably not very good.",
+      "range": {
+        "startLine": 1941,
+        "startChar": 0,
+        "endLine": 1941,
+        "endChar": 89
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
