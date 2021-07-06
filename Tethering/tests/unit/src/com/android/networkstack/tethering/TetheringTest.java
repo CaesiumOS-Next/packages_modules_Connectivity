@@ -1429,6 +1429,13 @@ public class TetheringTest {
         verifyNoMoreInteractions(mWifiManager);
     }
 
+    private void stopTethering(int type) {
+        final ResultListener result = new ResultListener(TETHER_ERROR_NO_ERROR);
+        mTethering.stopTethering(type, result);
+        mLooper.dispatchAll();
+        result.assertHasResult();
+    }
+
     // TODO: Test with and without interfaceStatusChanged().
     @Test
     public void workingWifiTetheringEnrichedApBroadcast() throws Exception {
@@ -1476,8 +1483,7 @@ public class TetheringTest {
         /////
 
         // Emulate pressing the WiFi tethering button.
-        mTethering.stopTethering(TETHERING_WIFI);
-        mLooper.dispatchAll();
+        stopTethering(TETHERING_WIFI);
         verify(mWifiManager, times(1)).stopSoftAp();
         verifyNoMoreInteractions(mWifiManager);
         verifyNoMoreInteractions(mNetd);
@@ -1866,7 +1872,7 @@ public class TetheringTest {
         // 4. Unregister first callback and disable wifi tethering
         mTethering.unregisterTetheringEventCallback(callback);
         mLooper.dispatchAll();
-        mTethering.stopTethering(TETHERING_WIFI);
+        stopTethering(TETHERING_WIFI);
         sendWifiApStateChanged(WifiManager.WIFI_AP_STATE_DISABLED);
         tetherState = callback2.pollTetherStatesChanged();
         assertArrayEquals(tetherState.availableList, new TetheringInterface[] {wifiIface});
@@ -1910,8 +1916,7 @@ public class TetheringTest {
     }
 
     private void runStopUSBTethering() {
-        mTethering.stopTethering(TETHERING_USB);
-        mLooper.dispatchAll();
+        stopTethering(TETHERING_USB);
         sendUsbBroadcast(true, true, -1 /* function */);
         mLooper.dispatchAll();
         verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NONE);
@@ -1948,11 +1953,9 @@ public class TetheringTest {
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_ETHERNET), null);
         mLooper.dispatchAll();
         verifyNoMoreInteractions(mEm);
-        mTethering.stopTethering(TETHERING_ETHERNET);
-        mLooper.dispatchAll();
+        stopTethering(TETHERING_ETHERNET);
         verify(mockRequest, times(1)).release();
-        mTethering.stopTethering(TETHERING_ETHERNET);
-        mLooper.dispatchAll();
+        stopTethering(TETHERING_ETHERNET);
         verifyNoMoreInteractions(mEm);
     }
 
@@ -2267,8 +2270,7 @@ public class TetheringTest {
         verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
         verify(mEntitleMgr, never()).setExemptedDownstreamType(TETHERING_WIFI);
         assertFalse(mEntitleMgr.isCellularUpstreamPermitted());
-        mTethering.stopTethering(TETHERING_WIFI);
-        mLooper.dispatchAll();
+        stopTethering(TETHERING_WIFI);
         verify(mEntitleMgr).stopProvisioningIfNeeded(TETHERING_WIFI);
         reset(mEntitleMgr);
 
@@ -2281,8 +2283,7 @@ public class TetheringTest {
         verify(mEntitleMgr, never()).startProvisioningIfNeeded(TETHERING_WIFI, false);
         verify(mEntitleMgr).setExemptedDownstreamType(TETHERING_WIFI);
         assertTrue(mEntitleMgr.isCellularUpstreamPermitted());
-        mTethering.stopTethering(TETHERING_WIFI);
-        mLooper.dispatchAll();
+        stopTethering(TETHERING_WIFI);
         verify(mEntitleMgr).stopProvisioningIfNeeded(TETHERING_WIFI);
         reset(mEntitleMgr);
 
@@ -2301,8 +2302,7 @@ public class TetheringTest {
         verify(mEntitleMgr).startProvisioningIfNeeded(TETHERING_WIFI, false);
         verify(mEntitleMgr, never()).setExemptedDownstreamType(TETHERING_WIFI);
         assertFalse(mEntitleMgr.isCellularUpstreamPermitted());
-        mTethering.stopTethering(TETHERING_WIFI);
-        mLooper.dispatchAll();
+        stopTethering(TETHERING_WIFI);
         verify(mEntitleMgr).stopProvisioningIfNeeded(TETHERING_WIFI);
         reset(mEntitleMgr);
     }
@@ -2585,8 +2585,7 @@ public class TetheringTest {
         reset(mNetd);
 
         when(mBluetoothAdapter.isEnabled()).thenReturn(true);
-        mTethering.stopTethering(TETHERING_BLUETOOTH);
-        mLooper.dispatchAll();
+        stopTethering(TETHERING_BLUETOOTH);
         final ResultListener untetherResult = new ResultListener(TETHER_ERROR_NO_ERROR);
         mTethering.untether(TEST_BT_IFNAME, untetherResult);
         mLooper.dispatchAll();

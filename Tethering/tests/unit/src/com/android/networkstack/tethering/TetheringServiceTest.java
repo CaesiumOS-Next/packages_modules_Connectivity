@@ -327,8 +327,7 @@ public final class TetheringServiceTest {
         mTetheringConnector.stopTethering(TETHERING_WIFI, TEST_CALLER_PKG,
                 TEST_ATTRIBUTION_TAG, result);
         verify(mTethering).isTetheringSupported();
-        verify(mTethering).stopTethering(TETHERING_WIFI);
-        result.assertResult(TETHER_ERROR_NO_ERROR);
+        verify(mTethering).stopTethering(eq(TETHERING_WIFI), eq(result));
     }
 
     @Test
@@ -441,8 +440,7 @@ public final class TetheringServiceTest {
     private void runStopAllTethering(final TestTetheringResult result) throws Exception {
         mTetheringConnector.stopAllTethering(TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG, result);
         verify(mTethering).isTetheringSupported();
-        verify(mTethering).untetherAll();
-        result.assertResult(TETHER_ERROR_NO_ERROR);
+        verify(mTethering).untetherAll(eq(result));
     }
 
     @Test

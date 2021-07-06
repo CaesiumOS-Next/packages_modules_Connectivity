@@ -382,8 +382,8 @@ public class Tethering {
             final boolean isUsingNcm = mConfig.isUsingNcm();
             updateConfiguration();
             if (isUsingNcm != mConfig.isUsingNcm()) {
-                stopTetheringInternal(TETHERING_USB);
-                stopTetheringInternal(TETHERING_NCM);
+                stopTethering(TETHERING_USB);
+                stopTethering(TETHERING_NCM);
             }
         }
     }
@@ -613,12 +613,17 @@ public class Tethering {
         });
     }
 
-    void stopTethering(int type) {
+    void stopTethering(int type, IIntResultListener listener) {
         mHandler.post(() -> {
-            stopTetheringInternal(type);
+            try {
+                stopTethering(type);
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) {
+            }
         });
     }
-    void stopTetheringInternal(int type) {
+
+    private void stopTethering(int type) {
         mActiveTetheringRequests.remove(type);
 
         enableTetheringInternal(type, false /* disabled */, null);
@@ -841,6 +846,18 @@ public class Tethering {
         return TETHER_ERROR_NO_ERROR;
     }
 
+    void untetherAll(IIntResultListener listener) {
+        mHandler.post(() -> {
+            try {
+                untetherAll();
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) {
+            }
+        });
+    }
+
+    // TODO: fix the TetheringTest then make this private.
+    @VisibleForTesting
     void untetherAll() {
         stopTethering(TETHERING_WIFI);
         stopTethering(TETHERING_WIFI_P2P);
@@ -1338,7 +1355,7 @@ public class Tethering {
         // Note: TetheringConfiguration#isUsingNcm can change between the call to
         // startTethering(TETHERING_USB) and the ACTION_USB_STATE broadcast. If the USB tethering
         // function changes from NCM to RNDIS, this can lead to Tethering starting NCM tethering
-        // as local-only. But if this happens, the SettingsObserver will call stopTetheringInternal
+        // as local-only. But if this happens, the SettingsObserver will call stopTethering
         // for both TETHERING_USB and TETHERING_NCM, so the local-only NCM interface will be
         // stopped immediately.
         final int tetheringType = getServedUsbType(forNcmFunction);
