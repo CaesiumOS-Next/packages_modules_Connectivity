@@ -22,6 +22,30 @@
       },
       "revId": "925d960af3dea487506e14e5c6d627fe71b4383c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03a67611_59f641ab",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4644,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-06T06:10:10Z",
+      "side": 1,
+      "message": "I just went for the first solution.\nAnother one would have been to call assertNoRequestChanged() after the finally {} maybe ? Not sure if unregisterNetworkCallback could affect it though.",
+      "parentUuid": "74dcd18c_09ca6111",
+      "range": {
+        "startLine": 4644,
+        "startChar": 24,
+        "endLine": 4644,
+        "endChar": 33
+      },
+      "revId": "925d960af3dea487506e14e5c6d627fe71b4383c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
