@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a7ab452_7028cbe2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-06T10:18:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4064cb9f_ae9d09f9",
+      "range": {
+        "startLine": 844,
+        "startChar": 0,
+        "endLine": 846,
+        "endChar": 5
+      },
+      "revId": "eccb9d458a25b475689cb176a36f9e26b3db5b34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88dbdade_cad6bc06",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-06T07:10:12Z",
       "side": 1,
       "message": "shouldStop",
+      "range": {
+        "startLine": 1817,
+        "startChar": 24,
+        "endLine": 1817,
+        "endChar": 30
+      },
+      "revId": "eccb9d458a25b475689cb176a36f9e26b3db5b34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a429cd_65599554",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-06T10:18:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88dbdade_cad6bc06",
       "range": {
         "startLine": 1817,
         "startChar": 24,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66c5dad1_68af61b7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1819,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-06T10:18:17Z",
+      "side": 1,
+      "message": "Same reason above.",
+      "parentUuid": "809e0e22_771b0235",
+      "range": {
+        "startLine": 1819,
+        "startChar": 16,
+        "endLine": 1819,
+        "endChar": 35
+      },
+      "revId": "eccb9d458a25b475689cb176a36f9e26b3db5b34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b719fc9_b0c4a019",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-07-06T07:10:12Z",
       "side": 1,
       "message": "Instead of calling untetherAll here, is there a way we can simply remove the mobile network request? For example, could we set mTryCell to false?\n\nIf that becomes complicated because Tethering calls setTryCell, then... could we add a new mCellUnavailable member to UpstreamNetworkMonitor, and make reevaluateUpstreamRequirements set mobileRequestRequired to false whenever mCellUnavailable is set?",
+      "range": {
+        "startLine": 582,
+        "startChar": 58,
+        "endLine": 582,
+        "endChar": 81
+      },
+      "revId": "eccb9d458a25b475689cb176a36f9e26b3db5b34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33fc8e60_bc3781f6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-06T10:18:17Z",
+      "side": 1,
+      "message": "Per talk offload, the problem is that if DUN is unavailable, there is no way to tell user tethering doesn\u0027t work if we don\u0027t close tethering. If we just setTryCell to false, user may end up with embedded have internet in cellular but tethering just stuck.",
+      "parentUuid": "5b719fc9_b0c4a019",
       "range": {
         "startLine": 582,
         "startChar": 58,
