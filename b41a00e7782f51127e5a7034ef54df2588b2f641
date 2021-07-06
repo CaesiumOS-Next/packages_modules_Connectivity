@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59241ff8_6925b705",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T03:28:34Z",
+      "side": 1,
+      "message": "Do you think you can try to address this TODO as soon as the CLs to fix this bug are merged? I think it\u0027s possible that we missed something in this CL, and if so, addressing the TODO might help us find that.",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 63
+      },
+      "revId": "b41a00e7782f51127e5a7034ef54df2588b2f641",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
