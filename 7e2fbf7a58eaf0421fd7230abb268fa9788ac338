@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d4c92c0_c6a20b91",
+        "filename": "tests/cts/net/native/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T09:42:54Z",
+      "side": 1,
+      "message": "Keep these sorted?",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 32
+      },
+      "revId": "7e2fbf7a58eaf0421fd7230abb268fa9788ac338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03492f18_f8f83103",
+        "filename": "tests/cts/net/native/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T09:42:54Z",
+      "side": 1,
+      "message": "Would be good to srt these too, even though they\u0027re not already...",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "7e2fbf7a58eaf0421fd7230abb268fa9788ac338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
