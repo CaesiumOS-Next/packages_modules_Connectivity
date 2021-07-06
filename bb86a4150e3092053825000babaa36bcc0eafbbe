@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b01cf8_668e3ff1",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-06T02:45:51Z",
+      "side": 1,
+      "message": "Nit: Pre-existing. The message may not be correct here. Not all cases expect a CONNECTIVITY_ACTION.",
+      "range": {
+        "startLine": 235,
+        "startChar": 24,
+        "endLine": 235,
+        "endChar": 43
+      },
+      "revId": "bb86a4150e3092053825000babaa36bcc0eafbbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
