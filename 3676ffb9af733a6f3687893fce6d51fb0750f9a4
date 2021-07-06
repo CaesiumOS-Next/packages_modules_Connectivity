@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fbc2fc9_efb882b4",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-06T04:15:52Z",
+      "side": 1,
+      "message": "It\u0027s actually called blocklist in wifi code since S (\"WifiBlocklistMonitor\" for example)",
+      "parentUuid": "fe4a6157_c6fc4116",
+      "range": {
+        "startLine": 218,
+        "startChar": 12,
+        "endLine": 218,
+        "endChar": 30
+      },
+      "revId": "3676ffb9af733a6f3687893fce6d51fb0750f9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11552380_2323ac7f",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c22d70e7_cbd77999",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-06T04:15:52Z",
+      "side": 1,
+      "message": "I actually asked last year:\nhttps://groups.google.com/a/google.com/g/android-connectivity/c/v4WhTLQ6Ts0/m/4p98D-eyAwAJ\n\nI\u0027ll reopen the thread to re-check this year (but probably not block this change on it so we can fix the flakes ASAP)",
+      "parentUuid": "11552380_2323ac7f",
+      "range": {
+        "startLine": 278,
+        "startChar": 15,
+        "endLine": 278,
+        "endChar": 30
+      },
+      "revId": "3676ffb9af733a6f3687893fce6d51fb0750f9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3bece023_c27e5b97",
         "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
         "patchSetId": 4
@@ -60,6 +108,30 @@
       "writtenOn": "2021-07-06T03:58:16Z",
       "side": 1,
       "message": "Might want to print something else like signal strength (if it\u0027s easy to do).",
+      "range": {
+        "startLine": 283,
+        "startChar": 41,
+        "endLine": 283,
+        "endChar": 45
+      },
+      "revId": "3676ffb9af733a6f3687893fce6d51fb0750f9a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f0693f7_c459098a",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-06T04:15:52Z",
+      "side": 1,
+      "message": "Will ask the wifi folks if they have other suggestions and do that after getting some feedback",
+      "parentUuid": "3bece023_c27e5b97",
       "range": {
         "startLine": 283,
         "startChar": 41,

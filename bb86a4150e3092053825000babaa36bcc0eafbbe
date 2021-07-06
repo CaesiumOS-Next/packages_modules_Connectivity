@@ -22,6 +22,30 @@
       },
       "revId": "bb86a4150e3092053825000babaa36bcc0eafbbe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "271310f4_b9c4f032",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-06T04:15:52Z",
+      "side": 1,
+      "message": "But I think it can\u0027t be printed in cases where CONNECTIVITY_ACTION is not expected, since the condition is \"!expectLegacyBroadcast || ...\" ?",
+      "parentUuid": "05b01cf8_668e3ff1",
+      "range": {
+        "startLine": 235,
+        "startChar": 24,
+        "endLine": 235,
+        "endChar": 43
+      },
+      "revId": "bb86a4150e3092053825000babaa36bcc0eafbbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
