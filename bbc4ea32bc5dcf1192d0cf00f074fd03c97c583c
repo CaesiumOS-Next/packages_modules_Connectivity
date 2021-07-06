@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bee37be_27a3a271",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-06T14:57:52Z",
+      "side": 1,
+      "message": "Failed to build on sc-mainline-prod with:\n\npackages/modules/Connectivity/tests/cts/net/native/src/BpfCompatTest.cpp:34:17: error: use of undeclared identifier \u0027readSectionUint\u0027\n  EXPECT_EQ(48, readSectionUint(\"size_of_bpf_map_def\", elfFile, 0));\n                ^\npackages/modules/Connectivity/tests/cts/net/native/src/BpfCompatTest.cpp:35:17: error: use of undeclared identifier \u0027readSectionUint\u0027\n  EXPECT_EQ(28, readSectionUint(\"size_of_bpf_prog_def\", elfFile, 0));\n\nThe automerger merged the necessary dependency CL into sc-mainline-prod as ag/15215511. Trying again.",
+      "revId": "bbc4ea32bc5dcf1192d0cf00f074fd03c97c583c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
