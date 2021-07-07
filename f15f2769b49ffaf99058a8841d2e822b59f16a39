@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec2d6a1_adb395be",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2021-07-07T00:17:27Z",
+      "side": 0,
+      "message": "Strange - why wouldn\u0027t the `clearWifiBlacklist()` call do that?",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 222,
+        "endChar": 47
+      },
+      "revId": "f15f2769b49ffaf99058a8841d2e822b59f16a39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
