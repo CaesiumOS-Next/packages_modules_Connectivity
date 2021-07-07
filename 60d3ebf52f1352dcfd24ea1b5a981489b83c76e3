@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f0e64ac_2b8c02c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-07T07:30:33Z",
+      "side": 1,
+      "message": "There are some no-op change which is made from aosp/1755051. I think you try to merge two changes ? If you keep no-op change in its own CL next time. It would be easier to read. LGTM, but prefer leave +2 to maze.",
+      "revId": "60d3ebf52f1352dcfd24ea1b5a981489b83c76e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5766dbeb_ec69307a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1945,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-07T07:30:33Z",
+      "side": 1,
+      "message": "Probably also document this in commit message. After this change, tcp rule would just be 5 days without timeout update. So the tcp connection which keep connected 5 days would be broken.",
+      "range": {
+        "startLine": 1945,
+        "startChar": 8,
+        "endLine": 1945,
+        "endChar": 59
+      },
+      "revId": "60d3ebf52f1352dcfd24ea1b5a981489b83c76e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
