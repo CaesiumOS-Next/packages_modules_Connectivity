@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "351c7769_536b7b59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-07T03:02:43Z",
+      "side": 1,
+      "message": "Please specify original change either by (cherry-pick from ag/xxxx) or Original-Change:",
+      "revId": "c6f37332b8a12ff754483a431ffda1997514dac8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4c20a086_fe31d197",
@@ -14,6 +31,23 @@
       "writtenOn": "2021-07-02T12:36:41Z",
       "side": 1,
       "message": "Clean chery-pick and reviewed by ag/14911836",
+      "revId": "c6f37332b8a12ff754483a431ffda1997514dac8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "716439d9_c47a5689",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-07T03:02:43Z",
+      "side": 1,
+      "message": "+2 assuming the comment will be addressed.",
       "revId": "c6f37332b8a12ff754483a431ffda1997514dac8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
