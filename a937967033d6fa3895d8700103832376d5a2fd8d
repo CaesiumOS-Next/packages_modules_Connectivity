@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfb84f82_b7afed01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-07T04:28:27Z",
+      "side": 1,
+      "message": "Thanks for your review in these branch of stuffs\nIf you want, I could separate this commit into two commits.\n\nSorry for I try to address aosp/1566871, aosp/1753608 comments and do functional changes together.",
+      "parentUuid": "dd19bf29_59f03cfd",
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7037e2a_bb5c905e",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41962d16_1ada653c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-07T04:28:27Z",
+      "side": 1,
+      "message": "do you want to cover the case \"nf_conntrack_tcp_timeout_unacknowledged(300)\"?\n\nIf yes, the netlink timeout unacknowledged (300) won\u0027t be sent in that case. The kernel seems to modify the timeout without any notification.\n\nPlease correct me if I am wrong.",
+      "parentUuid": "f7037e2a_bb5c905e",
+      "range": {
+        "startLine": 1577,
+        "startChar": 0,
+        "endLine": 1577,
+        "endChar": 77
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64bc8cec_2f58004c",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 4
@@ -54,6 +96,30 @@
       "writtenOn": "2021-07-06T19:31:53Z",
       "side": 1,
       "message": "perhaps add a TODO here - continue to offload half-closed tcp connections",
+      "range": {
+        "startLine": 1582,
+        "startChar": 21,
+        "endLine": 1582,
+        "endChar": 22
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98b00ded_846f9474",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-07T04:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64bc8cec_2f58004c",
       "range": {
         "startLine": 1582,
         "startChar": 21,
@@ -89,6 +155,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fbca4e6_3c188a9e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-07T04:28:27Z",
+      "side": 1,
+      "message": "I think that both upstream and downstream rules should be both added or not added.\nNot expect that the rules have been added only one direction",
+      "parentUuid": "14739576_71a6ce27",
+      "range": {
+        "startLine": 1620,
+        "startChar": 36,
+        "endLine": 1620,
+        "endChar": 68
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a78b3a0e_d307a0d6",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 4
@@ -112,6 +202,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d154a0d6_34c68bea",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1621,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-07T04:28:27Z",
+      "side": 1,
+      "message": "Add a TODO in updateConntrackTimeout\n\nYou are right. Should count precise timeout. Thanks for your advice.",
+      "parentUuid": "a78b3a0e_d307a0d6",
+      "range": {
+        "startLine": 1621,
+        "startChar": 16,
+        "endLine": 1621,
+        "endChar": 38
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e8e20cc1_8aaf0c93",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 4
@@ -123,6 +237,30 @@
       "writtenOn": "2021-07-06T19:31:53Z",
       "side": 1,
       "message": "this looks dangerous, if you get unlucky and you run just a little bit later then scheduled - then you can miss updating things.\n\n(btw. unlucky is probably the common case)\n\nyou might need to do:\n  \u003c slack CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS\ninstead\n\nwhere slack could be 1.5* for example, or even just 2*, or X+ for some slack value of X, or even X+1.5* or something.\n\nI\u0027m not sure what sort of real time guarantees java/scheduler offer us... but probably not very good.",
+      "range": {
+        "startLine": 1941,
+        "startChar": 0,
+        "endLine": 1941,
+        "endChar": 89
+      },
+      "revId": "a937967033d6fa3895d8700103832376d5a2fd8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a56b35fb_358b5437",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1941,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-07T04:28:27Z",
+      "side": 1,
+      "message": "Done.\nGood point. Thanks for your advice.",
+      "parentUuid": "e8e20cc1_8aaf0c93",
       "range": {
         "startLine": 1941,
         "startChar": 0,
