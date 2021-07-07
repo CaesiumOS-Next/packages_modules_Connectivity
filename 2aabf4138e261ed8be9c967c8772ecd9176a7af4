@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "434f74b2_47e1f695",
+        "filename": "tests/cts/net/native/AndroidTest.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-07T00:43:46Z",
+      "side": 1,
+      "message": "I wonder if we need this file at all? Might want to attempt to delete it in a future CL.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 70
+      },
+      "revId": "2aabf4138e261ed8be9c967c8772ecd9176a7af4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
