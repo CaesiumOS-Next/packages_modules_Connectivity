@@ -22,6 +22,30 @@
       },
       "revId": "f15f2769b49ffaf99058a8841d2e822b59f16a39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61641311_fcd00afd",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-07T00:46:14Z",
+      "side": 0,
+      "message": "From what I could see clearWifiBlacklist could only re-enable disabled wifi configurations (using WifiManager#enableNetwork), but would not remove the BSSID blocklist from BssidBlocklistMonitor.",
+      "parentUuid": "fec2d6a1_adb395be",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 222,
+        "endChar": 47
+      },
+      "revId": "f15f2769b49ffaf99058a8841d2e822b59f16a39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
