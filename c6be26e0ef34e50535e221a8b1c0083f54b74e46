@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "340b678c_67be5436",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-07T06:51:41Z",
+      "side": 1,
+      "message": "why do you throw here instead of using fail()? will this provide more information than just fail?",
+      "range": {
+        "startLine": 1137,
+        "startChar": 12,
+        "endLine": 1139,
+        "endChar": 49
+      },
+      "revId": "c6be26e0ef34e50535e221a8b1c0083f54b74e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
