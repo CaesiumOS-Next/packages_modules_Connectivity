@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1ec1adc_53e503e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-07T11:27:53Z",
+      "side": 1,
+      "message": "LGTM.\n\nIt might be possible to simplify this because if we\u0027re forcing a reconnect, there\u0027s no reason to wait for the capabilities callback. The reconnect happens because wifi does not go from unmetereed to metered without a reconnect because that could cause unwanted data use. So, when the network reconnects, the meteredness should be correct already.\n\nWhen not forcing a reconnect (e.g., when going from metered to unmetered) I guess we do want to wait for the callback though. So perhaps we can\u0027t use this fact to simplify the code. Anyway, not for this CL.",
+      "revId": "c6be26e0ef34e50535e221a8b1c0083f54b74e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "340b678c_67be5436",
