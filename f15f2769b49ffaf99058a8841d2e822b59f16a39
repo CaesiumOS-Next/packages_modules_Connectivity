@@ -46,6 +46,30 @@
       },
       "revId": "f15f2769b49ffaf99058a8841d2e822b59f16a39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35e8b4cb_0e298545",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1240997
+      },
+      "writtenOn": "2021-07-07T03:03:04Z",
+      "side": 0,
+      "message": "Yea is BSSID blocklist is only reset when the user or app manually connects to a network (only for the connecting SSID), and when wifi is toggled (BSSID blocklist cleared for all SSIDs).\n\nThe \"mWifiManager.connect(config, listener)\" call will clear both the SSID and BSSID blocklists, so this looks good to me.",
+      "parentUuid": "61641311_fcd00afd",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 222,
+        "endChar": 47
+      },
+      "revId": "f15f2769b49ffaf99058a8841d2e822b59f16a39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
