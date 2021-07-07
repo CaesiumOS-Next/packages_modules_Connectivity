@@ -68,6 +68,29 @@
       },
       "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "039915f5_f26d0fab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-07T06:46:18Z",
+      "side": 1,
+      "message": "This change is not in packages/modules/Connectivity; merged-in needs to refer to a change in the same project",
+      "range": {
+        "startLine": 18,
+        "startChar": 11,
+        "endLine": 18,
+        "endChar": 52
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
