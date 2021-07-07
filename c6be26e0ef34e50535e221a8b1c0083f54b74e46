@@ -22,6 +22,30 @@
       },
       "revId": "c6be26e0ef34e50535e221a8b1c0083f54b74e46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33d7df33_2b745ada",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-07T06:57:00Z",
+      "side": 1,
+      "message": "Generally fail() is discouraged in catch clauses: http://go/bugpattern/CatchFail\n\nThe rationale is to keep the stacktrace, although it would be fairly obvious here.",
+      "parentUuid": "340b678c_67be5436",
+      "range": {
+        "startLine": 1137,
+        "startChar": 12,
+        "endLine": 1139,
+        "endChar": 49
+      },
+      "revId": "c6be26e0ef34e50535e221a8b1c0083f54b74e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
