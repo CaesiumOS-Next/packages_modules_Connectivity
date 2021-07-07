@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1573e1b3_06b8c7a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-07T06:45:15Z",
+      "side": 1,
+      "message": "This is not understandable by someone looking at AOSP without access to non-public branches; could you explain what this commit is doing and why that\u0027s a good thing, from the point of view of someone that only has access to the  AOSP git log ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da56619_9e8d24fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-07T06:45:15Z",
+      "side": 1,
+      "message": "Similarly this is not a publicly accessible link",
+      "range": {
+        "startLine": 11,
+        "startChar": 7,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35f8d94a_192b7102",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-07T06:45:15Z",
+      "side": 1,
+      "message": "This commit is not using reflection though ?",
+      "range": {
+        "startLine": 13,
+        "startChar": 27,
+        "endLine": 13,
+        "endChar": 50
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
