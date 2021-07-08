@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fef033ee_44f07000",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-08T03:50:25Z",
+      "side": 1,
+      "message": "Discussed with Lorenzo. Let\u0027s change this to PREFERENCE_ORDER_* (but not in this change, in a followup).",
+      "range": {
+        "startLine": 417,
+        "startChar": 21,
+        "endLine": 417,
+        "endChar": 47
+      },
+      "revId": "aa0743d7c4e676f9163dc13d32d5e5d2f1819a84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
