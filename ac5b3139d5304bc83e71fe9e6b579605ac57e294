@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d88131f8_66adf922",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-08T00:20:15Z",
+      "side": 1,
+      "message": "Good catch, old message as per a previous patch.",
+      "parentUuid": "511d798c_18dc5a0a",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e73533bc_250ebe26",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-05T05:06:38Z",
       "side": 1,
       "message": "All of this also needs update for the same reason",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50f994f7_ed882aaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-08T00:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e73533bc_250ebe26",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dea36802_a673277c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-08T00:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae90e1a2_5705a9b2",
+      "range": {
+        "startLine": 21,
+        "startChar": 35,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "feaf3721_de3b4f0a",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "488dd0c9_c0bc1978",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-08T00:20:15Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve updated the wording to be clearer. Thanks!",
+      "parentUuid": "feaf3721_de3b4f0a",
+      "range": {
+        "startLine": 34,
+        "startChar": 41,
+        "endLine": 34,
+        "endChar": 58
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "233871ed_47b706ca",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-07-05T05:06:38Z",
       "side": 1,
       "message": "Likewise, this is not what the change does now",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 12
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ba5239_a3b9b48e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-08T00:20:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "233871ed_47b706ca",
       "range": {
         "startLine": 38,
         "startChar": 3,
@@ -146,6 +266,30 @@
       "writtenOn": "2021-07-05T05:06:38Z",
       "side": 1,
       "message": "Curious : why move this ? AFAICT this is exactly the same. (I don\u0027t mind if we do move it though, since it\u0027s the same).",
+      "range": {
+        "startLine": 4199,
+        "startChar": 12,
+        "endLine": 4199,
+        "endChar": 32
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d80c4158_e97c12f6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4199,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-08T00:20:15Z",
+      "side": 1,
+      "message": "The main reason is for the additional logging added in the CL as part of mNetworkRequests.remove (now changed to logw).",
+      "parentUuid": "16841ba7_cee3523b",
       "range": {
         "startLine": 4199,
         "startChar": 12,
@@ -217,6 +361,30 @@
       "side": 1,
       "message": "IIUC Lorenzo\u0027s comment it would not be meant to prevent the crash, just to prevent the WTF.\nI would not favor doing this though, since in spirit nri.mRequests is immutable for a given NRI. We never add or remove requests once the NRI is created ; in a sense you could imagine passing a ref to a released NRI to some logging function and still expect to see what NRs it used to contain.",
       "parentUuid": "953b9408_d84c236f",
+      "range": {
+        "startLine": 4240,
+        "startChar": 4,
+        "endLine": 4240,
+        "endChar": 5
+      },
+      "revId": "ac5b3139d5304bc83e71fe9e6b579605ac57e294",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "983acbb1_69dec7b8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 4240,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-08T00:20:15Z",
+      "side": 1,
+      "message": "Ok yes, good point. I actually added that wtf log as part of this CL. After a bit more thought, probably makes more sense as a logw therefore updating so it isn\u0027t a WTF. Also resolving this since (thanks for the reminder Jean) we want to keep nri.mRequests immutable and only update in a constructor as we are currently doing.",
+      "parentUuid": "bfe4d9a6_a6ed0e9c",
       "range": {
         "startLine": 4240,
         "startChar": 4,
