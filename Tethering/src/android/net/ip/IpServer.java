@@ -25,6 +25,7 @@ import static android.net.util.PrefixUtils.asIpPrefix;
 import static android.net.util.TetheringMessageBase.BASE_IPSERVER;
 import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
 
+import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 
 import android.net.INetd;
@@ -614,10 +615,8 @@ public class IpServer extends StateMachine {
             return false;
         }
 
-        if (mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) {
-            // BT configures the interface elsewhere: only start DHCP.
-            // TODO: make all tethering types behave the same way, and delete the bluetooth
-            // code that calls into NetworkManagementService directly.
+        if ((mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) && isAtLeastT()) {
+            // Before T, BT configures the interface elsewhere: only start DHCP.
             return configureDhcp(enabled, mIpv4Address, null /* clientAddress */);
         }
 
@@ -654,7 +653,7 @@ public class IpServer extends StateMachine {
     private LinkAddress requestIpv4Address(final boolean useLastAddress) {
         if (mStaticIpv4ServerAddr != null) return mStaticIpv4ServerAddr;
 
-        if (mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) {
+        if ((mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) && isAtLeastT()) {
             return new LinkAddress(BLUETOOTH_IFACE_ADDR);
         }
 

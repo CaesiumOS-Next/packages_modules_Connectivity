@@ -64,6 +64,7 @@ import static android.net.wifi.WifiManager.WIFI_AP_STATE_DISABLED;
 import static android.telephony.CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANGED;
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
+import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
@@ -71,6 +72,7 @@ import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellul
 import android.app.usage.NetworkStatsManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothPan;
+import android.bluetooth.BluetoothPan.BluetoothTetheringCallback;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.BluetoothProfile.ServiceListener;
 import android.content.BroadcastReceiver;
@@ -267,6 +269,7 @@ public class Tethering {
     private String mConfiguredEthernetIface;
     private EthernetCallback mEthernetCallback;
     private SettingsObserver mSettingsObserver;
+    private BluetoothCallback mBluetoothCallback;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -367,6 +370,8 @@ public class Tethering {
                         return mConfig;
                     }
                 });
+
+        if (isAtLeastT()) mBluetoothCallback = new BluetoothCallback();
 
         startStateMachineUpdaters();
     }
@@ -532,6 +537,8 @@ public class Tethering {
         final int type = ifaceNameToType(iface);
         if (type == TETHERING_USB || type == TETHERING_NCM) return;
 
+        if (type == TETHERING_BLUETOOTH && isAtLeastT()) return;
+
         if (enabled) {
             ensureIpServerStarted(iface);
         } else {
@@ -692,6 +699,18 @@ public class Tethering {
         return TETHER_ERROR_INTERNAL_ERROR;
     }
 
+    private class BluetoothCallback implements BluetoothTetheringCallback {
+        public String onAvailable(@NonNull String iface) {
+            enableIpServing(TETHERING_BLUETOOTH, iface, getRequestedState(TETHERING_BLUETOOTH));
+
+            return null;
+        }
+
+        public void onUnavailable(@NonNull String iface) {
+            ensureIpServerStopped(iface);
+        }
+    }
+
     private void setBluetoothTethering(final boolean enable, final IIntResultListener listener) {
         final BluetoothAdapter adapter = mDeps.getBluetoothAdapter();
         if (adapter == null || !adapter.isEnabled()) {
@@ -716,8 +735,13 @@ public class Tethering {
                 // be system server. If calling identity is not cleared, that package's uid might
                 // not match calling uid and end up in permission denied.
                 final long identityToken = Binder.clearCallingIdentity();
+                final BluetoothPan bluetoothPan = (BluetoothPan) proxy;
                 try {
-                    ((BluetoothPan) proxy).setBluetoothTethering(enable);
+                    if (isAtLeastT()) {
+                        bluetoothPan.setBluetoothTetheringCallback(enable, mBluetoothCallback);
+                    } else {
+                        bluetoothPan.setBluetoothTethering(enable);
+                    }
                 } finally {
                     Binder.restoreCallingIdentity(identityToken);
                 }
