@@ -85,21 +85,29 @@ public class BatteryStatsManagerTest{
     @SkipPresubmit(reason = "Virtual hardware does not support wifi battery stats")
     public void testReportNetworkInterfaceForTransports() throws Exception {
         try {
-            final Network cellNetwork = mCtsNetUtils.connectToCell();
-            final URL url = new URL(TEST_URL);
-
-            // Make sure wifi is disabled.
-            mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
             // Simulate the device being unplugged from charging.
             executeShellCommand("dumpsys battery unplug");
             executeShellCommand("dumpsys battery set status " + BATTERY_STATUS_DISCHARGING);
             executeShellCommand("dumpsys batterystats enable pretend-screen-off");
+            // Reset all current stats before starting test.
+            executeShellCommand("dumpsys batterystats --reset");
+            // Do not automatically reset the stats when the devices are unplugging after the
+            // battery was last full or the level is 100, or have gone through a significant
+            // charge.
+            executeShellCommand("dumpsys batterystats enable no-auto-reset");
+
+            // Make sure wifi is disabled.
+            mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+
+            final Network cellNetwork = mCtsNetUtils.connectToCell();
+            final URL url = new URL(TEST_URL);
 
             // Get cellular battery stats
             CellularBatteryStats cellularStatsBefore = runAsShell(UPDATE_DEVICE_STATS,
                     mBsm::getCellularBatteryStats);
 
             // Generate traffic on cellular network.
+            Log.d(TAG, "Generate traffic on cellular network.");
             generateNetworkTraffic(cellNetwork, url);
 
             // The mobile battery stats are updated when a network stops being the default network.
@@ -117,6 +125,7 @@ public class BatteryStatsManagerTest{
                     mBsm::getWifiBatteryStats);
 
             // Generate traffic on wifi network.
+            Log.d(TAG, "Generate traffic on wifi network.");
             generateNetworkTraffic(wifiNetwork, url);
             // Wifi battery stats are updated when wifi on.
             mCtsNetUtils.toggleWifi();
@@ -128,6 +137,7 @@ public class BatteryStatsManagerTest{
                         wifiStatsAfter)));
         } finally {
             // Reset battery settings.
+            executeShellCommand("dumpsys batterystats disable no-auto-reset");
             executeShellCommand("dumpsys battery reset");
             executeShellCommand("dumpsys batterystats disable pretend-screen-off");
         }
