@@ -16,6 +16,24 @@
       "message": "IIUC this needs to be in a topic together with a change that will move dnsresolver_aidl_interface in services/core/Android.bp to v8",
       "revId": "6f77442d76c4c3ec13394c603973bafb60a3fd73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ad02866_04ad1143",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-09T01:49:18Z",
+      "side": 1,
+      "message": "Right it should be with: aosp/1759869\nBut actually aosp/1759249 is a later cherry-pick that makes it obsolete, so we can probably just merge that (need framework owners though...)\n\nI think by itself the change would still be OK because the only diff between v7 and v8 is a constant, but we can wait for aosp/1759249 to be merged too.",
+      "parentUuid": "f574c6d3_e8f1482b",
+      "revId": "6f77442d76c4c3ec13394c603973bafb60a3fd73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
