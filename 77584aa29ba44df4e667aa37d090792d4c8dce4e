@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1411f5db_edc19c17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-09T07:44:17Z",
+      "side": 1,
+      "message": "ConnectivityServiceTest did not fail before this commit, right? Could you explain what failed here? or this happened combining with some other commits?",
+      "range": {
+        "startLine": 10,
+        "startChar": 61,
+        "endLine": 11,
+        "endChar": 21
+      },
+      "revId": "77584aa29ba44df4e667aa37d090792d4c8dce4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
