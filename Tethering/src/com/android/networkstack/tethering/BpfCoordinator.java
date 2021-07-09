@@ -126,6 +126,8 @@ public class BpfCoordinator {
     @VisibleForTesting
     static final int CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS = 60_000;
     @VisibleForTesting
+    static final int CONNTRACK_TIMEOUT_UPDATE_SLACK_MS = 5_000;
+    @VisibleForTesting
     static final int NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED = 432_000;
     @VisibleForTesting
     static final int NF_CONNTRACK_UDP_TIMEOUT_STREAM = 180;
@@ -1904,6 +1906,22 @@ public class BpfCoordinator {
         }
     }
 
+    boolean requireConntrackTimeoutUpdate(long nowNs, long lastUsedNs, int proto) {
+        // Refreshing tcp timeout without checking tcp state may make the conntack entry lives
+        // 5 days (432000s) even the session is going to be closed. As well as its BPF rules.
+        // Note that both conntack monitor and refreshing timeout updater are in the same thread.
+        // Beware of that the tcp status may be changed when running in refreshing timeout
+        // updater and reads out-of-date tcp stats. See nf_conntrack_tcp_timeout_established in
+        // kernel document.
+        // TODO: support refreshing TCP conntrack timeout.
+        if (proto == OsConstants.IPPROTO_TCP) return false;
+
+        // The timeout requirement check needs the slack time because the scheduled timer may
+        // be not precise. The timeout update has chance to be missed.
+        return (nowNs - lastUsedNs) / 1_000_000
+                < CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS + CONNTRACK_TIMEOUT_UPDATE_SLACK_MS;
+    }
+
     private void refreshAllConntrackTimeouts() {
         final long now = mDeps.elapsedRealtimeNanos();
 
@@ -1911,21 +1929,20 @@ public class BpfCoordinator {
         // because TCP is a bidirectional traffic. Probably don't need to extend timeout by
         // both directions for TCP.
         mBpfCoordinatorShim.tetherOffloadRuleForEach(UPSTREAM, (k, v) -> {
-            if ((now - v.lastUsed) / 1_000_000 < CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS) {
-                updateConntrackTimeout((byte) k.l4proto, parseIPv4Address(k.src4),
-                        (short) k.srcPort, parseIPv4Address(k.dst4), (short) k.dstPort);
-            }
+            if (!requireConntrackTimeoutUpdate(now, v.lastUsed, k.l4proto)) return;
+
+            updateConntrackTimeout((byte) k.l4proto, parseIPv4Address(k.src4),
+                    (short) k.srcPort, parseIPv4Address(k.dst4), (short) k.dstPort);
         });
 
         // Reverse the source and destination {address, port} from downstream value because
-        // #updateConntrackTimeout refresh the timeout of netlink attribute CTA_TUPLE_ORIG
+        // #updateConntrackTimeout refreshes the timeout of netlink attribute CTA_TUPLE_ORIG
         // which is opposite direction for downstream map value.
         mBpfCoordinatorShim.tetherOffloadRuleForEach(DOWNSTREAM, (k, v) -> {
-            if ((now - v.lastUsed) / 1_000_000 < CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS) {
-                updateConntrackTimeout((byte) k.l4proto,
-                        parseIPv4Address(v.dst46), (short) v.dstPort,
-                        parseIPv4Address(v.src46), (short) v.srcPort);
-            }
+            if (!requireConntrackTimeoutUpdate(now, v.lastUsed, k.l4proto)) return;
+
+            updateConntrackTimeout((byte) k.l4proto, parseIPv4Address(v.dst46),
+                    (short) v.dstPort, parseIPv4Address(v.src46), (short) v.srcPort);
         });
     }
 
