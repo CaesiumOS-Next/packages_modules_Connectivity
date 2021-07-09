@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14ae9768_fb6b553c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-07-09T06:47:06Z",
+      "side": 1,
+      "message": "Manual copy of ag/13810270; files changed projects in the meantime, so a manual copy was required.",
+      "revId": "30d3ba047e7b377292c21f55e89b4347f61de845",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
