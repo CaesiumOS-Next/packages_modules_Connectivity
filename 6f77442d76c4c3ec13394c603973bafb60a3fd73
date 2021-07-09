@@ -34,6 +34,24 @@
       "parentUuid": "f574c6d3_e8f1482b",
       "revId": "6f77442d76c4c3ec13394c603973bafb60a3fd73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcda4ecf_93f81941",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-09T03:08:54Z",
+      "side": 1,
+      "message": "aosp/1759249 has merged.",
+      "parentUuid": "1ad02866_04ad1143",
+      "revId": "6f77442d76c4c3ec13394c603973bafb60a3fd73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
