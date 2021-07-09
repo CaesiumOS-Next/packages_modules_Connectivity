@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f574c6d3_e8f1482b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-09T01:43:46Z",
+      "side": 1,
+      "message": "IIUC this needs to be in a topic together with a change that will move dnsresolver_aidl_interface in services/core/Android.bp to v8",
+      "revId": "6f77442d76c4c3ec13394c603973bafb60a3fd73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
