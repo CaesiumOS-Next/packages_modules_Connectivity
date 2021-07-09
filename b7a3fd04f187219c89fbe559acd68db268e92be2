@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f7cd63f_085d29f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-09T09:38:16Z",
+      "side": 1,
+      "message": "Indeed, corrected",
+      "parentUuid": "385e0dc0_37908102",
+      "range": {
+        "startLine": 12,
+        "startChar": 20,
+        "endLine": 12,
+        "endChar": 31
+      },
+      "revId": "b7a3fd04f187219c89fbe559acd68db268e92be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab5e64f2_be47cb6a",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b9275c3_dd630373",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-09T09:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab5e64f2_be47cb6a",
+      "range": {
+        "startLine": 269,
+        "startChar": 50,
+        "endLine": 269,
+        "endChar": 51
+      },
+      "revId": "b7a3fd04f187219c89fbe559acd68db268e92be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a96a440_bb589bfa",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-07-09T08:20:29Z",
       "side": 1,
       "message": "If we close mAvailableCv, it means waitForAvailable would be blocked without timeout till network is onAvailable. What is the actual problem here, I see the commit message says the problem is because we can\u0027t call ensureWifiConnected but it can\u0027t call waitForLost which means onLost before onAvailable should not affect the result. Is the problem just because time out too short ? Or there is the race in currentNetwork be null ?",
+      "range": {
+        "startLine": 739,
+        "startChar": 16,
+        "endLine": 739,
+        "endChar": 37
+      },
+      "revId": "b7a3fd04f187219c89fbe559acd68db268e92be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee1a3145_162ea714",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-09T09:38:16Z",
+      "side": 1,
+      "message": "There is a timeout on the CV as block is always called with a timeout; the actual problem here was:\n\n 1) registerNetworkCallback called\n 2) onAvailable called\n 3) onLost called\n 4) waitForAvailable called -\u003e returns null immediately\n 5) onAvailable called\n\nThis is a problem because most tests expect that waitForAvailable will wait for a network to be available if there isn\u0027t one at the time it is called, and don\u0027t expect it to return immediately with null in any case.\n \nThis change makes the behavior be:\n\n 1) registerNetworkCallback called\n 2) onAvailable called\n 3) onLost called\n 4) waitForAvailable called -\u003e blocks\n 5) onAvailable called -\u003e waitForAvailable returns the network\n \nThis is because onAvailable would countDown the latch, then onLost would set currentNetwork to null without resetting the latch.\n\nUpdated the change description to clarify the above.",
+      "parentUuid": "5a96a440_bb589bfa",
       "range": {
         "startLine": 739,
         "startChar": 16,
