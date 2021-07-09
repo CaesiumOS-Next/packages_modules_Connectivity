@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "385e0dc0_37908102",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-09T08:20:29Z",
+      "side": 1,
+      "message": "The commit message here says the problem between available and unavailable. I see the change is between onAvailable and onLost. Is the document error here ?",
+      "range": {
+        "startLine": 12,
+        "startChar": 20,
+        "endLine": 12,
+        "endChar": 31
+      },
+      "revId": "b7a3fd04f187219c89fbe559acd68db268e92be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab5e64f2_be47cb6a",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-09T08:20:29Z",
+      "side": 1,
+      "message": "nit: + \" after \" + MAX_WIFI_CONNECT_RETRIES + \" retries\" ?",
+      "range": {
+        "startLine": 269,
+        "startChar": 50,
+        "endLine": 269,
+        "endChar": 51
+      },
+      "revId": "b7a3fd04f187219c89fbe559acd68db268e92be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a96a440_bb589bfa",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-09T08:20:29Z",
+      "side": 1,
+      "message": "If we close mAvailableCv, it means waitForAvailable would be blocked without timeout till network is onAvailable. What is the actual problem here, I see the commit message says the problem is because we can\u0027t call ensureWifiConnected but it can\u0027t call waitForLost which means onLost before onAvailable should not affect the result. Is the problem just because time out too short ? Or there is the race in currentNetwork be null ?",
+      "range": {
+        "startLine": 739,
+        "startChar": 16,
+        "endLine": 739,
+        "endChar": 37
+      },
+      "revId": "b7a3fd04f187219c89fbe559acd68db268e92be2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
