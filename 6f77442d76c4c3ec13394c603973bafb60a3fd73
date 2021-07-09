@@ -52,6 +52,23 @@
       "parentUuid": "1ad02866_04ad1143",
       "revId": "6f77442d76c4c3ec13394c603973bafb60a3fd73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e4986d0_20261a19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-09T04:37:23Z",
+      "side": 1,
+      "message": "This is a cherry-pick of an internal change.",
+      "revId": "6f77442d76c4c3ec13394c603973bafb60a3fd73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
