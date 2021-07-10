@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92abc689_10f61599",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-10T21:58:37Z",
+      "side": 1,
+      "message": "I don\u0027t think this commit message matches what this commit is doing\n\nAFAICT this is fixing post-FIN state (by disabling offload post-FIN) - not the problem with UNACK immediately after 3 way handshake.\n\nPlease make sure the commit messages match the contents of the patch.\n\nie. the bug this is fixing is that kernel will use low timeouts on half-closed tcp sockets.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "9be70e0e1cacf3e7d20fba168a836db9537fded4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
