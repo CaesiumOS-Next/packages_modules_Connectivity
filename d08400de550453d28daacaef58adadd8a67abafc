@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7855e5c5_81075155",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1864,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-10T21:37:20Z",
+      "side": 0,
+      "message": "I\u0027m not 100% convinced this removal is safe.  You\u0027re certain?",
+      "range": {
+        "startLine": 1864,
+        "startChar": 40,
+        "endLine": 1864,
+        "endChar": 64
+      },
+      "revId": "d08400de550453d28daacaef58adadd8a67abafc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

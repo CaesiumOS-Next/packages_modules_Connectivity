@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba25cff8_b4559b9b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-10T21:37:20Z",
+      "side": 1,
+      "message": "it would be best if indentation here matched the indentation below\n(ie. enter after proto)",
+      "range": {
+        "startLine": 1888,
+        "startChar": 0,
+        "endLine": 1888,
+        "endChar": 82
+      },
+      "revId": "654b79c8bbb3c246d4299e35d722af504a4f656d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
