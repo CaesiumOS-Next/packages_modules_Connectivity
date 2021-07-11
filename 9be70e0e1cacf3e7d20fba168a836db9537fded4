@@ -22,6 +22,30 @@
       },
       "revId": "9be70e0e1cacf3e7d20fba168a836db9537fded4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99ae3e0c_d4cc53c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T07:12:07Z",
+      "side": 1,
+      "message": "sorry to make you confused. I have updated the commit message.\nI am not sure where to describe the long term solution. So I just put them in the latest commit. please advise me. Thank you.",
+      "parentUuid": "92abc689_10f61599",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "9be70e0e1cacf3e7d20fba168a836db9537fded4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
