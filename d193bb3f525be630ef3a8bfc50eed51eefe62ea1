@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18ce5734_44f581be",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "530bdf29_8f56851c",
+      "range": {
+        "startLine": 129,
+        "startChar": 57,
+        "endLine": 129,
+        "endChar": 62
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d073427_45753482",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-07-10T21:49:50Z",
       "side": 1,
       "message": "live",
+      "range": {
+        "startLine": 1910,
+        "startChar": 89,
+        "endLine": 1910,
+        "endChar": 94
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a1722a0_38ac1261",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1910,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d073427_45753482",
       "range": {
         "startLine": 1910,
         "startChar": 89,
@@ -110,6 +158,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff6e910_fffd71f1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "reworded. please have a look. thanks",
+      "parentUuid": "31e74ba4_b3c7089e",
+      "range": {
+        "startLine": 1911,
+        "startChar": 68,
+        "endLine": 1911,
+        "endChar": 93
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05b264a7_03ed1ecb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "581968f4_a31c2daa",
+      "range": {
+        "startLine": 1911,
+        "startChar": 32,
+        "endLine": 1911,
+        "endChar": 33
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b326cdd8_1545a99d",
@@ -156,6 +252,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "627c61f5_8ceec6fd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1913,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b326cdd8_1545a99d",
+      "range": {
+        "startLine": 1913,
+        "startChar": 56,
+        "endLine": 1913,
+        "endChar": 60
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c105e17d_ad5c3d98",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1913,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2d656ba_b7eaf486",
+      "range": {
+        "startLine": 1913,
+        "startChar": 18,
+        "endLine": 1913,
+        "endChar": 20
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "133f9be2_a07e7d32",
@@ -169,6 +313,30 @@
       "writtenOn": "2021-07-10T21:49:50Z",
       "side": 1,
       "message": "may read",
+      "range": {
+        "startLine": 1914,
+        "startChar": 23,
+        "endLine": 1914,
+        "endChar": 28
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66b3c53d_de5846aa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1914,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "133f9be2_a07e7d32",
       "range": {
         "startLine": 1914,
         "startChar": 23,
@@ -202,6 +370,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5583b101_1931e1cb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1920,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebed27ad_89011698",
+      "range": {
+        "startLine": 1920,
+        "startChar": 50,
+        "endLine": 1920,
+        "endChar": 56
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dec0dfce_8af57a89",
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6ef717e_ea4b8fb2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1541,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dec0dfce_8af57a89",
+      "range": {
+        "startLine": 1541,
+        "startChar": 17,
+        "endLine": 1541,
+        "endChar": 53
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b600fd3_8eacfd53",
@@ -238,6 +454,30 @@
       "writtenOn": "2021-07-10T21:49:50Z",
       "side": 1,
       "message": "this 1 seems weird - considering we have slack.  what is this extra 1 ms?",
+      "range": {
+        "startLine": 1549,
+        "startChar": 54,
+        "endLine": 1549,
+        "endChar": 55
+      },
+      "revId": "d193bb3f525be630ef3a8bfc50eed51eefe62ea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6b421a7_b19dba9d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1549,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-11T10:52:35Z",
+      "side": 1,
+      "message": "Make requireConntrackTimeoutUpdate return false (not update).\n\nnowNs \u003d expiredTimeNs \u003d \nCONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS + CONNTRACK_TIMEOUT_UPDATE_SLACK_MS + 1\n\nlastUsed \u003d 0\n\n\u003e\u003e\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1760691/2/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java#1921\nrequireConntrackTimeoutUpdate\n..\n   return (nowNs - lastUsedNs) / 1_000_000 \u003c CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS + CONNTRACK_TIMEOUT_UPDATE_SLACK_MS;",
+      "parentUuid": "9b600fd3_8eacfd53",
       "range": {
         "startLine": 1549,
         "startChar": 54,
