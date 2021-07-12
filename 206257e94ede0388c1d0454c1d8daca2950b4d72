@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b256ee2f_44035fd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-12T10:11:41Z",
+      "side": 1,
+      "message": "Can you please add a small comment on the requirements on future developers, in particular the requirement that anybody adding a class to the connectivity module adds it here until b/180995093 is solved.",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 14
+      },
+      "revId": "206257e94ede0388c1d0454c1d8daca2950b4d72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02b3e77f_3b62ab7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-12T10:11:41Z",
+      "side": 1,
+      "message": "More importantly it makes things easier, because it makes conflicts of names less likely (though the compiler would tell you if it happened)",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "206257e94ede0388c1d0454c1d8daca2950b4d72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a279b14f_3af5e53c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-12T10:11:41Z",
+      "side": 1,
+      "message": "I don\u0027t think our current tools let us do any better (or rather, I think it may be the only realistic immediate way for S), but I think this is extremely dangerous. I\u0027m sure we\u0027ll have incidents where someone adds a class but forgets to add it to the jarjar file, with no error, no warning, risking a release that breaks in confusing ways on only some phones, only after we released. We also risk some lib we depend on but don\u0027t control like PlatformProperties adding a class in some other package causing a bug, nobody realizing.\n\nPlease update b/180995093 and show this patch as one more piece of the mounting evidence of how dangerous and error-prone this issue makes the build.",
+      "revId": "206257e94ede0388c1d0454c1d8daca2950b4d72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90cd6413_2c4c0bc1",
+        "filename": "service/jarjar-rules.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-12T10:11:41Z",
+      "side": 1,
+      "message": "Is there any reason for these stars, when each line looks like it\u0027s referencing a single specific class ? I think it may become dangerous when somebody adds a class to the framework with a name that has this as a prefix – the framework does have classes in the android.net and android.net.util packages, for example.\n\nI can\u0027t find a name that looks likely to be used like this, but if the stars are not necessary, I think we might be safer without them.",
+      "range": {
+        "startLine": 30,
+        "startChar": 45,
+        "endLine": 30,
+        "endChar": 46
+      },
+      "revId": "206257e94ede0388c1d0454c1d8daca2950b4d72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ca722ef_52df2113",
+        "filename": "service/jarjar-rules.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-12T10:11:41Z",
+      "side": 1,
+      "message": "Is this immediately necessary ? I\u0027m scared any of these annotations is (already or in the future) present at runtime and checked by some code. At least we control com.android.net.module, but not the two other ones.\n\nFor example, @android.annotation.SystemApi is retained at runtime. I don\u0027t know if any code is using this fact and might trip the module, but if there isn\u0027t an immediate imperative need in S I would prefer we don\u0027t remove them now (and if there is, please document it here).",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 39
+      },
+      "revId": "206257e94ede0388c1d0454c1d8daca2950b4d72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
