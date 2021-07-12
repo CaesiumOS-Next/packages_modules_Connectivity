@@ -26,6 +26,8 @@ import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.ip.ConntrackMonitor.ConntrackEvent;
 import static android.net.netlink.ConntrackMessage.DYING_MASK;
 import static android.net.netlink.ConntrackMessage.ESTABLISHED_MASK;
+import static android.net.netlink.ConntrackMessage.TCP_CONNTRACK_ESTABLISHED;
+import static android.net.netlink.ConntrackMessage.TCP_STATE_INVALID;
 import static android.net.netlink.ConntrackMessage.Tuple;
 import static android.net.netlink.ConntrackMessage.TupleIpv4;
 import static android.net.netlink.ConntrackMessage.TupleProto;
@@ -1380,6 +1382,9 @@ public class BpfCoordinatorTest {
         final int status = (msgType == IPCTNL_MSG_CT_NEW) ? ESTABLISHED_MASK : DYING_MASK;
         final int timeoutSec = (msgType == IPCTNL_MSG_CT_NEW) ? 100 /* nonzero, new */
                 : 0 /* unused, delete */;
+        int tcpState = (msgType == IPCTNL_MSG_CT_NEW && proto == IPPROTO_TCP)
+                ? TCP_CONNTRACK_ESTABLISHED
+                : TCP_STATE_INVALID;  // CT_DELETE with {UDP, TCP}, CT_NEW with UDP
         return new ConntrackEvent(
                 (short) (NetlinkConstants.NFNL_SUBSYS_CTNETLINK << 8 | msgType),
                 new Tuple(new TupleIpv4(PRIVATE_ADDR, REMOTE_ADDR),
@@ -1387,7 +1392,8 @@ public class BpfCoordinatorTest {
                 new Tuple(new TupleIpv4(REMOTE_ADDR, PUBLIC_ADDR),
                         new TupleProto((byte) proto, REMOTE_PORT, PUBLIC_PORT)),
                 status,
-                timeoutSec);
+                timeoutSec,
+                tcpState);
     }
 
     private void setUpstreamInformationTo(final BpfCoordinator coordinator) {
