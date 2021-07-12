@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19d868a4_ec01de31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-07-12T18:26:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1573e1b3_06b8c7a2",
+      "range": {
+        "startLine": 9,
+        "startChar": 3,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1da56619_9e8d24fb",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-07T06:45:15Z",
       "side": 1,
       "message": "Similarly this is not a publicly accessible link",
+      "range": {
+        "startLine": 11,
+        "startChar": 7,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6350f058_6316c45e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-07-12T18:26:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1da56619_9e8d24fb",
       "range": {
         "startLine": 11,
         "startChar": 7,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8f13021_96c2f387",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-07-12T18:26:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35f8d94a_192b7102",
+      "range": {
+        "startLine": 13,
+        "startChar": 27,
+        "endLine": 13,
+        "endChar": 50
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "039915f5_f26d0fab",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-07-07T06:46:18Z",
       "side": 1,
       "message": "This change is not in packages/modules/Connectivity; merged-in needs to refer to a change in the same project",
+      "range": {
+        "startLine": 18,
+        "startChar": 11,
+        "endLine": 18,
+        "endChar": 52
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de22c7bf_412f179c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-07-12T18:26:23Z",
+      "side": 1,
+      "message": "Yes, you are right.\nBut I found that the original commit is in the framework/base, so I cannot get the Change-Id (in the packages/modules/Connectivity )for merged-in. Do you know what should I do?\n\nBy the way, this commit has the TOPIC with another commit.\nTherefore, we can rely on another commit\u0027s merge-in to prevent two commits from being merged into another branch.",
+      "parentUuid": "039915f5_f26d0fab",
       "range": {
         "startLine": 18,
         "startChar": 11,
