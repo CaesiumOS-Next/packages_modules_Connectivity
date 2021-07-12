@@ -126,9 +126,9 @@ import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
 
 import static com.android.server.ConnectivityService.PREFERENCE_PRIORITY_MOBILE_DATA_PREFERERRED;
+import static com.android.server.ConnectivityService.PREFERENCE_PRIORITY_NONE;
 import static com.android.server.ConnectivityService.PREFERENCE_PRIORITY_OEM;
 import static com.android.server.ConnectivityService.PREFERENCE_PRIORITY_PROFILE;
-import static com.android.server.ConnectivityService.PREFERENCE_PRIORITY_VPN;
 import static com.android.server.ConnectivityServiceTestUtils.transportToLegacyType;
 import static com.android.testutils.ConcurrentUtils.await;
 import static com.android.testutils.ConcurrentUtils.durationOf;
@@ -1297,10 +1297,10 @@ public class ConnectivityServiceTest {
 
             verify(mMockNetd, times(1)).networkAddUidRangesParcel(
                     new NativeUidRangeConfig(mMockVpn.getNetwork().getNetId(),
-                            toUidRangeStableParcels(uids), PREFERENCE_PRIORITY_VPN));
+                            toUidRangeStableParcels(uids), PREFERENCE_PRIORITY_NONE));
             verify(mMockNetd, never()).networkRemoveUidRangesParcel(argThat(config ->
                     mMockVpn.getNetwork().getNetId() == config.netId
-                            && PREFERENCE_PRIORITY_VPN == config.subPriority));
+                            && PREFERENCE_PRIORITY_NONE == config.subPriority));
             mAgentRegistered = true;
             verify(mMockNetd).networkCreate(nativeNetworkConfigVpn(getNetwork().netId,
                     !mMockNetworkAgent.isBypassableVpn(), mVpnType));
@@ -10478,11 +10478,11 @@ public class ConnectivityServiceTest {
         if (add) {
             inOrder.verify(mMockNetd, times(1)).networkAddUidRangesParcel(
                     new NativeUidRangeConfig(mMockVpn.getNetwork().getNetId(),
-                            toUidRangeStableParcels(vpnRanges), PREFERENCE_PRIORITY_VPN));
+                            toUidRangeStableParcels(vpnRanges), PREFERENCE_PRIORITY_NONE));
         } else {
             inOrder.verify(mMockNetd, times(1)).networkRemoveUidRangesParcel(
                     new NativeUidRangeConfig(mMockVpn.getNetwork().getNetId(),
-                            toUidRangeStableParcels(vpnRanges), PREFERENCE_PRIORITY_VPN));
+                            toUidRangeStableParcels(vpnRanges), PREFERENCE_PRIORITY_NONE));
         }
 
         inOrder.verify(mMockNetd, times(1)).socketDestroy(eq(toUidRangeStableParcels(vpnRanges)),

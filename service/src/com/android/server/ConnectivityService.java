@@ -7524,10 +7524,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         try {
             if (add) {
                 mNetd.networkAddUidRangesParcel(new NativeUidRangeConfig(
-                        nai.network.netId, ranges, PREFERENCE_PRIORITY_VPN));
+                        nai.network.netId, ranges, PREFERENCE_PRIORITY_NONE));
             } else {
                 mNetd.networkRemoveUidRangesParcel(new NativeUidRangeConfig(
-                        nai.network.netId, ranges, PREFERENCE_PRIORITY_VPN));
+                        nai.network.netId, ranges, PREFERENCE_PRIORITY_NONE));
             }
         } catch (Exception e) {
             loge("Exception while " + (add ? "adding" : "removing") + " uid ranges " + uidRanges +
