@@ -108,6 +108,7 @@ import com.android.net.module.util.netlink.NetlinkSocket;
 import com.android.networkstack.tethering.BpfCoordinator.BpfConntrackEventConsumer;
 import com.android.networkstack.tethering.BpfCoordinator.ClientInfo;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
+import com.android.networkstack.tethering.BpfCoordinator.TcpConntrackEntry;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -236,6 +237,7 @@ public class BpfCoordinatorTest {
     private final ArgumentCaptor<ArrayList> mStringArrayCaptor =
             ArgumentCaptor.forClass(ArrayList.class);
     private final TestLooper mTestLooper = new TestLooper();
+    private final HashMap<TcpConntrackEntry, Integer> mConntrackEntryTcpStates = new HashMap();
     private final TestBpfMap<TetherStatsKey, TetherStatsValue> mBpfStatsMap =
             spy(new TestBpfMap<>(TetherStatsKey.class, TetherStatsValue.class));
     private final TestBpfMap<TetherLimitKey, TetherLimitValue> mBpfLimitMap =
@@ -270,6 +272,11 @@ public class BpfCoordinatorTest {
                     @NonNull
                     public ConntrackMonitor getConntrackMonitor(ConntrackEventConsumer consumer) {
                         return mConntrackMonitor;
+                    }
+
+                    @NonNull
+                    public HashMap<TcpConntrackEntry, Integer> getConntrackEntryTcpStates() {
+                        return mConntrackEntryTcpStates;
                     }
 
                     public long elapsedRealtimeNanos() {
@@ -1548,6 +1555,7 @@ public class BpfCoordinatorTest {
         mElapsedRealtimeNanos = nanoSec;
     }
 
+    // TODO: verify TCP_CONNTRACK_FIN_WAIT, TCP_CONNTRACK_CLOSE_WAIT.
     private void checkRefreshConntrackTimeout(final TestBpfMap<Tether4Key, Tether4Value> bpfMap,
             final Tether4Key tcpKey, final Tether4Value tcpValue, final Tether4Key udpKey,
             final Tether4Value udpValue) throws Exception {
@@ -1619,6 +1627,9 @@ public class BpfCoordinatorTest {
         final TestBpfMap<Tether4Key, Tether4Value> bpfUpstream4Map =
                 new TestBpfMap<>(Tether4Key.class, Tether4Value.class);
         doReturn(bpfUpstream4Map).when(mDeps).getBpfUpstream4Map();
+        mConntrackEntryTcpStates.put(new TcpConntrackEntry(
+                PRIVATE_ADDR, PRIVATE_PORT, REMOTE_ADDR, REMOTE_PORT),
+                (int) TCP_CONNTRACK_ESTABLISHED);
 
         final Tether4Key tcpKey = makeUpstream4Key(IPPROTO_TCP);
         final Tether4Key udpKey = makeUpstream4Key(IPPROTO_UDP);
@@ -1635,6 +1646,9 @@ public class BpfCoordinatorTest {
         final TestBpfMap<Tether4Key, Tether4Value> bpfDownstream4Map =
                 new TestBpfMap<>(Tether4Key.class, Tether4Value.class);
         doReturn(bpfDownstream4Map).when(mDeps).getBpfDownstream4Map();
+        mConntrackEntryTcpStates.put(new TcpConntrackEntry(
+                PRIVATE_ADDR, PRIVATE_PORT, REMOTE_ADDR, REMOTE_PORT),
+                (int) TCP_CONNTRACK_ESTABLISHED);
 
         final Tether4Key tcpKey = makeDownstream4Key(IPPROTO_TCP);
         final Tether4Key udpKey = makeDownstream4Key(IPPROTO_UDP);
@@ -1642,6 +1656,23 @@ public class BpfCoordinatorTest {
         final Tether4Value udpValue = makeDownstream4Value();
 
         checkRefreshConntrackTimeout(bpfDownstream4Map, tcpKey, tcpValue, udpKey, udpValue);
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testUpdateConntrackEntryTcpStates() throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        initBpfCoordinatorForRule4(coordinator);
+
+        final TcpConntrackEntry tcpConntrackEntry = new TcpConntrackEntry(
+                PRIVATE_ADDR, PRIVATE_PORT, REMOTE_ADDR, REMOTE_PORT);
+
+        mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_NEW, IPPROTO_UDP));
+        assertNull(mConntrackEntryTcpStates.get(tcpConntrackEntry));
+        mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_NEW, IPPROTO_TCP));
+        final Integer tcpState = mConntrackEntryTcpStates.get(tcpConntrackEntry);
+        assertNotNull(tcpState);
+        assertEquals(TCP_CONNTRACK_ESTABLISHED, tcpState.shortValue());
     }
 
     @Test

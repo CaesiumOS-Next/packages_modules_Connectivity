@@ -28,6 +28,10 @@ import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED
 import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
+import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_CLOSE_WAIT;
+import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_ESTABLISHED;
+import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_FIN_WAIT;
+import static com.android.net.module.util.netlink.ConntrackMessage.TCP_STATE_INVALID;
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
@@ -127,8 +131,19 @@ public class BpfCoordinator {
 
     @VisibleForTesting
     static final int CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS = 60_000;
+
+    // The timeout values come from nf_conntrack_* variables in nf_conntrack-sysctl.txt. There are
+    // two exceptions.
+    // - TCP_TIMEOUT_CLOSE_WAIT: Pumping CLOSE_WAIT timeout from 60 seconds to 120 seconds is
+    // because the update timeout inverval is 60 seconds and don't want to reduce the interval
+    // less than a minute.
+    // - UDP_TIMEOUT_STREAM: nf_conntrack_udp_timeout_stream is 180 in kernel 4.19 and is 120 in
+    // kernel 5.10. Choose 180 seconds because the mainline module runs since kernel 4.19.
+    static final int NF_CONNTRACK_TCP_TIMEOUT_CLOSE_WAIT = 120;
     @VisibleForTesting
     static final int NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED = 432_000;
+    static final int NF_CONNTRACK_TCP_TIMEOUT_FIN_WAIT = 120;
+    static final int NF_CONNTRACK_TCP_TIMEOUT_INVALID = -1;
     @VisibleForTesting
     static final int NF_CONNTRACK_UDP_TIMEOUT_STREAM = 180;
 
@@ -160,6 +175,10 @@ public class BpfCoordinator {
     private final BpfCoordinatorShim mBpfCoordinatorShim;
     @NonNull
     private final BpfConntrackEventConsumer mBpfConntrackEventConsumer;
+
+    // Map for tcp conntrack entry to tcp state.
+    @NonNull
+    private final HashMap<TcpConntrackEntry, Integer> mConntrackEntryTcpStates;
 
     // True if BPF offload is supported, false otherwise. The BPF offload could be disabled by
     // a runtime resource overlay package or device configuration. This flag is only initialized
@@ -292,6 +311,13 @@ public class BpfCoordinator {
         }
 
         /**
+         * Get tcp conntrack entry to tcp state map.
+         */
+        @NonNull public HashMap<TcpConntrackEntry, Integer> getConntrackEntryTcpStates() {
+            return new HashMap<TcpConntrackEntry, Integer>();
+        }
+
+        /**
          * Represents an estimate of elapsed time since boot in nanoseconds.
          */
         public long elapsedRealtimeNanos() {
@@ -400,6 +426,7 @@ public class BpfCoordinator {
         mNetd = mDeps.getNetd();
         mLog = mDeps.getSharedLog().forSubComponent(TAG);
         mIsBpfEnabled = isBpfEnabled();
+        mConntrackEntryTcpStates = mDeps.getConntrackEntryTcpStates();
 
         // The conntrack consummer needs to be initialized in BpfCoordinator constructor because it
         // have to access the data members of BpfCoordinator which is not a static class. The
@@ -1569,8 +1596,24 @@ public class BpfCoordinator {
                     NON_OFFLOADED_UPSTREAM_IPV4_TCP_PORTS, e.tupleOrig.dstPort);
         }
 
+        private void updateTcpConntrackEntry(@NonNull ConntrackEvent e) {
+            if (e.tupleOrig.protoNum != OsConstants.IPPROTO_TCP) return;
+
+            final TcpConntrackEntry tcpConntrackEntry = new TcpConntrackEntry(e.tupleOrig.srcIp,
+                    e.tupleOrig.srcPort, e.tupleOrig.dstIp, e.tupleOrig.dstPort);
+
+            if (e.msgType == (NetlinkConstants.NFNL_SUBSYS_CTNETLINK << 8
+                    | NetlinkConstants.IPCTNL_MSG_CT_NEW)) {
+                mConntrackEntryTcpStates.put(tcpConntrackEntry, e.tcpState);
+            } else {
+                mConntrackEntryTcpStates.remove(tcpConntrackEntry);
+            }
+        }
+
         public void accept(ConntrackEvent e) {
             if (!allowOffload(e)) return;
+
+            updateTcpConntrackEntry(e);
 
             final ClientInfo tetherClient = getClientInfo(e.tupleOrig.srcIp);
             if (tetherClient == null) return;
@@ -1877,8 +1920,75 @@ public class BpfCoordinator {
         return null;
     }
 
+    @VisibleForTesting
+    static class TcpConntrackEntry {
+        public final short srcPort;
+        public final short dstPort;
+
+        @NonNull
+        public final Inet4Address src4;
+        @NonNull
+        public final Inet4Address dst4;
+
+        TcpConntrackEntry(@NonNull Inet4Address src4, short srcPort,
+                @NonNull Inet4Address dst4, short dstPort) {
+            this.src4 = src4;
+            this.srcPort = srcPort;
+            this.dst4 = dst4;
+            this.dstPort = dstPort;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof TcpConntrackEntry)) return false;
+            TcpConntrackEntry that = (TcpConntrackEntry) o;
+            return this.src4.equals(that.src4)
+                    && this.srcPort == that.srcPort
+                    && this.dst4.equals(that.dst4)
+                    && this.dstPort == that.dstPort;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(src4, srcPort, dst4, dstPort);
+        }
+
+        @Override
+        public String toString() {
+            return src4 + ":" + Short.toUnsignedInt(srcPort) + " -> "
+                    + dst4 + ":" + Short.toUnsignedInt(dstPort);
+        }
+    }
+
+    private int getConntrackEntryTcpState(@NonNull final Inet4Address src4, short srcPort,
+            @NonNull final Inet4Address dst4, short dstPort) {
+        final TcpConntrackEntry entry = new TcpConntrackEntry(src4, srcPort, dst4, dstPort);
+        final Integer tcpState = mConntrackEntryTcpStates.get(entry);
+        if (tcpState == null) {
+            mLog.e("The conntrack TCP state was not found for the entry (" + entry + ")");
+            return TCP_STATE_INVALID;
+        }
+        return tcpState;
+    }
+
+    private int getTcpConntrackTimeout(int tcpState) {
+        switch (tcpState) {
+            case (int) TCP_CONNTRACK_CLOSE_WAIT:
+                return NF_CONNTRACK_TCP_TIMEOUT_CLOSE_WAIT;
+            case (int) TCP_CONNTRACK_ESTABLISHED:
+                return NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED;
+            case (int) TCP_CONNTRACK_FIN_WAIT:
+                return NF_CONNTRACK_TCP_TIMEOUT_FIN_WAIT;
+            default:
+                return NF_CONNTRACK_TCP_TIMEOUT_INVALID;
+        }
+    }
+
     // Update CTA_TUPLE_ORIG timeout for a given conntrack entry. Note that there will also be
     // coming a conntrack event to notify updated timeout.
+    // TODO: update TCP conntrack timeout every hour but not every minute.
+    // TODO: fix the protential tcp state update racing because the tcp state may be changed
+    // during timeout update iteration. It causes wrong timeout value update.
     private void updateConntrackTimeout(byte proto, Inet4Address src4, short srcPort,
             Inet4Address dst4, short dstPort) {
         if (src4 == null || dst4 == null) {
@@ -1891,13 +2001,22 @@ public class BpfCoordinator {
             return;
         }
 
-        // TODO: consider acquiring the timeout setting from nf_conntrack_* variables.
-        // - proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
-        // - proc/sys/net/netfilter/nf_conntrack_udp_timeout_stream
-        // See kernel document nf_conntrack-sysctl.txt.
-        final int timeoutSec = (proto == OsConstants.IPPROTO_TCP)
-                ? NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED
-                : NF_CONNTRACK_UDP_TIMEOUT_STREAM;
+        int timeoutSec = NF_CONNTRACK_TCP_TIMEOUT_INVALID;
+        if (proto == OsConstants.IPPROTO_UDP) {
+            timeoutSec =  NF_CONNTRACK_UDP_TIMEOUT_STREAM;
+        } else if (proto == OsConstants.IPPROTO_TCP) {
+            final int tcpState = getConntrackEntryTcpState(src4, srcPort, dst4, dstPort);
+            // TODO: only query timeout for {ESTABLISHED, CLOSE_WAIT, FIN_WAIT} once
+            // getTcpConntrackTimeout() supports for tcp state timeout recovery.
+            timeoutSec = getTcpConntrackTimeout(tcpState);
+        }
+        if (timeoutSec == NF_CONNTRACK_TCP_TIMEOUT_INVALID) return;
+
+        sendNetlinkConntrackMessage(proto, src4, srcPort, dst4, dstPort, timeoutSec);
+    }
+
+    private void sendNetlinkConntrackMessage(byte proto, @NonNull Inet4Address src4, short srcPort,
+            @NonNull Inet4Address dst4, short dstPort, int timeoutSec) {
         final byte[] msg = ConntrackMessage.newIPv4TimeoutUpdateRequest(
                 proto, src4, (int) srcPort, dst4, (int) dstPort, timeoutSec);
         try {
