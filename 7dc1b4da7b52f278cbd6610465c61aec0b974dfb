@@ -16,6 +16,23 @@
       "message": "(cherrypick to sc-dev in ag/15275452 )",
       "revId": "7dc1b4da7b52f278cbd6610465c61aec0b974dfb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f3298af_1e8b2ade",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-07-13T23:24:17Z",
+      "side": 1,
+      "message": "Tested the following scenarios:\nIPv6 VCN upstream (ipsec*) - works (bug fixed)\nIPv4 VCN upstream (ipsec*) - works (bug fixed)\nIPv6 non-VCN upstream (cell) - works (no regression)\nIPv4 non-VCN upstream (wifi) - works (no regression) ",
+      "revId": "7dc1b4da7b52f278cbd6610465c61aec0b974dfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
