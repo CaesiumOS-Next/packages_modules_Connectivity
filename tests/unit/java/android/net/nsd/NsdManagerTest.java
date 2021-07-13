@@ -16,6 +16,9 @@
 
 package android.net.nsd;
 
+import static android.os.Build.VERSION_CODES.R;
+import static android.os.Build.VERSION_CODES.S;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -26,8 +29,10 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -57,6 +62,9 @@ public class NsdManagerTest {
     static final int PROTOCOL = NsdManager.PROTOCOL_DNS_SD;
 
     @Mock Context mContext;
+    @Mock Context mAppContext;
+    @Mock ApplicationInfo mAppInfoS;
+    @Mock ApplicationInfo mAppInfoPreS;
     @Mock INsdManager mService;
     MockServiceHandler mServiceHandler;
 
@@ -71,7 +79,9 @@ public class NsdManagerTest {
         mServiceHandler = spy(MockServiceHandler.create(mContext));
         doReturn(new Messenger(mServiceHandler)).when(mService).getMessenger();
 
-        mManager = makeManager();
+        when(mContext.getApplicationContext()).thenReturn(mAppContext);
+        mAppInfoS.targetSdkVersion = S;
+        mAppInfoPreS.targetSdkVersion = R;
     }
 
     @After
@@ -85,6 +95,65 @@ public class NsdManagerTest {
     }
 
     @Test
+    public void testResolveServiceS() {
+        mManager = makeManager(mAppInfoS);
+        testResolveService();
+    }
+
+    @Test
+    public void testResolveServicePreS() {
+        mManager = makeManager(mAppInfoPreS);
+        testResolveService();
+    }
+
+    @Test
+    public void testDiscoverServiceS() {
+        mManager = makeManager(mAppInfoS);
+        testDiscoverService();
+    }
+
+    @Test
+    public void testDiscoverServicePreS() {
+        mManager = makeManager(mAppInfoPreS);
+        testDiscoverService();
+    }
+
+    @Test
+    public void testParallelResolveServiceS() {
+        mManager = makeManager(mAppInfoS);
+        testParallelResolveService();
+    }
+
+    @Test
+    public void testParallelResolveServicePreS() {
+        mManager = makeManager(mAppInfoPreS);
+        testParallelResolveService();
+    }
+
+    @Test
+    public void testInvalidCallsS() {
+        mManager = makeManager(mAppInfoS);
+        testInvalidCalls();
+    }
+
+    @Test
+    public void testInvalidCallsPreS() {
+        mManager = makeManager(mAppInfoPreS);
+        testInvalidCalls();
+    }
+
+    @Test
+    public void testRegisterServiceS() {
+        mManager = makeManager(mAppInfoS);
+        testRegisterService();
+    }
+
+    @Test
+    public void testRegisterServicePreS() {
+        mManager = makeManager(mAppInfoPreS);
+        testRegisterService();
+    }
+
     public void testResolveService() {
         NsdManager manager = mManager;
 
@@ -104,7 +173,6 @@ public class NsdManagerTest {
         verify(listener, timeout(mTimeoutMs).times(1)).onServiceResolved(reply);
     }
 
-    @Test
     public void testParallelResolveService() {
         NsdManager manager = mManager;
 
@@ -127,7 +195,6 @@ public class NsdManagerTest {
         verify(listener2, timeout(mTimeoutMs).times(1)).onServiceResolved(reply);
     }
 
-    @Test
     public void testRegisterService() {
         NsdManager manager = mManager;
 
@@ -186,7 +253,6 @@ public class NsdManagerTest {
         //verify(listener2, timeout(mTimeoutMs).times(1)).onServiceUnregistered(request2);
     }
 
-    @Test
     public void testDiscoverService() {
         NsdManager manager = mManager;
 
@@ -264,7 +330,6 @@ public class NsdManagerTest {
         verify(listener, timeout(mTimeoutMs).times(0)).onServiceFound(reply1);
     }
 
-    @Test
     public void testInvalidCalls() {
         NsdManager manager = mManager;
 
@@ -326,10 +391,19 @@ public class NsdManagerTest {
         }
     }
 
-    NsdManager makeManager() {
+    NsdManager makeManager(ApplicationInfo appInfo) {
+        when(mAppContext.getApplicationInfo()).thenReturn(appInfo);
         NsdManager manager = new NsdManager(mContext, mService);
+        // Expect we'll get 2 AsyncChannel related msgs.
+        int expectedMsgCount = 2;
+        if (appInfo.targetSdkVersion < S) {
+            // If the target sdk < S, the additional daemon startup event would be sent.
+            expectedMsgCount += 1;
+        }
         // Acknowledge first two messages connecting the AsyncChannel.
-        verify(mServiceHandler, timeout(mTimeoutMs).times(2)).handleMessage(any());
+        verify(mServiceHandler, timeout(mTimeoutMs).times(expectedMsgCount)).handleMessage(any());
+
+
         reset(mServiceHandler);
         assertNotNull(mServiceHandler.chan);
         return manager;

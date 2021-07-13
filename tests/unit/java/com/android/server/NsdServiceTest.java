@@ -16,6 +16,9 @@
 
 package com.android.server;
 
+import static android.os.Build.VERSION_CODES.R;
+import static android.os.Build.VERSION_CODES.S;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
@@ -29,6 +32,7 @@ import static org.mockito.Mockito.when;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
@@ -68,6 +72,9 @@ public class NsdServiceTest {
     private static final long TIMEOUT_MS = 500;
 
     @Mock Context mContext;
+    @Mock Context mAppContext;
+    @Mock ApplicationInfo mAppInfoS;
+    @Mock ApplicationInfo mAppInfoPreS;
     @Mock ContentResolver mResolver;
     @Mock NsdService.NsdSettings mSettings;
     NativeCallbackReceiver mDaemonCallback;
@@ -83,6 +90,9 @@ public class NsdServiceTest {
         doReturn(true).when(mDaemon).execute(any());
         mHandler = new TestHandler(mThread.getLooper());
         when(mContext.getContentResolver()).thenReturn(mResolver);
+        when(mContext.getApplicationContext()).thenReturn(mAppContext);
+        mAppInfoS.targetSdkVersion = S;
+        mAppInfoPreS.targetSdkVersion = R;
     }
 
     @After
@@ -94,7 +104,36 @@ public class NsdServiceTest {
     }
 
     @Test
+    public void testSAndPreSClients() {
+        when(mSettings.isEnabled()).thenReturn(true);
+        NsdService service = makeService();
+
+        // S client connected, the daemon should not be started.
+        when(mAppContext.getApplicationInfo()).thenReturn(mAppInfoS);
+        NsdManager client1 = connectClient(service);
+        waitForIdle();
+        verify(mDaemon, never()).execute(any());
+
+        // Pre S client connected, the daemon should be started.
+        when(mAppContext.getApplicationInfo()).thenReturn(mAppInfoPreS);
+        NsdManager client2 = connectClient(service);
+        waitForIdle();
+        verify(mDaemon, times(1)).maybeStart();
+        verifyDaemonCommands("start-service");
+
+        client2.disconnect();
+        // Pre S client disconnected, the daemon should be stopped.
+        verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
+        verifyDaemonCommands("stop-service");
+
+        // All clients are disconnected, maybeStop() would be called after CLEANUP_DELAY_MS.
+        client1.disconnect();
+        verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
+    }
+
+    @Test
     public void testNoDaemonStartedWhenClientsConnect() {
+        when(mAppContext.getApplicationInfo()).thenReturn(mAppInfoS);
         when(mSettings.isEnabled()).thenReturn(true);
 
         NsdService service = makeService();
@@ -125,6 +164,7 @@ public class NsdServiceTest {
 
     @Test
     public void testClientRequestsAreGCedAtDisconnection() {
+        when(mAppContext.getApplicationInfo()).thenReturn(mAppInfoS);
         when(mSettings.isEnabled()).thenReturn(true);
 
         NsdService service = makeService();
@@ -170,6 +210,7 @@ public class NsdServiceTest {
 
     @Test
     public void testCleanupDelayNoRequestActive() {
+        when(mAppContext.getApplicationInfo()).thenReturn(mAppInfoS);
         when(mSettings.isEnabled()).thenReturn(true);
 
         NsdService service = makeService();
