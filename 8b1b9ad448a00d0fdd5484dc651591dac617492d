@@ -187,6 +187,30 @@
       },
       "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a945da0_8e96938f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-13T08:30:57Z",
+      "side": 1,
+      "message": "In that case you should use the change ID of the commit that added the already merged change to packages/modules/Connectivity; that would be I3c2563d4ae4e3715d0c6270344ba8f7ef067872f (the commit that moved the code in)\n\nWhen 2 changes are in a topic the automerger and only one has a merged-in, the automerger will merge the remaining change by itself in downstream branches, it won\u0027t skip merging both.",
+      "parentUuid": "de22c7bf_412f179c",
+      "range": {
+        "startLine": 18,
+        "startChar": 11,
+        "endLine": 18,
+        "endChar": 52
+      },
+      "revId": "8b1b9ad448a00d0fdd5484dc651591dac617492d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
