@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "698ea4d8_235f5e5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T02:25:13Z",
+      "side": 1,
+      "message": "LGTM assume if fix maze\u0027s comment, but be aware that this CL should be submit together with following CLs.",
+      "revId": "cb0465aa232bbdf585c69365840dbf75c2d45abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48707ca3_7d22f33e",
