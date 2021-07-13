@@ -3,6 +3,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff7ee199_b5b6143e",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T12:03:29Z",
+      "side": 1,
+      "message": "If we have v4-only ipsec0 interface, we will get different result in these functions. people may get confused.\n\nisIpv6VirtualNetworkInterface(): false (because mLastIPv6LinkProperties\u003dnull)\nisVirtualNetworkInterface(ipsec0): true\n\n\nIt is dangerous that it rely on L.758 set mLastIPv6LinkProperties before L.760.\nIf someone change the order in the future. This function may be broken.\n\nL.758: mLastIPv6LinkProperties \u003d v6only;\nL.760: updateIpv6ForwardingRules(mLastIPv6UpstreamIfindex, upstreamIfIndex, null);",
+      "range": {
+        "startLine": 896,
+        "startChar": 20,
+        "endLine": 896,
+        "endChar": 49
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b901bbca_b0554ec2",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T12:03:29Z",
+      "side": 1,
+      "message": "i suspect that this will cause that the clearIpv6ForwardingRules() is called by every neigh event by L.961\n\n// probably just return for virtual network.\n// upstream changes:\n// virtual -\u003e none: return\n// virtual -\u003e virtual: return\n// none -\u003e virtual: return\n// virtual -\u003e rmnet0: return \u003c-- okay but is it possible?\n// rmnet0 -\u003e virtual: return [NOT EXPECTED] \u003c-- is it possible?\n\n\nif no, maybe it is ok. if yes, we have to think another way to avoid clearIpv6ForwardingRules() called by every neigh event\nif (isIpv6VirtualNetworkInterface()) return;\nif (upstreamIfindex \u003d\u003d 0) { ..",
+      "range": {
+        "startLine": 908,
+        "startChar": 36,
+        "endLine": 908,
+        "endChar": 65
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ccbaf8f_53c4c1f4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T12:03:29Z",
+      "side": 1,
+      "message": "probably isVirtual checking moves to L.840. return early.\n\n\n# is possible that ifaceName is null?\nfinal String ifaceName \u003d ns.linkProperties.getInterfaceName();\nif (isVirtualNetworkInterface(ifaceName)) return;\n\n\nThen, we don\u0027t need to get interface params because we have already known not supported.",
+      "range": {
+        "startLine": 842,
+        "startChar": 86,
+        "endLine": 842,
+        "endChar": 96
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3ec467ce_add581e8",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 3
@@ -90,6 +159,52 @@
         "startChar": 54,
         "endLine": 58,
         "endChar": 95
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f8a8ae1_88ea2a4a",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1463,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T12:03:29Z",
+      "side": 1,
+      "message": "Have you ever tried that remove virtual network checking in updateIpv6ForwardingRules and this test will be failed?",
+      "range": {
+        "startLine": 1463,
+        "startChar": 16,
+        "endLine": 1463,
+        "endChar": 43
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc12f5a_b1c1a38e",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1477,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T12:03:29Z",
+      "side": 1,
+      "message": "Remove\n\nIt is used for rule removal and it has only used for UPSTREAM_IFINDEX, UPSTREAM_IFINDEX2 now",
+      "range": {
+        "startLine": 1477,
+        "startChar": 8,
+        "endLine": 1477,
+        "endChar": 37
       },
       "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"

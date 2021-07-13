@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a46023_30be752e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T12:03:29Z",
+      "side": 1,
+      "message": "For blocking IPv4 is easier because just let the rule have not enough information (ex: upstream index) to build. \n\nFor blocking IPv6 need to take care about racy problem. I think we still need to discuss offline.",
+      "revId": "b93328d3b12622a4893b78e5523046ef9b0564d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
