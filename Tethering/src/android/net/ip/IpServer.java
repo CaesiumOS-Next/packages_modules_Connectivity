@@ -26,6 +26,7 @@ import static android.net.util.TetheringMessageBase.BASE_IPSERVER;
 import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
 
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
+import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInterface;
 
 import android.net.INetd;
 import android.net.INetworkStackStatusCallback;
@@ -892,12 +893,19 @@ public class IpServer extends StateMachine {
         mBpfCoordinator.tetherOffloadRuleUpdate(this, newIfindex);
     }
 
+    private boolean isIpv6VirtualNetworkInterface() {
+        if (mLastIPv6LinkProperties == null) return false;
+
+        return isVcnInterface(mLastIPv6LinkProperties.getInterfaceName());
+    }
+
     // Handles all updates to IPv6 forwarding rules. These can currently change only if the upstream
     // changes or if a neighbor event is received.
     private void updateIpv6ForwardingRules(int prevUpstreamIfindex, int upstreamIfindex,
             NeighborEvent e) {
-        // If we no longer have an upstream, clear forwarding rules and do nothing else.
-        if (upstreamIfindex == 0) {
+        // If no longer have an upstream or it is virtual network, clear forwarding rules and do
+        // nothing else.
+        if (upstreamIfindex == 0 || isIpv6VirtualNetworkInterface()) {
             clearIpv6ForwardingRules();
             return;
         }
