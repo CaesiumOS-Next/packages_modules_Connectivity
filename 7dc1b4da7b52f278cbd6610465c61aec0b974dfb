@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9c69798_ed83868e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-13T19:17:32Z",
+      "side": 1,
+      "message": "(cherrypick to sc-dev in ag/15275452 )",
+      "revId": "7dc1b4da7b52f278cbd6610465c61aec0b974dfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
