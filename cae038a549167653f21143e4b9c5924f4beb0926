@@ -210,6 +210,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "328409fd_67d265d7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1625,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T02:42:43Z",
+      "side": 1,
+      "message": "If we found upstreamAdded !\u003d downstreamAdded, probably because one of them fail in l.1610 ~ 1612. Not sure whether worth to retry, then if retry fail remove the added rule. Or Just remove is fine (probably also log if the remove also fail)",
+      "parentUuid": "e85ec5ec_46179c0c",
+      "range": {
+        "startLine": 1625,
+        "startChar": 0,
+        "endLine": 1625,
+        "endChar": 23
+      },
+      "revId": "cae038a549167653f21143e4b9c5924f4beb0926",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f8b7b9f_ad3546cf",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 3
