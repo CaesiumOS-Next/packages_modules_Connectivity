@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0428be54_030006e0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T03:33:54Z",
+      "side": 1,
+      "message": "+ 1, this is more readable.",
+      "parentUuid": "0976e149_af2f4593",
+      "revId": "0233ee00f2ff67370fd828f644eb4d6429f9030e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4fa423a8_d67dd7e5",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 11
@@ -59,6 +77,29 @@
         "startChar": 24,
         "endLine": 1597,
         "endChar": 71
+      },
+      "revId": "0233ee00f2ff67370fd828f644eb4d6429f9030e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96ab9f60_4d24f5f7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T03:33:54Z",
+      "side": 1,
+      "message": "Probably not for this CL, just question if we delete the rule fail. Why not call maybeClearLimit at l.1615 ?",
+      "range": {
+        "startLine": 1612,
+        "startChar": 20,
+        "endLine": 1612,
+        "endChar": 27
       },
       "revId": "0233ee00f2ff67370fd828f644eb4d6429f9030e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
