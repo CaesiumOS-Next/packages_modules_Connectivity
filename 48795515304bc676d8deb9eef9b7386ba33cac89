@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd68e5c_25cdd3e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T15:23:00Z",
+      "side": 1,
+      "message": "LGTM. But need to test it with vcn\nI am not sure how vcn works.\n\nprobably ..\nTest:\n1. Enable {IPv4-only, IPv6-only} cellular \n2. Enable wifi hotspot\n3. Connect to the wifi hotspot by anther device\n4. Browse on tethered device.\n5. Switch to vcn as upstream.\n6. Browse on tethered device.\n7. Switch to cellular as upstream\n8. Browse on tethered device.",
+      "revId": "48795515304bc676d8deb9eef9b7386ba33cac89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
