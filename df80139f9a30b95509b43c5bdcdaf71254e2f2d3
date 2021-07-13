@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23b384fb_a4cfee71",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-13T12:26:32Z",
+      "side": 1,
+      "message": "\"system default network\" would be better.",
+      "range": {
+        "startLine": 175,
+        "startChar": 22,
+        "endLine": 175,
+        "endChar": 36
+      },
+      "revId": "df80139f9a30b95509b43c5bdcdaf71254e2f2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383dd531_bf9e3d59",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-13T12:26:32Z",
+      "side": 1,
+      "message": "I think that checking transport type is unnecessary since we have called getWifiNetwork() to ensure that the network is wifi.",
+      "range": {
+        "startLine": 176,
+        "startChar": 54,
+        "endLine": 176,
+        "endChar": 68
+      },
+      "revId": "df80139f9a30b95509b43c5bdcdaf71254e2f2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad774051_16467504",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-13T12:26:32Z",
+      "side": 1,
+      "message": "If we don\u0027t need to compare the transport type, maybe just onAvailable?",
+      "range": {
+        "startLine": 193,
+        "startChar": 24,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "df80139f9a30b95509b43c5bdcdaf71254e2f2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
