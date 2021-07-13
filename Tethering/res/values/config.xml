@@ -21,15 +21,15 @@
     config_* is empty by default but may be overridden by RROs.
     -->
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
-         USB interfaces.  If the device doesn't want to support tethering over USB this should
-         be empty.  An example would be "usb.*" -->
+         RNDIS interfaces. If the device doesn't want to support tethering over RNDIS this should
+         be empty. -->
     <string-array translatable="false" name="config_tether_usb_regexs">
         <item>"usb\\d"</item>
         <item>"rndis\\d"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
-         NCM interfaces.  If the device doesn't want to support tethering over NCM this should
+         NCM interfaces. If the device doesn't want to support tethering over NCM this should
          be empty. -->
     <string-array translatable="false" name="config_tether_ncm_regexs">
     </string-array>
