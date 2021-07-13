@@ -16,6 +16,52 @@
       "message": "LGTM. But need to test it with vcn\nI am not sure how vcn works.\n\nprobably ..\nTest:\n1. Enable {IPv4-only, IPv6-only} cellular \n2. Enable wifi hotspot\n3. Connect to the wifi hotspot by anther device\n4. Browse on tethered device.\n5. Switch to vcn as upstream.\n6. Browse on tethered device.\n7. Switch to cellular as upstream\n8. Browse on tethered device.",
       "revId": "48795515304bc676d8deb9eef9b7386ba33cac89",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e909c5f3_b8e95b0a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T15:25:35Z",
+      "side": 1,
+      "message": "nit: vcn",
+      "range": {
+        "startLine": 899,
+        "startChar": 26,
+        "endLine": 899,
+        "endChar": 33
+      },
+      "revId": "48795515304bc676d8deb9eef9b7386ba33cac89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57d936fa_83dd0b07",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T15:25:35Z",
+      "side": 1,
+      "message": "nit: vcn",
+      "range": {
+        "startLine": 909,
+        "startChar": 50,
+        "endLine": 909,
+        "endChar": 57
+      },
+      "revId": "48795515304bc676d8deb9eef9b7386ba33cac89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
