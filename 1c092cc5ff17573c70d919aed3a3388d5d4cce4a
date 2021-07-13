@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000013156962",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1764307?revision\u003d9",
+      "fixSuggestions": [
+        {
+          "fixId": "9a6e14d7_591acc55",
+          "description": "Change to \"Tethering/src/android/net/ip/IpServer.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/src/android/net/ip/IpServer.java",
+              "range": {
+                "startLine": 761,
+                "startChar": 28,
+                "endLine": 761,
+                "endChar": 39
+              },
+              "replacement": "dependencies"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "61bf4291_a7f94c5e",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-07-13T15:34:36Z",
+      "side": 1,
+      "message": "Common typo found: \"dependecies\" -- should it be \"dependencies\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 761,
+        "startChar": 28,
+        "endLine": 761,
+        "endChar": 39
+      },
+      "revId": "1c092cc5ff17573c70d919aed3a3388d5d4cce4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
