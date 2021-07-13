@@ -15,6 +15,8 @@
  */
 package com.android.networkstack.tethering;
 
+import static android.net.INetd.IPSEC_INTERFACE_PREFIX;
+
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -25,6 +27,8 @@ import androidx.annotation.NonNull;
  * Snapshot of tethering upstream network state.
  */
 public class UpstreamNetworkState {
+    private static final String TUN_INTERFACE_PREFIX = "tun";
+
     /** {@link LinkProperties}. */
     public final LinkProperties linkProperties;
     /** {@link NetworkCapabilities}. */
@@ -47,5 +51,10 @@ public class UpstreamNetworkState {
                 network == null ? "null" : network,
                 networkCapabilities == null ? "null" : networkCapabilities,
                 linkProperties == null ? "null" : linkProperties);
+    }
+
+    /** Check whether this is virtual interface. */
+    public static boolean isVirtualNetworkInterface(@NonNull String iface) {
+        return iface.startsWith(IPSEC_INTERFACE_PREFIX) || iface.startsWith(TUN_INTERFACE_PREFIX);
     }
 }
