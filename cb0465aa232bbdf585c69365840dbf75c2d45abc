@@ -22,6 +22,29 @@
       },
       "revId": "cb0465aa232bbdf585c69365840dbf75c2d45abc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "689a4faa_210736eb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-13T02:20:31Z",
+      "side": 1,
+      "message": "switch from\n  (n-l)/1mil \u003c MS\nto\n  (n-l) \u003c MS*1mil\n  \nwhy are we even using MS instead of NS if the timestamps are in NS?",
+      "range": {
+        "startLine": 1925,
+        "startChar": 8,
+        "endLine": 1927,
+        "endChar": 5
+      },
+      "revId": "cb0465aa232bbdf585c69365840dbf75c2d45abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
