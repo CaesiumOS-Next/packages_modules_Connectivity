@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17950876_1e732a50",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T06:56:08Z",
+      "side": 1,
+      "message": "done. thanks both of you.",
+      "parentUuid": "0428be54_030006e0",
+      "revId": "0233ee00f2ff67370fd828f644eb4d6429f9030e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fa423a8_d67dd7e5",
@@ -49,6 +67,30 @@
       "writtenOn": "2021-07-13T02:42:00Z",
       "side": 1,
       "message": "if (isConntrackEventDelete || isTcpNonEstablished) {",
+      "range": {
+        "startLine": 1596,
+        "startChar": 0,
+        "endLine": 1596,
+        "endChar": 38
+      },
+      "revId": "0233ee00f2ff67370fd828f644eb4d6429f9030e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1917c2c4_0bdf073b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1596,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T06:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fa423a8_d67dd7e5",
       "range": {
         "startLine": 1596,
         "startChar": 0,
@@ -82,6 +124,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed26ac56_0ddcf98f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1597,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T06:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ff23d4d_e8928093",
+      "range": {
+        "startLine": 1597,
+        "startChar": 24,
+        "endLine": 1597,
+        "endChar": 71
+      },
+      "revId": "0233ee00f2ff67370fd828f644eb4d6429f9030e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96ab9f60_4d24f5f7",
@@ -95,6 +161,30 @@
       "writtenOn": "2021-07-13T03:33:54Z",
       "side": 1,
       "message": "Probably not for this CL, just question if we delete the rule fail. Why not call maybeClearLimit at l.1615 ?",
+      "range": {
+        "startLine": 1612,
+        "startChar": 20,
+        "endLine": 1612,
+        "endChar": 27
+      },
+      "revId": "0233ee00f2ff67370fd828f644eb4d6429f9030e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae3dc30c_2eb9fe88",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T06:56:08Z",
+      "side": 1,
+      "message": "Because maybeClearLimit only check upstream. \nCurrent code can\u0027t cover this error case well. Add a TODO.\n\n    private void maybeClearLimit(int upstreamIfindex) {\n        if (isAnyRuleOnUpstream(upstreamIfindex)\n                || mBpfCoordinatorShim.isAnyIpv4RuleOnUpstream(upstreamIfindex)) {\n            return;\n        }",
+      "parentUuid": "96ab9f60_4d24f5f7",
       "range": {
         "startLine": 1612,
         "startChar": 20,
