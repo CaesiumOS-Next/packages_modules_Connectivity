@@ -234,6 +234,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1fc7d076_825c855f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1625,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T03:25:30Z",
+      "side": 1,
+      "message": "Probably check added fail earlier, then the code would be more clean:\n\nif (mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM,\n                    upstream4Key, upstream4Value)) {\n    // log upstreamAdded fail\n    return\n}\n\nif (mBpfCoordinatorShim.tetherOffloadRuleAdd(DOWNSTREAM,\n                    downstream4Key, downstream4Value)) {\n    // Remove upstreamAdded, and log downstreamAdded fail\n    return\n}\n\nif (isTcpEstablished) {\n    updateConntrackTimeout((byte) upstream4Key.l4proto, parseIPv4Address(upstream4Key.src4), (short) upstream4Key.srcPort,\n    parseIPv4Address(upstream4Key.dst4), (short) upstream4Key.dstPort);\n}",
+      "parentUuid": "328409fd_67d265d7",
+      "range": {
+        "startLine": 1625,
+        "startChar": 0,
+        "endLine": 1625,
+        "endChar": 23
+      },
+      "revId": "cae038a549167653f21143e4b9c5924f4beb0926",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4f8b7b9f_ad3546cf",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 3
