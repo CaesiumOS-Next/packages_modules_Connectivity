@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f277e428_93933ea3",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-13T12:48:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b384fb_a4cfee71",
+      "range": {
+        "startLine": 175,
+        "startChar": 22,
+        "endLine": 175,
+        "endChar": 36
+      },
+      "revId": "df80139f9a30b95509b43c5bdcdaf71254e2f2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "383dd531_bf9e3d59",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66bc6350_e042624e",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-13T12:48:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "383dd531_bf9e3d59",
+      "range": {
+        "startLine": 176,
+        "startChar": 54,
+        "endLine": 176,
+        "endChar": 68
+      },
+      "revId": "df80139f9a30b95509b43c5bdcdaf71254e2f2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad774051_16467504",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-07-13T12:26:32Z",
       "side": 1,
       "message": "If we don\u0027t need to compare the transport type, maybe just onAvailable?",
+      "range": {
+        "startLine": 193,
+        "startChar": 24,
+        "endLine": 193,
+        "endChar": 45
+      },
+      "revId": "df80139f9a30b95509b43c5bdcdaf71254e2f2d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "892da0f6_f068b0d1",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-13T12:48:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad774051_16467504",
       "range": {
         "startLine": 193,
         "startChar": 24,
