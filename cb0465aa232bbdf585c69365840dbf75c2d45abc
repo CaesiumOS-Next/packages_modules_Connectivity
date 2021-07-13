@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d588a6_3ba210fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T06:43:45Z",
+      "side": 1,
+      "message": "thanks for your review",
+      "parentUuid": "698ea4d8_235f5e5a",
+      "revId": "cb0465aa232bbdf585c69365840dbf75c2d45abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48707ca3_7d22f33e",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "827884de_dd367254",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T06:43:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48707ca3_7d22f33e",
+      "range": {
+        "startLine": 1917,
+        "startChar": 0,
+        "endLine": 1917,
+        "endChar": 89
+      },
+      "revId": "cb0465aa232bbdf585c69365840dbf75c2d45abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "689a4faa_210736eb",
@@ -54,6 +96,30 @@
       "writtenOn": "2021-07-13T02:20:31Z",
       "side": 1,
       "message": "switch from\n  (n-l)/1mil \u003c MS\nto\n  (n-l) \u003c MS*1mil\n  \nwhy are we even using MS instead of NS if the timestamps are in NS?",
+      "range": {
+        "startLine": 1925,
+        "startChar": 8,
+        "endLine": 1927,
+        "endChar": 5
+      },
+      "revId": "cb0465aa232bbdf585c69365840dbf75c2d45abc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70a78617_fbeac000",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-13T06:43:45Z",
+      "side": 1,
+      "message": "done.\n(n-l) \u003c MS*1mil\n\n\nFor consistent, scheduler interval contents are using MS.\n\n# polling tethering stats\nDEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS\n\n# updating conntrack timeout\nCONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS\n\nprivate void maybeScheduleConntrackTimeoutUpdate() {\n..\n        mHandler.postDelayed(mScheduledConntrackTimeoutUpdate,\n                CONNTRACK_TIMEOUT_UPDATE_INTERVAL_MS);\n}",
+      "parentUuid": "689a4faa_210736eb",
       "range": {
         "startLine": 1925,
         "startChar": 8,
