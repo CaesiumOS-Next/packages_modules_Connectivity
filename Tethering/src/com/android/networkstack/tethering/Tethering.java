@@ -22,6 +22,7 @@ import static android.content.pm.PackageManager.GET_ACTIVITIES;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.hardware.usb.UsbManager.USB_CONFIGURED;
 import static android.hardware.usb.UsbManager.USB_CONNECTED;
+import static android.hardware.usb.UsbManager.USB_DATA_TRANSFER_RATE_HIGH_SPEED;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_NCM;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
@@ -65,6 +66,9 @@ import static android.telephony.CarrierConfigManager.ACTION_CARRIER_CONFIG_CHANG
 import static android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID;
 
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_NCM_IF_ABOVE_HIGH_SPEED;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_NCM_FUNCTION;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_RNDIS_FUNCTION;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.isCellular;
 
@@ -379,9 +383,9 @@ public class Tethering {
         @Override
         public void onChange(boolean selfChange) {
             mLog.i("OBSERVED Settings change");
-            final boolean isUsingNcm = mConfig.isUsingNcm();
+            final int usbConfig = mConfig.getUsbTetheringFunction();
             updateConfiguration();
-            if (isUsingNcm != mConfig.isUsingNcm()) {
+            if (usbConfig != mConfig.getUsbTetheringFunction()) {
                 stopTetheringInternal(TETHERING_USB);
                 stopTetheringInternal(TETHERING_NCM);
             }
@@ -901,8 +905,10 @@ public class Tethering {
     }
 
     private int getServedUsbType(boolean forNcmFunction) {
-        // TETHERING_NCM is only used if the device does not use NCM for regular USB tethering.
-        if (forNcmFunction && !mConfig.isUsingNcm()) return TETHERING_NCM;
+        // TETHERING_NCM is only used if the device always use RNDIS for regular USB tethering.
+        if (forNcmFunction && mConfig.getUsbTetheringFunction() == TETHER_USB_RNDIS_FUNCTION) {
+            return TETHERING_NCM;
+        }
 
         return TETHERING_USB;
     }
@@ -1335,7 +1341,7 @@ public class Tethering {
     //     - only tethers the first matching interface in listInterfaces()
     //       order of a given type
     private void enableUsbIpServing(boolean forNcmFunction) {
-        // Note: TetheringConfiguration#isUsingNcm can change between the call to
+        // Note: TetheringConfiguration#getUsbTetheringFunction can change between the call to
         // startTethering(TETHERING_USB) and the ACTION_USB_STATE broadcast. If the USB tethering
         // function changes from NCM to RNDIS, this can lead to Tethering starting NCM tethering
         // as local-only. But if this happens, the SettingsObserver will call stopTetheringInternal
@@ -1353,7 +1359,7 @@ public class Tethering {
 
         if (ifaces != null) {
             for (String iface : ifaces) {
-                if (ifaceNameToType(iface) == tetheringType) {
+                if (isUsbIface(iface, forNcmFunction)) {
                     enableIpServing(tetheringType, iface, requestedState, forNcmFunction);
                     return;
                 }
@@ -1361,6 +1367,12 @@ public class Tethering {
         }
 
         mLog.e("could not enable IpServer for function " + (forNcmFunction ? "NCM" : "RNDIS"));
+    }
+
+    private boolean isUsbIface(String iface, boolean forNcmFunction) {
+        if (forNcmFunction) return mConfig.isNcm(iface);
+
+        return mConfig.isRndis(iface);
     }
 
     private void disableUsbIpServing(boolean forNcmFunction) {
@@ -1428,8 +1440,16 @@ public class Tethering {
             return TETHER_ERROR_SERVICE_UNAVAIL;
         }
 
-        final long usbFunction = mConfig.isUsingNcm()
-                ? UsbManager.FUNCTION_NCM : UsbManager.FUNCTION_RNDIS;
+        final long usbFunction;
+        if (mConfig.getUsbTetheringFunction() == TETHER_USB_RNDIS_FUNCTION) {
+            usbFunction = UsbManager.FUNCTION_RNDIS;
+        } else if (mConfig.getUsbTetheringFunction() == TETHER_USB_NCM_FUNCTION) {
+            usbFunction = UsbManager.FUNCTION_NCM;
+        } else {
+            // Using NCM only if max usb bandwidth is super speed or above.
+            usbFunction = usbManager.getUsbBandwidthMbps() > USB_DATA_TRANSFER_RATE_HIGH_SPEED
+                    ? UsbManager.FUNCTION_NCM : UsbManager.FUNCTION_RNDIS;
+        }
         usbManager.setCurrentFunctions(enable ? usbFunction : UsbManager.FUNCTION_NONE);
 
         return TETHER_ERROR_NO_ERROR;
@@ -1438,9 +1458,10 @@ public class Tethering {
     private int setNcmTethering(boolean enable) {
         if (VDBG) Log.d(TAG, "setNcmTethering(" + enable + ")");
 
-        // If TETHERING_USB is forced to use ncm function, TETHERING_NCM would no longer be
-        // available.
-        if (mConfig.isUsingNcm() && enable) return TETHER_ERROR_SERVICE_UNAVAIL;
+        // If TETHERING_USB may use ncm function, TETHERING_NCM would no longer be available.
+        if (enable && mConfig.getUsbTetheringFunction() != TETHER_USB_RNDIS_FUNCTION) {
+            return TETHER_ERROR_SERVICE_UNAVAIL;
+        }
 
         UsbManager usbManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
         usbManager.setCurrentFunctions(enable ? UsbManager.FUNCTION_NCM : UsbManager.FUNCTION_NONE);

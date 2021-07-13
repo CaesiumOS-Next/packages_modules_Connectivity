@@ -17,6 +17,8 @@
 package com.android.networkstack.tethering;
 
 import static android.content.Context.TELEPHONY_SERVICE;
+import static android.hardware.usb.UsbManager.USB_DATA_TRANSFER_RATE_HIGH_SPEED;
+import static android.hardware.usb.UsbManager.USB_DATA_TRANSFER_RATE_UNKNOWN;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
 import static android.net.ConnectivityManager.TYPE_MOBILE_DUN;
@@ -26,6 +28,7 @@ import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
+import android.hardware.usb.UsbManager;
 import android.net.TetheringConfigurationParcel;
 import android.net.util.SharedLog;
 import android.provider.DeviceConfig;
@@ -81,7 +84,10 @@ public class TetheringConfiguration {
     public static final int TETHER_USB_RNDIS_FUNCTION = 0;
 
     @VisibleForTesting
-    public static final int TETHER_USB_NCM_FUNCTION   = 1;
+    public static final int TETHER_USB_NCM_FUNCTION = 1;
+
+    @VisibleForTesting
+    public static final int TETHER_USB_NCM_IF_ABOVE_HIGH_SPEED  = 2;
 
     /**
      * Override enabling BPF offload configuration for tethering.
@@ -137,6 +143,7 @@ public class TetheringConfiguration {
     public final String[] tetherableWigigRegexs;
     public final String[] tetherableWifiP2pRegexs;
     public final String[] tetherableBluetoothRegexs;
+    public final String[] tetherableRndisRegexs;
     public final String[] tetherableNcmRegexs;
     public final boolean isDunRequired;
     public final boolean chooseUpstreamAutomatically;
@@ -152,6 +159,7 @@ public class TetheringConfiguration {
 
     public final int activeDataSubId;
 
+    private final Context mContext;
     private final int mOffloadPollInterval;
     // TODO: Add to TetheringConfigurationParcel if required.
     private final boolean mEnableBpfOffload;
@@ -163,6 +171,7 @@ public class TetheringConfiguration {
 
     public TetheringConfiguration(Context ctx, SharedLog log, int id) {
         final SharedLog configLog = log.forSubComponent("config");
+        mContext = ctx;
 
         activeDataSubId = id;
         Resources res = getResources(ctx, activeDataSubId);
@@ -170,15 +179,18 @@ public class TetheringConfiguration {
 
         mUsbTetheringFunction = getUsbTetheringFunction(res);
 
-        final String[] ncmRegexs = getResourceStringArray(res, R.array.config_tether_ncm_regexs);
-        // If usb tethering use NCM and config_tether_ncm_regexs is not empty, use
-        // config_tether_ncm_regexs for tetherableUsbRegexs.
-        if (isUsingNcm() && (ncmRegexs.length != 0)) {
-            tetherableUsbRegexs = ncmRegexs;
-            tetherableNcmRegexs = EMPTY_STRING_ARRAY;
+        tetherableRndisRegexs = getResourceStringArray(res, R.array.config_tether_usb_regexs);
+        tetherableNcmRegexs = getResourceStringArray(res, R.array.config_tether_ncm_regexs);
+
+        if (mUsbTetheringFunction == TETHER_USB_RNDIS_FUNCTION) {
+            tetherableUsbRegexs = tetherableRndisRegexs;
+        } else if (mUsbTetheringFunction == TETHER_USB_NCM_FUNCTION) {
+            tetherableUsbRegexs = tetherableNcmRegexs;
         } else {
-            tetherableUsbRegexs = getResourceStringArray(res, R.array.config_tether_usb_regexs);
-            tetherableNcmRegexs = ncmRegexs;
+            tetherableUsbRegexs = Arrays.copyOf(tetherableRndisRegexs,
+                    tetherableRndisRegexs.length + tetherableNcmRegexs.length);
+            System.arraycopy(tetherableNcmRegexs, 0, tetherableUsbRegexs,
+                    tetherableRndisRegexs.length, tetherableNcmRegexs.length);
         }
         // TODO: Evaluate deleting this altogether now that Wi-Fi always passes
         // us an interface name. Careful consideration needs to be given to
@@ -230,14 +242,24 @@ public class TetheringConfiguration {
         configLog.log(toString());
     }
 
-    /** Check whether using ncm for usb tethering */
-    public boolean isUsingNcm() {
-        return mUsbTetheringFunction == TETHER_USB_NCM_FUNCTION;
+    /**
+     * There are three case:
+     * TETHER_USB_RNDIS_FUNCTION(0): always use RNDIS.
+     * TETHER_USB_NCM_FUNCTION(1): always use NCM.
+     * TETHER_USB_NCM_IF_ABOVE_SPEED(2): use NCM when usb speed is higher than high-speed.
+     */
+    public int getUsbTetheringFunction() {
+        return mUsbTetheringFunction;
     }
 
     /** Check whether input interface belong to usb.*/
     public boolean isUsb(String iface) {
         return matchesDownstreamRegexs(iface, tetherableUsbRegexs);
+    }
+
+    /** Check whether input interface belong to usb.*/
+    public boolean isRndis(String iface) {
+        return matchesDownstreamRegexs(iface, tetherableRndisRegexs);
     }
 
     /** Check whether input interface belong to wifi.*/
@@ -322,7 +344,7 @@ public class TetheringConfiguration {
         pw.println(mEnableSelectAllPrefixRange);
 
         pw.print("mUsbTetheringFunction: ");
-        pw.println(isUsingNcm() ? "NCM" : "RNDIS");
+        pw.println(getUsbTetheringFunction());
     }
 
     /** Returns the string representation of this object.*/

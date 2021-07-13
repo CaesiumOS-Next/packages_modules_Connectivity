@@ -20,6 +20,9 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.content.pm.PackageManager.GET_ACTIVITIES;
 import static android.hardware.usb.UsbManager.USB_CONFIGURED;
 import static android.hardware.usb.UsbManager.USB_CONNECTED;
+import static android.hardware.usb.UsbManager.USB_DATA_TRANSFER_RATE_5G;
+import static android.hardware.usb.UsbManager.USB_DATA_TRANSFER_RATE_HIGH_SPEED;
+import static android.hardware.usb.UsbManager.USB_DATA_TRANSFER_RATE_UNKNOWN;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_NCM;
 import static android.hardware.usb.UsbManager.USB_FUNCTION_RNDIS;
 import static android.net.ConnectivityManager.ACTION_RESTRICT_BACKGROUND_CHANGED;
@@ -71,6 +74,7 @@ import static com.android.networkstack.tethering.TestConnectivityManager.CALLBAC
 import static com.android.networkstack.tethering.Tethering.UserRestrictionActionListener;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_FORCE_USB_FUNCTIONS;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_NCM_FUNCTION;
+import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_NCM_IF_ABOVE_HIGH_SPEED;
 import static com.android.networkstack.tethering.TetheringConfiguration.TETHER_USB_RNDIS_FUNCTION;
 import static com.android.networkstack.tethering.TetheringNotificationUpdater.DOWNSTREAM_NONE;
 import static com.android.networkstack.tethering.UpstreamNetworkMonitor.EVENT_ON_CAPABILITIES;
@@ -621,6 +625,8 @@ public class TetheringTest {
 
         mCm = spy(new TestConnectivityManager(mServiceContext, mock(IConnectivityManager.class)));
 
+        when(mUsbManager.getUsbBandwidthMbps()).thenReturn(USB_DATA_TRANSFER_RATE_UNKNOWN);
+
         mTethering = makeTethering();
         verify(mStatsManager, times(1)).registerNetworkStatsProvider(anyString(), any());
         verify(mNetd).registerUnsolicitedEventListener(any());
@@ -835,6 +841,14 @@ public class TetheringTest {
         verify(mUsbManager, times(1)).setCurrentFunctions(UsbManager.FUNCTION_NCM);
     }
 
+    private boolean isUsingNcm() {
+        if (mConfig.getUsbTetheringFunction() == TETHER_USB_NCM_IF_ABOVE_HIGH_SPEED) {
+            return mUsbManager.getUsbBandwidthMbps() > USB_DATA_TRANSFER_RATE_HIGH_SPEED;
+        }
+
+        return mConfig.getUsbTetheringFunction() == TETHER_USB_NCM_FUNCTION;
+    }
+
     private void prepareUsbTethering() {
         // Emulate pressing the USB tethering button in Settings UI.
         final TetheringRequestParcel request = createTetheringRequestParcel(TETHERING_USB);
@@ -844,7 +858,7 @@ public class TetheringTest {
         assertEquals(1, mTethering.getActiveTetheringRequests().size());
         assertEquals(request, mTethering.getActiveTetheringRequests().get(TETHERING_USB));
 
-        if (mTethering.getTetheringConfiguration().isUsingNcm()) {
+        if (isUsingNcm()) {
             verify(mUsbManager).setCurrentFunctions(UsbManager.FUNCTION_NCM);
             mTethering.interfaceStatusChanged(TEST_NCM_IFNAME, true);
         } else {
@@ -950,7 +964,7 @@ public class TetheringTest {
     private void runUsbTethering(UpstreamNetworkState upstreamState) {
         initTetheringUpstream(upstreamState);
         prepareUsbTethering();
-        if (mTethering.getTetheringConfiguration().isUsingNcm()) {
+        if (isUsingNcm()) {
             sendUsbBroadcast(true, true, TETHER_USB_NCM_FUNCTION);
             verify(mIPv6TetheringCoordinator).addActiveDownstream(
                     argThat(sm -> sm.linkProperties().getInterfaceName().equals(TEST_NCM_IFNAME)),
@@ -2682,6 +2696,23 @@ public class TetheringTest {
         // Run TETHERING_USB with rndis configuration.
         runDualStackUsbTethering(TEST_RNDIS_IFNAME);
         runStopUSBTethering();
+    }
+
+    @Test
+    public void testSetUsbFunctionByDifferentSpeed() throws Exception {
+        forceUsbTetheringUse(TETHER_USB_NCM_IF_ABOVE_HIGH_SPEED);
+        reset(mUsbManager);
+
+        when(mUsbManager.getUsbBandwidthMbps()).thenReturn(USB_DATA_TRANSFER_RATE_HIGH_SPEED);
+        // Verify run TETHERING_USB with RNDIS.
+        runDualStackUsbTethering(TEST_RNDIS_IFNAME);
+        runStopUSBTethering();
+        reset(mUsbManager, mNetd, mDhcpServer, mRouterAdvertisementDaemon,
+                mIPv6TetheringCoordinator, mDadProxy);
+
+        when(mUsbManager.getUsbBandwidthMbps()).thenReturn(USB_DATA_TRANSFER_RATE_5G);
+        // Verify run TETHERING_USB with NCM.
+        runDualStackUsbTethering(TEST_NCM_IFNAME);
     }
     // TODO: Test that a request for hotspot mode doesn't interfere with an
     // already operating tethering mode interface.
