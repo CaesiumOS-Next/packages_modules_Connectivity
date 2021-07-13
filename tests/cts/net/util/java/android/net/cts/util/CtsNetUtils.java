@@ -21,6 +21,7 @@ import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.wifi.WifiManager.SCAN_RESULTS_AVAILABLE_ACTION;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
@@ -168,15 +169,39 @@ public final class CtsNetUtils {
     }
 
     // Toggle WiFi twice, leaving it in the state it started in
-    public void toggleWifi() {
+    public void toggleWifi() throws Exception {
         if (mWifiManager.isWifiEnabled()) {
             Network wifiNetwork = getWifiNetwork();
+            // Ensure system default is WIFI because it's expected in disconnectFromWifi()
+            expectNetworkIsSystemDefault(wifiNetwork, TRANSPORT_WIFI);
             disconnectFromWifi(wifiNetwork);
             connectToWifi();
         } else {
             connectToWifi();
             Network wifiNetwork = getWifiNetwork();
+            // Ensure system default is WIFI because it's expected in disconnectFromWifi()
+            expectNetworkIsSystemDefault(wifiNetwork, TRANSPORT_WIFI);
             disconnectFromWifi(wifiNetwork);
+        }
+    }
+
+    private Network expectNetworkIsSystemDefault(Network network, int transportType)
+            throws Exception {
+        final CompletableFuture<Network> future = new CompletableFuture();
+        final NetworkCallback cb = new NetworkCallback() {
+            @Override
+            public void onCapabilitiesChanged(Network n, NetworkCapabilities nc) {
+                if (n.equals(network) && nc.hasTransport(transportType)) {
+                    future.complete(network);
+                }
+            }
+        };
+
+        try {
+            mCm.registerDefaultNetworkCallback(cb);
+            return future.get(CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS);
+        } finally {
+            mCm.unregisterNetworkCallback(cb);
         }
     }
 
