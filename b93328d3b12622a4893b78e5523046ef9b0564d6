@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e33439_11bb7f72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T14:46:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "decd4037_084bf9c7",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "b93328d3b12622a4893b78e5523046ef9b0564d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9f8910e_0e617652",
@@ -49,6 +73,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b7516f92_0f949767",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T14:46:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9f8910e_0e617652",
+      "range": {
+        "startLine": 10,
+        "startChar": 27,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "b93328d3b12622a4893b78e5523046ef9b0564d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "88a46023_30be752e",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -60,6 +108,24 @@
       "writtenOn": "2021-07-13T12:03:29Z",
       "side": 1,
       "message": "For blocking IPv4 is easier because just let the rule have not enough information (ex: upstream index) to build. \n\nFor blocking IPv6 need to take care about racy problem. I think we still need to discuss offline.",
+      "revId": "b93328d3b12622a4893b78e5523046ef9b0564d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb26af6b_921db26c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T14:46:35Z",
+      "side": 1,
+      "message": "Per talk, this change don\u0027t change the behavior between CMD_IPV6_TETHER_UPDATE and neigh event and shouldn\u0027t cause new race.",
+      "parentUuid": "88a46023_30be752e",
       "revId": "b93328d3b12622a4893b78e5523046ef9b0564d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

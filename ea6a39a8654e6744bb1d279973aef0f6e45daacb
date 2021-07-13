@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "733e6005_30ed9d1a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T14:46:35Z",
+      "side": 1,
+      "message": "Thanks for bring this up. Per talk, added TODO.",
+      "parentUuid": "ff7ee199_b5b6143e",
+      "range": {
+        "startLine": 896,
+        "startChar": 20,
+        "endLine": 896,
+        "endChar": 49
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b901bbca_b0554ec2",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cccf32c5_b4619c70",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T14:46:35Z",
+      "side": 1,
+      "message": "Yes, but we already call clearIpv6ForwardingRules() every neigh event in ipv4 only upstream or no upstream. I don\u0027t think I made clearIpv6ForwardingRules() more freqently.",
+      "parentUuid": "b901bbca_b0554ec2",
+      "range": {
+        "startLine": 908,
+        "startChar": 36,
+        "endLine": 908,
+        "endChar": 65
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ccbaf8f_53c4c1f4",
@@ -84,6 +132,30 @@
       "writtenOn": "2021-07-13T12:03:29Z",
       "side": 1,
       "message": "probably isVirtual checking moves to L.840. return early.\n\n\n# is possible that ifaceName is null?\nfinal String ifaceName \u003d ns.linkProperties.getInterfaceName();\nif (isVirtualNetworkInterface(ifaceName)) return;\n\n\nThen, we don\u0027t need to get interface params because we have already known not supported.",
+      "range": {
+        "startLine": 842,
+        "startChar": 86,
+        "endLine": 842,
+        "endChar": 96
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "779e9ca9_f5ebde8b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T14:46:35Z",
+      "side": 1,
+      "message": "The ifaceName should be null especially it already have ipv4 address.\nAnd early return is not suitable here because we may need to do cleanup if iface switch from vcn to non-vcn",
+      "parentUuid": "9ccbaf8f_53c4c1f4",
       "range": {
         "startLine": 842,
         "startChar": 86,
@@ -211,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b1fb2d3_0b91e756",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1463,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T14:46:35Z",
+      "side": 1,
+      "message": "Ohh, yeah. Test with some modification.",
+      "parentUuid": "7f8a8ae1_88ea2a4a",
+      "range": {
+        "startLine": 1463,
+        "startChar": 16,
+        "endLine": 1463,
+        "endChar": 43
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bc12f5a_b1c1a38e",
@@ -224,6 +320,30 @@
       "writtenOn": "2021-07-13T12:03:29Z",
       "side": 1,
       "message": "Remove\n\nIt is used for rule removal and it has only used for UPSTREAM_IFINDEX, UPSTREAM_IFINDEX2 now",
+      "range": {
+        "startLine": 1477,
+        "startChar": 8,
+        "endLine": 1477,
+        "endChar": 37
+      },
+      "revId": "ea6a39a8654e6744bb1d279973aef0f6e45daacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47cc8df0_56baf177",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1477,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T14:46:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bc12f5a_b1c1a38e",
       "range": {
         "startLine": 1477,
         "startChar": 8,
