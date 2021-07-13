@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d38ce9a1_d54e747a",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e909c5f3_b8e95b0a",
+      "range": {
+        "startLine": 899,
+        "startChar": 26,
+        "endLine": 899,
+        "endChar": 33
+      },
+      "revId": "48795515304bc676d8deb9eef9b7386ba33cac89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57d936fa_83dd0b07",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-07-13T15:25:35Z",
       "side": 1,
       "message": "nit: vcn",
+      "range": {
+        "startLine": 909,
+        "startChar": 50,
+        "endLine": 909,
+        "endChar": 57
+      },
+      "revId": "48795515304bc676d8deb9eef9b7386ba33cac89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5aa993c_60896d38",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-13T15:34:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57d936fa_83dd0b07",
       "range": {
         "startLine": 909,
         "startChar": 50,
