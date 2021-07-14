@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08bcaff2_35468fc0",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-14T01:17:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2aae8ddc_0d3b1169",
+      "range": {
+        "startLine": 707,
+        "startChar": 15,
+        "endLine": 707,
+        "endChar": 23
+      },
+      "revId": "e34b9758601c20c53e87ed82dd5c2b37d996d273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3893b4bf_7b0932ee",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-07-12T10:48:40Z",
       "side": 1,
       "message": "Unfortunately this doesn\u0027t fix the issue, it only makes it less likely, because onLost can still be called between block() and the read of the member, and reset it to null.\n\nOne thing you could do is the following :\n\n  while (true) {\n    val n \u003d currentNetwork;\n    if (n !\u003d null) return n;\n    mAvailableCv.block();\n  }\n\n...however I\u0027m not sure it helps very much, because while it guarantees to return non-null, it doesn\u0027t guarantee the network won\u0027t disconnect milliseconds later and the user won\u0027t get the wrong network object.",
+      "range": {
+        "startLine": 717,
+        "startChar": 32,
+        "endLine": 717,
+        "endChar": 37
+      },
+      "revId": "e34b9758601c20c53e87ed82dd5c2b37d996d273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffe2eab7_cd303da6",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-14T01:17:21Z",
+      "side": 1,
+      "message": "Good point, thanks.\nIt\u0027s not very clear what a test should do if onLost gets called before the network can be read, a test that lets that happen is probably not setup correctly (it shouldn\u0027t expect the network to be available as it could also have gone away before the call to waitForAvailable) so I added a Log.w in case that happens.",
+      "parentUuid": "3893b4bf_7b0932ee",
       "range": {
         "startLine": 717,
         "startChar": 32,
