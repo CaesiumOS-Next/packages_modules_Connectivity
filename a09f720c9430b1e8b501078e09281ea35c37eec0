@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d120bf13_af9f0c1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-14T08:31:59Z",
+      "side": 1,
+      "message": "Can you also add a line saying this is equivalent to ag/14029494, but done in a different repo ? This would help because the Merged-In patch is not the equivalent patch.",
+      "range": {
+        "startLine": 15,
+        "startChar": 69,
+        "endLine": 15,
+        "endChar": 70
+      },
+      "revId": "a09f720c9430b1e8b501078e09281ea35c37eec0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "04250a8f_b3283236",
