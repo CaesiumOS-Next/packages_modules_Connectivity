@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "953aa5e3_117dc76e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-14T02:36:26Z",
+      "side": 1,
+      "message": "Actually that test calls it though ensureWifiConnected (which calls waitForAvailable). I added info in the bug showing the problem in the test logcat.",
+      "parentUuid": "62b75c34_332f6e94",
+      "range": {
+        "startLine": 34,
+        "startChar": 5,
+        "endLine": 34,
+        "endChar": 14
+      },
+      "revId": "30311abb87da7f2d74d2b528730fa0755d1eea0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2ee5a2a4_4c043963",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
