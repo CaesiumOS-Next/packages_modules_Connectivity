@@ -22,6 +22,30 @@
       },
       "revId": "d39d7e4dc4b325bfa94ef04fe9bd3f162125049e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72933abc_948b167f",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-14T06:18:22Z",
+      "side": 1,
+      "message": "From the API doc, it looks it\u0027s better to use registerDefaultNetworkCallback, not registerSystemDefaultNetworkCallback\n\n Applications or system components desiring to do determine network state as seen by \n applications should use other methods such as {@link \n #registerDefaultNetworkCallback(NetworkCallback, Handler)}.",
+      "parentUuid": "7c384e25_188266e0",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 46
+      },
+      "revId": "d39d7e4dc4b325bfa94ef04fe9bd3f162125049e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
