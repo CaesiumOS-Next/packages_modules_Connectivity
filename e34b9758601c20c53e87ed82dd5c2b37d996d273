@@ -110,6 +110,30 @@
       },
       "revId": "e34b9758601c20c53e87ed82dd5c2b37d996d273",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffda9560_8ba56fd3",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-14T02:07:22Z",
+      "side": 1,
+      "message": "I mean, not necessarily. Losing the network that this test was supposed to connect to can maybe be ignored because it\u0027s true that the test rig is supposed to reduce the occurrences of random disconnections into oblivion. But what can still happen with the loop is a case where the previous network is disconnecting, waitForAvailable() is called, the previous network is returned, and then you lose it and reconnect.\n\nI guess that instead of this, the right way to fix this would be that the disconnect call waits for onLost(), but I don\u0027t know if all tests do that. The fact that we had this problem in the first place suggests some don\u0027t (the bug in the cover comment links to a now irrelevant failure), because we know at least they register the callback before the disconnection *some* of the time.\n\nAnyway, the new patch should at least make the problem very rare.",
+      "parentUuid": "ffe2eab7_cd303da6",
+      "range": {
+        "startLine": 717,
+        "startChar": 32,
+        "endLine": 717,
+        "endChar": 37
+      },
+      "revId": "e34b9758601c20c53e87ed82dd5c2b37d996d273",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

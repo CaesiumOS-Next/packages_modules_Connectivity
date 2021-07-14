@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62b75c34_332f6e94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-14T02:07:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be the right bug. The bug points to a test that now never calls the code changed by this patch.",
+      "range": {
+        "startLine": 34,
+        "startChar": 5,
+        "endLine": 34,
+        "endChar": 14
+      },
+      "revId": "30311abb87da7f2d74d2b528730fa0755d1eea0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ee5a2a4_4c043963",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-14T02:07:22Z",
+      "side": 1,
+      "message": "+2 because this will almost certainly reduce the flakes mentioned, but I fear it may still not fix it and the right fix would be elsewhere ; see comments inline.",
+      "revId": "30311abb87da7f2d74d2b528730fa0755d1eea0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
