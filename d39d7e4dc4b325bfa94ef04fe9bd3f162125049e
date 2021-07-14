@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c384e25_188266e0",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-14T06:01:44Z",
+      "side": 1,
+      "message": "If you are interested in system default network, registerSystemDefaultNetworkCallback() should be a better approach.",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 46
+      },
+      "revId": "d39d7e4dc4b325bfa94ef04fe9bd3f162125049e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
