@@ -993,7 +993,7 @@ public class NetworkCapabilitiesTest {
     // transport types from maxTransportType + 1 to MAX_TRANSPORT are not set when positiveSequence
     // is true. If positiveSequence is false, then the check sequence is opposite.
     private void checkCurrentTransportTypes(NetworkCapabilities nc, int maxTransportType,
-            boolean positiveSequence) {
+            int maxSupportedTransport, boolean positiveSequence) {
         for (int i = MIN_TRANSPORT; i <= maxTransportType; i++) {
             if (positiveSequence) {
                 assertTrue(nc.hasTransport(i));
@@ -1001,7 +1001,7 @@ public class NetworkCapabilitiesTest {
                 assertFalse(nc.hasTransport(i));
             }
         }
-        for (int i = MAX_TRANSPORT; i > maxTransportType; i--) {
+        for (int i = maxSupportedTransport; i > maxTransportType; i--) {
             if (positiveSequence) {
                 assertFalse(nc.hasTransport(i));
             } else {
@@ -1014,15 +1014,17 @@ public class NetworkCapabilitiesTest {
     public void testMultipleTransportTypes() {
         final NetworkCapabilities nc = new NetworkCapabilities();
         assertNoTransport(nc);
+        // TRANSPORT_USB was added in S. Q and R had the same number of transports.
+        final int maxSupportedTransport = isAtLeastS() ? MAX_TRANSPORT : MAX_TRANSPORT - 1;
         // Test adding multiple transport types.
-        for (int i = MIN_TRANSPORT; i <= MAX_TRANSPORT; i++) {
+        for (int i = MIN_TRANSPORT; i <= maxSupportedTransport; i++) {
             nc.addTransportType(i);
-            checkCurrentTransportTypes(nc, i, true /* positiveSequence */);
+            checkCurrentTransportTypes(nc, i, maxSupportedTransport, true /* positiveSequence */);
         }
         // Test removing multiple transport types.
-        for (int i = MIN_TRANSPORT; i <= MAX_TRANSPORT; i++) {
+        for (int i = MIN_TRANSPORT; i <= maxSupportedTransport; i++) {
             nc.removeTransportType(i);
-            checkCurrentTransportTypes(nc, i, false /* positiveSequence */);
+            checkCurrentTransportTypes(nc, i, maxSupportedTransport, false /* positiveSequence */);
         }
         assertNoTransport(nc);
         nc.addTransportType(TRANSPORT_WIFI);
