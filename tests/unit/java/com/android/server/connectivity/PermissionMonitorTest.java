@@ -60,7 +60,6 @@ import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -161,18 +160,13 @@ public class PermissionMonitorTest {
         doReturn(UserHandle.ALL).when(asUserCtx).getUser();
         when(mContext.createContextAsUser(eq(UserHandle.ALL), anyInt())).thenReturn(asUserCtx);
         when(mDeps.getUidsAllowedOnRestrictedNetworks(any())).thenReturn(new ArraySet<>());
+        when(mDeps.getDeviceFirstSdkInt()).thenReturn(VERSION_Q);
 
-        mPermissionMonitor = spy(new PermissionMonitor(mContext, mNetdService, mDeps));
+        mPermissionMonitor = new PermissionMonitor(mContext, mNetdService, mDeps);
         mNetdMonitor = new NetdMonitor(mNetdService);
 
         when(mPackageManager.getInstalledPackages(anyInt())).thenReturn(/* empty app list */ null);
         mPermissionMonitor.startMonitoring();
-    }
-
-    private boolean hasRestrictedNetworkPermission(String partition, int targetSdkVersion, int uid,
-            String... permissions) {
-        return hasRestrictedNetworkPermission(
-                partition, targetSdkVersion, "" /* packageName */, uid, permissions);
     }
 
     private boolean hasRestrictedNetworkPermission(String partition, int targetSdkVersion,
@@ -223,11 +217,23 @@ public class PermissionMonitorTest {
 
     private static PackageInfo buildPackageInfo(String packageName, int uid,
             String... permissions) {
-        final PackageInfo pkgInfo;
-        pkgInfo = systemPackageInfoWithPermissions(permissions);
+        final PackageInfo pkgInfo = systemPackageInfoWithPermissions(permissions);
         pkgInfo.packageName = packageName;
         pkgInfo.applicationInfo.uid = uid;
         return pkgInfo;
+    }
+
+    private PackageInfo buildAndMockPackageInfoWithPermissions(String packageName, int uid,
+            String... permissions) throws Exception {
+        final PackageInfo packageInfo = buildPackageInfo(packageName, uid, permissions);
+        when(mPackageManager.getPackageInfo(eq(packageName), anyInt())).thenReturn(packageInfo);
+        when(mPackageManager.getPackagesForUid(eq(uid))).thenReturn(new String[]{packageName});
+        return packageInfo;
+    }
+
+    private void addPackage(String packageName, int uid, String... permissions) throws Exception {
+        buildAndMockPackageInfoWithPermissions(packageName, uid, permissions);
+        mPermissionMonitor.onPackageAdded(packageName, uid);
     }
 
     @Test
@@ -298,67 +304,77 @@ public class PermissionMonitorTest {
 
     @Test
     public void testHasRestrictedNetworkPermission() {
-        assertFalse(hasRestrictedNetworkPermission(PARTITION_SYSTEM, VERSION_P, MOCK_UID1));
         assertFalse(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_P, MOCK_UID1, CHANGE_NETWORK_STATE));
-        assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_P, MOCK_UID1, NETWORK_STACK));
+                PARTITION_SYSTEM, VERSION_P, MOCK_PACKAGE1, MOCK_UID1));
         assertFalse(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_P, MOCK_UID1, CONNECTIVITY_INTERNAL));
+                PARTITION_SYSTEM, VERSION_P, MOCK_PACKAGE1, MOCK_UID1, CHANGE_NETWORK_STATE));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_P, MOCK_UID1, CONNECTIVITY_USE_RESTRICTED_NETWORKS));
+                PARTITION_SYSTEM, VERSION_P, MOCK_PACKAGE1, MOCK_UID1, NETWORK_STACK));
         assertFalse(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_P, MOCK_UID1, CHANGE_WIFI_STATE));
+                PARTITION_SYSTEM, VERSION_P, MOCK_PACKAGE1, MOCK_UID1, CONNECTIVITY_INTERNAL));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_P, MOCK_UID1, PERMISSION_MAINLINE_NETWORK_STACK));
+                PARTITION_SYSTEM, VERSION_P, MOCK_PACKAGE1, MOCK_UID1,
+                CONNECTIVITY_USE_RESTRICTED_NETWORKS));
+        assertFalse(hasRestrictedNetworkPermission(
+                PARTITION_SYSTEM, VERSION_P, MOCK_PACKAGE1, MOCK_UID1, CHANGE_WIFI_STATE));
+        assertTrue(hasRestrictedNetworkPermission(
+                PARTITION_SYSTEM, VERSION_P, MOCK_PACKAGE1, MOCK_UID1,
+                PERMISSION_MAINLINE_NETWORK_STACK));
 
-        assertFalse(hasRestrictedNetworkPermission(PARTITION_SYSTEM, VERSION_Q, MOCK_UID1));
         assertFalse(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_Q, MOCK_UID1, CONNECTIVITY_INTERNAL));
+                PARTITION_SYSTEM, VERSION_Q, MOCK_PACKAGE1, MOCK_UID1));
+        assertFalse(hasRestrictedNetworkPermission(
+                PARTITION_SYSTEM, VERSION_Q, MOCK_PACKAGE1, MOCK_UID1, CONNECTIVITY_INTERNAL));
     }
 
     @Test
     public void testHasRestrictedNetworkPermissionSystemUid() {
         doReturn(VERSION_P).when(mDeps).getDeviceFirstSdkInt();
-        assertTrue(hasRestrictedNetworkPermission(PARTITION_SYSTEM, VERSION_P, SYSTEM_UID));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_P, SYSTEM_UID, CONNECTIVITY_INTERNAL));
+                PARTITION_SYSTEM, VERSION_P, SYSTEM_PACKAGE1, SYSTEM_UID));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_P, SYSTEM_UID, CONNECTIVITY_USE_RESTRICTED_NETWORKS));
+                PARTITION_SYSTEM, VERSION_P, SYSTEM_PACKAGE1, SYSTEM_UID, CONNECTIVITY_INTERNAL));
+        assertTrue(hasRestrictedNetworkPermission(
+                PARTITION_SYSTEM, VERSION_P, SYSTEM_PACKAGE1, SYSTEM_UID,
+                CONNECTIVITY_USE_RESTRICTED_NETWORKS));
 
         doReturn(VERSION_Q).when(mDeps).getDeviceFirstSdkInt();
-        assertFalse(hasRestrictedNetworkPermission(PARTITION_SYSTEM, VERSION_Q, SYSTEM_UID));
         assertFalse(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_Q, SYSTEM_UID, CONNECTIVITY_INTERNAL));
+                PARTITION_SYSTEM, VERSION_Q, SYSTEM_PACKAGE1, SYSTEM_UID));
+        assertFalse(hasRestrictedNetworkPermission(
+                PARTITION_SYSTEM, VERSION_Q, SYSTEM_PACKAGE1, SYSTEM_UID, CONNECTIVITY_INTERNAL));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_SYSTEM, VERSION_Q, SYSTEM_UID, CONNECTIVITY_USE_RESTRICTED_NETWORKS));
+                PARTITION_SYSTEM, VERSION_Q, SYSTEM_PACKAGE1, SYSTEM_UID,
+                CONNECTIVITY_USE_RESTRICTED_NETWORKS));
     }
 
     @Test
     public void testHasRestrictedNetworkPermissionVendorApp() {
-        assertTrue(hasRestrictedNetworkPermission(PARTITION_VENDOR, VERSION_P, MOCK_UID1));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_VENDOR, VERSION_P, MOCK_UID1, CHANGE_NETWORK_STATE));
+                PARTITION_VENDOR, VERSION_P, MOCK_PACKAGE1, MOCK_UID1));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_VENDOR, VERSION_P, MOCK_UID1, NETWORK_STACK));
+                PARTITION_VENDOR, VERSION_P, MOCK_PACKAGE1, MOCK_UID1, CHANGE_NETWORK_STATE));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_VENDOR, VERSION_P, MOCK_UID1, CONNECTIVITY_INTERNAL));
+                PARTITION_VENDOR, VERSION_P, MOCK_PACKAGE1, MOCK_UID1, NETWORK_STACK));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_VENDOR, VERSION_P, MOCK_UID1, CONNECTIVITY_USE_RESTRICTED_NETWORKS));
+                PARTITION_VENDOR, VERSION_P, MOCK_PACKAGE1, MOCK_UID1, CONNECTIVITY_INTERNAL));
         assertTrue(hasRestrictedNetworkPermission(
-                PARTITION_VENDOR, VERSION_P, MOCK_UID1, CHANGE_WIFI_STATE));
+                PARTITION_VENDOR, VERSION_P, MOCK_PACKAGE1, MOCK_UID1,
+                CONNECTIVITY_USE_RESTRICTED_NETWORKS));
+        assertTrue(hasRestrictedNetworkPermission(
+                PARTITION_VENDOR, VERSION_P, MOCK_PACKAGE1, MOCK_UID1, CHANGE_WIFI_STATE));
 
-        assertFalse(hasRestrictedNetworkPermission(PARTITION_VENDOR, VERSION_Q, MOCK_UID1));
         assertFalse(hasRestrictedNetworkPermission(
-                PARTITION_VENDOR, VERSION_Q, MOCK_UID1, CONNECTIVITY_INTERNAL));
+                PARTITION_VENDOR, VERSION_Q, MOCK_PACKAGE1, MOCK_UID1));
         assertFalse(hasRestrictedNetworkPermission(
-                PARTITION_VENDOR, VERSION_Q, MOCK_UID1, CHANGE_NETWORK_STATE));
+                PARTITION_VENDOR, VERSION_Q, MOCK_PACKAGE1, MOCK_UID1, CONNECTIVITY_INTERNAL));
+        assertFalse(hasRestrictedNetworkPermission(
+                PARTITION_VENDOR, VERSION_Q, MOCK_PACKAGE1, MOCK_UID1, CHANGE_NETWORK_STATE));
     }
 
     @Test
     public void testHasRestrictedNetworkPermissionUidAllowedOnRestrictedNetworks() {
-        mPermissionMonitor.updateUidsAllowedOnRestrictedNetworks(
-                new ArraySet<>(new Integer[] { MOCK_UID1 }));
+        mPermissionMonitor.updateUidsAllowedOnRestrictedNetworks(Set.of(MOCK_UID1));
         assertTrue(hasRestrictedNetworkPermission(
                 PARTITION_VENDOR, VERSION_Q, MOCK_PACKAGE1, MOCK_UID1));
         assertTrue(hasRestrictedNetworkPermission(
@@ -441,10 +457,7 @@ public class PermissionMonitorTest {
 
     private void assertBackgroundPermission(boolean hasPermission, String name, int uid,
             String... permissions) throws Exception {
-        when(mPackageManager.getPackageInfo(eq(name), anyInt()))
-                .thenReturn(packageInfoWithPermissions(
-                        REQUESTED_PERMISSION_GRANTED, permissions, PARTITION_SYSTEM));
-        mPermissionMonitor.onPackageAdded(name, uid);
+        addPackage(name, uid, permissions);
         assertEquals(hasPermission, mPermissionMonitor.hasUseBackgroundNetworksPermission(uid));
     }
 
@@ -556,13 +569,10 @@ public class PermissionMonitorTest {
         // MOCK_UID1: MOCK_PACKAGE1 only has network permission.
         // SYSTEM_UID: SYSTEM_PACKAGE1 has system permission.
         // SYSTEM_UID: SYSTEM_PACKAGE2 only has network permission.
-        doReturn(SYSTEM).when(mPermissionMonitor).highestPermissionForUid(any(),
-                eq(SYSTEM_PACKAGE1));
-        doReturn(NETWORK).when(mPermissionMonitor).highestPermissionForUid(any(),
-                eq(SYSTEM_PACKAGE2));
-        doReturn(NETWORK).when(mPermissionMonitor).highestPermissionForUid(any(),
-                eq(MOCK_PACKAGE1));
-        doReturn(SYSTEM).when(mPermissionMonitor).highestPermissionForUid(eq(SYSTEM), anyString());
+        buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE1, MOCK_UID1, CHANGE_NETWORK_STATE);
+        buildAndMockPackageInfoWithPermissions(SYSTEM_PACKAGE1, SYSTEM_UID,
+                CONNECTIVITY_USE_RESTRICTED_NETWORKS);
+        buildAndMockPackageInfoWithPermissions(SYSTEM_PACKAGE2, SYSTEM_UID, CHANGE_NETWORK_STATE);
 
         // Add SYSTEM_PACKAGE2, expect only have network permission.
         mPermissionMonitor.onUserAdded(MOCK_USER1);
@@ -603,7 +613,6 @@ public class PermissionMonitorTest {
                 .thenReturn(new String[]{});
         when(mPackageManager.getPackagesForUid(MOCK_USER2.getUid(MOCK_UID1)))
                 .thenReturn(new String[]{});
-        mPermissionMonitor.onPackageRemoved(MOCK_PACKAGE1, MOCK_UID1);
         removePackageForUsers(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_PACKAGE1, MOCK_UID1);
         mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_UID1);
 
@@ -751,41 +760,23 @@ public class PermissionMonitorTest {
         mNetdMonitor.expectTrafficPerm(PERMISSION_NONE, SYSTEM_UID1);
     }
 
-    private PackageInfo setPackagePermissions(String packageName, int uid, String[] permissions)
-            throws Exception {
-        PackageInfo packageInfo = packageInfoWithPermissions(
-                REQUESTED_PERMISSION_GRANTED, permissions, PARTITION_SYSTEM);
-        when(mPackageManager.getPackageInfo(eq(packageName), anyInt())).thenReturn(packageInfo);
-        when(mPackageManager.getPackagesForUid(eq(uid))).thenReturn(new String[]{packageName});
-        return packageInfo;
-    }
-
-    private PackageInfo addPackage(String packageName, int uid, String[] permissions)
-            throws Exception {
-        PackageInfo packageInfo = setPackagePermissions(packageName, uid, permissions);
-        mPermissionMonitor.onPackageAdded(packageName, uid);
-        return packageInfo;
-    }
-
     @Test
     public void testPackageInstall() throws Exception {
-        addPackage(MOCK_PACKAGE1, MOCK_UID1, new String[] {INTERNET, UPDATE_DEVICE_STATS});
+        addPackage(MOCK_PACKAGE1, MOCK_UID1, INTERNET, UPDATE_DEVICE_STATS);
         mNetdMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_UID1);
 
-        addPackage(MOCK_PACKAGE2, MOCK_UID2, new String[] {INTERNET});
+        addPackage(MOCK_PACKAGE2, MOCK_UID2, INTERNET);
         mNetdMonitor.expectTrafficPerm(PERMISSION_INTERNET, MOCK_UID2);
     }
 
     @Test
     public void testPackageInstallSharedUid() throws Exception {
-        PackageInfo packageInfo1 = addPackage(MOCK_PACKAGE1, MOCK_UID1,
-                new String[] {INTERNET, UPDATE_DEVICE_STATS});
+        addPackage(MOCK_PACKAGE1, MOCK_UID1, INTERNET, UPDATE_DEVICE_STATS);
         mNetdMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_UID1);
 
         // Install another package with the same uid and no permissions should not cause the UID to
         // lose permissions.
-        PackageInfo packageInfo2 = systemPackageInfoWithPermissions();
-        when(mPackageManager.getPackageInfo(eq(MOCK_PACKAGE2), anyInt())).thenReturn(packageInfo2);
+        buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE2, MOCK_UID1);
         when(mPackageManager.getPackagesForUid(MOCK_UID1))
               .thenReturn(new String[]{MOCK_PACKAGE1, MOCK_PACKAGE2});
         mPermissionMonitor.onPackageAdded(MOCK_PACKAGE2, MOCK_UID1);
@@ -794,7 +785,7 @@ public class PermissionMonitorTest {
 
     @Test
     public void testPackageUninstallBasic() throws Exception {
-        addPackage(MOCK_PACKAGE1, MOCK_UID1, new String[] {INTERNET, UPDATE_DEVICE_STATS});
+        addPackage(MOCK_PACKAGE1, MOCK_UID1, INTERNET, UPDATE_DEVICE_STATS);
         mNetdMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_UID1);
 
         when(mPackageManager.getPackagesForUid(MOCK_UID1)).thenReturn(new String[]{});
@@ -804,36 +795,33 @@ public class PermissionMonitorTest {
 
     @Test
     public void testPackageRemoveThenAdd() throws Exception {
-        addPackage(MOCK_PACKAGE1, MOCK_UID1, new String[] {INTERNET, UPDATE_DEVICE_STATS});
+        addPackage(MOCK_PACKAGE1, MOCK_UID1, INTERNET, UPDATE_DEVICE_STATS);
         mNetdMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_UID1);
 
         when(mPackageManager.getPackagesForUid(MOCK_UID1)).thenReturn(new String[]{});
         mPermissionMonitor.onPackageRemoved(MOCK_PACKAGE1, MOCK_UID1);
         mNetdMonitor.expectTrafficPerm(PERMISSION_UNINSTALLED, MOCK_UID1);
 
-        addPackage(MOCK_PACKAGE1, MOCK_UID1, new String[] {INTERNET});
+        addPackage(MOCK_PACKAGE1, MOCK_UID1, INTERNET);
         mNetdMonitor.expectTrafficPerm(PERMISSION_INTERNET, MOCK_UID1);
     }
 
     @Test
     public void testPackageUpdate() throws Exception {
-        addPackage(MOCK_PACKAGE1, MOCK_UID1, new String[] {});
+        addPackage(MOCK_PACKAGE1, MOCK_UID1);
         mNetdMonitor.expectTrafficPerm(PERMISSION_NONE, MOCK_UID1);
 
-        addPackage(MOCK_PACKAGE1, MOCK_UID1, new String[] {INTERNET});
+        addPackage(MOCK_PACKAGE1, MOCK_UID1, INTERNET);
         mNetdMonitor.expectTrafficPerm(PERMISSION_INTERNET, MOCK_UID1);
     }
 
     @Test
     public void testPackageUninstallWithMultiplePackages() throws Exception {
-        addPackage(MOCK_PACKAGE1, MOCK_UID1, new String[] {INTERNET, UPDATE_DEVICE_STATS});
+        addPackage(MOCK_PACKAGE1, MOCK_UID1, INTERNET, UPDATE_DEVICE_STATS);
         mNetdMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_UID1);
 
         // Mock another package with the same uid but different permissions.
-        PackageInfo packageInfo2 = systemPackageInfoWithPermissions(INTERNET);
-        when(mPackageManager.getPackageInfo(eq(MOCK_PACKAGE2), anyInt())).thenReturn(packageInfo2);
-        when(mPackageManager.getPackagesForUid(MOCK_UID1)).thenReturn(new String[]{
-                MOCK_PACKAGE2});
+        buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE2, MOCK_UID1, INTERNET);
 
         mPermissionMonitor.onPackageRemoved(MOCK_PACKAGE1, MOCK_UID1);
         mNetdMonitor.expectTrafficPerm(PERMISSION_INTERNET, MOCK_UID1);
@@ -888,8 +876,8 @@ public class PermissionMonitorTest {
         final Intent addedIntent = new Intent(Intent.ACTION_PACKAGE_ADDED,
                 Uri.fromParts("package", MOCK_PACKAGE1, null /* fragment */));
         addedIntent.putExtra(Intent.EXTRA_UID, MOCK_UID1);
-        setPackagePermissions(MOCK_PACKAGE1, MOCK_UID1,
-                new String[] { INTERNET, UPDATE_DEVICE_STATS });
+        buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE1, MOCK_UID1, INTERNET,
+                UPDATE_DEVICE_STATS);
         receiver.onReceive(mContext, addedIntent);
         mNetdMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_UID1);
 
@@ -908,13 +896,6 @@ public class PermissionMonitorTest {
         verify(mDeps).registerContentObserver(any(),
                 argThat(uri -> uri.equals(expectedUri)), anyBoolean(), captor.capture());
         return captor.getValue();
-    }
-
-    private void buildAndMockPackageInfoWithPermissions(String packageName, int uid,
-            String... permissions) throws Exception {
-        final PackageInfo packageInfo = setPackagePermissions(packageName, uid, permissions);
-        packageInfo.packageName = packageName;
-        packageInfo.applicationInfo.uid = uid;
     }
 
     @Test
