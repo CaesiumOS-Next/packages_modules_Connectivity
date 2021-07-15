@@ -134,21 +134,21 @@ public class EthernetTetheringTest {
     }
 
     private void cleanUp() throws Exception {
-        mTm.stopTethering(TETHERING_ETHERNET);
-        if (mTetheringEventCallback != null) {
-            mTetheringEventCallback.awaitInterfaceUntethered();
-            mTetheringEventCallback.unregister();
-            mTetheringEventCallback = null;
-        }
         if (mTapPacketReader != null) {
             TapPacketReader reader = mTapPacketReader;
             mHandler.post(() -> reader.stop());
             mTapPacketReader = null;
         }
+
+        maybeDeleteTestInterface();
+        if (mTetheringEventCallback != null) {
+            mTetheringEventCallback.awaitInterfaceUntethered();
+            mTetheringEventCallback.unregister();
+            mTetheringEventCallback = null;
+        }
         mHandlerThread.quitSafely();
         mTetheredInterfaceRequester.release();
         mEm.setIncludeTestInterfaces(false);
-        maybeDeleteTestInterface();
     }
 
     @After
