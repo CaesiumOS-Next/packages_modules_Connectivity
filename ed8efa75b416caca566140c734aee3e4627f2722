@@ -22,6 +22,30 @@
       },
       "revId": "ed8efa75b416caca566140c734aee3e4627f2722",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cedf129_553a9b6f",
+        "filename": "service/jarjar-rules.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-15T05:15:14Z",
+      "side": 1,
+      "message": "(don\u0027t have to address, marking resolved)",
+      "parentUuid": "193cd103_b78790ae",
+      "range": {
+        "startLine": 13,
+        "startChar": 36,
+        "endLine": 13,
+        "endChar": 37
+      },
+      "revId": "ed8efa75b416caca566140c734aee3e4627f2722",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
