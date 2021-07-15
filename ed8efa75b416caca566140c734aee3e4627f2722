@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "193cd103_b78790ae",
+        "filename": "service/jarjar-rules.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-15T05:14:46Z",
+      "side": 1,
+      "message": "I fear this may easily match unrelated classes in the same package – in fact it matches StateMachine already.\n\nAs discussed offline, this can only be a problem if the class in question happens to also be embarked by a test sharing this jarjar file, and it would fail at test time, so we can live with this – we should quickly notice any issue.",
+      "range": {
+        "startLine": 13,
+        "startChar": 36,
+        "endLine": 13,
+        "endChar": 37
+      },
+      "revId": "ed8efa75b416caca566140c734aee3e4627f2722",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
