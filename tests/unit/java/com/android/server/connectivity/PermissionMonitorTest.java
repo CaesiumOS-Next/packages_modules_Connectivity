@@ -58,7 +58,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -1135,5 +1137,47 @@ public class PermissionMonitorTest {
         receiver.onReceive(mContext, externalIntent);
         mNetdMonitor.expectNetworkPerm(SYSTEM, new UserHandle[]{MOCK_USER1}, MOCK_APPID1);
         mNetdMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, MOCK_APPID1);
+    }
+
+    @Test
+    public void testUidsAllowedOnRestrictedNetworksChanged_InvalidSettings() throws Exception {
+        final ContentObserver contentObserver = expectRegisterContentObserver(
+                Settings.Global.getUriFor(UIDS_ALLOWED_ON_RESTRICTED_NETWORKS));
+
+        // Add user MOCK_USER1
+        mPermissionMonitor.onUserAdded(MOCK_USER1);
+        // Prepare PackageInfo for MOCK_PACKAGE1 which uid is MOCK_UID1.
+        buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE1, MOCK_UID1);
+
+        // MOCK_UID1 is listed in setting that allow to use restricted networks, MOCK_UID1 should
+        // have SYSTEM permission.
+        doReturn(Set.of(MOCK_UID1)).when(mDeps).getUidsAllowedOnRestrictedNetworks(any());
+        contentObserver.onChange(true /* selfChange */);
+        mNetdMonitor.expectNetworkPerm(SYSTEM, new UserHandle[]{MOCK_USER1}, MOCK_APPID1);
+
+        // Reset the netd service state to verify the exception throwing situation below.
+        reset(mNetdService);
+
+        // Throw NumberFormatException when get invalid UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting.
+        // Then verify the setting change will be skipped, and netd should not have any adding or
+        // removing operations.
+        doThrow(new NumberFormatException()).when(mDeps).getUidsAllowedOnRestrictedNetworks(any());
+        contentObserver.onChange(true /* selfChange */);
+        verify(mNetdService, never()).networkSetPermissionForUser(anyInt(), any());
+        verify(mNetdService, never()).networkClearPermissionForUser(any());
+    }
+
+    @Test
+    public void testStartMonitoring_InvalidSettings() throws Exception {
+        // Throw NumberFormatException when get invalid UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting.
+        // Then verify the startMonitoring() is still working.
+        doThrow(new NumberFormatException()).when(mDeps).getUidsAllowedOnRestrictedNetworks(any());
+        doReturn(List.of(MOCK_USER1)).when(mUserManager).getUserHandles(eq(true));
+        doReturn(List.of(buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1), buildPackageInfo(MOCK_PACKAGE2,
+                MOCK_UID2, CHANGE_NETWORK_STATE))).when(mPackageManager).getInstalledPackages(
+                        eq(GET_PERMISSIONS | MATCH_ANY_USER));
+        mPermissionMonitor.startMonitoring();
+        mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1}, MOCK_APPID1);
+        mNetdMonitor.expectNetworkPerm(NETWORK, new UserHandle[]{MOCK_USER1}, MOCK_APPID2);
     }
 }
