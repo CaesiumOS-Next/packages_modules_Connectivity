@@ -242,7 +242,12 @@ public class PermissionMonitor {
 
         // Read UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting and update
         // mUidsAllowedOnRestrictedNetworks.
-        updateUidsAllowedOnRestrictedNetworks(mDeps.getUidsAllowedOnRestrictedNetworks(mContext));
+        try {
+            updateUidsAllowedOnRestrictedNetworks(
+                    mDeps.getUidsAllowedOnRestrictedNetworks(mContext));
+        } catch (NumberFormatException e) {
+            loge("Invalid UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting.");
+        }
 
         List<PackageInfo> apps = mPackageManager.getInstalledPackages(GET_PERMISSIONS
                 | MATCH_ANY_USER);
@@ -806,7 +811,13 @@ public class PermissionMonitor {
         // Step1. Update uids allowed to use restricted networks and compute the set of uids to
         // update.
         final Set<Integer> uidsToUpdate = new ArraySet<>(mUidsAllowedOnRestrictedNetworks);
-        updateUidsAllowedOnRestrictedNetworks(mDeps.getUidsAllowedOnRestrictedNetworks(mContext));
+        try {
+            updateUidsAllowedOnRestrictedNetworks(
+                    mDeps.getUidsAllowedOnRestrictedNetworks(mContext));
+        } catch (NumberFormatException e) {
+            loge("Invalid UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting. Ignore this change.");
+            return;
+        }
         uidsToUpdate.addAll(mUidsAllowedOnRestrictedNetworks);
 
         final Map<Integer, Boolean> updatedUids = new HashMap<>();
