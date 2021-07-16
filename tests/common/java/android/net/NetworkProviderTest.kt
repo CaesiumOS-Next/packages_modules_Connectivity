@@ -30,7 +30,9 @@ import android.os.HandlerThread
 import android.os.Looper
 import android.util.Log
 import androidx.test.InstrumentationRegistry
+import com.android.modules.utils.build.SdkLevel.isAtLeastT
 import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.DeviceConfigUtils.getModuleVersion
 import com.android.testutils.CompatUtil
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter
@@ -58,7 +60,8 @@ private const val DEFAULT_NO_CALLBACK_TIMEOUT_MS = 200L
 private val instrumentation: Instrumentation
     get() = InstrumentationRegistry.getInstrumentation()
 private val context: Context get() = InstrumentationRegistry.getContext()
-private val PROVIDER_NAME = "NetworkProviderTest"
+private const val PROVIDER_NAME = "NetworkProviderTest"
+private const val UNSATISFYING_OFFER_UNNEEDED_VERSION = 310900000L
 
 @RunWith(DevSdkIgnoreRunner::class)
 @IgnoreUpTo(Build.VERSION_CODES.Q)
@@ -315,7 +318,13 @@ class NetworkProviderTest {
                 LinkProperties(), scoreWeaker, config, provider) {}
         agent.register()
         agent.markConnected()
-        offerCallback1.assertNoCallback()  // Still unneeded.
+        if (isAtLeastT() || getModuleVersion(
+                        context, "com.android.tethering") >= UNSATISFYING_OFFER_UNNEEDED_VERSION) {
+            offerCallback1.assertNoCallback() // Still unneeded.
+        } else {
+            // In S with non-updated connectivity, offer 1 was considered as needed
+            offerCallback1.expectOnNetworkNeeded(ncFilter2)
+        }
         offerCallback2.assertNoCallback()  // Still needed.
         offerCallback3.assertNoCallback()  // Still needed.
         offerCallback4.expectOnNetworkUnneeded(ncFilter4)
