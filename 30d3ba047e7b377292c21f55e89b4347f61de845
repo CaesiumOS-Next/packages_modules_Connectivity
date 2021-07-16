@@ -16,6 +16,29 @@
       "message": "Manual copy of ag/13810270; files changed projects in the meantime, so a manual copy was required.",
       "revId": "30d3ba047e7b377292c21f55e89b4347f61de845",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01165ac8_39c3b820",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 9539,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-16T03:29:04Z",
+      "side": 1,
+      "message": "As I wrote on the internal change, the internal change has a blank line here. It\u0027s fine updating this change, or it\u0027s fine updating that change, or to do a followup here, but I\u0027d like to do either of these to avoid conflicts",
+      "range": {
+        "startLine": 9539,
+        "startChar": 0,
+        "endLine": 9539,
+        "endChar": 70
+      },
+      "revId": "30d3ba047e7b377292c21f55e89b4347f61de845",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
