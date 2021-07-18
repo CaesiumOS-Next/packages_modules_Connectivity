@@ -2881,6 +2881,9 @@ public class ConnectivityManagerTest {
         //  setUidsAllowedOnRestrictedNetworks that allows tests but not system-external callers.
         assumeTrue(Build.isDebuggable());
 
+        // TODO (b/192431153): fix the issue and let test can run with secondary user.
+        assumeTrue(mContext.getUser().isSystem());
+
         final int uid = mPackageManager.getPackageUid(mContext.getPackageName(), 0 /* flag */);
         final Set<Integer> originalUidsAllowedOnRestrictedNetworks =
                 ConnectivitySettingsManager.getUidsAllowedOnRestrictedNetworks(mContext);
