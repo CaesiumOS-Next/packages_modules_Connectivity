@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a723184_aaa3bd83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-19T10:42:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf53b026_79435956",
+      "range": {
+        "startLine": 9,
+        "startChar": 44,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "405e473a128f8211cd37ed70f0cd33e01165cbf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9d67800_60554c52",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-19T09:52:32Z",
       "side": 1,
       "message": "In this case, the",
+      "range": {
+        "startLine": 12,
+        "startChar": 34,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "405e473a128f8211cd37ed70f0cd33e01165cbf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af01b3a1_088daeb3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-19T10:42:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9d67800_60554c52",
       "range": {
         "startLine": 12,
         "startChar": 34,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "facf4875_33eb7dc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-19T10:42:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63c96687_45e9a728",
+      "range": {
+        "startLine": 13,
+        "startChar": 28,
+        "endLine": 13,
+        "endChar": 47
+      },
+      "revId": "405e473a128f8211cd37ed70f0cd33e01165cbf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de2370b9_a2549b67",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-07-19T09:52:32Z",
       "side": 1,
       "message": "What error message does this print? Just a simple stack trace with a TimeoutException? If so, that seems difficult to debug. Is it possible to have a better failure message? Or is that not possible due to the way that this code uses CompletableFuture? Maybe you could catch the TimeoutException and re-throw it with a better error message? Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 199,
+        "startChar": 26,
+        "endLine": 199,
+        "endChar": 29
+      },
+      "revId": "405e473a128f8211cd37ed70f0cd33e01165cbf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29bf0087_a9e73c43",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-19T10:42:36Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "de2370b9_a2549b67",
       "range": {
         "startLine": 199,
         "startChar": 26,
