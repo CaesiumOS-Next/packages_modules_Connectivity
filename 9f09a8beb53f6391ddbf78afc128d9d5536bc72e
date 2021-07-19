@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10394281_65bf8540",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-19T03:32:56Z",
+      "side": 1,
+      "message": "I think specifying the flaky test and using --rerun-until-failure  can save you more time.\nSomething like:\n\"atest CtsNetTestCases:ConnectivityManagerTest#testBlockedStatusCallback --rerun-until-failure 20\"\nand\n\"atest CtsNetTestCases:ConnectivityManagerTest#testSetAvoidUnvalidated --rerun-until-failure 20\"",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "9f09a8beb53f6391ddbf78afc128d9d5536bc72e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
