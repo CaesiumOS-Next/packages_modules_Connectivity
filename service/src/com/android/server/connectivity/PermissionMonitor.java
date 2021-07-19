@@ -281,7 +281,10 @@ public class PermissionMonitor {
     @VisibleForTesting
     synchronized void updateUidsAllowedOnRestrictedNetworks(final Set<Integer> uids) {
         mUidsAllowedOnRestrictedNetworks.clear();
-        mUidsAllowedOnRestrictedNetworks.addAll(uids);
+        // TODO (b/192431153): Change appIds back to uids.
+        for (int uid : uids) {
+            mUidsAllowedOnRestrictedNetworks.add(UserHandle.getAppId(uid));
+        }
     }
 
     @VisibleForTesting
