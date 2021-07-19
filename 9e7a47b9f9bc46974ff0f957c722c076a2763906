@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26e9a360_bab6b6f4",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-19T02:23:25Z",
+      "side": 1,
+      "message": "Question: Does this imply we\u0027ll need a version constant per bug fix that changes test? This sounds scary to me.",
+      "range": {
+        "startLine": 64,
+        "startChar": 18,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "9e7a47b9f9bc46974ff0f957c722c076a2763906",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0b38feb_80b36791",
+        "filename": "tests/common/java/android/net/NetworkProviderTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-19T02:23:25Z",
+      "side": 1,
+      "message": "Maybe add comment for why we check tethering package name?",
+      "range": {
+        "startLine": 322,
+        "startChar": 34,
+        "endLine": 322,
+        "endChar": 56
+      },
+      "revId": "9e7a47b9f9bc46974ff0f957c722c076a2763906",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
