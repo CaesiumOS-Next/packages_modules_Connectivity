@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b2f31db_dc4976f8",
+        "filename": "tests/cts/hostside/app/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-19T07:16:13Z",
+      "side": 1,
+      "message": "China (capital)",
+      "range": {
+        "startLine": 34,
+        "startChar": 84,
+        "endLine": 34,
+        "endChar": 89
+      },
+      "revId": "9a063e1cdbaae9cd3e5e7bb41908f17dae84fc63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41d6b784_2d238b55",
+        "filename": "tests/cts/hostside/app/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-19T07:16:13Z",
+      "side": 1,
+      "message": "redirect to",
+      "range": {
+        "startLine": 34,
+        "startChar": 45,
+        "endLine": 34,
+        "endChar": 55
+      },
+      "revId": "9a063e1cdbaae9cd3e5e7bb41908f17dae84fc63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
