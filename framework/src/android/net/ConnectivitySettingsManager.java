@@ -1020,6 +1020,17 @@ public class ConnectivitySettingsManager {
         Settings.Secure.putString(context.getContentResolver(), MOBILE_DATA_PREFERRED_UIDS, uids);
     }
 
+    private static Set<Integer> getAppIdSetFromString(@Nullable String uidList) {
+        final Set<Integer> appIds = new ArraySet<>();
+        if (TextUtils.isEmpty(uidList)) {
+            return appIds;
+        }
+        for (String uid : uidList.split(";")) {
+            appIds.add(UserHandle.getAppId(Integer.valueOf(uid)));
+        }
+        return appIds;
+    }
+
     /**
      * Get the list of uids (from {@link Settings}) allowed to use restricted networks.
      *
@@ -1038,7 +1049,8 @@ public class ConnectivitySettingsManager {
     public static Set<Integer> getUidsAllowedOnRestrictedNetworks(@NonNull Context context) {
         final String uidList = Settings.Global.getString(
                 context.getContentResolver(), UIDS_ALLOWED_ON_RESTRICTED_NETWORKS);
-        return getUidSetFromString(uidList);
+        // TODO (b/192431153): Change appId back to uid when issue fixed on PermissionMonitor.
+        return getAppIdSetFromString(uidList);
     }
 
     private static boolean isCallingFromSystem() {
