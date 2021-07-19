@@ -22,6 +22,30 @@
       },
       "revId": "9f09a8beb53f6391ddbf78afc128d9d5536bc72e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9369541_fe55caaf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-19T03:36:46Z",
+      "side": 1,
+      "message": "Test may not be flaky with signal test, so I run the whole ConnectivityManagerTest. There is also other flaky test in ConnectivityManagerTest. If I use --rerun-until-failure, tests will stop due to other flaky which is not the target test to be fixed in this commit. Thus, I choose --iterations to check there is no such flaky happened.",
+      "parentUuid": "10394281_65bf8540",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "9f09a8beb53f6391ddbf78afc128d9d5536bc72e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
