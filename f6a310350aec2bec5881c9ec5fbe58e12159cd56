@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "554419e9_94b0200f",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-07-19T08:09:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89f7f50d_d14577a1",
+      "range": {
+        "startLine": 89,
+        "startChar": 33,
+        "endLine": 89,
+        "endChar": 40
+      },
+      "revId": "f6a310350aec2bec5881c9ec5fbe58e12159cd56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84534f7a_6feddb32",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de46eee2_2a21e4e0",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-07-19T08:09:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84534f7a_6feddb32",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 31
+      },
+      "revId": "f6a310350aec2bec5881c9ec5fbe58e12159cd56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0416e119_6d1d8562",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-07-19T04:18:49Z",
       "side": 1,
       "message": "After doing this, maybe also call dumpsys batterystats --write to make sure the settings are synced in the batterystats worker, before the events that should be recorded",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 31
+      },
+      "revId": "f6a310350aec2bec5881c9ec5fbe58e12159cd56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcaa3ac5_46f35445",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-07-19T08:09:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0416e119_6d1d8562",
       "range": {
         "startLine": 97,
         "startChar": 12,
