@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a56e424_3b121281",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-19T10:38:57Z",
+      "side": 1,
+      "message": "Can you please add an explanation of why this is necessary ? E.g.\n\n  This is necessary for the app id to match in isUidAllowedOnRestrictedNetworks,\n  and will grant the permission to all uids associated with the app ID. This is\n  safe even if the app is only installed on some users because the uid cannot\n  match some other app – this uid is in effect not installed and can\u0027t be run.\n  TODO ...",
+      "range": {
+        "startLine": 284,
+        "startChar": 57,
+        "endLine": 284,
+        "endChar": 58
+      },
+      "revId": "e2883cfc28a6eb2b5ded243165283ffbc91571bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
