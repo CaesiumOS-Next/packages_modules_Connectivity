@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f166e23_29fd6887",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-19T08:37:27Z",
+      "side": 1,
+      "message": "Presumably, yes. It happens often in the tests that requires a wifi network, and the IPv6 address available later than v4. The case happened less in the cellular network and test network(not happen?). So I updated only those flaky ones. If we see further flakes in other cases, we may also replace the call to assertNoCallbackThat",
+      "parentUuid": "2e2f9a03_04b161bb",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "9f09a8beb53f6391ddbf78afc128d9d5536bc72e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "10394281_65bf8540",
@@ -84,6 +108,30 @@
       "writtenOn": "2021-07-19T07:36:05Z",
       "side": 1,
       "message": "Available would mean the WiFi network has disconnected and reconnected. I think there are other failure modes, so we should also make sure we don\u0027t have an update to the capabilities. You could write\n\n  c -\u003e c instanceof Available || c instanceof CapabilitiesChanged\n\nor even\n\n  c -\u003e !(c instanceof LinkPropertiesChanged)",
+      "range": {
+        "startLine": 2646,
+        "startChar": 52,
+        "endLine": 2646,
+        "endChar": 61
+      },
+      "revId": "9f09a8beb53f6391ddbf78afc128d9d5536bc72e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c525391a_b73a2bd7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2646,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-19T08:37:27Z",
+      "side": 1,
+      "message": "Update to c -\u003e !(c instanceof LinkPropertiesChanged)",
+      "parentUuid": "f0a73216_4317f6f9",
       "range": {
         "startLine": 2646,
         "startChar": 52,
