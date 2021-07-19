@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b6b4b52d_508960b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-19T11:18:05Z",
+      "side": 1,
+      "message": "Okay. If that happens maybe we will want more generic tools like TestNetworkCallback#assertNoCallbackButLinkProp(), or some optional flag to the constructor of TestNetworkCallback.\n\nI think it\u0027s not easy for a random developer to know for sure what kind of callback they should expect *not* to be called in a particular call site.",
+      "parentUuid": "9f166e23_29fd6887",
+      "range": {
+        "startLine": 12,
+        "startChar": 15,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "9f09a8beb53f6391ddbf78afc128d9d5536bc72e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "10394281_65bf8540",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
