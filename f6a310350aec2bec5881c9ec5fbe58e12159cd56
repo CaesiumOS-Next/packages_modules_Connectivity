@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89f7f50d_d14577a1",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-19T04:18:49Z",
+      "side": 1,
+      "message": "This is a shell command, not in dump(); should it be \"cmd battery unplug\" ? Also for \"set status\" below",
+      "range": {
+        "startLine": 89,
+        "startChar": 33,
+        "endLine": 89,
+        "endChar": 40
+      },
+      "revId": "f6a310350aec2bec5881c9ec5fbe58e12159cd56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84534f7a_6feddb32",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-19T04:18:49Z",
+      "side": 1,
+      "message": "This (and the command above) will schedule an update of status to BatteryStats in its own Worker: \n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/BatteryService.java;drc\u003dbe26ce76b76441782ce63b61ce1198192da8ab1b;l\u003d495\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/am/BatteryStatsService.java;drc\u003d1956f4c7003492f868aa824e09d7fd432866afe0;l\u003d1231\n\nBut \"pretend-screen-off\" or \"--reset\" below seem to be applied outside of that Worker; so it may be done before or after \"unplug\" or \"set status\" are applied I think. This could be a source of flakes.\n\nTo be safe, I think it would be better to make sure the batterystats are synced (the worker is done processing) before calling pretend-screen-off. I think this can be done with: dumpsys batterystats --write:\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/am/BatteryStatsService.java;drc\u003d1956f4c7003492f868aa824e09d7fd432866afe0;l\u003d1469\n\nAs it calls \"syncStats\" which will wait for the Worker to finish the task before continuing.",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 31
+      },
+      "revId": "f6a310350aec2bec5881c9ec5fbe58e12159cd56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0416e119_6d1d8562",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-19T04:18:49Z",
+      "side": 1,
+      "message": "After doing this, maybe also call dumpsys batterystats --write to make sure the settings are synced in the batterystats worker, before the events that should be recorded",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 31
+      },
+      "revId": "f6a310350aec2bec5881c9ec5fbe58e12159cd56",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
