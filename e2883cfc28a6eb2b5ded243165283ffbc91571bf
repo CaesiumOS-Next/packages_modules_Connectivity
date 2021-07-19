@@ -22,6 +22,30 @@
       },
       "revId": "e2883cfc28a6eb2b5ded243165283ffbc91571bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7888286_adf571d0",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-19T10:52:53Z",
+      "side": 1,
+      "message": "Done. Thanks for your comments.",
+      "parentUuid": "8a56e424_3b121281",
+      "range": {
+        "startLine": 284,
+        "startChar": 57,
+        "endLine": 284,
+        "endChar": 58
+      },
+      "revId": "e2883cfc28a6eb2b5ded243165283ffbc91571bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
