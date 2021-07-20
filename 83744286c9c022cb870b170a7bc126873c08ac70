@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ba2ee10_d679ae0a",
+        "filename": "Tethering/jni/android_net_util_TetheringUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-20T07:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "945fd101_b934cef3",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "83744286c9c022cb870b170a7bc126873c08ac70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b3bb9a0_249498fe",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-07-19T15:26:31Z",
       "side": 1,
       "message": "nit: maybe just call it \"error\" as:\n\nhttps://source.corp.google.com/aosp-nougat/libcore/luni/src/main/native/JniException.cpp;l\u003d31\nlibcore/luni/src/main/native/JniException.h\nvoid jniThrowSocketException(JNIEnv* env, int error);",
+      "range": {
+        "startLine": 47,
+        "startChar": 63,
+        "endLine": 47,
+        "endChar": 75
+      },
+      "revId": "83744286c9c022cb870b170a7bc126873c08ac70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89bd44b6_3d83b16a",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-20T07:10:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b3bb9a0_249498fe",
       "range": {
         "startLine": 47,
         "startChar": 63,
