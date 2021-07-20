@@ -18,6 +18,7 @@ package com.android.server.connectivity
 
 import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_VCN
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkScore.KEEP_CONNECTED_NONE
 import android.net.NetworkScore.POLICY_EXITING
@@ -168,5 +169,19 @@ class NetworkRankerTest {
                         POLICY_EXITING), caps(TRANSPORT_WIFI))
         )
         assertEquals(winner, mRanker.getBestNetworkByPolicy(scores, null))
+    }
+
+    @Test
+    fun testCellularYieldsToVcn() {
+        // VCN wins over existing cellular
+        val vcn = TestScore(score(POLICY_IS_VALIDATED),
+                NetworkCapabilities.Builder()
+                        .addTransportType(TRANSPORT_CELLULAR)
+                        .addTransportType(TRANSPORT_VCN)
+                        .build())
+        val cell = TestScore(score(POLICY_IS_VALIDATED), caps(TRANSPORT_CELLULAR))
+        val scores = listOf(vcn, cell)
+
+        assertEquals(vcn, mRanker.getBestNetworkByPolicy(scores, cell))
     }
 }

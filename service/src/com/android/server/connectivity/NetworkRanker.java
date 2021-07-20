@@ -19,6 +19,7 @@ package com.android.server.connectivity;
 import static android.net.NetworkCapabilities.TRANSPORT_BLUETOOTH;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
+import static android.net.NetworkCapabilities.TRANSPORT_VCN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkScore.POLICY_EXITING;
 import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
@@ -86,7 +87,7 @@ public class NetworkRanker {
 
     // Transport preference order, if it comes down to that.
     private static final int[] PREFERRED_TRANSPORTS_ORDER = { TRANSPORT_ETHERNET, TRANSPORT_WIFI,
-            TRANSPORT_BLUETOOTH, TRANSPORT_CELLULAR };
+            TRANSPORT_BLUETOOTH, TRANSPORT_VCN, TRANSPORT_CELLULAR };
 
     // Function used to partition a list into two working areas depending on whether they
     // satisfy a predicate. All items satisfying the predicate will be put in |positive|, all
