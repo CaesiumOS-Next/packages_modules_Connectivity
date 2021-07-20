@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613bbb8a_bd1d6189",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-20T10:06:32Z",
+      "side": 1,
+      "message": "Is there a test that triggers at least some of these exceptions ? If yes probably mention it here",
+      "range": {
+        "startLine": 19,
+        "startChar": 12,
+        "endLine": 19,
+        "endChar": 36
+      },
+      "revId": "d12f4718fa0991cd673aaacb0692cda9930e7dd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d903718_be50f8cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-20T10:06:32Z",
+      "side": 1,
+      "message": "Is there ",
+      "revId": "d12f4718fa0991cd673aaacb0692cda9930e7dd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
