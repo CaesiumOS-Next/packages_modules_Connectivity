@@ -16,6 +16,23 @@
       "message": "Thanks for code review !",
       "revId": "b28026bc9ea234998430416b533ce6b6a6916739",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b702df8e_7f95b074",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-20T07:34:20Z",
+      "side": 1,
+      "message": "LGTM. Need tier-2 reviewer to help.",
+      "revId": "b28026bc9ea234998430416b533ce6b6a6916739",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
