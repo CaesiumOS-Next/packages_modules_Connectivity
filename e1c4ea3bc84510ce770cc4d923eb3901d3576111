@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fa3c220_3a5ef15e",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-20T11:17:51Z",
+      "side": 1,
+      "message": "Is this in fact necessary ? It doesn\u0027t look like screen on or off affects whether battery stats will be gathered for network traffic I think.",
+      "range": {
+        "startLine": 91,
+        "startChar": 61,
+        "endLine": 91,
+        "endChar": 80
+      },
+      "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de2cff81_3145716b",
         "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
         "patchSetId": 6
@@ -59,6 +82,99 @@
         "startChar": 25,
         "endLine": 92,
         "endChar": 53
+      },
+      "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88fb2ac2_db8f59ae",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-20T11:17:51Z",
+      "side": 1,
+      "message": "Even then I think it\u0027s very confusing. Writing to disk is strictly unnecessary because the stats will be read back from memory anyway, not from disk. The only thing you\u0027re after here is the syncStats() method, which is super confusingly named as what it does is wait for the worker to finish processing the enqueued tasks.\n\nHow about :\n\n  Upon calling \"cmd battery unplug\" a task is scheduled on the battery\n  stats worker thread. Because network battery stats are only recorded\n  when the device is on battery, this test needs to wait until the\n  battery status is recorded because causing traffic. \n  Writing stats to disk is unnecessary, but --write waits for the worker\n  thread to finish processing the enqueued tasks as a side effect. This\n  side effect is the point of using --write here.\n\nI guess ideally BatteryStatsService would have a command to wait, instead of having to use this method which looks related but is in fact unrelated. But now is not really the time to do that.",
+      "parentUuid": "de2cff81_3145716b",
+      "range": {
+        "startLine": 92,
+        "startChar": 25,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70c8f5ed_35e19a64",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-20T11:17:51Z",
+      "side": 1,
+      "message": "I don\u0027t feel strongly but I don\u0027t really see the point of resetting considering the test is taking a diff anyway.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 64
+      },
+      "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea84b656_89aaaa18",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-20T11:17:51Z",
+      "side": 1,
+      "message": "If you have this, why should you need the one in l.93 ? Commands are enqueued on a single thread and processed in order. You don\u0027t need to wait multiple times, only once at the end.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fde646c1_73c17d52",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-20T11:17:51Z",
+      "side": 1,
+      "message": "I don\u0027t really see the point of this. When exiting the test you don\u0027t care whether stats have been written or whether the worker thread has finished. Other tests that care about the status have to check anyway.",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 64
       },
       "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
