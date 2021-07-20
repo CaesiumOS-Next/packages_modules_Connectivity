@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39cd4dbe_df39bad3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-20T03:18:55Z",
+      "side": 1,
+      "message": "LGTM but Jean should maybe have a look as I think he was involved too.\nIn any case need Lorenzo to +1",
+      "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da935fac_f31d92a7",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-20T03:18:55Z",
+      "side": 1,
+      "message": "It\u0027s not very clear when the battery status should be synced; for example maybe it should be synced before this command as well, as \"set status\" schedules a sync, but \"enable pretend-screen-off\" changes settings synchronously that could affect that sync. (but maybe the results of that sync don\u0027t matter because --reset is used afterwards ?)\n\nMaybe calling \"batterystats --write\" after each command would be extra-safe, but not sure that\u0027s really necessary, so LGTM if you tried a few hundred runs and didn\u0027t get flakes.",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 31
+      },
+      "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de2cff81_3145716b",
+        "filename": "tests/cts/net/src/android/net/cts/BatteryStatsManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-20T03:18:55Z",
+      "side": 1,
+      "message": "Nit: maybe to be clear: \"Make sure the battery status is synced to batterystats, as it is update asynchronously but --write causes a synchronous sync\"",
+      "range": {
+        "startLine": 92,
+        "startChar": 25,
+        "endLine": 92,
+        "endChar": 53
+      },
+      "revId": "e1c4ea3bc84510ce770cc4d923eb3901d3576111",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
