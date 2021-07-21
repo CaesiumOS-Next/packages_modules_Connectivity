@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33f86200_337e5fcc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-21T13:49:28Z",
+      "side": 1,
+      "message": "Though I still claim we should make the map objects open-once-at-startup-and-crash-and-burn-if-that-fails.",
+      "revId": "3f3fb7faf58f8c3a5c0deef4da9825bde08a7455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b26fbfa_daf545fc",
