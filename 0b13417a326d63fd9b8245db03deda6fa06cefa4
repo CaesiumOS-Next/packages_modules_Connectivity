@@ -46,6 +46,30 @@
       },
       "revId": "0b13417a326d63fd9b8245db03deda6fa06cefa4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0b0a26_e88991fc",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/DadProxyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-21T08:24:08Z",
+      "side": 1,
+      "message": "Hmm pretty sure IgnoreUpTo won\u0027t work unless you\u0027re either using DevSdkIgnoreRunner (if annotated on the class), or DevSdkIgnoreRule (if annotated on methods)",
+      "parentUuid": "0dc8e499_165a183e",
+      "range": {
+        "startLine": 44,
+        "startChar": 46,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "0b13417a326d63fd9b8245db03deda6fa06cefa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
