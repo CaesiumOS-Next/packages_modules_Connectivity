@@ -5417,7 +5417,12 @@ public class ConnectivityManager {
                 new IOnCompleteListener.Stub() {
                     @Override
                     public void onComplete() {
-                        executor.execute(listener::run);
+                        final long identity = Binder.clearCallingIdentity();
+                        try {
+                            executor.execute(listener::run);
+                        } finally {
+                            Binder.restoreCallingIdentity(identity);
+                        }
                     }
         };
 
@@ -5464,7 +5469,12 @@ public class ConnectivityManager {
             proxy = new IOnCompleteListener.Stub() {
                 @Override
                 public void onComplete() {
-                    executor.execute(listener::run);
+                    final long identity = Binder.clearCallingIdentity();
+                    try {
+                        executor.execute(listener::run);
+                    } finally {
+                        Binder.restoreCallingIdentity(identity);
+                    }
                 }
             };
         }
