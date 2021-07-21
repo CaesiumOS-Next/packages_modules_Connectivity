@@ -16,6 +16,24 @@
       "message": "Thanks for fixing the bug. But after throwing errno exception, bpf map would be null. Could you double check all of the condition to make sure our code don\u0027t crash with null pointer exception ?\n\nOne case I found:\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java;l\u003d1112?q\u003dbpfcoordinator.java",
       "revId": "3f3fb7faf58f8c3a5c0deef4da9825bde08a7455",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46d20521_12e2af31",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-21T03:27:22Z",
+      "side": 1,
+      "message": "Ohh, the null is protected later: https://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java;l\u003d1097?q\u003dbpfcoordinator.java\n\nBut we still need carefully to make sure whether null pointer could happen. Before this CL, the map never be null even fd is invalid. Now it would be null if fd is invalid.",
+      "parentUuid": "4b26fbfa_daf545fc",
+      "revId": "3f3fb7faf58f8c3a5c0deef4da9825bde08a7455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
