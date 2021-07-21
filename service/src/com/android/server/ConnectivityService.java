@@ -8109,7 +8109,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private Set<NetworkRequestInfo> getNrisFromGlobalRequests() {
-        return new HashSet<>(mNetworkRequests.values());
+        return Collections.synchronizedSet(new HashSet<>(mNetworkRequests.values()));
     }
 
     /**
