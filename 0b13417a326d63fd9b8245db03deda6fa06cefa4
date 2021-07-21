@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce76e126_beb3be3b",
+        "filename": "Tethering/tests/privileged/src/android/net/ip/DadProxyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-21T08:16:27Z",
+      "side": 1,
+      "message": "do we need to add this statement to make it work?\n\n@Rule\npublic final DevSdkIgnoreRule mIgnoreRule \u003d new DevSdkIgnoreRule();",
+      "range": {
+        "startLine": 44,
+        "startChar": 46,
+        "endLine": 44,
+        "endChar": 56
+      },
+      "revId": "0b13417a326d63fd9b8245db03deda6fa06cefa4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
