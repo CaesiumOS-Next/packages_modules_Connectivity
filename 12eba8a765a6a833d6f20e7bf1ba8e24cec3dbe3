@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "507a3476_1bbc88cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-21T06:51:59Z",
+      "side": 1,
+      "message": "I think adding waitForIdle() before calling dump() in testDumpDoesNotCrash() can prevent this problem, but I think your fix is better and correct to fix the issue.",
+      "revId": "12eba8a765a6a833d6f20e7bf1ba8e24cec3dbe3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
