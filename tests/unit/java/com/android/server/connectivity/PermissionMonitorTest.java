@@ -60,6 +60,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -122,6 +123,9 @@ public class PermissionMonitorTest {
     private static final int MOCK_UID2 = MOCK_USER1.getUid(MOCK_APPID2);
     private static final int SYSTEM_APP_UID1 = MOCK_USER1.getUid(SYSTEM_APPID1);
     private static final int VPN_UID = MOCK_USER1.getUid(VPN_APPID);
+    private static final int MOCK_UID21 = MOCK_USER2.getUid(MOCK_APPID1);
+    private static final int MOCK_UID22 = MOCK_USER2.getUid(MOCK_APPID2);
+    private static final int SYSTEM_APP_UID21 = MOCK_USER2.getUid(SYSTEM_APPID1);
     private static final String REAL_SYSTEM_PACKAGE_NAME = "android";
     private static final String MOCK_PACKAGE1 = "appName1";
     private static final String MOCK_PACKAGE2 = "appName2";
@@ -161,9 +165,13 @@ public class PermissionMonitorTest {
             doCallRealMethod().when(mContext).getSystemService(SystemConfigManager.class);
         }
         when(mSystemConfigManager.getSystemPermissionUids(anyString())).thenReturn(new int[0]);
-        final Context asUserCtx = mock(Context.class, AdditionalAnswers.delegatesTo(mContext));
-        doReturn(UserHandle.ALL).when(asUserCtx).getUser();
-        when(mContext.createContextAsUser(eq(UserHandle.ALL), anyInt())).thenReturn(asUserCtx);
+        doAnswer(invocation -> {
+            final Object[] args = invocation.getArguments();
+            final Context asUserCtx = mock(Context.class, AdditionalAnswers.delegatesTo(mContext));
+            final UserHandle user = (UserHandle) args[0];
+            doReturn(user).when(asUserCtx).getUser();
+            return asUserCtx;
+        }).when(mContext).createContextAsUser(any(), anyInt());
         when(mDeps.getUidsAllowedOnRestrictedNetworks(any())).thenReturn(Set.of());
         // Set DEVICE_INITIAL_SDK_INT to Q that SYSTEM_UID won't have restricted network permission
         // by default.
@@ -172,7 +180,7 @@ public class PermissionMonitorTest {
         mPermissionMonitor = new PermissionMonitor(mContext, mNetdService, mDeps);
         mNetdMonitor = new NetdMonitor(mNetdService);
 
-        doReturn(List.of()).when(mPackageManager).getInstalledPackages(anyInt());
+        doReturn(List.of()).when(mPackageManager).getInstalledPackagesAsUser(anyInt(), anyInt());
     }
 
     private boolean hasRestrictedNetworkPermission(String partition, int targetSdkVersion,
@@ -610,16 +618,19 @@ public class PermissionMonitorTest {
         mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1},
                 SYSTEM_APPID1);
 
+        final List<PackageInfo> pkgs = List.of(buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID21,
+                        CONNECTIVITY_USE_RESTRICTED_NETWORKS),
+                buildPackageInfo(SYSTEM_PACKAGE2, SYSTEM_APP_UID21, CHANGE_NETWORK_STATE));
+        doReturn(pkgs).when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS),
+                eq(MOCK_USER_ID2));
         // Add user MOCK_USER2.
         mPermissionMonitor.onUserAdded(MOCK_USER2);
         mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1, MOCK_USER2},
                 SYSTEM_APPID1);
 
         // Remove SYSTEM_PACKAGE2, expect keep system permission.
-        when(mPackageManager.getPackagesForUid(SYSTEM_APP_UID1))
-                .thenReturn(new String[]{SYSTEM_PACKAGE1});
-        when(mPackageManager.getPackagesForUid(MOCK_USER2.getUid(SYSTEM_APPID1)))
-                .thenReturn(new String[]{SYSTEM_PACKAGE1});
+        doReturn(new String[]{SYSTEM_PACKAGE1}).when(mPackageManager)
+                .getPackagesForUid(intThat(uid -> UserHandle.getAppId(uid) == SYSTEM_APPID1));
         removePackageForUsers(new UserHandle[]{MOCK_USER1, MOCK_USER2},
                 SYSTEM_PACKAGE2, SYSTEM_APPID1);
         mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1, MOCK_USER2},
@@ -631,6 +642,8 @@ public class PermissionMonitorTest {
         mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1, MOCK_USER2},
                 SYSTEM_APPID1);
 
+        // Add MOCK_PACKAGE1
+        buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE1, MOCK_UID21, CHANGE_NETWORK_STATE);
         addPackageForUsers(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_PACKAGE1, MOCK_APPID1);
         mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1, MOCK_USER2},
                 SYSTEM_APPID1);
@@ -638,9 +651,8 @@ public class PermissionMonitorTest {
                 MOCK_APPID1);
 
         // Remove MOCK_PACKAGE1, expect no permission left for all user.
-        when(mPackageManager.getPackagesForUid(MOCK_UID1)).thenReturn(new String[]{});
-        when(mPackageManager.getPackagesForUid(MOCK_USER2.getUid(MOCK_APPID1)))
-                .thenReturn(new String[]{});
+        doReturn(new String[]{}).when(mPackageManager)
+                .getPackagesForUid(intThat(uid -> UserHandle.getAppId(uid) == MOCK_APPID1));
         removePackageForUsers(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_PACKAGE1, MOCK_APPID1);
         mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_APPID1);
 
@@ -674,12 +686,12 @@ public class PermissionMonitorTest {
 
     @Test
     public void testUidFilteringDuringVpnConnectDisconnectAndUidUpdates() throws Exception {
-        when(mPackageManager.getInstalledPackages(eq(GET_PERMISSIONS | MATCH_ANY_USER))).thenReturn(
-                List.of(buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID1, CHANGE_NETWORK_STATE,
-                                CONNECTIVITY_USE_RESTRICTED_NETWORKS),
-                        buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1),
-                        buildPackageInfo(MOCK_PACKAGE2, MOCK_UID2),
-                        buildPackageInfo(SYSTEM_PACKAGE2, VPN_UID)));
+        doReturn(List.of(buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID1, CHANGE_NETWORK_STATE,
+                        CONNECTIVITY_USE_RESTRICTED_NETWORKS),
+                buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1),
+                buildPackageInfo(MOCK_PACKAGE2, MOCK_UID2),
+                buildPackageInfo(SYSTEM_PACKAGE2, VPN_UID)))
+                .when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS), anyInt());
         buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE1, MOCK_UID1);
         mPermissionMonitor.startMonitoring();
         // Every app on user 0 except MOCK_UID2 are under VPN.
@@ -719,23 +731,26 @@ public class PermissionMonitorTest {
 
     @Test
     public void testUidFilteringDuringPackageInstallAndUninstall() throws Exception {
-        when(mPackageManager.getInstalledPackages(eq(GET_PERMISSIONS | MATCH_ANY_USER))).thenReturn(
-                List.of(buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID1, CHANGE_NETWORK_STATE,
-                                NETWORK_STACK, CONNECTIVITY_USE_RESTRICTED_NETWORKS),
-                        buildPackageInfo(SYSTEM_PACKAGE2, VPN_UID)));
+        doReturn(List.of(buildPackageInfo(SYSTEM_PACKAGE1, SYSTEM_APP_UID1, CHANGE_NETWORK_STATE,
+                        NETWORK_STACK, CONNECTIVITY_USE_RESTRICTED_NETWORKS),
+                buildPackageInfo(SYSTEM_PACKAGE2, VPN_UID)))
+                .when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS), anyInt());
         buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE1, MOCK_UID1);
 
         mPermissionMonitor.startMonitoring();
-        final Set<UidRange> vpnRange = Set.of(UidRange.createForUser(MOCK_USER1));
+        final Set<UidRange> vpnRange = Set.of(UidRange.createForUser(MOCK_USER1),
+                UidRange.createForUser(MOCK_USER2));
         mPermissionMonitor.onVpnUidRangesAdded("tun0", vpnRange, VPN_UID);
 
         // Newly-installed package should have uid rules added
-        mPermissionMonitor.onPackageAdded(MOCK_PACKAGE1, MOCK_UID1);
+        addPackageForUsers(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_PACKAGE1, MOCK_APPID1);
         verify(mNetdService).firewallAddUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID1}));
+        verify(mNetdService).firewallAddUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID21}));
 
         // Removed package should have its uid rules removed
         mPermissionMonitor.onPackageRemoved(MOCK_PACKAGE1, MOCK_UID1);
-        verify(mNetdService).firewallRemoveUidInterfaceRules(aryEq(new int[] {MOCK_UID1}));
+        verify(mNetdService).firewallRemoveUidInterfaceRules(aryEq(new int[]{MOCK_UID1}));
+        verify(mNetdService, never()).firewallRemoveUidInterfaceRules(aryEq(new int[]{MOCK_UID21}));
     }
 
 
@@ -767,7 +782,7 @@ public class PermissionMonitorTest {
         netdPermissionsAppIds.put(SYSTEM_APPID2, PERMISSION_UPDATE_DEVICE_STATS);
 
         // Send the permission information to netd, expect permission updated.
-        mPermissionMonitor.sendPackagePermissionsToNetd(netdPermissionsAppIds);
+        mPermissionMonitor.sendAppIdsTrafficPermission(netdPermissionsAppIds);
 
         mNetdMonitor.expectTrafficPerm(PERMISSION_INTERNET, MOCK_APPID1);
         mNetdMonitor.expectTrafficPerm(PERMISSION_NONE, MOCK_APPID2);
@@ -998,12 +1013,12 @@ public class PermissionMonitorTest {
         final ContentObserver contentObserver = expectRegisterContentObserver(
                 Settings.Global.getUriFor(UIDS_ALLOWED_ON_RESTRICTED_NETWORKS));
 
-        // Prepare PackageInfo for MOCK_PACKAGE1 and MOCK_PACKAGE2.
+        // Prepare PackageInfo for MOCK_APPID1 and MOCK_APPID2 in MOCK_USER1.
         buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE1, MOCK_UID1);
         buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE2, MOCK_UID2);
 
-        // MOCK_UID1 is listed in setting that allow to use restricted networks, MOCK_UID1
-        // should have SYSTEM permission and MOCK_UID2 has no permissions.
+        // MOCK_UID1 is listed in setting that allow to use restricted networks, MOCK_UID1 should
+        // have SYSTEM permission and MOCK_UID2 has no permissions.
         when(mDeps.getUidsAllowedOnRestrictedNetworks(any())).thenReturn(Set.of(MOCK_UID1));
         contentObserver.onChange(true /* selfChange */);
         mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1},
@@ -1011,20 +1026,26 @@ public class PermissionMonitorTest {
         mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1}, MOCK_APPID2);
 
         // Add user MOCK_USER2.
+        final List<PackageInfo> pkgs = List.of(buildPackageInfo(MOCK_PACKAGE1, MOCK_UID21));
+        buildAndMockPackageInfoWithPermissions(MOCK_PACKAGE2, MOCK_UID22);
+        doReturn(pkgs).when(mPackageManager)
+                .getInstalledPackagesAsUser(eq(GET_PERMISSIONS), eq(MOCK_USER_ID2));
         mPermissionMonitor.onUserAdded(MOCK_USER2);
-        // MOCK_APPID1 in both users should all have SYSTEM permission and MOCK_APPID2 has no
-        // permissions in either user.
-        mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1, MOCK_USER2},
+        // MOCK_APPID1 in MOCK_USER1 should have SYSTEM permission but in MOCK_USER2 should have no
+        // permissions. And MOCK_APPID2 has no permissions in either users.
+        mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1},
                 MOCK_APPID1);
+        mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER2}, MOCK_APPID1);
         mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_APPID2);
 
-        // MOCK_UID2 is listed in setting that allow to use restricted networks, MOCK_APPID2
-        // in both users should have SYSTEM permission and MOCK_APPID1 has no permissions in either
-        // user.
-        when(mDeps.getUidsAllowedOnRestrictedNetworks(any())).thenReturn(Set.of(MOCK_UID2));
+        // MOCK_UID22 is listed in setting that allow to use restricted networks,
+        // MOCK_APPID2 in MOCK_USER2 should have SYSTEM permission but in MOCK_USER1 should have no
+        // permissions. And MOCK_APPID1 has no permissions in either users.
+        doReturn(Set.of(MOCK_UID22)).when(mDeps).getUidsAllowedOnRestrictedNetworks(any());
         contentObserver.onChange(true /* selfChange */);
-        mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER1, MOCK_USER2},
+        mNetdMonitor.expectNetworkPerm(PERMISSION_SYSTEM, new UserHandle[]{MOCK_USER2},
                 MOCK_APPID2);
+        mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1}, MOCK_APPID2);
         mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_APPID1);
 
         // Remove user MOCK_USER1
@@ -1044,9 +1065,9 @@ public class PermissionMonitorTest {
     public void testOnExternalApplicationsAvailable() throws Exception {
         // Initial the permission state. MOCK_PACKAGE1 and MOCK_PACKAGE2 are installed on external
         // and have different uids. There has no permission for both uids.
-        when(mPackageManager.getInstalledPackages(eq(GET_PERMISSIONS | MATCH_ANY_USER))).thenReturn(
-                List.of(buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1),
-                        buildPackageInfo(MOCK_PACKAGE2, MOCK_UID2)));
+        doReturn(List.of(buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1),
+                buildPackageInfo(MOCK_PACKAGE2, MOCK_UID2)))
+                .when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS), anyInt());
         mPermissionMonitor.startMonitoring();
         mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1}, MOCK_APPID1, MOCK_APPID2);
         mNetdMonitor.expectTrafficPerm(PERMISSION_NONE, MOCK_APPID1, MOCK_APPID2);
@@ -1102,9 +1123,9 @@ public class PermissionMonitorTest {
             throws Exception {
         // Initial the permission state. MOCK_PACKAGE1 and MOCK_PACKAGE2 are installed on external
         // storage and shared on MOCK_UID1. There has no permission for MOCK_UID1.
-        when(mPackageManager.getInstalledPackages(eq(GET_PERMISSIONS | MATCH_ANY_USER))).thenReturn(
-                List.of(buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1),
-                        buildPackageInfo(MOCK_PACKAGE2, MOCK_UID1)));
+        doReturn(List.of(buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1),
+                buildPackageInfo(MOCK_PACKAGE2, MOCK_UID1)))
+                .when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS), anyInt());
         mPermissionMonitor.startMonitoring();
         mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1}, MOCK_APPID1);
         mNetdMonitor.expectTrafficPerm(PERMISSION_NONE, MOCK_APPID1);
@@ -1128,10 +1149,9 @@ public class PermissionMonitorTest {
         // Initial the permission state. MOCK_PACKAGE1 is installed on external storage and
         // MOCK_PACKAGE2 is installed on device. These two packages are shared on MOCK_UID1.
         // MOCK_UID1 has NETWORK and INTERNET permissions.
-        when(mPackageManager.getInstalledPackages(eq(GET_PERMISSIONS | MATCH_ANY_USER))).thenReturn(
-                List.of(buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1),
-                        buildPackageInfo(MOCK_PACKAGE2, MOCK_UID1, CHANGE_NETWORK_STATE,
-                                INTERNET)));
+        doReturn(List.of(buildPackageInfo(MOCK_PACKAGE1, MOCK_UID1),
+                buildPackageInfo(MOCK_PACKAGE2, MOCK_UID1, CHANGE_NETWORK_STATE, INTERNET)))
+                .when(mPackageManager).getInstalledPackagesAsUser(eq(GET_PERMISSIONS), anyInt());
         mPermissionMonitor.startMonitoring();
         mNetdMonitor.expectNetworkPerm(PERMISSION_NETWORK, new UserHandle[]{MOCK_USER1},
                 MOCK_APPID1);
