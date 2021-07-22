@@ -249,6 +249,8 @@ public class PermissionMonitor {
             loge("Invalid UIDS_ALLOWED_ON_RESTRICTED_NETWORKS setting.");
         }
 
+        mUsers.addAll(mUserManager.getUserHandles(true /* excludeDying */));
+
         List<PackageInfo> apps = mPackageManager.getInstalledPackages(GET_PERMISSIONS
                 | MATCH_ANY_USER);
         if (apps == null) {
@@ -281,8 +283,6 @@ public class PermissionMonitor {
                     app.requestedPermissionsFlags);
             netdPermsAppIds.put(appId, netdPermsAppIds.get(appId) | otherNetdPerms);
         }
-
-        mUsers.addAll(mUserManager.getUserHandles(true /* excludeDying */));
 
         final SparseArray<String> netdPermToSystemPerm = new SparseArray<>();
         netdPermToSystemPerm.put(PERMISSION_INTERNET, INTERNET);
