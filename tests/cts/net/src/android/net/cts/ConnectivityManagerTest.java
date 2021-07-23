@@ -562,7 +562,7 @@ public class ConnectivityManagerTest {
         Network wifiNetwork = mCtsNetUtils.connectToWifi();
         Network cellNetwork = mCtsNetUtils.connectToCell();
         // This server returns the requestor's IP address as the response body.
-        URL url = new URL("http://google-ipv6test.appspot.com/ip.js?fmt=text");
+        URL url = new URL("https://google-ipv6test.appspot.com/ip.js?fmt=text");
         String wifiAddressString = httpGet(wifiNetwork, url);
         String cellAddressString = httpGet(cellNetwork, url);
 
