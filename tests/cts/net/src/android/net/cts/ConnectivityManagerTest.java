@@ -122,7 +122,6 @@ import android.net.NetworkRequest;
 import android.net.NetworkScore;
 import android.net.NetworkSpecifier;
 import android.net.NetworkStateSnapshot;
-import android.net.NetworkUtils;
 import android.net.OemNetworkPreferences;
 import android.net.ProxyInfo;
 import android.net.SocketKeepalive;
@@ -1787,22 +1786,40 @@ public class ConnectivityManagerTest {
         assertTrue(index >= 0);
         assertTrue(app.requestedPermissionsFlags[index] != PERMISSION_GRANTED);
 
-        // Ensure that NetworkUtils.queryUserAccess always returns false since this package should
-        // not have netd system permission to call this function.
-        final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
-        assertFalse(NetworkUtils.queryUserAccess(Binder.getCallingUid(), wifiNetwork.netId));
-
         // Ensure that this package cannot bind to any restricted network that's currently
         // connected.
         Network[] networks = mCm.getAllNetworks();
         for (Network network : networks) {
             NetworkCapabilities nc = mCm.getNetworkCapabilities(network);
             if (nc != null && !nc.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)) {
-                try {
-                    network.bindSocket(new Socket());
-                    fail("Bind to restricted network " + network + " unexpectedly succeeded");
-                } catch (IOException expected) {}
+                try (Socket socket = new Socket()) {
+                    assertThrows(IOException.class, () -> network.bindSocket(socket));
+                }
             }
+        }
+
+        // Create a restricted network and ensure this package cannot bind to that network either.
+        final NetworkAgent agent = createRestrictedNetworkAgent(mContext, TAG);
+        final Network network = agent.getNetwork();
+        final Handler h = new Handler(Looper.getMainLooper());
+        final TestableNetworkCallback testNetworkCb = new TestableNetworkCallback();
+        mCm.registerBestMatchingNetworkCallback(new NetworkRequest.Builder().clearCapabilities()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST).build(), testNetworkCb, h);
+
+        try (Socket socket = new Socket()) {
+            testNetworkCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> network.equals(entry.getNetwork()));
+            // Verify that the network is restricted.
+            final NetworkCapabilities testNetworkNc = mCm.getNetworkCapabilities(network);
+            assertNotNull(testNetworkNc);
+            assertFalse(testNetworkNc.hasCapability(
+                    NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED));
+            // CtsNetTestCases package doesn't hold CONNECTIVITY_USE_RESTRICTED_NETWORKS, so it
+            // does not allow to bind socket to restricted network.
+            assertThrows(IOException.class, () -> network.bindSocket(socket));
+        } finally {
+            mCm.unregisterNetworkCallback(testNetworkCb);
+            agent.unregister();
         }
     }
 
@@ -2872,6 +2889,32 @@ public class ConnectivityManagerTest {
         }
     }
 
+    private static NetworkAgent createRestrictedNetworkAgent(final Context context,
+            final String tag) {
+        // Create test network agent with restricted network.
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                .build();
+        final NetworkScore score = new NetworkScore.Builder()
+                .setExiting(false)
+                .setTransportPrimary(false)
+                .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_FOR_HANDOVER)
+                .build();
+        final NetworkAgent agent = new NetworkAgent(context, Looper.getMainLooper(),
+                tag, nc, new LinkProperties(), score, new NetworkAgentConfig.Builder().build(),
+                new NetworkProvider(context, Looper.getMainLooper(), tag)) {};
+        runWithShellPermissionIdentity(() -> agent.register(),
+                android.Manifest.permission.MANAGE_TEST_NETWORKS);
+        agent.markConnected();
+
+        return agent;
+    }
+
     @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
     @Test
     public void testUidsAllowedOnRestrictedNetworks() throws Exception {
@@ -2897,27 +2940,7 @@ public class ConnectivityManagerTest {
         mCm.registerBestMatchingNetworkCallback(new NetworkRequest.Builder().clearCapabilities()
                 .addTransportType(NetworkCapabilities.TRANSPORT_TEST).build(), testNetworkCb, h);
 
-        // Create test network agent with restricted network.
-        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
-                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
-                .removeCapability(NetworkCapabilities.NET_CAPABILITY_TRUSTED)
-                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
-                .build();
-        final NetworkScore score = new NetworkScore.Builder()
-                .setExiting(false)
-                .setTransportPrimary(false)
-                .setKeepConnectedReason(NetworkScore.KEEP_CONNECTED_FOR_HANDOVER)
-                .build();
-        final NetworkAgent agent = new NetworkAgent(mContext, Looper.getMainLooper(),
-                TAG, nc, new LinkProperties(), score, new NetworkAgentConfig.Builder().build(),
-                new NetworkProvider(mContext, Looper.getMainLooper(), TAG)) {};
-        runWithShellPermissionIdentity(() -> agent.register(),
-                android.Manifest.permission.MANAGE_TEST_NETWORKS);
-        agent.markConnected();
-
+        final NetworkAgent agent = createRestrictedNetworkAgent(mContext, TAG);
         final Network network = agent.getNetwork();
 
         try (Socket socket = new Socket()) {
