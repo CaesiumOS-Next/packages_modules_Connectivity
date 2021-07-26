@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aeaa4f7_a0064692",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 8112,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-26T09:22:32Z",
+      "side": 1,
+      "message": "This will not fix the crash. The stack trace shows the crash happens when iterating mNetworkRequests, which happens before the object is returned.\n\nYou\u0027d need to make mNetworkRequests a synchronized set, but this would be very expensive. Instead, I suggest we catch the exception in dumpNetworkRequests() and retry. If you want, you could make a small helper function that retries a runnable as long as ConcurrentModificationException is thrown, or the code in dumpNetworkRequests() is small enough to just put it inline.",
+      "range": {
+        "startLine": 8112,
+        "startChar": 15,
+        "endLine": 8112,
+        "endChar": 42
+      },
+      "revId": "a4d2bbf6cb3a4235a7f0861cb62f5ad10f670835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
