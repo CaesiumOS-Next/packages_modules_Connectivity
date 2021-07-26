@@ -730,6 +730,82 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     @Test
+    public void testMobileStatsMeteredness() throws Exception {
+        // Create metered 5g template.
+        final NetworkTemplate templateMetered5g =
+                buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_NR, METERED_YES);
+        // pretend that metered mobile network comes online
+        expectDefaultSettings();
+        NetworkStateSnapshot[] states =
+            new NetworkStateSnapshot[] {buildMobile3gState(IMSI_1)};
+
+        expectNetworkStatsSummary(buildEmptyStats());
+        expectNetworkStatsUidDetail(buildEmptyStats());
+
+        setMobileRatTypeAndWaitForIdle(TelephonyManager.NETWORK_TYPE_NR);
+        mService.notifyNetworkStatus(NETWORKS_MOBILE, states, getActiveIface(states),
+                new UnderlyingNetworkInfo[0]);
+
+        // create some initial traffic
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        // Note that all traffic from NetworkManagementService is tagged as METERED_NO, ROAMING_NO
+        // and DEFAULT_NETWORK_YES, because these three properties aren't tracked at that layer.
+        // We layer them on top by inspecting the iface properties.
+        expectNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                .insertEntry(TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                        DEFAULT_NETWORK_YES, 128L, 2L, 128L, 2L, 0L));
+
+
+        forcePollAndWaitForIdle();
+
+        // verify service recorded history
+        assertUidTotal(sTemplateImsi1, UID_RED, 128L, 2L, 128L, 2L, 0);
+        // verify entire history present
+        final NetworkStats statsMetered = mSession.getSummaryForAllUid(
+                templateMetered5g, Long.MIN_VALUE, Long.MAX_VALUE, true);
+        assertEquals(1, statsMetered.size());
+        assertValues(statsMetered, IFACE_ALL, UID_RED, SET_DEFAULT, TAG_NONE, METERED_YES,
+                ROAMING_NO, DEFAULT_NETWORK_YES,  128L, 2L, 128L, 2L, 0);
+
+        // Create non-metered 5g templage
+        final NetworkTemplate templateNonMetered5g =
+                buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_NR, METERED_NO);
+        // pretend that non-metered mobile network comes online.
+        expectDefaultSettings();
+        NetworkStateSnapshot[] state2 =
+            new NetworkStateSnapshot[] {buildMobile3gState(IMSI_2, false /* isMetered */,
+            false /* isRoaming */)};
+
+        expectNetworkStatsSummary(buildEmptyStats());
+        expectNetworkStatsUidDetail(buildEmptyStats());
+
+        mService.notifyNetworkStatus(NETWORKS_MOBILE, state2, getActiveIface(state2),
+                new UnderlyingNetworkInfo[0]);
+
+        // create some initial traffic
+        incrementCurrentTime(HOUR_IN_MILLIS);
+        expectDefaultSettings();
+        expectNetworkStatsSummary(buildEmptyStats());
+        // Note that all traffic from NetworkManagementService is tagged as METERED_NO, ROAMING_NO
+        // and DEFAULT_NETWORK_YES, because these three properties aren't tracked at that layer.
+        // We layer them on top by inspecting the iface properties.
+        expectNetworkStatsUidDetail(new NetworkStats(getElapsedRealtime(), 1)
+                .insertEntry(TEST_IFACE, UID_BLUE, SET_DEFAULT, TAG_NONE, METERED_NO, ROAMING_NO,
+                        DEFAULT_NETWORK_YES, 128L, 2L, 128L, 2L, 0L));
+
+        forcePollAndWaitForIdle();
+
+        // verify service recorded history
+        assertUidTotal(templateNonMetered5g, UID_BLUE, 128L, 2L, 128L, 2L, 0);
+        // verify entire history present
+        final NetworkStats statsNonMetered = mSession.getSummaryForAllUid(
+                templateNonMetered5g, Long.MIN_VALUE, Long.MAX_VALUE, true);
+        assertEquals(1, statsNonMetered.size());
+        assertValues(statsNonMetered, IFACE_ALL, UID_BLUE, SET_DEFAULT, TAG_NONE, METERED_NO,
+                ROAMING_NO, DEFAULT_NETWORK_YES,  128L, 2L, 128L, 2L, 0);
+    }
+
+    @Test
     public void testMobileStatsOemManaged() throws Exception {
         final NetworkTemplate templateOemPaid = new NetworkTemplate(MATCH_MOBILE_WILDCARD,
                 /*subscriberId=*/null, /*matchSubscriberIds=*/null, /*networkId=*/null,
@@ -1112,7 +1188,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         // pretend that network comes online
         expectDefaultSettings();
         NetworkStateSnapshot[] states =
-            new NetworkStateSnapshot[] {buildMobile3gState(IMSI_1, true /* isRoaming */)};
+            new NetworkStateSnapshot[] {buildMobile3gState(IMSI_1, true /* isMetered */,
+            true /* isRoaming */)};
         expectNetworkStatsSummary(buildEmptyStats());
         expectNetworkStatsUidDetail(buildEmptyStats());
 
@@ -1745,14 +1822,20 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     private static NetworkStateSnapshot buildMobile3gState(String subscriberId) {
-        return buildMobile3gState(subscriberId, false /* isRoaming */);
+        return buildMobile3gState(subscriberId, true /* isMetered */, false /* isRoaming */);
     }
 
-    private static NetworkStateSnapshot buildMobile3gState(String subscriberId, boolean isRoaming) {
+    private static NetworkStateSnapshot buildMobile3gState(String subscriberId, boolean isMetered,
+            boolean isRoaming) {
         final LinkProperties prop = new LinkProperties();
         prop.setInterfaceName(TEST_IFACE);
         final NetworkCapabilities capabilities = new NetworkCapabilities();
-        capabilities.setCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED, false);
+        if (isMetered) {
+            capabilities.setCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED, !isMetered);
+        } else {
+            capabilities.setCapability(
+                    NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED, !isMetered);
+        }
         capabilities.setCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING, !isRoaming);
         capabilities.addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR);
         return new NetworkStateSnapshot(
