@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b814aa50_018575ef",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-26T01:17:01Z",
+      "side": 1,
+      "message": "Is this necessary? From the bug content, it looks that the main idea is using \"google-ipv6test.appspot.com\", not specific to https. Actually, I wonder if we should use https? Isn\u0027t https sometimes blocked?",
+      "range": {
+        "startLine": 565,
+        "startChar": 31,
+        "endLine": 565,
+        "endChar": 32
+      },
+      "revId": "ce715d0f7a6e579da47fa442fc656f2661792e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
