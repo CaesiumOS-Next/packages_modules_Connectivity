@@ -1822,6 +1822,11 @@ public class ConnectivityManagerTest {
         final TestableNetworkCallback telephonyCb = new TestableNetworkCallback();
         // disable airplane mode to reach a known state
         runShellCommand("cmd connectivity airplane-mode disable");
+
+        // Force wifi and cell to reconnect if they were disconnected
+        mCtsNetUtils.ensureWifiConnected();
+        mCtsNetUtils.connectToCell();
+
         // Verify that networks are available as expected if wifi or cell is supported. Continue the
         // test if none of them are supported since test should still able to verify the permission
         // mechanism.
@@ -1863,6 +1868,8 @@ public class ConnectivityManagerTest {
                         + "called whilst holding the NETWORK_AIRPLANE_MODE permission.");
             }
             // Verify that turning airplane mode off takes effect as expected.
+            // connectToCell only registers a request, it cannot / does not need to be called twice
+            mCtsNetUtils.ensureWifiConnected();
             if (supportWifi) waitForAvailable(wifiCb);
             if (supportTelephony) waitForAvailable(telephonyCb);
         } finally {
