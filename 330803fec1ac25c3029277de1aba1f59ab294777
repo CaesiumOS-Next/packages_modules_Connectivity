@@ -33,6 +33,24 @@
       "message": "The test doesn\u0027t seem to pass on TH though ?",
       "revId": "330803fec1ac25c3029277de1aba1f59ab294777",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b138e7f6_0e4e90b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-26T10:33:50Z",
+      "side": 1,
+      "message": "It\u0027s weird that the test pass in AOSP but fail in internal branch. I think the logic in the test is OK . The issue is that test could not interact with the WrappedMultinetworkPolicyTracker. \nE.g. WrappedMultinetworkPolicyTracker extends MultinetworkPolicyTracker. When the test create ConnectivityService in the test. We should be able to see the MultinetworkPolicyTracker created but it is not in my current debugging. I could only see the WrappedMultinetworkPolicyTracker constructor ran but not MultinetworkPolicyTracker constructor. Thus, all the interactions with mPolicyTracker do nothing in the test. That\u0027s, mPolicyTracker.reevaluate() does not trigger rematch in ConnectivityService. It failed the test. I do not know why it failed in internal and still debugging it.",
+      "parentUuid": "ab81942b_b9ff1714",
+      "revId": "330803fec1ac25c3029277de1aba1f59ab294777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
