@@ -49,6 +49,7 @@ import android.net.dhcp.DhcpOfferPacket;
 import android.net.dhcp.DhcpPacket;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Binder;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.system.Os;
@@ -77,6 +78,7 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -85,6 +87,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import android.net.cts.PacketUtils;
+import java.nio.ByteBuffer;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -702,5 +707,67 @@ public class EthernetTetheringTest {
             Log.d(TAG, "Deleted test interface " + mTestIface.getInterfaceName());
             mTestIface = null;
         }
+    }
+
+    @Test
+    public void testUpstream() throws Exception {
+        CompletableFuture<String> futureIface = mTetheredInterfaceRequester.requestInterface();
+
+        mEm.setIncludeTestInterfaces(true);
+
+        mTestIface = createTestInterface();
+
+        final String iface = futureIface.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        assertEquals("TetheredInterfaceCallback for unexpected interface",
+                mTestIface.getInterfaceName(), iface);
+
+        FileDescriptor fd = mTestIface.getFileDescriptor().getFileDescriptor();
+        mTapPacketReader = makePacketReader(fd, getMTU(mTestIface));
+        mTetheringEventCallback = enableEthernetTethering(mTestIface.getInterfaceName());
+
+        // Create a fake client.
+        byte[] clientMacAddr = new byte[6];
+        new Random().nextBytes(clientMacAddr);
+
+        DhcpResults dhcpResults = runDhcp(fd, clientMacAddr);
+
+        final Collection<TetheredClient> clients = mTetheringEventCallback.awaitClientConnected();
+        assertEquals(1, clients.size());
+        final TetheredClient client = clients.iterator().next();
+
+        // Check the MAC address.
+        assertEquals(MacAddress.fromBytes(clientMacAddr), client.getMacAddress());
+        assertEquals(TETHERING_ETHERNET, client.getTetheringType());
+
+        // Check the hostname.
+        assertEquals(1, client.getAddresses().size());
+        TetheredClient.AddressInfo info = client.getAddresses().get(0);
+        assertEquals(DHCP_HOSTNAME, info.getHostname());
+
+        // Check the address is the one that was handed out in the DHCP ACK.
+        assertLinkAddressMatches(dhcpResults.ipAddress, info.getAddress());
+
+        TestNetworkManager tnm = mContext.getSystemService(TestNetworkManager.class);
+        ArrayList<LinkAddress> list = new ArrayList<>();
+        list.add(new LinkAddress("10.0.0.1/8"));
+        TestNetworkInterface upstream = tnm.createTunInterface(list);
+        Log.d(TAG, "Created test upstream interface " + upstream.getInterfaceName());
+        tnm.setupTestNetwork(upstream.getInterfaceName(), new Binder());
+
+        Thread.sleep(5000);
+
+        // Build a trivial ICMP packet.
+        final byte[] icmpPacket = {
+                0xc0, 0x80, 0xb6, 1,
+                8, 8, 8, 8,
+                0, 
+                (byte) mIcmpType, 0, 0, 0,
+                0, 0, 0, 0  // ICMP header
+        };
+        ByteBuffer udp = new PacketUtils.Ip4Header()
+
+        upstream.getFileDescriptor().close();
+        Log.d(TAG, "Deleted upstream interface " + upstream.getInterfaceName());
+
     }
 }
