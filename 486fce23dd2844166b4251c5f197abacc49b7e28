@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bead3fd_635c8e98",
+        "filename": "tests/cts/net/src/android/net/cts/PacProxyManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-26T08:00:14Z",
+      "side": 1,
+      "message": "Please either :\n• Document the use case. In this case I think you can say that the proxy script is global to the device, and setting it from a different user should require INTERACT_ACCROSS_USERS_FULL (which the Settings app has)\n• Make sure we don\u0027t need this permission (make it so that NETWORK_SETTINGS is enough). I think this would be in SELinux rules.\n\nI think the former is preferable (it\u0027s also simpler, because all you need to do is to add comments here)",
+      "range": {
+        "startLine": 172,
+        "startChar": 37,
+        "endLine": 172,
+        "endChar": 63
+      },
+      "revId": "486fce23dd2844166b4251c5f197abacc49b7e28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
