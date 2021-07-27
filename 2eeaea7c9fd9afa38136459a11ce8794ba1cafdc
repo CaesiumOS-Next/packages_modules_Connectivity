@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2096bb9_e901be19",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-27T07:15:30Z",
+      "side": 1,
+      "message": "TetheringCoverageTestsLib is intermediate libs.\nDoes jarjar_rules apply to TetheringCoverageTests(l.119) and ConnectivityCoverageTests(packages/modules/Connectivity/tests/common/Android.bp) ?",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 50
+      },
+      "revId": "2eeaea7c9fd9afa38136459a11ce8794ba1cafdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
