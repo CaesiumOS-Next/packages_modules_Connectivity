@@ -3162,7 +3162,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void dumpNetworkRequests(IndentingPrintWriter pw) {
-        for (NetworkRequestInfo nri : requestsSortedById()) {
+        NetworkRequestInfo[] infos = new NetworkRequestInfo[0];
+        do {
+            try {
+                infos = requestsSortedById();
+            } catch (ConcurrentModificationException e) {
+                infos = null;
+            }
+        } while (infos == null);
+        for (NetworkRequestInfo nri : infos) {
             pw.println(nri.toString());
         }
     }
