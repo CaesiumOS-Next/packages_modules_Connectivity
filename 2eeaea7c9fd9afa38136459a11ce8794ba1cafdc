@@ -22,6 +22,30 @@
       },
       "revId": "2eeaea7c9fd9afa38136459a11ce8794ba1cafdc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b2ff30_8ec586d7",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-27T07:46:09Z",
+      "side": 1,
+      "message": "Good point; this one needs to be an exception as it is used to combine different coverage tests (TetheringCoverageTestsLib, ConnectivityCoverageTestsLib) into one test target (ConnectivityCoverageTests). The coverage tests need to use the same jarjar rules as the production test it covers, otherwise coverage can\u0027t be calculated properly.\n\nAdded a comment.",
+      "parentUuid": "b2096bb9_e901be19",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 50
+      },
+      "revId": "2eeaea7c9fd9afa38136459a11ce8794ba1cafdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
