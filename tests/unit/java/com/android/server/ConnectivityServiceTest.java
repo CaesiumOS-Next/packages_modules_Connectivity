@@ -692,13 +692,17 @@ public class ConnectivityServiceTest {
         }
     }
 
+    private void waitForIdle(long timeoutMs) {
+        HandlerUtils.waitForIdle(mCsHandlerThread, timeoutMs);
+        waitForIdle(mCellNetworkAgent, timeoutMs);
+        waitForIdle(mWiFiNetworkAgent, timeoutMs);
+        waitForIdle(mEthernetNetworkAgent, timeoutMs);
+        HandlerUtils.waitForIdle(mCsHandlerThread, timeoutMs);
+        HandlerUtils.waitForIdle(ConnectivityThread.get(), timeoutMs);
+    }
+
     private void waitForIdle() {
-        HandlerUtils.waitForIdle(mCsHandlerThread, TIMEOUT_MS);
-        waitForIdle(mCellNetworkAgent, TIMEOUT_MS);
-        waitForIdle(mWiFiNetworkAgent, TIMEOUT_MS);
-        waitForIdle(mEthernetNetworkAgent, TIMEOUT_MS);
-        HandlerUtils.waitForIdle(mCsHandlerThread, TIMEOUT_MS);
-        HandlerUtils.waitForIdle(ConnectivityThread.get(), TIMEOUT_MS);
+        waitForIdle(TIMEOUT_MS);
     }
 
     private void waitForIdle(TestNetworkAgentWrapper agent, long timeoutMs) {
@@ -5760,6 +5764,8 @@ public class ConnectivityServiceTest {
         final int DIFF_INTENTS = 10;
         final int SAME_INTENTS = 10;
         final int SYSTEM_ONLY_MAX_REQUESTS = 250;
+        // Use a higher handler timeout in this test, as it is heavier than other tests
+        final int handlerTimeoutMs = TIMEOUT_MS * 20;
         // Assert 1 (Default request filed before testing) + CALLBACKS + DIFF_INTENTS +
         // 1 (same intent) = MAX_REQUESTS - 1, since the capacity is MAX_REQUEST - 1.
         assertEquals(MAX_REQUESTS - 1, 1 + CALLBACKS + DIFF_INTENTS + 1);
@@ -5787,13 +5793,13 @@ public class ConnectivityServiceTest {
             // ConnectivityService side incrementCountOrThrow in binder, decrementCount in handler
             // thread, waitForIdle is needed to ensure decrementCount being invoked for same intent
             // requests before doing further tests.
-            waitForIdle();
+            waitForIdle(handlerTimeoutMs);
         }
         for (int j = 0; j < SAME_INTENTS; j++) {
             mCm.requestNetwork(networkRequest, same_pi);
             // Wait for the requests with the same intent to be de-duplicated.
             // Refer to the reason above.
-            waitForIdle();
+            waitForIdle(handlerTimeoutMs);
         }
         registered.add(same_pi);
 
@@ -5842,7 +5848,7 @@ public class ConnectivityServiceTest {
                 }
                 systemRegistered.add(cb);
             }
-            waitForIdle();
+            waitForIdle(handlerTimeoutMs);
 
             assertThrows(TooManyRequestsException.class, () ->
                     mCm.registerDefaultNetworkCallbackForUid(1001042, new NetworkCallback(),
@@ -5853,7 +5859,8 @@ public class ConnectivityServiceTest {
             for (NetworkCallback callback : systemRegistered) {
                 mCm.unregisterNetworkCallback(callback);
             }
-            waitForIdle();  // Wait for requests to be unregistered before giving up the permission.
+            // Wait for requests to be unregistered before giving up the permission.
+            waitForIdle(handlerTimeoutMs);
         });
 
         for (Object o : registered) {
@@ -5864,7 +5871,7 @@ public class ConnectivityServiceTest {
                 mCm.unregisterNetworkCallback((PendingIntent) o);
             }
         }
-        waitForIdle();
+        waitForIdle(handlerTimeoutMs);
 
         // Test that the limit is not hit when MAX_REQUESTS requests are added and removed.
         for (int i = 0; i < MAX_REQUESTS; i++) {
@@ -5872,28 +5879,28 @@ public class ConnectivityServiceTest {
             mCm.requestNetwork(networkRequest, networkCallback);
             mCm.unregisterNetworkCallback(networkCallback);
         }
-        waitForIdle();
+        waitForIdle(handlerTimeoutMs);
 
         for (int i = 0; i < MAX_REQUESTS; i++) {
             NetworkCallback networkCallback = new NetworkCallback();
             mCm.registerNetworkCallback(networkRequest, networkCallback);
             mCm.unregisterNetworkCallback(networkCallback);
         }
-        waitForIdle();
+        waitForIdle(handlerTimeoutMs);
 
         for (int i = 0; i < MAX_REQUESTS; i++) {
             NetworkCallback networkCallback = new NetworkCallback();
             mCm.registerDefaultNetworkCallback(networkCallback);
             mCm.unregisterNetworkCallback(networkCallback);
         }
-        waitForIdle();
+        waitForIdle(handlerTimeoutMs);
 
         for (int i = 0; i < MAX_REQUESTS; i++) {
             NetworkCallback networkCallback = new NetworkCallback();
             mCm.registerDefaultNetworkCallback(networkCallback);
             mCm.unregisterNetworkCallback(networkCallback);
         }
-        waitForIdle();
+        waitForIdle(handlerTimeoutMs);
 
         withPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, () -> {
             for (int i = 0; i < MAX_REQUESTS; i++) {
@@ -5903,7 +5910,7 @@ public class ConnectivityServiceTest {
                 mCm.unregisterNetworkCallback(networkCallback);
             }
         });
-        waitForIdle();
+        waitForIdle(handlerTimeoutMs);
 
         for (int i = 0; i < MAX_REQUESTS; i++) {
             final PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -5911,7 +5918,7 @@ public class ConnectivityServiceTest {
             mCm.requestNetwork(networkRequest, pendingIntent);
             mCm.unregisterNetworkCallback(pendingIntent);
         }
-        waitForIdle();
+        waitForIdle(handlerTimeoutMs);
 
         for (int i = 0; i < MAX_REQUESTS; i++) {
             final PendingIntent pendingIntent = PendingIntent.getBroadcast(
