@@ -36,6 +36,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e90c40f9_c5d3c3d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-07-27T14:41:00Z",
+      "side": 1,
+      "message": "On R+ we already crash on boot if all the bpf maps/programs aren\u0027t successfully pinned on a bpf capable kernel.  On S+ all kernels are required to be bpf capable.",
+      "revId": "3f3fb7faf58f8c3a5c0deef4da9825bde08a7455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b26fbfa_daf545fc",
