@@ -3162,7 +3162,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void dumpNetworkRequests(IndentingPrintWriter pw) {
-        for (NetworkRequestInfo nri : requestsSortedById()) {
+        NetworkRequestInfo[] infos = null;
+        while (infos == null) {
+            try {
+                infos = requestsSortedById();
+            } catch (ConcurrentModificationException e) {
+                // mNetworkRequests should only be accessed from the handler thread, except dump().
+                // ConcurrentModificationException may happen when mNetworkRequests is updated
+                // while dumping the request. Thus, retry it if ConcurrentModificationException
+                // happens.
+            }
+        }
+        for (NetworkRequestInfo nri : infos) {
             pw.println(nri.toString());
         }
     }
