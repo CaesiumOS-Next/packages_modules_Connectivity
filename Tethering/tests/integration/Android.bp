@@ -41,9 +41,10 @@ java_defaults {
         "libdexmakerjvmtiagent",
         "libstaticjvmtiagent",
     ],
-    jarjar_rules: ":NetworkStackJarJarRules",
 }
 
+// Library including tethering integration tests targeting the latest stable SDK.
+// Use with NetworkStackJarJarRules.
 android_library {
     name: "TetheringIntegrationTestsLatestSdkLib",
     target_sdk_version: "30",
@@ -56,6 +57,8 @@ android_library {
     ]
 }
 
+// Library including tethering integration tests targeting current development SDK.
+// Use with NetworkStackJarJarRules.
 android_library {
     name: "TetheringIntegrationTestsLib",
     target_sdk_version: "current",
@@ -76,6 +79,7 @@ android_test {
         "mts",
     ],
     compile_multilib: "both",
+    jarjar_rules: ":NetworkStackJarJarRules",
 }
 
 android_library {
@@ -88,11 +92,23 @@ android_library {
         "TetheringTestsLatestSdkLib",
         "TetheringIntegrationTestsLatestSdkLib",
     ],
-    jarjar_rules: ":TetheringTestsJarJarRules",
+    jarjar_rules: ":TetheringCoverageJarJarRules",
     manifest: "AndroidManifest_coverage.xml",
     visibility: [
         "//packages/modules/Connectivity/tests:__subpackages__"
     ],
+}
+
+// Combine NetworkStack and Tethering jarjar rules for coverage target
+genrule {
+    name: "TetheringCoverageJarJarRules",
+    srcs: [
+        ":TetheringTestsJarJarRules",
+        ":NetworkStackJarJarRules",
+    ],
+    out: ["jarjar-rules-tethering-coverage.txt"],
+    cmd: "cat $(in) > $(out)",
+    visibility: ["//visibility:private"],
 }
 
 // Special version of the tethering tests that includes all tests necessary for code coverage
