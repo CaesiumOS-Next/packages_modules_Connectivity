@@ -1317,6 +1317,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public LocationPermissionChecker makeLocationPermissionChecker(Context context) {
             return new LocationPermissionChecker(context);
         }
+
+        /**
+         * @see DnsManager
+         */
+        public DnsManager makeDnsManager(@NonNull Context context, @NonNull IDnsResolver resolver) {
+            return new DnsManager(context, resolver);
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -1457,7 +1464,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 mContext, mHandler, () -> updateAvoidBadWifi());
         mMultinetworkPolicyTracker.start();
 
-        mDnsManager = new DnsManager(mContext, mDnsResolver);
+        mDnsManager = mDeps.makeDnsManager(mContext, mDnsResolver);
         registerPrivateDnsSettingsCallbacks();
 
         // This NAI is a sentinel used to offer no service to apps that are on a multi-layer

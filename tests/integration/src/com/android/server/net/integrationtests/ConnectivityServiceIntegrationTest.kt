@@ -26,6 +26,7 @@ import android.content.ServiceConnection
 import android.net.ConnectivityManager
 import android.net.IDnsResolver
 import android.net.INetd
+import android.net.InetAddresses
 import android.net.LinkProperties
 import android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
@@ -35,6 +36,7 @@ import android.net.NetworkRequest
 import android.net.TestNetworkStackClient
 import android.net.Uri
 import android.net.metrics.IpConnectivityLog
+import android.net.shared.PrivateDnsConfig
 import android.os.ConditionVariable
 import android.os.IBinder
 import android.os.SystemConfigManager
@@ -46,6 +48,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.android.server.ConnectivityService
 import com.android.server.NetworkAgentWrapper
 import com.android.server.TestNetIdManager
+import com.android.server.connectivity.DnsManager
 import com.android.server.connectivity.MockableSystemProperties
 import com.android.server.connectivity.ProxyTracker
 import com.android.testutils.TestableNetworkCallback
@@ -74,6 +77,9 @@ import kotlin.test.fail
 
 const val SERVICE_BIND_TIMEOUT_MS = 5_000L
 const val TEST_TIMEOUT_MS = 10_000L
+const val TEST_PRIVATE_DNS_HOST_NAME = "test.dns.android"
+const val DNS_SERVER_ADDR = "8.8.8.8"
+const val DNS_SERVER_ADDR_IPV6 = "2001:db8::1"
 
 /**
  * Test that exercises an instrumented version of ConnectivityService against an instrumented
@@ -93,6 +99,8 @@ class ConnectivityServiceIntegrationTest {
     private lateinit var dnsResolver: IDnsResolver
     @Mock
     private lateinit var systemConfigManager: SystemConfigManager
+    @Mock
+    private lateinit var dnsManager: DnsManager
     @Spy
     private var context = TestableContext(realContext)
 
@@ -176,6 +184,9 @@ class ConnectivityServiceIntegrationTest {
         doReturn(mock(ProxyTracker::class.java)).`when`(deps).makeProxyTracker(any(), any())
         doReturn(mock(MockableSystemProperties::class.java)).`when`(deps).systemProperties
         doReturn(TestNetIdManager()).`when`(deps).makeNetIdManager()
+        doReturn(dnsManager).`when`(deps).makeDnsManager(any(), any())
+        doReturn(PrivateDnsConfig(false)).`when`(dnsManager).privateDnsConfig
+        doReturn(PrivateDnsConfig(false)).`when`(dnsManager).getPrivateDnsConfig(any())
         return deps
     }
 
@@ -184,15 +195,17 @@ class ConnectivityServiceIntegrationTest {
         nsInstrumentation.clearAllState()
     }
 
-    @Test
-    fun testValidation() {
+    private fun getTestableNetworkCallback() = TestableNetworkCallback().apply {
         val request = NetworkRequest.Builder()
                 .clearCapabilities()
                 .addCapability(NET_CAPABILITY_INTERNET)
                 .build()
-        val testCallback = TestableNetworkCallback()
+        cm.registerNetworkCallback(request, this)
+    }
 
-        cm.registerNetworkCallback(request, testCallback)
+    @Test
+    fun testValidation() {
+        val testCallback = getTestableNetworkCallback()
         nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 204))
         nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 204))
 
@@ -209,14 +222,8 @@ class ConnectivityServiceIntegrationTest {
 
     @Test
     fun testCapportApi() {
-        val request = NetworkRequest.Builder()
-                .clearCapabilities()
-                .addCapability(NET_CAPABILITY_INTERNET)
-                .build()
-        val testCb = TestableNetworkCallback()
+        val testCb = getTestableNetworkCallback()
         val apiUrl = "https://capport.android.com"
-
-        cm.registerNetworkCallback(request, testCb)
         nsInstrumentation.addHttpResponse(HttpResponse(
                 apiUrl,
                 """
@@ -253,5 +260,27 @@ class ConnectivityServiceIntegrationTest {
 
         val nc = testCb.expectCapabilitiesWith(NET_CAPABILITY_CAPTIVE_PORTAL, na, TEST_TIMEOUT_MS)
         assertFalse(nc.hasCapability(NET_CAPABILITY_VALIDATED))
+    }
+
+    @Test
+    fun testValidation_WithPrivateDns() {
+        val testCallback = getTestableNetworkCallback()
+        nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 204))
+        nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 204))
+        val privateDnsConfig = PrivateDnsConfig(TEST_PRIVATE_DNS_HOST_NAME,
+                arrayOf(InetAddresses.parseNumericAddress(DNS_SERVER_ADDR),
+                        InetAddresses.parseNumericAddress(DNS_SERVER_ADDR_IPV6)))
+        // Setup private dns config and verify validation again with the config
+        doReturn(privateDnsConfig).`when`(dnsManager).privateDnsConfig
+
+        val na = NetworkAgentWrapper(TRANSPORT_CELLULAR, LinkProperties(), null /* ncTemplate */,
+                context)
+        networkStackClient.verifyNetworkMonitorCreated(na.network, TEST_TIMEOUT_MS)
+
+        na.addCapability(NET_CAPABILITY_INTERNET)
+        na.connect()
+
+        testCallback.expectAvailableThenValidatedCallbacks(na.network, TEST_TIMEOUT_MS)
+        assertEquals(2, nsInstrumentation.getRequestUrls().size)
     }
 }
