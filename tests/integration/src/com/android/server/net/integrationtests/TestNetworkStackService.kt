@@ -47,6 +47,11 @@ import java.net.URLConnection
 import java.nio.charset.StandardCharsets
 
 private const val TEST_NETID = 42
+private const val REEVALUATE_DELAY_TIME = "reevalute_delay_time"
+private const val IGNORE_REEVALUATE_ATTEMPTS = "ignore_reevaluate_attempts"
+// Set reevaluation delay to 10s that can ensure auto reevaluation will be triggered on our tests.
+// This can prevent unexpected behaviors on NetworkMonitor.
+private const val TEST_INITIAL_REEVALUATE_DELAY_MS = 10_000
 
 /**
  * Android service that can return an [android.net.INetworkStackConnector] which can be instrumented
@@ -71,6 +76,15 @@ class TestNetworkStackService : Service() {
     ) : NetworkMonitor.Dependencies() {
         override fun getPrivateDnsBypassNetwork(network: Network?) = privateDnsBypassNetwork
         override fun getDnsResolver() = resolver
+        override fun getDeviceConfigPropertyInt(
+            namespace: String,
+            name: String,
+            default: Int
+        ): Int = when (name) {
+            REEVALUATE_DELAY_TIME -> TEST_INITIAL_REEVALUATE_DELAY_MS
+            IGNORE_REEVALUATE_ATTEMPTS -> 0 // Always do the reevaluation
+            else -> super.getDeviceConfigPropertyInt(namespace, name, default)
+        }
     }
 
     private inner class TestNetworkStackConnector(context: Context) : NetworkStackConnector(

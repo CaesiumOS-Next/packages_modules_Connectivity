@@ -30,6 +30,7 @@ import android.net.InetAddresses
 import android.net.LinkProperties
 import android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY
 import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkRequest
@@ -51,6 +52,7 @@ import com.android.server.TestNetIdManager
 import com.android.server.connectivity.DnsManager
 import com.android.server.connectivity.MockableSystemProperties
 import com.android.server.connectivity.ProxyTracker
+import com.android.testutils.RecorderCallback.CallbackEntry
 import com.android.testutils.TestableNetworkCallback
 import org.junit.After
 import org.junit.Before
@@ -121,6 +123,8 @@ class ConnectivityServiceIntegrationTest {
             realContext.getResources().getString(R.string.config_captive_portal_http_url)
         private val httpsProbeUrl get() =
             realContext.getResources().getString(R.string.config_captive_portal_https_url)
+        private val fallbackProbeUrls get() =
+            realContext.resources.getStringArray(R.array.config_captive_portal_fallback_urls)
 
         private class InstrumentationServiceConnection : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -203,19 +207,40 @@ class ConnectivityServiceIntegrationTest {
         cm.registerNetworkCallback(request, this)
     }
 
+    private fun getNetworkAgent(transport: Int, lp: LinkProperties = LinkProperties()) =
+            NetworkAgentWrapper(transport, lp, null /* ncTemplate */, context).apply {
+                networkStackClient.verifyNetworkMonitorCreated(this.network, TEST_TIMEOUT_MS)
+                this.addCapability(NET_CAPABILITY_INTERNET)
+                this.connect()
+    }
+
+    private fun addValidatedMockResponses() {
+        nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 204))
+        nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 204))
+    }
+
+    private fun addInvalidatedMockResponses() {
+        nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 503))
+        nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 503))
+        for (url in fallbackProbeUrls) {
+            nsInstrumentation.addHttpResponse(HttpResponse(url, responseCode = 503))
+        }
+    }
+
+    private fun addPartialConnectivityMockResponses() {
+        nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 204))
+        nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 503))
+        for (url in fallbackProbeUrls) {
+            nsInstrumentation.addHttpResponse(HttpResponse(url, responseCode = 204))
+        }
+    }
+
     @Test
     fun testValidation() {
         val testCallback = getTestableNetworkCallback()
-        nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 204))
-        nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 204))
+        addValidatedMockResponses()
 
-        val na = NetworkAgentWrapper(TRANSPORT_CELLULAR, LinkProperties(), null /* ncTemplate */,
-                context)
-        networkStackClient.verifyNetworkMonitorCreated(na.network, TEST_TIMEOUT_MS)
-
-        na.addCapability(NET_CAPABILITY_INTERNET)
-        na.connect()
-
+        val na = getNetworkAgent(TRANSPORT_CELLULAR)
         testCallback.expectAvailableThenValidatedCallbacks(na.network, TEST_TIMEOUT_MS)
         assertEquals(2, nsInstrumentation.getRequestUrls().size)
     }
@@ -242,12 +267,7 @@ class ConnectivityServiceIntegrationTest {
 
         val lp = LinkProperties()
         lp.captivePortalApiUrl = Uri.parse(apiUrl)
-        val na = NetworkAgentWrapper(TRANSPORT_CELLULAR, lp, null /* ncTemplate */, context)
-        networkStackClient.verifyNetworkMonitorCreated(na.network, TEST_TIMEOUT_MS)
-
-        na.addCapability(NET_CAPABILITY_INTERNET)
-        na.connect()
-
+        val na = getNetworkAgent(TRANSPORT_CELLULAR, lp)
         testCb.expectAvailableCallbacks(na.network, validated = false, tmt = TEST_TIMEOUT_MS)
 
         val capportData = testCb.expectLinkPropertiesThat(na, TEST_TIMEOUT_MS) {
@@ -265,22 +285,121 @@ class ConnectivityServiceIntegrationTest {
     @Test
     fun testValidation_WithPrivateDns() {
         val testCallback = getTestableNetworkCallback()
-        nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 204))
-        nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 204))
+        addValidatedMockResponses()
         val privateDnsConfig = PrivateDnsConfig(TEST_PRIVATE_DNS_HOST_NAME,
                 arrayOf(InetAddresses.parseNumericAddress(DNS_SERVER_ADDR),
                         InetAddresses.parseNumericAddress(DNS_SERVER_ADDR_IPV6)))
         // Setup private dns config and verify validation again with the config
         doReturn(privateDnsConfig).`when`(dnsManager).privateDnsConfig
 
-        val na = NetworkAgentWrapper(TRANSPORT_CELLULAR, LinkProperties(), null /* ncTemplate */,
-                context)
-        networkStackClient.verifyNetworkMonitorCreated(na.network, TEST_TIMEOUT_MS)
-
-        na.addCapability(NET_CAPABILITY_INTERNET)
-        na.connect()
-
+        val na = getNetworkAgent(TRANSPORT_CELLULAR)
         testCallback.expectAvailableThenValidatedCallbacks(na.network, TEST_TIMEOUT_MS)
         assertEquals(2, nsInstrumentation.getRequestUrls().size)
+    }
+
+    @Test
+    fun testReportNetworkConnectivity() {
+        val testCallback = getTestableNetworkCallback()
+        addValidatedMockResponses()
+        val na = getNetworkAgent(TRANSPORT_CELLULAR)
+        testCallback.expectAvailableThenValidatedCallbacks(na.network, TEST_TIMEOUT_MS)
+        assertEquals(2, nsInstrumentation.getRequestUrls().size)
+
+        // Reset probing result.
+        nsInstrumentation.clearAllState()
+
+        // Add invalidated response to verify that NET_CAPABILITY_VALIDATED will lose.
+        addInvalidatedMockResponses()
+        cm.reportNetworkConnectivity(na.network, false)
+        testCallback.expectCapabilitiesWithout(NET_CAPABILITY_VALIDATED, na, TEST_TIMEOUT_MS)
+        // Expected 3 probing requests here(Http & Https & Fallback).
+        assertEquals(3, nsInstrumentation.requestUrls.size)
+
+        // Reset probing result.
+        nsInstrumentation.clearAllState()
+
+        // Add validated response again to verify that NET_CAPABILITY_VALIDATED will come back.
+        addValidatedMockResponses()
+        cm.reportNetworkConnectivity(na.network, true)
+        testCallback.expectCapabilitiesWith(NET_CAPABILITY_VALIDATED, na, TEST_TIMEOUT_MS)
+        // Expected 2 probing requests here(Http & Https).
+        assertEquals(2, nsInstrumentation.requestUrls.size)
+    }
+
+    @Test
+    fun testPartialConnectivity() {
+        val testCallback = getTestableNetworkCallback()
+        addPartialConnectivityMockResponses()
+        val na = getNetworkAgent(TRANSPORT_CELLULAR)
+        testCallback.expectAvailableCallbacks(na.network, validated = false, tmt = TEST_TIMEOUT_MS)
+        testCallback.expectCapabilitiesThat(na.network, TEST_TIMEOUT_MS) {
+            it.hasCapability(NET_CAPABILITY_PARTIAL_CONNECTIVITY) &&
+                    !it.hasCapability(NET_CAPABILITY_VALIDATED)
+        }
+        // Expected 3 probing requests(Http & Https & Fallback)
+        assertEquals(3, nsInstrumentation.requestUrls.size)
+
+        // Reset probing result.
+        nsInstrumentation.clearAllState()
+
+        // Add validated response and force validation again to verify that callback does not have
+        // partial connectivity capability.
+        addValidatedMockResponses()
+        cm.reportNetworkConnectivity(na.network, true)
+        testCallback.expectCapabilitiesThat(na.network, TEST_TIMEOUT_MS) {
+            it.hasCapability(NET_CAPABILITY_VALIDATED) &&
+                    !it.hasCapability(NET_CAPABILITY_PARTIAL_CONNECTIVITY)
+        }
+        // Expected 2 probing requests here(Http & Https).
+        assertEquals(2, nsInstrumentation.requestUrls.size)
+    }
+
+    @Test
+    fun testPartialConnectivity_Accepted() {
+        val testCallback = getTestableNetworkCallback()
+        addPartialConnectivityMockResponses()
+        val na = getNetworkAgent(TRANSPORT_CELLULAR)
+        testCallback.expectAvailableCallbacks(na.network, validated = false, tmt = TEST_TIMEOUT_MS)
+        testCallback.expectCapabilitiesThat(na.network, TEST_TIMEOUT_MS) {
+            it.hasCapability(NET_CAPABILITY_PARTIAL_CONNECTIVITY) &&
+                    !it.hasCapability(NET_CAPABILITY_VALIDATED)
+        }
+        // Expected 3 probing requests(Http & Https & Fallback)
+        assertEquals(3, nsInstrumentation.requestUrls.size)
+
+        // Reset probing result.
+        nsInstrumentation.clearAllState()
+
+        // Verify partial connectivity then accept connectivity.
+        cm.setAcceptPartialConnectivity(na.network, true /* accept */, false /* always */)
+        testCallback.expectCapabilitiesThat(na.network, TEST_TIMEOUT_MS) {
+            it.hasCapability(NET_CAPABILITY_VALIDATED) &&
+                    it.hasCapability(NET_CAPABILITY_PARTIAL_CONNECTIVITY)
+        }
+        // Expected no probing request.
+        assertEquals(0, nsInstrumentation.requestUrls.size)
+    }
+
+    @Test
+    fun testPartialConnectivity_NotAccepted() {
+        val testCallback = getTestableNetworkCallback()
+        addPartialConnectivityMockResponses()
+        val na = getNetworkAgent(TRANSPORT_CELLULAR)
+        testCallback.expectAvailableCallbacks(na.network, validated = false, tmt = TEST_TIMEOUT_MS)
+        testCallback.expectCapabilitiesThat(na.network, TEST_TIMEOUT_MS) {
+            it.hasCapability(NET_CAPABILITY_PARTIAL_CONNECTIVITY) &&
+                    !it.hasCapability(NET_CAPABILITY_VALIDATED)
+        }
+        // Expected 3 probing requests(Http & Https & Fallback)
+        assertEquals(3, nsInstrumentation.requestUrls.size)
+
+        // Reset probing result.
+        nsInstrumentation.clearAllState()
+
+        // Verify partial connectivity then not accept connectivity.
+        cm.setAcceptPartialConnectivity(na.network, false /* accept */, false /* always */)
+        testCallback.expectCallback(CallbackEntry.LOST, na, TEST_TIMEOUT_MS)
+        // Expected no probing request.
+        assertEquals(0, nsInstrumentation.requestUrls.size)
     }
 }
