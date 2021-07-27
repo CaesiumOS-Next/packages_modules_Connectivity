@@ -46,6 +46,7 @@ import static com.android.networkstack.tethering.BpfCoordinator.NF_CONNTRACK_UDP
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType;
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType.STATS_PER_IFACE;
 import static com.android.networkstack.tethering.BpfCoordinator.StatsType.STATS_PER_UID;
+import static com.android.networkstack.tethering.BpfCoordinator.U32Struct;
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
@@ -98,6 +99,7 @@ import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.dx.mockito.inline.extended.ExtendedMockito;
+import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
 import com.android.networkstack.tethering.BpfCoordinator.BpfConntrackEventConsumer;
@@ -119,6 +121,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.MockitoSession;
 
+import java.io.StringWriter;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -194,6 +197,11 @@ public class BpfCoordinatorTest {
         }
 
         @Override
+        public boolean isEmpty() throws ErrnoException {
+            return mMap.isEmpty();
+        }
+
+        @Override
         public V getValue(@NonNull K key) throws ErrnoException {
             // Return value for a given key. Otherwise, return null without an error ENOENT.
             // BpfMap#getValue treats that the entry is not found as no error.
@@ -218,6 +226,7 @@ public class BpfCoordinatorTest {
     @Mock private BpfMap<TetherDownstream6Key, Tether6Value> mBpfDownstream6Map;
     @Mock private BpfMap<TetherUpstream6Key, Tether6Value> mBpfUpstream6Map;
     @Mock private BpfMap<TetherDevKey, TetherDevValue> mBpfDevMap;
+    @Mock private BpfMap<U32Struct, U32Struct> mBpfCounterMap;
 
     // Late init since methods must be called by the thread that created this object.
     private TestableNetworkStatsProviderCbBinder mTetherStatsProviderCb;
@@ -304,6 +313,11 @@ public class BpfCoordinatorTest {
                     @Nullable
                     public BpfMap<TetherDevKey, TetherDevValue> getBpfDevMap() {
                         return mBpfDevMap;
+                    }
+
+                    @Nullable
+                    public BpfMap<U32Struct, U32Struct> getBpfCounterMap() {
+                        return mBpfCounterMap;
                     }
             });
 
@@ -1099,6 +1113,29 @@ public class BpfCoordinatorTest {
         doReturn(null).when(mDeps).getBpfLimitMap();
 
         checkBpfDisabled();
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testDumpNullMap() throws Exception {
+        setupFunctioningNetdInterface();
+
+        // Dump null map should not crash. Needed because #dump access BPF maps directly.
+        // TODO: remove once the BPF map dump is moved into shim.
+        doReturn(null).when(mDeps).getBpfUpstream4Map();
+        doReturn(null).when(mDeps).getBpfUpstream4Map();
+        doReturn(null).when(mDeps).getBpfUpstream6Map();
+        doReturn(null).when(mDeps).getBpfUpstream6Map();
+        doReturn(null).when(mDeps).getBpfStatsMap();
+        doReturn(null).when(mDeps).getBpfLimitMap();
+        doReturn(null).when(mDeps).getBpfCounterMap();
+
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        coordinator.startPolling();
+
+        final StringWriter stringWriter = new StringWriter();
+        final IndentingPrintWriter printWriter = new IndentingPrintWriter(stringWriter, " ");
+        coordinator.dump(printWriter);
     }
 
     @Test
