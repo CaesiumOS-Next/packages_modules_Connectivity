@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bbbdf0f_4090f3e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-27T09:23:47Z",
+      "side": 1,
+      "message": "ISTM the heaviest operation in this test is the registering of the requests. A good part of that processing time is likely spent doing the rematch.\n\nHistorically the rematch was network-major, so we\u0027d have to rematch everything whenever a new request is filed. The code still dates from that period, and handleRegisterNetworkRequests calls rematchAllNetworksAndRequests(). That means we try to match Σ(n \u003d 1 → 250, n) \u003d 30k+ requests.\n\nNow the rematch is request-major, and it\u0027s easy to rematch only one request, for a lightening of the load of a factor of 250.\n\nIf we replace rematchAllNetworksAndRequests() with rematchNetworksAndRequests(nris), does that (pass the tests and) provide the speed boost necessary to keep this under the current timeout ? It would also be good for resource consumption.",
+      "revId": "4d677d740645dd547d467aeef36119de8c94ffd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97431e06_54df857d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5796,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-27T09:23:47Z",
+      "side": 1,
+      "message": "ISTM this is not necessary here as it will always be processing only the one registration.\n\nNot feeling strongly, at it will return as soon as the handler is idle anyway",
+      "range": {
+        "startLine": 5796,
+        "startChar": 24,
+        "endLine": 5796,
+        "endChar": 40
+      },
+      "revId": "4d677d740645dd547d467aeef36119de8c94ffd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
