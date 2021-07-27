@@ -22,6 +22,30 @@
       },
       "revId": "a4d2bbf6cb3a4235a7f0861cb62f5ad10f670835",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51cbe709_0a12ab6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 8112,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-27T06:42:33Z",
+      "side": 1,
+      "message": "update to retry when ConcurrentModificationException happens",
+      "parentUuid": "2aeaa4f7_a0064692",
+      "range": {
+        "startLine": 8112,
+        "startChar": 15,
+        "endLine": 8112,
+        "endChar": 42
+      },
+      "revId": "a4d2bbf6cb3a4235a7f0861cb62f5ad10f670835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
