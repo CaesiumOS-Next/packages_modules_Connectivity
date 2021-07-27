@@ -39,6 +39,7 @@ import static android.net.netlink.StructNdMsg.NUD_STALE;
 import static android.system.OsConstants.ETH_P_IPV6;
 
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
+import static com.android.networkstack.tethering.BpfCoordinator.U32Struct;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -189,6 +190,7 @@ public class IpServerTest {
     @Mock private BpfMap<TetherStatsKey, TetherStatsValue> mBpfStatsMap;
     @Mock private BpfMap<TetherLimitKey, TetherLimitValue> mBpfLimitMap;
     @Mock private BpfMap<TetherDevKey, TetherDevValue> mBpfDevMap;
+    @Mock private BpfMap<U32Struct, U32Struct> mBpfCounterMap;
 
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
@@ -346,6 +348,11 @@ public class IpServerTest {
                     @Nullable
                     public BpfMap<TetherDevKey, TetherDevValue> getBpfDevMap() {
                         return mBpfDevMap;
+                    }
+
+                    @Nullable
+                    public BpfMap<U32Struct, U32Struct> getBpfCounterMap() {
+                        return mBpfCounterMap;
                     }
                 };
         mBpfCoordinator = spy(new BpfCoordinator(mBpfDeps));

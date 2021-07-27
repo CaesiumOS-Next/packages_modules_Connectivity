@@ -2253,6 +2253,7 @@ public class TetheringTest {
         verify(mConfig).dump(any());
         verify(mEntitleMgr).dump(any());
         verify(mOffloadCtrl).dump(any());
+        verify(mBpfCoordinator).dump(any());
         mLooper.stopAutoDispatch();
     }
 
