@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02c03cfa_52e7f1b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-27T14:11:11Z",
+      "side": 1,
+      "message": "Do we allow that OEM doesn\u0027t support BPF map? \nIf OEM\u0027s kernel must has BPF support, we could go your advice.",
+      "parentUuid": "33f86200_337e5fcc",
+      "revId": "3f3fb7faf58f8c3a5c0deef4da9825bde08a7455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b26fbfa_daf545fc",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "Ohh, the null is protected later: https://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java;l\u003d1097?q\u003dbpfcoordinator.java\n\nBut we still need carefully to make sure whether null pointer could happen. Before this CL, the map never be null even fd is invalid. Now it would be null if fd is invalid.",
       "parentUuid": "4b26fbfa_daf545fc",
+      "revId": "3f3fb7faf58f8c3a5c0deef4da9825bde08a7455",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "591e3881_2a07697e",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfMap.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-07-27T14:11:11Z",
+      "side": 1,
+      "message": "Thanks for your remind.\n\nI have tried to break the bpf path in makeMapPath() and open all bpf maps failed. It doesn\u0027t crash. dump of bpfcoordinator and shim have protection.\n\nBut there is a TODO to move map dump into shim. It is dangerous to touch map in bpfcoordinator.Add a test aosp/1779747 for dump null map.\n\n\nSrc:\n@@ -116,7 +116,7 @@ public class BpfCoordinator {\n..\n     private static String makeMapPath(String which) {\n -        return \"/sys/fs/bpf/tethering/map_offload_tether_\" + which + \"_map\";\n +        return \"/sys/fs/bpf/tetheringXXXX/map_offload_tether_\" + which + \"_map\";\n     }\n     \ndumpsys:\n  BPF offload:\n    mIsBpfEnabled: true\n    Polling not started\n    Stats provider registered\n    Upstream quota: {rmnet0\u003d9223372036854775807}\n    Polling interval: 5000 ms\n    Bpf shim: mBpfDownstream6Map{ERROR}, mBpfUpstream6Map{ERROR}, mBpfDownstream4Map{ERROR}, mBpfUpstream4Map{ERROR}, mBpfStatsMap{ERROR}, mBpfLimitMap{ERROR}, mBpfDevMap{ERROR}\n    Forwarding stats:\n      \u003cempty\u003e\n    BPF stats:\n      No BPF stats map\n    \n    Forwarding rules:\n      No IPv6 upstream\n      No IPv6 rules\n      IPv4 Upstream: proto [inDstMac] iif(iface) src -\u003e nat -\u003e dst [outDstMac] age\n        No IPv4 support\n      IPv4 Downstream: proto [inDstMac] iif(iface) src -\u003e nat -\u003e dst [outDstMac] age\n        No IPv4 support\n    \n    Device map:\n      No devmap support\n    Client Information:\n      \u003cempty\u003e\n    IPv4 Upstream Indices:\n      \u003cempty\u003e\n    \n    Forwarding counters:\n      Error dumping counter map: android.system.ErrnoException: bpfFdGet failed: ENOENT (No such file or directory)",
+      "parentUuid": "46d20521_12e2af31",
       "revId": "3f3fb7faf58f8c3a5c0deef4da9825bde08a7455",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
