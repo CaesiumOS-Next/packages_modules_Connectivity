@@ -395,6 +395,19 @@ public class BpfCoordinator {
                 return null;
             }
         }
+
+         /** Get error counter BPF map. Used for #dump only */
+        @VisibleForTesting
+        @Nullable public BpfMap<U32Struct, U32Struct> getBpfCounterMap() {
+            if (!isAtLeastS()) return null;
+            try {
+                return new BpfMap<>(TETHER_ERROR_MAP_PATH,
+                    BpfMap.BPF_F_RDONLY, U32Struct.class, U32Struct.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create counter map: " + e);
+                return null;
+            }
+        }
     }
 
     @VisibleForTesting
@@ -1146,14 +1159,17 @@ public class BpfCoordinator {
         public long val;
     }
 
-    private void dumpCounters(@NonNull IndentingPrintWriter pw) {
-        if (!mDeps.isAtLeastS()) {
-            pw.println("No counter support");
-            return;
-        }
-        try (BpfMap<U32Struct, U32Struct> map = new BpfMap<>(TETHER_ERROR_MAP_PATH,
-                BpfMap.BPF_F_RDONLY, U32Struct.class, U32Struct.class)) {
-
+    @VisibleForTesting
+    void dumpCounters(@NonNull IndentingPrintWriter pw) {
+        try (BpfMap<U32Struct, U32Struct> map = mDeps.getBpfCounterMap()) {
+            if (map == null) {
+                pw.println("No counter support");
+                return;
+            }
+            if (map.isEmpty()) {
+                pw.println("<empty>");
+                return;
+            }
             map.forEach((k, v) -> {
                 String counterName;
                 try {
