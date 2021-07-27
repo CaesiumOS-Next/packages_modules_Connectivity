@@ -320,6 +320,7 @@ import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.LocationPermissionChecker;
 import com.android.server.ConnectivityService.ConnectivityDiagnosticsCallbackInfo;
 import com.android.server.ConnectivityService.NetworkRequestInfo;
+import com.android.server.connectivity.DnsManager;
 import com.android.server.connectivity.MockableSystemProperties;
 import com.android.server.connectivity.Nat464Xlat;
 import com.android.server.connectivity.NetworkAgentInfo;
@@ -1742,6 +1743,9 @@ public class ConnectivityServiceTest {
             final PendingIntent b = inv.getArgument(1);
             return runAsShell(GET_INTENT_SENDER_INTENT, () -> a.intentFilterEquals(b));
         }).when(deps).intentFilterEquals(any(), any());
+
+        doReturn(new DnsManager(mServiceContext, mMockDnsResolver))
+                .when(deps).makeDnsManager(any(), any());
 
         return deps;
     }
