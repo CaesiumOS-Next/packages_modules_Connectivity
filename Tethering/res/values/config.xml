@@ -197,4 +197,8 @@
     <!-- Which USB function should be enabled when TETHERING_USB is requested. 0: RNDIS, 1: NCM.
          -->
     <integer translatable="false" name="config_tether_usb_functions">0</integer>
+
+    <!-- Configuring DHCP lease time dynamically.
+         default value configure to 1hr = 60 * 60 -->
+    <integer name="config_DHCPLeaseTime">3600</integer>
 </resources>

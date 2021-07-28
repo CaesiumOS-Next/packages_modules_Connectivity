@@ -112,9 +112,6 @@ public class IpServer extends StateMachine {
     // TODO: have PanService use some visible version of this constant
     private static final String BLUETOOTH_IFACE_ADDR = "192.168.44.1/24";
 
-    // TODO: have this configurable
-    private static final int DHCP_LEASE_TIME_SECS = 3600;
-
     private static final MacAddress NULL_MAC_ADDRESS = MacAddress.fromString("00:00:00:00:00:00");
 
     private static final String TAG = "IpServer";
@@ -258,6 +255,7 @@ public class IpServer extends StateMachine {
     private RouterAdvertisementDaemon mRaDaemon;
     private DadProxy mDadProxy;
 
+    private int mDHCPLeaseTime;
     // To be accessed only on the handler thread
     private int mDhcpServerStartIndex = 0;
     private IDhcpServer mDhcpServer;
@@ -287,7 +285,7 @@ public class IpServer extends StateMachine {
             String ifaceName, Looper looper, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             boolean usingLegacyDhcp, boolean usingBpfOffload,
-            PrivateAddressCoordinator addressCoordinator, Dependencies deps) {
+            PrivateAddressCoordinator addressCoordinator, Dependencies deps, int dhcpLeaseTime) {
         super(ifaceName, looper);
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
@@ -316,6 +314,7 @@ public class IpServer extends StateMachine {
             mLog.e("Failed to create IpNeighborMonitor on " + mIfaceName);
         }
 
+        mDHCPLeaseTime = dhcpLeaseTime;
         mInitialState = new InitialState();
         mLocalHotspotState = new LocalHotspotState();
         mTetheredState = new TetheredState();
@@ -529,7 +528,7 @@ public class IpServer extends StateMachine {
                 (mInterfaceType == TetheringManager.TETHERING_NCM && clientAddr == null);
         return new DhcpServingParamsParcelExt()
             .setDefaultRouters(defaultRouter)
-            .setDhcpLeaseTimeSecs(DHCP_LEASE_TIME_SECS)
+            .setDhcpLeaseTimeSecs(mDHCPLeaseTime)
             .setDnsServers(dnsServer)
             .setServerAddr(serverAddr)
             .setMetered(true)

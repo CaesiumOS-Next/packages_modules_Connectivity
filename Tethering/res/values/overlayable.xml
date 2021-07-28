@@ -41,6 +41,8 @@
             <item type="string" name="config_mobile_hotspot_provision_response"/>
             <item type="integer" name="config_mobile_hotspot_provision_check_period"/>
             <item type="string" name="config_wifi_tether_enable"/>
+            <item type="integer" name="config_DHCPLeaseTime"/>
+
             <!-- Params from config.xml that can be overlaid -->
         </policy>
     </overlayable>
