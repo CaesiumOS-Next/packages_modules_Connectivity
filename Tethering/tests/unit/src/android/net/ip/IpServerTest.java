@@ -228,7 +228,8 @@ public class IpServerTest {
 
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, usingLegacyDhcp, usingBpfOffload, mAddressCoordinator, mDependencies);
+                mCallback, usingLegacyDhcp, usingBpfOffload, mAddressCoordinator, mDependencies,
+                DHCP_LEASE_TIME_SECS);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -359,7 +360,8 @@ public class IpServerTest {
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, false /* usingLegacyDhcp */,
-                DEFAULT_USING_BPF_OFFLOAD, mAddressCoordinator, mDependencies);
+                DEFAULT_USING_BPF_OFFLOAD, mAddressCoordinator, mDependencies,
+                DHCP_LEASE_TIME_SECS);
         mIpServer.start();
         mLooper.dispatchAll();
         verify(mCallback).updateInterfaceState(

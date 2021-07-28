@@ -132,6 +132,11 @@ public class TetheringConfiguration {
      */
     public static final int DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS = 5000;
 
+    /**
+     * Default value for DHCP Lease time.
+     */
+    public static final int DEFAULT_DHCP_LEASE_TIME_SECS = 3600;
+
     public final String[] tetherableUsbRegexs;
     public final String[] tetherableWifiRegexs;
     public final String[] tetherableWigigRegexs;
@@ -149,6 +154,7 @@ public class TetheringConfiguration {
     public final String provisioningAppNoUi;
     public final int provisioningCheckPeriod;
     public final String provisioningResponse;
+    public final int dhcpLeaseTime;
 
     public final int activeDataSubId;
 
@@ -221,6 +227,11 @@ public class TetheringConfiguration {
         mEnableWifiP2pDedicatedIp = getResourceBoolean(res,
                 R.bool.config_tether_enable_legacy_wifi_p2p_dedicated_ip,
                 false /* defaultValue */);
+
+        dhcpLeaseTime = getResourceInteger(res,
+                R.integer.config_dhcp_lease_time,
+                DEFAULT_DHCP_LEASE_TIME_SECS
+                );
 
         // Flags should normally not be booleans, but this is a kill-switch flag that is only used
         // to turn off the feature, so binary rollback problems do not apply.
