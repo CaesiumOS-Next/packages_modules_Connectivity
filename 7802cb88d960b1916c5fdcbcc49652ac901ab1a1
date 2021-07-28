@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0221c7d_65508771",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-28T15:12:19Z",
+      "side": 1,
+      "message": "Maybe in follow up CL. Could we record DnsProxy query for debug ? Dns query may have privacy concern, but at least we can record the error rate and error code if fail ? ",
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd394cdc_ee3b09ff",
+        "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-28T15:12:19Z",
+      "side": 1,
+      "message": "Does this means we only support dns query over ipv6 ? We need to support both ipv4 and ipv6.",
+      "range": {
+        "startLine": 213,
+        "startChar": 52,
+        "endLine": 213,
+        "endChar": 60
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f7b6341_1b9f7ac8",
+        "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-28T15:12:19Z",
+      "side": 1,
+      "message": "Why provide two additional thread for tcp dns query but use mHandler thread for udp dns query ?",
+      "range": {
+        "startLine": 289,
+        "startChar": 8,
+        "endLine": 290,
+        "endChar": 38
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d82037bf_f7215f58",
+        "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-28T15:12:19Z",
+      "side": 1,
+      "message": "Should we read the error code instead of always be RCODE_SERVFAIL ?",
+      "range": {
+        "startLine": 485,
+        "startChar": 70,
+        "endLine": 485,
+        "endChar": 75
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ccefb0c_76fecca7",
+        "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-28T15:12:19Z",
+      "side": 1,
+      "message": "What happen when doing query here but the network already down. Would be onError callback trigger ? If so, should we send different RCODE ?",
+      "range": {
+        "startLine": 493,
+        "startChar": 26,
+        "endLine": 493,
+        "endChar": 33
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "433ac125_dc1705d9",
+        "filename": "Tethering/src/android/net/util/TetheringUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-28T15:12:19Z",
+      "side": 1,
+      "message": "I don\u0027t think quietly is a good idea. At least print the log ? If I read the code correctly, IOException only be when if underlying system call fails and its message would carry the error no which could help us why close socket fail.",
+      "range": {
+        "startLine": 186,
+        "startChar": 23,
+        "endLine": 186,
+        "endChar": 41
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
