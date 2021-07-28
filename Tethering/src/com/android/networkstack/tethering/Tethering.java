@@ -2715,7 +2715,7 @@ public class Tethering {
         final TetherState tetherState = new TetherState(
                 new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
                              makeControlCallback(), mConfig, mPrivateAddressCoordinator,
-                             mDeps.getIpServerDependencies()), isNcm);
+                             mDeps.getIpServerDependencies(), mConfig.dhcpLeaseTime), isNcm);
         mTetherStates.put(iface, tetherState);
         tetherState.ipServer.start();
     }

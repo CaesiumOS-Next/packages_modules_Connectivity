@@ -232,7 +232,8 @@ public class IpServerTest {
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, mTetherConfig, mAddressCoordinator, mDependencies);
+                mCallback, mTetherConfig, mAddressCoordinator, mDependencies,
+                DHCP_LEASE_TIME_SECS);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -364,7 +365,7 @@ public class IpServerTest {
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
-                mDependencies);
+                mDependencies, DHCP_LEASE_TIME_SECS);
         mIpServer.start();
         mLooper.dispatchAll();
         verify(mCallback).updateInterfaceState(
