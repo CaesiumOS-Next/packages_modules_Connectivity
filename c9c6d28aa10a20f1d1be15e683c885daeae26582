@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e68a452d_bb29bf9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1889688
+      },
+      "writtenOn": "2021-07-28T10:43:32Z",
+      "side": 1,
+      "message": "Patch containing DHCP lease time configurable from Runtime Resource overlay.\n\n",
+      "revId": "c9c6d28aa10a20f1d1be15e683c885daeae26582",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
