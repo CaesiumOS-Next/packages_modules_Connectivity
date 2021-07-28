@@ -36,6 +36,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fb8689c_3c791990",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-28T00:32:04Z",
+      "side": 1,
+      "message": "Not a reviewer on this CL, so comment optional, but whenever you update text output formats it\u0027s useful to include a before/after comparison in the commit message.",
+      "revId": "1946f613ad0fbbfa648d50b30084be392fa43876",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa00b90d_95445c59",
