@@ -2871,8 +2871,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (VDBG || DDBG) log("Setting MTU size: " + iface + ", " + mtu);
-        rules.addRule(new NetdRuleReassignment.MtuRule(
-                NetdRuleReassignment.ACTION_UPDATE, iface, mtu));
+        rules.addRuleToAdd(new NetdRuleReassignment.MtuRule(iface, mtu));
     }
 
     @VisibleForTesting
@@ -2901,8 +2900,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (directlyUpdate) {
             NetdRuleReassignment.applyTcpBufferRule(mNetd, rmemValues, wmemValues);
         } else {
-            rules.addRule(new NetdRuleReassignment.TcpBufferRule(
-                    NetdRuleReassignment.ACTION_UPDATE, rmemValues, wmemValues));
+            rules.addRuleToAdd(new NetdRuleReassignment.TcpBufferRule(rmemValues, wmemValues));
         }
         mCurrentTcpBufferSizes = tcpBufferSizes;
     }
@@ -6894,25 +6892,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         private abstract static class NetdRule {
             protected final int mRuleType;
-            protected final int mAction;
 
-            NetdRule(int ruleType, int action) {
+            NetdRule(int ruleType) {
                 mRuleType = ruleType;
-                mAction = action;
             }
 
             @Override
             public String toString() {
-                return actionToString() + " ruleType: " + mRuleType;
-            }
-
-            private String actionToString() {
-                switch (mAction) {
-                    case ACTION_ADD: return "Add";
-                    case ACTION_REMOVE: return "Remove";
-                    case ACTION_UPDATE: return "Update";
-                    default: return "Unknown action(" + mAction + ")";
-                }
+                return "RuleType: " + mRuleType;
             }
         }
 
@@ -6920,8 +6907,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             @NonNull final String mIface;
             final int mNetId;
 
-            InterfaceRule(int action, int netId, @NonNull String iface) {
-                super(RULE_INTERFACE, action);
+            InterfaceRule(int netId, @NonNull String iface) {
+                super(RULE_INTERFACE);
                 mIface = iface;
                 mNetId = netId;
             }
@@ -6933,9 +6920,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final int mMark;
             final int mMask;
 
-            WakeupInterfaceRule(int action, @NonNull String iface, @NonNull String prefix,
+            WakeupInterfaceRule(@NonNull String iface, @NonNull String prefix,
                     int mark, int mask) {
-                super(RULE_WAKE_UP_INTERFACE, action);
+                super(RULE_WAKE_UP_INTERFACE);
                 mIface = iface;
                 mPrefix = prefix;
                 mMark = mark;
@@ -6947,8 +6934,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             @NonNull final RouteInfoParcel mRouteInfo;
             final int mNetId;
 
-            RouteRule(int action, int netId, @NonNull RouteInfoParcel routeInfo) {
-                super(RULE_ROUTE, action);
+            RouteRule(int netId, @NonNull RouteInfoParcel routeInfo) {
+                super(RULE_ROUTE);
                 mNetId = netId;
                 mRouteInfo = routeInfo;
             }
@@ -6958,8 +6945,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             @NonNull final String mIface;
             final int mMtu;
 
-            MtuRule(int action, @NonNull String iface, int mtu) {
-                super(RULE_MTU, action);
+            MtuRule(@NonNull String iface, int mtu) {
+                super(RULE_MTU);
                 mIface = iface;
                 mMtu = mtu;
             }
@@ -6969,38 +6956,59 @@ public class ConnectivityService extends IConnectivityManager.Stub
             @NonNull final String mRmem;
             @NonNull final String mWmem;
 
-            TcpBufferRule(int action, @NonNull String rmemValues, @NonNull String wmemValues) {
-                super(RULE_TCP_BUFFER, action);
+            TcpBufferRule(@NonNull String rmemValues, @NonNull String wmemValues) {
+                super(RULE_TCP_BUFFER);
                 mRmem = rmemValues;
                 mWmem = wmemValues;
             }
         }
 
-        @NonNull private final ArrayList<NetdRule> mRules = new ArrayList<>();
-
+        @NonNull private final ArrayList<NetdRule> mRulesToAdd = new ArrayList<>();
+        @NonNull private final ArrayList<NetdRule> mRulesToRemove = new ArrayList<>();
+        @NonNull private final ArrayList<NetdRule> mRulesToUpdate = new ArrayList<>();
         @NonNull private final INetd mNetd;
 
         NetdRuleReassignment(@NonNull INetd net) {
             mNetd = net;
         }
 
-        void addRule(@NonNull NetdRule rule) {
-            mRules.add(rule);
+        void addRuleToAdd(@NonNull NetdRule rule) {
+            mRulesToAdd.add(rule);
         }
 
+        void addRuleToRemove(@NonNull NetdRule rule) {
+            mRulesToRemove.add(rule);
+        }
+
+        void addRuleToUpdate(@NonNull NetdRule rule) {
+            mRulesToUpdate.add(rule);
+        }
 
         String dumpRules() {
             final StringBuilder sb = new StringBuilder();
             sb.append("NetdRules :");
-            for (final NetdRule r: mRules) {
-                sb.append("\n  ").append(r);
+            for (final NetdRule r: mRulesToAdd) {
+                sb.append("\n  Add ").append(r);
+            }
+            for (final NetdRule r: mRulesToAdd) {
+                sb.append("\n  Remove ").append(r);
+            }
+            for (final NetdRule r: mRulesToAdd) {
+                sb.append("\n  Update ").append(r);
             }
             return sb.append("\n").toString();
         }
 
         void applyReassignments() {
-            for (final NetdRule rule : mRules) {
-                applyRule(rule, rule.mAction);
+            // Add new rule first before removing.
+            for (final NetdRule rule : mRulesToAdd) {
+                applyRule(rule, ACTION_ADD);
+            }
+            for (final NetdRule rule : mRulesToRemove) {
+                applyRule(rule, ACTION_REMOVE);
+            }
+            for (final NetdRule rule : mRulesToUpdate) {
+                applyRule(rule, ACTION_UPDATE);
             }
         }
 
@@ -7275,9 +7283,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         }
         // Apply a series of rules update combining with other rules.
-        rules.addRule(new NetdRuleReassignment.WakeupInterfaceRule(
-                add ? NetdRuleReassignment.ACTION_ADD : NetdRuleReassignment.ACTION_REMOVE,
-                iface, prefix, mark, mask));
+        if (add) {
+            rules.addRuleToAdd(new NetdRuleReassignment.WakeupInterfaceRule(
+                    iface, prefix, mark, mask));
+        } else {
+            rules.addRuleToRemove(new NetdRuleReassignment.WakeupInterfaceRule(
+                    iface, prefix, mark, mask));
+        }
     }
 
     private void updateInterfaces(final @NonNull NetdRuleReassignment rules,
@@ -7290,8 +7302,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             for (final String iface : interfaceDiff.added) {
                 try {
                     if (DBG) log("Adding iface " + iface + " to network " + netId);
-                    rules.addRule(new NetdRuleReassignment.InterfaceRule(
-                            NetdRuleReassignment.ACTION_ADD, netId, iface));
+                    rules.addRuleToAdd(new NetdRuleReassignment.InterfaceRule(netId, iface));
                     wakeupModifyInterface(rules, iface, caps, true);
                     mDeps.reportNetworkInterfaceForTransports(mContext, iface,
                             caps.getTransportTypes());
@@ -7303,8 +7314,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (final String iface : interfaceDiff.removed) {
             try {
                 if (DBG) log("Removing iface " + iface + " from network " + netId);
-                rules.addRule(new NetdRuleReassignment.InterfaceRule(
-                        NetdRuleReassignment.ACTION_REMOVE, netId, iface));
+                rules.addRuleToRemove(new NetdRuleReassignment.InterfaceRule(netId, iface));
                 wakeupModifyInterface(rules, iface, caps, false);
             } catch (Exception e) {
                 loge("Exception removing interface: " + e);
@@ -7364,27 +7374,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Add non-gateway route
             if (route.hasGateway()) continue;
             if (VDBG || DDBG) log("Adding Route [" + route + "] to network " + netId);
-            rules.addRule(new NetdRuleReassignment.RouteRule(
-                    NetdRuleReassignment.ACTION_ADD, netId, convertRouteInfo(route)));
+            rules.addRuleToAdd(new NetdRuleReassignment.RouteRule(netId, convertRouteInfo(route)));
         }
         for (RouteInfo route : routeDiff.added) {
             // Add gateway route
             if (!route.hasGateway()) continue;
             if (VDBG || DDBG) log("Adding Route [" + route + "] to network " + netId);
-            rules.addRule(new NetdRuleReassignment.RouteRule(
-                    NetdRuleReassignment.ACTION_ADD, netId, convertRouteInfo(route)));
+            rules.addRuleToAdd(new NetdRuleReassignment.RouteRule(netId, convertRouteInfo(route)));
         }
 
         for (RouteInfo route : routeDiff.removed) {
             if (VDBG || DDBG) log("Removing Route [" + route + "] from network " + netId);
-            rules.addRule(new NetdRuleReassignment.RouteRule(
-                    NetdRuleReassignment.ACTION_REMOVE, netId, convertRouteInfo(route)));
+            rules.addRuleToRemove(new NetdRuleReassignment.RouteRule(
+                    netId, convertRouteInfo(route)));
         }
 
         for (RouteInfo route : routeDiff.updated) {
             if (VDBG || DDBG) log("Updating Route [" + route + "] from network " + netId);
-            rules.addRule(new NetdRuleReassignment.RouteRule(
-                    NetdRuleReassignment.ACTION_UPDATE, netId, convertRouteInfo(route)));
+            rules.addRuleToUpdate(new NetdRuleReassignment.RouteRule(
+                    netId, convertRouteInfo(route)));
         }
         return !routeDiff.added.isEmpty() || !routeDiff.removed.isEmpty()
                 || !routeDiff.updated.isEmpty();
