@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb935822_48d08914",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-28T09:38:32Z",
+      "side": 1,
+      "message": "Both are permissions, do you want to call this mTrafficPermissions to clarify ?",
+      "range": {
+        "startLine": 473,
+        "startChar": 48,
+        "endLine": 473,
+        "endChar": 60
+      },
+      "revId": "faac3173a63fc8c10a8d50ce17622426923c08ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eeffbd9_f6ac72f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-28T09:38:32Z",
+      "side": 1,
+      "message": "Maybe expectNoNetworkPerm to be consistent with expectNetworkPerm ? Also suggest keeping this function together with expectNetworkPerm.",
+      "range": {
+        "startLine": 541,
+        "startChar": 26,
+        "endLine": 541,
+        "endChar": 32
+      },
+      "revId": "faac3173a63fc8c10a8d50ce17622426923c08ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64b1b2ea_b3d0905f",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-28T09:38:32Z",
+      "side": 1,
+      "message": "TRAFFIC_ALL ?",
+      "range": {
+        "startLine": 726,
+        "startChar": 47,
+        "endLine": 727,
+        "endChar": 48
+      },
+      "revId": "faac3173a63fc8c10a8d50ce17622426923c08ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739dd6d9_aba3a6fe",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-28T09:38:32Z",
+      "side": 1,
+      "message": "Now that expectTrafficPerm takes an int..., you can remove these new int[] invocations",
+      "range": {
+        "startLine": 745,
+        "startChar": 60,
+        "endLine": 745,
+        "endChar": 82
+      },
+      "revId": "faac3173a63fc8c10a8d50ce17622426923c08ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
