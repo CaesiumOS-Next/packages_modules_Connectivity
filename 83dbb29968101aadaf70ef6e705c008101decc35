@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf8ff92_9cb68abb",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-28T02:30:17Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct because this value is still true even device only has ims connection.",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e275ae54_05e861d8",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-28T02:30:17Z",
+      "side": 1,
+      "message": "IIUC this is not reachable because l.71 is fail() and would break this test. I think the best place to put restoreConnections() is after test method like teardown().",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85f7011f_016686b6",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-28T02:30:17Z",
+      "side": 1,
+      "message": "This means the test is still failed because device cannot connect to wifi network when airplane mode test(turn on/off) is passed. Not sure this is correct.",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 87
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4572444_85869fdb",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-07-28T02:30:17Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 115,
+        "startChar": 12,
+        "endLine": 115,
+        "endChar": 87
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
