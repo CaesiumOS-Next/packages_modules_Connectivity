@@ -10456,6 +10456,76 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testVpnHandoverNetdRuleChanges() throws Exception {
+        // Verify the rule update should follow the order below
+        // 1. networkAddInterface(newIface)
+        // 2. networkAddRouteParcel(newIface)
+        // 3. networkRemoveInterface(oldIface)
+        // 4. networkRemoveRouteParcel(oldIface)
+        // 5. firewallRemoveUidInterfaceRules(oldIface)
+        // 6. firewallAddUidInterfaceRules(newIface)
+
+        final String oldIface = "tun0";
+        final String newIface = "tun1";
+        InOrder inOrder = inOrder(mMockNetd);
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(oldIface);
+        lp.addRoute(new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null));
+        lp.addRoute(new RouteInfo(new IpPrefix(Inet6Address.ANY, 0), null));
+        // The uid range needs to cover the test app so the network is visible to it.
+        final Set<UidRange> vpnRange = Collections.singleton(PRIMARY_UIDRANGE);
+        mMockVpn.establish(lp, VPN_UID, vpnRange);
+        assertVpnUidRangesUpdated(true, vpnRange, VPN_UID);
+
+        verify(mMockNetd, times(1)).networkAddInterface(anyInt(), eq(oldIface));
+
+        // There are two expected invocations, one for v4, one for v6.
+        verify(mMockNetd, times(2)).networkAddRouteParcel(anyInt(), any());
+        // Connected VPN should have interface rules set up. There are two expected invocations,
+        // one during VPN uid update, one during VPN LinkProperties update
+        verify(mMockNetd, times(2)).firewallAddUidInterfaceRules(eq(oldIface), any());
+
+        reset(mMockNetd);
+        inOrder = inOrder(mMockNetd);
+        lp.setInterfaceName(newIface);
+        lp.addRoute(new RouteInfo(new IpPrefix("192.0.2.0/24"), null, "tun1"));
+        mMockVpn.sendLinkProperties(lp);
+        waitForIdle();
+
+        inOrder.verify(mMockNetd).networkAddInterface(anyInt(), eq(newIface));
+
+        // VPN handover (switch to a new interface) should result in rules being updated (new rules
+        // added first, then old rules removed), except filtering rules
+        final ArgumentCaptor<RouteInfoParcel> routeCaptor =
+                ArgumentCaptor.forClass(RouteInfoParcel.class);
+        inOrder.verify(mMockNetd, times(3)).networkAddRouteParcel(anyInt(), routeCaptor.capture());
+        assertEquals("0.0.0.0/0", routeCaptor.getAllValues().get(0).destination);
+        assertEquals(newIface, routeCaptor.getAllValues().get(0).ifName);
+        assertEquals("::/0", routeCaptor.getAllValues().get(1).destination);
+        assertEquals(newIface, routeCaptor.getAllValues().get(1).ifName);
+        assertEquals("192.0.2.0/24", routeCaptor.getAllValues().get(2).destination);
+        assertEquals(newIface, routeCaptor.getAllValues().get(2).ifName);
+
+        inOrder.verify(mMockNetd).networkRemoveInterface(anyInt(), eq("tun0"));
+
+        final ArgumentCaptor<RouteInfoParcel> routeCaptor2 =
+                ArgumentCaptor.forClass(RouteInfoParcel.class);
+        inOrder.verify(mMockNetd, times(2)).networkRemoveRouteParcel(anyInt(),
+                routeCaptor2.capture());
+        assertEquals("::/0", routeCaptor2.getAllValues().get(0).destination);
+        assertEquals(oldIface, routeCaptor2.getAllValues().get(0).ifName);
+        assertEquals("0.0.0.0/0", routeCaptor2.getAllValues().get(1).destination);
+        assertEquals(oldIface, routeCaptor2.getAllValues().get(1).ifName);
+
+        final ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
+        inOrder.verify(mMockNetd).firewallRemoveUidInterfaceRules(uidCaptor.capture());
+        assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+
+        inOrder.verify(mMockNetd).firewallAddUidInterfaceRules(eq(newIface), uidCaptor.capture());
+        assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
+    }
+
+    @Test
     public void testDumpDoesNotCrash() {
         mServiceContext.setPermission(DUMP, PERMISSION_GRANTED);
         // Filing a couple requests prior to testing the dump.
