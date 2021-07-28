@@ -7132,10 +7132,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         updateInterfaces(rules, newLp, oldLp, netId, networkAgent.networkCapabilities);
 
-        // update filtering rules, need to happen after the interface update so netd knows about the
-        // new interface (the interface name -> index map becomes initialized)
-        updateVpnFiltering(newLp, oldLp, networkAgent);
-
         updateMtu(rules, newLp, oldLp);
         // TODO - figure out what to do for clat
 //        for (LinkProperties lp : newLp.getStackedLinks()) {
@@ -7151,6 +7147,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             log(rules.dumpRules());
         }
         rules.applyReassignments();
+
+        // update filtering rules, need to happen after the interface update so netd knows about the
+        // new interface (the interface name -> index map becomes initialized)
+        updateVpnFiltering(newLp, oldLp, networkAgent);
 
         updateDnses(newLp, oldLp, netId);
         // Make sure LinkProperties represents the latest private DNS status.
