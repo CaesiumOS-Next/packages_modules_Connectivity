@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "668d1f77_b6608e37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-29T05:56:35Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "b3094b7b955978985b7221ba7cfea29422db8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9fed888_bb7c21b2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-29T05:56:35Z",
+      "side": 1,
+      "message": "Why is this needed? AFAIK connectToCell just files a NetworkRequest for a cellular network. Doesn\u0027t the requestAndWaitForAvailable right below it do the same thing?",
+      "range": {
+        "startLine": 1833,
+        "startChar": 0,
+        "endLine": 1834,
+        "endChar": 41
+      },
+      "revId": "b3094b7b955978985b7221ba7cfea29422db8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
