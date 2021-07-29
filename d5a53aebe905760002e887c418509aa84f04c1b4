@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9021cf1_fab37f9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-29T09:47:30Z",
+      "side": 1,
+      "message": "Should the comma follow the word?\ne.g. updates,",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 10,
+        "endChar": 1
+      },
+      "revId": "d5a53aebe905760002e887c418509aa84f04c1b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
