@@ -22,6 +22,30 @@
       },
       "revId": "6d44b50a4154aa0100311eaeb9a516e86d25edf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a84f5c3_8a7c0013",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-07-29T06:52:20Z",
+      "side": 1,
+      "message": "The rule order is updated from\n 1. networkAddInterface(newIface)\n 2. networkRemoveInterface(oldIface)\n 3. networkAddRoute(newIface)\n 4. networkRemoveRoute(oldIface)\n 5. firewallRemoveUidInterfaceRules(oldIface)\n 6. firewallAddUidInterfaceRules(newIface)\n\nand update in aosp/1779757 to do: \n\n 1. networkAddInterface(newIface)\n 2. networkRemoveInterface(oldIface)\n 3. networkAddRoute(newIface)\n 4. networkRemoveRoute(oldIface)\n 5. firewallRemoveUidInterfaceRules()\n 6. firewallAddUidInterfaceRules(newIface)  first \n \nthen update to:\n\n 1. networkAddInterface(newIface)\n 2. networkAddRoute(newIface)\n 3. networkRemoveRoute(oldIface)\n 4. networkRemoveInterface(oldIface)\n 5. firewallRemoveUidInterfaceRules() \n 6. firewallAddUidInterfaceRules(newIface)  in this commit.\n \nLuke, could you take a look to see if the order is ok or not? Thanks.",
+      "parentUuid": "cc233a45_4ab14672",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "6d44b50a4154aa0100311eaeb9a516e86d25edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
