@@ -16,6 +16,7 @@
 
 package com.android.server.net.integrationtests
 
+import android.app.PendingIntent
 import android.app.usage.NetworkStatsManager
 import android.content.ComponentName
 import android.content.Context
@@ -23,6 +24,7 @@ import android.content.Context.BIND_AUTO_CREATE
 import android.content.Context.BIND_IMPORTANT
 import android.content.Intent
 import android.content.ServiceConnection
+import android.net.CaptivePortal
 import android.net.ConnectivityManager
 import android.net.IDnsResolver
 import android.net.INetd
@@ -35,10 +37,12 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
 import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkRequest
+import android.net.NetworkStack
 import android.net.TestNetworkStackClient
 import android.net.Uri
 import android.net.metrics.IpConnectivityLog
 import android.net.shared.PrivateDnsConfig
+import android.os.Bundle
 import android.os.ConditionVariable
 import android.os.IBinder
 import android.os.SystemConfigManager
@@ -52,6 +56,8 @@ import com.android.server.NetworkAgentWrapper
 import com.android.server.TestNetIdManager
 import com.android.server.connectivity.DnsManager
 import com.android.server.connectivity.MockableSystemProperties
+import com.android.server.connectivity.NetworkNotificationManager
+import com.android.server.connectivity.NetworkNotificationManager.NotificationType
 import com.android.server.connectivity.ProxyTracker
 import com.android.testutils.RecorderCallback.CallbackEntry
 import com.android.testutils.TestableNetworkCallback
@@ -61,7 +67,9 @@ import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.AdditionalAnswers
+import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.anyString
+import org.mockito.ArgumentMatchers.argThat
 import org.mockito.Mock
 import org.mockito.Mockito.any
 import org.mockito.Mockito.anyInt
@@ -70,6 +78,7 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.spy
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.mockito.Spy
 import kotlin.test.assertEquals
@@ -83,6 +92,7 @@ const val TEST_TIMEOUT_MS = 10_000L
 const val TEST_PRIVATE_DNS_HOST_NAME = "test.dns.android"
 const val DNS_SERVER_ADDR = "8.8.8.8"
 const val DNS_SERVER_ADDR_IPV6 = "2001:db8::1"
+const val CAPTIVE_PORTAL_REDIRECT_URL = "https://captiveportal.android.com"
 
 /**
  * Test that exercises an instrumented version of ConnectivityService against an instrumented
@@ -104,6 +114,8 @@ class ConnectivityServiceIntegrationTest {
     private lateinit var systemConfigManager: SystemConfigManager
     @Mock
     private lateinit var dnsManager: DnsManager
+    @Mock
+    private lateinit var notifier: NetworkNotificationManager
     @Spy
     private var context = TestableContext(realContext)
 
@@ -192,6 +204,7 @@ class ConnectivityServiceIntegrationTest {
         doReturn(dnsManager).`when`(deps).makeDnsManager(any(), any())
         doReturn(PrivateDnsConfig(false)).`when`(dnsManager).privateDnsConfig
         doReturn(PrivateDnsConfig(false)).`when`(dnsManager).getPrivateDnsConfig(any())
+        doReturn(notifier).`when`(deps).makeNetworkNotificationManager(any(), any())
         return deps
     }
 
@@ -234,6 +247,13 @@ class ConnectivityServiceIntegrationTest {
         for (url in fallbackProbeUrls) {
             nsInstrumentation.addHttpResponse(HttpResponse(url, responseCode = 204))
         }
+    }
+
+    private fun addCaptivePortalMockResponses() {
+        nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 302,
+                redirectUrl = CAPTIVE_PORTAL_REDIRECT_URL))
+        nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 302,
+                redirectUrl = CAPTIVE_PORTAL_REDIRECT_URL))
     }
 
     @Test
@@ -402,5 +422,137 @@ class ConnectivityServiceIntegrationTest {
         testCallback.expectCallback(CallbackEntry.LOST, na, TEST_TIMEOUT_MS)
         // Expected no probing request.
         assertEquals(0, nsInstrumentation.requestUrls.size)
+    }
+
+    private fun getCaptivePortal(na: NetworkAgentWrapper): CaptivePortal {
+        val pendingIntentCaptor = ArgumentCaptor.forClass(PendingIntent::class.java)
+
+        // Verify that captive portal notification shows.
+        verify(notifier).showNotification(eq(na.network.netId), eq(NotificationType.SIGN_IN),
+                argThat { nai -> nai.network.equals(na.network) }, eq(null),
+                pendingIntentCaptor.capture(), eq(false))
+
+        // Send intent to launch captive portal app
+        pendingIntentCaptor.value.intent.let { intent -> context.sendBroadcast(intent) }
+        assertTrue(nsInstrumentation.waitForCaptivePortalAppToStart(TEST_TIMEOUT_MS),
+                "Captive portal app was not started")
+
+        // Ignore the PERMISSION_MAINLINE_NETWORK_STACK check because integration test doesn't
+        // use NetworkStack uid and can't grant this permission.
+        doNothing().`when`(context).enforceCallingOrSelfPermission(
+                eq(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK), anyString())
+        val appExtras = Bundle().apply {
+            putParcelable(ConnectivityManager.EXTRA_NETWORK, na.network)
+        }
+        // Start captive portal app
+        cm.startCaptivePortalApp(na.network, appExtras)
+
+        // Return captive portal object which capture from activity intent.
+        val intentCaptor = ArgumentCaptor.forClass(Intent::class.java)
+        verify(context).startActivityAsUser(intentCaptor.capture(), eq(UserHandle.CURRENT))
+        return intentCaptor.value.getExtra(
+                ConnectivityManager.EXTRA_CAPTIVE_PORTAL) as CaptivePortal
+    }
+
+    private fun makeCaptivePortalNetworkAgent(cb: TestableNetworkCallback): NetworkAgentWrapper {
+        addCaptivePortalMockResponses()
+        val na = getNetworkAgent(TRANSPORT_WIFI)
+        cb.expectAvailableCallbacks(na.network, validated = false, tmt = TEST_TIMEOUT_MS)
+        cb.expectCapabilitiesThat(na.network, TEST_TIMEOUT_MS) {
+            it.hasCapability(NET_CAPABILITY_CAPTIVE_PORTAL) &&
+                    !it.hasCapability(NET_CAPABILITY_VALIDATED)
+        }
+        assertEquals(2, nsInstrumentation.getRequestUrls().size)
+        return na
+    }
+
+    @Test
+    fun testCaptivePortal_Dismissed() {
+        val testCallback = getTestableNetworkCallback()
+        val na = makeCaptivePortalNetworkAgent(testCallback)
+
+        // Reset probing result.
+        nsInstrumentation.clearAllState()
+
+        // Captive portal dismissed and will re-evaluate the network
+        val captivePortal = getCaptivePortal(na)
+        addValidatedMockResponses()
+        captivePortal.reportCaptivePortalDismissed()
+        testCallback.expectCapabilitiesWithout(NET_CAPABILITY_CAPTIVE_PORTAL, na)
+        testCallback.expectCapabilitiesWith(NET_CAPABILITY_VALIDATED, na)
+        // Expected 1 http probing request
+        assertEquals(1, nsInstrumentation.getRequestUrls().size)
+
+        // Disconnect network
+        na.disconnect()
+        testCallback.expectCallback(CallbackEntry.LOST, na, TEST_TIMEOUT_MS)
+        verify(notifier).clearNotification(na.network.netId)
+    }
+
+    @Test
+    fun testCaptivePortal_UseNetwork() {
+        val testCallback = getTestableNetworkCallback()
+        val na = makeCaptivePortalNetworkAgent(testCallback)
+
+        // Reset probing result.
+        nsInstrumentation.clearAllState()
+
+        // Use this network as is.
+        val captivePortal = getCaptivePortal(na)
+        captivePortal.useNetwork()
+        testCallback.expectCapabilitiesWithout(NET_CAPABILITY_CAPTIVE_PORTAL, na)
+        testCallback.expectCapabilitiesWith(NET_CAPABILITY_VALIDATED, na)
+        // Expected no more probing requests.
+        assertEquals(0, nsInstrumentation.getRequestUrls().size)
+
+        // Disconnect network
+        na.disconnect()
+        testCallback.expectCallback(CallbackEntry.LOST, na, TEST_TIMEOUT_MS)
+        verify(notifier).clearNotification(na.network.netId)
+    }
+
+    @Test
+    fun testCaptivePortal_IgnoreNetwork() {
+        val testCallback = getTestableNetworkCallback()
+        val na = makeCaptivePortalNetworkAgent(testCallback)
+
+        // Reset probing result.
+        nsInstrumentation.clearAllState()
+
+        // Don't want to pursue signing in to the captive portal, expect no callbacks.
+        val captivePortal = getCaptivePortal(na)
+        captivePortal.ignoreNetwork()
+        testCallback.assertNoCallback()
+        // Expected no more probing requests.
+        assertEquals(0, nsInstrumentation.getRequestUrls().size)
+
+        // Disconnect network
+        na.disconnect()
+        testCallback.expectCallback(CallbackEntry.LOST, na, TEST_TIMEOUT_MS)
+        verify(notifier).clearNotification(na.network.netId)
+    }
+
+    @Test
+    fun testHideProvisioningNotification() {
+        val testCallback = getTestableNetworkCallback()
+        val na = makeCaptivePortalNetworkAgent(testCallback)
+
+        // Verify that captive portal notification shows.
+        verify(notifier).showNotification(eq(na.network.netId), eq(NotificationType.SIGN_IN),
+                argThat { nai -> nai.network.equals(na.network) }, eq(null), any(), eq(false))
+
+        // Add validated responses and force re-evaluate the network
+        addValidatedMockResponses()
+        cm.reportNetworkConnectivity(na.network, true)
+        testCallback.expectCapabilitiesWithout(NET_CAPABILITY_CAPTIVE_PORTAL, na)
+        testCallback.expectCapabilitiesWith(NET_CAPABILITY_VALIDATED, na)
+        // Expect all notifications disappeared.
+        verify(notifier).clearNotification(na.network.netId, NotificationType.SIGN_IN)
+        verify(notifier).clearNotification(na.network.netId, NotificationType.NETWORK_SWITCH)
+
+        // Disconnect network
+        na.disconnect()
+        testCallback.expectCallback(CallbackEntry.LOST, na, TEST_TIMEOUT_MS)
+        verify(notifier).clearNotification(na.network.netId)
     }
 }

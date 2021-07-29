@@ -19,6 +19,7 @@ package com.android.server.net.integrationtests
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.net.DnsResolver
 import android.net.DnsResolver.TYPE_A
 import android.net.DnsResolver.TYPE_AAAA
@@ -36,6 +37,8 @@ import com.android.server.NetworkStackService.NetworkStackConnector
 import com.android.server.connectivity.NetworkMonitor
 import com.android.server.net.integrationtests.NetworkStackInstrumentationService.InstrumentationConnector
 import com.android.testutils.FakeDns
+import org.mockito.Mockito.any
+import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.spy
@@ -49,6 +52,8 @@ import java.nio.charset.StandardCharsets
 private const val TEST_NETID = 42
 private const val REEVALUATE_DELAY_TIME = "reevalute_delay_time"
 private const val IGNORE_REEVALUATE_ATTEMPTS = "ignore_reevaluate_attempts"
+private const val LAUNCH_CAPTIVE_PORTAL_APP = "launch_captive_portal_app"
+private const val ACTION_LAUNCH_CAPTIVE_PORTAL_TEST_APP = "android.net.launchCaptivePortalTestApp"
 // Set reevaluation delay to 10s that can ensure auto reevaluation will be triggered on our tests.
 // This can prevent unexpected behaviors on NetworkMonitor.
 private const val TEST_INITIAL_REEVALUATE_DELAY_MS = 10_000
@@ -64,6 +69,11 @@ class TestNetworkStackService : Service() {
 
     private fun makeTestContext() = spy(applicationContext).also {
         doReturn(mock(IBinder::class.java)).`when`(it).getSystemService(Context.NETD_SERVICE)
+        val connectivityManager = mock(ConnectivityManager::class.java)
+        doReturn(connectivityManager).`when`(it).getSystemService(Context.CONNECTIVITY_SERVICE)
+        doAnswer {
+            InstrumentationConnector.signalCaptivePortalAppStarted()
+        }.`when`(connectivityManager).startCaptivePortalApp(any(), any())
     }
 
     private class TestPermissionChecker : NetworkStackService.PermissionChecker() {
@@ -85,9 +95,17 @@ class TestNetworkStackService : Service() {
             IGNORE_REEVALUATE_ATTEMPTS -> 0 // Always do the reevaluation
             else -> super.getDeviceConfigPropertyInt(namespace, name, default)
         }
+        override fun getDeviceConfigProperty(
+            namespace: String,
+            name: String,
+            default: String?
+        ): String? = when (name) {
+            LAUNCH_CAPTIVE_PORTAL_APP -> ACTION_LAUNCH_CAPTIVE_PORTAL_TEST_APP
+            else -> super.getDeviceConfigProperty(namespace, name, default)
+        }
     }
 
-    private inner class TestNetworkStackConnector(context: Context) : NetworkStackConnector(
+    private inner class TestNetworkStackConnector(val context: Context) : NetworkStackConnector(
             context, TestPermissionChecker(), NetworkStackService.Dependencies()) {
 
         private val network = TestNetwork(TEST_NETID)
@@ -121,7 +139,7 @@ class TestNetworkStackService : Service() {
             cb: INetworkMonitorCallbacks
         ) {
             addTestMockDnsResponse()
-            val nm = NetworkMonitor(this@TestNetworkStackService, cb,
+            val nm = NetworkMonitor(context, cb,
                     this.network,
                     mock(IpConnectivityLog::class.java), mock(SharedLog::class.java),
                     mock(NetworkStackService.NetworkStackServiceManager::class.java),

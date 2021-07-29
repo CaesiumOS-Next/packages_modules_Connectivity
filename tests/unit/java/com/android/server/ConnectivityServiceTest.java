@@ -323,6 +323,7 @@ import com.android.server.connectivity.DnsManager;
 import com.android.server.connectivity.MockableSystemProperties;
 import com.android.server.connectivity.Nat464Xlat;
 import com.android.server.connectivity.NetworkAgentInfo;
+import com.android.server.connectivity.NetworkNotificationManager;
 import com.android.server.connectivity.NetworkNotificationManager.NotificationType;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
@@ -1745,6 +1746,8 @@ public class ConnectivityServiceTest {
 
         doReturn(new DnsManager(mServiceContext, mMockDnsResolver))
                 .when(deps).makeDnsManager(any(), any());
+        doReturn(new NetworkNotificationManager(mServiceContext, mTelephonyManager))
+                .when(deps).makeNetworkNotificationManager(any(), any());
 
         return deps;
     }

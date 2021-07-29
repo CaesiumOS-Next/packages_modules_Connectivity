@@ -1324,6 +1324,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public DnsManager makeDnsManager(@NonNull Context context, @NonNull IDnsResolver resolver) {
             return new DnsManager(context, resolver);
         }
+
+        /**
+         * @see NetworkNotificationManager
+         */
+        public NetworkNotificationManager makeNetworkNotificationManager(@NonNull Context context,
+                @NonNull TelephonyManager tm) {
+            return new NetworkNotificationManager(context, tm);
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -1449,7 +1457,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         registerSettingsCallbacks();
 
         mKeepaliveTracker = new KeepaliveTracker(mContext, mHandler);
-        mNotifier = new NetworkNotificationManager(mContext, mTelephonyManager);
+        mNotifier = mDeps.makeNetworkNotificationManager(mContext, mTelephonyManager);
         mQosCallbackTracker = new QosCallbackTracker(mHandler, mNetworkRequestCounter);
 
         final int dailyLimit = Settings.Global.getInt(mContext.getContentResolver(),
