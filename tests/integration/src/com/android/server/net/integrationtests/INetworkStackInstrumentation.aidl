@@ -22,4 +22,5 @@ interface INetworkStackInstrumentation {
     void clearAllState();
     void addHttpResponse(in HttpResponse response);
     List<String> getRequestUrls();
+    boolean waitForCaptivePortalAppToStart(long timeout);
 }

@@ -18,6 +18,7 @@ package com.android.server.net.integrationtests
 
 import android.app.Service
 import android.content.Intent
+import android.os.ConditionVariable
 import java.net.URL
 import java.util.Collections
 import java.util.concurrent.ConcurrentHashMap
@@ -38,6 +39,7 @@ class NetworkStackInstrumentationService : Service() {
                     withDefault { key -> getOrPut(key) { ConcurrentLinkedQueue() } }
                 }
         private val httpRequestUrls = Collections.synchronizedList(ArrayList<String>())
+        private val captivePortalLatch = ConditionVariable()
 
         /**
          * Called when an HTTP request is being processed by NetworkMonitor. Returns the response
@@ -79,6 +81,21 @@ class NetworkStackInstrumentationService : Service() {
          */
         override fun getRequestUrls(): List<String> {
             return ArrayList(httpRequestUrls)
+        }
+
+        fun signalCaptivePortalAppStarted() = captivePortalLatch.open()
+
+        /**
+         * Get that ConnectivityManager#startCaptivePortalApp(Network, Bundle) has been called from
+         * NetworkMonitor or not.
+         */
+        override fun waitForCaptivePortalAppToStart(timeoutMs: Long): Boolean {
+            if (captivePortalLatch.block(timeoutMs)) {
+                captivePortalLatch.close()
+                return true
+            } else {
+                return false
+            }
         }
     }
 }
