@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3852ae42_e1c8ce0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-29T09:47:23Z",
+      "side": 1,
+      "message": "caused?",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "25e983110a6732a0cd5f7ffd1d14fbf5f3e06ad3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9cd595a_7e2590f2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2875,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-29T09:47:23Z",
+      "side": 1,
+      "message": "For MTU and TCP buffer, I think there is no difference between using ACTION_UPDATE and ACTION_ADD.\nBut in [NRS3], you change the code to \"rules.addRuleToAdd\", so maybe it\u0027s better to change the ACTION_UPDATE to ACTION_ADD here and line#2904?",
+      "range": {
+        "startLine": 2875,
+        "startChar": 37,
+        "endLine": 2875,
+        "endChar": 50
+      },
+      "revId": "25e983110a6732a0cd5f7ffd1d14fbf5f3e06ad3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
