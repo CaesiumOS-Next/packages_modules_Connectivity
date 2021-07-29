@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4462eeca_1c6e31d2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-29T01:29:04Z",
+      "side": 1,
+      "message": "The code below checks if (supportWifi), do you need to do the same here?",
+      "range": {
+        "startLine": 1827,
+        "startChar": 21,
+        "endLine": 1827,
+        "endChar": 40
+      },
+      "revId": "6d59cac23319b779d8f68cd0460b15a2d26a6aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b03e28eb_b68c485d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1828,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-29T01:29:04Z",
+      "side": 1,
+      "message": "AFAIK connectToCell calls requestNetwork. Where is this networkRequest unregistered? If it\u0027s never unregistered, then... shouldn\u0027t it be?",
+      "range": {
+        "startLine": 1828,
+        "startChar": 8,
+        "endLine": 1828,
+        "endChar": 37
+      },
+      "revId": "6d59cac23319b779d8f68cd0460b15a2d26a6aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c62d80a9_0824f31e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-29T01:29:04Z",
+      "side": 1,
+      "message": "Do you still need this given the ensureWifiConnected above?",
+      "range": {
+        "startLine": 1833,
+        "startChar": 8,
+        "endLine": 1833,
+        "endChar": 86
+      },
+      "revId": "6d59cac23319b779d8f68cd0460b15a2d26a6aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
