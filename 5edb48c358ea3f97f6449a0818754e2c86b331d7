@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0c84d23_3f94b68d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-07-29T09:53:49Z",
+      "side": 1,
+      "message": "Do you want to describe more about how do you cofirm the change is working?\ne.g. Check the log and confirm the sequence of rule updated? or Catch a tcpdump to confirm that there is no packet that goes to the public network?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "5edb48c358ea3f97f6449a0818754e2c86b331d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
