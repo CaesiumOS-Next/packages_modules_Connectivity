@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "badbc64e_f92e083c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1827,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-29T05:09:31Z",
+      "side": 1,
+      "message": "Oops yes - done",
+      "parentUuid": "4462eeca_1c6e31d2",
+      "range": {
+        "startLine": 1827,
+        "startChar": 21,
+        "endLine": 1827,
+        "endChar": 40
+      },
+      "revId": "6d59cac23319b779d8f68cd0460b15a2d26a6aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b03e28eb_b68c485d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de10fd71_c44abcf9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1828,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-29T05:09:31Z",
+      "side": 1,
+      "message": "It\u0027s unregistered in tearDown, added a comment",
+      "parentUuid": "b03e28eb_b68c485d",
+      "range": {
+        "startLine": 1828,
+        "startChar": 8,
+        "endLine": 1828,
+        "endChar": 37
+      },
+      "revId": "6d59cac23319b779d8f68cd0460b15a2d26a6aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c62d80a9_0824f31e",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-07-29T01:29:04Z",
       "side": 1,
       "message": "Do you still need this given the ensureWifiConnected above?",
+      "range": {
+        "startLine": 1833,
+        "startChar": 8,
+        "endLine": 1833,
+        "endChar": 86
+      },
+      "revId": "6d59cac23319b779d8f68cd0460b15a2d26a6aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cf4f292_bc77892f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1833,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-29T05:09:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c62d80a9_0824f31e",
       "range": {
         "startLine": 1833,
         "startChar": 8,
