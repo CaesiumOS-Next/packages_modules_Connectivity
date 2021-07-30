@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1597146b_730c26b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "Could this be updated to something like:\n\nif and only if the system server is updating the request counts for a uid other than its own",
+      "range": {
+        "startLine": 25,
+        "startChar": 38,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2c8f786_75322bb3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "nit; It might be worth updating this comment to let readers know why this is ok and needed. \n\nI.e., something like:\n\nThe system server is allowed to go over the request count limit when it is creating requests on behalf of another app (but not itself). This is ok since it only happens in the per-app API flows in which case, after the new requests are created as part of a reassignment, the old requests for that particular app UID will be removed resulting in a net increase of requests of \u00270\u0027. This is unfortunately necessary since with the current architecture since the old requests can\u0027t be removed until after the new requests are created.",
+      "range": {
+        "startLine": 1160,
+        "startChar": 30,
+        "endLine": 1162,
+        "endChar": 93
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc2a0aff_0bf8d74b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "nit: FWIW, you could also use mDeps.getCallingUid(). Not sure which one is preferred?",
+      "range": {
+        "startLine": 1167,
+        "startChar": 69,
+        "endLine": 1167,
+        "endChar": 91
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b9f2e8_cefd160a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "Could Process.myUid() in both spots of this statement be swapped out for Process.SYSTEM_UID? Would make this much more readable IMO.",
+      "range": {
+        "startLine": 1167,
+        "startChar": 24,
+        "endLine": 1167,
+        "endChar": 39
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "792e2e2d_3d4c7e9e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "nit:\n\nnull !\u003d granted",
+      "range": {
+        "startLine": 651,
+        "startChar": 16,
+        "endLine": 651,
+        "endChar": 31
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b393d313_5c3bed0b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "nit as I am not sure what the preference is on your end:\n\nWrap in braces as per go/java-style#s4.1.1-braces-always-used",
+      "range": {
+        "startLine": 653,
+        "startChar": 36,
+        "endLine": 653,
+        "endChar": 54
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdbddd85_7867f7f2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "nit:\n\nnull !\u003d allGranted",
+      "range": {
+        "startLine": 653,
+        "startChar": 16,
+        "endLine": 653,
+        "endChar": 34
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b58cf367_ce2b379b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "Dangling \"are\"?",
+      "range": {
+        "startLine": 701,
+        "startChar": 58,
+        "endLine": 701,
+        "endChar": 61
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d4ecbc2_da00c59d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "nit; Should there also be a closing \u003c/p\u003e tag at the end of the paragraph?",
+      "range": {
+        "startLine": 703,
+        "startChar": 11,
+        "endLine": 703,
+        "endChar": 14
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dbe478a_e551d721",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13356,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "nit: Should this be separated into its own test? Seems to be two different use-cases which the code has a distinction for, i.e. system server filing requests on behalf of itself and on behalf of a calling app. Would also make the tests easier to maintain and understand IMO.\n\nAlso, this is also a nit, but you might be able to reuse testRequestCountLimits() with this block of code with some updates to it. Could be a bit convoluted though so up to you.",
+      "range": {
+        "startLine": 13330,
+        "startChar": 12,
+        "endLine": 13356,
+        "endChar": 15
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aafa865_9c1d0c6c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13364,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-07-30T02:37:07Z",
+      "side": 1,
+      "message": "nit: Should we also have the same test changes for setOemNetworkPreference where we test the callbacks filed on behalf of an app? We actually have coverage already with your current test above so it may be unneeded.",
+      "range": {
+        "startLine": 13364,
+        "startChar": 16,
+        "endLine": 13364,
+        "endChar": 71
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
