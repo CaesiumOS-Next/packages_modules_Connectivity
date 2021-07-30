@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4430b22d_8bebe98d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-30T08:44:49Z",
+      "side": 1,
+      "message": "Could we also verify BpfCoordinator dump is called in TetheringTest#testDumpTetheringLog ? Although BpfCoordinator in TetheringTest just be a mock object, we can\u0027t just use TetheringTest to test whether dump would crash in BpfCoordinator#dump. At least we can make sure BpfCoorindator would be called and verify it won\u0027t crash after called in BpfCoordinatorTest",
+      "revId": "5a732886721882a7240dab99cc0ef3ea5bdac452",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28ef7ab5_66723195",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-07-30T08:44:49Z",
+      "side": 1,
+      "message": "If we can also make sure the dump don\u0027t crash in R, it would be more ideal. Since the purpose is make sure the dump don\u0027t crash, why not just call dump no matter S or R ? I know the R would do early return, so it should be safe. But having the test still be valuable.",
+      "range": {
+        "startLine": 1119,
+        "startChar": 4,
+        "endLine": 1119,
+        "endChar": 38
+      },
+      "revId": "5a732886721882a7240dab99cc0ef3ea5bdac452",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
