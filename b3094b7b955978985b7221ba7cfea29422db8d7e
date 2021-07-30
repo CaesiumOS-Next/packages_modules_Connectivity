@@ -56,6 +56,30 @@
       },
       "revId": "b3094b7b955978985b7221ba7cfea29422db8d7e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61aa7fcd_ed50d1dc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1834,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-07-30T06:37:40Z",
+      "side": 1,
+      "message": "requestAndWaitForAvailable is actually misnamed, it files a network callback, not request.\nRenamed it to registerCallbackAndWaitForAvailable for clarity.",
+      "parentUuid": "f9fed888_bb7c21b2",
+      "range": {
+        "startLine": 1833,
+        "startChar": 0,
+        "endLine": 1834,
+        "endChar": 41
+      },
+      "revId": "b3094b7b955978985b7221ba7cfea29422db8d7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
