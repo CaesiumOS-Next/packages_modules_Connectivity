@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d98baf_8e8e1742",
+        "filename": "tests/unit/java/android/net/NetworkIdentityTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:39:50Z",
+      "side": 1,
+      "message": "/* defaultNetwork */?",
+      "range": {
+        "startLine": 80,
+        "startChar": 80,
+        "endLine": 80,
+        "endChar": 81
+      },
+      "revId": "bdbdae6beff8cea9cb36f781f0f0483c197b8f3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
