@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36116f91_f2f3e639",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-30T01:18:26Z",
+      "side": 1,
+      "message": "The added complexity of these jarjar rules is pretty concerning. If this is really the best way to do things, then we at least need comments in the jarjar rules files themselves. See inline.",
+      "revId": "a05130ed63c25ecc576ccbaee7bb8676cd1b78e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eba5797_c10c4206",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-07-30T01:18:26Z",
+      "side": 1,
+      "message": "I think this is going to be super difficult to debug (actually, the first word I thought of was \"terrifying\" but that\u0027s not very constructive).\n\nOur jarjar rules are already very complicated, and now we\u0027re generating them at build time. If this was only for tests then maybe it would be OK, but here it looks like we\u0027re mixing test jarjar rules with production jarjar rules, which potentially creates the risk that down the road we would actually impact production code.\n\nI don\u0027t think we should do this except as a last resort. If there\u0027s no other reasonable option, then we must at least have a comment in the jarjar files that explains that these will be concatenated with other files. That way, we can hope that anyone modifying the files will know that whatever they write will be used in multiple contexts.\n\nAlso: instead of doing this have you considered just making the jarjar_rules soong keyword take a list instead of a file? Or is that too difficult because it would require tree-wide changes?",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 30
+      },
+      "revId": "a05130ed63c25ecc576ccbaee7bb8676cd1b78e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
