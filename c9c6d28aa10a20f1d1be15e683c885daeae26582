@@ -16,6 +16,74 @@
       "message": "Patch containing DHCP lease time configurable from Runtime Resource overlay.\n\n",
       "revId": "c9c6d28aa10a20f1d1be15e683c885daeae26582",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15a82f0a_d9d4cde1",
+        "filename": "Tethering/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2021-07-30T16:05:05Z",
+      "side": 1,
+      "message": "This value should have translatable\u003d\"false\", and follow the naming convention of the other configurations (see for example `config_tether_dhcp_range`)",
+      "revId": "c9c6d28aa10a20f1d1be15e683c885daeae26582",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8974534_aadee925",
+        "filename": "Tethering/res/values/overlayable.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2021-07-30T16:05:05Z",
+      "side": 1,
+      "message": "Group it with the related configurations",
+      "revId": "c9c6d28aa10a20f1d1be15e683c885daeae26582",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcefd002_1c17a632",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2021-07-30T16:05:05Z",
+      "side": 1,
+      "message": "The naming convention is `Dhcp` instead of `DHCP` (see https://source.android.com/setup/contribute/code-style#treat-acronyms-as-words)",
+      "revId": "c9c6d28aa10a20f1d1be15e683c885daeae26582",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3181990_18879a22",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1583555
+      },
+      "writtenOn": "2021-07-30T16:05:05Z",
+      "side": 1,
+      "message": "Move this initialization together with the other members that are initialized with arguments.",
+      "revId": "c9c6d28aa10a20f1d1be15e683c885daeae26582",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
