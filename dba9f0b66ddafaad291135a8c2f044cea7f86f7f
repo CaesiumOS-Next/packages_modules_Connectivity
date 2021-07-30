@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fbc108b_c4c73a71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "Much clearer, thanks.",
+      "parentUuid": "1597146b_730c26b1",
+      "range": {
+        "startLine": 25,
+        "startChar": 38,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2c8f786_75322bb3",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-30T02:37:07Z",
       "side": 1,
       "message": "nit; It might be worth updating this comment to let readers know why this is ok and needed. \n\nI.e., something like:\n\nThe system server is allowed to go over the request count limit when it is creating requests on behalf of another app (but not itself). This is ok since it only happens in the per-app API flows in which case, after the new requests are created as part of a reassignment, the old requests for that particular app UID will be removed resulting in a net increase of requests of \u00270\u0027. This is unfortunately necessary since with the current architecture since the old requests can\u0027t be removed until after the new requests are created.",
+      "range": {
+        "startLine": 1160,
+        "startChar": 30,
+        "endLine": 1162,
+        "endChar": 93
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a07c2e04_3038a9d6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "Adopted some of your wording, and tried to shorten it a little bit for simplicity.",
+      "parentUuid": "d2c8f786_75322bb3",
       "range": {
         "startLine": 1160,
         "startChar": 30,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4357b68_336bea78",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "I would agree, but unfortunately this would not let me test it, because the test is not running with the system UID.",
+      "parentUuid": "86b9f2e8_cefd160a",
+      "range": {
+        "startLine": 1167,
+        "startChar": 24,
+        "endLine": 1167,
+        "endChar": 39
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "333ce6a5_d3b6e8b7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "mDeps is preferred, but inaccessible from this static class unfortunately",
+      "parentUuid": "cc2a0aff_0bf8d74b",
+      "range": {
+        "startLine": 1167,
+        "startChar": 69,
+        "endLine": 1167,
+        "endChar": 91
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "792e2e2d_3d4c7e9e",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-07-30T02:37:07Z",
       "side": 1,
       "message": "nit:\n\nnull !\u003d granted",
+      "range": {
+        "startLine": 651,
+        "startChar": 16,
+        "endLine": 651,
+        "endChar": 31
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77fcd30e_5d634c6b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "792e2e2d_3d4c7e9e",
       "range": {
         "startLine": 651,
         "startChar": 16,
@@ -162,6 +282,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbcf3f9b_ecfca518",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "I think the style guide says that braces are always encouraged, but that when the statement fits in one line (including test and body) one-line is accepted. I personally like the terseness which is why I wrote it like this, but added the braces.",
+      "parentUuid": "b393d313_5c3bed0b",
+      "range": {
+        "startLine": 653,
+        "startChar": 36,
+        "endLine": 653,
+        "endChar": 54
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5254009d_ca270a11",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdbddd85_7867f7f2",
+      "range": {
+        "startLine": 653,
+        "startChar": 16,
+        "endLine": 653,
+        "endChar": 34
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b58cf367_ce2b379b",
@@ -175,6 +343,30 @@
       "writtenOn": "2021-07-30T02:37:07Z",
       "side": 1,
       "message": "Dangling \"are\"?",
+      "range": {
+        "startLine": 701,
+        "startChar": 58,
+        "endLine": 701,
+        "endChar": 61
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f90c681c_5ac7b4cc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b58cf367_ce2b379b",
       "range": {
         "startLine": 701,
         "startChar": 58,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d9266f0_4076623b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure it matters ? At least the comment on the old method doesn\u0027t do it",
+      "parentUuid": "3d4ecbc2_da00c59d",
+      "range": {
+        "startLine": 703,
+        "startChar": 11,
+        "endLine": 703,
+        "endChar": 14
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dbe478a_e551d721",
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec9a96f_116b97dc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13356,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "The new version of the test continues to also have the system server-filed requests, so I think it will serve both purposes. In fact, I think we do need to test having both request collections at the same time (which is what this test now does), and if we have this I think there isn\u0027t a lot of value in also testing when only one flavor of callback is registered (I see it as exceedingly unlikely a change would be introduced that would crash if there are many system server requests and no app requests, but not when there are many of both).",
+      "parentUuid": "2dbe478a_e551d721",
+      "range": {
+        "startLine": 13330,
+        "startChar": 12,
+        "endLine": 13356,
+        "endChar": 15
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5aafa865_9c1d0c6c",
@@ -244,6 +484,30 @@
       "writtenOn": "2021-07-30T02:37:07Z",
       "side": 1,
       "message": "nit: Should we also have the same test changes for setOemNetworkPreference where we test the callbacks filed on behalf of an app? We actually have coverage already with your current test above so it may be unneeded.",
+      "range": {
+        "startLine": 13364,
+        "startChar": 16,
+        "endLine": 13364,
+        "endChar": 71
+      },
+      "revId": "dba9f0b66ddafaad291135a8c2f044cea7f86f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9563c59_7b0dba98",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13364,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-07-30T04:46:11Z",
+      "side": 1,
+      "message": "Ideally yes, but I think this patch is hard enough as it stands (and it took forever to build). Especially because this is meant to end in S, I\u0027d like to avoid adding things that aren\u0027t immediately necessary, and as you point out the current scheme already gives us coverage, so I\u0027d prefer to do this separately at this point.",
+      "parentUuid": "5aafa865_9c1d0c6c",
       "range": {
         "startLine": 13364,
         "startChar": 16,
