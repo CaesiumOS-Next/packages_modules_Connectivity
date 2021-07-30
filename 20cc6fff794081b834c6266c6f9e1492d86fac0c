@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adbd52c9_d176ef0b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:32:03Z",
+      "side": 1,
+      "message": "Style: capitalize first letter and period at the end.\nAlso for all comments below.",
+      "range": {
+        "startLine": 737,
+        "startChar": 11,
+        "endLine": 737,
+        "endChar": 59
+      },
+      "revId": "20cc6fff794081b834c6266c6f9e1492d86fac0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce66d9bd_58849db0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:32:03Z",
+      "side": 1,
+      "message": "Maybe name it more specifically? e.g. mobileStates",
+      "range": {
+        "startLine": 739,
+        "startChar": 31,
+        "endLine": 739,
+        "endChar": 37
+      },
+      "revId": "20cc6fff794081b834c6266c6f9e1492d86fac0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f88453_7172a417",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:32:03Z",
+      "side": 1,
+      "message": "Since we are not testing any rat change, it is strange to me that you create a 3g state and change it to 5g.\nCould we build a 5g state directly? Or does it need to be 5g?",
+      "range": {
+        "startLine": 745,
+        "startChar": 8,
+        "endLine": 745,
+        "endChar": 38
+      },
+      "revId": "20cc6fff794081b834c6266c6f9e1492d86fac0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd2e90b6_7c4fae2e",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:32:03Z",
+      "side": 1,
+      "message": "Style: go/avoidwe",
+      "range": {
+        "startLine": 753,
+        "startChar": 11,
+        "endLine": 753,
+        "endChar": 13
+      },
+      "revId": "20cc6fff794081b834c6266c6f9e1492d86fac0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2bdd142_8a2cdfdc",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:32:03Z",
+      "side": 1,
+      "message": "Not for this CL, but IIUC these expect* functions are mocking stats instead of expecting anything.\nMaybe rename them accordingly?",
+      "range": {
+        "startLine": 754,
+        "startChar": 8,
+        "endLine": 754,
+        "endChar": 35
+      },
+      "revId": "20cc6fff794081b834c6266c6f9e1492d86fac0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efbf3c6a_9e8d6e4c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:32:03Z",
+      "side": 1,
+      "message": "Maybe name it more specifically and have a consistent naming with \"states\" above?",
+      "range": {
+        "startLine": 775,
+        "startChar": 31,
+        "endLine": 775,
+        "endChar": 37
+      },
+      "revId": "20cc6fff794081b834c6266c6f9e1492d86fac0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3209b699_60e64471",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:32:03Z",
+      "side": 1,
+      "message": "Instead of making another isolated test scenario, it will be better if you change the network to non-metered, add some traffic and verify it can be queried with nonMetered template while the data queired by the meteredTemplate remains the same.",
+      "range": {
+        "startLine": 782,
+        "startChar": 8,
+        "endLine": 806,
+        "endChar": 5
+      },
+      "revId": "20cc6fff794081b834c6266c6f9e1492d86fac0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56a244b9_88424645",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1838,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-07-30T09:32:03Z",
+      "side": 1,
+      "message": "I don\u0027t really follow this logic.\nWhat are you trying to do here?",
+      "range": {
+        "startLine": 1833,
+        "startChar": 0,
+        "endLine": 1838,
+        "endChar": 9
+      },
+      "revId": "20cc6fff794081b834c6266c6f9e1492d86fac0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
