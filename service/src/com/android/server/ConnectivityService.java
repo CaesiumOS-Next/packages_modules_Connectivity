@@ -85,8 +85,12 @@ import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY
 import static android.net.shared.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 import static android.os.Process.INVALID_UID;
 import static android.os.Process.VPN_UID;
+import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 import static android.system.OsConstants.IPPROTO_TCP;
 import static android.system.OsConstants.IPPROTO_UDP;
+
+import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
+import static com.android.server.connectivity.ConnectivityConstants.REMATCH_ALL_REQUESTS_ON_REGISTER;
 
 import static java.util.Map.Entry;
 
@@ -230,6 +234,7 @@ import com.android.internal.util.MessageUtils;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
+import com.android.net.module.util.DeviceConfigUtils;
 import com.android.net.module.util.LinkPropertiesUtils.CompareOrUpdateResult;
 import com.android.net.module.util.LinkPropertiesUtils.CompareResult;
 import com.android.net.module.util.LocationPermissionChecker;
@@ -363,6 +368,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private final Dependencies mDeps;
     // 0 is full bad, 100 is full good
     private int mDefaultInetConditionPublished = 0;
+    // Flag loaded after PackageManager is ready
+    private boolean mRematchAllRequestsOnRegister = false;
 
     @VisibleForTesting
     protected IDnsResolver mDnsResolver;
@@ -1316,6 +1323,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
          */
         public LocationPermissionChecker makeLocationPermissionChecker(Context context) {
             return new LocationPermissionChecker(context);
+        }
+
+        /**
+         * @see DeviceConfigUtils#isFeatureEnabled
+         */
+        public boolean isFeatureEnabled(Context context, String name, boolean defaultEnabled) {
+            return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_CONNECTIVITY, name,
+                    TETHERING_MODULE_NAME, defaultEnabled);
         }
     }
 
@@ -2790,6 +2805,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @VisibleForTesting
     public void systemReadyInternal() {
+        // Load flags after PackageManager is ready to query module version
+        mRematchAllRequestsOnRegister = mDeps.isFeatureEnabled(
+                mContext, REMATCH_ALL_REQUESTS_ON_REGISTER, false /* defaultEnabled */);
+
         // Since mApps in PermissionMonitor needs to be populated first to ensure that
         // listening network request which is sent by MultipathPolicyTracker won't be added
         // NET_CAPABILITY_FOREGROUND capability. Thus, MultipathPolicyTracker.start() must
@@ -4049,7 +4068,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        rematchAllNetworksAndRequests();
+        if (mRematchAllRequestsOnRegister) {
+            rematchAllNetworksAndRequests();
+        } else {
+            rematchNetworksAndRequests(nris);
+        }
 
         // Requests that have not been matched to a network will not have been sent to the
         // providers, because the old satisfier and the new satisfier are the same (null in this
