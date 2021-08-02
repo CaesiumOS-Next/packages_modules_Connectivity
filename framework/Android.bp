@@ -103,6 +103,7 @@ java_sdk_library {
     ],
     libs: [
         "unsupportedappusage",
+        "app-compat-annotations",
     ],
     static_libs: [
         "framework-connectivity-protos",
