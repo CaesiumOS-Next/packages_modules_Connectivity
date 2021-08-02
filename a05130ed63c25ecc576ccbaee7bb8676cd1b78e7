@@ -39,6 +39,30 @@
       },
       "revId": "a05130ed63c25ecc576ccbaee7bb8676cd1b78e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91d39f5f_a9e707cb",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-02T10:14:32Z",
+      "side": 1,
+      "message": "After discussion, I think we concluded that our best option right now was to add some comments in the jarjar.txt, so did that.\n\nMedium term we need to have jarjar rules auto-generated for APKs and APEXes to stop having such problems.",
+      "parentUuid": "2eba5797_c10c4206",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 30
+      },
+      "revId": "a05130ed63c25ecc576ccbaee7bb8676cd1b78e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
