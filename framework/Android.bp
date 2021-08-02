@@ -55,6 +55,11 @@ filegroup {
     ],
 }
 
+platform_compat_config {
+    name: "framework-connectivity-platform-compat-config",
+    src: ":framework-connectivity",
+}
+
 java_sdk_library {
     name: "framework-connectivity",
     sdk_version: "module_current",
@@ -86,6 +91,7 @@ java_sdk_library {
     ],
     libs: [
         "unsupportedappusage",
+        "app-compat-annotations",
     ],
     jarjar_rules: "jarjar-rules.txt",
     permitted_packages: ["android.net"],
