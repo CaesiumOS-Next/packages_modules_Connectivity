@@ -4049,7 +4049,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        rematchAllNetworksAndRequests();
+        rematchNetworksAndRequests(nris);
 
         // Requests that have not been matched to a network will not have been sent to the
         // providers, because the old satisfier and the new satisfier are the same (null in this
