@@ -85,6 +85,7 @@ java_sdk_library {
         "modules-utils-build",
     ],
     libs: [
+        "app-compat-annotations",
         "unsupportedappusage",
     ],
     jarjar_rules: "jarjar-rules.txt",
@@ -115,6 +116,11 @@ java_sdk_library {
         "com.android.tethering",
     ],
     lint: { strict_updatability_linting: true },
+}
+
+platform_compat_config {
+    name: "connectivity-platform-compat-config",
+    src: ":framework-connectivity",
 }
 
 cc_library_shared {
