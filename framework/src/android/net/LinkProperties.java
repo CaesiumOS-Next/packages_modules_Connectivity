@@ -19,13 +19,18 @@ package android.net;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
+import android.app.compat.CompatChanges;
+import android.compat.annotation.ChangeId;
+import android.compat.annotation.EnabledAfter;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.LinkPropertiesUtils;
+import com.android.net.module.util.NetUtils;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -52,6 +57,17 @@ import java.util.StringJoiner;
  *
  */
 public final class LinkProperties implements Parcelable {
+    /**
+     * The {@link #getRoutes()} now can contain excluded as well as included routes. Use
+     * {@link RouteInfo#getType()} to determine route type.
+     *
+     * @hide
+     */
+    @ChangeId
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.S) // Switch to S_V2 when it is available.
+    @VisibleForTesting
+    public static final long EXCLUDED_ROUTES = 186082280;
+
     // The interface described by the network link.
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P, trackingBug = 115609023)
     private String mIfaceName;
@@ -741,7 +757,11 @@ public final class LinkProperties implements Parcelable {
      * @return An unmodifiable {@link List} of {@link RouteInfo} for this link.
      */
     public @NonNull List<RouteInfo> getRoutes() {
-        return Collections.unmodifiableList(mRoutes);
+        if (CompatChanges.isChangeEnabled(LinkProperties.EXCLUDED_ROUTES)) {
+            return Collections.unmodifiableList(mRoutes);
+        } else {
+            return Collections.unmodifiableList(NetUtils.toUnicastRoutes(mRoutes));
+        }
     }
 
     /**
@@ -761,7 +781,7 @@ public final class LinkProperties implements Parcelable {
      */
     @SystemApi
     public @NonNull List<RouteInfo> getAllRoutes() {
-        List<RouteInfo> routes = new ArrayList<>(mRoutes);
+        List<RouteInfo> routes = new ArrayList<>(getRoutes());
         for (LinkProperties stacked: mStackedLinks.values()) {
             routes.addAll(stacked.getAllRoutes());
         }

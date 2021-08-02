@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import android.compat.testing.PlatformCompatChangeRule;
 import android.net.LinkProperties.ProvisioningChange;
 import android.os.Build;
 import android.system.OsConstants;
@@ -44,6 +45,9 @@ import com.android.testutils.ConnectivityModuleTest;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+
+import libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
+import libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,6 +68,9 @@ import java.util.Set;
 public class LinkPropertiesTest {
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
+    @Rule
+    public final PlatformCompatChangeRule compatChangeRule = new PlatformCompatChangeRule();
 
     private static final InetAddress ADDRV4 = address("75.208.6.1");
     private static final InetAddress ADDRV6 = address("2001:0db8:85a3:0000:0000:8a2e:0370:7334");
@@ -1254,6 +1261,7 @@ public class LinkPropertiesTest {
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
+    @EnableCompatChanges({LinkProperties.EXCLUDED_ROUTES})
     public void testRouteAddWithSameKey() throws Exception {
         LinkProperties lp = new LinkProperties();
         lp.setInterfaceName("wlan0");
@@ -1267,5 +1275,42 @@ public class LinkPropertiesTest {
         assertEquals(2, lp.getRoutes().size());
         lp.addRoute(new RouteInfo(v4, address("192.0.2.1"), "wlan0", RTN_THROW, 1460));
         assertEquals(2, lp.getRoutes().size());
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S)
+    @EnableCompatChanges({LinkProperties.EXCLUDED_ROUTES})
+    public void testExcludedRoutesEnabled() {
+        final LinkProperties lp = new LinkProperties();
+        assertEquals(0, lp.getRoutes().size());
+
+        lp.addRoute(new RouteInfo(new IpPrefix(ADDRV4, 0), RTN_UNREACHABLE));
+        assertEquals(1, lp.getRoutes().size());
+
+        lp.addRoute(new RouteInfo(new IpPrefix(ADDRV6, 0), RTN_THROW));
+        assertEquals(2, lp.getRoutes().size());
+
+        lp.addRoute(new RouteInfo(GATEWAY1));
+        assertEquals(3, lp.getRoutes().size());
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S)
+    @DisableCompatChanges({LinkProperties.EXCLUDED_ROUTES})
+    public void testExcludedRoutesDisabled() {
+        final LinkProperties lp = new LinkProperties();
+        assertEquals(0, lp.getRoutes().size());
+
+        lp.addRoute(new RouteInfo(new IpPrefix(ADDRV4, 0), RTN_UNREACHABLE));
+        assertEquals(0, lp.getRoutes().size());
+
+        final int throwRoutePrefixLength = 5;
+        lp.addRoute(new RouteInfo(new IpPrefix(ADDRV6, throwRoutePrefixLength), RTN_THROW));
+        assertEquals(0, lp.getRoutes().size());
+
+        lp.addRoute(new RouteInfo(new IpPrefix(ADDRV6, 0), RTN_UNICAST));
+        // Converting default unicast route + throw route to a set of unicast-only routes results in
+        // a set of size equal to throw route prefix length.
+        // For example:
+        // 0.0.0.0/0 unicast + 0.0.0.0/2 throw == 128.0.0.0/1 unicast + 64.0.0.0/2 unicast
+        assertEquals(throwRoutePrefixLength, lp.getRoutes().size());
     }
 }
