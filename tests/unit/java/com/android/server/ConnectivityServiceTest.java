@@ -11285,7 +11285,8 @@ public class ConnectivityServiceTest {
         mCellNetworkAgent.sendLinkProperties(lp);
         networkCallback.expectLinkPropertiesThat(mCellNetworkAgent, x -> x.getRoutes().size() == 3);
 
-        assertRoutesAdded(netId, direct, rio1, defaultRoute);
+        // TODO: fix assertRoutesAdded, so that order of routes here does not matter.
+        assertRoutesAdded(netId, direct, defaultRoute, rio1);
         reset(mMockNetd);
 
         // Send updated LinkProperties and check that we ask netd to add, remove, update routes.
