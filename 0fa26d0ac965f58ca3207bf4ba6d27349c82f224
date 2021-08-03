@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8700bae3_7989b555",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1889688
+      },
+      "writtenOn": "2021-08-03T09:16:13Z",
+      "side": 1,
+      "message": "Review comments addresses in this patch.",
+      "revId": "0fa26d0ac965f58ca3207bf4ba6d27349c82f224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
