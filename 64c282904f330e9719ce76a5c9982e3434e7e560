@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f15d0101_98bd3de7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2556,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-03T05:30:11Z",
+      "side": 1,
+      "message": "Moving this call after the resetValidationConfig call will fix some problems, but I think it will still cause an assertion error, and I think it will also cause some cleanup steps not to run.\n\nIt looks like the problem here is that the callback was not registered. If so, I\u0027d define a new method such as:\n\n    private void unregisterCallbackQuietly(TestNetworkCallback cb) {\n        try {\n            mCm.unregisterNetworkCallback(cb);\n        } catch (IllegalArgumentException e) {\n            // The callback was likely not yet registered. Don\u0027t fail the test.\n        }\n    }\n\nand use it here.",
+      "range": {
+        "startLine": 2556,
+        "startChar": 12,
+        "endLine": 2556,
+        "endChar": 46
+      },
+      "revId": "64c282904f330e9719ce76a5c9982e3434e7e560",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
