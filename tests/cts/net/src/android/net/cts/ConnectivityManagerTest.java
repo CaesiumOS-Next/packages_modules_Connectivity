@@ -2353,6 +2353,10 @@ public class ConnectivityManagerTest {
         try {
             // This network will be used for unmetered.
             setWifiMeteredStatusAndWait(ssid, false /* isMetered */);
+            // wait wifi validated
+            mCm.registerDefaultNetworkCallback(defaultCallback);
+            waitForAvailable(defaultCallback, wifiNetwork);
+            mCm.unregisterNetworkCallback(defaultCallback);
 
             setOemNetworkPreferenceForMyPackage(OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST);
             registerTestOemNetworkPreferenceCallbacks(defaultCallback, systemDefaultCallback);
