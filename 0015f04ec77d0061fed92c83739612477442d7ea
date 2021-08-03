@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b0d5935_455acc4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-08-03T07:02:09Z",
+      "side": 1,
+      "message": "Still LGTM but this need Lorenzo\u0027s owner approval.",
+      "revId": "0015f04ec77d0061fed92c83739612477442d7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
