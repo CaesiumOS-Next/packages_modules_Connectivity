@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b871cc1_0b70db4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-03T03:31:33Z",
+      "side": 1,
+      "message": "After some testing (with only one sample each though), it seems doing that (aosp/1784387) makes the longest handler wait time 1.49s instead of 10.77s, so a pretty big difference.\n1.49 is below the 2s timeout so that run would have passed, but there\u0027s not much margin (it uses 75% of the timeout) so it may be good to still increase the timeout for this test, considering that it\u0027s expected to be more heavy on the handler thread. Or alternatively, increase the timeout for all tests.\n\nThat\u0027s assuming we merge aosp/1784387 though.",
+      "parentUuid": "6bbbdf0f_4090f3e6",
+      "revId": "4d677d740645dd547d467aeef36119de8c94ffd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "97431e06_54df857d",
