@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47247eec_a3dc2066",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-03T03:10:08Z",
+      "side": 1,
+      "message": "We don\u0027t know why it crashes though, this is supposed to be legitimate use IIUC ?\n\nSo this is assuming a bug in mockito that the new code would hopefully be working around. If that\u0027s true maybe the cover comment should spell it out.",
+      "range": {
+        "startLine": 10,
+        "startChar": 49,
+        "endLine": 11,
+        "endChar": 65
+      },
+      "revId": "986ca04d9580299d4eacdfb5e063d40c09f33f3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "241224aa_5d544bf6",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/TestNetworkStackService.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-03T03:10:08Z",
+      "side": 1,
+      "message": "I don\u0027t think comments should document the code history. Future implementors won\u0027t care how the code used to work before this patch.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 87
+      },
+      "revId": "986ca04d9580299d4eacdfb5e063d40c09f33f3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
