@@ -2552,8 +2552,8 @@ public class ConnectivityManagerTest {
             // Reject partial connectivity network should cause the network being torn down
             assertEquals(network, cb.waitForLost());
         } finally {
-            mCm.unregisterNetworkCallback(cb);
             resetValidationConfig();
+            mCm.unregisterNetworkCallback(cb);
             // Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
             runShellCommand("svc wifi disable");
@@ -2593,8 +2593,8 @@ public class ConnectivityManagerTest {
             });
             waitForLost(wifiCb);
         } finally {
-            mCm.unregisterNetworkCallback(wifiCb);
             resetValidationConfig();
+            mCm.unregisterNetworkCallback(wifiCb);
             /// Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
             runShellCommand("svc wifi disable");
@@ -2658,10 +2658,10 @@ public class ConnectivityManagerTest {
             wifiCb.assertNoCallbackThat(NO_CALLBACK_TIMEOUT_MS,
                     c -> !(c instanceof CallbackEntry.LinkPropertiesChanged));
         } finally {
-            mCm.unregisterNetworkCallback(wifiCb);
-            mCm.unregisterNetworkCallback(defaultCb);
             resetAvoidBadWifi(previousAvoidBadWifi);
             resetValidationConfig();
+            mCm.unregisterNetworkCallback(wifiCb);
+            mCm.unregisterNetworkCallback(defaultCb);
             // Reconnect wifi to reset the wifi status
             reconnectWifi();
         }
