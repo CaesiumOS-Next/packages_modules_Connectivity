@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "526379fa_8f9e2fee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-03T03:04:52Z",
+      "side": 1,
+      "message": "There is no connectivity process, connectivity is running in the system server. So this comment doesn\u0027t make a lot of sense.",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "00451237f4b33d55d389201144a659eb0da3ac10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "354fb2fd_8d1c2ec7",
@@ -14,6 +37,23 @@
       "writtenOn": "2021-07-21T08:05:45Z",
       "side": 1,
       "message": "Is there the same issue in TetheringManager, such as TetheringManager.startTethering? Do you like to address them as well? It looks that b/193923945 did not cover TetheringManager.",
+      "revId": "00451237f4b33d55d389201144a659eb0da3ac10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a36757a9_36eda92c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-03T03:04:52Z",
+      "side": 1,
+      "message": "Sorry for the long delay, it was a bit difficult to understand this from start to end.\n\nI think the behavior without this patch is more correct, and we should abandon this.",
       "revId": "00451237f4b33d55d389201144a659eb0da3ac10",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
