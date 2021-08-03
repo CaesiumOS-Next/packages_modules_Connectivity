@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c34076d3_4173236a",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1874659
+      },
+      "writtenOn": "2021-08-03T12:03:30Z",
+      "side": 1,
+      "message": "Not sure if I understand all the context.\nWould this still be a problem given the restoration is in the teardown now and doesn\u0027t contain asserts?",
+      "parentUuid": "fdf8ff92_9cb68abb",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e275ae54_05e861d8",
         "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-28T02:30:17Z",
       "side": 1,
       "message": "IIUC this is not reachable because l.71 is fail() and would break this test. I think the best place to put restoreConnections() is after test method like teardown().",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74b2f978_b2fbab1e",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1874659
+      },
+      "writtenOn": "2021-08-03T12:03:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e275ae54_05e861d8",
       "range": {
         "startLine": 72,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a81df59_3df8fc5e",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1874659
+      },
+      "writtenOn": "2021-08-03T12:03:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85f7011f_016686b6",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 87
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4572444_85869fdb",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-07-28T02:30:17Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 115,
+        "startChar": 12,
+        "endLine": 115,
+        "endChar": 87
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c86d5d3_e12575eb",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1874659
+      },
+      "writtenOn": "2021-08-03T12:03:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4572444_85869fdb",
       "range": {
         "startLine": 115,
         "startChar": 12,
