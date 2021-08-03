@@ -45,6 +45,30 @@
       },
       "revId": "986ca04d9580299d4eacdfb5e063d40c09f33f3d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96f8733a_68ae0546",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/TestNetworkStackService.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-03T03:45:41Z",
+      "side": 1,
+      "message": "That was rather in case someone gets the idea to \"simplify\" the code by reverting to mockito instead, but I guess that\u0027s really unlikely.\nRemoved.",
+      "parentUuid": "241224aa_5d544bf6",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 87
+      },
+      "revId": "986ca04d9580299d4eacdfb5e063d40c09f33f3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
