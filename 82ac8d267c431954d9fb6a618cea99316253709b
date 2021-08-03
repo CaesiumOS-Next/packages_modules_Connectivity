@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e6b5a73_7a76e429",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-03T15:03:38Z",
+      "side": 1,
+      "message": "No, this doesn\u0027t need to be real google dns server. Change to 0.0.0.1 to avoid confusion.",
+      "parentUuid": "27df3865_ce935803",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 46
+      },
+      "revId": "82ac8d267c431954d9fb6a618cea99316253709b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f6d01ac_044265b1",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ec07d33_14ec707b",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-03T15:03:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f6d01ac_044265b1",
+      "range": {
+        "startLine": 188,
+        "startChar": 34,
+        "endLine": 188,
+        "endChar": 39
+      },
+      "revId": "82ac8d267c431954d9fb6a618cea99316253709b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dd2acbc_fe40b8f0",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-08-03T06:38:25Z",
       "side": 1,
       "message": "Optional: it looks that we can have these to a small method, such as prepareSuccessHttpResponse() since it\u0027s used more than one time and may be more later to reduce the duplicate code.\n\nActually, we should able to factor out the common part between testValidation() and this. It looks lots of duplicate code.",
+      "range": {
+        "startLine": 268,
+        "startChar": 8,
+        "endLine": 269,
+        "endChar": 90
+      },
+      "revId": "82ac8d267c431954d9fb6a618cea99316253709b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "788a13f3_1efd200e",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-03T15:03:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dd2acbc_fe40b8f0",
       "range": {
         "startLine": 268,
         "startChar": 8,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "815982c5_0431e892",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-03T15:03:38Z",
+      "side": 1,
+      "message": "I don\u0027t think so. This test has set private dns config but the defualt config in testValidation() is off. So they are different and this test supposes to verify the private dns part.",
+      "parentUuid": "c8f3c200_382b075f",
+      "range": {
+        "startLine": 284,
+        "startChar": 8,
+        "endLine": 284,
+        "endChar": 9
+      },
+      "revId": "82ac8d267c431954d9fb6a618cea99316253709b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d7e29631_897a4a06",
         "filename": "tests/integration/src/com/android/server/net/integrationtests/TestNetworkStackService.kt",
         "patchSetId": 1
@@ -106,6 +202,30 @@
       "writtenOn": "2021-08-03T06:38:25Z",
       "side": 1,
       "message": "should this be replaced by fakeDns? Otherwise, all hosts will return 1.2.3.4?",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 13
+      },
+      "revId": "82ac8d267c431954d9fb6a618cea99316253709b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34a25e13_d8623b23",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/TestNetworkStackService.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-03T15:03:38Z",
+      "side": 1,
+      "message": "aosp/1068355 can support to mock Network#getAllByName by FakeDns but it\u0027s still not merged. So we need to mock Network#getAllByName here.",
+      "parentUuid": "d7e29631_897a4a06",
       "range": {
         "startLine": 85,
         "startChar": 12,
@@ -129,6 +249,30 @@
       "writtenOn": "2021-08-03T06:38:25Z",
       "side": 1,
       "message": "Nit: +s since it adds multiple responses",
+      "range": {
+        "startLine": 119,
+        "startChar": 41,
+        "endLine": 119,
+        "endChar": 42
+      },
+      "revId": "82ac8d267c431954d9fb6a618cea99316253709b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e639bb6_94625f3b",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/TestNetworkStackService.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-03T15:03:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39459808_cc7c3e7f",
       "range": {
         "startLine": 119,
         "startChar": 41,
