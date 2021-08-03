@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebc8fb09_eeeeb44e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-03T03:35:52Z",
+      "side": 1,
+      "message": "Creating patch as suggested in aosp/1778572, but not sure if this is OK/safe as-is",
+      "revId": "ada25604855519ddbecb4809df07612e3ee3a2d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
