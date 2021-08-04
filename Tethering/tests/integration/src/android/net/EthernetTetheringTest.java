@@ -27,7 +27,13 @@ import static android.system.OsConstants.IPPROTO_ICMPV6;
 
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQUEST_TYPE;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_NEIGHBOR_SOLICITATION;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_SLLA;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_TLLA;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
+import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_ALL_NODES_MULTICAST;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -39,8 +45,14 @@ import static org.junit.Assume.assumeTrue;
 
 import android.app.UiAutomation;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.EthernetManager.TetheredInterfaceCallback;
 import android.net.EthernetManager.TetheredInterfaceRequest;
+import android.net.LinkProperties;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
+import android.net.NetworkCapabilities;
+import android.net.RouteInfo;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
@@ -49,6 +61,7 @@ import android.net.dhcp.DhcpOfferPacket;
 import android.net.dhcp.DhcpPacket;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.system.Os;
@@ -58,12 +71,17 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.net.module.util.IpUtils;
+import com.android.net.module.util.Ipv6Utils;
+import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv6Header;
 import com.android.net.module.util.structs.Ipv6Header;
+import com.android.net.module.util.structs.LlaOption;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.TapPacketReader;
+import com.android.testutils.TestableNetworkCallback;
 
 import org.junit.After;
 import org.junit.Before;
@@ -71,12 +89,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.FileDescriptor;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -85,6 +109,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -263,7 +289,10 @@ public class EthernetTetheringTest {
         final long deadline = SystemClock.uptimeMillis() + timeoutMs;
         do {
             byte[] pkt = reader.popPacket(timeoutMs);
-            if (isRouterAdvertisement(pkt)) return;
+            if (isRouterAdvertisement(pkt)) {
+                Log.d(TAG, "RA: " + byteArrayToHex(pkt));
+                return;
+            }
             timeoutMs = deadline - SystemClock.uptimeMillis();
         } while (timeoutMs > 0);
         fail("Did not receive router advertisement on " + iface + " after "
@@ -702,5 +731,251 @@ public class EthernetTetheringTest {
             Log.d(TAG, "Deleted test interface " + mTestIface.getInterfaceName());
             mTestIface = null;
         }
+    }
+
+    static final byte[] TEST_DATA = "Best test data ever!".getBytes();
+
+    @Test(timeout=300000)
+    public void testUpstream() throws Exception {
+        CompletableFuture<String> futureIface = mTetheredInterfaceRequester.requestInterface();
+
+        mEm.setIncludeTestInterfaces(true);
+
+        mTestIface = createTestInterface();
+
+        final String iface = futureIface.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        assertEquals("TetheredInterfaceCallback for unexpected interface",
+                mTestIface.getInterfaceName(), iface);
+
+        FileDescriptor fd = mTestIface.getFileDescriptor().getFileDescriptor();
+        mTapPacketReader = makePacketReader(fd, getMTU(mTestIface));
+        mTetheringEventCallback = enableEthernetTethering(mTestIface.getInterfaceName());
+
+        // Create a fake client.
+        byte[] clientMacAddr = new byte[6];
+        new Random().nextBytes(clientMacAddr);
+
+        DhcpResults dhcpResults = runDhcp(fd, clientMacAddr);
+
+        final Collection<TetheredClient> clients = mTetheringEventCallback.awaitClientConnected();
+        assertEquals(1, clients.size());
+        final TetheredClient client = clients.iterator().next();
+
+        // Check the MAC address.
+        assertEquals(MacAddress.fromBytes(clientMacAddr), client.getMacAddress());
+        assertEquals(TETHERING_ETHERNET, client.getTetheringType());
+
+        // Check the hostname.
+        assertEquals(1, client.getAddresses().size());
+        TetheredClient.AddressInfo info = client.getAddresses().get(0);
+        assertEquals(DHCP_HOSTNAME, info.getHostname());
+
+        // Check the address is the one that was handed out in the DHCP ACK.
+        assertLinkAddressMatches(dhcpResults.ipAddress, info.getAddress());
+
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+            .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+            .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+            .build();
+
+        //final TestableNetworkCallback callback = new TestableNetworkCallback();
+        final TestNetworkCallback callback = new TestNetworkCallback();
+        final NetworkRequest request = new NetworkRequest.Builder()
+            .clearCapabilities().build();
+
+        ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
+        cm.registerNetworkCallback(request, callback);
+
+        TestNetworkManager tnm = mContext.getSystemService(TestNetworkManager.class);
+        ArrayList<LinkAddress> list = new ArrayList<>();
+        list.add(new LinkAddress("10.0.0.1/8"));
+        list.add(new LinkAddress("2001:db8:1::101/64"));
+        TestNetworkInterface upstream = tnm.createTunInterface(list);
+        Log.d(TAG, "Created test upstream interface " + upstream.getInterfaceName());
+        FileDescriptor ufd = upstream.getFileDescriptor().getFileDescriptor();
+        TapPacketReader upstreamReader = makePacketReader(ufd, getMTU(upstream));
+
+        // Get interface name from TestNetworkInterface.
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(upstream.getInterfaceName());
+        lp.addLinkAddress(list.get(0));
+        lp.addLinkAddress(list.get(1));
+        //lp.addRoute(new RouteInfo(new IpPrefix(NetworkStackConstants.IPV6_ADDR_ANY, 0), null, upstream.getInterfaceName(), RouteInfo.RTN_UNICAST, 1280));
+        lp.addRoute(new RouteInfo(null, InetAddress.getByName("fe80::38ef:4aff:fe72:3df2"), upstream.getInterfaceName(), RouteInfo.RTN_UNICAST, 1280));
+        lp.addRoute(new RouteInfo(new IpPrefix(NetworkStackConstants.IPV4_ADDR_ANY, 0), null, upstream.getInterfaceName(), RouteInfo.RTN_UNICAST, 1280));
+        lp.addDnsServer(InetAddress.getByName("8.8.8.8"));
+        lp.addDnsServer(InetAddress.getByName("2001:db8:1::888"));
+        lp.setMtu(1280);
+
+        Log.d(TAG, "register test network agent");
+        final TestNetworkAgent na = new TestNetworkAgent(mContext, mHandlerThread.getLooper(), nc, lp);
+        na.setLingerDuration(Duration.ofMinutes(30));
+
+        final Network network = callback.waitForAvailable();
+        assertNotNull("Did not receive onAvailable for request", network);
+
+        final MacAddress tapMacAddr = getMacAddressFromRA(mTapPacketReader, PACKET_READ_TIMEOUT_MS);
+        sendPacket(fd, createRsPacket(MacAddress.fromBytes(clientMacAddr), tapMacAddr));
+
+        //for (int i =0; i< 100; i++) {
+            Log.d(TAG, "start forwarding test");
+            runIpv6Test(MacAddress.fromBytes(clientMacAddr), tapMacAddr, upstream, upstreamReader);
+            Thread.sleep(10000);
+        //}
+
+        na.unregister();
+        mHandler.post(() -> upstreamReader.stop());
+        upstream.getFileDescriptor().close();
+        Log.d(TAG, "Deleted upstream interface " + upstream.getInterfaceName());
+
+    }
+
+    private MacAddress getMacAddressFromRA(TapPacketReader reader, long timeoutMs)
+            throws Exception {
+        byte[] packet;
+        while ((packet = reader.popPacket(timeoutMs)) != null) {
+            ByteBuffer buf = ByteBuffer.wrap(packet);
+            final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
+            if (ethHdr.etherType != ETHER_TYPE_IPV6) continue;
+
+            final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
+            if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) continue;
+
+            final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
+            if (icmpv6Hdr.type == (short) ICMPV6_ROUTER_ADVERTISEMENT) return ethHdr.srcMac;
+        }
+
+        fail("Did not receive router advertisement after " +  timeoutMs + "ms");
+
+        return null;
+    }
+
+    // NetworkAgent is abstract, so a subclass is necessary
+    private static class TestNetworkAgent extends NetworkAgent {
+        TestNetworkAgent(Context context, Looper looper,
+            NetworkCapabilities nc, LinkProperties lp) {
+            super(context, looper, "TetheringTest", nc, lp, 100
+                    , new NetworkAgentConfig.Builder().build(),
+                    new NetworkProvider(context, looper, "ScoreReportTest agent"));
+            register();
+            markConnected();
+        }
+        @Override protected void unwanted() { }
+    }
+
+    private void runIpv6Test(final MacAddress clientMac, final MacAddress serverMac,
+            final TestNetworkInterface upstream, final TapPacketReader reader) throws Exception {
+        FileDescriptor fd = mTestIface.getFileDescriptor().getFileDescriptor();
+        Inet6Address clientAddr = (Inet6Address) InetAddress.getByName("2001:db8:1::123");
+        Inet6Address serverAddr = (Inet6Address) InetAddress.getByName("2400:222:222::222");
+        ByteBuffer echo = Ipv6Utils.buildEchoRequestPacket(clientMac, serverMac, clientAddr,
+                serverAddr);
+        Log.d(TAG, "Sending ICMP6");
+        sendPacket(fd, echo);
+
+        boolean hasEchoRequest = false;
+        FileDescriptor ufd = upstream.getFileDescriptor().getFileDescriptor();
+        byte[] packet;
+        while ((packet = reader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
+            Log.d(TAG, "Packet in upstream, length: " + packet.length);
+            Log.d(TAG, "payLoad: " + byteArrayToHex(packet));
+
+            ByteBuffer buf = ByteBuffer.wrap(packet);
+            final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
+            Log.d(TAG, "nextHeader: " + ipv6Hdr.nextHeader);
+            if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) continue;
+
+            final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
+            Log.d(TAG, "type: " + icmpv6Hdr.type);
+            if (icmpv6Hdr.type == (short) ICMPV6_ECHO_REQUEST_TYPE) {
+                hasEchoRequest = true;
+                final ByteBuffer payload = ByteBuffer.allocate(4);
+                ByteBuffer reply = buildIcmpv6ReplyPacketWithoutEtherHeader(
+                        ipv6Hdr.dstIp, ipv6Hdr.srcIp, payload);
+                Log.d(TAG, "REPLY ICMP6");
+                sendPacket(ufd, reply);
+                break;
+            }
+        }
+        if (!hasEchoRequest) fail("Forward icmpv6 echo request fail");
+
+        while ((packet = mTapPacketReader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
+            Log.d(TAG, "Packet in downstream, length: " + packet.length);
+            Log.d(TAG, "payLoad: " + byteArrayToHex(packet));
+
+            ByteBuffer buf = ByteBuffer.wrap(packet);
+            final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
+            if (ethHdr.etherType != ETHER_TYPE_IPV6) continue;
+
+            final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
+            Log.d(TAG, "nextHeader: " + ipv6Hdr.nextHeader);
+            if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) continue;
+
+            final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
+            Log.d(TAG, "type: " + icmpv6Hdr.type);
+            if (icmpv6Hdr.type == (short) ICMPV6_NEIGHBOR_SOLICITATION && ipv6Hdr.dstIp.equals(clientAddr)) {
+                Log.d(TAG, "Send NA to reply who am I");
+                sendPacket(fd, createNaPacket(serverMac, clientMac, serverAddr, clientAddr));
+            }
+
+            if (icmpv6Hdr.type == (short) ICMPV6_ECHO_REPLY_TYPE) return;
+        }
+        fail("Forward icmpv6 echo reply fail");
+    }
+
+    public ByteBuffer buildIcmpv6ReplyPacketWithoutEtherHeader(final Inet6Address srcIp,
+            final Inet6Address dstIp, final ByteBuffer... options) {
+        final int ipv6HeaderLen = Struct.getSize(Ipv6Header.class);
+        final int icmpv6HeaderLen = Struct.getSize(Icmpv6Header.class);
+        int payloadLen = 0;
+        for (ByteBuffer option: options) {
+            payloadLen += option.limit();
+        }
+        final ByteBuffer packet = ByteBuffer.allocate(ipv6HeaderLen + icmpv6HeaderLen + payloadLen);
+        final Ipv6Header ipv6Header =
+                new Ipv6Header((int) 0x60000000 /* version, traffic class, flowlabel */,
+                icmpv6HeaderLen + payloadLen /* payload length */,
+                (byte) IPPROTO_ICMPV6 /* next header */, (byte) 0xff /* hop limit */, srcIp, dstIp);
+        final Icmpv6Header icmpv6Header = new Icmpv6Header((byte) ICMPV6_ECHO_REPLY_TYPE,
+                (short) 0 /* code */, (short) 0 /* checksum */);
+
+        ipv6Header.writeToByteBuffer(packet);
+        icmpv6Header.writeToByteBuffer(packet);
+        for (ByteBuffer option : options) {
+            packet.put(option);
+            // in case option might be reused by caller, restore the position and
+            // limit of bytebuffer.
+            option.clear();
+        }
+        packet.flip();
+
+        // Populate the ICMPv6 checksum field.
+        packet.putShort(ipv6HeaderLen + 2, IpUtils.icmpv6Checksum(packet,
+                0 /* ipOffset */,
+                (int) (ipv6HeaderLen) /* transportOffset */,
+                (short) (icmpv6HeaderLen + payloadLen) /* transportLen */));
+        return packet;
+    }
+
+    private ByteBuffer createRsPacket(final MacAddress srcMac, final MacAddress dstMac) throws Exception {
+        final ByteBuffer slla = LlaOption.build((byte) ICMPV6_ND_OPTION_SLLA, srcMac);
+
+        return Ipv6Utils.buildRsPacket(srcMac, dstMac, (Inet6Address) InetAddress.getByName("2001:db8:1::123"),
+                IPV6_ADDR_ALL_NODES_MULTICAST, slla);
+    }
+
+    private ByteBuffer createNaPacket(final MacAddress srcMac, final MacAddress dstMac, Inet6Address srcIp, Inet6Address dstIp) throws Exception {
+        final ByteBuffer tlla = LlaOption.build((byte) ICMPV6_ND_OPTION_TLLA, srcMac);
+        return Ipv6Utils.buildNaPacket(srcMac, dstMac, srcIp, dstIp, 0x40000000, srcIp, tlla);
+    }
+
+    public static String byteArrayToHex(byte[] a) {
+        StringBuilder sb = new StringBuilder(a.length * 2);
+        for(byte b: a) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }
