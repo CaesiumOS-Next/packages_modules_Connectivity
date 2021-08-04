@@ -30,6 +30,7 @@ java_defaults {
         "mockito-target-extended-minus-junit4",
         "net-tests-utils",
         "testables",
+        "cts-net-utils",
     ],
     libs: [
         "android.test.runner",
@@ -74,6 +75,7 @@ android_test {
     name: "TetheringIntegrationTests",
     platform_apis: true,
     defaults: ["TetheringIntegrationTestsDefaults"],
+    certificate: "networkstack",
     test_suites: [
         "device-tests",
         "mts",
