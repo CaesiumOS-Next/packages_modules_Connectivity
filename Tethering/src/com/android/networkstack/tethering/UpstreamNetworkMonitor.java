@@ -322,10 +322,10 @@ public class UpstreamNetworkMonitor {
      * Returns null if no current upstream is available.
      */
     public UpstreamNetworkState getCurrentPreferredUpstream() {
-        final UpstreamNetworkState dfltState = (mDefaultInternetNetwork != null)
+        /*final UpstreamNetworkState dfltState = (mDefaultInternetNetwork != null)
                 ? mNetworkMap.get(mDefaultInternetNetwork)
                 : null;
-        /*if (isNetworkUsableAndNotCellular(dfltState)) return dfltState;
+        if (isNetworkUsableAndNotCellular(dfltState)) return dfltState;
 
         if (!isCellularUpstreamPermitted()) return null;
 
@@ -338,15 +338,17 @@ public class UpstreamNetworkMonitor {
         return findFirstTestNetwork(mNetworkMap.values());
     }
 
-    private static UpstreamNetworkState findFirstTestNetwork(
+    private UpstreamNetworkState findFirstTestNetwork(
             Iterable<UpstreamNetworkState> netStates) {
         for (UpstreamNetworkState ns : netStates) {
+            mLog.i("findFirstTestNetwork " + ns);
             if ((ns != null) && (ns.networkCapabilities != null)
                && ns.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_TEST)) {
                 return ns;
             }
         }
 
+        mLog.i("NO TEST NETORK MATCHED :(");
         return null;
     }
 
@@ -418,6 +420,8 @@ public class UpstreamNetworkMonitor {
             Log.d(TAG, String.format("EVENT_ON_LINKPROPERTIES for %s: %s",
                     network, newLp));
         }
+            mLog.i(String.format("EVENT_ON_LINKPROPERTIES for %s: %s",
+                    network, newLp));
 
         final UpstreamNetworkState ns = new UpstreamNetworkState(newLp, prev.networkCapabilities,
                 network);
