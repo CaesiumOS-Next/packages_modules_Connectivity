@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5abb7d05_776b080a",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-04T15:14:34Z",
+      "side": 1,
+      "message": "Yes. You only use the transport type to check whether cell network is connected or not. If mobile data settings is turned off but device has ims connection, mCellConnectedBeforeTest is still true because ims connection is TRANSPORT_CELLULAR. So you need check NetworkCapabilities#NET_CAPABILITY_INTERNET as well.",
+      "parentUuid": "c34076d3_4173236a",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "83dbb29968101aadaf70ef6e705c008101decc35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e275ae54_05e861d8",
         "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
         "patchSetId": 5

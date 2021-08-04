@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d79b6352_afcfbd64",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-04T15:14:34Z",
+      "side": 1,
+      "message": "This is still unreachable because you are not overriding teardown(). Should be \n\n    @Override\n    protected void tearDown() throws Exception {\n        try {\n            restoreConnections();\n        } catch (Exception ex) {\n            Log.e(TAG, \"Could not restore network connections: \" + ex);\n        }\n        super.tearDown();\n    }",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 5
+      },
+      "revId": "79a06c9503ee9800355d504d10d02e51123ef70a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
