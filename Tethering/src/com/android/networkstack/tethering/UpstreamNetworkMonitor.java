@@ -329,12 +329,29 @@ public class UpstreamNetworkMonitor {
 
         if (!isCellularUpstreamPermitted()) return null;
 
-        if (!mDunRequired) return dfltState;
+        //if (!mDunRequired) return dfltState;
 
         // Find a DUN network. Note that code in Tethering causes a DUN request
         // to be filed, but this might be moved into this class in future.
-        return findFirstDunNetwork(mNetworkMap.values());
+        //return findFirstDunNetwork(mNetworkMap.values());
+
+        return findFirstTestNetwork(mNetworkMap.values());
     }
+
+    private UpstreamNetworkState findFirstTestNetwork(
+            Iterable<UpstreamNetworkState> netStates) {
+        for (UpstreamNetworkState ns : netStates) {
+            mLog.i("findFirstTestNetwork " + ns);
+            if ((ns != null) && (ns.networkCapabilities != null)
+               && ns.networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_TEST)) {
+                return ns;
+            }
+        }
+
+        mLog.i("NO TEST NETORK MATCHED :(");
+        return null;
+    }
+
 
     /** Tell UpstreamNetworkMonitor which network is the current upstream of tethering. */
     public void setCurrentUpstream(Network upstream) {
@@ -403,6 +420,8 @@ public class UpstreamNetworkMonitor {
             Log.d(TAG, String.format("EVENT_ON_LINKPROPERTIES for %s: %s",
                     network, newLp));
         }
+            mLog.i(String.format("EVENT_ON_LINKPROPERTIES for %s: %s",
+                    network, newLp));
 
         final UpstreamNetworkState ns = new UpstreamNetworkState(newLp, prev.networkCapabilities,
                 network);

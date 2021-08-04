@@ -14,7 +14,8 @@
      limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.android.networkstack.tethering.tests.integration">
+    package="com.android.networkstack.tethering.tests.integration"
+    android:sharedUserId="android.uid.networkstack">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -24,5 +25,8 @@
     <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"
         android:targetPackage="com.android.networkstack.tethering.tests.integration"
         android:label="Tethering integration tests">
+        <meta-data
+            android:name="timeout_msec"
+            android:value="36000000" />
     </instrumentation>
 </manifest>
