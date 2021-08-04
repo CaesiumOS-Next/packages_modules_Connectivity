@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da1077db_c7cce0b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-04T06:02:25Z",
+      "side": 1,
+      "message": "LGTM. Comments optional, feel free to address in a follow-up if you agree with them.",
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38fce948_15f45d80",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-04T06:02:25Z",
+      "side": 1,
+      "message": "This looks to be more complex than it\u0027s worth. Would seem better to have two maps, one indexed by a pair of integers or something. But since this is only test code and not production code, I guess it\u0027s fine.",
+      "range": {
+        "startLine": 544,
+        "startChar": 0,
+        "endLine": 546,
+        "endChar": 98
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60a2d9bd_546f2326",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-04T06:02:25Z",
+      "side": 1,
+      "message": "Might want to explain why isn\u0027t this just \"int defaultValue\" or \"boolean defaultValue\" or something? It seems unlikely that passing in a lambda would make the callsites more readable. (While it\u0027s true that the Supplier can throw SecurityException, you could always do \"if (!defaultAllow) throw new SecurityException();\"",
+      "range": {
+        "startLine": 649,
+        "startChar": 16,
+        "endLine": 649,
+        "endChar": 42
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "148b7b77_cc9efeb1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-04T06:02:25Z",
+      "side": 1,
+      "message": "Nit: \"across the board\" might be difficult to understand to folks who do not know english well. You could say \"to all calls\" instead.",
+      "range": {
+        "startLine": 691,
+        "startChar": 27,
+        "endLine": 691,
+        "endChar": 43
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39109bc6_98b73fcf",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13388,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-04T06:02:25Z",
+      "side": 1,
+      "message": "Pre-existing, but generally it\u0027s better to only call methods testXyz if they are actually test methods (i.e., annotated with @Test). That way, folks used to older Junit syntax (which we still use in some places) will find the code easier to read. So would rename this to checkRequestCountLimits (or doTestRequestCountLimits).",
+      "range": {
+        "startLine": 13388,
+        "startChar": 17,
+        "endLine": 13388,
+        "endChar": 39
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b26117ae_4162d709",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13388,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-04T06:02:25Z",
+      "side": 1,
+      "message": "Given that most test probably don\u0027t use this, would leave it at the end (\"put most useful/relevant parameters first\") and/or add an overload that passes in 0.",
+      "range": {
+        "startLine": 13388,
+        "startChar": 40,
+        "endLine": 13388,
+        "endChar": 71
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
