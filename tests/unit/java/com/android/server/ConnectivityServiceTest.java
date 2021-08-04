@@ -16,149 +16,10 @@
 
 package com.android.server;
 
-import static android.Manifest.permission.CHANGE_NETWORK_STATE;
-import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
-import static android.Manifest.permission.CONTROL_OEM_PAID_NETWORK_PREFERENCE;
-import static android.Manifest.permission.CREATE_USERS;
-import static android.Manifest.permission.DUMP;
-import static android.Manifest.permission.GET_INTENT_SENDER_INTENT;
-import static android.Manifest.permission.LOCAL_MAC_ADDRESS;
-import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
-import static android.Manifest.permission.NETWORK_FACTORY;
-import static android.Manifest.permission.NETWORK_SETTINGS;
-import static android.Manifest.permission.NETWORK_STACK;
-import static android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
-import static android.app.PendingIntent.FLAG_IMMUTABLE;
-import static android.content.Intent.ACTION_PACKAGE_ADDED;
-import static android.content.Intent.ACTION_PACKAGE_REMOVED;
-import static android.content.Intent.ACTION_PACKAGE_REPLACED;
-import static android.content.Intent.ACTION_USER_ADDED;
-import static android.content.Intent.ACTION_USER_REMOVED;
-import static android.content.Intent.ACTION_USER_UNLOCKED;
-import static android.content.pm.PackageInfo.REQUESTED_PERMISSION_GRANTED;
-import static android.content.pm.PackageManager.FEATURE_ETHERNET;
-import static android.content.pm.PackageManager.FEATURE_WIFI;
-import static android.content.pm.PackageManager.FEATURE_WIFI_DIRECT;
-import static android.content.pm.PackageManager.GET_PERMISSIONS;
-import static android.content.pm.PackageManager.PERMISSION_DENIED;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static android.net.ConnectivityManager.ACTION_CAPTIVE_PORTAL_SIGN_IN;
-import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER;
-import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
-import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED;
-import static android.net.ConnectivityManager.BLOCKED_REASON_BATTERY_SAVER;
-import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
-import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
-import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
-import static android.net.ConnectivityManager.EXTRA_NETWORK_TYPE;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_DOZABLE;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_LOW_POWER_STANDBY;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_1;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_2;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_OEM_DENY_3;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_POWERSAVE;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_RESTRICTED;
-import static android.net.ConnectivityManager.FIREWALL_CHAIN_STANDBY;
-import static android.net.ConnectivityManager.FIREWALL_RULE_ALLOW;
-import static android.net.ConnectivityManager.FIREWALL_RULE_DEFAULT;
-import static android.net.ConnectivityManager.FIREWALL_RULE_DENY;
-import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT;
-import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
-import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK;
-import static android.net.ConnectivityManager.TYPE_ETHERNET;
-import static android.net.ConnectivityManager.TYPE_MOBILE;
-import static android.net.ConnectivityManager.TYPE_MOBILE_FOTA;
-import static android.net.ConnectivityManager.TYPE_MOBILE_MMS;
-import static android.net.ConnectivityManager.TYPE_MOBILE_SUPL;
-import static android.net.ConnectivityManager.TYPE_PROXY;
-import static android.net.ConnectivityManager.TYPE_VPN;
-import static android.net.ConnectivityManager.TYPE_WIFI;
-import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_OFF;
-import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_OPPORTUNISTIC;
-import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_PROVIDER_HOSTNAME;
-import static android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_DNS;
-import static android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_FALLBACK;
-import static android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_HTTP;
-import static android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_HTTPS;
-import static android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_PRIVDNS;
-import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_PARTIAL;
-import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_VALID;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_BIP;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_CBS;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_EIMS;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_FOTA;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_IA;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_IMS;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_MMTEL;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_OEM_PAID;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_OEM_PRIVATE;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_RCS;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_SUPL;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_VSIM;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_WIFI_P2P;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_XCAP;
-import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_1;
-import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_2;
-import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_3;
-import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_4;
-import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_5;
-import static android.net.NetworkCapabilities.REDACT_FOR_ACCESS_FINE_LOCATION;
-import static android.net.NetworkCapabilities.REDACT_FOR_LOCAL_MAC_ADDRESS;
-import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
-import static android.net.NetworkCapabilities.REDACT_NONE;
-import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
-import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
-import static android.net.NetworkCapabilities.TRANSPORT_TEST;
-import static android.net.NetworkCapabilities.TRANSPORT_VPN;
-import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
-import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
-import static android.net.NetworkScore.KEEP_CONNECTED_FOR_HANDOVER;
-import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_OEM_PAID;
-import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_OEM_PAID_NO_FALLBACK;
-import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_OEM_PAID_ONLY;
-import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_OEM_PRIVATE_ONLY;
-import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
-import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
-import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_UNINITIALIZED;
-import static android.net.RouteInfo.RTN_UNREACHABLE;
-import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFIX_OPERATION_ADDED;
-import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFIX_OPERATION_REMOVED;
-import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_FAILURE;
-import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
-import static android.os.Process.INVALID_UID;
-import static android.system.OsConstants.IPPROTO_TCP;
-
-import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
-import static com.android.server.ConnectivityService.PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED;
-import static com.android.server.ConnectivityService.PREFERENCE_ORDER_OEM;
-import static com.android.server.ConnectivityService.PREFERENCE_ORDER_PROFILE;
-import static com.android.server.ConnectivityService.PREFERENCE_ORDER_VPN;
-import static com.android.server.ConnectivityServiceTestUtils.transportToLegacyType;
-import static com.android.server.NetworkAgentWrapper.CallbackType.OnQosCallbackRegister;
-import static com.android.server.NetworkAgentWrapper.CallbackType.OnQosCallbackUnregister;
-import static com.android.testutils.ConcurrentUtils.await;
-import static com.android.testutils.ConcurrentUtils.durationOf;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
-import static com.android.testutils.ExceptionUtils.ignoreExceptions;
+import static com.android.testutils.FunctionalUtils.ignoreExceptions;
 import static com.android.testutils.HandlerUtils.waitForIdleSerialExecutor;
 import static com.android.testutils.MiscAsserts.assertContainsAll;
 import static com.android.testutils.MiscAsserts.assertContainsExactly;
@@ -375,7 +236,9 @@ import com.android.server.connectivity.VpnProfileStore;
 import com.android.server.net.NetworkPinner;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
-import com.android.testutils.ExceptionUtils;
+import com.android.testutils.FunctionalUtils.Function3;
+import com.android.testutils.FunctionalUtils.ThrowingConsumer;
+import com.android.testutils.FunctionalUtils.ThrowingRunnable;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.TestableNetworkCallback;
@@ -739,7 +602,7 @@ public class ConnectivityServiceTest {
         }
 
         private int checkMockedPermission(String permission, int pid, int uid,
-                Supplier<Integer> ifAbsent) {
+                Function3<String, Integer, Integer, Integer> ifAbsent /* perm, uid, pid -> int */) {
             final Integer granted = mMockedPermissions.get(permission + "," + pid + "," + uid);
             if (null != granted) {
                 return granted;
@@ -748,27 +611,27 @@ public class ConnectivityServiceTest {
             if (null != allGranted) {
                 return allGranted;
             }
-            return ifAbsent.get();
+            return ifAbsent.apply(permission, pid, uid);
         }
 
         @Override
         public int checkPermission(String permission, int pid, int uid) {
             return checkMockedPermission(permission, pid, uid,
-                    () -> super.checkPermission(permission, pid, uid));
+                    (perm, p, u) -> super.checkPermission(perm, p, u));
         }
 
         @Override
         public int checkCallingOrSelfPermission(String permission) {
             return checkMockedPermission(permission, Process.myPid(), Process.myUid(),
-                    () -> super.checkCallingOrSelfPermission(permission));
+                    (perm, p, u) -> super.checkCallingOrSelfPermission(perm));
         }
 
         @Override
         public void enforceCallingOrSelfPermission(String permission, String message) {
             final Integer granted = checkMockedPermission(permission,
                     Process.myPid(), Process.myUid(),
-                    () -> {
-                        super.enforceCallingOrSelfPermission(permission, message);
+                    (perm, p, u) -> {
+                        super.enforceCallingOrSelfPermission(perm, message);
                         // enforce will crash if the permission is not granted
                         return PERMISSION_GRANTED;
                     });
@@ -781,7 +644,7 @@ public class ConnectivityServiceTest {
         /**
          * Mock checks for the specified permission, and have them behave as per {@code granted}.
          *
-         * This will apply across the board no matter what the checked UID and PID are.
+         * This will apply to all calls no matter what the checked UID and PID are.
          *
          * <p>Passing null reverts to default behavior, which does a real permission check on the
          * test package.
@@ -1713,11 +1576,7 @@ public class ConnectivityServiceTest {
         });
     }
 
-    private interface ExceptionalRunnable {
-        void run() throws Exception;
-    }
-
-    private void withPermission(String permission, ExceptionalRunnable r) throws Exception {
+    private void withPermission(String permission, ThrowingRunnable r) throws Exception {
         try {
             mServiceContext.setPermission(permission, PERMISSION_GRANTED);
             r.run();
@@ -1726,7 +1585,7 @@ public class ConnectivityServiceTest {
         }
     }
 
-    private void withPermission(String permission, int pid, int uid, ExceptionalRunnable r)
+    private void withPermission(String permission, int pid, int uid, ThrowingRunnable r)
             throws Exception {
         try {
             mServiceContext.setPermission(permission, pid, uid, PERMISSION_GRANTED);
@@ -6196,7 +6055,7 @@ public class ConnectivityServiceTest {
     }
 
     // Helper method to prepare the executor and run test
-    private void runTestWithSerialExecutors(ExceptionUtils.ThrowingConsumer<Executor> functor)
+    private void runTestWithSerialExecutors(ThrowingConsumer<Executor> functor)
             throws Exception {
         final ExecutorService executorSingleThread = Executors.newSingleThreadExecutor();
         final Executor executorInline = (Runnable r) -> r.run();
@@ -15715,7 +15574,7 @@ public class ConnectivityServiceTest {
         final UserHandle testHandle = setupEnterpriseNetwork();
         final TestOnCompleteListener listener = new TestOnCompleteListener();
         // Leave one request available so the profile preference can be set.
-        testRequestCountLimits(1 /* countToLeaveAvailable */, () -> {
+        withRequestCountersAcquired(1 /* countToLeaveAvailable */, () -> {
             withPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
                     Process.myPid(), Process.myUid(), () -> {
                         // Set initially to test the limit prior to having existing requests.
@@ -15764,7 +15623,7 @@ public class ConnectivityServiceTest {
         @OemNetworkPreferences.OemNetworkPreference final int networkPref =
                 OEM_NETWORK_PREFERENCE_OEM_PRIVATE_ONLY;
         // Leave one request available so the OEM preference can be set.
-        testRequestCountLimits(1 /* countToLeaveAvailable */, () ->
+        withRequestCountersAcquired(1 /* countToLeaveAvailable */, () ->
                 withPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, () -> {
                     // Set initially to test the limit prior to having existing requests.
                     final TestOemListenerCallback listener = new TestOemListenerCallback();
@@ -15779,8 +15638,8 @@ public class ConnectivityServiceTest {
                 }));
     }
 
-    private void testRequestCountLimits(final int countToLeaveAvailable,
-            @NonNull final ExceptionalRunnable r) throws Exception {
+    private void withRequestCountersAcquired(final int countToLeaveAvailable,
+            @NonNull final ThrowingRunnable r) throws Exception {
         final ArraySet<TestNetworkCallback> callbacks = new ArraySet<>();
         try {
             final int requestCount = mService.mSystemNetworkRequestCounter
@@ -16047,7 +15906,7 @@ public class ConnectivityServiceTest {
         ConnectivitySettingsManager.setMobileDataPreferredUids(mServiceContext,
                 Set.of(PRIMARY_USER_HANDLE.getUid(TEST_PACKAGE_UID)));
         // Leave one request available so MDO preference set up above can be set.
-        testRequestCountLimits(1 /* countToLeaveAvailable */, () ->
+        withRequestCountersAcquired(1 /* countToLeaveAvailable */, () ->
                 withPermission(NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
                         Process.myPid(), Process.myUid(), () -> {
                             // Set initially to test the limit prior to having existing requests.
