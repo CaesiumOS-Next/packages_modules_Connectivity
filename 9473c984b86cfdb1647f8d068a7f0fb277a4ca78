@@ -37,6 +37,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0296d0f7_0ed2705f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-04T13:07:07Z",
+      "side": 1,
+      "message": "Comments addressed in aosp/1785908",
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "38fce948_15f45d80",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 6
@@ -48,6 +65,30 @@
       "writtenOn": "2021-08-04T06:02:25Z",
       "side": 1,
       "message": "This looks to be more complex than it\u0027s worth. Would seem better to have two maps, one indexed by a pair of integers or something. But since this is only test code and not production code, I guess it\u0027s fine.",
+      "range": {
+        "startLine": 544,
+        "startChar": 0,
+        "endLine": 546,
+        "endChar": 98
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21099460_ccd3bbe7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-04T13:07:07Z",
+      "side": 1,
+      "message": "I kind of hesitated, and ended up deciding this was probably simpler than to create pairs every time, because while very ad-hoc it\u0027s also both very clear in all call sites and very clear when you dump the map.\n\nIf you feel strongly I can change it, but you seem not to so I won\u0027t take the time to change this.",
+      "parentUuid": "38fce948_15f45d80",
       "range": {
         "startLine": 544,
         "startChar": 0,
@@ -81,6 +122,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6ec4639_3ec12527",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-04T13:07:07Z",
+      "side": 1,
+      "message": "Changed this into a Function3\u003c\u003e to clarify that this in fact depends on the arguments.",
+      "parentUuid": "60a2d9bd_546f2326",
+      "range": {
+        "startLine": 649,
+        "startChar": 16,
+        "endLine": 649,
+        "endChar": 42
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "148b7b77_cc9efeb1",
@@ -94,6 +159,30 @@
       "writtenOn": "2021-08-04T06:02:25Z",
       "side": 1,
       "message": "Nit: \"across the board\" might be difficult to understand to folks who do not know english well. You could say \"to all calls\" instead.",
+      "range": {
+        "startLine": 691,
+        "startChar": 27,
+        "endLine": 691,
+        "endChar": 43
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5794874_69f1ae82",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-04T13:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "148b7b77_cc9efeb1",
       "range": {
         "startLine": 691,
         "startChar": 27,
@@ -140,6 +229,54 @@
       "writtenOn": "2021-08-04T06:02:25Z",
       "side": 1,
       "message": "Given that most test probably don\u0027t use this, would leave it at the end (\"put most useful/relevant parameters first\") and/or add an overload that passes in 0.",
+      "range": {
+        "startLine": 13388,
+        "startChar": 40,
+        "endLine": 13388,
+        "endChar": 71
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bc75df5_74f10594",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13388,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-04T13:07:07Z",
+      "side": 1,
+      "message": "Good point, done.",
+      "parentUuid": "39109bc6_98b73fcf",
+      "range": {
+        "startLine": 13388,
+        "startChar": 17,
+        "endLine": 13388,
+        "endChar": 39
+      },
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc769d3_bacf479e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13388,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-04T13:07:07Z",
+      "side": 1,
+      "message": "In fact, any test using this method needs to be aware of how many requests it will be filing in the runnable, because it needs to leave that many slots open for legitimate requests. Debugging this, I came to the horrified realization that\n• All three users of this method happen to file exactly one additional request in the runnable they pass.\n• This method was written thinking it was filling the request counter, but was actually leaving one slot open because of a fencepost bug (see \"\u003c maxCount - 1\" in the old code).\nThe two unnoticed issues were cancelling each other out.\n\nI initially made an overload that passes 1 since that\u0027s what all existing callers do, but finally decided against since really users have to care about this. I guess you could argue that if we made 0 the default value, users who need to pass something else would see the test fail anyway, but I thought it was more friendly to force them to think about it upfront than to let them crash and leave them to figure out as investigation of these counts is tricky.\n\nIf we\u0027re not going to make this argument optional, then it\u0027s generally more readable to leave the lambda at the end.",
+      "parentUuid": "b26117ae_4162d709",
       "range": {
         "startLine": 13388,
         "startChar": 40,
