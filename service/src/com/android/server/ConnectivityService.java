@@ -3513,10 +3513,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 default:
                     return false;
                 case NetworkAgentInfo.EVENT_NETWORK_LINGER_COMPLETE: {
-                    NetworkAgentInfo nai = (NetworkAgentInfo) msg.obj;
+                    /*NetworkAgentInfo nai = (NetworkAgentInfo) msg.obj;
                     if (nai != null && isLiveNetworkAgent(nai, msg.what)) {
                         handleLingerComplete(nai);
-                    }
+                    }*/
                     break;
                 }
                 case NetworkAgentInfo.EVENT_AGENT_REGISTERED: {
