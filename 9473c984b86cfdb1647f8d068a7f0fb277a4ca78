@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "39933350_e6c45b41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-04T12:23:45Z",
+      "side": 1,
+      "message": "Will send a followup to address comments.",
+      "revId": "9473c984b86cfdb1647f8d068a7f0fb277a4ca78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "38fce948_15f45d80",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 6
