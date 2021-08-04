@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014108371",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1784394?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ed70412e_51775239",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-04T07:33:18Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 763,
+        "startChar": 18,
+        "endLine": 763,
+        "endChar": 19
+      },
+      "revId": "20146f85421f923e7c7a1de17c5676cdcf40fc25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
