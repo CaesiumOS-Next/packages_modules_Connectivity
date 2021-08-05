@@ -85,6 +85,29 @@
       },
       "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eff66726_08ce6eeb",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-05T07:05:32Z",
+      "side": 1,
+      "message": "Given that MultinetworkPolicyTracker will use `new ConnectivityResources` in its constructor, could this be replaced in a safer way by passing a deps object to it instead, and possibly saying\n\n  doReturn(resourcesContext).`when`(resources).getResourcesContext()\n\nOr, maybe simpler, we could just pass the resources to it instead (making it the responsibility to the CS Dependencies instead)",
+      "range": {
+        "startLine": 214,
+        "startChar": 29,
+        "endLine": 214,
+        "endChar": 55
+      },
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
