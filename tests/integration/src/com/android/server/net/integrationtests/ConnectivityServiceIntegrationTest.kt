@@ -37,7 +37,6 @@ import android.net.NetworkRequest
 import android.net.TestNetworkStackClient
 import android.net.Uri
 import android.net.metrics.IpConnectivityLog
-import android.net.util.MultinetworkPolicyTracker
 import android.os.ConditionVariable
 import android.os.IBinder
 import android.os.SystemConfigManager
@@ -46,7 +45,6 @@ import android.testing.TestableContext
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.android.connectivity.resources.R
 import com.android.server.ConnectivityService
 import com.android.server.NetworkAgentWrapper
 import com.android.server.TestNetIdManager
@@ -63,7 +61,6 @@ import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito.any
 import org.mockito.Mockito.anyInt
-import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.eq
@@ -100,8 +97,6 @@ class ConnectivityServiceIntegrationTest {
     private lateinit var systemConfigManager: SystemConfigManager
     @Mock
     private lateinit var resources: Resources
-    @Mock
-    private lateinit var resourcesContext: Context
     @Spy
     private var context = TestableContext(realContext)
 
@@ -119,11 +114,9 @@ class ConnectivityServiceIntegrationTest {
 
         private val realContext get() = InstrumentationRegistry.getInstrumentation().context
         private val httpProbeUrl get() =
-            realContext.getResources().getString(com.android.server.net.integrationtests.R.string
-                    .config_captive_portal_http_url)
+            realContext.getResources().getString(R.string.config_captive_portal_http_url)
         private val httpsProbeUrl get() =
-            realContext.getResources().getString(com.android.server.net.integrationtests.R.string
-                    .config_captive_portal_https_url)
+            realContext.getResources().getString(R.string.config_captive_portal_https_url)
 
         private class InstrumentationServiceConnection : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -167,26 +160,9 @@ class ConnectivityServiceIntegrationTest {
                 .getSystemService(Context.SYSTEM_CONFIG_SERVICE)
         doReturn(IntArray(0)).`when`(systemConfigManager).getSystemPermissionUids(anyString())
 
-        doReturn(60000).`when`(resources).getInteger(R.integer.config_networkTransitionTimeout)
-        doReturn("").`when`(resources).getString(R.string.config_networkCaptivePortalServerUrl)
-        doReturn(arrayOf<String>("test_wlan_wol")).`when`(resources)
-                .getStringArray(R.array.config_wakeonlan_supported_interfaces)
-        doReturn(arrayOf("0,1", "1,3")).`when`(resources)
-                .getStringArray(R.array.config_networkSupportedKeepaliveCount)
-        doReturn(emptyArray<String>()).`when`(resources)
-                .getStringArray(R.array.config_networkNotifySwitches)
-        doReturn(intArrayOf(10, 11, 12, 14, 15)).`when`(resources)
-                .getIntArray(R.array.config_protectedNetworks)
-        // We don't test the actual notification value strings, so just return an empty array.
-        // It doesn't matter what the values are as long as it's not null.
-        doReturn(emptyArray<String>()).`when`(resources).getStringArray(
-                R.array.network_switch_type_name)
-        doReturn(1).`when`(resources).getInteger(R.integer.config_networkAvoidBadWifi)
-        doReturn(R.array.config_networkSupportedKeepaliveCount).`when`(resources)
-                .getIdentifier(eq("config_networkSupportedKeepaliveCount"), eq("array"), any())
-
-        doReturn(resources).`when`(resourcesContext).getResources()
-        ConnectivityResources.setResourcesContextForTest(resourcesContext)
+        // Use the test package resources as connectivity resources, as they are packaged into
+        // the integration test APK
+        ConnectivityResources.setResourcesContextForTest(realContext)
 
         networkStackClient = TestNetworkStackClient(realContext)
         networkStackClient.start()
@@ -208,12 +184,6 @@ class ConnectivityServiceIntegrationTest {
         doReturn(mock(ProxyTracker::class.java)).`when`(deps).makeProxyTracker(any(), any())
         doReturn(mock(MockableSystemProperties::class.java)).`when`(deps).systemProperties
         doReturn(TestNetIdManager()).`when`(deps).makeNetIdManager()
-        doAnswer { inv ->
-            object : MultinetworkPolicyTracker(inv.getArgument(0), inv.getArgument(1),
-                    inv.getArgument(2)) {
-                override fun getResourcesForActiveSubId() = resources
-            }
-        }.`when`(deps).makeMultinetworkPolicyTracker(any(), any(), any())
         return deps
     }
 

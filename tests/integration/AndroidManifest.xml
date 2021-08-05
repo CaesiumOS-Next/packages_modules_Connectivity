@@ -18,6 +18,7 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
      package="com.android.server.net.integrationtests">
 
     <!-- For ConnectivityService registerReceiverAsUser (receiving broadcasts) -->
@@ -40,7 +41,12 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <!-- Querying the resources package -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
-    <application android:debuggable="true">
+    <!-- Need to help the manifest merger figure out whether to take attributes from this manifest
+         or that of one of the android library dependencies (including auto-generated
+         attributes like extractNativeLibs) -->
+    <application android:debuggable="true"
+                 android:label="Connectivity integration tests"
+                 tools:replace="android:label">
         <uses-library android:name="android.test.runner"/>
 
         <!-- This manifest is merged with the base manifest of the real NetworkStack app.

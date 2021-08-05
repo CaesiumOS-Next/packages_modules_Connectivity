@@ -29,9 +29,9 @@ android_test {
     ],
     libs: [
         "android.test.mock",
-        "ServiceConnectivityResources",
     ],
     static_libs: [
+        "ServiceConnectivityResourcesLib",
         "NetworkStackApiStableLib",
         "androidx.test.ext.junit",
         "frameworks-net-integration-testutils",

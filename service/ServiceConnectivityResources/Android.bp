@@ -19,13 +19,25 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-android_app {
-    name: "ServiceConnectivityResources",
+android_library {
+    name: "ServiceConnectivityResourcesLib",
     sdk_version: "module_30",
     min_sdk_version: "30",
     resource_dirs: [
         "res",
     ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
+
+android_app {
+    name: "ServiceConnectivityResources",
+    sdk_version: "module_30",
+    min_sdk_version: "30",
+    resource_dirs: [],
+    static_libs: ["ServiceConnectivityResourcesLib"],
     privileged: true,
     export_package_resources: true,
     apex_available: [
