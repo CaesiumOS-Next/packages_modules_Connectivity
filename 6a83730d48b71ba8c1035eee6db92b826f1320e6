@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0daba3c_44e952ba",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7d56e05_d1bd6d61",
+      "range": {
+        "startLine": 721,
+        "startChar": 8,
+        "endLine": 721,
+        "endChar": 66
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83c22db5_c46297cb",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-05T08:37:23Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 758,
+        "startChar": 8,
+        "endLine": 758,
+        "endChar": 72
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9dd6215_5d294823",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83c22db5_c46297cb",
       "range": {
         "startLine": 758,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8e073c1_145ce10f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e8feca5_44c7709a",
+      "range": {
+        "startLine": 761,
+        "startChar": 8,
+        "endLine": 761,
+        "endChar": 68
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e728eee_e279885f",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-08-05T08:37:23Z",
       "side": 1,
       "message": "Not related to this patch, you can ignore this comment.\n---\nI didn\u0027t look into this method, but maybe there might be a similar problem that aosp/1784389 tried to fix?",
+      "range": {
+        "startLine": 847,
+        "startChar": 12,
+        "endLine": 847,
+        "endChar": 57
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a03bce2c_97af89b4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "yes, but it\u0027s registered outside the try. I think the behavior is ok here.",
+      "parentUuid": "8e728eee_e279885f",
       "range": {
         "startLine": 847,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e3bc18_a67d25fc",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "The test here request and unregister right away. If we change it to apply new design, then the test behavior is different in the test. I think we should keep it here",
+      "parentUuid": "dab72a29_bea8d031",
+      "range": {
+        "startLine": 1040,
+        "startChar": 8,
+        "endLine": 1041,
+        "endChar": 48
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5783edbc_c1bfeb26",
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4258e9d8_80784636",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "It\u0027s done in registerCallbackAndWaitForAvailable to use new design. It will be unregistered in the tearDown",
+      "parentUuid": "5783edbc_c1bfeb26",
+      "range": {
+        "startLine": 1810,
+        "startChar": 74,
+        "endLine": 1810,
+        "endChar": 80
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81dbb54d_c76f936d",
@@ -152,6 +296,30 @@
       "writtenOn": "2021-08-05T08:37:23Z",
       "side": 1,
       "message": "It\u0027s unregistered.",
+      "range": {
+        "startLine": 1815,
+        "startChar": 74,
+        "endLine": 1815,
+        "endChar": 85
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be6f2922_6d06c11f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1815,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "It\u0027s done in registerCallbackAndWaitForAvailable to use new design. It will be unregistered in the tearDown",
+      "parentUuid": "81dbb54d_c76f936d",
       "range": {
         "startLine": 1815,
         "startChar": 74,
@@ -186,6 +354,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c88ed39_1fb51c61",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2141,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "612c0787_fbec5bff",
+      "range": {
+        "startLine": 2141,
+        "startChar": 0,
+        "endLine": 2141,
+        "endChar": 102
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adcca7fc_cb376c28",
@@ -209,6 +401,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd760b72_63590407",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2181,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adcca7fc_cb376c28",
+      "range": {
+        "startLine": 2181,
+        "startChar": 12,
+        "endLine": 2181,
+        "endChar": 52
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3dc7e6f_57ffd74c",
@@ -222,6 +438,30 @@
       "writtenOn": "2021-08-05T08:37:23Z",
       "side": 1,
       "message": "Is this something aosp/1784389 missed?\nIf there is any exception when calling registerTestOemNetworkPreferenceCallbacks(), then there might be an exception when unregistering callback which makes us cannot figure out what\u0027s the real problem here.\nWhat about using the new design(what this patch did) in testSetOemNetworkPreferenceForTestOnlyPref() as well?",
+      "range": {
+        "startLine": 2421,
+        "startChar": 8,
+        "endLine": 2422,
+        "endChar": 61
+      },
+      "revId": "6a83730d48b71ba8c1035eee6db92b826f1320e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98e64436_364155ca",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2422,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3dc7e6f_57ffd74c",
       "range": {
         "startLine": 2421,
         "startChar": 8,

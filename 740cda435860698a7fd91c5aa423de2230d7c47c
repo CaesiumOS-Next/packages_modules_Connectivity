@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "615317d0_e061fb1b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 0,
+      "message": "As discussed offline, the exception is catched and show the same information. It looks like to me that we could just throw it.",
+      "parentUuid": "1a67dfff_cf5edaed",
+      "range": {
+        "startLine": 802,
+        "startChar": 10,
+        "endLine": 803,
+        "endChar": 80
+      },
+      "revId": "740cda435860698a7fd91c5aa423de2230d7c47c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75d0ada8_19725967",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-05T08:37:23Z",
       "side": 0,
       "message": "Same question as line#803.",
+      "range": {
+        "startLine": 993,
+        "startChar": 10,
+        "endLine": 994,
+        "endChar": 58
+      },
+      "revId": "740cda435860698a7fd91c5aa423de2230d7c47c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf70068_c32cb1e2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-05T09:42:08Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "75d0ada8_19725967",
       "range": {
         "startLine": 993,
         "startChar": 10,
