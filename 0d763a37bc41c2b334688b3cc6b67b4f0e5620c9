@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b33189e_b301eb01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-05T06:59:14Z",
+      "side": 1,
+      "message": "Still trying to figure out some last things but +2 immediately considering the tight timeline and I don\u0027t think we have time to make a better alternative.\n\nSending comments for what I have now. All of them can be addressed in a followup.",
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e527fe90_2c343372",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-05T06:59:14Z",
+      "side": 1,
+      "message": "Please import this \"as\" some other name – I think it\u0027s really confusing that the code is in package x.y, and when you say R it\u0027s not x.y.R but something else.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 43
+      },
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fd35e78_62746434",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-05T06:59:14Z",
+      "side": 1,
+      "message": "Can you please move these resource mocking instructions in a method of their own that you\u0027d call here ? Something like mockResources or setUpMockedResources\n\nAlso, I think we should make it so that the tests are prebuilt in the same way as the module instead of doing this. If you agree, can you please leave a TODO in the new function ?",
+      "range": {
+        "startLine": 170,
+        "startChar": 31,
+        "endLine": 170,
+        "endChar": 40
+      },
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c946edad_f7f7a3f1",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-05T06:59:14Z",
+      "side": 1,
+      "message": "Nit : go/avoidwe, I find it unclear here",
+      "range": {
+        "startLine": 180,
+        "startChar": 11,
+        "endLine": 180,
+        "endChar": 13
+      },
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
