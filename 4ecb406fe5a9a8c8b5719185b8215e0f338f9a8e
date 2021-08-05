@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "278ca915_09a74961",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-05T04:03:00Z",
+      "side": 1,
+      "message": "LGTM (sticky +2) assuming comments addressed.\n\nThat said: not necessarily for this CL, but instead of unregistering manually it\u0027s probably better to create explicit requestNetwork, registerDefaultNetworkCallback, etc. methods in this class that wrap the respective Connectivitymanager call and also add the callback to an mRegisteredCallbacks list. Then in tearDown, we\u0027d iterate over the mRegisteredCallbacks list and call mCm.unregisterNetworkCallback on each of them.\n\nThat would remove some cleanup code and ensure that future CLs don\u0027t need to worry about unregistering callbacks. It might even allow us to remove some finally clauses.",
+      "revId": "4ecb406fe5a9a8c8b5719185b8215e0f338f9a8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4259ef7_6a42f098",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-05T04:03:00Z",
+      "side": 1,
+      "message": "If the requestBackgroundNetwork call in line 2063 fails, then this will throw IAE. Maybe this should remain as unregisterCallbackQuietly?",
+      "range": {
+        "startLine": 2100,
+        "startChar": 16,
+        "endLine": 2100,
+        "endChar": 41
+      },
+      "revId": "4ecb406fe5a9a8c8b5719185b8215e0f338f9a8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
