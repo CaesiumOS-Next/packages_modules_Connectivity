@@ -8971,6 +8971,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             onHelp();
                             return -1;
                         }
+                    case "reevaluate":
+                        final String netId = getNextArg();
+                        final NetworkAgentInfo nai;
+                        if (null == netId) {
+                            // Note that the command is running on the wrong thread to call this,
+                            // so this could in principle return stale data. But it can't crash.
+                            nai = getDefaultNetwork();
+                        } else {
+                            // If netId can't be parsed, this throws NumberFormatException, which
+                            // is passed back to adb who prints it.
+                            nai = getNetworkAgentInfoForNetId(Integer.parseInt(netId));
+                        }
+                        if (null == nai) {
+                            Log.d(TAG, "Unknown network (net ID not found or no default network)");
+                            return 0;
+                        }
+                        Log.d(TAG, "Reevaluating network " + nai.network);
+                        reportNetworkConnectivity(nai.network, !nai.lastValidated);
+                        return 0;
                     default:
                         return handleDefaultCommands(cmd);
                 }
