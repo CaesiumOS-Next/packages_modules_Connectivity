@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "031720d2_8c37a135",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-05T10:15:39Z",
+      "side": 1,
+      "message": "Import removed in aosp/1788047",
+      "parentUuid": "e527fe90_2c343372",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 43
+      },
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fd35e78_62746434",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-08-05T06:59:14Z",
       "side": 1,
       "message": "Can you please move these resource mocking instructions in a method of their own that you\u0027d call here ? Something like mockResources or setUpMockedResources\n\nAlso, I think we should make it so that the tests are prebuilt in the same way as the module instead of doing this. If you agree, can you please leave a TODO in the new function ?",
+      "range": {
+        "startLine": 170,
+        "startChar": 31,
+        "endLine": 170,
+        "endChar": 40
+      },
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "debe7a67_aa2912db",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-05T10:15:39Z",
+      "side": 1,
+      "message": "Done in aosp/1788047",
+      "parentUuid": "4fd35e78_62746434",
       "range": {
         "startLine": 170,
         "startChar": 31,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22ca7d8e_1b90f564",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-05T10:15:39Z",
+      "side": 1,
+      "message": "Removed in aosp/1788047",
+      "parentUuid": "c946edad_f7f7a3f1",
+      "range": {
+        "startLine": 180,
+        "startChar": 11,
+        "endLine": 180,
+        "endChar": 13
+      },
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eff66726_08ce6eeb",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-08-05T07:05:32Z",
       "side": 1,
       "message": "Given that MultinetworkPolicyTracker will use `new ConnectivityResources` in its constructor, could this be replaced in a safer way by passing a deps object to it instead, and possibly saying\n\n  doReturn(resourcesContext).`when`(resources).getResourcesContext()\n\nOr, maybe simpler, we could just pass the resources to it instead (making it the responsibility to the CS Dependencies instead)",
+      "range": {
+        "startLine": 214,
+        "startChar": 29,
+        "endLine": 214,
+        "endChar": 55
+      },
+      "revId": "0d763a37bc41c2b334688b3cc6b67b4f0e5620c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8269b2e9_fe6394c9",
+        "filename": "tests/integration/src/com/android/server/net/integrationtests/ConnectivityServiceIntegrationTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-05T10:15:39Z",
+      "side": 1,
+      "message": "Removed in aosp/1788047",
+      "parentUuid": "eff66726_08ce6eeb",
       "range": {
         "startLine": 214,
         "startChar": 29,
