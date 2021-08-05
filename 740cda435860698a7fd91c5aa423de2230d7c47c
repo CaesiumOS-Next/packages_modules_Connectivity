@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a67dfff_cf5edaed",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-08-05T08:37:23Z",
+      "side": 0,
+      "message": "Not sure why did we catch this before, but do you want to keep it?",
+      "range": {
+        "startLine": 802,
+        "startChar": 10,
+        "endLine": 803,
+        "endChar": 80
+      },
+      "revId": "740cda435860698a7fd91c5aa423de2230d7c47c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75d0ada8_19725967",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-08-05T08:37:23Z",
+      "side": 0,
+      "message": "Same question as line#803.",
+      "range": {
+        "startLine": 993,
+        "startChar": 10,
+        "endLine": 994,
+        "endChar": 58
+      },
+      "revId": "740cda435860698a7fd91c5aa423de2230d7c47c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
