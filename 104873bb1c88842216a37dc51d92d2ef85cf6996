@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a357481_4b20cabb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1791,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-05T08:56:43Z",
+      "side": 1,
+      "message": "We use restricted networks for testing only (ims, fota...), I don\u0027t think wifi connection would be restricted network. So it\u0027s not necessary.",
+      "parentUuid": "53bb44fb_81b2dd5f",
+      "range": {
+        "startLine": 1791,
+        "startChar": 33,
+        "endLine": 1791,
+        "endChar": 47
+      },
+      "revId": "104873bb1c88842216a37dc51d92d2ef85cf6996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7dd00953_5116b9ec",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-05T06:21:05Z",
       "side": 1,
       "message": "I think this won\u0027t work on Q ?\nMaybe use removeCapability instead ?",
+      "range": {
+        "startLine": 1806,
+        "startChar": 77,
+        "endLine": 1806,
+        "endChar": 94
+      },
+      "revId": "104873bb1c88842216a37dc51d92d2ef85cf6996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "377f4461_9eea6536",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1806,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-05T08:56:43Z",
+      "side": 1,
+      "message": "Ah, you reminder me this should only test on S+, registerBestMatchingNetworkCallback is added on S as well. So add TestUtils.shouldTestSApis() check and keep current design.",
+      "parentUuid": "7dd00953_5116b9ec",
       "range": {
         "startLine": 1806,
         "startChar": 77,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d21ae66_3d326387",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1813,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-05T08:56:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecf0fdaa_f2530e54",
+      "range": {
+        "startLine": 1813,
+        "startChar": 58,
+        "endLine": 1813,
+        "endChar": 80
+      },
+      "revId": "104873bb1c88842216a37dc51d92d2ef85cf6996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ad0a458_78106985",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-08-05T06:21:05Z",
       "side": 1,
       "message": "Nit: maybe no need to have this as argument",
+      "range": {
+        "startLine": 2893,
+        "startChar": 25,
+        "endLine": 2893,
+        "endChar": 28
+      },
+      "revId": "104873bb1c88842216a37dc51d92d2ef85cf6996",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdb1f132_6c57af88",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2893,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-05T08:56:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad0a458_78106985",
       "range": {
         "startLine": 2893,
         "startChar": 25,
