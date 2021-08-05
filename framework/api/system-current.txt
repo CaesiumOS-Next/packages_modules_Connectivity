@@ -93,6 +93,19 @@ package android.net {
     method @Deprecated public void onUpstreamChanged(@Nullable android.net.Network);
   }
 
+  public class EthernetManager {
+    method @NonNull @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_STACK, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK}) public android.net.EthernetManager.TetheredInterfaceRequest requestTetheredInterface(@NonNull java.util.concurrent.Executor, @NonNull android.net.EthernetManager.TetheredInterfaceCallback);
+  }
+
+  public static interface EthernetManager.TetheredInterfaceCallback {
+    method public void onAvailable(@NonNull String);
+    method public void onUnavailable();
+  }
+
+  public static class EthernetManager.TetheredInterfaceRequest {
+    method public void release();
+  }
+
   public final class InvalidPacketException extends java.lang.Exception {
     ctor public InvalidPacketException(int);
     method public int getError();
