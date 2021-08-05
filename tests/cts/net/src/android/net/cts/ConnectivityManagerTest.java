@@ -381,7 +381,7 @@ public class ConnectivityManagerTest {
         try {
             assertNotNull("Couldn't restore Internet connectivity", callback.waitForAvailable());
         } finally {
-            unregisterCallbackQuietly(callback);
+            mCm.unregisterNetworkCallback(callback);
         }
     }
 
@@ -802,12 +802,12 @@ public class ConnectivityManagerTest {
         } catch (InterruptedException e) {
             fail("Broadcast receiver or NetworkCallback wait was interrupted.");
         } finally {
-            unregisterCallbackQuietly(callback);
-            unregisterCallbackQuietly(defaultTrackingCallback);
+            mCm.unregisterNetworkCallback(callback);
+            mCm.unregisterNetworkCallback(defaultTrackingCallback);
             if (TestUtils.shouldTestSApis()) {
-                unregisterCallbackQuietly(systemDefaultCallback);
-                unregisterCallbackQuietly(perUidCallback);
-                unregisterCallbackQuietly(bestMatchingCallback);
+                mCm.unregisterNetworkCallback(systemDefaultCallback);
+                mCm.unregisterNetworkCallback(perUidCallback);
+                mCm.unregisterNetworkCallback(bestMatchingCallback);
             }
         }
     }
@@ -993,7 +993,7 @@ public class ConnectivityManagerTest {
         } catch (InterruptedException e) {
             fail("NetworkCallback wait was interrupted.");
         } finally {
-            unregisterCallbackQuietly(callback);
+            mCm.unregisterNetworkCallback(callback);
         }
     }
 
@@ -1021,7 +1021,7 @@ public class ConnectivityManagerTest {
         } catch (InterruptedException e) {
             fail("NetworkCallback wait was interrupted.");
         } finally {
-            unregisterCallbackQuietly(callback);
+            mCm.unregisterNetworkCallback(callback);
             if (previousWifiEnabledState) {
                 mCtsNetUtils.connectToWifi();
             }
@@ -1866,8 +1866,8 @@ public class ConnectivityManagerTest {
             if (supportWifi) waitForAvailable(wifiCb);
             if (supportTelephony) waitForAvailable(telephonyCb);
         } finally {
-            if (supportWifi) unregisterCallbackQuietly(wifiCb);
-            if (supportTelephony) unregisterCallbackQuietly(telephonyCb);
+            if (supportWifi) mCm.unregisterNetworkCallback(wifiCb);
+            if (supportTelephony) mCm.unregisterNetworkCallback(telephonyCb);
             // Restore the previous state of airplane mode and permissions:
             runShellCommand("cmd connectivity airplane-mode "
                     + (isAirplaneModeEnabled ? "enable" : "disable"));
@@ -2088,7 +2088,7 @@ public class ConnectivityManagerTest {
                 }
                 testNetworkInterface.getFileDescriptor().close();
             }, new String[] { android.Manifest.permission.MANAGE_TEST_NETWORKS });
-            unregisterCallbackQuietly(callback);
+            mCm.unregisterNetworkCallback(callback);
         }
     }
 
@@ -2649,8 +2649,8 @@ public class ConnectivityManagerTest {
             wifiCb.assertNoCallbackThat(NO_CALLBACK_TIMEOUT_MS,
                     c -> !(c instanceof CallbackEntry.LinkPropertiesChanged));
         } finally {
-            unregisterCallbackQuietly(wifiCb);
-            unregisterCallbackQuietly(defaultCb);
+            mCm.unregisterNetworkCallback(wifiCb);
+            mCm.unregisterNetworkCallback(defaultCb);
             resetAvoidBadWifi(previousAvoidBadWifi);
             resetValidationConfig();
             // Reconnect wifi to reset the wifi status
@@ -2849,8 +2849,8 @@ public class ConnectivityManagerTest {
             // Active network for CtsNetTestCases uid should change back to wifi.
             assertEquals(wifiNetwork, mCm.getActiveNetwork());
         } finally {
-            unregisterCallbackQuietly(systemDefaultCb);
-            unregisterCallbackQuietly(defaultTrackingCb);
+            mCm.unregisterNetworkCallback(systemDefaultCb);
+            mCm.unregisterNetworkCallback(defaultTrackingCb);
 
             // Restore setting.
             ConnectivitySettingsManager.setMobileDataPreferredUids(
@@ -2952,7 +2952,7 @@ public class ConnectivityManagerTest {
             // TODD: Have a significant signal to know the uids has been send to netd.
             assertBindSocketToNetworkSuccess(network);
         } finally {
-            unregisterCallbackQuietly(testNetworkCb);
+            mCm.unregisterNetworkCallback(testNetworkCb);
             agent.unregister();
 
             // Restore setting.
