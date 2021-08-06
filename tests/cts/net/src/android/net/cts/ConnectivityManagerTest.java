@@ -91,6 +91,7 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.app.Instrumentation;
 import android.app.PendingIntent;
 import android.app.UiAutomation;
@@ -1246,39 +1247,55 @@ public class ConnectivityManagerTest {
      * Callback used in tcp keepalive offload that allows caller to wait callback fires.
      */
     private static class TestSocketKeepaliveCallback extends SocketKeepalive.Callback {
-        public enum CallbackType { ON_STARTED, ON_STOPPED, ON_ERROR };
+        public enum CallbackType { ON_STARTED, ON_STOPPED, ON_DATA_RECEIVED, ON_ERROR }
 
         public static class CallbackValue {
             public final CallbackType callbackType;
-            public final int error;
 
-            private CallbackValue(final CallbackType type, final int error) {
+            private CallbackValue(final CallbackType type) {
                 this.callbackType = type;
-                this.error = error;
             }
 
             public static class OnStartedCallback extends CallbackValue {
-                OnStartedCallback() { super(CallbackType.ON_STARTED, 0); }
+                OnStartedCallback() {
+                    super(CallbackType.ON_STARTED);
+                }
             }
 
             public static class OnStoppedCallback extends CallbackValue {
-                OnStoppedCallback() { super(CallbackType.ON_STOPPED, 0); }
+                OnStoppedCallback() {
+                    super(CallbackType.ON_STOPPED);
+                }
+            }
+
+            public static class OnDataReceivedCallback extends CallbackValue {
+                OnDataReceivedCallback() {
+                    super(CallbackType.ON_DATA_RECEIVED);
+                }
             }
 
             public static class OnErrorCallback extends CallbackValue {
-                OnErrorCallback(final int error) { super(CallbackType.ON_ERROR, error); }
+                public final int error;
+                OnErrorCallback(final int error) {
+                    super(CallbackType.ON_ERROR);
+                    this.error = error;
+                }
+
+                @Override
+                public boolean equals(Object o) {
+                    return super.equals(o) && this.error == ((OnErrorCallback) o).error;
+                }
             }
 
             @Override
             public boolean equals(Object o) {
                 return o.getClass() == this.getClass()
-                        && this.callbackType == ((CallbackValue) o).callbackType
-                        && this.error == ((CallbackValue) o).error;
+                        && this.callbackType == ((CallbackValue) o).callbackType;
             }
 
             @Override
             public String toString() {
-                return String.format("%s(%s, %d)", getClass().getSimpleName(), callbackType, error);
+                return String.format("%s(%s)", getClass().getSimpleName(), callbackType);
             }
         }
 
@@ -1295,10 +1312,16 @@ public class ConnectivityManagerTest {
         }
 
         @Override
+        public void onDataReceived() {
+            mCallbacks.add(new CallbackValue.OnDataReceivedCallback());
+        }
+
+        @Override
         public void onError(final int error) {
             mCallbacks.add(new CallbackValue.OnErrorCallback(error));
         }
 
+        @Nullable
         public CallbackValue pollCallback() {
             try {
                 return mCallbacks.poll(KEEPALIVE_CALLBACK_TIMEOUT_MS,
@@ -1321,9 +1344,14 @@ public class ConnectivityManagerTest {
             expectCallback(new CallbackValue.OnStoppedCallback());
         }
 
+        public void expectDataReceived() {
+            expectCallback(new CallbackValue.OnDataReceivedCallback());
+        }
+
         public void expectError(int error) {
             expectCallback(new CallbackValue.OnErrorCallback(error));
         }
+
     }
 
     private InetAddress getAddrByName(final String hostname, final int family) throws Exception {
@@ -1456,6 +1484,29 @@ public class ConnectivityManagerTest {
             return;
         }
 
+        // Because socket keepalive can only be used on real hardware, it can only be tested
+        // when connecting to a real server. This unavoidably means receiving data from the
+        // server will race with setting up the keepalive. Thankfully, HTTP requests, even to fast
+        // servers, are usually much slower than just running some code on the device, so most
+        // of the time the device will win the race and the test can meaningfully check
+        // functionality. If it can't, then retry a reasonable number of times.
+        int maximumTries = 20;
+        while (maximumTries > 0) {
+            final boolean testWasConclusive = performCreateTcpKeepaliveTest(network);
+            if (testWasConclusive) return;
+            --maximumTries;
+            Thread.sleep(500); // Avoid DoS'ing the server
+        }
+    }
+
+    // This method returns whether the test was conclusive.
+    // - If the test conclusively fails, this method throws and/or fails assertions.
+    // - If the test conclusively succeeds, this method returns true.
+    // - If the test was not conclusive, this method returns false and the caller should retry.
+    // Unfortunately it is not possible to guarantee data won't arrive from the server before the
+    // test has set up keepalive on the socket. If this happens, the test run was not meaningful
+    // and the only way to fix it is to retry until a meaningful run can be performed.
+    private boolean performCreateTcpKeepaliveTest(@NonNull final Network network) throws Exception {
         final byte[] requestBytes = CtsNetUtils.HTTP_REQUEST.getBytes("UTF-8");
         // So far only ipv4 tcp keepalive offload is supported.
         // TODO: add test case for ipv6 tcp keepalive offload when it is supported.
@@ -1502,6 +1553,34 @@ public class ConnectivityManagerTest {
             } catch (IOException e) {
                 fail("Failed to write data " + e);
             }
+
+            mUiAutomation.adoptShellPermissionIdentity();
+            try (SocketKeepalive sk = mCm.createSocketKeepalive(network, s, executor, callback)) {
+                sk.start(MIN_KEEPALIVE_INTERVAL);
+
+                final TestSocketKeepaliveCallback.CallbackValue result = callback.pollCallback();
+                if (result instanceof TestSocketKeepaliveCallback.CallbackValue.OnErrorCallback
+                        && ((TestSocketKeepaliveCallback.CallbackValue.OnErrorCallback)
+                                result).error == SocketKeepalive.ERROR_SOCKET_NOT_IDLE) {
+                    // Oops, receiving data from the server was faster than setting up
+                    // keepalive. The test will have to be retried.
+                    return false;
+                } else if (result
+                        instanceof TestSocketKeepaliveCallback.CallbackValue.OnStartedCallback) {
+                    // Keepalive correctly started, should expect onDataReceived
+                    callback.expectDataReceived();
+                } else {
+                    // Sometimes onDataReceived arrives before onStarted
+                    // TODO : should the implementation guarantee onStart() in all cases after
+                    // start() is called ? This would be easier to manage for users of this API.
+                    assertEquals(
+                            new TestSocketKeepaliveCallback.CallbackValue.OnDataReceivedCallback(),
+                            result);
+                }
+            } finally {
+                mUiAutomation.dropShellPermissionIdentity();
+            }
+
             // Make sure response data arrives.
             final MessageQueue fdHandlerQueue = Looper.getMainLooper().getQueue();
             final FileDescriptor fd = s.getFileDescriptor$();
@@ -1525,6 +1604,7 @@ public class ConnectivityManagerTest {
                 mUiAutomation.dropShellPermissionIdentity();
             }
         }
+        return true;
     }
 
     private ArrayList<SocketKeepalive> createConcurrentKeepalivesOfType(
@@ -1541,10 +1621,12 @@ public class ConnectivityManagerTest {
             TestSocketKeepaliveCallback.CallbackValue cv = callback.pollCallback();
             assertNotNull(cv);
             if (cv.callbackType == TestSocketKeepaliveCallback.CallbackType.ON_ERROR) {
-                if (kalist.size() == 0 && cv.error == SocketKeepalive.ERROR_UNSUPPORTED) {
+                final int error =
+                        ((TestSocketKeepaliveCallback.CallbackValue.OnErrorCallback) cv).error;
+                if (kalist.size() == 0 && error == SocketKeepalive.ERROR_UNSUPPORTED) {
                     // Unsupported.
                     break;
-                } else if (cv.error == SocketKeepalive.ERROR_INSUFFICIENT_RESOURCES) {
+                } else if (error == SocketKeepalive.ERROR_INSUFFICIENT_RESOURCES) {
                     // Limit reached or temporary unavailable due to stopped slot is not yet
                     // released.
                     if (remainingRetries > 0) {
