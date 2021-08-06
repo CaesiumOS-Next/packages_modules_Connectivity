@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c848cda_50fa625f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-06T11:32:52Z",
+      "side": 1,
+      "message": "Typo, null.",
+      "range": {
+        "startLine": 7,
+        "startChar": 63,
+        "endLine": 7,
+        "endChar": 68
+      },
+      "revId": "2bcc603cb77c3a422f5b6ac3bbce1dd79ca9180b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3624faaa_827f7f79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-06T11:32:52Z",
+      "side": 1,
+      "message": "This needs to be clearer I think. Something like:\n\nThe resolverOptions member of the ResolverParamsParcel has never been set by AOSP code but was only used by OEMs modifying DnsManager. Now that DnsManager is mainline code, this is no longer possible. So the DNS resolver introduced a new setResolverOptions IPC to allow OEMs to set the options and makes the resolverOptions nullable.\n\nMake DnsManager to set resolverOptions to null, to ensure that when DnsManager calls setResolverConfiguration, it will not overwrite any options set by the OEM.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "2bcc603cb77c3a422f5b6ac3bbce1dd79ca9180b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2b3a04_57860719",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-06T11:32:52Z",
+      "side": 1,
+      "message": "LGTM but commit message should be updated.",
+      "revId": "2bcc603cb77c3a422f5b6ac3bbce1dd79ca9180b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
