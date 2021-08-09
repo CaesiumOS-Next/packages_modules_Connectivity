@@ -138,6 +138,7 @@ import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
+import com.android.networkstack.tethering.metrics.TetheringStatsUtils;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -248,6 +249,7 @@ public class Tethering {
     private final UserManager mUserManager;
     private final BpfCoordinator mBpfCoordinator;
     private final PrivateAddressCoordinator mPrivateAddressCoordinator;
+    private final TetheringStatsUtils mTetheringStatsUtils;
     private int mActiveDataSubId = INVALID_SUBSCRIPTION_ID;
 
     private volatile TetheringConfiguration mConfig;
@@ -275,6 +277,7 @@ public class Tethering {
         mNetd = mDeps.getINetd(mContext);
         mLooper = mDeps.getTetheringLooper();
         mNotificationUpdater = mDeps.getNotificationUpdater(mContext, mLooper);
+        mTetheringStatsUtils = mDeps.getTetheringStatsUtils();
 
         mTetherStates = new ArrayMap<>();
         mConnectedClientsTracker = new ConnectedClientsTracker();
@@ -590,7 +593,8 @@ public class Tethering {
         processInterfaceStateChange(iface, false /* enabled */);
     }
 
-    void startTethering(final TetheringRequestParcel request, final IIntResultListener listener) {
+    void startTethering(final TetheringRequestParcel request, final String callerPkg,
+            final IIntResultListener listener) {
         mHandler.post(() -> {
             final TetheringRequestParcel unfinishedRequest = mActiveTetheringRequests.get(
                     request.tetheringType);
@@ -610,6 +614,7 @@ public class Tethering {
                         request.showProvisioningUi);
             }
             enableTetheringInternal(request.tetheringType, true /* enabled */, listener);
+            mTetheringStatsUtils.createTetheringStats(callerPkg, request.tetheringType);
         });
     }
 
@@ -2584,7 +2589,7 @@ public class Tethering {
                 new IpServer(iface, mLooper, interfaceType, mLog, mNetd, mBpfCoordinator,
                              makeControlCallback(), mConfig.enableLegacyDhcpServer,
                              mConfig.isBpfOffloadEnabled(), mPrivateAddressCoordinator,
-                             mDeps.getIpServerDependencies()), isNcm);
+                             mDeps.getIpServerDependencies(), mTetheringStatsUtils), isNcm);
         mTetherStates.put(iface, tetherState);
         tetherState.ipServer.start();
     }
