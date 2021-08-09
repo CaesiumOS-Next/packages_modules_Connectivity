@@ -31,6 +31,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.android.internal.util.StateMachine;
+import com.android.networkstack.tethering.metrics.TetheringStatsUtils;
 
 import java.util.ArrayList;
 
@@ -157,5 +158,12 @@ public abstract class TetheringDependencies {
     public PrivateAddressCoordinator getPrivateAddressCoordinator(Context ctx,
             TetheringConfiguration cfg) {
         return new PrivateAddressCoordinator(ctx, cfg);
+    }
+
+    /**
+     * Get a reference to TetheringStatsUtils to be used by tethering.
+     */
+    public TetheringStatsUtils getTetheringStatsUtils() {
+        return new TetheringStatsUtils();
     }
 }
