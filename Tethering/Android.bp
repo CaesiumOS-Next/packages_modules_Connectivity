@@ -28,6 +28,7 @@ java_defaults {
         ":framework-connectivity-shared-srcs",
         ":tethering-module-utils-srcs",
         ":services-tethering-shared-srcs",
+	":statslog-tethering-java-gen",
     ],
     static_libs: [
         "NetworkStackApiStableShims",
@@ -41,6 +42,7 @@ java_defaults {
         "net-utils-device-common",
         "net-utils-device-common-netlink",
         "netd-client",
+	"tetheringstatsprotos",
     ],
     libs: [
         "framework-connectivity",
@@ -158,4 +160,23 @@ android_app {
 sdk {
     name: "tethering-module-sdk",
     bootclasspath_fragments: ["com.android.tethering-bootclasspath-fragment"],
+}
+
+genrule {
+    name: "statslog-tethering-java-gen",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --java $(out) --module network_tethering" +
+         " --javaPackage com.android.networkstack.tethering.metrics --javaClass TetheringStatsLog",
+    out: ["com/android/networkstack/tethering/metrics/TetheringStatsLog.java"],
+}
+
+java_library_static {
+    name: "tetheringstatsprotos",
+    proto: {type: "lite"},
+    srcs: [
+        "src/com/android/networkstack/tethering/metrics/stats.proto",
+    ],
+    static_libs: ["tetheringprotos"],
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
 }

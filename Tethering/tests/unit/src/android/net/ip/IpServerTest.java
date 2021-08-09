@@ -116,6 +116,7 @@ import com.android.networkstack.tethering.TetherStatsKey;
 import com.android.networkstack.tethering.TetherStatsValue;
 import com.android.networkstack.tethering.TetherUpstream6Key;
 import com.android.networkstack.tethering.TetheringConfiguration;
+import com.android.networkstack.tethering.metrics.TetheringStatsUtils;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
@@ -182,6 +183,7 @@ public class IpServerTest {
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private ConntrackMonitor mConntrackMonitor;
+    @Mock private TetheringStatsUtils mTetheringStatsUtils;
     @Mock private BpfMap<Tether4Key, Tether4Value> mBpfDownstream4Map;
     @Mock private BpfMap<Tether4Key, Tether4Value> mBpfUpstream4Map;
     @Mock private BpfMap<TetherDownstream6Key, Tether6Value> mBpfDownstream6Map;
@@ -228,7 +230,8 @@ public class IpServerTest {
 
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, usingLegacyDhcp, usingBpfOffload, mAddressCoordinator, mDependencies);
+                mCallback, usingLegacyDhcp, usingBpfOffload, mAddressCoordinator, mDependencies,
+                mTetheringStatsUtils);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -359,7 +362,8 @@ public class IpServerTest {
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, false /* usingLegacyDhcp */,
-                DEFAULT_USING_BPF_OFFLOAD, mAddressCoordinator, mDependencies);
+                DEFAULT_USING_BPF_OFFLOAD, mAddressCoordinator, mDependencies,
+                mTetheringStatsUtils);
         mIpServer.start();
         mLooper.dispatchAll();
         verify(mCallback).updateInterfaceState(
