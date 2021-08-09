@@ -10,6 +10,8 @@ rule com.android.internal.util.TrafficStatsConstants* com.android.networkstack.t
 
 rule android.util.LocalLog* com.android.networkstack.tethering.util.LocalLog@1
 
+rule com.google.protobuf* com.android.networkstack.tethering.protobuf@1
+
 # Classes from net-utils-framework-common
 rule com.android.net.module.util.** com.android.networkstack.tethering.util.@1
 
