@@ -125,33 +125,32 @@ public class TetheringService extends Service {
         @Override
         public void startTethering(TetheringRequestParcel request, String callerPkg,
                 String callingAttributionTag, IIntResultListener listener) {
-            if (checkAndNotifyCommonError(callerPkg,
-                    callingAttributionTag,
+            if (!checkAndNotifyCommonError(callerPkg, callingAttributionTag,
                     request.exemptFromEntitlementCheck /* onlyAllowPrivileged */,
-                    listener)) {
-                return;
+                    listener, request.tetheringType)) {
+                mTethering.startTethering(request, listener);
             }
-
-            mTethering.startTethering(request, listener);
         }
 
         @Override
         public void stopTethering(int type, String callerPkg, String callingAttributionTag,
                 IIntResultListener listener) {
-            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener)) return;
-
-            try {
-                mTethering.stopTethering(type);
-                listener.onResult(TETHER_ERROR_NO_ERROR);
-            } catch (RemoteException e) { }
+            if (!checkAndNotifyCommonError(callerPkg, callingAttributionTag, false, listener,
+                    type)) {
+                try {
+                    mTethering.stopTethering(type);
+                    listener.onResult(TETHER_ERROR_NO_ERROR);
+                } catch (RemoteException e) { }
+            }
         }
 
         @Override
         public void requestLatestTetheringEntitlementResult(int type, ResultReceiver receiver,
                 boolean showEntitlementUi, String callerPkg, String callingAttributionTag) {
-            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, receiver)) return;
-
-            mTethering.requestLatestTetheringEntitlementResult(type, receiver, showEntitlementUi);
+            if (!checkAndNotifyCommonError(callerPkg, callingAttributionTag, receiver, types)) {
+                mTethering.requestLatestTetheringEntitlementResult(type, receiver,
+                    showEntitlementUi);
+            }
         }
 
         @Override
@@ -190,13 +189,13 @@ public class TetheringService extends Service {
         }
 
         @Override
-        public void isTetheringSupported(String callerPkg, String callingAttributionTag,
-                IIntResultListener listener) {
-            if (checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener)) return;
-
-            try {
-                listener.onResult(TETHER_ERROR_NO_ERROR);
-            } catch (RemoteException e) { }
+        public void isTetheringSupported(int[] types, String callerPkg,
+                String callingAttributionTag, IIntResultListener listener) {
+            if (!checkAndNotifyCommonError(callerPkg, callingAttributionTag, listener, types)) {
+                try {
+                    listener.onResult(TETHER_ERROR_NO_ERROR);
+                } catch (RemoteException e) { }
+            }
         }
 
         @Override
@@ -208,19 +207,19 @@ public class TetheringService extends Service {
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final IIntResultListener listener) {
             return checkAndNotifyCommonError(callerPkg, callingAttributionTag,
-                    false /* onlyAllowPrivileged */, listener);
+                    false /* onlyAllowPrivileged */, listener, new int[0]);
         }
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
                 final String callingAttributionTag, final boolean onlyAllowPrivileged,
-                final IIntResultListener listener) {
+                final IIntResultListener listener, final int... types) {
             try {
                 if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
                         onlyAllowPrivileged)) {
                     listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
                     return true;
                 }
-                if (!mTethering.isTetheringSupported()) {
+                if (!mTethering.isTetheringSupported(types)) {
                     listener.onResult(TETHER_ERROR_UNSUPPORTED);
                     return true;
                 }
@@ -232,13 +231,14 @@ public class TetheringService extends Service {
         }
 
         private boolean checkAndNotifyCommonError(final String callerPkg,
-                final String callingAttributionTag, final ResultReceiver receiver) {
+                final String callingAttributionTag, final ResultReceiver receiver,
+                final int... types) {
             if (!hasTetherChangePermission(callerPkg, callingAttributionTag,
                     false /* onlyAllowPrivileged */)) {
                 receiver.send(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION, null);
                 return true;
             }
-            if (!mTethering.isTetheringSupported()) {
+            if (!mTethering.isTetheringSupported(types)) {
                 receiver.send(TETHER_ERROR_UNSUPPORTED, null);
                 return true;
             }

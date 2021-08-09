@@ -1482,7 +1482,7 @@ public class TetheringManager {
     public boolean isTetheringSupported() {
         final String callerPkg = mContext.getOpPackageName();
 
-        return isTetheringSupported(callerPkg);
+        return isTetheringSupported(callerPkg, new int[0]);
     }
 
     /**
@@ -1501,10 +1501,29 @@ public class TetheringManager {
     @SystemApi(client = MODULE_LIBRARIES)
     public boolean isTetheringSupported(@NonNull final String callerPkg) {
 
+        return isTetheringSupported(callerPkg, new int[0]);
+    }
+
+    /**
+     * Check if the device allows for input tethering type.  It may be disabled via
+     * {@code ro.tether.denied} system property, Settings.TETHER_SUPPORTED or
+     * due to device configuration.
+     *
+     * @return a boolean - {@code true} indicating Tethering is supported.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public boolean isTetheringSupported(@TetheringType final int type) {
+        final String callerPkg = mContext.getOpPackageName();
+
+        return isTetheringSupported(callerPkg, type);
+    }
+
+    private boolean isTetheringSupported(final String callerPkg, final int... types) {
         final RequestDispatcher dispatcher = new RequestDispatcher();
         final int ret = dispatcher.waitForResult((connector, listener) -> {
             try {
-                connector.isTetheringSupported(callerPkg, getAttributionTag(), listener);
+                connector.isTetheringSupported(types, callerPkg, getAttributionTag(), listener);
             } catch (RemoteException e) {
                 throw new IllegalStateException(e);
             }

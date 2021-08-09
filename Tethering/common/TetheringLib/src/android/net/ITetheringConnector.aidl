@@ -44,7 +44,7 @@ oneway interface ITetheringConnector {
 
     void unregisterTetheringEventCallback(ITetheringEventCallback callback, String callerPkg);
 
-    void isTetheringSupported(String callerPkg, String callingAttributionTag,
+    void isTetheringSupported(in int[] type, String callerPkg, String callingAttributionTag,
             IIntResultListener receiver);
 
     void stopAllTethering(String callerPkg, String callingAttributionTag,

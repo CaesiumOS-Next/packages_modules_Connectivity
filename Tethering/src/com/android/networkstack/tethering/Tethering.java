@@ -2295,6 +2295,10 @@ public class Tethering {
     // gservices could set the secure setting to 1 though to enable it on a build where it
     // had previously been turned off.
     boolean isTetheringSupported() {
+        return isTetheringSupported(new int[0]);
+    }
+
+    boolean isTetheringSupported(int types) {
         final int defaultVal = mDeps.isTetheringDenied() ? 0 : 1;
         final boolean tetherSupported = Settings.Global.getInt(mContext.getContentResolver(),
                 Settings.Global.TETHER_SUPPORTED, defaultVal) != 0;
