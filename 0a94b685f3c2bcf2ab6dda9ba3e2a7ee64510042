@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4279bfea_dfe060f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-10T13:36:56Z",
+      "side": 1,
+      "message": "Loop owner lorenzo@ to review.",
+      "revId": "0a94b685f3c2bcf2ab6dda9ba3e2a7ee64510042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4892696f_1b8a7187",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-10T13:36:56Z",
+      "side": 1,
+      "message": "Nit: Wifi networks should have NetworkCapabilities#NET_CAPABILITY_INTERNET as well. Or you don\u0027t need to pass NetworkCapabilities#NET_CAPABILITY_INTERNET, jut check NetworkCapabilities#NET_CAPABILITY_INTERNET for all networks.",
+      "range": {
+        "startLine": 51,
+        "startChar": 52,
+        "endLine": 51,
+        "endChar": 56
+      },
+      "revId": "0a94b685f3c2bcf2ab6dda9ba3e2a7ee64510042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
