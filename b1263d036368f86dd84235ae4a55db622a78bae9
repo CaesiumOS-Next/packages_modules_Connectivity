@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73023620_cd03c0a4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1793,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-10T06:32:02Z",
+      "side": 0,
+      "message": "Might want to test that this code can bind with something like:\n\n    // Expect binding to the wifi network to succeed.\n    final Network wifiNetwork \u003d mCtsNetUtils.ensureWifiConnected();\n    try (Socket socket \u003d new Socket()) {\n        wifiNetwork.bindSocket(socket);\n    }",
+      "range": {
+        "startLine": 1793,
+        "startChar": 8,
+        "endLine": 1793,
+        "endChar": 93
+      },
+      "revId": "b1263d036368f86dd84235ae4a55db622a78bae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
