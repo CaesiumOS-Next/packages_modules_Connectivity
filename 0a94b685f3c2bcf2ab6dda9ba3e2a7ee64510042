@@ -39,6 +39,53 @@
       },
       "revId": "0a94b685f3c2bcf2ab6dda9ba3e2a7ee64510042",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95b8a906_0ed6b229",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-10T13:48:22Z",
+      "side": 1,
+      "message": "Just realized this can\u0027t be null. Otherwise, the returning value is always false. Please see my comment on CtsNetUtils.",
+      "parentUuid": "4892696f_1b8a7187",
+      "range": {
+        "startLine": 51,
+        "startChar": 52,
+        "endLine": 51,
+        "endChar": 56
+      },
+      "revId": "0a94b685f3c2bcf2ab6dda9ba3e2a7ee64510042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dc6fe0b_ab206963",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-10T13:48:22Z",
+      "side": 1,
+      "message": "If capability is null, this will always returns false.",
+      "range": {
+        "startLine": 506,
+        "startChar": 16,
+        "endLine": 508,
+        "endChar": 17
+      },
+      "revId": "0a94b685f3c2bcf2ab6dda9ba3e2a7ee64510042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
