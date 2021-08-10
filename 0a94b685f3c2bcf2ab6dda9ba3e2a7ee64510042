@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ca0b8ab_57b4745b",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1874659
+      },
+      "writtenOn": "2021-08-10T14:38:00Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "95b8a906_0ed6b229",
+      "range": {
+        "startLine": 51,
+        "startChar": 52,
+        "endLine": 51,
+        "endChar": 56
+      },
+      "revId": "0a94b685f3c2bcf2ab6dda9ba3e2a7ee64510042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0dc6fe0b_ab206963",
@@ -78,6 +102,30 @@
       "writtenOn": "2021-08-10T13:48:22Z",
       "side": 1,
       "message": "If capability is null, this will always returns false.",
+      "range": {
+        "startLine": 506,
+        "startChar": 16,
+        "endLine": 508,
+        "endChar": 17
+      },
+      "revId": "0a94b685f3c2bcf2ab6dda9ba3e2a7ee64510042",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c0b8a2e_75d9bfd5",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1874659
+      },
+      "writtenOn": "2021-08-10T14:38:00Z",
+      "side": 1,
+      "message": "Oof. I can definitely do better :)\nThanks for the patience!",
+      "parentUuid": "0dc6fe0b_ab206963",
       "range": {
         "startLine": 506,
         "startChar": 16,
