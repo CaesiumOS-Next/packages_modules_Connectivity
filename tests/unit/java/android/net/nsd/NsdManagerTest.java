@@ -134,8 +134,6 @@ public class NsdManagerTest {
         NsdServiceInfo request1 = new NsdServiceInfo("a_name", "a_type");
         NsdServiceInfo request2 = new NsdServiceInfo("another_name", "another_type");
         request1.setPort(2201);
-        request2.setPort(2202);
-        NsdManager.RegistrationListener listener1 = mock(NsdManager.RegistrationListener.class);
         NsdManager.RegistrationListener listener2 = mock(NsdManager.RegistrationListener.class);
 
         // Register two services
