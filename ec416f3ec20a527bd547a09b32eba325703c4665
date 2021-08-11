@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be82d795_3d8e33be",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1794,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-11T08:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e43ecd23_a135c2ae",
+      "range": {
+        "startLine": 1794,
+        "startChar": 12,
+        "endLine": 1794,
+        "endChar": 81
+      },
+      "revId": "ec416f3ec20a527bd547a09b32eba325703c4665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92538b1d_02b42bcc",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-08-10T06:32:02Z",
       "side": 1,
       "message": "For readability, either unindent or refactor out to a method. go/tott/553",
+      "range": {
+        "startLine": 1801,
+        "startChar": 8,
+        "endLine": 1801,
+        "endChar": 42
+      },
+      "revId": "ec416f3ec20a527bd547a09b32eba325703c4665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83d993a0_6a308dce",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1801,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-11T08:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92538b1d_02b42bcc",
       "range": {
         "startLine": 1801,
         "startChar": 8,
@@ -110,6 +158,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53ea3f6_772abaf1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-11T08:58:01Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "98877c5f_ebf35cbc",
+      "range": {
+        "startLine": 1808,
+        "startChar": 16,
+        "endLine": 1808,
+        "endChar": 51
+      },
+      "revId": "ec416f3ec20a527bd547a09b32eba325703c4665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b499ce7_8622c2e0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1808,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-11T08:58:01Z",
+      "side": 1,
+      "message": "Use requestNetwork instead.",
+      "parentUuid": "c6b92c84_f8470f33",
+      "range": {
+        "startLine": 1808,
+        "startChar": 12,
+        "endLine": 1808,
+        "endChar": 16
+      },
+      "revId": "ec416f3ec20a527bd547a09b32eba325703c4665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f29860e4_640ec7f8",
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed54b94c_da106450",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2913,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-11T08:58:01Z",
+      "side": 1,
+      "message": "No, remove all of them.",
+      "parentUuid": "f29860e4_640ec7f8",
+      "range": {
+        "startLine": 2909,
+        "startChar": 0,
+        "endLine": 2913,
+        "endChar": 77
+      },
+      "revId": "ec416f3ec20a527bd547a09b32eba325703c4665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1044252a_bbee003b",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-08-10T06:32:02Z",
       "side": 1,
       "message": "I think you don\u0027t need this if you use requestNetwork instead of registerBestMatchingNetworkCallback in line 1808. You may be able to remove the score entirely.",
+      "range": {
+        "startLine": 2919,
+        "startChar": 53,
+        "endLine": 2919,
+        "endChar": 80
+      },
+      "revId": "ec416f3ec20a527bd547a09b32eba325703c4665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11adb4a8_88ae4b8a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2919,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-11T08:58:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1044252a_bbee003b",
       "range": {
         "startLine": 2919,
         "startChar": 53,
