@@ -19,11 +19,11 @@ import android.net.nsd.NsdManager
 import android.net.nsd.NsdManager.DiscoveryListener
 import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
-import android.os.SystemClock
 import android.platform.test.annotations.AppModeFull
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.android.net.module.util.ArrayTrackRecord
 import com.android.testutils.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -34,11 +34,12 @@ import java.util.Random
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 import kotlin.test.fail
 
 private const val TAG = "NsdManagerTest"
 private const val SERVICE_TYPE = "_nmt._tcp"
-private const val TIMEOUT = 2000
+private const val TIMEOUT_MS = 2000L
 private const val DBG = false
 
 @AppModeFull(reason = "Socket cannot bind in instant app mode")
@@ -47,160 +48,80 @@ class NsdManagerTest {
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val nsdManager by lazy { context.getSystemService(NsdManager::class.java) }
 
-    private val registrationListener = object : NsdManager.RegistrationListener {
-        override fun onRegistrationFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
-            setEvent("onRegistrationFailed", errorCode)
+    private interface NsdEvent
+    private open class HistoryListener<T : NsdEvent> {
+        protected val history = ArrayTrackRecord<T>()
+        val nextEvents = history.newReadHead()
+
+        protected fun add(event: T) {
+            history.add(event)
         }
 
-        override fun onUnregistrationFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
-            setEvent("onUnregistrationFailed", errorCode)
-        }
+        inline fun <reified V : NsdEvent> waitForCallbackEventually(
+            crossinline predicate: (V) -> Boolean = { true }
+        ): V = nextEvents.poll(TIMEOUT_MS) { e -> e is V && predicate(e) } as V?
+                ?: fail("Callback for ${V::class.java.simpleName} not seen after $TIMEOUT_MS ms")
 
-        override fun onServiceRegistered(serviceInfo: NsdServiceInfo) {
-            setEvent("onServiceRegistered", serviceInfo)
-        }
-
-        override fun onServiceUnregistered(serviceInfo: NsdServiceInfo) {
-            setEvent("onServiceUnregistered", serviceInfo)
-        }
-    }
-
-    private val discoveryListener = object : DiscoveryListener {
-        override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
-            setEvent("onStartDiscoveryFailed", errorCode)
-        }
-
-        override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
-            setEvent("onStopDiscoveryFailed", errorCode)
-        }
-
-        override fun onDiscoveryStarted(serviceType: String) {
-            val info = NsdServiceInfo()
-            info.serviceType = serviceType
-            setEvent("onDiscoveryStarted", info)
-        }
-
-        override fun onDiscoveryStopped(serviceType: String) {
-            val info = NsdServiceInfo()
-            info.serviceType = serviceType
-            setEvent("onDiscoveryStopped", info)
-        }
-
-        override fun onServiceFound(serviceInfo: NsdServiceInfo) {
-            setEvent("onServiceFound", serviceInfo)
-        }
-
-        override fun onServiceLost(serviceInfo: NsdServiceInfo) {
-            setEvent("onServiceLost", serviceInfo)
+        inline fun <reified V : NsdEvent> waitForCallback(): V {
+            val nextEvent = nextEvents.poll(TIMEOUT_MS)
+            assertNotNull(nextEvent, "No callback received after $TIMEOUT_MS ms")
+            assertTrue(nextEvent is V, "Expected ${V::class.java.simpleName} but got " +
+                    nextEvent.javaClass.simpleName)
+            return nextEvent
         }
     }
 
-    private inner class TestResolveListener : ResolveListener {
-        var resolvedService: NsdServiceInfo? = null
-        override fun onResolveFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
-            setEvent("onResolveFailed", errorCode)
-        }
+    private interface RegistrationEvent : NsdEvent
+    private data class RegistrationFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int)
+        : RegistrationEvent
+    private data class UnregistrationFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int)
+        : RegistrationEvent
+    private data class ServiceRegistered(val serviceInfo: NsdServiceInfo) : RegistrationEvent
+    private data class ServiceUnregistered(val serviceInfo: NsdServiceInfo) : RegistrationEvent
 
-        override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
-            resolvedService = serviceInfo
-            setEvent("onServiceResolved", serviceInfo)
-        }
+    private class TestRegistrationListener
+        : NsdManager.RegistrationListener, HistoryListener<RegistrationEvent>() {
+        override fun onRegistrationFailed(si: NsdServiceInfo, err: Int) =
+                add(RegistrationFailed(si, err))
+
+        override fun onUnregistrationFailed(si: NsdServiceInfo, err: Int) =
+                add(UnregistrationFailed(si, err))
+
+        override fun onServiceRegistered(si: NsdServiceInfo) = add(ServiceRegistered(si))
+        override fun onServiceUnregistered(si: NsdServiceInfo) = add(ServiceUnregistered(si))
     }
 
-    private inner class EventData {
-        constructor(callbackName: String, info: NsdServiceInfo?) {
-            this.callbackName = callbackName
-            succeeded = true
-            errorCode = 0
-            this.info = info
-        }
+    private interface DiscoveryEvent : NsdEvent
+    private data class StartDiscoveryFailed(val serviceType: String, val errorCode: Int)
+        : DiscoveryEvent
+    private data class StopDiscoveryFailed(val serviceType: String, val errorCode: Int)
+        : DiscoveryEvent
+    private data class DiscoveryStarted(val serviceType: String) : DiscoveryEvent
+    private data class DiscoveryStopped(val serviceType: String) : DiscoveryEvent
+    private data class ServiceFound(val serviceInfo: NsdServiceInfo) : DiscoveryEvent
+    private data class ServiceLost(val serviceInfo: NsdServiceInfo) : DiscoveryEvent
 
-        constructor(callbackName: String, errorCode: Int) {
-            this.callbackName = callbackName
-            succeeded = false
-            this.errorCode = errorCode
-            info = null
-        }
+    private class TestDiscoveryListener : DiscoveryListener, HistoryListener<DiscoveryEvent>() {
+        override fun onStartDiscoveryFailed(serviceType: String, err: Int) =
+                add(StartDiscoveryFailed(serviceType, err))
 
-        val callbackName: String
-        val succeeded: Boolean
-        private val errorCode: Int
-        val info: NsdServiceInfo?
+        override fun onStopDiscoveryFailed(serviceType: String, err: Int) =
+                add(StopDiscoveryFailed(serviceType, err))
+
+        override fun onDiscoveryStarted(serviceType: String) = add(DiscoveryStarted(serviceType))
+        override fun onDiscoveryStopped(serviceType: String) = add(DiscoveryStopped(serviceType))
+        override fun onServiceFound(si: NsdServiceInfo) = add(ServiceFound(si))
+        override fun onServiceLost(si: NsdServiceInfo) = add(ServiceLost(si))
     }
 
-    private val eventCache: MutableList<EventData> = ArrayList()
-    private fun setEvent(callbackName: String, errorCode: Int) {
-        if (DBG) Log.d(TAG, "$callbackName failed with $errorCode")
-        val eventData = EventData(callbackName, errorCode)
-        synchronized(eventCache) {
-            eventCache.add(eventData)
-            eventCache.notify()
-        }
-    }
+    private interface ResolveEvent : NsdEvent
+    private data class ResolveFailed(val serviceInfo: NsdServiceInfo, val errorCode: Int)
+        : ResolveEvent
+    private data class ServiceResolved(val serviceInfo: NsdServiceInfo) : ResolveEvent
 
-    private fun setEvent(callbackName: String, info: NsdServiceInfo) {
-        if (DBG) Log.d(TAG, "Received event " + callbackName + " for " + info.serviceName)
-        val eventData = EventData(callbackName, info)
-        synchronized(eventCache) {
-            eventCache.add(eventData)
-            eventCache.notify()
-        }
-    }
-
-    fun clearEventCache() {
-        synchronized(eventCache) { eventCache.clear() }
-    }
-
-    fun eventCacheSize(): Int {
-        synchronized(eventCache) { return eventCache.size }
-    }
-
-    private var waitId = 0
-    private fun waitForCallback(callbackName: String): EventData? {
-        synchronized(eventCache) {
-            waitId++
-            if (DBG) Log.d(TAG, "Waiting for $callbackName, id=$waitId")
-            val startTime = SystemClock.uptimeMillis()
-            var elapsedTime = 0L
-            while (elapsedTime < TIMEOUT) {
-                // first check if we've received that event
-                eventCache.find { it.callbackName == callbackName }?.let {
-                    if (DBG) Log.d(TAG, "exiting wait id=$waitId")
-                    return it
-                }
-
-                // Not yet received, just wait
-                try {
-                    eventCache.wait(TIMEOUT - elapsedTime)
-                } catch (e: InterruptedException) {
-                    return null // wait timed out!
-                }
-                elapsedTime = SystemClock.uptimeMillis() - startTime
-            }
-            // we exited the loop because of TIMEOUT; fail the call
-            if (DBG) Log.d(TAG, "timed out waiting id=$waitId")
-            return null
-        }
-    }
-
-    private fun waitForNewEvents(): EventData? {
-        if (DBG) Log.d(TAG, "Waiting for a bit, id=$waitId")
-        val startTime = SystemClock.uptimeMillis()
-        var elapsedTime = 0L
-        synchronized(eventCache) {
-            val index = eventCache.size
-            while (elapsedTime < TIMEOUT) {
-                // first check if we've received that event
-                if (index < eventCache.size) {
-                    return eventCache[index]
-                }
-
-                // Not yet received, just wait
-                eventCache.wait(TIMEOUT - elapsedTime)
-                elapsedTime = SystemClock.uptimeMillis() - startTime
-            }
-        }
-        return null
+    private class TestResolveListener : ResolveListener, HistoryListener<ResolveEvent>() {
+        override fun onResolveFailed(si: NsdServiceInfo, err: Int) = add(ResolveFailed(si, err))
+        override fun onServiceResolved(si: NsdServiceInfo) = add(ServiceResolved(si))
     }
 
     private val serviceName: String
@@ -263,31 +184,20 @@ class NsdManagerTest {
         val localPort = socket.localPort
         si.port = localPort
         if (DBG) Log.d(TAG, "Port = $localPort")
-        clearEventCache()
 
-        val registeredName = registerService(si)
+        val registrationListener = TestRegistrationListener()
+        val registeredName = registerService(registrationListener, si)
 
-        assertEquals(1, eventCacheSize())
-        clearEventCache()
+        val discoveryListener = TestDiscoveryListener()
         nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, discoveryListener)
 
         // Expect discovery started
-        var lastEvent = waitForCallback("onDiscoveryStarted")
-        assertNotNull(lastEvent)
-        assertTrue(lastEvent.succeeded)
-
-        // Remove this event, so accounting becomes easier later
-        synchronized(eventCache) { eventCache.remove(lastEvent) }
+        discoveryListener.waitForCallback<DiscoveryStarted>()
 
         // Expect a service record to be discovered
-        val foundInfo = waitForServiceDiscovered(registeredName)
-
-        // We've removed all serviceFound events, and we've removed the discoveryStarted
-        // event as well, so now the event cache should be empty!
-        assertEquals(0, eventCacheSize())
+        val foundInfo = waitForServiceDiscovered(discoveryListener, registeredName)
 
         // Resolve the service
-        clearEventCache()
         val resolvedService = resolveService(foundInfo)
 
         // Check Txt attributes
@@ -304,128 +214,65 @@ class NsdManagerTest {
         assertNull(resolvedService.attributes["nullBinaryDataAttr"])
         assertTrue(resolvedService.attributes.containsKey("emptyBinaryDataAttr"))
         assertNull(resolvedService.attributes["emptyBinaryDataAttr"])
-        if (DBG) Log.d(TAG, "id = " + waitId.toString() + ": Port = " + lastEvent.info?.port)
         assertEquals(localPort, resolvedService.port)
-        assertEquals(1, eventCacheSize())
-        checkForAdditionalEvents()
-        clearEventCache()
 
         // Unregister the service
         nsdManager.unregisterService(registrationListener)
-        lastEvent = waitForCallback("onServiceUnregistered")
-        assertNotNull(lastEvent)
-        assertTrue(lastEvent.succeeded)
+        registrationListener.waitForCallback<ServiceUnregistered>()
 
         // Expect a callback for service lost
-        lastEvent = waitForCallback("onServiceLost")
-        assertNotNull(lastEvent)
-        assertEquals(registeredName, lastEvent.info?.serviceName)
+        discoveryListener.waitForCallbackEventually<ServiceLost> {
+            it.serviceInfo.serviceName == registeredName
+        }
 
         // Register service again to see if we discover it
-        checkForAdditionalEvents()
-        clearEventCache()
         val si2 = NsdServiceInfo()
+        val registrationListener2 = TestRegistrationListener()
         si2.serviceType = SERVICE_TYPE
         si2.serviceName = serviceName
         si2.port = localPort
-        val registeredName2 = registerService(si2)
+        val registeredName2 = registerService(registrationListener2, si2)
 
-        // Expect a record to be discovered
         // Expect a service record to be discovered (and filter the ones
         // that are unrelated to this test)
-        val foundInfo2 = waitForServiceDiscovered(registeredName2)
+        val foundInfo2 = waitForServiceDiscovered(discoveryListener, registeredName2)
 
         // Resolve the service
-        clearEventCache()
         val resolvedService2 = resolveService(foundInfo2)
 
         // Check that we don't have any TXT records
         assertEquals(0, resolvedService2.attributes.size)
-        checkForAdditionalEvents()
-        clearEventCache()
         nsdManager.stopServiceDiscovery(discoveryListener)
-        lastEvent = waitForCallback("onDiscoveryStopped")
-        assertNotNull(lastEvent)
-        assertTrue(lastEvent.succeeded)
-        assertTrue(checkCacheSize(1))
-        checkForAdditionalEvents()
-        clearEventCache()
-        nsdManager.unregisterService(registrationListener)
-        lastEvent = waitForCallback("onServiceUnregistered")
-        assertNotNull(lastEvent)
-        assertTrue(lastEvent.succeeded)
-        assertTrue(checkCacheSize(1))
+        discoveryListener.waitForCallbackEventually<DiscoveryStopped>()
+
+        nsdManager.unregisterService(registrationListener2)
+        registrationListener2.waitForCallback<ServiceUnregistered>()
     }
 
     /**
      * Register a service and return its registered name.
      */
-    private fun registerService(si: NsdServiceInfo): String {
-        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, registrationListener)
-
-        // We may not always get the name that we tried to register;
-        // This events tells us the name that was registered.
-        return waitForCallback("onServiceRegistered").let {
-            assertNotNull(it)
-            assertTrue(it.succeeded)
-            it.info?.serviceName ?: fail("Missing event info")
-        }
+    private fun registerService(listener: TestRegistrationListener, si: NsdServiceInfo): String {
+        nsdManager.registerService(si, NsdManager.PROTOCOL_DNS_SD, listener)
+        val cb = listener.waitForCallback<ServiceRegistered>()
+        return cb.serviceInfo.serviceName
     }
 
-    private fun waitForServiceDiscovered(serviceName: String): NsdServiceInfo {
-        var foundInfo: NsdServiceInfo? = null
-        for (i in 0..31) {
-            val event = waitForCallback("onServiceFound") ?: break
-            assertTrue(event.succeeded)
-            if (DBG) Log.d(TAG, "id = " + waitId.toString() + ": ServiceName = " +
-                    event.info?.serviceName)
-            if (event.info?.serviceName == serviceName) {
-                // Save it, as it will get overwritten with new serviceFound events
-                foundInfo = event.info
-            }
-
-            // Remove this event from the event cache, so it won't be found by subsequent
-            // calls to waitForCallback
-            synchronized(eventCache) { eventCache.remove(event) }
-        }
-        assertNotNull(foundInfo)
-        return foundInfo
+    private fun waitForServiceDiscovered(
+        listener: TestDiscoveryListener,
+        serviceName: String
+    ): NsdServiceInfo {
+        return listener.waitForCallbackEventually<ServiceFound> {
+            it.serviceInfo.serviceName == serviceName
+        }.serviceInfo
     }
 
     private fun resolveService(discoveredInfo: NsdServiceInfo): NsdServiceInfo {
         val resolveListener = TestResolveListener()
         nsdManager.resolveService(discoveredInfo, resolveListener)
-        val resolvedCb = waitForCallback("onServiceResolved")
-        assertNotNull(resolvedCb)
-        assertTrue(resolvedCb.succeeded)
-        if (DBG) Log.d(TAG, "id = " + waitId.toString() + ": ServiceName = " +
-                resolvedCb.info?.serviceName)
-        assertEquals(discoveredInfo.serviceName, resolvedCb.info?.serviceName)
+        val resolvedCb = resolveListener.waitForCallback<ServiceResolved>()
+        assertEquals(discoveredInfo.serviceName, resolvedCb.serviceInfo.serviceName)
 
-        return resolveListener.resolvedService ?: fail("Missing resolved service")
-    }
-
-    fun checkCacheSize(size: Int): Boolean {
-        synchronized(eventCache) {
-            val cacheSize = eventCache.size
-            if (cacheSize == size) return true
-            Log.d(TAG, "id = $waitId: event cache size = $cacheSize")
-            for (e in eventCache) {
-                val sname = e.info?.let { "(${it.serviceName})" } ?: ""
-                Log.d(TAG, "eventName is " + e.callbackName + sname)
-            }
-            return false
-        }
-    }
-
-    fun checkForAdditionalEvents(): Boolean {
-        val e = waitForNewEvents() ?: return true
-        val sname = e.info?.let { "(${it.serviceName})" } ?: ""
-        Log.d(TAG, "ignoring unexpected event " + e.callbackName + sname)
-        return false
+        return resolvedCb.serviceInfo
     }
 }
-
-// TODO: migrate legacy java-style implementation to newer utils like RecorderCallback
-private fun Any.wait(timeout: Long) = (this as Object).wait(timeout)
-private fun Any.notify() = (this as Object).notify()
