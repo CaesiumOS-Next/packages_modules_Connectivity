@@ -34,6 +34,46 @@
       "parentUuid": "f60b554c_b06f1c7d",
       "revId": "3251e2eb28bc3d59bcc430b512f5cf760b64214d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76898622_84238cdf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-11T05:07:24Z",
+      "side": 1,
+      "message": "Thanks for handling this !",
+      "revId": "3251e2eb28bc3d59bcc430b512f5cf760b64214d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "500e8116_f125ba55",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-11T05:07:24Z",
+      "side": 1,
+      "message": "Apparently this is missing a test, do you think you could add one ?",
+      "range": {
+        "startLine": 821,
+        "startChar": 16,
+        "endLine": 821,
+        "endChar": 50
+      },
+      "revId": "3251e2eb28bc3d59bcc430b512f5cf760b64214d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
