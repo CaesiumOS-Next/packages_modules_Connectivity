@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eed260e_7ffc32ff",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-12T01:34:38Z",
+      "side": 1,
+      "message": "This is reasonably independent from the test above, so I think a different test case (method) would be appropriate to keep the tests easier to follow.\n\nAlso nonRestrictedNc here has already been mutated by the first test so it already has TRANSPORT_TEST and restricted administratorUids",
+      "revId": "c07315aa08ff18e9c6d35c34505407e58d6b62db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7437d42c_d96a2fcb",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1213,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-12T01:34:38Z",
+      "side": 1,
+      "message": "Nit: This could also test signalStrength and networkSpecifier have been set (kept) properly.\n\nThere seems to be another bug where some other properties like mPrivateDnsBroken (or mUids ?) are not kept, and they probably should be ? A test that uses NetworkCapabilities.equals could help catch future bugs when we add other properties and forget updating this method.",
+      "range": {
+        "startLine": 1213,
+        "startChar": 4,
+        "endLine": 1213,
+        "endChar": 5
+      },
+      "revId": "c07315aa08ff18e9c6d35c34505407e58d6b62db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
