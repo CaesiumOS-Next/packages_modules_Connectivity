@@ -1,0 +1,255 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358413",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "b745b972_49d701c4",
+          "description": "Change to \"Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+              "range": {
+                "startLine": 351,
+                "startChar": 24,
+                "endLine": 351,
+                "endChar": 30
+              },
+              "replacement": "NETWORK"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "ea7d038d_51408aa6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Common typo found: \"NETORK\" -- should it be \"NETWORK\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 351,
+        "startChar": 24,
+        "endLine": 351,
+        "endChar": 30
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "bbecde51_d503640f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 797,
+        "startChar": 0,
+        "endLine": 797,
+        "endChar": 155
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a8cdd446_e6a8240d",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 798,
+        "startChar": 0,
+        "endLine": 798,
+        "endChar": 151
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "276ebf41_f27a1b2f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 799,
+        "startChar": 0,
+        "endLine": 799,
+        "endChar": 153
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "cf4cd159_3d0af4d9",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 805,
+        "startChar": 0,
+        "endLine": 805,
+        "endChar": 103
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "71477302_36e2ca7f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 812,
+        "startChar": 0,
+        "endLine": 812,
+        "endChar": 102
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "8b6cac73_6f7cdf6a",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 815,
+        "startChar": 0,
+        "endLine": 815,
+        "endChar": 136
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "975710f1_7f96236f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 843,
+        "startChar": 0,
+        "endLine": 843,
+        "endChar": 115
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014358418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1794251?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "362fa850_7d20f4bf",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T13:42:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 846,
+        "startChar": 0,
+        "endLine": 846,
+        "endChar": 187
+      },
+      "revId": "7c60947dcdcf322b27a701e7a4c14dee22d9b4a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
