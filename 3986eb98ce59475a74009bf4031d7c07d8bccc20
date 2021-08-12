@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cfa9640_e2970d7c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-12T10:37:23Z",
+      "side": 1,
+      "message": "This will throw in some cases. With this, can I crash the system server by making a network agent and later sending an update to NetworkCapabilities that contains a specifier and multiple transports ?",
+      "range": {
+        "startLine": 846,
+        "startChar": 8,
+        "endLine": 846,
+        "endChar": 27
+      },
+      "revId": "3986eb98ce59475a74009bf4031d7c07d8bccc20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
