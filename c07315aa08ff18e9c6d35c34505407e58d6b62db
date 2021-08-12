@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "064b9886_0d227c3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-12T05:11:59Z",
+      "side": 1,
+      "message": "\u003e Patch Set 2: Code-Review+2\n\u003e \n\u003e (2 comments)\n\u003e \n\u003e By voting Code-Review+2 the following files are now code-owner approved by \u003cGERRIT_ACCOUNT_1288034\u003e:\n\u003e * framework/src/android/net/NetworkCapabilities.java\n\u003e * service/src/com/android/server/ConnectivityService.java\n\u003e * tests/common/java/android/net/NetworkCapabilitiesTest.java\n\u003e \n\nWill update comments in a follow up since it\u0027s THed.",
+      "revId": "c07315aa08ff18e9c6d35c34505407e58d6b62db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0eed260e_7ffc32ff",
