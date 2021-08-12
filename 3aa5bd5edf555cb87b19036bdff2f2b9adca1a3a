@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76111e89_65b8248e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-12T07:05:19Z",
+      "side": 1,
+      "message": "Open Questions:\n1. How to move their git log as well?\n2. frameworks/opt/net/ethernet is a git, how to delete it?",
+      "revId": "3aa5bd5edf555cb87b19036bdff2f2b9adca1a3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
