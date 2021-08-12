@@ -1,0 +1,82 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014350354",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1793482?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "6a76a87b_cbca6f01",
+        "filename": "service/src/com/android/server/ethernet/EthernetTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T07:01:48Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 103
+      },
+      "revId": "3aa5bd5edf555cb87b19036bdff2f2b9adca1a3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014350354",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1793482?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "c50cb9f2_b10f7924",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T07:01:48Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 102
+      },
+      "revId": "3aa5bd5edf555cb87b19036bdff2f2b9adca1a3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000014350354",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1793482?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "5ccf5c7e_6b1a4911",
+        "filename": "tests/unit/java/com/android/server/ethernet/EthernetTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-08-12T07:01:48Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 104
+      },
+      "revId": "3aa5bd5edf555cb87b19036bdff2f2b9adca1a3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
