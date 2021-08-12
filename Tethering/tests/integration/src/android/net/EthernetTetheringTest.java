@@ -24,8 +24,11 @@ import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_TCP;
 
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
+import static com.android.net.module.util.NetworkStackConstants.ARP_REPLY;
+import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV4;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
 
@@ -65,6 +68,8 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.networkstack.arp.ArpPacket;
+import com.android.net.module.util.IpUtils;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
@@ -91,6 +96,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -727,7 +733,7 @@ public class EthernetTetheringTest {
 
     static final byte[] TEST_DATA = "Best test data ever!".getBytes();
 
-    @Test(timeout=300000)
+    @Test(timeout=15000)
     public void testUpstream() throws Exception {
         CompletableFuture<String> futureIface = mTetheredInterfaceRequester.requestInterface();
 
@@ -808,17 +814,31 @@ public class EthernetTetheringTest {
         final Network network = callback.waitForAvailable();
         assertNotNull("Did not receive onAvailable for request", network);
 
+
+        //Thread.sleep(20000);client
+        Log.d(TAG, "network: " + network);
+        Log.d(TAG, "client: " + client);
+
         Log.d(TAG, "build a socket and send from upstream network");
         final DatagramSocket socket = new DatagramSocket(0, InetAddress.getByName("2001:db8:1::101"));
         socket.setSoTimeout(500);
         network.bindSocket(socket);
         socket.send(new DatagramPacket(TEST_DATA, TEST_DATA.length, InetAddress.getByName("2400:222:222::222"), socket.getLocalPort()));
 
-        for (int i =0; i< 100; i++) {
-            Log.d(TAG, "start forwarding test");
-            runIpv6Test(fd, MacAddress.fromBytes(clientMacAddr), upstreamReader);
-            Thread.sleep(1000);
-        }
+        //for (int i =0; i< 100; i++) {
+        //    Log.d(TAG, "start forwarding test");
+        //    //runIpv6Test(fd, MacAddress.fromBytes(clientMacAddr), upstreamReader);
+        //    runArpTest(fd, MacAddress.fromBytes(clientMacAddr), upstreamReader);
+        //    Thread.sleep(1000);
+        //}
+        Log.d(TAG, "reply arp");
+        assertTrue(replyArp(MacAddress.fromBytes(clientMacAddr)));
+
+        Log.d(TAG, "waiting tcp test");
+        runTcpHandShackTest(MacAddress.fromBytes(clientMacAddr),
+                MacAddress.fromBytes(NetworkInterface.getByName(mTestIface.getInterfaceName()).getHardwareAddress()),
+                (Inet4Address) client.getAddresses().get(0).getAddress().getAddress(),
+                (Inet4Address) InetAddress.getByName("10.0.0.1"), upstreamReader);
 
         na.unregister();
         mHandler.post(() -> upstreamReader.stop());
@@ -837,7 +857,147 @@ public class EthernetTetheringTest {
             register();
             markConnected();
         }
-        @Override protected void unwanted() { }
+        //@Override protected void unwanted() { }
+    }
+
+    private boolean replyArp(final MacAddress srcMac) throws Exception {
+        byte[] packet;
+
+        // TODO: Use ReadHeads as IpClientIntegrationTestCommon.
+        for (int repeatCount = 0; repeatCount < 50; repeatCount++) {
+            while ((packet = mTapPacketReader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
+                //Log.d(TAG, "[downstream] Packet in downstream, length: " + packet.length);
+                //Log.d(TAG, "[downstream] payLoad: " + byteArrayToHex(packet));
+                try {
+                    final ArpPacket arp = ArpPacket.parseArpPacket(packet, packet.length);
+                    Log.d(TAG, "[downstream] is arp: opCode: " + arp.opCode
+                        + ", senderIp" + arp.senderIp
+                        + ", targetIp " + arp.targetIp
+                        + ", senderHwAddress " + arp.senderHwAddress
+                        + ", targetHwAddress " + arp.targetHwAddress);
+                    Log.d(TAG, "[downstream] srcMac: " + srcMac);
+
+                    final ByteBuffer arpReply = ArpPacket.buildArpPacket(arp.senderHwAddress.toByteArray() /* dst */,
+                            srcMac.toByteArray() /* srcMac */, arp.senderIp.getAddress() /* target IP */,
+                            arp.senderHwAddress.toByteArray() /* target HW address */, arp.targetIp.getAddress() /* sender IP */,
+                            (short) ARP_REPLY);
+                    mTapPacketReader.sendResponse(arpReply);
+                    return true;
+                } catch (Exception e) {
+                    Log.d(TAG, "[downstream] not arp: " + e);
+                }
+            }
+        }
+        return false;
+    }
+
+    private static final int IPV4_HEADER_LENGTH = 20;
+    private static final int TCP_HEADER_LENGTH = 20;
+
+    private static byte[] buildV4Packet(final MacAddress srcMac, final MacAddress dstMac,
+            final Inet4Address srcIp, final Inet4Address dstIp, int seq, int ack) {
+        final int etherHeaderLen = Struct.getSize(EthernetHeader.class);
+        final int length = etherHeaderLen + IPV4_HEADER_LENGTH + TCP_HEADER_LENGTH;
+        final ByteBuffer buf = ByteBuffer.allocate(length);
+        buf.order(ByteOrder.BIG_ENDIAN);
+
+        final EthernetHeader ethHeader =
+                new EthernetHeader(dstMac, srcMac, (short) ETHER_TYPE_IPV4);
+        ethHeader.writeToByteBuffer(buf);
+
+        buf.put((byte) 0x45);                       // IP version and IHL
+        buf.put((byte) 0x00 /* routine */);         // TOS
+        buf.putShort((short) (IPV4_HEADER_LENGTH + TCP_HEADER_LENGTH));
+        buf.putInt(0xde214000);                     // ID, flags=DF, offset
+        buf.put((byte) 0x40);                       // TTL
+        buf.put((byte) IPPROTO_TCP);
+        final int ipChecksumOffset = buf.position();
+        buf.putShort((short) 0);                    // IP checksum
+        buf.put(srcIp.getAddress());
+        buf.put(dstIp.getAddress());
+        buf.putShort((short) 12345 /* srcPort */);
+        buf.putShort((short) 54321 /* dstPort */);
+        buf.putInt(seq);                 // Sequence Number
+        buf.putInt(ack);                 // ACK
+        buf.putShort((short) 0x5002);    // TCP length=5, flags=SYN
+        buf.putShort((short) 0xffff);    // Window size
+        final int tcpChecksumOffset = buf.position();
+        buf.putShort((short) 0);                    // TCP checksum
+        // URG is not set therefore the urgent pointer is zero.
+        buf.putShort((short) 0);                    // Urgent pointer
+
+        buf.putShort(ipChecksumOffset, IpUtils.ipChecksum(buf, etherHeaderLen));
+        buf.putShort(tcpChecksumOffset, IpUtils.tcpChecksum(
+                buf, etherHeaderLen, etherHeaderLen + IPV4_HEADER_LENGTH, TCP_HEADER_LENGTH));
+
+        return buf.array();
+    }
+
+    private void runTcpHandShackTest(final MacAddress srcMac, final MacAddress dstMac,
+            final Inet4Address srcIp, final Inet4Address dstIp, TapPacketReader upstreamReader) throws Exception {
+        final TapPacketReader downstreamReader = mTapPacketReader;
+
+        final byte[] synPacket = buildV4Packet(srcMac, dstMac, srcIp, dstIp, 1234 /* seq */, 0 /* ack */);
+        Log.d(TAG, "[runTcpHandShackTest] synPacket: " + byteArrayToHex(synPacket));
+
+        final ByteBuffer byteBuffer = ByteBuffer.wrap(synPacket);
+        downstreamReader.sendResponse(byteBuffer);
+
+        byte[] packet;
+        while ((packet = upstreamReader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
+            Log.d(TAG, "[upstream] Packet in upstream, length: " + packet.length);
+            Log.d(TAG, "[upstream] payLoad: " + byteArrayToHex(packet));
+        }
+    }
+
+
+    private void runArpTest(FileDescriptor fd, final MacAddress srcMac, TapPacketReader reader) throws Exception {
+        //Inet6Address srcAddr = (Inet6Address) InetAddress.getByName("2001:db8:1::123");
+        //Inet6Address dstAddr = (Inet6Address) InetAddress.getByName("2400:222:222::222");
+        //ByteBuffer echo = Ipv6Utils.buildEchoRequestPacket(srcMac, MacAddress.fromBytes(NetworkInterface.getByName(mTestIface.getInterfaceName()).getHardwareAddress()), srcAddr, dstAddr);
+
+
+
+        Log.d(TAG, "waiting arp");
+        //sendPacket(fd, arpReply);
+
+        byte[] packet;
+        while ((packet = reader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
+            Log.d(TAG, "[upstream] Packet in upstream, length: " + packet.length);
+            Log.d(TAG, "[upstream] payLoad: " + byteArrayToHex(packet));
+            try {
+                final ArpPacket arp = ArpPacket.parseArpPacket(packet, packet.length);
+                Log.d(TAG, "[upstream] is arp: " + arp);
+            } catch (Exception e) {
+                Log.d(TAG, "[upstream] not arp: " + e);
+            }
+        }
+
+        while ((packet = mTapPacketReader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
+            Log.d(TAG, "[downstream] Packet in downstream, length: " + packet.length);
+            Log.d(TAG, "[downstream] payLoad: " + byteArrayToHex(packet));
+            try {
+                final ArpPacket arp = ArpPacket.parseArpPacket(packet, packet.length);
+                Log.d(TAG, "[downstream] is arp: opCode: " + arp.opCode
+                    + ", senderIp" + arp.senderIp
+                    + ", targetIp " + arp.targetIp
+                    + ", senderHwAddress " + arp.senderHwAddress
+                    + ", targetHwAddress " + arp.targetHwAddress);
+
+                Log.d(TAG, "[downstream] srcMac: " + srcMac);
+// 08-12 11:29:46.592 18646 18669 D EthernetTetheringTest: [downstream] is arp: opCode: 1, senderIp/192.168.114.219, targetIp /192.168.114.133, senderHwAddress 92:f9:a0:5d:4d:e9, targetHwAddress 00:00:00:00:00:00
+
+                final ByteBuffer arpReply = ArpPacket.buildArpPacket(arp.senderHwAddress.toByteArray() /* dst */,
+                        srcMac.toByteArray() /* srcMac */, arp.senderIp.getAddress() /* target IP */,
+                        arp.senderHwAddress.toByteArray() /* target HW address */, arp.targetIp.getAddress() /* sender IP */,
+                        (short) 2 /* ARP_REPLY */);
+                
+                //mTapPacketReader.sendResponse(arpReply);
+
+            } catch (Exception e) {
+                Log.d(TAG, "[downstream] not arp: " + e);
+            }
+        }
     }
 
     private void runIpv6Test(FileDescriptor fd, final MacAddress srcMac, TapPacketReader reader) throws Exception {
