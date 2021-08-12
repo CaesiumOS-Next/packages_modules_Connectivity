@@ -843,7 +843,7 @@ public final class NetworkCapabilities implements Parcelable {
             mTransportTypes = (originalTransportTypes | (1 << TRANSPORT_TEST));
         }
         mNetworkCapabilities = originalCapabilities & TEST_NETWORKS_ALLOWED_CAPABILITIES;
-        mNetworkSpecifier = originalSpecifier;
+        setNetworkSpecifier(originalSpecifier);
         mSignalStrength = originalSignalStrength;
         mTransportInfo = originalTransportInfo;
 
