@@ -22,6 +22,30 @@
       },
       "revId": "0ce74de7be9e8b6fa4f684d764c501d0b60fc21f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4db0187c_7e7fa483",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-12T06:44:47Z",
+      "side": 1,
+      "message": "Not really. It\u0027s taken a NetworkCapabilities and assigns the value directly. The taken nc should  be limited by the rule. I think it\u0027s fine here.",
+      "parentUuid": "e2b79a30_56015be9",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 49
+      },
+      "revId": "0ce74de7be9e8b6fa4f684d764c501d0b60fc21f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
