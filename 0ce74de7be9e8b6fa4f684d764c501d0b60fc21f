@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b79a30_56015be9",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-12T06:39:13Z",
+      "side": 1,
+      "message": "Should this one also need to use setNetworkSpecifier()?",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 49
+      },
+      "revId": "0ce74de7be9e8b6fa4f684d764c501d0b60fc21f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
