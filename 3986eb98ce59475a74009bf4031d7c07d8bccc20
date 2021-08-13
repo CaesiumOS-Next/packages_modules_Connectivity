@@ -22,6 +22,30 @@
       },
       "revId": "3986eb98ce59475a74009bf4031d7c07d8bccc20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa02d2e0_8a1867f6",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-13T00:42:56Z",
+      "side": 1,
+      "message": "Yes, making a network agent and later sending an update to NetworkCapabilities that contains a specifier and multiple transports will crash it. But even we do not do this, the public APIs do this check. The problem may still be available. The crash may not happen at this point but happen somewhere if system try to build the nc again from the original nc or set its transport type or specifier. Then it becomes a random problem since the behavior is not aligned. The design allows nc to sometimes multiple transport types with specifier but sometimes don\u0027t. Do we not need to align the behavior here?",
+      "parentUuid": "9cfa9640_e2970d7c",
+      "range": {
+        "startLine": 846,
+        "startChar": 8,
+        "endLine": 846,
+        "endChar": 27
+      },
+      "revId": "3986eb98ce59475a74009bf4031d7c07d8bccc20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
