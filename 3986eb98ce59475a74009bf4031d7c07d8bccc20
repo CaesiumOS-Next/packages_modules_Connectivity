@@ -46,6 +46,30 @@
       },
       "revId": "3986eb98ce59475a74009bf4031d7c07d8bccc20",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c21c1d31_ea6fbd61",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-13T04:41:33Z",
+      "side": 1,
+      "message": "No but the difference is, because this is called on the handler thread it will crash the system server. This is different from, say, registering the network agent because that would throw on the binder thread and crash the caller.\n\nThat means this patch makes it possible to DoS the system server by crashing it this way. Of course the attacker needs to have some highly privileged permission, and maybe there are other ways to trigger this, but still : the system server should avoid exposing ways to crash itself, even to privileged apps.\n\nIn the end, I don\u0027t think this patch brings a lot of value, and if it is making a new way to crash the system server, then I don\u0027t think we could take it.",
+      "parentUuid": "fa02d2e0_8a1867f6",
+      "range": {
+        "startLine": 846,
+        "startChar": 8,
+        "endLine": 846,
+        "endChar": 27
+      },
+      "revId": "3986eb98ce59475a74009bf4031d7c07d8bccc20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
