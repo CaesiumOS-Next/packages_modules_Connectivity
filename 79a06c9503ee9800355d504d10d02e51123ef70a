@@ -46,6 +46,30 @@
       },
       "revId": "79a06c9503ee9800355d504d10d02e51123ef70a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33151f08_311b460a",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1874659
+      },
+      "writtenOn": "2021-08-13T08:31:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "597f7488_01add6f2",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 5
+      },
+      "revId": "79a06c9503ee9800355d504d10d02e51123ef70a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
