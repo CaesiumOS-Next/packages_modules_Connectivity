@@ -621,7 +621,8 @@ public class NetworkRequest implements Parcelable {
      *           satisfy any request.
      */
     public boolean canBeSatisfiedBy(@Nullable NetworkCapabilities nc) {
-        return networkCapabilities.satisfiedByNetworkCapabilities(nc);
+        final boolean includeOwnerUidMatch = (type != Type.TRACK_DEFAULT);
+        return networkCapabilities.satisfiedByNetworkCapabilities(nc, includeOwnerUidMatch);
     }
 
     /**
