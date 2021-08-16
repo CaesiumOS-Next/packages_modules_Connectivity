@@ -6584,7 +6584,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (final NetworkRequest nr : requestsToCopy) {
             requests.add(new NetworkRequest(copyDefaultNetworkCapabilitiesForUid(
                             nr.networkCapabilities, asUid, requestorUid, requestorPackageName),
-                    nr.legacyType, nextNetworkRequestId(), nr.type));
+                    nr.legacyType, nextNetworkRequestId(), NetworkRequest.Type.TRACK_DEFAULT));
         }
         return requests;
     }

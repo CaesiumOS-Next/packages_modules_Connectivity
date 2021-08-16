@@ -1506,9 +1506,9 @@ public final class NetworkCapabilities implements Parcelable {
      * member is null, then the network is not restricted by app UID. If it's an empty list, then
      * it means nobody can use it.
      * As a special exception, the app managing this network (as identified by its UID stored in
-     * mOwnerUid) can always see this network. This is embodied by a special check in
-     * satisfiedByUids. That still does not mean the network necessarily <strong>applies</strong>
-     * to the app that manages it as determined by #appliesToUid.
+     * mOwnerUid) may see this network even if it is not in the UID list. This is embodied by a
+     * special check in satisfiedByUids. That still does not mean the network necessarily
+     * <strong>applies</strong> to the app that manages it as determined by #appliesToUid.
      * <p>
      * Please note that in principle a single app can be associated with multiple UIDs because
      * each app will have a different UID when it's run as a different (macro-)user. A single
@@ -1642,15 +1642,21 @@ public final class NetworkCapabilities implements Parcelable {
      * @see #appliesToUid
      * @hide
      */
-    public boolean satisfiedByUids(@NonNull NetworkCapabilities nc) {
+    public boolean satisfiedByUids(@NonNull NetworkCapabilities nc, boolean includeOwnerUidMatch) {
         if (null == nc.mUids || null == mUids) return true; // The network satisfies everything.
         for (UidRange requiredRange : mUids) {
-            if (requiredRange.contains(nc.mOwnerUid)) return true;
+            if (includeOwnerUidMatch && requiredRange.contains(nc.mOwnerUid)) return true;
             if (!nc.appliesToUidRange(requiredRange)) {
                 return false;
             }
         }
         return true;
+    }
+
+    // TODO: remove
+    /** @hide */
+    public boolean satisfiedByUids(@NonNull NetworkCapabilities nc) {
+        return satisfiedByUids(nc, true);
     }
 
     /**
@@ -1773,14 +1779,15 @@ public final class NetworkCapabilities implements Parcelable {
      *
      * @hide
      */
-    private boolean satisfiedByNetworkCapabilities(NetworkCapabilities nc, boolean onlyImmutable) {
+    private boolean satisfiedByNetworkCapabilities(NetworkCapabilities nc, boolean onlyImmutable,
+            boolean includeOwnerUidMatch) {
         return (nc != null
                 && satisfiedByNetCapabilities(nc, onlyImmutable)
                 && satisfiedByTransportTypes(nc)
                 && (onlyImmutable || satisfiedByLinkBandwidths(nc))
                 && satisfiedBySpecifier(nc)
                 && (onlyImmutable || satisfiedBySignalStrength(nc))
-                && (onlyImmutable || satisfiedByUids(nc))
+                && (onlyImmutable || satisfiedByUids(nc, includeOwnerUidMatch))
                 && (onlyImmutable || satisfiedBySSID(nc))
                 && (onlyImmutable || satisfiedByRequestor(nc))
                 && (onlyImmutable || satisfiedBySubscriptionIds(nc)));
@@ -1795,7 +1802,8 @@ public final class NetworkCapabilities implements Parcelable {
      */
     @SystemApi
     public boolean satisfiedByNetworkCapabilities(@Nullable NetworkCapabilities nc) {
-        return satisfiedByNetworkCapabilities(nc, false);
+        return satisfiedByNetworkCapabilities(nc, false /* onlyImmutable */,
+                true /* includeOwnerUidMatch */);
     }
 
     /**
@@ -1806,7 +1814,13 @@ public final class NetworkCapabilities implements Parcelable {
      * @hide
      */
     public boolean satisfiedByImmutableNetworkCapabilities(@Nullable NetworkCapabilities nc) {
-        return satisfiedByNetworkCapabilities(nc, true);
+        return satisfiedByNetworkCapabilities(nc, true /* onlyImmutable */,
+                true /* includeOwnerUidMatch */);
+    }
+
+    /* package */ boolean satisfiedByNetworkCapabilities(@NonNull NetworkCapabilities nc,
+            boolean includeOwnerMatch) {
+        return satisfiedByNetworkCapabilities(nc, false /* onlyImmutable */, includeOwnerMatch);
     }
 
     /**

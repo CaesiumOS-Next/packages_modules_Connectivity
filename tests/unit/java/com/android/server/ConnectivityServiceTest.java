@@ -8338,10 +8338,8 @@ public class ConnectivityServiceTest {
                 () -> mCm.registerDefaultNetworkCallbackForUid(myUid, perUidCb, h));
 
         otherUidCb.expectAvailableCallbacksValidated(mMockVpn);
-        // BUG (b/195265065): the default network for the VPN app is actually Wi-Fi, not the VPN.
-        defaultCb.expectAvailableCallbacksValidated(mMockVpn);
-        perUidCb.expectAvailableCallbacksValidated(mMockVpn);
-        // getActiveNetwork is not affected by this bug.
+        defaultCb.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
+        perUidCb.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
         assertEquals(mMockVpn.getNetwork(), mCm.getActiveNetworkForUid(myUid + 1));
         assertEquals(mWiFiNetworkAgent.getNetwork(), mCm.getActiveNetwork());
         assertEquals(mWiFiNetworkAgent.getNetwork(), mCm.getActiveNetworkForUid(myUid));
