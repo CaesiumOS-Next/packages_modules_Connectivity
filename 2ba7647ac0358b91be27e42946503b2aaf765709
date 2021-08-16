@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c654157b_51ae49e4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8327,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-16T16:38:51Z",
+      "side": 1,
+      "message": "That was actually a mistake on my part. Causing wifi to validate simplifies the future CL that changes this test to reflect the fixed behaviour. Fixed line 8315 and left this unchanged.",
+      "parentUuid": "cfcd2396_c7312a9b",
+      "range": {
+        "startLine": 8327,
+        "startChar": 20,
+        "endLine": 8327,
+        "endChar": 30
+      },
+      "revId": "2ba7647ac0358b91be27e42946503b2aaf765709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f2e778c_44ff0652",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4225135d_151e9da1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8338,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-16T16:38:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f2e778c_44ff0652",
+      "range": {
+        "startLine": 8338,
+        "startChar": 8,
+        "endLine": 8338,
+        "endChar": 63
+      },
+      "revId": "2ba7647ac0358b91be27e42946503b2aaf765709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "059fff87_f5ab566f",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-08-16T10:24:04Z",
       "side": 1,
       "message": "Should we also\n\n  assertEquals(mMockVpn.getNetwork(), mCm.getActiveNetworkForUid(myUid + 1);",
+      "range": {
+        "startLine": 8345,
+        "startChar": 8,
+        "endLine": 8345,
+        "endChar": 20
+      },
+      "revId": "2ba7647ac0358b91be27e42946503b2aaf765709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1e0b271_aa7f9560",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8345,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-16T16:38:51Z",
+      "side": 1,
+      "message": "Sure, why not. Done.",
+      "parentUuid": "059fff87_f5ab566f",
       "range": {
         "startLine": 8345,
         "startChar": 8,
