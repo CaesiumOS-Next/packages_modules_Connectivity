@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfcd2396_c7312a9b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8327,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-16T10:24:04Z",
+      "side": 1,
+      "message": "Maybe let\u0027s say \"VPN validation\" ; at first I thought this referred to the WiFi network which won\u0027t validate because of false in l.8315",
+      "range": {
+        "startLine": 8327,
+        "startChar": 20,
+        "endLine": 8327,
+        "endChar": 30
+      },
+      "revId": "2ba7647ac0358b91be27e42946503b2aaf765709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f2e778c_44ff0652",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8338,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-16T10:24:04Z",
+      "side": 1,
+      "message": "I think you want to group this with the two lines below instead of the block above",
+      "range": {
+        "startLine": 8338,
+        "startChar": 8,
+        "endLine": 8338,
+        "endChar": 63
+      },
+      "revId": "2ba7647ac0358b91be27e42946503b2aaf765709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "059fff87_f5ab566f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8345,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-16T10:24:04Z",
+      "side": 1,
+      "message": "Should we also\n\n  assertEquals(mMockVpn.getNetwork(), mCm.getActiveNetworkForUid(myUid + 1);",
+      "range": {
+        "startLine": 8345,
+        "startChar": 8,
+        "endLine": 8345,
+        "endChar": 20
+      },
+      "revId": "2ba7647ac0358b91be27e42946503b2aaf765709",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
