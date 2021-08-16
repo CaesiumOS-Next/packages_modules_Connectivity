@@ -886,8 +886,7 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
 
     // Does this network satisfy request?
     public boolean satisfies(NetworkRequest request) {
-        return created &&
-                request.networkCapabilities.satisfiedByNetworkCapabilities(networkCapabilities);
+        return created && request.canBeSatisfiedBy(networkCapabilities);
     }
 
     public boolean satisfiesImmutableCapabilitiesOf(NetworkRequest request) {

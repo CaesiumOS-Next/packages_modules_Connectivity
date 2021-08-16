@@ -102,6 +102,7 @@ import android.annotation.TargetApi;
 import android.app.AppOpsManager;
 import android.app.BroadcastOptions;
 import android.app.PendingIntent;
+import android.app.compat.CompatChanges;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -6150,6 +6151,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return true;
     }
 
+    @VisibleForTesting
+    private boolean shouldOwnerUidOverrideUidMatch(NetworkRequest.Type type, String packageName,
+            int uid) {
+            return !CompatChanges.isChangeEnabled(
+                    NetworkRequest.DEFAULTNETWORKCALLBACK_IGNORES_OWNER_UID,
+                    packageName, UserHandle.of(uid));
+
+    }
+
     @Override
     public NetworkRequest requestNetwork(int asUid, NetworkCapabilities networkCapabilities,
             int reqTypeInt, Messenger messenger, int timeoutMs, final IBinder binder,
@@ -6696,7 +6706,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         for (final NetworkRequest nr : requestsToCopy) {
             requests.add(new NetworkRequest(copyDefaultNetworkCapabilitiesForUid(
                             nr.networkCapabilities, asUid, requestorUid, requestorPackageName),
-                    nr.legacyType, nextNetworkRequestId(), nr.type));
+                    nr.legacyType, nextNetworkRequestId(), NetworkRequest.Type.TRACK_DEFAULT));
         }
         return requests;
     }

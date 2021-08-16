@@ -26,6 +26,7 @@ import static android.Manifest.permission.LOCAL_MAC_ADDRESS;
 import static android.Manifest.permission.NETWORK_FACTORY;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.NETWORK_STACK;
+import static android.Manifest.permission.OVERRIDE_COMPAT_CHANGE_CONFIG_ON_RELEASE_BUILD;
 import static android.Manifest.permission.PACKET_KEEPALIVE_OFFLOAD;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.content.Intent.ACTION_PACKAGE_ADDED;
@@ -175,7 +176,6 @@ import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
 
 import static java.util.Arrays.asList;
 
@@ -186,6 +186,8 @@ import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.compat.CompatChanges;
+import android.app.compat.PackageOverride;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -326,6 +328,7 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.ArrayTrackRecord;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.LocationPermissionChecker;
+import com.android.net.module.util.PlatformCompatUtils;
 import com.android.server.ConnectivityService.ConnectivityDiagnosticsCallbackInfo;
 import com.android.server.ConnectivityService.NetworkRequestInfo;
 import com.android.server.ConnectivityServiceTest.ConnectivityServiceDependencies.ReportedInterfaces;
@@ -379,6 +382,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -1988,6 +1992,7 @@ public class ConnectivityServiceTest {
 
         FakeSettingsProvider.clearSettingsProvider();
         ConnectivityResources.setResourcesContextForTest(null);
+        PlatformCompatUtils.clearAll();
 
         mCsHandlerThread.quitSafely();
         mAlarmManagerThread.quitSafely();
@@ -8984,8 +8989,19 @@ public class ConnectivityServiceTest {
         mCm.unregisterNetworkCallback(vpnDefaultCallbackAsUid);
     }
 
-    @Test
-    public void testVpnExcludesOwnUid() throws Exception {
+    private void doTestVpnExcludesOwnUid(boolean defaultCallbackIgnoresOwnedNetwork)
+            throws Exception {
+        /*
+        runAsShell(OVERRIDE_COMPAT_CHANGE_CONFIG_ON_RELEASE_BUILD, () -> {
+            Map<Long, PackageOverride> overrides = Map.of(
+                    NetworkRequest.DEFAULTNETWORKCALLBACK_IGNORES_OWNER_UID,
+                    new PackageOverride.Builder()
+                            .setMinVersionCode(0)
+                            .setMaxVersionCode(Integer.MAX_VALUE)
+                            .setEnabled(defaultCallbackIgnoresOwnedNetwork).build());
+            CompatChanges.putPackageOverrides(mContext.getPackageName(), overrides);
+        });
+        */
         // required for registerDefaultNetworkCallbackForUid.
         mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_GRANTED);
 
@@ -9017,10 +9033,17 @@ public class ConnectivityServiceTest {
                 () -> mCm.registerDefaultNetworkCallbackForUid(myUid, perUidCb, h));
 
         otherUidCb.expectAvailableCallbacksValidated(mMockVpn);
-        // BUG (b/195265065): the default network for the VPN app is actually Wi-Fi, not the VPN.
-        defaultCb.expectAvailableCallbacksValidated(mMockVpn);
-        perUidCb.expectAvailableCallbacksValidated(mMockVpn);
-        // getActiveNetwork is not affected by this bug.
+
+        if (defaultCallbackIgnoresOwnedNetwork) {
+            // Correct behaviour: wifi is the app's default network.
+            defaultCb.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
+            perUidCb.expectAvailableCallbacksValidated(mWiFiNetworkAgent);
+        } else {
+            // Bug compatibility: the system tells the VPN that the VPN is the default network.
+            defaultCb.expectAvailableCallbacksValidated(mMockVpn);
+            perUidCb.expectAvailableCallbacksValidated(mMockVpn);
+        }
+
         assertEquals(mMockVpn.getNetwork(), mCm.getActiveNetworkForUid(myUid + 1));
         assertEquals(mWiFiNetworkAgent.getNetwork(), mCm.getActiveNetwork());
         assertEquals(mWiFiNetworkAgent.getNetwork(), mCm.getActiveNetworkForUid(myUid));
@@ -9028,6 +9051,16 @@ public class ConnectivityServiceTest {
         doAsUid(otherUid, () -> mCm.unregisterNetworkCallback(otherUidCb));
         mCm.unregisterNetworkCallback(defaultCb);
         doAsUid(Process.SYSTEM_UID, () -> mCm.unregisterNetworkCallback(perUidCb));
+    }
+
+    @Test
+    public void testVpnExcludesOwnUid_PreT() throws Exception {
+        doTestVpnExcludesOwnUid(false /* defaultCallbackIgnoresOwnedNetwork */);
+    }
+
+    @Test
+    public void testVpnExcludesOwnUid_T() throws Exception {
+        doTestVpnExcludesOwnUid(true /* defaultCallbackIgnoresOwnedNetwork */);
     }
 
     private void setupLegacyLockdownVpn() {

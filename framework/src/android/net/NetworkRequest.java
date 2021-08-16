@@ -38,15 +38,23 @@ import android.annotation.Nullable;
 import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
+import android.app.compat.CompatChanges;
+import android.compat.annotation.ChangeId;
+import android.compat.annotation.EnabledAfter;
+import android.compat.annotation.Overridable;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.net.NetworkCapabilities.NetCapability;
 import android.net.NetworkCapabilities.Transport;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Process;
+import android.os.UserHandle;
 import android.text.TextUtils;
 import android.util.Range;
+
+import com.android.internal.annotations.VisibleForTesting;
 
 import java.util.Arrays;
 import java.util.List;
@@ -77,6 +85,8 @@ public class NetworkRequest implements Parcelable {
      */
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
     public final @NonNull NetworkCapabilities networkCapabilities;
+
+    private final boolean mOwnerUidMatchesDespiteUids;
 
     /**
      * Identifies the request.  NetworkRequests should only be constructed by
@@ -155,6 +165,14 @@ public class NetworkRequest implements Parcelable {
      * @hide
      */
     public NetworkRequest(NetworkCapabilities nc, int legacyType, int rId, Type type) {
+        this(nc, legacyType, rId, type, false);
+    }
+
+    /**
+     * @hide
+     */
+    public NetworkRequest(NetworkCapabilities nc, int legacyType, int rId, Type type,
+            boolean ownerUidMatchesDespiteUids) {
         if (nc == null) {
             throw new NullPointerException();
         }
@@ -162,6 +180,7 @@ public class NetworkRequest implements Parcelable {
         networkCapabilities = nc;
         this.legacyType = legacyType;
         this.type = type;
+        this.mOwnerUidMatchesDespiteUids = ownerUidMatchesDespiteUids;
     }
 
     /**
@@ -172,6 +191,7 @@ public class NetworkRequest implements Parcelable {
         requestId = that.requestId;
         this.legacyType = that.legacyType;
         this.type = that.type;
+        this.mOwnerUidMatchesDespiteUids = that.mOwnerUidMatchesDespiteUids;
     }
 
     /**
@@ -643,6 +663,75 @@ public class NetworkRequest implements Parcelable {
     }
 
     /**
+     * Affects the behaviour of default network callbacks for apps that own a network but are not in
+     * the network's UID ranges. An example of such an app is a VPN app that excludes its own UID
+     * from the VPN using {@link VpnService.Builder#addDisallowedApplication(String)}.
+     *
+     * If {@code false}, then when an app owns a particular {@link Network}, then
+     * {@link ConnectivityManager.NetworkCallback}s registered using
+     * {@link ConnectivityManager#registerDefaultNetworkCallback(ConnectivityManager.NetworkCallback)}
+     * and its overloads may incorrectly report that the network is the default network for the app,
+     * even if the network's UIDs do not match the app. This is incorrect because a network cannot
+     * be the app's default network if its UID ranges do not include the app's UID. This is the
+     * default behaviour for Android versions until {@link android.os.Build.VERSION_CODES#R} or
+     * for apps targeting API levels until {@link android.os.Build.VERSION_CODES#S}.
+     *
+     * If {@code true}, then default network callbacks will ignore the owner UID and correctly
+     * report the default network for the app. This is the default behaviour on Android
+     * {@link android.os.Build.VERSION_CODES#S} and above for apps targeting SDK versions newer
+     * than {@link android.os.Build.VERSION_CODES#S}.
+     *
+     * @hide
+     *
+     * @see NetworkCapabilities#getOwnerUid().
+     * @see VpnService.Builder#addDisallowedApplication(String).
+     */
+    @ChangeId
+    @Overridable
+    @EnabledAfter(targetSdkVersion = Build.VERSION_CODES.S)
+    @VisibleForTesting
+    public static final long DEFAULTNETWORKCALLBACK_IGNORES_OWNER_UID = 195265065;
+
+    /**
+     * Whether this request will always match networks that are owned by the requestor's UID, even
+     * if the network's UID ranges do not include that UID.
+     *
+     * This is always true for all types of request other than {@link Type#TRACK_DEFAULT}, because
+     * apps should always receive callbacks for networks that they own.
+     *
+     * For {@link Type#TRACK_DEFAULT} requests, this should be false, because the contract of
+     * {@link ConnectivityManager#registerDefaultNetworkCallback(ConnectivityManager.NetworkCallback)}
+     * is that it should inform the app of what its default network is. If a network's UID ranges
+     * do not include an app's UID, then the network will not be the default network for the app,
+     * even if the app is the owner of the network.
+     *
+     * Because all Android versions up to S behaved as this was always true, on S and below,
+     * continue to return true even for {@link Type#TRACK_DEFAULT} requests unless the app opts in.
+     * Opt-in is determined by the requestor UID, so for code using
+     * {@link ConnectivityManager#registerDefaultNetworkCallbackForUid(int, ConnectivityManager.NetworkCallback, Handler)},
+     * (e.g., JobScheduler) the requestor will be the system itself and the newer, correct behaviour
+     * will apply.
+     *
+     * See b/195265065 for more information.
+     */
+    private boolean shouldIncludeOwnerUidMatch() {
+        if (type != Type.TRACK_DEFAULT) return true;
+
+        if (Process.myUid() == getRequestorUid()) {
+            // Running in the requesting app. Use in-process call, which requires no permissions.
+            // If this code runs anywhere else than the app process, it will always return true.
+            // This doesn't matter, since no code should ever be doing request matching except for
+            // ConnectivityService and the app itself.
+            return !CompatChanges.isChangeEnabled(DEFAULTNETWORKCALLBACK_IGNORES_OWNER_UID);
+        } else {
+            // Running outside the app process, likely in the system server. If not running in the
+            // system server, this will issue an IPC to the system server and requires permissions.
+            return !CompatChanges.isChangeEnabled(DEFAULTNETWORKCALLBACK_IGNORES_OWNER_UID,
+                    getRequestorPackageName(), UserHandle.of(getRequestorUid()));
+        }
+    }
+
+    /**
      * Returns true if and only if the capabilities requested in this NetworkRequest are satisfied
      * by the provided {@link NetworkCapabilities}.
      *
@@ -650,7 +739,7 @@ public class NetworkRequest implements Parcelable {
      *           satisfy any request.
      */
     public boolean canBeSatisfiedBy(@Nullable NetworkCapabilities nc) {
-        return networkCapabilities.satisfiedByNetworkCapabilities(nc);
+        return networkCapabilities.satisfiedByNetworkCapabilities(nc, shouldIncludeOwnerUidMatch());
     }
 
     /**
@@ -705,11 +794,13 @@ public class NetworkRequest implements Parcelable {
         return (that.legacyType == this.legacyType &&
                 that.requestId == this.requestId &&
                 that.type == this.type &&
-                Objects.equals(that.networkCapabilities, this.networkCapabilities));
+                Objects.equals(that.networkCapabilities, this.networkCapabilities) &&
+                that.mOwnerUidMatchesDespiteUids == this.mOwnerUidMatchesDespiteUids);
     }
 
     public int hashCode() {
-        return Objects.hash(requestId, legacyType, networkCapabilities, type);
+        return Objects.hash(requestId, legacyType, networkCapabilities, type,
+                mOwnerUidMatchesDespiteUids);
     }
 
     /**
