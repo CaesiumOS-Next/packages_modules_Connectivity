@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "821fdc16_c3edde61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-17T08:16:20Z",
+      "side": 1,
+      "message": "NetworkAgentTest did not actually interact with ConnectivityServices. ConnectivityServiceTest may be a good place to do the round-trip tests. But the test will do something similar here. E.g. Register a NetworkAgent and update the networkCapabilities to ConnectivityService. \n\nThen the question will come back to if we need a looser test or strict one. Though it may require the developer to update the test, I think that is what we usually did for updating the design that we would like the test covers the code behaves. Like what Remi commented in the original commit, do the mPrivateDnsBroken is removed correct after doing this? If the developer adds mPrivateDnsBroken into the filtered networkcapabilities but we do not verify that, then the behavior would be something unexpectedly. It may hard to tell what is the danegrous capabilities or just a missing capabilities.\n\nPlease let me know if you think the strict change-detector test is not preferred.",
+      "parentUuid": "ffa03cc5_275c4ac2",
+      "revId": "1089092b0c5750f2a9effd2ca104b9111348eae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dfb0cf1_caa20041",
@@ -59,6 +77,54 @@
         "startChar": 18,
         "endLine": 1255,
         "endChar": 46
+      },
+      "revId": "1089092b0c5750f2a9effd2ca104b9111348eae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd3648f2_fa2f991e",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-17T08:16:20Z",
+      "side": 1,
+      "message": "updated. Sorry, I mean the network for the networkcapabilities",
+      "parentUuid": "a7c834a5_a6429d6d",
+      "range": {
+        "startLine": 1255,
+        "startChar": 18,
+        "endLine": 1255,
+        "endChar": 46
+      },
+      "revId": "1089092b0c5750f2a9effd2ca104b9111348eae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e11b9ba0_c627f03a",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-17T08:16:20Z",
+      "side": 1,
+      "message": "updated. it means the network",
+      "parentUuid": "1dfb0cf1_caa20041",
+      "range": {
+        "startLine": 1255,
+        "startChar": 53,
+        "endLine": 1255,
+        "endChar": 56
       },
       "revId": "1089092b0c5750f2a9effd2ca104b9111348eae8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
