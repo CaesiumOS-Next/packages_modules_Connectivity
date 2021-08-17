@@ -7460,8 +7460,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final boolean roamingChanged = prevNc.hasCapability(NET_CAPABILITY_NOT_ROAMING)
                 != newNc.hasCapability(NET_CAPABILITY_NOT_ROAMING);
 
-        // Report changes that are interesting for network statistics tracking.
-        if (meteredChanged || roamingChanged) {
+        final boolean suspendedChanged = prevNc.hasCapability(NET_CAPABILITY_NOT_SUSPENDED)
+                != newNc.hasCapability(NET_CAPABILITY_NOT_SUSPENDED);
+
+        // Report changes that are interesting for network statistics tracking. Suspended affects
+        // the active interfaces tracked by NetworkStatsService. Thus a notification is also needed.
+        if (meteredChanged || roamingChanged || suspendedChanged) {
             notifyIfacesChangedForNetworkStats();
         }
 

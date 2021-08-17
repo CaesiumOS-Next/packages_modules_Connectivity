@@ -6106,16 +6106,16 @@ public class ConnectivityServiceTest {
         mCm.unregisterNetworkCallback(networkCallback);
     }
 
-    private void expectNotifyNetworkStatus(List<Network> networks, String defaultIface,
+    private void expectNotifyNetworkStatus(List<Network> defaultNetworks, String defaultIface,
             Integer vpnUid, String vpnIfname, List<String> underlyingIfaces) throws Exception {
-        ArgumentCaptor<List<Network>> networksCaptor = ArgumentCaptor.forClass(List.class);
+        ArgumentCaptor<List<Network>> defaultNetworksCaptor = ArgumentCaptor.forClass(List.class);
         ArgumentCaptor<List<UnderlyingNetworkInfo>> vpnInfosCaptor =
                 ArgumentCaptor.forClass(List.class);
 
-        verify(mStatsManager, atLeastOnce()).notifyNetworkStatus(networksCaptor.capture(),
+        verify(mStatsManager, atLeastOnce()).notifyNetworkStatus(defaultNetworksCaptor.capture(),
                 any(List.class), eq(defaultIface), vpnInfosCaptor.capture());
 
-        assertSameElements(networks, networksCaptor.getValue());
+        assertSameElements(defaultNetworks, defaultNetworksCaptor.getValue());
 
         List<UnderlyingNetworkInfo> infos = vpnInfosCaptor.getValue();
         if (vpnUid != null) {
@@ -6131,8 +6131,8 @@ public class ConnectivityServiceTest {
     }
 
     private void expectNotifyNetworkStatus(
-            List<Network> networks, String defaultIface) throws Exception {
-        expectNotifyNetworkStatus(networks, defaultIface, null, null, List.of());
+            List<Network> defaultNetworks, String defaultIface) throws Exception {
+        expectNotifyNetworkStatus(defaultNetworks, defaultIface, null, null, List.of());
     }
 
     @Test
@@ -6176,6 +6176,17 @@ public class ConnectivityServiceTest {
         reset(mStatsManager);
 
         mCellNetworkAgent.removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+        waitForIdle();
+        expectNotifyNetworkStatus(onlyCell, MOBILE_IFNAME);
+        reset(mStatsManager);
+
+        // Suspended change should update ifaces.
+        mCellNetworkAgent.removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED);
+        waitForIdle();
+        expectNotifyNetworkStatus(onlyCell, MOBILE_IFNAME);
+        reset(mStatsManager);
+
+        mCellNetworkAgent.addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED);
         waitForIdle();
         expectNotifyNetworkStatus(onlyCell, MOBILE_IFNAME);
         reset(mStatsManager);
