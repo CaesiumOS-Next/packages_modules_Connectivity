@@ -17,6 +17,11 @@
           package="com.android.networkstack.tethering.tests.integration">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Since R shell application don't have CHANGE_NETWORK_STATE permission, grant perission
+         to the test here. TODO: Remove CHANGE_NETWORK_STATE perission here and use adopt shell
+         perssion to obtain CHANGE_NETWORK_STATE for testing once R device is no longer supported.
+    -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <application android:debuggable="true">
         <uses-library android:name="android.test.runner" />
