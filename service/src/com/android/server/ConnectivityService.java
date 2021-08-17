@@ -4622,8 +4622,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void updateAvoidBadWifi() {
+        ensureRunningOnConnectivityServiceThread();
+        // Agetn info scores and offer scores depend on whether cells yields to bad wifi.
         for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
             nai.updateScoreForNetworkAgentUpdate();
+        }
+        final ArrayList<NetworkOfferInfo> offersToUpdate = new ArrayList<>(mNetworkOffers);
+        for (final NetworkOfferInfo noi : offersToUpdate) {
+            updateOfferScore(noi.offer);
         }
         rematchAllNetworksAndRequests();
     }
@@ -6413,9 +6419,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         Objects.requireNonNull(score);
         Objects.requireNonNull(caps);
         Objects.requireNonNull(callback);
+        final boolean yieldToBadWiFi = caps.hasTransport(TRANSPORT_CELLULAR) && !avoidBadWifi();
         final NetworkOffer offer = new NetworkOffer(
-                FullScore.makeProspectiveScore(score, caps), caps, callback, providerId);
+                FullScore.makeProspectiveScore(score, caps, yieldToBadWiFi),
+                caps, callback, providerId);
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_REGISTER_NETWORK_OFFER, offer));
+    }
+
+    private void updateOfferScore(final NetworkOffer offer) {
+        final boolean yieldToBadWiFi =
+                offer.caps.hasTransport(TRANSPORT_CELLULAR) && !avoidBadWifi();
+        final NetworkOffer newOffer = new NetworkOffer(
+                offer.score.withYieldToBadWiFi(yieldToBadWiFi),
+                        offer.caps, offer.callback, offer.providerId);
+        handleRegisterNetworkOffer(newOffer);
     }
 
     @Override
@@ -6852,6 +6869,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (null != existingOffer) {
             handleUnregisterNetworkOffer(existingOffer);
             newOffer.migrateFrom(existingOffer.offer);
+            if (DBG) {
+                log("update offer from providerId " + newOffer.providerId
+                        + " from score " + existingOffer.offer.score
+                        + " and caps " + existingOffer.offer.caps
+                        + " to score " + newOffer.score
+                        + " and caps " + newOffer.caps);
+            }
+        } else {
+            if (DBG) {
+                log("register offer from providerId " + newOffer.providerId
+                        + " with score " + newOffer.score + " and caps " + newOffer.caps);
+            }
         }
         final NetworkOfferInfo noi = new NetworkOfferInfo(newOffer);
         try {
@@ -6866,6 +6895,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleUnregisterNetworkOffer(@NonNull final NetworkOfferInfo noi) {
         ensureRunningOnConnectivityServiceThread();
+        if (DBG) {
+            log("unregister offer from providerId " + noi.offer.providerId
+                    + " with score " + noi.offer.score + " and caps " + noi.offer.caps);
+        }
         mNetworkOffers.remove(noi);
         noi.offer.callback.asBinder().unlinkToDeath(noi, 0 /* flags */);
     }
