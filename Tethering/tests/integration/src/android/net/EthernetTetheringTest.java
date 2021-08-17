@@ -17,6 +17,7 @@
 package android.net;
 
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
+import static android.Manifest.permission.CONNECTIVITY_INTERNAL;
 import static android.Manifest.permission.MANAGE_TEST_NETWORKS;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.TETHER_PRIVILEGED;
@@ -53,6 +54,7 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.system.Os;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
@@ -77,6 +79,7 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -101,6 +104,11 @@ public class EthernetTetheringTest {
             DhcpPacket.DHCP_LEASE_TIME,
     };
     private static final String DHCP_HOSTNAME = "testhostname";
+    private static final String TEST_NETWORK_IP4_ADDR = "10.0.0.1/8";
+    private static final String TEST_NETWORK_IP4_DNS = "8.8.8.8";
+    private static final String TEST_NETWORK_IP6_ADDR = "2001:db8:1::101/64";
+    private static final String TEST_NETWORK_IP6_DNS = "2001:db8:1::888";
+    private static final int TEST_NETWORK_MTU = 1280;
 
     private final Context mContext = InstrumentationRegistry.getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
@@ -118,12 +126,20 @@ public class EthernetTetheringTest {
             InstrumentationRegistry.getInstrumentation().getUiAutomation();
     private boolean mRunTests;
 
+    private TestNetworkRequester mTestNetworkRequester;
+    private TestNetworkInterface mUpstreamIface;
+    private LinkAddress mTestIp4Addr;
+    private LinkAddress mTestIp6Addr;
+    private InetAddress mTestIp4Dns;
+    private InetAddress mTestIp6Dns;
+
     @Before
     public void setUp() throws Exception {
         // Needed to create a TestNetworkInterface, to call requestTetheredInterface, and to receive
         // tethered client callbacks.
         mUiAutomation.adoptShellPermissionIdentity(
-                MANAGE_TEST_NETWORKS, NETWORK_SETTINGS, TETHER_PRIVILEGED, ACCESS_NETWORK_STATE);
+                MANAGE_TEST_NETWORKS, NETWORK_SETTINGS, TETHER_PRIVILEGED, ACCESS_NETWORK_STATE,
+                CONNECTIVITY_INTERNAL);
         mRunTests = mTm.isTetheringSupported() && mEm != null;
         assumeTrue(mRunTests);
 
@@ -131,9 +147,15 @@ public class EthernetTetheringTest {
         mHandlerThread.start();
         mHandler = new Handler(mHandlerThread.getLooper());
         mTetheredInterfaceRequester = new TetheredInterfaceRequester(mHandler, mEm);
+        mTestIp4Addr = new LinkAddress(TEST_NETWORK_IP4_ADDR);
+        mTestIp6Addr = new LinkAddress(TEST_NETWORK_IP6_ADDR);
+        mTestIp4Dns = InetAddress.getByName(TEST_NETWORK_IP4_DNS);
+        mTestIp6Dns = InetAddress.getByName(TEST_NETWORK_IP6_DNS);
     }
 
     private void cleanUp() throws Exception {
+        maybeCleanupTetheringUpstream();
+
         mTm.stopTethering(TETHERING_ETHERNET);
         if (mTetheringEventCallback != null) {
             mTetheringEventCallback.awaitInterfaceUntethered();
@@ -148,6 +170,7 @@ public class EthernetTetheringTest {
         mHandlerThread.quitSafely();
         mTetheredInterfaceRequester.release();
         mEm.setIncludeTestInterfaces(false);
+        mTm.setIncludeTestNetwork(false);
         maybeDeleteTestInterface();
     }
 
@@ -350,12 +373,14 @@ public class EthernetTetheringTest {
         private final CountDownLatch mLocalOnlyStartedLatch = new CountDownLatch(1);
         private final CountDownLatch mLocalOnlyStoppedLatch = new CountDownLatch(1);
         private final CountDownLatch mClientConnectedLatch = new CountDownLatch(1);
+        private final CountDownLatch mUpstreamConnectedLatch = new CountDownLatch(1);
         private final TetheringInterface mIface;
 
         private volatile boolean mInterfaceWasTethered = false;
         private volatile boolean mInterfaceWasLocalOnly = false;
         private volatile boolean mUnregistered = false;
         private volatile Collection<TetheredClient> mClients = null;
+        private volatile Network mUpstream = null;
 
         MyTetheringEventCallback(TetheringManager tm, String iface) {
             mTm = tm;
@@ -460,6 +485,22 @@ public class EthernetTetheringTest {
             assertTrue("Did not receive client connected callback after " + TIMEOUT_MS + "ms",
                     mClientConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
             return mClients;
+        }
+
+        @Override
+        public void onUpstreamChanged(Network network) {
+            // Ignore stale callbacks registered by previous test cases.
+            if (mUnregistered) return;
+
+            Log.d(TAG, "Got upstream changed: " + network);
+            mUpstream = network;
+            if (mUpstream != null) mUpstreamConnectedLatch.countDown();
+        }
+
+        public Network awaitUpstreamConnected() throws Exception {
+            assertTrue("Did not receive upstream connected callback after " + TIMEOUT_MS + "ms",
+                    mUpstreamConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+            return mUpstream;
         }
     }
 
@@ -702,5 +743,75 @@ public class EthernetTetheringTest {
             Log.d(TAG, "Deleted test interface " + mTestIface.getInterfaceName());
             mTestIface = null;
         }
+    }
+
+    @Test
+    public void testUpstream() throws Exception {
+        CompletableFuture<String> futureIface = mTetheredInterfaceRequester.requestInterface();
+
+        mEm.setIncludeTestInterfaces(true);
+        mTm.setIncludeTestNetwork(true);
+
+        mTestIface = createTestInterface();
+
+        final String iface = futureIface.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        assertEquals("TetheredInterfaceCallback for unexpected interface",
+                mTestIface.getInterfaceName(), iface);
+
+        FileDescriptor fd = mTestIface.getFileDescriptor().getFileDescriptor();
+        mTapPacketReader = makePacketReader(fd, getMTU(mTestIface));
+        mTetheringEventCallback = enableEthernetTethering(mTestIface.getInterfaceName());
+
+        mUpstreamIface = enableTetheringUpstream();
+    }
+
+    private TestNetworkInterface enableTetheringUpstream() throws Exception {
+        mTm.setIncludeTestNetwork(true);
+
+        mTestNetworkRequester = new TestNetworkRequester(mContext,
+                mHandlerThread.getLooper());
+        final TestNetworkInterface upstreamIface = createTunInterface(mTestIp4Addr, mTestIp6Addr);
+        final Pair<Network, LinkProperties> networkPair = mTestNetworkRequester.getTestNetwork(
+                upstreamIface.getInterfaceName(),
+                toList(mTestIp4Addr, mTestIp6Addr),
+                toList(mTestIp4Dns, mTestIp6Dns),
+                TEST_NETWORK_MTU);
+
+        verifyLinkProperties(networkPair.second);
+
+        final Network upstreamNetwork = mTetheringEventCallback.awaitUpstreamConnected();
+        assertEquals("onUpstreamChanged for unexpected network", networkPair.first,
+                upstreamNetwork);
+
+        return upstreamIface;
+    }
+
+    private void maybeCleanupTetheringUpstream() throws Exception {
+        mTm.setIncludeTestNetwork(false);
+
+        if (mTestNetworkRequester != null) {
+            mTestNetworkRequester.release();
+            mTestNetworkRequester = null;
+        }
+        if (mUpstreamIface != null) {
+            mUpstreamIface.getFileDescriptor().close();
+            mUpstreamIface = null;
+        }
+    }
+
+    public TestNetworkInterface createTunInterface(LinkAddress... addresses) {
+        final TestNetworkManager tnm = mContext.getSystemService(TestNetworkManager.class);
+        return tnm.createTunInterface(addresses);
+    }
+
+    private <T> List<T> toList(T... array) {
+        return Arrays.asList(array);
+    }
+
+    private void verifyLinkProperties(final LinkProperties lp) {
+        assertEquals("unexpected address",
+                toList(mTestIp4Addr.getAddress(), mTestIp6Addr.getAddress()), lp.getAddresses());
+        assertEquals("unexpected dnses", toList(mTestIp4Dns, mTestIp6Dns), lp.getDnsServers());
+        assertEquals("unexpected mtu", TEST_NETWORK_MTU, lp.getMtu());
     }
 }

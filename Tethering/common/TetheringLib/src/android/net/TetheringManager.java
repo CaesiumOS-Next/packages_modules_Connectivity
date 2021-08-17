@@ -1538,4 +1538,25 @@ public class TetheringManager {
                     }
                 }));
     }
+
+    /**
+     * Whether to treat network which has TRANSPORT_TEST as Tethering upstream. The effects of this
+     * method apply to any test network that are already present on the system.
+     *
+     * @throws SecurityException If caller don't have TETHER_PRIVILEGED permission.
+     * @hide
+     */
+    @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+    public void setIncludeTestNetwork(final boolean include) {
+        Log.i(TAG, "setIncludeTestNetwork caller:" + mContext.getOpPackageName());
+
+        final RequestDispatcher dispatcher = new RequestDispatcher();
+        final int ret = dispatcher.waitForResult((connector, listener) -> {
+            try {
+                connector.setIncludeTestNetwork(include, listener);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+        });
+    }
 }
