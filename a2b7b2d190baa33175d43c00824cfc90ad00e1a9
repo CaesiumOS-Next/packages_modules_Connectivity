@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae70dd48_57ae75d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-17T10:11:56Z",
+      "side": 1,
+      "message": "LGTM since this is pure re-write from java to kotlin.\nNits and comments might be better to put in separate CLs.\nI\u0027m not a kotlin master so you might want Jean\u0027s review if not sure.",
+      "revId": "a2b7b2d190baa33175d43c00824cfc90ad00e1a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3a0a706_41150bf7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-17T10:11:56Z",
+      "side": 1,
+      "message": "Not for this CL but it seems to me we can use ArrayTrackRecord to greatly reduce the code size?",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 9
+      },
+      "revId": "a2b7b2d190baa33175d43c00824cfc90ad00e1a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "add9e899_24e9c266",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-17T10:11:56Z",
+      "side": 1,
+      "message": "I believe this need comment but maybe not in this CL.",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 223,
+        "endChar": 74
+      },
+      "revId": "a2b7b2d190baa33175d43c00824cfc90ad00e1a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42d6d655_58b851f8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-17T10:11:56Z",
+      "side": 1,
+      "message": "Not for this CL, but can these be put into a list and use for-loop to run assertThrows instead of hard-coded?",
+      "range": {
+        "startLine": 227,
+        "startChar": 28,
+        "endLine": 227,
+        "endChar": 32
+      },
+      "revId": "a2b7b2d190baa33175d43c00824cfc90ad00e1a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acbd6d4e_7279d9d2",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-17T10:11:56Z",
+      "side": 1,
+      "message": "nit: Not for this CL, but it might be a good chance to find replacement of all \"we\".",
+      "range": {
+        "startLine": 285,
+        "startChar": 11,
+        "endLine": 285,
+        "endChar": 13
+      },
+      "revId": "a2b7b2d190baa33175d43c00824cfc90ad00e1a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12861829_fc4ac376",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-17T10:11:56Z",
+      "side": 1,
+      "message": "Maybe a blank line before this since the comment at l.342 is not for the code below?",
+      "range": {
+        "startLine": 345,
+        "startChar": 8,
+        "endLine": 345,
+        "endChar": 23
+      },
+      "revId": "a2b7b2d190baa33175d43c00824cfc90ad00e1a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
