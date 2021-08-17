@@ -24,6 +24,7 @@ java_defaults {
         "src/**/*.kt",
     ],
     min_sdk_version: "30",
+    sdk_version: "core_platform",
     static_libs: [
         "NetworkStackApiStableLib",
         "androidx.test.rules",
@@ -35,6 +36,13 @@ java_defaults {
         "android.test.runner",
         "android.test.base",
         "android.test.mock",
+        // order matters: classes in framework-tethering are resolved before framework,
+        // meaning @hide APIs in framework-tethering are resolved before @SystemApi
+        // stubs in framework
+        "framework-tethering.impl",
+        "framework",
+        // if sdk_version="" this gets automatically included, but here we need to add manually.
+        "framework-res",
     ],
     jni_libs: [
         // For mockito extended
