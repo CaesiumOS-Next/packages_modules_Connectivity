@@ -2601,4 +2601,13 @@ public class Tethering {
     private static String[] copy(String[] strarray) {
         return Arrays.copyOf(strarray, strarray.length);
     }
+
+    void setTestMode(final boolean enabled, IIntResultListener listener) {
+        mHandler.post(() -> {
+            mUpstreamNetworkMonitor.setTestNetworkPreferred(enabled);
+            try {
+                listener.onResult(TETHER_ERROR_NO_ERROR);
+            } catch (RemoteException e) { }
+        });
+    }
 }

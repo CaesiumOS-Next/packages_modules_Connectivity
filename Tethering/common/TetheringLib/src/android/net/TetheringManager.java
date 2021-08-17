@@ -1538,4 +1538,22 @@ public class TetheringManager {
                     }
                 }));
     }
+
+    /**
+     * @hide
+     */
+    public boolean setTestMode(final boolean enabled) {
+        Log.i(TAG, "setTestMode caller:" + mContext.getOpPackageName());
+
+        final RequestDispatcher dispatcher = new RequestDispatcher();
+        final int ret = dispatcher.waitForResult((connector, listener) -> {
+            try {
+                connector.setTestMode(enabled, listener);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+        });
+
+        return ret == TETHER_ERROR_NO_ERROR;
+    }
 }

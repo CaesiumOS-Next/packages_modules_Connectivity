@@ -23,6 +23,7 @@ import static android.Manifest.permission.TETHER_PRIVILEGED;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
 
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
@@ -39,8 +40,14 @@ import static org.junit.Assume.assumeTrue;
 
 import android.app.UiAutomation;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.EthernetManager.TetheredInterfaceCallback;
 import android.net.EthernetManager.TetheredInterfaceRequest;
+import android.net.LinkProperties;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
+import android.net.NetworkCapabilities;
+import android.net.RouteInfo;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
@@ -49,6 +56,7 @@ import android.net.dhcp.DhcpOfferPacket;
 import android.net.dhcp.DhcpPacket;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.system.Os;
@@ -58,6 +66,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.net.module.util.NetworkStackConstants;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv6Header;
@@ -71,6 +80,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.FileDescriptor;
+import java.util.ArrayList;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -148,6 +158,7 @@ public class EthernetTetheringTest {
         mHandlerThread.quitSafely();
         mTetheredInterfaceRequester.release();
         mEm.setIncludeTestInterfaces(false);
+        mTm.setTestMode(false);
         maybeDeleteTestInterface();
     }
 
@@ -350,12 +361,14 @@ public class EthernetTetheringTest {
         private final CountDownLatch mLocalOnlyStartedLatch = new CountDownLatch(1);
         private final CountDownLatch mLocalOnlyStoppedLatch = new CountDownLatch(1);
         private final CountDownLatch mClientConnectedLatch = new CountDownLatch(1);
+        private final CountDownLatch mUpstreamConnectedLatch = new CountDownLatch(1);
         private final TetheringInterface mIface;
 
         private volatile boolean mInterfaceWasTethered = false;
         private volatile boolean mInterfaceWasLocalOnly = false;
         private volatile boolean mUnregistered = false;
         private volatile Collection<TetheredClient> mClients = null;
+        private volatile Network mUpstream = null;
 
         MyTetheringEventCallback(TetheringManager tm, String iface) {
             mTm = tm;
@@ -460,6 +473,22 @@ public class EthernetTetheringTest {
             assertTrue("Did not receive client connected callback after " + TIMEOUT_MS + "ms",
                     mClientConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
             return mClients;
+        }
+
+        @Override
+        public void onUpstreamChanged(Network network) {
+            // Ignore stale callbacks registered by previous test cases.
+            if (mUnregistered) return;
+
+            Log.d(TAG, "Got upstream changed: " + network);
+            mUpstream = network;
+            if (mUpstream != null) mUpstreamConnectedLatch.countDown();
+        }
+
+        public Network awaitUpstreamConnected() throws Exception {
+            assertTrue("Did not receive upstream connected callback after " + TIMEOUT_MS + "ms",
+                    mUpstreamConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+            return mUpstream;
         }
     }
 
@@ -701,6 +730,83 @@ public class EthernetTetheringTest {
             mTestIface.getFileDescriptor().close();
             Log.d(TAG, "Deleted test interface " + mTestIface.getInterfaceName());
             mTestIface = null;
+        }
+    }
+
+    public void testUpstream() throws Exception {
+        CompletableFuture<String> futureIface = mTetheredInterfaceRequester.requestInterface();
+
+        mEm.setIncludeTestInterfaces(true);
+        mTm.setTestMode(true);
+
+        mTestIface = createTestInterface();
+
+        final String iface = futureIface.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        assertEquals("TetheredInterfaceCallback for unexpected interface",
+                mTestIface.getInterfaceName(), iface);
+
+        FileDescriptor fd = mTestIface.getFileDescriptor().getFileDescriptor();
+        mTapPacketReader = makePacketReader(fd, getMTU(mTestIface));
+        mTetheringEventCallback = enableEthernetTethering(mTestIface.getInterfaceName());
+
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                .build();
+
+        final TestNetworkCallback callback = new TestNetworkCallback();
+        final NetworkRequest request = new NetworkRequest.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_SUSPENDED)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+                .build();
+
+        ConnectivityManager cm = mContext.getSystemService(ConnectivityManager.class);
+        cm.registerNetworkCallback(request, callback);
+
+        TestNetworkManager tnm = mContext.getSystemService(TestNetworkManager.class);
+        ArrayList<LinkAddress> list = new ArrayList<>();
+        list.add(new LinkAddress("10.0.0.1/8"));
+        list.add(new LinkAddress("2001:db8:1::101/64"));
+        TestNetworkInterface upstream = tnm.createTunInterface(list);
+        Log.d(TAG, "Created test upstream interface " + upstream.getInterfaceName());
+
+        // Get interface name from TestNetworkInterface.
+        final LinkProperties lp = new LinkProperties();
+        lp.setInterfaceName(upstream.getInterfaceName());
+        lp.addLinkAddress(list.get(0));
+        lp.addLinkAddress(list.get(1));
+        lp.addRoute(new RouteInfo(new IpPrefix(NetworkStackConstants.IPV6_ADDR_ANY, 0), null, upstream.getInterfaceName(), RouteInfo.RTN_UNICAST, 1280));
+        lp.addRoute(new RouteInfo(new IpPrefix(NetworkStackConstants.IPV4_ADDR_ANY, 0), null, upstream.getInterfaceName(), RouteInfo.RTN_UNICAST, 1280));
+        lp.addDnsServer(InetAddress.getByName("8.8.8.8"));
+        lp.addDnsServer(InetAddress.getByName("2001:db8:1::888"));
+        lp.setMtu(1280);
+
+        Log.d(TAG, "register test network agent");
+        final TestNetworkAgent na = new TestNetworkAgent(mContext, mHandlerThread.getLooper(), nc, lp);
+
+        final Network network = callback.waitForAvailable();
+        assertNotNull("Did not receive onAvailable for request", network);
+
+        final Network upstreamNetwork = mTetheringEventCallback.awaitUpstreamConnected();
+
+        assertEquals("onUpstreamChanged for unexpected network", network, upstreamNetwork);
+
+        na.unregister();
+    }
+
+    // NetworkAgent is abstract, so a subclass is necessary
+    private static class TestNetworkAgent extends NetworkAgent {
+        TestNetworkAgent(Context context, Looper looper,
+            NetworkCapabilities nc, LinkProperties lp) {
+            super(context, looper, "TetheringTest", nc, lp, 100
+                    , new NetworkAgentConfig.Builder().build(),
+                    new NetworkProvider(context, looper, "ScoreReportTest agent"));
+            register();
+            markConnected();
         }
     }
 }

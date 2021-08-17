@@ -199,6 +199,17 @@ public class TetheringService extends Service {
             } catch (RemoteException e) { }
         }
 
+        public void setTestMode(boolean enabled, IIntResultListener listener) {
+            if (!hasTetherPrivilegedPermission()) {
+                try {
+                    listener.onResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
+                } catch (RemoteException e) { }
+            }
+
+            mTethering.setTestMode(enabled, listener);
+
+        }
+
         @Override
         protected void dump(@NonNull FileDescriptor fd, @NonNull PrintWriter writer,
                     @Nullable String[] args) {

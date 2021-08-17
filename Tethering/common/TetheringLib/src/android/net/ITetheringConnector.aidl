@@ -49,4 +49,6 @@ oneway interface ITetheringConnector {
 
     void stopAllTethering(String callerPkg, String callingAttributionTag,
             IIntResultListener receiver);
+
+    void setTestMode(boolean enabled, IIntResultListener receiver);
 }
