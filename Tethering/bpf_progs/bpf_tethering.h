@@ -51,6 +51,7 @@
     ERR(SHORT_UDP_HEADER)    \
     ERR(UDP_CSUM_ZERO)       \
     ERR(TRUNCATED_IPV4)      \
+    ERR(EXEMPTED_PORT)       \
     ERR(_MAX)
 
 #define ERR(x) BPF_TETHER_ERR_ ##x,
