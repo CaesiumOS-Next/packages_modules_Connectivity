@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82bfb5d3_977cd82c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-18T12:30:26Z",
+      "side": 1,
+      "message": "Nice cleanup.",
+      "revId": "6b25a33b10c80d0ce194eefb2171bbec4971ca4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe97cf97_4993a3ab",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-18T12:30:26Z",
+      "side": 1,
+      "message": "This is fine for now but maybe you want to add a comment that this will return the wrong UID for this package when queried with other users.\n\nOr, you could fix it immediately by computing the correct uid with a mockito Answer.",
+      "range": {
+        "startLine": 229,
+        "startChar": 61,
+        "endLine": 229,
+        "endChar": 67
+      },
+      "revId": "6b25a33b10c80d0ce194eefb2171bbec4971ca4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d21bf74_e19063d9",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-18T12:30:26Z",
+      "side": 1,
+      "message": "The comment seems incorrect : the code is not calling addPackage, so we\u0027re not calling onPackageAdded. I think it\u0027s fine to fix it by calling addPackage with MOCK_PACKAGE2.",
+      "range": {
+        "startLine": 777,
+        "startChar": 11,
+        "endLine": 777,
+        "endChar": 34
+      },
+      "revId": "6b25a33b10c80d0ce194eefb2171bbec4971ca4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaa60518_3c66e06a",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-18T12:30:26Z",
+      "side": 1,
+      "message": "Here too, it sound like calling addPackage may be more realistic",
+      "range": {
+        "startLine": 823,
+        "startChar": 12,
+        "endLine": 823,
+        "endChar": 31
+      },
+      "revId": "6b25a33b10c80d0ce194eefb2171bbec4971ca4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
