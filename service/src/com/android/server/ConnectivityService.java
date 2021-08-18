@@ -271,6 +271,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
@@ -6867,7 +6868,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void handleUnregisterNetworkOffer(@NonNull final NetworkOfferInfo noi) {
         ensureRunningOnConnectivityServiceThread();
         mNetworkOffers.remove(noi);
-        noi.offer.callback.asBinder().unlinkToDeath(noi, 0 /* flags */);
+        try {
+            noi.offer.callback.asBinder().unlinkToDeath(noi, 0 /* flags */);
+        } catch (NoSuchElementException e) {
+            log("unlinkToDeath failed: " + e);
+        }
     }
 
     @Nullable private NetworkOfferInfo findNetworkOfferInfoByCallback(
