@@ -445,6 +445,10 @@ static inline __always_inline int do_forward4(struct __sk_buff* skb, const bool 
         // If hardware offload is running and programming flows based on conntrack entries, try not
         // to interfere with it, so do not offload TCP packets with any one of the SYN/FIN/RST flags
         if (tcph->syn || tcph->fin || tcph->rst) TC_PUNT(TCP_CONTROL_PACKET);
+
+        // Ftp client packet may need change ip address in kernel netfiler when ftp works in PORT
+        // mode. So we do not offload these packets with ftp port 21.
+        if (ntohs(tcph->source) == 21 || ntohs(tcph->dest) == 21) TC_PUNT(EXEMPTED_PORT);
     } else { // UDP
         // Make sure we can get at the udp header
         if (data + l2_header_size + sizeof(*ip) + sizeof(*udph) > data_end)
