@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d42262_a5355516",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-18T03:27:07Z",
+      "side": 1,
+      "message": "Question: Why these classes cannot be sealed inside the listener classes?\nDo two listener classes share the same event?",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 84
+      },
+      "revId": "248ed0816a44d7f600b57d80156b1fd978f16137",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
