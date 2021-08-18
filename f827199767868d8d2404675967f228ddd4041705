@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5dcfdd8_37122755",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-18T03:30:49Z",
+      "side": 0,
+      "message": "I don\u0027t think we should remove this check because we should make sure the broadcast is sent when a VPN connects. Instead we should make sure there is some non-null initial proxy to make sure connecting sends the broadcast with null.\n\nI think it should be possible to ensure this in a simple manner by calling Proxy.setHttpProxyConfiguration in l.912 with some custom-built ProxyInfo object which could just be a direct proxy to localhost with any port. We would reset it at the end.\nhuangaaron@, you have done some work in this space lately, do you think this would work in this context ? Or, do you have a better idea ?",
+      "range": {
+        "startLine": 920,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 64
+      },
+      "revId": "f827199767868d8d2404675967f228ddd4041705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
