@@ -6867,7 +6867,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void handleUnregisterNetworkOffer(@NonNull final NetworkOfferInfo noi) {
         ensureRunningOnConnectivityServiceThread();
         mNetworkOffers.remove(noi);
-        noi.offer.callback.asBinder().unlinkToDeath(noi, 0 /* flags */);
+        try {
+            noi.offer.callback.asBinder().unlinkToDeath(noi, 0 /* flags */);
+        catch (NoSuchElementException e) {
+            loge("unlinkToDeath failed: " + e);
+        }
     }
 
     @Nullable private NetworkOfferInfo findNetworkOfferInfoByCallback(
