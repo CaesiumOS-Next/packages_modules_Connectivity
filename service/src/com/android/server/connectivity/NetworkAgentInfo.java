@@ -203,6 +203,9 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     // Set to true when partial connectivity was detected.
     public boolean partialConnectivity;
 
+    // Set to true when private DNS is broken.
+    public boolean privateDnsBroken;
+
     // Delay between when the network is disconnected and when the native network is destroyed.
     public int teardownDelayMs;
 
