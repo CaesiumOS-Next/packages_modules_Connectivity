@@ -1,0 +1,452 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a3da08_43ccd5d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "Question not for today: It looks to me the issue is fixed if the offers are coming from different providers. But it is still broken if the offers are coming from the same provider, since the offers will be always needed, right?",
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e8d56f_86f2f3ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "Bug: 195441367",
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0214c5b1_6a192753",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4626,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 4626,
+        "startChar": 11,
+        "endLine": 4626,
+        "endChar": 16
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bc5cb7b_033164c6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4630,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "Question: not sure why you need to copy the list before iterating?",
+      "range": {
+        "startLine": 4630,
+        "startChar": 42,
+        "endLine": 4630,
+        "endChar": 56
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ea15843_c9e54566",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6424,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "Question not for today: why do we need FullScore here while the offer can only provide half?",
+      "range": {
+        "startLine": 6424,
+        "startChar": 16,
+        "endLine": 6424,
+        "endChar": 25
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e07b32_f257a568",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6433,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "1. Question: IIUC you did not call FullScore#mixInScore given that you are lack of some fields from config?\n\n2. nit: It looks to me this is another variation of mixInScore, maybe name it the same? We can do that when it is really needed, so feel free to ignore.",
+      "range": {
+        "startLine": 6433,
+        "startChar": 16,
+        "endLine": 6433,
+        "endChar": 62
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e41da06_11ca1f51",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6435,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "It seems this will unconditionally unregister/re-register network offer,\neven if the score is not updated.\nDo we want to make this function \"maybe\"UpdateOfferScore?",
+      "range": {
+        "startLine": 6435,
+        "startChar": 8,
+        "endLine": 6435,
+        "endChar": 34
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1928b23_f8da7c87",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6858,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "super nit: not for this cl, as the javadoc says this is a register or update, is it better if we name it accordingly?",
+      "range": {
+        "startLine": 6858,
+        "startChar": 17,
+        "endLine": 6858,
+        "endChar": 43
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de29d00_34f82f2a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6877,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "nit:\n1. It seems we have NetworkOffer.toString(), and that wraps the score and cap.\n2. given that the log is super long, IIUC no one would read english in it.\nIf so, is it cleaner if we just make it short?\n log(\"update offer from providerId \" + newOffer.providerId\n                        + \" new: \" + newOffer.offer\n                        + \" old: \" + existingOffer.offer);\n                        \n3. the log partially duplicates with the one in unregister.\nbut since this is wrapped with DBG it seems ok to me.",
+      "range": {
+        "startLine": 6873,
+        "startChar": 15,
+        "endLine": 6877,
+        "endChar": 56
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aebb352_6da9247e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6882,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 6882,
+        "startChar": 26,
+        "endLine": 6882,
+        "endChar": 88
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f17c84f_8fb0aee3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6900,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 6900,
+        "startChar": 24,
+        "endLine": 6900,
+        "endChar": 86
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6755600_1d0790dd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "nit: not for this CL, if this is private can we delete this?",
+      "range": {
+        "startLine": 831,
+        "startChar": 8,
+        "endLine": 834,
+        "endChar": 9
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f59ffd7_42d2d792",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "1. Does this equal to \n  na \u003d new TestInstrumentedNetworkAgent(this, linkProperties, nac, provider);\n?\nIf so, can we just delete the constructors without a provider?\n\n2. If so, it seems to me refactor these into TestInstrumentedNetworkAgent is not that necessary, given that only this function will use it.",
+      "range": {
+        "startLine": 905,
+        "startChar": 12,
+        "endLine": 909,
+        "endChar": 13
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86ac58b8_b6a5c7d9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4825,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "IIUC you can reuse this one with some modification?\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/libs/net/common/testutils/devicetests/com/android/testutils/TestableNetworkOfferCallback.kt;l\u003d26?q\u003dTestableNetworkOfferCallback\u0026ss\u003dandroid",
+      "range": {
+        "startLine": 4825,
+        "startChar": 10,
+        "endLine": 4825,
+        "endChar": 34
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33426d70_41fb8751",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4858,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "nit: IIUC This function does not fail immediately if the event is not there.\nIf so, is it better name it expectXXX instead of assertXXX?",
+      "range": {
+        "startLine": 4858,
+        "startChar": 20,
+        "endLine": 4858,
+        "endChar": 26
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66533a2e_c96d8ef8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4877,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "nit: \nIIUC this will make getAvoidBadWifi() always return true?\nIf so, maybe also write this consequence in comment because it is hard to figure out?",
+      "range": {
+        "startLine": 4877,
+        "startChar": 79,
+        "endLine": 4877,
+        "endChar": 80
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2b29190_a46d97ac",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4906,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "nit: IIUC this is inline executor so it will make the event be fired on the thread that provider runs?\nIf so maybe add some comment?",
+      "range": {
+        "startLine": 4906,
+        "startChar": 63,
+        "endLine": 4906,
+        "endChar": 75
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95d0fff4_31660570",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4933,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "Question: what does it affect by passing the provider?\nIIUC it affects \n1. logging\n2. the offer is always needed if the provider is the same\n\njust to double confirm.",
+      "range": {
+        "startLine": 4933,
+        "startChar": 61,
+        "endLine": 4933,
+        "endChar": 73
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ffd2b7_1b6665cb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4954,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "IIUC From updateAvoidBadWifi it seems the value of getAvoidBadWifi is still depends on the settings value.\nIf so, maybe add comment for it?",
+      "range": {
+        "startLine": 4954,
+        "startChar": 86,
+        "endLine": 4954,
+        "endChar": 87
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "939b8023_9ce08d1d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4957,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T00:15:48Z",
+      "side": 1,
+      "message": "IIUC The settings for avoid bad wifi is default enabled, right?\nif so, we might need to put 0 into settings like what we did in testAvoidBadWifiConfig_controlledBySettings?",
+      "range": {
+        "startLine": 4957,
+        "startChar": 8,
+        "endLine": 4957,
+        "endChar": 86
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
