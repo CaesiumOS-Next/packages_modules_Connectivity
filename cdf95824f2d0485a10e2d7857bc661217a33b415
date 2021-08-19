@@ -16,6 +16,75 @@
       "message": "First round of update, will continue later today",
       "revId": "cdf95824f2d0485a10e2d7857bc661217a33b415",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74642a5b_c7fab04a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6877,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T05:59:41Z",
+      "side": 1,
+      "message": "style nit: should be fit in one line?",
+      "range": {
+        "startLine": 6877,
+        "startChar": 19,
+        "endLine": 6877,
+        "endChar": 48
+      },
+      "revId": "cdf95824f2d0485a10e2d7857bc661217a33b415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55866306_9cbfd6b9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6882,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T05:59:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 6882,
+        "startChar": 24,
+        "endLine": 6882,
+        "endChar": 44
+      },
+      "revId": "cdf95824f2d0485a10e2d7857bc661217a33b415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5da6003_3758d24f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6900,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T05:59:41Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 6900,
+        "startChar": 20,
+        "endLine": 6900,
+        "endChar": 41
+      },
+      "revId": "cdf95824f2d0485a10e2d7857bc661217a33b415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

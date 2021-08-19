@@ -308,6 +308,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1889d415_1cb50ef1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6435,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T05:59:41Z",
+      "side": 1,
+      "message": "To me it is kind of unnecessary and also might be some confustion for logging.\nWhere people of other teams might see the unregister logs and ask for clarification.\n  If it is no harm I would prefer to add such test to have less chance of making issues in the future and avoid possible clarification efforts.",
+      "parentUuid": "4f7e8333_c179fff2",
+      "range": {
+        "startLine": 6435,
+        "startChar": 8,
+        "endLine": 6435,
+        "endChar": 34
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1928b23_f8da7c87",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
