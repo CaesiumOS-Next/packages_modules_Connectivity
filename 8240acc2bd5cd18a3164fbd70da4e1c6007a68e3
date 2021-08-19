@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2131e650_6bcc7aa2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "I mean, kind of ?\n\nI know what you mean, and you\u0027re right, but it\u0027s a separate issue with broader scope than this. Importantly, what you point at is not a regression from R, and also this bug is about ranking of cellular agents versus wifi agents in the presence of the setting, which are different providers in all cases today.\n\nSo I think it\u0027s not relevant here.",
+      "parentUuid": "c3a3da08_43ccd5d0",
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1e8d56f_86f2f3ff",
@@ -35,6 +53,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e65ced65_d4f9b636",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1e8d56f_86f2f3ff",
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0214c5b1_6a192753",
@@ -48,6 +84,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "nit: typo",
+      "range": {
+        "startLine": 4626,
+        "startChar": 11,
+        "endLine": 4626,
+        "endChar": 16
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b374da7_7a04c309",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4626,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0214c5b1_6a192753",
       "range": {
         "startLine": 4626,
         "startChar": 11,
@@ -81,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8653febd_ba195e0c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4630,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bc5cb7b_033164c6",
+      "range": {
+        "startLine": 4630,
+        "startChar": 42,
+        "endLine": 4630,
+        "endChar": 56
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ea15843_c9e54566",
@@ -94,6 +178,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "Question not for today: why do we need FullScore here while the offer can only provide half?",
+      "range": {
+        "startLine": 6424,
+        "startChar": 16,
+        "endLine": 6424,
+        "endChar": 25
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c431fffc_6ccdd004",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6424,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "It\u0027s not true that the offer only provides half. The offer provides what is the responsibility of the agent, but the part that is the responsibility of connectivity is still important for scoring. This bug is a good example.",
+      "parentUuid": "7ea15843_c9e54566",
       "range": {
         "startLine": 6424,
         "startChar": 16,
@@ -127,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec8e441_aaba4013",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6433,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "1. Not just the configuration, this also doesn\u0027t know the original NetworkScore. I could have made a NetworkScore from a FullScore and used makeProspectiveScore instead, but this seemed more straightforward.\n\n2. It\u0027s kind of a variation of mixInScore in usage, but not really in principle. mixInScore is about mixing the CS-managed capabilities, and it\u0027s named after mixInCapabilities and other functions in CS. This is the with* pattern, which is the standard way of calling a function on an immutable object that will return a similar object with one or more differences.\n\nSo I don\u0027t think we should call that one \"mixIn...\" because it doesn\u0027t do what our other mixIn functions do.\n\n If we take the problem the other way around and name them after their usage instead of naming them after what they do, in which case both of them would be something like updateFor... or something. But I think naming should follow what it *does* rather than how it\u0027s used in almost all cases. How it\u0027s used is the caller\u0027s business, and when you read the code and check the logic it lets you understand how it\u0027s implemented. Case in point, here if we said \"updateFor...\", you wouldn\u0027t know what is updated so it would be harder to understand.",
+      "parentUuid": "23e07b32_f257a568",
+      "range": {
+        "startLine": 6433,
+        "startChar": 16,
+        "endLine": 6433,
+        "endChar": 62
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e41da06_11ca1f51",
@@ -140,6 +272,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "It seems this will unconditionally unregister/re-register network offer,\neven if the score is not updated.\nDo we want to make this function \"maybe\"UpdateOfferScore?",
+      "range": {
+        "startLine": 6435,
+        "startChar": 8,
+        "endLine": 6435,
+        "endChar": 34
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f7e8333_c179fff2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6435,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "I don\u0027t see a problem with this, since it won\u0027t send callbacks. I guess we could avoid doing it if newOffer.equals(offer) ? If you feel strongly I\u0027ll do it, but this is a very rare call and there aren\u0027t a lot of offers so I don\u0027t think it\u0027s really worth making the test.",
+      "parentUuid": "9e41da06_11ca1f51",
       "range": {
         "startLine": 6435,
         "startChar": 8,
@@ -173,6 +329,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0b75100_1de4e854",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6858,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "Added a todo",
+      "parentUuid": "d1928b23_f8da7c87",
+      "range": {
+        "startLine": 6858,
+        "startChar": 17,
+        "endLine": 6858,
+        "endChar": 43
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9de29d00_34f82f2a",
@@ -186,6 +366,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "nit:\n1. It seems we have NetworkOffer.toString(), and that wraps the score and cap.\n2. given that the log is super long, IIUC no one would read english in it.\nIf so, is it cleaner if we just make it short?\n log(\"update offer from providerId \" + newOffer.providerId\n                        + \" new: \" + newOffer.offer\n                        + \" old: \" + existingOffer.offer);\n                        \n3. the log partially duplicates with the one in unregister.\nbut since this is wrapped with DBG it seems ok to me.",
+      "range": {
+        "startLine": 6873,
+        "startChar": 15,
+        "endLine": 6877,
+        "endChar": 56
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceae8d64_e3d1a7cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6877,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "What you suggest is simpler in any case. Done.\n\nGood point about the duplication. Done too.",
+      "parentUuid": "9de29d00_34f82f2a",
       "range": {
         "startLine": 6873,
         "startChar": 15,
@@ -219,6 +423,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53821974_f5227540",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6882,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aebb352_6da9247e",
+      "range": {
+        "startLine": 6882,
+        "startChar": 26,
+        "endLine": 6882,
+        "endChar": 88
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f17c84f_8fb0aee3",
@@ -232,6 +460,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 6900,
+        "startChar": 24,
+        "endLine": 6900,
+        "endChar": 86
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc5545a7_8b0e1c65",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6900,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f17c84f_8fb0aee3",
       "range": {
         "startLine": 6900,
         "startChar": 24,
@@ -278,6 +530,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "1. Does this equal to \n  na \u003d new TestInstrumentedNetworkAgent(this, linkProperties, nac, provider);\n?\nIf so, can we just delete the constructors without a provider?\n\n2. If so, it seems to me refactor these into TestInstrumentedNetworkAgent is not that necessary, given that only this function will use it.",
+      "range": {
+        "startLine": 905,
+        "startChar": 12,
+        "endLine": 909,
+        "endChar": 13
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32a6005_88ca7ff4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T05:09:26Z",
+      "side": 1,
+      "message": "No it doesn\u0027t 😞\n\nThis is existing. The central problem is that in the existing code, the provider is created automatically in the three-version argument, and that\u0027s called in many places in the tree, so if I remove the three-arg constructor it will make this change much bigger and span across multiple repositories.\n\nWhat we can do is have the three-arg version pass null and the four-arg create the provider if null. That\u0027s probably simpler than what I have, done.",
+      "parentUuid": "9f59ffd7_42d2d792",
       "range": {
         "startLine": 905,
         "startChar": 12,
