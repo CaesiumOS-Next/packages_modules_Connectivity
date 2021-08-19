@@ -34,6 +34,24 @@
       "parentUuid": "4577ec49_d40732da",
       "revId": "ac78b5980c553fef87b9c3d5f1871dd02d6fc52d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eff06cf_9055d9f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-08-19T12:47:32Z",
+      "side": 1,
+      "message": "Yes, agreed for both.  But let\u0027s move this discussion to the bug.",
+      "parentUuid": "66c64c2b_d11d2f70",
+      "revId": "ac78b5980c553fef87b9c3d5f1871dd02d6fc52d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
