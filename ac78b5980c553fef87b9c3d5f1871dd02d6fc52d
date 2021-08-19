@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4577ec49_d40732da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-08-19T12:03:03Z",
+      "side": 1,
+      "message": "Hmm, during tethering offload development we actually had an action item somewhere to exclude ports covered by nat helper algos.  I guess we missed it / forgot about it.\n\nI was close to +2-ing and merging this, but, actually I think this should be handled by simply not adding the appropriate offload rules to the maps in the first place.\n\nAdditionally, there are various other protocol/ports that should be excluded.\n\nFor example on a bonito I see:\n\n# cat /proc/config.gz | egrep -i NF_CONN                                        \u003c\n\nCONFIG_NF_CONNTRACK\u003dy\nCONFIG_NF_CONNTRACK_MARK\u003dy\nCONFIG_NF_CONNTRACK_SECMARK\u003dy\n# CONFIG_NF_CONNTRACK_ZONES is not set\nCONFIG_NF_CONNTRACK_PROCFS\u003dy\nCONFIG_NF_CONNTRACK_EVENTS\u003dy\n# CONFIG_NF_CONNTRACK_TIMEOUT is not set\n# CONFIG_NF_CONNTRACK_TIMESTAMP is not set\n\nCONFIG_NF_CONNTRACK_AMANDA\u003dy\nCONFIG_NF_CONNTRACK_FTP\u003dy\nCONFIG_NF_CONNTRACK_H323\u003dy\nCONFIG_NF_CONNTRACK_IRC\u003dy\nCONFIG_NF_CONNTRACK_BROADCAST\u003dy\nCONFIG_NF_CONNTRACK_NETBIOS_NS\u003dy\n# CONFIG_NF_CONNTRACK_SNMP is not set\nCONFIG_NF_CONNTRACK_PPTP\u003dy\nCONFIG_NF_CONNTRACK_SANE\u003dy\n# CONFIG_NF_CONNTRACK_SIP is not set\nCONFIG_NF_CONNTRACK_TFTP\u003dy\n\nSo there\u0027s helpers for at least AMANDA, FTP, H323, IRC, NETBIOS_NS, SNMP, PPTP, SANE, SIP, TFTP already on a 4.9 kernel.\n\nOf these at least FTP, IRC, PPTP, SIP seem likely desirable in general.\n\nI think this means we should probably have 4 lists of excluded ports.\n\nnon_offloaded_{down,up}stream_ipv4_{tcp,udp}_ports\n\nwith some reasonable defaults, but overridable on a per-device basis...\n\nThen we would simply add 21(ftp) to non_offloaded_upstream_ipv4_tcp_ports and make sure the Java tethering module doesn\u0027t create offload rules if the upstream port is tcp/21.\n\nNucca?  Mark?",
+      "revId": "ac78b5980c553fef87b9c3d5f1871dd02d6fc52d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
