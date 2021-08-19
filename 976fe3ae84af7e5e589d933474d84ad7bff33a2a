@@ -110,6 +110,30 @@
       },
       "revId": "976fe3ae84af7e5e589d933474d84ad7bff33a2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "745acd8f_ab6d9dc7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4857,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T14:51:24Z",
+      "side": 1,
+      "message": "Yeah I\u0027m awared this is correct and hard to break for now.\nBut I\u0027m worried about this is error-prone where people follow this pattern to check default request and it gets passed easily for any default-like requests.\nBut on second thought maybe I\u0027m worried too much, let\u0027s keep it as is.",
+      "parentUuid": "5d367161_1cd806ae",
+      "range": {
+        "startLine": 4857,
+        "startChar": 21,
+        "endLine": 4857,
+        "endChar": 56
+      },
+      "revId": "976fe3ae84af7e5e589d933474d84ad7bff33a2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
