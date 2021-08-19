@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9889891_e5a62e91",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6877,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T13:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74642a5b_c7fab04a",
+      "range": {
+        "startLine": 6877,
+        "startChar": 19,
+        "endLine": 6877,
+        "endChar": 48
+      },
+      "revId": "cdf95824f2d0485a10e2d7857bc661217a33b415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55866306_9cbfd6b9",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a51a3f0e_4e5940b1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6882,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T13:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55866306_9cbfd6b9",
+      "range": {
+        "startLine": 6882,
+        "startChar": 24,
+        "endLine": 6882,
+        "endChar": 44
+      },
+      "revId": "cdf95824f2d0485a10e2d7857bc661217a33b415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5da6003_3758d24f",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-08-19T05:59:41Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 6900,
+        "startChar": 20,
+        "endLine": 6900,
+        "endChar": 41
+      },
+      "revId": "cdf95824f2d0485a10e2d7857bc661217a33b415",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3fe43a3_31016fdd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6900,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T13:54:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5da6003_3758d24f",
       "range": {
         "startLine": 6900,
         "startChar": 20,
