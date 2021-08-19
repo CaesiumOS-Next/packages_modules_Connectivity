@@ -543,6 +543,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eaa07a18_7846e3a3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T10:08:08Z",
+      "side": 1,
+      "message": "Feasible, but it would touch many places unrelated to this patch (10+ places). Are you sure that\u0027s what you want ?",
+      "parentUuid": "f6755600_1d0790dd",
+      "range": {
+        "startLine": 831,
+        "startChar": 8,
+        "endLine": 834,
+        "endChar": 9
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f59ffd7_42d2d792",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 1
@@ -611,6 +635,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a38e5f24_2f5e73bd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4825,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T10:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86ac58b8_b6a5c7d9",
+      "range": {
+        "startLine": 4825,
+        "startChar": 10,
+        "endLine": 4825,
+        "endChar": 34
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33426d70_41fb8751",
@@ -624,6 +672,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "nit: IIUC This function does not fail immediately if the event is not there.\nIf so, is it better name it expectXXX instead of assertXXX?",
+      "range": {
+        "startLine": 4858,
+        "startChar": 20,
+        "endLine": 4858,
+        "endChar": 26
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d42e9e4c_b81b8487",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4858,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T10:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33426d70_41fb8751",
       "range": {
         "startLine": 4858,
         "startChar": 20,
@@ -657,6 +729,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a598f3c_982b533f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4877,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T10:08:08Z",
+      "side": 1,
+      "message": "I don\u0027t think this is particularly hard to figure out (that\u0027s the one impact if you search for config_networkAvoidBadWifi), but done.",
+      "parentUuid": "66533a2e_c96d8ef8",
+      "range": {
+        "startLine": 4877,
+        "startChar": 79,
+        "endLine": 4877,
+        "endChar": 80
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2b29190_a46d97ac",
@@ -670,6 +766,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "nit: IIUC this is inline executor so it will make the event be fired on the thread that provider runs?\nIf so maybe add some comment?",
+      "range": {
+        "startLine": 4906,
+        "startChar": 63,
+        "endLine": 4906,
+        "endChar": 75
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66968b20_8ae4f1a1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4906,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T10:08:08Z",
+      "side": 1,
+      "message": "Done, but I\u0027m not sure what the comment buys. Inline executors are common especially in tests, and I don\u0027t think you need to add a comment every time you use an inline executor.",
+      "parentUuid": "f2b29190_a46d97ac",
       "range": {
         "startLine": 4906,
         "startChar": 63,
@@ -703,6 +823,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a67598df_09438dad",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4933,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T10:08:08Z",
+      "side": 1,
+      "message": "Foremost it will affect the providerId. If I don\u0027t do this, CS would see -1 for the provider of both agents, so when cell connects it doesn\u0027t know it\u0027s the cell provider connecting and we send unneeded.\n\nSo yes you have it right",
+      "parentUuid": "95d0fff4_31660570",
+      "range": {
+        "startLine": 4933,
+        "startChar": 61,
+        "endLine": 4933,
+        "endChar": 73
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3ffd2b7_1b6665cb",
@@ -726,6 +870,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eacae242_01ad4184",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4954,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T10:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3ffd2b7_1b6665cb",
+      "range": {
+        "startLine": 4954,
+        "startChar": 86,
+        "endLine": 4954,
+        "endChar": 87
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "939b8023_9ce08d1d",
@@ -739,6 +907,30 @@
       "writtenOn": "2021-08-19T00:15:48Z",
       "side": 1,
       "message": "IIUC The settings for avoid bad wifi is default enabled, right?\nif so, we might need to put 0 into settings like what we did in testAvoidBadWifiConfig_controlledBySettings?",
+      "range": {
+        "startLine": 4957,
+        "startChar": 8,
+        "endLine": 4957,
+        "endChar": 86
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d589f5bc_e6aa6185",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4957,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-19T10:08:08Z",
+      "side": 1,
+      "message": "It\u0027s not necessary. This test wants the end result to be false. It doesn\u0027t matter at all how it\u0027s achieved.\n\nTo have getAvoidBadWifi return false, the resource has to be 0 and the setting must be 0 or the default null. So I have to set the resource regardless. The setting can just keep the default null value.",
+      "parentUuid": "939b8023_9ce08d1d",
       "range": {
         "startLine": 4957,
         "startChar": 8,
