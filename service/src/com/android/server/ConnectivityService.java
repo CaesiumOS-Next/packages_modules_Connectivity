@@ -3938,7 +3938,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Delayed teardown.
         try {
             mNetd.networkSetPermissionForNetwork(nai.network.netId, INetd.PERMISSION_SYSTEM);
-        } catch (RemoteException e) {
+        } catch (RemoteException | ServiceSpecificException e) {
+            // Networks moving from suspended to disconnected with a delayed teardown may
+            // already have been destroyed. Need to catch ServiceSpecificException here
+            // in that case.
             Log.d(TAG, "Error marking network restricted during teardown: " + e);
         }
         mHandler.postDelayed(() -> destroyNetwork(nai), nai.teardownDelayMs);
