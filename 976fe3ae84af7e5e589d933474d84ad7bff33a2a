@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "507248f6_3b53e25f",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T10:38:08Z",
+      "side": 1,
+      "message": "Question: do we support set yield to bad wifi from NetworkScore#setShouldYieldToBadWifi now?\nIIUC we don\u0027t, since it will be filtered by this mask, right?",
+      "range": {
+        "startLine": 247,
+        "startChar": 60,
+        "endLine": 247,
+        "endChar": 82
+      },
+      "revId": "976fe3ae84af7e5e589d933474d84ad7bff33a2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a75a6f9_fe32c26a",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
