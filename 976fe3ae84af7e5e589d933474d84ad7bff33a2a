@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ecd2fad_4651ed4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T10:26:39Z",
+      "side": 1,
+      "message": "LGTM with nits that could be ignored.",
+      "revId": "976fe3ae84af7e5e589d933474d84ad7bff33a2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a75a6f9_fe32c26a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 4857,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T10:26:39Z",
+      "side": 1,
+      "message": "nit: IIUC mobile always on request will also be satisfied by the defautCaps.\nIf so, is it better if you check request id like previous patch, but no strong opinion.",
+      "range": {
+        "startLine": 4857,
+        "startChar": 21,
+        "endLine": 4857,
+        "endChar": 56
+      },
+      "revId": "976fe3ae84af7e5e589d933474d84ad7bff33a2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

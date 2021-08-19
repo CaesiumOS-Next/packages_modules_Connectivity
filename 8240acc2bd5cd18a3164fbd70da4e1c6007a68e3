@@ -565,6 +565,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce6e5548_a70f21c6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-19T10:26:39Z",
+      "side": 1,
+      "message": "That is why I said this comment is not for this CL.\nBut maybe not worthy of doing that.\nLet\u0027s forget about it.",
+      "parentUuid": "eaa07a18_7846e3a3",
+      "range": {
+        "startLine": 831,
+        "startChar": 8,
+        "endLine": 834,
+        "endChar": 9
+      },
+      "revId": "8240acc2bd5cd18a3164fbd70da4e1c6007a68e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f59ffd7_42d2d792",
