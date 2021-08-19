@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7c7411d_45c42cf9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-08-19T14:49:23Z",
+      "side": 1,
+      "message": "you don\u0027t reference the object outside TetheringStats, so change the class to \"private static class\" to avoid inexplicitly reference the whole TetheringStatsUtils.",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "989f01c36944c4dbc6f5888032d2285e9f19d923",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dabb228_c665f9ee",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-08-19T14:49:23Z",
+      "side": 1,
+      "message": "This seems be error prone that if stats is not ready to write but we just remove silently. Looking the code, it seems we don\u0027t have the case that try to write the stats when stats is not ready.\n\nProbably rename the function to writeTetheringStats.\n\n    public void writeTetheringStats(final int downstreamType) {\n        final TetheringStats tetheringStats \u003d mTetheringStatsMap.get(downstreamType);\n        if (tetheringStats \u003d\u003d null || !tetheringStats.isReadyToWrite()) return;\n        \n        final NetworkTetheringReported statsReported \u003d tetheringStats.getNetworkTetheringReported();\n        write(statsReported.getErrorCode(), statsReported.getDownstreamType(),\n                statsReported.getUserType());\n        mTetheringStatsMap.remove(downstreamType);\n    }",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 72
+      },
+      "revId": "989f01c36944c4dbc6f5888032d2285e9f19d923",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179e42b9_10937b54",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-08-19T14:49:23Z",
+      "side": 1,
+      "message": "add an empty space above this line could make reader aware early return case.",
+      "revId": "989f01c36944c4dbc6f5888032d2285e9f19d923",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b609a4d_c0ac9c1f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-08-19T14:49:23Z",
+      "side": 1,
+      "message": "If we rename maybeRemoveAndWriteTetheringStats to writeTetheringStats, then we can just move this code into writeTetheringStats",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 5
+      },
+      "revId": "989f01c36944c4dbc6f5888032d2285e9f19d923",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
