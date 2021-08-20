@@ -47,7 +47,18 @@
       "keywords": ["sim"]
     },
     {
-      "name": "TetheringCoverageTests[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex]"
+      // Test CTS with only APK modules updated, for devices that do not support APEX (still
+      // supported for upgrading devices as of S). Also devices that upgrade from Q to R/S may
+      // only have an updated NetworkStack module, and no tethering module at first.
+      "name": "CtsNetTestCasesLatestSdk[CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk]",
+      "options": [
+        {
+          "exclude-annotation": "com.android.testutils.SkipPresubmit"
+        },
+        {
+          "exclude-annotation": "com.android.testutils.ConnectivityModuleTest"
+        }
+      ]
     }
   ],
   "imports": [
