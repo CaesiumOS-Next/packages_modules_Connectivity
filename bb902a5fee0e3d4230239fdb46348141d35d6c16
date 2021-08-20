@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd774bde_4010f209",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6423,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-20T06:22:01Z",
+      "side": 1,
+      "message": "...and I think we should take avoidBadWifi into account for these. Suppose you have a request with a very broad filter matching everything, when we compare a newly unvalidated wifi against the IMS network, I think the carrier requirement dictates that the IMS network should not be kept up.",
+      "parentUuid": "503b39f9_cb610cc7",
+      "range": {
+        "startLine": 6423,
+        "startChar": 75,
+        "endLine": 6423,
+        "endChar": 76
+      },
+      "revId": "bb902a5fee0e3d4230239fdb46348141d35d6c16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "937d6004_70596cef",
