@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8028ad64_93f3f445",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-20T01:53:23Z",
+      "side": 1,
+      "message": "This is just a flag argument not sure why it\u0027s related to other users but I think you are right this will return the same PackageInfo for all users. So I add comments accordingly.\nHowever, I don\u0027t think this error will happen in practice. You can look at the PermissionMonitor code, getPackageInfo() is using the same Context object for querying. So it should not have a different user problem.",
+      "parentUuid": "fe97cf97_4993a3ab",
+      "range": {
+        "startLine": 229,
+        "startChar": 61,
+        "endLine": 229,
+        "endChar": 67
+      },
+      "revId": "6b25a33b10c80d0ce194eefb2171bbec4971ca4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d21bf74_e19063d9",
         "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-08-18T12:30:26Z",
       "side": 1,
       "message": "The comment seems incorrect : the code is not calling addPackage, so we\u0027re not calling onPackageAdded. I think it\u0027s fine to fix it by calling addPackage with MOCK_PACKAGE2.",
+      "range": {
+        "startLine": 777,
+        "startChar": 11,
+        "endLine": 777,
+        "endChar": 34
+      },
+      "revId": "6b25a33b10c80d0ce194eefb2171bbec4971ca4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8db7c9b_281f65eb",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-20T01:53:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d21bf74_e19063d9",
       "range": {
         "startLine": 777,
         "startChar": 11,
@@ -77,6 +125,30 @@
       "writtenOn": "2021-08-18T12:30:26Z",
       "side": 1,
       "message": "Here too, it sound like calling addPackage may be more realistic",
+      "range": {
+        "startLine": 823,
+        "startChar": 12,
+        "endLine": 823,
+        "endChar": 31
+      },
+      "revId": "6b25a33b10c80d0ce194eefb2171bbec4971ca4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ce6520_4b13b017",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-20T01:53:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaa60518_3c66e06a",
       "range": {
         "startLine": 823,
         "startChar": 12,
