@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29c3aa2a_71b1cf0e",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-08-20T06:57:15Z",
+      "side": 0,
+      "message": "Isn\u0027t mean we remove TetheringCoverageTests out of postsubmit ?\nWhy replace the test instead of adding new test ?",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 37
+      },
+      "revId": "1c603e7ec3376e39cf693d7928b1c176a365dbb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
