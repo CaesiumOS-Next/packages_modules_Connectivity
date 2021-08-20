@@ -16,6 +16,29 @@
       "message": "LGTM, but maybe Jean would like to have a look ?",
       "revId": "3efe59d23063749ae6d8e2c8588340bd0a6942b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da585b27_f7991ca1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6873,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-20T07:30:52Z",
+      "side": 1,
+      "message": "If this is expected to happen in normal cases, maybe just \"log\" as non-error ?",
+      "range": {
+        "startLine": 6873,
+        "startChar": 12,
+        "endLine": 6873,
+        "endChar": 16
+      },
+      "revId": "3efe59d23063749ae6d8e2c8588340bd0a6942b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
