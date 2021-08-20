@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "503b39f9_cb610cc7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6423,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-20T06:17:22Z",
+      "side": 1,
+      "message": "That\u0027s not true. If you file a best callback or a request with a broad capabilities object for example, we\u0027ll compare them together. I think IWLAN has cell transport, but you can just file any request with say TRANSPORT_WIFI|TRANSPORT_CELLULAR, possibly remove NET_CAP_NOT_RESTRICTED and the stack will be happily compare IMS to wifi.",
+      "parentUuid": "8924895e_50ddf192",
+      "range": {
+        "startLine": 6423,
+        "startChar": 75,
+        "endLine": 6423,
+        "endChar": 76
+      },
+      "revId": "bb902a5fee0e3d4230239fdb46348141d35d6c16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "937d6004_70596cef",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "104863e1_cfa710e1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6430,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-20T06:17:22Z",
+      "side": 1,
+      "message": "Today that\u0027s true, but if we wanted to update something else all we\u0027d have to do is add it here. This method is meant to update everything that CS manages that might change, and it just happens that today it\u0027s only bad wifi",
+      "parentUuid": "937d6004_70596cef",
+      "range": {
+        "startLine": 6430,
+        "startChar": 17,
+        "endLine": 6430,
+        "endChar": 33
+      },
+      "revId": "bb902a5fee0e3d4230239fdb46348141d35d6c16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "612973f8_5f7dbe4a",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-08-20T05:14:38Z",
       "side": 1,
       "message": "Remember to remove or fix this in a follow-up. :-)",
+      "range": {
+        "startLine": 4851,
+        "startChar": 8,
+        "endLine": 4851,
+        "endChar": 35
+      },
+      "revId": "bb902a5fee0e3d4230239fdb46348141d35d6c16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ad0687_d57ffd5e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 4851,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-20T06:17:22Z",
+      "side": 1,
+      "message": "Oops. aosp/1803417",
+      "parentUuid": "612973f8_5f7dbe4a",
       "range": {
         "startLine": 4851,
         "startChar": 8,
