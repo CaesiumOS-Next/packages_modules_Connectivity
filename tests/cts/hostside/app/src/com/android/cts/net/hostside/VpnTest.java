@@ -909,24 +909,15 @@ public class VpnTest extends InstrumentationTestCase {
     public void testNoProxy() throws Exception {
         if (!supportedHardware()) return;
         ProxyInfo initialProxy = mCM.getDefaultProxy();
-        BlockingBroadcastReceiver proxyBroadcastReceiver = new ProxyChangeBroadcastReceiver();
-        proxyBroadcastReceiver.register();
         String allowedApps = mPackageName;
         startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"},
                 new String[] {"0.0.0.0/0", "::/0"}, allowedApps, "", null,
                 null /* underlyingNetworks */, false /* isAlwaysMetered */);
 
-        try {
-            assertNotNull("No proxy change was broadcast.",
-                    proxyBroadcastReceiver.awaitForBroadcast());
-        } finally {
-            proxyBroadcastReceiver.unregisterQuietly();
-        }
-
         // The VPN network has no proxy set.
         assertNetworkHasExpectedProxy(null, mNetwork);
 
-        proxyBroadcastReceiver = new ProxyChangeBroadcastReceiver();
+        BlockingBroadcastReceiver proxyBroadcastReceiver = new ProxyChangeBroadcastReceiver();
         proxyBroadcastReceiver.register();
         stopVpn();
         try {
