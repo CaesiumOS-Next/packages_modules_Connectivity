@@ -70,6 +70,30 @@
       },
       "revId": "6d44b50a4154aa0100311eaeb9a516e86d25edf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d01958c_88d922f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-23T09:38:42Z",
+      "side": 1,
+      "message": "Sorry for the incorrect reply. The behavior in the commit message is correct. It\u0027s\n\n 3. networkRemoveInterface(oldIface)\n 4. networkRemoveRoute(oldIface)\n \nRegarding to the order, removing interface first then the route is s the legacy order. I may expect to see such issue generically wen a interface is removed. But I do not observe it from log. Is this really an issue? or that will only happen in certain cases?",
+      "parentUuid": "f0f530ae_ce3de4c9",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "6d44b50a4154aa0100311eaeb9a516e86d25edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
