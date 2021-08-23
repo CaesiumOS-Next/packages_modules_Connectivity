@@ -1734,7 +1734,15 @@ public class ConnectivityServiceTest {
     }
 
     private void returnRealCallingUid() {
-        doAnswer((invocationOnMock) -> Binder.getCallingUid()).when(mDeps).getCallingUid();
+        try {
+            doAnswer((invocationOnMock) -> Binder.getCallingUid()).when(mDeps).getCallingUid();
+        } catch (UnfinishedStubbingException e) {
+            final MockingDetails details = Mockito.mockingDetails(mDeps);
+            Log.e("ConnectivityServiceTest", "UnfinishedStubbingException,"
+                + " Stubbings: " + TextUtils.join(", ", details.getStubbings())
+                + " Invocations: " + details.printInvocations(), e)
+            throw e;
+        }
     }
 
     private ConnectivityService.Dependencies makeDependencies() {
