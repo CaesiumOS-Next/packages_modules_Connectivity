@@ -22,6 +22,30 @@
       },
       "revId": "f827199767868d8d2404675967f228ddd4041705",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d675294a_567aa434",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-08-23T03:40:16Z",
+      "side": 0,
+      "message": "Agree with setting a non-null initial proxy and maybe we can add a check in the broadcast receiver.\n   - Add a CountDownLatch in ProxyChangeBroadcastReceiver and a method \n     waitForProxyChanged.\n   - When onReceive() is called, get ProxyInfo through intent.getExtra() and check \n     if it is expected or not.\n\nBut Proxy.setHttpProxyConfiguration only change the system properties of proxy.\nI think mCM.getDefaultProxy() will still return null.\nJean, what about setting a global proxy for the test? But set a global proxy through ConnectivityManager requires NetworkStack permission. Or do we have other way to set a default proxy?",
+      "parentUuid": "c5dcfdd8_37122755",
+      "range": {
+        "startLine": 920,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 64
+      },
+      "revId": "f827199767868d8d2404675967f228ddd4041705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
