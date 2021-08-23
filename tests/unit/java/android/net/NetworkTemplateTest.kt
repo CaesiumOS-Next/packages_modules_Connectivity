@@ -26,6 +26,7 @@ import android.net.NetworkIdentity.SUBTYPE_COMBINED
 import android.net.NetworkIdentity.buildNetworkIdentity
 import android.net.NetworkStats.DEFAULT_NETWORK_ALL
 import android.net.NetworkStats.METERED_ALL
+import android.net.NetworkStats.METERED_YES
 import android.net.NetworkStats.ROAMING_ALL
 import android.net.NetworkTemplate.MATCH_MOBILE
 import android.net.NetworkTemplate.MATCH_MOBILE_WILDCARD
@@ -176,7 +177,7 @@ class NetworkTemplateTest {
     fun testMobileMatches() {
         val templateMobileImsi1 = buildTemplateMobileAll(TEST_IMSI1)
         val templateMobileImsi2WithRatType = buildTemplateMobileWithRatType(TEST_IMSI2,
-                TelephonyManager.NETWORK_TYPE_UMTS)
+                TelephonyManager.NETWORK_TYPE_UMTS, METERED_YES)
 
         val mobileImsi1 = buildNetworkState(TYPE_MOBILE, TEST_IMSI1, null /* ssid */,
                 OEM_NONE, false /* metered */)
@@ -269,13 +270,15 @@ class NetworkTemplateTest {
         val stateMobile = buildMobileNetworkState(TEST_IMSI1)
         // Build UMTS template that matches mobile identities with RAT in the same
         // group with any IMSI. See {@link NetworkTemplate#getCollapsedRatType}.
-        val templateUmts = buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_UMTS)
+        val templateUmts = buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_UMTS,
+                METERED_YES)
         // Build normal template that matches mobile identities with any RAT and IMSI.
-        val templateAll = buildTemplateMobileWithRatType(null, NETWORK_TYPE_ALL)
+        val templateAll = buildTemplateMobileWithRatType(null, NETWORK_TYPE_ALL, METERED_YES)
         // Build template with UNKNOWN RAT that matches mobile identities with RAT that
         // cannot be determined.
         val templateUnknown =
-                buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_UNKNOWN)
+                buildTemplateMobileWithRatType(null, TelephonyManager.NETWORK_TYPE_UNKNOWN,
+                METERED_YES)
 
         val identUmts = buildNetworkIdentity(
                 mockContext, stateMobile, false, TelephonyManager.NETWORK_TYPE_UMTS)
