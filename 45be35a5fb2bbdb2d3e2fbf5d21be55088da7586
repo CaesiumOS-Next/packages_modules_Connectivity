@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfdfe974_140e593e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-23T02:47:15Z",
+      "side": 1,
+      "message": "From https://buganizer.corp.google.com/issues/196079981#comment9, the verification is failed, checking.",
+      "revId": "45be35a5fb2bbdb2d3e2fbf5d21be55088da7586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
