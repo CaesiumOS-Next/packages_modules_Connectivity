@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3103da71_d3214ad5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-08-23T12:18:25Z",
+      "side": 1,
+      "message": "Per discussed in 8/20 meeting, the conclusion is that leaves OEM to update on aosp because we may get the bug from OEM modified resource but we probably don\u0027t know how to verify.",
+      "parentUuid": "116fb04a_ac2f4ebd",
+      "range": {
+        "startLine": 136,
+        "startChar": 26,
+        "endLine": 136,
+        "endChar": 63
+      },
+      "revId": "bc8517843581eab82e01c937b1c627ee68c24ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "61e7a7d8_5f01bceb",
         "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
         "patchSetId": 2
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff877376_2b28c89b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-08-23T12:18:25Z",
+      "side": 1,
+      "message": "Done (allowOffload). Thanks both of you.\n\nUpdate in aosp/1803422.",
+      "parentUuid": "fe542134_ef5d9283",
+      "range": {
+        "startLine": 1564,
+        "startChar": 24,
+        "endLine": 1564,
+        "endChar": 38
+      },
+      "revId": "bc8517843581eab82e01c937b1c627ee68c24ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b94d4721_5fc52466",
@@ -84,6 +132,30 @@
       "writtenOn": "2021-08-20T03:15:48Z",
       "side": 1,
       "message": "No need to fix in this CL, but suggest adding a:\n\n    public static boolean contains(@Nullable short[] array, short value) {\n\nto com.android.net.module.util.CollectionUtils, and calling that method here.",
+      "range": {
+        "startLine": 1567,
+        "startChar": 0,
+        "endLine": 1569,
+        "endChar": 13
+      },
+      "revId": "bc8517843581eab82e01c937b1c627ee68c24ffd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46f881a7_f8691c20",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1569,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-08-23T12:18:25Z",
+      "side": 1,
+      "message": "Done.\n\nUpdate in aosp/1803422, aosp/1802483",
+      "parentUuid": "b94d4721_5fc52466",
       "range": {
         "startLine": 1567,
         "startChar": 0,
