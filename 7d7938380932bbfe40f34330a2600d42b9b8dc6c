@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c2429dc_06f5b899",
+        "filename": "tests/cts/net/AndroidTestTemplate.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-23T15:09:26Z",
+      "side": 1,
+      "message": "Does this override the value on the previous line? If so, then why keep the previous line?",
+      "range": {
+        "startLine": 24,
+        "startChar": 46,
+        "endLine": 24,
+        "endChar": 66
+      },
+      "revId": "7d7938380932bbfe40f34330a2600d42b9b8dc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
