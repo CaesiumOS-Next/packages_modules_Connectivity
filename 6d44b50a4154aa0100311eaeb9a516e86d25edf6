@@ -46,6 +46,30 @@
       },
       "revId": "6d44b50a4154aa0100311eaeb9a516e86d25edf6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f530ae_ce3de4c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1337176
+      },
+      "writtenOn": "2021-08-23T08:57:51Z",
+      "side": 1,
+      "message": "Here you listed\n 3. networkRemoveRoute(oldIface)\n 4. networkRemoveInterface(oldIface)\nBut in commit msg, it was like\n 3. networkRemoveInterface(oldIface)\n 4. networkRemoveRoute(oldIface)\n\nwhich one is the behavior after your CL? \nIn theory, either way is fine for ensuring functionalities. \nBut we might want remove route first, otherwise we might keep finding the binder error like \"ServiceSpecificException(19, \"No such device\")\"\n \n \nNote that I am not sure if the gap between firewallRemoveUidInterfaceRules and firewallAddUidInterfaceRules would cause other problems. Maze might know better, but given that you\u0027ve tested it, probably fine.",
+      "parentUuid": "1a84f5c3_8a7c0013",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "6d44b50a4154aa0100311eaeb9a516e86d25edf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
