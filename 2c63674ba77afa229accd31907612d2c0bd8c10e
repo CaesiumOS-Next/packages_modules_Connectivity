@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "839bf529_7d0913d0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3130,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-24T14:10:47Z",
+      "side": 1,
+      "message": "Rename +1",
+      "parentUuid": "e9722a90_6badd991",
+      "range": {
+        "startLine": 3130,
+        "startChar": 17,
+        "endLine": 3130,
+        "endChar": 45
+      },
+      "revId": "2c63674ba77afa229accd31907612d2c0bd8c10e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "18e3f45d_a80a7bcb",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "151bfc1b_cfd62b40",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3132,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-24T14:10:47Z",
+      "side": 1,
+      "message": "Remove +1. We may have more preferences in the future.",
+      "parentUuid": "18e3f45d_a80a7bcb",
+      "range": {
+        "startLine": 3131,
+        "startChar": 8,
+        "endLine": 3132,
+        "endChar": 31
+      },
+      "revId": "2c63674ba77afa229accd31907612d2c0bd8c10e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f84da3de_aa914c30",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 4
@@ -77,6 +125,30 @@
       "writtenOn": "2021-08-06T06:29:52Z",
       "side": 1,
       "message": "1. Maybe include mMobileDataPreferredUids?\n2. If so, do we need a header for this section, e.g. Preferences: ?\n3. If yes for 2, do we need a header for below section?",
+      "range": {
+        "startLine": 3139,
+        "startChar": 12,
+        "endLine": 3139,
+        "endChar": 13
+      },
+      "revId": "2c63674ba77afa229accd31907612d2c0bd8c10e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a03dd3dc_22879985",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-24T14:10:47Z",
+      "side": 1,
+      "message": "I don\u0027t think we need a header for this section because both mProfileNetworkPreferences.preferences and mOemNetworkPreferences already have header XXXPreferences. But I think we need header for showing mMobileDataPreferredUids, it\u0027s just a set of Integer now.",
+      "parentUuid": "f84da3de_aa914c30",
       "range": {
         "startLine": 3139,
         "startChar": 12,
@@ -123,6 +195,24 @@
       "writtenOn": "2021-08-06T06:29:52Z",
       "side": 1,
       "message": "Given that we now might have co-existing preferences, IIUC we\u0027ll need to print mPreferenceOrder as well to see which one has the highest priority.",
+      "revId": "2c63674ba77afa229accd31907612d2c0bd8c10e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fda84c89_51403b76",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 3157,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-24T14:10:47Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "16fe8eac_abeaeed3",
       "revId": "2c63674ba77afa229accd31907612d2c0bd8c10e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
