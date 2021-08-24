@@ -121,7 +121,9 @@ public class EthernetTetheringTest {
     @Before
     public void setUp() throws Exception {
         // Needed to create a TestNetworkInterface, to call requestTetheredInterface, and to receive
-        // tethered client callbacks.
+        // tethered client callbacks. The restricted networks permission is needed to ensure that
+        // EthernetManager#isAvailable will correctly return true on devices where Ethernet is
+        // marked restricted, like cuttlefish.
         mUiAutomation.adoptShellPermissionIdentity(
                 MANAGE_TEST_NETWORKS, NETWORK_SETTINGS, TETHER_PRIVILEGED, ACCESS_NETWORK_STATE);
         mRunTests = mTm.isTetheringSupported() && mEm != null;
