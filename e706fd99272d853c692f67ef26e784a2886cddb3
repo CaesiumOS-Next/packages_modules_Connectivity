@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cee90ca3_e41e31ff",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-24T08:28:46Z",
+      "side": 0,
+      "message": "Do you want to still keep this? This test was added to test NetworkCapabilities.isPrivateDnsBroken(). The test may not be flaky w/ your current fix. But you remove the verification(isPrivateDnsBroken() \u003d\u003d false) for the API.",
+      "range": {
+        "startLine": 727,
+        "startChar": 75,
+        "endLine": 728,
+        "endChar": 41
+      },
+      "revId": "e706fd99272d853c692f67ef26e784a2886cddb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
