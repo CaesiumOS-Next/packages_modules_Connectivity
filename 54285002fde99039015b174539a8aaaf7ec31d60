@@ -1,0 +1,596 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c25b6b4_e74cc7d3",
+        "filename": "Tethering/common/TetheringLib/src/android/net/ITetheringConnector.aidl",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Networks\n\nAlso everywhere else.",
+      "range": {
+        "startLine": 53,
+        "startChar": 23,
+        "endLine": 53,
+        "endChar": 30
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de9934bb_3ae249eb",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "upstreams",
+      "range": {
+        "startLine": 1543,
+        "startChar": 70,
+        "endLine": 1543,
+        "endChar": 78
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a7a3785_e2e6fa2e",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1544,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "networks",
+      "range": {
+        "startLine": 1544,
+        "startChar": 32,
+        "endLine": 1544,
+        "endChar": 39
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aa59215_71fd9370",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "the caller doesn\u0027t",
+      "range": {
+        "startLine": 1546,
+        "startChar": 36,
+        "endLine": 1546,
+        "endChar": 48
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "224bad5b_c35241b2",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "have the",
+      "range": {
+        "startLine": 1546,
+        "startChar": 49,
+        "endLine": 1546,
+        "endChar": 53
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b7e930_b5d05003",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1549,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Isn\u0027t TETHER_PRIVILEGED available to system apps like GmsCore? If so, I think we need something that\u0027s more restrictive - ideally for tests only. NETWORK_SETTINGS?",
+      "range": {
+        "startLine": 1549,
+        "startChar": 52,
+        "endLine": 1549,
+        "endChar": 69
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4fbd619_62751c05",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1550,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "The UpstreamNetworkMonitor call uses the word \"prefer\", but this method uses the word \"include\". It looks like \"prefer\" is correct because if a test network is found, then UNM will always use it. Maybe use \"prefer\" everywhere?",
+      "range": {
+        "startLine": 1550,
+        "startChar": 19,
+        "endLine": 1550,
+        "endChar": 26
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "252d109e_4d6f33d7",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Nit: add space after :",
+      "range": {
+        "startLine": 1551,
+        "startChar": 49,
+        "endLine": 1551,
+        "endChar": 50
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa961181_5bc42ecd",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Optional: consider blocking (e.g., using a CountDownLatch or ConditionVariable) until the listener gets called.",
+      "range": {
+        "startLine": 1560,
+        "startChar": 8,
+        "endLine": 1560,
+        "endChar": 11
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99df0cf9_9f3ad7b7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Remove extra blank line.",
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e727652_ccf06173",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "isTestNetwork",
+      "range": {
+        "startLine": 665,
+        "startChar": 19,
+        "endLine": 665,
+        "endChar": 25
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b7fbd3f_01576186",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Looks like you only use this after converting it to a LinkAddress. If so, then why not just make this a LinkAddress and not a string?",
+      "range": {
+        "startLine": 107,
+        "startChar": 25,
+        "endLine": 107,
+        "endChar": 31
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c45613e4_2dc74074",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "As above, suggest making this be of type InetAddress and using InetAddresses.parseNumericAddress to parse it.",
+      "range": {
+        "startLine": 108,
+        "startChar": 25,
+        "endLine": 108,
+        "endChar": 31
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6400e8b5_92a927e2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "If you address the comment above, don\u0027t forget to remove these.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 36
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c3f067a_1dd2790b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Why CONNECTIVITY_INTERNAL? It\u0027s very much deprecated.\n\nI guess aosp/1807157 will fix this, anyway.",
+      "range": {
+        "startLine": 142,
+        "startChar": 16,
+        "endLine": 142,
+        "endChar": 37
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ddb1bc2_ac040cf5",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "This is already done in maybeCleanupTetheringUpstream. Reduce code duplication?",
+      "range": {
+        "startLine": 173,
+        "startChar": 12,
+        "endLine": 173,
+        "endChar": 33
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ed6ece_74bd88fa",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Might want to rename to awaitFirstUpstreamConnected, because it can only be used once.",
+      "range": {
+        "startLine": 500,
+        "startChar": 23,
+        "endLine": 500,
+        "endChar": 45
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc232dc3_1999e0d8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "testTestNetworkUpstream?",
+      "range": {
+        "startLine": 749,
+        "startChar": 16,
+        "endLine": 749,
+        "endChar": 28
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fd509e2_9fbaae9a",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "You only call this once. Does it need to be a method or can you put the code in the caller?",
+      "range": {
+        "startLine": 768,
+        "startChar": 33,
+        "endLine": 768,
+        "endChar": 56
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e79d57e0_cbe1b8dc",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "The caller has already done this.",
+      "range": {
+        "startLine": 769,
+        "startChar": 12,
+        "endLine": 769,
+        "endChar": 33
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beae8f50_64512230",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "You only call this once. Does it need to be its own method?",
+      "range": {
+        "startLine": 789,
+        "startChar": 17,
+        "endLine": 789,
+        "endChar": 46
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6d4c02a_81a62a67",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "You already have createTestInterface. This method is confusing because it\u0027s far away from that method and has a similar name.",
+      "range": {
+        "startLine": 802,
+        "startChar": 32,
+        "endLine": 802,
+        "endChar": 50
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a798652b_843dc88f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Nit: no objection, but this doesn\u0027t seem very useful. If you think it improves readability, up to you.",
+      "range": {
+        "startLine": 807,
+        "startChar": 24,
+        "endLine": 807,
+        "endChar": 30
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c75bdb44_1ef7aa08",
+        "filename": "Tethering/tests/integration/src/android/net/TestNetworkRequester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "This looks like test library code, maybe move it to frameworks/libs/net ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23002a0d_b7f1544d",
+        "filename": "Tethering/tests/integration/src/android/net/TestNetworkRequester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t seem useful.",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d93b24ac_e16767f4",
+        "filename": "Tethering/tests/integration/src/android/net/TestNetworkRequester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-24T07:47:33Z",
+      "side": 1,
+      "message": "Have you looked into whether TestNetworkManager#setupTestNetwork does what you need here?",
+      "range": {
+        "startLine": 58,
+        "startChar": 61,
+        "endLine": 58,
+        "endChar": 79
+      },
+      "revId": "54285002fde99039015b174539a8aaaf7ec31d60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
