@@ -22,6 +22,30 @@
       },
       "revId": "e706fd99272d853c692f67ef26e784a2886cddb3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7141557_d8d8d816",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-08-25T09:51:01Z",
+      "side": 0,
+      "message": "I don\u0027t have strong opinion on this, but waitForAvailable(TestableNetworkCallback, Network) will check if VALIDATED is added or not.\nIf VALIDATED is added, then isPrivateDnsBroken() will not be false. They are mutually exclusive.\nSo I think checking waitForAvailable() is enough.\n\nBut...it\u0027s also fine to add it back.\nLet me use the current verification and also verify that if VALIDATED is added or not.",
+      "parentUuid": "cee90ca3_e41e31ff",
+      "range": {
+        "startLine": 727,
+        "startChar": 75,
+        "endLine": 728,
+        "endChar": 41
+      },
+      "revId": "e706fd99272d853c692f67ef26e784a2886cddb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
