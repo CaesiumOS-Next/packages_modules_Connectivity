@@ -91,4 +91,7 @@ override_apex {
         "ServiceConnectivityResources",
         "InProcessTethering",
     ],
+    bpfs: [
+        "offload-inprocess.o",
+    ],
 }

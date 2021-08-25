@@ -51,6 +51,16 @@ bpf {
 }
 
 bpf {
+    name: "offload-inprocess.o",
+    srcs: ["offload.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-DIN_PROCESS_MODULE",
+    ],
+}
+
+bpf {
     name: "test.o",
     srcs: ["test.c"],
     cflags: [
