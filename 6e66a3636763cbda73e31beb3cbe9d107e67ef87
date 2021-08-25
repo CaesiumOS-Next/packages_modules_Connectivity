@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72b2066a_1709077b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-08-25T07:36:46Z",
+      "side": 1,
+      "message": "Seems like a cherrypick candidate for the next connectivity/tethering mainline release.",
+      "revId": "6e66a3636763cbda73e31beb3cbe9d107e67ef87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
