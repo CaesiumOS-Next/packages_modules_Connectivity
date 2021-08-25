@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "663e3518_eaba2589",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-08-25T06:16:56Z",
+      "side": 1,
+      "message": "We could build a variant offload-inprocess.o(or similar name) for com.android.tethering.inprocess. See draft code below:\n\nIn packages/modules/Connectivity/Tethering/bpf_progs/Android.bp\n\n//\n// bpf kernel programs\n//\nbpf {\n    name: \"offload-inprocess.o\",\n    srcs: [\"offload.c\"],\n    cflags: [\n        \"-Wall\",\n        \"-Werror\",\n        \"-DSystem\",\n    ],\n}\n\nThen use it the cflags here:\n\n#ifdef Test System\n#define AID_OWNER AID_SYSTEM\n#else\n#define AID_OWNER AID_NETWORKSTACK\n#endif\n\nIn packages/modules/Connectivity/Tethering/apex/Android.bp\n\noverride_apex {\n    name: \"com.android.tethering.inprocess\",\n    base: \"com.android.tethering\",\n    package_name: \"com.android.tethering.inprocess\",\n    apps: [\n        \"ServiceConnectivityResources\",\n        \"InProcessTethering\",\n    ],\n    bpfs: [\n        \"offload-inprocess.o\",\n    ],\n}",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "24ce8e517bf056d02fd6d3eded2d38e66235c740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
