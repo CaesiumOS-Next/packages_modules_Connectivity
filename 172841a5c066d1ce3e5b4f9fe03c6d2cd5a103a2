@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94851fe2_69e42032",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-25T07:55:30Z",
+      "side": 1,
+      "message": "Is it better if we add coverage for METERED_NO or METERED_ALL?",
+      "range": {
+        "startLine": 180,
+        "startChar": 52,
+        "endLine": 180,
+        "endChar": 63
+      },
+      "revId": "172841a5c066d1ce3e5b4f9fe03c6d2cd5a103a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
