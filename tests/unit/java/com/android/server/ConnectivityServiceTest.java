@@ -6512,6 +6512,12 @@ public class ConnectivityServiceTest {
         waitForIdle();
         verify(mNotificationManager, timeout(TIMEOUT_MS).times(1)).notify(anyString(),
                 eq(NotificationType.PRIVATE_DNS_BROKEN.eventId), any());
+        // Check if onCapabilitiesChanged() is triggered or not and also check whether
+        // isPrivateDnsBroken() is true.
+        callback.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, TEST_CALLBACK_TIMEOUT_MS,
+                entry -> (((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                        .isPrivateDnsBroken())
+                        && mWiFiNetworkAgent.getNetwork().equals(entry.getNetwork()));
         // If private DNS resolution successful, the PRIVATE_DNS_BROKEN notification shouldn't be
         // shown.
         mWiFiNetworkAgent.setNetworkValid(true /* isStrictMode */);
@@ -6526,6 +6532,12 @@ public class ConnectivityServiceTest {
         waitForIdle();
         verify(mNotificationManager, timeout(TIMEOUT_MS).times(2)).notify(anyString(),
                 eq(NotificationType.PRIVATE_DNS_BROKEN.eventId), any());
+        // Check if onCapabilitiesChanged() is triggered or not and also check whether
+        // isPrivateDnsBroken() is true.
+        callback.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, TEST_CALLBACK_TIMEOUT_MS,
+                entry -> (((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                        .isPrivateDnsBroken())
+                        && mWiFiNetworkAgent.getNetwork().equals(entry.getNetwork()));
     }
 
     @Test
