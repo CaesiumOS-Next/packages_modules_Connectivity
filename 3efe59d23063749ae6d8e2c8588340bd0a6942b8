@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c97f5a6_d96523fe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6872,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-25T00:50:30Z",
+      "side": 1,
+      "message": "Looks like this is missing a closing brace here",
+      "range": {
+        "startLine": 6872,
+        "startChar": 7,
+        "endLine": 6872,
+        "endChar": 8
+      },
+      "revId": "3efe59d23063749ae6d8e2c8588340bd0a6942b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da585b27_f7991ca1",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
