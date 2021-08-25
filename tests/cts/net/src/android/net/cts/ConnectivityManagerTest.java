@@ -725,7 +725,10 @@ public class ConnectivityManagerTest {
             final Network networkForPrivateDns =  mCtsNetUtils.ensureWifiConnected();
             cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
                     entry -> (!((CallbackEntry.CapabilitiesChanged) entry).getCaps()
-                    .isPrivateDnsBroken()) && networkForPrivateDns.equals(entry.getNetwork()));
+                            .isPrivateDnsBroken())
+                            && ((CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                            .hasCapability(NET_CAPABILITY_VALIDATED)
+                            && networkForPrivateDns.equals(entry.getNetwork()));
 
             // Verifying the broken private DNS sever
             mCtsNetUtils.setPrivateDnsStrictMode(invalidPrivateDnsServer);
