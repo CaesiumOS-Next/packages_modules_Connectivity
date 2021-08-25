@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "415c1a75_75236937",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-25T09:35:20Z",
+      "side": 1,
+      "message": "Interestingly here the stack always sends the broadcast no matter the old value of the proxy. This is because ConnectivityService#updateNetworkInfo will always send the broadcast if the new state is DISCONNECTED and the network is a VPN.\n\nFiled b/197718009 to track this and assigned to Aaron, but it\u0027s not very important.",
+      "range": {
+        "startLine": 925,
+        "startChar": 43,
+        "endLine": 925,
+        "endChar": 60
+      },
+      "revId": "90f56840484c7016ed1b33ed5821c87b82a6817d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

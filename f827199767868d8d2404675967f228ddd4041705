@@ -46,6 +46,30 @@
       },
       "revId": "f827199767868d8d2404675967f228ddd4041705",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af7b24e4_a770ce2c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-08-25T09:35:20Z",
+      "side": 0,
+      "message": "Global proxy would not work I think, because global proxy always takes precedence.\n\nAfter discussing with Aaron, we think there is no straightforward way to set the default proxy from the tests. However there is a roundabout way : we can use PacProxyManager and set the PAC file to some local file URL. This should spin up the local proxy server and set the default proxy to localhost.\n\nWhen that\u0027s done, we can test that bringing up a VPN with no proxy actually sends the broadcast.",
+      "parentUuid": "d675294a_567aa434",
+      "range": {
+        "startLine": 920,
+        "startChar": 0,
+        "endLine": 921,
+        "endChar": 64
+      },
+      "revId": "f827199767868d8d2404675967f228ddd4041705",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
