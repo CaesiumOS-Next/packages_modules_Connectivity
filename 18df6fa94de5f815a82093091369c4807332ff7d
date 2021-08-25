@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "217bf5c1_9d16d1b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-08-25T01:00:13Z",
+      "side": 1,
+      "message": "Can you detail what causes the exception to be thrown, and why it\u0027s OK to ignore it ? (Ideally with a comment in code if appropriate).\n\nThis is to make sure that the system is not in an unexpected state here, as in that case crashing/restarting the system might be better so it can recover.",
+      "revId": "18df6fa94de5f815a82093091369c4807332ff7d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
