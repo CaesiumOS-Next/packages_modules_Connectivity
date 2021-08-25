@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8531b4b_1895db13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-08-25T11:08:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16932c31_ac2881fe",
+      "revId": "e706fd99272d853c692f67ef26e784a2886cddb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32853335_9af04ec9",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-08-19T13:23:12Z",
       "side": 1,
       "message": "Ah, sorry to impose, but I really wonder why hasShownBroken is in NetworkAgentConfig. I think it should move to NetworkAgent, since it\u0027s completely private to connectivity.",
+      "range": {
+        "startLine": 3365,
+        "startChar": 28,
+        "endLine": 3365,
+        "endChar": 61
+      },
+      "revId": "e706fd99272d853c692f67ef26e784a2886cddb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b81eb76a_254cd2b7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3365,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-08-25T11:08:59Z",
+      "side": 1,
+      "message": "There is a discussion in https://android-review.googlesource.com/c/platform/frameworks/base/+/1101353/10..17/services/core/java/com/android/server/ConnectivityService.java#b2669.\n\nAnyway, do you mean move it to NetworkAgentInfo.java, right?\nI can move it in a follow-up commit.",
+      "parentUuid": "32853335_9af04ec9",
       "range": {
         "startLine": 3365,
         "startChar": 28,
