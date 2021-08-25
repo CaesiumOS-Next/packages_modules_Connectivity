@@ -56,6 +56,30 @@
       },
       "revId": "348b579064be71292e3cda370bc73b4c174b9c9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f091df3_1f12dbee",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3943,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-08-25T18:14:44Z",
+      "side": 1,
+      "message": "The catch here is the same as destroyNetwork() -\u003e destroyNativeNetwork() called on line 3947 below.\n\nFrom the change adding ServiceSpecificException in destroyNativeNetwork():\n\nWhen an exception occurs while executing networkDestroy(),\ndestroyNetworkCache() is not executed and\ndestroyNativeNetwork() is terminated. Eventually,\nthis leads to the problem of netid not being properly organized.\nIt makes UE not able to send/receive MMS or use the internet until\nrebooting.",
+      "parentUuid": "eaab0746_fc2633ee",
+      "range": {
+        "startLine": 3942,
+        "startChar": 86,
+        "endLine": 3943,
+        "endChar": 42
+      },
+      "revId": "348b579064be71292e3cda370bc73b4c174b9c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
