@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a8965d2_25b8148a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2021-08-25T17:18:54Z",
+      "side": 1,
+      "message": "This library is being deprecated, and it\u0027s not even used, so removing it.",
+      "revId": "2b63a2f92a36ccb184ed5829bf0779a2af10c66c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
