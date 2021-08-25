@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3760bc01_051ec454",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6872,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-08-25T01:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c97f5a6_d96523fe",
+      "range": {
+        "startLine": 6872,
+        "startChar": 7,
+        "endLine": 6872,
+        "endChar": 8
+      },
+      "revId": "3efe59d23063749ae6d8e2c8588340bd0a6942b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da585b27_f7991ca1",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-08-20T07:30:52Z",
       "side": 1,
       "message": "If this is expected to happen in normal cases, maybe just \"log\" as non-error ?",
+      "range": {
+        "startLine": 6873,
+        "startChar": 12,
+        "endLine": 6873,
+        "endChar": 16
+      },
+      "revId": "3efe59d23063749ae6d8e2c8588340bd0a6942b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b49d33c2_9ebd3ab6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6873,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-08-25T01:20:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da585b27_f7991ca1",
       "range": {
         "startLine": 6873,
         "startChar": 12,
