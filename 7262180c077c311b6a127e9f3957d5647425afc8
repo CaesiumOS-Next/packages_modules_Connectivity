@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59306b2c_43e85132",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-26T05:59:42Z",
+      "side": 0,
+      "message": "Question: what is the benefit to stop using spy? Spy acts as using the real object, not a fake one. What cannot be tested with spy?",
+      "range": {
+        "startLine": 165,
+        "startChar": 29,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "7262180c077c311b6a127e9f3957d5647425afc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7c01cb6_15a7f36e",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-26T05:59:42Z",
+      "side": 0,
+      "message": "This is not really equal to addPackage(name, uid, permissions), right?\naddPackage() does not specify the paritiion. The flag configuration is missing after your change?\n\nDitto in other places",
+      "range": {
+        "startLine": 444,
+        "startChar": 8,
+        "endLine": 447,
+        "endChar": 53
+      },
+      "revId": "7262180c077c311b6a127e9f3957d5647425afc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
