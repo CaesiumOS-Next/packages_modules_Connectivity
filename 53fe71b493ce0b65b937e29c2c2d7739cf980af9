@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15105b93_e679abd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-26T07:48:08Z",
+      "side": 1,
+      "message": "Could you explain why we need this? If this is no-op, I cannot understand why it\u0027s moved couple line above. Shouldn\u0027t it behave the same in the original design if this is a no-op change?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "53fe71b493ce0b65b937e29c2c2d7739cf980af9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67da603a_52bb6f4a",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-26T07:48:08Z",
+      "side": 1,
+      "message": "Nit: use doReturn instead",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 12
+      },
+      "revId": "53fe71b493ce0b65b937e29c2c2d7739cf980af9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
