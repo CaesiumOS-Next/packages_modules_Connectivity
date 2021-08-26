@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6eb7ca5_89daeb09",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-26T07:27:14Z",
+      "side": 1,
+      "message": "optional: the variables are uncessary?\n\nif (hasRestrictedNetworkPermission(app)) {\n   return SYSTEM;\n}\nif (hasNetworkPermission(app)) {\n   return NETWORK;\n}",
+      "range": {
+        "startLine": 199,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "a99f93a465c78f17fcd2717b226dad70202f1d77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c8a04e2_3543935a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-08-26T07:27:14Z",
+      "side": 1,
+      "message": "Nit: I am not sure if it\u0027s clearer. If it\u0027s for vpn only, this modification will cause some content missing. This will look like adoptable if you would like to set some uid rules, not only in vpn.",
+      "range": {
+        "startLine": 694,
+        "startChar": 17,
+        "endLine": 694,
+        "endChar": 41
+      },
+      "revId": "a99f93a465c78f17fcd2717b226dad70202f1d77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
