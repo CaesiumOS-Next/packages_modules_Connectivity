@@ -16,6 +16,23 @@
       "message": "Quesion: IIUC similar issue happens before in ConnnectivityManager cts.\nIs there any way to scan through our codes to detect potential flaws?",
       "revId": "ae7508f9b5807b846b1afbd8d2fbe0c601dbaafa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02173307_c3870944",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1071150
+      },
+      "writtenOn": "2021-08-26T07:46:56Z",
+      "side": 1,
+      "message": "Thanks Remi, thanks Junyu.\n\nThis CL in in conjunction with http://cl/392698404 passes all the tests in https://atp.googleplex.com/test_runs/139227741.",
+      "revId": "ae7508f9b5807b846b1afbd8d2fbe0c601dbaafa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
