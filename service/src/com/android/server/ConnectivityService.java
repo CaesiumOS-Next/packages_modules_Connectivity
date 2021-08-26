@@ -3354,7 +3354,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             ((msg.arg2 & NETWORK_VALIDATION_PROBE_PRIVDNS) == 0);
                     if (probePrivateDnsCompleted) {
                         if (nai.networkCapabilities.isPrivateDnsBroken() != privateDnsBroken) {
-                            nai.networkCapabilities.setPrivateDnsBroken(privateDnsBroken);
+                            nai.privateDnsBroken = privateDnsBroken;
                             updateCapabilitiesForNetwork(nai);
                         }
                         // Only show the notification when the private DNS is broken and the
@@ -3363,13 +3363,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             showNetworkNotification(nai, NotificationType.PRIVATE_DNS_BROKEN);
                         }
                         nai.networkAgentConfig.hasShownBroken = privateDnsBroken;
-                    } else if (nai.networkCapabilities.isPrivateDnsBroken()) {
-                        // If probePrivateDnsCompleted is false but nai.networkCapabilities says
-                        // private DNS is broken, it means this network is being reevaluated.
+                    } else if (nai.privateDnsBroken) {
+                        // If probePrivateDnsCompleted is false but nai says the private DNS is
+                        // broken, it means this network is being reevaluated.
                         // Either probing private DNS is not necessary any more or it hasn't been
                         // done yet. In either case, the networkCapabilities should be updated to
                         // reflect the new status.
-                        nai.networkCapabilities.setPrivateDnsBroken(false);
+                        nai.privateDnsBroken = false;
                         updateCapabilitiesForNetwork(nai);
                         nai.networkAgentConfig.hasShownBroken = false;
                     }
@@ -7404,7 +7404,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             newNc.removeCapability(NET_CAPABILITY_PARTIAL_CONNECTIVITY);
         }
-        newNc.setPrivateDnsBroken(nai.networkCapabilities.isPrivateDnsBroken());
+        newNc.setPrivateDnsBroken(nai.privateDnsBroken);
 
         // TODO : remove this once all factories are updated to send NOT_SUSPENDED and NOT_ROAMING
         if (!newNc.hasTransport(TRANSPORT_CELLULAR)) {
