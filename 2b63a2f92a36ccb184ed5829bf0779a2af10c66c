@@ -16,6 +16,23 @@
       "message": "This library is being deprecated, and it\u0027s not even used, so removing it.",
       "revId": "2b63a2f92a36ccb184ed5829bf0779a2af10c66c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2649c618_64c5a9c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019050
+      },
+      "writtenOn": "2021-08-26T23:40:32Z",
+      "side": 1,
+      "message": "I need an owners +2. This is a simple removal of a library that isn\u0027t actually used.",
+      "revId": "2b63a2f92a36ccb184ed5829bf0779a2af10c66c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
