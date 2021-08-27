@@ -22,6 +22,30 @@
       },
       "revId": "24ce8e517bf056d02fd6d3eded2d38e66235c740",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c062350d_1786dc1e",
+        "filename": "Tethering/bpf_progs/offload.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-08-27T02:52:07Z",
+      "side": 1,
+      "message": "Done.\n\nThanks for your advice and soong needs your aosp/1810456 for this change.\n\ntest.o needs to change as well",
+      "parentUuid": "663e3518_eaba2589",
+      "range": {
+        "startLine": 73,
+        "startChar": 19,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "24ce8e517bf056d02fd6d3eded2d38e66235c740",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
