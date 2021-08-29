@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eaf6708b_4aa86d2f",
+        "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1343198
+      },
+      "writtenOn": "2021-08-29T11:09:34Z",
+      "side": 1,
+      "message": "startListen call Os.bind(fd, IPV6_ADDR_ANY, DNS_PORT).\nThe packet can be read from all IP.",
+      "parentUuid": "cd394cdc_ee3b09ff",
+      "range": {
+        "startLine": 213,
+        "startChar": 52,
+        "endLine": 213,
+        "endChar": 60
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f7b6341_1b9f7ac8",
         "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
         "patchSetId": 5
@@ -89,6 +113,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2dffe4b2_2be588cc",
+        "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1343198
+      },
+      "writtenOn": "2021-08-29T11:09:34Z",
+      "side": 1,
+      "message": "This error means dns proxy server error and we can check dnsresolver to know why this query occurs error in detail.\nAdd a TODO in setupFailResponse().\n// TODO: Refine DnsProxyPacket to create answer.",
+      "parentUuid": "d82037bf_f7215f58",
+      "range": {
+        "startLine": 485,
+        "startChar": 70,
+        "endLine": 485,
+        "endChar": 75
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ccefb0c_76fecca7",
         "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
         "patchSetId": 5
@@ -100,6 +148,30 @@
       "writtenOn": "2021-07-28T15:12:19Z",
       "side": 1,
       "message": "What happen when doing query here but the network already down. Would be onError callback trigger ? If so, should we send different RCODE ?",
+      "range": {
+        "startLine": 493,
+        "startChar": 26,
+        "endLine": 493,
+        "endChar": 33
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab95f87_e976f24b",
+        "filename": "Tethering/src/android/net/dnsproxy/DnsProxyServer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1343198
+      },
+      "writtenOn": "2021-08-29T11:09:34Z",
+      "side": 1,
+      "message": "onError callback trigger  won\u0027t be trigger.",
+      "parentUuid": "6ccefb0c_76fecca7",
       "range": {
         "startLine": 493,
         "startChar": 26,
@@ -123,6 +195,30 @@
       "writtenOn": "2021-07-28T15:12:19Z",
       "side": 1,
       "message": "I don\u0027t think quietly is a good idea. At least print the log ? If I read the code correctly, IOException only be when if underlying system call fails and its message would carry the error no which could help us why close socket fail.",
+      "range": {
+        "startLine": 186,
+        "startChar": 23,
+        "endLine": 186,
+        "endChar": 41
+      },
+      "revId": "7802cb88d960b1916c5fdcbcc49652ac901ab1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "182f8f8a_f3d419ad",
+        "filename": "Tethering/src/android/net/util/TetheringUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1343198
+      },
+      "writtenOn": "2021-08-29T11:09:34Z",
+      "side": 1,
+      "message": "Add log.\n...\n} catch (IOException e) {\n            Log.e(\"TetheringUtils\", \"Failed to closeSocket: \", e);\n        }",
+      "parentUuid": "433ac125_dc1705d9",
       "range": {
         "startLine": 186,
         "startChar": 23,
