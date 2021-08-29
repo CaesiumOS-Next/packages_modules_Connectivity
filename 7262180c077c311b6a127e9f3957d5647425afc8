@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdd45e8f_5d13ef9f",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-29T15:47:06Z",
+      "side": 0,
+      "message": "I think the author of testUserAndPackageAddRemove were used a lazy way to mock the package\u0027s permission. It can replace by buildAndMockPackageInfoWithPermissions with right pcakge name, uid and permission. So we don\u0027t need to use spy now. But I don\u0027t say it cannot be tested with spy, we still can use spy if necessary.",
+      "parentUuid": "59306b2c_43e85132",
+      "range": {
+        "startLine": 165,
+        "startChar": 29,
+        "endLine": 165,
+        "endChar": 33
+      },
+      "revId": "7262180c077c311b6a127e9f3957d5647425afc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7c01cb6_15a7f36e",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-26T05:59:42Z",
       "side": 0,
       "message": "This is not really equal to addPackage(name, uid, permissions), right?\naddPackage() does not specify the paritiion. The flag configuration is missing after your change?\n\nDitto in other places",
+      "range": {
+        "startLine": 444,
+        "startChar": 8,
+        "endLine": 447,
+        "endChar": 53
+      },
+      "revId": "7262180c077c311b6a127e9f3957d5647425afc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5bc5cfc_2bb13956",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-29T15:47:06Z",
+      "side": 0,
+      "message": "\u003e This is not really equal to addPackage(name, uid, permissions), right?\nYes. But all of these are inclued in addPackage().\n\n\u003e addPackage() does not specify the paritiion. The flag configuration is missing after your change?\nIn fact, addPackage() does specify the parition, it\u0027s also PARTITION_SYSTEM in systemPackageInfoWithPermissions().",
+      "parentUuid": "a7c01cb6_15a7f36e",
       "range": {
         "startLine": 444,
         "startChar": 8,

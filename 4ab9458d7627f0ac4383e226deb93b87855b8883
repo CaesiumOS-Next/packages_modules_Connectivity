@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5949206_20096bef",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-29T15:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2be804e1_60ee0ca8",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 35
+      },
+      "revId": "4ab9458d7627f0ac4383e226deb93b87855b8883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1531ad52_f65aa77d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0ee7a12_dbf28cdc",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-29T15:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1531ad52_f65aa77d",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 65
+      },
+      "revId": "4ab9458d7627f0ac4383e226deb93b87855b8883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27610c8e_b9b8706f",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-08-26T05:59:42Z",
       "side": 1,
       "message": "Nit: anyInt() /* flag */",
+      "range": {
+        "startLine": 252,
+        "startChar": 61,
+        "endLine": 252,
+        "endChar": 69
+      },
+      "revId": "4ab9458d7627f0ac4383e226deb93b87855b8883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d25e0be_743f0bfe",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-29T15:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27610c8e_b9b8706f",
       "range": {
         "startLine": 252,
         "startChar": 61,
@@ -95,6 +167,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "eec543df_8916d27b",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-29T15:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91ffc6e8_da6a067c",
+      "range": {
+        "startLine": 256,
+        "startChar": 8,
+        "endLine": 256,
+        "endChar": 12
+      },
+      "revId": "4ab9458d7627f0ac4383e226deb93b87855b8883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2744d6a6_a9124791",
         "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
         "patchSetId": 4
@@ -106,6 +202,30 @@
       "writtenOn": "2021-08-26T05:59:42Z",
       "side": 1,
       "message": "Super nit: why did you move this from the beginning of the test here? Keep it in the same place may be easily to read for a reviewer. I do not need to do the mapping to find which one is missing 😕\n\nDitto in many other places",
+      "range": {
+        "startLine": 389,
+        "startChar": 8,
+        "endLine": 389,
+        "endChar": 9
+      },
+      "revId": "4ab9458d7627f0ac4383e226deb93b87855b8883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad8ec2d1_cca40d12",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-29T15:47:06Z",
+      "side": 1,
+      "message": "I don\u0027t move any check it this test, I just add the package name for each check actually. But the comparision looks like I move some checks...",
+      "parentUuid": "2744d6a6_a9124791",
       "range": {
         "startLine": 389,
         "startChar": 8,
