@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06c90aa9_691ed015",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T10:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbb66777_4960aa4e",
+      "range": {
+        "startLine": 249,
+        "startChar": 12,
+        "endLine": 249,
+        "endChar": 73
+      },
+      "revId": "ce70282c10ec2bf53c448ef5d302faf1098b41e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c2fe7e_0a01b5c4",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-26T07:43:19Z",
       "side": 1,
       "message": "Nit: Use doReturn instead",
+      "range": {
+        "startLine": 1135,
+        "startChar": 8,
+        "endLine": 1135,
+        "endChar": 12
+      },
+      "revId": "ce70282c10ec2bf53c448ef5d302faf1098b41e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5afcd4cb_174c11d2",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T10:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c2fe7e_0a01b5c4",
       "range": {
         "startLine": 1135,
         "startChar": 8,
@@ -116,6 +164,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27be9d72_5b2dcf9a",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T10:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5b39bee_7c129a53",
+      "range": {
+        "startLine": 1143,
+        "startChar": 51,
+        "endLine": 1143,
+        "endChar": 55
+      },
+      "revId": "ce70282c10ec2bf53c448ef5d302faf1098b41e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e289cab8_3934898b",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T10:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aa815ee_2b12c39c",
+      "range": {
+        "startLine": 1143,
+        "startChar": 63,
+        "endLine": 1143,
+        "endChar": 66
+      },
+      "revId": "ce70282c10ec2bf53c448ef5d302faf1098b41e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e1ff22b_b0e73991",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T10:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8385fcca_2a24d381",
+      "range": {
+        "startLine": 1143,
+        "startChar": 45,
+        "endLine": 1143,
+        "endChar": 49
+      },
+      "revId": "ce70282c10ec2bf53c448ef5d302faf1098b41e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f674d803_b4b0dcbf",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-08-26T07:43:19Z",
       "side": 1,
       "message": "This may proberly unnecessary if you would like to verify the invalid settings. startMonitoring() is intended to be called only once at startup, after the system is ready. Put them together in one test in not realistic. Or you may separate them into two. Give startMonitoring() with valid setting should be tested in other tests, so maybe just remove this part.",
+      "range": {
+        "startLine": 1152,
+        "startChar": 8,
+        "endLine": 1160,
+        "endChar": 0
+      },
+      "revId": "ce70282c10ec2bf53c448ef5d302faf1098b41e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "757c0ef2_341509e1",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T10:33:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f674d803_b4b0dcbf",
       "range": {
         "startLine": 1152,
         "startChar": 8,
