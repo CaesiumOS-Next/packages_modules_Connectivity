@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7375d4c8_31d142ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T13:55:20Z",
+      "side": 1,
+      "message": "As we discussed offline, this change is not a no-op refacotr but I don\u0027t need to change to sequence now. Because I can adjust some behavior on PermissionMonitorTest\u0027s setup() to achieve the same result.",
+      "parentUuid": "15105b93_e679abd6",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "53fe71b493ce0b65b937e29c2c2d7739cf980af9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67da603a_52bb6f4a",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-26T07:48:08Z",
       "side": 1,
       "message": "Nit: use doReturn instead",
+      "range": {
+        "startLine": 152,
+        "startChar": 8,
+        "endLine": 152,
+        "endChar": 12
+      },
+      "revId": "53fe71b493ce0b65b937e29c2c2d7739cf980af9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5befb681_9f74d7a1",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T13:55:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67da603a_52bb6f4a",
       "range": {
         "startLine": 152,
         "startChar": 8,
