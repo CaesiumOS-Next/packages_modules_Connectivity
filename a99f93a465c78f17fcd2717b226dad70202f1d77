@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c77f1565_d5a25ef7",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T10:33:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6eb7ca5_89daeb09",
+      "range": {
+        "startLine": 199,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "a99f93a465c78f17fcd2717b226dad70202f1d77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c8a04e2_3543935a",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-26T07:27:14Z",
       "side": 1,
       "message": "Nit: I am not sure if it\u0027s clearer. If it\u0027s for vpn only, this modification will cause some content missing. This will look like adoptable if you would like to set some uid rules, not only in vpn.",
+      "range": {
+        "startLine": 694,
+        "startChar": 17,
+        "endLine": 694,
+        "endChar": 41
+      },
+      "revId": "a99f93a465c78f17fcd2717b226dad70202f1d77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99903c63_2432d600",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T10:33:38Z",
+      "side": 1,
+      "message": "Rename to updateVpnUidsInterfaceRules(), it shoule be more clear for VPN use only.",
+      "parentUuid": "2c8a04e2_3543935a",
       "range": {
         "startLine": 694,
         "startChar": 17,
