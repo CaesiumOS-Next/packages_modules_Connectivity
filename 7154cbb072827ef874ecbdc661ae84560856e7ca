@@ -16,6 +16,46 @@
       "message": "Waiting for Jean to have a quick look as he said he\u0027d like to",
       "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3798825_06cd9448",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-30T03:38:37Z",
+      "side": 1,
+      "message": "Can we do better than catching the exception? See comments inline.",
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f5e60d6_6937e6e2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-30T03:38:37Z",
+      "side": 1,
+      "message": "Is this the actually the best we can do? It seems suboptimal since this code is running on the ConnectivityService thread, so it should know whether the offer was already registered or not.\n\nFor example, is it guaranteed that if mNetworkOffers.remove(noi) returns true, then this is the first time the noi is being removed? If so we could do something like:\n\n    if (mNetworkOffers.remove(noi)) {\n        noi.offer.callback.asBinder().unlinkToDeath(noi, 0 /* flags */);\n    }",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
