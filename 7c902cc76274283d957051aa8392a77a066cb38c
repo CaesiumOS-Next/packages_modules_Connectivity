@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8eb2a39_495d5003",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-30T07:18:22Z",
+      "side": 1,
+      "message": "Remi, could you take a look as well? I think you\u0027ve looked at many of these issues recently.",
+      "revId": "7c902cc76274283d957051aa8392a77a066cb38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97fcdbcc_962a690a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2356,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-30T07:18:22Z",
+      "side": 1,
+      "message": "Why is this necessary? setWifiMeteredStatusAndWait already does:\n\n        return waitForActiveNetworkMetered(TRANSPORT_WIFI,\n                isMetered /* requestedMeteredness */,\n                true /* useSystemDefault */);\n\nshouldn\u0027t that already wait for wifi to be the default network?",
+      "range": {
+        "startLine": 2356,
+        "startChar": 12,
+        "endLine": 2356,
+        "endChar": 34
+      },
+      "revId": "7c902cc76274283d957051aa8392a77a066cb38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
