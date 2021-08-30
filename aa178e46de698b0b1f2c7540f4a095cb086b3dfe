@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37b6f786_0c35b24f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T07:17:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d48f8234_febcaae5",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86f41552_38f65dfa",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-26T06:52:56Z",
       "side": 1,
       "message": "Nit: +s",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 8
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60ab0e5c_608be5a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T07:17:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86f41552_38f65dfa",
       "range": {
         "startLine": 9,
         "startChar": 5,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "854d0014_304327b6",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T07:17:57Z",
+      "side": 1,
+      "message": "I think so. However, it would be more confused on l.513 after rename to highestPermissionForAppId(). Fortunatelly, aosp/1773890 have corrected all of these wrong naming. So I preferr to keep current design. WDYT?\nBesides, I just want to correct the naming for netd traffic permission methods, I should explain it on the commit message.",
+      "parentUuid": "4fe60da1_37507658",
+      "range": {
+        "startLine": 482,
+        "startChar": 55,
+        "endLine": 482,
+        "endChar": 58
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "797d7db3_b2087b00",
         "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
         "patchSetId": 3
@@ -83,6 +155,30 @@
       "writtenOn": "2021-08-26T06:52:56Z",
       "side": 1,
       "message": "Nit: SYSTEM_APP_UID1? I will misread it as SYSTEM_UID(1000) and wonder why we need to name it as SYSTEM_UID1 since SYSTEM_UID should be unique.",
+      "range": {
+        "startLine": 119,
+        "startChar": 29,
+        "endLine": 119,
+        "endChar": 40
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f3acf52_6ff608f5",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T07:17:57Z",
+      "side": 1,
+      "message": "This is SYSTEM_APPID1 in MOCK_USER1, it\u0027s totally different from SYSTEM_UID. Do you have any suggestion name if it\u0027s confused to you?",
+      "parentUuid": "797d7db3_b2087b00",
       "range": {
         "startLine": 119,
         "startChar": 29,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "970d936f_e333c652",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T07:17:57Z",
+      "side": 1,
+      "message": "Yes, it can.",
+      "parentUuid": "44d62ebb_68e40493",
+      "range": {
+        "startLine": 666,
+        "startChar": 16,
+        "endLine": 666,
+        "endChar": 45
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88de3fde_2599838e",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-08-26T06:52:56Z",
       "side": 1,
       "message": "Why is here changed from null to non-null?",
+      "range": {
+        "startLine": 880,
+        "startChar": 70,
+        "endLine": 880,
+        "endChar": 84
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b010d402_622b3e6b",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-08-30T07:17:57Z",
+      "side": 1,
+      "message": "To align design with the other palace like l.639, l.656...",
+      "parentUuid": "88de3fde_2599838e",
       "range": {
         "startLine": 880,
         "startChar": 70,
