@@ -16,6 +16,23 @@
       "message": "LGTM, but can you check that this works correctly on R as well? Looks like the only tests here are unit tests, so they won\u0027t actually behave differently on R and S.",
       "revId": "52158b1d474f75ee7acf9a79f92fd9ffc354c2cc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79258773_0b740cf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-08-31T03:16:31Z",
+      "side": 1,
+      "message": "I manual verified this both in R and S with some small hack that allow entitlement check with TW SIM card and always get the pass result.",
+      "revId": "52158b1d474f75ee7acf9a79f92fd9ffc354c2cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
