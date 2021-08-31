@@ -152,6 +152,30 @@
       },
       "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d79472_ab7f368c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-08-31T04:10:37Z",
+      "side": 1,
+      "message": "handleUnregisterNetworkOffer() is called when binder dies. Remmoving the noi from mNetworkOffers would require posting a new event though...\n\n\n\n    private class NetworkOfferInfo implements IBinder.DeathRecipient {\n        @NonNull public final NetworkOffer offer;\n\n        NetworkOfferInfo(@NonNull final NetworkOffer offer) {\n            this.offer \u003d offer;\n        }\n\n        @Override\n        public void binderDied() {\n            mHandler.post(() -\u003e handleUnregisterNetworkOffer(this));\n        }\n    }",
+      "parentUuid": "e485fe35_892f94c3",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
