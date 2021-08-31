@@ -80,6 +80,30 @@
       },
       "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d9ee84_713aba13",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-08-31T02:23:42Z",
+      "side": 1,
+      "message": "Isn\u0027t remove() idempotent? The first time you call it, it removes the element and returns true, and if you then call it again, it does nothing and returns false?",
+      "parentUuid": "3ae369c6_1477221d",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
