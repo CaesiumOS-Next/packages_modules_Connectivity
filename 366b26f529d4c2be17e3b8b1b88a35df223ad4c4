@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16acdfdd_eb4bfa3e",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-08-31T05:25:10Z",
+      "side": 1,
+      "message": "Okay, it looks like the subscriber id should not be null if the network type is mobile.\n\nIIUC, when NetworkAgentInfo.getNetworkStateSnapshot() is called, subscriber id will be null only when NetworkAgentConfig is null. DataConnection uses the NetworkAgentConfig.Builder to build a NetworkAgentConfig so the NetworkAgentConfig should not be null.",
+      "parentUuid": "d5a09825_8398eb60",
+      "range": {
+        "startLine": 72,
+        "startChar": 60,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70122c2e_681243ee",
         "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-25T07:53:29Z",
       "side": 1,
       "message": "IIUC this needs to be updated? maybe not for this CL",
+      "range": {
+        "startLine": 179,
+        "startChar": 50,
+        "endLine": 179,
+        "endChar": 51
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c622424_f45006da",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-08-31T05:25:10Z",
+      "side": 1,
+      "message": "Yes, this will be updated when buildTemplateMobileWithRatType takes metered parameter. This will be addressed in the follow-up CLs.",
+      "parentUuid": "70122c2e_681243ee",
       "range": {
         "startLine": 179,
         "startChar": 50,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4c38e22_4bf4a518",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-08-31T05:25:10Z",
+      "side": 1,
+      "message": "Removed. Only the match rules are different and both the type are TYPE_MOBILE and it should include subscriber id when calling buildTemplateMobileAll.",
+      "parentUuid": "bb740212_29125f5b",
+      "range": {
+        "startLine": 189,
+        "startChar": 37,
+        "endLine": 189,
+        "endChar": 59
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30c6b17d_b0f2db3c",
         "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
         "patchSetId": 2
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cca12dc6_a16afa16",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-08-31T05:25:10Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "30c6b17d_b0f2db3c",
+      "range": {
+        "startLine": 190,
+        "startChar": 29,
+        "endLine": 190,
+        "endChar": 58
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe446611_7d59f717",
         "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
         "patchSetId": 2
@@ -106,6 +202,30 @@
       "writtenOn": "2021-08-25T07:53:29Z",
       "side": 1,
       "message": "What\u0027s special about this? IIUC it is because it\u0027s RAT type.\n1. If so, maybe name it more specifically, e.g. identMobile2Umts\n2. Do we want to test identMobile2Lte does not match? Or it is covered by other tests?",
+      "range": {
+        "startLine": 199,
+        "startChar": 53,
+        "endLine": 199,
+        "endChar": 65
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23dfdb5f_28e5fb0d",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-08-31T05:25:10Z",
+      "side": 1,
+      "message": "I think this can be any RAT type because this test is to test the template matches TYPE_MOBILE.",
+      "parentUuid": "fe446611_7d59f717",
       "range": {
         "startLine": 199,
         "startChar": 53,
