@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a00f5c5_d8eab233",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-31T08:49:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16acdfdd_eb4bfa3e",
+      "range": {
+        "startLine": 72,
+        "startChar": 60,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70122c2e_681243ee",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Yes, this will be updated when buildTemplateMobileWithRatType takes metered parameter. This will be addressed in the follow-up CLs.",
       "parentUuid": "70122c2e_681243ee",
+      "range": {
+        "startLine": 179,
+        "startChar": 50,
+        "endLine": 179,
+        "endChar": 51
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a970054_6701f0ed",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-31T08:49:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c622424_f45006da",
       "range": {
         "startLine": 179,
         "startChar": 50,
@@ -142,6 +190,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2bd800_f785f4cd",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-31T08:49:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4c38e22_4bf4a518",
+      "range": {
+        "startLine": 189,
+        "startChar": 37,
+        "endLine": 189,
+        "endChar": 59
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30c6b17d_b0f2db3c",
@@ -189,6 +261,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f6fad6d_078d73fa",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-31T08:49:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cca12dc6_a16afa16",
+      "range": {
+        "startLine": 190,
+        "startChar": 29,
+        "endLine": 190,
+        "endChar": 58
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe446611_7d59f717",
@@ -226,6 +322,30 @@
       "side": 1,
       "message": "I think this can be any RAT type because this test is to test the template matches TYPE_MOBILE.",
       "parentUuid": "fe446611_7d59f717",
+      "range": {
+        "startLine": 199,
+        "startChar": 53,
+        "endLine": 199,
+        "endChar": 65
+      },
+      "revId": "366b26f529d4c2be17e3b8b1b88a35df223ad4c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15ba3ab9_4b4f92df",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-08-31T08:49:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23dfdb5f_28e5fb0d",
       "range": {
         "startLine": 199,
         "startChar": 53,
