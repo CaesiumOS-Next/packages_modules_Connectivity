@@ -80,6 +80,76 @@
       },
       "revId": "348b579064be71292e3cda370bc73b4c174b9c9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f48afd82_811586bd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3943,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T10:30:15Z",
+      "side": 1,
+      "message": "I don\u0027t think this answers Lorenzo\u0027s question ; given that disconnectAndDestroyNetwork is always called on the handler thread but removes the NAI from the map, how can this code be called at all with an already-destroyed network ?\n\nI think the answer to this is in updateNetworkInfo ; updateNetworkInfo is called with the argument in a message, which is initialized with `this` in NetworkAgentRegistry. That means I think it\u0027s technically possible that CS calls tearDownUnneededNetwork, calling nai.disconnect() and queuing up a message to call this, but before it\u0027s done the NA calls sendNetworkInfo with DISCONNECTED, which never looks up the agent from the map.\n\nIf that\u0027s true, then it\u0027s indeed a bug in ConnectivityService, and the simplest fix is to change\n\n  if (mNetworkAgentInfos.contains(nai)) {\n    disconnectAndDestroyNetwork(nai);\n  }\n\n...in handleNetworkAgentDisconnected to\n\n  if (!mNetworkAgentInfo.contains(nai)) return;\n\n...to the top of this method. It\u0027s simpler because otherwise we\u0027d have to protect both calls in the same way.",
+      "parentUuid": "8f091df3_1f12dbee",
+      "range": {
+        "startLine": 3942,
+        "startChar": 86,
+        "endLine": 3943,
+        "endChar": 42
+      },
+      "revId": "348b579064be71292e3cda370bc73b4c174b9c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad647f4_166cb688",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3944,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T10:30:15Z",
+      "side": 1,
+      "message": "If the reason this is thrown is that the network is already destroyed, then presumably we want to return and not post in l.3947 ?",
+      "range": {
+        "startLine": 3944,
+        "startChar": 27,
+        "endLine": 3944,
+        "endChar": 28
+      },
+      "revId": "348b579064be71292e3cda370bc73b4c174b9c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b355a9da_bc3950c5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T10:30:15Z",
+      "side": 1,
+      "message": "While you\u0027re here, can you convert this to the modern way of logging exceptions :\n\n  Log.d(TAG, \"...\", e);",
+      "range": {
+        "startLine": 3945,
+        "startChar": 72,
+        "endLine": 3945,
+        "endChar": 79
+      },
+      "revId": "348b579064be71292e3cda370bc73b4c174b9c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
