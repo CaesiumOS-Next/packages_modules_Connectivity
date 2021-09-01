@@ -223,6 +223,30 @@
       },
       "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbaa650c_63cfc27f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T05:56:39Z",
+      "side": 1,
+      "message": "\u003e I think the issue is that binderDied() capturies a ref to an NOI that may have been queued to be removed either by unofferNetwork or by unregisterNetworkProvider.\n\nWait, that\u0027s really bizarre, by the same reasoning unlinkToDeath() should never throw in this situation because the binder is already dead.\n\nTyler, do you have a consistent way to reproduce this ? It doesn\u0027t happen when I kill the phone process locally.",
+      "parentUuid": "d607cd2f_576c700d",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
