@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "24293bde_62843b08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T05:52:46Z",
+      "side": 1,
+      "message": "It doesn\u0027t sound like this analysis is correct. From the unlinkToDeath() documentation :\n\n```\n[returns] false if the target IBinder has already died, meaning the method has been (or soon will be) called.\n```\n\n```\nThrows NoSuchElementException if the given recipient has not been registered with the IBinder, and the IBinder is still alive. Note that if the recipient was never registered, but the IBinder has already died, then this exception will not be thrown, and you will receive a false return value instead.\n```\n\nIt doesn\u0027t look like this can happen if the binder has died ; instead it is explicitly documented to only happen when it has *not* died.\n\nAlso, this would imply the system server would crash with this every time the phone process crashes. I tested this, and it\u0027s not the case. I think what\u0027s happening is the phone process is crashing immediately as it unregisters the network provider. See inline for what I think is a better solution.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a98c37f7_95642809",
@@ -168,6 +191,30 @@
       "side": 1,
       "message": "handleUnregisterNetworkOffer() is called when binder dies. Remmoving the noi from mNetworkOffers would require posting a new event though...\n\n\n\n    private class NetworkOfferInfo implements IBinder.DeathRecipient {\n        @NonNull public final NetworkOffer offer;\n\n        NetworkOfferInfo(@NonNull final NetworkOffer offer) {\n            this.offer \u003d offer;\n        }\n\n        @Override\n        public void binderDied() {\n            mHandler.post(() -\u003e handleUnregisterNetworkOffer(this));\n        }\n    }",
       "parentUuid": "e485fe35_892f94c3",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d607cd2f_576c700d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T05:52:46Z",
+      "side": 1,
+      "message": "\u003e Then unlinkToDeath() will throw an exception since the binder is dead already.\n\nunlinkToDeath() is documented to *never* throw this exception when the binder is dead : https://developer.android.com/reference/android/os/IBinder#unlinkToDeath(android.os.IBinder.DeathRecipient,%20int)\n\n\nWhen the binder dies we post a message with handleUnregisterNetworkOffer. I think the issue is that binderDied() capturies a ref to an NOI that may have been queued to be removed either by unofferNetwork or by unregisterNetworkProvider.\n\nI don\u0027t think AOSP has any call to unofferNetwork, and unregisterNetworkProvider is only called by the bluetooth factory. Tyler, do you have any changes that will call `ConnectivityManager#unofferNetwork`, `ConnectivityManager#unregisterNetworkProvider` or `NetworkFactory#terminate` ?\n\nExamining the code, I don\u0027t think it\u0027s possible that a NOI is in the map but not registered or the other way around. Code-wise, the simplest solution is probably to test for the return value of `remove()` to know if the binder link is there like Lorenzo suggests. That means we\u0027d accept calling this twice in this race condition, and is not fundamentally different from catching the exception. I think we\u0027d need to explain in comments when this happens and why this is a simple solution.\n\n\nIf we wanted to actually not call this twice, I think the simplest solution is to replace\n\n  @Override\n  public void binderDied() {\n    mHandler.post(() -\u003e handleUnregisterNetworkOffer(this));\n  }\n\nwith code using the event instead :\n\n  @Override\n  public void binderDied() {\n    mHandler.sendMessage(mHandler.obtainMessage(EVENT_UNREGISTER_NETWORK_OFFER), offer.callback);\n  }\n\n\nNetworkRequest has a similar problem and is dealing with it by separating the unregistering into `handleRelease` and `handleRemove` methods, with the former doing the lookup and only ever calling the latter if the request is found in the map, but I don\u0027t think we need this kind of complexity here.\n\nI think overall my preferred solution is the test for the return value of `remove()` as Lorenzo suggests, adding appropriate comments to explain when this happens and why it\u0027s fine. It\u0027s more explicit and carries less risk of hiding a bug.",
+      "parentUuid": "27d79472_ab7f368c",
       "range": {
         "startLine": 6873,
         "startChar": 0,
