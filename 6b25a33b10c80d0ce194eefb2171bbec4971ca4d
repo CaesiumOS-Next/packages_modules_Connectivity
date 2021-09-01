@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30df8845_1cd6c7e8",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T12:46:30Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right. I just mean that in the abstract, when you call buildAndMockPackageInfoWithPermissions(uid), you do not expect mPackageManager.getPackageInfo(USER1) to return an app info containing a uid for USER2. But you are right that it doesn\u0027t matter in the test at this time.\n\nWith the comment, I\u0027m happy.",
+      "parentUuid": "8028ad64_93f3f445",
+      "range": {
+        "startLine": 229,
+        "startChar": 61,
+        "endLine": 229,
+        "endChar": 67
+      },
+      "revId": "6b25a33b10c80d0ce194eefb2171bbec4971ca4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d21bf74_e19063d9",

@@ -97,6 +97,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c684c11_6adcc4b7",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T12:46:30Z",
+      "side": 1,
+      "message": "Instead of this you could just say result.length - 1",
+      "range": {
+        "startLine": 244,
+        "startChar": 15,
+        "endLine": 244,
+        "endChar": 18
+      },
+      "revId": "4ab9458d7627f0ac4383e226deb93b87855b8883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27610c8e_b9b8706f",
         "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
         "patchSetId": 4

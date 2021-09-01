@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce6e7e3_b3639fd3",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-01T12:46:30Z",
+      "side": 1,
+      "message": "I think this argument is fairly unnatural for such a generic method. Besides, having this means the method will sometimes return the same instance and sometimes not, which is often a problem for arrays, which are always mutable in Java.\n\nI think it\u0027s nicer if you remove the argument and have the caller do the .contains() test instead.",
+      "range": {
+        "startLine": 234,
+        "startChar": 12,
+        "endLine": 234,
+        "endChar": 35
+      },
+      "revId": "339873bc49b950250122438bf6e3e4d6877dc96c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
