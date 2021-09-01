@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88839de8_33bd5bb9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-01T14:28:06Z",
+      "side": 1,
+      "message": "Typo, \"disallowed\" only has one S.",
+      "range": {
+        "startLine": 1750,
+        "startChar": 52,
+        "endLine": 1750,
+        "endChar": 63
+      },
+      "revId": "63c79474b29b098d619415f065969d332a8580d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ed3a97d_5787cfb4",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-01T14:28:06Z",
+      "side": 1,
+      "message": "I think you need to call requestNetwork before registering the agent. Before S, I think the agent will connect but immediately be declared unneeded and torn down. In S and above I think it will stay connected for 5 seconds, but that might not be enough for the test to finish.",
+      "range": {
+        "startLine": 1752,
+        "startChar": 35,
+        "endLine": 1752,
+        "endChar": 63
+      },
+      "revId": "63c79474b29b098d619415f065969d332a8580d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6a783e0_209f1b2b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1822,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-01T14:28:06Z",
+      "side": 1,
+      "message": "Is there a reason this test cannot be run on R? Does it not pass?",
+      "range": {
+        "startLine": 1822,
+        "startChar": 22,
+        "endLine": 1822,
+        "endChar": 37
+      },
+      "revId": "63c79474b29b098d619415f065969d332a8580d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
