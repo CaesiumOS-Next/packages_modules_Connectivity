@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1696f724_05614bfc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:39:01Z",
+      "side": 1,
+      "message": "Looks generally fine. Will be simpler if you apply my suggestion of folding the action into the rules I think.",
+      "revId": "97ec2b493d07a8a9f92ec5a511198bc2c4762d21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64a4aff8_b8489e34",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6990,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:39:01Z",
+      "side": 1,
+      "message": "Style guide says space before",
+      "range": {
+        "startLine": 6990,
+        "startChar": 33,
+        "endLine": 6990,
+        "endChar": 34
+      },
+      "revId": "97ec2b493d07a8a9f92ec5a511198bc2c4762d21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f021f80b_44c935d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 6993,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:39:01Z",
+      "side": 1,
+      "message": "Remove (update below)",
+      "range": {
+        "startLine": 6993,
+        "startChar": 43,
+        "endLine": 6993,
+        "endChar": 46
+      },
+      "revId": "97ec2b493d07a8a9f92ec5a511198bc2c4762d21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
