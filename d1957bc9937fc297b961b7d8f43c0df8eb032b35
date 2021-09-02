@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "130cecc1_bd0adb7f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4898,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T16:16:45Z",
+      "side": 1,
+      "message": "Ouch, that is sad. Thanks for noticing this.\n\nI think the right way of fixing this is to move the code that triggers the update from EVENT_PROBE_STATUS_CHANGED to EVENT_NETWORK_TESTED. Then we would have only one update for this, and we\u0027d never show the network as validated but with private DNS broken. I think this is safe because NetworkMonitor must always send EVENT_NETWORK_TESTED eventually.\nTo do this well, you will need to add fields for probes attempted and succeeded to NetworkTestedResult, so they can be read in EVENT_NETWORK_TESTED. They are already in NetworkTestedResultParcelable, so you can just read them from there to put them into NetworkTestedResult.\n\nIf we move that code we can also remove handling EVENT_PROBE_STATUS_CHANGED in ConnectivityService, so I think it simplifies things a bit too.\n\nWe already have good test coverage that notifyProbeStatusChanged is called. We\u0027ll want to add some comments in NetworkMonitorTest#testPrivateDnsSuccess. Please review aosp/1817720 :)",
+      "range": {
+        "startLine": 4897,
+        "startChar": 0,
+        "endLine": 4898,
+        "endChar": 98
+      },
+      "revId": "d1957bc9937fc297b961b7d8f43c0df8eb032b35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e02ecbb_003a58b0",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 6683,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T16:16:45Z",
+      "side": 1,
+      "message": "Why `eventually` here (and above) ? This is CSTest, we should know exactly all callbacks that are sent, and we probably shouldn\u0027t skip any.",
+      "range": {
+        "startLine": 6683,
+        "startChar": 17,
+        "endLine": 6683,
+        "endChar": 27
+      },
+      "revId": "d1957bc9937fc297b961b7d8f43c0df8eb032b35",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
