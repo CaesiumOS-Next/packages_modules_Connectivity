@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e2aca7_6c019bb1",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:51:40Z",
+      "side": 1,
+      "message": "I always find this logic difficult to get follow and there are still multiple instances of it in the file.\nOne thing you can do to simplify this is :\n- have a highestPermission(Boolean p1, Boolean p2)\n- use it here :\n  final Boolean permission \u003d highestPermission(getPackageNetdPermission(app), mApps.get(appId);\n- also use it in highestPermissionForUid :\n  final PackageInfo app \u003d mPackageManager.getPackageInfo(name, GET_PERMISSIONS | MATCH_ANY_USER);\n  return highestPermission(currentPermission, getPackageNetdNetworkPermission(app));\n\nAnother option is to stop using this bizarre Boolean scheme and switch to ints. Then you can just use \"\u003e\". I think that\u0027d be a lot more explicit.\n\nKeep in mind : I suspect there will be a day where permissions won\u0027t be strictly ordered, and instead will behave as a bitmask, so having something like highest() won\u0027t be an option. But that\u0027s not coming immediately.",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 0
+      },
+      "revId": "da74a0d3f70ee9bb969ddaec2c68db9dd7d7ed60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c37012c_53c93499",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:51:40Z",
+      "side": 1,
+      "message": "While you\u0027re here :\n\n  \"if it holds\"\n  \"it it\u0027s the active VPN\"",
+      "range": {
+        "startLine": 669,
+        "startChar": 48,
+        "endLine": 669,
+        "endChar": 52
+      },
+      "revId": "da74a0d3f70ee9bb969ddaec2c68db9dd7d7ed60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b17e6e62_49903960",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:51:40Z",
+      "side": 1,
+      "message": "Nit : this can\u0027t happen in practice because we never store null in mApps, but if we did this would be vulnerable to NPE. You can avoid this by saying either :\n\n  SYSTEM.equals(...)\n\nor\n\n  Objects.equals(..., SYSTEM)",
+      "range": {
+        "startLine": 677,
+        "startChar": 82,
+        "endLine": 677,
+        "endChar": 89
+      },
+      "revId": "da74a0d3f70ee9bb969ddaec2c68db9dd7d7ed60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
