@@ -156,6 +156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3bdbbb32_d793b338",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3943,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-02T16:36:23Z",
+      "side": 1,
+      "message": "That makes more sense. I was missing the total removal of the check in handleNetworkAgentDisconnected().\n\nShouldn\u0027t the removal line be moved to the top of function then as well?\nmNetworkAgentInfos.remove(nai);",
+      "parentUuid": "b95b9055_6449339d",
+      "range": {
+        "startLine": 3942,
+        "startChar": 86,
+        "endLine": 3943,
+        "endChar": 42
+      },
+      "revId": "348b579064be71292e3cda370bc73b4c174b9c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ad647f4_166cb688",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
