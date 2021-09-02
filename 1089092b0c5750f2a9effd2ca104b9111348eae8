@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba5ac130_d9034f4d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T07:35:18Z",
+      "side": 1,
+      "message": "I agree with your outlook. I just think this test is enforcing significantly more than the spec says and that security requires. For example, it *requires* that NOT_METERED is kept, that MMS is removed, that both transports are kept and none are added, that no other capability is added. Is it necessarily a bug if, say, a new NET_CAPABILITY_TEST_INTERNAL is added ? If someone adds it, they *must* spend time to come change your test. Sometimes it\u0027s appropriate. Sometimes it\u0027s wasted time.\n\nHaving strict tests is not always a problem of course – as you say, updating the tests is something we do regularly. Whether a test should be looser or stricter is a tradeoff every time. Simply keep in mind that tests, while essential for keeping the code working well, are also *extremely* expensive to maintain : tests too strict reduce our velocity noticeably, as developers and reviewers spend valuable time running, updating and checking test code. We want to be in a place where maintaining tests costs less time than it would take to notice and fix the bugs they detect. That\u0027s why normally you don\u0027t test for implementation details.",
+      "parentUuid": "821fdc16_c3edde61",
+      "revId": "1089092b0c5750f2a9effd2ca104b9111348eae8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dfb0cf1_caa20041",
