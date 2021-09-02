@@ -95,6 +95,29 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34b00b48_faa2cc70",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:06:04Z",
+      "side": 1,
+      "message": "Not necessary for this change : you may want to consider changing this to an int with an @IntDef. Boolean seems a bit bizarre and relies on there being only three states, but that\u0027s not guaranteed architecturally.\n\nAlso make this local final",
+      "range": {
+        "startLine": 254,
+        "startChar": 16,
+        "endLine": 254,
+        "endChar": 23
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fe60da1_37507658",
@@ -142,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e27f8cb2_10586d92",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:06:04Z",
+      "side": 1,
+      "message": "Not sure I buy the reasoning about the name of this method in this patch (I tend to agree with Chiachang), but considering aosp/1773890 will fix it anyway I think it\u0027s fine as is",
+      "parentUuid": "854d0014_304327b6",
+      "range": {
+        "startLine": 482,
+        "startChar": 55,
+        "endLine": 482,
+        "endChar": 58
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "797d7db3_b2087b00",
@@ -179,6 +226,30 @@
       "side": 1,
       "message": "This is SYSTEM_APPID1 in MOCK_USER1, it\u0027s totally different from SYSTEM_UID. Do you have any suggestion name if it\u0027s confused to you?",
       "parentUuid": "797d7db3_b2087b00",
+      "range": {
+        "startLine": 119,
+        "startChar": 29,
+        "endLine": 119,
+        "endChar": 40
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "848fee71_55927b43",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:06:04Z",
+      "side": 1,
+      "message": "I agree this is confusing, and I like Chiachang\u0027s suggestion of SYSTEM_APP_UID1.",
+      "parentUuid": "2f3acf52_6ff608f5",
       "range": {
         "startLine": 119,
         "startChar": 29,

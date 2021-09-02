@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2373246d_7beff2ff",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:06:04Z",
+      "side": 0,
+      "message": "This is still called upon install/uninstall right ? If so maybe you should keep it, but it indeed should be written after *what* the method does.\n\n  /**\n   * Send the updated permission information to netd. Called upon package install/uninstall.\n   *",
+      "range": {
+        "startLine": 721,
+        "startChar": 7,
+        "endLine": 721,
+        "endChar": 77
+      },
+      "revId": "339873bc49b950250122438bf6e3e4d6877dc96c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
