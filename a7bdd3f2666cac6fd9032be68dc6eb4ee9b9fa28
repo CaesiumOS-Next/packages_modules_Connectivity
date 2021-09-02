@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4460f4e8_80cf50d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:55:05Z",
+      "side": 1,
+      "message": "parsed",
+      "range": {
+        "startLine": 10,
+        "startChar": 3,
+        "endLine": 10,
+        "endChar": 10
+      },
+      "revId": "a7bdd3f2666cac6fd9032be68dc6eb4ee9b9fa28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85ce0053_e401fc53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:55:05Z",
+      "side": 1,
+      "message": "values",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 17
+      },
+      "revId": "a7bdd3f2666cac6fd9032be68dc6eb4ee9b9fa28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4391f8a2_12210d08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:55:05Z",
+      "side": 1,
+      "message": "in",
+      "range": {
+        "startLine": 12,
+        "startChar": 33,
+        "endLine": 12,
+        "endChar": 35
+      },
+      "revId": "a7bdd3f2666cac6fd9032be68dc6eb4ee9b9fa28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfb2d106_23447903",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:55:05Z",
+      "side": 1,
+      "message": "No, I think the system should crash.\n\n- The CSM method can only be called by a priv-app.\n- Non-integer format is a bug in that privileged app.\n- If you catch, you let the app send an unvalid value and it doesn\u0027t notice.\n\nI think it\u0027s better to let the system crash, seeing how the app calling the method MUST be fixed.",
+      "range": {
+        "startLine": 12,
+        "startChar": 54,
+        "endLine": 13,
+        "endChar": 24
+      },
+      "revId": "a7bdd3f2666cac6fd9032be68dc6eb4ee9b9fa28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d985a68_d8e067ef",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T05:55:05Z",
+      "side": 1,
+      "message": "Can we say \", e\" instead here ?",
+      "range": {
+        "startLine": 246,
+        "startChar": 71,
+        "endLine": 246,
+        "endChar": 79
+      },
+      "revId": "a7bdd3f2666cac6fd9032be68dc6eb4ee9b9fa28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
