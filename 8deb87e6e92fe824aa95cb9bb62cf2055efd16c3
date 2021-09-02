@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9932c46_f0f2bea9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2850,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "This no longer updates the MTU directly, it only adds an item to do so : it should be called addUpdateMtu.... Or maybe better : make it a method on NetdRuleReassignment ? The same goes for other similar methods",
+      "range": {
+        "startLine": 2850,
+        "startChar": 17,
+        "endLine": 2850,
+        "endChar": 26
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b7d24c9_d74a577c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2873,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "ISTM the log should be moved to when the rule is applied rather than here ? Or at least the wording should reflect that this is only adding an item.\n\nOr, considering you have dumpRules() anyway, is this unnecessary now ?",
+      "range": {
+        "startLine": 2873,
+        "startChar": 8,
+        "endLine": 2873,
+        "endChar": 73
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd019948_ac0b5ca7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2881,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "IIUC this is only ever called on its own in makeDefault. I think we can afford to make a list of rules to apply, and remove the nullability of this argument. That will let you move the methods into your rule list object.",
+      "range": {
+        "startLine": 2881,
+        "startChar": 39,
+        "endLine": 2881,
+        "endChar": 47
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c06caf9b_f5ac81c2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2900,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "Note to self : can we avoid having a direct mode ? It\u0027s really confusing",
+      "range": {
+        "startLine": 2900,
+        "startChar": 22,
+        "endLine": 2900,
+        "endChar": 55
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7560a3a_f3729065",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2907,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "If the code is adding a rule, it\u0027s unexpected that the member is updated before the rule is applied.",
+      "range": {
+        "startLine": 2907,
+        "startChar": 8,
+        "endLine": 2907,
+        "endChar": 48
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3c69dcd_960273e0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6884,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "What is reassigned exactly in this code ? In the network selection code, we\u0027re using \"Reassignment\" because we reassign networks to requests, but here there is no reassignment going on ?\nDo you want to call this NetdRuleUpdate or similar ?",
+      "range": {
+        "startLine": 6884,
+        "startChar": 39,
+        "endLine": 6884,
+        "endChar": 51
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a537c2a_1264d104",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6884,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "ConnectivityService is big, and this is adding many lines ; it is also relatively well contained (moreso when you move the top-level methods to make the rules into it) and has a simple to understand contract, so I think it would be useful to move it into a separate class under connectivity/.",
+      "range": {
+        "startLine": 6884,
+        "startChar": 31,
+        "endLine": 6884,
+        "endChar": 51
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00312d4b_d3dc52cc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6885,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "I think all these members can be private",
+      "range": {
+        "startLine": 6885,
+        "startChar": 8,
+        "endLine": 6885,
+        "endChar": 14
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31f4b8cc_a62a2a3d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6889,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "Do you want to make an @IntDef for these ints (and ACTION_*) ? I know this is internal code but I tend to find it useful regardless",
+      "range": {
+        "startLine": 6889,
+        "startChar": 25,
+        "endLine": 6889,
+        "endChar": 30
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a69abe8_da5ea3f0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6893,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem orthogonal to the rules at all. It\u0027s not used for RULE_MTU or RULE_TCP_BUFFER (but still required as an argument), and ACTION_UPDATE is only used with one type of rule. You also don\u0027t have any kind of validation for meaningless combinations.\n\nI think you\u0027re better off folding this into the rule type.\n  RULE_ADD_INTERFACE\n  RULE_REMOVE_INTERFACE\n  RULE_ADD_ROUTE\n  RULE_REMOVE_ROUTE\n  RULE_UPDATE_ROUTE\n  RULE_UPDATE_MTU\n  ...\n\nThis will also simplify your cascaded switch \u003e method call \u003e switch structure.",
+      "range": {
+        "startLine": 6891,
+        "startChar": 0,
+        "endLine": 6893,
+        "endChar": 43
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8ff5c22_ce12d6b6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6909,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "Do you want to have also ruleTypeToString ?",
+      "range": {
+        "startLine": 6909,
+        "startChar": 27,
+        "endLine": 6909,
+        "endChar": 41
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9567a923_b803ec55",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 7032,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "This is always a programming error right ? How about throwing ?",
+      "range": {
+        "startLine": 7032,
+        "startChar": 24,
+        "endLine": 7032,
+        "endChar": 28
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60ad6429_1bb18d62",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 7037,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "Why catch this ? This is always a programming error right ?",
+      "range": {
+        "startLine": 7035,
+        "startChar": 0,
+        "endLine": 7037,
+        "endChar": 13
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b7655ad_47efbb1d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 7056,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "\", e\" ?",
+      "range": {
+        "startLine": 7056,
+        "startChar": 50,
+        "endLine": 7056,
+        "endChar": 57
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a26e18cb_f71626e7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 7243,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:24:25Z",
+      "side": 1,
+      "message": "Here too, this is only called in disconnectAndDestroyNetwork, where we can certainly afford to create the rules list.",
+      "range": {
+        "startLine": 7243,
+        "startChar": 40,
+        "endLine": 7243,
+        "endChar": 48
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
