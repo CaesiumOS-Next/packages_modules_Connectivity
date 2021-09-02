@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ec8a9f5_e2d40d4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:38:29Z",
+      "side": 1,
+      "message": "Looks fine provided that the list object is moved to its own class, so we can show statically that there are no side effects at the CS level",
+      "revId": "6aa28fe17b1ec7fa49c10f23427a8945a9064c06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
