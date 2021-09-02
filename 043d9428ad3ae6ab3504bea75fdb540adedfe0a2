@@ -16,6 +16,24 @@
       "message": "Is this actually required? If no annotation is present, then wouldn\u0027t the test infrastructure assume that the test does not depend on foldable states?",
       "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b378e6c_121cba68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-09-02T11:22:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the default value but they would like us to annotate it explicitly one way or the other so that it is clear whether we deliberately chose to exclude these from running on all device states or just missed annotating with \"foldable_states\".",
+      "parentUuid": "2d90c5ac_98246a8e",
+      "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
