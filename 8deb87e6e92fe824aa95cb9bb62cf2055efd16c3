@@ -164,6 +164,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a56338e_9230870a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6884,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T08:37:36Z",
+      "side": 1,
+      "message": "Also it will guarantee that the respective methods aren\u0027t using CS members unless we pass them as an argument. Writing to a member in particular would be problematic here because the entire point is to control the order of side effects",
+      "parentUuid": "0a537c2a_1264d104",
+      "range": {
+        "startLine": 6884,
+        "startChar": 31,
+        "endLine": 6884,
+        "endChar": 51
+      },
+      "revId": "8deb87e6e92fe824aa95cb9bb62cf2055efd16c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00312d4b_d3dc52cc",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 6
