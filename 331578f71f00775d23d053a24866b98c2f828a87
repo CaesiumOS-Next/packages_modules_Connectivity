@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf785f8e_1b5d0bc5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-02T09:23:45Z",
+      "side": 1,
+      "message": "test",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be15971e_a0058613",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2778,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-02T09:23:45Z",
+      "side": 1,
+      "message": "Out of curiosity, why systemDefaultCb and defaultTrackingCb use different way to check AVAILABLE callback?",
+      "range": {
+        "startLine": 2776,
+        "startChar": 12,
+        "endLine": 2778,
+        "endChar": 69
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ad555d0_8bdf290c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2790,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-02T09:23:45Z",
+      "side": 1,
+      "message": "change",
+      "range": {
+        "startLine": 2790,
+        "startChar": 46,
+        "endLine": 2790,
+        "endChar": 51
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bd49bc9_cbcbddac",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2793,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-02T09:23:45Z",
+      "side": 1,
+      "message": "testSetAvoidUnvalidated() also met the similar issue before(aosp/1769289), which received a LinkPropertiesChanged.\nDo you want to also consider the case of receiving LinkPropertiesChanged?\ne.g. c -\u003e !(c instanceof CallbackEntry.CapabilitiesChanged || c instanceof CallbackEntry.LinkPropertiesChanged)",
+      "range": {
+        "startLine": 2792,
+        "startChar": 12,
+        "endLine": 2793,
+        "endChar": 76
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad81669e_594dc90d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2804,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-02T09:23:45Z",
+      "side": 1,
+      "message": "change",
+      "range": {
+        "startLine": 2804,
+        "startChar": 46,
+        "endLine": 2804,
+        "endChar": 51
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
