@@ -247,6 +247,30 @@
       },
       "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46111358_47088baf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-02T00:50:12Z",
+      "side": 1,
+      "message": "No, currently it is a stability case which is randomly occurring",
+      "parentUuid": "dbaa650c_63cfc27f",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
