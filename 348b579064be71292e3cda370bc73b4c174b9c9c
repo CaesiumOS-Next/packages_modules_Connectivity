@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b95b9055_6449339d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3943,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T06:19:07Z",
+      "side": 1,
+      "message": "If my reasoning is correct that the issue is happening when this called from updateNetworkInfo is correct, then only touching the code in handleNetworkAgentDisconnected won\u0027t fix it. No, I meant having\n\n  if (!mNetworkAgentInfo.contains(nai)) return;\n\nto the top of disconnectAndDestroyNetwork. When that\u0027s done, the check in handleNetworkAgentDisconnect is no longer useful and can be removed.\n\nsendNetworkInfo doesn\u0027t have access to the map itself (and shouldn\u0027t). We *could* put the test in updateNetworkInfo, but then it\u0027s duplicated between handleNetworkAgentDisconnected and updateNetworkInfo. That\u0027s why I think it\u0027s better to have it at the top of this method.",
+      "parentUuid": "d576bea3_31f40858",
+      "range": {
+        "startLine": 3942,
+        "startChar": 86,
+        "endLine": 3943,
+        "endChar": 42
+      },
+      "revId": "348b579064be71292e3cda370bc73b4c174b9c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ad647f4_166cb688",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 2
