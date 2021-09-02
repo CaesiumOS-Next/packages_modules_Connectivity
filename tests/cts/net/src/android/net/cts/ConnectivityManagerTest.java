@@ -2787,8 +2787,10 @@ public class ConnectivityManagerTest {
                     mContext, newMobileDataPreferredUids);
             defaultTrackingCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
                     entry -> cellNetwork.equals(entry.getNetwork()));
-            // System default network doesn't change.
-            systemDefaultCb.assertNoCallback();
+            // System default network doesn't chang, expect no callback except CapabilitiesChanged
+            // which may be triggered randomly from wifi network.
+            systemDefaultCb.assertNoCallbackThat(NO_CALLBACK_TIMEOUT_MS,
+                    c -> !(c instanceof CallbackEntry.CapabilitiesChanged));
             // Active network for CtsNetTestCases uid should change to cell, too.
             assertEquals(cellNetwork, mCm.getActiveNetwork());
 
@@ -2799,8 +2801,10 @@ public class ConnectivityManagerTest {
                     mContext, newMobileDataPreferredUids);
             defaultTrackingCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
                     entry -> wifiNetwork.equals(entry.getNetwork()));
-            // System default network still doesn't change.
-            systemDefaultCb.assertNoCallback();
+            // System default network doesn't chang, expect no callback except CapabilitiesChanged
+            // which may be triggered randomly from wifi network.
+            systemDefaultCb.assertNoCallbackThat(NO_CALLBACK_TIMEOUT_MS,
+                    c -> !(c instanceof CallbackEntry.CapabilitiesChanged));
             // Active network for CtsNetTestCases uid should change back to wifi.
             assertEquals(wifiNetwork, mCm.getActiveNetwork());
         } finally {
