@@ -2742,6 +2742,13 @@ public class ConnectivityManagerTest {
                 System.currentTimeMillis() + WIFI_CONNECT_TIMEOUT_MS);
     }
 
+    private void assertNoCallbackExceptRandomlyCapOrLpChange(
+            @NonNull final TestableNetworkCallback cb) {
+        cb.assertNoCallbackThat(NO_CALLBACK_TIMEOUT_MS,
+                c -> !(c instanceof CallbackEntry.CapabilitiesChanged
+                        || c instanceof CallbackEntry.LinkPropertiesChanged));
+    }
+
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
     public void testMobileDataPreferredUids() throws Exception {
@@ -2774,8 +2781,7 @@ public class ConnectivityManagerTest {
             // CtsNetTestCases uid is not listed in MOBILE_DATA_PREFERRED_UIDS setting, so the
             // per-app default network should be same as system default network.
             waitForAvailable(systemDefaultCb, wifiNetwork);
-            defaultTrackingCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
-                    entry -> wifiNetwork.equals(entry.getNetwork()));
+            waitForAvailable(defaultTrackingCb, wifiNetwork);
             // Active network for CtsNetTestCases uid should be wifi now.
             assertEquals(wifiNetwork, mCm.getActiveNetwork());
 
@@ -2785,10 +2791,10 @@ public class ConnectivityManagerTest {
             newMobileDataPreferredUids.add(uid);
             ConnectivitySettingsManager.setMobileDataPreferredUids(
                     mContext, newMobileDataPreferredUids);
-            defaultTrackingCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
-                    entry -> cellNetwork.equals(entry.getNetwork()));
-            // System default network doesn't change.
-            systemDefaultCb.assertNoCallback();
+            waitForAvailable(defaultTrackingCb, cellNetwork);
+            // No change for system default network. Expect no callback except CapabilitiesChanged
+            // or LinkPropertiesChanged which may be triggered randomly from wifi network.
+            assertNoCallbackExceptRandomlyCapOrLpChange(systemDefaultCb);
             // Active network for CtsNetTestCases uid should change to cell, too.
             assertEquals(cellNetwork, mCm.getActiveNetwork());
 
@@ -2797,10 +2803,10 @@ public class ConnectivityManagerTest {
             newMobileDataPreferredUids.remove(uid);
             ConnectivitySettingsManager.setMobileDataPreferredUids(
                     mContext, newMobileDataPreferredUids);
-            defaultTrackingCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
-                    entry -> wifiNetwork.equals(entry.getNetwork()));
-            // System default network still doesn't change.
-            systemDefaultCb.assertNoCallback();
+            waitForAvailable(defaultTrackingCb, wifiNetwork);
+            // No change for system default network. Expect no callback except CapabilitiesChanged
+            // or LinkPropertiesChanged which may be triggered randomly from wifi network.
+            assertNoCallbackExceptRandomlyCapOrLpChange(systemDefaultCb);
             // Active network for CtsNetTestCases uid should change back to wifi.
             assertEquals(wifiNetwork, mCm.getActiveNetwork());
         } finally {
