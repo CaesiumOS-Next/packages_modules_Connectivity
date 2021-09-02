@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0dad9d_a879aa1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-02T06:03:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow ; yes it should be called only once, but in the system it\u0027s called on boot, so calling it in setup() sounds realistic.\n\nIs there any test where it\u0027s problematic to call it ? I don\u0027t think there should be ; in this case, calling it at the end of setup() is appropriate I think.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 61
+      },
+      "revId": "501b2d5dd775c924d5849b41dcb2d6a7bcca5a08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
