@@ -260,6 +260,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "806e684c_20af2cf8",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Oops, I misread Chiachang\u0027s comment. He alreay suggested the name. Sure, SYSTEM_APP_UID1 should be more clear.",
+      "parentUuid": "848fee71_55927b43",
+      "range": {
+        "startLine": 119,
+        "startChar": 29,
+        "endLine": 119,
+        "endChar": 40
+      },
+      "revId": "aa178e46de698b0b1f2c7540f4a095cb086b3dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44d62ebb_68e40493",

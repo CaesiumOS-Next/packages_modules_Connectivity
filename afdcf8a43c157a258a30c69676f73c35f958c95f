@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2427176f_66f1bf53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "I don\u0027t think there is any behavior changed here. You can look at the netd code below, netd check the traffic permissions by app id not by uid. Besides, the uids getting from startMonitoring() are base uids(app ids) because the user in mPackageManager is always primary user and we don\u0027t combine the user ids when sending these app ids to netd either. So we are sending app ids traffic permissions to netd actually.\n* https://source.corp.google.com/aosp-master/system/netd/server/TrafficController.cpp?q\u003d%22mPrivilegedUser.find(appId)%22\u0026sq\u003dpackage:aosp-master\n\n* https://source.corp.google.com/aosp-master/system/netd/bpf_progs/netd.c;l\u003d359\n\nI think the question is what kind of value (uid or app id) should bring to INetd#trafficSetNetPermForUids \n* If app id, we should rename it to INetd#trafficSetNetPermForAppIds. And this patch also rename the related methods.\n* If uid, renaming traffic permissions related methods is totally incorrect in this patch. We should combine user id with each uid before sending them to netd. But this should be a large behavior change indeed.\n\nI prefer go second one to send uid\u0027s traffic permission because we are going to save uid\u0027s network permissions in aosp/1773890, maybe traffic permissions will have similar requirement in the furture. Even netd only check permission by app id now, have uid\u0027s permission in hand we can update the design to check uid permission anytime if needed. WDYT?",
+      "parentUuid": "da1c4b93_531af5ff",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d40f8276_9f05707b",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-02T05:06:04Z",
       "side": 1,
       "message": "While you\u0027re here : final",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 240,
+        "endChar": 22
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0b005c4_adb41cf5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d40f8276_9f05707b",
       "range": {
         "startLine": 240,
         "startChar": 8,
@@ -72,6 +120,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c4710fac_554da0ee",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63fb0c32_93ee731b",
+      "range": {
+        "startLine": 250,
+        "startChar": 20,
+        "endLine": 250,
+        "endChar": 29
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "76b9324d_ade7148e",
         "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
         "patchSetId": 4
@@ -83,6 +155,30 @@
       "writtenOn": "2021-09-02T05:06:04Z",
       "side": 1,
       "message": "Curious : why change that to 1100 instead of 1000 ?",
+      "range": {
+        "startLine": 118,
+        "startChar": 45,
+        "endLine": 118,
+        "endChar": 49
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16383106_7993b429",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "To avoid confusion, it\u0027s better to user another number since 1000 is SYSTEM_UID.",
+      "parentUuid": "76b9324d_ade7148e",
       "range": {
         "startLine": 118,
         "startChar": 45,
@@ -116,6 +212,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc52ec4d_9da2b9e6",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Ack. Revert the change.",
+      "parentUuid": "7e140da1_e09f7a94",
+      "range": {
+        "startLine": 511,
+        "startChar": 22,
+        "endLine": 511,
+        "endChar": 25
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d90ef1_adf7a010",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7e140da1_e09f7a94",
+      "range": {
+        "startLine": 511,
+        "startChar": 22,
+        "endLine": 511,
+        "endChar": 25
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16f30b8f_98665920",
@@ -129,6 +273,30 @@
       "writtenOn": "2021-09-02T05:06:04Z",
       "side": 1,
       "message": "Rename\n\nBe careful here because SYSTEM_UID was 1000 and SYSTEM_UID1 is now 1100.",
+      "range": {
+        "startLine": 596,
+        "startChar": 11,
+        "endLine": 596,
+        "endChar": 21
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d62a9f78_f982da3a",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16f30b8f_98665920",
       "range": {
         "startLine": 596,
         "startChar": 11,
@@ -162,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17f03b59_75de49c5",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35417d9a_c20de173",
+      "range": {
+        "startLine": 608,
+        "startChar": 32,
+        "endLine": 608,
+        "endChar": 58
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3146a776_6a063a88",
@@ -175,6 +367,30 @@
       "writtenOn": "2021-09-02T05:06:04Z",
       "side": 1,
       "message": "Can we do more specific than this ? It looks a bit dangerous to return SYSTEM_PACKAGE2 for *any* UID",
+      "range": {
+        "startLine": 646,
+        "startChar": 47,
+        "endLine": 646,
+        "endChar": 55
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56941a42_c312c8d5",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3146a776_6a063a88",
       "range": {
         "startLine": 646,
         "startChar": 47,
@@ -208,6 +424,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44789126_e104a323",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "networkClearPermissionForUser is still invoked with empty array after user2 removed. So I think the comment is incorrect. Update to \"expect no permission change.\"",
+      "parentUuid": "1b1337a9_89ba019d",
+      "range": {
+        "startLine": 661,
+        "startChar": 29,
+        "endLine": 661,
+        "endChar": 76
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "565fcfc2_929c2df5",
@@ -221,6 +461,30 @@
       "writtenOn": "2021-09-02T05:06:04Z",
       "side": 1,
       "message": "Nit : I\u0027d prefer we keep this on the next line to have the *values* aligned visually",
+      "range": {
+        "startLine": 678,
+        "startChar": 47,
+        "endLine": 678,
+        "endChar": 77
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3eb48415_6e9c4e9e",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "565fcfc2_929c2df5",
       "range": {
         "startLine": 678,
         "startChar": 47,
@@ -254,6 +518,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cad5531_3fb6ccc5",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42ee1e38_68054810",
+      "range": {
+        "startLine": 1002,
+        "startChar": 37,
+        "endLine": 1002,
+        "endChar": 38
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16c65920_e6919f76",
@@ -267,6 +555,30 @@
       "writtenOn": "2021-09-02T05:06:04Z",
       "side": 1,
       "message": "I\u0027m thinking of this only now, but here expectNetworkPerm() will check only that USER2 has the permission, it won\u0027t check that USER1 doesn\u0027t have the permission. We should also call\n\n  mNetdMonitor.expectNoNetworkPerm(new UserHandle[]{MOCK_USER1}, MOCK_APPID2);\n\nThis probably applies also to some other places in this file",
+      "range": {
+        "startLine": 1016,
+        "startChar": 23,
+        "endLine": 1016,
+        "endChar": 33
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca893b2f_c55b76a1",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T03:04:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16c65920_e6919f76",
       "range": {
         "startLine": 1016,
         "startChar": 23,
