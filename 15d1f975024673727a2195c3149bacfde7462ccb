@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17ad2cbc_a46684d9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-03T11:23:34Z",
+      "side": 1,
+      "message": "nai.everConnected ?",
+      "range": {
+        "startLine": 2314,
+        "startChar": 31,
+        "endLine": 2315,
+        "endChar": 92
+      },
+      "revId": "15d1f975024673727a2195c3149bacfde7462ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbfe14e_406b8523",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 12854,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-03T11:23:34Z",
+      "side": 1,
+      "message": "Maybe it\u0027s not super useful given the new code, but since this is fixing a problem that actually happens when a suspended network resumes, do you want to resume the network and make sure it\u0027s still in the list ?",
+      "range": {
+        "startLine": 12854,
+        "startChar": 73,
+        "endLine": 12854,
+        "endChar": 74
+      },
+      "revId": "15d1f975024673727a2195c3149bacfde7462ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
