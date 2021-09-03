@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bb4d274_ba5d426b",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T08:01:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "60ec302b_42c4a851",
+      "range": {
+        "startLine": 233,
+        "startChar": 4,
+        "endLine": 233,
+        "endChar": 91
+      },
+      "revId": "243127c7f84d21817f8e4cd65f839826de98ef94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2941129_9d23a217",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-03T04:48:27Z",
       "side": 1,
       "message": "result \u003d Arrays.copyOf(array, array.length + 1);\n\n... ?",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 55
+      },
+      "revId": "243127c7f84d21817f8e4cd65f839826de98ef94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bddfea13_6c71a647",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T08:01:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2941129_9d23a217",
       "range": {
         "startLine": 238,
         "startChar": 0,
