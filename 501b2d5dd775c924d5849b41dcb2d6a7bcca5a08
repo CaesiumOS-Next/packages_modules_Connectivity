@@ -22,6 +22,30 @@
       },
       "revId": "501b2d5dd775c924d5849b41dcb2d6a7bcca5a08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f591cb2e_2c59ba5d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T08:38:28Z",
+      "side": 1,
+      "message": "Some tests must call startMonitoring() in the test. If we have called startMonitoring() at setup(), then we will call second time startMonitoring() at the test and violate the rule.\n- testUpdateUidPermissionsFromSystemConfig: Needs to test SystemConfigManager#getSystemPermissionUids which is only called at startMonitoring().\n\n\n- testUidFilteringDuringVpnConnectDisconnectAndUidUpdates / testUidFilteringDuringPackageInstallAndUninstall: Need to build the package info before testing vpn command.",
+      "parentUuid": "1e0dad9d_a879aa1d",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 61
+      },
+      "revId": "501b2d5dd775c924d5849b41dcb2d6a7bcca5a08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
