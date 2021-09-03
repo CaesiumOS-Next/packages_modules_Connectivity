@@ -33,7 +33,6 @@ import static android.content.pm.PackageManager.MATCH_ANY_USER;
 import static android.net.ConnectivitySettingsManager.UIDS_ALLOWED_ON_RESTRICTED_NETWORKS;
 import static android.net.INetd.PERMISSION_INTERNET;
 import static android.net.INetd.PERMISSION_NONE;
-import static android.net.INetd.PERMISSION_SYSTEM;
 import static android.net.INetd.PERMISSION_UNINSTALLED;
 import static android.net.INetd.PERMISSION_UPDATE_DEVICE_STATS;
 import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
@@ -508,21 +507,21 @@ public class PermissionMonitorTest {
     }
 
     private class NetdMonitor {
-        private final HashMap<Integer, Boolean> mUidsNetworkPermission = new HashMap<>();
+        private final HashMap<Integer, Integer> mUidsNetworkPermission = new HashMap<>();
         private final HashMap<Integer, Integer> mAppIdsTrafficPermission = new HashMap<>();
 
         NetdMonitor(INetd mockNetd) throws Exception {
             // Add hook to verify and track result of networkSetPermission.
             doAnswer((InvocationOnMock invocation) -> {
                 final Object[] args = invocation.getArguments();
-                final Boolean isSystem = args[0].equals(PERMISSION_SYSTEM);
+                final int permission = (int) args[0];
                 for (final int uid : (int[]) args[1]) {
                     // TODO: Currently, permission monitor will send duplicate commands for each uid
                     // corresponding to each user. Need to fix that and uncomment below test.
                     // if (mApps.containsKey(uid) && mApps.get(uid) == isSystem) {
                     //     fail("uid " + uid + " is already set to " + isSystem);
                     // }
-                    mUidsNetworkPermission.put(uid, isSystem);
+                    mUidsNetworkPermission.put(uid, permission);
                 }
                 return null;
             }).when(mockNetd).networkSetPermissionForUser(anyInt(), any(int[].class));
@@ -552,7 +551,7 @@ public class PermissionMonitorTest {
             }).when(mockNetd).trafficSetNetPermForUids(anyInt(), any(int[].class));
         }
 
-        public void expectNetworkPerm(Boolean permission, UserHandle[] users, int... appIds) {
+        public void expectNetworkPerm(int permission, UserHandle[] users, int... appIds) {
             for (final UserHandle user : users) {
                 for (final int appId : appIds) {
                     final int uid = user.getUid(appId);
