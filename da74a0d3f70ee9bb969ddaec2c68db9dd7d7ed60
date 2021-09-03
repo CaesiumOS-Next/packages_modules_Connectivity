@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a48f3361_66fef2eb",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T07:12:02Z",
+      "side": 1,
+      "message": "Thanks for your suggestion, I swich to int values. Like you said, useing Boolean scheme is really bizarre.",
+      "parentUuid": "32e2aca7_6c019bb1",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 0
+      },
+      "revId": "da74a0d3f70ee9bb969ddaec2c68db9dd7d7ed60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c37012c_53c93499",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3343b181_58cfa77e",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T07:12:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c37012c_53c93499",
+      "range": {
+        "startLine": 669,
+        "startChar": 48,
+        "endLine": 669,
+        "endChar": 52
+      },
+      "revId": "da74a0d3f70ee9bb969ddaec2c68db9dd7d7ed60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b17e6e62_49903960",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-09-02T05:51:40Z",
       "side": 1,
       "message": "Nit : this can\u0027t happen in practice because we never store null in mApps, but if we did this would be vulnerable to NPE. You can avoid this by saying either :\n\n  SYSTEM.equals(...)\n\nor\n\n  Objects.equals(..., SYSTEM)",
+      "range": {
+        "startLine": 677,
+        "startChar": 82,
+        "endLine": 677,
+        "endChar": 89
+      },
+      "revId": "da74a0d3f70ee9bb969ddaec2c68db9dd7d7ed60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed521ccd_c2050af6",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T07:12:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b17e6e62_49903960",
       "range": {
         "startLine": 677,
         "startChar": 82,
