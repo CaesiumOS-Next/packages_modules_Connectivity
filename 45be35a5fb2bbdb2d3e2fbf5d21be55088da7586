@@ -16,6 +16,29 @@
       "message": "From https://buganizer.corp.google.com/issues/196079981#comment9, the verification is failed, checking.",
       "revId": "45be35a5fb2bbdb2d3e2fbf5d21be55088da7586",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a46fea55_19b69815",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-03T05:52:01Z",
+      "side": 1,
+      "message": "How about we resolve this TODO instead ?\n\nI don\u0027t understand why network stats shouldn\u0027t know about suspended interfaces.\n- There should never be traffic on a suspended interface, so it shouldn\u0027t make any difference\n- Suppose there is traffic on the suspended interface. I think it should be accounted, not ignored ?\n\nIf network stats always knows regardless of the suspended status anyway then we don\u0027t need to update when it changes. This sounds both simpler and more correct.",
+      "range": {
+        "startLine": 2314,
+        "startChar": 0,
+        "endLine": 2315,
+        "endChar": 74
+      },
+      "revId": "45be35a5fb2bbdb2d3e2fbf5d21be55088da7586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
