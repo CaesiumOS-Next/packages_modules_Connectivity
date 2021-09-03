@@ -39,6 +39,30 @@
       },
       "revId": "45be35a5fb2bbdb2d3e2fbf5d21be55088da7586",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0902f6a6_e84b78bf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-03T08:44:56Z",
+      "side": 1,
+      "message": "+1. In general, I think using NetworkInfo#isConnected is almost always incorrect in connectivity code. The fact that it does not consider SUSPENDED state has bitten us many times before, just like it did here.",
+      "parentUuid": "a46fea55_19b69815",
+      "range": {
+        "startLine": 2314,
+        "startChar": 0,
+        "endLine": 2315,
+        "endChar": 74
+      },
+      "revId": "45be35a5fb2bbdb2d3e2fbf5d21be55088da7586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
