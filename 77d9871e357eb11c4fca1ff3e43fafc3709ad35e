@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e6fa636_5e9a3320",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-03T05:59:27Z",
+      "side": 1,
+      "message": "Is this the right bug ? That bug looks conclusively fixed. I suppose this was one of the cleanup items found in the reviews for this bug ?\n\nIdeally a new bug should be opened instead but it doesn\u0027t matter too much",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "77d9871e357eb11c4fca1ff3e43fafc3709ad35e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7efafbd3_5422cefe",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-03T05:59:27Z",
+      "side": 1,
+      "message": "Instead of passing these here I think we should make them the default value of the respective arguments",
+      "range": {
+        "startLine": 255,
+        "startChar": 44,
+        "endLine": 255,
+        "endChar": 83
+      },
+      "revId": "77d9871e357eb11c4fca1ff3e43fafc3709ad35e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
