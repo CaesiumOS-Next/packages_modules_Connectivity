@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c88221a2_15e327c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-03T09:30:48Z",
+      "side": 1,
+      "message": "I see. In this context what netd does is a little bit beside the point as this is about behavior change (I see the link with TrafficController, but the bpf program you\u0027re pointing at seems to be for looking up the INTERNET permission and unrelated to this).\n\nYou make a good point about the context (though I find the semantics of MATCH_ALL_USERS fairly confusing). This code is already only getting UIDs for user 0, meaning UIDs ; the receiver for package installs sees all UIDs but it collapses them into app IDs first. So yes, I\u0027m convinced by your explanation : I think this makes no behavior difference. It only clarifies what we are really doing. As such, +2.\n\nAs for the second point you make, I fully agree. It\u0027s fairly bad that the netd method is called *Uids but internally only uses app IDs. We should either rename them or change the behavior.\nI think moving to UIDs is preferable, but we have to be careful about memory usage in BPF. To take an extreme case of 1000 apps installed and 4 users, that\u0027s another 12k of memory taken by the BPF map. We may be able to afford that in this extreme case, but I don\u0027t know if it will work today (or what happens when we overflow the map). I\u0027m consulting with Lorenzo to get an answer to these questions.\n\nIn any case, INetd is stable AIDL to a system image app used by older SDKs, so on Android \u003c T we will need to continue calling the old method in the old way anyway. If we can move to UIDs on Android T+ we will still have to use appIds on S-. If we can\u0027t move UIDs, then renaming is a good idea, but we\u0027ll still have to call the old method name on S-.",
+      "parentUuid": "2427176f_66f1bf53",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "afdcf8a43c157a258a30c69676f73c35f958c95f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d40f8276_9f05707b",
