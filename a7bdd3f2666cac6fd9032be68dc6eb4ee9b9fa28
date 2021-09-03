@@ -93,6 +93,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ab1ea8_510f590b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-03T08:12:19Z",
+      "side": 1,
+      "message": "Make sense. Then this change is useless.",
+      "parentUuid": "bfb2d106_23447903",
+      "range": {
+        "startLine": 12,
+        "startChar": 54,
+        "endLine": 13,
+        "endChar": 24
+      },
+      "revId": "a7bdd3f2666cac6fd9032be68dc6eb4ee9b9fa28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d985a68_d8e067ef",
