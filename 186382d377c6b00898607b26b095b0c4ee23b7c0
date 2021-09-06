@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b20cfa6_47da5207",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:42:53Z",
+      "side": 1,
+      "message": "template",
+      "range": {
+        "startLine": 741,
+        "startChar": 33,
+        "endLine": 741,
+        "endChar": 41
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63dabe88_bad7bc01",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:42:53Z",
+      "side": 1,
+      "message": "Isn\u0027t it clearer if we move this after the 2 expect lines below ?",
+      "range": {
+        "startLine": 747,
+        "startChar": 8,
+        "endLine": 748,
+        "endChar": 66
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5ed564e_b96f8377",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:42:53Z",
+      "side": 1,
+      "message": "In what sense is it initial here ?",
+      "range": {
+        "startLine": 757,
+        "startChar": 23,
+        "endLine": 757,
+        "endChar": 30
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61e667d0_5984bdc8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:42:53Z",
+      "side": 1,
+      "message": "S",
+      "range": {
+        "startLine": 785,
+        "startChar": 47,
+        "endLine": 785,
+        "endChar": 48
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b8b8c1e_54537023",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:42:53Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 785,
+        "startChar": 8,
+        "endLine": 785,
+        "endChar": 28
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daa112cd_3236d636",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:42:53Z",
+      "side": 1,
+      "message": "Reusing a local is almost always as symptom of an issue with the code.\n- In some cases, the local is reused with a different meaning. Then there should be a different local with a different name reflecting the meaning.\n- In some cases, it indicates the code is doing the same thing twice, and it should be factored. This is the case here.\n\nPlease get in the habit of making your locals final. This helps review and forces you to think about these cases.",
+      "range": {
+        "startLine": 803,
+        "startChar": 8,
+        "endLine": 803,
+        "endChar": 20
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "569ce1b7_c118f40f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1749,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:42:53Z",
+      "side": 1,
+      "message": "Exactly 👍\nI had written a comment exactly like this at the call site :)",
+      "range": {
+        "startLine": 1749,
+        "startChar": 7,
+        "endLine": 1749,
+        "endChar": 11
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
