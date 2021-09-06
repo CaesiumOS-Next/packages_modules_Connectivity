@@ -25,10 +25,13 @@ import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringTester.RemoteResponder;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
 
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQUEST_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 
@@ -47,6 +50,7 @@ import android.net.EthernetManager.TetheredInterfaceRequest;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
+import android.net.TetheringTester.TetheredDevice;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
@@ -57,6 +61,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv6Header;
@@ -71,6 +76,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.FileDescriptor;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
@@ -105,6 +111,7 @@ public class EthernetTetheringTest {
     private HandlerThread mHandlerThread;
     private Handler mHandler;
     private TapPacketReader mDownstreamReader;
+    private TapPacketReader mUpstreamReader;
 
     private TetheredInterfaceRequester mTetheredInterfaceRequester;
     private MyTetheringEventCallback mTetheringEventCallback;
@@ -139,6 +146,11 @@ public class EthernetTetheringTest {
         if (mUpstreamTracker != null) {
             mUpstreamTracker.teardown();
             mUpstreamTracker = null;
+        }
+        if (mUpstreamReader != null) {
+            TapPacketReader reader = mUpstreamReader;
+            mHandler.post(() -> reader.stop());
+            mUpstreamReader = null;
         }
 
         mTm.stopTethering(TETHERING_ETHERNET);
@@ -675,21 +687,26 @@ public class EthernetTetheringTest {
         }
     }
 
-    private TestNetworkTracker createTestUpstream(final List<LinkAddress> addresses)
-            throws Exception {
+    private TestNetworkTracker createTestUpstream(final List<LinkAddress> addresses,
+            final List<InetAddress> dnses) throws Exception {
         mTm.setPreferTestNetworks(true);
 
-        return initTestNetwork(mContext, addresses, TIMEOUT_MS);
+        final LinkProperties lp = new LinkProperties();
+        lp.setLinkAddresses(addresses);
+        lp.setDnsServers(dnses);
+
+        return initTestNetwork(mContext, lp, TIMEOUT_MS);
     }
 
     @Test
-    public void testTestNetworkUpstream() throws Exception {
+    public void testIcmpv6Echo() throws Exception {
         assumeFalse(mEm.isAvailable());
 
         // MyTetheringEventCallback currently only support await first available upstream. Tethering
         // may select internet network as upstream if test network is not available and not be
         // preferred yet. Create test upstream network before enable tethering.
-        mUpstreamTracker = createTestUpstream(toList(TEST_IP4_ADDR, TEST_IP6_ADDR));
+        mUpstreamTracker = createTestUpstream(toList(TEST_IP4_ADDR, TEST_IP6_ADDR),
+                toList(TEST_IP4_DNS, TEST_IP6_DNS));
 
         mDownstreamIface = createTestInterface();
         mEm.setIncludeTestInterfaces(true);
@@ -703,10 +720,45 @@ public class EthernetTetheringTest {
                 mTetheringEventCallback.awaitFirstUpstreamConnected());
 
         mDownstreamReader = makePacketReader(mDownstreamIface);
-        // TODO: do basic forwarding test here.
+        mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
+
+        runPing6Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader));
+    }
+
+    private void runPing6Test(TetheringTester tester, RemoteResponder remote) throws Exception {
+        TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString("1:2:3:4:5:6"));
+        Inet6Address remoteIp6Addr = (Inet6Address) parseNumericAddress("2400:222:222::222");
+        ByteBuffer request = Ipv6Utils.buildEchoRequestPacket(tethered.macAddr,
+                tethered.routerMacAddr, tethered.ipv6Addr, remoteIp6Addr);
+        tester.sendPacket(request);
+
+        remote.getNextMatchedPacket((p) -> {
+            Log.d(TAG, "Packet in upstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            return Ipv6Utils.isIcmpv6Type(buf, false, ICMPV6_ECHO_REQUEST_TYPE) ? p : null;
+        });
+
+        ByteBuffer reply = Ipv6Utils.buildEchoReplyPacket(remoteIp6Addr, tethered.ipv6Addr);
+        remote.sendPacket(reply);
+
+        tester.getNextMatchedPacket((p) -> {
+            Log.d(TAG, "Packet in downstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            return Ipv6Utils.isIcmpv6Type(buf, true, ICMPV6_ECHO_REPLY_TYPE) ? p : null;
+        });
     }
 
     private <T> List<T> toList(T... array) {
         return Arrays.asList(array);
+    }
+
+    public static String byteArrayToHex(byte[] array) {
+        StringBuilder sb = new StringBuilder(array.length * 2);
+        for (byte b: array) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }
