@@ -26,10 +26,12 @@ import static android.net.InetAddresses.parseNumericAddress;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
+import static android.net.TetheringTester.RemoteResponder;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
 
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQUEST_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 
@@ -58,6 +60,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv6Header;
@@ -72,6 +75,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.FileDescriptor;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
@@ -690,7 +694,40 @@ public class EthernetTetheringTest {
         mUpstreamTracker = enableTetheringUpstream(toList(TEST_IP4_ADDR, TEST_IP6_ADDR));
 
         mTapPacketReader = makePacketReader(mDownstreamIface);
-        // TODO: do basic forwarding test here.
+
+        runPing6Test();
+    }
+
+    private void runPing6Test() throws Exception {
+        TetheringTester tester = TetheringTester.setupTetheringTester(mDownstreamIface,
+                mUpstreamTracker.getTestIface());
+
+        Inet6Address remoteIp6Addr = (Inet6Address) parseNumericAddress("2400:222:222::222");
+        InetAddress remoteIp4Addr = parseNumericAddress("72.2.2.2");
+
+        RemoteResponder remote = tester.createRemoteResponder(remoteIp4Addr, remoteIp6Addr);
+
+        Inet6Address clientIp6Addr = tester.getIp6Address();
+        MacAddress clientMac = tester.getMacAddress();
+        MacAddress gatewayMac = tester.getRouterMacAddress();
+        ByteBuffer echo = Ipv6Utils.buildEchoRequestPacket(clientMac, gatewayMac, clientIp6Addr,
+                remoteIp6Addr);
+        tester.sendPacket(echo);
+
+        if (remote.expectReceive((p) -> {
+            Log.d(TAG, "Packet in upstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
+            Log.d(TAG, "nextHeader: " + ipv6Hdr.nextHeader);
+            if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) return null;
+
+            final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
+            Log.d(TAG, "type: " + icmpv6Hdr.type);
+            return icmpv6Hdr.type == (short) ICMPV6_ECHO_REQUEST_TYPE ? buf : null;
+        }) == null) fail("Do not receive icmp6 echo");
+
+        tester.shutDown();
     }
 
     private TestNetworkTracker enableTetheringUpstream(final List<LinkAddress> addresses)
@@ -708,5 +745,13 @@ public class EthernetTetheringTest {
 
     private <T> List<T> toList(T... array) {
         return Arrays.asList(array);
+    }
+
+    public static String byteArrayToHex(byte[] a) {
+        StringBuilder sb = new StringBuilder(a.length * 2);
+        for(byte b: a) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }
