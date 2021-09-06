@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015104908",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1817920?revision\u003d3",
+      "fixSuggestions": [
+        {
+          "fixId": "8e5a5ce9_49b275a4",
+          "description": "Change to \"Tethering/tests/integration/src/android/net/TetheringTester.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+              "range": {
+                "startLine": 182,
+                "startChar": 23,
+                "endLine": 182,
+                "endChar": 30
+              },
+              "replacement": "Receive"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "381dbe2d_944f661b",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-06T08:05:51Z",
+      "side": 1,
+      "message": "Common typo found: \"Recieve\" -- should it be \"Receive\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 182,
+        "startChar": 23,
+        "endLine": 182,
+        "endChar": 30
+      },
+      "revId": "e1b9b82f189d55519c93a48fa24bd3b1abd1a3cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015104908",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1817920?revision\u003d3",
+      "fixSuggestions": [
+        {
+          "fixId": "ce03eb81_d0684146",
+          "description": "Change to \"Tethering/tests/integration/src/android/net/TetheringTester.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+              "range": {
+                "startLine": 211,
+                "startChar": 27,
+                "endLine": 211,
+                "endChar": 34
+              },
+              "replacement": "Receive"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "0168549a_cda89d7d",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-06T08:05:51Z",
+      "side": 1,
+      "message": "Common typo found: \"Recieve\" -- should it be \"Receive\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 211,
+        "startChar": 27,
+        "endLine": 211,
+        "endChar": 34
+      },
+      "revId": "e1b9b82f189d55519c93a48fa24bd3b1abd1a3cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
