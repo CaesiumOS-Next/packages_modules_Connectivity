@@ -45,14 +45,10 @@ import android.net.EthernetManager.TetheredInterfaceRequest;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
-import android.net.dhcp.DhcpAckPacket;
-import android.net.dhcp.DhcpOfferPacket;
-import android.net.dhcp.DhcpPacket;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.os.SystemProperties;
-import android.system.Os;
 import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;
@@ -72,7 +68,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.FileDescriptor;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
@@ -93,24 +88,15 @@ public class EthernetTetheringTest {
 
     private static final String TAG = EthernetTetheringTest.class.getSimpleName();
     private static final int TIMEOUT_MS = 5000;
-    private static final int PACKET_READ_TIMEOUT_MS = 100;
-    private static final int DHCP_DISCOVER_ATTEMPTS = 10;
-    private static final byte[] DHCP_REQUESTED_PARAMS = new byte[] {
-            DhcpPacket.DHCP_SUBNET_MASK,
-            DhcpPacket.DHCP_ROUTER,
-            DhcpPacket.DHCP_DNS_SERVER,
-            DhcpPacket.DHCP_LEASE_TIME,
-    };
-    private static final String DHCP_HOSTNAME = "testhostname";
 
     private final Context mContext = InstrumentationRegistry.getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
     private final TetheringManager mTm = mContext.getSystemService(TetheringManager.class);
 
-    private TestNetworkInterface mTestIface;
+    private TestNetworkInterface mDownstreamIface;
     private HandlerThread mHandlerThread;
     private Handler mHandler;
-    private TapPacketReader mTapPacketReader;
+    private TapPacketReader mDownstreamReader;
 
     private TetheredInterfaceRequester mTetheredInterfaceRequester;
     private MyTetheringEventCallback mTetheringEventCallback;
@@ -144,15 +130,15 @@ public class EthernetTetheringTest {
             mTetheringEventCallback.unregister();
             mTetheringEventCallback = null;
         }
-        if (mTapPacketReader != null) {
-            TapPacketReader reader = mTapPacketReader;
+        if (mDownstreamReader != null) {
+            TapPacketReader reader = mDownstreamReader;
             mHandler.post(() -> reader.stop());
-            mTapPacketReader = null;
+            mDownstreamReader = null;
         }
         mHandlerThread.quitSafely();
         mTetheredInterfaceRequester.release();
         mEm.setIncludeTestInterfaces(false);
-        maybeDeleteTestInterface();
+        maybeDeleteDownstreamIface();
     }
 
     @After
@@ -169,21 +155,21 @@ public class EthernetTetheringTest {
         // This test requires manipulating packets. Skip if there is a physical Ethernet connected.
         assumeFalse(mEm.isAvailable());
 
-        mTestIface = createTestInterface();
+        mDownstreamIface = createDownstreamIface();
         // This must be done now because as soon as setIncludeTestInterfaces(true) is called, the
         // interface will be placed in client mode, which will delete the link-local address.
         // At that point NetworkInterface.getByName() will cease to work on the interface, because
         // starting in R NetworkInterface can no longer see interfaces without IP addresses.
-        int mtu = getMTU(mTestIface);
+        int mtu = getMTU(mDownstreamIface);
 
         Log.d(TAG, "Including test interfaces");
         mEm.setIncludeTestInterfaces(true);
 
         final String iface = mTetheredInterfaceRequester.getInterface();
         assertEquals("TetheredInterfaceCallback for unexpected interface",
-                mTestIface.getInterfaceName(), iface);
+                mDownstreamIface.getInterfaceName(), iface);
 
-        checkVirtualEthernet(mTestIface, mtu);
+        checkVirtualEthernet(mDownstreamIface, mtu);
     }
 
     @Test
@@ -195,13 +181,13 @@ public class EthernetTetheringTest {
 
         mEm.setIncludeTestInterfaces(true);
 
-        mTestIface = createTestInterface();
+        mDownstreamIface = createDownstreamIface();
 
         final String iface = futureIface.get(TIMEOUT_MS, TimeUnit.MILLISECONDS);
         assertEquals("TetheredInterfaceCallback for unexpected interface",
-                mTestIface.getInterfaceName(), iface);
+                mDownstreamIface.getInterfaceName(), iface);
 
-        checkVirtualEthernet(mTestIface, getMTU(mTestIface));
+        checkVirtualEthernet(mDownstreamIface, getMTU(mDownstreamIface));
     }
 
     @Test
@@ -210,11 +196,11 @@ public class EthernetTetheringTest {
 
         mEm.setIncludeTestInterfaces(true);
 
-        mTestIface = createTestInterface();
+        mDownstreamIface = createDownstreamIface();
 
         final String iface = mTetheredInterfaceRequester.getInterface();
         assertEquals("TetheredInterfaceCallback for unexpected interface",
-                mTestIface.getInterfaceName(), iface);
+                mDownstreamIface.getInterfaceName(), iface);
 
         assertInvalidStaticIpv4Request(iface, null, null);
         assertInvalidStaticIpv4Request(iface, "2001:db8::1/64", "2001:db8:2::/64");
@@ -235,13 +221,13 @@ public class EthernetTetheringTest {
         byte[] client1 = MacAddress.fromString("1:2:3:4:5:6").toByteArray();
         byte[] client2 = MacAddress.fromString("a:b:c:d:e:f").toByteArray();
 
-        FileDescriptor fd = mTestIface.getFileDescriptor().getFileDescriptor();
-        mTapPacketReader = makePacketReader(fd, getMTU(mTestIface));
-        DhcpResults dhcpResults = runDhcp(fd, client1);
+        FileDescriptor fd = mDownstreamIface.getFileDescriptor().getFileDescriptor();
+        mDownstreamReader = makePacketReader(fd, getMTU(mDownstreamIface));
+        DhcpResults dhcpResults = TetheringTester.runDhcp(mDownstreamReader, client1);
         assertEquals(new LinkAddress(clientAddr), dhcpResults.ipAddress);
 
         try {
-            runDhcp(fd, client2);
+            TetheringTester.runDhcp(mDownstreamReader, client2);
             fail("Only one client should get an IP address");
         } catch (TimeoutException expected) { }
 
@@ -301,11 +287,11 @@ public class EthernetTetheringTest {
 
         mEm.setIncludeTestInterfaces(true);
 
-        mTestIface = createTestInterface();
+        mDownstreamIface = createDownstreamIface();
 
         final String iface = mTetheredInterfaceRequester.getInterface();
         assertEquals("TetheredInterfaceCallback for unexpected interface",
-                mTestIface.getInterfaceName(), iface);
+                mDownstreamIface.getInterfaceName(), iface);
 
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_ETHERNET)
                 .setConnectivityScope(CONNECTIVITY_SCOPE_LOCAL).build();
@@ -316,10 +302,10 @@ public class EthernetTetheringTest {
         // does not have an IP address, and unprivileged apps cannot see interfaces without IP
         // addresses. This shouldn't be flaky because the TAP interface will buffer all packets even
         // before the reader is started.
-        FileDescriptor fd = mTestIface.getFileDescriptor().getFileDescriptor();
-        mTapPacketReader = makePacketReader(fd, getMTU(mTestIface));
+        FileDescriptor fd = mDownstreamIface.getFileDescriptor().getFileDescriptor();
+        mDownstreamReader = makePacketReader(fd, getMTU(mDownstreamIface));
 
-        expectRouterAdvertisement(mTapPacketReader, iface, 2000 /* timeoutMs */);
+        expectRouterAdvertisement(mDownstreamReader, iface, 2000 /* timeoutMs */);
         expectLocalOnlyAddresses(iface);
     }
 
@@ -517,32 +503,9 @@ public class EthernetTetheringTest {
 
     private void checkVirtualEthernet(TestNetworkInterface iface, int mtu) throws Exception {
         FileDescriptor fd = iface.getFileDescriptor().getFileDescriptor();
-        mTapPacketReader = makePacketReader(fd, mtu);
+        mDownstreamReader = makePacketReader(fd, mtu);
         mTetheringEventCallback = enableEthernetTethering(iface.getInterfaceName());
         checkTetheredClientCallbacks(fd);
-    }
-
-    private DhcpResults runDhcp(FileDescriptor fd, byte[] clientMacAddr) throws Exception {
-        // We have to retransmit DHCP requests because IpServer declares itself to be ready before
-        // its DhcpServer is actually started. TODO: fix this race and remove this loop.
-        DhcpPacket offerPacket = null;
-        for (int i = 0; i < DHCP_DISCOVER_ATTEMPTS; i++) {
-            Log.d(TAG, "Sending DHCP discover");
-            sendDhcpDiscover(fd, clientMacAddr);
-            offerPacket = getNextDhcpPacket();
-            if (offerPacket instanceof DhcpOfferPacket) break;
-        }
-        if (!(offerPacket instanceof DhcpOfferPacket)) {
-            throw new TimeoutException("No DHCPOFFER received on interface within timeout");
-        }
-
-        sendDhcpRequest(fd, offerPacket, clientMacAddr);
-        DhcpPacket ackPacket = getNextDhcpPacket();
-        if (!(ackPacket instanceof DhcpAckPacket)) {
-            throw new TimeoutException("No DHCPACK received on interface within timeout");
-        }
-
-        return ackPacket.toDhcpResults();
     }
 
     private void checkTetheredClientCallbacks(FileDescriptor fd) throws Exception {
@@ -550,7 +513,7 @@ public class EthernetTetheringTest {
         byte[] clientMacAddr = new byte[6];
         new Random().nextBytes(clientMacAddr);
 
-        DhcpResults dhcpResults = runDhcp(fd, clientMacAddr);
+        DhcpResults dhcpResults = TetheringTester.runDhcp(mDownstreamReader, clientMacAddr);
 
         final Collection<TetheredClient> clients = mTetheringEventCallback.awaitClientConnected();
         assertEquals(1, clients.size());
@@ -563,7 +526,7 @@ public class EthernetTetheringTest {
         // Check the hostname.
         assertEquals(1, client.getAddresses().size());
         TetheredClient.AddressInfo info = client.getAddresses().get(0);
-        assertEquals(DHCP_HOSTNAME, info.getHostname());
+        assertEquals(TetheringTester.DHCP_HOSTNAME, info.getHostname());
 
         // Check the address is the one that was handed out in the DHCP ACK.
         assertLinkAddressMatches(dhcpResults.ipAddress, info.getAddress());
@@ -574,18 +537,6 @@ public class EthernetTetheringTest {
         final String msg = String.format("IP address should have lifetime of %d, got %d",
                 dhcpResults.leaseDuration, actualLeaseDuration);
         assertTrue(msg, Math.abs(dhcpResults.leaseDuration - actualLeaseDuration) < 10);
-    }
-
-    private DhcpPacket getNextDhcpPacket() throws ParseException {
-        byte[] packet;
-        while ((packet = mTapPacketReader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
-            try {
-                return DhcpPacket.decodeFullPacket(packet, packet.length, DhcpPacket.ENCAP_L2);
-            } catch (DhcpPacket.ParseException e) {
-                // Not a DHCP packet. Continue.
-            }
-        }
-        return null;
     }
 
     private static final class TetheredInterfaceRequester implements TetheredInterfaceCallback {
@@ -631,31 +582,6 @@ public class EthernetTetheringTest {
         }
     }
 
-    private void sendDhcpDiscover(FileDescriptor fd, byte[] macAddress) throws Exception {
-        ByteBuffer packet = DhcpPacket.buildDiscoverPacket(DhcpPacket.ENCAP_L2,
-                new Random().nextInt() /* transactionId */, (short) 0 /* secs */,
-                macAddress,  false /* unicast */, DHCP_REQUESTED_PARAMS,
-                false /* rapid commit */,  DHCP_HOSTNAME);
-        sendPacket(fd, packet);
-    }
-
-    private void sendDhcpRequest(FileDescriptor fd, DhcpPacket offerPacket, byte[] macAddress)
-            throws Exception {
-        DhcpResults results = offerPacket.toDhcpResults();
-        Inet4Address clientIp = (Inet4Address) results.ipAddress.getAddress();
-        Inet4Address serverIdentifier = results.serverAddress;
-        ByteBuffer packet = DhcpPacket.buildRequestPacket(DhcpPacket.ENCAP_L2,
-                0 /* transactionId */, (short) 0 /* secs */, DhcpPacket.INADDR_ANY /* clientIp */,
-                false /* broadcast */, macAddress, clientIp /* requestedIpAddress */,
-                serverIdentifier, DHCP_REQUESTED_PARAMS, DHCP_HOSTNAME);
-        sendPacket(fd, packet);
-    }
-
-    private void sendPacket(FileDescriptor fd, ByteBuffer packet) throws Exception {
-        assertNotNull("Only tests on virtual interfaces can send packets", fd);
-        Os.write(fd, packet);
-    }
-
     public void assertLinkAddressMatches(LinkAddress l1, LinkAddress l2) {
         // Check all fields except the deprecation and expiry times.
         String msg = String.format("LinkAddresses do not match. expected: %s actual: %s", l1, l2);
@@ -693,18 +619,18 @@ public class EthernetTetheringTest {
                 + nif.getInterfaceAddresses());
     }
 
-    private TestNetworkInterface createTestInterface() throws Exception {
+    private TestNetworkInterface createDownstreamIface() throws Exception {
         TestNetworkManager tnm = mContext.getSystemService(TestNetworkManager.class);
         TestNetworkInterface iface = tnm.createTapInterface();
-        Log.d(TAG, "Created test interface " + iface.getInterfaceName());
+        Log.d(TAG, "Created downstream interface " + iface.getInterfaceName());
         return iface;
     }
 
-    private void maybeDeleteTestInterface() throws Exception {
-        if (mTestIface != null) {
-            mTestIface.getFileDescriptor().close();
-            Log.d(TAG, "Deleted test interface " + mTestIface.getInterfaceName());
-            mTestIface = null;
+    private void maybeDeleteDownstreamIface() throws Exception {
+        if (mDownstreamIface != null) {
+            mDownstreamIface.getFileDescriptor().close();
+            Log.d(TAG, "Deleted downstream interface " + mDownstreamIface.getInterfaceName());
+            mDownstreamIface = null;
         }
     }
 }
