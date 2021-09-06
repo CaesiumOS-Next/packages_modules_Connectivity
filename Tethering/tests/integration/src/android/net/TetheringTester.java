@@ -16,14 +16,24 @@
 
 package android.net;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import android.net.dhcp.DhcpAckPacket;
 import android.net.dhcp.DhcpOfferPacket;
 import android.net.dhcp.DhcpPacket;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.system.Os;
 import android.util.Log;
 
+import com.android.testutils.HandlerUtils;
 import com.android.testutils.TapPacketReader;
 
+import java.io.FileDescriptor;
 import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.nio.ByteBuffer;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
@@ -43,19 +53,56 @@ public final class TetheringTester {
 
     public static final String DHCP_HOSTNAME = "testhostname";
 
-    private TetheringTester(boolean testIpv4, boolean testIpv6) {
+    private final MacAddress mMacAddr;
+    private final TestNetworkInterface mDownstreamIface;
+    private final TestNetworkInterface mUpstreamIface;
+    private final TapPacketReader mDownstreamReader;
+    private final TapPacketReader mUpstreamReader;
+    private InetAddress mIpv4Addr;
+    private InetAddress mIpv6Addr;
+    private HandlerThread mHandlerThread;
+    private Handler mHandler;
+
+    private TetheringTester(boolean testIpv4, boolean testIpv6, TestNetworkInterface downstream,
+            TestNetworkInterface upstream) throws Exception {
+        byte[] macAddr = new byte[6];
+        new Random().nextBytes(macAddr);
+        mMacAddr = MacAddress.fromBytes(macAddr);
+
+        mHandlerThread = new HandlerThread(getClass().getSimpleName());
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
+        mDownstreamReader = makePacketReader(downstream);
+        mUpstreamReader = makePacketReader(upstream);
         if (testIpv4) {
-            // TODO: run DHCP to get ipv4 address.
+            DhcpResults dhcpResults = runDhcp(mDownstreamReader, macAddr);
+            mIpv4Addr = dhcpResults.ipAddress.getAddress();
         }
 
         if (testIpv6) {
-            // TODO: run RS RA
+            // run RS RA
+            mIpv6Addr = null;
         }
+
+        mDownstreamIface = downstream;
+        mUpstreamIface = upstream;
+    }
+
+    private TapPacketReader makePacketReader(TestNetworkInterface iface) throws Exception {
+        NetworkInterface nif = NetworkInterface.getByName(iface.getInterfaceName());
+        assertNotNull("Can't get NetworkInterface object for " + iface.getInterfaceName(), nif);
+
+        FileDescriptor fd = iface.getFileDescriptor().getFileDescriptor();
+        final TapPacketReader reader = new TapPacketReader(mHandler, fd, nif.getMTU());
+        mHandler.post(() -> reader.start());
+        HandlerUtils.waitForIdle(mHandler, TIMEOUT_MS);
+        return reader;
     }
 
     /** Create a TetheringTester to send/receive packets. */
-    public static TetheringTester setupTetheringTester(boolean testIpv4, boolean testIpv6) {
-        return new TetheringTester(testIpv4, testIpv6);
+    public static TetheringTester setupTetheringTester(boolean testIpv4, boolean testIpv6,
+            TestNetworkInterface downstream, TestNetworkInterface upstream) throws Exception {
+        return new TetheringTester(testIpv4, testIpv6, downstream, upstream);
     }
 
     /** Simulate dhcp client to obtain ipv4 address. */
@@ -126,5 +173,60 @@ public final class TetheringTester {
         }
 
         return null;
+    }
+
+    public void sendPacket(ByteBuffer packet) throws Exception {
+        mDownstreamReader.sendResponse(packet);
+    }
+
+    public <R> R expectRecieve(Function<byte[], R> expect) throws Exception {
+        return expectPacket(mDownstreamReader, expect);
+    }
+
+    public void shutDown() {
+        mHandler.post(() -> mDownstreamReader.stop());
+        mHandler.post(() -> mUpstreamReader.stop());
+        mHandlerThread.quitSafely();
+    }
+
+    public RemoteResponder createRemoteResponder(InetAddress v4Addr, InetAddress v6Addr) {
+        return new RemoteResponder(v4Addr, v6Addr, mUpstreamReader);
+    }
+
+    public static class RemoteResponder {
+        private final TapPacketReader mResponder;
+        private final InetAddress mIpv4Addr;
+        private final InetAddress mIpv6Addr;
+
+        private RemoteResponder(InetAddress v4Addr, InetAddress v6Addr, TapPacketReader responder) {
+            mIpv4Addr = v4Addr;
+            mIpv6Addr = v6Addr;
+            mResponder = responder;
+        }
+
+        public void sendPacket(ByteBuffer packet) throws Exception {
+            mResponder.sendResponse(packet);
+        }
+
+        public <R> R expectRecieve(Function<byte[], R> expect) throws Exception {
+            byte[] packet;
+            R result;
+            while ((packet = mResponder.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
+                result = expect.apply(packet);
+
+                if (result != null) return result;
+            }
+
+            fail("RemoteResponder do not receive expected packet");
+            return null;
+        }
+    }
+
+    private static String dumpRawPacket(byte[] a) {
+        StringBuilder sb = new StringBuilder(a.length * 2);
+        for(byte b: a) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }
