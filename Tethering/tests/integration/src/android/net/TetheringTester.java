@@ -16,6 +16,19 @@
 
 package android.net;
 
+import static android.net.InetAddresses.parseNumericAddress;
+import static android.system.OsConstants.IPPROTO_ICMPV6;
+
+import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_PIO;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_SLLA;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_TLLA;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_NEIGHBOR_SOLICITATION;
+import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
+import static com.android.net.module.util.NetworkStackConstants.IPV6_ADDR_ALL_NODES_MULTICAST;
+import static com.android.net.module.util.NetworkStackConstants.NEIGHBOR_ADVERTISEMENT_FLAG_OVERRIDE;
+import static com.android.net.module.util.NetworkStackConstants.NEIGHBOR_ADVERTISEMENT_FLAG_SOLICITED;
+
 import static org.junit.Assert.fail;
 
 import android.net.dhcp.DhcpAckPacket;
@@ -24,10 +37,23 @@ import android.net.dhcp.DhcpPacket;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import com.android.net.module.util.Ipv6Utils;
+import com.android.net.module.util.Struct;
+import com.android.net.module.util.structs.EthernetHeader;
+import com.android.net.module.util.structs.Icmpv6Header;
+import com.android.net.module.util.structs.Ipv6Header;
+import com.android.net.module.util.structs.LlaOption;
+import com.android.net.module.util.structs.NsHeader;
+import com.android.net.module.util.structs.PrefixInformationOption;
+import com.android.net.module.util.structs.RaHeader;
 import com.android.testutils.TapPacketReader;
 
 import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
@@ -41,12 +67,14 @@ public final class TetheringTester {
     private static final String TAG = TetheringTester.class.getSimpleName();
     private static final int PACKET_READ_TIMEOUT_MS = 100;
     private static final int DHCP_DISCOVER_ATTEMPTS = 10;
+    private static final int READ_RA_ATTEMPTS = 10;
     private static final byte[] DHCP_REQUESTED_PARAMS = new byte[] {
             DhcpPacket.DHCP_SUBNET_MASK,
             DhcpPacket.DHCP_ROUTER,
             DhcpPacket.DHCP_DNS_SERVER,
             DhcpPacket.DHCP_LEASE_TIME,
     };
+    private static final InetAddress LINK_LOCAL = parseNumericAddress("fe80::1");
 
     public static final String DHCP_HOSTNAME = "testhostname";
 
@@ -72,16 +100,21 @@ public final class TetheringTester {
     }
 
     public class TetheredDevice {
-        private final MacAddress mMacAddr;
-
-        public final Inet4Address mIpv4Addr;
+        public final MacAddress macAddr;
+        public final MacAddress routerMacAddr;
+        public final Inet4Address ipv4Addr;
+        public final Inet6Address ipv6Addr;
 
         private TetheredDevice(MacAddress mac) throws Exception {
-            mMacAddr = mac;
+            macAddr = mac;
+            routerMacAddr = getRouterMacAddressFromRa();
 
-            DhcpResults dhcpResults = runDhcp(mMacAddr.toByteArray());
-            mIpv4Addr = (Inet4Address) dhcpResults.ipAddress.getAddress();
+            DhcpResults dhcpResults = runDhcp(macAddr.toByteArray());
+            ipv4Addr = (Inet4Address) dhcpResults.ipAddress.getAddress();
+
+            ipv6Addr = runSlaac(macAddr, routerMacAddr);
         }
+
     }
 
     /** Simulate dhcp client to obtain ipv4 address. */
@@ -144,6 +177,132 @@ public final class TetheringTester {
 
         return packet == null ? null :
                 DhcpPacket.decodeFullPacket(packet, packet.length, DhcpPacket.ENCAP_L2);
+    }
+
+    private MacAddress getRouterMacAddressFromRa() throws Exception {
+        Log.d(TAG, "Get Mac address from RA");
+        // Couldn't get mac address from NetworkInterface after R. Assume router mac address never
+        // change during the test, then obtain router mac address from RA.
+        // TODO: Obtain router mac address from ARP instead.
+        for (int i = 0; i < READ_RA_ATTEMPTS; i++) {
+            final byte[] eth = getNextMatchedPacket((p) -> {
+                ByteBuffer buf = ByteBuffer.wrap(p);
+                return Ipv6Utils.isIcmpv6Type(buf, true /* hasEthernetHeader */,
+                        ICMPV6_ROUTER_ADVERTISEMENT);
+            });
+
+            if (eth != null) {
+                ByteBuffer buf = ByteBuffer.wrap(eth);
+                return Struct.parse(EthernetHeader.class, buf).srcMac;
+            }
+        }
+
+        fail("Could get RA packet after " + READ_RA_ATTEMPTS + " attempts");
+
+        return null;
+    }
+
+    private List<PrefixInformationOption> getRaPrefixOptions(byte[] packet) {
+        ByteBuffer buf = ByteBuffer.wrap(packet);
+        final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
+        if (ethHdr.etherType != ETHER_TYPE_IPV6) return null;
+
+        final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
+        if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) return null;
+
+        final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
+        if (icmpv6Hdr.type == (short) ICMPV6_ROUTER_ADVERTISEMENT) {
+            Struct.parse(RaHeader.class, buf);
+            final ArrayList<PrefixInformationOption> pioList = new ArrayList<>();
+            while (buf.position() < packet.length) {
+                final int currentPos = buf.position();
+                final int type = Byte.toUnsignedInt(buf.get());
+                final int length = Byte.toUnsignedInt(buf.get());
+                if (type == ICMPV6_ND_OPTION_PIO) {
+                    final ByteBuffer pioBuf = ByteBuffer.wrap(buf.array(), currentPos,
+                            Struct.getSize(PrefixInformationOption.class));
+                    final PrefixInformationOption pio =
+                            Struct.parse(PrefixInformationOption.class, pioBuf);
+                    pioList.add(pio);
+
+                    // Move ByteBuffer position to the next option.
+                    buf.position(currentPos + Struct.getSize(PrefixInformationOption.class));
+                } else {
+                    buf.position(currentPos + (length * 8));
+                }
+            }
+            return pioList;
+        }
+
+        return null;
+    }
+
+    private Inet6Address runSlaac(MacAddress srcMac, MacAddress dstMac) throws Exception {
+        sendRsPacket(srcMac, dstMac);
+
+        final byte[] raPacket = getNextMatchedPacket((p) -> {
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            return Ipv6Utils.isIcmpv6Type(buf, true /* hasEthernetHeader */,
+                        ICMPV6_ROUTER_ADVERTISEMENT);
+        });
+        final List<PrefixInformationOption> options = getRaPrefixOptions(raPacket);
+
+        for (PrefixInformationOption pio : options) {
+            if (pio.validLifetime > 0) {
+                final byte[] addressBytes = pio.prefix;
+                // Random the last two bytes as suffix.
+                // TODO: Currently do not implmement DAD in the test. Rely the gateway ipv6 address
+                // genetrated by tethering module always has random the last byte.
+                addressBytes[addressBytes.length - 1] = (byte) (new Random()).nextInt();
+                addressBytes[addressBytes.length - 2] = (byte) (new Random()).nextInt();
+
+                return (Inet6Address) InetAddress.getByAddress(addressBytes);
+            }
+        }
+
+        fail("Could not get ipv6 address");
+        return null;
+    }
+
+    private void sendRsPacket(MacAddress srcMac, MacAddress dstMac) throws Exception {
+        Log.d(TAG, "Sending RS");
+        ByteBuffer slla = LlaOption.build((byte) ICMPV6_ND_OPTION_SLLA, srcMac);
+        ByteBuffer rs = Ipv6Utils.buildRsPacket(srcMac, dstMac, (Inet6Address) LINK_LOCAL,
+                IPV6_ADDR_ALL_NODES_MULTICAST, slla);
+
+        sendPacket(rs);
+    }
+
+    private void maybeReplyNa(byte[] packet) {
+        ByteBuffer buf = ByteBuffer.wrap(packet);
+
+        final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
+        if (ethHdr.etherType != ETHER_TYPE_IPV6) return;
+
+        final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
+        if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) return;
+
+        final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
+        if (icmpv6Hdr.type != (short) ICMPV6_NEIGHBOR_SOLICITATION) return;
+
+        final NsHeader nsHdr = Struct.parse(NsHeader.class, buf);
+        for (int i = 0; i < mTetheredDevices.size(); i++) {
+            TetheredDevice tethered = mTetheredDevices.valueAt(i);
+            if (!nsHdr.target.equals(tethered.ipv6Addr)) continue;
+
+            final ByteBuffer tlla = LlaOption.build((byte) ICMPV6_ND_OPTION_TLLA, tethered.macAddr);
+            int flags = NEIGHBOR_ADVERTISEMENT_FLAG_SOLICITED
+                    | NEIGHBOR_ADVERTISEMENT_FLAG_OVERRIDE;
+            ByteBuffer ns = Ipv6Utils.buildNaPacket(tethered.macAddr, tethered.routerMacAddr,
+                    nsHdr.target, ipv6Hdr.srcIp, flags, nsHdr.target, tlla);
+            try {
+                sendPacket(ns);
+            } catch (Exception e) {
+                fail("Failed to reply NA for " + tethered.ipv6Addr);
+            }
+
+            return;
+        }
     }
 
     public void sendPacket(ByteBuffer packet) throws Exception {
