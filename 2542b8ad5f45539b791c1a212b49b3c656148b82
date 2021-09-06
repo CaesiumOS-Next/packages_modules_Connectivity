@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015103120",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1817920?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b8c8dcb2_0bc4fbe0",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-06T06:27:20Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "2542b8ad5f45539b791c1a212b49b3c656148b82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015103120",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1817920?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "dece276b_6e8d00d8",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-06T06:27:20Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 106
+      },
+      "revId": "2542b8ad5f45539b791c1a212b49b3c656148b82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015103120",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1817920?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b6173319_1d6dde8e",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-06T06:27:20Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 110
+      },
+      "revId": "2542b8ad5f45539b791c1a212b49b3c656148b82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015103115",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1817920?revision\u003d2",
+      "fixSuggestions": [
+        {
+          "fixId": "f8e1471a_82604d43",
+          "description": "Change to \"Tethering/tests/integration/src/android/net/TetheringTester.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+              "range": {
+                "startLine": 169,
+                "startChar": 22,
+                "endLine": 169,
+                "endChar": 29
+              },
+              "replacement": "Receive"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "9010526a_303be719",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-06T06:27:20Z",
+      "side": 1,
+      "message": "Common typo found: \"Recieve\" -- should it be \"Receive\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 169,
+        "startChar": 22,
+        "endLine": 169,
+        "endChar": 29
+      },
+      "revId": "2542b8ad5f45539b791c1a212b49b3c656148b82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015103115",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1817920?revision\u003d2",
+      "fixSuggestions": [
+        {
+          "fixId": "84547de2_04414e55",
+          "description": "Change to \"Tethering/tests/integration/src/android/net/TetheringTester.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+              "range": {
+                "startLine": 205,
+                "startChar": 26,
+                "endLine": 205,
+                "endChar": 33
+              },
+              "replacement": "Receive"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "83560c76_b219472d",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-06T06:27:20Z",
+      "side": 1,
+      "message": "Common typo found: \"Recieve\" -- should it be \"Receive\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 205,
+        "startChar": 26,
+        "endLine": 205,
+        "endChar": 33
+      },
+      "revId": "2542b8ad5f45539b791c1a212b49b3c656148b82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015103115",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1817920?revision\u003d2",
+      "fixSuggestions": [
+        {
+          "fixId": "2ee96daa_6a331d51",
+          "description": "Change to \"Tethering/tests/integration/src/android/net/TetheringTester.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+              "range": {
+                "startLine": 217,
+                "startChar": 79,
+                "endLine": 217,
+                "endChar": 88
+              },
+              "replacement": "Exception"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "d86335bb_0c685761",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-06T06:27:20Z",
+      "side": 1,
+      "message": "Common typo found: \"Excpetion\" -- should it be \"Exception\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 217,
+        "startChar": 79,
+        "endLine": 217,
+        "endChar": 88
+      },
+      "revId": "2542b8ad5f45539b791c1a212b49b3c656148b82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
