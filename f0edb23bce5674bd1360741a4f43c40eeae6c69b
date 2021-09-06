@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "496afdae_503440a5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-06T02:53:06Z",
+      "side": 1,
+      "message": "It\u0027s not necessary, remove all of them.",
+      "parentUuid": "6847e4dd_764a557a",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 54
+      },
+      "revId": "f0edb23bce5674bd1360741a4f43c40eeae6c69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c948bd78_394b04f9",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84f54e2_842fce07",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-06T02:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c948bd78_394b04f9",
+      "range": {
+        "startLine": 261,
+        "startChar": 35,
+        "endLine": 261,
+        "endChar": 45
+      },
+      "revId": "f0edb23bce5674bd1360741a4f43c40eeae6c69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f2207bf_86a2cb18",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-06T02:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26abfc9e_5e314a04",
+      "range": {
+        "startLine": 261,
+        "startChar": 27,
+        "endLine": 261,
+        "endChar": 28
+      },
+      "revId": "f0edb23bce5674bd1360741a4f43c40eeae6c69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd67eb66_708828b5",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-09-03T11:19:06Z",
       "side": 1,
       "message": "Now that we have ints I realize this is fairly dangerous ; what if we mistakenly store NONE in mApps anywhere ? Then this would assign the network permission to this app.\n\nSuggest skipping the UID explicitly if the permission is NONE. E.g. :\n\n  for (int \u003d 0, i \u003c apps.size(); i++) {\n    final int permission \u003d apps.valueAt(i);\n    if (NONE \u003d\u003d permission) continue; // Normally NONE is not stored in this map, but just in case\n    final List\u003cInteger\u003e list \u003d (SYSTEM \u003d\u003d permission) ? system : network;\n\nAlternatively, you could have a List\u003cInteger\u003e[] indexed by permission, and make the code more generic. But maybe it\u0027s not worth it at this point.",
+      "range": {
+        "startLine": 373,
+        "startChar": 33,
+        "endLine": 373,
+        "endChar": 60
+      },
+      "revId": "f0edb23bce5674bd1360741a4f43c40eeae6c69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42acb384_d310df88",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-06T02:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd67eb66_708828b5",
       "range": {
         "startLine": 373,
         "startChar": 33,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5400269b_03f4eafb",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-06T02:53:06Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d3432729_e73dcda0",
+      "range": {
+        "startLine": 445,
+        "startChar": 25,
+        "endLine": 445,
+        "endChar": 29
+      },
+      "revId": "f0edb23bce5674bd1360741a4f43c40eeae6c69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e26dfcbf_f504dbc6",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-09-03T11:19:06Z",
       "side": 1,
       "message": "final\n\nAlso, let\u0027s only allocate this if needed, with something like :\n\n  final int permission \u003d highestUidNetworkPermission(uid);\n  if (permission \u003d\u003d SYSTEM) {\n      // An app with this UID still has the SYSTEM permission.\n      // Therefore, this UID must already have the SYSTEM permission.\n      // Nothing to do.\n      return;\n  }\n\n  // If the permissions of this UID have not changed, do nothing.\n  if (permission \u003d\u003d mApps.get(appId)) return;\n\n  final SparseIntArray apps \u003d new SparseIntArray();\n  if (permission !\u003d NONE) ...",
+      "range": {
+        "startLine": 543,
+        "startChar": 8,
+        "endLine": 543,
+        "endChar": 22
+      },
+      "revId": "f0edb23bce5674bd1360741a4f43c40eeae6c69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad1834c_b00a4b81",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-06T02:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e26dfcbf_f504dbc6",
       "range": {
         "startLine": 543,
         "startChar": 8,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3d84711_bf4fcdf2",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-06T02:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17b71145_821378e0",
+      "range": {
+        "startLine": 676,
+        "startChar": 65,
+        "endLine": 676,
+        "endChar": 72
+      },
+      "revId": "f0edb23bce5674bd1360741a4f43c40eeae6c69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68486432_c71dd453",
@@ -175,6 +343,30 @@
       "writtenOn": "2021-09-03T11:19:06Z",
       "side": 1,
       "message": "SparseIntArray ?",
+      "range": {
+        "startLine": 510,
+        "startChar": 22,
+        "endLine": 510,
+        "endChar": 48
+      },
+      "revId": "f0edb23bce5674bd1360741a4f43c40eeae6c69b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608ad111_ad451766",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-06T02:53:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68486432_c71dd453",
       "range": {
         "startLine": 510,
         "startChar": 22,
