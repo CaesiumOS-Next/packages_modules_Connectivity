@@ -16,6 +16,24 @@
       "message": "This was done in aosp/1753823 right ? I think this is no longer necessary, sorry.\n",
       "revId": "db35b106cebba8b6acf1e9b5eee7dcff157565f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97c7e1c9_5be53edd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-06T06:17:24Z",
+      "side": 1,
+      "message": "Right, thanks.",
+      "parentUuid": "5ff5b1dc_b349d8a7",
+      "revId": "db35b106cebba8b6acf1e9b5eee7dcff157565f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
