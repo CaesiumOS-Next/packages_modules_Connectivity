@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "022056b7_78c0da84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:15:34Z",
+      "side": 1,
+      "message": "This is a good patch, but why is it in a topic with aosp/1779311 ? It seems unrelated ; it does not check what aosp/1779311 does.",
+      "revId": "43d484cd595d235bb3f4d7244e4a90367fe72e16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9224895f_d591626a",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:15:34Z",
+      "side": 1,
+      "message": "Did you want to also check for some IMSI2 ?",
+      "range": {
+        "startLine": 214,
+        "startChar": 44,
+        "endLine": 214,
+        "endChar": 47
+      },
+      "revId": "43d484cd595d235bb3f4d7244e4a90367fe72e16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
