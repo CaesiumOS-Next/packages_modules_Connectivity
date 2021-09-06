@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "219e2df8_4d680112",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T03:18:28Z",
+      "side": 1,
+      "message": "nit : INEXISTENT or DOES_NOT_EXIST",
+      "range": {
+        "startLine": 510,
+        "startChar": 33,
+        "endLine": 510,
+        "endChar": 44
+      },
+      "revId": "192b592f9e19dc5c8412c6343160452a07e77be4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
