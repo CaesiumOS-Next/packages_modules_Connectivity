@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff5b1dc_b349d8a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T06:06:44Z",
+      "side": 1,
+      "message": "This was done in aosp/1753823 right ? I think this is no longer necessary, sorry.\n",
+      "revId": "db35b106cebba8b6acf1e9b5eee7dcff157565f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
