@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a4c1255_4d03e2c5",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-06T05:24:36Z",
+      "side": 1,
+      "message": "Just to be sure I understand : here it does not matter whether we use METERED_YES or METERED_ALL, because the traffic is YES anyway. Correct ?",
+      "range": {
+        "startLine": 268,
+        "startChar": 16,
+        "endLine": 268,
+        "endChar": 27
+      },
+      "revId": "6690ba5e4e0ffbc3d505e809cabdafba175dbbcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
