@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d38cd9f8_a96bdbb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-07T22:43:11Z",
+      "side": 1,
+      "message": "Will update. Technically it is because the offer is null, which stores the callback used in linkToDeath().\n\nnoi.offer.callback.asBinder().unlinkToDeath",
+      "parentUuid": "24293bde_62843b08",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a98c37f7_95642809",
