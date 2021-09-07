@@ -22,6 +22,30 @@
       },
       "revId": "1c603e7ec3376e39cf693d7928b1c176a365dbb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3e83bb5_9756be86",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-07T07:52:56Z",
+      "side": 0,
+      "message": "ConnectivityCoverageTests is already in mainline-postsubmit, and it includes TetheringCoverageTests, so TetheringCoverageTests should not be necessary in postsubmit anymore.\nUpdated the cover comment since it didn\u0027t mention that.",
+      "parentUuid": "29c3aa2a_71b1cf0e",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 37
+      },
+      "revId": "1c603e7ec3376e39cf693d7928b1c176a365dbb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

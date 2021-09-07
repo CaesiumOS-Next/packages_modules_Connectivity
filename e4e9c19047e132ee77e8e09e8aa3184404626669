@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd86738c_bed1cfc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-07T07:52:56Z",
+      "side": 1,
+      "message": "This change still conflicts downstream, but I\u0027m planning to merge it here once the conflicts are resolved",
+      "revId": "e4e9c19047e132ee77e8e09e8aa3184404626669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

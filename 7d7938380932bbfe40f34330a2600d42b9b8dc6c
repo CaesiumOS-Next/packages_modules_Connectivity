@@ -22,6 +22,30 @@
       },
       "revId": "7d7938380932bbfe40f34330a2600d42b9b8dc6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63f94011_c3b042d0",
+        "filename": "tests/cts/net/AndroidTestTemplate.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-07T07:52:56Z",
+      "side": 1,
+      "message": "No it adds a new configuration, so the module can be run in mainline-pre/postsubmit with either \"CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk+com.google.android.resolv.apex+com.google.android.tethering.apex\", or \"CaptivePortalLoginGoogle.apk+NetworkStackGoogle.apk\"",
+      "parentUuid": "8c2429dc_06f5b899",
+      "range": {
+        "startLine": 24,
+        "startChar": 46,
+        "endLine": 24,
+        "endChar": 66
+      },
+      "revId": "7d7938380932bbfe40f34330a2600d42b9b8dc6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
