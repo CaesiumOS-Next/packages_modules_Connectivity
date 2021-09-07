@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d96de1e_ca543cb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:20:54Z",
+      "side": 1,
+      "message": "Remi, could you look at the changes to Android.bp? It looks like they\u0027re copy+pasted from Android.bp comments that you wrote, but I don\u0027t know if they are correct. If they are, and we use them in several places, should they be added to some defaults section instead of copy+pasted?\n\nOther than that: LGTM except I think the permission check is incorrect and if checked in could constitute a security vulnerability. If that\u0027s correct, then please be more careful.",
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db81d97_a39f0924",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:20:54Z",
+      "side": 1,
+      "message": "networks that have",
+      "range": {
+        "startLine": 1543,
+        "startChar": 24,
+        "endLine": 1543,
+        "endChar": 41
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffb74c7a_de39d311",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:20:54Z",
+      "side": 1,
+      "message": "Don\u0027t you need to return here? Otherwise you\u0027ll end up notifying the listener that the operation failed, but you\u0027ll end up setting the value anyway?",
+      "range": {
+        "startLine": 206,
+        "startChar": 82,
+        "endLine": 206,
+        "endChar": 83
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9498f58_393c8af9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:20:54Z",
+      "side": 1,
+      "message": "Can this fit on one line?",
+      "range": {
+        "startLine": 670,
+        "startChar": 0,
+        "endLine": 671,
+        "endChar": 55
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f808697f_2ca2964d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:20:54Z",
+      "side": 1,
+      "message": "For consistency, rename to mPreferTestNetworks.",
+      "range": {
+        "startLine": 707,
+        "startChar": 8,
+        "endLine": 707,
+        "endChar": 29
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e3358d4_83ab91b9",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:20:54Z",
+      "side": 1,
+      "message": "No need to fix any more, but I think it would have been better if the refactoring of makePacketReader and the rename of mTestIface to mDownstreamIface had been done in their own CL before this one. That would have made both CLs easier to review.",
+      "range": {
+        "startLine": 256,
+        "startChar": 28,
+        "endLine": 256,
+        "endChar": 44
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d045428_cad1fd2c",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:20:54Z",
+      "side": 1,
+      "message": "Rename to createTestUpstream, because this doesn\u0027t just enable upstream, it creates and enables a *test* upstream?",
+      "range": {
+        "startLine": 770,
+        "startChar": 31,
+        "endLine": 770,
+        "endChar": 54
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df3fb12b_217feaa2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:20:54Z",
+      "side": 1,
+      "message": "Nit: given that you expect this to be called by multiple tests, suggest putting it *before* testTestNetworkUpstream, not after it. So around line 750.",
+      "range": {
+        "startLine": 770,
+        "startChar": 4,
+        "endLine": 770,
+        "endChar": 11
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
