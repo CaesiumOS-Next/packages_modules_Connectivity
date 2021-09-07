@@ -36,6 +36,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77f86e3f_3573f378",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-07T10:02:39Z",
+      "side": 1,
+      "message": "Chiachang, can you take a look to see if there is anything in this test that is not already tested in testAirplaneMode?",
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b6310fe_a9333bb6",
