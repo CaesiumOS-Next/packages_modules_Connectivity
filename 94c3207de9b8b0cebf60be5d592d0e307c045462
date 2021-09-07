@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f143040_5b5b3a12",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 9008,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-07T03:33:04Z",
+      "side": 1,
+      "message": "While having this is better than nothing,  this code is a little bit vulnerable to bugs in ProxyTracker or in PacManager that result in not sending the message. This test would not detect such bugs.\nI think it would be better to have a method on ProxyTracker or even better, on PacManager, to trigger this, because it would more closely simulate what we\u0027re testing here and stand a better chance to detect this kind of bugs.",
+      "range": {
+        "startLine": 9008,
+        "startChar": 17,
+        "endLine": 9008,
+        "endChar": 32
+      },
+      "revId": "94c3207de9b8b0cebf60be5d592d0e307c045462",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
