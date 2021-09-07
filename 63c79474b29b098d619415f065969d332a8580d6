@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e054a1e_41c77d08",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-07T15:35:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88839de8_33bd5bb9",
+      "range": {
+        "startLine": 1750,
+        "startChar": 52,
+        "endLine": 1750,
+        "endChar": 63
+      },
+      "revId": "63c79474b29b098d619415f065969d332a8580d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ed3a97d_5787cfb4",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1cf5174_b472e486",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-07T15:35:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ed3a97d_5787cfb4",
+      "range": {
+        "startLine": 1752,
+        "startChar": 35,
+        "endLine": 1752,
+        "endChar": 63
+      },
+      "revId": "63c79474b29b098d619415f065969d332a8580d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6a783e0_209f1b2b",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-09-01T14:28:06Z",
       "side": 1,
       "message": "Is there a reason this test cannot be run on R? Does it not pass?",
+      "range": {
+        "startLine": 1822,
+        "startChar": 22,
+        "endLine": 1822,
+        "endChar": 37
+      },
+      "revId": "63c79474b29b098d619415f065969d332a8580d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82884414_e03090f1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1822,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-07T15:35:30Z",
+      "side": 1,
+      "message": "Tried to run this test on R and got test failed with permission problem. After added lack permission, this test was passed on R.",
+      "parentUuid": "d6a783e0_209f1b2b",
       "range": {
         "startLine": 1822,
         "startChar": 22,
