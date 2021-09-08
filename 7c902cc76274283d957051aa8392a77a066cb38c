@@ -63,6 +63,30 @@
       },
       "revId": "7c902cc76274283d957051aa8392a77a066cb38c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5512a29_de42e029",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2356,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-08T05:27:24Z",
+      "side": 1,
+      "message": "Ok, but the test here doesn\u0027t need the network to be validated, does it? It needs it to be the default? Or am I misreading?",
+      "parentUuid": "b214e344_760e253a",
+      "range": {
+        "startLine": 2356,
+        "startChar": 12,
+        "endLine": 2356,
+        "endChar": 34
+      },
+      "revId": "7c902cc76274283d957051aa8392a77a066cb38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
