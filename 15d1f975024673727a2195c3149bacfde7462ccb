@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "919ce636_d18839f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-08T03:35:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "af6a1862_a0954453",
+      "revId": "15d1f975024673727a2195c3149bacfde7462ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17ad2cbc_a46684d9",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "From below table it seems we\u0027ll also includes networks with other states, e.g. DISCONNECTING， BLOCKED.\n IIUC they are fine, but delegate to next CL to reduce the risk for this CL and discuss this in next CL.\n \n        stateMap.put(DetailedState.IDLE, State.DISCONNECTED);\n        stateMap.put(DetailedState.SCANNING, State.DISCONNECTED);\n        stateMap.put(DetailedState.CONNECTING, State.CONNECTING);\n        stateMap.put(DetailedState.AUTHENTICATING, State.CONNECTING);\n        stateMap.put(DetailedState.OBTAINING_IPADDR, State.CONNECTING);\n        stateMap.put(DetailedState.VERIFYING_POOR_LINK, State.CONNECTING);\n        stateMap.put(DetailedState.CAPTIVE_PORTAL_CHECK, State.CONNECTING);\n        stateMap.put(DetailedState.CONNECTED, State.CONNECTED);\n        stateMap.put(DetailedState.SUSPENDED, State.SUSPENDED);\n        stateMap.put(DetailedState.DISCONNECTING, State.DISCONNECTING);\n        stateMap.put(DetailedState.DISCONNECTED, State.DISCONNECTED);\n        stateMap.put(DetailedState.FAILED, State.DISCONNECTED);\n        stateMap.put(DetailedState.BLOCKED, State.DISCONNECTED);",
       "parentUuid": "17ad2cbc_a46684d9",
+      "range": {
+        "startLine": 2314,
+        "startChar": 31,
+        "endLine": 2315,
+        "endChar": 92
+      },
+      "revId": "15d1f975024673727a2195c3149bacfde7462ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "191b64d1_0681e819",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-08T03:35:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "47e4df83_65b09006",
       "range": {
         "startLine": 2314,
         "startChar": 31,
