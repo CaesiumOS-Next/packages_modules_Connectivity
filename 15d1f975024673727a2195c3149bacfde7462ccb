@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6a1862_a0954453",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-08T00:40:29Z",
+      "side": 1,
+      "message": "Junyu, Qualcomm would like to have this soon. Can you submit this and make the changes I\u0027m asking for in a followup ?\n",
+      "revId": "15d1f975024673727a2195c3149bacfde7462ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17ad2cbc_a46684d9",
