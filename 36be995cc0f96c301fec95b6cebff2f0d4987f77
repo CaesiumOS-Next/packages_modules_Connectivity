@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ac359c_113713fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-08T11:34:50Z",
+      "side": 1,
+      "message": "Only nits. Although test rely on the retry, I would accept this test because I also don\u0027t have other easy way to test OnDataReceivedCallback. If we can make keep alive feature enabled in test network, it would make the test more reliable. But it need more work and is unrealistic that we can\u0027t tolerate with API of mainline module not tested for a long time.",
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953f3b14_f4f0baa3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1287,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-08T11:34:50Z",
+      "side": 1,
+      "message": "Also override toString to print error code ? Error code may be useful if we get unexpected OnErrorCallback",
+      "range": {
+        "startLine": 1287,
+        "startChar": 15,
+        "endLine": 1287,
+        "endChar": 17
+      },
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f29e6c9_771df76f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-08T11:34:50Z",
+      "side": 1,
+      "message": "Is it any reason not add the test here instead of adding new test (e.g. testOnDataReceivedCallback)? I think have many small test would be better than one large test. If the test fail earlier, then the follow up test logic don\u0027t be run. Also OnDataReceived test need retry to lower down the fail rate. Move this to the separate test case can avoid retry existing test to save test time.",
+      "range": {
+        "startLine": 1556,
+        "startChar": 12,
+        "endLine": 1581,
+        "endChar": 13
+      },
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
