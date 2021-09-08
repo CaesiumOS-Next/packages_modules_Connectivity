@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f7f5f8_e94f54f1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2778,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-08T16:16:02Z",
+      "side": 1,
+      "message": "Actually, they can use the same method waitForAvailable to verify the callback, I forgot why I use different way here. Just align the verification to avoid confusion again in the future. Thanks for your reminder.",
+      "parentUuid": "be15971e_a0058613",
+      "range": {
+        "startLine": 2776,
+        "startChar": 12,
+        "endLine": 2778,
+        "endChar": 69
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ad555d0_8bdf290c",
@@ -60,6 +84,30 @@
       "writtenOn": "2021-09-02T09:23:45Z",
       "side": 1,
       "message": "change",
+      "range": {
+        "startLine": 2790,
+        "startChar": 46,
+        "endLine": 2790,
+        "endChar": 51
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da7c1436_e623d067",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2790,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-08T16:16:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ad555d0_8bdf290c",
       "range": {
         "startLine": 2790,
         "startChar": 46,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ccaf28_98f9146c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2793,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-08T16:16:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bd49bc9_cbcbddac",
+      "range": {
+        "startLine": 2792,
+        "startChar": 12,
+        "endLine": 2793,
+        "endChar": 76
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad81669e_594dc90d",
@@ -106,6 +178,30 @@
       "writtenOn": "2021-09-02T09:23:45Z",
       "side": 1,
       "message": "change",
+      "range": {
+        "startLine": 2804,
+        "startChar": 46,
+        "endLine": 2804,
+        "endChar": 51
+      },
+      "revId": "331578f71f00775d23d053a24866b98c2f828a87",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e93eb74_24d74e08",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2804,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-08T16:16:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad81669e_594dc90d",
       "range": {
         "startLine": 2804,
         "startChar": 46,
