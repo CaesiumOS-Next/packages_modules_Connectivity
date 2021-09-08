@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16492d8f_b3c1b023",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-08T05:39:22Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "a9d22d37564bf897bd3e9dab34238c5498a84e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d68ccdff_af907e35",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-08T05:39:22Z",
+      "side": 1,
+      "message": "waitForValidation",
+      "range": {
+        "startLine": 1214,
+        "startChar": 78,
+        "endLine": 1214,
+        "endChar": 89
+      },
+      "revId": "a9d22d37564bf897bd3e9dab34238c5498a84e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d70bd9bc_a1251f84",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2330,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-08T05:39:22Z",
+      "side": 1,
+      "message": "Suggest adding to this comment, \"Wait for Wi-Fi to become validated because...\". Consider also doing the same to the comment at line 2341.",
+      "range": {
+        "startLine": 2330,
+        "startChar": 54,
+        "endLine": 2330,
+        "endChar": 55
+      },
+      "revId": "a9d22d37564bf897bd3e9dab34238c5498a84e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
