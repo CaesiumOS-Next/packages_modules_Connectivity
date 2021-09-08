@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53bb3804_4d10ba04",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-08T05:44:56Z",
+      "side": 1,
+      "message": "Big +1 to removing isConnected() here and not using NET_CAPABILITY_NOT_SUSPENDED. everConnected is conceptually much more correct. Please don\u0027t forget the follow-up. Or, given that you need to wait for TH anyway, maybe make that change immediately?",
+      "parentUuid": "191b64d1_0681e819",
+      "range": {
+        "startLine": 2314,
+        "startChar": 31,
+        "endLine": 2315,
+        "endChar": 92
+      },
+      "revId": "15d1f975024673727a2195c3149bacfde7462ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecbfe14e_406b8523",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
