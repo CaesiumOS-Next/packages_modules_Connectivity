@@ -109,6 +109,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b580da6_f6467d2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-08T07:31:51Z",
+      "side": 1,
+      "message": "We do not do airplane on/off twice in ConnectivityManagerTest. I wonder if we need to do that. Take a looks at AirplaneModeTest. It did not test any connectivity behavior nor invoke any connectivity APIs.\nThe verification is done here is verify the setting is set. Doesn\u0027t this more like a setting update test?\n\nI think this test could do this since the setting key update should be faster. But if we would like to verify the connectivity behavior change, then we will need to wait for the wifi/cellular network to connect/disconnect. It will take some time(likely double time cost). I am not sure if doing switch twice will bring more value than just once but it will take more time to run the test for sure. \n\nWhat do you think?",
+      "parentUuid": "ad6490e2_233714a2",
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d61462e3_58a5483c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-08T07:31:51Z",
+      "side": 1,
+      "message": "See update in other comment",
+      "parentUuid": "f20fb8b9_47abc18e",
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b6310fe_a9333bb6",
         "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
         "patchSetId": 11
