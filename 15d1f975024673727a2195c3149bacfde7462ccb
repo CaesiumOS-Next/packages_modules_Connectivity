@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47e4df83_65b09006",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-08T02:59:13Z",
+      "side": 1,
+      "message": "From below table it seems we\u0027ll also includes networks with other states, e.g. DISCONNECTING， BLOCKED.\n IIUC they are fine, but delegate to next CL to reduce the risk for this CL and discuss this in next CL.\n \n        stateMap.put(DetailedState.IDLE, State.DISCONNECTED);\n        stateMap.put(DetailedState.SCANNING, State.DISCONNECTED);\n        stateMap.put(DetailedState.CONNECTING, State.CONNECTING);\n        stateMap.put(DetailedState.AUTHENTICATING, State.CONNECTING);\n        stateMap.put(DetailedState.OBTAINING_IPADDR, State.CONNECTING);\n        stateMap.put(DetailedState.VERIFYING_POOR_LINK, State.CONNECTING);\n        stateMap.put(DetailedState.CAPTIVE_PORTAL_CHECK, State.CONNECTING);\n        stateMap.put(DetailedState.CONNECTED, State.CONNECTED);\n        stateMap.put(DetailedState.SUSPENDED, State.SUSPENDED);\n        stateMap.put(DetailedState.DISCONNECTING, State.DISCONNECTING);\n        stateMap.put(DetailedState.DISCONNECTED, State.DISCONNECTED);\n        stateMap.put(DetailedState.FAILED, State.DISCONNECTED);\n        stateMap.put(DetailedState.BLOCKED, State.DISCONNECTED);",
+      "parentUuid": "17ad2cbc_a46684d9",
+      "range": {
+        "startLine": 2314,
+        "startChar": 31,
+        "endLine": 2315,
+        "endChar": 92
+      },
+      "revId": "15d1f975024673727a2195c3149bacfde7462ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecbfe14e_406b8523",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-03T11:23:34Z",
       "side": 1,
       "message": "Maybe it\u0027s not super useful given the new code, but since this is fixing a problem that actually happens when a suspended network resumes, do you want to resume the network and make sure it\u0027s still in the list ?",
+      "range": {
+        "startLine": 12854,
+        "startChar": 73,
+        "endLine": 12854,
+        "endChar": 74
+      },
+      "revId": "15d1f975024673727a2195c3149bacfde7462ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b6645b_5de86653",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 12854,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-08T02:59:13Z",
+      "side": 1,
+      "message": "Should be validated at l.12868?",
+      "parentUuid": "ecbfe14e_406b8523",
       "range": {
         "startLine": 12854,
         "startChar": 73,
