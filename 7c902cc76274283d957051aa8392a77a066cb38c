@@ -39,6 +39,30 @@
       },
       "revId": "7c902cc76274283d957051aa8392a77a066cb38c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b214e344_760e253a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2356,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-08T05:25:05Z",
+      "side": 1,
+      "message": "Yes, but if there is no other validated network on the device, then WiFi will become the default before it is validated.",
+      "parentUuid": "97fcdbcc_962a690a",
+      "range": {
+        "startLine": 2356,
+        "startChar": 12,
+        "endLine": 2356,
+        "endChar": 34
+      },
+      "revId": "7c902cc76274283d957051aa8392a77a066cb38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
