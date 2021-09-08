@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50e22936_fddca1bb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-08T09:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d68ccdff_af907e35",
+      "range": {
+        "startLine": 1214,
+        "startChar": 78,
+        "endLine": 1214,
+        "endChar": 89
+      },
+      "revId": "a9d22d37564bf897bd3e9dab34238c5498a84e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d70bd9bc_a1251f84",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-08T05:39:22Z",
       "side": 1,
       "message": "Suggest adding to this comment, \"Wait for Wi-Fi to become validated because...\". Consider also doing the same to the comment at line 2341.",
+      "range": {
+        "startLine": 2330,
+        "startChar": 54,
+        "endLine": 2330,
+        "endChar": 55
+      },
+      "revId": "a9d22d37564bf897bd3e9dab34238c5498a84e5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "320d41c0_a974f3b2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2330,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-08T09:43:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d70bd9bc_a1251f84",
       "range": {
         "startLine": 2330,
         "startChar": 54,
