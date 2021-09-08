@@ -1082,7 +1082,8 @@ public class ConnectivityManagerTest {
     }
 
     private Network waitForActiveNetworkMetered(final int targetTransportType,
-            final boolean requestedMeteredness, final boolean useSystemDefault)
+            final boolean requestedMeteredness, final boolean waitForValidation,
+            final boolean useSystemDefault)
             throws Exception {
         final CompletableFuture<Network> networkFuture = new CompletableFuture<>();
         final NetworkCallback networkCallback = new NetworkCallback() {
@@ -1091,7 +1092,8 @@ public class ConnectivityManagerTest {
                 if (!nc.hasTransport(targetTransportType)) return;
 
                 final boolean metered = !nc.hasCapability(NET_CAPABILITY_NOT_METERED);
-                if (metered == requestedMeteredness) {
+                final boolean validated = nc.hasCapability(NET_CAPABILITY_VALIDATED);
+                if (metered == requestedMeteredness && (!waitForValidation || validated)) {
                     networkFuture.complete(network);
                 }
             }
@@ -1120,11 +1122,13 @@ public class ConnectivityManagerTest {
         }
     }
 
-    private Network setWifiMeteredStatusAndWait(String ssid, boolean isMetered) throws Exception {
+    private Network setWifiMeteredStatusAndWait(String ssid, boolean isMetered,
+            boolean waitForValidation) throws Exception {
         setWifiMeteredStatus(ssid, Boolean.toString(isMetered) /* metered */);
         mCtsNetUtils.ensureWifiConnected();
         return waitForActiveNetworkMetered(TRANSPORT_WIFI,
                 isMetered /* requestedMeteredness */,
+                waitForValidation,
                 true /* useSystemDefault */);
     }
 
@@ -1189,7 +1193,8 @@ public class ConnectivityManagerTest {
                     Integer.toString(newMeteredPreference));
             // Wifi meterness changes from unmetered to metered will disconnect and reconnect since
             // R.
-            final Network network = setWifiMeteredStatusAndWait(ssid, true);
+            final Network network = setWifiMeteredStatusAndWait(ssid, true /* isMetered */,
+                    false /* waitForValidation */);
             assertEquals(ssid, unquoteSSID(mWifiManager.getConnectionInfo().getSSID()));
             assertEquals(mCm.getNetworkCapabilities(network).hasCapability(
                     NET_CAPABILITY_NOT_METERED), false);
@@ -1206,7 +1211,7 @@ public class ConnectivityManagerTest {
                     oldMeteredPreference, newMeteredPreference);
 
             // No disconnect from unmetered to metered.
-            setWifiMeteredStatusAndWait(ssid, false);
+            setWifiMeteredStatusAndWait(ssid, false /* isMetered */, false /* isValidated */);
             assertEquals(mCm.getNetworkCapabilities(network).hasCapability(
                     NET_CAPABILITY_NOT_METERED), true);
             assertMultipathPreferenceIsEventually(network, newMeteredPreference,
@@ -2323,7 +2328,7 @@ public class ConnectivityManagerTest {
 
         try {
             // This network will be used for unmetered.
-            setWifiMeteredStatusAndWait(ssid, false /* isMetered */);
+            setWifiMeteredStatusAndWait(ssid, false /* isMetered */, true /* waitForValidation */);
 
             setOemNetworkPreferenceForMyPackage(OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST);
             registerTestOemNetworkPreferenceCallbacks(defaultCallback, systemDefaultCallback);
@@ -2334,7 +2339,7 @@ public class ConnectivityManagerTest {
 
             // Validate when setting unmetered to metered, unmetered is lost and replaced by the
             // network with the TEST transport.
-            setWifiMeteredStatusAndWait(ssid, true /* isMetered */);
+            setWifiMeteredStatusAndWait(ssid, true /* isMetered */, true /* waitForValidation */);
             defaultCallback.expectCallback(CallbackEntry.LOST, wifiNetwork,
                     NETWORK_CALLBACK_TIMEOUT_MS);
             waitForAvailable(defaultCallback, tnt.getNetwork());
@@ -2350,7 +2355,7 @@ public class ConnectivityManagerTest {
                     NETWORK_CALLBACK_TIMEOUT_MS);
             waitForAvailable(defaultCallback);
 
-            setWifiMeteredStatusAndWait(ssid, oldMeteredValue);
+            setWifiMeteredStatusAndWait(ssid, oldMeteredValue, false /* waitForValidation */);
 
             // Cleanup any prior test state from setOemNetworkPreference
             clearOemNetworkPreference();
