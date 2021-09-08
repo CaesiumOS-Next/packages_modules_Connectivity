@@ -1197,28 +1197,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
 
-        /**
-         * Used to adjust the request counter for the per-app API flows. Directly adjusting the
-         * counter is not ideal however in the per-app flows, the nris can't be removed until they
-         * are used to create the new nris upon set. Therefore the request count limit can be
-         * artificially hit. This method is used as a workaround for this particular case so that
-         * the request counts are accounted for correctly.
-         * @param uid the uid to adjust counts for
-         * @param numOfNewRequests the new request count to account for
-         * @param r the runnable to execute
-         */
-        public void transact(final int uid, final int numOfNewRequests, @NonNull final Runnable r) {
-            // This should only be used on the handler thread as per all current and foreseen
-            // use-cases. ensureRunningOnConnectivityServiceThread() can't be used because there is
-            // no ref to the outer ConnectivityService.
-            synchronized (mUidToNetworkRequestCount) {
-                final int reqCountOverage = getCallingUidRequestCountOverage(uid, numOfNewRequests);
-                decrementCount(uid, reqCountOverage);
-                r.run();
-                incrementCountOrThrow(uid, reqCountOverage);
-            }
-        }
-
         private int getCallingUidRequestCountOverage(final int uid, final int numOfNewRequests) {
             final int newUidRequestCount = mUidToNetworkRequestCount.get(uid, 0)
                     + numOfNewRequests;
@@ -3905,7 +3883,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // TODO : setting the satisfier is in fact the job of the rematch. Teach the
                 // rematch not to keep disconnected agents instead of setting it here ; this
                 // will also allow removing updating the offers below.
-                nri.setSatisfier(null, null);
+                nri.setSatisfier(null);
                 for (final NetworkOfferInfo noi : mNetworkOffers) {
                     informOffer(nri, noi.offer, mNetworkRanker);
                 }
@@ -4282,7 +4260,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (!nri.getActiveRequest().isListen()) {
                 removeSatisfiedNetworkRequestFromNetwork(nri);
             } else {
-                nri.setSatisfier(null, null);
+                nri.setSatisfier(null);
             }
         }
 
@@ -4347,7 +4325,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } else {
                 wasKept = true;
             }
-            nri.setSatisfier(null, null);
+            nri.setSatisfier(null);
             if (!wasBackgroundNetwork && nai.isBackgroundNetwork()) {
                 // Went from foreground to background.
                 updateCapabilitiesForNetwork(nai);
@@ -5685,6 +5663,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    // The network currently satisfying the NetworkRquest.
+    private class Satisfier {
+        final NetworkRequest mActiveRequest;
+        final NetworkAgentInfo mNetworkAgentInfo;
+
+        Satisfier(final NetworkAgentInfo nai, final NetworkRequest nr) {
+            mNetworkAgentInfo = nai;
+            mActiveRequest = nr;
+        }
+    }
+
     /**
      * Tracks info about the requester.
      * Also used to notice when the calling process dies so as to self-expire
@@ -5695,29 +5684,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // single NetworkRequest in mRequests.
         final List<NetworkRequest> mRequests;
 
-        // mSatisfier and mActiveRequest rely on one another therefore set them together.
-        void setSatisfier(
-                @Nullable final NetworkAgentInfo satisfier,
-                @Nullable final NetworkRequest activeRequest) {
+        void setSatisfier(@Nullable final Satisfier satisfier) {
             mSatisfier = satisfier;
-            mActiveRequest = activeRequest;
         }
 
         // The network currently satisfying this NRI. Only one request in an NRI can have a
         // satisfier. For non-multilayer requests, only non-listen requests can have a satisfier.
         @Nullable
-        private NetworkAgentInfo mSatisfier;
+        private Satisfier mSatisfier;
         NetworkAgentInfo getSatisfier() {
-            return mSatisfier;
+            return mSatisfier == null ? null : mSatisfier.mNetworkAgentInfo;
         }
 
-        // The request in mRequests assigned to a network agent. This is null if none of the
-        // requests in mRequests can be satisfied. This member has the constraint of only being
-        // accessible on the handler thread.
-        @Nullable
-        private NetworkRequest mActiveRequest;
         NetworkRequest getActiveRequest() {
-            return mActiveRequest;
+            return mSatisfier == null ? null : mSatisfier.mActiveRequest;
         }
 
         final PendingIntent mPendingIntent;
@@ -5857,7 +5837,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         break;
                     }
                 }
-                setSatisfier(satisfier, activeRequest);
+                setSatisfier(new Satisfier(satisfier, activeRequest));
             }
             mMessenger = nri.mMessenger;
             mBinder = nri.mBinder;
@@ -5884,10 +5864,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         // True if this NRI is being satisfied. It also accounts for if the nri has its satisifer
-        // set to the mNoServiceNetwork in which case mActiveRequest will be null thus returning
+        // set to the mNoServiceNetwork in which case activeRequest will be null thus returning
         // false.
         boolean isBeingSatisfied() {
-            return (null != mSatisfier && null != mActiveRequest);
+            return (null != getSatisfier() && null != getActiveRequest());
         }
 
         boolean isMultilayerRequest() {
@@ -5951,7 +5931,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public String toString() {
             final String asUidString = (mAsUid == mUid) ? "" : " asUid: " + mAsUid;
             return "uid/pid:" + mUid + "/" + mPid + asUidString + " activeRequest: "
-                    + (mActiveRequest == null ? null : mActiveRequest.requestId)
+                    + (getActiveRequest() == null ? null : getActiveRequest().requestId)
                     + " callbackRequest: "
                     + mNetworkRequestForCallback.requestId
                     + " " + mRequests
@@ -6692,7 +6672,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     // The NetworkAgentInfo currently satisfying the default request, if any.
     private NetworkAgentInfo getDefaultNetwork() {
-        return mDefaultRequest.mSatisfier;
+        return mDefaultRequest.getSatisfier();
     }
 
     private NetworkAgentInfo getDefaultNetworkForUid(final int uid) {
@@ -8112,7 +8092,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             previousSatisfier.removeRequest(previousRequest.requestId);
         }
-        nri.setSatisfier(newSatisfier, newRequest);
+        nri.setSatisfier(new Satisfier(newSatisfier, newRequest));
     }
 
     /**
@@ -8163,7 +8143,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (nri.getSatisfier() != bestNetwork) {
                 // bestNetwork may be null if no network can satisfy this request.
                 changes.addRequestReassignment(new NetworkReassignment.RequestReassignment(
-                        nri, nri.mActiveRequest, bestRequest, nri.getSatisfier(), bestNetwork));
+                        nri, nri.getActiveRequest(), bestRequest, nri.getSatisfier(), bestNetwork));
             }
         }
         return changes;
@@ -10056,13 +10036,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
         validateNetworkCapabilitiesOfProfileNetworkPreference(preference.capabilities);
 
         mProfileNetworkPreferences = mProfileNetworkPreferences.plus(preference);
-        mSystemNetworkRequestCounter.transact(
-                mDeps.getCallingUid(), mProfileNetworkPreferences.preferences.size(),
-                () -> {
-                    final ArraySet<NetworkRequestInfo> nris =
-                            createNrisFromProfileNetworkPreferences(mProfileNetworkPreferences);
-                    replaceDefaultNetworkRequestsForPreference(nris, PREFERENCE_ORDER_PROFILE);
-                });
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PROFILE);
+        addPerAppDefaultNetworkRequests(
+                createNrisFromProfileNetworkPreferences(mProfileNetworkPreferences));
+
         // Finally, rematch.
         rematchAllNetworksAndRequests();
 
@@ -10107,14 +10084,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleMobileDataPreferredUidsChanged() {
         mMobileDataPreferredUids = ConnectivitySettingsManager.getMobileDataPreferredUids(mContext);
-        mSystemNetworkRequestCounter.transact(
-                mDeps.getCallingUid(), 1 /* numOfNewRequests */,
-                () -> {
-                    final ArraySet<NetworkRequestInfo> nris =
-                            createNrisFromMobileDataPreferredUids(mMobileDataPreferredUids);
-                    replaceDefaultNetworkRequestsForPreference(nris,
-                            PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);
-                });
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_MOBILE_DATA_PREFERERRED);
+        addPerAppDefaultNetworkRequests(
+                createNrisFromMobileDataPreferredUids(mMobileDataPreferredUids));
         // Finally, rematch.
         rematchAllNetworksAndRequests();
     }
@@ -10203,16 +10175,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         mOemNetworkPreferencesLogs.log("UPDATE INITIATED: " + preference);
-        final int uniquePreferenceCount = new ArraySet<>(
-                preference.getNetworkPreferences().values()).size();
-        mSystemNetworkRequestCounter.transact(
-                mDeps.getCallingUid(), uniquePreferenceCount,
-                () -> {
-                    final ArraySet<NetworkRequestInfo> nris =
-                            new OemNetworkRequestFactory()
-                                    .createNrisFromOemNetworkPreferences(preference);
-                    replaceDefaultNetworkRequestsForPreference(nris, PREFERENCE_ORDER_OEM);
-                });
+        removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_OEM);
+        addPerAppDefaultNetworkRequests(new OemNetworkRequestFactory()
+                .createNrisFromOemNetworkPreferences(preference));
         mOemNetworkPreferences = preference;
 
         if (null != listener) {
@@ -10224,14 +10189,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void replaceDefaultNetworkRequestsForPreference(
-            @NonNull final Set<NetworkRequestInfo> nris, final int preferenceOrder) {
+    private void removeDefaultNetworkRequestsForPreference(final int preferenceOrder) {
         // Skip the requests which are set by other network preference. Because the uid range rules
         // should stay in netd.
         final Set<NetworkRequestInfo> requests = new ArraySet<>(mDefaultNetworkRequests);
         requests.removeIf(request -> request.mPreferenceOrder != preferenceOrder);
         handleRemoveNetworkRequests(requests);
-        addPerAppDefaultNetworkRequests(nris);
     }
 
     private void addPerAppDefaultNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris) {
@@ -10239,15 +10202,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mDefaultNetworkRequests.addAll(nris);
         final ArraySet<NetworkRequestInfo> perAppCallbackRequestsToUpdate =
                 getPerAppCallbackRequestsToUpdate();
+        // Make a copy of satisfier for each NetworkRequestInfo.
+        final HashMap<NetworkRequest, Satisfier> copySatisfiers = new HashMap<>();
+        for (NetworkRequestInfo nri: perAppCallbackRequestsToUpdate) {
+            copySatisfiers.put(nri.mNetworkRequestForCallback, nri.mSatisfier);
+        }
+        handleRemoveNetworkRequests(perAppCallbackRequestsToUpdate);
+
         final ArraySet<NetworkRequestInfo> nrisToRegister = new ArraySet<>(nris);
-        mSystemNetworkRequestCounter.transact(
-                mDeps.getCallingUid(), perAppCallbackRequestsToUpdate.size(),
-                () -> {
-                    nrisToRegister.addAll(
-                            createPerAppCallbackRequestsToRegister(perAppCallbackRequestsToUpdate));
-                    handleRemoveNetworkRequests(perAppCallbackRequestsToUpdate);
-                    handleRegisterNetworkRequests(nrisToRegister);
-                });
+        final ArraySet<NetworkRequestInfo> newPerAppRequests =
+                new ArraySet<>(perAppCallbackRequestsToUpdate);
+        // Add the satisfier back to NetworkRequestInfo since they are cleared during removing
+        // network requests above.
+        for (NetworkRequestInfo nri: newPerAppRequests) {
+            final Satisfier satisfier = copySatisfiers.get(nri.mNetworkRequestForCallback);
+            nri.setSatisfier(satisfier);
+        }
+        nrisToRegister.addAll(createPerAppCallbackRequestsToRegister(newPerAppRequests));
+        handleRegisterNetworkRequests(nrisToRegister);
     }
 
     /**
