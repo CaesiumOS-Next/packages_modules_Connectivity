@@ -87,6 +87,30 @@
       },
       "revId": "7c902cc76274283d957051aa8392a77a066cb38c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d724284f_148c47be",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2356,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-08T05:32:16Z",
+      "side": 1,
+      "message": "No the test does need the network to be validated. It uses OEM_NETWORK_PREFERENCE_TEST, which prefers NOT_METERED\u0026VALIDATED to TEST networks, to make it as close as possible to the OEM_NETWORK_PREFERENCE_OEM_PAID setting used in production.\n\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d10408?q\u003dOEM_NETWORK_PREFERENCE_TEST\n\nSee aosp/1821292 for what I think is a slightly better solution than this.",
+      "parentUuid": "a5512a29_de42e029",
+      "range": {
+        "startLine": 2356,
+        "startChar": 12,
+        "endLine": 2356,
+        "endChar": 34
+      },
+      "revId": "7c902cc76274283d957051aa8392a77a066cb38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
