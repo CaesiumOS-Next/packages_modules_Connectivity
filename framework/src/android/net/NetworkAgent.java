@@ -25,6 +25,7 @@ import android.annotation.SystemApi;
 import android.annotation.TestApi;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
+import android.net.DscpPolicy.DscpPolicyStatus;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ConditionVariable;
@@ -404,6 +405,35 @@ public abstract class NetworkAgent {
      */
     public static final int EVENT_LINGER_DURATION_CHANGED = BASE + 24;
 
+    /**
+     * Sent by the NetworkAgent to ConnectivityService to set add a DSCP policy.
+     *
+     * @hide
+     */
+    public static final int EVENT_QOS_ADD_DSCP_POLICY = BASE + 25;
+
+    /**
+     * Sent by the NetworkAgent to ConnectivityService to set remove a DSCP policy.
+     *
+     * @hide
+     */
+    public static final int EVENT_QOS_REMOVE_DSCP_POLICY = BASE + 26;
+
+    /**
+     * Sent by the NetworkAgent to ConnectivityService to remove all DSCP policies.
+     *
+     * @hide
+     */
+    public static final int EVENT_QOS_REMOVE_ALL_DSCP_POLICIES = BASE + 27;
+
+    /**
+     * Sent by ConnectivityService to {@link NetworkAgent} to inform the agent that its native
+     * network was destroyed.
+     *
+     * @hide
+     */
+    public static final int CMD_QOS_DSCP_POLICY_STATUS = BASE + 28;
+
     private static NetworkInfo getLegacyNetworkInfo(final NetworkAgentConfig config) {
         final NetworkInfo ni = new NetworkInfo(config.legacyType, config.legacySubType,
                 config.legacyTypeName, config.legacySubTypeName);
@@ -611,6 +641,12 @@ public abstract class NetworkAgent {
                     onNetworkDestroyed();
                     break;
                 }
+                case CMD_QOS_DSCP_POLICY_STATUS: {
+                    onDscpPolicyStatusUpdated(
+                            msg.arg1 /* Policy ID */,
+                            msg.arg2 /* DSCP Policy Status */);
+                    break;
+                }
             }
         }
     }
@@ -760,6 +796,13 @@ public abstract class NetworkAgent {
         @Override
         public void onNetworkDestroyed() {
             mHandler.sendMessage(mHandler.obtainMessage(CMD_NETWORK_DESTROYED));
+        }
+
+        @Override
+        public void onDscpPolicyStatusUpdated(final int policyId,
+                @DscpPolicyStatus final int status) {
+            mHandler.sendMessage(mHandler.obtainMessage(
+                CMD_QOS_DSCP_POLICY_STATUS, policyId, status));
         }
     }
 
@@ -1104,6 +1147,11 @@ public abstract class NetworkAgent {
     public void onNetworkDestroyed() {}
 
     /**
+     * Called when when the DSCP Policy status has changed.
+     */
+    public void onDscpPolicyStatusUpdated(int policyId, int status) {}
+
+    /**
      * Requests that the network hardware send the specified packet at the specified interval.
      *
      * @param slot the hardware slot on which to start the keepalive.
@@ -1315,6 +1363,30 @@ public abstract class NetworkAgent {
                     + MIN_LINGER_TIMER_MS + "," + Integer.MAX_VALUE + "]ms");
         }
         queueOrSendMessage(ra -> ra.sendLingerDuration((int) durationMs));
+    }
+
+    /**
+     * Add the DSCP Policy for Qos.
+     * @param policy the DSCP QoS policy to be added.
+     */
+    public void sendQosAddDscpPolicy(@NonNull final DscpPolicy policy) {
+        Objects.requireNonNull(policy);
+        queueOrSendMessage(ra -> ra.sendQosAddDscpPolicy(policy));
+    }
+
+    /**
+     * Removed the specified DSCP policy.
+     * @param policyId the ID corresponding to a specific DSCP Policy.
+     */
+    public void sendQosRemoveDscpPolicy(final int policyId) {
+        queueOrSendMessage(ra -> ra.sendQosRemoveDscpPolicy(policyId));
+    }
+
+    /**
+     * Removed all the DSCP policies.
+     */
+    public void sendQosRemoveAllDscpPolicies() {
+        queueOrSendMessage(ra -> ra.sendQosRemoveAllDscpPolicies());
     }
 
     /** @hide */

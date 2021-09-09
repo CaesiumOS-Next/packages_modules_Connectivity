@@ -200,6 +200,47 @@ package android.net {
     field public final int code;
   }
 
+  public final class DscpPolicy implements android.os.Parcelable {
+    ctor public DscpPolicy(int, int, @Nullable java.net.InetAddress, @Nullable java.net.InetAddress, int, int, int, int);
+    method public int describeContents();
+    method @NonNull public static String dscpPolicyStatusToString(int);
+    method public int getDscp();
+    method @Nullable public java.net.InetAddress getDstAddr();
+    method public int getDstPortRangeEnd();
+    method public int getDstPortRangeStart();
+    method public int getPolicyId();
+    method public int getProtocol();
+    method @Nullable public java.net.InetAddress getSrcAddr();
+    method public int getSrcPort();
+    method @NonNull public android.net.DscpPolicy setDscp(int);
+    method @NonNull public android.net.DscpPolicy setDstAddr(@NonNull java.net.InetAddress);
+    method @NonNull public android.net.DscpPolicy setDstPortRangeEnd(int);
+    method @NonNull public android.net.DscpPolicy setDstPortRangeStart(int);
+    method @NonNull public android.net.DscpPolicy setPolicyId(int);
+    method @NonNull public android.net.DscpPolicy setProtocol(int);
+    method @NonNull public android.net.DscpPolicy setSrcAddr(@NonNull java.net.InetAddress);
+    method @NonNull public android.net.DscpPolicy setSrcPort(int);
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.DscpPolicy> CREATOR;
+    field public static final int DSCP_POLICY_STATUS_INSUFFICIENT_PROCESSING_RESOURCES = 3; // 0x3
+    field public static final int DSCP_POLICY_STATUS_REQUESTED_CLASSIFIER_NOT_SUPPORTED = 2; // 0x2
+    field public static final int DSCP_POLICY_STATUS_REQUEST_DECLINED = 1; // 0x1
+    field public static final int DSCP_POLICY_STATUS_SUCCESS = 0; // 0x0
+  }
+
+  public static final class DscpPolicy.Builder {
+    ctor public DscpPolicy.Builder(int);
+    method @NonNull public android.net.DscpPolicy build();
+    method @NonNull public android.net.DscpPolicy.Builder setDscp(int);
+    method @NonNull public android.net.DscpPolicy.Builder setDstAddr(@NonNull java.net.InetAddress);
+    method @NonNull public android.net.DscpPolicy.Builder setDstPortRangeEnd(int);
+    method @NonNull public android.net.DscpPolicy.Builder setDstPortRangeStart(int);
+    method @NonNull public android.net.DscpPolicy.Builder setPolicyId(int);
+    method @NonNull public android.net.DscpPolicy.Builder setProtocol(int);
+    method @NonNull public android.net.DscpPolicy.Builder setSrcAddr(@NonNull java.net.InetAddress);
+    method @NonNull public android.net.DscpPolicy.Builder setSrcPort(int);
+  }
+
   public class InetAddresses {
     method public static boolean isNumericAddress(@NonNull String);
     method @NonNull public static java.net.InetAddress parseNumericAddress(@NonNull String);
