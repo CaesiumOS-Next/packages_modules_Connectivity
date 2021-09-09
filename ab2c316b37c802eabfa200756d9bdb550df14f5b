@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6d334af_de625948",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-09T14:23:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1db81d97_a39f0924",
+      "range": {
+        "startLine": 1543,
+        "startChar": 24,
+        "endLine": 1543,
+        "endChar": 41
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffb74c7a_de39d311",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-07T10:20:54Z",
       "side": 1,
       "message": "Don\u0027t you need to return here? Otherwise you\u0027ll end up notifying the listener that the operation failed, but you\u0027ll end up setting the value anyway?",
+      "range": {
+        "startLine": 206,
+        "startChar": 82,
+        "endLine": 206,
+        "endChar": 83
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8475ece8_10cda155",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-09T14:23:39Z",
+      "side": 1,
+      "message": "Thanks for catching this.",
+      "parentUuid": "ffb74c7a_de39d311",
       "range": {
         "startLine": 206,
         "startChar": 82,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f4dc8a5_29a6bba2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-09T14:23:39Z",
+      "side": 1,
+      "message": "No, it would be 104 which exceeds 100 words.",
+      "parentUuid": "c9498f58_393c8af9",
+      "range": {
+        "startLine": 670,
+        "startChar": 0,
+        "endLine": 671,
+        "endChar": 55
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f808697f_2ca2964d",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f101a65_042283c3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-09T14:23:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f808697f_2ca2964d",
+      "range": {
+        "startLine": 707,
+        "startChar": 8,
+        "endLine": 707,
+        "endChar": 29
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e3358d4_83ab91b9",
@@ -123,6 +219,30 @@
       "writtenOn": "2021-09-07T10:20:54Z",
       "side": 1,
       "message": "No need to fix any more, but I think it would have been better if the refactoring of makePacketReader and the rename of mTestIface to mDownstreamIface had been done in their own CL before this one. That would have made both CLs easier to review.",
+      "range": {
+        "startLine": 256,
+        "startChar": 28,
+        "endLine": 256,
+        "endChar": 44
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63b14352_fded05a3",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-09T14:23:39Z",
+      "side": 1,
+      "message": "Ack. Thanks for suggestion. I could separate the code, but probably it would make some noise that you already reviewing the rename and makePacketReader refactoring. Would follow the suggestion next time.",
+      "parentUuid": "8e3358d4_83ab91b9",
       "range": {
         "startLine": 256,
         "startChar": 28,
@@ -169,6 +289,54 @@
       "writtenOn": "2021-09-07T10:20:54Z",
       "side": 1,
       "message": "Nit: given that you expect this to be called by multiple tests, suggest putting it *before* testTestNetworkUpstream, not after it. So around line 750.",
+      "range": {
+        "startLine": 770,
+        "startChar": 4,
+        "endLine": 770,
+        "endChar": 11
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fca5808a_cc8d1e76",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-09T14:23:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d045428_cad1fd2c",
+      "range": {
+        "startLine": 770,
+        "startChar": 31,
+        "endLine": 770,
+        "endChar": 54
+      },
+      "revId": "ab2c316b37c802eabfa200756d9bdb550df14f5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bbdb0b6_b225df22",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-09T14:23:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df3fb12b_217feaa2",
       "range": {
         "startLine": 770,
         "startChar": 4,
