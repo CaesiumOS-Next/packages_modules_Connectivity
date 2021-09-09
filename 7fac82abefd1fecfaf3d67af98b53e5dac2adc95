@@ -161,6 +161,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c82b949f_ac671234",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-09T09:06:23Z",
+      "side": 1,
+      "message": "Sergey, care to modify this CL so that it just deletes AirplaneModeTest.java?",
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b6310fe_a9333bb6",
