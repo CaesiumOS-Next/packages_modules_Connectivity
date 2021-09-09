@@ -217,6 +217,7 @@ package android.net {
     method public void onAddKeepalivePacketFilter(int, @NonNull android.net.KeepalivePacketData);
     method public void onAutomaticReconnectDisabled();
     method public void onBandwidthUpdateRequested();
+    method public void onDscpPolicyStatusUpdated(int, int);
     method public void onNetworkCreated();
     method public void onNetworkDestroyed();
     method public void onNetworkUnwanted();
@@ -233,7 +234,10 @@ package android.net {
     method public final void sendNetworkCapabilities(@NonNull android.net.NetworkCapabilities);
     method public final void sendNetworkScore(@NonNull android.net.NetworkScore);
     method public final void sendNetworkScore(@IntRange(from=0, to=99) int);
+    method public void sendQosAddDscpPolicy(@NonNull android.net.DscpPolicy);
     method public final void sendQosCallbackError(int, int);
+    method public void sendQosRemoveAllDscpPolicies();
+    method public void sendQosRemoveDscpPolicy(int);
     method public final void sendQosSessionAvailable(int, int, @NonNull android.net.QosSessionAttributes);
     method public final void sendQosSessionLost(int, int, int);
     method public final void sendSocketKeepaliveEvent(int, int);
