@@ -200,6 +200,22 @@ package android.net {
     field public final int code;
   }
 
+  public final class DscpPolicy implements android.os.Parcelable {
+    method public int describeContents();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.DscpPolicy> CREATOR;
+    field public static final int DSCP_POLICY_STATUS_DELETED = 4; // 0x4
+    field public static final int DSCP_POLICY_STATUS_INSUFFICIENT_PROCESSING_RESOURCES = 3; // 0x3
+    field public static final int DSCP_POLICY_STATUS_REQUESTED_CLASSIFIER_NOT_SUPPORTED = 2; // 0x2
+    field public static final int DSCP_POLICY_STATUS_REQUEST_DECLINED = 1; // 0x1
+    field public static final int DSCP_POLICY_STATUS_SUCCESS = 0; // 0x0
+  }
+
+  public static final class DscpPolicy.Builder {
+    ctor public DscpPolicy.Builder(int);
+    method @NonNull public android.net.DscpPolicy build();
+  }
+
   public class InetAddresses {
     method public static boolean isNumericAddress(@NonNull String);
     method @NonNull public static java.net.InetAddress parseNumericAddress(@NonNull String);
