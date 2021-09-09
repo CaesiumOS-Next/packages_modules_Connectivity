@@ -196,6 +196,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d5a0233_bfa5e838",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1659435
+      },
+      "writtenOn": "2021-09-09T09:16:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1d4757a_4082c48a",
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b6310fe_a9333bb6",
@@ -209,6 +227,30 @@
       "writtenOn": "2021-09-07T09:50:38Z",
       "side": 1,
       "message": "This method looks like it\u0027s intended to be symmetrical with setup(), but it isn\u0027t. setup() is called by the tests themselves, tearDown is caller by the harness. So if a new test is written and does not explicitly call setup().\n\nSorry this is so confusing. We should probably do something like:\n\n -    public void setup() {\n +    @Override\n +    public void setUp() {\n\nand remove the explicit call to setup in line 68.",
+      "range": {
+        "startLine": 57,
+        "startChar": 19,
+        "endLine": 57,
+        "endChar": 27
+      },
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40727bcc_fe6d1573",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1659435
+      },
+      "writtenOn": "2021-09-09T09:16:28Z",
+      "side": 1,
+      "message": "Test deleted, not applicable anymore.",
+      "parentUuid": "6b6310fe_a9333bb6",
       "range": {
         "startLine": 57,
         "startChar": 19,
@@ -242,6 +284,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32e1d93b_bebd6bba",
+        "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1659435
+      },
+      "writtenOn": "2021-09-09T09:16:28Z",
+      "side": 1,
+      "message": "Ack, test deleted, not applicable anymore.",
+      "parentUuid": "6666557f_098665fa",
+      "range": {
+        "startLine": 115,
+        "startChar": 25,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "697f82d2_80787db7",
@@ -255,6 +321,30 @@
       "writtenOn": "2021-09-07T09:50:38Z",
       "side": 1,
       "message": "I don\u0027t think we should add this method to CtsNetUtils, at least not implemented this way. A couple of reasons:\n\n1. Synchronous connectivity APIs such as getAllNetworks are discouraged because they can lead to race conditions. We\u0027d prefer our tests not to use any such methods in our tests unless we are actually testing those methods. Additionally, synchronous methods do not allow the caller to know when to call them again, so the caller often has to resort to polling to see when things change.\n\n2. This method\u0027s signature is confusing because there often are multiple networks that have the same transport type (example: on a phone, there will almost always be two TRANSPORT_CELLULAR networks). This test gets around this problem by assuming NET_CAPABILITY_INTERNET, but even that\u0027s not correct: for example, wifi can do graceful handover between two connected networks, and cellular can also maintain simultaneous internet networks (DS-DA).",
+      "range": {
+        "startLine": 486,
+        "startChar": 19,
+        "endLine": 486,
+        "endChar": 37
+      },
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "638d96c8_ca5de41c",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1659435
+      },
+      "writtenOn": "2021-09-09T09:16:28Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "697f82d2_80787db7",
       "range": {
         "startLine": 486,
         "startChar": 19,
