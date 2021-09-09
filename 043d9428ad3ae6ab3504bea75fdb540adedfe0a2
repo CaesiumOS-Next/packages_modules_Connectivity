@@ -69,6 +69,24 @@
       "parentUuid": "2b378e6c_121cba68",
       "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "220db021_54bb8abb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-09-09T17:47:06Z",
+      "side": 1,
+      "message": "\u003e Chiachang, IIRC you were talking to the team about the default values. Was there a conclusion from that conversation?\n\n+chiachangwang for this.",
+      "parentUuid": "40e56dc2_ced0de13",
+      "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
