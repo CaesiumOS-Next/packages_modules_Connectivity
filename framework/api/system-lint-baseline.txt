@@ -1,1 +1,11 @@
 // Baseline format: 1.0
+MissingGetterMatchingBuilder: android.net.DscpPolicy.Builder#setDestinationAddress(java.net.InetAddress):
+    android.net.DscpPolicy does not declare a `getDestinationAddress()` method matching method android.net.DscpPolicy.Builder.setDestinationAddress(java.net.InetAddress)
+MissingGetterMatchingBuilder: android.net.DscpPolicy.Builder#setDestinationPortRange(android.util.Range<java.lang.Integer>):
+    android.net.DscpPolicy does not declare a `getDestinationPortRange()` method matching method android.net.DscpPolicy.Builder.setDestinationPortRange(android.util.Range<java.lang.Integer>)
+MissingGetterMatchingBuilder: android.net.DscpPolicy.Builder#setDscp(int):
+    android.net.DscpPolicy does not declare a `getDscp()` method matching method android.net.DscpPolicy.Builder.setDscp(int)
+MissingGetterMatchingBuilder: android.net.DscpPolicy.Builder#setSourceAddress(java.net.InetAddress):
+    android.net.DscpPolicy does not declare a `getSourceAddress()` method matching method android.net.DscpPolicy.Builder.setSourceAddress(java.net.InetAddress)
+MissingGetterMatchingBuilder: android.net.DscpPolicy.Builder#setSourcePort(int):
+    android.net.DscpPolicy does not declare a `getSourcePort()` method matching method android.net.DscpPolicy.Builder.setSourcePort(int)
