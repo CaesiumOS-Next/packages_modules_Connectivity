@@ -16,6 +16,7 @@
 package android.net;
 
 import android.net.NattKeepalivePacketData;
+import android.net.DscpPolicyStatus;
 import android.net.QosFilterParcelable;
 import android.net.TcpKeepalivePacketData;
 
@@ -48,4 +49,5 @@ oneway interface INetworkAgent {
     void onQosCallbackUnregistered(int qosCallbackId);
     void onNetworkCreated();
     void onNetworkDestroyed();
+    void onDscpPolicyStatus(int policyId, in DscpPolicyStatus status);
 }
