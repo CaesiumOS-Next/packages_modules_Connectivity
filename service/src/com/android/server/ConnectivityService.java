@@ -121,6 +121,7 @@ import android.net.ConnectivityManager.NetworkCallback;
 import android.net.ConnectivityManager.RestrictBackgroundStatus;
 import android.net.ConnectivityResources;
 import android.net.ConnectivitySettingsManager;
+import android.net.DscpPolicy;
 import android.net.DataStallReportParcelable;
 import android.net.DnsResolverServiceManager;
 import android.net.ICaptivePortal;
@@ -215,6 +216,7 @@ import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
+import android.system.ErrnoException;
 import android.sysprop.NetworkProperties;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -246,6 +248,7 @@ import com.android.server.connectivity.AutodestructReference;
 import com.android.server.connectivity.ConnectivityFlags;
 import com.android.server.connectivity.DnsManager;
 import com.android.server.connectivity.DnsManager.PrivateDnsValidationUpdate;
+import com.android.server.connectivity.DscpPolicyTracker;
 import com.android.server.connectivity.FullScore;
 import com.android.server.connectivity.KeepaliveTracker;
 import com.android.server.connectivity.LingerMonitor;
@@ -384,6 +387,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     protected IDnsResolver mDnsResolver;
     @VisibleForTesting
     protected INetd mNetd;
+    private DscpPolicyTracker mDscpPolicyTracker;
     private NetworkStatsManager mStatsManager;
     private NetworkPolicyManager mPolicyManager;
     private final NetdCallback mNetdCallback;
@@ -1399,6 +1403,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
         // reading existing policy from disk.
         mPolicyManager.registerNetworkPolicyCallback(null, mPolicyCallback);
+
+        try {
+            mDscpPolicyTracker = new DscpPolicyTracker();
+        } catch (ErrnoException e) {
+            logwtf("Unable to create DSCP Policy Tracker", e);
+        }
 
         final PowerManager powerManager = (PowerManager) context.getSystemService(
                 Context.POWER_SERVICE);
@@ -3372,6 +3382,30 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case NetworkAgent.EVENT_LINGER_DURATION_CHANGED: {
                     nai.setLingerDuration((int) arg.second);
+                    break;
+                }
+                case NetworkAgent.EVENT_QOS_ADD_DSCP_POLICY: {
+                    try {
+                        mDscpPolicyTracker.addDscpPolicy((DscpPolicy) arg.second);
+                    } catch (ErrnoException e) {
+                        logwtf("Unable to add policy: " + ((DscpPolicy) arg.second).toString());
+                    }
+                    break;
+                }
+                case NetworkAgent.EVENT_QOS_REMOVE_DSCP_POLICY: {
+                    try {
+                        mDscpPolicyTracker.removeDscpPolicy((int) arg.second);
+                    } catch (ErrnoException e) {
+                        logwtf("Unable to remove policy: " + ((DscpPolicy) arg.second).toString());
+                    }
+                    break;
+                }
+                case NetworkAgent.EVENT_QOS_REMOVE_ALL_DSCP_POLICIES: {
+                    try {
+                        mDscpPolicyTracker.removeAllDscpPolicies();
+                    } catch (ErrnoException e) {
+                        logwtf("Unable to remove all policies");
+                    }
                     break;
                 }
             }
