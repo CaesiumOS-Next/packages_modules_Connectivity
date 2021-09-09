@@ -43,4 +43,6 @@ oneway interface INetworkAgentRegistry {
     void sendQosCallbackError(int qosCallbackId, int exceptionType);
     void sendTeardownDelayMs(int teardownDelayMs);
     void sendLingerDuration(int durationMs);
+    void sendQosAddDscpPolicy(in DscpPolicy policy);
+    void sendQosRemoveDscpPolicy(int policyId);
 }
