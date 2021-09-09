@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00283af3_801b3f77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-09T09:23:24Z",
+      "side": 1,
+      "message": "Bypass TH due to the known presubmit failure issue b/198586720",
+      "revId": "ddecb662463020661858f3219d405dce1dd116eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
