@@ -404,6 +404,28 @@ public abstract class NetworkAgent {
      */
     public static final int EVENT_LINGER_DURATION_CHANGED = BASE + 24;
 
+    /**
+     * Sent by the NetworkAgent to ConnectivityService to set add a DSCP policy.
+     *
+     * @hide
+     */
+    public static final int EVENT_QOS_ADD_DSCP_POLICY = BASE + 25;
+
+    /**
+     * Sent by the NetworkAgent to ConnectivityService to set remove a DSCP policy.
+     *
+     * @hide
+     */
+    public static final int EVENT_QOS_REMOVE_DSCP_POLICY = BASE + 26;
+
+    /**
+     * Sent by ConnectivityService to {@link NetworkAgent} to inform the agent that its native
+     * network was destroyed.
+     *
+     * @hide
+     */
+    public static final int CMD_QOS_DSCP_POLICY_STATUS = BASE + 27;
+
     private static NetworkInfo getLegacyNetworkInfo(final NetworkAgentConfig config) {
         final NetworkInfo ni = new NetworkInfo(config.legacyType, config.legacySubType,
                 config.legacyTypeName, config.legacySubTypeName);
@@ -611,6 +633,18 @@ public abstract class NetworkAgent {
                     onNetworkDestroyed();
                     break;
                 }
+                case CMD_QOS_ADD_DSCP_POLICY: {
+                    onDscpPolicyAdded(
+                            msg.arg1 /* Policy ID */,
+                            (DscpPolicyStatus) msg.obj /* DSCP Policy Status */);
+                    break;
+                }
+                case CMD_QOS_REMOVED_DSCP_POLICY: {
+                    onDscpPolicyRemoved(
+                            msg.arg1 /* Policy ID */,
+                            (DscpPolicyStatus) msg.obj /* DSCP Policy Status */);
+                    break;
+                }
             }
         }
     }
@@ -760,6 +794,12 @@ public abstract class NetworkAgent {
         @Override
         public void onNetworkDestroyed() {
             mHandler.sendMessage(mHandler.obtainMessage(CMD_NETWORK_DESTROYED));
+        }
+
+        @Override
+        public void onDscpPolicyStatusUpdated(final int policyId, final int status) {
+            mHandler.sendMessage(mHandler.obtainMessage(
+                CMD_QOS_DSCP_POLICY_STATUS, policyId, status));
         }
     }
 
@@ -1315,6 +1355,23 @@ public abstract class NetworkAgent {
                     + MIN_LINGER_TIMER_MS + "," + Integer.MAX_VALUE + "]ms");
         }
         queueOrSendMessage(ra -> ra.sendLingerDuration((int) durationMs));
+    }
+
+    /**
+     * Add the DSCP Policy for Qos.
+     * @param policy the DSCP QoS policy to be added.
+     */
+    public void sendQosAddDscpPolicy(@NonNull final DscpPolicy policy) {
+        Objects.requireNonNull(policy);
+        queueOrSendMessage(ra -> ra.sendQosAddDscpPolicy(policy));
+    }
+
+    /**
+     * Removed the specified DSCP policy.
+     * @param policyId the ID corresponding to a specific DSCP Policy.
+     */
+    public void sendQosRemoveDscpPolicy(final int policyId) {
+        queueOrSendMessage(ra -> ra.sendQosRemoveDscpPolicy(policyId));
     }
 
     /** @hide */
