@@ -35,12 +35,22 @@ cc_library_headers {
     apex_available: ["com.android.tethering"],
     visibility: [
         "//packages/modules/Connectivity/Tethering",
+        "//packages/modules/Connectivity/service",
     ],
 }
 
 //
 // bpf kernel programs
 //
+bpf {
+    name: "dscp_policy.o",
+    srcs: ["dscp_policy.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}
+
 bpf {
     name: "offload.o",
     srcs: ["offload.c"],
