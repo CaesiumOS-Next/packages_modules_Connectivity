@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c3678f0_9bf43d29",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1258594
+      },
+      "writtenOn": "2021-09-09T23:47:57Z",
+      "side": 1,
+      "message": "shouldn\u0027t we make it mDstPortRangeStart",
+      "range": {
+        "startLine": 58,
+        "startChar": 22,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "eac538763130ca0580d413b4da3508d1f9a85d90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
