@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1d4757a_4082c48a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-09T09:05:37Z",
+      "side": 1,
+      "message": "You\u0027re right. Let\u0027s just delete this file.",
+      "parentUuid": "5b580da6_f6467d2d",
+      "revId": "7fac82abefd1fecfaf3d67af98b53e5dac2adc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b6310fe_a9333bb6",
         "filename": "tests/cts/net/src/android/net/cts/AirplaneModeTest.java",
         "patchSetId": 11
