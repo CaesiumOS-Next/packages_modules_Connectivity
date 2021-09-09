@@ -3335,6 +3335,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     nai.setLingerDuration((int) arg.second);
                     break;
                 }
+                case NetworkAgent.EVENT_QOS_ADD_DSCP_POLICY: {
+                    // mNetd.dscpEvent(netId, (policy) arg.second);
+                    break;
+                }
+                case NetworkAgent.EVENT_QOS_REMOVE_DSCP_POLICY: {
+                    // mNetd.dscpEvent(netId, (policy) arg.second);
+                    break;
+                }
             }
         }
 
@@ -9625,6 +9633,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public void onInterfaceRemoved(String iface) {
             for (NetworkAgentInfo nai : mNetworkAgentInfos) {
                 nai.clatd.interfaceRemoved(iface);
+            }
+        }
+
+        @Override void onDscpPolicyStatusUpdated(int policyId, int status) {
+            for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+                nai.onDscpPolicyStatusUpdated(policyId, status);
             }
         }
     }
