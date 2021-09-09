@@ -1,3 +1,4 @@
+rule android.net.netd.aidl.DscpPolicyParcel* android.net.DscpPolicy@1
 rule com.android.net.module.util.** android.net.connectivity.framework.util.@1
 
 # TODO (b/149403767): remove the annotations from net-utils-device-common instead of here
