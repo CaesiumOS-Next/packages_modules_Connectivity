@@ -106,6 +106,7 @@ java_sdk_library {
     ],
     static_libs: [
         "framework-connectivity-protos",
+        "qos_aidl_interface-V1-java"
     ],
     jarjar_rules: "jarjar-rules.txt",
     permitted_packages: ["android.net"],
