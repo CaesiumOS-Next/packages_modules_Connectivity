@@ -3335,6 +3335,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     nai.setLingerDuration((int) arg.second);
                     break;
                 }
+                case NetworkAgent.EVENT_QOS_ADD_DSCP_POLICY: {
+                    // mNetd.dscpEvent(netId, (policy) arg.second);
+                    break;
+                }
+                case NetworkAgent.EVENT_QOS_REMOVE_DSCP_POLICY: {
+                    // mNetd.dscpEvent(netId, (policy) arg.second);
+                    break;
+                }
             }
         }
 
