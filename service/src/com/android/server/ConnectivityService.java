@@ -121,6 +121,7 @@ import android.net.ConnectivityManager.NetworkCallback;
 import android.net.ConnectivityManager.RestrictBackgroundStatus;
 import android.net.ConnectivityResources;
 import android.net.ConnectivitySettingsManager;
+import android.net.DscpPolicy;
 import android.net.DataStallReportParcelable;
 import android.net.DnsResolverServiceManager;
 import android.net.ICaptivePortal;
@@ -246,6 +247,7 @@ import com.android.server.connectivity.AutodestructReference;
 import com.android.server.connectivity.ConnectivityFlags;
 import com.android.server.connectivity.DnsManager;
 import com.android.server.connectivity.DnsManager.PrivateDnsValidationUpdate;
+import com.android.server.connectivity.DscpPolicyTracker;
 import com.android.server.connectivity.FullScore;
 import com.android.server.connectivity.KeepaliveTracker;
 import com.android.server.connectivity.LingerMonitor;
@@ -384,6 +386,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     protected IDnsResolver mDnsResolver;
     @VisibleForTesting
     protected INetd mNetd;
+    private DscpPolicyTracker mDscpPolicyTracker;
     private NetworkStatsManager mStatsManager;
     private NetworkPolicyManager mPolicyManager;
     private final NetdCallback mNetdCallback;
@@ -1399,6 +1402,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
         // reading existing policy from disk.
         mPolicyManager.registerNetworkPolicyCallback(null, mPolicyCallback);
+
+        mDscpPolicyTracker = new DscpPolicyTracker();
 
         final PowerManager powerManager = (PowerManager) context.getSystemService(
                 Context.POWER_SERVICE);
@@ -3372,6 +3377,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
                 case NetworkAgent.EVENT_LINGER_DURATION_CHANGED: {
                     nai.setLingerDuration((int) arg.second);
+                    break;
+                }
+                case NetworkAgent.EVENT_QOS_ADD_DSCP_POLICY: {
+                    mDscpPolicyTracker.addDscpPolicy((DscpPolicy) arg.second);
+                    break;
+                }
+                case NetworkAgent.EVENT_QOS_REMOVE_DSCP_POLICY: {
+                    mDscpPolicyTracker.removeDscpPolicy((DscpPolicy) arg.second);
+                    break;
+                }
+                case NetworkAgent.EVENT_QOS_REMOVE_ALL_DSCP_POLICIES: {
+                    mDscpPolicyTracker.removeAllDscpPolicies();
                     break;
                 }
             }
