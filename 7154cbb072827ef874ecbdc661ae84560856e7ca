@@ -295,6 +295,30 @@
       },
       "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcf2292d_116e8cf2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-09T18:07:49Z",
+      "side": 1,
+      "message": "Since the issue here is that offer is null, not the callback being linked to death, can we go ahead with the change?",
+      "parentUuid": "46111358_47088baf",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
