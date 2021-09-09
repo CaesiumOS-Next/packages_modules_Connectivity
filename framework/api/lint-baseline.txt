@@ -1,4 +1,11 @@
 // Baseline format: 1.0
+MissingBuildMethod: android.net.DscpPolicy.Builder:
+    android.net.DscpPolicy.Builder does not declare a `build()` method, but builder classes are expected to
+
+
+ParcelCreator: android.net.DscpPolicy:
+    Parcelable requires a `CREATOR` field; missing in android.net.DscpPolicy
+
+
 VisiblySynchronized: android.net.NetworkInfo#toString():
     Internal locks must not be exposed (synchronizing on this or class is still
-    externally observable): method android.net.NetworkInfo.toString()
