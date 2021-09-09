@@ -1,4 +1,31 @@
 // Baseline format: 1.0
+MissingNullability: android.net.DscpPolicy#dscpPolicyStatusToString(int):
+    Missing nullability on method `dscpPolicyStatusToString` return
+MissingNullability: android.net.DscpPolicy#setDscp(int):
+    Missing nullability on method `setDscp` return
+MissingNullability: android.net.DscpPolicy#setDstAddr(java.net.InetAddress):
+    Missing nullability on method `setDstAddr` return
+MissingNullability: android.net.DscpPolicy#setDstNetmask(java.net.InetAddress):
+    Missing nullability on method `setDstNetmask` return
+MissingNullability: android.net.DscpPolicy#setDstPortRangeEnd(int):
+    Missing nullability on method `setDstPortRangeEnd` return
+MissingNullability: android.net.DscpPolicy#setDstPortRangeStart(int):
+    Missing nullability on method `setDstPortRangeStart` return
+MissingNullability: android.net.DscpPolicy#setPolicyId(int):
+    Missing nullability on method `setPolicyId` return
+MissingNullability: android.net.DscpPolicy#setProtocol(int):
+    Missing nullability on method `setProtocol` return
+MissingNullability: android.net.DscpPolicy#setSrcAddr(java.net.InetAddress):
+    Missing nullability on method `setSrcAddr` return
+MissingNullability: android.net.DscpPolicy#setSrcNetmask(java.net.InetAddress):
+    Missing nullability on method `setSrcNetmask` return
+MissingNullability: android.net.DscpPolicy#setSrcPort(int):
+    Missing nullability on method `setSrcPort` return
+
+
+PublicTypedef: android.net.DscpPolicy.DscpPolicyStatus:
+    Don't expose @IntDef: DscpPolicyStatus must be hidden.
+
+
 VisiblySynchronized: android.net.NetworkInfo#toString():
     Internal locks must not be exposed (synchronizing on this or class is still
-    externally observable): method android.net.NetworkInfo.toString()
