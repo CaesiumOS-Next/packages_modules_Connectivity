@@ -51,6 +51,24 @@
       "message": "PTAL.",
       "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40e56dc2_ced0de13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-09T08:42:15Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s scalable for every new configuration that we support to require annotations regardless of what the default value is. It\u0027s lot of work for teams like us that maintain lots of test suites (I think there 10 bugs filed on our team for this or something), and ends up needing lots of annotations that clutter our files. For instant apps we don\u0027t have to maintain annotations, we can just annotate only those tests that don\u0027t pass in instant mode.\n\nChiachang, IIRC you were talking to the team about the default values. Was there a conclusion from that conversation?",
+      "parentUuid": "2b378e6c_121cba68",
+      "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
