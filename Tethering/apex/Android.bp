@@ -59,6 +59,7 @@ apex {
         },
     },
     bpfs: [
+        "dscp_policy.o",
         "offload.o",
         "test.o",
     ],
