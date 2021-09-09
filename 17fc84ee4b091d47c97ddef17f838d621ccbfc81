@@ -1,0 +1,264 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "5da0bd21_9527091d",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "6c95462d_2bf6da9c",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "7ac59753_0e86bfcd",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f4a1490d_9507e605",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "102b3e0e_d4870b10",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b94520b5_ee07b07e",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "e1810458_68579790",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d69562f5_1c6e6c26",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a607ce63_6292a6a7",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015231386",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "5decff70_9b65f017",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-09T23:14:36Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 4
+      },
+      "revId": "17fc84ee4b091d47c97ddef17f838d621ccbfc81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
