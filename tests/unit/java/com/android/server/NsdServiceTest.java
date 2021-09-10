@@ -17,11 +17,14 @@
 package com.android.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,11 +32,13 @@ import static org.mockito.Mockito.when;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 
@@ -50,10 +55,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 // TODOs:
 //  - test client can send requests and receive replies
@@ -94,43 +102,56 @@ public class NsdServiceTest {
     }
 
     @Test
-    public void testNoDaemonStartedWhenClientsConnect() {
+    public void testNoDaemonStartedWhenClientsConnect() throws Exception {
         when(mSettings.isEnabled()).thenReturn(true);
 
-        NsdService service = makeService();
+        final AtomicReference<INsdManagerCallback> cbRef = new AtomicReference<>();
+        final NsdService service = makeService(cbRef);
 
         // Creating an NsdManager will not cause any cmds executed, which means
         // no daemon is started.
-        NsdManager client1 = connectClient(service);
+        connectClient(service);
         waitForIdle();
+        verify(service).connect(any());
         verify(mDaemon, never()).execute(any());
+        final IBinder.DeathRecipient deathRecipient1 = verifyLinkToDeath(cbRef.get());
 
         // Creating another NsdManager will not cause any cmds executed.
-        NsdManager client2 = connectClient(service);
+        connectClient(service);
         waitForIdle();
+        verify(service, times(2)).connect(any());
         verify(mDaemon, never()).execute(any());
+        final IBinder.DeathRecipient deathRecipient2 = verifyLinkToDeath(cbRef.get());
 
-        client1.disconnect();
+        deathRecipient1.binderDied();
         // Still 1 client remains, daemon shouldn't be stopped.
         waitForIdle();
         verify(mDaemon, never()).maybeStop();
 
-        client2.disconnect();
+        deathRecipient2.binderDied();
         // All clients are disconnected, stop the daemon after CLEANUP_DELAY_MS.
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
+    }
 
-        client1.disconnect();
-        client2.disconnect();
+    private IBinder.DeathRecipient verifyLinkToDeath(INsdManagerCallback cbSpy)
+            throws Exception {
+        final IBinder binderSpy = cbSpy.asBinder();
+        final ArgumentCaptor<IBinder.DeathRecipient> recipientCaptor =
+                ArgumentCaptor.forClass(IBinder.DeathRecipient.class);
+        verify(binderSpy).linkToDeath(recipientCaptor.capture(), anyInt());
+        return recipientCaptor.getValue();
     }
 
     @Test
-    public void testClientRequestsAreGCedAtDisconnection() {
+    public void testClientRequestsAreGCedAtDisconnection() throws Exception {
         when(mSettings.isEnabled()).thenReturn(true);
 
-        NsdService service = makeService();
+        final AtomicReference<INsdManagerCallback> cbRef = new AtomicReference<>();
+        NsdService service = makeService(cbRef);
         NsdManager client = connectClient(service);
 
         waitForIdle();
+        final IBinder.DeathRecipient deathRecipient = verifyLinkToDeath(cbRef.get());
         verify(mDaemon, never()).maybeStart();
         verify(mDaemon, never()).execute(any());
 
@@ -159,20 +180,19 @@ public class NsdServiceTest {
         verifyDaemonCommand("resolve 4 a_name a_type local.");
 
         // Client disconnects, stop the daemon after CLEANUP_DELAY_MS.
-        client.disconnect();
+        deathRecipient.binderDied();
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
         // checks that request are cleaned
         verifyDaemonCommands("stop-register 2", "stop-discover 3",
                 "stop-resolve 4", "stop-service");
-
-        client.disconnect();
     }
 
     @Test
-    public void testCleanupDelayNoRequestActive() {
+    public void testCleanupDelayNoRequestActive() throws Exception {
         when(mSettings.isEnabled()).thenReturn(true);
 
-        NsdService service = makeService();
+        final AtomicReference<INsdManagerCallback> cbRef = new AtomicReference<>();
+        NsdService service = makeService(cbRef);
         NsdManager client = connectClient(service);
 
         NsdServiceInfo request = new NsdServiceInfo("a_name", "a_type");
@@ -181,6 +201,7 @@ public class NsdServiceTest {
         client.registerService(request, PROTOCOL, listener1);
         waitForIdle();
         verify(mDaemon, times(1)).maybeStart();
+        final IBinder.DeathRecipient deathRecipient = verifyLinkToDeath(cbRef.get());
         verifyDaemonCommands("start-service", "register 2 a_name a_type 2201");
 
         client.unregisterService(listener1);
@@ -189,7 +210,7 @@ public class NsdServiceTest {
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
         verifyDaemonCommand("stop-service");
         reset(mDaemon);
-        client.disconnect();
+        deathRecipient.binderDied();
         // Client disconnects, after CLEANUP_DELAY_MS, maybeStop the daemon.
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
     }
@@ -198,7 +219,7 @@ public class NsdServiceTest {
         HandlerUtils.waitForIdle(mHandler, TIMEOUT_MS);
     }
 
-    NsdService makeService() {
+    NsdService makeService(AtomicReference<INsdManagerCallback> callbackRef) {
         DaemonConnectionSupplier supplier = (callback) -> {
             mDaemonCallback = callback;
             return mDaemon;
@@ -206,7 +227,29 @@ public class NsdServiceTest {
         NsdService service = new NsdService(mContext, mSettings,
                 mHandler, supplier, CLEANUP_DELAY_MS);
         verify(mDaemon, never()).execute(any(String.class));
-        return service;
+        final NsdService spyService = spy(service);
+        if (callbackRef != null) {
+            setupGetCallbackOnConnect(service, spyService, callbackRef);
+        }
+        return spyService;
+    }
+
+    private void setupGetCallbackOnConnect(NsdService baseService, NsdService spyService,
+            AtomicReference<INsdManagerCallback> cbRef) {
+        doAnswer(inv -> {
+            final INsdManagerCallback baseCb = inv.getArgument(0);
+
+            // Wrap the callback in a transparent mock, to mock asBinder returning a spy. This will
+            // allow recording the binder death recipient registered on the callback.
+            // Use a transparent mock and not a spy as the actual implementation class is not public
+            final INsdManagerCallback cb = mock(INsdManagerCallback.class,
+                    AdditionalAnswers.delegatesTo(baseCb));
+            cbRef.set(cb);
+
+            doReturn(mock(IBinder.class, AdditionalAnswers.delegatesTo(baseCb.asBinder())))
+                    .when(cb).asBinder();
+            return baseService.connect(cb);
+        }).when(spyService).connect(any());
     }
 
     NsdManager connectClient(NsdService service) {
