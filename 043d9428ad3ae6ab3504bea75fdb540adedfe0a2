@@ -87,6 +87,24 @@
       "parentUuid": "40e56dc2_ced0de13",
       "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e920067b_5436c976",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-10T00:48:52Z",
+      "side": 1,
+      "message": "I am tracking this with Ross at b/197813823. It looks that they could agree the point made for the default option there but I am waiting for the confirmation from Ross. I\u0027ve pinged him for a response.\nI will update the status once I get the feedback.",
+      "parentUuid": "220db021_54bb8abb",
+      "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
