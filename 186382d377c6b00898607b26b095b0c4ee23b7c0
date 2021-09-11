@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3cecef1_5c353c26",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-11T09:12:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b20cfa6_47da5207",
+      "range": {
+        "startLine": 741,
+        "startChar": 33,
+        "endLine": 741,
+        "endChar": 41
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63dabe88_bad7bc01",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc0daf5b_ac91c80c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-11T09:12:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63dabe88_bad7bc01",
+      "range": {
+        "startLine": 747,
+        "startChar": 8,
+        "endLine": 748,
+        "endChar": 66
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5ed564e_b96f8377",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-09-06T05:42:53Z",
       "side": 1,
       "message": "In what sense is it initial here ?",
+      "range": {
+        "startLine": 757,
+        "startChar": 23,
+        "endLine": 757,
+        "endChar": 30
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88160aea_8649cf1a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-11T09:12:10Z",
+      "side": 1,
+      "message": "I think it\u0027s the first traffic when network comes online. But if this will casue confusion or not clear, just say \"Create some traffic\" is enough.",
+      "parentUuid": "a5ed564e_b96f8377",
       "range": {
         "startLine": 757,
         "startChar": 23,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f717c259_efb4e1e8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-11T09:12:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b8b8c1e_54537023",
+      "range": {
+        "startLine": 785,
+        "startChar": 8,
+        "endLine": 785,
+        "endChar": 28
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c73ed67b_3c46198e",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-11T09:12:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e667d0_5984bdc8",
+      "range": {
+        "startLine": 785,
+        "startChar": 47,
+        "endLine": 785,
+        "endChar": 48
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "daa112cd_3236d636",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-09-06T05:42:53Z",
       "side": 1,
       "message": "Reusing a local is almost always as symptom of an issue with the code.\n- In some cases, the local is reused with a different meaning. Then there should be a different local with a different name reflecting the meaning.\n- In some cases, it indicates the code is doing the same thing twice, and it should be factored. This is the case here.\n\nPlease get in the habit of making your locals final. This helps review and forces you to think about these cases.",
+      "range": {
+        "startLine": 803,
+        "startChar": 8,
+        "endLine": 803,
+        "endChar": 20
+      },
+      "revId": "186382d377c6b00898607b26b095b0c4ee23b7c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51230e15_25b5a151",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-11T09:12:10Z",
+      "side": 1,
+      "message": "Done, thanks telling me this.",
+      "parentUuid": "daa112cd_3236d636",
       "range": {
         "startLine": 803,
         "startChar": 8,
