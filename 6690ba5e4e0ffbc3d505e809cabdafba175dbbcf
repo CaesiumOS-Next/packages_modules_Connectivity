@@ -22,6 +22,30 @@
       },
       "revId": "6690ba5e4e0ffbc3d505e809cabdafba175dbbcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f173e922_c03cb35e",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-11T09:13:15Z",
+      "side": 1,
+      "message": "That\u0027s correct. Here it does not matter.",
+      "parentUuid": "4a4c1255_4d03e2c5",
+      "range": {
+        "startLine": 268,
+        "startChar": 16,
+        "endLine": 268,
+        "endChar": 27
+      },
+      "revId": "6690ba5e4e0ffbc3d505e809cabdafba175dbbcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
