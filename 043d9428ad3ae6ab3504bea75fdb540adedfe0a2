@@ -105,6 +105,24 @@
       "parentUuid": "220db021_54bb8abb",
       "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dd31ae7_7d8c2650",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-11T00:46:26Z",
+      "side": 1,
+      "message": "As the feedback from Ross, I think we do not need to annotate it if we do not care about foldable. The default state should support all features implemented on the device similar to a non-foldable phone.",
+      "parentUuid": "e920067b_5436c976",
+      "revId": "043d9428ad3ae6ab3504bea75fdb540adedfe0a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
