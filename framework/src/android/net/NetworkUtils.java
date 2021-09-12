@@ -103,15 +103,6 @@ public class NetworkUtils {
         return bindSocketToNetworkHandle(fd, new Network(netId).getNetworkHandle());
     }
 
-    /**
-     * Determine if {@code uid} can access network designated by {@code netId}.
-     * @return {@code true} if {@code uid} can access network, {@code false} otherwise.
-     */
-    public static boolean queryUserAccess(int uid, int netId) {
-        // TODO (b/183485986): remove this method
-        return false;
-    }
-
     private static native FileDescriptor resNetworkSend(
             long netHandle, byte[] msg, int msglen, int flags) throws ErrnoException;
 
