@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a66c621e_1a6500be",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-13T10:18:06Z",
+      "side": 1,
+      "message": "If we are not testing non-metered data usage here, maybe just say METERED_YES?",
+      "range": {
+        "startLine": 180,
+        "startChar": 52,
+        "endLine": 180,
+        "endChar": 63
+      },
+      "revId": "0fafe46878a6fa66949c95e00f965e6e99df175d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f295389c_38af6b6d",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-13T10:18:06Z",
+      "side": 1,
+      "message": "Maybe add coverage for non-metered template?",
+      "range": {
+        "startLine": 263,
+        "startChar": 8,
+        "endLine": 263,
+        "endChar": 31
+      },
+      "revId": "0fafe46878a6fa66949c95e00f965e6e99df175d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d7e00d_2c466ab2",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-13T10:18:06Z",
+      "side": 1,
+      "message": "If it is metered-yes IIUC the naming is confusing.\nMaybe name them template[Umts|All|Unknown]Metered ?",
+      "range": {
+        "startLine": 270,
+        "startChar": 20,
+        "endLine": 270,
+        "endChar": 23
+      },
+      "revId": "0fafe46878a6fa66949c95e00f965e6e99df175d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
