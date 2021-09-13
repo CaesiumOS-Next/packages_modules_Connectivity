@@ -130,8 +130,21 @@ public class DnsResolverTest extends AndroidTestCase {
         return new String(hexChars);
     }
 
+    private boolean hasEthernetConnection() {
+        if (!mPackageManager.hasSystemFeature(PackageManager.FEATURE_ETHERNET)) return false;
+        Network[] networks = mCM.getAllNetworks();
+        for (Network network : networks) {
+            if (mCM.getNetworkCapabilities(network)
+                    .hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Network[] getTestableNetworks() {
-        if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+        if (mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI) &&
+            !hasEthernetConnection()) {
             mCtsNetUtils.ensureWifiConnected();
         }
         final ArrayList<Network> testableNetworks = new ArrayList<Network>();
