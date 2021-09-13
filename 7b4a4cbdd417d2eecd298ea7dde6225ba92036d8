@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ec7a46c_d59b4d62",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-13T03:00:56Z",
+      "side": 1,
+      "message": "Question: How do you make sure these numbers are correct?",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 123,
+        "endChar": 55
+      },
+      "revId": "7b4a4cbdd417d2eecd298ea7dde6225ba92036d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
