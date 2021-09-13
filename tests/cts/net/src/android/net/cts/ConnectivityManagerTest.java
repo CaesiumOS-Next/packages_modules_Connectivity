@@ -2310,8 +2310,10 @@ public class ConnectivityManagerTest {
         assumeTrue(TestUtils.shouldTestSApis());
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
+        final LinkProperties lp = new LinkProperties();
+        lp.addLinkAddress(TEST_LINKADDR);
         final TestNetworkTracker tnt = callWithShellPermissionIdentity(
-                () -> initTestNetwork(mContext, TEST_LINKADDR, NETWORK_CALLBACK_TIMEOUT_MS));
+                () -> initTestNetwork(mContext, lp, NETWORK_CALLBACK_TIMEOUT_MS));
         final TestableNetworkCallback defaultCallback = new TestableNetworkCallback();
         final TestableNetworkCallback systemDefaultCallback = new TestableNetworkCallback();
 

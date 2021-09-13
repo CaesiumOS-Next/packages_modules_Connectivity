@@ -35,6 +35,7 @@ import android.app.UiAutomation;
 import android.content.Context;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
+import android.net.LinkProperties;
 import android.net.TetheringInterface;
 import android.net.TetheringManager;
 import android.net.cts.util.CtsTetheringUtils;
@@ -174,7 +175,9 @@ public class TetheringModuleTest {
     }
 
     private TestNetworkTracker setUpTestNetwork(final LinkAddress address) throws Exception {
-        return initTestNetwork(mContext, address, 10_000L /* test timeout ms*/);
+        final LinkProperties lp = new LinkProperties();
+        lp.addLinkAddress(address);
+        return initTestNetwork(mContext, lp, 10_000L /* test timeout ms*/);
 
     }
 
