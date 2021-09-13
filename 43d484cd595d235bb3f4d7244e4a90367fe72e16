@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82b08f94_fef46e9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-13T04:10:24Z",
+      "side": 1,
+      "message": "In PatchSet3, I created an unmetered network at l.182, that\u0027s because considered the buildTemplateMobileAll uses the constructor with METERED_ALL. Thus, the test will be failed at l.193 without aosp/1779311 since only metered network will be matched. However, as we discussed in the meeting last week, the API should keep the same behavior so I change the network to a metered network at l.182. I think now this CL could be removed from the topic. \n\nProbably also need to verify the unmetered network won\u0027t be matched if the template is built by buildTemplateMobileAll or buildTemplateMobileWildcard. If no concern, will address this and the comment at l.214 in the follow-up patch.",
+      "parentUuid": "022056b7_78c0da84",
+      "revId": "43d484cd595d235bb3f4d7244e4a90367fe72e16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9224895f_d591626a",
