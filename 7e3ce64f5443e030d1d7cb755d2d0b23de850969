@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed3bb905_6fb8d184",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-14T09:22:36Z",
+      "side": 1,
+      "message": "Nit?:Just use TimeUnit.SECONDS.toMillis(CONNECTIVITY_CHANGE_TIMEOUT_SECS)? Otherwise, you have the equivalent timer but different unit.\n\nIf you would like to use MS, maybe rename it to something like NETWORK_CHANGE_TIMEOUT/NETWORKCALLBACK_TIMEOUT and replace the usages in the NetworkCallback. The original timer looks defined for connectivity change intent.",
+      "range": {
+        "startLine": 92,
+        "startChar": 29,
+        "endLine": 92,
+        "endChar": 59
+      },
+      "revId": "7e3ce64f5443e030d1d7cb755d2d0b23de850969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f7741c2_4859725a",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-14T09:22:36Z",
+      "side": 1,
+      "message": "Nit: Not for this commit, onLost is also handled here. Maybe not necessarily mention these?",
+      "range": {
+        "startLine": 728,
+        "startChar": 15,
+        "endLine": 728,
+        "endChar": 68
+      },
+      "revId": "7e3ce64f5443e030d1d7cb755d2d0b23de850969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39f10479_64698e49",
         "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
         "patchSetId": 1
@@ -65,6 +111,29 @@
         "startChar": 19,
         "endLine": 757,
         "endChar": 31
+      },
+      "revId": "7e3ce64f5443e030d1d7cb755d2d0b23de850969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4567e50e_dd127d55",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-14T09:22:36Z",
+      "side": 1,
+      "message": "don\u0027t you need to check the network is the same with currentNetwork before setting it into mNetworkCapabilities?",
+      "range": {
+        "startLine": 779,
+        "startChar": 59,
+        "endLine": 779,
+        "endChar": 66
       },
       "revId": "7e3ce64f5443e030d1d7cb755d2d0b23de850969",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
