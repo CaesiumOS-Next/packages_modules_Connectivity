@@ -423,11 +423,16 @@ public class Ikev2VpnTest {
 
         final TestNetworkCallback cb = new TestNetworkCallback();
         sCM.requestNetwork(nr, cb);
-        cb.waitForAvailable();
-        final Network vpnNetwork = cb.currentNetwork;
-        assertNotNull(vpnNetwork);
+        final Network vpnNetwork = cb.waitForAvailable();
+        // The network which comes from onAvailable shouldn't be null, so if the network is null, it
+        // means that onAvailable is not called before timeout.
+        assertNotNull("Timed out waiting for onAvailable", vpnNetwork);
 
-        final NetworkCapabilities caps = sCM.getNetworkCapabilities(vpnNetwork);
+        final NetworkCapabilities caps = cb.waitForCapabilitiesChanged();
+        // The NetworkCapabilities which comes from onCapabilitiesChanged shouldn't be null, so if
+        // the NetworkCapabilities is null, it means that onCapabilitiesChanged is not called before
+        // timeout.
+        assertNotNull("Timed out waiting for onCapabilitiesChanged", caps);
         assertTrue(caps.hasTransport(TRANSPORT_VPN));
         assertTrue(caps.hasCapability(NET_CAPABILITY_INTERNET));
         assertEquals(Process.myUid(), caps.getOwnerUid());
