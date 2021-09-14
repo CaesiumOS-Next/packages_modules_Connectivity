@@ -89,6 +89,7 @@ public final class CtsNetUtils {
 
     private static final int PRIVATE_DNS_SETTING_TIMEOUT_MS = 10_000;
     private static final int CONNECTIVITY_CHANGE_TIMEOUT_SECS = 30;
+    private static final int CONNECTIVITY_CHANGE_TIMEOUT_MS = 30_000;
     private static final int MAX_WIFI_CONNECT_RETRIES = 10;
     private static final int WIFI_CONNECT_INTERVAL_MS = 500;
 
@@ -722,16 +723,19 @@ public final class CtsNetUtils {
     }
 
     /**
-     * Callback used in testRegisterNetworkCallback that allows caller to block on
-     * {@code onAvailable}.
+     * A Callback class which provides methods for the caller to wait for the specified callback
+     * being called before the timeout.
+     * Such as {@code onAvailable} and {@code onCapabilitiesChanged}.
      */
     public static class TestNetworkCallback extends ConnectivityManager.NetworkCallback {
         private final ConditionVariable mAvailableCv = new ConditionVariable(false);
+        private final ConditionVariable mCapabilitiesChangedCv = new ConditionVariable();
         private final CountDownLatch mLostLatch = new CountDownLatch(1);
         private final CountDownLatch mUnavailableLatch = new CountDownLatch(1);
 
         public Network currentNetwork;
         public Network lastLostNetwork;
+        public NetworkCapabilities mNetworkCapabilities;
 
         /**
          * Wait for a network to be available.
@@ -740,12 +744,18 @@ public final class CtsNetUtils {
          * next available network.
          */
         public Network waitForAvailable() throws InterruptedException {
-            final long timeoutMs = TimeUnit.SECONDS.toMillis(CONNECTIVITY_CHANGE_TIMEOUT_SECS);
-            while (mAvailableCv.block(timeoutMs)) {
+            while (mAvailableCv.block(CONNECTIVITY_CHANGE_TIMEOUT_MS)) {
                 final Network n = currentNetwork;
                 if (n != null) return n;
                 Log.w(TAG, "onAvailable called but network was lost before it could be returned."
                         + " Waiting for the next call to onAvailable.");
+            }
+            return null;
+        }
+
+        public NetworkCapabilities waitForCapabilitiesChanged() {
+            while (mAvailableCv.block(CONNECTIVITY_CHANGE_TIMEOUT_MS)) {
+                return mNetworkCapabilities;
             }
             return null;
         }
@@ -763,6 +773,13 @@ public final class CtsNetUtils {
         public void onAvailable(Network network) {
             currentNetwork = network;
             mAvailableCv.open();
+        }
+
+        @Override
+        public void onCapabilitiesChanged(@NonNull Network network,
+                @NonNull NetworkCapabilities networkCapabilities) {
+            mNetworkCapabilities = networkCapabilities;
+            mCapabilitiesChangedCv.open();
         }
 
         @Override
