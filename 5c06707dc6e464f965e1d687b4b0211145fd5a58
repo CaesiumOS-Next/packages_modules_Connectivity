@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9182b8ad_10ca66e7",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-14T07:24:54Z",
+      "side": 1,
+      "message": "Nit: You are listening a capabilities change below which means the network is already available. I think you can remove this part.",
+      "range": {
+        "startLine": 426,
+        "startChar": 9,
+        "endLine": 429,
+        "endChar": 71
+      },
+      "revId": "5c06707dc6e464f965e1d687b4b0211145fd5a58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
