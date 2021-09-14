@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f10479_64698e49",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-14T07:13:54Z",
+      "side": 1,
+      "message": "Question: Why do you use \"while\" instead of \"if\" here? IIUC, the ConditionVariable#block will block thread until timeout or open() called, so the returning value is always same.\n\nhttps://developer.android.com/reference/android/os/ConditionVariable#block(long)",
+      "range": {
+        "startLine": 747,
+        "startChar": 12,
+        "endLine": 747,
+        "endChar": 17
+      },
+      "revId": "7e3ce64f5443e030d1d7cb755d2d0b23de850969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "442dfc7d_38e2d6bc",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-14T07:13:54Z",
+      "side": 1,
+      "message": "throws InterruptedException? Like waitForAvailable().",
+      "range": {
+        "startLine": 756,
+        "startChar": 63,
+        "endLine": 756,
+        "endChar": 64
+      },
+      "revId": "7e3ce64f5443e030d1d7cb755d2d0b23de850969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7263c969_9883c779",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-14T07:13:54Z",
+      "side": 1,
+      "message": "mCapabilitiesChangedCv?",
+      "range": {
+        "startLine": 757,
+        "startChar": 19,
+        "endLine": 757,
+        "endChar": 31
+      },
+      "revId": "7e3ce64f5443e030d1d7cb755d2d0b23de850969",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
