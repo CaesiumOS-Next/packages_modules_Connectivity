@@ -319,6 +319,30 @@
       },
       "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "925377b9_bbc163be",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-15T17:23:43Z",
+      "side": 1,
+      "message": "Updating root cause:\n\nunregisterNetworkProvider is being called from binderDied() and handleUnregisterNetworkProvider() at the same time.\n\nLoop in handleUnregisterNetworkProvider() to unregister all noi:\n34382 08-12 04:36:37.886  1389  2588 D ConnectivityService: unregisterNetworkProvider for PhoneSwitcherNetworkRequstListener\n34383 08-12 04:36:37.888  1389  2588 D ConnectivityService: unregisterNetworkProvider for TelephonyNetworkFactory[1]\n34384 08-12 04:36:37.888  1389  2588 D ConnectivityService: unregisterNetworkProvider for TelephonyNetworkFactory[0]\n\nAt the same timestamp there is also a binderDied() call.\n34389 08-12 04:36:37.889  1389  2588 E AndroidRuntime: java.util.NoSuchElementException: Death link does not exist (NAME_NOT_FOUND)\n34390 08-12 04:36:37.889  1389  2588 E AndroidRuntime:     at android.os.BinderProxy.unlinkToDeath(Native Method)\n34391 08-12 04:36:37.889  1389  2588 E AndroidRuntime:     at com.android.server.ConnectivityService.handleUnregisterNetworkOffer(ConnectivityService.java:6822)\n34392 08-12 04:36:37.889  1389  2588 E AndroidRuntime:     at com.android.server.ConnectivityService.access$6200(ConnectivityService.java:284)\n34393 08-12 04:36:37.889  1389  2588 E AndroidRuntime:     at com.android.server.ConnectivityService$NetworkOfferInfo.lambda$binderDied$0$ConnectivityService$NetworkOfferInfo(ConnectivityService.java:6778)\n34394 08-12 04:36:37.889  1389  2588 E AndroidRuntime:     at com.android.server.ConnectivityService$NetworkOfferInfo$$ExternalSyntheticLambda0.run(Unknown Source:2)\n\nA try catch as above would solve the issue, but checking that noi is in mNetworkOffers would also suffice. Adding the below to the top of this function:\n    if (!mNetworkOffers.contains(noi)) return;",
+      "parentUuid": "bcf2292d_116e8cf2",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
