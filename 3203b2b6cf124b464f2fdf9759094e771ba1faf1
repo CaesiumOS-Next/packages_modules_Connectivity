@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b91976_fcc70a25",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-15T03:02:27Z",
+      "side": 1,
+      "message": "Considering that it\u0027s assertEquals(expected, actual), maybe assertEquals(agent.network, info.getNetwork()) ?\n\nhttps://kotlinlang.org/api/latest/kotlin.test/kotlin.test/assert-equals.html",
+      "range": {
+        "startLine": 1075,
+        "startChar": 16,
+        "endLine": 1075,
+        "endChar": 28
+      },
+      "revId": "3203b2b6cf124b464f2fdf9759094e771ba1faf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
