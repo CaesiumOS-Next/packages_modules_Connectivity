@@ -80,6 +80,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkRequest.Type.LISTEN_FOR_BEST;
+import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
 import static android.net.shared.NetworkMonitorUtils.isPrivateDnsValidationRequired;
@@ -226,6 +227,7 @@ import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.modules.utils.BasicShellCommandHandler;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 import com.android.net.module.util.CollectionUtils;
@@ -335,6 +337,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     protected int mLingerDelayMs;  // Can't be final, or test subclass constructors can't change it.
     @VisibleForTesting
     protected int mNascentDelayMs;
+    // True if the cell radio of the device is capable of time-sharing.
+    @VisibleForTesting
+    protected boolean mCellularRadioTimesharingCapable = true;
 
     // How long to delay to removal of a pending intent based request.
     // See ConnectivitySettingsManager.CONNECTIVITY_RELEASE_PENDING_INTENT_DELAY_MS
@@ -1375,6 +1380,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 NetworkCapabilities.NET_CAPABILITY_VEHICLE_INTERNAL,
                 NetworkRequest.Type.BACKGROUND_REQUEST);
 
+        mLingerDelayMs = mSystemProperties.getInt(LINGER_DELAY_PROPERTY, DEFAULT_LINGER_DELAY_MS);
+        // TODO: Consider making the timer customizable.
+        mNascentDelayMs = DEFAULT_NASCENT_DELAY_MS;
+        mCellularRadioTimesharingCapable = SdkLevel.isAtLeastT()
+                || mResources.get().getBoolean(R.bool.config_cellular_radio_timesharing_capable);
+
         mHandlerThread = mDeps.makeHandlerThread();
         mHandlerThread.start();
         mHandler = new InternalHandler(mHandlerThread.getLooper());
@@ -1384,10 +1395,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mReleasePendingIntentDelayMs = Settings.Secure.getInt(context.getContentResolver(),
                 ConnectivitySettingsManager.CONNECTIVITY_RELEASE_PENDING_INTENT_DELAY_MS, 5_000);
-
-        mLingerDelayMs = mSystemProperties.getInt(LINGER_DELAY_PROPERTY, DEFAULT_LINGER_DELAY_MS);
-        // TODO: Consider making the timer customizable.
-        mNascentDelayMs = DEFAULT_NASCENT_DELAY_MS;
 
         mStatsManager = mContext.getSystemService(NetworkStatsManager.class);
         mPolicyManager = mContext.getSystemService(NetworkPolicyManager.class);
@@ -8086,7 +8093,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     log("   accepting network in place of " + previousSatisfier.toShortString());
                 }
                 previousSatisfier.removeRequest(previousRequest.requestId);
-                previousSatisfier.lingerRequest(previousRequest.requestId, now);
+                final boolean movingFromCellToCellOnTimesharingIncapableRadio =
+                        !mCellularRadioTimesharingCapable
+                                && previousSatisfier.networkCapabilities.hasSingleTransport(TRANSPORT_CELLULAR)
+                                && newSatisfier.networkCapabilities.hasSingleTransport(TRANSPORT_CELLULAR)
+                                && newSatisfier.getScore().hasPolicy(POLICY_TRANSPORT_PRIMARY);
+                if (movingFromCellToCellOnTimesharingIncapableRadio) {
+                    // If the request is moving from an old cell network to a new, primary cell
+                    // network, and the radio can't do good timesharing, it's lingered without
+                    // delay. This allows letting go of the network sooner to reclaim performance
+                    // on the new network, since the radio can't do both at the same time while
+                    // preserving good performance. Not lingering it at all would eschew
+                    // sending LOSING.
+                    previousSatisfier.lingerRequest(previousRequest.requestId, now, 0);
+                } else {
+                    previousSatisfier.lingerRequest(previousRequest.requestId, now);
+                }
             } else {
                 if (VDBG || DDBG) log("   accepting network in place of null");
             }
