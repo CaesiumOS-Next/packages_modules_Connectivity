@@ -17,20 +17,21 @@
 package com.android.cts.net.hostside;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Network;
 import android.net.ProxyInfo;
-import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.android.networkstack.apishim.VpnServiceShimImpl;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-public class MyVpnService extends VpnService {
+public class MyVpnService extends VpnServiceShimImpl {
 
     private static String TAG = "MyVpnService";
     private static int MTU = 1799;
@@ -57,6 +58,8 @@ public class MyVpnService extends VpnService {
 
     private void start(String packageName, Intent intent) {
         Builder builder = new Builder();
+
+        builder.addExcludeRoutes();
 
         String addresses = intent.getStringExtra(packageName + ".addresses");
         if (addresses != null) {

@@ -36,6 +36,7 @@ android_test_helper_app {
     libs: [
         "android.test.runner",
         "android.test.base",
+        "NetworkStackApiCurrentShims",
     ],
     srcs: ["src/**/*.java"],
     // Tag this module as a cts test artifact
