@@ -17,20 +17,22 @@
 package com.android.cts.net.hostside;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.IpPrefix;
 import android.net.Network;
 import android.net.ProxyInfo;
-import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.android.networkstack.apishim.VpnServiceShimImpl;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-public class MyVpnService extends VpnService {
+public class MyVpnService extends VpnServiceShimImpl {
 
     private static String TAG = "MyVpnService";
     private static int MTU = 1799;
@@ -57,6 +59,15 @@ public class MyVpnService extends VpnService {
 
     private void start(String packageName, Intent intent) {
         Builder builder = new Builder();
+
+        try {
+            // TODO: replace with a "only on T or above" SDK check.
+            builder.excludeRoute(new IpPrefix("192.0.2.128/25"));
+        } catch (Exception e) {
+            // TODO: can we do better? The problem is that the older shims can throw
+            // UnsupportedApiLevelException, but the new ones cannot. Maybe make the old shims throw
+            // UnsupportedOperationException instead?
+        }
 
         String addresses = intent.getStringExtra(packageName + ".addresses");
         if (addresses != null) {
