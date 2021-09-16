@@ -125,4 +125,14 @@
          details on what is happening. -->
     <bool name="config_partialConnectivityNotifiedAsNoInternet">false</bool>
 
+    <!-- Whether the cell radio of the device is capable of timesharing.
+
+         whether the cell radio is not capable of timesharing between two different networks
+         even for a few seconds. When this is false, the networking stack will ask the telephony
+         network factory to disconnect networks without requests immediately. This deprives
+         the app of a chance to gracefully migrate to the new network and degrades the
+         experience for apps, so it should only be set to false when timesharing on the cell
+         radio has extreme adverse effects on performance of the new network.
+    -->
+    <bool translatable="false" name="config_cellular_radio_timesharing_capable">true</bool>
 </resources>
