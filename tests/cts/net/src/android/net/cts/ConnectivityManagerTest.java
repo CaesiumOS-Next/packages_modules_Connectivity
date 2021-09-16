@@ -238,6 +238,7 @@ public class ConnectivityManagerTest {
     private static final int MIN_KEEPALIVE_INTERVAL = 10;
 
     private static final int NETWORK_CALLBACK_TIMEOUT_MS = 30_000;
+    private static final int LISTEN_ACTIVITY_TIMEOUT_MS = 5_000;
     private static final int NO_CALLBACK_TIMEOUT_MS = 100;
     private static final int NUM_TRIES_MULTIPATH_PREF_CHECK = 20;
     private static final long INTERVAL_MULTIPATH_PREF_CHECK_MS = 500;
@@ -2740,6 +2741,26 @@ public class ConnectivityManagerTest {
         NetworkValidationTestUtil.setHttpUrlDeviceConfig(makeUrl(TEST_HTTP_URL_PATH));
         NetworkValidationTestUtil.setUrlExpirationDeviceConfig(
                 System.currentTimeMillis() + WIFI_CONNECT_TIMEOUT_MS);
+    }
+
+    @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
+    @Test
+    public void testDefaultNetworkActiveListener() throws Exception {
+        final boolean canRunTest = mPackageManager.hasSystemFeature(FEATURE_WIFI);
+        assumeTrue("testDefaultNetworkActiveListener cannot execute"
+                + " unless device supports WiFi", canRunTest);
+
+        mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+        final CompletableFuture<Boolean> future = new CompletableFuture<>();
+        final ConnectivityManager.OnNetworkActiveListener listener = () -> future.complete(true);
+        mCm.addDefaultNetworkActiveListener(listener);
+        try {
+            // New default network connected will trigger a network activity notification.
+            mCtsNetUtils.ensureWifiConnected();
+            assertTrue(future.get(LISTEN_ACTIVITY_TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        } finally {
+            mCm.removeDefaultNetworkActiveListener(listener);
+        }
     }
 
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
