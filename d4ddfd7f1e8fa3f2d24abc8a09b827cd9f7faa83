@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e20dd4_331f4029",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-16T13:28:09Z",
+      "side": 1,
+      "message": "just a question: do we have any test which uses multi-threads which may meet ConcurrentModificationException here? Original design is writing to a file descriptor which won\u0027t have that exception",
+      "range": {
+        "startLine": 117,
+        "startChar": 26,
+        "endLine": 117,
+        "endChar": 38
+      },
+      "revId": "d4ddfd7f1e8fa3f2d24abc8a09b827cd9f7faa83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f829ef74_b4d03d2d",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-16T13:28:09Z",
+      "side": 1,
+      "message": "does this template prepare for na in aosp/1817920? there is only DhcpPacket for now.",
+      "range": {
+        "startLine": 144,
+        "startChar": 12,
+        "endLine": 144,
+        "endChar": 15
+      },
+      "revId": "d4ddfd7f1e8fa3f2d24abc8a09b827cd9f7faa83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
