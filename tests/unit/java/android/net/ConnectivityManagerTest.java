@@ -314,6 +314,17 @@ public class ConnectivityManagerTest {
     }
 
     @Test
+    public void testDefaultNetworkActiveListener() throws Exception {
+        final ConnectivityManager manager = new ConnectivityManager(mCtx, mService);
+        final ConnectivityManager.OnNetworkActiveListener listener =
+                mock(ConnectivityManager.OnNetworkActiveListener.class);
+        manager.addDefaultNetworkActiveListener(listener);
+        verify(mService, times(1)).registerNetworkActivityListener(any());
+        manager.removeDefaultNetworkActiveListener(listener);
+        verify(mService, times(1)).unregisterNetworkActivityListener(any());
+    }
+
+    @Test
     public void testArgumentValidation() throws Exception {
         ConnectivityManager manager = new ConnectivityManager(mCtx, mService);
 
