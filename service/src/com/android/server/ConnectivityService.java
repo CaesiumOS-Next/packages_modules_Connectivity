@@ -80,6 +80,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkRequest.Type.LISTEN_FOR_BEST;
+import static android.net.NetworkScore.POLICY_TRANSPORT_PRIMARY;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_TEST_ONLY;
 import static android.net.shared.NetworkMonitorUtils.isPrivateDnsValidationRequired;
@@ -335,6 +336,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     protected int mLingerDelayMs;  // Can't be final, or test subclass constructors can't change it.
     @VisibleForTesting
     protected int mNascentDelayMs;
+    // True if the cell radio of the device is capable of time-sharing.
+    @VisibleForTesting
+    protected boolean mCellularRadioTimesharingCapable = true;
 
     // How long to delay to removal of a pending intent based request.
     // See ConnectivitySettingsManager.CONNECTIVITY_RELEASE_PENDING_INTENT_DELAY_MS
@@ -1375,6 +1379,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 NetworkCapabilities.NET_CAPABILITY_VEHICLE_INTERNAL,
                 NetworkRequest.Type.BACKGROUND_REQUEST);
 
+        mLingerDelayMs = mSystemProperties.getInt(LINGER_DELAY_PROPERTY, DEFAULT_LINGER_DELAY_MS);
+        // TODO: Consider making the timer customizable.
+        mNascentDelayMs = DEFAULT_NASCENT_DELAY_MS;
+        mCellularRadioTimesharingCapable =
+                mResources.get().getBoolean(R.bool.config_cellular_radio_timesharing_capable);
+
         mHandlerThread = mDeps.makeHandlerThread();
         mHandlerThread.start();
         mHandler = new InternalHandler(mHandlerThread.getLooper());
@@ -1384,10 +1394,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         mReleasePendingIntentDelayMs = Settings.Secure.getInt(context.getContentResolver(),
                 ConnectivitySettingsManager.CONNECTIVITY_RELEASE_PENDING_INTENT_DELAY_MS, 5_000);
-
-        mLingerDelayMs = mSystemProperties.getInt(LINGER_DELAY_PROPERTY, DEFAULT_LINGER_DELAY_MS);
-        // TODO: Consider making the timer customizable.
-        mNascentDelayMs = DEFAULT_NASCENT_DELAY_MS;
 
         mStatsManager = mContext.getSystemService(NetworkStatsManager.class);
         mPolicyManager = mContext.getSystemService(NetworkPolicyManager.class);
@@ -8086,7 +8092,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     log("   accepting network in place of " + previousSatisfier.toShortString());
                 }
                 previousSatisfier.removeRequest(previousRequest.requestId);
-                previousSatisfier.lingerRequest(previousRequest.requestId, now);
+                // The request should normally be lingered, unless the request is moving from an
+                // old cell network to a new, primary cell network, and the radio is not able
+                // to do timesharing in a way that doesn't dramatically impact performance.
+                final boolean movingFromCellToCellOnTimesharingIncapableRadio =
+                        !mCellularRadioTimesharingCapable
+                                && previousSatisfier.networkCapabilities.hasSingleTransport(TRANSPORT_CELLULAR)
+                                && newSatisfier.networkCapabilities.hasSingleTransport(TRANSPORT_CELLULAR)
+                                && newSatisfier.getScore().hasPolicy(POLICY_TRANSPORT_PRIMARY);
+                if (!movingFromCellToCellOnTimesharingIncapableRadio) {
+                    previousSatisfier.lingerRequest(previousRequest.requestId, now);
+                }
             } else {
                 if (VDBG || DDBG) log("   accepting network in place of null");
             }
