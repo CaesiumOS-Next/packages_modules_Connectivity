@@ -1792,6 +1792,8 @@ public class ConnectivityServiceTest {
         doReturn(R.integer.config_networkAvoidBadWifi).when(mResources)
                 .getIdentifier(eq("config_networkAvoidBadWifi"), eq("integer"), any());
         doReturn(1).when(mResources).getInteger(R.integer.config_networkAvoidBadWifi);
+        doReturn(true).when(mResources)
+                .getBoolean(R.bool.config_cellular_radio_timesharing_capable);
 
         final ConnectivityResources connRes = mock(ConnectivityResources.class);
         doReturn(mResources).when(connRes).get();
@@ -2360,6 +2362,108 @@ public class ConnectivityServiceTest {
         // Unlingering a network should not cause it to be marked as validated.
         assertFalse(mCm.getNetworkCapabilities(mWiFiNetworkAgent.getNetwork()).hasCapability(
                 NET_CAPABILITY_VALIDATED));
+    }
+
+    @Test
+    public void testDsDsTimesharingCapable() throws Exception {
+        testDsDsTimesharing(true);
+    }
+
+    @Test
+    public void testDsDsTimesharingNotCapable() throws Exception {
+        testDsDsTimesharing(false);
+    }
+
+    // TODO : add similar tests that cell -> wifi or wifi -> cell or other transitions all
+    // behave like "canTimeShare = true" in all cases
+    public void testDsDsTimesharing(boolean canTimeShare) throws Exception {
+        // To speed up tests the linger delay is very short by default in tests but this
+        // test needs to make sure the delay is not incurred so a longer value is safer (it
+        // reduces the risk that a bug exists but goes undetected). The alarm manager in the test
+        // throws and crashes CS if this is set to anything more than the below constant though.
+        mService.mLingerDelayMs = UNREASONABLY_LONG_ALARM_WAIT_MS;
+        // Set the device config overlay
+        mService.mCellularRadioTimesharingCapable = canTimeShare;
+
+        final TestNetworkCallback cellCb = new TestNetworkCallback();
+        final TestNetworkCallback defaultCb = new TestNetworkCallback();
+        mCm.registerNetworkCallback(
+                new NetworkRequest.Builder().addTransportType(TRANSPORT_CELLULAR).build(), cellCb);
+        mCm.registerDefaultNetworkCallback(defaultCb);
+
+        // Bring up cell agent 1
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        // Make sure the default request is on cell 1
+        cellCb.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        defaultCb.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+
+        // Bring up cell 2 with primary and mms
+        final TestNetworkAgentWrapper cell2 = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        cell2.addCapability(NET_CAPABILITY_MMS);
+        cell2.setScore(new NetworkScore.Builder().setTransportPrimary(true).build());
+        cell2.connect(true);
+
+        // Make sure the default request goes to cell 2
+        cellCb.expectAvailableCallbacksUnvalidated(cell2);
+        if (canTimeShare) {
+            cellCb.expectCallback(CallbackEntry.LOSING, mCellNetworkAgent);
+        }
+        cellCb.expectCapabilitiesWith(NET_CAPABILITY_VALIDATED, cell2);
+        defaultCb.expectAvailableDoubleValidatedCallbacks(cell2);
+
+        // Make sure cell 1 is unwanted immediately if the radio can't time share, but only
+        // after some delay if it can.
+        if (canTimeShare) {
+            mCellNetworkAgent.assertNotDisconnected(TEST_CALLBACK_TIMEOUT_MS);
+            cellCb.assertNoCallback();
+            mCellNetworkAgent.expectDisconnected(UNREASONABLY_LONG_ALARM_WAIT_MS);
+        } else {
+            mCellNetworkAgent.expectDisconnected(TEST_CALLBACK_TIMEOUT_MS);
+        }
+        mCellNetworkAgent.disconnect();
+        cellCb.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+
+        // Remove primary from cell 2
+        cell2.setScore(new NetworkScore.Builder().build());
+        // Request MMS
+        final TestNetworkCallback mmsCallback = new TestNetworkCallback();
+        mCm.requestNetwork(new NetworkRequest.Builder().addCapability(NET_CAPABILITY_MMS).build(),
+                mmsCallback);
+        mmsCallback.expectAvailableCallbacksValidated(cell2);
+
+        // Bring up cell 1 with primary but without MMS
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.setScore(new NetworkScore.Builder().setTransportPrimary(true).build());
+        mCellNetworkAgent.connect(true);
+
+        // Make sure default goes to cell 1, but the MMS request doesn't
+        cellCb.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        defaultCb.expectAvailableDoubleValidatedCallbacks(mCellNetworkAgent);
+        mmsCallback.assertNoCallback();
+        cell2.assertNotDisconnected(TEST_CALLBACK_TIMEOUT_MS); // Always incurs the timeout
+
+        // Revoke MMS request and make sure cell 2 is torn down immediately
+        mCm.unregisterNetworkCallback(mmsCallback);
+        if (canTimeShare) {
+            // If the radio can time share, the linger delay hasn't elapsed yet, so apps will
+            // get LOSING. If the radio can't time share, this is a hard loss, since the last
+            // request keeping up this network has been removed and the network isn't lingering
+            // for any other request.
+            cellCb.expectCallback(CallbackEntry.LOSING, cell2);
+        }
+        if (canTimeShare) {
+            cell2.assertNotDisconnected(TEST_CALLBACK_TIMEOUT_MS);
+            cellCb.assertNoCallback();
+            cell2.expectDisconnected(UNREASONABLY_LONG_ALARM_WAIT_MS);
+        } else {
+            cell2.expectDisconnected(TEST_CALLBACK_TIMEOUT_MS);
+        }
+        cell2.disconnect();
+        cellCb.expectCallback(CallbackEntry.LOST, cell2);
+        defaultCb.assertNoCallback();
+
+        // TODO : unregister the callbacks
     }
 
     @Test
