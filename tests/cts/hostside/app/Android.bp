@@ -18,10 +18,8 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-android_test_helper_app {
-    name: "CtsHostsideNetworkTestsApp",
-    defaults: ["cts_support_defaults"],
-    //sdk_version: "current",
+java_defaults {
+    name: "CtsHostsideNetworkTestsAppDefaults",
     platform_apis: true,
     static_libs: [
         "androidx.test.rules",
@@ -42,5 +40,23 @@ android_test_helper_app {
     test_suites: [
         "cts",
         "general-tests",
+    ],
+}
+
+android_test_helper_app {
+    name: "CtsHostsideNetworkTestsApp",
+    defaults: ["cts_support_defaults", "CtsHostsideNetworkTestsAppDefaults"],
+    //sdk_version: "current",
+    libs: [
+        "NetworkStackApiStableShims",
+    ],
+}
+
+android_test_helper_app {
+    name: "CtsHostsideNetworkTestsAppLatestSdk",
+    defaults: ["cts_support_defaults", "CtsHostsideNetworkTestsAppDefaults"],
+    //sdk_version: "current",
+    libs: [
+        "NetworkStackApiCurrentShims",
     ],
 }
