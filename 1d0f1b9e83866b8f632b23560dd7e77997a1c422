@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f3f7edd_00e019dc",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "Personally I\u0027m not a fan of this syntax because it forbids making the members final, raising all sorts of issues with threading and readability. I think we\u0027d better use an explicit constructor.\n\nIf we can use JUnit5, I think there was a syntax to pass arguments directly to the test methods, which is even better ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d03d1ea_7657fde2",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "Considering this is the only value the member can ever take, can we initialize it (and mRoutes) inline and make both final ?",
+      "range": {
+        "startLine": 67,
+        "startChar": 19,
+        "endLine": 67,
+        "endChar": 50
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b25dcc57_43a877f7",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "Can you please use @IgnoreUpTo ? Unfortunately AOSP is not up to date yet and you can\u0027t use the constant for the build but you could say :\n\n  @IgnoreUpTo(31) // TODO : use Build.VERSION_CODES.S when finalized",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 43
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca4be784_ff378f6b",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "I think a few more tests may be useful :\n- Optionally : a test that has disjoint unicast and throw routes\n- A test that has overlapping routes, e.g. a default unicast route, a /8 throw route and a /24 unicast route inside the throw route\n- A test that has 3 or 4 unicast routes first, then overwrites one of them with a throw route (to help testing findRouteIndexByDestination)",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 110,
+        "endChar": 5
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03d1d2de_f74c32fc",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "I think this is never expected to happen, it is necessarily a bug in the test right ?\n\nI get that crashing here is not very useful, and just catching and continuing will likely fail the test which is what we want. Maybe we want to add a comment about this and Log.e something ?",
+      "range": {
+        "startLine": 72,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 49
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c696f05_a635e540",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "Now we have three copies of this code. Can we make a helper function ? Something like :\n\n  private void parseIpAndMaskArgument(String argName, BiConsumer\u003cInetAddress, Integer\u003e what) {\n    final String addresses \u003d intent.getStringExtra(packageName + \".\" + argName);\n    final String[] addressesArray \u003d addresses.split(\",\");\n    for (int i \u003d 0; i \u003c addressesArray.length; i++) {\n      try {\n        Pair\u003cInetAddress, Integer\u003e ipAndMask \u003d NetworkUtils.parseIpAndMask(addressesArray[i]);\n        what.accept(ipAndMask.first, ipAndMask.second);\n      } catch (IllegalArgumentException e) {\n        continue;\n      }\n    }\n  }",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 15
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4039f77f_42d2b105",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "supernit : this goes logically with allowedApplications so it should go on the previous line, and proxyInfo can be alone on its line",
+      "range": {
+        "startLine": 260,
+        "startChar": 12,
+        "endLine": 260,
+        "endChar": 43
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "230090f2_543c0b87",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "It\u0027s the same UID in the test, but I think strictly speaking what we want here is to check that the sending process owns the socket (as opposed to the VPN process) ? In other words, if the process sending over the socket and the VPN were not the same app in this test, we\u0027ll get the former\u0027s UID I think ?\n\nSo maybe call this \"expectSenderOwnedConnection\" ?",
+      "range": {
+        "startLine": 518,
+        "startChar": 70,
+        "endLine": 518,
+        "endChar": 94
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1326a3df_ccec56c6",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "Generally : please make your locals final",
+      "range": {
+        "startLine": 561,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 19
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fed8d566_d3229923",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "Now that we have three different String[] args can you annotate them with their name like it\u0027s done in l.849 ?",
+      "range": {
+        "startLine": 845,
+        "startChar": 70,
+        "endLine": 845,
+        "endChar": 71
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38c80e59_6a3610b7",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "Do you want to also test the case where a unicast route is installed inside a throw route ?",
+      "range": {
+        "startLine": 857,
+        "startChar": 4,
+        "endLine": 857,
+        "endChar": 5
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d9b7ccc_208472ee",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T11:55:20Z",
+      "side": 1,
+      "message": "supernit : extra blank line",
+      "range": {
+        "startLine": 858,
+        "startChar": 0,
+        "endLine": 858,
+        "endChar": 0
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
