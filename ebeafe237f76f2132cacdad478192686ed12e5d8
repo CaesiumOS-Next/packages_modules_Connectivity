@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015411571",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1827923?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "251cf991_0c8051c8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8098,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-16T14:23:15Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 8098,
+        "startChar": 0,
+        "endLine": 8098,
+        "endChar": 111
+      },
+      "revId": "ebeafe237f76f2132cacdad478192686ed12e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015411571",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1827923?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "9a69a1b5_be234e77",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8099,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-16T14:23:15Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 8099,
+        "startChar": 0,
+        "endLine": 8099,
+        "endChar": 106
+      },
+      "revId": "ebeafe237f76f2132cacdad478192686ed12e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
