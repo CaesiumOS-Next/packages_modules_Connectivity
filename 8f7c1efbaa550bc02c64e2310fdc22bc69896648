@@ -16,6 +16,23 @@
       "message": "PTAL.\n(Presubmit failure comes from merge conflicts which is being addressed in internal gerrit)",
       "revId": "8f7c1efbaa550bc02c64e2310fdc22bc69896648",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba1f26bb_5942b091",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-16T08:04:10Z",
+      "side": 1,
+      "message": "Changing directory LGTM, but will this code work on Q, R and S? These tests need to pass on all Android versions.",
+      "revId": "8f7c1efbaa550bc02c64e2310fdc22bc69896648",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
