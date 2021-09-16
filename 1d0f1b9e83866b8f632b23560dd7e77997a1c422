@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "981836c5_c3c1f8ae",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-16T12:00:31Z",
+      "side": 1,
+      "message": "Okay so AOSP is in fact considered 31 so what I suggest is not going to work at this point.\n\nCan you use assumeTrue(isAtLeastT()) instead, with a TODO to use @IgnoreUpTo ? It will have the same advantages as using @IgnoreUpTo (namely, it will mark the test as skipped instead of succeeded, so success metrics on older platforms will be more accurate)",
+      "parentUuid": "b25dcc57_43a877f7",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 43
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca4be784_ff378f6b",
         "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
         "patchSetId": 21
