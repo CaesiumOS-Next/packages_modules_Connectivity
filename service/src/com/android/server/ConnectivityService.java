@@ -2530,15 +2530,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         setUidBlockedReasons(uid, blockedReasons);
     }
 
-    private boolean checkAnyPermissionOf(String... permissions) {
-        for (String permission : permissions) {
-            if (mContext.checkCallingOrSelfPermission(permission) == PERMISSION_GRANTED) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private boolean checkAnyPermissionOf(int pid, int uid, String... permissions) {
         for (String permission : permissions) {
             if (mContext.checkPermission(permission, pid, uid) == PERMISSION_GRANTED) {
@@ -2546,13 +2537,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         }
         return false;
-    }
-
-    private void enforceAnyPermissionOf(String... permissions) {
-        if (!checkAnyPermissionOf(permissions)) {
-            throw new SecurityException("Requires one of the following permissions: "
-                    + String.join(", ", permissions) + ".");
-        }
     }
 
     private void enforceInternetPermission() {
@@ -2609,33 +2593,33 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void enforceSettingsPermission() {
-        enforceAnyPermissionOf(
+        PermissionUtils.enforceAnyPermissionOf(mContext,
                 android.Manifest.permission.NETWORK_SETTINGS,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
     private void enforceNetworkFactoryPermission() {
-        enforceAnyPermissionOf(
+        PermissionUtils.enforceAnyPermissionOf(mContext,
                 android.Manifest.permission.NETWORK_FACTORY,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
     private void enforceNetworkFactoryOrSettingsPermission() {
-        enforceAnyPermissionOf(
+        PermissionUtils.enforceAnyPermissionOf(mContext,
                 android.Manifest.permission.NETWORK_SETTINGS,
                 android.Manifest.permission.NETWORK_FACTORY,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
     private void enforceNetworkFactoryOrTestNetworksPermission() {
-        enforceAnyPermissionOf(
+        PermissionUtils.enforceAnyPermissionOf(mContext,
                 android.Manifest.permission.MANAGE_TEST_NETWORKS,
                 android.Manifest.permission.NETWORK_FACTORY,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
     private boolean checkSettingsPermission() {
-        return checkAnyPermissionOf(
+        return PermissionUtils.checkAnyPermissionOf(mContext,
                 android.Manifest.permission.NETWORK_SETTINGS,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
@@ -2648,27 +2632,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void enforceNetworkStackOrSettingsPermission() {
-        enforceAnyPermissionOf(
-                android.Manifest.permission.NETWORK_SETTINGS,
-                android.Manifest.permission.NETWORK_STACK,
-                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+        PermissionUtils.enforceNetworkStackPermissionOr(mContext,
+                android.Manifest.permission.NETWORK_SETTINGS);
     }
 
     private void enforceNetworkStackSettingsOrSetup() {
-        enforceAnyPermissionOf(
+        PermissionUtils.enforceNetworkStackPermissionOr(mContext,
                 android.Manifest.permission.NETWORK_SETTINGS,
-                android.Manifest.permission.NETWORK_SETUP_WIZARD,
-                android.Manifest.permission.NETWORK_STACK,
-                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+                android.Manifest.permission.NETWORK_SETUP_WIZARD);
     }
 
     private void enforceAirplaneModePermission() {
-        enforceAnyPermissionOf(
+        PermissionUtils.enforceNetworkStackPermissionOr(mContext,
                 android.Manifest.permission.NETWORK_AIRPLANE_MODE,
                 android.Manifest.permission.NETWORK_SETTINGS,
-                android.Manifest.permission.NETWORK_SETUP_WIZARD,
-                android.Manifest.permission.NETWORK_STACK,
-                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+                android.Manifest.permission.NETWORK_SETUP_WIZARD);
     }
 
     private void enforceOemNetworkPreferencesPermission() {
@@ -2684,7 +2662,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private boolean checkNetworkStackPermission() {
-        return checkAnyPermissionOf(
+        return PermissionUtils.checkAnyPermissionOf(mContext,
                 android.Manifest.permission.NETWORK_STACK,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
@@ -6757,7 +6735,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         Objects.requireNonNull(initialScore, "initialScore must not be null");
         Objects.requireNonNull(networkAgentConfig, "networkAgentConfig must not be null");
         if (networkCapabilities.hasTransport(TRANSPORT_TEST)) {
-            enforceAnyPermissionOf(Manifest.permission.MANAGE_TEST_NETWORKS);
+            PermissionUtils.enforceAnyPermissionOf(mContext,
+                    Manifest.permission.MANAGE_TEST_NETWORKS);
         } else {
             enforceNetworkFactoryPermission();
         }
@@ -9609,7 +9588,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         Objects.requireNonNull(network, "network must not be null");
         Objects.requireNonNull(extras, "extras must not be null");
 
-        enforceAnyPermissionOf(android.Manifest.permission.MANAGE_TEST_NETWORKS,
+        PermissionUtils.enforceAnyPermissionOf(mContext,
+                android.Manifest.permission.MANAGE_TEST_NETWORKS,
                 android.Manifest.permission.NETWORK_STACK);
         final NetworkCapabilities nc = getNetworkCapabilitiesInternal(network);
         if (!nc.hasTransport(TRANSPORT_TEST)) {
