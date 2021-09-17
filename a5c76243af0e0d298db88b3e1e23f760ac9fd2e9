@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f264b45_e3a90deb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-17T09:48:20Z",
+      "side": 1,
+      "message": "Addressed this by not lingering requests at all in the new use case. AFAICT, the only behavioral difference is the lack of a LOSING callback.",
+      "parentUuid": "3eedfb85_e6645c02",
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9315e441_b8c7700b",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-09-17T03:42:38Z",
       "side": 1,
       "message": "Out of curiosity, any reason you moved this up a few lines? Did you want to ensure that this code ran before the handler thread starts? (That seems prudent in any case.)",
+      "range": {
+        "startLine": 1383,
+        "startChar": 8,
+        "endLine": 1383,
+        "endChar": 22
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77932e08_90d5eb0c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-17T09:48:20Z",
+      "side": 1,
+      "message": "Correct. I noticed that mCellularRadioTimesharingCapable had to be initialized before some synchronization point to ensure the correct value is seen, and starting the handler thread is a simple way to do that. Then I noticed the same was true of mLingerDelayMs and mNascentDelayMs so I moved them together.",
+      "parentUuid": "9315e441_b8c7700b",
       "range": {
         "startLine": 1383,
         "startChar": 8,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03b5b9ed_09399546",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8096,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-17T09:48:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8d95fc4_b964cf4b",
+      "range": {
+        "startLine": 8096,
+        "startChar": 30,
+        "endLine": 8096,
+        "endChar": 77
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da0f1e85_bef3f352",
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f262f83_b3fa5970",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-17T09:48:20Z",
+      "side": 1,
+      "message": "Originally I added this to restrict usage of this more closely to the use case we know about, but didn\u0027t think too hard about it as it was just a proof of concept.\n\nThe control can come here without the new network being primary in a few cases.\n- If the old network becomes unvalidated. This kind of requires it\u0027s a DSDA device with both networks connected at the same time. In that case I think strictly it\u0027s good to linger the request, because the reasons that may lead a mobile network to become unvalidated might not imply carrier apps lose access to their internal network.\n- If the old network is now exiting. I don\u0027t think it happens today, but a typical use case would be that the device is moving out of CBRS range. This also kind of implies this was a DSDA device... unless macro is 3G and it\u0027s a different radio ?\n\nI don\u0027t think it matters much really, because both of these cases would deal reasonably well with either behavior, but it does serve to document the intent a little bit and to reduce the surface for \"creative\" uses.\n\nKept.",
+      "parentUuid": "da0f1e85_bef3f352",
+      "range": {
+        "startLine": 8100,
+        "startChar": 58,
+        "endLine": 8100,
+        "endChar": 94
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "814d68b8_b669085a",
@@ -100,6 +190,30 @@
       "writtenOn": "2021-09-17T03:42:38Z",
       "side": 1,
       "message": "Just out of an abundance of caution: is 0 safe? If we pass in 0 here and time advances by 1ms by the time the code runs, does the code still work? Or could we end up with something like time going backwards and doing the wrong thing?\n\nPresumably this is fine because we also pass in |now|, but just want to make sure.",
+      "range": {
+        "startLine": 8108,
+        "startChar": 84,
+        "endLine": 8108,
+        "endChar": 85
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7936eec_68628bdb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8108,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-17T09:48:20Z",
+      "side": 1,
+      "message": "Removed this as we discussed offline. This entails than LOSING is not sent (updated the comment in 8107).",
+      "parentUuid": "814d68b8_b669085a",
       "range": {
         "startLine": 8108,
         "startChar": 84,
