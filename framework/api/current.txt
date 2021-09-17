@@ -298,6 +298,7 @@ package android.net {
     method public int getOwnerUid();
     method public int getSignalStrength();
     method @Nullable public android.net.TransportInfo getTransportInfo();
+    method @Nullable public java.util.List<android.net.Network> getUnderlyingNetworks();
     method public boolean hasCapability(int);
     method public boolean hasTransport(int);
     method public void writeToParcel(android.os.Parcel, int);
