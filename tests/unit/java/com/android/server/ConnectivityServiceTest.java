@@ -151,6 +151,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -319,6 +320,7 @@ import com.android.internal.net.VpnProfile;
 import com.android.internal.util.WakeupMessage;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.ArrayTrackRecord;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.LocationPermissionChecker;
@@ -6954,40 +6956,61 @@ public class ConnectivityServiceTest {
         NetworkCapabilities caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(new Network[]{}, initialCapsNotMetered, caps);
         assertEquals(withNoUnderlying, caps);
+        assertEquals(0, new ArrayList<>(caps.getUnderlyingNetworks()).size());
 
         caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(new Network[]{null}, initialCapsNotMetered, caps);
         assertEquals(withNoUnderlying, caps);
+        assertEquals(0, new ArrayList<>(caps.getUnderlyingNetworks()).size());
 
         caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(new Network[]{mobile}, initialCapsNotMetered, caps);
         assertEquals(withMobileUnderlying, caps);
+        assertEquals(1, new ArrayList<>(caps.getUnderlyingNetworks()).size());
+        assertEquals(mobile, new ArrayList<>(caps.getUnderlyingNetworks()).get(0));
 
+        caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(new Network[]{wifi}, initialCapsNotMetered, caps);
         assertEquals(withWifiUnderlying, caps);
+        assertEquals(1, new ArrayList<>(caps.getUnderlyingNetworks()).size());
+        assertEquals(wifi, new ArrayList<>(caps.getUnderlyingNetworks()).get(0));
 
         withWifiUnderlying.removeCapability(NET_CAPABILITY_NOT_METERED);
         caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(new Network[]{wifi}, initialCaps, caps);
         assertEquals(withWifiUnderlying, caps);
+        assertEquals(1, new ArrayList<>(caps.getUnderlyingNetworks()).size());
+        assertEquals(wifi, new ArrayList<>(caps.getUnderlyingNetworks()).get(0));
 
         caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(new Network[]{mobile, wifi}, initialCaps, caps);
         assertEquals(withWifiAndMobileUnderlying, caps);
+        assertEquals(2, new ArrayList<>(caps.getUnderlyingNetworks()).size());
+        assertEquals(mobile, new ArrayList<>(caps.getUnderlyingNetworks()).get(0));
+        assertEquals(wifi, new ArrayList<>(caps.getUnderlyingNetworks()).get(1));
 
         withWifiUnderlying.addCapability(NET_CAPABILITY_NOT_METERED);
         caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(new Network[]{null, mobile, null, wifi},
                 initialCapsNotMetered, caps);
         assertEquals(withWifiAndMobileUnderlying, caps);
+        assertEquals(2, new ArrayList<>(caps.getUnderlyingNetworks()).size());
+        assertEquals(mobile, new ArrayList<>(caps.getUnderlyingNetworks()).get(0));
+        assertEquals(wifi, new ArrayList<>(caps.getUnderlyingNetworks()).get(1));
 
         caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(new Network[]{null, mobile, null, wifi},
                 initialCapsNotMetered, caps);
         assertEquals(withWifiAndMobileUnderlying, caps);
+        assertEquals(2, new ArrayList<>(caps.getUnderlyingNetworks()).size());
+        assertEquals(mobile, new ArrayList<>(caps.getUnderlyingNetworks()).get(0));
+        assertEquals(wifi, new ArrayList<>(caps.getUnderlyingNetworks()).get(1));
 
+        caps = new NetworkCapabilities(initialCaps);
         mService.applyUnderlyingCapabilities(null, initialCapsNotMetered, caps);
         assertEquals(withWifiUnderlying, caps);
+        assertEquals(1, new ArrayList<>(caps.getUnderlyingNetworks()).size());
+        assertEquals(wifi, new ArrayList<>(caps.getUnderlyingNetworks()).get(0));
     }
 
     @Test
@@ -10351,6 +10374,14 @@ public class ConnectivityServiceTest {
         return fakeNai(wifiNc, info);
     }
 
+    private NetworkAgentInfo fakeVpnNai(NetworkCapabilities nc) {
+        final NetworkCapabilities vpnNc = new NetworkCapabilities.Builder(nc)
+                .addTransportType(TRANSPORT_VPN).build();
+        final NetworkInfo info = new NetworkInfo(TYPE_VPN, 0 /* subtype */,
+                ConnectivityManager.getNetworkTypeName(TYPE_VPN), "" /* subtypeName */);
+        return fakeNai(vpnNc, info);
+    }
+
     private NetworkAgentInfo fakeNai(NetworkCapabilities nc, NetworkInfo networkInfo) {
         return new NetworkAgentInfo(null, new Network(NET_ID), networkInfo, new LinkProperties(),
                 nc, new NetworkScore.Builder().setLegacyInt(0).build(),
@@ -10482,6 +10513,36 @@ public class ConnectivityServiceTest {
                 mService.checkConnectivityDiagnosticsPermissions(
                         Process.myPid() + 1, Process.myUid() + 1, naiWithUid,
                         mContext.getOpPackageName()));
+    }
+
+    @Test
+    public void testUnderlyingNetworksWillBeSetInNetworkAgentInfoConstructor() throws Exception {
+        assumeTrue(SdkLevel.isAtLeastT());
+        final Network network1 = new Network(100);
+        final Network network2 = new Network(101);
+        final List<Network> underlyingNetworks = new ArrayList<>();
+        final NetworkCapabilities ncWithEmptyUnderlyingNetworks = new NetworkCapabilities.Builder()
+                .setUnderlyingNetworks(underlyingNetworks)
+                .build();
+        final NetworkAgentInfo vpnNaiWithEmptyUnderlyingNetwokrs =
+                fakeVpnNai(ncWithEmptyUnderlyingNetworks);
+        assertEquals(underlyingNetworks,
+                Arrays.asList(vpnNaiWithEmptyUnderlyingNetwokrs.declaredUnderlyingNetworks));
+
+        underlyingNetworks.add(network1);
+        underlyingNetworks.add(network2);
+        final NetworkCapabilities ncWithUnderlyingNetworks = new NetworkCapabilities.Builder()
+                .setUnderlyingNetworks(underlyingNetworks)
+                .build();
+        final NetworkAgentInfo vpnNaiWithUnderlyingNetwokrs = fakeVpnNai(ncWithUnderlyingNetworks);
+        assertEquals(underlyingNetworks,
+                Arrays.asList(vpnNaiWithUnderlyingNetwokrs.declaredUnderlyingNetworks));
+
+        final NetworkCapabilities ncWithoutUnderlyingNetworks = new NetworkCapabilities.Builder()
+                .build();
+        final NetworkAgentInfo vpnNaiWithoutUnderlyingNetwokrs =
+                fakeVpnNai(ncWithoutUnderlyingNetworks);
+        assertNull(vpnNaiWithoutUnderlyingNetwokrs.declaredUnderlyingNetworks);
     }
 
     @Test
