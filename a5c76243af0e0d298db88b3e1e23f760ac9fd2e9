@@ -85,6 +85,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dcb4ad0_6f786c90",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 1199008
+      },
+      "writtenOn": "2021-09-17T16:41:20Z",
+      "side": 1,
+      "message": "Please consider to remove this. QC has no plan to rework this logic in any other area once we test this CL",
+      "range": {
+        "startLine": 1386,
+        "startChar": 43,
+        "endLine": 1386,
+        "endChar": 64
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8d95fc4_b964cf4b",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
