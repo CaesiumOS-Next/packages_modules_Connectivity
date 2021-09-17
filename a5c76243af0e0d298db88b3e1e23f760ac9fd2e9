@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9315e441_b8c7700b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T03:42:38Z",
+      "side": 1,
+      "message": "Out of curiosity, any reason you moved this up a few lines? Did you want to ensure that this code ran before the handler thread starts? (That seems prudent in any case.)",
+      "range": {
+        "startLine": 1383,
+        "startChar": 8,
+        "endLine": 1383,
+        "endChar": 22
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8d95fc4_b964cf4b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8096,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T03:42:38Z",
+      "side": 1,
+      "message": "Suggest refactoring to a method to reduce indentation. Maybe:\n\n    boolean canSupportGracefulNetworkSwitch(NetworkAgentInfo prevNai, NetworkCapabilities newNai) {",
+      "range": {
+        "startLine": 8096,
+        "startChar": 30,
+        "endLine": 8096,
+        "endChar": 77
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da0f1e85_bef3f352",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T03:42:38Z",
+      "side": 1,
+      "message": "I wonder: should we just do this regardless of whether the new network has TRANSPORT_PRIMARY or not? If the radio can\u0027t timeshare, maybe skipping the linger timer is the right thing to do regardless of whether the new network is TRANSPORT_PRIMARY or not?\n\nNot sure when this might actually happen though. What other factors than TRANSPORT_PRIMARY might cause such a switch? Perhaps lack of validation on a DS-DA device when both networks are up? Or...?\n\nI guess checking for TRANSPORT_PRIMARY is safest here.",
+      "range": {
+        "startLine": 8100,
+        "startChar": 58,
+        "endLine": 8100,
+        "endChar": 94
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "814d68b8_b669085a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 8108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T03:42:38Z",
+      "side": 1,
+      "message": "Just out of an abundance of caution: is 0 safe? If we pass in 0 here and time advances by 1ms by the time the code runs, does the code still work? Or could we end up with something like time going backwards and doing the wrong thing?\n\nPresumably this is fine because we also pass in |now|, but just want to make sure.",
+      "range": {
+        "startLine": 8108,
+        "startChar": 84,
+        "endLine": 8108,
+        "endChar": 85
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
