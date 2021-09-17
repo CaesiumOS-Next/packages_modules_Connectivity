@@ -343,6 +343,30 @@
       },
       "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a67b8f2_88fe1fa7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 6875,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-17T09:47:49Z",
+      "side": 1,
+      "message": "Thanks for the analysis Tyler. That means the documentation of binderDied() is wrong(!). It also means it also probably can happen the other way around.\n\nI think the best solution overall is to check the return value of remove(). It\u0027s equivalent to what you suggest but it avoids searching the array twice.\n\n  - mNetworkOffers.remove(noi);\n  + // If the provider removes the offer and dies immediately afterwards this\n  + // function may be called twice in a row, but the array will no longer contain\n  + // the offer.\n  + if (!mNetworkOffers.remove(noi)) return;",
+      "parentUuid": "925377b9_bbc163be",
+      "range": {
+        "startLine": 6873,
+        "startChar": 0,
+        "endLine": 6875,
+        "endChar": 9
+      },
+      "revId": "7154cbb072827ef874ecbdc661ae84560856e7ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
