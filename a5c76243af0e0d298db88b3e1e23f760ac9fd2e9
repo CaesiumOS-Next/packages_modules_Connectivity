@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3eedfb85_e6645c02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T04:18:52Z",
+      "side": 1,
+      "message": "Per discussion: this does not work if the NetworkAgent later tries to change the linger timer. A simple fix might be to add a \"wasZeroTimer\" (or preferably a better name) into InactivityTimer.",
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9315e441_b8c7700b",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
