@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0065f1e6_96d6c098",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3939,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-17T07:56:40Z",
+      "side": 1,
+      "message": "What is a scenario under which this happens ?",
+      "range": {
+        "startLine": 3939,
+        "startChar": 35,
+        "endLine": 3939,
+        "endChar": 59
+      },
+      "revId": "b39e9863b81366afd45fc4df85e36fb3c45c87f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
