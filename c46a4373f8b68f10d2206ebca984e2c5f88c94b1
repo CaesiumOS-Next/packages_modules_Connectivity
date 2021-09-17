@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b25d6516_37d03648",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T13:27:03Z",
+      "side": 1,
+      "message": "telephony networks to disconnect immediately, instead of lingering, when outscored",
+      "range": {
+        "startLine": 131,
+        "startChar": 83,
+        "endLine": 132,
+        "endChar": 76
+      },
+      "revId": "c46a4373f8b68f10d2206ebca984e2c5f88c94b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "399e4d62_7e70be7e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T13:27:03Z",
+      "side": 1,
+      "message": "Per discussion: remove?\n\nDoesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 1386,
+        "startChar": 43,
+        "endLine": 1387,
+        "endChar": 18
+      },
+      "revId": "c46a4373f8b68f10d2206ebca984e2c5f88c94b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "315b4edf_82403b80",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2420,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T13:27:03Z",
+      "side": 1,
+      "message": "Nit: this timeout of 1000ms is the same length as the linger timer which is started in line 2410. It starts about TEST_CALLBACK_TIMEOUT_MS (\u003d250ms) after the linger timer starts. If the network is still connected after this timeout (e.g., if the ConnectivityService thread is busy for that long), then the test fails. Hopefully that won\u0027t result in the test being too flaky.",
+      "range": {
+        "startLine": 2420,
+        "startChar": 49,
+        "endLine": 2420,
+        "endChar": 80
+      },
+      "revId": "c46a4373f8b68f10d2206ebca984e2c5f88c94b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3713b4_b05216a6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2455,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-17T13:27:03Z",
+      "side": 1,
+      "message": "These two blocks can be merged since they\u0027re both if (canTimeShare).",
+      "range": {
+        "startLine": 2454,
+        "startChar": 0,
+        "endLine": 2455,
+        "endChar": 27
+      },
+      "revId": "c46a4373f8b68f10d2206ebca984e2c5f88c94b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
