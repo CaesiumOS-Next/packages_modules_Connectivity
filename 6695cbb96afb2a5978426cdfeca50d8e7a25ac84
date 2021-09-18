@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd438c6_56faa5a5",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:34:47Z",
+      "side": 1,
+      "message": "I think this should be public, otherwise it\u0027s very difficult for apps to write their tests",
+      "range": {
+        "startLine": 284,
+        "startChar": 23,
+        "endLine": 284,
+        "endChar": 44
+      },
+      "revId": "6695cbb96afb2a5978426cdfeca50d8e7a25ac84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee6944d9_1a46f472",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:34:47Z",
+      "side": 1,
+      "message": "Any network really. Today we only have VPN and VCN as use cases. Suggest rewording :\n\n  // Underlying networks, if any. VPNs and VCNs typically have underlying networks.",
+      "range": {
+        "startLine": 134,
+        "startChar": 30,
+        "endLine": 134,
+        "endChar": 33
+      },
+      "revId": "6695cbb96afb2a5978426cdfeca50d8e7a25ac84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45ad6194_aa3533fc",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:34:47Z",
+      "side": 1,
+      "message": "Likewise, \"of this network\" since this can also be VCN and we might have other use cases in the future.",
+      "range": {
+        "startLine": 709,
+        "startChar": 35,
+        "endLine": 709,
+        "endChar": 41
+      },
+      "revId": "6695cbb96afb2a5978426cdfeca50d8e7a25ac84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b0028d3_a4ca522c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:34:47Z",
+      "side": 1,
+      "message": "UnmodifiableCollection ? Otherwise someone can mutate it after reading it from the getter",
+      "range": {
+        "startLine": 716,
+        "startChar": 58,
+        "endLine": 716,
+        "endChar": 84
+      },
+      "revId": "6695cbb96afb2a5978426cdfeca50d8e7a25ac84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cf3bac2_31c9b73d",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:34:47Z",
+      "side": 1,
+      "message": "Isn\u0027t it null if the underlying networks aren\u0027t set ?\n\nI think we need to reword this a little bit to clarify the difference between null and empty list, something like\n\n  \u003cli\u003eIf the list is null, this network hasn\u0027t declared underlying networks or\n    does not support underlying networks.\n  \u003cli\u003eIf the list is empty, this network has declared that it has no underlying networks.\n  \u003cli\u003eThe list can contain multiple underlying networks, e.g. a VPN running over multiple networks at the same time.",
+      "range": {
+        "startLine": 722,
+        "startChar": 15,
+        "endLine": 723,
+        "endChar": 19
+      },
+      "revId": "6695cbb96afb2a5978426cdfeca50d8e7a25ac84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1a1dfbb_69ba6daa",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:34:47Z",
+      "side": 1,
+      "message": "Looks like you need to add it here and write a test :)",
+      "range": {
+        "startLine": 1927,
+        "startChar": 4,
+        "endLine": 1927,
+        "endChar": 5
+      },
+      "revId": "6695cbb96afb2a5978426cdfeca50d8e7a25ac84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "326a3a90_6f497026",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:34:47Z",
+      "side": 1,
+      "message": "\"networks\", and maybe put in between [] to emphasize that there can be more than one",
+      "range": {
+        "startLine": 2109,
+        "startChar": 35,
+        "endLine": 2109,
+        "endChar": 42
+      },
+      "revId": "6695cbb96afb2a5978426cdfeca50d8e7a25ac84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
