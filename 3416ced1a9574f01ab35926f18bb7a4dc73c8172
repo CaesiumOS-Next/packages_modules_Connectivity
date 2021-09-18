@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43e9e7c2_10242b63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T00:03:22Z",
+      "side": 1,
+      "message": "Thanks for the cleanup. See my comment in l.4263 first ; I think you might be able to remove, not just transact(), but also the copying code and the temporary objects. If this works, it is a really nice improvement.",
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec4b9094_4a1f6b1c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4263,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T00:03:22Z",
+      "side": 1,
+      "message": "It seems to me we can just remove these two lines instead of copying and setting the satisfier temporarily again.\n\nGenerally it\u0027s not a good idea to reset fields back out of objects going out of use for no particular reason. This kind of scenario is a good example why. It\u0027s not uncommon an object going out of use will be used immediately as a temporary object, and that code wants to know what was inside. Here, we delete this information... and I see no reason why. And then it forces you to copy it before, and set it after, which is very hard to follow.\n\nWhat happens if you just remove these two lines ? I think all tests will pass and you can just remove your copy of the satisfier.",
+      "range": {
+        "startLine": 4262,
+        "startChar": 0,
+        "endLine": 4263,
+        "endChar": 39
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10098768_6bec683b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5668,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T00:03:22Z",
+      "side": 1,
+      "message": "This is very strange in a Satisfier class. A \"satisfier\" satisfies something, so the satisfier is only the network. What does a request mean in a Satisfier class ? Do you need to rename the Satisfier class ?",
+      "range": {
+        "startLine": 5668,
+        "startChar": 14,
+        "endLine": 5668,
+        "endChar": 28
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c281d823_35dc54ee",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5668,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T00:03:22Z",
+      "side": 1,
+      "message": "Nullability please",
+      "range": {
+        "startLine": 5668,
+        "startChar": 8,
+        "endLine": 5668,
+        "endChar": 13
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19fa233f_c16e5653",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5870,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T00:03:22Z",
+      "side": 1,
+      "message": "Can the satisfier be null if the active request is non-null ?",
+      "range": {
+        "startLine": 5870,
+        "startChar": 20,
+        "endLine": 5870,
+        "endChar": 72
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85fc90dd_5d7e9589",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5934,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T00:03:22Z",
+      "side": 1,
+      "message": "Please don\u0027t call a getter twice in a ternary. Use a local.",
+      "range": {
+        "startLine": 5934,
+        "startChar": 59,
+        "endLine": 5934,
+        "endChar": 77
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f626478_194bb7c0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10207,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T00:03:22Z",
+      "side": 1,
+      "message": "Style : space",
+      "range": {
+        "startLine": 10207,
+        "startChar": 35,
+        "endLine": 10207,
+        "endChar": 36
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86f5750c_88728ee9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10214,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T00:03:22Z",
+      "side": 1,
+      "message": "What is the point of creating this new collection ?",
+      "range": {
+        "startLine": 10214,
+        "startChar": 16,
+        "endLine": 10214,
+        "endChar": 30
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
