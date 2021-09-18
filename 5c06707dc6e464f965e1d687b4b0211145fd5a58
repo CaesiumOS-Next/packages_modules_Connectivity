@@ -22,6 +22,30 @@
       },
       "revId": "5c06707dc6e464f965e1d687b4b0211145fd5a58",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b16d1aa0_c67883d8",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:22:27Z",
+      "side": 1,
+      "message": "You\u0027re right, but that means we get \"timed out waiting for onCapabilitiesChanged\" as an error message instead I think ? If so I think it\u0027s less clear",
+      "parentUuid": "9182b8ad_10ca66e7",
+      "range": {
+        "startLine": 426,
+        "startChar": 9,
+        "endLine": 429,
+        "endChar": 71
+      },
+      "revId": "5c06707dc6e464f965e1d687b4b0211145fd5a58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
