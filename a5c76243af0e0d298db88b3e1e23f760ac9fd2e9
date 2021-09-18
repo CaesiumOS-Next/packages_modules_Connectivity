@@ -106,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a528a1_4408feb4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:00:02Z",
+      "side": 1,
+      "message": "Whether QC has plans to rework this isn\u0027t really relevant. We write code for our users, not to arrange plans of individual vendors.",
+      "parentUuid": "1dcb4ad0_6f786c90",
+      "range": {
+        "startLine": 1386,
+        "startChar": 43,
+        "endLine": 1386,
+        "endChar": 64
+      },
+      "revId": "a5c76243af0e0d298db88b3e1e23f760ac9fd2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8d95fc4_b964cf4b",

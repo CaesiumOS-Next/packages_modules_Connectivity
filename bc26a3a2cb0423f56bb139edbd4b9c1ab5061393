@@ -46,6 +46,30 @@
       },
       "revId": "bc26a3a2cb0423f56bb139edbd4b9c1ab5061393",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf6adf47_d695fd69",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 8123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:00:02Z",
+      "side": 1,
+      "message": "As you probably figured out this works just by virtue of not lingering the network at all, which means it\u0027s not kept up by the request. With the exception of sending the LOSING callback, not lingering is behaviorally equivalent to lingering for 0 as long as there is a check for lost networks immediately, which there always is.",
+      "parentUuid": "5741fbd8_073e7572",
+      "range": {
+        "startLine": 8123,
+        "startChar": 20,
+        "endLine": 8123,
+        "endChar": 84
+      },
+      "revId": "bc26a3a2cb0423f56bb139edbd4b9c1ab5061393",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
