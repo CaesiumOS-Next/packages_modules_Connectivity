@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b98eb5a0_1f3b0c1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:45:08Z",
+      "side": 1,
+      "message": "This looks mostly fine. Can we have a more end-to-end test ? Maybe hostsideVpnTest could do something, or some of the VpnManager tests, or even in ConnectivityServiceTest. The idea would be to make sure that\n• when the VPN is sending a new list of networks, NC callbacks are called and the object contains them\n• when a VPN doesn\u0027t declare underlying networks but the default network changes, NC callbacks are called and the object contains the default network as underlying\n",
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa15d540_cab365fe",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:45:08Z",
+      "side": 1,
+      "message": "Do we need to do something for location here ?\n\nIf the VCN has only one WiFi as carrier WiFi, can it deduce the location from the fact that it is running over WiFi ? Maybe you can start a thread with Etan about this ? I hope this doesn\u0027t prevent us from sending this whenever location is off.",
+      "range": {
+        "startLine": 2227,
+        "startChar": 15,
+        "endLine": 2227,
+        "endChar": 20
+      },
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b87b4ef_bdfccab8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10527,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-18T04:45:08Z",
+      "side": 1,
+      "message": "rk",
+      "range": {
+        "startLine": 10527,
+        "startChar": 61,
+        "endLine": 10527,
+        "endChar": 63
+      },
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
