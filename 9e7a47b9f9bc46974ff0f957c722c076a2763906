@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e5ab2d0_523d00cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-19T01:07:28Z",
+      "side": 1,
+      "message": "This is no longer necessary because the behavior on base S has been fixed right ?",
+      "revId": "9e7a47b9f9bc46974ff0f957c722c076a2763906",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26e9a360_bab6b6f4",
