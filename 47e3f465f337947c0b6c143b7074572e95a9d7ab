@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "657fcfd9_a53f8abe",
+        "filename": "tests/unit/java/android/net/IpSecAlgorithmTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-19T01:06:24Z",
+      "side": 1,
+      "message": "I don\u0027t think this fully addresses Mark\u0027s comment from patchset 1. Why create a new collection at all here ? I thought you might be worried about a caller casting it down and mutating it, but filter already creates a new ArraySet.",
+      "range": {
+        "startLine": 198,
+        "startChar": 15,
+        "endLine": 198,
+        "endChar": 29
+      },
+      "revId": "47e3f465f337947c0b6c143b7074572e95a9d7ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
