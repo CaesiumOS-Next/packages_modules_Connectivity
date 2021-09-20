@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce7ab988_0d0fdc77",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Unfortunately, IIUC, we can\u0027t use JUnit5 yet\n\nWith the additional test cases, it doesn\u0027t make sense to use class-level @Parameterized, so I removed this syntax.",
+      "parentUuid": "5f3f7edd_00e019dc",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d03d1ea_7657fde2",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-16T11:55:20Z",
       "side": 1,
       "message": "Considering this is the only value the member can ever take, can we initialize it (and mRoutes) inline and make both final ?",
+      "range": {
+        "startLine": 67,
+        "startChar": 19,
+        "endLine": 67,
+        "endChar": 50
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "423bc380_40aa4222",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Done\nNow mBuilder is final, and mRoutes are retrieved when needed",
+      "parentUuid": "7d03d1ea_7657fde2",
       "range": {
         "startLine": 67,
         "startChar": 19,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd138da1_d855c01b",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "981836c5_c3c1f8ae",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 43
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca4be784_ff378f6b",
@@ -107,6 +179,30 @@
       "writtenOn": "2021-09-16T11:55:20Z",
       "side": 1,
       "message": "I think a few more tests may be useful :\n- Optionally : a test that has disjoint unicast and throw routes\n- A test that has overlapping routes, e.g. a default unicast route, a /8 throw route and a /24 unicast route inside the throw route\n- A test that has 3 or 4 unicast routes first, then overwrites one of them with a throw route (to help testing findRouteIndexByDestination)",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 110,
+        "endChar": 5
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97dc6fb_3c4d25df",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "added test cases for disjoint and interleaved routes\n\nfor the test mentioned in the third point, I changed `testDuplicatedRoute` test case",
+      "parentUuid": "ca4be784_ff378f6b",
       "range": {
         "startLine": 110,
         "startChar": 3,
@@ -140,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57cd80c8_a34eb2d3",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Initially I did this, because this block threw a checked exception and this is what other try-catch blocks in this method already did.\n\nNow, since IllegalArgumentException is a runtime exception, I think it\u0027s better to just throw it and let the process crash.\n\nAs you mentioned, this can happen only if there is a bug in the test. \nIt\u0027s easier to debug a process crash, then to look through the logs looking for anything suspicious.\n\nAs for other try-catch blocks, I think it might be better to catch checked exceptions and rethrow them as runtime exceptions. I can do that in a separate CL.",
+      "parentUuid": "03d1d2de_f74c32fc",
+      "range": {
+        "startLine": 72,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 49
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c696f05_a635e540",
@@ -163,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d308dc57_e2c45bdb",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c696f05_a635e540",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 15
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4039f77f_42d2b105",
@@ -176,6 +320,30 @@
       "writtenOn": "2021-09-16T11:55:20Z",
       "side": 1,
       "message": "supernit : this goes logically with allowedApplications so it should go on the previous line, and proxyInfo can be alone on its line",
+      "range": {
+        "startLine": 260,
+        "startChar": 12,
+        "endLine": 260,
+        "endChar": 43
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e86fd5f1_7b99e836",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4039f77f_42d2b105",
       "range": {
         "startLine": 260,
         "startChar": 12,
@@ -211,6 +379,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "567917d7_c65771ae",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Looking at the `ConnectivityManager#getConnectionOwnerUid` your logic seems to be correct.\n\nIn context of this test though, we are not actually checking the connection owner UID value (we know that it\u0027s always going to be our UID), \nbut we are checking that we have access to get this information from ConnectivityManager (only accessible to network stack and to UID\u0027s established Vpn)\n\nconsider `testAppDisallowed` test case: connection is still owned by sender (I think), but we expect `ConnectivityManager#getConnectionOwnerUid` to return INVALID_UID, because our VPN is disallowed for the sender package.\n\nso maybe even better name would be \"expectConnectionOwnerIsVisible\"?",
+      "parentUuid": "230090f2_543c0b87",
+      "range": {
+        "startLine": 518,
+        "startChar": 70,
+        "endLine": 518,
+        "endChar": 94
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1326a3df_ccec56c6",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 21
@@ -222,6 +414,30 @@
       "writtenOn": "2021-09-16T11:55:20Z",
       "side": 1,
       "message": "Generally : please make your locals final",
+      "range": {
+        "startLine": 561,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 19
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c660339_b9062462",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1326a3df_ccec56c6",
       "range": {
         "startLine": 561,
         "startChar": 8,
@@ -255,6 +471,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d40d73_02e3889c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fed8d566_d3229923",
+      "range": {
+        "startLine": 845,
+        "startChar": 70,
+        "endLine": 845,
+        "endChar": 71
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38c80e59_6a3610b7",
@@ -278,6 +518,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "452e04ee_5c075e50",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Done, see below",
+      "parentUuid": "38c80e59_6a3610b7",
+      "range": {
+        "startLine": 857,
+        "startChar": 4,
+        "endLine": 857,
+        "endChar": 5
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d9b7ccc_208472ee",
@@ -291,6 +555,30 @@
       "writtenOn": "2021-09-16T11:55:20Z",
       "side": 1,
       "message": "supernit : extra blank line",
+      "range": {
+        "startLine": 858,
+        "startChar": 0,
+        "endLine": 858,
+        "endChar": 0
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad6d8aca_bfd20a61",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:23:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d9b7ccc_208472ee",
       "range": {
         "startLine": 858,
         "startChar": 0,
