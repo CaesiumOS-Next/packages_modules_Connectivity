@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31028ea0_6aef678f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:20:07Z",
+      "side": 1,
+      "message": "Hi Jean, Lucas, \nplease take a look",
+      "revId": "7049e439393b226631e00501028f23dabbc6f642",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
