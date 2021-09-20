@@ -22,6 +22,30 @@
       },
       "revId": "348684f8273d058adcce91f2b885fafec26bba8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "663c96e2_61c5f30e",
+        "filename": "framework/src/android/net/RouteInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-20T15:18:48Z",
+      "side": 1,
+      "message": "Added a bit more documentation based on linux RTN_* definitions comments.",
+      "parentUuid": "ddb6bc35_e4a60afc",
+      "range": {
+        "startLine": 95,
+        "startChar": 21,
+        "endLine": 95,
+        "endChar": 22
+      },
+      "revId": "348684f8273d058adcce91f2b885fafec26bba8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
