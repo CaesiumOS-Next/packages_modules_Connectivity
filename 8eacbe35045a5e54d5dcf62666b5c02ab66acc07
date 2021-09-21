@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f232732b_4f0fc76d",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-21T22:42:51Z",
+      "side": 1,
+      "message": "Only used for IPv4",
+      "range": {
+        "startLine": 52,
+        "startChar": 22,
+        "endLine": 52,
+        "endChar": 31
+      },
+      "revId": "8eacbe35045a5e54d5dcf62666b5c02ab66acc07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066277b8_bee82bcd",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-21T22:42:51Z",
+      "side": 1,
+      "message": "Only used for IPv6",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "8eacbe35045a5e54d5dcf62666b5c02ab66acc07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d218e01e_ac9435bb",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-21T22:42:51Z",
+      "side": 1,
+      "message": "Can be used to specify 1 port. Then mDstPortRangeStart and mDstPortRangeEnd would be set to the same value",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 38
+      },
+      "revId": "8eacbe35045a5e54d5dcf62666b5c02ab66acc07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
