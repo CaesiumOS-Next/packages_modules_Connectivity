@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc50d995_2484f4da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-22T05:03:41Z",
+      "side": 1,
+      "message": "The commit message is out of date, this CL doesn\u0027t catch any exceptions. Can you update?\n\nAlso, would be good to explain what the problem is. It sounds like disconnectAndDestroyNetwork is being called more than once? If so, might want to explain why.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "1524205855c4b34a210467373d4c143dff9b4261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de137b52_32bbeea7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3854,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-22T05:03:41Z",
+      "side": 1,
+      "message": "Looks like this should be mNetworkAgentInfos. Did you try to compile and run this code? If not, please do.",
+      "range": {
+        "startLine": 3854,
+        "startChar": 13,
+        "endLine": 3854,
+        "endChar": 30
+      },
+      "revId": "1524205855c4b34a210467373d4c143dff9b4261",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
