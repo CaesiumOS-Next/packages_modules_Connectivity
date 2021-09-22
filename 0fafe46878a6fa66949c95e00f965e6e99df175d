@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada0e6d8_8876d501",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-22T08:45:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a66c621e_1a6500be",
+      "range": {
+        "startLine": 180,
+        "startChar": 52,
+        "endLine": 180,
+        "endChar": 63
+      },
+      "revId": "0fafe46878a6fa66949c95e00f965e6e99df175d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f295389c_38af6b6d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0261208_596d5b5f",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-22T08:45:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f295389c_38af6b6d",
+      "range": {
+        "startLine": 263,
+        "startChar": 8,
+        "endLine": 263,
+        "endChar": 31
+      },
+      "revId": "0fafe46878a6fa66949c95e00f965e6e99df175d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61d7e00d_2c466ab2",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-09-13T10:18:06Z",
       "side": 1,
       "message": "If it is metered-yes IIUC the naming is confusing.\nMaybe name them template[Umts|All|Unknown]Metered ?",
+      "range": {
+        "startLine": 270,
+        "startChar": 20,
+        "endLine": 270,
+        "endChar": 23
+      },
+      "revId": "0fafe46878a6fa66949c95e00f965e6e99df175d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5ec28ef_9abe3977",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-22T08:45:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61d7e00d_2c466ab2",
       "range": {
         "startLine": 270,
         "startChar": 20,
