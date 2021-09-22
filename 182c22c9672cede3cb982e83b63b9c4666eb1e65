@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "392f16ac_066c38ad",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-22T08:43:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ed7351e_c0d9c302",
+      "range": {
+        "startLine": 669,
+        "startChar": 16,
+        "endLine": 669,
+        "endChar": 17
+      },
+      "revId": "182c22c9672cede3cb982e83b63b9c4666eb1e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f17f7bc_1f8aaa60",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-14T03:28:26Z",
       "side": 1,
       "message": "IIUC if you build 2 states at the same time and generate traffic at once the test will be much simpler.\nSince we are not testing the states transition so I think it is fine to do so.",
+      "range": {
+        "startLine": 750,
+        "startChar": 37,
+        "endLine": 750,
+        "endChar": 56
+      },
+      "revId": "182c22c9672cede3cb982e83b63b9c4666eb1e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb475f10_79871bd0",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-22T08:43:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f17f7bc_1f8aaa60",
       "range": {
         "startLine": 750,
         "startChar": 37,
@@ -84,6 +132,30 @@
       "side": 1,
       "message": "*assertUidTotal",
       "parentUuid": "7b83ec1a_9e037c60",
+      "range": {
+        "startLine": 811,
+        "startChar": 8,
+        "endLine": 818,
+        "endChar": 72
+      },
+      "revId": "182c22c9672cede3cb982e83b63b9c4666eb1e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a15ae21_aea27c2d",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-09-22T08:43:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a548230d_d7958a8f",
       "range": {
         "startLine": 811,
         "startChar": 8,
