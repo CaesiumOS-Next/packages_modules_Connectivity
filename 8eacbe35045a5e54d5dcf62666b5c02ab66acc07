@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b44ada38_91a6d143",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-22T23:44:24Z",
+      "side": 1,
+      "message": "builder -\u003e constructs the member parcelable (only member)\n\nDscpPolicy class should contain stable aidl that can be passed to netd. Stable AIDL defined in mainline module somewhere...",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 30
+      },
+      "revId": "8eacbe35045a5e54d5dcf62666b5c02ab66acc07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f232732b_4f0fc76d",
         "filename": "framework/src/android/net/DscpPolicy.java",
         "patchSetId": 4
@@ -65,6 +88,29 @@
         "startChar": 22,
         "endLine": 61,
         "endChar": 38
+      },
+      "revId": "8eacbe35045a5e54d5dcf62666b5c02ab66acc07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67d0f88b_1e5da25d",
+        "filename": "framework/src/android/net/DscpPolicyStatus.aidl",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-22T23:44:24Z",
+      "side": 1,
+      "message": "add error if policy ID has already been used.",
+      "range": {
+        "startLine": 24,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 22
       },
       "revId": "8eacbe35045a5e54d5dcf62666b5c02ab66acc07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
