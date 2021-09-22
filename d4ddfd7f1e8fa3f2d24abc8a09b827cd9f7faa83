@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81d36eae_c0ef1c8a",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-22T07:46:37Z",
+      "side": 1,
+      "message": "No, I don\u0027t think we create multi-threads to send packet. Actually I would avoid multi-threads if we can. It easy cause flaky.",
+      "parentUuid": "a3e20dd4_331f4029",
+      "range": {
+        "startLine": 117,
+        "startChar": 26,
+        "endLine": 117,
+        "endChar": 38
+      },
+      "revId": "d4ddfd7f1e8fa3f2d24abc8a09b827cd9f7faa83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f829ef74_b4d03d2d",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-16T13:28:09Z",
       "side": 1,
       "message": "does this template prepare for na in aosp/1817920? there is only DhcpPacket for now.",
+      "range": {
+        "startLine": 144,
+        "startChar": 12,
+        "endLine": 144,
+        "endChar": 15
+      },
+      "revId": "d4ddfd7f1e8fa3f2d24abc8a09b827cd9f7faa83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cea02cf_44bae301",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-22T07:46:37Z",
+      "side": 1,
+      "message": "Yes, aosp/1817920 use this. And this is util function for caller to customize return value.",
+      "parentUuid": "f829ef74_b4d03d2d",
       "range": {
         "startLine": 144,
         "startChar": 12,
