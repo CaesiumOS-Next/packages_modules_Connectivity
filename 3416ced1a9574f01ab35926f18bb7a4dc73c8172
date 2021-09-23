@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9353ee0_58519f73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T15:37:11Z",
+      "side": 1,
+      "message": "I have tried your solution but it didn\u0027t work. Please see my comments.",
+      "parentUuid": "43e9e7c2_10242b63",
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec4b9094_4a1f6b1c",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-09-18T00:03:22Z",
       "side": 1,
       "message": "It seems to me we can just remove these two lines instead of copying and setting the satisfier temporarily again.\n\nGenerally it\u0027s not a good idea to reset fields back out of objects going out of use for no particular reason. This kind of scenario is a good example why. It\u0027s not uncommon an object going out of use will be used immediately as a temporary object, and that code wants to know what was inside. Here, we delete this information... and I see no reason why. And then it forces you to copy it before, and set it after, which is very hard to follow.\n\nWhat happens if you just remove these two lines ? I think all tests will pass and you can just remove your copy of the satisfier.",
+      "range": {
+        "startLine": 4262,
+        "startChar": 0,
+        "endLine": 4263,
+        "endChar": 39
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d7f39c_998e7b27",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4263,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T15:37:11Z",
+      "side": 1,
+      "message": "No, it doesn\u0027t work. Some tests are still failed by receiving unexpected callback. Because the satisfer is null when rematch the NetworkRequest, and the avaiable callback would be sent to listener when assign a new satisfier. So I think keeping satisfier is necessary for avoiding these redundant callbacks. Update some comments to explain the reason as well.",
+      "parentUuid": "ec4b9094_4a1f6b1c",
       "range": {
         "startLine": 4262,
         "startChar": 0,
@@ -87,6 +129,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f674a341_28826448",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5668,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T15:37:11Z",
+      "side": 1,
+      "message": "In fact, we don\u0027t need to keep mActiveRequest because we would find it on l.5836 if matches the satifer.",
+      "parentUuid": "10098768_6bec683b",
+      "range": {
+        "startLine": 5668,
+        "startChar": 14,
+        "endLine": 5668,
+        "endChar": 28
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a9dd3ee_c0728a1e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5668,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T15:37:11Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "c281d823_35dc54ee",
+      "range": {
+        "startLine": 5668,
+        "startChar": 8,
+        "endLine": 5668,
+        "endChar": 13
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19fa233f_c16e5653",
@@ -100,6 +190,30 @@
       "writtenOn": "2021-09-18T00:03:22Z",
       "side": 1,
       "message": "Can the satisfier be null if the active request is non-null ?",
+      "range": {
+        "startLine": 5870,
+        "startChar": 20,
+        "endLine": 5870,
+        "endChar": 72
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c59a62f2_e6c0e9ef",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5870,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T15:37:11Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "19fa233f_c16e5653",
       "range": {
         "startLine": 5870,
         "startChar": 20,
@@ -133,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f731e6c_6e5e90b3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5934,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T15:37:11Z",
+      "side": 1,
+      "message": "This code is gone.",
+      "parentUuid": "85fc90dd_5d7e9589",
+      "range": {
+        "startLine": 5934,
+        "startChar": 59,
+        "endLine": 5934,
+        "endChar": 77
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f626478_194bb7c0",
@@ -156,6 +294,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "128e6f92_1561b7e6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10207,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T15:37:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f626478_194bb7c0",
+      "range": {
+        "startLine": 10207,
+        "startChar": 35,
+        "endLine": 10207,
+        "endChar": 36
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86f5750c_88728ee9",
@@ -169,6 +331,30 @@
       "writtenOn": "2021-09-18T00:03:22Z",
       "side": 1,
       "message": "What is the point of creating this new collection ?",
+      "range": {
+        "startLine": 10214,
+        "startChar": 16,
+        "endLine": 10214,
+        "endChar": 30
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c80f4009_59ef5c8f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10214,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T15:37:11Z",
+      "side": 1,
+      "message": "It\u0027s redundant. Remove accordingly.",
+      "parentUuid": "86f5750c_88728ee9",
       "range": {
         "startLine": 10214,
         "startChar": 16,
