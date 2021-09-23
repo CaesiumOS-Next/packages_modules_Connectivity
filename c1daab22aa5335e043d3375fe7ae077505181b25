@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afe2df87_d6c59c73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-23T03:23:08Z",
+      "side": 1,
+      "message": "LGTM to merge as is but IIUC we should refactor it.",
+      "revId": "c1daab22aa5335e043d3375fe7ae077505181b25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d60c75_1315242b",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-23T03:23:08Z",
+      "side": 1,
+      "message": "Not for this CL.\nSince we don\u0027t treat RAT type differently when the network is metered/non-metered.\nTo test through different RAT for non-metered networks does not increase much coverage.\nThus, I don\u0027t think we need all these identities.\nAlternatively, we could refactor them into arrays and loops if feasible.",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 86
+      },
+      "revId": "c1daab22aa5335e043d3375fe7ae077505181b25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
