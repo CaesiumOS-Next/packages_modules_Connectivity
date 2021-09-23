@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0dab260_c322625a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-23T14:39:48Z",
+      "side": 1,
+      "message": "newUpstream is get from ns. It is weird to pass duplicated information.\n\nHere is the option you could do:\n\n    protected void setUpstreamNetwork(UpstreamNetworkState ns) {\n            InterfaceSet ifaces \u003d null;\n            if (ns !\u003d null) {\n                // Find the interface with the default IPv4 route. It may be the\n                // interface described by linkProperties, or one of the interfaces\n                // stacked on top of it.\n                mLog.i(\"Looking for default routes on: \" + ns.linkProperties);\n                ifaces \u003d TetheringInterfaceUtils.getTetheringInterfaces(ns);\n                mLog.i(\"Found upstream interface(s): \" + ifaces + \"on network \" + newUpstream);\n            }\n            Pair\u003cInterfaceSet, Network\u003e newUpstream \u003d null;\n            if (ifaces !\u003d null) {\n +              newUpstream \u003d new Pair\u003c\u003e(ifaces, ns.network);\n +\n +              if(mConfig.enableLegacyDnsProxyServer) {\n                    setDnsForwarders(ns.network, ns.linkProperties);\n +              }\n            }\n -           notifyDownstreamsOfNewUpstreamIface(ifaces);\n +           notifyDownstreamsOfNewUpstreamIface(newUpstream);\n            if (ns !\u003d null \u0026\u0026 pertainsToCurrentUpstream(ns)) {\n                // If we already have UpstreamNetworkState for this network update it immediately.\n                handleNewUpstreamNetworkState(ns);\n            } else if (mCurrentUpstreamIfaceSet \u003d\u003d null) {\n                // There are no available upstream networks.\n                handleNewUpstreamNetworkState(null);\n            }\n        }\n    }",
+      "range": {
+        "startLine": 1662,
+        "startChar": 42,
+        "endLine": 1662,
+        "endChar": 96
+      },
+      "revId": "b33414d26028110dff68b2d3cfcdb508d0b39967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d5b3c9b_39f5ce4c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-23T14:39:48Z",
+      "side": 1,
+      "message": "Instead of always return true here. Could you have a flag and make default value to using legacy dnsProxyServer. Then we could switch the flag for testing.",
+      "range": {
+        "startLine": 466,
+        "startChar": 8,
+        "endLine": 467,
+        "endChar": 20
+      },
+      "revId": "b33414d26028110dff68b2d3cfcdb508d0b39967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
