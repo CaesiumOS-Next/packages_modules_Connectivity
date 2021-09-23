@@ -16,6 +16,161 @@
       "message": "Hi Jean, \ncomments addressed, ptal",
       "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1ce4629_bc21773a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-23T16:26:01Z",
+      "side": 1,
+      "message": "There is a merge conflict in tests/cts/hostside/app/Android.bp when merging into git_master.\nI think the problem is that the \"static_libs\" order of master is not the same as AOSP.\nI think the simplest way to fix this is to change the \"static_libs\" order of master, although the order of master looks more correct.\nSomething like:\n     static_libs: [\n-        \"CtsHostsideNetworkTestsAidl\",\n-        \"androidx.test.ext.junit\",\n         \"androidx.test.rules\",\n+        \"androidx.test.ext.junit\",\n         \"androidx.test.uiautomator_uiautomator\",\n         \"compatibility-device-util-axt\",\n         \"cts-net-utils\",\n         \"ctstestrunner-axt\",\n-        \"modules-utils-build\",\n         \"ub-uiautomator\",\n+        \"CtsHostsideNetworkTestsAidl\",\n+        \"modules-utils-build\",\n     ],\n     \nAfter this commit merges into git_master, we can change the order back to the correct one.",
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3be515f_a2720e32",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-23T16:26:01Z",
+      "side": 1,
+      "message": "2021",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17d45127_821301d8",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-23T16:26:01Z",
+      "side": 1,
+      "message": "In fact, ADDRESS_V4, ADDRESS2_V4 and ADDRESS3_V4 are not the same, so naming \"duplicated\" seems wrong.\nWhat about \"multiple\"? Or do I misunderstand something?",
+      "range": {
+        "startLine": 118,
+        "startChar": 20,
+        "endLine": 118,
+        "endChar": 30
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a3b2d9f_85e4d1da",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-23T16:26:01Z",
+      "side": 1,
+      "message": "I think you use additionalRoutesCount here is because the length of additionalAddresses is also the same as the last index of routes.\nI\u0027m not sure if it\u0027s good to read, but I would suggest to have something like below.\n\nfinal int totalSizeOfRoutes \u003d additionalAddresses.length + 1;\nfinal int lastIndexOfRoutes \u003d additionalAddresses.length;\n...\nassertEquals(totalSizeOfRoutes, routes().size());\nassertEquals(RouteInfo.RTN_THROW, routes().get(lastIndexOfRoutes).getType());",
+      "range": {
+        "startLine": 144,
+        "startChar": 55,
+        "endLine": 144,
+        "endChar": 76
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99068ac7_b0cce464",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-23T16:26:01Z",
+      "side": 1,
+      "message": "It seems like this won\u0027t happen because you have added a SDK check at line#94.\nBut I\u0027m not sure what to do is better for this case.\nMaybe Jean or Lorenzo has an idea about this.\nSee what would they say.",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 64
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "108db73b_f83f40c1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-23T16:26:01Z",
+      "side": 1,
+      "message": "What about using \"assumeTrue(SdkLevel.isAtLeastT());\" just like what you did in VpnServiceBuilderTest.java.",
+      "range": {
+        "startLine": 842,
+        "startChar": 36,
+        "endLine": 842,
+        "endChar": 58
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97d841f9_d28a16e1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-23T16:26:01Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 879,
+        "startChar": 36,
+        "endLine": 879,
+        "endChar": 58
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
