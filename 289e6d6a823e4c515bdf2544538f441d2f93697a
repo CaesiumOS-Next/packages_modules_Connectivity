@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02bbacd2_99c7858c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2757,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T03:29:15Z",
+      "side": 1,
+      "message": "Nit: Suggest use testAndCleanup for clearer stack trace.",
+      "range": {
+        "startLine": 2757,
+        "startChar": 8,
+        "endLine": 2757,
+        "endChar": 11
+      },
+      "revId": "289e6d6a823e4c515bdf2544538f441d2f93697a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "650dc5a9_c87d0fe7",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-23T03:29:15Z",
+      "side": 1,
+      "message": "1. Can you also verify the not existed listener case?\n\n2. Not for this commit, I just notice that removeDefaultNetworkActiveListener doesn\u0027t remove the INetworkActivityListener from mNetworkActivityListeners. That means user can unregister the listner which is alreay removed. Should we remove the INetworkActivityListener from mNetworkActivityListeners when unregister listener?",
+      "range": {
+        "startLine": 325,
+        "startChar": 4,
+        "endLine": 325,
+        "endChar": 5
+      },
+      "revId": "289e6d6a823e4c515bdf2544538f441d2f93697a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
