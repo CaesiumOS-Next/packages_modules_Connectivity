@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c52fc67e_4f7116fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-23T03:37:52Z",
+      "side": 1,
+      "message": "+2 with nits that doesn\u0027t need to be fixed in this CL.",
+      "revId": "1e8771e7de0629bcc93818ab90ae60ec0eae68a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a45dd2_eec41ac1",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-23T03:37:52Z",
+      "side": 1,
+      "message": "nit: It might be clearer if you explicitedly specify TEST_IFACE here since we have TEST_IFACE2 here. No strong opinion.",
+      "range": {
+        "startLine": 751,
+        "startChar": 56,
+        "endLine": 751,
+        "endChar": 57
+      },
+      "revId": "1e8771e7de0629bcc93818ab90ae60ec0eae68a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59a5ae20_07c22030",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-23T03:37:52Z",
+      "side": 1,
+      "message": "nit: maybe also test METERED_ALL?",
+      "revId": "1e8771e7de0629bcc93818ab90ae60ec0eae68a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
