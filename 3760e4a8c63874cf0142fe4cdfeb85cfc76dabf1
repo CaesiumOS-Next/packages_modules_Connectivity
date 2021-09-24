@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5527a915_12e6e3b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-24T11:54:45Z",
+      "side": 1,
+      "message": "Hi Lucas, Jean, Lorenzo\ncomments addressed, ptal\n\nAlso, please take a look at the discussion regarding merge conflict in downstream branches.\n\n",
+      "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06daec4b_74160489",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-24T11:54:45Z",
+      "side": 1,
+      "message": "Checking the difference between aosp-master and git_master branches:\n\nthere are 3 CLs landed in git_master, but not in aosp-master.\nSeems that this change causes current merge conflict:\nhttps://googleplex-android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/14824710/10/tests/cts/hostside/app/Android.bp\n\nUnfortunately, it was also cherry-picked to many other branches (see ag/I6d525c4d88ba01838d51a873251593281b628898).\nSo the process you described must be applied to each of them (?).\n\nInstead, we can just wait SC AOSP push, which will add missing changes to AOSP and allow to land this CL without conflicts downstream\n\nWDYT?",
+      "parentUuid": "e1ce4629_bc21773a",
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3be515f_a2720e32",
         "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
         "patchSetId": 27
@@ -48,6 +66,30 @@
       "writtenOn": "2021-09-23T16:26:01Z",
       "side": 1,
       "message": "2021",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33f3fc8c_818bd382",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-24T11:54:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3be515f_a2720e32",
       "range": {
         "startLine": 2,
         "startChar": 17,
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2876f3bd_aaa83759",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-24T11:54:45Z",
+      "side": 1,
+      "message": "this is called \"duplicated\" because we repeatedly call add/excludeRoute with ADDRESS_V4.\n\nOther routes (ADDRESS2_V4, ADDRESS3_V4) are just added once and are there just to additionally test that VpnService.Builder#findRouteIndexByDestination works correctly.",
+      "parentUuid": "17d45127_821301d8",
+      "range": {
+        "startLine": 118,
+        "startChar": 20,
+        "endLine": 118,
+        "endChar": 30
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a3b2d9f_85e4d1da",
@@ -94,6 +160,30 @@
       "writtenOn": "2021-09-23T16:26:01Z",
       "side": 1,
       "message": "I think you use additionalRoutesCount here is because the length of additionalAddresses is also the same as the last index of routes.\nI\u0027m not sure if it\u0027s good to read, but I would suggest to have something like below.\n\nfinal int totalSizeOfRoutes \u003d additionalAddresses.length + 1;\nfinal int lastIndexOfRoutes \u003d additionalAddresses.length;\n...\nassertEquals(totalSizeOfRoutes, routes().size());\nassertEquals(RouteInfo.RTN_THROW, routes().get(lastIndexOfRoutes).getType());",
+      "range": {
+        "startLine": 144,
+        "startChar": 55,
+        "endLine": 144,
+        "endChar": 76
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff25a695_8017ee22",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-24T11:54:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a3b2d9f_85e4d1da",
       "range": {
         "startLine": 144,
         "startChar": 55,
@@ -129,6 +219,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d86931cb_c65c5300",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-24T11:54:45Z",
+      "side": 1,
+      "message": "You are correct that this should never happen due to the isAtLeastT check above.\n\nBut this is a checked exception, and Consumer interface doesn\u0027t throw, so we need to wrap it with runtime exception",
+      "parentUuid": "99068ac7_b0cce464",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 64
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "108db73b_f83f40c1",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 27
@@ -140,6 +254,30 @@
       "writtenOn": "2021-09-23T16:26:01Z",
       "side": 1,
       "message": "What about using \"assumeTrue(SdkLevel.isAtLeastT());\" just like what you did in VpnServiceBuilderTest.java.",
+      "range": {
+        "startLine": 842,
+        "startChar": 36,
+        "endLine": 842,
+        "endChar": 58
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "000483f7_700c5ba8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-24T11:54:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "108db73b_f83f40c1",
       "range": {
         "startLine": 842,
         "startChar": 36,
@@ -163,6 +301,30 @@
       "writtenOn": "2021-09-23T16:26:01Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 879,
+        "startChar": 36,
+        "endLine": 879,
+        "endChar": 58
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe66b86_6e630ab4",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-09-24T11:54:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97d841f9_d28a16e1",
       "range": {
         "startLine": 879,
         "startChar": 36,
