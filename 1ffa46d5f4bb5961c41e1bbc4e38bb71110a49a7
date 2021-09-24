@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "289f4d62_aaccbbcd",
+        "filename": "framework/src/android/net/DscpPolicy.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4001a0f2_7858bf10",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b440cd3f_9a8d89c3",
@@ -60,6 +84,30 @@
       "writtenOn": "2021-09-24T05:58:24Z",
       "side": 1,
       "message": "Generally, don\u0027t use \"m\" prefix in parcels because the field is public",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e59a9b6_f53114c1",
+        "filename": "framework/src/android/net/DscpPolicy.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b440cd3f_9a8d89c3",
       "range": {
         "startLine": 25,
         "startChar": 8,
@@ -93,6 +141,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b021d358_b902bffe",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e0cdf79_4abf9842",
+      "range": {
+        "startLine": 31,
+        "startChar": 41,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6430342_746cd5a0",
@@ -106,6 +178,30 @@
       "writtenOn": "2021-09-24T16:00:03Z",
       "side": 1,
       "message": "add a get method for policy",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 28
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a798b818_a826ce05",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6430342_746cd5a0",
       "range": {
         "startLine": 32,
         "startChar": 21,
@@ -139,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7733d85f_1d824b88",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2039389e_3e72415f",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d8183aa_d293d150",
@@ -152,6 +272,30 @@
       "writtenOn": "2021-09-24T05:58:24Z",
       "side": 1,
       "message": "Could this just do something like:\n\ndest.writeParcelable(mPolicy, 0)\n\n?",
+      "range": {
+        "startLine": 56,
+        "startChar": 13,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ece2a22c_de088e5f",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d8183aa_d293d150",
       "range": {
         "startLine": 56,
         "startChar": 13,
@@ -185,6 +329,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b2cee7_ca2132d1",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b249c47_9113d739",
+      "range": {
+        "startLine": 112,
+        "startChar": 38,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc08dbec_4c72fa1b",
@@ -198,6 +366,30 @@
       "writtenOn": "2021-09-24T05:58:24Z",
       "side": 1,
       "message": "I think naming like \"setDestinationAddress\" would be more common for APIs",
+      "range": {
+        "startLine": 124,
+        "startChar": 23,
+        "endLine": 124,
+        "endChar": 31
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1d0c71e_d34399f5",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc08dbec_4c72fa1b",
       "range": {
         "startLine": 124,
         "startChar": 23,
@@ -277,6 +469,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "574a6d72_1ea1e2c6",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "404c1fef_6bbb112b",
+      "range": {
+        "startLine": 172,
+        "startChar": 23,
+        "endLine": 172,
+        "endChar": 43
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "678d272d_a8ea9734",
@@ -290,6 +506,30 @@
       "writtenOn": "2021-09-24T05:58:24Z",
       "side": 1,
       "message": "DscpPolicy ? I don\u0027t see the constructor either",
+      "range": {
+        "startLine": 194,
+        "startChar": 15,
+        "endLine": 194,
+        "endChar": 31
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ee07ca4_6f756e88",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "678d272d_a8ea9734",
       "range": {
         "startLine": 194,
         "startChar": 15,
@@ -347,6 +587,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6899df3a_fd5d4d4e",
+        "filename": "framework/src/android/net/DscpPolicyStatus.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a80e7c55_37572739",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5ee50ef_2af21969",
@@ -370,6 +634,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc8e6750_c5468024",
+        "filename": "framework/src/android/net/INetworkAgent.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5ee50ef_2af21969",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f4e5363_0e5e2d89",
@@ -383,6 +671,30 @@
       "writtenOn": "2021-09-24T05:58:24Z",
       "side": 1,
       "message": "Supernit: fits on one line ?",
+      "range": {
+        "startLine": 800,
+        "startChar": 57,
+        "endLine": 800,
+        "endChar": 58
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06342549_e756444e",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T18:51:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f4e5363_0e5e2d89",
       "range": {
         "startLine": 800,
         "startChar": 57,
