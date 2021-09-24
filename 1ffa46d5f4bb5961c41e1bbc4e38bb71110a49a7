@@ -3,6 +3,259 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4001a0f2_7858bf10",
+        "filename": "framework/src/android/net/DscpPolicy.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "Let\u0027s make this immutable with @JavaOnlyImmutable, since there\u0027s a nice builder for it.\n\nandroid.net.netd.aidl.NativeUidRangeConfig is one example usage of such a class.\n\nThen you can have \"@hide DscpPolicyParcel getParcel()\" in DscpPolicy to send it to netd, without risking internal state being mutated by someone using the getter.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b440cd3f_9a8d89c3",
+        "filename": "framework/src/android/net/DscpPolicy.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "Generally, don\u0027t use \"m\" prefix in parcels because the field is public",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e0cdf79_4abf9842",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "This is missing the Parcelable.CREATOR",
+      "range": {
+        "startLine": 31,
+        "startChar": 41,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2039389e_3e72415f",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "You can add @JavaDerive(toString\u003dtrue) to DscpPolicyParcel, so this just needs to call mPolicy.toString().\n\nThis also could implement equals based on @JavaDerive(equals\u003dtrue, toString\u003dtrue) (but maybe that would be useless code)",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d8183aa_d293d150",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "Could this just do something like:\n\ndest.writeParcelable(mPolicy, 0)\n\n?",
+      "range": {
+        "startLine": 56,
+        "startChar": 13,
+        "endLine": 56,
+        "endChar": 21
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b249c47_9113d739",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "InetAddress for the public API maybe ?",
+      "range": {
+        "startLine": 112,
+        "startChar": 38,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc08dbec_4c72fa1b",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "I think naming like \"setDestinationAddress\" would be more common for APIs",
+      "range": {
+        "startLine": 124,
+        "startChar": 23,
+        "endLine": 124,
+        "endChar": 31
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0ee5085_c03333fc",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "The setters should probably do a few sanity checks (for example for the ports, check that they\u0027re in the correct range)",
+      "range": {
+        "startLine": 136,
+        "startChar": 23,
+        "endLine": 136,
+        "endChar": 33
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ccd3820_c328e0f5",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "(I know you know but this should give more details on which constants should be used for these int fields among other details)",
+      "range": {
+        "startLine": 154,
+        "startChar": 11,
+        "endLine": 154,
+        "endChar": 14
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "404c1fef_6bbb112b",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "Maybe it would be better to have setDestinationPortRange(int start, int end) ? This would allow easy checking that start \u003c\u003d end (with IllegalArgumentException) for example",
+      "range": {
+        "startLine": 172,
+        "startChar": 23,
+        "endLine": 172,
+        "endChar": 43
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "678d272d_a8ea9734",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "DscpPolicy ? I don\u0027t see the constructor either",
+      "range": {
+        "startLine": 194,
+        "startChar": 15,
+        "endLine": 194,
+        "endChar": 31
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "427767ab_00c2371b",
         "filename": "framework/src/android/net/DscpPolicyStatus.aidl",
         "patchSetId": 6
@@ -19,6 +272,76 @@
         "startChar": 0,
         "endLine": 1,
         "endChar": 3
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a80e7c55_37572739",
+        "filename": "framework/src/android/net/DscpPolicyStatus.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "Or as ints in DscpPolicy ? Especially if this is going to be used in the public API of the builder",
+      "parentUuid": "427767ab_00c2371b",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5ee50ef_2af21969",
+        "filename": "framework/src/android/net/INetworkAgent.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "Nit: maybe onDscpPolicyStatusUpdated to be consistent with method naming in this class that uses a verb",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f4e5363_0e5e2d89",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-24T05:58:24Z",
+      "side": 1,
+      "message": "Supernit: fits on one line ?",
+      "range": {
+        "startLine": 800,
+        "startChar": 57,
+        "endLine": 800,
+        "endChar": 58
       },
       "revId": "1ffa46d5f4bb5961c41e1bbc4e38bb71110a49a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
