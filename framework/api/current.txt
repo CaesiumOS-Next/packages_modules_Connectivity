@@ -298,8 +298,10 @@ package android.net {
     method public int getOwnerUid();
     method public int getSignalStrength();
     method @Nullable public android.net.TransportInfo getTransportInfo();
+    method @Nullable public java.util.List<android.net.Network> getUnderlyingNetworks();
     method public boolean hasCapability(int);
     method public boolean hasTransport(int);
+    method public void setUnderlyingNetworks(@Nullable java.util.List<android.net.Network>);
     method public void writeToParcel(android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.NetworkCapabilities> CREATOR;
     field public static final int NET_CAPABILITY_CAPTIVE_PORTAL = 17; // 0x11
