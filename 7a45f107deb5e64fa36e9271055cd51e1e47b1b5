@@ -22,6 +22,30 @@
       },
       "revId": "7a45f107deb5e64fa36e9271055cd51e1e47b1b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a3651b9_6a868453",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3889,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-09-24T19:44:11Z",
+      "side": 0,
+      "message": "Went over the flow with Jean, everything was determined to be safe.",
+      "parentUuid": "fa585400_5b53f6c9",
+      "range": {
+        "startLine": 3889,
+        "startChar": 8,
+        "endLine": 3889,
+        "endChar": 39
+      },
+      "revId": "7a45f107deb5e64fa36e9271055cd51e1e47b1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
