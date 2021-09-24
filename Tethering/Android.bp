@@ -49,6 +49,7 @@ java_defaults {
         "framework-wifi",
         "unsupportedappusage",
     ],
+    lint: { strict_updatability_linting: true },
     plugins: ["java_api_finder"],
     manifest: "AndroidManifestBase.xml",
 }
@@ -119,6 +120,7 @@ java_defaults {
         "framework-tethering",
         "framework-wifi",
     ],
+    lint: { strict_updatability_linting: true },
     jarjar_rules: "jarjar-rules.txt",
     optimize: {
         proguard_flags_files: ["proguard.flags"],
