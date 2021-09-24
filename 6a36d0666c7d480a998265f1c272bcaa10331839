@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1f5ac86_00fd62a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-24T04:55:11Z",
+      "side": 1,
+      "message": "+1 since this basically implements Jean\u0027s suggestion but I\u0027m not sure it\u0027s safe to move the remove(). Can you check whether it\u0027s safe? See inline.",
+      "revId": "6a36d0666c7d480a998265f1c272bcaa10331839",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d32edeb_2df0273f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3855,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-24T04:55:11Z",
+      "side": 1,
+      "message": "Nit: seems better for this code to be *after* the call to ensureRunningOnConnectivityServiceThread?",
+      "range": {
+        "startLine": 3854,
+        "startChar": 0,
+        "endLine": 3855,
+        "endChar": 39
+      },
+      "revId": "6a36d0666c7d480a998265f1c272bcaa10331839",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

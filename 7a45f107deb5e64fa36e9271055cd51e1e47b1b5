@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa585400_5b53f6c9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3889,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-24T04:55:11Z",
+      "side": 0,
+      "message": "Are you sure it\u0027s safe to move this code to the top of the method? If any of the code in lines 3857-3888 depends on the network still being in mNetworkAgentInfos, then that code could start behaving incorrectly.\n\nIf it is indeed safe I think it would be good to move it, but if it\u0027s not then we might have to leave it where it is, or move it earlier but not to the top.",
+      "range": {
+        "startLine": 3889,
+        "startChar": 8,
+        "endLine": 3889,
+        "endChar": 39
+      },
+      "revId": "7a45f107deb5e64fa36e9271055cd51e1e47b1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
