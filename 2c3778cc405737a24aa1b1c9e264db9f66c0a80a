@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000015717264",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d9",
+      "fixSuggestions": [
+        {
+          "fixId": "b7c52dc0_3cef5f82",
+          "description": "Change to \"framework/src/android/net/DscpPolicy.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/DscpPolicy.java",
+              "range": {
+                "startLine": 40,
+                "startChar": 72,
+                "endLine": 40,
+                "endChar": 83
+              },
+              "replacement": "insufficient"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "054d6511_a4f9df5c",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-09-27T21:16:43Z",
+      "side": 1,
+      "message": "Common typo found: \"insufficent\" -- should it be \"insufficient\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 40,
+        "startChar": 72,
+        "endLine": 40,
+        "endChar": 83
+      },
+      "revId": "2c3778cc405737a24aa1b1c9e264db9f66c0a80a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
