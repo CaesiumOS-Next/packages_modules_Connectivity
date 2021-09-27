@@ -16,6 +16,29 @@
       "message": "This change still conflicts downstream, but I\u0027m planning to merge it here once the conflicts are resolved",
       "revId": "e4e9c19047e132ee77e8e09e8aa3184404626669",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5742d06_457e509f",
+        "filename": "tests/cts/net/AndroidTestTemplate.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-27T01:08:03Z",
+      "side": 1,
+      "message": "Your cover comment :\n\u003e If the device upgraded from Q where it had an updated NetworkStack module, and gained a tethering module in R/S that is factory version\nSounds like this is only one of the possible configurations. It looks also possible the device has received an updated resolv.apex but not tethering.apex, and even the other way around temporarily.",
+      "range": {
+        "startLine": 24,
+        "startChar": 74,
+        "endLine": 24,
+        "endChar": 125
+      },
+      "revId": "e4e9c19047e132ee77e8e09e8aa3184404626669",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
