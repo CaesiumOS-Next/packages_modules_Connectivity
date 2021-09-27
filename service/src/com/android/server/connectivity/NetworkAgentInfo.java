@@ -377,6 +377,9 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         this.creatorUid = creatorUid;
         mLingerDurationMs = lingerDurationMs;
         mQosCallbackTracker = qosCallbackTracker;
+        declaredUnderlyingNetworks = (nc.getUnderlyingNetworks() != null)
+                ? new ArrayList<>(nc.getUnderlyingNetworks()).toArray(new Network[0])
+                : null;
     }
 
     private class AgentDeathMonitor implements IBinder.DeathRecipient {
