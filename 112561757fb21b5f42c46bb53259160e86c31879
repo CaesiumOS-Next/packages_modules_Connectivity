@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7b99edd_d3cac74b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-27T10:39:14Z",
+      "side": 1,
+      "message": "```\n• when the VPN is sending a new list of networks, NC callbacks are called and the object contains them\n```\nI think it\u0027s the case that the VPN app updates its underlying networks by calling establish() again, right? And it should be seamless handover.\nWe don\u0027t have such design today, but I think it\u0027s easy to implement it by calling NetworkAgent#setUnderlyingNetworks() in Vpn#establish() when seamless handover is happened.\n\n```\n• when a VPN doesn\u0027t declare underlying networks but the default network changes, NC callbacks are called and the object contains the default network as underlying\n```\nI think we don\u0027t have such design today, and I think it\u0027s the case that the VPN app sets its underlying networks to null, so its underlying networks should follow the system default network.\nWhen the system default network is changed, the VPN\u0027s underlying network should also change.\nTo implement this, I think we can have a boolean defined in NetworkAgentInfo to record if this network\u0027s underlying networks should follow the system default network.\nWhenever the system default network is changed, this network\u0027s underlying network should also change.",
+      "parentUuid": "b98eb5a0_1f3b0c1a",
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa15d540_cab365fe",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c38585e_24a7677d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-27T10:39:14Z",
+      "side": 1,
+      "message": "Do you mean if someone gets underlying networks, and he may get location info by calling getNetworkCapabilities()?\n\nAccording to getNetworkCapabilities(), it will set includeLocationSensitiveInfo to false and call this function.\nSo maybe it doesn\u0027t matter?\nOr do I misunderstand what you mean?",
+      "parentUuid": "aa15d540_cab365fe",
+      "range": {
+        "startLine": 2227,
+        "startChar": 15,
+        "endLine": 2227,
+        "endChar": 20
+      },
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b87b4ef_bdfccab8",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 1
@@ -54,6 +96,30 @@
       "writtenOn": "2021-09-18T04:45:08Z",
       "side": 1,
       "message": "rk",
+      "range": {
+        "startLine": 10527,
+        "startChar": 61,
+        "endLine": 10527,
+        "endChar": 63
+      },
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e4560c_dc6a2ad8",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10527,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-09-27T10:39:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b87b4ef_bdfccab8",
       "range": {
         "startLine": 10527,
         "startChar": 61,
