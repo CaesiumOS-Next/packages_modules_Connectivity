@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77f10da1_bf4e78bc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1343198
+      },
+      "writtenOn": "2021-09-27T01:09:21Z",
+      "side": 1,
+      "message": "You are right.\nI thinkg maybe I can use this way. what do you think?\nprotected void setUpstreamNetwork(UpstreamNetworkState ns) {\n            InterfaceSet ifaces \u003d null;\n+           Network newUpstream \u003d (ns !\u003d null) ? ns.network : null;\n            if (ns !\u003d null) {\n            ...",
+      "parentUuid": "d0dab260_c322625a",
+      "range": {
+        "startLine": 1662,
+        "startChar": 42,
+        "endLine": 1662,
+        "endChar": 96
+      },
+      "revId": "b33414d26028110dff68b2d3cfcdb508d0b39967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8d5b3c9b_39f5ce4c",
         "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-23T14:39:48Z",
       "side": 1,
       "message": "Instead of always return true here. Could you have a flag and make default value to using legacy dnsProxyServer. Then we could switch the flag for testing.",
+      "range": {
+        "startLine": 466,
+        "startChar": 8,
+        "endLine": 467,
+        "endChar": 20
+      },
+      "revId": "b33414d26028110dff68b2d3cfcdb508d0b39967",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af789f42_eeb4f53f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1343198
+      },
+      "writtenOn": "2021-09-27T01:09:21Z",
+      "side": 1,
+      "message": "I have another commit for this.\nCL1722735.",
+      "parentUuid": "8d5b3c9b_39f5ce4c",
       "range": {
         "startLine": 466,
         "startChar": 8,
