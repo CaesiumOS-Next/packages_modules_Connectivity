@@ -46,6 +46,30 @@
       },
       "revId": "7a45f107deb5e64fa36e9271055cd51e1e47b1b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a718ac_38aa358b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3889,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-27T09:06:21Z",
+      "side": 0,
+      "message": "I think it\u0027s safe, or at least not any more broken than it is today. The main code path here is through handleNetworkAgentDisconnected, which already only calls disconnectAndDestroy if the NAI is in the map.\n\nNow remove() is only called in two cases :\n- Here\n- In handleNetworkAgentRegistered when registration failed because the agent process died or threw in its onRegistered method\nBoth are called on the handler thread so they can\u0027t happen concurrently, and if registration failed then this code is never called AFAICT.\n\nRegistration failure will leave a dangling network monitor and some other uncleaned state, but I think this patch doesn\u0027t change that fact. In fact I think registration failure should just call disconnectAndDestroy to do the cleanup (filed b/201259952)",
+      "parentUuid": "3a3651b9_6a868453",
+      "range": {
+        "startLine": 3889,
+        "startChar": 8,
+        "endLine": 3889,
+        "endChar": 39
+      },
+      "revId": "7a45f107deb5e64fa36e9271055cd51e1e47b1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

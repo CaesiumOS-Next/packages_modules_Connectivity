@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84fa4a87_b03a339a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3858,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-27T09:06:21Z",
+      "side": 1,
+      "message": "It\u0027s equivalent but I think we should just say\n\n if (!mNetworkAgentInfos.remove(nai)) return;\n\n...since this will avoid iterating the list twice.",
+      "range": {
+        "startLine": 3856,
+        "startChar": 0,
+        "endLine": 3858,
+        "endChar": 0
+      },
+      "revId": "1701d8214f9d08e5626c2cc6911fd47fcb0d1e97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
