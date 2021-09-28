@@ -68,6 +68,30 @@
       },
       "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78eda9d5_68c2f3c9",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-28T07:34:35Z",
+      "side": 1,
+      "message": "The flag should be setup to be the \"minimum module version to change behavior compared to when no flag is pushed\", so that on binary rollback, behavior goes back to what it was before the flag push.\n\nI think the idea was to roll out the change via binary directly, and only have a flag as a kill switch \"just in case\". In that case the flag needs to be \"minimum version to disable the code change\".\n\nI can setup a non-killswitch flag with \"use new behavior if module \u003e version X, and enabled by default if unset\", but then if the module rolls back from X to X-1, behavior will be disabled (as opposed to enabled when the flag was unset).\n\nBasically the current setup follows our process for rollback safety. Unless you expected to ship the change via flag rollout, in which case \"use new behavior if module \u003e X\" would be appropriate ?",
+      "parentUuid": "c8c6be49_ac59baea",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
