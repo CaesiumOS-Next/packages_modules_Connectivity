@@ -94,6 +94,30 @@
       },
       "revId": "7a45f107deb5e64fa36e9271055cd51e1e47b1b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c6779c_97f63a87",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3889,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-28T10:20:14Z",
+      "side": 0,
+      "message": "Gah, good point. I tried to survey all the intervening code and found one issue.\n\nnotifyIfacesChangedForNetworkStats is using mNetworkAgentInfos to find the list of networks it has to update. This means, I think, that stats would not be updated correctly for a network that disconnects.\n\nIt sounds like the code is depending on the removal staying here then. I guess we should keep the remove() line here and have only the if (!contains) return; above. Really I\u0027d prefer the code to depend as little as possible on ordering of member mutation... But that\u0027s not something we can change immediately",
+      "parentUuid": "9ab8ee4d_c3883aab",
+      "range": {
+        "startLine": 3889,
+        "startChar": 8,
+        "endLine": 3889,
+        "endChar": 39
+      },
+      "revId": "7a45f107deb5e64fa36e9271055cd51e1e47b1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
