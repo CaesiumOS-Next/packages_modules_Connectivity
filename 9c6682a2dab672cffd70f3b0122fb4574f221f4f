@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59f86868_db1959e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-28T08:28:54Z",
+      "side": 1,
+      "message": "LGTM assuming comment addressed. Sounds like you\u0027ve already gone through the code, but just wanted to make sure. Jean, feel free to +2 this code as soon as you\u0027re happy with it.",
+      "revId": "9c6682a2dab672cffd70f3b0122fb4574f221f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
