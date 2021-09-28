@@ -17,11 +17,11 @@
 package com.android.cts.net.hostside;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Network;
 import android.net.ProxyInfo;
 import android.net.VpnService;
 import android.os.ParcelFileDescriptor;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -48,7 +48,7 @@ public class MyVpnService extends VpnService {
         String cmd = intent.getStringExtra(packageName + ".cmd");
         if ("disconnect".equals(cmd)) {
             stop();
-        } else if ("connect".equals(cmd)) {
+        } else if ("connect".equals(cmd) || "update".equals(cmd)) {
             start(packageName, intent);
         }
 
