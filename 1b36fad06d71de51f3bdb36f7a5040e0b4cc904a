@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1453bfb_51c9e572",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3153,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-28T03:53:33Z",
+      "side": 1,
+      "message": "IIUC this section is about the default requests and their satisfiers,\n instead of details of preferences. Thus, I don\u0027t really understand why they are printed together and increase indent.\n \nIf so, is it clearer if we separate this into another function and give it another section name? e.g. Per-app default requests:",
+      "range": {
+        "startLine": 3152,
+        "startChar": 7,
+        "endLine": 3153,
+        "endChar": 53
+      },
+      "revId": "1b36fad06d71de51f3bdb36f7a5040e0b4cc904a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ef96832_241f2a02",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3170,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-09-28T03:53:33Z",
+      "side": 1,
+      "message": "Is this indiced by the request? If yes, is it better if we print anything that might be able to help to indentify them? e.g. uid, pid, binder, ...",
+      "range": {
+        "startLine": 3170,
+        "startChar": 15,
+        "endLine": 3170,
+        "endChar": 22
+      },
+      "revId": "1b36fad06d71de51f3bdb36f7a5040e0b4cc904a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
