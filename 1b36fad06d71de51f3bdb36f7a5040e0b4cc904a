@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bdf088f_5cbaf86a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3153,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-09-28T21:03:02Z",
+      "side": 1,
+      "message": "It\u0027s because the preferences and the default requests are directly related. The network preferences will generate the requests in mDefaultNetworkRequests. In fact, the only way requests (besides the system default request) will get into mDefaultNetworkRequests is through network preferences. My intention was to illustrate this relationship by the indentation and is also why they are in the same method.\n\nI went ahead and created a new method but kept the indentation as per my rationale above. Feel free to reopen to discuss more if desired.",
+      "parentUuid": "d1453bfb_51c9e572",
+      "range": {
+        "startLine": 3152,
+        "startChar": 7,
+        "endLine": 3153,
+        "endChar": 53
+      },
+      "revId": "1b36fad06d71de51f3bdb36f7a5040e0b4cc904a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ef96832_241f2a02",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-28T03:53:33Z",
       "side": 1,
       "message": "Is this indiced by the request? If yes, is it better if we print anything that might be able to help to indentify them? e.g. uid, pid, binder, ...",
+      "range": {
+        "startLine": 3170,
+        "startChar": 15,
+        "endLine": 3170,
+        "endChar": 22
+      },
+      "revId": "1b36fad06d71de51f3bdb36f7a5040e0b4cc904a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fbd5545_68bff1b3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3170,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-09-28T21:03:02Z",
+      "side": 1,
+      "message": "Added uid/pid info which should be enough to identify the request.",
+      "parentUuid": "4ef96832_241f2a02",
       "range": {
         "startLine": 3170,
         "startChar": 15,
