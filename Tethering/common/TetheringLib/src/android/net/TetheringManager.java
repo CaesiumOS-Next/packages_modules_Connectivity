@@ -290,6 +290,21 @@ public class TetheringManager {
         getConnector(c -> c.registerTetheringEventCallback(mCallback, pkgName));
     }
 
+    /** @hide */
+    @Override
+    protected void finalize() throws Throwable {
+        final String pkgName = mContext.getOpPackageName();
+        Log.i(TAG, "unregisterTetheringEventCallback:" + pkgName);
+        // 1. It's generally not recommended to perform long operations in finalize, but while
+        // unregisterTetheringEventCallback does an IPC, it's a oneway IPC so should not block.
+        // 2. If the connector is not yet connected, TetheringManager is impossible to finalize.
+        // So it's guaranteed that registerTetheringEventCallback was already called before calling
+        // unregisterTetheringEventCallback in finalize.
+        getConnector(c -> c.unregisterTetheringEventCallback(mCallback, pkgName));
+
+        super.finalize();
+    }
+
     private void startPollingForConnector() {
         new Thread(() -> {
             while (true) {
