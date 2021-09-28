@@ -290,6 +290,16 @@ public class TetheringManager {
         getConnector(c -> c.registerTetheringEventCallback(mCallback, pkgName));
     }
 
+    /** @hide */
+    @Override
+    protected void finalize() throws Throwable {
+        final String pkgName = mContext.getOpPackageName();
+        Log.i(TAG, "unregisterTetheringEventCallback:" + pkgName);
+        getConnector(c -> c.unregisterTetheringEventCallback(mCallback, pkgName));
+
+        super.finalize();
+    }
+
     private void startPollingForConnector() {
         new Thread(() -> {
             while (true) {
