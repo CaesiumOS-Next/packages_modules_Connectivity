@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "661cdd97_73f40a7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-28T09:29:27Z",
+      "side": 1,
+      "message": "Exactly, thanks.\n\nAs for sending a list of networks, that\u0027s the public VpnService#setUnderlyingNetworks method.",
+      "parentUuid": "908ab024_52fdd065",
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa15d540_cab365fe",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -91,6 +109,30 @@
       "side": 1,
       "message": "Do you mean if someone gets underlying networks, and he may get location info by calling getNetworkCapabilities()?\n\nAccording to getNetworkCapabilities(), it will set includeLocationSensitiveInfo to false and call this function.\nSo maybe it doesn\u0027t matter?\nOr do I misunderstand what you mean?",
       "parentUuid": "aa15d540_cab365fe",
+      "range": {
+        "startLine": 2227,
+        "startChar": 15,
+        "endLine": 2227,
+        "endChar": 20
+      },
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed0065c8_b15f885e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-28T09:29:27Z",
+      "side": 1,
+      "message": "Discussed offline : this probably doesn\u0027t matter, because there isn\u0027t really a realistic vector of attack. You\u0027d need to be a carrier with a VCN, to have only one or a very small sets of carrier WiFis, and deduce from the fact that the VCN is running over WiFi that the user is in one of the areas. Carriers usually know your position from the cell tower anyway, and this requires an extremely involved setup running counter financial incentives for a really doubtful benefit.\n\nI will still confirm with WiFi – if carriers can already know when the device is connected to carrier WiFi anyway, then this is not a concern – and Telephony to check our general stance about knowledge of location by carriers.",
+      "parentUuid": "2c38585e_24a7677d",
       "range": {
         "startLine": 2227,
         "startChar": 15,
