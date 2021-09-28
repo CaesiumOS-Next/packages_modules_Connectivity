@@ -92,6 +92,30 @@
       },
       "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fe38423_53a1c7bb",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-28T10:43:54Z",
+      "side": 1,
+      "message": "My problem is : I don\u0027t understand how this is safe.\n• If the module is too old it gets the new behavior.\n• On rollback, the behavior is the new one.\n• If the flags haven\u0027t been downloaded yet, the behavior is the new one.\n• We can revert to the old behavior from a given version, instead of the other way around.\nThese don\u0027t sound safe. I don\u0027t know if this is our process for rollback safety, but if it is it sounds like we should give it another review, because the above certainly doesn\u0027t seem safe.\n\n\"Kill switch\" means a way to turn this off if there is a problem. It doesn\u0027t necessarily imply the function that reads the flag must literally return true when we decided to kill it. I think this argument is making \"flag rollout\" versus \"kill switch\" a discussion about an implementation detail of what function returns what, but what we want is readability and safety, which is orthogonal.\n\nFor example one thing we could do is have the flag mean \"use new behavior if module \u003e X\", and have X be the module release for 100% at push time. This lets us\n• Have positive semantics\n• Release with the new behavior everywhere\n• Turn it off if we find a bug\n• Turn it on only from some newer, debugged version\n• Have the old behavior when we don\u0027t know\nThis sounds a lot safer to me. Am I missing something ?",
+      "parentUuid": "78eda9d5_68c2f3c9",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
