@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3c9a43d_c740a602",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-29T10:46:10Z",
+      "side": 1,
+      "message": "So literally anything at all ? Shouldn\u0027t we at least try to check it\u0027s the expected agent by saying for example that the capabilities have TRANSPORT_VPN",
+      "range": {
+        "startLine": 1026,
+        "startChar": 0,
+        "endLine": 1028,
+        "endChar": 56
+      },
+      "revId": "9a44b35de5ee9e1055c785153c4d3ab0dde0c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01407029_6af3e735",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-29T10:46:10Z",
+      "side": 1,
+      "message": "https://android-review.googlesource.com/c/platform/frameworks/base/+/1436692/comments/41608473_5623b290 : not done\n\nNo matter how you think about it, this is an extreme change detector. This depends on the specific implementation of calling getAllNetworks and *even on the loop iteration order* and *the fact that it breaks* when it finds the one it wants.\n\nPlease test the behavior. Not the details of how the implementation iterates.",
+      "range": {
+        "startLine": 1030,
+        "startChar": 0,
+        "endLine": 1031,
+        "endChar": 58
+      },
+      "revId": "9a44b35de5ee9e1055c785153c4d3ab0dde0c7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
