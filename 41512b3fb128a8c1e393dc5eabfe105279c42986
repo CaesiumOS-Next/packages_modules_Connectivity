@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f68011e_7799bd5d",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/TetheringModuleTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-29T08:00:51Z",
+      "side": 1,
+      "message": "do we need assign a definition for 10_000L? or leave it as default\n\nhttps://android-review.googlesource.com/c/platform/frameworks/libs/net/+/1810276/4/common/testutils/devicetests/com/android/testutils/TestNetworkTracker.kt#43\n    setupTimeoutMs: Long \u003d 10_000L",
+      "range": {
+        "startLine": 180,
+        "startChar": 45,
+        "endLine": 180,
+        "endChar": 52
+      },
+      "revId": "41512b3fb128a8c1e393dc5eabfe105279c42986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
