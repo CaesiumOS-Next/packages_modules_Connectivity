@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1044eb2c_912107f6",
+        "filename": "Tethering/tests/integration/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-09-29T02:41:21Z",
+      "side": 1,
+      "message": "Can this be added to framework-connectivity-test-defaults instead ? And maybe have this defaults depend on framework-connectivity-test-defaults ? (or failing that, have users of TetheringIntegrationTestsDefaults use both)",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "c95f4544ac295231b22fc813ed9f74548f3e1b2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
