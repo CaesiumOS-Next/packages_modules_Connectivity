@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3562ddf6_ff3a0fa3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2021-09-29T03:31:06Z",
+      "side": 1,
+      "message": "The API - setDownstreamType() at L.81 is auto generated from proto, so are setErrorCode() and setUserType(). They are not a static methods so it cannot be reference from a static context if we change the class to \"private static class\".",
+      "parentUuid": "a7c7411d_45c42cf9",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "989f01c36944c4dbc6f5888032d2285e9f19d923",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dabb228_c665f9ee",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c0f8141_25502d19",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2021-09-29T03:31:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dabb228_c665f9ee",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 72
+      },
+      "revId": "989f01c36944c4dbc6f5888032d2285e9f19d923",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "179e42b9_10937b54",
@@ -60,6 +108,24 @@
       "writtenOn": "2021-08-19T14:49:23Z",
       "side": 1,
       "message": "add an empty space above this line could make reader aware early return case.",
+      "revId": "989f01c36944c4dbc6f5888032d2285e9f19d923",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8708c51e_344662c2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2021-09-29T03:31:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "179e42b9_10937b54",
       "revId": "989f01c36944c4dbc6f5888032d2285e9f19d923",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
