@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1cd3de7_22f63c8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-29T15:33:33Z",
+      "side": 1,
+      "message": "LGTM assuming Remi is happy with the build files.",
+      "revId": "22669a77ee0b8bc0900c589d6339fcd8c8558e2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
