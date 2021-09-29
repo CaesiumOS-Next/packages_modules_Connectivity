@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbefc423_6f099122",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2021-09-29T08:52:54Z",
+      "side": 1,
+      "message": "This is not the scenario where nai is not created. NAI is created at framework and registered with ConnectivityService. But the netId is not present at netd, createPhysicalNetwork would have failed ( not sure, there is no failure in the logs though ).\n\nOther netd related operations like route addition are also throwing the service specific exception but they are caught at CS.\n\nEven for setNetworkPermission, service specific exception is caught @ https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java;l\u003d7272?q\u003dConnectivityService\u0026ss\u003dandroid%2Fplatform%2Fsuperproject\n\nThis is new code introduced where the Netd API is used directly and this exception is not handled. I feel this is a miss and should be handled.\n\nAddind the nai.created check won\u0027t help here.\n\nPS : I have added the log snippets in the bug",
+      "parentUuid": "31a901c3_431ec4d2",
+      "revId": "b39e9863b81366afd45fc4df85e36fb3c45c87f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0065f1e6_96d6c098",
