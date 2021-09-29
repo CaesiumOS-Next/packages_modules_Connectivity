@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95fddb05_9626520f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-29T10:24:57Z",
+      "side": 1,
+      "message": "LGTM. maybe note that runDhcp doesn\u0027t support multi-thread for now. It supports mthread before this change.",
+      "revId": "d8b2761b2131e6ebafab3b9e8068047246beb3f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bee3b0f8_36051349",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-29T10:24:57Z",
+      "side": 1,
+      "message": "nit: maybe keep the wording \"continue\"\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1817921/7/Tethering/tests/integration/src/android/net/EthernetTetheringTest.java#b625",
+      "range": {
+        "startLine": 137,
+        "startChar": 36,
+        "endLine": 137,
+        "endChar": 37
+      },
+      "revId": "d8b2761b2131e6ebafab3b9e8068047246beb3f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
