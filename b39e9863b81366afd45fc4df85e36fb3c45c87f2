@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31a901c3_431ec4d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-09-29T06:41:34Z",
+      "side": 1,
+      "message": "I think the right approach for b/200023207 is to ignore setting network permission if the network is not created, not just catch the ServiceSpecificException. Because any operations related to uncreated net id on netd would got exceptions, it\u0027s better to not do them. So you can do like this\n\n        if (nai.created) {\n            try {\n                mNetd.networkSetPermissionForNetwork(nai.network.netId, INetd.PERMISSION_SYSTEM);\n            } catch (RemoteException e) {\n                Log.d(TAG, \"Error marking network restricted during teardown: \" + e);\n            }\n         }\n",
+      "revId": "b39e9863b81366afd45fc4df85e36fb3c45c87f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0065f1e6_96d6c098",
