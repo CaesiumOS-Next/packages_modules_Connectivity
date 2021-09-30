@@ -265,6 +265,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4db45b8a_62143169",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:51:31Z",
+      "side": 1,
+      "message": "You could use add ThrowingBiConsumer to com.android.testutils.ExceptionUtils (or use com.android.internal.util.ThrowingBiConsumer if it\u0027s available here but I think it isn\u0027t), but I think what you have here is good enough",
+      "parentUuid": "d86931cb_c65c5300",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 64
+      },
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "108db73b_f83f40c1",

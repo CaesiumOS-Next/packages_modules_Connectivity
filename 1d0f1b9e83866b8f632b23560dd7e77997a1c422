@@ -260,6 +260,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0231e35d_70ed9659",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:51:31Z",
+      "side": 1,
+      "message": "Right. The problem with crashing the process in a separate thread like this is that you don\u0027t get a useful stack trace when running with standard tools like atest – you have to look at the logcat. On a local computer that\u0027s not an issue, but for a test that fails in automated tests benchs it is often at least cumbersome to find the error, when not impossible.\n\nBut propagating that to the test main thread is not easy at all and we have plenty of precedent, so I think just letting the exception crash the process as your new patchset does is fine. As long as the test doesn\u0027t pass 😄\n\nI don\u0027t think you need to spend energy to go and clean up our existing tests. I mean, I\u0027m not going to tell you not to, but I don\u0027t want to impose :)",
+      "parentUuid": "57cd80c8_a34eb2d3",
+      "range": {
+        "startLine": 72,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 49
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c696f05_a635e540",
@@ -391,6 +415,30 @@
       "side": 1,
       "message": "Looking at the `ConnectivityManager#getConnectionOwnerUid` your logic seems to be correct.\n\nIn context of this test though, we are not actually checking the connection owner UID value (we know that it\u0027s always going to be our UID), \nbut we are checking that we have access to get this information from ConnectivityManager (only accessible to network stack and to UID\u0027s established Vpn)\n\nconsider `testAppDisallowed` test case: connection is still owned by sender (I think), but we expect `ConnectivityManager#getConnectionOwnerUid` to return INVALID_UID, because our VPN is disallowed for the sender package.\n\nso maybe even better name would be \"expectConnectionOwnerIsVisible\"?",
       "parentUuid": "230090f2_543c0b87",
+      "range": {
+        "startLine": 518,
+        "startChar": 70,
+        "endLine": 518,
+        "endChar": 94
+      },
+      "revId": "1d0f1b9e83866b8f632b23560dd7e77997a1c422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a2f528d_94bc21c2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:51:31Z",
+      "side": 1,
+      "message": "Makes sense, thanks.",
+      "parentUuid": "567917d7_c65771ae",
       "range": {
         "startLine": 518,
         "startChar": 70,

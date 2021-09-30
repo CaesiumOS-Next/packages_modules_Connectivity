@@ -16,6 +16,98 @@
       "message": "Hi Lucas, Jean, Lorenzo\ncomments addressed, ptal\n\nAlso, please take a look at the discussion regarding merge conflict in downstream branches.\n\n",
       "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22b1cabd_d670a28c",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:51:31Z",
+      "side": 1,
+      "message": "I think the standard pattern in tests (our tests at least) is to just declare the test methods to throw Exception, but I don\u0027t feel strongly",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "742ce61e_940b28e9",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:51:31Z",
+      "side": 1,
+      "message": "I think \"disjoint\", as in \"don\u0027t share an element\", while disjointed means something else",
+      "range": {
+        "startLine": 176,
+        "startChar": 21,
+        "endLine": 176,
+        "endChar": 31
+      },
+      "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ac2c5ec_d63ff4e1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:51:31Z",
+      "side": 1,
+      "message": "Is this used outside of the function that takes a Consumer\u003cIpPrefix\u003e ? If not you could just inline it.",
+      "range": {
+        "startLine": 66,
+        "startChar": 17,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9561184c_6ab700db",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:51:31Z",
+      "side": 1,
+      "message": "Add final if you respin this change",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 76,
+        "endChar": 16
+      },
+      "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
