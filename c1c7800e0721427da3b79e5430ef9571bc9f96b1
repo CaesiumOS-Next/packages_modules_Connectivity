@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e3f991_9b27228f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2798,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T09:59:40Z",
+      "side": 1,
+      "message": "Aah, right. Thanks for the explanation.",
+      "parentUuid": "a8c9c6c4_fb930c0d",
+      "range": {
+        "startLine": 2798,
+        "startChar": 32,
+        "endLine": 2798,
+        "endChar": 36
+      },
+      "revId": "c1c7800e0721427da3b79e5430ef9571bc9f96b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee0a7e7_7ef0869b",
