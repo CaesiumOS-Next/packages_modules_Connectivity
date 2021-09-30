@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e73629_e89fb8d6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3148,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-09-30T18:59:43Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "f31671a9_92074013",
+      "range": {
+        "startLine": 3148,
+        "startChar": 8,
+        "endLine": 3148,
+        "endChar": 10
+      },
+      "revId": "874c7219891be9109024fe7d4348a0ee7e0b3e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f22101bb_831328cf",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-09-30T08:34:09Z",
       "side": 1,
       "message": "Nit : this makes it look as if the per-app default request list is part of mMobileDataPreferredUids. The simplest fix is probably to add a \"Default requests :\" header before printing the requests.",
+      "range": {
+        "startLine": 3158,
+        "startChar": 11,
+        "endLine": 3158,
+        "endChar": 25
+      },
+      "revId": "874c7219891be9109024fe7d4348a0ee7e0b3e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6065e390_1426dee0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-09-30T18:59:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f22101bb_831328cf",
       "range": {
         "startLine": 3158,
         "startChar": 11,
