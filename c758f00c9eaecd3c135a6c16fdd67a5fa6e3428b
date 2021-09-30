@@ -16,6 +16,52 @@
       "message": "Explicitly grant CHANGE_NETWORK_STATE to the test because R Shell don\u0027t have that permission which using adopt shell permission to get CHANGE_NETWORK_STATE permission doesn\u0027t work for R device.",
       "revId": "c758f00c9eaecd3c135a6c16fdd67a5fa6e3428b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8287a3ca_114401f4",
+        "filename": "Tethering/tests/integration/AndroidManifest.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-30T09:27:23Z",
+      "side": 1,
+      "message": "Can you explain why this permission is needed?",
+      "range": {
+        "startLine": 20,
+        "startChar": 46,
+        "endLine": 20,
+        "endChar": 66
+      },
+      "revId": "c758f00c9eaecd3c135a6c16fdd67a5fa6e3428b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "053a7f53_94dedf90",
+        "filename": "Tethering/tests/integration/AndroidManifest.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-30T09:27:23Z",
+      "side": 1,
+      "message": "typo. Also everywhere else",
+      "range": {
+        "startLine": 20,
+        "startChar": 85,
+        "endLine": 20,
+        "endChar": 94
+      },
+      "revId": "c758f00c9eaecd3c135a6c16fdd67a5fa6e3428b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
