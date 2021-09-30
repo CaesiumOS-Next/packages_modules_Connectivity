@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b0e50f5_7180ea7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-30T06:28:50Z",
+      "side": 1,
+      "message": "Explicitly grant CHANGE_NETWORK_STATE to the test because R Shell don\u0027t have that permission which using adopt shell permission to get CHANGE_NETWORK_STATE permission doesn\u0027t work for R device.",
+      "revId": "c758f00c9eaecd3c135a6c16fdd67a5fa6e3428b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
