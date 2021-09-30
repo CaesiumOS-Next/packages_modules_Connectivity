@@ -16,6 +16,69 @@
       "message": "LGTM not sure wether jchalard@ wants to take a look.",
       "revId": "874c7219891be9109024fe7d4348a0ee7e0b3e66",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14c2e671_4d742776",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:34:09Z",
+      "side": 1,
+      "message": "Only nits without real importance",
+      "revId": "874c7219891be9109024fe7d4348a0ee7e0b3e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f31671a9_92074013",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3148,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:34:09Z",
+      "side": 1,
+      "message": "Considering these three logs look fairly different to each other, maybe we can do something like\n\n        if (!mProfileNetworkPreferences.isEmpty()) {\n            pw.println(\"Profile preferences :\");\n            increaseIndent\n            pw.println(mProfileNetworkPreferences.preferences);\n            decreaseIndent\n        }\n        if (!mOemNetworkPreferences.isEmpty()) {\n            pw.println(\"OEM preferences :\");\n            increaseIndent\n            pw.println(mOemNetworkPreferences);\n            decreaseIndent\n        }\n        if (!mMobileDataPreferredUids.isEmpty()) {\n            pw.println(\"Mobile data preferred UIDs :\");\n            increaseIndent\n            pw.println(mMobileDataPreferredUids);\n            decreaseIndent\n        }",
+      "range": {
+        "startLine": 3148,
+        "startChar": 8,
+        "endLine": 3148,
+        "endChar": 10
+      },
+      "revId": "874c7219891be9109024fe7d4348a0ee7e0b3e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f22101bb_831328cf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T08:34:09Z",
+      "side": 1,
+      "message": "Nit : this makes it look as if the per-app default request list is part of mMobileDataPreferredUids. The simplest fix is probably to add a \"Default requests :\" header before printing the requests.",
+      "range": {
+        "startLine": 3158,
+        "startChar": 11,
+        "endLine": 3158,
+        "endChar": 25
+      },
+      "revId": "874c7219891be9109024fe7d4348a0ee7e0b3e66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
