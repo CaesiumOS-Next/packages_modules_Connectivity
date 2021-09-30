@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "92865dff_095a1497",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2798,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-30T07:14:31Z",
+      "side": 1,
+      "message": "I update it to \"Need to interact with WifiManager to test the default active network\" because the reason should explain why the test is unable to run in the instant app mode(the sentence is also too long into one line). It looks to me that saying \"Cannot test the default active network if the device doesn\u0027t support WiFi\" does not explain this. If test does not interact with wifiManager, then it\u0027s ok to run in the instant app mode with wifi. Is this ok to you?\n\nThe network active listen could support only wifi and cellular actually, so I add check to test it on cellular if wifi is not supported in the device.",
+      "parentUuid": "02c9076b_b9629dc8",
+      "range": {
+        "startLine": 2798,
+        "startChar": 38,
+        "endLine": 2798,
+        "endChar": 49
+      },
+      "revId": "917300957e8bd0567d2b0c723b8902dc95787524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3a70aaf_df023c07",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-30T05:07:50Z",
       "side": 1,
       "message": "What guarantees this ?",
+      "range": {
+        "startLine": 2810,
+        "startChar": 15,
+        "endLine": 2810,
+        "endChar": 90
+      },
+      "revId": "917300957e8bd0567d2b0c723b8902dc95787524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64078793_9105b537",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2810,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-09-30T07:14:31Z",
+      "side": 1,
+      "message": "It\u0027s what the network active notification behaved currently.\n\nThe possible notification for the activity change is\n1. Data activity in underlying network is changed from false to true\n2. New default network is configured.\n\nYou could refer to the design in ConnectivityService#makeDefault().\n(makeDefault() -\u003e setupDataActivityTracking() -\u003e reportNetworkActive())\n\nIt always send the notification in 2, so I think we do not need to generate the condition 1 to trigger the notification. Condition 1 will also take much more time to verify the behavior.",
+      "parentUuid": "d3a70aaf_df023c07",
       "range": {
         "startLine": 2810,
         "startChar": 15,
