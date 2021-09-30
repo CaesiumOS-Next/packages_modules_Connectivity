@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16f7506f_b2fc056f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-30T15:35:22Z",
+      "side": 1,
+      "message": "I believe the problem you met is fixed after patchset 11 which create test network before enable ethernet tethering. If test with active internet network, tethering would select internet network as upstream if test network is not available and not be preferred yet. MyTetheringEventCallback currently only support await first available upstream. Before patchset 11, we may runPing6Test while tethering upstream is still not switch to test network yet.",
+      "parentUuid": "59ebc8d5_26905cb4",
+      "range": {
+        "startLine": 736,
+        "startChar": 15,
+        "endLine": 736,
+        "endChar": 35
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6133fb93_46086879",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-30T03:59:55Z",
       "side": 1,
       "message": "nit: remark /* hasEthernetHeader */",
+      "range": {
+        "startLine": 740,
+        "startChar": 52,
+        "endLine": 740,
+        "endChar": 53
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7305d68_4869f6be",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-30T15:35:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6133fb93_46086879",
       "range": {
         "startLine": 740,
         "startChar": 52,
@@ -93,6 +141,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c43c7b6_89334d36",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-30T15:35:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d19a0d76_143bad66",
+      "range": {
+        "startLine": 750,
+        "startChar": 51,
+        "endLine": 750,
+        "endChar": 52
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71278dfb_3ba42ed5",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-30T15:35:22Z",
+      "side": 1,
+      "message": "Upload aosp/1841855 to use isIcmpv6Type in isRouterAdvertisement",
+      "parentUuid": "e4be1f64_6e357c95",
+      "range": {
+        "startLine": 750,
+        "startChar": 19,
+        "endLine": 750,
+        "endChar": 41
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ed2c0aa_7ca22160",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-09-30T03:59:55Z",
       "side": 1,
       "message": "nit: if possible, we could use com.android.net.module.util.HexDump",
+      "range": {
+        "startLine": 758,
+        "startChar": 25,
+        "endLine": 758,
+        "endChar": 39
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b0f76d_71335328",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-09-30T15:35:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ed2c0aa_7ca22160",
       "range": {
         "startLine": 758,
         "startChar": 25,
