@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59ebc8d5_26905cb4",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-30T03:59:55Z",
+      "side": 1,
+      "message": "is it possible that the test is flaky because na has not replied yet?",
+      "range": {
+        "startLine": 736,
+        "startChar": 15,
+        "endLine": 736,
+        "endChar": 35
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6133fb93_46086879",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-30T03:59:55Z",
+      "side": 1,
+      "message": "nit: remark /* hasEthernetHeader */",
+      "range": {
+        "startLine": 740,
+        "startChar": 52,
+        "endLine": 740,
+        "endChar": 53
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4be1f64_6e357c95",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-30T03:59:55Z",
+      "side": 1,
+      "message": "is this for testing only as L.267 (isRouterAdvertisement)? if yes, do you prefer to leave isIcmpv6Type() in this test or Ipv6Utils?",
+      "range": {
+        "startLine": 750,
+        "startChar": 19,
+        "endLine": 750,
+        "endChar": 41
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d19a0d76_143bad66",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-30T03:59:55Z",
+      "side": 1,
+      "message": "nit: remark /* hasEthernetHeader */",
+      "range": {
+        "startLine": 750,
+        "startChar": 51,
+        "endLine": 750,
+        "endChar": 52
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed2c0aa_7ca22160",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-09-30T03:59:55Z",
+      "side": 1,
+      "message": "nit: if possible, we could use com.android.net.module.util.HexDump",
+      "range": {
+        "startLine": 758,
+        "startChar": 25,
+        "endLine": 758,
+        "endChar": 39
+      },
+      "revId": "14ec5bd3535a070d94b31205ee7475e18ba38a37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
