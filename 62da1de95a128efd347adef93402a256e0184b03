@@ -39,6 +39,30 @@
       },
       "revId": "62da1de95a128efd347adef93402a256e0184b03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cafef199_6bfdae6f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2804,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-30T10:24:51Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t mean delete it, I meant change it back to the check for FEATURE_TELEPHONY.\n\n(Assuming the rest of my comment above is correct, of course)",
+      "parentUuid": "643c2518_d279e76d",
+      "range": {
+        "startLine": 2804,
+        "startChar": 8,
+        "endLine": 2804,
+        "endChar": 60
+      },
+      "revId": "62da1de95a128efd347adef93402a256e0184b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
