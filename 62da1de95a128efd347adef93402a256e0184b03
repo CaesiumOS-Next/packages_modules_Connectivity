@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27ded2bc_60603d96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-30T10:06:54Z",
+      "side": 1,
+      "message": "LGTM (sticky +2) assuming comments addressed.",
+      "revId": "62da1de95a128efd347adef93402a256e0184b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "643c2518_d279e76d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2804,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-09-30T10:06:54Z",
+      "side": 1,
+      "message": "You don\u0027t need this, because there are other CTS tests that will fail that if a device has FEATURE_TELEPHONY and mobile data connectivity is not present. See for example testOpenConnection in this file, or NetworkUsageStatsTest, or SubscriptionManagerTest#testCorrectness.\n\nI\u0027d prefer that we remove it so that other tests don\u0027t copy-paste it.",
+      "range": {
+        "startLine": 2804,
+        "startChar": 8,
+        "endLine": 2804,
+        "endChar": 60
+      },
+      "revId": "62da1de95a128efd347adef93402a256e0184b03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
