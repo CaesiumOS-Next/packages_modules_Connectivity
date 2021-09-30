@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02c9076b_b9629dc8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2798,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T05:07:50Z",
+      "side": 1,
+      "message": "It\u0027s a bit obscure that this is eventually using WifiManager ; should we just word this something like\n\n  Cannot test the default active network if the device doesn\u0027t support WiFi\n\nAlso, while this is a strict improvement, can we test this API with another transport on devices that don\u0027t support WiFi ?",
+      "range": {
+        "startLine": 2798,
+        "startChar": 38,
+        "endLine": 2798,
+        "endChar": 49
+      },
+      "revId": "917300957e8bd0567d2b0c723b8902dc95787524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3a70aaf_df023c07",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2810,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-09-30T05:07:50Z",
+      "side": 1,
+      "message": "What guarantees this ?",
+      "range": {
+        "startLine": 2810,
+        "startChar": 15,
+        "endLine": 2810,
+        "endChar": 90
+      },
+      "revId": "917300957e8bd0567d2b0c723b8902dc95787524",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
