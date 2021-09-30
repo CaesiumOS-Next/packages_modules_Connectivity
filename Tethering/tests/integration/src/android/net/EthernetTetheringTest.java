@@ -26,11 +26,9 @@ import static android.net.TetheringManager.CONNECTIVITY_SCOPE_GLOBAL;
 import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringTester.RemoteResponder;
-import static android.system.OsConstants.IPPROTO_ICMPV6;
 
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
 import static com.android.net.module.util.HexDump.dumpHexString;
-import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQUEST_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
@@ -63,10 +61,6 @@ import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.Ipv6Utils;
-import com.android.net.module.util.Struct;
-import com.android.net.module.util.structs.EthernetHeader;
-import com.android.net.module.util.structs.Icmpv6Header;
-import com.android.net.module.util.structs.Ipv6Header;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.TapPacketReader;
 import com.android.testutils.TestNetworkTracker;
@@ -267,16 +261,7 @@ public class EthernetTetheringTest {
     private static boolean isRouterAdvertisement(byte[] pkt) {
         if (pkt == null) return false;
 
-        ByteBuffer buf = ByteBuffer.wrap(pkt);
-
-        final EthernetHeader ethHdr = Struct.parse(EthernetHeader.class, buf);
-        if (ethHdr.etherType != ETHER_TYPE_IPV6) return false;
-
-        final Ipv6Header ipv6Hdr = Struct.parse(Ipv6Header.class, buf);
-        if (ipv6Hdr.nextHeader != (byte) IPPROTO_ICMPV6) return false;
-
-        final Icmpv6Header icmpv6Hdr = Struct.parse(Icmpv6Header.class, buf);
-        return icmpv6Hdr.type == (short) ICMPV6_ROUTER_ADVERTISEMENT;
+        return isIcmpv6Type(pkt, true /* hasEthernetHeader */, ICMPV6_ROUTER_ADVERTISEMENT);
     }
 
     private static void expectRouterAdvertisement(TapPacketReader reader, String iface,
