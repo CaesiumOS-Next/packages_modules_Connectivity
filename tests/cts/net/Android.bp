@@ -51,6 +51,7 @@ java_defaults {
         "junit-params",
         "modules-utils-build",
         "net-utils-framework-common",
+        "service-connectivity",
         "truth-prebuilt",
     ],
 
