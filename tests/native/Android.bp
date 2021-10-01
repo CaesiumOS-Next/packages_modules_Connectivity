@@ -1,0 +1,38 @@
+cc_test {
+    name: "connectivity_native_tests",
+    test_suites: [
+        "device-tests",
+        "vts"
+    ],
+    require_root: true,
+    tidy: false,  // cuts test build time by almost 1 minute
+    srcs: [
+        "connectivity_native_test.cpp",
+    ],
+    header_libs: ["bpf_connectivity_headers"],
+    shared_libs: [
+        "libbase",
+        "libbinder",
+        "libcutils",
+        "liblog",
+        "libnetutils",
+        "libprocessgroup",
+        "libutils",
+    ],
+    static_libs: [
+        "connectivity_native_aidl_interface-V1-cpp",
+    ],
+    compile_multilib: "both",
+    multilib: {
+        lib32: {
+            suffix: "32",
+        },
+        lib64: {
+            suffix: "64",
+        },
+    },
+    sanitize: {
+        address: false,
+        recover: [ "all" ],
+    },
+}
