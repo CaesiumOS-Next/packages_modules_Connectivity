@@ -19,6 +19,37 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+aidl_interface {
+    name: "vendor_connectivity_aidl_interface",
+    local_include_dir: "binder",
+    vendor_available: true,
+    min_sdk_version: "30",
+    srcs: [
+        "binder/android/net/*.aidl",
+    ],
+    backend: {
+        java: {
+            apex_available: [
+                "//apex_available:platform",
+                "com.android.tethering",
+            ],
+        },
+    },
+    versions: ["1"],
+}
+
+java_library {
+    name: "vendor_connectivity_aidl_interface-lateststable-java",
+    sdk_version: "system_current",
+    min_sdk_version: "30",
+    static_libs: [
+        "vendor_connectivity_aidl_interface-V1-java",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
+
 // The library name match the service-connectivity jarjar rules that put the JNI utils in the
 // com.android.connectivity.com.android.net.module.util package.
 cc_library_shared {
@@ -36,6 +67,7 @@ cc_library_shared {
     stl: "libc++_static",
     static_libs: [
         "libnet_utils_device_common_bpfjni",
+        "libnet_utils_device_common_bpfutils",
     ],
     shared_libs: [
         "liblog",
@@ -103,6 +135,7 @@ java_library {
         "networkstack-client",
         "PlatformProperties",
         "service-connectivity-protos",
+        "vendor_connectivity_aidl_interface-lateststable-java",
     ],
     apex_available: [
         "com.android.tethering",

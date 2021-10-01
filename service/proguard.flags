@@ -1,0 +1,7 @@
+-keep class com.android.connectivity.com.android.net.module.util.BpfMap {
+    native <methods>;
+}
+
+-keep class com.android.connectivity.com.android.net.module.util.BpfUtils {
+    native <methods>;
+}
