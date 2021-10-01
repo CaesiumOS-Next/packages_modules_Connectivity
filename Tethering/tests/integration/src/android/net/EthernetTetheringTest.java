@@ -62,11 +62,14 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.MediumTest;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.net.module.util.Ipv4Utils;
 import com.android.net.module.util.Ipv6Utils;
 import com.android.net.module.util.Struct;
 import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv6Header;
+import com.android.net.module.util.structs.Ipv4Header;
 import com.android.net.module.util.structs.Ipv6Header;
+import com.android.net.module.util.structs.UdpHeader;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.TapPacketReader;
 import com.android.testutils.TestNetworkTracker;
@@ -77,6 +80,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.FileDescriptor;
+import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -759,6 +763,95 @@ public class EthernetTetheringTest {
             Log.d(TAG, "Packet in downstream: " + dumpHexString(p));
 
             return isIcmpv6EchoReply(p) ? p : null;
+        });
+    }
+
+    @Test
+    public void testUdpV4() throws Exception {
+        assumeFalse(mEm.isAvailable());
+
+        mDownstreamIface = createTestInterface();
+        mEm.setIncludeTestInterfaces(true);
+
+        final String iface = mTetheredInterfaceRequester.getInterface();
+        assertEquals("TetheredInterfaceCallback for unexpected interface",
+                mDownstreamIface.getInterfaceName(), iface);
+
+        mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName());
+
+        mUpstreamTracker = createTestUpstream(toList(TEST_IP4_ADDR, TEST_IP6_ADDR),
+                toList(TEST_IP4_DNS, TEST_IP6_DNS));
+
+        mDownstreamReader = makePacketReader(mDownstreamIface);
+        mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
+
+        runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader));
+    }
+
+    // Test network topology:
+    //
+    //         public network (rawip)                 private network
+    //                   |                 UE                |
+    // +------------+    V    +------------+------------+    V    +------------+
+    // |   Sever    +---------+  Upstream  | Downstream +---------+   Client   |
+    // +------------+         +------------+------------+         +------------+
+    // remote ip              public ip                           private ip
+    // 8.8.8.8:443            10.0.0.1:12345                      <TetheredDevice ip>:12345
+    //
+    private void runUdp4Test(TetheringTester tester, RemoteResponder remote) throws Exception {
+        final TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString(
+                "1:2:3:4:5:6"));
+        final Inet4Address remoteIp4Addr = (Inet4Address) parseNumericAddress("8.8.8.8");
+        final short id = 27149;
+        final short privatePort = 12345;
+        final short remotePort = 433;
+        final ByteBuffer senddata = ByteBuffer.wrap(new byte[] { (byte) 0xaa, (byte) 0xbb });
+
+        ByteBuffer request = Ipv4Utils.buildUdpv4Packet(tethered.macAddr, tethered.routerMacAddr,
+                id, tethered.ipv4Addr /* srcIp */, remoteIp4Addr /* dstIp */,
+                privatePort /* srcPort */, remotePort /*dstPort */, senddata);
+        tester.sendPacket(request);
+
+        remote.getNextMatchedPacket((p) -> {
+            Log.d(TAG, "Packet in upstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            final Ipv4Header ipv4Header = Struct.parse(Ipv4Header.class, buf);
+            if (ipv4Header == null) return null;
+
+            final UdpHeader udpHeader = Struct.parse(UdpHeader.class, buf);
+            if (udpHeader == null) return null;
+
+            if (buf.remaining() != senddata.limit()) return null;
+
+            return (buf.getShort() == (short) 0xaabb) ? p : null;
+        });
+
+        final Inet4Address publicIp4Addr = (Inet4Address) TEST_IP4_ADDR.getAddress();
+        final short publicPort = 12345;
+        final ByteBuffer replydata = ByteBuffer.wrap(new byte[] { (byte) 0xcc, (byte) 0xdd });
+
+        ByteBuffer reply = Ipv4Utils.buildUdpv4Packet(id, remoteIp4Addr /* srcIp */,
+                publicIp4Addr /* dstIp */, remotePort /* srcPort */, publicPort /*dstPort */,
+                replydata);
+        remote.sendPacket(reply);
+
+        tester.getNextMatchedPacket((p) -> {
+            Log.d(TAG, "Packet in downstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            final EthernetHeader etherHeader = Struct.parse(EthernetHeader.class, buf);
+            if (etherHeader == null) return null;
+
+            final Ipv4Header ipv4Header = Struct.parse(Ipv4Header.class, buf);
+            if (ipv4Header == null) return null;
+
+            final UdpHeader udpHeader = Struct.parse(UdpHeader.class, buf);
+            if (udpHeader == null) return null;
+
+            if (buf.remaining() != replydata.limit()) return null;
+
+            return (buf.getShort() == (short) 0xccdd) ? p : null;
         });
     }
 
