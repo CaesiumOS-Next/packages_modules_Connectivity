@@ -14,6 +14,31 @@
 // limitations under the License.
 //
 
+aidl_interface {
+    name: "vendor_connectivity_aidl_interface",
+    local_include_dir: "binder",
+    vendor_available: true,
+    srcs: [
+        "binder/android/net/*.aidl",
+    ],
+    backend: {
+        ndk: {
+            vndk: {
+                enabled: true,
+            },
+        },
+        java: {
+            min_sdk_version: "30",
+            sdk_version: "module_current",
+            apex_available: [
+                "//apex_available:platform",
+                "com.android.server.connectivity",
+            ],
+        },
+    },
+    versions: ["1"],
+}
+
 package {
     // See: http://go/android-license-faq
     default_applicable_licenses: ["Android-Apache-2.0"],
@@ -29,6 +54,7 @@ cc_library_shared {
         "-Wthread-safety",
     ],
     srcs: [
+        "jni/com_android_server_connectivity_BpfMap.cpp",
         "jni/com_android_server_TestNetworkService.cpp",
         "jni/onload.cpp",
     ],
