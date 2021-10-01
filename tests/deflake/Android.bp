@@ -21,6 +21,7 @@ package {
 
 java_test_host {
     name: "FrameworksNetDeflakeTest",
+    enabled: true,
     srcs: ["src/**/*.kt"],
     libs: [
         "junit",
