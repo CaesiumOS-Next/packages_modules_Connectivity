@@ -19,6 +19,42 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+aidl_interface {
+    name: "connectivity_native_aidl_interface",
+    local_include_dir: "binder",
+    vendor_available: true,
+    min_sdk_version: "30",
+    srcs: [
+        "binder/android/net/connectivity/aidl/*.aidl",
+    ],
+    backend: {
+        java: {
+            apex_available: [
+                "com.android.tethering",
+            ],
+        },
+    },
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+    ],
+
+}
+
+java_library {
+    name: "connectivity_native_aidl_interface-lateststable-java",
+    sdk_version: "system_current",
+    min_sdk_version: "30",
+    static_libs: [
+        "connectivity_native_aidl_interface-V1-java",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
+
 // The library name match the service-connectivity jarjar rules that put the JNI utils in the
 // android.net.connectivity.com.android.net.module.util package.
 cc_library_shared {
@@ -35,6 +71,7 @@ cc_library_shared {
     ],
     static_libs: [
         "libnet_utils_device_common_bpfjni",
+        "libnet_utils_device_common_bpfutils",
     ],
     shared_libs: [
         "liblog",
@@ -109,6 +146,7 @@ java_library {
     static_libs: [
         // Do not add libs here if they are already included
         // in framework-connectivity
+        "connectivity_native_aidl_interface-lateststable-java",
         "dnsresolver_aidl_interface-V9-java",
         "modules-utils-shell-command-handler",
         "net-utils-device-common",
