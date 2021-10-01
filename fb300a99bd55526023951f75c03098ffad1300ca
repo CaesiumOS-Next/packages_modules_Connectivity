@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd594d40_3fac2e1c",
+        "filename": "tests/deflake/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-10-01T11:28:30Z",
+      "side": 1,
+      "message": "Maybe specify which var.",
+      "range": {
+        "startLine": 45,
+        "startChar": 81,
+        "endLine": 45,
+        "endChar": 88
+      },
+      "revId": "fb300a99bd55526023951f75c03098ffad1300ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
