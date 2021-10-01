@@ -16,6 +16,9 @@
 
 package android.net;
 
+import static com.android.net.module.util.NetworkStackConstants.ARP_REPLY;
+import static com.android.net.module.util.NetworkStackConstants.ARP_REQUEST;
+
 import static org.junit.Assert.fail;
 
 import android.net.dhcp.DhcpAckPacket;
@@ -24,6 +27,7 @@ import android.net.dhcp.DhcpPacket;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import com.android.networkstack.arp.ArpPacket;
 import com.android.testutils.TapPacketReader;
 
 import java.net.Inet4Address;
@@ -41,6 +45,7 @@ public final class TetheringTester {
     private static final String TAG = TetheringTester.class.getSimpleName();
     private static final int PACKET_READ_TIMEOUT_MS = 100;
     private static final int DHCP_DISCOVER_ATTEMPTS = 10;
+    private static final int READ_ARP_ATTEMPTS = 100;
     private static final byte[] DHCP_REQUESTED_PARAMS = new byte[] {
             DhcpPacket.DHCP_SUBNET_MASK,
             DhcpPacket.DHCP_ROUTER,
@@ -72,15 +77,16 @@ public final class TetheringTester {
     }
 
     public class TetheredDevice {
-        private final MacAddress mMacAddr;
-
-        public final Inet4Address mIpv4Addr;
+        public final MacAddress macAddr;
+        public final MacAddress routerMacAddr;
+        public final Inet4Address ipv4Addr;
 
         private TetheredDevice(MacAddress mac) throws Exception {
-            mMacAddr = mac;
+            macAddr = mac;
 
-            DhcpResults dhcpResults = runDhcp(mMacAddr.toByteArray());
-            mIpv4Addr = (Inet4Address) dhcpResults.ipAddress.getAddress();
+            DhcpResults dhcpResults = runDhcp(macAddr.toByteArray());
+            ipv4Addr = (Inet4Address) dhcpResults.ipAddress.getAddress();
+            routerMacAddr = getRouterMacAddressFromArp(ipv4Addr);
         }
     }
 
@@ -146,12 +152,74 @@ public final class TetheringTester {
                 DhcpPacket.decodeFullPacket(packet, packet.length, DhcpPacket.ENCAP_L2);
     }
 
+    private ArpPacket parseArpPacketOrNull(final byte[] packet) {
+        try {
+            return ArpPacket.parseArpPacket(packet, packet.length);
+        } catch (ArpPacket.ParseException e) {
+            return null;
+        }
+    }
+
+    private void maybeReplyArp(byte[] packet) {
+        ByteBuffer buf = ByteBuffer.wrap(packet);
+
+        final ArpPacket arpPacket = parseArpPacketOrNull(packet);
+        if (arpPacket == null || arpPacket.opCode != ARP_REQUEST) return;
+
+        for (int i = 0; i < mTetheredDevices.size(); i++) {
+            TetheredDevice tethered = mTetheredDevices.valueAt(i);
+            if (!arpPacket.targetIp.equals(tethered.ipv4Addr)) continue;
+
+            final ByteBuffer arpReply = ArpPacket.buildArpPacket(
+                    arpPacket.senderHwAddress.toByteArray() /* dst */,
+                    tethered.macAddr.toByteArray() /* srcMac */,
+                    arpPacket.senderIp.getAddress() /* target IP */,
+                    arpPacket.senderHwAddress.toByteArray() /* target HW address */,
+                    tethered.ipv4Addr.getAddress() /* sender IP */,
+                    (short) ARP_REPLY);
+            try {
+                sendPacket(arpReply);
+            } catch (Exception e) {
+                fail("Failed to reply ARP for " + tethered.ipv4Addr);
+            }
+            return;
+        }
+    }
+
+    private MacAddress getRouterMacAddressFromArp(final Inet4Address targetIp)
+            throws Exception {
+        for (int i = 0; i < READ_ARP_ATTEMPTS; i++) {
+            final byte[] packet = getNextMatchedPacket((p) -> {
+                final ArpPacket arpPacket = parseArpPacketOrNull(p);
+                if (arpPacket == null || arpPacket.opCode != ARP_REQUEST) return false;
+                return arpPacket.targetIp.equals(targetIp);
+            });
+
+            if (packet != null) {
+                Log.d(TAG, "Get Mac address from ARP");
+                final ArpPacket arpPacket = ArpPacket.parseArpPacket(packet, packet.length);
+                return arpPacket.senderHwAddress;
+            }
+        }
+
+        fail("Could not get ARP packet after " + READ_ARP_ATTEMPTS + " attempts");
+
+        return null;
+    }
+
     public void sendPacket(ByteBuffer packet) throws Exception {
         mDownstreamReader.sendResponse(packet);
     }
 
     public byte[] getNextMatchedPacket(Predicate<byte[]> filter) {
-        return mDownstreamReader.poll(PACKET_READ_TIMEOUT_MS, filter);
+        byte[] packet;
+        while ((packet = mDownstreamReader.poll(PACKET_READ_TIMEOUT_MS)) != null) {
+            if (filter.test(packet)) return packet;
+
+            maybeReplyArp(packet);
+        }
+
+        return null;
     }
 
     public static class RemoteResponder {
