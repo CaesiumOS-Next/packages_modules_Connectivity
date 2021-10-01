@@ -19,6 +19,8 @@ package com.android.server;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.server.connectivity.VendorConnectivityService;
+
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
  * a new instance of ConnectivityService.
@@ -26,6 +28,7 @@ import android.util.Log;
 public final class ConnectivityServiceInitializer extends SystemService {
     private static final String TAG = ConnectivityServiceInitializer.class.getSimpleName();
     private final ConnectivityService mConnectivity;
+    private final VendorConnectivityService mVendorConnectivity;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
@@ -33,6 +36,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
 	System.loadLibrary("com_android_connectivity_com_android_net_module_util_jni");
         // TODO: Define formal APIs to get the needed services.
         mConnectivity = new ConnectivityService(context);
+        mVendorConnectivity = new VendorConnectivityService();
     }
 
     @Override
