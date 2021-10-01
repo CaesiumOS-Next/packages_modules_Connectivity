@@ -48,6 +48,8 @@ android_test {
     static_libs: [
         "androidx.test.rules",
         "net-tests-utils",
+        "platform-test-annotations",
+        "service-connectivity-pre-jarjar",
         "TetheringApiCurrentLib",
     ],
     compile_multilib: "both",

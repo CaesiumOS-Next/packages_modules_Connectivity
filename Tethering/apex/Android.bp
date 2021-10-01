@@ -38,6 +38,7 @@ apex {
         },
     },
     bpfs: [
+	"block.o",
         "offload.o",
         "test.o",
     ],
