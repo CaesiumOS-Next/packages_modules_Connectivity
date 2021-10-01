@@ -65,6 +65,7 @@ apex {
     bpfs: [
         "clatd.o_mainline",
         "netd.o_mainline",
+	"block.o",
         "offload.o",
         "test.o",
     ],
