@@ -1,0 +1,26 @@
+cc_test {
+    name: "connectivity_native_tests",
+    test_suites: [
+        "device-tests",
+        "vts"
+    ],
+    require_root: true,
+    tidy: false,
+    srcs: [
+        "connectivity_native_test.cpp",
+    ],
+    header_libs: ["bpf_connectivity_headers"],
+    shared_libs: [
+        "libbase",
+        "libbinder",
+        "liblog",
+        "libnetutils",
+        "libprocessgroup",
+    ],
+    static_libs: [
+        "connectivity_native_aidl_interface-V1-cpp",
+        "libcutils",
+        "libmodules-utils-build",
+        "libutils",
+    ],
+}
