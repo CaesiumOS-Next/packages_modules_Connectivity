@@ -20,6 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.server.connectivity.VendorConnectivityService;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -29,12 +30,14 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private static final String TAG = ConnectivityServiceInitializer.class.getSimpleName();
     private final ConnectivityService mConnectivity;
     private final NsdService mNsdService;
+    private final VendorConnectivityService mVendorConnectivity;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
         // Load JNI libraries used by ConnectivityService and its dependencies
         System.loadLibrary("service-connectivity");
         mConnectivity = new ConnectivityService(context);
+        mVendorConnectivity = new VendorConnectivityService();
         mNsdService = createNsdService(context);
     }
 
@@ -43,6 +46,10 @@ public final class ConnectivityServiceInitializer extends SystemService {
         Log.i(TAG, "Registering " + Context.CONNECTIVITY_SERVICE);
         publishBinderService(Context.CONNECTIVITY_SERVICE, mConnectivity,
                 /* allowIsolated= */ false);
+        if (mVendorConnectivity != null) {
+            publishBinderService(Context.VENDOR_CONNECTIVITY_SERVICE, mVendorConnectivity,
+                    /* allowIsolated= */ false);
+        }
         if (mNsdService != null) {
             Log.i(TAG, "Registering " + Context.NSD_SERVICE);
             publishBinderService(Context.NSD_SERVICE, mNsdService, /* allowIsolated= */ false);
