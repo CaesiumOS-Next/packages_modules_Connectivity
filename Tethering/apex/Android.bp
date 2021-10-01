@@ -68,6 +68,7 @@ apex {
         "clatd.o_mainline",
         "netd.o_mainline",
         "dscp_policy.o",
+        "block.o",
         "offload.o",
         "test.o",
     ],

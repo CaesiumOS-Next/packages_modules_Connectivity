@@ -20,6 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.server.connectivity.ConnectivityNativeService;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -30,6 +31,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     private final ConnectivityService mConnectivity;
     private final IpSecService mIpSecService;
     private final NsdService mNsdService;
+    private final ConnectivityNativeService mConnectivityNative;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
@@ -37,6 +39,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
         System.loadLibrary("service-connectivity");
         mConnectivity = new ConnectivityService(context);
         mIpSecService = createIpSecService(context);
+        mConnectivityNative = createConnectivityNativeService();
         mNsdService = createNsdService(context);
     }
 
@@ -49,6 +52,12 @@ public final class ConnectivityServiceInitializer extends SystemService {
         if (mIpSecService != null) {
             Log.i(TAG, "Registering " + Context.IPSEC_SERVICE);
             publishBinderService(Context.IPSEC_SERVICE, mIpSecService, /* allowIsolated= */ false);
+        }
+
+        if (mConnectivityNative != null) {
+            Log.i(TAG, "Registering " + ConnectivityNativeService.SERVICE_NAME);
+            publishBinderService(ConnectivityNativeService.SERVICE_NAME, mConnectivityNative,
+                    /* allowIsolated= */ false);
         }
 
         if (mNsdService != null) {
@@ -64,6 +73,15 @@ public final class ConnectivityServiceInitializer extends SystemService {
         if (!SdkLevel.isAtLeastT()) return null;
 
         return new IpSecService(context);
+    }
+
+    /**
+     * Return ConnectivityNativeService instance, or null if current SDK is lower than T.
+     */
+    private ConnectivityNativeService createConnectivityNativeService() {
+        if (!SdkLevel.isAtLeastT()) return null;
+
+        return new ConnectivityNativeService();
     }
 
     /** Return NsdService instance or null if current SDK is lower than T */
