@@ -24,6 +24,7 @@ java_defaults {
         "libdexmakerjvmtiagent",
         "libstaticjvmtiagent",
         "libcom_android_networkstack_tethering_util_jni",
+        //"libcom_android_connectivity_com_android_net_module_util_jni",
     ],
     jni_uses_sdk_apis: true,
     jarjar_rules: ":TetheringTestsJarJarRules",
@@ -49,6 +50,8 @@ android_test {
     static_libs: [
         "androidx.test.rules",
         "net-tests-utils",
+        //"platform-test-annotations",
+        //"service-connectivity-pre-jarjar",
         "TetheringApiCurrentLib",
     ],
     compile_multilib: "both",
