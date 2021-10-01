@@ -14,6 +14,37 @@
 // limitations under the License.
 //
 
+aidl_interface {
+    name: "vendor_connectivity_aidl_interface",
+    local_include_dir: "binder",
+    vendor_available: true,
+    min_sdk_version: "30",
+    srcs: [
+        "binder/android/net/*.aidl",
+    ],
+    backend: {
+        java: {
+            apex_available: [
+                "//apex_available:platform",
+                "com.android.tethering",
+            ],
+        },
+    },
+    versions: ["1"],
+}
+
+java_library {
+    name: "vendor_connectivity_aidl_interface-lateststable-java",
+    sdk_version: "system_current",
+    min_sdk_version: "30",
+    static_libs: [
+        "vendor_connectivity_aidl_interface-V1-java",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
+
 package {
     // See: http://go/android-license-faq
     default_applicable_licenses: ["Android-Apache-2.0"],
@@ -34,6 +65,7 @@ cc_library_shared {
     ],
     stl: "libc++_static",
     header_libs: [
+        "bpf_syscall_wrappers",
         "libbase_headers",
     ],
     shared_libs: [
@@ -70,12 +102,14 @@ java_library {
         "modules-utils-shell-command-handler",
         "modules-utils-statemachine",
         "net-utils-device-common",
+        "net-utils-device-common-bpf",
         "net-utils-device-common-netlink",
         "net-utils-framework-common",
         "netd-client",
         "networkstack-client",
         "PlatformProperties",
         "service-connectivity-protos",
+        "vendor_connectivity_aidl_interface-lateststable-java",
     ],
     apex_available: [
         "com.android.tethering",
