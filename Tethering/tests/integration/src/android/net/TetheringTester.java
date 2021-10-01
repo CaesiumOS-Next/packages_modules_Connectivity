@@ -19,6 +19,8 @@ package android.net;
 import static android.net.InetAddresses.parseNumericAddress;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
 
+import static com.android.net.module.util.NetworkStackConstants.ARP_REPLY;
+import static com.android.net.module.util.NetworkStackConstants.ARP_REQUEST;
 import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_PIO;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ND_OPTION_SLLA;
@@ -46,6 +48,7 @@ import com.android.net.module.util.structs.LlaOption;
 import com.android.net.module.util.structs.NsHeader;
 import com.android.net.module.util.structs.PrefixInformationOption;
 import com.android.net.module.util.structs.RaHeader;
+import com.android.networkstack.arp.ArpPacket;
 import com.android.testutils.TapPacketReader;
 
 import java.net.Inet4Address;
@@ -303,6 +306,41 @@ public final class TetheringTester {
         }
     }
 
+    private ArpPacket parseArpPacketOrNull(final byte[] packet) {
+        try {
+            return ArpPacket.parseArpPacket(packet, packet.length);
+        } catch (ArpPacket.ParseException e) {
+            return null;
+        }
+    }
+
+    private void maybeReplyArp(byte[] packet) {
+        ByteBuffer buf = ByteBuffer.wrap(packet);
+
+        final ArpPacket arpPacket = parseArpPacketOrNull(packet);
+        if (arpPacket == null || arpPacket.opCode != ARP_REQUEST) return;
+
+        for (int i = 0; i < mTetheredDevices.size(); i++) {
+            TetheredDevice tethered = mTetheredDevices.valueAt(i);
+            if (!arpPacket.targetIp.equals(tethered.ipv4Addr)) continue;
+
+            final ByteBuffer arpReply = ArpPacket.buildArpPacket(
+                    arpPacket.senderHwAddress.toByteArray() /* dst */,
+                    tethered.macAddr.toByteArray() /* srcMac */,
+                    arpPacket.senderIp.getAddress() /* target IP */,
+                    arpPacket.senderHwAddress.toByteArray() /* target HW address */,
+                    tethered.ipv4Addr.getAddress() /* sender IP */,
+                    (short) ARP_REPLY);
+            try {
+                sendPacket(arpReply);
+            } catch (Exception e) {
+                fail("Failed to reply ARP for " + tethered.ipv4Addr);
+            }
+
+            return;
+        }
+    }
+
     public void sendPacket(ByteBuffer packet) throws Exception {
         mDownstreamReader.sendResponse(packet);
     }
@@ -319,6 +357,7 @@ public final class TetheringTester {
 
             if (result != null) return result;
 
+            maybeReplyArp(packet);
             maybeReplyNa(packet);
         }
 
