@@ -118,7 +118,6 @@ android_library {
         "java/**/*.kt",
     ],
     exclude_srcs: [":non-connectivity-module-test"],
-    jarjar_rules: "jarjar-rules.txt",
     static_libs: [
         "androidx.test.rules",
         "androidx.test.uiautomator",
@@ -168,6 +167,7 @@ android_test {
         "android.test.mock",
         "android.test.base",
     ],
+    jarjar_rules: ":connectivity-jarjar-rules",
     jni_libs: [
         "libservice-connectivity",
     ]
