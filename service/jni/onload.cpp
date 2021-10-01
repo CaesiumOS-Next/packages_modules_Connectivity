@@ -15,17 +15,20 @@
  */
 
 #include <nativehelper/JNIHelp.h>
-#include <log/log.h>
+//#include <log/log.h>
 
 namespace android {
 
 int register_android_server_TestNetworkService(JNIEnv* env);
 int register_android_server_connectivity_ClatCoordinator(JNIEnv* env);
+//int register_com_android_net_module_util_BpfMap(JNIEnv* env, char const* class_name);
+//int register_com_android_net_module_util_BpfUtils(JNIEnv* env, char const* class_name);
+//int register_android_server_TestNetworkService(JNIEnv* env);
 
 extern "C" jint JNI_OnLoad(JavaVM* vm, void*) {
     JNIEnv *env;
     if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
-        ALOGE("GetEnv failed");
+        //ALOGE("GetEnv failed");
         return JNI_ERR;
     }
 
@@ -36,6 +39,11 @@ extern "C" jint JNI_OnLoad(JavaVM* vm, void*) {
     if (register_android_server_connectivity_ClatCoordinator(env) < 0) {
         return JNI_ERR;
     }
+    // if (register_com_android_net_module_util_BpfMap(env,
+    //         "com/android/connectivity/com/android/net/module/util/BpfMap") < 0) return JNI_ERR;
+
+    // if (register_com_android_net_module_util_BpfUtils(env,
+    //         "com/android/connectivity/com/android/net/module/util/BpfUtils") < 0) return JNI_ERR;
 
     return JNI_VERSION_1_6;
 }
