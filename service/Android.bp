@@ -14,6 +14,37 @@
 // limitations under the License.
 //
 
+aidl_interface {
+    name: "vendor_connectivity_aidl_interface",
+    local_include_dir: "binder",
+    vendor_available: true,
+    min_sdk_version: "30",
+    srcs: [
+        "binder/android/net/*.aidl",
+    ],
+    backend: {
+        java: {
+            apex_available: [
+                "//apex_available:platform",
+                "com.android.tethering",
+            ],
+        },
+    },
+    versions: ["1"],
+}
+
+java_library {
+    name: "vendor_connectivity_aidl_interface-lateststable-java",
+    sdk_version: "system_current",
+    min_sdk_version: "30",
+    static_libs: [
+        "vendor_connectivity_aidl_interface-V1-java",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
+
 package {
     // See: http://go/android-license-faq
     default_applicable_licenses: ["Android-Apache-2.0"],
@@ -24,6 +55,7 @@ package {
 // shared util (com.android.net.module.util).
 cc_library_shared {
     name: "libcom_android_connectivity_com_android_net_module_util_jni",
+    sdk_version: "30",
     min_sdk_version: "30",
     cflags: [
         "-Wall",
@@ -32,19 +64,23 @@ cc_library_shared {
         "-Wthread-safety",
     ],
     srcs: [
-        "jni/com_android_server_TestNetworkService.cpp",
+        //"jni/com_android_server_TestNetworkService.cpp",
         "jni/onload.cpp",
     ],
     stl: "libc++_static",
     header_libs: [
-        "libbase_headers",
+        "bpf_syscall_wrappers",
+        //"libbase_headers",
+        "bpf_connectivity_headers",
     ],
     static_libs: [
         "libnet_utils_device_common_bpfjni",
+        "libbpfutilsjni",
     ],
     shared_libs: [
         "liblog",
-        "libnativehelper",
+        //"libnativehelper",
+        "libnativehelper_compat_libc++",
     ],
     apex_available: [
         "com.android.tethering",
@@ -82,6 +118,7 @@ java_library {
         "networkstack-client",
         "PlatformProperties",
         "service-connectivity-protos",
+        "vendor_connectivity_aidl_interface-lateststable-java",
     ],
     apex_available: [
         "com.android.tethering",
@@ -113,6 +150,9 @@ java_library {
         "service-connectivity-pre-jarjar",
     ],
     jarjar_rules: "jarjar-rules.txt",
+    optimize: {
+        proguard_flags_files: ["proguard.flags"],
+    },
     apex_available: [
         "com.android.tethering",
     ],
