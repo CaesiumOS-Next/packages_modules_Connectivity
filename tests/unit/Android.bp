@@ -166,6 +166,7 @@ android_test {
         "services.core",
         "services.net",
     ],
+    jarjar_rules: ":connectivity-jarjar-rules",
     jni_libs: [
         "libservice-connectivity",
         "libandroid_net_connectivity_com_android_net_module_util_jni",
