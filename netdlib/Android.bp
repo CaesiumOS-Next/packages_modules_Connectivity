@@ -1,0 +1,24 @@
+cc_library {
+    name: "libnetd_linked_bpf",
+    version_script: "libnetd_linked_bpf.map.txt",
+    stubs: {
+        versions: [
+            "1",
+        ],
+        symbol_file: "libnetd_linked_bpf.map.txt",
+    },
+    defaults: ["netd_defaults"],
+    srcs: [
+        "NetdBpf.cpp",
+    ],
+    export_include_dirs: ["include"],
+    header_abi_checker: {
+        enabled: true,
+        symbol_file: "libnetd_linked_bpf.map.txt",
+    },
+    sanitize: {
+        cfi: true,
+    },
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
+}
