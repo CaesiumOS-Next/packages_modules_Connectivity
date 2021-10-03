@@ -1,0 +1,30 @@
+cc_library {
+    name: "libconn_for_netd",
+    version_script: "libconn_for_netd.map.txt",
+    stubs: {
+        versions: [
+            "1",
+        ],
+        symbol_file: "libconn_for_netd.map.txt",
+    },
+    defaults: ["netd_defaults"],
+    srcs: [
+        "ConnectivityForNetd.cpp",
+    ],
+    static_libs: [
+        "libbase",
+    ],
+    shared_libs: [
+        "liblog",
+    ],
+    export_include_dirs: ["include"],
+    header_abi_checker: {
+        enabled: true,
+        symbol_file: "libconn_for_netd.map.txt",
+    },
+    sanitize: {
+        cfi: true,
+    },
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
+}
