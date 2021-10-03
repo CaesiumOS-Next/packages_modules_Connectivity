@@ -32,6 +32,7 @@ apex {
     multilib: {
         first: {
             jni_libs: ["libservice-connectivity"],
+            native_shared_libs: ["libnetd_mainline"],
         },
         both: {
             jni_libs: ["libframework-connectivity-jni"],
