@@ -57,6 +57,8 @@ java_defaults {
     // uncomment when b/13249961 is fixed
     // sdk_version: "current",
     platform_apis: true,
+    required: ["ConnectivityChecker"],
+    host_required: ["net-tests-utils-host-common"],
 }
 
 // Networking CTS tests for development and release. These tests always target the platform SDK
