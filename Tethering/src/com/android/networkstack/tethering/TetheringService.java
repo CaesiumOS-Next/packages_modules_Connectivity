@@ -37,6 +37,7 @@ import android.net.INetworkStackConnector;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
 import android.net.NetworkStack;
+import android.net.TetheringConntrackEntryParcel;
 import android.net.TetheringRequestParcel;
 import android.net.dhcp.DhcpServerCallbacks;
 import android.net.dhcp.DhcpServingParamsParcel;
@@ -213,6 +214,15 @@ public class TetheringService extends Service {
             }
 
             mTethering.setPreferTestNetworks(prefer, listener);
+        }
+
+        @Override
+        public TetheringConntrackEntryParcel[] getConntrackEntry() {
+            if (!hasTetherAccessPermission()) {
+                // TODO: throw exception if required.
+                return null;
+            }
+            return mTethering.getConntrackEntry();
         }
 
         @Override

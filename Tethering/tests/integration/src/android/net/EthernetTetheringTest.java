@@ -786,6 +786,11 @@ public class EthernetTetheringTest {
         mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
 
         runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader));
+
+        // TODO: chekc the parcel content.
+        assertNotNull(mTm.getConntrackEntry());
+        assertEquals(1234, mTm.getConntrackEntry()[0].srcPort);
+        assertEquals(5678, mTm.getConntrackEntry()[0].dstPort);
     }
 
     // Test network topology:
