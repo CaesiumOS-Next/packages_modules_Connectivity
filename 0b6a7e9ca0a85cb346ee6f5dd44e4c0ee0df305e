@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec9264c5_fd0a9830",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-04T08:00:40Z",
+      "side": 1,
+      "message": "Pre-existing, but I\u0027m not sure this does what is intended (waiting for 500ms then checking that the callback was not called); I think there\u0027s a good chance it\u0027s equivalent to verify(callback, never()), since \"timeout\" generally waits until the method was called X (here 0) times.",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 59
+      },
+      "revId": "0b6a7e9ca0a85cb346ee6f5dd44e4c0ee0df305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
