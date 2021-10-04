@@ -22,6 +22,30 @@
       },
       "revId": "0b6a7e9ca0a85cb346ee6f5dd44e4c0ee0df305e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c0213d3_500cf83e",
+        "filename": "tests/unit/java/android/net/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T09:06:21Z",
+      "side": 1,
+      "message": "Golly, you are right. Doc for timeout() :\n\n\u003e This is similar to {@link VerificationAfterDelay after()} except this assertion will immediately pass if it becomes true at any point\n\nFixed.",
+      "parentUuid": "ec9264c5_fd0a9830",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 59
+      },
+      "revId": "0b6a7e9ca0a85cb346ee6f5dd44e4c0ee0df305e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
