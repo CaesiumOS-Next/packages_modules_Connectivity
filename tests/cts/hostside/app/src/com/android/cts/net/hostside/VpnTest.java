@@ -134,6 +134,7 @@ import java.util.concurrent.TimeUnit;
  *   https://source.android.com/devices/tech/config/kernel_network_tests.html
  *
  */
+@SuppressWarnings("JUnit4ClassUsedInJUnit3")
 public class VpnTest extends InstrumentationTestCase {
 
     // These are neither public nor @TestApi.
