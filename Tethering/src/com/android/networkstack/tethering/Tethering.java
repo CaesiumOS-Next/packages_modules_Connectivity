@@ -95,6 +95,7 @@ import android.net.TetherStatesParcel;
 import android.net.TetheredClient;
 import android.net.TetheringCallbackStartedParcel;
 import android.net.TetheringConfigurationParcel;
+import android.net.TetheringConntrackEntryParcel;
 import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringRequestParcel;
@@ -2609,5 +2610,10 @@ public class Tethering {
                 listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException e) { }
         });
+    }
+
+    TetheringConntrackEntryParcel[] getConntrackEntry() {
+        // TODO: read from bpf coordinator.
+        return new TetheringConntrackEntryParcel[] { new TetheringConntrackEntryParcel() };
     }
 }
