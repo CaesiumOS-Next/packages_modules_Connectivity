@@ -216,6 +216,19 @@ public class TetheringService extends Service {
         }
 
         @Override
+        public boolean getConntrackEntry(IIntResultListener listener) {
+            try {
+                if (!hasTetherAccessPermission()) {
+                    listener.onResult(TETHER_ERROR_NO_ACCESS_TETHERING_PERMISSION);
+                    return false;
+                }
+                return mTethering.getConntrackEntry(listener);
+            } catch (RemoteException e) {
+                return false;
+            }
+        }
+
+        @Override
         protected void dump(@NonNull FileDescriptor fd, @NonNull PrintWriter writer,
                     @Nullable String[] args) {
             mTethering.dump(fd, writer, args);

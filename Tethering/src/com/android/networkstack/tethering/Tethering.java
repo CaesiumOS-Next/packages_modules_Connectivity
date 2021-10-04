@@ -2610,4 +2610,9 @@ public class Tethering {
             } catch (RemoteException e) { }
         });
     }
+
+    boolean getConntrackEntry(IIntResultListener listener) {
+        // TODO: read 
+        return true;
+    }
 }
