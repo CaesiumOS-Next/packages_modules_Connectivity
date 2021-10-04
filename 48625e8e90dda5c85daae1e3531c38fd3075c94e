@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c28890a9_63554dc6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-04T08:02:31Z",
+      "side": 1,
+      "message": "do we need \"@Override\" annotation for ITetheringConnector?\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1797991/9/Tethering/common/TetheringLib/src/android/net/ITetheringConnector.aidl#53\noneway interface ITetheringConnector {\n    void setPreferTestNetworks(boolean prefer, IIntResultListener listener);",
+      "range": {
+        "startLine": 203,
+        "startChar": 20,
+        "endLine": 203,
+        "endChar": 41
+      },
+      "revId": "48625e8e90dda5c85daae1e3531c38fd3075c94e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
