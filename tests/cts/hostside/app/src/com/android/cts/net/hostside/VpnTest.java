@@ -17,6 +17,7 @@
 package com.android.cts.net.hostside;
 
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.ConnectivityManager.TYPE_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.os.Process.INVALID_UID;
@@ -31,6 +32,9 @@ import static android.system.OsConstants.SOCK_DGRAM;
 import static android.test.MoreAsserts.assertNotEqual;
 
 import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
+import static com.android.testutils.Cleanup.testAndCleanup;
+
+import static org.junit.Assume.assumeTrue;
 
 import android.annotation.Nullable;
 import android.app.DownloadManager;
@@ -56,6 +60,7 @@ import android.net.Uri;
 import android.net.VpnManager;
 import android.net.VpnService;
 import android.net.VpnTransportInfo;
+import android.net.cts.util.CtsNetUtils;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Looper;
@@ -71,6 +76,7 @@ import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
 import android.system.StructPollfd;
+import android.telephony.TelephonyManager;
 import android.test.InstrumentationTestCase;
 import android.test.MoreAsserts;
 import android.text.TextUtils;
@@ -78,6 +84,7 @@ import android.util.Log;
 
 import com.android.compatibility.common.util.BlockingBroadcastReceiver;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.testutils.RecorderCallback;
 import com.android.testutils.TestableNetworkCallback;
 
 import java.io.Closeable;
@@ -135,6 +142,7 @@ public class VpnTest extends InstrumentationTestCase {
     private static final String PRIVATE_DNS_MODE_PROVIDER_HOSTNAME = "hostname";
     private static final String PRIVATE_DNS_MODE_OPPORTUNISTIC = "opportunistic";
     private static final String PRIVATE_DNS_SPECIFIER_SETTING = "private_dns_specifier";
+    private static final int NETWORK_CALLBACK_TIMEOUT_MS = 30_000;
 
     public static String TAG = "VpnTest";
     public static int TIMEOUT_MS = 3 * 1000;
@@ -147,6 +155,9 @@ public class VpnTest extends InstrumentationTestCase {
     private ConnectivityManager mCM;
     private WifiManager mWifiManager;
     private RemoteSocketFactoryClient mRemoteSocketFactoryClient;
+    private CtsNetUtils mCtsNetUtils;
+    private PackageManager mPackageManager;
+    private TelephonyManager mTelephonyManager;
 
     Network mNetwork;
     NetworkCallback mCallback;
@@ -178,6 +189,10 @@ public class VpnTest extends InstrumentationTestCase {
         mRemoteSocketFactoryClient = new RemoteSocketFactoryClient(mActivity);
         mRemoteSocketFactoryClient.bind();
         mDevice.waitForIdle();
+        mCtsNetUtils = new CtsNetUtils(getInstrumentation().getContext());
+        mPackageManager = getInstrumentation().getContext().getPackageManager();
+        mTelephonyManager =
+                getInstrumentation().getContext().getSystemService(TelephonyManager.class);
     }
 
     @Override
@@ -244,6 +259,32 @@ public class VpnTest extends InstrumentationTestCase {
         }
     }
 
+    private void updateUnderlyingNetworks(@Nullable ArrayList<Network> underlyingNetworks)
+            throws Exception {
+        Intent intent = new Intent(mActivity, MyVpnService.class)
+                .putExtra(mPackageName + ".cmd", MyVpnService.CMD_UPDATE_UNDERLYING_NETWORKS)
+                .putParcelableArrayListExtra(
+                        mPackageName + ".underlyingNetworks", underlyingNetworks);
+        mActivity.startService(intent);
+    }
+
+    private void updateVpn(String[] addresses, String[] routes, String allowedApplications,
+            String disallowedApplications, @Nullable ProxyInfo proxyInfo,
+            @Nullable ArrayList<Network> underlyingNetworks, boolean isAlwaysMetered)
+            throws Exception {
+        Intent intent = new Intent(mActivity, MyVpnService.class)
+                .putExtra(mPackageName + ".cmd", MyVpnService.CMD_UPDATE_CONFIG)
+                .putExtra(mPackageName + ".addresses", TextUtils.join(",", addresses))
+                .putExtra(mPackageName + ".routes", TextUtils.join(",", routes))
+                .putExtra(mPackageName + ".allowedapplications", allowedApplications)
+                .putExtra(mPackageName + ".disallowedapplications", disallowedApplications)
+                .putExtra(mPackageName + ".httpProxy", proxyInfo)
+                .putParcelableArrayListExtra(
+                        mPackageName + ".underlyingNetworks", underlyingNetworks)
+                .putExtra(mPackageName + ".isAlwaysMetered", isAlwaysMetered);
+        mActivity.startService(intent);
+    }
+
     // TODO: Consider replacing arguments with a Builder.
     private void startVpn(
         String[] addresses, String[] routes, String allowedApplications,
@@ -270,7 +311,7 @@ public class VpnTest extends InstrumentationTestCase {
 
         // Start the service and wait up for TIMEOUT_MS ms for the VPN to come up.
         Intent intent = new Intent(mActivity, MyVpnService.class)
-                .putExtra(mPackageName + ".cmd", "connect")
+                .putExtra(mPackageName + ".cmd", MyVpnService.CMD_CONNECT)
                 .putExtra(mPackageName + ".addresses", TextUtils.join(",", addresses))
                 .putExtra(mPackageName + ".routes", TextUtils.join(",", routes))
                 .putExtra(mPackageName + ".allowedapplications", allowedApplications)
@@ -322,7 +363,7 @@ public class VpnTest extends InstrumentationTestCase {
         // and stopping a bound service has no effect. Instead, "start" the service again with an
         // Intent that tells it to disconnect.
         Intent intent = new Intent(mActivity, MyVpnService.class)
-                .putExtra(mPackageName + ".cmd", "disconnect");
+                .putExtra(mPackageName + ".cmd", MyVpnService.CMD_DISCONNECT);
         mActivity.startService(intent);
         synchronized (mLockShutdown) {
             try {
@@ -700,6 +741,76 @@ public class VpnTest extends InstrumentationTestCase {
         final boolean initialMode = isPrivateDnsInStrictMode();
         setAndVerifyPrivateDns(!initialMode);
         setAndVerifyPrivateDns(initialMode);
+    }
+
+    private NetworkRequest makeVpnNetworkRequest() {
+        return new NetworkRequest.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_VPN)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build();
+    }
+
+    public void testChangeUnderlyingNetworks() throws Exception {
+        assumeTrue(supportedHardware());
+        assumeTrue(SdkLevel.isAtLeastT());
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assumeTrue(mTelephonyManager.isDataCapable());
+        final TestableNetworkCallback callback = new TestableNetworkCallback();
+        testAndCleanup(() -> {
+            // - Ensure wifi is connected.
+            // - Start VPN and set wifi as its underlying networks.
+            // - Check the underlying networks of NetworkCapabilities which comes from
+            //   onCapabilitiesChanged is wifi.
+            // - Ensure mobile data is connected.
+            // - Update the underlying networks to mobile data by calling Vpn#establish().
+            // - Check the underlying networks of NetworkCapabilities which comes from
+            //   onCapabilitiesChanged is mobile data.
+            // - Update the underlying networks to wifi by calling Vpn#setUnderlyingNetworks().
+            // - Check the underlying networks of NetworkCapabilities which comes from
+            //   onCapabilitiesChanged is wifi.
+            final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+            assertTrue("Wifi is not connected", (wifiNetwork != null));
+            ArrayList<Network> underlyingNetworks = new ArrayList<>();
+            underlyingNetworks.add(wifiNetwork);
+            startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[] {"0.0.0.0/0", "::/0"} /* routes */,
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, underlyingNetworks /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+            mCM.registerNetworkCallback(makeVpnNetworkRequest(), callback);
+            callback.eventuallyExpect(RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED,
+                    NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> (underlyingNetworks.equals(
+                            ((RecorderCallback.CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                            .getUnderlyingNetworks())));
+            final Network cellNetwork = mCtsNetUtils.connectToCell();
+            assertTrue("Mobile data is not connected", (cellNetwork != null));
+            underlyingNetworks.clear();
+            underlyingNetworks.add(cellNetwork);
+            // Update underlying networks by calling Vpn#establish().
+            updateVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[] {"0.0.0.0/0", "::/0"} /* routes */,
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, underlyingNetworks /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+            callback.eventuallyExpect(RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED,
+                    NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> (underlyingNetworks.equals(
+                            ((RecorderCallback.CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                            .getUnderlyingNetworks())));
+            underlyingNetworks.clear();
+            underlyingNetworks.add(wifiNetwork);
+            // Update underlying networks by calling Vpn#setUnderlyingNetworks().
+            updateUnderlyingNetworks(underlyingNetworks);
+            callback.eventuallyExpect(RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED,
+                    NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> (underlyingNetworks.equals(
+                            ((RecorderCallback.CallbackEntry.CapabilitiesChanged) entry).getCaps()
+                                    .getUnderlyingNetworks())));
+        }, () -> {
+                mCM.unregisterNetworkCallback(callback);
+            });
     }
 
     public void testDefault() throws Exception {
