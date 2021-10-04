@@ -1559,4 +1559,22 @@ public class TetheringManager {
             }
         });
     }
+
+    /**
+     * Get conntrack entry information.
+     *
+     * <p>Without {@link android.Manifest.permission.TETHER_PRIVILEGED} permission, the call will
+     * fail if a tethering entitlement check is required.
+     * @hide
+     */
+    @RequiresPermission(android.Manifest.permission.TETHER_PRIVILEGED)
+    public TetheringConntrackEntryParcel[] getConntrackEntriesForTesting() {
+        Log.i(TAG, "getConntrackEntriesForTesting caller: " + mContext.getOpPackageName());
+
+        try {
+            return mConnector.getConntrackEntriesForTesting();
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 }

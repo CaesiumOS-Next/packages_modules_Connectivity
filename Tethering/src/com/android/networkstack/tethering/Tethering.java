@@ -95,6 +95,7 @@ import android.net.TetherStatesParcel;
 import android.net.TetheredClient;
 import android.net.TetheringCallbackStartedParcel;
 import android.net.TetheringConfigurationParcel;
+import android.net.TetheringConntrackEntryParcel;
 import android.net.TetheringInterface;
 import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringRequestParcel;
@@ -138,6 +139,7 @@ import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
+import com.android.net.module.util.netlink.ConntrackMessage;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -146,8 +148,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
@@ -2609,5 +2613,34 @@ public class Tethering {
                 listener.onResult(TETHER_ERROR_NO_ERROR);
             } catch (RemoteException e) { }
         });
+    }
+
+    TetheringConntrackEntryParcel[] getConntrackEntriesForTesting() {
+        final HashMap<ConntrackMessage.Tuple, Integer> entries =
+                mBpfCoordinator.getConntrackEntriesForTesting();
+        if (entries.size() == 0) return null;
+
+        final TetheringConntrackEntryParcel[] parcels =
+                new TetheringConntrackEntryParcel[entries.size()];
+
+        int i = 0;
+        for (Map.Entry<ConntrackMessage.Tuple, Integer> e : entries.entrySet()) {
+            final TetheringConntrackEntryParcel p = new TetheringConntrackEntryParcel();
+            final ConntrackMessage.Tuple k = e.getKey();
+
+            p.l4Protocol = k.protoNum;
+            p.srcIp4 = k.srcIp.getAddress();
+            p.dstIp4 = k.dstIp.getAddress();
+            p.srcPort = k.srcPort;
+            p.dstPort = k.dstPort;
+
+            // TODO: fill the protoState once the ConntrackMessage class could parse protocol
+            // information (CTA_PROTOINFO).
+
+            parcels[i] = p;
+            i++;
+        }
+
+        return parcels;
     }
 }

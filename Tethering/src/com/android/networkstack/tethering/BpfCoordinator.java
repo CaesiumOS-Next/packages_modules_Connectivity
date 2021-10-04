@@ -161,6 +161,12 @@ public class BpfCoordinator {
     @NonNull
     private final BpfConntrackEventConsumer mBpfConntrackEventConsumer;
 
+    // Map for conntrack entry to protocol state. For test only for now.
+    // The protocol state is unused for UDP and used to present tcp state for TCP.
+    // TODO: use this map for updating tcp conntrack once ConntrackMessage parse tcp state.
+    @NonNull
+    private final HashMap<ConntrackMessage.Tuple, Integer> mConntrackEntries;
+
     // True if BPF offload is supported, false otherwise. The BPF offload could be disabled by
     // a runtime resource overlay package or device configuration. This flag is only initialized
     // in the constructor because it is hard to unwind all existing change once device
@@ -292,6 +298,13 @@ public class BpfCoordinator {
         }
 
         /**
+         * Get conntrack entries.
+         */
+        @NonNull public HashMap<ConntrackMessage.Tuple, Integer> getConntrackEntries() {
+            return new HashMap<ConntrackMessage.Tuple, Integer>();
+        }
+
+        /**
          * Represents an estimate of elapsed time since boot in nanoseconds.
          */
         public long elapsedRealtimeNanos() {
@@ -400,6 +413,7 @@ public class BpfCoordinator {
         mNetd = mDeps.getNetd();
         mLog = mDeps.getSharedLog().forSubComponent(TAG);
         mIsBpfEnabled = isBpfEnabled();
+        mConntrackEntries = mDeps.getConntrackEntries();
 
         // The conntrack consummer needs to be initialized in BpfCoordinator constructor because it
         // have to access the data members of BpfCoordinator which is not a static class. The
@@ -1563,6 +1577,16 @@ public class BpfCoordinator {
                     0 /* lastUsed, filled by bpf prog only */);
         }
 
+        private void updateConntrackEntry(@NonNull ConntrackEvent e) {
+            if (e.msgType == (NetlinkConstants.NFNL_SUBSYS_CTNETLINK << 8
+                    | NetlinkConstants.IPCTNL_MSG_CT_NEW)) {
+                // TODO: once the tcp state can be parsed, fill tcp state to the map if any.
+                mConntrackEntries.put(e.tupleOrig, 0 /* unused, reserved for tcp state */);
+            } else {
+                mConntrackEntries.remove(e.tupleOrig);
+            }
+        }
+
         private boolean allowOffload(ConntrackEvent e) {
             if (e.tupleOrig.protoNum != OsConstants.IPPROTO_TCP) return true;
             return !CollectionUtils.contains(
@@ -1577,6 +1601,8 @@ public class BpfCoordinator {
 
             final Integer upstreamIndex = mIpv4UpstreamIndices.get(e.tupleReply.dstIp);
             if (upstreamIndex == null) return;
+
+            updateConntrackEntry(e);
 
             final Tether4Key upstream4Key = makeTetherUpstream4Key(e, tetherClient);
             final Tether4Key downstream4Key = makeTetherDownstream4Key(e, tetherClient,
@@ -1995,6 +2021,14 @@ public class BpfCoordinator {
     @VisibleForTesting
     final BpfConntrackEventConsumer getBpfConntrackEventConsumerForTesting() {
         return mBpfConntrackEventConsumer;
+    }
+
+    // Return conntrack entries. This is used for testing only.
+    @NonNull
+    @VisibleForTesting
+    final HashMap<ConntrackMessage.Tuple, Integer>
+            getConntrackEntriesForTesting() {
+        return mConntrackEntries;
     }
 
     private static native String[] getBpfCounterNames();

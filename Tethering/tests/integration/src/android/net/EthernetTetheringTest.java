@@ -853,6 +853,38 @@ public class EthernetTetheringTest {
 
             return (buf.getShort() == (short) 0xccdd) ? p : null;
         });
+
+        // The BPF coordinator only offloads the ASSURED conntrack entry. Previous packets can make
+        // IPS_SEEN_REPLY to be set. Need the following packet to make the conntrack entry
+        // IPS_ASSURED_BIT to be set.
+        // See nf_conntrack_udp_packet in net/netfilter/nf_conntrack_proto_udp.c.
+        tester.sendPacket(request);
+        remote.getNextMatchedPacket((p) -> {
+            Log.d(TAG, "Packet in upstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            final Ipv4Header ipv4Header = Struct.parse(Ipv4Header.class, buf);
+            if (ipv4Header == null) return null;
+
+            final UdpHeader udpHeader = Struct.parse(UdpHeader.class, buf);
+            if (udpHeader == null) return null;
+
+            if (buf.remaining() != senddata.limit()) return null;
+
+            return (buf.getShort() == (short) 0xaabb) ? p : null;
+        });
+
+        final TetheringConntrackEntryParcel[] entries = mTm.getConntrackEntriesForTesting();
+        assertNotNull(entries);
+        assertEquals(1, entries.length);
+        assertEquals(OsConstants.IPPROTO_UDP, entries[0].l4Protocol);
+        assertTrue(Arrays.equals(tethered.ipv4Addr.getAddress(), entries[0].srcIp4));
+        assertTrue(Arrays.equals(remoteIp4Addr.getAddress(), entries[0].dstIp4));
+        assertEquals(privatePort, entries[0].srcPort);
+        assertEquals(remotePort, entries[0].dstPort);
+
+        // TODO: verify protocol information once the ConntrackMessage class could parse protocol
+        // information (CTA_PROTOINFO). Although UDP does not have protocol information actually.
     }
 
     private <T> List<T> toList(T... array) {

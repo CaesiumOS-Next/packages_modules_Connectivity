@@ -17,38 +17,41 @@ package android.net;
 
 import android.net.IIntResultListener;
 import android.net.ITetheringEventCallback;
+import android.net.TetheringConntrackEntryParcel;
 import android.net.TetheringRequestParcel;
 import android.os.ResultReceiver;
 
 /** @hide */
-oneway interface ITetheringConnector {
-    void tether(String iface, String callerPkg, String callingAttributionTag,
+interface ITetheringConnector {
+    oneway void tether(String iface, String callerPkg, String callingAttributionTag,
             IIntResultListener receiver);
 
-    void untether(String iface, String callerPkg, String callingAttributionTag,
+    oneway void untether(String iface, String callerPkg, String callingAttributionTag,
             IIntResultListener receiver);
 
-    void setUsbTethering(boolean enable, String callerPkg,
+    oneway void setUsbTethering(boolean enable, String callerPkg,
             String callingAttributionTag, IIntResultListener receiver);
 
-    void startTethering(in TetheringRequestParcel request, String callerPkg,
+    oneway void startTethering(in TetheringRequestParcel request, String callerPkg,
             String callingAttributionTag, IIntResultListener receiver);
 
-    void stopTethering(int type, String callerPkg, String callingAttributionTag,
+    oneway void stopTethering(int type, String callerPkg, String callingAttributionTag,
             IIntResultListener receiver);
 
-    void requestLatestTetheringEntitlementResult(int type, in ResultReceiver receiver,
+    oneway void requestLatestTetheringEntitlementResult(int type, in ResultReceiver receiver,
             boolean showEntitlementUi, String callerPkg, String callingAttributionTag);
 
-    void registerTetheringEventCallback(ITetheringEventCallback callback, String callerPkg);
+    oneway void registerTetheringEventCallback(ITetheringEventCallback callback, String callerPkg);
 
-    void unregisterTetheringEventCallback(ITetheringEventCallback callback, String callerPkg);
+    oneway void unregisterTetheringEventCallback(ITetheringEventCallback callback, String callerPkg);
 
-    void isTetheringSupported(String callerPkg, String callingAttributionTag,
+    oneway void isTetheringSupported(String callerPkg, String callingAttributionTag,
             IIntResultListener receiver);
 
-    void stopAllTethering(String callerPkg, String callingAttributionTag,
+    oneway void stopAllTethering(String callerPkg, String callingAttributionTag,
             IIntResultListener receiver);
 
-    void setPreferTestNetworks(boolean prefer, IIntResultListener listener);
+    oneway void setPreferTestNetworks(boolean prefer, IIntResultListener listener);
+
+    TetheringConntrackEntryParcel[] getConntrackEntriesForTesting();
 }
