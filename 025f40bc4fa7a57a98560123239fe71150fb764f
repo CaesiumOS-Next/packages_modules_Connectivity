@@ -34,6 +34,24 @@
       "parentUuid": "fcce643e_ce32d4a3",
       "revId": "025f40bc4fa7a57a98560123239fe71150fb764f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f430f919_54345d2d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-04T11:09:27Z",
+      "side": 1,
+      "message": "I may tent to clarify this. The broadcast doc pointed out that it\u0027s for the default connection, so tethering state change is not included. Then it should be understandable that it will have no broadcast notified.\n\nFor the callback, I am not sure about the status right now. NetworkCallback attempts to find the best network that matches the passed NetworkRequest. Tethering state does not introduce networks now. I would think it\u0027s reasonable that NetworkCallback will not trigger any callback since no network matches the request. \n\nImprovement that I would like to have is getting a clearer definition about what will be a \"Network\" regarding to the callback issue. I may expect to get the notificatoin for all possible \"Network\". If the network is used to direct traffic to the given Network(gotten from current doc), then we may need to support this(NetworkCallback) because Tethering could be designed in such way(to be defined as a Network?). \n\nBut tethering change just matches no network now, so it will not have NetworkCallback notified. Then it will more like a feature request but not a doc bug reported. Otherwise, we may receive more bugs to say something like why I could not get callback notified for NearBy, etc.\n\nThe current clearer doc improvement still be helpful I think.",
+      "parentUuid": "95b50dfe_a50b0c71",
+      "revId": "025f40bc4fa7a57a98560123239fe71150fb764f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
