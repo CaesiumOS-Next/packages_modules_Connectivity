@@ -16,6 +16,24 @@
       "message": "Thanks for providing the doc. It\u0027s fine. But I am not sure if it\u0027s addressed reporter\u0027s concern. For the broadcast, we had doc says that \"A change in network connectivity has occurred. A default connection has either been established or lost.\". This should notify the default connection change. Tethering state is not the case I think. Of course clearer documentation will always help but I wonder if we need to list all the unspported cases/conditions. Or we could say it\u0027s supported in other services?",
       "revId": "025f40bc4fa7a57a98560123239fe71150fb764f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95b50dfe_a50b0c71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:11:03Z",
+      "side": 1,
+      "message": "So your point is that this is already documented, because the doc already says it is sent about the \"default\" connection ? I\u0027d agree with that to some extent. I certainly agree that we shouldn\u0027t need to list all unsupported conditions.\n\nThat being said the reporter thought it was not clear enough. I\u0027m not too sure how to clarify without at least listing some of the conditions, including the specific one that was asked about. Do you have a suggestion about how to improve it ?\n\nToday generally this is not supported by other services, though we want NetworkCallback to support it (and are actually working on it).",
+      "parentUuid": "fcce643e_ce32d4a3",
+      "revId": "025f40bc4fa7a57a98560123239fe71150fb764f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
