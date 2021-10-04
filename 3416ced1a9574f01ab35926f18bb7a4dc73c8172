@@ -83,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c210131_e7304f46",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4263,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:56:35Z",
+      "side": 1,
+      "message": "So it did work, only you had to remove the same line in removeSatisfiedNetworkRequestFromNetwork. Great ! :D",
+      "parentUuid": "73d7f39c_998e7b27",
+      "range": {
+        "startLine": 4262,
+        "startChar": 0,
+        "endLine": 4263,
+        "endChar": 39
+      },
+      "revId": "3416ced1a9574f01ab35926f18bb7a4dc73c8172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10098768_6bec683b",
