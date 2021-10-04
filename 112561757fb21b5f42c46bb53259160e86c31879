@@ -72,6 +72,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8736e28_6aa75d28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-04T04:27:32Z",
+      "side": 1,
+      "message": "\u003e • when the VPN is sending a new list of networks, NC callbacks are called and the object contains them\naosp/1838424\n\n\u003e • when a VPN doesn\u0027t declare underlying networks but the default network changes, NC callbacks are called and the object contains the default network as underlying\naosp/1842952",
+      "parentUuid": "661cdd97_73f40a7e",
+      "revId": "112561757fb21b5f42c46bb53259160e86c31879",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa15d540_cab365fe",
