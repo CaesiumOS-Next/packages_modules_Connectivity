@@ -85,6 +85,8 @@ import org.mockito.MockitoAnnotations;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(VERSION_CODES.R)
 public class ConnectivityManagerTest {
+    private static final int TIMEOUT_MS = 30_000;
+    private static final int SHORT_TIMEOUT_MS = 150;
 
     @Mock Context mCtx;
     @Mock IConnectivityManager mService;
@@ -233,7 +235,7 @@ public class ConnectivityManagerTest {
 
         // callback triggers
         captor.getValue().send(makeMessage(request, ConnectivityManager.CALLBACK_AVAILABLE));
-        verify(callback, timeout(500).times(1)).onAvailable(any(Network.class),
+        verify(callback, timeout(TIMEOUT_MS).times(1)).onAvailable(any(Network.class),
                 any(NetworkCapabilities.class), any(LinkProperties.class), anyBoolean());
 
         // unregister callback
@@ -242,7 +244,7 @@ public class ConnectivityManagerTest {
 
         // callback does not trigger anymore.
         captor.getValue().send(makeMessage(request, ConnectivityManager.CALLBACK_LOSING));
-        verify(callback, timeout(500).times(0)).onLosing(any(), anyInt());
+        verify(callback, timeout(SHORT_TIMEOUT_MS).times(0)).onLosing(any(), anyInt());
     }
 
     @Test
@@ -262,7 +264,7 @@ public class ConnectivityManagerTest {
 
         // callback triggers
         captor.getValue().send(makeMessage(req1, ConnectivityManager.CALLBACK_AVAILABLE));
-        verify(callback, timeout(100).times(1)).onAvailable(any(Network.class),
+        verify(callback, timeout(TIMEOUT_MS).times(1)).onAvailable(any(Network.class),
                 any(NetworkCapabilities.class), any(LinkProperties.class), anyBoolean());
 
         // unregister callback
@@ -271,7 +273,9 @@ public class ConnectivityManagerTest {
 
         // callback does not trigger anymore.
         captor.getValue().send(makeMessage(req1, ConnectivityManager.CALLBACK_LOSING));
-        verify(callback, timeout(100).times(0)).onLosing(any(), anyInt());
+        // timeout() returns an object whose documentation contains the "never()" method... but
+        // the object doesn't, so use times(0)
+        verify(callback, timeout(SHORT_TIMEOUT_MS).times(0)).onLosing(any(), anyInt());
 
         // callback can be registered again
         when(mService.requestNetwork(anyInt(), any(), anyInt(), captor.capture(), anyInt(), any(),
@@ -280,7 +284,7 @@ public class ConnectivityManagerTest {
 
         // callback triggers
         captor.getValue().send(makeMessage(req2, ConnectivityManager.CALLBACK_LOST));
-        verify(callback, timeout(100).times(1)).onLost(any());
+        verify(callback, timeout(TIMEOUT_MS).times(1)).onLost(any());
 
         // unregister callback
         manager.unregisterNetworkCallback(callback);
