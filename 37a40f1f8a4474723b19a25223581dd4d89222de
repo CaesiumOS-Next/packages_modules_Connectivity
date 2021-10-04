@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7483d06c_1640ff95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "I\u0027ll need another pass to think of corner cases, but here is a first",
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746a8829_ec27c87d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "Maybe mUidToNetworkPerm ?",
+      "range": {
+        "startLine": 102,
+        "startChar": 33,
+        "endLine": 102,
+        "endChar": 50
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd62977_45852ae4",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "Could this loop be factorized with onUserAdded ? ISTM this is the exact same code.",
+      "range": {
+        "startLine": 255,
+        "startChar": 41,
+        "endLine": 255,
+        "endChar": 42
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14c0097f_1441a2b2",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "nit : final",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 19
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c1e8f31_d69c3a80",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "...and there is also the list of UIDs allowed on restricted networks. But not sure it\u0027s important to mention it here.",
+      "range": {
+        "startLine": 354,
+        "startChar": 45,
+        "endLine": 354,
+        "endChar": 46
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9689096_08dfdfe7",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "You should explain why. IIUC the reason is that apps can\u0027t request different permissions per-user, and all permissions checked inside getNetdPermissionMask are install-time permissions that can\u0027t be denied, is this correct ?",
+      "range": {
+        "startLine": 471,
+        "startChar": 66,
+        "endLine": 471,
+        "endChar": 67
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37a39437_bbe54027",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "Note that IIUC it can\u0027t be SYSTEM, because all SYSTEM apps are preinstalled. But it could be NETWORK.",
+      "range": {
+        "startLine": 509,
+        "startChar": 41,
+        "endLine": 509,
+        "endChar": 69
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "097aac2e_e6319d24",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "I find this contrived. Not for this patch, but what would you think of the following :\n\n  if (permission !\u003d mNetworkPermsUid.get()) {\n    if (permission \u003d\u003d PERMISSION_NONE) {\n      delete()\n      ...\n    } else {\n      put()\n      ...\n    }\n  }",
+      "range": {
+        "startLine": 567,
+        "startChar": 0,
+        "endLine": 585,
+        "endChar": 9
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "561cfc46_5a977612",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "I am slightly concerned about object churn here, because this is called repeatedly with the same user in n² loops. IIUC it\u0027s only called quadratically in onSettingsChanged so maybe it\u0027s not too bad, but maybe we want to consider caching the context objects per user ?",
+      "range": {
+        "startLine": 617,
+        "startChar": 46,
+        "endLine": 617,
+        "endChar": 65
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14615594_66e1ba2b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "IIUC we only need to do this if it\u0027s different from the old value in mNetworkPermsUids (likewise for l.854).\n\nYou don\u0027t need to do it (at least not in this patch) because you\u0027re not changing anything here",
+      "range": {
+        "startLine": 851,
+        "startChar": 16,
+        "endLine": 851,
+        "endChar": 27
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71acee63_bfa76f94",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "SYSTEM_APP_UID21 ?\nAlso do you want to rename MOCK_UID_\\d into MOCK_UID_1\\d ?",
+      "range": {
+        "startLine": 128,
+        "startChar": 36,
+        "endLine": 128,
+        "endChar": 41
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09ea86e7_caa48c6d",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-04T10:53:07Z",
+      "side": 1,
+      "message": "\"either user\" was correct, \"either users\" is incorrect",
+      "range": {
+        "startLine": 1035,
+        "startChar": 73,
+        "endLine": 1035,
+        "endChar": 74
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
