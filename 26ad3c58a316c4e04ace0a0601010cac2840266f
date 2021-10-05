@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f3d485_e571df76",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Class removed in next commit",
+      "parentUuid": "87b90535_013bc851",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 17
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a45a1e6b_96ef4138",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "Looks like this entire class could be replaced with\n\n    private data class EventData private constructor(val callbackName: String, val info: NsdServiceInfo?, val errorCode: Int) {\n        constructor(callbackName: String, info: NsdServiceInfo) : this(callbackName, info, 0)\n        constructor(callbackName: String, errorCode: Int) : this(callbackName, null, errorCode)\n        val succeeded: Boolean get() \u003d info !\u003d null\n    }\n\nYou could simplify this further with\n\n    private data class EventData private constructor(val callbackName: String, val info: NsdServiceInfo? \u003d null, val errorCode: Int \u003d 0) {\n        val succeeded: Boolean get() \u003d info !\u003d null\n    }\n\n...with the drawback that a constructor call with both args succeeds. Or, you could also make this more strongly typed by making it a sealed class with two subclasses, as this will force the callers to care about errors always and let you replace the assert(succeed) followed by .info?.something with strongly typed code",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 5
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46526834_8242bfb7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "\"sealed class with two subclasses\" approach is close to what is done in the next commit (this class goes away)",
+      "parentUuid": "a45a1e6b_96ef4138",
       "range": {
         "startLine": 110,
         "startChar": 4,
@@ -89,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d223d599_c04c2e37",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bc87688_37317154",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 64
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b8d9e1be_2adff61b",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 2
@@ -100,6 +172,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "Not for this patch as you\u0027re just translating : looks like another job for TrackRecord, I think it would simplify this test very substantially (in fact, it might have been simpler to replace than to translate all this waiting code ^^;)",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 31
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ceb14cd_65bb9984",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Actually done in the next patch",
+      "parentUuid": "b8d9e1be_2adff61b",
       "range": {
         "startLine": 136,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3dc52b0_9f9a9fba",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Removed comment; InterruptedException means wait was interrupted so it wasn\u0027t very valuable.",
+      "parentUuid": "6780c0cb_8a4d6a55",
+      "range": {
+        "startLine": 176,
+        "startChar": 32,
+        "endLine": 176,
+        "endChar": 50
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "285ccf08_cd0f2780",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "Suggest just saying\n\n  private val serviceName \u003d \"NsdTest%04d\".format(Random().nextInt(1000))\n\nand maybe moving it to the top of the file with context and nsdManager",
+      "range": {
+        "startLine": 206,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 5
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e00b9f_f813875b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "285ccf08_cd0f2780",
       "range": {
         "startLine": 206,
         "startChar": 4,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe853db_cbbc5218",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Agreed, there\u0027s messages in logcat when the test starts anyway, and since there\u0027s no @Before it would be logged at the same time",
+      "parentUuid": "575d3812_d59553ce",
+      "range": {
+        "startLine": 215,
+        "startChar": 38,
+        "endLine": 215,
+        "endChar": 42
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf39764d_3fcd2570",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "For terseness and idiomaticity prefer kotlin.test.assertFailsWith :\n\n  assertFailsWith\u003cIllegalArgumentException\u003e(\"...\") { ... }",
+      "range": {
+        "startLine": 226,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 20
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ce5fdbc_e9988ccc",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf39764d_3fcd2570",
       "range": {
         "startLine": 226,
         "startChar": 8,
@@ -248,6 +440,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac0a10f7_5191964c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46b962fb_c075b960",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 25
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "986b84be_bde8ed75",
@@ -261,6 +477,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "Optional : I think you can simplify this with\n\n  resolvedService.attributes[\"keyValueAttr\"].toString()\n\n...since toString() is an extension function on Any? (and returns \"null\" if null)",
+      "range": {
+        "startLine": 297,
+        "startChar": 30,
+        "endLine": 297,
+        "endChar": 82
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aadcba53_e005190c",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Actually it\u0027s String(byte[]), which interprets the byte array as a string in the platform default encoding.\nChanged to a self-defined .asciiToString() extension method so the charset is explicit (DNS and by extension mDNS don\u0027t use modern charsets...), and it\u0027s cleaner/clearer.",
+      "parentUuid": "986b84be_bde8ed75",
       "range": {
         "startLine": 297,
         "startChar": 30,
@@ -294,6 +534,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3adf7dfc_393fcbc2",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c61769e_cd398708",
+      "range": {
+        "startLine": 301,
+        "startChar": 8,
+        "endLine": 301,
+        "endChar": 18
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8746cbd_f9dfd60c",
@@ -307,6 +571,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "\"id \u003d $waitId : Port \u003d ${lastEvent.info?.port}\"",
+      "range": {
+        "startLine": 307,
+        "startChar": 28,
+        "endLine": 307,
+        "endChar": 92
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb10cc80_02f700aa",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8746cbd_f9dfd60c",
       "range": {
         "startLine": 307,
         "startChar": 28,
@@ -340,6 +628,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1b6c35_06b4e3ba",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "722dfc60_5afdff19",
+      "range": {
+        "startLine": 371,
+        "startChar": 12,
+        "endLine": 371,
+        "endChar": 62
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "018e335d_3a205908",
@@ -353,6 +665,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "repeat(32) {} is simpler I think",
+      "range": {
+        "startLine": 377,
+        "startChar": 8,
+        "endLine": 377,
+        "endChar": 24
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c11ea6a_0a568833",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "018e335d_3a205908",
       "range": {
         "startLine": 377,
         "startChar": 8,
@@ -386,6 +722,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a049eed_71c5a3f6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1356699f_944ebd50",
+      "range": {
+        "startLine": 380,
+        "startChar": 42,
+        "endLine": 380,
+        "endChar": 48
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbab4761_fdda323d",
@@ -399,6 +759,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "Why not return here ?",
+      "range": {
+        "startLine": 384,
+        "startChar": 16,
+        "endLine": 384,
+        "endChar": 38
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9729e54e_73f25b40",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "I think this wanted to clear the eventCache for all service found events, so it keeps looping on future events for a while (or timing out).\n\nRemoved in the next commit.",
+      "parentUuid": "fbab4761_fdda323d",
       "range": {
         "startLine": 384,
         "startChar": 16,
@@ -432,6 +816,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b8ff37_cc12d333",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24710c60_7af3519a",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 24
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a483ced_929f84e4",
@@ -445,6 +853,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "\"id \u003d $waitId : ServiceName \u003d ${resolvedCb.info?.serviceName}\"",
+      "range": {
+        "startLine": 401,
+        "startChar": 28,
+        "endLine": 402,
+        "endChar": 44
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e6fb7de_b7b711a9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a483ced_929f84e4",
       "range": {
         "startLine": 401,
         "startChar": 28,
@@ -478,6 +910,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b26d38_9df628d9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7d24e02_8b116f94",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 419,
+        "endChar": 5
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1fed833_38c84d3e",
@@ -491,6 +947,30 @@
       "writtenOn": "2021-09-29T07:53:19Z",
       "side": 1,
       "message": "This is a log and I think \"null\" is fine.\n\n  Log.d(TAG, \"ignoring unexpected event ${e.callbackName} (${e.info?.serviceName})\")\n  \n  Same comment in l.414",
+      "range": {
+        "startLine": 423,
+        "startChar": 26,
+        "endLine": 423,
+        "endChar": 27
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c73737a0_2339575d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:05:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1fed833_38c84d3e",
       "range": {
         "startLine": 423,
         "startChar": 26,
