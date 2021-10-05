@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eebdce5c_7ae8ac25",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-05T05:31:55Z",
+      "side": 1,
+      "message": "It looks like this CL is trying to ensure that if Ethernet is connected, the test will not test wifi. But I don\u0027t think that\u0027s the right thing to do. This test tries to test all connected networks. So if Ethernet is connected, we should still bring up wifi and test it.\n\nI think the reason this test fails is that ensureWifiConnected will not do anything if Ethernet is connected. This is because wifi will be enabled, but it will not connect because the WifiNetworkFactory will not think its offer is needed because Ethernet is already connected.\n\nI think that if you file a NetworkRequest for wifi, then this will work. Something like:\n\n    private boolean mWifiRequestCallback \u003d null;\n\n    private void ensureWifiConnected() {\n        // File a NetworkRequest for Wi-Fi, so it connects even if a higher-scoring\n        // network, such as Ethernet, is already connected.\n        final NetworkRequest request \u003d new NetworkRequest.Builder()\n                .addTransportType(TRANSPORT_WIFI)\n                .addCapability(NET_CAPABILITY_INTERNET)\n                .build();\n        mCm.requestNetwork(request, mWifiRequestCallback);\n        mWifiRequestCallback \u003d new TestNetworkCallback();\n        mCtsNetUtils.ensureWifiConnected();\n    }\n\n    private void tearDown() {\n        ...\n        if (mWifiRequestCallback !\u003d null) {\n            mCm.unregisterNetworkCallback(mWifiRequestCallback);\n        }\n    }",
+      "range": {
+        "startLine": 147,
+        "startChar": 13,
+        "endLine": 147,
+        "endChar": 34
+      },
+      "revId": "4f2434f39078793ce757258378b61de54395282c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
