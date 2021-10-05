@@ -66,3 +66,15 @@ bpf {
         "-Werror",
     ],
 }
+
+bpf {
+    name: "netd_modular.o",
+    srcs: ["netd_modular.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    include_dirs: [
+        "frameworks/libs/net/common/netd/libnetdutils/include",
+    ],
+}
