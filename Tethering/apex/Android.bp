@@ -39,6 +39,7 @@ apex {
         },
     },
     bpfs: [
+        "netd_modular.o",
         "offload.o",
         "test.o",
     ],

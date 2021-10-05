@@ -58,3 +58,12 @@ bpf {
         "-Werror",
     ],
 }
+
+bpf {
+    name: "netd_modular.o",
+    srcs: ["netd_modular.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}
