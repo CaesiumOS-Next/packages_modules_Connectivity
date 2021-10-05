@@ -52,6 +52,24 @@
       "parentUuid": "95b50dfe_a50b0c71",
       "revId": "025f40bc4fa7a57a98560123239fe71150fb764f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b5d0ce_29cb5c01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-05T10:58:18Z",
+      "side": 1,
+      "message": "Okay. Most of your comments seem to be about the callbacks, but this patch is about improving documentation of the broadcast. Immediately, let me just submit this. Please feel free to reopen or add further comments if you think I can improve it further.\n\nAbout the plans for the callback, please peruse https://docs.google.com/document/d/1EXSbVvQExkjHA_GPmj7sFJVRtic20jgf9mt2JYG6j_g ; this document explains how we intend to change this. You can also look at the older https://docs.google.com/document/d/1YTa6KYzs8aPmeVh2diaYILJFe5jmmtInIDaVh7wK_fQ which explains earlier explorations.",
+      "parentUuid": "f430f919_54345d2d",
+      "revId": "025f40bc4fa7a57a98560123239fe71150fb764f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
