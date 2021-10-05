@@ -38,6 +38,7 @@ apex {
         },
     },
     bpfs: [
+        "netd_mainline.o",
         "offload.o",
         "test.o",
     ],
