@@ -100,28 +100,30 @@ static const int CONFIGURATION_MAP_SIZE = 2;
 static const int UID_OWNER_MAP_SIZE = 2000;
 
 #define BPF_PATH "/sys/fs/bpf/"
+#define TETHER_PATH "tethering/"
 
-#define BPF_EGRESS_PROG_PATH BPF_PATH "prog_netd_cgroupskb_egress_stats"
-#define BPF_INGRESS_PROG_PATH BPF_PATH "prog_netd_cgroupskb_ingress_stats"
-#define XT_BPF_INGRESS_PROG_PATH BPF_PATH "prog_netd_skfilter_ingress_xtbpf"
-#define XT_BPF_EGRESS_PROG_PATH BPF_PATH "prog_netd_skfilter_egress_xtbpf"
-#define XT_BPF_ALLOWLIST_PROG_PATH BPF_PATH "prog_netd_skfilter_allowlist_xtbpf"
-#define XT_BPF_DENYLIST_PROG_PATH BPF_PATH "prog_netd_skfilter_denylist_xtbpf"
-#define CGROUP_SOCKET_PROG_PATH BPF_PATH "prog_netd_cgroupsock_inet_create"
+#define BPF_EGRESS_PROG_PATH BPF_PATH TETHER_PATH "prog_netd_mainline_cgroupskb_egress_stats"
+#define BPF_INGRESS_PROG_PATH BPF_PATH TETHER_PATH "prog_netd_mainline_cgroupskb_ingress_stats"
+#define XT_BPF_INGRESS_PROG_PATH BPF_PATH TETHER_PATH "prog_netd_mainline_skfilter_ingress_xtbpf"
+#define XT_BPF_EGRESS_PROG_PATH BPF_PATH TETHER_PATH "prog_netd_mainline_skfilter_egress_xtbpf"
+#define XT_BPF_ALLOWLIST_PROG_PATH BPF_PATH TETHER_PATH \
+    "prog_netd_mainline_skfilter_allowlist_xtbpf"
+#define XT_BPF_DENYLIST_PROG_PATH BPF_PATH TETHER_PATH "prog_netd_mainline_skfilter_denylist_xtbpf"
+#define CGROUP_SOCKET_PROG_PATH BPF_PATH TETHER_PATH "prog_netd_mainline_cgroupsock_inet_create"
 
-#define TC_BPF_INGRESS_ACCOUNT_PROG_NAME "prog_netd_schedact_ingress_account"
-#define TC_BPF_INGRESS_ACCOUNT_PROG_PATH BPF_PATH TC_BPF_INGRESS_ACCOUNT_PROG_NAME
+#define TC_BPF_INGRESS_ACCOUNT_PROG_NAME "prog_netd_mainline_schedact_ingress_account"
+#define TC_BPF_INGRESS_ACCOUNT_PROG_PATH BPF_PATH TETHER_PATH TC_BPF_INGRESS_ACCOUNT_PROG_NAME
 
-#define COOKIE_TAG_MAP_PATH BPF_PATH "map_netd_cookie_tag_map"
-#define UID_COUNTERSET_MAP_PATH BPF_PATH "map_netd_uid_counterset_map"
-#define APP_UID_STATS_MAP_PATH BPF_PATH "map_netd_app_uid_stats_map"
-#define STATS_MAP_A_PATH BPF_PATH "map_netd_stats_map_A"
-#define STATS_MAP_B_PATH BPF_PATH "map_netd_stats_map_B"
-#define IFACE_INDEX_NAME_MAP_PATH BPF_PATH "map_netd_iface_index_name_map"
-#define IFACE_STATS_MAP_PATH BPF_PATH "map_netd_iface_stats_map"
-#define CONFIGURATION_MAP_PATH BPF_PATH "map_netd_configuration_map"
-#define UID_OWNER_MAP_PATH BPF_PATH "map_netd_uid_owner_map"
-#define UID_PERMISSION_MAP_PATH BPF_PATH "map_netd_uid_permission_map"
+#define COOKIE_TAG_MAP_PATH BPF_PATH TETHER_PATH "map_netd_mainline_cookie_tag_map"
+#define UID_COUNTERSET_MAP_PATH BPF_PATH TETHER_PATH "map_netd_mainline_uid_counterset_map"
+#define APP_UID_STATS_MAP_PATH BPF_PATH TETHER_PATH "map_netd_mainline_app_uid_stats_map"
+#define STATS_MAP_A_PATH BPF_PATH TETHER_PATH "map_netd_mainline_stats_map_A"
+#define STATS_MAP_B_PATH BPF_PATH TETHER_PATH "map_netd_mainline_stats_map_B"
+#define IFACE_INDEX_NAME_MAP_PATH BPF_PATH TETHER_PATH "map_netd_mainline_iface_index_name_map"
+#define IFACE_STATS_MAP_PATH BPF_PATH TETHER_PATH "map_netd_mainline_iface_stats_map"
+#define CONFIGURATION_MAP_PATH BPF_PATH TETHER_PATH "map_netd_mainline_configuration_map"
+#define UID_OWNER_MAP_PATH BPF_PATH TETHER_PATH "map_netd_mainline_uid_owner_map"
+#define UID_PERMISSION_MAP_PATH BPF_PATH TETHER_PATH "map_netd_mainline_uid_permission_map"
 
 enum UidOwnerMatchType {
     NO_MATCH = 0,

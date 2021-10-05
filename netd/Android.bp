@@ -1,0 +1,63 @@
+cc_library {
+    name: "libnetd_mainline",
+    version_script: "libnetd_mainline.map.txt",
+    stubs: {
+        versions: [
+            "1",
+        ],
+        symbol_file: "libnetd_mainline.map.txt",
+    },
+    defaults: ["netd_defaults"],
+    header_libs: [
+        "bpf_connectivity_headers",
+        "bpf_headers",
+        "bpf_syscall_wrappers",
+    ],
+    srcs: [
+        "BpfHandler.cpp",
+        "NetdMainline.cpp",
+    ],
+    static_libs: [
+        "libbase",
+        "libcutils",
+        "libnetdutils",
+    ],
+    shared_libs: [
+        "liblog",
+        "libprocessgroup",
+    ],
+    export_include_dirs: ["include"],
+    header_abi_checker: {
+        enabled: true,
+        symbol_file: "libnetd_mainline.map.txt",
+    },
+    sanitize: {
+        cfi: true,
+    },
+    apex_available: ["com.android.tethering"],
+    min_sdk_version: "30",
+}
+
+cc_test {
+    name: "libnetd_mainline_unit_test",
+    defaults: ["netd_defaults"],
+    test_suites: ["device-tests"],
+    require_root: true,
+    header_libs: [
+        "bpf_connectivity_headers",
+        "bpf_headers",
+        "bpf_syscall_wrappers",
+    ],
+    srcs: [
+        "BpfHandlerTest.cpp",
+    ],
+    static_libs: [
+        "libnetd_mainline",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "libnetdutils",
+    ],
+}
