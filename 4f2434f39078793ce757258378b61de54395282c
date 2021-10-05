@@ -22,6 +22,30 @@
       },
       "revId": "4f2434f39078793ce757258378b61de54395282c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb34ca0_3ac7a700",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1595239
+      },
+      "writtenOn": "2021-10-05T09:07:29Z",
+      "side": 1,
+      "message": "Thank you for the analysis and suggestion.\nI have modified the CL following the way you mentioned, and it works just fine on our platform.",
+      "parentUuid": "eebdce5c_7ae8ac25",
+      "range": {
+        "startLine": 147,
+        "startChar": 13,
+        "endLine": 147,
+        "endChar": 34
+      },
+      "revId": "4f2434f39078793ce757258378b61de54395282c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
