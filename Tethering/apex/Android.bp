@@ -53,6 +53,7 @@ apex {
                 "libservice-connectivity",
                 "libcom_android_connectivity_com_android_net_module_util_jni"
             ],
+            native_shared_libs: ["libnetd_mainline"],
         },
         both: {
             jni_libs: ["libframework-connectivity-jni"],
