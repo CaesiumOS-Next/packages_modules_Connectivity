@@ -66,6 +66,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import android.app.usage.NetworkStatsManager;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
@@ -189,6 +191,8 @@ public class IpServerTest {
     @Mock private BpfMap<TetherStatsKey, TetherStatsValue> mBpfStatsMap;
     @Mock private BpfMap<TetherLimitKey, TetherLimitValue> mBpfLimitMap;
     @Mock private BpfMap<TetherDevKey, TetherDevValue> mBpfDevMap;
+    @Mock private Context mContext;
+    @Mock private ConnectivityManager mConnectivityManager;
 
     @Captor private ArgumentCaptor<DhcpServingParamsParcel> mDhcpParamsCaptor;
 
@@ -228,7 +232,8 @@ public class IpServerTest {
 
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, usingLegacyDhcp, usingBpfOffload, mAddressCoordinator, mDependencies);
+                mCallback, usingLegacyDhcp, usingBpfOffload, mAddressCoordinator, mDependencies,
+                mContext);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -280,6 +285,9 @@ public class IpServerTest {
         when(mAddressCoordinator.requestDownstreamAddress(any(), anyBoolean())).thenReturn(
                 mTestAddress);
         when(mTetherConfig.isBpfOffloadEnabled()).thenReturn(true /* default value */);
+        doReturn(mConnectivityManager).when(mContext).getSystemService(ConnectivityManager.class);
+        doReturn(mConnectivityManager).when(mContext)
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
 
         mBpfDeps = new BpfCoordinator.Dependencies() {
                     @NonNull
@@ -359,7 +367,7 @@ public class IpServerTest {
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, false /* usingLegacyDhcp */,
-                DEFAULT_USING_BPF_OFFLOAD, mAddressCoordinator, mDependencies);
+                DEFAULT_USING_BPF_OFFLOAD, mAddressCoordinator, mDependencies, mContext);
         mIpServer.start();
         mLooper.dispatchAll();
         verify(mCallback).updateInterfaceState(

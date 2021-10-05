@@ -28,12 +28,20 @@ import static android.system.OsConstants.RT_SCOPE_UNIVERSE;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInterface;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.INetworkStackStatusCallback;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
 import android.net.LinkProperties;
 import android.net.MacAddress;
+import android.net.Network;
+import android.net.NetworkAgent;
+import android.net.NetworkAgentConfig;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
+import android.net.NetworkScore;
 import android.net.RouteInfo;
 import android.net.TetheredClient;
 import android.net.TetheringManager;
@@ -280,6 +288,11 @@ public class IpServer extends StateMachine {
     private final IpNeighborMonitor mIpNeighborMonitor;
 
     private LinkAddress mIpv4Address;
+    private NetworkAgent mNetworkAgent;
+    private Context mContext;
+    private Looper mLooper;
+    private ConnectivityManager.NetworkCallback mNetworkCallback;
+    private Network mNetwork;
 
     // TODO: Add a dependency object to pass the data members or variables from the tethering
     // object. It helps to reduce the arguments of the constructor.
@@ -287,7 +300,8 @@ public class IpServer extends StateMachine {
             String ifaceName, Looper looper, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             boolean usingLegacyDhcp, boolean usingBpfOffload,
-            PrivateAddressCoordinator addressCoordinator, Dependencies deps) {
+            PrivateAddressCoordinator addressCoordinator, Dependencies deps,
+            @NonNull Context context) {
         super(ifaceName, looper);
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
@@ -307,6 +321,8 @@ public class IpServer extends StateMachine {
 
         mIpNeighborMonitor = mDeps.getIpNeighborMonitor(getHandler(), mLog,
                 new MyNeighborEventConsumer());
+        mContext = context;
+        mLooper = looper;
 
         // IP neighbor monitor monitors the neighbor events for adding/removing offload
         // forwarding rules per client. If BPF offload is not supported, don't start listening
@@ -1151,6 +1167,24 @@ public class IpServer extends StateMachine {
         mBpfCoordinator.stopMonitoring(this);
     }
 
+    private int getTransportTypeFromInterfaceType() {
+        switch (mInterfaceType) {
+            case TetheringManager.TETHERING_WIFI:
+            case TetheringManager.TETHERING_WIFI_P2P:
+                return NetworkCapabilities.TRANSPORT_WIFI;
+            case TetheringManager.TETHERING_USB:
+            case TetheringManager.TETHERING_NCM:
+                return NetworkCapabilities.TRANSPORT_USB;
+            case TetheringManager.TETHERING_BLUETOOTH:
+                return NetworkCapabilities.TRANSPORT_BLUETOOTH;
+            case TetheringManager.TETHERING_ETHERNET:
+                return NetworkCapabilities.TRANSPORT_ETHERNET;
+            default:
+                Log.e(TAG, "Unknown transport type. mInterfaceType=" + mInterfaceType);
+                return -1 /* Unknown transport type */;
+        }
+    }
+
     class BaseServingState extends State {
         @Override
         public void enter() {
@@ -1174,6 +1208,34 @@ public class IpServer extends StateMachine {
                 // TODO: Make this a fatal error once Bluetooth IPv6 is sorted.
                 return;
             }
+
+            mNetworkCallback = new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onAvailable(Network network) {
+                    mNetwork = network;
+                }
+            };
+            final NetworkRequest downstreamRequest = new NetworkRequest.Builder()
+                    .addTransportType(getTransportTypeFromInterfaceType())
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_DOWNSTREAM)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    .build();
+            mContext.getSystemService(ConnectivityManager.class)
+                    .requestNetwork(downstreamRequest, mNetworkCallback, getHandler());
+
+            final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                    .addTransportType(getTransportTypeFromInterfaceType())
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_DOWNSTREAM)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VCN_MANAGED)
+                    .build();
+            final NetworkScore score = new NetworkScore.Builder().setLegacyInt(10).build();
+            mNetworkAgent = new NetworkAgent(mContext, mLooper, "LocalHotspotNetworkAgent",
+                    nc, mLinkProperties, score, new NetworkAgentConfig.Builder().build(),
+                    null /* provider */) {};
+            mNetworkAgent.register();
         }
 
         @Override
@@ -1194,6 +1256,17 @@ public class IpServer extends StateMachine {
             stopConntrackMonitoring();
 
             resetLinkProperties();
+
+            if (mNetworkAgent != null) {
+                mNetworkAgent.unregister();
+            }
+            if (mNetworkCallback != null) {
+                mContext.getSystemService(ConnectivityManager.class)
+                        .unregisterNetworkCallback(mNetworkCallback);
+            }
+            mNetwork = null;
+            mNetworkAgent = null;
+            mNetworkCallback = null;
         }
 
         @Override
