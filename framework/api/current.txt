@@ -304,6 +304,7 @@ package android.net {
     field @NonNull public static final android.os.Parcelable.Creator<android.net.NetworkCapabilities> CREATOR;
     field public static final int NET_CAPABILITY_CAPTIVE_PORTAL = 17; // 0x11
     field public static final int NET_CAPABILITY_CBS = 5; // 0x5
+    field public static final int NET_CAPABILITY_DOWNSTREAM = 33; // 0x21
     field public static final int NET_CAPABILITY_DUN = 2; // 0x2
     field public static final int NET_CAPABILITY_EIMS = 10; // 0xa
     field public static final int NET_CAPABILITY_ENTERPRISE = 29; // 0x1d
