@@ -1,0 +1,9 @@
+{
+  "presubmit": [
+    { "name": "netd_mainline_unit_test" }
+  ],
+  "postsubmit": [
+    { "name": "netd_mainline_unit_test",
+      "keywords": ["netd-device-kernel-4.9", "netd-device-kernel-4.14"]}
+  ]
+}
