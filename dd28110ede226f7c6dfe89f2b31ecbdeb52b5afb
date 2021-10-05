@@ -24,6 +24,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bb67f74_f0ccec61",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "308aa3af_d9a8c03d",
+      "range": {
+        "startLine": 59,
+        "startChar": 30,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "dd28110ede226f7c6dfe89f2b31ecbdeb52b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc03ee69_3ee3fe61",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:06:00Z",
+      "side": 1,
+      "message": "Done - slightly differently since apparently \"by\" can only be used with what is passed in the constructor",
+      "parentUuid": "308aa3af_d9a8c03d",
+      "range": {
+        "startLine": 59,
+        "startChar": 30,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "dd28110ede226f7c6dfe89f2b31ecbdeb52b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "30d022a5_9023feea",
@@ -37,6 +85,30 @@
       "writtenOn": "2021-09-29T11:18:59Z",
       "side": 1,
       "message": "A sealed class seems more appropriate here, and it could have the property for serviceInfo to let you eschew the cast in some cases",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 17
+      },
+      "revId": "dd28110ede226f7c6dfe89f2b31ecbdeb52b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fec994ff_713778a2",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:06:00Z",
+      "side": 1,
+      "message": "Done with a sealed interface, because a data class couldn\u0027t have non-val constructor parameters",
+      "parentUuid": "30d022a5_9023feea",
       "range": {
         "startLine": 83,
         "startChar": 8,
@@ -70,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb38382c_6f31d8fe",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:06:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b811d0a0_47c2181d",
+      "range": {
+        "startLine": 188,
+        "startChar": 12,
+        "endLine": 188,
+        "endChar": 32
+      },
+      "revId": "dd28110ede226f7c6dfe89f2b31ecbdeb52b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe34f486_5d314ba7",
@@ -83,6 +179,30 @@
       "writtenOn": "2021-09-29T11:18:59Z",
       "side": 1,
       "message": "Should this be part of the listener, maybe as an extension method ?",
+      "range": {
+        "startLine": 198,
+        "startChar": 24,
+        "endLine": 198,
+        "endChar": 48
+      },
+      "revId": "dd28110ede226f7c6dfe89f2b31ecbdeb52b5afb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d38a5f02_f7fea1a4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-05T08:06:00Z",
+      "side": 1,
+      "message": "Added as a method to the listener",
+      "parentUuid": "fe34f486_5d314ba7",
       "range": {
         "startLine": 198,
         "startChar": 24,
