@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb4f3b25_74867a14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2021-10-06T08:05:13Z",
+      "side": 1,
+      "message": "Hi Jean,\n\nCan you please help approve this change ?",
+      "revId": "be994246f4803412b2754e31c617eec6aaac3a97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
