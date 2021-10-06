@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10fc18e7_0fb2ce49",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-06T01:05:50Z",
+      "side": 1,
+      "message": "Nit: DscpPolicyTest",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "4f970f630b93f17c8b9dd444dd54765b6dea8fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddebb8c0_e5b8c228",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-06T01:05:50Z",
+      "side": 1,
+      "message": "Unused ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 95
+      },
+      "revId": "4f970f630b93f17c8b9dd444dd54765b6dea8fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edc3df8e_fefd517e",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-06T01:05:50Z",
+      "side": 1,
+      "message": "Instead of this, you\u0027ll need to create the NetworkAgent yourself\n\nSame as NetworkAgentTest but without mocking ConnectivityService (use the real one).\n\nThen you can call NetworkAgent APIs to set policy etc.",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 40
+      },
+      "revId": "4f970f630b93f17c8b9dd444dd54765b6dea8fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
