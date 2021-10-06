@@ -46,6 +46,23 @@
       },
       "revId": "12c043910d1600e8853890306cfc1b512bcf79d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cdd25e1_6d079cfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T05:38:08Z",
+      "side": 1,
+      "message": "LGTM to unblock immediately. In a followup, let\u0027s convert to more recent JUnit as Chiachang suggests.",
+      "revId": "12c043910d1600e8853890306cfc1b512bcf79d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
