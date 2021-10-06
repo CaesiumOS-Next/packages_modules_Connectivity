@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8457a919_4cbea7d3",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T05:32:10Z",
+      "side": 1,
+      "message": "nit : final",
+      "range": {
+        "startLine": 835,
+        "startChar": 12,
+        "endLine": 835,
+        "endChar": 21
+      },
+      "revId": "69b50394ce66cf5eb1535dde33996288611a5a07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36ebf2b5_131a8e22",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T05:32:10Z",
+      "side": 1,
+      "message": "else ensureWifiDisconnected ?",
+      "range": {
+        "startLine": 860,
+        "startChar": 0,
+        "endLine": 860,
+        "endChar": 70
+      },
+      "revId": "69b50394ce66cf5eb1535dde33996288611a5a07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
