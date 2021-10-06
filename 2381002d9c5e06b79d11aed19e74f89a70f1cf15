@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9da076f4_981fc294",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T10:13:36Z",
+      "side": 1,
+      "message": "LGTM when comments have been looked at",
+      "revId": "2381002d9c5e06b79d11aed19e74f89a70f1cf15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cefaf005_69e234e8",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T10:13:36Z",
+      "side": 1,
+      "message": "Is this mandated by the protocol ? If not, it\u0027s a bad idea to encourage limiting to ASCII and we should use UTF-8 instead.\n\nIf it\u0027s mandated by the protocol, then fine",
+      "range": {
+        "startLine": 417,
+        "startChar": 41,
+        "endLine": 417,
+        "endChar": 49
+      },
+      "revId": "2381002d9c5e06b79d11aed19e74f89a70f1cf15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

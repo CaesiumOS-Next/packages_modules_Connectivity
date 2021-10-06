@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a9669b8_31564133",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T10:13:36Z",
+      "side": 1,
+      "message": "Still, can\u0027t you just remove the \"inner\" keyword here ?",
+      "parentUuid": "57f3d485_e571df76",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 17
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a45a1e6b_96ef4138",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 2
