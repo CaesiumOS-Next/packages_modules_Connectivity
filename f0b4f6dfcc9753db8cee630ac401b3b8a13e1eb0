@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97ee1710_cf6f4ed4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T10:22:15Z",
+      "side": 1,
+      "message": "LGTM except the \"listener\" naming",
+      "revId": "f0b4f6dfcc9753db8cee630ac401b3b8a13e1eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dace8b0f_870e5d31",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T10:22:15Z",
+      "side": 1,
+      "message": "From PS4 :\nIn Android a \"listener\" is a single method interface that you pass to a component to be called when an event happens. I don\u0027t think it\u0027s very appropriate here.",
+      "range": {
+        "startLine": 82,
+        "startChar": 34,
+        "endLine": 82,
+        "endChar": 42
+      },
+      "revId": "f0b4f6dfcc9753db8cee630ac401b3b8a13e1eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa10cd2e_39fdfe6f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T10:22:15Z",
+      "side": 1,
+      "message": "Nit : all other classes have the methods below the event classes",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 16
+      },
+      "revId": "f0b4f6dfcc9753db8cee630ac401b3b8a13e1eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

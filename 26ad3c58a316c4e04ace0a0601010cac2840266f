@@ -46,6 +46,30 @@
       },
       "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78384935_c4d47573",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-06T10:22:15Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "1cf96e62_23fad75c",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 41
+      },
+      "revId": "26ad3c58a316c4e04ace0a0601010cac2840266f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
