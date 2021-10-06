@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edc5e32e_296cc6cd",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-10-06T16:46:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22b1cabd_d670a28c",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "742ce61e_940b28e9",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5ada55b_052a902e",
+        "filename": "tests/common/java/android/net/VpnServiceBuilderTest.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-10-06T16:46:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "742ce61e_940b28e9",
+      "range": {
+        "startLine": 176,
+        "startChar": 21,
+        "endLine": 176,
+        "endChar": 31
+      },
+      "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ac2c5ec_d63ff4e1",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-09-30T08:51:31Z",
       "side": 1,
       "message": "Is this used outside of the function that takes a Consumer\u003cIpPrefix\u003e ? If not you could just inline it.",
+      "range": {
+        "startLine": 66,
+        "startChar": 17,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "3760e4a8c63874cf0142fe4cdfeb85cfc76dabf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c2f63f5_69cfb518",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-10-06T16:46:55Z",
+      "side": 1,
+      "message": "It\u0027s used separately for builder::addAddress which doesn\u0027t have IpPrefix version",
+      "parentUuid": "1ac2c5ec_d63ff4e1",
       "range": {
         "startLine": 66,
         "startChar": 17,
