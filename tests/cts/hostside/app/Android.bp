@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-network_stack_shims = "NetworkStackApiStableShims"
+network_stack_shims = "NetworkStackApiCurrentShims"
 // Placeholder
 // This is a placeholder comment to minimize merge conflicts, as network_stack_shims may have
 // different values depending on the branch.
