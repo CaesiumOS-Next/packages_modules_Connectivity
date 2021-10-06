@@ -15,6 +15,7 @@
  */
 package com.android.networkstack.tethering;
 
+import static android.net.NetworkCapabilities.NET_CAPABILITY_DOWNSTREAM;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.TetheringManager.TETHERING_BLUETOOTH;
 import static android.net.TetheringManager.TETHERING_WIFI_P2P;
@@ -106,6 +107,13 @@ public class PrivateAddressCoordinator {
         // Do not support VPN as upstream. Normally, networkCapabilities is not expected to be null,
         // but just checking to be sure.
         if (ns.networkCapabilities != null && ns.networkCapabilities.hasTransport(TRANSPORT_VPN)) {
+            removeUpstreamPrefix(ns.network);
+            return;
+        }
+
+        // Skip downstream network.
+        if (ns.networkCapabilities != null
+                && ns.networkCapabilities.hasCapability(NET_CAPABILITY_DOWNSTREAM)) {
             removeUpstreamPrefix(ns.network);
             return;
         }

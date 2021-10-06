@@ -1029,6 +1029,9 @@ public class IpServer extends StateMachine {
             mLog.e("Failed to update local DNS caching server");
             return;
         }
+        if (mNetworkAgent != null) {
+            mNetworkAgent.sendLinkProperties(mLinkProperties);
+        }
         sendLinkProperties();
 
         // Notify DHCP server that new prefix/route has been applied on IpServer.
@@ -1236,6 +1239,7 @@ public class IpServer extends StateMachine {
                     nc, mLinkProperties, score, new NetworkAgentConfig.Builder().build(),
                     null /* provider */) {};
             mNetworkAgent.register();
+            mNetworkAgent.markConnected();
         }
 
         @Override
@@ -1282,6 +1286,9 @@ public class IpServer extends StateMachine {
                     break;
                 case CMD_IPV6_TETHER_UPDATE:
                     updateUpstreamIPv6LinkProperties((LinkProperties) message.obj, message.arg1);
+                    if (mNetworkAgent != null) {
+                        mNetworkAgent.sendLinkProperties(mLinkProperties);
+                    }
                     sendLinkProperties();
                     break;
                 case CMD_IP_FORWARDING_ENABLE_ERROR:
