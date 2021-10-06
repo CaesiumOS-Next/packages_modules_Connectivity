@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e220208_0147b404",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-06T22:29:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10fc18e7_0fb2ce49",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "4f970f630b93f17c8b9dd444dd54765b6dea8fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddebb8c0_e5b8c228",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ad1b2fd_3984c14c",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-06T22:29:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddebb8c0_e5b8c228",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 95
+      },
+      "revId": "4f970f630b93f17c8b9dd444dd54765b6dea8fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edc3df8e_fefd517e",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-10-06T01:05:50Z",
       "side": 1,
       "message": "Instead of this, you\u0027ll need to create the NetworkAgent yourself\n\nSame as NetworkAgentTest but without mocking ConnectivityService (use the real one).\n\nThen you can call NetworkAgent APIs to set policy etc.",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 40
+      },
+      "revId": "4f970f630b93f17c8b9dd444dd54765b6dea8fbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30c28c7f_62280aa9",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-06T22:29:27Z",
+      "side": 1,
+      "message": "Should be alright to use NetworkAgentWrapper() in integration tests?",
+      "parentUuid": "edc3df8e_fefd517e",
       "range": {
         "startLine": 91,
         "startChar": 16,
