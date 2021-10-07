@@ -16,10 +16,13 @@
 
 package android.net;
 
+import android.net.TetheringConntrackEntryParcel;
+
 /**
  * Listener interface allowing objects to listen to various module event.
  * {@hide}
  */
 oneway interface IIntResultListener {
     void onResult(int resultCode);
+    void onResultConntrackEntries(in TetheringConntrackEntryParcel[] conntrackEntries);
 }

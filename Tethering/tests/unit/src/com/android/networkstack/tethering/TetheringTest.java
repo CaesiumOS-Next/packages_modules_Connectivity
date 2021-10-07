@@ -134,6 +134,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.RouteInfo;
 import android.net.TetherStatesParcel;
+import android.net.TetheringConntrackEntryParcel;
 import android.net.TetheredClient;
 import android.net.TetheredClient.AddressInfo;
 import android.net.TetheringCallbackStartedParcel;
@@ -2133,6 +2134,12 @@ public class TetheringTest {
             if (resultCode != mExpectedResult) {
                 fail("expected result: " + mExpectedResult + " but actual result: " + resultCode);
             }
+        }
+
+        @Override
+        public void onResultConntrackEntries(final TetheringConntrackEntryParcel[]
+                conntrackEntries) {
+            // no op
         }
 
         public void assertHasResult() {

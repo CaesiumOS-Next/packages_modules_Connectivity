@@ -56,6 +56,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.os.SystemProperties;
+import android.system.OsConstants;
 import android.util.Log;
 
 import androidx.test.InstrumentationRegistry;

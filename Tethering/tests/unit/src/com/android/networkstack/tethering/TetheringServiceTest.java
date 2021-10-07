@@ -40,6 +40,7 @@ import android.content.Intent;
 import android.net.IIntResultListener;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
+import android.net.TetheringConntrackEntryParcel;
 import android.net.TetheringRequestParcel;
 import android.net.ip.IpServer;
 import android.os.Bundle;
@@ -81,6 +82,12 @@ public final class TetheringServiceTest {
         @Override
         public void onResult(final int resultCode) {
             mResult = resultCode;
+        }
+
+        @Override
+        public void onResultConntrackEntries(final TetheringConntrackEntryParcel[]
+                conntrackEntries) {
+            // no op
         }
 
         public void assertResult(final int expected) {

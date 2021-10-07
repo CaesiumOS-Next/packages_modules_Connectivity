@@ -53,5 +53,5 @@ interface ITetheringConnector {
 
     oneway void setPreferTestNetworks(boolean prefer, IIntResultListener listener);
 
-    TetheringConntrackEntryParcel[] getConntrackEntriesForTesting();
+    oneway void getConntrackEntriesForTesting(IIntResultListener listener);
 }

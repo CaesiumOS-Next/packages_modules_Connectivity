@@ -390,11 +390,18 @@ public class TetheringManager {
     private class RequestDispatcher {
         private final ConditionVariable mWaiting;
         public volatile int mRemoteResult;
+        public volatile TetheringConntrackEntryParcel[] mRemoteConntrackEntries;
 
         private final IIntResultListener mListener = new IIntResultListener.Stub() {
                 @Override
                 public void onResult(final int resultCode) {
                     mRemoteResult = resultCode;
+                    mWaiting.open();
+                }
+
+                @Override
+                public void onResultConntrackEntries(final TetheringConntrackEntryParcel[] conntrackEntries) {
+                    mRemoteConntrackEntries = conntrackEntries;
                     mWaiting.open();
                 }
         };
@@ -412,6 +419,17 @@ public class TetheringManager {
             throwIfPermissionFailure(mRemoteResult);
 
             return mRemoteResult;
+        }
+
+        TetheringConntrackEntryParcel[] waitForResultConntrackEntries(final RequestHelper request) {
+            getConnector(c -> request.runRequest(c, mListener));
+            if (!mWaiting.block(DEFAULT_TIMEOUT_MS)) {
+                throw new IllegalStateException("Callback timeout");
+            }
+
+            //throwIfPermissionFailure(mRemoteConntrackEntries);
+
+            return mRemoteConntrackEntries;
         }
     }
 
@@ -815,6 +833,11 @@ public class TetheringManager {
                     }
                 });
             }
+
+            @Override
+            public void onResultConntrackEntries(final TetheringConntrackEntryParcel[] conntrackEntries) {
+                // no op
+            }
         };
         getConnector(c -> c.startTethering(request.getParcel(), callerPkg,
                 getAttributionTag(), listener));
@@ -865,6 +888,11 @@ public class TetheringManager {
                 // This has never been possible as stopTethering has always been void and never
                 // taken a callback object. The only indication that callers have is if the call
                 // results in a TETHER_STATE_CHANGE broadcast.
+            }
+
+            @Override
+            public void onResultConntrackEntries(final TetheringConntrackEntryParcel[] conntrackEntries) {
+                // no op
             }
         }));
     }
@@ -1536,6 +1564,11 @@ public class TetheringManager {
                         // and never taken a callback object. The only indication that callers have
                         // is if the call results in a TETHER_STATE_CHANGE broadcast.
                     }
+
+                    @Override
+                    public void onResultConntrackEntries(final TetheringConntrackEntryParcel[] conntrackEntries) {
+                        // no op
+                    }
                 }));
     }
 
@@ -1571,10 +1604,16 @@ public class TetheringManager {
     public TetheringConntrackEntryParcel[] getConntrackEntriesForTesting() {
         Log.i(TAG, "getConntrackEntriesForTesting caller: " + mContext.getOpPackageName());
 
-        try {
-            return mConnector.getConntrackEntriesForTesting();
-        } catch (RemoteException e) {
-            throw new IllegalStateException(e);
-        }
+        final RequestDispatcher dispatcher = new RequestDispatcher();
+        final TetheringConntrackEntryParcel[] entries =
+                dispatcher.waitForResultConntrackEntries((connector, listener) -> {
+                    try {
+                        connector.getConntrackEntriesForTesting(listener);
+                    } catch (RemoteException e) {
+                        throw new IllegalStateException(e);
+                    }
+        });
+
+        return entries;
     }
 }

@@ -2615,32 +2615,40 @@ public class Tethering {
         });
     }
 
-    TetheringConntrackEntryParcel[] getConntrackEntriesForTesting() {
-        final HashMap<ConntrackMessage.Tuple, Integer> entries =
-                mBpfCoordinator.getConntrackEntriesForTesting();
-        if (entries.size() == 0) return null;
+    void getConntrackEntriesForTesting(IIntResultListener listener) {
+        mHandler.post(() -> {
+            mLog.i("[SSD] getConntrackEntriesForTesting");
+            final HashMap<ConntrackMessage.Tuple, Integer> entries =
+                    mBpfCoordinator.getConntrackEntriesForTesting();
+            if (entries.size() == 0) {
+                try {
+                    listener.onResultConntrackEntries(null);  // TODO: merge
+                } catch (RemoteException e) { }
+            }
 
-        final TetheringConntrackEntryParcel[] parcels =
-                new TetheringConntrackEntryParcel[entries.size()];
+            final TetheringConntrackEntryParcel[] parcels =
+                    new TetheringConntrackEntryParcel[entries.size()];
 
-        int i = 0;
-        for (Map.Entry<ConntrackMessage.Tuple, Integer> e : entries.entrySet()) {
-            final TetheringConntrackEntryParcel p = new TetheringConntrackEntryParcel();
-            final ConntrackMessage.Tuple k = e.getKey();
+            int i = 0;
+            for (Map.Entry<ConntrackMessage.Tuple, Integer> e : entries.entrySet()) {
+                final TetheringConntrackEntryParcel p = new TetheringConntrackEntryParcel();
+                final ConntrackMessage.Tuple k = e.getKey();
 
-            p.l4Protocol = k.protoNum;
-            p.srcIp4 = k.srcIp.getAddress();
-            p.dstIp4 = k.dstIp.getAddress();
-            p.srcPort = k.srcPort;
-            p.dstPort = k.dstPort;
+                p.l4Protocol = k.protoNum;
+                p.srcIp4 = k.srcIp.getAddress();
+                p.dstIp4 = k.dstIp.getAddress();
+                p.srcPort = k.srcPort;
+                p.dstPort = k.dstPort;
 
-            // TODO: fill the protoState once the ConntrackMessage class could parse protocol
-            // information (CTA_PROTOINFO).
+                // TODO: fill the protoState once the ConntrackMessage class could parse protocol
+                // information (CTA_PROTOINFO).
 
-            parcels[i] = p;
-            i++;
-        }
-
-        return parcels;
+                parcels[i] = p;
+                i++;
+            }
+            try {
+                listener.onResultConntrackEntries(parcels);
+            } catch (RemoteException e) { }
+        });
     }
 }

@@ -217,12 +217,12 @@ public class TetheringService extends Service {
         }
 
         @Override
-        public TetheringConntrackEntryParcel[] getConntrackEntriesForTesting() {
+        public void getConntrackEntriesForTesting(IIntResultListener listener) {
             if (!hasTetherAccessPermission()) {
                 // TODO: throw exception if required.
-                return null;
+                return;
             }
-            return mTethering.getConntrackEntriesForTesting();
+            mTethering.getConntrackEntriesForTesting(listener);
         }
 
         @Override
