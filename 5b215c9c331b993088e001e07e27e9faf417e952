@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afd8ae66_76650d21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-07T12:36:06Z",
+      "side": 1,
+      "message": "This depends on aosp/1849358, but can\u0027t depend on it because it\u0027s in another repo.",
+      "revId": "5b215c9c331b993088e001e07e27e9faf417e952",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
