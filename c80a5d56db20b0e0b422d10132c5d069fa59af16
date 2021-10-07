@@ -22,6 +22,30 @@
       },
       "revId": "c80a5d56db20b0e0b422d10132c5d069fa59af16",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be5b3b0c_af2bc5e5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 4354,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-07T08:32:55Z",
+      "side": 0,
+      "message": "That is correct. Best I can tell, the NRI is never used by any code after it\u0027s been remove, save for the new code.",
+      "parentUuid": "c7a47c11_d562927f",
+      "range": {
+        "startLine": 4354,
+        "startChar": 11,
+        "endLine": 4354,
+        "endChar": 41
+      },
+      "revId": "c80a5d56db20b0e0b422d10132c5d069fa59af16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
