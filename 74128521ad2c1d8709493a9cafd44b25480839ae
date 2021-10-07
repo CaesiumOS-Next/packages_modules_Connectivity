@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b6cd32d_b9ecb138",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-10-07T07:58:18Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 22
+      },
+      "revId": "74128521ad2c1d8709493a9cafd44b25480839ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e99905a_38d516df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-10-07T07:58:18Z",
+      "side": 1,
+      "message": "LGTM since all removal/addition operations are running on handler thread.",
+      "revId": "74128521ad2c1d8709493a9cafd44b25480839ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
