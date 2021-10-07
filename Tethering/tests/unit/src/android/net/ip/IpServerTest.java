@@ -414,10 +414,6 @@ public class IpServerTest {
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
         InOrder inOrder = inOrder(mCallback, mNetd);
         inOrder.verify(mNetd).tetherInterfaceAdd(IFACE_NAME);
-        inOrder.verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
-        // One for ipv4 route, one for ipv6 link local route.
-        inOrder.verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(IFACE_NAME),
-                any(), any());
         inOrder.verify(mCallback).updateInterfaceState(
                 mIpServer, STATE_TETHERED, TETHER_ERROR_NO_ERROR);
         inOrder.verify(mCallback).updateLinkProperties(
@@ -433,7 +429,6 @@ public class IpServerTest {
         InOrder inOrder = inOrder(mCallback, mNetd, mAddressCoordinator);
         inOrder.verify(mNetd).tetherApplyDnsInterfaces();
         inOrder.verify(mNetd).tetherInterfaceRemove(IFACE_NAME);
-        inOrder.verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
         inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -> IFACE_NAME.equals(cfg.ifName)));
         inOrder.verify(mAddressCoordinator).releaseDownstream(any());
         inOrder.verify(mCallback).updateInterfaceState(
@@ -453,9 +448,6 @@ public class IpServerTest {
         inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg ->
                   IFACE_NAME.equals(cfg.ifName) && assertContainsFlag(cfg.flags, IF_STATE_UP)));
         inOrder.verify(mNetd).tetherInterfaceAdd(IFACE_NAME);
-        inOrder.verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
-        inOrder.verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(IFACE_NAME),
-                any(), any());
         inOrder.verify(mCallback).updateInterfaceState(
                 mIpServer, STATE_TETHERED, TETHER_ERROR_NO_ERROR);
         inOrder.verify(mCallback).updateLinkProperties(
@@ -474,9 +466,6 @@ public class IpServerTest {
         inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg ->
                   IFACE_NAME.equals(cfg.ifName) && assertNotContainsFlag(cfg.flags, IF_STATE_UP)));
         inOrder.verify(mNetd).tetherInterfaceAdd(IFACE_NAME);
-        inOrder.verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
-        inOrder.verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(IFACE_NAME),
-                any(), any());
         inOrder.verify(mCallback).updateInterfaceState(
                 mIpServer, STATE_LOCAL_ONLY, TETHER_ERROR_NO_ERROR);
         inOrder.verify(mCallback).updateLinkProperties(
@@ -594,7 +583,6 @@ public class IpServerTest {
         inOrder.verify(mBpfCoordinator).tetherOffloadRuleClear(mIpServer);
         inOrder.verify(mNetd).tetherApplyDnsInterfaces();
         inOrder.verify(mNetd).tetherInterfaceRemove(IFACE_NAME);
-        inOrder.verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
         inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -> IFACE_NAME.equals(cfg.ifName)));
         inOrder.verify(mAddressCoordinator).releaseDownstream(any());
         inOrder.verify(mBpfCoordinator).tetherOffloadClientClear(mIpServer);
@@ -728,10 +716,6 @@ public class IpServerTest {
                 ArgumentCaptor.forClass(LinkProperties.class);
         InOrder inOrder = inOrder(mNetd, mCallback, mAddressCoordinator);
         inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true));
-        inOrder.verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
-        // One for ipv4 route, one for ipv6 link local route.
-        inOrder.verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(IFACE_NAME),
-                any(), any());
         inOrder.verify(mCallback).updateInterfaceState(
                 mIpServer, STATE_LOCAL_ONLY, TETHER_ERROR_NO_ERROR);
         inOrder.verify(mCallback).updateLinkProperties(eq(mIpServer), lpCaptor.capture());
@@ -753,7 +737,8 @@ public class IpServerTest {
         final LinkProperties linkProperties = lpCaptor.getValue();
         final List<LinkAddress> linkAddresses = linkProperties.getLinkAddresses();
         assertEquals(1, linkProperties.getLinkAddresses().size());
-        assertEquals(1, linkProperties.getRoutes().size());
+        // IPv6 link local is also in the routing.
+        assertEquals(2, linkProperties.getRoutes().size());
         final IpPrefix prefix = new IpPrefix(linkAddresses.get(0).getAddress(),
                 linkAddresses.get(0).getPrefixLength());
         assertNotEquals(prefix, new IpPrefix("192.168.42.0/24"));

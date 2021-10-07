@@ -793,9 +793,6 @@ public class TetheringTest {
     private void verifyInterfaceServingModeStarted(String ifname) throws Exception {
         verify(mNetd, times(1)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, times(1)).tetherInterfaceAdd(ifname);
-        verify(mNetd, times(1)).networkAddInterface(INetd.LOCAL_NET_ID, ifname);
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(ifname),
-                anyString(), anyString());
     }
 
     private void verifyTetheringBroadcast(String ifname, String whichExtra) {
@@ -920,7 +917,6 @@ public class TetheringTest {
 
         verify(mNetd, times(1)).tetherApplyDnsInterfaces();
         verify(mNetd, times(1)).tetherInterfaceRemove(TEST_WLAN_IFNAME);
-        verify(mNetd, times(1)).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
         // interfaceSetCfg() called once for enabling and twice disabling IPv4.
         verify(mNetd, times(3)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, times(1)).tetherStop();
@@ -1454,8 +1450,6 @@ public class TetheringTest {
         verifyTetheringBroadcast(TEST_WLAN_IFNAME, EXTRA_AVAILABLE_TETHER);
         verify(mNetd, times(1)).ipfwdEnableForwarding(TETHERING_NAME);
         verify(mNetd, times(1)).tetherStartWithConfiguration(any());
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_WLAN_IFNAME),
-                anyString(), anyString());
         verifyNoMoreInteractions(mNetd);
         verify(mWifiManager).updateInterfaceIpState(
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
@@ -1493,7 +1487,6 @@ public class TetheringTest {
 
         verify(mNetd, times(1)).tetherApplyDnsInterfaces();
         verify(mNetd, times(1)).tetherInterfaceRemove(TEST_WLAN_IFNAME);
-        verify(mNetd, times(1)).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
         // interfaceSetCfg() called once for enabling and twice for disabling IPv4.
         verify(mNetd, times(3)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, times(1)).tetherStop();
@@ -1532,9 +1525,6 @@ public class TetheringTest {
         // code is refactored the two calls during shutdown will revert to one.
         verify(mNetd, times(3)).interfaceSetCfg(argThat(p -> TEST_WLAN_IFNAME.equals(p.ifName)));
         verify(mNetd, times(1)).tetherInterfaceAdd(TEST_WLAN_IFNAME);
-        verify(mNetd, times(1)).networkAddInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_WLAN_IFNAME),
-                anyString(), anyString());
         verify(mWifiManager).updateInterfaceIpState(
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_UNSPECIFIED);
         verify(mWifiManager).updateInterfaceIpState(
@@ -1553,7 +1543,6 @@ public class TetheringTest {
         // so it can take down AP mode.
         verify(mNetd, times(1)).tetherApplyDnsInterfaces();
         verify(mNetd, times(1)).tetherInterfaceRemove(TEST_WLAN_IFNAME);
-        verify(mNetd, times(1)).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_WLAN_IFNAME);
         verify(mWifiManager).updateInterfaceIpState(
                 TEST_WLAN_IFNAME, WifiManager.IFACE_IP_MODE_CONFIGURATION_ERROR);
 
@@ -1985,7 +1974,6 @@ public class TetheringTest {
 
         verify(mNetd, times(1)).tetherApplyDnsInterfaces();
         verify(mNetd, times(1)).tetherInterfaceRemove(TEST_P2P_IFNAME);
-        verify(mNetd, times(1)).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_P2P_IFNAME);
         // interfaceSetCfg() called once for enabling and twice for disabling IPv4.
         verify(mNetd, times(3)).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, times(1)).tetherStop();
@@ -2007,7 +1995,6 @@ public class TetheringTest {
 
         verify(mNetd, never()).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, never()).tetherInterfaceAdd(TEST_P2P_IFNAME);
-        verify(mNetd, never()).networkAddInterface(INetd.LOCAL_NET_ID, TEST_P2P_IFNAME);
         verify(mNetd, never()).ipfwdEnableForwarding(TETHERING_NAME);
         verify(mNetd, never()).tetherStartWithConfiguration(any());
 
@@ -2018,7 +2005,6 @@ public class TetheringTest {
 
         verify(mNetd, never()).tetherApplyDnsInterfaces();
         verify(mNetd, never()).tetherInterfaceRemove(TEST_P2P_IFNAME);
-        verify(mNetd, never()).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_P2P_IFNAME);
         verify(mNetd, never()).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, never()).tetherStop();
         verify(mNetd, never()).ipfwdDisableForwarding(TETHERING_NAME);
@@ -2053,7 +2039,6 @@ public class TetheringTest {
 
         verify(mNetd, never()).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd, never()).tetherInterfaceAdd(TEST_P2P_IFNAME);
-        verify(mNetd, never()).networkAddInterface(INetd.LOCAL_NET_ID, TEST_P2P_IFNAME);
         verify(mNetd, never()).ipfwdEnableForwarding(TETHERING_NAME);
         verify(mNetd, never()).tetherStartWithConfiguration(any());
         assertEquals(TETHER_ERROR_UNKNOWN_IFACE, mTethering.getLastErrorForTest(TEST_P2P_IFNAME));
@@ -2577,13 +2562,8 @@ public class TetheringTest {
         tetherResult.assertHasResult();
 
         verify(mNetd).tetherInterfaceAdd(TEST_BT_IFNAME);
-        verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, TEST_BT_IFNAME);
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_BT_IFNAME),
-                anyString(), anyString());
         verify(mNetd).ipfwdEnableForwarding(TETHERING_NAME);
         verify(mNetd).tetherStartWithConfiguration(any());
-        verify(mNetd, times(2)).networkAddRoute(eq(INetd.LOCAL_NET_ID), eq(TEST_BT_IFNAME),
-                anyString(), anyString());
         verifyNoMoreInteractions(mNetd);
         reset(mNetd);
 
@@ -2598,7 +2578,6 @@ public class TetheringTest {
 
         verify(mNetd).tetherApplyDnsInterfaces();
         verify(mNetd).tetherInterfaceRemove(TEST_BT_IFNAME);
-        verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, TEST_BT_IFNAME);
         verify(mNetd).interfaceSetCfg(any(InterfaceConfigurationParcel.class));
         verify(mNetd).tetherStop();
         verify(mNetd).ipfwdDisableForwarding(TETHERING_NAME);

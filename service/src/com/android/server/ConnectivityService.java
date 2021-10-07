@@ -58,6 +58,7 @@ import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_PARTIAL;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_SKIPPED;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_VALID;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_DOWNSTREAM;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
@@ -3971,6 +3972,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         INetd.PERMISSION_NONE,
                         (nai.networkAgentConfig == null || !nai.networkAgentConfig.allowBypass),
                         getVpnType(nai));
+            } else if (nai.networkCapabilities.hasCapability(NET_CAPABILITY_DOWNSTREAM)) {
+                config = new NativeNetworkConfig(nai.network.getNetId(), NativeNetworkType.LOCAL,
+                        INetd.PERMISSION_NONE, /*secure=*/ false, VpnManager.TYPE_VPN_NONE);
             } else {
                 config = new NativeNetworkConfig(nai.network.getNetId(), NativeNetworkType.PHYSICAL,
                         getNetworkPermission(nai.networkCapabilities), /*secure=*/ false,

@@ -54,7 +54,6 @@ import android.net.dhcp.IDhcpEventCallbacks;
 import android.net.dhcp.IDhcpServer;
 import android.net.ip.IpNeighborMonitor.NeighborEvent;
 import android.net.ip.RouterAdvertisementDaemon.RaParams;
-import android.net.shared.NetdUtils;
 import android.net.shared.RouteUtils;
 import android.net.util.InterfaceParams;
 import android.net.util.InterfaceSet;
@@ -661,6 +660,9 @@ public class IpServer extends StateMachine {
         if (enabled) {
             mLinkProperties.addLinkAddress(mIpv4Address);
             mLinkProperties.addRoute(getDirectConnectedRoute(mIpv4Address));
+            // IPv6 link local should be activated always.
+            mLinkProperties.addRoute(new RouteInfo(
+                    new IpPrefix("fe80::/64"), null /* gateway */, mIfaceName, RTN_UNICAST));
         } else {
             mLinkProperties.removeLinkAddress(mIpv4Address);
             mLinkProperties.removeRoute(getDirectConnectedRoute(mIpv4Address));
@@ -1199,7 +1201,7 @@ public class IpServer extends StateMachine {
             }
 
             try {
-                NetdUtils.tetherInterface(mNetd, mIfaceName, asIpPrefix(mIpv4Address));
+                mNetd.tetherInterfaceAdd(mIfaceName);
             } catch (RemoteException | ServiceSpecificException | IllegalStateException e) {
                 mLog.e("Error Tethering", e);
                 mLastError = TetheringManager.TETHER_ERROR_TETHER_IFACE_ERROR;
@@ -1250,7 +1252,7 @@ public class IpServer extends StateMachine {
             stopIPv6();
 
             try {
-                NetdUtils.untetherInterface(mNetd, mIfaceName);
+                mNetd.tetherInterfaceRemove(mIfaceName);
             } catch (RemoteException | ServiceSpecificException e) {
                 mLastError = TetheringManager.TETHER_ERROR_UNTETHER_IFACE_ERROR;
                 mLog.e("Failed to untether interface: " + e);
