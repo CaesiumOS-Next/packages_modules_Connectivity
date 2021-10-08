@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05abfbb7_f1b808dd",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "746a8829_ec27c87d",
+      "range": {
+        "startLine": 102,
+        "startChar": 33,
+        "endLine": 102,
+        "endChar": 50
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfd62977_45852ae4",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-10-04T10:53:07Z",
       "side": 1,
       "message": "Could this loop be factorized with onUserAdded ? ISTM this is the exact same code.",
+      "range": {
+        "startLine": 255,
+        "startChar": 41,
+        "endLine": 255,
+        "endChar": 42
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdf4a8d8_46ceb247",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfd62977_45852ae4",
       "range": {
         "startLine": 255,
         "startChar": 41,
@@ -89,6 +137,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3384e0b3_f810372b",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14c0097f_1441a2b2",
+      "range": {
+        "startLine": 270,
+        "startChar": 16,
+        "endLine": 270,
+        "endChar": 19
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6c1e8f31_d69c3a80",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 6
@@ -100,6 +172,30 @@
       "writtenOn": "2021-10-04T10:53:07Z",
       "side": 1,
       "message": "...and there is also the list of UIDs allowed on restricted networks. But not sure it\u0027s important to mention it here.",
+      "range": {
+        "startLine": 354,
+        "startChar": 45,
+        "endLine": 354,
+        "endChar": 46
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc2c56b7_db00adc8",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "ACK.",
+      "parentUuid": "6c1e8f31_d69c3a80",
       "range": {
         "startLine": 354,
         "startChar": 45,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee07d4c3_b4c71316",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "Yes, you are right. However, I\u0027m thinking about this again. Even getting PackageInfo with system user is enough, it\u0027s still hard to explain and understand here. And getting PackageInfo with uid\u0027s user should be fine as well.",
+      "parentUuid": "b9689096_08dfdfe7",
+      "range": {
+        "startLine": 471,
+        "startChar": 66,
+        "endLine": 471,
+        "endChar": 67
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37a39437_bbe54027",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-10-04T10:53:07Z",
       "side": 1,
       "message": "Note that IIUC it can\u0027t be SYSTEM, because all SYSTEM apps are preinstalled. But it could be NETWORK.",
+      "range": {
+        "startLine": 509,
+        "startChar": 41,
+        "endLine": 509,
+        "endChar": 69
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6606a073_e3a1e167",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "I think this comment should not be here, it should move to l.450 and explain the behavior there.",
+      "parentUuid": "37a39437_bbe54027",
       "range": {
         "startLine": 509,
         "startChar": 41,
@@ -204,6 +348,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b4adf7dc_1730796c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "561cfc46_5a977612",
+      "range": {
+        "startLine": 617,
+        "startChar": 46,
+        "endLine": 617,
+        "endChar": 65
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "14615594_66e1ba2b",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 6
@@ -248,6 +416,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c43ce8a3_770eb83d",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71acee63_bfa76f94",
+      "range": {
+        "startLine": 128,
+        "startChar": 36,
+        "endLine": 128,
+        "endChar": 41
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09ea86e7_caa48c6d",
@@ -261,6 +453,54 @@
       "writtenOn": "2021-10-04T10:53:07Z",
       "side": 1,
       "message": "\"either user\" was correct, \"either users\" is incorrect",
+      "range": {
+        "startLine": 1035,
+        "startChar": 73,
+        "endLine": 1035,
+        "endChar": 74
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73349557_ba660c3e",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "09ea86e7_caa48c6d",
+      "range": {
+        "startLine": 1035,
+        "startChar": 73,
+        "endLine": 1035,
+        "endChar": 74
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcc3c4fc_1d6504da",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1035,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-08T09:20:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09ea86e7_caa48c6d",
       "range": {
         "startLine": 1035,
         "startChar": 73,
