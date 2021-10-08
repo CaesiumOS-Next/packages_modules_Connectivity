@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cea89ce8_0557c20b",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:32:46Z",
+      "side": 1,
+      "message": "Sorry, typo. \"Linter also suggests so since you need to suppress the linter.\"",
+      "parentUuid": "773844e0_30eee99b",
+      "range": {
+        "startLine": 193,
+        "startChar": 30,
+        "endLine": 193,
+        "endChar": 34
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d0eb989_b3d2ab94",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 4
