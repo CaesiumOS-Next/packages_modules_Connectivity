@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a7633f0_9017833b",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:28:03Z",
+      "side": 1,
+      "message": "will the underlying network more than one in a network? or this is intended to show all possible underlying networks? I tend to think it should be the former. If so, shouldn\u0027t it be only one underlying network?",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 25
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "773844e0_30eee99b",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:28:03Z",
+      "side": 1,
+      "message": "do we like to have this to be @NonNull if it\u0027s a list? or null will be designed for some kind of special use case? Linter also guess so since you need to suppress the linter.\n\nAlso, do you want to annotate the nullability?",
+      "range": {
+        "startLine": 193,
+        "startChar": 30,
+        "endLine": 193,
+        "endChar": 34
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d0eb989_b3d2ab94",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:28:03Z",
+      "side": 1,
+      "message": "would like mind to explain what kind of condition is \"not support\"?",
+      "range": {
+        "startLine": 721,
+        "startChar": 92,
+        "endLine": 722,
+        "endChar": 42
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a00c546_cc575c2c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:28:03Z",
+      "side": 1,
+      "message": "Question: do we have this currently?",
+      "range": {
+        "startLine": 726,
+        "startChar": 15,
+        "endLine": 726,
+        "endChar": 49
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39415261_cbf835da",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:28:03Z",
+      "side": 1,
+      "message": "Is this correct doc? I cannot understand it well to see this sentence here.",
+      "range": {
+        "startLine": 726,
+        "startChar": 51,
+        "endLine": 727,
+        "endChar": 58
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dc1e696_3035c45a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:28:03Z",
+      "side": 1,
+      "message": "Nit: Use Objects.equals(getUnderlyingNetworks(), nc.getUnderlyingNetworks()); instead?",
+      "range": {
+        "startLine": 736,
+        "startChar": 15,
+        "endLine": 737,
+        "endChar": 77
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a0fcdd6_a25d4e4f",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2004,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:28:03Z",
+      "side": 1,
+      "message": "Nit: do you want a constant definition?",
+      "range": {
+        "startLine": 2004,
+        "startChar": 26,
+        "endLine": 2004,
+        "endChar": 28
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25482b94_8afd82fe",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-10-08T07:28:03Z",
+      "side": 1,
+      "message": "why do you not use assertEquals()?",
+      "range": {
+        "startLine": 746,
+        "startChar": 8,
+        "endLine": 746,
+        "endChar": 37
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
