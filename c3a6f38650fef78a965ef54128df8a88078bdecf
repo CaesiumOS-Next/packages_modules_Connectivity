@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016052915",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1849155?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ee96802a_f584423d",
+        "filename": "netdlib/include/NetdBpfPublic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-08T03:33:27Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 1
+      },
+      "revId": "c3a6f38650fef78a965ef54128df8a88078bdecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016052915",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1849155?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "44750b5e_f60cb68a",
+        "filename": "netdlib/include/NetdBpfPublic.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-08T03:33:27Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "c3a6f38650fef78a965ef54128df8a88078bdecf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
