@@ -22,6 +22,30 @@
       },
       "revId": "41512b3fb128a8c1e393dc5eabfe105279c42986",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9e36455_1f95eced",
+        "filename": "Tethering/tests/mts/src/android/tethering/mts/TetheringModuleTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-08T03:11:22Z",
+      "side": 1,
+      "message": "I remember kotlin default argument doesn\u0027t work for java code using kotlin, we would get compile error. This is why I need to explicitly specify the long parameter using default value.",
+      "parentUuid": "7f68011e_7799bd5d",
+      "range": {
+        "startLine": 180,
+        "startChar": 45,
+        "endLine": 180,
+        "endChar": 52
+      },
+      "revId": "41512b3fb128a8c1e393dc5eabfe105279c42986",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
