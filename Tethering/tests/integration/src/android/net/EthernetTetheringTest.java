@@ -34,6 +34,8 @@ import static com.android.net.module.util.NetworkStackConstants.ETHER_TYPE_IPV6;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REPLY_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ECHO_REQUEST_TYPE;
 import static com.android.net.module.util.NetworkStackConstants.ICMPV6_ROUTER_ADVERTISEMENT;
+import static com.android.net.module.util.NetworkStackConstants.TCPHDR_ACK;
+import static com.android.net.module.util.NetworkStackConstants.TCPHDR_SYN;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 
 import static org.junit.Assert.assertEquals;
@@ -70,6 +72,7 @@ import com.android.net.module.util.structs.EthernetHeader;
 import com.android.net.module.util.structs.Icmpv6Header;
 import com.android.net.module.util.structs.Ipv4Header;
 import com.android.net.module.util.structs.Ipv6Header;
+import com.android.net.module.util.structs.TcpHeader;
 import com.android.net.module.util.structs.UdpHeader;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.TapPacketReader;
@@ -886,6 +889,109 @@ public class EthernetTetheringTest {
 
         // TODO: verify protocol information once the ConntrackMessage class could parse protocol
         // information (CTA_PROTOINFO). Although UDP does not have protocol information actually.
+    }
+
+    @Test
+    public void testTcpV4() throws Exception {
+        assumeFalse(mEm.isAvailable());
+
+        mDownstreamIface = createTestInterface();
+        mEm.setIncludeTestInterfaces(true);
+
+        final String iface = mTetheredInterfaceRequester.getInterface();
+        assertEquals("TetheredInterfaceCallback for unexpected interface",
+                mDownstreamIface.getInterfaceName(), iface);
+
+        mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName());
+
+        mUpstreamTracker = createTestUpstream(toList(TEST_IP4_ADDR, TEST_IP6_ADDR),
+                toList(TEST_IP4_DNS, TEST_IP6_DNS));
+
+        mDownstreamReader = makePacketReader(mDownstreamIface);
+        mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
+
+        runTcp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader));
+    }
+
+    private void runTcp4Test(TetheringTester tester, RemoteResponder remote) throws Exception {
+        final TetheredDevice tethered = tester.createTetheredDevice(MacAddress.fromString(
+                "1:2:3:4:5:6"));
+        final Inet4Address remoteIp4Addr = (Inet4Address) parseNumericAddress("8.8.8.8");
+        final short id = 27149;
+        final short privatePort = 12345;
+        final short remotePort = 433;
+        short sendSeq = 0;
+        short recvSeq = 0;
+        short sendAck = 0;
+        short recvAck = 0;
+
+        ByteBuffer syn = Ipv4Utils.buildTcpv4Packet(tethered.macAddr, tethered.routerMacAddr,
+                id, tethered.ipv4Addr /* srcIp */, remoteIp4Addr /* dstIp */,
+                privatePort /* srcPort */, remotePort /*dstPort */, sendSeq, recvAck, TCPHDR_SYN,
+                null /* data */);
+        sendSeq++;
+
+        tester.sendPacket(syn);
+        remote.getNextMatchedPacket((p) -> {
+            Log.d(TAG, "Packet in upstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            final Ipv4Header ipv4Header = Struct.parse(Ipv4Header.class, buf);
+            if (ipv4Header == null) return null;
+
+            final TcpHeader tcpHeader = Struct.parse(TcpHeader.class, buf);
+            if (tcpHeader == null) return null;
+
+            return ((tcpHeader.dataOffsetAndControlBits & 0x3f) == TCPHDR_SYN) ? p : null;
+        });
+
+        final Inet4Address publicIp4Addr = (Inet4Address) TEST_IP4_ADDR.getAddress();
+        final short publicPort = 12345;
+
+        sendAck = sendSeq;
+        ByteBuffer synAck = Ipv4Utils.buildTcpv4Packet(id, remoteIp4Addr /* srcIp */,
+                publicIp4Addr /* dstIp */, remotePort /* srcPort */, publicPort /*dstPort */,
+                recvSeq, sendAck, (byte) (TCPHDR_SYN | TCPHDR_ACK), null /* data */);
+        recvSeq++;
+        remote.sendPacket(synAck);
+
+        tester.getNextMatchedPacket((p) -> {
+            Log.d(TAG, "Packet in downstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            final EthernetHeader etherHeader = Struct.parse(EthernetHeader.class, buf);
+            if (etherHeader == null) return null;
+
+            final Ipv4Header ipv4Header = Struct.parse(Ipv4Header.class, buf);
+            if (ipv4Header == null) return null;
+
+            final TcpHeader tcpHeader = Struct.parse(TcpHeader.class, buf);
+            if (tcpHeader == null) return null;
+
+            return ((tcpHeader.dataOffsetAndControlBits & 0x3f)
+                    == (byte) (TCPHDR_SYN | TCPHDR_ACK)) ? p : null;
+        });
+
+        recvAck = recvSeq;
+        ByteBuffer ack = Ipv4Utils.buildTcpv4Packet(tethered.macAddr, tethered.routerMacAddr,
+                id, tethered.ipv4Addr /* srcIp */, remoteIp4Addr /* dstIp */,
+                privatePort /* srcPort */, remotePort /*dstPort */, sendSeq, recvAck, TCPHDR_ACK,
+                null /* data */);
+        sendSeq++;
+        tester.sendPacket(ack);
+
+        remote.getNextMatchedPacket((p) -> {
+            Log.d(TAG, "Packet in upstream: " + byteArrayToHex(p));
+
+            ByteBuffer buf = ByteBuffer.wrap(p);
+            final Ipv4Header ipv4Header = Struct.parse(Ipv4Header.class, buf);
+            if (ipv4Header == null) return null;
+
+            final TcpHeader tcpHeader = Struct.parse(TcpHeader.class, buf);
+            if (tcpHeader == null) return null;
+
+            return ((tcpHeader.dataOffsetAndControlBits & 0x3f) == TCPHDR_ACK) ? p : null;
+        });
     }
 
     private <T> List<T> toList(T... array) {

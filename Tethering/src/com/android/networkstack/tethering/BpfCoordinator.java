@@ -1594,6 +1594,7 @@ public class BpfCoordinator {
         }
 
         public void accept(ConntrackEvent e) {
+            mLog.i("[SSD] accept "); // +debug
             if (!allowOffload(e)) return;
 
             final ClientInfo tetherClient = getClientInfo(e.tupleOrig.srcIp);
