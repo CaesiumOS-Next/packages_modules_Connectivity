@@ -22,6 +22,23 @@
       },
       "revId": "94e95bcc4352d0ed7d9187eddffa5e4422b91b1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96c46022_cd3d1fe5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-08T08:10:14Z",
+      "side": 1,
+      "message": "This is meraly a block to prevent submission.\n\nWe\u0027ll need some magic to prevent this from getting loaded on pre-T devices as part of mainline updates.",
+      "revId": "94e95bcc4352d0ed7d9187eddffa5e4422b91b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
