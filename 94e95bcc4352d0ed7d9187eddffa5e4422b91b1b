@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eaae7d4_3291ca8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-08T04:11:15Z",
+      "side": 1,
+      "message": "Why copy instead of move ? Is it something block us that need to copy the code then remove duplicate later ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "94e95bcc4352d0ed7d9187eddffa5e4422b91b1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
