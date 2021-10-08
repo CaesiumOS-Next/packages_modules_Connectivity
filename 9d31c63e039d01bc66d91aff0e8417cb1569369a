@@ -16,6 +16,24 @@
       "message": "This bp file is necessary,delete this make tethering module fail to build.",
       "revId": "9d31c63e039d01bc66d91aff0e8417cb1569369a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1fa91e2_7acea7f4",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2021-10-08T05:36:27Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "b64dd746_db026b9b",
+      "revId": "9d31c63e039d01bc66d91aff0e8417cb1569369a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
