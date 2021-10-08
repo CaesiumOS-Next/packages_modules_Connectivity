@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0a68980_c999bb2e",
+        "filename": "Tethering/common/TetheringLib/src/android/net/IIntResultListener.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-08T03:39:47Z",
+      "side": 1,
+      "message": "I\"Int\"ResultListener do not be a suitable name anymore. Maybe rename to ITetheringResultListener or other suitable name. If so, I\u0027ll suggest you to separate the rename to other CL because I assume you need to change the current naming usage everywhere.",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "9e20f197cd32e7225e360641afa2103b2e44d32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70fec804_b6153fe8",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-08T03:39:47Z",
+      "side": 1,
+      "message": "Maybe you can try whether have a no-op class extends IIntResultListener. Then, you don\u0027t need to override unused function everywhere in this file.",
+      "range": {
+        "startLine": 403,
+        "startChar": 28,
+        "endLine": 403,
+        "endChar": 52
+      },
+      "revId": "9e20f197cd32e7225e360641afa2103b2e44d32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5631f131_51a167f7",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-08T03:39:47Z",
+      "side": 1,
+      "message": "Maybe you need additional int parameter in onResultConntrackEntries:\n    onResultConntrackEntries(int resultCode, TetheringConntrackEntryParcel[] conntrackEntries)\n\nthen you could check the result code to know identify the fail reason and raise SecurityException if caller don\u0027t have suitable permission.",
+      "range": {
+        "startLine": 430,
+        "startChar": 12,
+        "endLine": 430,
+        "endChar": 64
+      },
+      "revId": "9e20f197cd32e7225e360641afa2103b2e44d32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
