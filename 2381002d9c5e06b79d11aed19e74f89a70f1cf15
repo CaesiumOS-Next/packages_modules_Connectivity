@@ -39,6 +39,30 @@
       },
       "revId": "2381002d9c5e06b79d11aed19e74f89a70f1cf15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "400af7fe_a2bafc52",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-11T12:30:29Z",
+      "side": 1,
+      "message": "Since it\u0027s mDNS being close to DNS I thought only a limited set of characters should be used, but actually checking the RFC it should be UTF8.\nChanged and added comment.",
+      "parentUuid": "cefaf005_69e234e8",
+      "range": {
+        "startLine": 417,
+        "startChar": 41,
+        "endLine": 417,
+        "endChar": 49
+      },
+      "revId": "2381002d9c5e06b79d11aed19e74f89a70f1cf15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
