@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "433006fa_d122a6b1",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-11T12:41:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dace8b0f_870e5d31",
+      "range": {
+        "startLine": 82,
+        "startChar": 34,
+        "endLine": 82,
+        "endChar": 42
+      },
+      "revId": "f0b4f6dfcc9753db8cee630ac401b3b8a13e1eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa10cd2e_39fdfe6f",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-10-06T10:22:15Z",
       "side": 1,
       "message": "Nit : all other classes have the methods below the event classes",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 16
+      },
+      "revId": "f0b4f6dfcc9753db8cee630ac401b3b8a13e1eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09d127a0_ccb9a12a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-11T12:41:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa10cd2e_39fdfe6f",
       "range": {
         "startLine": 163,
         "startChar": 8,
