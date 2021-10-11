@@ -71,6 +71,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8257654_3838c5ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-10-11T16:54:44Z",
+      "side": 1,
+      "message": "conflict fixed after SC AOSP push",
+      "parentUuid": "fd7a4726_7437db23",
+      "revId": "fe1bc87198177aa995bb1d5cdd142b8280f6eecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3be515f_a2720e32",
