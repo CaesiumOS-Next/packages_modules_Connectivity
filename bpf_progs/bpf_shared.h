@@ -98,6 +98,8 @@ static const int IFACE_INDEX_NAME_MAP_SIZE = 1000;
 static const int IFACE_STATS_MAP_SIZE = 1000;
 static const int CONFIGURATION_MAP_SIZE = 2;
 static const int UID_OWNER_MAP_SIZE = 2000;
+static const int BLOCK_DO53_CONFIGURATION_MAP_SIZE = 2;
+static const int BLOCK_DO53_MAP_SIZE = 20;
 
 #define BPF_PATH "/sys/fs/bpf/"
 
@@ -122,6 +124,9 @@ static const int UID_OWNER_MAP_SIZE = 2000;
 #define CONFIGURATION_MAP_PATH BPF_PATH "map_netd_configuration_map"
 #define UID_OWNER_MAP_PATH BPF_PATH "map_netd_uid_owner_map"
 #define UID_PERMISSION_MAP_PATH BPF_PATH "map_netd_uid_permission_map"
+#define BLOCK_DO53_MAP_CONFIGURATION_PATH BPF_PATH "map_netd_block_do53_configuration_map"
+#define BLOCK_DO53_MAP_PATH BPF_PATH "map_netd_block_do53_map"
+#define BLOCK_DO53_APP_UID_STATS_MAP_PATH BPF_PATH "map_netd_block_do53_app_uid_stats_map"
 
 enum UidOwnerMatchType {
     NO_MATCH = 0,
@@ -205,5 +210,13 @@ typedef struct {
     uint8_t pad[3];
 } ClatEgress4Value;
 STRUCT_SIZE(ClatEgress4Value, 4 + 2 * 16 + 1 + 3);  // 40
+
+#define PERMISSION_MASK_KEY 1
+#define NET_ID_MASK_KEY 2
+
+enum BlockDo53Type {
+    BLOCK_DO53_OFF,
+    BLOCK_DO53_ON,
+};
 
 #undef STRUCT_SIZE
