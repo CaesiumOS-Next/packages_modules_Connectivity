@@ -20,6 +20,7 @@ import static android.net.ConnectivitySettingsManager.DNS_RESOLVER_MAX_SAMPLES;
 import static android.net.ConnectivitySettingsManager.DNS_RESOLVER_MIN_SAMPLES;
 import static android.net.ConnectivitySettingsManager.DNS_RESOLVER_SAMPLE_VALIDITY_SECONDS;
 import static android.net.ConnectivitySettingsManager.DNS_RESOLVER_SUCCESS_THRESHOLD_PERCENT;
+import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS;
 import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_DEFAULT_MODE;
 import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE;
 import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_OFF;
@@ -149,6 +150,7 @@ public class DnsManager {
             Settings.Global.getUriFor(PRIVATE_DNS_DEFAULT_MODE),
             Settings.Global.getUriFor(PRIVATE_DNS_MODE),
             Settings.Global.getUriFor(PRIVATE_DNS_SPECIFIER),
+            Settings.Global.getUriFor(PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS),
         };
     }
 
