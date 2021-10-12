@@ -161,6 +161,11 @@ public class BpfCoordinator {
     @NonNull
     private final BpfConntrackEventConsumer mBpfConntrackEventConsumer;
 
+    // Used to monitor the UDP conntrack entries.
+    // TODO: monitor TCP conntrack entry once the ConntrackMessage class parses TCP state.
+    @NonNull
+    private final HashSet<ConntrackMessage.Tuple> mConntrackEntries;
+
     // True if BPF offload is supported, false otherwise. The BPF offload could be disabled by
     // a runtime resource overlay package or device configuration. This flag is only initialized
     // in the constructor because it is hard to unwind all existing change once device
@@ -292,6 +297,13 @@ public class BpfCoordinator {
         }
 
         /**
+         * Get conntrack entries.
+         */
+        @NonNull public HashSet<ConntrackMessage.Tuple> getConntrackEntries() {
+            return new HashSet<ConntrackMessage.Tuple>();
+        }
+
+        /**
          * Represents an estimate of elapsed time since boot in nanoseconds.
          */
         public long elapsedRealtimeNanos() {
@@ -399,6 +411,7 @@ public class BpfCoordinator {
         mHandler = mDeps.getHandler();
         mNetd = mDeps.getNetd();
         mLog = mDeps.getSharedLog().forSubComponent(TAG);
+        mConntrackEntries = mDeps.getConntrackEntries();
         mIsBpfEnabled = isBpfEnabled();
 
         // The conntrack consummer needs to be initialized in BpfCoordinator constructor because it
@@ -1569,8 +1582,34 @@ public class BpfCoordinator {
                     NON_OFFLOADED_UPSTREAM_IPV4_TCP_PORTS, e.tupleOrig.dstPort);
         }
 
+        private void updateConntrackEntry(@NonNull ConntrackEvent e) {
+            // TODO: once the tcp state can be parsed from conntrack message, monitor tcp
+            // conntrack entries as well.
+            if (e.tupleOrig.protoNum != OsConstants.IPPROTO_UDP) return;
+
+            if (e.msgType == (NetlinkConstants.NFNL_SUBSYS_CTNETLINK << 8
+                    | NetlinkConstants.IPCTNL_MSG_CT_NEW)) {
+                mConntrackEntries.add(e.tupleOrig);
+            } else {
+                mConntrackEntries.remove(e.tupleOrig);
+            }
+        }
+
         public void accept(ConntrackEvent e) {
             if (!allowOffload(e)) return;
+
+            // The UDP replied timeout is set after 2s delay since kernel 5.0 when there still has
+            // data traffic after traffic both ways have been seen. Because kernel can't see these
+            // offloaded packets, the UDP timeout is always unreplied (30s). Need to extend
+            // the replied timeout manually. We only extend the timeout when we see the assured
+            // conntrack entry at the first time because the regular timeout update
+            // by #updateConntrackTimeout also triggers the conntrack message notification from
+            // kernel.
+            // TODO: consider to ignore the manual update here for kernel 4.19 because kernel 4.19
+            // has extended the UDP replied timeout with the assured conntrack notification.
+            boolean refreshUdpTimeout = (e.tupleOrig.protoNum == OsConstants.IPPROTO_UDP)
+                    && !mConntrackEntries.contains(e.tupleOrig);
+            updateConntrackEntry(e);
 
             final ClientInfo tetherClient = getClientInfo(e.tupleOrig.srcIp);
             if (tetherClient == null) return;
@@ -1613,6 +1652,12 @@ public class BpfCoordinator {
             maybeSetLimit(upstreamIndex);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM, upstream4Key, upstream4Value);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(DOWNSTREAM, downstream4Key, downstream4Value);
+
+            if (refreshUdpTimeout) {
+                updateConntrackTimeout(e.tupleOrig.protoNum,
+                        e.tupleOrig.srcIp, e.tupleOrig.srcPort,
+                        e.tupleOrig.dstIp, e.tupleOrig.dstPort);
+            }
         }
     }
 
