@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "705a533d_4217ff56",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-12T07:53:41Z",
+      "side": 1,
+      "message": "This is private address. You can choose one public address to respect with defination. Or you could also rename the define: PUBLIC_ADDR -\u003e UPSTREAM_ADDR, PRIVATE_ADDR -\u003e CLIENT_ADDR.",
+      "range": {
+        "startLine": 167,
+        "startChar": 61,
+        "endLine": 167,
+        "endChar": 74
+      },
+      "revId": "9687e3745c87fb9b5d8fe1ac9d4124232d801c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaee527c_2779e563",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1408,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-12T07:53:41Z",
+      "side": 1,
+      "message": "private void ?",
+      "range": {
+        "startLine": 1408,
+        "startChar": 4,
+        "endLine": 1408,
+        "endChar": 8
+      },
+      "revId": "9687e3745c87fb9b5d8fe1ac9d4124232d801c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eb7c25f_5ec88d9c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-12T07:53:41Z",
+      "side": 1,
+      "message": "It is weird that upstreamIfindex be null. In IpServer if there is no ipv6 upstream, the default index would be zero. Maybe just follow up this design ?",
+      "range": {
+        "startLine": 1423,
+        "startChar": 8,
+        "endLine": 1426,
+        "endChar": 9
+      },
+      "revId": "9687e3745c87fb9b5d8fe1ac9d4124232d801c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d681dd82_01854bf8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1454,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-12T07:53:41Z",
+      "side": 1,
+      "message": "Could we have some an upstream struct(maybe a map) to collect params, iface, transport, netId, ... informations ?\n\nThen you don\u0027t need to duplicate the code, you just need to: \nUpstreamInfo upstream \u003d UpstreamInfos.get(UPSTREAM_IFINDEX);\n\n            doReturn(upstream.params).when(mDeps).getInterfaceParams(upstreasm.iface);\ncoordinator.addUpstreamNameToLookupTable(upstream.ifindex, upstream.iface);\n\nlp.setInterfaceName(upstream.iface);\nlp.addLinkAddress(new LinkAddress(upstream.addr, 32 /* prefix length */));\nfinal NetworkCapabilities capabilities \u003d new NetworkCapabilities().addTransportType(upstream.transportType);\ncoordinator.updateUpstreamNetworkState(new UpstreamNetworkState(lp, capabilities,\nnew Network(upstream.netId)));\n\nIt would be more sustainable if you want to create more upstream for testing in the future.",
+      "range": {
+        "startLine": 1432,
+        "startChar": 0,
+        "endLine": 1454,
+        "endChar": 48
+      },
+      "revId": "9687e3745c87fb9b5d8fe1ac9d4124232d801c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbdfefd8_332af164",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-12T07:53:41Z",
+      "side": 1,
+      "message": "private void ?",
+      "range": {
+        "startLine": 1458,
+        "startChar": 4,
+        "endLine": 1458,
+        "endChar": 8
+      },
+      "revId": "9687e3745c87fb9b5d8fe1ac9d4124232d801c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebcee030_79904af6",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1492,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-12T07:53:41Z",
+      "side": 1,
+      "message": "Why not just addDownstreamAndClientInformationTo(coordinator, DOWNSTREAM_IFINDEX) ? It seems here is the only caller of addDownstreamAndClientInformationTo(final BpfCoordinator coordinator) (Your follow up changes seems also don\u0027t use it either).",
+      "range": {
+        "startLine": 1492,
+        "startChar": 8,
+        "endLine": 1492,
+        "endChar": 57
+      },
+      "revId": "9687e3745c87fb9b5d8fe1ac9d4124232d801c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
