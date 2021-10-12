@@ -161,6 +161,11 @@ public class BpfCoordinator {
     @NonNull
     private final BpfConntrackEventConsumer mBpfConntrackEventConsumer;
 
+    // Used to monitor the conntrack notification.
+    // TODO: monitor tcp tuple and its tcp state once the ConntrackMessage class parses tcp state.
+    @NonNull
+    private final HashSet<ConntrackMessage.Tuple> mConntrackEntries;
+
     // True if BPF offload is supported, false otherwise. The BPF offload could be disabled by
     // a runtime resource overlay package or device configuration. This flag is only initialized
     // in the constructor because it is hard to unwind all existing change once device
@@ -292,6 +297,13 @@ public class BpfCoordinator {
         }
 
         /**
+         * Get conntrack entries.
+         */
+        @NonNull public HashSet<ConntrackMessage.Tuple> getConntrackEntries() {
+            return new HashSet<ConntrackMessage.Tuple>();
+        }
+
+        /**
          * Represents an estimate of elapsed time since boot in nanoseconds.
          */
         public long elapsedRealtimeNanos() {
@@ -400,6 +412,7 @@ public class BpfCoordinator {
         mNetd = mDeps.getNetd();
         mLog = mDeps.getSharedLog().forSubComponent(TAG);
         mIsBpfEnabled = isBpfEnabled();
+        mConntrackEntries = mDeps.getConntrackEntries();
 
         // The conntrack consummer needs to be initialized in BpfCoordinator constructor because it
         // have to access the data members of BpfCoordinator which is not a static class. The
@@ -1569,8 +1582,31 @@ public class BpfCoordinator {
                     NON_OFFLOADED_UPSTREAM_IPV4_TCP_PORTS, e.tupleOrig.dstPort);
         }
 
+        private void updateConntrackEntry(@NonNull ConntrackEvent e) {
+            // TODO: once the tcp state can be parsed from conntrack message, monitor tcp
+            // conntrack entries as well.
+            if (e.tupleOrig.protoNum != OsConstants.IPPROTO_UDP) return;
+
+            if (e.msgType == (NetlinkConstants.NFNL_SUBSYS_CTNETLINK << 8
+                    | NetlinkConstants.IPCTNL_MSG_CT_NEW)) {
+                mConntrackEntries.add(e.tupleOrig);
+            } else {
+                mConntrackEntries.remove(e.tupleOrig);
+            }
+        }
+
         public void accept(ConntrackEvent e) {
             if (!allowOffload(e)) return;
+
+            // The UDP replied timeout is set after 2s delay since kernel 5.0 if there still has
+            // data traffic. Because kernel can't see these offloaded packets, the UDP timeout is
+            // always unreplied. Need to extend the replied timeout manually. Only extend the
+            // timeout when we see the assured conntrack entry at the first time because the
+            // regular timeout update by #updateConntrackTimeout also triggers the conntrack
+            // message notification from kernel.
+            boolean updateUdpTimeout = (e.tupleOrig.protoNum == OsConstants.IPPROTO_UDP)
+                    && !mConntrackEntries.contains(e.tupleOrig);
+            updateConntrackEntry(e);
 
             final ClientInfo tetherClient = getClientInfo(e.tupleOrig.srcIp);
             if (tetherClient == null) return;
@@ -1613,6 +1649,12 @@ public class BpfCoordinator {
             maybeSetLimit(upstreamIndex);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM, upstream4Key, upstream4Value);
             mBpfCoordinatorShim.tetherOffloadRuleAdd(DOWNSTREAM, downstream4Key, downstream4Value);
+
+            if (updateUdpTimeout) {
+                updateConntrackTimeout(e.tupleOrig.protoNum,
+                        e.tupleOrig.srcIp, e.tupleOrig.srcPort,
+                        e.tupleOrig.dstIp, e.tupleOrig.dstPort);
+            }
         }
     }
 
@@ -1995,6 +2037,13 @@ public class BpfCoordinator {
     @VisibleForTesting
     final BpfConntrackEventConsumer getBpfConntrackEventConsumerForTesting() {
         return mBpfConntrackEventConsumer;
+    }
+
+    // Return conntrack entries. This is used for testing only.
+    @NonNull
+    @VisibleForTesting
+    final HashSet<ConntrackMessage.Tuple> getConntrackEntriesForTesting() {
+        return mConntrackEntries;
     }
 
     private static native String[] getBpfCounterNames();
