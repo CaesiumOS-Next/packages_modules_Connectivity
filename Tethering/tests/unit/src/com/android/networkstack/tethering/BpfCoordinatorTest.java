@@ -128,6 +128,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -1670,6 +1671,63 @@ public class BpfCoordinatorTest {
             verify(mBpfUpstream4Map).deleteEntry(any());
             verify(mBpfDownstream4Map).deleteEntry(any());
             clearInvocations(mBpfUpstream4Map, mBpfDownstream4Map);
+        }
+    }
+
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testExtendAssuredConntrackEntryTimeout() throws Exception {
+        final BpfCoordinator coordinator = makeBpfCoordinator();
+        initBpfCoordinatorForRule4(coordinator);
+        final HashSet<Tuple> entries = coordinator.getConntrackEntriesForTesting();
+
+        // Static mocking for NetlinkSocket.
+        MockitoSession mockSession = ExtendedMockito.mockitoSession()
+                .mockStatic(NetlinkSocket.class)
+                .startMocking();
+        try {
+            // [1] TCP conntrack event doesn't trigger assured conntrack entry timeout update.
+            mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_NEW, IPPROTO_TCP));
+            ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
+            ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
+            assertEquals(0, entries.size());
+
+            // [2] UDP conntrack event triggers assured conntrack entry timeout update.
+            mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_NEW, IPPROTO_UDP));
+            final byte[] expectedNetlink = ConntrackMessage.newIPv4TimeoutUpdateRequest(
+                    IPPROTO_UDP, PRIVATE_ADDR, (int) PRIVATE_PORT, REMOTE_ADDR,
+                    (int) REMOTE_PORT, NF_CONNTRACK_UDP_TIMEOUT_STREAM);
+            final Tuple expectedTuple = new Tuple(new TupleIpv4(PRIVATE_ADDR, REMOTE_ADDR),
+                        new TupleProto((byte) IPPROTO_UDP, PRIVATE_PORT, REMOTE_PORT));
+            ExtendedMockito.verify(() -> NetlinkSocket.sendOneShotKernelMessage(
+                    eq(NETLINK_NETFILTER), eq(expectedNetlink)));
+            ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
+            ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
+            assertTrue(entries.contains(expectedTuple));
+            assertEquals(1, entries.size());
+
+            // [3] The same assured UDP conntrack event doesn't trigger timeout update again.
+            mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_NEW, IPPROTO_UDP));
+            ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
+            ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
+            assertTrue(entries.contains(expectedTuple));
+            assertEquals(1, entries.size());
+
+            // [4] Remove TCP conntrack entry. Nothing happens.
+            mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_DELETE, IPPROTO_TCP));
+            ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
+            ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
+            assertTrue(entries.contains(expectedTuple));
+            assertEquals(1, entries.size());
+
+            // [5] Remove UDP conntrack entry. Expect the entry has been removed from the set.
+            mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_DELETE, IPPROTO_UDP));
+            ExtendedMockito.verifyNoMoreInteractions(staticMockMarker(NetlinkSocket.class));
+            ExtendedMockito.clearInvocations(staticMockMarker(NetlinkSocket.class));
+            assertFalse(entries.contains(expectedTuple));
+            assertEquals(0, entries.size());
+        } finally {
+            mockSession.finishMocking();
         }
     }
 }
