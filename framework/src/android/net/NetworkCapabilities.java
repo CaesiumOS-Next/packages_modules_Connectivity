@@ -2140,13 +2140,20 @@ public final class NetworkCapabilities implements Parcelable {
             sb.append(" SubscriptionIds: ").append(mSubIds);
         }
 
-        if (mUnderlyingNetworks != null && mUnderlyingNetworks.size() > 0) {
-            sb.append(" Underlying networks: [");
-            for (int i = 0; i < mUnderlyingNetworks.size(); i++) {
-                if (i > 0) sb.append(", ");
-                sb.append(mUnderlyingNetworks.get(i));
+        sb.append(" UnderlyingNetworks: ");
+        if (mUnderlyingNetworks != null) {
+            if (mUnderlyingNetworks.size() > 0) {
+                sb.append("[");
+                for (int i = 0; i < mUnderlyingNetworks.size(); i++) {
+                    if (i > 0) sb.append(", ");
+                    sb.append(mUnderlyingNetworks.get(i));
+                }
+                sb.append("]");
+            } else {
+                sb.append("Empty");
             }
-            sb.append("]");
+        } else {
+            sb.append("Null");
         }
 
         sb.append("]");
