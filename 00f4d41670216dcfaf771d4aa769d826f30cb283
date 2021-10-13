@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4c3c7b0_ec229783",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-13T10:41:56Z",
+      "side": 1,
+      "message": "For the multi-underlying networks case, it should be handled by the VPN app.\nAnd I think it\u0027s possible that the VPN app establishes the VPN connection on the different underlying networks at the same time.",
+      "parentUuid": "1a7633f0_9017833b",
+      "range": {
+        "startLine": 136,
+        "startChar": 12,
+        "endLine": 136,
+        "endChar": 25
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "773844e0_30eee99b",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0858c5e5_b302ebb9",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-13T10:41:56Z",
+      "side": 1,
+      "message": "The null value has the different meaning from an empty array in this case.\nPlease refer to the comments of getUnderlyingNetworks().",
+      "parentUuid": "cea89ce8_0557c20b",
+      "range": {
+        "startLine": 193,
+        "startChar": 30,
+        "endLine": 193,
+        "endChar": 34
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d0eb989_b3d2ab94",
@@ -84,6 +132,30 @@
       "writtenOn": "2021-10-08T07:28:03Z",
       "side": 1,
       "message": "would like mind to explain what kind of condition is \"not support\"?",
+      "range": {
+        "startLine": 721,
+        "startChar": 92,
+        "endLine": 722,
+        "endChar": 42
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f67834_bb264607",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-13T10:41:56Z",
+      "side": 1,
+      "message": "This should be moved to the case that the list is empty.\nLet me update the comments, see if it works for you.",
+      "parentUuid": "7d0eb989_b3d2ab94",
       "range": {
         "startLine": 721,
         "startChar": 92,
@@ -117,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10ac0c57_b9c6d80b",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-13T10:41:56Z",
+      "side": 1,
+      "message": "I can\u0027t give you an example since it should be handled by the VPN app and I think it\u0027s possible for the VPN app to establish the VPN connection on different underlying networks at the same time.",
+      "parentUuid": "3a00c546_cc575c2c",
+      "range": {
+        "startLine": 726,
+        "startChar": 15,
+        "endLine": 726,
+        "endChar": 49
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39415261_cbf835da",
@@ -130,6 +226,30 @@
       "writtenOn": "2021-10-08T07:28:03Z",
       "side": 1,
       "message": "Is this correct doc? I cannot understand it well to see this sentence here.",
+      "range": {
+        "startLine": 726,
+        "startChar": 51,
+        "endLine": 727,
+        "endChar": 58
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a243cfc_53e66b29",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-13T10:41:56Z",
+      "side": 1,
+      "message": "This should be removed, thanks.",
+      "parentUuid": "39415261_cbf835da",
       "range": {
         "startLine": 726,
         "startChar": 51,
@@ -163,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44654be5_4164c2e0",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-13T10:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dc1e696_3035c45a",
+      "range": {
+        "startLine": 736,
+        "startChar": 15,
+        "endLine": 737,
+        "endChar": 77
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a0fcdd6_a25d4e4f",
@@ -186,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf495471_081238db",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2004,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-13T10:41:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a0fcdd6_a25d4e4f",
+      "range": {
+        "startLine": 2004,
+        "startChar": 26,
+        "endLine": 2004,
+        "endChar": 28
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25482b94_8afd82fe",
@@ -199,6 +367,30 @@
       "writtenOn": "2021-10-08T07:28:03Z",
       "side": 1,
       "message": "why do you not use assertEquals()?",
+      "range": {
+        "startLine": 746,
+        "startChar": 8,
+        "endLine": 746,
+        "endChar": 37
+      },
+      "revId": "00f4d41670216dcfaf771d4aa769d826f30cb283",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1f36bba_3c7a667f",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-13T10:41:56Z",
+      "side": 1,
+      "message": "My initial thinking is that assertTrue(nc1.equals(nc2)) or assertFalse(nc1.equals(nc2)) is more clear to reviewer that this test is testing NetworkCapabilities#equals().\n\nBut maybe assertEquals() is more clear to the reviewer, let me update it.",
+      "parentUuid": "25482b94_8afd82fe",
       "range": {
         "startLine": 746,
         "startChar": 8,
