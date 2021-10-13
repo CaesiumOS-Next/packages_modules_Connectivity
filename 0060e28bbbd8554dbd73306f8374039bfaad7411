@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b356439_7168aa03",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:48:35Z",
+      "side": 1,
+      "message": "Nit : since both events have this it could be pulled up in the interface\n\nMaybe we can do this when it\u0027s actually useful",
+      "range": {
+        "startLine": 168,
+        "startChar": 35,
+        "endLine": 168,
+        "endChar": 66
+      },
+      "revId": "0060e28bbbd8554dbd73306f8374039bfaad7411",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d83584ad_ce0c5b84",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:48:35Z",
+      "side": 1,
+      "message": "Is this \"\\u0019\" ?",
+      "range": {
+        "startLine": 200,
+        "startChar": 23,
+        "endLine": 200,
+        "endChar": 55
+      },
+      "revId": "0060e28bbbd8554dbd73306f8374039bfaad7411",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
