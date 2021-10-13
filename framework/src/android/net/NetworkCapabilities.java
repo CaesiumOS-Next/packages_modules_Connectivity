@@ -42,7 +42,10 @@ import com.android.net.module.util.NetworkCapabilitiesUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -129,6 +132,9 @@ public final class NetworkCapabilities implements Parcelable {
     // Set to true when private DNS is broken.
     private boolean mPrivateDnsBroken;
 
+    // Underlying networks, if any. VPNs and VCNs typically have underlying networks.
+    private List<Network> mUnderlyingNetworks;
+
     /**
      * Uid of the app making the request.
      */
@@ -184,6 +190,7 @@ public final class NetworkCapabilities implements Parcelable {
         mRequestorUid = Process.INVALID_UID;
         mRequestorPackageName = null;
         mSubIds = new ArraySet<>();
+        mUnderlyingNetworks = null;
     }
 
     /**
@@ -213,6 +220,7 @@ public final class NetworkCapabilities implements Parcelable {
         mRequestorUid = nc.mRequestorUid;
         mRequestorPackageName = nc.mRequestorPackageName;
         mSubIds = new ArraySet<>(nc.mSubIds);
+        mUnderlyingNetworks = nc.mUnderlyingNetworks;
     }
 
     /**
@@ -504,6 +512,8 @@ public final class NetworkCapabilities implements Parcelable {
     private static final int MIN_NET_CAPABILITY = NET_CAPABILITY_MMS;
     private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_HEAD_UNIT;
 
+    private static final int UNDERLYING_NETWORKS_UNSET = -1;
+
     /**
      * Network capabilities that are expected to be mutable, i.e., can change while a particular
      * network is connected.
@@ -696,6 +706,40 @@ public final class NetworkCapabilities implements Parcelable {
     @Deprecated
     public void setCapabilities(@NetCapability int[] capabilities) {
         setCapabilities(capabilities, new int[] {});
+    }
+
+    /**
+     * Set the underlying networks of this network.
+     *
+     * @param networks The underlying networks of this network.
+     *
+     * @hide
+     */
+    @SystemApi
+    public void setUnderlyingNetworks(@Nullable List<Network> networks) {
+        mUnderlyingNetworks = (networks == null) ? null : Collections.unmodifiableList(networks);
+    }
+
+    /**
+     * Get the underlying networks of this network.
+     *
+     * @return <li>If the list is null, this network hasn't declared underlying networks.</li>
+     *         <li>If the list is empty, this network has declared that it has no underlying
+     *         networks or it doesn't run on any of the available networks.</li>
+     *         <li>The list can contain multiple underlying networks, e.g. a VPN running over
+     *         multiple networks at the same time.</li>
+     *
+     * @hide
+     */
+    @SuppressLint("NullableCollection")
+    @Nullable
+    @SystemApi
+    public List<Network> getUnderlyingNetworks() {
+        return mUnderlyingNetworks;
+    }
+
+    private boolean equalsUnderlyingNetworks(@NonNull NetworkCapabilities nc) {
+        return Objects.equals(getUnderlyingNetworks(), nc.getUnderlyingNetworks());
     }
 
     /**
@@ -1901,7 +1945,8 @@ public final class NetworkCapabilities implements Parcelable {
                 && equalsPrivateDnsBroken(that)
                 && equalsRequestor(that)
                 && equalsAdministratorUids(that)
-                && equalsSubscriptionIds(that);
+                && equalsSubscriptionIds(that)
+                && equalsUnderlyingNetworks(that);
     }
 
     @Override
@@ -1924,7 +1969,8 @@ public final class NetworkCapabilities implements Parcelable {
                 + Objects.hashCode(mRequestorUid) * 53
                 + Objects.hashCode(mRequestorPackageName) * 59
                 + Arrays.hashCode(mAdministratorUids) * 61
-                + Objects.hashCode(mSubIds) * 67;
+                + Objects.hashCode(mSubIds) * 67
+                + Objects.hashCode(mUnderlyingNetworks) * 71;
     }
 
     @Override
@@ -1959,6 +2005,14 @@ public final class NetworkCapabilities implements Parcelable {
         dest.writeInt(mRequestorUid);
         dest.writeString(mRequestorPackageName);
         dest.writeIntArray(CollectionUtils.toIntArray(mSubIds));
+        if (mUnderlyingNetworks == null) {
+            dest.writeInt(UNDERLYING_NETWORKS_UNSET);
+        } else {
+            dest.writeInt(mUnderlyingNetworks.size());
+            for (Network network : mUnderlyingNetworks) {
+                dest.writeParcelable(network, flags);
+            }
+        }
     }
 
     public static final @android.annotation.NonNull Creator<NetworkCapabilities> CREATOR =
@@ -1986,6 +2040,14 @@ public final class NetworkCapabilities implements Parcelable {
                 final int[] subIdInts = Objects.requireNonNull(in.createIntArray());
                 for (int i = 0; i < subIdInts.length; i++) {
                     netCap.mSubIds.add(subIdInts[i]);
+                }
+                final int sizeOfUnderlyingNetworks = in.readInt();
+                if (sizeOfUnderlyingNetworks != UNDERLYING_NETWORKS_UNSET) {
+                    final ArrayList<Network> underlyingNetworks = new ArrayList<>();
+                    for (int i = 0; i < sizeOfUnderlyingNetworks; i++) {
+                        underlyingNetworks.add(in.readParcelable(null));
+                    }
+                    netCap.setUnderlyingNetworks(underlyingNetworks);
                 }
                 return netCap;
             }
@@ -2076,6 +2138,15 @@ public final class NetworkCapabilities implements Parcelable {
 
         if (!mSubIds.isEmpty()) {
             sb.append(" SubscriptionIds: ").append(mSubIds);
+        }
+
+        if (mUnderlyingNetworks != null && mUnderlyingNetworks.size() > 0) {
+            sb.append(" Underlying networks: [");
+            for (int i = 0; i < mUnderlyingNetworks.size(); i++) {
+                if (i > 0) sb.append(", ");
+                sb.append(mUnderlyingNetworks.get(i));
+            }
+            sb.append("]");
         }
 
         sb.append("]");
@@ -2792,6 +2863,17 @@ public final class NetworkCapabilities implements Parcelable {
         @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         public Builder setUids(@Nullable Set<Range<Integer>> uids) {
             mCaps.setUids(uids);
+            return this;
+        }
+
+        /**
+         * Set the underlying networks of this network.
+         *
+         * @param networks The underlying networks of this network.
+         */
+        @NonNull
+        public Builder setUnderlyingNetworks(@Nullable List<Network> networks) {
+            mCaps.setUnderlyingNetworks(networks);
             return this;
         }
 
