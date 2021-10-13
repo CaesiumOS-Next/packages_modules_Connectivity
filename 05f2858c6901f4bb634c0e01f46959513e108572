@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba454ae7_71704d29",
+        "filename": "service/jni/com_android_server_TestNetworkService.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-13T19:13:18Z",
+      "side": 1,
+      "message": "should this be\n\nflags \u003d IFF_UP;\nif (!isTun) flags |\u003d IFF_MULTICAST;\n\nTAP being Ethernet/L2 multicast makes sense.\nTUN being IP/L3 I\u0027m not sure if multicast makes sense or not.",
+      "range": {
+        "startLine": 68,
+        "startChar": 29,
+        "endLine": 68,
+        "endChar": 42
+      },
+      "revId": "05f2858c6901f4bb634c0e01f46959513e108572",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
