@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1100a697_76b2f0d2",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T13:06:14Z",
+      "side": 1,
+      "message": "Apologies ; this needs to go in the builder only (remove it from here). As far as the SDK is concerned, NC is immutable.",
+      "range": {
+        "startLine": 285,
+        "startChar": 23,
+        "endLine": 285,
+        "endChar": 44
+      },
+      "revId": "6d1eddc8515d7eb6060961f9d8321bed10a21f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bb66dd4_3f8c45dd",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T13:06:14Z",
+      "side": 1,
+      "message": "Let\u0027s make this @Nullable. Also, if you keep the current scheme that this is always an unmodifiable collection and to return it as is in the getter, you should say this here.",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 11
+      },
+      "revId": "6d1eddc8515d7eb6060961f9d8321bed10a21f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3f08e6c_46df7fc2",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T13:06:14Z",
+      "side": 1,
+      "message": "Maybe you want to say here that mUnderlyingNetworks is always unmodifiable if non-null, so a defensive copy is not necessary",
+      "range": {
+        "startLine": 223,
+        "startChar": 33,
+        "endLine": 223,
+        "endChar": 52
+      },
+      "revId": "6d1eddc8515d7eb6060961f9d8321bed10a21f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6883a272_af874fac",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T13:06:14Z",
+      "side": 1,
+      "message": "Please add a small comment here saying that for apps without system privileged, this is always redacted to null and is therefore never useful.",
+      "range": {
+        "startLine": 736,
+        "startChar": 5,
+        "endLine": 736,
+        "endChar": 14
+      },
+      "revId": "6d1eddc8515d7eb6060961f9d8321bed10a21f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5805f27_0c7fe1e8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2014,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T13:06:14Z",
+      "side": 1,
+      "message": "Can you use dest.writeParcelableList ?",
+      "range": {
+        "startLine": 2008,
+        "startChar": 0,
+        "endLine": 2014,
+        "endChar": 13
+      },
+      "revId": "6d1eddc8515d7eb6060961f9d8321bed10a21f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b793822a_0cc51294",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2146,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T13:06:14Z",
+      "side": 1,
+      "message": "You may like the StringJoiner class",
+      "range": {
+        "startLine": 2146,
+        "startChar": 16,
+        "endLine": 2146,
+        "endChar": 26
+      },
+      "revId": "6d1eddc8515d7eb6060961f9d8321bed10a21f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f2385be_95320f82",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T13:06:14Z",
+      "side": 1,
+      "message": "I think you can say\n\n  \u003d List.of(new Network(100), new Network(101))",
+      "range": {
+        "startLine": 1176,
+        "startChar": 49,
+        "endLine": 1178,
+        "endChar": 36
+      },
+      "revId": "6d1eddc8515d7eb6060961f9d8321bed10a21f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7a28b1d_2de8c8cb",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1201,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T13:06:14Z",
+      "side": 1,
+      "message": "Do you need to create a new list ?",
+      "range": {
+        "startLine": 1201,
+        "startChar": 54,
+        "endLine": 1201,
+        "endChar": 69
+      },
+      "revId": "6d1eddc8515d7eb6060961f9d8321bed10a21f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
