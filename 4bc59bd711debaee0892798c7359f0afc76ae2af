@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a0ac37_fa880c15",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T07:36:14Z",
+      "side": 1,
+      "message": "Can we make sure this was only called once eventually ? Saying verifyNoMoreInteractions at the end may be overspecified (we don\u0027t want to forbid other startOps() I think) but maybe we can check at the end that this hasn\u0027t been called again.\n\nAlso maybe you could say after(100ms) in finishOp to make sure it\u0027s not called twice in a row or something.",
+      "range": {
+        "startLine": 866,
+        "startChar": 22,
+        "endLine": 866,
+        "endChar": 23
+      },
+      "revId": "4bc59bd711debaee0892798c7359f0afc76ae2af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77076e7b_4623be79",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1263,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T07:36:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t leak the fd right ?",
+      "range": {
+        "startLine": 1263,
+        "startChar": 23,
+        "endLine": 1263,
+        "endChar": 43
+      },
+      "revId": "4bc59bd711debaee0892798c7359f0afc76ae2af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a162ec94_92f9a0bc",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T07:36:14Z",
+      "side": 1,
+      "message": "Suggest having a small comment reminding the reader of what jniCreate is supposed to return",
+      "range": {
+        "startLine": 1268,
+        "startChar": 19,
+        "endLine": 1268,
+        "endChar": 23
+      },
+      "revId": "4bc59bd711debaee0892798c7359f0afc76ae2af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ecca07_d8370455",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1278,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T07:36:14Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 1278,
+        "startChar": 19,
+        "endLine": 1278,
+        "endChar": 21
+      },
+      "revId": "4bc59bd711debaee0892798c7359f0afc76ae2af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fee910d4_8c2e9b34",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T07:36:14Z",
+      "side": 1,
+      "message": "Do we actually need to override this ? ISTM IoUtils.setBlocking will work on a vanilla fd",
+      "range": {
+        "startLine": 1281,
+        "startChar": 0,
+        "endLine": 1282,
+        "endChar": 71
+      },
+      "revId": "4bc59bd711debaee0892798c7359f0afc76ae2af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
