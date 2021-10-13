@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9ddc06_8d495228",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2745,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T11:38:54Z",
+      "side": 1,
+      "message": "I wouldn\u0027t say it\u0027s \"random\" really except colloquially. I think you can just call this assertNoCallbackExceptCapOrLpChange since it\u0027s really what it is (it doesn\u0027t check for it being \"random\").\n\nThen you can have a comment on usage, e.g.\n\n  // The networks used in this test are real networks and as such they can\n  // see seemingly random updates of their capabilities or link properties\n  // as conditions change, e.g. the network loses validation or IPv4 shows\n  // up. Many tests should simply treat these callbacks as spurious.",
+      "range": {
+        "startLine": 2745,
+        "startChar": 39,
+        "endLine": 2745,
+        "endChar": 47
+      },
+      "revId": "5a5f0c19cfe1d9f0a19d1dd05c7ef78cf190ff3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
