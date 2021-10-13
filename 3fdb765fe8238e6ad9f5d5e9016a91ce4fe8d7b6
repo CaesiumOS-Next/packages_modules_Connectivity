@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f05273ab_99492723",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:27:46Z",
+      "side": 1,
+      "message": "Okay this is a really nice improvement, and it\u0027s more correct than before. LGTM once comments are addressed.",
+      "revId": "3fdb765fe8238e6ad9f5d5e9016a91ce4fe8d7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347619ca_1158b945",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:27:46Z",
+      "side": 1,
+      "message": "Consider ArrayMap for its better memory profile",
+      "range": {
+        "startLine": 123,
+        "startChar": 77,
+        "endLine": 123,
+        "endChar": 84
+      },
+      "revId": "3fdb765fe8238e6ad9f5d5e9016a91ce4fe8d7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93816a9b_1b03cb50",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:27:46Z",
+      "side": 1,
+      "message": "It is generally frowned upon in Java to pass an object to write into, especially if that\u0027s a member like in line 289. Also :\n• this writes to the mAllApps member but also interacts through the mUidToNetworkPerm member through an argument, which is fairly confusing\n• the call in addUser merges the array into mUidToNetworkPerm without calling isHigherNetworkPermission. This relies on the fact that none of the UIDs were in the member before for correctness.\n\nHere are some suggestions of things to do instead :\n- Call sendUidsNetworkPermission and sendAppIdsTrafficPermission directly in this method (IIUC, it\u0027s fine to always do both and to call once per user)\n- Have a function that returns a List\u003cPackageInfo\u003e, and then separate functions for appId, networkPerms and trafficPerms\n- Return a Pair\n- Pass a List\u003cConsumer\u003cPackageInfo\u003e\u003e to this method, and use method references to make the code inside common",
+      "range": {
+        "startLine": 213,
+        "startChar": 28,
+        "endLine": 213,
+        "endChar": 58
+      },
+      "revId": "3fdb765fe8238e6ad9f5d5e9016a91ce4fe8d7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afbb30d0_3dcf9dcb",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:27:46Z",
+      "side": 1,
+      "message": "Sorry this wording was meant for you. If you want to include this information in the comment you could write\n\n  // mUidToNetworkPerm contains the result of checks for hasNetworkPermission and\n  // hasRestrictedNetworkPermission, as well as the list of UIDs allowed on\n  // restricted networks.",
+      "range": {
+        "startLine": 369,
+        "startChar": 45,
+        "endLine": 370,
+        "endChar": 30
+      },
+      "revId": "3fdb765fe8238e6ad9f5d5e9016a91ce4fe8d7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02130a3d_f176ad83",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:27:46Z",
+      "side": 1,
+      "message": "So IIUC when there are multiple users on the device and a package is installed this will send the traffic perms once for each user where the package is installed.\n\nI think it\u0027s fine (and anyway your patch doesn\u0027t change it, it only clarifies this)",
+      "range": {
+        "startLine": 514,
+        "startChar": 8,
+        "endLine": 514,
+        "endChar": 38
+      },
+      "revId": "3fdb765fe8238e6ad9f5d5e9016a91ce4fe8d7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -253,6 +253,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "626be5a9_e1a11b48",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:27:46Z",
+      "side": 1,
+      "message": "Yes, I think your new code is clearer than my suggestion. Thanks.",
+      "parentUuid": "ee07d4c3_b4c71316",
+      "range": {
+        "startLine": 471,
+        "startChar": 66,
+        "endLine": 471,
+        "endChar": 67
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37a39437_bbe54027",
@@ -290,6 +314,30 @@
       "side": 1,
       "message": "I think this comment should not be here, it should move to l.450 and explain the behavior there.",
       "parentUuid": "37a39437_bbe54027",
+      "range": {
+        "startLine": 509,
+        "startChar": 41,
+        "endLine": 509,
+        "endChar": 69
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a292a6d0_35806eb5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-13T12:27:46Z",
+      "side": 1,
+      "message": "Makes sense, thanks.",
+      "parentUuid": "6606a073_e3a1e167",
       "range": {
         "startLine": 509,
         "startChar": 41,
