@@ -39,6 +39,30 @@
       },
       "revId": "c373becb9312f759e8ad5267d76ec555addaad9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "563be7bc_592b770c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-14T06:06:23Z",
+      "side": 1,
+      "message": "Fix in follow up CL: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1838542/3",
+      "parentUuid": "d4296a48_d4fef355",
+      "range": {
+        "startLine": 514,
+        "startChar": 63,
+        "endLine": 514,
+        "endChar": 83
+      },
+      "revId": "c373becb9312f759e8ad5267d76ec555addaad9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
