@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b1d3cf9_b6bd427d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-14T06:08:34Z",
+      "side": 1,
+      "message": "Would add a comment explaining how this works. \n\nA couple of things to note: \n\n1. It\u0027s generally not recommended to perform long operations in finalize, but while unregisterTetheringEventCallback does an IPC, it\u0027s a oneway IPC so should not block (unless maybe the binder thread pool is full?).\n\n2. What happens here if the connector is not yet connected? AFAICS the call to unregisterTetheringEventCallback will be queued and executed when the connector eventually becomes available.\n- If that ever executes, then it\u0027s guaranteed that registerTetheringEventCallback was already called because it\u0027s queued in the constructor. That seems fine.\n- If it never executes, not sure what will happen. Can this happen though? Or is it impossible to finalize",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 20
+      },
+      "revId": "ff5572ca6595ac163721e7abaf77162f8eac9a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
