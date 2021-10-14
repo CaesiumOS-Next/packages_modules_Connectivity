@@ -657,6 +657,8 @@ public class IpServer extends StateMachine {
 
         if (mInterfaceType == TetheringManager.TETHERING_BLUETOOTH) {
             return new LinkAddress(BLUETOOTH_IFACE_ADDR);
+        } else if (mInterfaceType == TetheringManager.TETHERING_WIFI) {
+            return new LinkAddress("192.168.1.1/24");
         }
 
         return mPrivateAddressCoordinator.requestDownstreamAddress(this, useLastAddress);
