@@ -234,6 +234,30 @@
       },
       "revId": "4bc59bd711debaee0892798c7359f0afc76ae2af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27ab39b5_a36e14c2",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T04:31:33Z",
+      "side": 1,
+      "message": "Well you could just return an existing fd from jniCreate",
+      "parentUuid": "7eb45832_7f80504c",
+      "range": {
+        "startLine": 1281,
+        "startChar": 0,
+        "endLine": 1282,
+        "endChar": 71
+      },
+      "revId": "4bc59bd711debaee0892798c7359f0afc76ae2af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

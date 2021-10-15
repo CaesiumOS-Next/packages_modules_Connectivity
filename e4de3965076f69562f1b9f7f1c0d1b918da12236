@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaeab56a_c985ca68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T04:31:33Z",
+      "side": 1,
+      "message": "Still LGTM",
+      "revId": "e4de3965076f69562f1b9f7f1c0d1b918da12236",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92cecacd_3a5a69ea",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T04:31:33Z",
+      "side": 1,
+      "message": "As I said on patchset 1, isn\u0027t this a bit overspecified ? I don\u0027t think we want to forbid other startops() in this code path.\n\nMaybe we just replace this with a verify() call that checks only that there were no other calls to startOp with ESTABLISH_VPN_MANAGER and ESTABLISH_VPN_SERVICE",
+      "range": {
+        "startLine": 881,
+        "startChar": 8,
+        "endLine": 881,
+        "endChar": 32
+      },
+      "revId": "e4de3965076f69562f1b9f7f1c0d1b918da12236",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
