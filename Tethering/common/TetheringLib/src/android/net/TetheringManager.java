@@ -389,14 +389,24 @@ public class TetheringManager {
     // TODO: remove once there are no callers of these legacy methods.
     private class RequestDispatcher {
         private final ConditionVariable mWaiting;
-        public volatile int mRemoteResult;
+        private volatile int mRemoteResult;
+        @NonNull
+        private volatile TetheringConntrackEntryParcel[] mRemoteConntrackEntries;
 
-        private final IIntResultListener mListener = new IIntResultListener.Stub() {
-                @Override
-                public void onResult(final int resultCode) {
-                    mRemoteResult = resultCode;
-                    mWaiting.open();
-                }
+        private final IIntResultListener mListener = new IntResultListener() {
+            @Override
+            public void onResult(final int resultCode) {
+                mRemoteResult = resultCode;
+                mWaiting.open();
+            }
+
+            @Override
+            public void onConntrackEntriesResult(int resultCode,
+                    @NonNull final TetheringConntrackEntryParcel[] conntrackEntries) {
+                mRemoteResult = resultCode;
+                mRemoteConntrackEntries = conntrackEntries;
+                mWaiting.open();
+            }
         };
 
         RequestDispatcher() {
@@ -412,6 +422,24 @@ public class TetheringManager {
             throwIfPermissionFailure(mRemoteResult);
 
             return mRemoteResult;
+        }
+
+        @NonNull
+        TetheringConntrackEntryParcel[] waitForResultConntrackEntries(final RequestHelper request) {
+            getConnector(c -> request.runRequest(c, mListener));
+            if (!mWaiting.block(DEFAULT_TIMEOUT_MS)) {
+                throw new IllegalStateException("Callback timeout");
+            }
+
+            throwIfPermissionFailure(mRemoteResult);
+
+            // Just in case the condition variable is released by waitForResult().
+            // TODO: consider using separated condition variable from waitForResult().
+            if (mRemoteConntrackEntries == null) {
+                throw new IllegalStateException("mRemoteConntrackEntries is null");
+            }
+
+            return mRemoteConntrackEntries;
         }
     }
 
@@ -804,7 +832,7 @@ public class TetheringManager {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "startTethering caller:" + callerPkg);
 
-        final IIntResultListener listener = new IIntResultListener.Stub() {
+        final IIntResultListener listener = new IntResultListener() {
             @Override
             public void onResult(final int resultCode) {
                 executor.execute(() -> {
@@ -858,7 +886,7 @@ public class TetheringManager {
         Log.i(TAG, "stopTethering caller:" + callerPkg);
 
         getConnector(c -> c.stopTethering(type, callerPkg, getAttributionTag(),
-                new IIntResultListener.Stub() {
+                new IntResultListener() {
             @Override
             public void onResult(int resultCode) {
                 // TODO: provide an API to obtain result
@@ -1528,7 +1556,7 @@ public class TetheringManager {
         Log.i(TAG, "stopAllTethering caller:" + callerPkg);
 
         getConnector(c -> c.stopAllTethering(callerPkg, getAttributionTag(),
-                new IIntResultListener.Stub() {
+                new IntResultListener() {
                     @Override
                     public void onResult(int resultCode) {
                         // TODO: add an API parameter to send result to caller.

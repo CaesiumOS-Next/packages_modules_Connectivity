@@ -120,10 +120,10 @@ import android.net.EthernetManager;
 import android.net.EthernetManager.TetheredInterfaceCallback;
 import android.net.EthernetManager.TetheredInterfaceRequest;
 import android.net.IConnectivityManager;
-import android.net.IIntResultListener;
 import android.net.INetd;
 import android.net.ITetheringEventCallback;
 import android.net.InetAddresses;
+import android.net.IntResultListener;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
 import android.net.LinkAddress;
@@ -2120,7 +2120,7 @@ public class TetheringTest {
         assertTrue(element + " not found in " + collection, collection.contains(element));
     }
 
-    private class ResultListener extends IIntResultListener.Stub {
+    private class ResultListener extends IntResultListener {
         private final int mExpectedResult;
         private boolean mHasResult = false;
         ResultListener(final int expectedResult) {

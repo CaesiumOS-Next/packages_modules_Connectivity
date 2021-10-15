@@ -40,6 +40,7 @@ import android.content.Intent;
 import android.net.IIntResultListener;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
+import android.net.IntResultListener;
 import android.net.TetheringRequestParcel;
 import android.net.ip.IpServer;
 import android.os.Bundle;
@@ -76,7 +77,7 @@ public final class TetheringServiceTest {
     private ITetheringConnector mTetheringConnector;
     private UiAutomation mUiAutomation;
 
-    private class TestTetheringResult extends IIntResultListener.Stub {
+    private class TestTetheringResult extends IntResultListener {
         private int mResult = -1; // Default value that does not match any result code.
         @Override
         public void onResult(final int resultCode) {
