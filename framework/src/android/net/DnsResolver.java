@@ -71,12 +71,344 @@ public final class DnsResolver {
 
     @IntDef(prefix = { "TYPE_" },  value = {
             TYPE_A,
-            TYPE_AAAA
+            TYPE_AAAA,
+            TYPE_AFSDB,
+            TYPE_AMTRELAY,
+            TYPE_ANY,
+            TYPE_APL,
+            TYPE_ATMA,
+            TYPE_AVC,
+            TYPE_AXFR,
+            TYPE_CAA,
+            TYPE_CDNSKEY,
+            TYPE_CDS,
+            TYPE_CERT,
+            TYPE_CNAME,
+            TYPE_CSYNC,
+            TYPE_DHCID,
+            TYPE_DNAME,
+            TYPE_DNSKEY,
+            TYPE_DOA,
+            TYPE_DS,
+            TYPE_EID,
+            TYPE_EUI48,
+            TYPE_EUI64,
+            TYPE_GID,
+            TYPE_GPOS,
+            TYPE_HINFO,
+            TYPE_HIP,
+            TYPE_HTTPS,
+            TYPE_IPSECKEY,
+            TYPE_ISDN,
+            TYPE_IXFR,
+            TYPE_KEY,
+            TYPE_KX,
+            TYPE_L32,
+            TYPE_L64,
+            TYPE_LOC,
+            TYPE_LP,
+            TYPE_MAILB,
+            TYPE_MB,
+            TYPE_MG,
+            TYPE_MINFO,
+            TYPE_MR,
+            TYPE_MX,
+            TYPE_NAPTR,
+            TYPE_NID,
+            TYPE_NIMLOC,
+            TYPE_NINFO,
+            TYPE_NS,
+            TYPE_NSAP,
+            TYPE_NSAP_PTR,
+            TYPE_NSEC,
+            TYPE_NSEC3,
+            TYPE_NSEC3PARAM,
+            TYPE_NULL,
+            TYPE_OPENPGPKEY,
+            TYPE_OPT,
+            TYPE_PRIVATE USE,
+            TYPE_PTR,
+            TYPE_PX,
+            TYPE_RKEY,
+            TYPE_RP,
+            TYPE_RRSIG,
+            TYPE_RT,
+            TYPE_SIG,
+            TYPE_SINK,
+            TYPE_SMIMEA,
+            TYPE_SOA,
+            TYPE_SPF,
+            TYPE_SRV,
+            TYPE_SSHFP,
+            TYPE_SVCB,
+            TYPE_TA,
+            TYPE_TALINK,
+            TYPE_TKEY,
+            TYPE_TLSA,
+            TYPE_TSIG,
+            TYPE_TXT,
+            TYPE_UID,
+            TYPE_UINFO,
+            TYPE_UNSPEC,
+            TYPE_URI,
+            TYPE_WKS,
+            TYPE_X25,
+            TYPE_ZONEMD
     })
     @Retention(RetentionPolicy.SOURCE)
     @interface QueryType {}
+
+    /** a host address [RFC1035] */
     public static final int TYPE_A = 1;
+
+    /** an authoritative name server [RFC1035] */
+    public static final int TYPE_NS = 2;
+
+    /** the canonical name for an alias [RFC1035] */
+    public static final int TYPE_CNAME = 5;
+
+    /** marks the start of a zone of authority [RFC1035] */
+    public static final int TYPE_SOA = 6;
+
+    /** a mailbox domain name (EXPERIMENTAL) [RFC1035] */
+    public static final int TYPE_MB = 7;
+
+    /** a mail group member (EXPERIMENTAL) [RFC1035] */
+    public static final int TYPE_MG = 8;
+
+    /** a mail rename domain name (EXPERIMENTAL) [RFC1035] */
+    public static final int TYPE_MR = 9;
+
+    /** a null RR (EXPERIMENTAL) [RFC1035] */
+    public static final int TYPE_NULL = 10;
+
+    /** a well known service description [RFC1035] */
+    public static final int TYPE_WKS = 11;
+
+    /** a domain name pointer [RFC1035] */
+    public static final int TYPE_PTR = 12;
+
+    /** host information [RFC1035] */
+    public static final int TYPE_HINFO = 13;
+
+    /** mailbox or mail list information [RFC1035] */
+    public static final int TYPE_MINFO = 14;
+
+    /** mail exchange [RFC1035] */
+    public static final int TYPE_MX = 15;
+
+    /** text strings [RFC1035] */
+    public static final int TYPE_TXT = 16;
+
+    /** for Responsible Person [RFC1183] */
+    public static final int TYPE_RP = 17;
+
+    /** for AFS Data Base location [RFC1183][RFC5864] */
+    public static final int TYPE_AFSDB = 18;
+
+    /** for X.25 PSDN address [RFC1183] */
+    public static final int TYPE_X25 = 19;
+
+    /** for ISDN address [RFC1183] */
+    public static final int TYPE_ISDN = 20;
+
+    /** for Route Through [RFC1183] */
+    public static final int TYPE_RT = 21;
+
+    /** for NSAP address, NSAP style A record [RFC1706] */
+    public static final int TYPE_NSAP = 22;
+
+    /** for domain name pointer, NSAP style [RFC1348][RFC1637][RFC1706] */
+    public static final int TYPE_NSAP_PTR = 23;
+
+    /** for security signature [RFC2535][RFC2536][RFC2537][RFC2931][RFC3008][RFC3110][RFC3755][RFC4034] */
+    public static final int TYPE_SIG = 24;
+
+    /** for security key [RFC2535][RFC2536][RFC2537][RFC2539][RFC3008][RFC3110][RFC3755][RFC4034] */
+    public static final int TYPE_KEY = 25;
+
+    /** X.400 mail mapping information [RFC2163] */
+    public static final int TYPE_PX = 26;
+
+    /** Geographical Position [RFC1712] */
+    public static final int TYPE_GPOS = 27;
+
+    /** IP6 Address [RFC3596] */
     public static final int TYPE_AAAA = 28;
+
+    /** Location Information [RFC1876] */
+    public static final int TYPE_LOC = 29;
+
+    /** Endpoint Identifier [Michael_Patton][http://ana-3.lcs.mit.edu/~jnc/nimrod/dns.txt] */
+    public static final int TYPE_EID = 31;
+
+    /** Nimrod Locator [1][Michael_Patton][http://ana-3.lcs.mit.edu/~jnc/nimrod/dns.txt] */
+    public static final int TYPE_NIMLOC = 32;
+
+    /** Server Selection [1][RFC2782] */
+    public static final int TYPE_SRV = 33;
+
+    /** ATM Address [
+        ATM Forum Technical Committee, "ATM Name System, V2.0", Doc ID: AF-DANS-0152.000, July 2000. Available from and held in escrow by IANA.] */
+    public static final int TYPE_ATMA = 34;
+
+    /** Naming Authority Pointer [RFC2168][RFC2915][RFC3403] */
+    public static final int TYPE_NAPTR = 35;
+
+    /** Key Exchanger [RFC2230] */
+    public static final int TYPE_KX = 36;
+
+    /** CERT [RFC4398] */
+    public static final int TYPE_CERT = 37;
+
+    /** DNAME [RFC6672] */
+    public static final int TYPE_DNAME = 39;
+
+    /** SINK [Donald_E_Eastlake][http://tools.ietf.org/html/draft-eastlake-kitchen-sink] */
+    public static final int TYPE_SINK = 40;
+
+    /** OPT [RFC3225][RFC6891] */
+    public static final int TYPE_OPT = 41;
+
+    /** APL [RFC3123] */
+    public static final int TYPE_APL = 42;
+
+    /** Delegation Signer [RFC3658][RFC4034] */
+    public static final int TYPE_DS = 43;
+
+    /** SSH Key Fingerprint [RFC4255] */
+    public static final int TYPE_SSHFP = 44;
+
+    /** IPSECKEY [RFC4025] */
+    public static final int TYPE_IPSECKEY = 45;
+
+    /** RRSIG [RFC3755][RFC4034] */
+    public static final int TYPE_RRSIG = 46;
+
+    /** NSEC [RFC3755][RFC4034][RFC9077] */
+    public static final int TYPE_NSEC = 47;
+
+    /** DNSKEY [RFC3755][RFC4034] */
+    public static final int TYPE_DNSKEY = 48;
+
+    /** DHCID [RFC4701] */
+    public static final int TYPE_DHCID = 49;
+
+    /** NSEC3 [RFC5155][RFC9077] */
+    public static final int TYPE_NSEC3 = 50;
+
+    /** NSEC3PARAM [RFC5155] */
+    public static final int TYPE_NSEC3PARAM = 51;
+
+    /** TLSA [RFC6698] */
+    public static final int TYPE_TLSA = 52;
+
+    /** S/MIME cert association [RFC8162] */
+    public static final int TYPE_SMIMEA = 53;
+
+    /** Host Identity Protocol [RFC8005] */
+    public static final int TYPE_HIP = 55;
+
+    /** NINFO [Jim_Reid] */
+    public static final int TYPE_NINFO = 56;
+
+    /** RKEY [Jim_Reid] */
+    public static final int TYPE_RKEY = 57;
+
+    /** Trust Anchor LINK [Wouter_Wijngaards] */
+    public static final int TYPE_TALINK = 58;
+
+    /** Child DS [RFC7344] */
+    public static final int TYPE_CDS = 59;
+
+    /** DNSKEY(s) the Child wants reflected in DS [RFC7344] */
+    public static final int TYPE_CDNSKEY = 60;
+
+    /** OpenPGP Key [RFC7929] */
+    public static final int TYPE_OPENPGPKEY = 61;
+
+    /** Child-To-Parent Synchronization [RFC7477] */
+    public static final int TYPE_CSYNC = 62;
+
+    /** Message Digest Over Zone Data [RFC8976] */
+    public static final int TYPE_ZONEMD = 63;
+
+    /** Service Binding [draft-ietf-dnsop-svcb-https-00] */
+    public static final int TYPE_SVCB = 64;
+
+    /** HTTPS Binding [draft-ietf-dnsop-svcb-https-00] */
+    public static final int TYPE_HTTPS = 65;
+
+    /**  [RFC7208] */
+    public static final int TYPE_SPF = 99;
+
+    /**  [IANA-Reserved] */
+    public static final int TYPE_UINFO = 100;
+
+    /**  [IANA-Reserved] */
+    public static final int TYPE_UID = 101;
+
+    /**  [IANA-Reserved] */
+    public static final int TYPE_GID = 102;
+
+    /**  [IANA-Reserved] */
+    public static final int TYPE_UNSPEC = 103;
+
+    /**  [RFC6742] */
+    public static final int TYPE_NID = 104;
+
+    /**  [RFC6742] */
+    public static final int TYPE_L32 = 105;
+
+    /**  [RFC6742] */
+    public static final int TYPE_L64 = 106;
+
+    /**  [RFC6742] */
+    public static final int TYPE_LP = 107;
+
+    /** an EUI-48 address [RFC7043] */
+    public static final int TYPE_EUI48 = 108;
+
+    /** an EUI-64 address [RFC7043] */
+    public static final int TYPE_EUI64 = 109;
+
+    /** Transaction Key [RFC2930] */
+    public static final int TYPE_TKEY = 249;
+
+    /** Transaction Signature [RFC8945] */
+    public static final int TYPE_TSIG = 250;
+
+    /** incremental transfer [RFC1995] */
+    public static final int TYPE_IXFR = 251;
+
+    /** transfer of an entire zone [RFC1035][RFC5936] */
+    public static final int TYPE_AXFR = 252;
+
+    /** mailbox-related RRs (MB, MG or MR) [RFC1035] */
+    public static final int TYPE_MAILB = 253;
+
+    /** A request for some or all records the server has available [RFC1035][RFC6895][RFC8482] */
+    public static final int TYPE_ANY = 255;
+
+    /** URI [RFC7553] */
+    public static final int TYPE_URI = 256;
+
+    /** Certification Authority Restriction [RFC8659] */
+    public static final int TYPE_CAA = 257;
+
+    /** Application Visibility and Control [Wolfgang_Riedel] */
+    public static final int TYPE_AVC = 258;
+
+    /** Digital Object Architecture [draft-durand-doa-over-dns] */
+    public static final int TYPE_DOA = 259;
+
+    /** Automatic Multicast Tunneling Relay [RFC8777] */
+    public static final int TYPE_AMTRELAY = 260;
+
+    /** DNSSEC Trust Authorities [Sam_Weiler][http://cameo.library.cmu.edu/][
+        Deploying DNSSEC Without a Signed Root.  Technical Report 1999-19,
+Information Networking Institute, Carnegie Mellon University, April 2004.] */
+    public static final int TYPE_TA = 32768;
 
     @IntDef(prefix = { "FLAG_" }, value = {
             FLAG_EMPTY,
