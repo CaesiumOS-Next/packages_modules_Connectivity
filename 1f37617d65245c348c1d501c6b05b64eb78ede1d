@@ -87,6 +87,30 @@
       },
       "revId": "1f37617d65245c348c1d501c6b05b64eb78ede1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "238175b5_046b7b24",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-15T09:14:43Z",
+      "side": 1,
+      "message": "FYI.\nThis can be fixed after merging aosp/1849594.",
+      "parentUuid": "2a13a501_93ae9e26",
+      "range": {
+        "startLine": 842,
+        "startChar": 8,
+        "endLine": 842,
+        "endChar": 13
+      },
+      "revId": "1f37617d65245c348c1d501c6b05b64eb78ede1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
