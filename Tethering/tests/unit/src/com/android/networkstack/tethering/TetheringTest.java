@@ -115,12 +115,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.hardware.usb.UsbManager;
+import android.net.BaseIntResultListener;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.EthernetManager;
 import android.net.EthernetManager.TetheredInterfaceCallback;
 import android.net.EthernetManager.TetheredInterfaceRequest;
 import android.net.IConnectivityManager;
-import android.net.IIntResultListener;
 import android.net.INetd;
 import android.net.ITetheringEventCallback;
 import android.net.InetAddresses;
@@ -2120,7 +2120,7 @@ public class TetheringTest {
         assertTrue(element + " not found in " + collection, collection.contains(element));
     }
 
-    private class ResultListener extends IIntResultListener.Stub {
+    private class ResultListener extends BaseIntResultListener {
         private final int mExpectedResult;
         private boolean mHasResult = false;
         ResultListener(final int expectedResult) {

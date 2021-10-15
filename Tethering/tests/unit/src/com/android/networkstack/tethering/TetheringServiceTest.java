@@ -37,6 +37,7 @@ import static org.mockito.Mockito.when;
 
 import android.app.UiAutomation;
 import android.content.Intent;
+import android.net.BaseIntResultListener;
 import android.net.IIntResultListener;
 import android.net.ITetheringConnector;
 import android.net.ITetheringEventCallback;
@@ -76,7 +77,7 @@ public final class TetheringServiceTest {
     private ITetheringConnector mTetheringConnector;
     private UiAutomation mUiAutomation;
 
-    private class TestTetheringResult extends IIntResultListener.Stub {
+    private class TestTetheringResult extends BaseIntResultListener {
         private int mResult = -1; // Default value that does not match any result code.
         @Override
         public void onResult(final int resultCode) {

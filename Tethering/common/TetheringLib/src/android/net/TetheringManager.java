@@ -389,15 +389,26 @@ public class TetheringManager {
     // TODO: remove once there are no callers of these legacy methods.
     private class RequestDispatcher {
         private final ConditionVariable mWaiting;
-        public volatile int mRemoteResult;
+        private volatile int mRemoteResult;
+        private volatile TetheringConntrackEntryParcel[] mRemoteConntrackEntries;
 
-        private final IIntResultListener mListener = new IIntResultListener.Stub() {
-                @Override
-                public void onResult(final int resultCode) {
-                    mRemoteResult = resultCode;
-                    mWaiting.open();
-                }
-        };
+        private class ResultListener extends BaseIntResultListener {
+            @Override
+            public void onResult(final int resultCode) {
+                mRemoteResult = resultCode;
+                mWaiting.open();
+            }
+
+            @Override
+            public void onConntrackEntriesResult(int resultCode,
+                    final TetheringConntrackEntryParcel[] conntrackEntries) {
+                mRemoteResult = resultCode;
+                mRemoteConntrackEntries = conntrackEntries;
+                mWaiting.open();
+            }
+        }
+
+        private final IIntResultListener mListener = new ResultListener();
 
         RequestDispatcher() {
             mWaiting = new ConditionVariable();
@@ -412,6 +423,17 @@ public class TetheringManager {
             throwIfPermissionFailure(mRemoteResult);
 
             return mRemoteResult;
+        }
+
+        TetheringConntrackEntryParcel[] waitForResultConntrackEntries(final RequestHelper request) {
+            getConnector(c -> request.runRequest(c, mListener));
+            if (!mWaiting.block(DEFAULT_TIMEOUT_MS)) {
+                throw new IllegalStateException("Callback timeout");
+            }
+
+            throwIfPermissionFailure(mRemoteResult);
+
+            return mRemoteConntrackEntries;
         }
     }
 
@@ -804,7 +826,7 @@ public class TetheringManager {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "startTethering caller:" + callerPkg);
 
-        final IIntResultListener listener = new IIntResultListener.Stub() {
+        class ResultListener extends BaseIntResultListener {
             @Override
             public void onResult(final int resultCode) {
                 executor.execute(() -> {
@@ -815,7 +837,9 @@ public class TetheringManager {
                     }
                 });
             }
-        };
+        }
+        final IIntResultListener listener = new ResultListener();
+
         getConnector(c -> c.startTethering(request.getParcel(), callerPkg,
                 getAttributionTag(), listener));
     }
@@ -857,8 +881,7 @@ public class TetheringManager {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "stopTethering caller:" + callerPkg);
 
-        getConnector(c -> c.stopTethering(type, callerPkg, getAttributionTag(),
-                new IIntResultListener.Stub() {
+        class ResultListener extends BaseIntResultListener {
             @Override
             public void onResult(int resultCode) {
                 // TODO: provide an API to obtain result
@@ -866,7 +889,10 @@ public class TetheringManager {
                 // taken a callback object. The only indication that callers have is if the call
                 // results in a TETHER_STATE_CHANGE broadcast.
             }
-        }));
+        }
+        final IIntResultListener listener = new ResultListener();
+
+        getConnector(c -> c.stopTethering(type, callerPkg, getAttributionTag(), listener));
     }
 
     /**
@@ -1527,16 +1553,18 @@ public class TetheringManager {
         final String callerPkg = mContext.getOpPackageName();
         Log.i(TAG, "stopAllTethering caller:" + callerPkg);
 
-        getConnector(c -> c.stopAllTethering(callerPkg, getAttributionTag(),
-                new IIntResultListener.Stub() {
-                    @Override
-                    public void onResult(int resultCode) {
-                        // TODO: add an API parameter to send result to caller.
-                        // This has never been possible as stopAllTethering has always been void
-                        // and never taken a callback object. The only indication that callers have
-                        // is if the call results in a TETHER_STATE_CHANGE broadcast.
-                    }
-                }));
+        class ResultListener extends BaseIntResultListener {
+            @Override
+            public void onResult(int resultCode) {
+                // TODO: add an API parameter to send result to caller.
+                // This has never been possible as stopAllTethering has always been void
+                // and never taken a callback object. The only indication that callers have
+                // is if the call results in a TETHER_STATE_CHANGE broadcast.
+            }
+        }
+        final IIntResultListener listener = new ResultListener();
+
+        getConnector(c -> c.stopAllTethering(callerPkg, getAttributionTag(), listener));
     }
 
     /**
