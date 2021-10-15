@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6bb7246_c9961f6c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-15T09:23:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e1093b7_24530968",
+      "range": {
+        "startLine": 723,
+        "startChar": 87,
+        "endLine": 723,
+        "endChar": 95
+      },
+      "revId": "da3fa127b565cc7403e27d4179958bd437139504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2fe0a84_a0cd8b85",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-15T08:58:20Z",
       "side": 1,
       "message": "readParcelableList",
+      "range": {
+        "startLine": 2041,
+        "startChar": 0,
+        "endLine": 2048,
+        "endChar": 17
+      },
+      "revId": "da3fa127b565cc7403e27d4179958bd437139504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d95667_1a3e60fc",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2048,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-15T09:23:21Z",
+      "side": 1,
+      "message": "In fact, I was using readParcelableList in the patchset1 but I found there is a problem that readParcelableList cannot support the case if underlyingNetworks is null.\nIn readParcelableList, it asks the caller to pass a non-null list and if readInt() returns -1, readParcelableList just clear the list that we passed into.\nIn this case, we don\u0027t know the underlyingNetwork is null or an empty list before.\nSo I check readInt() by ourselves and set underlyingNetworks to null if readInt() returns -1.\n\nAdded a comment to describe why we don\u0027t use readParcelableList, see if it works for you.\n\n```\npublic final \u003cT extends Parcelable\u003e List\u003cT\u003e readParcelableList(\n        @NonNull List\u003cT\u003e list, @Nullable ClassLoader cl) {\n    final int N \u003d readInt();\n    if (N \u003d\u003d -1) {\n        list.clear();\n        return list;\n    }\n    ...\n    ...\n}\n```",
+      "parentUuid": "e2fe0a84_a0cd8b85",
       "range": {
         "startLine": 2041,
         "startChar": 0,
