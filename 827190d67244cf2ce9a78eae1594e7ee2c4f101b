@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "396beafc_f0cbc6fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1463964
+      },
+      "writtenOn": "2021-10-15T14:30:49Z",
+      "side": 1,
+      "message": "looks like I didn\u0027t finish this sentence /facepalm",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 13
+      },
+      "revId": "827190d67244cf2ce9a78eae1594e7ee2c4f101b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
