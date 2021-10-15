@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e1093b7_24530968",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T08:58:20Z",
+      "side": 1,
+      "message": "Ah, but you need to make a copy here. Whomever passed that list to this method could still mutate the list.",
+      "range": {
+        "startLine": 723,
+        "startChar": 87,
+        "endLine": 723,
+        "endChar": 95
+      },
+      "revId": "da3fa127b565cc7403e27d4179958bd437139504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2fe0a84_a0cd8b85",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2048,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T08:58:20Z",
+      "side": 1,
+      "message": "readParcelableList",
+      "range": {
+        "startLine": 2041,
+        "startChar": 0,
+        "endLine": 2048,
+        "endChar": 17
+      },
+      "revId": "da3fa127b565cc7403e27d4179958bd437139504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
