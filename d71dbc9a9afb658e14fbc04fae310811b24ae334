@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1fc56c9_86763bc5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T05:44:25Z",
+      "side": 1,
+      "message": "We just waited a 100ms, maybe we don\u0027t need to wait again",
+      "range": {
+        "startLine": 887,
+        "startChar": 24,
+        "endLine": 887,
+        "endChar": 34
+      },
+      "revId": "d71dbc9a9afb658e14fbc04fae310811b24ae334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
