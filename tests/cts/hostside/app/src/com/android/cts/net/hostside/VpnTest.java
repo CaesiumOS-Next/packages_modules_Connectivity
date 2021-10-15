@@ -762,6 +762,15 @@ public class VpnTest extends InstrumentationTestCase {
         maybeExpectVpnTransportInfo(vpnNetwork);
         assertEquals(TYPE_VPN, mCM.getNetworkInfo(vpnNetwork).getType());
 
+        if (SdkLevel.isAtLeastT()) {
+            runWithShellPermissionIdentity(() -> {
+                final NetworkCapabilities nc = mCM.getNetworkCapabilities(vpnNetwork);
+                assertNotNull(nc);
+                assertNotNull(nc.getUnderlyingNetworks());
+                assertEquals(defaultNetwork, new ArrayList<>(nc.getUnderlyingNetworks()).get(0));
+            }, NETWORK_SETTINGS);
+        }
+
         if (SdkLevel.isAtLeastS()) {
             // Check that system default network callback has not seen any network changes, even
             // though the app's default network changed. Also check that otherUidCallback saw no
@@ -986,6 +995,15 @@ public class VpnTest extends InstrumentationTestCase {
         assertTrue(mCM.isActiveNetworkMetered());
 
         maybeExpectVpnTransportInfo(mCM.getActiveNetwork());
+
+        if (SdkLevel.isAtLeastT()) {
+            runWithShellPermissionIdentity(() -> {
+                final NetworkCapabilities nc = mCM.getNetworkCapabilities(mNetwork);
+                assertNotNull(nc);
+                assertNotNull(nc.getUnderlyingNetworks());
+                assertEquals(underlyingNetworks, new ArrayList<>(nc.getUnderlyingNetworks()));
+            }, NETWORK_SETTINGS);
+        }
     }
 
     public void testVpnMeterednessWithNullUnderlyingNetwork() throws Exception {
@@ -1043,6 +1061,18 @@ public class VpnTest extends InstrumentationTestCase {
         assertEquals(isNetworkMetered(mNetwork), mCM.isActiveNetworkMetered());
 
         maybeExpectVpnTransportInfo(mCM.getActiveNetwork());
+
+        if (SdkLevel.isAtLeastT()) {
+            final Network vpnNetwork = mCM.getActiveNetwork();
+            assertNotEqual(underlyingNetwork, vpnNetwork);
+            runWithShellPermissionIdentity(() -> {
+                final NetworkCapabilities nc = mCM.getNetworkCapabilities(vpnNetwork);
+                assertNotNull(nc);
+                assertNotNull(nc.getUnderlyingNetworks());
+                final List<Network> underlying = nc.getUnderlyingNetworks();
+                assertEquals(underlyingNetwork, underlying.get(0));
+            }, NETWORK_SETTINGS);
+        }
     }
 
     public void testAlwaysMeteredVpnWithNullUnderlyingNetwork() throws Exception {
@@ -1096,6 +1126,18 @@ public class VpnTest extends InstrumentationTestCase {
         assertTrue(mCM.isActiveNetworkMetered());
 
         maybeExpectVpnTransportInfo(mCM.getActiveNetwork());
+
+        if (SdkLevel.isAtLeastT()) {
+            final Network vpnNetwork = mCM.getActiveNetwork();
+            assertNotEqual(underlyingNetwork, vpnNetwork);
+            runWithShellPermissionIdentity(() -> {
+                final NetworkCapabilities nc = mCM.getNetworkCapabilities(vpnNetwork);
+                assertNotNull(nc);
+                assertNotNull(nc.getUnderlyingNetworks());
+                final List<Network> underlying = nc.getUnderlyingNetworks();
+                assertEquals(underlyingNetwork, underlying.get(0));
+            }, NETWORK_SETTINGS);
+        }
     }
 
     public void testB141603906() throws Exception {
