@@ -93,6 +93,30 @@
       },
       "revId": "da3fa127b565cc7403e27d4179958bd437139504",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a76359_0e8a3441",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 2048,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T09:33:28Z",
+      "side": 1,
+      "message": "Ouch.\n\nSo the problem is that it\u0027s not okay to write with writeParcelableList but read manually, because the implementation of writeParcelableList and readParcelableList assume they are used in pairs. In other words, some OEM may have change the implementation of writeParcelableList, and then your code falls over.\n\nCan you simply use writeTypedList and createTypedArrayList ?",
+      "parentUuid": "43d95667_1a3e60fc",
+      "range": {
+        "startLine": 2041,
+        "startChar": 0,
+        "endLine": 2048,
+        "endChar": 17
+      },
+      "revId": "da3fa127b565cc7403e27d4179958bd437139504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
