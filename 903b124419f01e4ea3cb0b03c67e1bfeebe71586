@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "906ee75b_f0626bfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T11:25:05Z",
+      "side": 1,
+      "message": "I don\u0027t think this is true ; this patch does it only when the NAI is created.",
+      "range": {
+        "startLine": 12,
+        "startChar": 57,
+        "endLine": 12,
+        "endChar": 64
+      },
+      "revId": "903b124419f01e4ea3cb0b03c67e1bfeebe71586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eea2730_f92081ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7357,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-15T11:25:05Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct. This is called in mixInCapabilities only if nai.propagateUnderlyingCapabilities(), which is true only for VPN, so this will only set this in the caps if the network is a VPN. So it doesn\u0027t work for the VCN. You may want to add a test.\n\nIf the list in the NetworkAgentInfo is authoritative, then I think we can just have mixInCapabilities copy it from NetworkAgentInfo.",
+      "range": {
+        "startLine": 7357,
+        "startChar": 14,
+        "endLine": 7357,
+        "endChar": 35
+      },
+      "revId": "903b124419f01e4ea3cb0b03c67e1bfeebe71586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
