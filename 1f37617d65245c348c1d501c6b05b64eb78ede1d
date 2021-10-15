@@ -39,6 +39,30 @@
       },
       "revId": "1f37617d65245c348c1d501c6b05b64eb78ede1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e755908a_cf424618",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-10-15T08:56:10Z",
+      "side": 1,
+      "message": "with assumeTrue, Lint was complaining because we shouldn\u0027t use assumeTrue in Junit3 tests.",
+      "parentUuid": "c313aa51_b6fb8fe0",
+      "range": {
+        "startLine": 842,
+        "startChar": 8,
+        "endLine": 842,
+        "endChar": 13
+      },
+      "revId": "1f37617d65245c348c1d501c6b05b64eb78ede1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
