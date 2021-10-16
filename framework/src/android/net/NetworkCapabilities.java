@@ -1845,8 +1845,10 @@ public final class NetworkCapabilities implements Parcelable {
         StringJoiner joiner = new StringJoiner(", ");
 
         // Ignore NOT_METERED being added or removed as it is effectively dynamic. http://b/63326103
-        // TODO: properly support NOT_METERED as a mutable and requestable capability.
-        final long mask = ~MUTABLE_CAPABILITIES & ~(1 << NET_CAPABILITY_NOT_METERED);
+        // Also ignore MMS since telephony considers it a mutable capability.
+        // TODO: Properly support NOT_METERED and MMS as mutable and requestable capabilities.
+        final long mask = ~MUTABLE_CAPABILITIES & ~(1 << NET_CAPABILITY_NOT_METERED)
+                & ~(1 << NET_CAPABILITY_MMS);
         long oldImmutableCapabilities = this.mNetworkCapabilities & mask;
         long newImmutableCapabilities = that.mNetworkCapabilities & mask;
         if (oldImmutableCapabilities != newImmutableCapabilities) {
