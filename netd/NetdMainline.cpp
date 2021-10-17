@@ -16,13 +16,22 @@
 
 #define LOG_TAG "NetdMainline"
 
+#include "NetdMainline.h"
+
 #include <android-base/logging.h>
+#include <netdutils/Status.h>
 
 #include "NetdMainlinePublic.h"
 
 bool libnetd_mainline_init() {
     android::base::InitLogging(/*argv=*/nullptr);
     LOG(INFO) << __func__ << ": Initializing";
+
+    android::net::gNetdMainline = android::net::NetdMainline::getInstance();
+    if (!isOk(android::net::gNetdMainline->mBpfHandler.init())) {
+        LOG(ERROR) << __func__ << ": BPF handler init failed";
+        return false;
+    }
     return true;
 }
 
@@ -39,3 +48,17 @@ int libnetd_mainline_tagSocket(int /*sockFd*/, uint32_t /*tag*/, uid_t /*uid*/,
 int libnetd_mainline_unTagSocket(int /*sockFd*/) {
     return 0;
 }
+
+namespace android {
+namespace net {
+
+NetdMainline* gNetdMainline = nullptr;
+
+NetdMainline* NetdMainline::getInstance() {
+    // Instantiated on first use.
+    static NetdMainline instance;
+    return &instance;
+}
+
+}  // namespace net
+}  // namespace android
