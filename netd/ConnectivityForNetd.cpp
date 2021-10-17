@@ -16,13 +16,22 @@
 
 #define LOG_TAG "ConnForNetd"
 
-#include "ConnForNetdPublic.h"
+#include "ConnectivityForNetd.h"
 
 #include <android-base/logging.h>
+#include <netdutils/Status.h>
+
+#include "ConnForNetdPublic.h"
 
 bool libconn_init() {
     android::base::InitLogging(/*argv=*/nullptr);
     LOG(INFO) << __func__ << ": Initializing";
+
+    android::net::gConnectivity = android::net::ConnectivityForNetd::getInstance();
+    if (!isOk(android::net::gConnectivity->mBpfHandler.init())) {
+        LOG(ERROR) << __func__ << ": BFP init failed";
+        return false;
+    }
     return true;
 }
 
@@ -33,3 +42,17 @@ int libconn_tagSocket(int /*sockFd*/, uint32_t /*tag*/, uid_t /*uid*/, uid_t /*c
 int libconn_unTagSocket(int /*sockFd*/) {
     return 0;
 }
+
+namespace android {
+namespace net {
+
+ConnectivityForNetd* gConnectivity = nullptr;
+
+ConnectivityForNetd* ConnectivityForNetd::getInstance() {
+    // Instantiated on first use.
+    static ConnectivityForNetd instance;
+    return &instance;
+}
+
+}  // namespace net
+}  // namespace android
