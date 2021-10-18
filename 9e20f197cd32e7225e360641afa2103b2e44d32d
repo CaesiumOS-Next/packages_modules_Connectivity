@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4182d872_a25480a1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-18T08:42:16Z",
+      "side": 1,
+      "message": "please review aosp/1859413. thank you",
+      "parentUuid": "70fec804_b6153fe8",
+      "range": {
+        "startLine": 403,
+        "startChar": 28,
+        "endLine": 403,
+        "endChar": 52
+      },
+      "revId": "9e20f197cd32e7225e360641afa2103b2e44d32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5631f131_51a167f7",
@@ -65,6 +89,53 @@
         "startChar": 12,
         "endLine": 430,
         "endChar": 64
+      },
+      "revId": "9e20f197cd32e7225e360641afa2103b2e44d32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b52ca326_448e2a6c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-18T08:42:16Z",
+      "side": 1,
+      "message": "please review aosp/1859413. thank you",
+      "parentUuid": "5631f131_51a167f7",
+      "range": {
+        "startLine": 430,
+        "startChar": 12,
+        "endLine": 430,
+        "endChar": 64
+      },
+      "revId": "9e20f197cd32e7225e360641afa2103b2e44d32d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e080a70e_fece3f49",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2625,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-18T08:42:16Z",
+      "side": 1,
+      "message": "empty array",
+      "range": {
+        "startLine": 2625,
+        "startChar": 54,
+        "endLine": 2625,
+        "endChar": 58
       },
       "revId": "9e20f197cd32e7225e360641afa2103b2e44d32d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
