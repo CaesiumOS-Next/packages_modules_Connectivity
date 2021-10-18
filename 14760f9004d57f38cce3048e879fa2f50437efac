@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4778198e_f4ad4878",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-18T09:28:27Z",
+      "side": 1,
+      "message": "How difficult is it to move together disconnectFromWifi, connectToCell and... well, everything else really ? Can we just move the file wholesale ?\n",
+      "revId": "14760f9004d57f38cce3048e879fa2f50437efac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
