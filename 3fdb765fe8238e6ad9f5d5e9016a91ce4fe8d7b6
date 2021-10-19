@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7320b9d1_492ee438",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-19T08:51:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "347619ca_1158b945",
+      "range": {
+        "startLine": 123,
+        "startChar": 77,
+        "endLine": 123,
+        "endChar": 84
+      },
+      "revId": "3fdb765fe8238e6ad9f5d5e9016a91ce4fe8d7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93816a9b_1b03cb50",
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9044219_4547c18d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-19T08:51:45Z",
+      "side": 1,
+      "message": "Update the design, please see if it\u0027s satisfied your suggestion.",
+      "parentUuid": "93816a9b_1b03cb50",
+      "range": {
+        "startLine": 213,
+        "startChar": 28,
+        "endLine": 213,
+        "endChar": 58
+      },
+      "revId": "3fdb765fe8238e6ad9f5d5e9016a91ce4fe8d7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "afbb30d0_3dcf9dcb",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 7
@@ -77,6 +125,30 @@
       "writtenOn": "2021-10-13T12:27:46Z",
       "side": 1,
       "message": "Sorry this wording was meant for you. If you want to include this information in the comment you could write\n\n  // mUidToNetworkPerm contains the result of checks for hasNetworkPermission and\n  // hasRestrictedNetworkPermission, as well as the list of UIDs allowed on\n  // restricted networks.",
+      "range": {
+        "startLine": 369,
+        "startChar": 45,
+        "endLine": 370,
+        "endChar": 30
+      },
+      "revId": "3fdb765fe8238e6ad9f5d5e9016a91ce4fe8d7b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fea5a2c5_bd01e8e4",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-10-19T08:51:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afbb30d0_3dcf9dcb",
       "range": {
         "startLine": 369,
         "startChar": 45,
