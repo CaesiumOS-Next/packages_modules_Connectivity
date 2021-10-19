@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43616d9a_9bc5fe72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-19T07:32:16Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "906ee75b_f0626bfa",
+      "range": {
+        "startLine": 12,
+        "startChar": 57,
+        "endLine": 12,
+        "endChar": 64
+      },
+      "revId": "903b124419f01e4ea3cb0b03c67e1bfeebe71586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0eea2730_f92081ab",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-15T11:25:05Z",
       "side": 1,
       "message": "I don\u0027t think this is correct. This is called in mixInCapabilities only if nai.propagateUnderlyingCapabilities(), which is true only for VPN, so this will only set this in the caps if the network is a VPN. So it doesn\u0027t work for the VCN. You may want to add a test.\n\nIf the list in the NetworkAgentInfo is authoritative, then I think we can just have mixInCapabilities copy it from NetworkAgentInfo.",
+      "range": {
+        "startLine": 7357,
+        "startChar": 14,
+        "endLine": 7357,
+        "endChar": 35
+      },
+      "revId": "903b124419f01e4ea3cb0b03c67e1bfeebe71586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57c6e8c1_8afa6e5d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7357,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-19T07:32:16Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think this is correct. This is called in mixInCapabilities only if nai.propagateUnderlyingCapabilities(), which is true only for VPN, so this will only set this in the caps if the network is a VPN. So it doesn\u0027t work for the VCN.\nYes, this is for VPN. For the case of VCN, I just learned from Junyu, he said if the network which doesn\u0027t have \"NET_CAPABILITY_NOT_VCN_MANAGED\", then it\u0027s the underlying network of VCN. And VcnGatewayConnection has registered this kind of network.\nI looked at the VCN related code and it seems like VcnGatewayConnection will handle NC by itself, so I think we can just simply add underlying network there.\n\n\u003e You may want to add a test.\nWhat kind of test do you mean?\nA test to ensure the current design will only set the underlying networks of VPN?\n\n\u003e If the list in the NetworkAgentInfo is authoritative, then I think we can just have mixInCapabilities copy it from NetworkAgentInfo.\nWell, I think we want to check if the networks in declaredUnderlyingNetworks are alive or not. We should only set the underlying networks into NC which are still alive, right?\nIf so, we shouldn\u0027t copy declaredUnderlyingNetworks from NetworkAgentInfo to NC directly. Or do I misunderstand what you mean?",
+      "parentUuid": "0eea2730_f92081ab",
       "range": {
         "startLine": 7357,
         "startChar": 14,

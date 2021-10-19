@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a881f23c_26a70afd",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-19T07:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8196756_3af3ee7d",
+      "range": {
+        "startLine": 2147,
+        "startChar": 0,
+        "endLine": 2149,
+        "endChar": 13
+      },
+      "revId": "dcf23b0832baf227b06c1025dee997fec4612173",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69f13254_82193699",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-15T11:25:05Z",
       "side": 1,
       "message": "Since you\u0027re calling toArray() immediately on it, which will create a new array, I don\u0027t think you need to make a new ArrayList. List\u003cT\u003e is a Collection\u003cT\u003e and Collection\u003cT\u003e has .toArray().",
+      "range": {
+        "startLine": 381,
+        "startChar": 18,
+        "endLine": 381,
+        "endChar": 62
+      },
+      "revId": "dcf23b0832baf227b06c1025dee997fec4612173",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38ca3fb5_085a0fb1",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-19T07:32:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69f13254_82193699",
       "range": {
         "startLine": 381,
         "startChar": 18,
