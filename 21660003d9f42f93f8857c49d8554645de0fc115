@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b7efd8_f4f90e39",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-19T07:10:49Z",
+      "side": 1,
+      "message": "final or inline",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 34
+      },
+      "revId": "21660003d9f42f93f8857c49d8554645de0fc115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0357693_6e44b904",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-19T07:10:49Z",
+      "side": 1,
+      "message": "final or inline. Same in l.275",
+      "range": {
+        "startLine": 264,
+        "startChar": 8,
+        "endLine": 264,
+        "endChar": 14
+      },
+      "revId": "21660003d9f42f93f8857c49d8554645de0fc115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f19b8a_ab9a4082",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-19T07:10:49Z",
+      "side": 1,
+      "message": "Can you please call updateVpn here ?",
+      "range": {
+        "startLine": 313,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 39
+      },
+      "revId": "21660003d9f42f93f8857c49d8554645de0fc115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af367fbe_786196c1",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-19T07:10:49Z",
+      "side": 1,
+      "message": "Please get in the habit of making all your locals final.\n\nIn this case, inlining seems best : you can say \"List.of(wifiNetwork)\" inline, and it\u0027s shorter and more immediate to read.",
+      "range": {
+        "startLine": 774,
+        "startChar": 12,
+        "endLine": 774,
+        "endChar": 21
+      },
+      "revId": "21660003d9f42f93f8857c49d8554645de0fc115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a68e82bc_4b31b70d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-19T07:10:49Z",
+      "side": 1,
+      "message": "Can we also have tests for the empty and null cases ?",
+      "range": {
+        "startLine": 814,
+        "startChar": 4,
+        "endLine": 814,
+        "endChar": 5
+      },
+      "revId": "21660003d9f42f93f8857c49d8554645de0fc115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
