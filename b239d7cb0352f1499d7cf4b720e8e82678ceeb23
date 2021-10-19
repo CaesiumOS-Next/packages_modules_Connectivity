@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4497410_6e4fac83",
+        "filename": "framework/src/android/net/NetworkInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-19T06:51:05Z",
+      "side": 1,
+      "message": "How about we make this maxTargetSdk \u003d Build.VERSION_CODES.S ?\n\nStill, it will crash apps that target R\u003c and pass null, but at this point I think it\u0027s fine. It\u0027s been deprecated for some time, they knew they were using reflection, so I\u0027m not too sympathetic.\n\nBy checking this in now, we can also find out about any real crash in the field.",
+      "range": {
+        "startLine": 181,
+        "startChar": 5,
+        "endLine": 181,
+        "endChar": 24
+      },
+      "revId": "b239d7cb0352f1499d7cf4b720e8e82678ceeb23",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
