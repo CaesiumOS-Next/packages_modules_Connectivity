@@ -1,0 +1,108 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016402140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d21",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "304358aa_6d615539",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-20T00:10:41Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 107
+      },
+      "revId": "9d371b7e11e58dbd2187150640ab99a0edca2141",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016402140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d21",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "993698df_4a9a2ad0",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-20T00:10:41Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 110
+      },
+      "revId": "9d371b7e11e58dbd2187150640ab99a0edca2141",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016402140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d21",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "036c02c9_543a25ed",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-20T00:10:41Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 110
+      },
+      "revId": "9d371b7e11e58dbd2187150640ab99a0edca2141",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016402140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d21",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ca9d171f_eb9e935e",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-20T00:10:41Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 468,
+        "startChar": 0,
+        "endLine": 468,
+        "endChar": 765
+      },
+      "revId": "9d371b7e11e58dbd2187150640ab99a0edca2141",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
