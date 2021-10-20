@@ -93,6 +93,30 @@
       },
       "revId": "903b124419f01e4ea3cb0b03c67e1bfeebe71586",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71a15a4f_7081decb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 7357,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-20T08:54:49Z",
+      "side": 1,
+      "message": "I see. I think you\u0027re right on all accounts.\n• VCN doesn\u0027t use this at all, so it\u0027s not relevant\n• I meant a test for VCN, so it\u0027s not relevant\n• Yes, we should only add the networks if they are alive, and I think this is indeed the simplest way to do it.",
+      "parentUuid": "57c6e8c1_8afa6e5d",
+      "range": {
+        "startLine": 7357,
+        "startChar": 14,
+        "endLine": 7357,
+        "endChar": 35
+      },
+      "revId": "903b124419f01e4ea3cb0b03c67e1bfeebe71586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
