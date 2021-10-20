@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a12c12c7_e3dcfb00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-20T05:19:24Z",
+      "side": 1,
+      "message": "LGTM (sticky +2) assuming comments addressed.",
+      "revId": "f87be39f6afb562a3d14c29d5a50157fcd49b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f6bebfd_c84774c3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-20T05:19:24Z",
+      "side": 1,
+      "message": "This line looks like a no-op: the code gets tm, but never looks at it, and then sets it to null in line 570. Remove?",
+      "range": {
+        "startLine": 558,
+        "startChar": 12,
+        "endLine": 558,
+        "endChar": 30
+      },
+      "revId": "f87be39f6afb562a3d14c29d5a50157fcd49b30a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
