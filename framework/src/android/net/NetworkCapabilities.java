@@ -1328,12 +1328,16 @@ public final class NetworkCapabilities implements Parcelable {
     private int mLinkDownBandwidthKbps = LINK_BANDWIDTH_UNSPECIFIED;
 
     /**
-     * Sets the upstream bandwidth for this network in Kbps.  This always only refers to
-     * the estimated first hop transport bandwidth.
+     * Sets the upstream bandwidth for this network in Kbps.
+     *
+     * This is a best-effort estimate of the upstream bandwidth that can be expected on a
+     * network. When available this should be set to an estimate of the average end-to-end
+     * bandwidth. When such an estimate is not available, this should be set to the estimated
+     * first hop transport bandwidth.
      * <p>
      * {@see Builder#setLinkUpstreamBandwidthKbps}
      *
-     * @param upKbps the estimated first hop upstream (device to network) bandwidth.
+     * @param upKbps the estimated upstream (device to network) bandwidth.
      * @hide
      */
     public @NonNull NetworkCapabilities setLinkUpstreamBandwidthKbps(int upKbps) {
@@ -1342,22 +1346,29 @@ public final class NetworkCapabilities implements Parcelable {
     }
 
     /**
-     * Retrieves the upstream bandwidth for this network in Kbps.  This always only refers to
-     * the estimated first hop transport bandwidth.
+     * Retrieves the upstream bandwidth for this network in Kbps.
      *
-     * @return The estimated first hop upstream (device to network) bandwidth.
+     * This is a best-effort estimate of the upstream bandwidth that can be expected on a
+     * network. When available this returns an estimate of the average end-to-end bandwidth. When
+     * such an estimate is not available, this returns the estimated first hop transport bandwidth.
+     *
+     * @return The estimated upstream (device to network) bandwidth.
      */
     public int getLinkUpstreamBandwidthKbps() {
         return mLinkUpBandwidthKbps;
     }
 
     /**
-     * Sets the downstream bandwidth for this network in Kbps.  This always only refers to
-     * the estimated first hop transport bandwidth.
+     * Sets the downstream bandwidth for this network in Kbps.
+     *
+     * This is a best-effort estimate of the downstream bandwidth that can be expected on a
+     * network. When available this should be set to an estimate of the average end-to-end
+     * bandwidth. When such an estimate is not available, this should be set to the estimated
+     * first hop transport bandwidth.
      * <p>
      * {@see Builder#setLinkUpstreamBandwidthKbps}
      *
-     * @param downKbps the estimated first hop downstream (network to device) bandwidth.
+     * @param downKbps the estimated downstream (network to device) bandwidth.
      * @hide
      */
     public @NonNull NetworkCapabilities setLinkDownstreamBandwidthKbps(int downKbps) {
@@ -1366,10 +1377,13 @@ public final class NetworkCapabilities implements Parcelable {
     }
 
     /**
-     * Retrieves the downstream bandwidth for this network in Kbps.  This always only refers to
-     * the estimated first hop transport bandwidth.
+     * Retrieves the downstream bandwidth for this network in Kbps.
      *
-     * @return The estimated first hop downstream (network to device) bandwidth.
+     * This is a best-effort estimate of the downstream bandwidth that can be expected on a
+     * network. When available this returns an estimate of the average end-to-end bandwidth. When
+     * such an estimate is not available, this returns the estimated first hop transport bandwidth.
+     *
+     * @return The estimated downstream (network to device) bandwidth.
      */
     public int getLinkDownstreamBandwidthKbps() {
         return mLinkDownBandwidthKbps;
