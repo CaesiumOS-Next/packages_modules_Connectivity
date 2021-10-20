@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0cb99ab_ba42e9b4",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-20T05:22:26Z",
+      "side": 1,
+      "message": "How? The code for that thread is in lines 311-323, right? I don\u0027t see any references to tm in that code.",
+      "range": {
+        "startLine": 301,
+        "startChar": 11,
+        "endLine": 301,
+        "endChar": 92
+      },
+      "revId": "b8ac34daf0628dbf38ce392c8ea6553f68df0e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
