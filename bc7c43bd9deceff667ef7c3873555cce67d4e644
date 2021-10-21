@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f7d092b_64fce33e",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T05:50:10Z",
+      "side": 1,
+      "message": "Does this need to be asynchronous? Given that all the operations here are fast (BPF map writes, HashMap writes), it seems better to make the IPCs be synchronous and not have a handler thread at all. You just need the IPCs to grab locks on mBpfBlockedPortsMap.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 35
+      },
+      "revId": "bc7c43bd9deceff667ef7c3873555cce67d4e644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba0cb410_b9cff598",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T05:50:10Z",
+      "side": 1,
+      "message": "Is this actually useful? Currently everything in this file requires BPF. So if there are devices that don\u0027t support BPF, then we should simply not run this code. If so, then I would remove it, because YAGNI. https://testing.googleblog.com/2017/08/code-health-eliminate-yagni-smells.html",
+      "range": {
+        "startLine": 73,
+        "startChar": 26,
+        "endLine": 73,
+        "endChar": 39
+      },
+      "revId": "bc7c43bd9deceff667ef7c3873555cce67d4e644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17d36ca1_2358b98e",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T05:50:10Z",
+      "side": 1,
+      "message": "Bundles are fairly expensive and error prone due to lack of type safety, string keys, etc. Why do you need it? Can\u0027t you just pass the PortBlockParcel itself inside msg.data? Or if not, maybe just define a simple static class with 3 public final members for port, ipType, and protocol, and use that?\n\nAlso, if you make the IPCs synchronous as suggested elsewhere, you probably don\u0027t need this.",
+      "range": {
+        "startLine": 143,
+        "startChar": 12,
+        "endLine": 143,
+        "endChar": 39
+      },
+      "revId": "bc7c43bd9deceff667ef7c3873555cce67d4e644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be5ce14a_89be0f30",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T05:50:10Z",
+      "side": 1,
+      "message": "If you really want these operations to be asynchronous, then they should take callbacks. An asynchronous operation that does not take a callback is very difficult to use correctly because the caller cannot know when the operation has completed, cannot know whether it failed, etc.",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 32
+      },
+      "revId": "bc7c43bd9deceff667ef7c3873555cce67d4e644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

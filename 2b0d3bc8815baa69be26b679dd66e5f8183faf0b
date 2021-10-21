@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b643a805_5964ef4f",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T05:50:10Z",
+      "side": 1,
+      "message": "ConnectivityServiceInitializer, perhaps?",
+      "parentUuid": "c1843aea_309b3ecf",
+      "revId": "2b0d3bc8815baa69be26b679dd66e5f8183faf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1228fb55_ae3da7f0",
         "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
         "patchSetId": 5
@@ -31,6 +49,30 @@
       "writtenOn": "2021-10-20T21:58:01Z",
       "side": 1,
       "message": "The current JNI to attach a program is in Tethering/BpfUtils. This is iface specific though. Where should the load/attach jni code be placed for this use case?",
+      "range": {
+        "startLine": 275,
+        "startChar": 16,
+        "endLine": 275,
+        "endChar": 34
+      },
+      "revId": "2b0d3bc8815baa69be26b679dd66e5f8183faf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc9dfd4_bcd56b98",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T05:50:10Z",
+      "side": 1,
+      "message": "You could either move BpfUtils to a common location in frameworks/libs/net and add this code there, or you could add a new utility file specific to connectivity.\n\nThe former seems bettter but might need more work upfront. Maciej, any thoughts?",
+      "parentUuid": "1228fb55_ae3da7f0",
       "range": {
         "startLine": 275,
         "startChar": 16,
