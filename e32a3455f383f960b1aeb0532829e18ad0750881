@@ -96,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb94829e_28d1c413",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T10:06:07Z",
+      "side": 1,
+      "message": "I looked at this recently for https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1827918/6..7/tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java#b2804 . I found at least ConnectivityManagerTest#testOpenConnection, NetworkUsageStatsTest, and SubscriptionManagerTest#testCorrectness. There might be some in CtsNetLegacyTestCases as well.",
+      "parentUuid": "2ba1e67b_9975cb0f",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 821,
+        "endChar": 54
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6a8e036_b113816a",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 6
