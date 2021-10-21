@@ -1331,8 +1331,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mNetworkRanker = new NetworkRanker();
         final NetworkRequest defaultInternetRequest = createDefaultRequest();
         mDefaultRequest = new NetworkRequestInfo(
-                Process.myUid(), defaultInternetRequest, null,
-                new Binder(), NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
+                Process.myUid(), defaultInternetRequest, null /* messenger */,
+                null /* binder */, NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
                 null /* attributionTags */);
         mNetworkRequests.put(defaultInternetRequest, mDefaultRequest);
         mDefaultNetworkRequests.add(mDefaultRequest);
@@ -1552,7 +1552,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (enable) {
             handleRegisterNetworkRequest(new NetworkRequestInfo(
-                    Process.myUid(), networkRequest, null, new Binder(),
+                    Process.myUid(), networkRequest, null /* messenger */, null /* binder */,
                     NetworkCallback.FLAG_INCLUDE_LOCATION_INFO,
                     null /* attributionTags */));
         } else {
@@ -4246,9 +4246,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             callCallbackForRequest(nri, null, ConnectivityManager.CALLBACK_UNAVAIL, 0);
         }
     }
+    private String ts(Object o) {
+        return Integer.toHexString(System.identityHashCode(o));
+    }
 
     private void handleRemoveNetworkRequest(@NonNull final NetworkRequestInfo nri) {
         ensureRunningOnConnectivityServiceThread();
+        Log.e("JJJJ", "" + nri.mBinder + " " + ts(nri.getNetworkRequestForCallback()));
         for (final NetworkRequest req : nri.mRequests) {
             if (null == mNetworkRequests.remove(req)) {
                 logw("Attempted removal of untracked request " + req + " for nri " + nri);
@@ -4257,6 +4261,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             if (req.isListen()) {
                 removeListenRequestFromNetworks(req);
             }
+        }
+        for (final NetworkRequestInfo nrii : mNetworkRequests.values()) {
+            if (nrii.equals(nri)) throw new RuntimeException("Ahha !!");
         }
         nri.unlinkDeathRecipient();
         if (mDefaultNetworkRequests.remove(nri)) {
@@ -5906,8 +5913,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mPerUidCounter.decrementCount(mUid);
         }
 
+private String getStackTrace(final int depth) {
+    try {
+        throw new RuntimeException();
+    } catch (RuntimeException e) {
+        final StackTraceElement[] stack = e.getStackTrace();
+        final ArrayList<String> desc = new ArrayList<>(depth);
+        for (int i = 1; i < depth && i < stack.length; ++i)
+            desc.add(stack[i].toString());
+        return String.join("\n", desc);
+    }
+}
+
         void linkDeathRecipient() {
             if (null != mBinder) {
+                Log.e("JJJJ", "link " + mBinder);
+                Log.e("KKK", getStackTrace(8));
                 try {
                     mBinder.linkToDeath(this, 0);
                 } catch (RemoteException e) {
@@ -5918,6 +5939,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         void unlinkDeathRecipient() {
             if (null != mBinder) {
+                Log.e("JJJJ", "unlink " + mBinder);
                 mBinder.unlinkToDeath(this, 0);
             }
         }
@@ -6060,7 +6082,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @Override
     public NetworkRequest requestNetwork(int asUid, NetworkCapabilities networkCapabilities,
-            int reqTypeInt, Messenger messenger, int timeoutMs, IBinder binder,
+            int reqTypeInt, Messenger messenger, int timeoutMs, final IBinder binder,
             int legacyType, int callbackFlags, @NonNull String callingPackageName,
             @Nullable String callingAttributionTag) {
         if (legacyType != TYPE_NONE && !checkNetworkStackPermission()) {
@@ -6083,6 +6105,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Unsupported request type " + reqTypeInt);
         }
+        Log.e("JJJJ", "request " + reqType);
         switch (reqType) {
             case TRACK_DEFAULT:
                 // If the request type is TRACK_DEFAULT, the passed {@code networkCapabilities}
@@ -8232,6 +8255,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         // Since most of the time there are only 0 or 1 background networks, it would probably
         // be more efficient to just use an ArrayList here. TODO : measure performance
+
         final ArraySet<NetworkAgentInfo> oldBgNetworks = new ArraySet<>();
         for (final NetworkAgentInfo nai : nais) {
             if (nai.isBackgroundNetwork()) oldBgNetworks.add(nai);
