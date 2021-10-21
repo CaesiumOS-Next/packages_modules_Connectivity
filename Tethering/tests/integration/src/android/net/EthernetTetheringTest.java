@@ -27,6 +27,7 @@ import static android.net.TetheringManager.CONNECTIVITY_SCOPE_LOCAL;
 import static android.net.TetheringManager.TETHERING_ETHERNET;
 import static android.net.TetheringTester.RemoteResponder;
 import static android.system.OsConstants.IPPROTO_ICMPV6;
+import static android.system.OsConstants.IPPROTO_UDP;
 
 import static com.android.net.module.util.ConnectivityUtils.isIPv6ULA;
 import static com.android.net.module.util.HexDump.dumpHexString;
@@ -54,6 +55,7 @@ import android.net.TetheringManager.TetheringRequest;
 import android.net.TetheringTester.TetheredDevice;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.util.Log;
@@ -81,7 +83,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.BufferedReader;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -89,6 +97,8 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -98,6 +108,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -105,10 +117,17 @@ public class EthernetTetheringTest {
 
     private static final String TAG = EthernetTetheringTest.class.getSimpleName();
     private static final int TIMEOUT_MS = 5000;
+    private static final int SHELL_CMD_MAX_RETRY = 5;
+    private static final int DUMP_POLLING_MAX_RETRY = 10;
+    private static final int DUMP_POLLING_INTERVAL_MS = 200;
     private static final LinkAddress TEST_IP4_ADDR = new LinkAddress("10.0.0.1/8");
     private static final LinkAddress TEST_IP6_ADDR = new LinkAddress("2001:db8:1::101/64");
     private static final InetAddress TEST_IP4_DNS = parseNumericAddress("8.8.8.8");
     private static final InetAddress TEST_IP6_DNS = parseNumericAddress("2001:db8:1::888");
+
+    private static final String DUMP_TETHERING_CMD = "dumpsys tethering --short";
+    private static final String DUMP_IPV4_UPSTREAM_RULES_TITLE = "IPv4 Upstream: proto [inDstMac] "
+                    + "iif(iface) src -> nat -> dst [outDstMac] age";
 
     private final Context mContext = InstrumentationRegistry.getContext();
     private final EthernetManager mEm = mContext.getSystemService(EthernetManager.class);
@@ -868,6 +887,25 @@ public class EthernetTetheringTest {
                 publicIp4Addr /* dstIp */, REMOTE_PORT /* srcPort */, PUBLIC_PORT /*dstPort */,
                 replyData /* data */);
         sendUdpPacketAndCheckData(remote, tester, replyPacket, ID2 /* expectedData */);
+
+        // The BPF coordinator only offloads the ASSURED conntrack entry. The "request + reply"
+        // packets can make status IPS_SEEN_REPLY to be set. Need one more packet to make status
+        // IPS_ASSURED_BIT to be set.
+        // See nf_conntrack_udp_packet in net/netfilter/nf_conntrack_proto_udp.c.
+        sendUdpPacketAndCheckData(tester, remote, originalPacket, ID /* expectedData */);
+
+        final ArrayList<Ipv4ForwardingRules> upstreamRules = pollIpv4UpstreamRulesFromDump();
+        assertNotNull(upstreamRules);
+        assertEquals(1, upstreamRules.size());
+
+        final Ipv4ForwardingRules rule = upstreamRules.get(0);
+        assertEquals(IPPROTO_UDP, rule.l4ProtoType);
+        assertTrue(Arrays.equals(tethered.ipv4Addr.getAddress(), rule.srcIp.getAddress()));
+        assertEquals(PRIVATE_PORT, rule.srcPort);
+        assertTrue(Arrays.equals(publicIp4Addr.getAddress(), rule.publicIp.getAddress()));
+        assertEquals(PUBLIC_PORT, rule.publicPort);
+        assertTrue(Arrays.equals(REMOTE_IP4_ADDR.getAddress(), rule.dstIp.getAddress()));
+        assertEquals(REMOTE_PORT, rule.dstPort);
     }
 
     @Test
@@ -895,6 +933,196 @@ public class EthernetTetheringTest {
         mUpstreamReader = makePacketReader(mUpstreamTracker.getTestIface());
 
         runUdp4Test(new TetheringTester(mDownstreamReader), new RemoteResponder(mUpstreamReader));
+
+        //final ArrayList<Ipv4ForwardingRules> upstreamRules = getIPv4UpstreamRulesFromDump();
+        //assertTrue(upstreamRules.isEmpty());
+    }
+
+    /**
+     * A class for parsing the IPv4 forwarding rule from dumpsys string output.
+     */
+    private static class Ipv4ForwardingRules {
+        // IPv4 forwarding rule regex pattern. See BpfCoordinator#dumpIpv4ForwardingRules for the
+        // rule dump string format.
+        //
+        // Format:
+        //   l4proto [inDstMac] iif(iifname) srcIp4:srcPort -> oif(oifname) publicIp4:publicPort
+        //   -> dstIp4:dstPort [outDstMac] age
+        //
+        // Example:
+        //   udp [ae:0f:db:f7:c6:44] 115(115) 192.168.12.21:9876
+        //   -> 114(testtun30) 10.0.0.1:9876 -> 8.8.8.8:433 [00:00:00:00:00:00] -
+        //
+        // TODO: use restricted regex pattern for {IFINDEX, IFNAME, MAC}.
+        private static final String PROTO = "(udp)";
+        private static final String IFINDEX = "([0-9]+)";
+        private static final String IFNAME = "\\((.*?)\\)"; // (ifname)
+        private static final String ADDR4 = "([0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3})";
+        private static final String PORT = "([0-9]{1,5})";
+        private static final String MAC = "\\[(.*?)\\]";  // [mac address]
+        private static final int MATCH_GROUP_COUNT = 13;
+        private static final int MATCH_GROUP_SRC_ADDR = 5;
+        private static final int MATCH_GROUP_SRC_PORT = 6;
+        private static final int MATCH_GROUP_PUBLIC_ADDR = 9;
+        private static final int MATCH_GROUP_PUBLIC_PORT = 10;
+        private static final int MATCH_GROUP_DST_ADDR = 11;
+        private static final int MATCH_GROUP_DST_PORT = 12;
+
+        // The lastUsed field (age) is ignored with regex ".*$".
+        private static final String IPV4_FORWARDING_RULE_PATTERN =
+                "^" + PROTO + " " + MAC + " " + IFINDEX + IFNAME + " "
+                + ADDR4 + ":" + PORT + " -> " + IFINDEX + IFNAME + " "
+                + ADDR4 + ":" + PORT + " -> "
+                + ADDR4 + ":" + PORT + " " + MAC + ".*$";
+
+        public final Inet4Address srcIp;
+        public final Inet4Address publicIp;
+        public final Inet4Address dstIp;
+
+        public final int srcPort;
+        public final int publicPort;
+        public final int dstPort;
+        public final int l4ProtoType;
+
+        private Ipv4ForwardingRules(int l4ProtoType, Inet4Address srcIp, int srcPort,
+                Inet4Address publicIp, int publicPort, Inet4Address dstIp, int dstPort) {
+            this.l4ProtoType = l4ProtoType;
+            this.srcIp = srcIp;
+            this.publicIp = publicIp;
+            this.dstIp = dstIp;
+            this.srcPort = srcPort;
+            this.publicPort = publicPort;
+            this.dstPort = dstPort;
+        }
+
+        private static boolean isValidPortNumber(int port) {
+            return port > 0 && port < 65536;
+        }
+
+        @Nullable
+        public static Ipv4ForwardingRules parse(@NonNull String s) {
+            final Pattern pattern = Pattern.compile(IPV4_FORWARDING_RULE_PATTERN);
+            final Matcher matcher = pattern.matcher(s);
+
+            if (matcher.matches()) {
+                if (matcher.groupCount() != MATCH_GROUP_COUNT) return null;
+
+                Log.v(TAG, "Pattern found in " + s);
+                for (int i = 1; i <= MATCH_GROUP_COUNT; ++i) {
+                    Log.v(TAG, "[" + i + "]: " + matcher.group(i));
+                }
+
+                // The pattern guarantees tht the L4 protocol is always UDP.
+                final int l4ProtoType = IPPROTO_UDP;
+
+                // The regex pattern ADDR4 guarantees the MATCH_GROUP_{SRC, PUBLIC, DST}_ADDR
+                // is an IPv4 numeric address string.
+                final Inet4Address srcIp = (Inet4Address) parseNumericAddress(
+                        matcher.group(MATCH_GROUP_SRC_ADDR));
+                final int srcPort = Integer.parseInt(matcher.group(MATCH_GROUP_SRC_PORT));
+                if (!isValidPortNumber(srcPort)) return null;
+
+                final Inet4Address publicIp = (Inet4Address) parseNumericAddress(
+                        matcher.group(MATCH_GROUP_PUBLIC_ADDR));
+                final int publicPort = Integer.parseInt(matcher.group(MATCH_GROUP_PUBLIC_PORT));
+                if (!isValidPortNumber(publicPort)) return null;
+
+                final Inet4Address dstIp = (Inet4Address) parseNumericAddress(
+                        matcher.group(MATCH_GROUP_DST_ADDR));
+                final int dstPort = Integer.parseInt(matcher.group(MATCH_GROUP_DST_PORT));
+                if (!isValidPortNumber(dstPort)) return null;
+
+                return new Ipv4ForwardingRules(l4ProtoType, srcIp, srcPort,
+                        publicIp, publicPort, dstIp, dstPort);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    @NonNull
+    private ArrayList<Ipv4ForwardingRules> dumpIpv4UpstreamRules() throws Exception {
+        boolean tagFound = false;
+        final ArrayList<String> rawDumpStrs = executeShellCommand(DUMP_TETHERING_CMD);
+        final ArrayList<Ipv4ForwardingRules> rules = new ArrayList<Ipv4ForwardingRules>();
+
+        for (int i = 0; i < rawDumpStrs.size(); i++) {
+            final String s = rawDumpStrs.get(i).trim();
+
+            // Find the ipv4 upstream rule title.
+            if (!tagFound && s.contains(DUMP_IPV4_UPSTREAM_RULES_TITLE)) {
+                tagFound = true;
+                continue;
+            }
+            // Start parsing the rules after the title has found until we can't find the rule
+            // anymore. Assumpt that next logging section has another title which can't be
+            // parsed by rule regex. Stop the rule parsing either no rule or entering next
+            // log section.
+            if (tagFound) {
+                final Ipv4ForwardingRules r = Ipv4ForwardingRules.parse(s);
+                if (r == null) break;
+                rules.add(r);
+            }
+        }
+        return rules;
+    }
+
+    @Nullable
+    private ArrayList<Ipv4ForwardingRules> pollIpv4UpstreamRulesFromDump() throws Exception {
+        int retryCount = 0;
+
+        while (true) {
+            final ArrayList<Ipv4ForwardingRules> rules = dumpIpv4UpstreamRules();
+            if (!rules.isEmpty()) return rules;
+
+            retryCount++;
+            if (retryCount > DUMP_POLLING_MAX_RETRY) {
+                Log.e(TAG, "cannot get rules after (ms): "
+                        + DUMP_POLLING_MAX_RETRY
+                        * DUMP_POLLING_INTERVAL_MS);
+                return null;
+            }
+            try {
+                Thread.sleep(DUMP_POLLING_INTERVAL_MS);
+            } catch (InterruptedException e) {
+                Log.e(TAG, "interrupted while waiting for rules");
+                return null;
+            }
+        }
+    }
+
+    @NonNull
+    private ArrayList<String> executeShellCommand(String pattern, Object...args)
+            throws IOException {
+        String command = String.format(pattern, args);
+        int retryCount = 0;
+        while (retryCount++ < SHELL_CMD_MAX_RETRY) {
+            try {
+                return executeShellCommandInternal(command);
+            } catch (InterruptedIOException e) {
+                Log.d(TAG, "Executing " + command + " failed; trying again", e);
+            }
+        }
+        throw new IOException("Failed to execute " + command);
+    }
+
+    @NonNull
+    private ArrayList<String> executeShellCommandInternal(String command) throws IOException {
+        Log.d(TAG, "$ " + command);
+        final ParcelFileDescriptor pfd = mUiAutomation.executeShellCommand(command.toString());
+        BufferedReader br = null;
+        try (InputStream in = new FileInputStream(pfd.getFileDescriptor());) {
+            br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+            String str = null;
+            ArrayList<String> out = new ArrayList<String>();
+            while ((str = br.readLine()) != null) {
+                Log.d(TAG, "> " + str);
+                out.add(str);
+            }
+            return out;
+        } finally {
+            if (br != null) br.close();
+        }
     }
 
     private <T> List<T> toList(T... array) {
