@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ba1e67b_9975cb0f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-21T09:59:19Z",
+      "side": 1,
+      "message": "Can you point me at the CTS test ? AFAIK, the reason isDataCapable was added in R is specifically the existence of devices that do not support data but have FEATURE_TELEPHONY. Back in 2020, Daniel asked me to file b/147342211 to track adding the API.",
+      "parentUuid": "b2bf576b_f2d3ab3d",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 821,
+        "endChar": 54
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d6a8e036_b113816a",
         "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
         "patchSetId": 6
