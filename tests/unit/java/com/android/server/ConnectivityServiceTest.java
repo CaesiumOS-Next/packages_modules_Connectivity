@@ -1582,6 +1582,7 @@ public class ConnectivityServiceTest {
     }
 
     private <T> T doAsUid(final int uid, @NonNull final Supplier<T> what) {
+        waitForIdle();
         doReturn(uid).when(mDeps).getCallingUid();
         try {
             return what.get();
@@ -1706,7 +1707,7 @@ public class ConnectivityServiceTest {
         mCsHandlerThread = new HandlerThread("TestConnectivityService");
         mVMSHandlerThread = new HandlerThread("TestVpnManagerService");
         mDeps = makeDependencies();
-        returnRealCallingUid();
+        doAnswer((invocationOnMock) -> Binder.getCallingUid()).when(mDeps).getCallingUid();
         mService = new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
@@ -1739,6 +1740,7 @@ public class ConnectivityServiceTest {
     }
 
     private void returnRealCallingUid() {
+        waitForIdle();
         try {
             doAnswer((invocationOnMock) -> Binder.getCallingUid()).when(mDeps).getCallingUid();
         } catch (UnfinishedStubbingException e) {
