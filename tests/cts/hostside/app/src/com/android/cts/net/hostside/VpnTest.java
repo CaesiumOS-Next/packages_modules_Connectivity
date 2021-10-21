@@ -814,6 +814,57 @@ public class VpnTest extends InstrumentationTestCase {
             });
     }
 
+    public void testUnderlyingNetworksFollowTheDefaultNetwork() throws Exception {
+        assumeTrue(supportedHardware());
+        assumeTrue(SdkLevel.isAtLeastT());
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assumeTrue(mTelephonyManager.isDataCapable());
+        final TestableNetworkCallback callback = new TestableNetworkCallback();
+        final boolean isWifiEnabled = mWifiManager.isWifiEnabled();
+        testAndCleanup(() -> {
+            // - Ensure wifi is connected.
+            // - Check if wifi is the default network.
+            // - Start VPN and set underlying networks to null to follow the default network.
+            // - Check the underlying networks of NetworkCapabilities which comes from
+            //   onCapabilitiesChanged is wifi.
+            // - Disconnect wifi and ensure mobile data is connected.
+            // - Check the underlying networks of NetworkCapabilities which comes from
+            //   onCapabilitiesChanged is mobile data.
+            final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+            assertTrue("Wifi is not connected", (wifiNetwork != null));
+            mCtsNetUtils.expectNetworkIsSystemDefault(wifiNetwork);
+            final ArrayList<Network> underlyingNetworks = new ArrayList<>();
+            underlyingNetworks.add(wifiNetwork);
+            startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[] {"0.0.0.0/0", "::/0"} /* routes */,
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, null /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+            runWithShellPermissionIdentity(() -> {
+                mCM.registerNetworkCallback(makeVpnNetworkRequest(), callback);
+                callback.eventuallyExpect(RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED,
+                        NETWORK_CALLBACK_TIMEOUT_MS,
+                        entry -> (underlyingNetworks.equals(
+                                ((RecorderCallback.CallbackEntry.CapabilitiesChanged) entry)
+                                        .getCaps().getUnderlyingNetworks())));
+                mCtsNetUtils.ensureWifiDisconnected(null);
+                final Network cellNetwork = mCtsNetUtils.connectToCell();
+                assertTrue("Mobile data is not connected", (cellNetwork != null));
+                underlyingNetworks.clear();
+                underlyingNetworks.add(cellNetwork);
+                callback.eventuallyExpect(RecorderCallback.CallbackEntry.NETWORK_CAPS_UPDATED,
+                        NETWORK_CALLBACK_TIMEOUT_MS,
+                        entry -> (underlyingNetworks.equals(
+                                ((RecorderCallback.CallbackEntry.CapabilitiesChanged) entry)
+                                        .getCaps().getUnderlyingNetworks())));
+            }, NETWORK_SETTINGS);
+        }, () -> {
+                mCM.unregisterNetworkCallback(callback);
+                if (isWifiEnabled) mCtsNetUtils.ensureWifiConnected();
+                else mCtsNetUtils.ensureWifiDisconnected(null);
+            });
+    }
+
     public void testDefault() throws Exception {
         if (!supportedHardware()) return;
         // If adb TCP port opened, this test may running by adb over network.
