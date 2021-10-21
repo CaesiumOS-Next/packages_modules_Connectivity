@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da1a0244_af25e50c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T06:46:55Z",
+      "side": 1,
+      "message": "It\u0027s impossible for a single value to estimate end-to-end bandwidth, because end-to-end bandwidth depends on the endpoint you\u0027re talking to.\n\nThe same network may provide very different bandwidth to a CDN server that\u0027s located very close to the network and to a remote server that\u0027s across an ocean.\n\nCan we say something else here instead?",
+      "range": {
+        "startLine": 1334,
+        "startChar": 72,
+        "endLine": 1335,
+        "endChar": 16
+      },
+      "revId": "87533cd25a332f284c69c41c1dafec19bcff5e6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
