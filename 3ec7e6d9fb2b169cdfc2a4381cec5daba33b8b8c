@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee9da456_fe0d03a5",
+        "filename": "Tethering/tests/privileged/src/com/android/networkstack/tethering/BpfMapTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T03:16:03Z",
+      "side": 0,
+      "message": "Per discussion: this should probably stay where it is, in TetheringPrivilegedTests, because it depends on the data structures used in the BPF map that\u0027s on device, and the layout of that map depends on native struct definitions that are also used in production code.",
+      "revId": "3ec7e6d9fb2b169cdfc2a4381cec5daba33b8b8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "96e78a21_024ea12e",
