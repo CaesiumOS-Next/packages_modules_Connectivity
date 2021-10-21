@@ -109,6 +109,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_ETHERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI_AWARE;
+import static android.net.NetworkRequest.Type.TRACK_DEFAULT;
 import static android.net.NetworkScore.KEEP_CONNECTED_FOR_HANDOVER;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_OEM_PAID;
 import static android.net.OemNetworkPreferences.OEM_NETWORK_PREFERENCE_OEM_PAID_NO_FALLBACK;
@@ -377,6 +378,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
@@ -408,7 +410,7 @@ import kotlin.reflect.KClass;
 public class ConnectivityServiceTest {
     private static final String TAG = "ConnectivityServiceTest";
 
-    private static final int TIMEOUT_MS = 2_000;
+    private static final int TIMEOUT_MS = 2000_000;
     // Broadcasts can take a long time to be delivered. The test will not wait for that long unless
     // there is a failure, so use a long timeout.
     private static final int BROADCAST_TIMEOUT_MS = 30_000;
@@ -2271,6 +2273,89 @@ public class ConnectivityServiceTest {
         // Wait for the release message to be processed.
         waitForIdle();
         // After waitForIdle(), the message was processed and the service didn't crash.
+    }
+
+    private static class MyBinder extends Binder {
+        public final CompletableFuture<Binder.DeathRecipient> future;
+        public MyBinder(final CompletableFuture<Binder.DeathRecipient> future) {
+            this.future = future;
+        }
+
+        private DeathRecipient mDeathRecipient;
+        @Override
+        public void linkToDeath(@NonNull final DeathRecipient recipient, final int flags) {
+            synchronized (this) {
+                if (null != mDeathRecipient) {
+                    throw new IllegalStateException();
+                }
+                mDeathRecipient = recipient;
+            }
+            super.linkToDeath(recipient, flags);
+            future.complete(recipient);
+        }
+
+        @Override
+        public boolean unlinkToDeath(@NonNull final DeathRecipient recipient, final int flags) {
+            synchronized (this) {
+                if (null == mDeathRecipient) {
+                    throw new IllegalStateException();
+                }
+                mDeathRecipient = null;
+            }
+            return super.unlinkToDeath(recipient, flags);
+        }
+    }
+
+    @Test(timeout = 10_000_000_000_000L)
+    public void testBinderDeathAfterPreferenceChange() throws Exception {
+        final UserHandle testHandle = setupEnterpriseNetwork();
+        final Handler handler = new Handler(ConnectivityThread.getInstanceLooper());
+        final TestOnCompleteListener listener = new TestOnCompleteListener();
+
+        final ArrayList<Pair<NetworkRequest, CompletableFuture<Binder.DeathRecipient>>> requests = new ArrayList<>();
+        final Random r = new Random();
+
+        boolean onEnterprise = false;
+
+        while (true) {
+            final int yay = r.nextInt(100);
+            if (yay < 5) {
+                waitForIdle();
+            } if (yay < 70) {
+                // Register request
+                final CompletableFuture<Binder.DeathRecipient> future = new CompletableFuture<>();
+                final NetworkRequest.Type type = r.nextInt(100) < 50 ? TRACK_DEFAULT : NetworkRequest.Type.REQUEST;
+                final NetworkRequest req = doAsUid(TEST_WORK_PROFILE_APP_UID, () ->
+                    mService.requestNetwork(Process.INVALID_UID, null, type.ordinal(),
+                            new Messenger(handler), 0 /* timeoutMs */, new MyBinder(future),
+                            ConnectivityManager.TYPE_NONE,
+                            0 /* callbackFlags */, TEST_PACKAGE_NAME, null /* attributionTag */));
+                Log.e("!!!!", "\033[32mRegister request with type " + type + " id " + req.requestId + "\033[0m");
+                requests.add(new Pair<>(req, future));
+            } else if (yay < 90) {
+                // Unregister request
+                if (!requests.isEmpty()) {
+                    final int index = r.nextInt(requests.size());
+                    final NetworkRequest req = requests.remove(index).first;
+                    Log.e("!!!!", "\033[32mRelease request " + req.requestId + "\033[0m");
+                    mService.releaseNetworkRequest(req);
+                }
+            } else if (yay < 96) {
+                Log.e("!!!!", "\033[32mChange profile pref, currently " + onEnterprise + "\033[0m");
+                // Change profile preference and maybe kill app
+                onEnterprise = !onEnterprise;
+                if (!onEnterprise) {
+                    // The app is killed
+                    for (final Pair<NetworkRequest, CompletableFuture<Binder.DeathRecipient>> req : requests) {
+                        req.second.get().binderDied();
+                    }
+                    requests.clear();
+                }
+                mCm.setProfileNetworkPreference(testHandle,
+                        onEnterprise ? PROFILE_NETWORK_PREFERENCE_ENTERPRISE : PROFILE_NETWORK_PREFERENCE_DEFAULT,
+                        a -> a.run(), listener);
+            }
+        }
     }
 
     // TODO : migrate to @Parameterized
