@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a26de24_c0758399",
+        "filename": "service/binder/android/net/PortBlockParcel.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-21T21:29:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4f0f553_aa1a49ab",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 10
+      },
+      "revId": "bc7c43bd9deceff667ef7c3873555cce67d4e644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a194054_dde46315",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-21T05:54:37Z",
       "side": 1,
       "message": "These numbers look strange. Why not 1 and 2? Or 2 and 10 (AF_INET, AF_INET6)?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "bc7c43bd9deceff667ef7c3873555cce67d4e644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd6f546f_5e9cdc63",
+        "filename": "service/binder/android/net/VendorConnectivity.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-21T21:29:11Z",
+      "side": 1,
+      "message": "Copied from netd. Can change to 2 and 10",
+      "parentUuid": "1a194054_dde46315",
       "range": {
         "startLine": 55,
         "startChar": 0,
