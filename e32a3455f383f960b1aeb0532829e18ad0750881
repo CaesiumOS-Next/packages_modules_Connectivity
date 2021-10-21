@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58026521_e401d55f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Nit: you could remove The since it doesn\u0027t add much.",
+      "range": {
+        "startLine": 817,
+        "startChar": 44,
+        "endLine": 817,
+        "endChar": 47
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08dd4564_e1053947",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Is there a reason this can\u0027t use DevSdkIgnoreRule?",
+      "range": {
+        "startLine": 819,
+        "startChar": 8,
+        "endLine": 819,
+        "endChar": 42
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2bf576b_f2d3ab3d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "You can just check hasSystemFeature(FEATURE_TELEPHONY). CTS enforces that if that feature is present, then the device must have working mobile data.",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 821,
+        "endChar": 54
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6a8e036_b113816a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Up to you, but I find these long lambdas very hard to read. Would suggest reducing indentation by moving most of the test code to a separate method such as doTestUnderlyingNetworksFollowDefaultNetwork.",
+      "range": {
+        "startLine": 824,
+        "startChar": 8,
+        "endLine": 824,
+        "endChar": 30
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3d684d_bf6e5a66",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Suggest moving each of these comments to just before the code they refer to. Also, please use more vertical whitespace. Example:\n\n            // Ensure wifi is connected and is the default network.\n            final Network wifiNetwork \u003d mCtsNetUtils.ensureWifiConnected();\n            assertTrue(\"Wifi is not connected\", (wifiNetwork !\u003d null));\n            mCtsNetUtils.expectNetworkIsSystemDefault(wifiNetwork);\n\n            // Start VPN and and set underlying networks to null (follow the\n            // default network).\n            startVpn(...",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 832,
+        "endChar": 54
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a2fb456_75e01e21",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Prefer assertNotNull",
+      "range": {
+        "startLine": 834,
+        "startChar": 12,
+        "endLine": 834,
+        "endChar": 22
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8b4b7a_1eb81474",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Move this down, closer to where you use it? Also would rename to expectedUnderlying or expectedUnderlyingNetworks.",
+      "range": {
+        "startLine": 836,
+        "startChar": 0,
+        "endLine": 837,
+        "endChar": 48
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba9ba27_b8d30a76",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Why do you need this? If it\u0027s only to call registerNetworkCallback as NetworkSettings, then suggest unindenting the code by introducing a registerNetworkCallbackWithNetworkSettings method.",
+      "range": {
+        "startLine": 843,
+        "startChar": 12,
+        "endLine": 843,
+        "endChar": 42
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e568b465_286e8863",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Calls to connectToCell must be paired with calls to disconnectFromCell. Otherwise cellular data will remain connected for all subsequent tests.\n\nI\u0027ve seen several CLs forget to do this, which suggests that the name and/or the shape of the API are difficult to use. Maybe rename connectToCell to requestCellular, and disconnectFromCell to releaseCellRequest?\n\nMight want to put releaseCellRequest into tearDown, too. Or, we could add a tearDown method to CtsNetUtils that calls releaseCellRequest. Then make sure that any test using CtsNetUtils calls mCtsNetUtils.tearDown() in tearDown().\n\nOnce we have this, we could use it to ensure that any call to ensureWifiConnected() or ensureWifiDisconnected() is undone by tearDown().",
+      "range": {
+        "startLine": 851,
+        "startChar": 57,
+        "endLine": 851,
+        "endChar": 70
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a584da6d_5e0a82d8",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Prefer assertNotNull.",
+      "range": {
+        "startLine": 852,
+        "startChar": 16,
+        "endLine": 852,
+        "endChar": 26
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0501eb4c_ec7226a7",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "Was the linter happy with this? I thought the style guide only allowed if statements without braces if the whole statement was one line with no else clause. Should this be:\n\n    if (isWifiEnabled) {\n        mCtsNetUtils.ensureWifiConnected();\n    } else {\n        mCtsNetUtils.ensureWifiDisconnected(null);\n    }",
+      "range": {
+        "startLine": 863,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 63
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a960aec1_77ab7372",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T09:52:34Z",
+      "side": 1,
+      "message": "This method name is incorrect: it does not check the *system* default network, it checks the default network for the calling app. When we make the method public (which allows code outside this class to use it), we should fix the name.\n\nBetter names might be expectNetworkIsDefault, or expectDefaultNetwork. Also make sure you fix the assertion messages so they don\u0027t mention \"system default\".",
+      "range": {
+        "startLine": 188,
+        "startChar": 32,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
