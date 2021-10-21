@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5c425c7_304da176",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T07:42:56Z",
+      "side": 1,
+      "message": "This is super hard to read. Is it possible to refactor it to a function? Something like:\n\n    private boolean hasPrivateDnsValidated(CallbackEntry entry) {\n\n?",
+      "range": {
+        "startLine": 726,
+        "startChar": 30,
+        "endLine": 730,
+        "endChar": 78
+      },
+      "revId": "016b4af2f9d68a2cdfb26b7611efafb93fb3c10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
