@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29370055_22611bd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-10-21T04:40:47Z",
+      "side": 1,
+      "message": "LGTM, but can this wait until Remi gets back next week?",
+      "revId": "c5b3f34831813806a3ad1f0b8410db7a799ab914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
