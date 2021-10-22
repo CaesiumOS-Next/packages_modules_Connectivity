@@ -16,6 +16,24 @@
       "message": "Failed to build:\npackages/modules/Connectivity/framework/src/android/net/DscpPolicy.java:28: error: package com.android.internal.util does not exist\nimport com.android.internal.util.DataClass;",
       "revId": "d745b998e8071115d7a9ee440a64f351fbc35889",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b0cd921_b92d482b",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-22T03:30:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90142a32_c58ba22c",
+      "revId": "d745b998e8071115d7a9ee440a64f351fbc35889",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
