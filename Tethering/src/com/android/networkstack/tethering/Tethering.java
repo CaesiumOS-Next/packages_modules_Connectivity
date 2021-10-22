@@ -2341,6 +2341,12 @@ public class Tethering {
         pw.decreaseIndent();
     }
 
+    private void dumpBpfRawMap(IndentingPrintWriter pw) {
+        pw.increaseIndent();
+        mBpfCoordinator.dumpRawMap(pw);
+        pw.decreaseIndent();
+    }
+
     void doDump(@NonNull FileDescriptor fd, @NonNull PrintWriter writer, @Nullable String[] args) {
         // Binder.java closes the resource for us.
         @SuppressWarnings("resource") final IndentingPrintWriter pw = new IndentingPrintWriter(
@@ -2348,6 +2354,11 @@ public class Tethering {
 
         if (argsContain(args, "bpf")) {
             dumpBpf(pw);
+            return;
+        }
+
+        if (argsContain(args, "bpfRawMap")) {
+            dumpBpfRawMap(pw);
             return;
         }
 
