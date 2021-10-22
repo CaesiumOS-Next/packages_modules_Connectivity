@@ -2400,6 +2400,13 @@ public class Tethering {
         @SuppressWarnings("resource") final IndentingPrintWriter pw = new IndentingPrintWriter(
                 writer, "  ");
 
+        // Used for testing instead of human debug.
+        // TODO: add options to choose which map to dump.
+        if (argsContain(args, "bpfRawMap")) {
+            mBpfCoordinator.dumpRawMap(pw);
+            return;
+        }
+
         if (argsContain(args, "bpf")) {
             dumpBpf(pw);
             return;
