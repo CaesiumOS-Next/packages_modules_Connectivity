@@ -99,6 +99,30 @@
       },
       "revId": "2b0d3bc8815baa69be26b679dd66e5f8183faf0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "653459ca_c85d1ecd",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-22T03:43:11Z",
+      "side": 1,
+      "message": "For now I\u0027ll add a new util class to frameworks/libs/net, can be merged with the existing code in tethering in the future.",
+      "parentUuid": "2dc9dfd4_bcd56b98",
+      "range": {
+        "startLine": 275,
+        "startChar": 16,
+        "endLine": 275,
+        "endChar": 34
+      },
+      "revId": "2b0d3bc8815baa69be26b679dd66e5f8183faf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
