@@ -123,6 +123,30 @@
       },
       "revId": "2b0d3bc8815baa69be26b679dd66e5f8183faf0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac34a3e8_89a0a406",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-25T22:12:13Z",
+      "side": 1,
+      "message": "New CL for Util class: https://android-review.googlesource.com/c/platform/frameworks/libs/net/+/1867278\n\nCurrently only has method to attach program to cgroup. But util functions from tethering can be moved over as well.",
+      "parentUuid": "653459ca_c85d1ecd",
+      "range": {
+        "startLine": 275,
+        "startChar": 16,
+        "endLine": 275,
+        "endChar": 34
+      },
+      "revId": "2b0d3bc8815baa69be26b679dd66e5f8183faf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
