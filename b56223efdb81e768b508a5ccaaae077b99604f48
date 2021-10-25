@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "796275a0_a903e1ce",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3199,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-25T19:54:10Z",
+      "side": 1,
+      "message": "nit: final?",
+      "range": {
+        "startLine": 3199,
+        "startChar": 13,
+        "endLine": 3199,
+        "endChar": 24
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e04cece3_bd2c35f9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3209,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-25T19:54:10Z",
+      "side": 1,
+      "message": "nit: Is this indentation correct?",
+      "range": {
+        "startLine": 3209,
+        "startChar": 8,
+        "endLine": 3209,
+        "endChar": 11
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34ae1e36_20bb5b2d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4043,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-25T19:54:10Z",
+      "side": 1,
+      "message": "Would this work for b/194394697?\n\nAs per http://b/194394697#comment37, it appears that the NRIs are distinct, i.e. they have different values for mNetworkRequests therefore I don\u0027t believe this would be true (at least for the bug it is trying to address).\n\nThe item the NRIs do share however is the same binder which when we call unlink on twice, causes the system to crash. Therefore should this really be checking if there is already a tracked NRI with the same value as nri.mBinder?",
+      "range": {
+        "startLine": 4043,
+        "startChar": 37,
+        "endLine": 4043,
+        "endChar": 72
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc955f8a_9ff97fd4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4045,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-25T19:54:10Z",
+      "side": 1,
+      "message": "Should this be a todo?",
+      "range": {
+        "startLine": 4044,
+        "startChar": 53,
+        "endLine": 4045,
+        "endChar": 21
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0eb019e_bf6d382d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4313,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-25T19:54:10Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed? If things aren\u0027t consistent, wouldn\u0027t a crash occur on l.4290 on nri.unlinkDeathRecipient()? \n\nAlso presumably this NRI being removed would have already been checked \u0026 checked against on register with the changes in the current patch therefore unless NRIs are being added somewhere else (maybe?) this again probably isn\u0027t necessary AFAIK.",
+      "range": {
+        "startLine": 4313,
+        "startChar": 8,
+        "endLine": 4313,
+        "endChar": 34
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
