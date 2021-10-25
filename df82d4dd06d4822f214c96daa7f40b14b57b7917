@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "491e0f6f_27787b5d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2345,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-25T12:13:56Z",
+      "side": 1,
+      "message": "Maybe Indent is not necessary because this is dump for testing instead of human debug ?\n\nRemove this function and just call mBpfCoordinator.dumpRawMap(pw) at l.2361 ?",
+      "range": {
+        "startLine": 2345,
+        "startChar": 8,
+        "endLine": 2345,
+        "endChar": 28
+      },
+      "revId": "df82d4dd06d4822f214c96daa7f40b14b57b7917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aebb8a8_341292d5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2360,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-25T12:13:56Z",
+      "side": 1,
+      "message": "Movet this to l.2355 and add a comment says this is used for testing instead of human debug ?\n\nMy idea is put the testing dumps (also the future testing dump if we have) in first half of doDump and the debug dump would be placed in bottom half. It would be more easier to read the code.",
+      "range": {
+        "startLine": 2360,
+        "startChar": 8,
+        "endLine": 2360,
+        "endChar": 45
+      },
+      "revId": "df82d4dd06d4822f214c96daa7f40b14b57b7917",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
