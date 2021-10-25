@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016512859",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1868567?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "900ac979_fee8addc",
+          "description": "Change to \"tests/unit/java/com/android/server/ConnectivityServiceTest.java\"",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+              "range": {
+                "startLine": 1807,
+                "startChar": 85,
+                "endLine": 1807,
+                "endChar": 95
+              },
+              "replacement": "initialized"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "d5c893e5_bc8bb417",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1807,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-25T09:24:25Z",
+      "side": 1,
+      "message": "Common typo found: \"initalized\" -- should it be \"initialized\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1807,
+        "startChar": 85,
+        "endLine": 1807,
+        "endChar": 95
+      },
+      "revId": "4a91963104545466442d0e20472d3aaa1d1ce09b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
