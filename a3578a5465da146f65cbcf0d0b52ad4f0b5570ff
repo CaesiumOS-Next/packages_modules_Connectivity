@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c233e56_271f33d0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6063,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-25T18:55:53Z",
+      "side": 1,
+      "message": "super nit so feel free to ignore; if you\u0027re going to update the signature to mark binder as final, may as well do it for messenger as well.",
+      "range": {
+        "startLine": 6063,
+        "startChar": 28,
+        "endLine": 6063,
+        "endChar": 37
+      },
+      "revId": "a3578a5465da146f65cbcf0d0b52ad4f0b5570ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
