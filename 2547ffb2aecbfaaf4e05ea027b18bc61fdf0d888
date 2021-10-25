@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a6d1716_e74a3c57",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-25T13:26:59Z",
+      "side": 1,
+      "message": "Nice advice!",
+      "parentUuid": "320255a2_85a7156f",
+      "range": {
+        "startLine": 953,
+        "startChar": 0,
+        "endLine": 961,
+        "endChar": 5
+      },
+      "revId": "2547ffb2aecbfaaf4e05ea027b18bc61fdf0d888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98f7ca25_15e47aed",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-25T06:22:47Z",
       "side": 1,
       "message": "Maybe print whole string array of keyValueStrs ? Then we can easily to debug the problem.",
+      "range": {
+        "startLine": 969,
+        "startChar": 12,
+        "endLine": 969,
+        "endChar": 81
+      },
+      "revId": "2547ffb2aecbfaaf4e05ea027b18bc61fdf0d888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba7a7917_591d66eb",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-25T13:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98f7ca25_15e47aed",
       "range": {
         "startLine": 969,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eb254b5_b3682a1d",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-25T13:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4560702b_57c1ba5e",
+      "range": {
+        "startLine": 970,
+        "startChar": 12,
+        "endLine": 970,
+        "endChar": 23
+      },
+      "revId": "2547ffb2aecbfaaf4e05ea027b18bc61fdf0d888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fb1b2c5_7b2012e0",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-10-25T06:22:47Z",
       "side": 1,
       "message": "Instead of return null here and fail in caller. You could just throw the exception (remove the catch) to fail the test.",
+      "range": {
+        "startLine": 1024,
+        "startChar": 15,
+        "endLine": 1024,
+        "endChar": 28
+      },
+      "revId": "2547ffb2aecbfaaf4e05ea027b18bc61fdf0d888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c57ad1b6_52306b49",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-25T13:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fb1b2c5_7b2012e0",
       "range": {
         "startLine": 1024,
         "startChar": 15,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a98c409_728a8954",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-25T13:26:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7493ce4_f6f9d8cf",
+      "range": {
+        "startLine": 1009,
+        "startChar": 0,
+        "endLine": 1026,
+        "endChar": 9
+      },
+      "revId": "2547ffb2aecbfaaf4e05ea027b18bc61fdf0d888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c49d605_180d4804",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-10-25T06:22:47Z",
       "side": 1,
       "message": "Why retry is needed ? Could you add the comment to describe the fail reason ?",
+      "range": {
+        "startLine": 1034,
+        "startChar": 30,
+        "endLine": 1034,
+        "endChar": 49
+      },
+      "revId": "2547ffb2aecbfaaf4e05ea027b18bc61fdf0d888",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97af6345_85e4b1b7",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-25T13:26:59Z",
+      "side": 1,
+      "message": "Remove the retry mechanism and monitoring on TH if it may be a flaky test to run shell command",
+      "parentUuid": "4c49d605_180d4804",
       "range": {
         "startLine": 1034,
         "startChar": 30,

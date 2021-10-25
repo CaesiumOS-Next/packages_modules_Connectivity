@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7cb22a5_4c6755f0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-10-25T13:26:59Z",
+      "side": 1,
+      "message": "probably comparing diff or using matcher",
+      "range": {
+        "startLine": 1076,
+        "startChar": 16,
+        "endLine": 1076,
+        "endChar": 30
+      },
+      "revId": "09259421627fc57520e635be25d1a870c69ee271",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
