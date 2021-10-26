@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe830106_5abd2d38",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5961,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-26T19:13:53Z",
+      "side": 1,
+      "message": "Thoughts on this change?\n\nOn l.4050 in this patch, an IllegalStateException is thrown if the same mBinder is registered across network requests therefore with that change, the NoSuchElement exception should no longer occur since it will be superseded by the IllegalStateException (at least should be for this bug if our thinking is correct).\n\nI\u0027m guessing this was added due to an overabundance of caution? If so, I would suggest reconsidering for two reasons:\n- It muddies this CL a bit (at least IMO).\n- More importantly, it\u0027ll hide the error if for whatever reason, the change you added with the IllegalStateException does not get thrown. In that scenario, we\u0027d lose visibility into the error at this layer and it could manifest itself in other places where it could be even more difficult to diagnose.",
+      "range": {
+        "startLine": 5956,
+        "startChar": 0,
+        "endLine": 5961,
+        "endChar": 17
+      },
+      "revId": "5303e964fed8bb106170cf64677a051d07fabdb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59e19706_1239adb1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5981,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-26T19:13:53Z",
+      "side": 1,
+      "message": "This could be a separate CL if preferred.\n\nShould we add mRequests into this log again? It was removed previously due to concerns about mutability but as you have pointed out in the comment directly below, mRequests is effectively an immutable collection.\n\nIncluding mRequests turned out to be very helpful in diagnosing this issue from old bug reports so I\u0027d very much like to put it back in. It looks to fit the ethos of this CL however if you\u0027d rather, I\u0027d be happy to push up a new CL for it.\n\nNew log would be:\n\n    log(\"ConnectivityService NetworkRequestInfo binderDied(\" +\n                    \"uid/pid:\" + mUid + \"/\" + mPid + \", \" + mRequests + \", \" +  mBinder + \")\");",
+      "range": {
+        "startLine": 5980,
+        "startChar": 12,
+        "endLine": 5981,
+        "endChar": 75
+      },
+      "revId": "5303e964fed8bb106170cf64677a051d07fabdb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
