@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28e212cb_1a49a01c",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1739,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-26T04:11:22Z",
+      "side": 1,
+      "message": "Can this move as a member of ConnectivityServiceDependencies ? I don\u0027t see it used elsewhere",
+      "range": {
+        "startLine": 1739,
+        "startChar": 33,
+        "endLine": 1739,
+        "endChar": 50
+      },
+      "revId": "574a1284b62cd2bcd0de183aae939053235b6bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7d97542_c92eb7cc",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1741,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-26T04:11:22Z",
+      "side": 1,
+      "message": "It looks like there\u0027s not a lot of usage of mResources outside of this constructor. Could it also move to this class, even if tests that reference it use mDeps.mResources ?\n\nHaving a constructor that modifies external state feels weird.\nAlternatively, have a initMocks() method that is called before creating the dependencies object, and just have an empty constructor, so the depencency object just directs ConnectivityService towards relevant mocks in ConnectivityServiceTest ?",
+      "range": {
+        "startLine": 1741,
+        "startChar": 33,
+        "endLine": 1741,
+        "endChar": 43
+      },
+      "revId": "574a1284b62cd2bcd0de183aae939053235b6bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7bc1b49_265e93ac",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1896,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-26T04:11:22Z",
+      "side": 1,
+      "message": "But are they really necessary ? It still adds code to maintain. .equals with a class that contains a Context is not very clear, and tests use contentEquals anyway.",
+      "range": {
+        "startLine": 1896,
+        "startChar": 15,
+        "endLine": 1896,
+        "endChar": 60
+      },
+      "revId": "574a1284b62cd2bcd0de183aae939053235b6bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25c2a405_ba536c3f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1908,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-26T04:11:22Z",
+      "side": 1,
+      "message": "Any idea why Intellij doesn\u0027t just use:\n\n  Objects.hash(context, iface, Arrays.hashCode(transportTypes)\n?",
+      "range": {
+        "startLine": 1908,
+        "startChar": 23,
+        "endLine": 1908,
+        "endChar": 31
+      },
+      "revId": "574a1284b62cd2bcd0de183aae939053235b6bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "034d8ebf_cf1073f3",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1925,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-26T04:11:22Z",
+      "side": 1,
+      "message": "Although it\u0027s a bit convoluted, you could also have used:\n\n  mDeps \u003d spy(new ConnectivityServiceDependencies())\nAnd kept the verify() functionality for tests. Or alternatively:\n\n  mDeps \u003d mock(ConnectivityService.Dependencies.class,\n    AdditionalAnswers.delegatesTo(new ConnectivityServiceDependencies());\nTo make it a ConnectivityService.Dependencies mock with a delegated implementation.\n\nIt creates 2 ways to mock each method though, (using mocking or overriding) which can be confusing.",
+      "range": {
+        "startLine": 1925,
+        "startChar": 20,
+        "endLine": 1925,
+        "endChar": 55
+      },
+      "revId": "574a1284b62cd2bcd0de183aae939053235b6bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e57dc280_41927569",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-26T04:11:22Z",
+      "side": 1,
+      "message": "Also assertNotNull (and other usages below)",
+      "range": {
+        "startLine": 9227,
+        "startChar": 17,
+        "endLine": 9227,
+        "endChar": 21
+      },
+      "revId": "574a1284b62cd2bcd0de183aae939053235b6bad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
