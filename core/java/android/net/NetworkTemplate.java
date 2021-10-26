@@ -168,11 +168,19 @@ public class NetworkTemplate implements Parcelable {
             @NetworkType int ratType, int metered) {
         if (TextUtils.isEmpty(subscriberId)) {
             return new NetworkTemplate(MATCH_MOBILE_WILDCARD, null, null, null,
+<<<<<<< HEAD   (65607f Merge "Have buildTemplateMobileWithRatType take metered para)
                     metered, ROAMING_ALL, DEFAULT_NETWORK_ALL, ratType, OEM_MANAGED_ALL,
+=======
+                    METERED_YES, ROAMING_ALL, DEFAULT_NETWORK_ALL, ratType, OEM_MANAGED_ALL,
+>>>>>>> BRANCH (4d6219 Merge "Respect metered filter in matchesMobile*" am: 0d9d449)
                     SUBSCRIBER_ID_MATCH_RULE_EXACT);
         }
         return new NetworkTemplate(MATCH_MOBILE, subscriberId, new String[]{subscriberId}, null,
+<<<<<<< HEAD   (65607f Merge "Have buildTemplateMobileWithRatType take metered para)
                 metered, ROAMING_ALL, DEFAULT_NETWORK_ALL, ratType, OEM_MANAGED_ALL,
+=======
+                METERED_YES, ROAMING_ALL, DEFAULT_NETWORK_ALL, ratType, OEM_MANAGED_ALL,
+>>>>>>> BRANCH (4d6219 Merge "Respect metered filter in matchesMobile*" am: 0d9d449)
                 SUBSCRIBER_ID_MATCH_RULE_EXACT);
     }
 
