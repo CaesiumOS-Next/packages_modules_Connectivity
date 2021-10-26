@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fff1601_aabdd376",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3198,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-26T05:51:14Z",
+      "side": 1,
+      "message": "Right. Dropbox looks appropriate, but if it\u0027s not included in the bug report it will make it much harder to debug this at all.\n\nAt the end of the day, this is only a few dozen lines, maybe 200 in bad cases, it won\u0027t be megabytes. And it\u0027s also dumped in extremely rare cases, only in T, and will be removed before T is released, so I don\u0027t perceive this as a problem.\n\nFeel free to reopen if you feel strongly.",
+      "parentUuid": "5c0cb9a0_53b5fc8f",
+      "range": {
+        "startLine": 3198,
+        "startChar": 17,
+        "endLine": 3198,
+        "endChar": 47
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "796275a0_a903e1ce",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd4e0b66_566d0893",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3199,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-26T05:51:14Z",
+      "side": 1,
+      "message": "Can\u0027t ; try-with-resources vars are always final, and checkstyle decides to complain about the \"redundant\" modifier.",
+      "parentUuid": "796275a0_a903e1ce",
+      "range": {
+        "startLine": 3199,
+        "startChar": 13,
+        "endLine": 3199,
+        "endChar": 24
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e04cece3_bd2c35f9",
@@ -83,6 +131,30 @@
       "writtenOn": "2021-10-25T19:54:10Z",
       "side": 1,
       "message": "nit: Is this indentation correct?",
+      "range": {
+        "startLine": 3209,
+        "startChar": 8,
+        "endLine": 3209,
+        "endChar": 11
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed14296_4657031b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3209,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-26T05:51:14Z",
+      "side": 1,
+      "message": "I think so ? It\u0027s what my IDE did and it\u0027s what I would have done. And checkstyle is happy with it, that\u0027s good enough for me :)",
+      "parentUuid": "e04cece3_bd2c35f9",
       "range": {
         "startLine": 3209,
         "startChar": 8,
@@ -140,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80bda512_4be97dae",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4043,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-26T05:51:14Z",
+      "side": 1,
+      "message": "Yes. The code reads to me like it\u0027s equivalent, but what you suggest has better power than what I have (it will catch all the same cases, but also catch the issue if I\u0027m wrong that it\u0027s equivalent).\n\nDone.",
+      "parentUuid": "9896f183_549b8b5e",
+      "range": {
+        "startLine": 4043,
+        "startChar": 37,
+        "endLine": 4043,
+        "endChar": 72
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc955f8a_9ff97fd4",
@@ -187,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89b098f2_1ffa4f7c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4045,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-26T05:51:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00e577f3_ee2b3c7a",
+      "range": {
+        "startLine": 4044,
+        "startChar": 53,
+        "endLine": 4045,
+        "endChar": 21
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0eb019e_bf6d382d",
@@ -200,6 +320,30 @@
       "writtenOn": "2021-10-25T19:54:10Z",
       "side": 1,
       "message": "I don\u0027t think this is needed? If things aren\u0027t consistent, wouldn\u0027t a crash occur on l.4290 on nri.unlinkDeathRecipient()? \n\nAlso presumably this NRI being removed would have already been checked \u0026 checked against on register with the changes in the current patch therefore unless NRIs are being added somewhere else (maybe?) this again probably isn\u0027t necessary AFAIK.",
+      "range": {
+        "startLine": 4313,
+        "startChar": 8,
+        "endLine": 4313,
+        "endChar": 34
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f4485d_db94ad68",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4313,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-26T05:51:14Z",
+      "side": 1,
+      "message": "It used to crash, but not with l.5953 which catches it.\n\nNRIs are not supposed to be added somewhere else, but it\u0027s just in case. I think what I\u0027m trying to catch here is the case where somehow the NRI was added to the map with N requests but unregistered with \u003c N requests, and therefore remains. The bug report exemplifying the crash suggests this as one of the possible causes.\n\nI mean, the request array is supposed to be an immutable list pointing to a copy of what was passed, so I don\u0027t see how this could happen. But then again, I\u0027ve looked at the code for hours, and I don\u0027t see how any of this happens, so I prefer to check eagerly.",
+      "parentUuid": "a0eb019e_bf6d382d",
       "range": {
         "startLine": 4313,
         "startChar": 8,
