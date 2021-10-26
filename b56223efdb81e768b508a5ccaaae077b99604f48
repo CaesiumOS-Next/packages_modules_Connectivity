@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8da50735_64f39f20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-10-26T03:39:10Z",
+      "side": 1,
+      "message": "to?",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c0cb9a0_53b5fc8f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3198,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-10-26T03:39:10Z",
+      "side": 1,
+      "message": "nit: Not sure if dumping all info into logcat is a good idea.\nWill the log be replaced by chatty log if we dump too many logs in a raw?\n\nIf so, maybe dropbox helps a little bit in this case. IIUC it will be saved in /data/**/dropbox folder and you can retrieve it separately, but it\u0027s not included in the bugreport.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:frameworks/base/services/core/java/com/android/server/net/NetworkStatsService.java;l\u003d2155;drc\u003dmaster;bpv\u003d1;bpt\u003d1\n\nIIUC what is better for this is a separated dump file but included in bugreport by default. Not sure if NPMS has similar tools before, +sudheersai@ to input if any.",
+      "range": {
+        "startLine": 3198,
+        "startChar": 17,
+        "endLine": 3198,
+        "endChar": 47
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "796275a0_a903e1ce",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -72,6 +118,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9896f183_549b8b5e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4043,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-10-26T03:39:10Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "34ae1e36_20bb5b2d",
+      "range": {
+        "startLine": 4043,
+        "startChar": 37,
+        "endLine": 4043,
+        "endChar": 72
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc955f8a_9ff97fd4",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
@@ -83,6 +153,30 @@
       "writtenOn": "2021-10-25T19:54:10Z",
       "side": 1,
       "message": "Should this be a todo?",
+      "range": {
+        "startLine": 4044,
+        "startChar": 53,
+        "endLine": 4045,
+        "endChar": 21
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e577f3_ee2b3c7a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4045,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-10-26T03:39:10Z",
+      "side": 1,
+      "message": "+1 but no strong opinion.",
+      "parentUuid": "fc955f8a_9ff97fd4",
       "range": {
         "startLine": 4044,
         "startChar": 53,
