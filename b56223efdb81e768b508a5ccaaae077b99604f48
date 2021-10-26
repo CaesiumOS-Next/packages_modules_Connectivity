@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d29c701_b55b9448",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-26T05:55:10Z",
+      "side": 1,
+      "message": "Both are correct : https://www.merriam-webster.com/words-at-play/were-going-to-explain-the-deal-with-try-and-and-try-to\n\nBut done",
+      "parentUuid": "8da50735_64f39f20",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "b56223efdb81e768b508a5ccaaae077b99604f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c0cb9a0_53b5fc8f",
