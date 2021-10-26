@@ -22,6 +22,30 @@
       },
       "revId": "a3578a5465da146f65cbcf0d0b52ad4f0b5570ff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "204e976f_4a15f913",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6063,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-26T02:39:41Z",
+      "side": 1,
+      "message": "We can always do this for anything. I considered it and decided against it on grounds that the scope of this patch is to clarify what happens with the Binder objects. Here, final on the argument helps seeing that the usage of this argument, which is pretty far down in l.6144, can\u0027t be a different value than what was passed. Of course adding it to the Messenger is good too, but I thought it would make the scope of this patch a bit less clear.\n\nSince this is approved by TH, I\u0027ll just submit as is.",
+      "parentUuid": "6c233e56_271f33d0",
+      "range": {
+        "startLine": 6063,
+        "startChar": 28,
+        "endLine": 6063,
+        "endChar": 37
+      },
+      "revId": "a3578a5465da146f65cbcf0d0b52ad4f0b5570ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
