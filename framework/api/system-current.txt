@@ -1,4 +1,13 @@
 // Signature format: 2.0
+package android.app.usage {
+
+  public class NetworkStatsManager {
+    method @NonNull @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_STATS_PROVIDER, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK}) public void registerNetworkStatsProvider(@NonNull String, @NonNull android.net.netstats.provider.NetworkStatsProvider);
+    method @NonNull @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_STATS_PROVIDER, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK}) public void unregisterNetworkStatsProvider(@NonNull android.net.netstats.provider.NetworkStatsProvider);
+  }
+
+}
+
 package android.net {
 
   public class CaptivePortal implements android.os.Parcelable {
@@ -362,6 +371,32 @@ package android.net {
     method @NonNull public android.net.NetworkScore.Builder setTransportPrimary(boolean);
   }
 
+  public final class NetworkStats implements android.os.Parcelable {
+    ctor public NetworkStats(long, int);
+    method @NonNull public android.net.NetworkStats add(@NonNull android.net.NetworkStats);
+    method @NonNull public android.net.NetworkStats addEntry(@NonNull android.net.NetworkStats.Entry);
+    method public int describeContents();
+    method @NonNull public android.net.NetworkStats subtract(@NonNull android.net.NetworkStats);
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.NetworkStats> CREATOR;
+    field public static final int DEFAULT_NETWORK_NO = 0; // 0x0
+    field public static final int DEFAULT_NETWORK_YES = 1; // 0x1
+    field public static final String IFACE_VT = "vt_data0";
+    field public static final int METERED_NO = 0; // 0x0
+    field public static final int METERED_YES = 1; // 0x1
+    field public static final int ROAMING_NO = 0; // 0x0
+    field public static final int ROAMING_YES = 1; // 0x1
+    field public static final int SET_DEFAULT = 0; // 0x0
+    field public static final int SET_FOREGROUND = 1; // 0x1
+    field public static final int TAG_NONE = 0; // 0x0
+    field public static final int UID_ALL = -1; // 0xffffffff
+    field public static final int UID_TETHERING = -5; // 0xfffffffb
+  }
+
+  public static class NetworkStats.Entry {
+    ctor public NetworkStats.Entry(@Nullable String, int, int, int, int, int, int, long, long, long, long, long);
+  }
+
   public final class OemNetworkPreferences implements android.os.Parcelable {
     method public int describeContents();
     method @NonNull public java.util.Map<java.lang.String,java.lang.Integer> getNetworkPreferences();
@@ -499,6 +534,23 @@ package android.net.apf {
     field public final int apfPacketFormat;
     field public final int apfVersionSupported;
     field public final int maximumApfProgramSize;
+  }
+
+}
+
+package android.net.netstats.provider {
+
+  public abstract class NetworkStatsProvider {
+    ctor public NetworkStatsProvider();
+    method public void notifyAlertReached();
+    method public void notifyLimitReached();
+    method public void notifyStatsUpdated(int, @NonNull android.net.NetworkStats, @NonNull android.net.NetworkStats);
+    method public void notifyWarningReached();
+    method public abstract void onRequestStatsUpdate(int);
+    method public abstract void onSetAlert(long);
+    method public abstract void onSetLimit(@NonNull String, long);
+    method public void onSetWarningAndLimit(@NonNull String, long, long);
+    field public static final int QUOTA_UNLIMITED = -1; // 0xffffffff
   }
 
 }

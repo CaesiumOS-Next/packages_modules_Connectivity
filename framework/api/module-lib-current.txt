@@ -1,4 +1,12 @@
 // Signature format: 2.0
+package android.app.usage {
+
+  public class NetworkStatsManager {
+    method @RequiresPermission(anyOf={android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_STACK}) public void notifyNetworkStatus(@NonNull java.util.List<android.net.Network>, @NonNull java.util.List<android.net.NetworkStateSnapshot>, @Nullable String, @NonNull java.util.List<android.net.UnderlyingNetworkInfo>);
+  }
+
+}
+
 package android.net {
 
   public final class ConnectivityFrameworkInitializer {
@@ -135,6 +143,18 @@ package android.net {
     method @NonNull public android.net.NetworkRequest.Builder setUids(@Nullable java.util.Set<android.util.Range<java.lang.Integer>>);
   }
 
+  public final class NetworkStateSnapshot implements android.os.Parcelable {
+    ctor public NetworkStateSnapshot(@NonNull android.net.Network, @NonNull android.net.NetworkCapabilities, @NonNull android.net.LinkProperties, @Nullable String, int);
+    method public int describeContents();
+    method public int getLegacyType();
+    method @NonNull public android.net.LinkProperties getLinkProperties();
+    method @NonNull public android.net.Network getNetwork();
+    method @NonNull public android.net.NetworkCapabilities getNetworkCapabilities();
+    method @Nullable public String getSubscriberId();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.NetworkStateSnapshot> CREATOR;
+  }
+
   public final class TestNetworkInterface implements android.os.Parcelable {
     ctor public TestNetworkInterface(@NonNull android.os.ParcelFileDescriptor, @NonNull String);
     method public int describeContents();
@@ -163,6 +183,16 @@ package android.net {
   public interface TransportInfo {
     method public default long getApplicableRedactions();
     method @NonNull public default android.net.TransportInfo makeCopy(long);
+  }
+
+  public final class UnderlyingNetworkInfo implements android.os.Parcelable {
+    ctor public UnderlyingNetworkInfo(int, @NonNull String, @NonNull java.util.List<java.lang.String>);
+    method public int describeContents();
+    method @NonNull public String getInterface();
+    method public int getOwnerUid();
+    method @NonNull public java.util.List<java.lang.String> getUnderlyingInterfaces();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.UnderlyingNetworkInfo> CREATOR;
   }
 
   public final class VpnTransportInfo implements android.os.Parcelable android.net.TransportInfo {

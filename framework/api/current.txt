@@ -1,4 +1,64 @@
 // Signature format: 2.0
+package android.app.usage {
+
+  public final class NetworkStats implements java.lang.AutoCloseable {
+    method public void close();
+    method public boolean getNextBucket(android.app.usage.NetworkStats.Bucket);
+    method public boolean hasNextBucket();
+  }
+
+  public static class NetworkStats.Bucket {
+    ctor public NetworkStats.Bucket();
+    method public int getDefaultNetworkStatus();
+    method public long getEndTimeStamp();
+    method public int getMetered();
+    method public int getRoaming();
+    method public long getRxBytes();
+    method public long getRxPackets();
+    method public long getStartTimeStamp();
+    method public int getState();
+    method public int getTag();
+    method public long getTxBytes();
+    method public long getTxPackets();
+    method public int getUid();
+    field public static final int DEFAULT_NETWORK_ALL = -1; // 0xffffffff
+    field public static final int DEFAULT_NETWORK_NO = 1; // 0x1
+    field public static final int DEFAULT_NETWORK_YES = 2; // 0x2
+    field public static final int METERED_ALL = -1; // 0xffffffff
+    field public static final int METERED_NO = 1; // 0x1
+    field public static final int METERED_YES = 2; // 0x2
+    field public static final int ROAMING_ALL = -1; // 0xffffffff
+    field public static final int ROAMING_NO = 1; // 0x1
+    field public static final int ROAMING_YES = 2; // 0x2
+    field public static final int STATE_ALL = -1; // 0xffffffff
+    field public static final int STATE_DEFAULT = 1; // 0x1
+    field public static final int STATE_FOREGROUND = 2; // 0x2
+    field public static final int TAG_NONE = 0; // 0x0
+    field public static final int UID_ALL = -1; // 0xffffffff
+    field public static final int UID_REMOVED;
+    field public static final int UID_TETHERING;
+  }
+
+  public class NetworkStatsManager {
+    method @WorkerThread public android.app.usage.NetworkStats queryDetails(int, String, long, long) throws android.os.RemoteException, java.lang.SecurityException;
+    method @WorkerThread public android.app.usage.NetworkStats queryDetailsForUid(int, String, long, long, int) throws java.lang.SecurityException;
+    method @WorkerThread public android.app.usage.NetworkStats queryDetailsForUidTag(int, String, long, long, int, int) throws java.lang.SecurityException;
+    method @WorkerThread public android.app.usage.NetworkStats queryDetailsForUidTagState(int, String, long, long, int, int, int) throws java.lang.SecurityException;
+    method @WorkerThread public android.app.usage.NetworkStats querySummary(int, String, long, long) throws android.os.RemoteException, java.lang.SecurityException;
+    method @WorkerThread public android.app.usage.NetworkStats.Bucket querySummaryForDevice(int, String, long, long) throws android.os.RemoteException, java.lang.SecurityException;
+    method @WorkerThread public android.app.usage.NetworkStats.Bucket querySummaryForUser(int, String, long, long) throws android.os.RemoteException, java.lang.SecurityException;
+    method public void registerUsageCallback(int, String, long, android.app.usage.NetworkStatsManager.UsageCallback);
+    method public void registerUsageCallback(int, String, long, android.app.usage.NetworkStatsManager.UsageCallback, @Nullable android.os.Handler);
+    method public void unregisterUsageCallback(android.app.usage.NetworkStatsManager.UsageCallback);
+  }
+
+  public abstract static class NetworkStatsManager.UsageCallback {
+    ctor public NetworkStatsManager.UsageCallback();
+    method public abstract void onThresholdReached(int, String);
+  }
+
+}
+
 package android.net {
 
   public class CaptivePortal implements android.os.Parcelable {
