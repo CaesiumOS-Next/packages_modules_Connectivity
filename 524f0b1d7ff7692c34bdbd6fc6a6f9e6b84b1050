@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a842b9_92b6f759",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 4050,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2021-10-27T20:08:57Z",
+      "side": 1,
+      "message": "nit and could be in a new CL since this already has +2; it would be useful in this error to also include the NRI that is matched (feel free to change wording):\n\nthrow new IllegalStateException(\"NRI already registered. New: \" + nri + \", Existing: \" + n);",
+      "range": {
+        "startLine": 4050,
+        "startChar": 20,
+        "endLine": 4050,
+        "endChar": 94
+      },
+      "revId": "524f0b1d7ff7692c34bdbd6fc6a6f9e6b84b1050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
