@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e0464aa_76f5e8d8",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5961,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-27T07:01:13Z",
+      "side": 1,
+      "message": "To me this hunk serves a few important purposes.\n• Only T will crash with IllegalStateException. This hunk prevents the crash on S, immediately.\n• I agree with you that in T, the system will crash with ISE before than this *if our thinking is correct*. My concern is, if my thinking was correct, this bug couldn\u0027t possibly happen, therefore my thinking is incorrect, and at this point I am scared of trusting any specific tenet of it.\n• This doesn\u0027t really hide the error, since we get logs of all wtfs. This will prevent the system from crashing but will still report the error, giving us insight into how prevalent it is on S, and whether the ISE crash in T actually prevents this from happening.\n\nNow, I strongly agree with your point that the risk with this is that we don\u0027t know in what state the memory structures are beyond \"not what we think\", which means we can\u0027t predict the behavior at this point, and that\u0027s scary. But considering we already have a few OEMs complaining about this (and requesting for just a catch by the way), considering rebooting will fix any of the issues this fails to catch, and considering we can update this code monthly, I think this is a better tradeoff than the crash right now.",
+      "parentUuid": "fe830106_5abd2d38",
+      "range": {
+        "startLine": 5956,
+        "startChar": 0,
+        "endLine": 5961,
+        "endChar": 17
+      },
+      "revId": "5303e964fed8bb106170cf64677a051d07fabdb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59e19706_1239adb1",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-26T19:13:53Z",
       "side": 1,
       "message": "This could be a separate CL if preferred.\n\nShould we add mRequests into this log again? It was removed previously due to concerns about mutability but as you have pointed out in the comment directly below, mRequests is effectively an immutable collection.\n\nIncluding mRequests turned out to be very helpful in diagnosing this issue from old bug reports so I\u0027d very much like to put it back in. It looks to fit the ethos of this CL however if you\u0027d rather, I\u0027d be happy to push up a new CL for it.\n\nNew log would be:\n\n    log(\"ConnectivityService NetworkRequestInfo binderDied(\" +\n                    \"uid/pid:\" + mUid + \"/\" + mPid + \", \" + mRequests + \", \" +  mBinder + \")\");",
+      "range": {
+        "startLine": 5980,
+        "startChar": 12,
+        "endLine": 5981,
+        "endChar": 75
+      },
+      "revId": "5303e964fed8bb106170cf64677a051d07fabdb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "105530ab_e46a3118",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5981,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-27T07:01:13Z",
+      "side": 1,
+      "message": "I think this may be very useful, yes. Thanks for the suggestion, done.",
+      "parentUuid": "59e19706_1239adb1",
       "range": {
         "startLine": 5980,
         "startChar": 12,
