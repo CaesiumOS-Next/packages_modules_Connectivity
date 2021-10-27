@@ -16,6 +16,23 @@
       "message": "Looking at the failure:\n\nhttps://android-build.googleplex.com/builds/pending/P26322302/errorprone/latest/view/logs/build_error.log\n\n\u003e RuntimeError: disallowed issues {\u0027NewApi\u0027} found in lint baseline file packages/modules/NetworkStack/lint-baseline-api-30-shims.xml for module NetworkStackApi30Shims\n\nI am also talking to them to fix this issue. You can\u0027t fix this until they fix their problem too...\n",
       "revId": "2ec7ab0d70ea364d09e82662f3e26d93ff62bbd6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9ee1ee_3f00b070",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-27T14:25:54Z",
+      "side": 1,
+      "message": "Try again to see the last error",
+      "revId": "2ec7ab0d70ea364d09e82662f3e26d93ff62bbd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
