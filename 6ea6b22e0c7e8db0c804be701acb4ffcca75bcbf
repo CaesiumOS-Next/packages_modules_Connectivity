@@ -214,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d3125eb_21cff98f",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-27T19:07:16Z",
+      "side": 1,
+      "message": "Right I\u0027m bad at counting.\nIt should of course be 1024 u64\u0027s.\nbpf is 64-bit and the overhead on 64-bit values will be lower,leading both to better performance and lower memory usage",
+      "parentUuid": "ac677d6b_db718921",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d250147e_0a8aef9f",
         "filename": "service/bpf_progs/block.c",
         "patchSetId": 13
