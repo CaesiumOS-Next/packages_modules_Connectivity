@@ -70,6 +70,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a17402ff_cb632194",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T18:36:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cca4b1b7_906a1fa4",
+      "range": {
+        "startLine": 24,
+        "startChar": 87,
+        "endLine": 24,
+        "endChar": 90
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49b83d82_dbdda6c2",
@@ -83,6 +107,30 @@
       "writtenOn": "2021-10-27T18:27:05Z",
       "side": 1,
       "message": "this seems wrong, while this is just a function name and doesn\u0027t matter, this should be cgroupsockaddr_block_port",
+      "range": {
+        "startLine": 28,
+        "startChar": 21,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39414fca_50165952",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T18:36:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49b83d82_dbdda6c2",
       "range": {
         "startLine": 28,
         "startChar": 21,
