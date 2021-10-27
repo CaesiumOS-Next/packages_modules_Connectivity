@@ -19,7 +19,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.android.networkstack.tethering"
           android:sharedUserId="android.uid.networkstack">
-    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="29" />
 
     <!-- Permissions must be defined here, and not in the base manifest, as the tethering
          running in the system server process does not need any permission, and having
