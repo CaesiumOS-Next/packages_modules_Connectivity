@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cca4b1b7_906a1fa4",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-27T18:27:05Z",
+      "side": 1,
+      "message": "may want to comment more along the lines of 64K ports -\u003e 8192 u64s\nprobably on the line above instead though\n\n*also* if you know you\u0027ll never want to block high ports (say ports \u003e 32768) you could make this array shorter, and default to not blocking if the lookup fails in the program.  Just saves some ram.  Your call.",
+      "range": {
+        "startLine": 24,
+        "startChar": 87,
+        "endLine": 24,
+        "endChar": 90
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "292f1a5f_37376b15",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-27T18:27:05Z",
+      "side": 1,
+      "message": "int",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2661e4f7_0975c95e",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-27T18:27:05Z",
+      "side": 1,
+      "message": "uint64 or equiv type\n\nbasically you don\u0027t need the types, so probably not worth bothering with them",
+      "range": {
+        "startLine": 24,
+        "startChar": 61,
+        "endLine": 24,
+        "endChar": 77
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49b83d82_dbdda6c2",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-27T18:27:05Z",
+      "side": 1,
+      "message": "this seems wrong, while this is just a function name and doesn\u0027t matter, this should be cgroupsockaddr_block_port",
+      "range": {
+        "startLine": 28,
+        "startChar": 21,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad1cca91_03c84ae3",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-27T18:27:05Z",
+      "side": 1,
+      "message": "I think\n\nint key \u003d ctx-\u003euser_port \u003e\u003e 6;\nint shift \u003d ctx-\u003euser_port \u0026 63;\n\nyou\u0027re assuming it\u0027s an array of u8s not u64s, and I think you\u0027re off by one.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d250147e_0a8aef9f",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-27T18:27:05Z",
+      "side": 1,
+      "message": "I think you do need\n\nif (!ptr) return 1; // allowed\n\nthen\n\nbool allowed \u003d (*ptr \u003e\u003e shift) \u0026 1;\n\nnote the mask with 1",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
