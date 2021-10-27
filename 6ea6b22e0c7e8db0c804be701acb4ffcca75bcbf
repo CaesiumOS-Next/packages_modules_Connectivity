@@ -190,6 +190,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac677d6b_db718921",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T18:57:47Z",
+      "side": 1,
+      "message": "I was assuming uint8. I\u0027m unclear on the implementation moving to uint64. Based on the previous discussion an array of 8192 uint8s would be sufficient to check if the port (array location) is enabled",
+      "parentUuid": "f5638233_009904ea",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d250147e_0a8aef9f",
         "filename": "service/bpf_progs/block.c",
         "patchSetId": 13
