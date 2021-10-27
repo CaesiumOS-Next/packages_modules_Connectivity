@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3501aea_7b3ebbf4",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T17:50:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4058d04_6b29e62b",
+      "range": {
+        "startLine": 24,
+        "startChar": 78,
+        "endLine": 24,
+        "endChar": 81
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c29f7354_cca6443e",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-27T01:49:41Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 27,
+        "startChar": 47,
+        "endLine": 27,
+        "endChar": 51
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5512ffd6_72591156",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T17:50:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c29f7354_cca6443e",
       "range": {
         "startLine": 27,
         "startChar": 47,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52ef5f15_cb0b2a50",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T17:50:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07121661_8041797e",
+      "range": {
+        "startLine": 28,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 45
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "659348d8_e92a5a2c",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-10-27T01:49:41Z",
       "side": 1,
       "message": "remove family type",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff103d6f_7f6d15b5",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T17:50:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "659348d8_e92a5a2c",
       "range": {
         "startLine": 31,
         "startChar": 8,
@@ -110,6 +206,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bc8564c_013faec5",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T17:50:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6e3eb66_984edd9f",
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "454a78e3_68882aea",
@@ -123,6 +237,30 @@
       "writtenOn": "2021-10-27T01:49:41Z",
       "side": 1,
       "message": "leave in CTS",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 36
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e1004e_17d8287b",
+        "filename": "service/tests/privileged/src/com/android/server/connectivity/BpfBlockPortsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T17:50:36Z",
+      "side": 1,
+      "message": "Where in CTS should this move to?\n\npackages\\modules\\Connectivity\\tests\\cts\\net\\src\\android\\net\\cts ?",
+      "parentUuid": "454a78e3_68882aea",
       "range": {
         "startLine": 51,
         "startChar": 19,

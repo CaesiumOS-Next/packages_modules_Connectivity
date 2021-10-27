@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d34b2b04_65e25d97",
+        "filename": "service/binder/android/net/VendorConnectivity.aidl",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T17:50:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd6f546f_5e9cdc63",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "bc7c43bd9deceff667ef7c3873555cce67d4e644",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f7d092b_64fce33e",
