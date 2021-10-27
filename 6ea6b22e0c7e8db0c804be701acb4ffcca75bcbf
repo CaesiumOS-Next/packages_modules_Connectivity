@@ -94,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13f12d43_9cb3bd37",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T20:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "292f1a5f_37376b15",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee5662ea_dca2bc14",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T20:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2661e4f7_0975c95e",
+      "range": {
+        "startLine": 24,
+        "startChar": 61,
+        "endLine": 24,
+        "endChar": 77
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49b83d82_dbdda6c2",
@@ -236,6 +284,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffa71ac3_80ee5f50",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T20:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac677d6b_db718921",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 50
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d250147e_0a8aef9f",
@@ -249,6 +321,30 @@
       "writtenOn": "2021-10-27T18:27:05Z",
       "side": 1,
       "message": "I think you do need\n\nif (!ptr) return 1; // allowed\n\nthen\n\nbool allowed \u003d (*ptr \u003e\u003e shift) \u0026 1;\n\nnote the mask with 1",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "6ea6b22e0c7e8db0c804be701acb4ffcca75bcbf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db04f218_abd9b6db",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T20:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d250147e_0a8aef9f",
       "range": {
         "startLine": 34,
         "startChar": 0,
