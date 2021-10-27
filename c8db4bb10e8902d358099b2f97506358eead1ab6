@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4058d04_6b29e62b",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T01:49:41Z",
+      "side": 1,
+      "message": "512",
+      "range": {
+        "startLine": 24,
+        "startChar": 78,
+        "endLine": 24,
+        "endChar": 81
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c29f7354_cca6443e",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T01:49:41Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 27,
+        "startChar": 47,
+        "endLine": 27,
+        "endChar": 51
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07121661_8041797e",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T01:49:41Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 28,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 45
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "659348d8_e92a5a2c",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T01:49:41Z",
+      "side": 1,
+      "message": "remove family type",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6e3eb66_984edd9f",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T01:49:41Z",
+      "side": 1,
+      "message": "Add Critical(\"connectivity\")",
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "454a78e3_68882aea",
+        "filename": "service/tests/privileged/src/com/android/server/connectivity/BpfBlockPortsTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-27T01:49:41Z",
+      "side": 1,
+      "message": "leave in CTS",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 36
+      },
+      "revId": "c8db4bb10e8902d358099b2f97506358eead1ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
