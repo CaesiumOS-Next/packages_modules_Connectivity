@@ -16,6 +16,23 @@
       "message": "LGTM, but can this wait until Remi gets back next week?",
       "revId": "c5b3f34831813806a3ad1f0b8410db7a799ab914",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f3ab9c2_673a28a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1498356
+      },
+      "writtenOn": "2021-10-28T03:31:54Z",
+      "side": 1,
+      "message": "Friendly ping for review",
+      "revId": "c5b3f34831813806a3ad1f0b8410db7a799ab914",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
