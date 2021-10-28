@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7167a72_a8e50ee4",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 817,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58026521_e401d55f",
+      "range": {
+        "startLine": 817,
+        "startChar": 44,
+        "endLine": 817,
+        "endChar": 47
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08dd4564_e1053947",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-21T09:52:34Z",
       "side": 1,
       "message": "Is there a reason this can\u0027t use DevSdkIgnoreRule?",
+      "range": {
+        "startLine": 819,
+        "startChar": 8,
+        "endLine": 819,
+        "endChar": 42
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83b87ea2_7a2f25db",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Sorry about my poor memory, I only remembered that there is something wrong when running the test with DevSdkIgnoreRule one month ago. So I use this way instead.\n\nI also remembered that Jean, Remi and I have a discussion in our team chat one month ago, but I can\u0027t remember the detail. 😞\n\nAnyway, using DevSdkIgnoreRule looks good right now, let me update it.",
+      "parentUuid": "08dd4564_e1053947",
       "range": {
         "startLine": 819,
         "startChar": 8,
@@ -118,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2801e66a_619568c5",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Did you mean if the device supports FEATURE_TELEPHONY but doesn\u0027t have mobile data, then other CTS tests which need mobile data will fail eventually? So we can also just check if the device has FEATURE_TELEPHONY or not?\n\nIn my opinion, I think checking isDataCapable() is more correct, but let me update it to FEATURE_TELEPHONY first.",
+      "parentUuid": "fb94829e_28d1c413",
+      "range": {
+        "startLine": 821,
+        "startChar": 8,
+        "endLine": 821,
+        "endChar": 54
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6a8e036_b113816a",
@@ -131,6 +203,30 @@
       "writtenOn": "2021-10-21T09:52:34Z",
       "side": 1,
       "message": "Up to you, but I find these long lambdas very hard to read. Would suggest reducing indentation by moving most of the test code to a separate method such as doTestUnderlyingNetworksFollowDefaultNetwork.",
+      "range": {
+        "startLine": 824,
+        "startChar": 8,
+        "endLine": 824,
+        "endChar": 30
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15ed949f_c2368be7",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "I created a new function to check if the underlying networks which comes from callback is the same as the expected one.",
+      "parentUuid": "d6a8e036_b113816a",
       "range": {
         "startLine": 824,
         "startChar": 8,
@@ -164,6 +260,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dba8542e_fedce31a",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed3d684d_bf6e5a66",
+      "range": {
+        "startLine": 825,
+        "startChar": 0,
+        "endLine": 832,
+        "endChar": 54
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a2fb456_75e01e21",
@@ -177,6 +297,30 @@
       "writtenOn": "2021-10-21T09:52:34Z",
       "side": 1,
       "message": "Prefer assertNotNull",
+      "range": {
+        "startLine": 834,
+        "startChar": 12,
+        "endLine": 834,
+        "endChar": 22
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a15d6e43_2213299e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a2fb456_75e01e21",
       "range": {
         "startLine": 834,
         "startChar": 12,
@@ -210,6 +354,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ef3d361_0375d920",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f8b4b7a_1eb81474",
+      "range": {
+        "startLine": 836,
+        "startChar": 0,
+        "endLine": 837,
+        "endChar": 48
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aba9ba27_b8d30a76",
@@ -223,6 +391,30 @@
       "writtenOn": "2021-10-21T09:52:34Z",
       "side": 1,
       "message": "Why do you need this? If it\u0027s only to call registerNetworkCallback as NetworkSettings, then suggest unindenting the code by introducing a registerNetworkCallbackWithNetworkSettings method.",
+      "range": {
+        "startLine": 843,
+        "startChar": 12,
+        "endLine": 843,
+        "endChar": 42
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f66e9e_4946e956",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "The caller who doesn\u0027t have NETWORK_SETTINGS cannot get the underlying networks. Jean has a discussion with PWG team about this.\nMaybe you can talk to him in private, I think here is not a good place to discuss this.\n\nFor registerNetworkCallbackWithNetworkSettings, maybe we could have it in a follow-up commit.",
+      "parentUuid": "aba9ba27_b8d30a76",
       "range": {
         "startLine": 843,
         "startChar": 12,
@@ -256,6 +448,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c053b64a_b2ed5692",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "This can be doen in a follow-up commit, let me disconnect the cell in the end of the test.",
+      "parentUuid": "e568b465_286e8863",
+      "range": {
+        "startLine": 851,
+        "startChar": 57,
+        "endLine": 851,
+        "endChar": 70
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a584da6d_5e0a82d8",
@@ -269,6 +485,30 @@
       "writtenOn": "2021-10-21T09:52:34Z",
       "side": 1,
       "message": "Prefer assertNotNull.",
+      "range": {
+        "startLine": 852,
+        "startChar": 16,
+        "endLine": 852,
+        "endChar": 26
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cbb5a54_f77598cf",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a584da6d_5e0a82d8",
       "range": {
         "startLine": 852,
         "startChar": 16,
@@ -302,6 +542,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de92624d_f6122c89",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Well, the linter didn\u0027t stop me.\nAnyway, updated.",
+      "parentUuid": "0501eb4c_ec7226a7",
+      "range": {
+        "startLine": 863,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 63
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a960aec1_77ab7372",
@@ -315,6 +579,30 @@
       "writtenOn": "2021-10-21T09:52:34Z",
       "side": 1,
       "message": "This method name is incorrect: it does not check the *system* default network, it checks the default network for the calling app. When we make the method public (which allows code outside this class to use it), we should fix the name.\n\nBetter names might be expectNetworkIsDefault, or expectDefaultNetwork. Also make sure you fix the assertion messages so they don\u0027t mention \"system default\".",
+      "range": {
+        "startLine": 188,
+        "startChar": 32,
+        "endLine": 188,
+        "endChar": 47
+      },
+      "revId": "e32a3455f383f960b1aeb0532829e18ad0750881",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d992942_a9dbe07b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-10-28T16:49:48Z",
+      "side": 1,
+      "message": "Chiachang is the author of this method and I checked with him that the system default network is what he wants.\nSo what we need to change is changing registerDefaultNetworkCallback to registerSystemDefaultNetworkCallback at l.199.\n\nAlso, let me change the method name to expectSystemDefaultNetwork.",
+      "parentUuid": "a960aec1_77ab7372",
       "range": {
         "startLine": 188,
         "startChar": 32,
