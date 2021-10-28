@@ -1,0 +1,151 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016655557",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d24",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "0b0ac40e_5ae9e929",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-28T22:56:02Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 4
+      },
+      "revId": "fcbcf144352761259e3d901acd2df8dc6ef3f790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016655557",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d24",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "2ba163b1_3eba0945",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-28T22:56:02Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 103
+      },
+      "revId": "fcbcf144352761259e3d901acd2df8dc6ef3f790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016655557",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d24",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d4dd8881_6b273b8a",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-28T22:56:02Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 103
+      },
+      "revId": "fcbcf144352761259e3d901acd2df8dc6ef3f790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016655557",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d24",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d948e577_bffc7453",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-28T22:56:02Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 107
+      },
+      "revId": "fcbcf144352761259e3d901acd2df8dc6ef3f790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016655559",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d24",
+      "fixSuggestions": [
+        {
+          "fixId": "a862e626_2c7edb73",
+          "description": "Change to \"service/bpf_progs/dscp_policy.c\"",
+          "replacements": [
+            {
+              "path": "service/bpf_progs/dscp_policy.c",
+              "range": {
+                "startLine": 74,
+                "startChar": 18,
+                "endLine": 74,
+                "endChar": 26
+              },
+              "replacement": "separate"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "306f62a7_166e76d3",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-28T22:56:02Z",
+      "side": 1,
+      "message": "Common typo found: \"seperate\" -- should it be \"separate\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 74,
+        "startChar": 18,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "fcbcf144352761259e3d901acd2df8dc6ef3f790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
