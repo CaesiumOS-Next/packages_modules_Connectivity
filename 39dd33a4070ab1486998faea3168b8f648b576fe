@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9390614_818f45a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "some loose comments",
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c6c12ba_0a6df960",
+        "filename": "service/aidl_api/vendor_connectivity_aidl_interface/1/android/net/VendorConnectivity.aidl",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "is there a way to return an error?\nfor example if the map is missing?",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7b810f_64c0c591",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "I *think* this program should probably first check that family is ipv4 or ipv6 and otherwise return 1 (allowed), then check protocol is udp/udplite/tcp/sctp/dccp, and otherwise return 1 (allowed).\n\nOtherwise we may potentially run into problems with blocking unix sockets or icmp sockets or raw sockets, etc...\n\nCould write this as a case statement\n\nswitch (ctx-\u003efamily) {\n  case AF_INET:\n  case AF_INET6:\n    break;\n  default:\n    return 1; // not ip -\u003e allowed\n}\n\nswitch (ctx-\u003eprotocol) {\n  case IPPROTO_TCP:  // might need to be wrapped in bpf_htons(IPPROTO_TCP)\n  case IPPROTO_MPTCP: // ?\n  case IPPROTO_UDP/UDPLITE/DCCP/SCTP:\n    break;\n  default:\n    return 1; // unknown protocols are allowed\n}",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f7f0422_72d9404c",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "suggest adding a\n  #define DISALLOW 0\n  #define ALLOW 1\n\nbefore this program\n\nand then doing \u0027return ALLOW;\u0027\n\nif (x) return DISALLOW;\nreturn ALLOW;\n\nit\u0027ll be easier to read.\n\n[it\u0027s never clear to me if 0 [no error] or 1 is the \u0027ok/allow\u0027 case]\n\nNote the program is called \u0027block_port\u0027 but returns 0 (false) for blocked ports.\nSo perhaps rename it to \u0027allow_port\u0027\n\nThen you could just do \u0027return true; // allow\u0027\n\nEh, I don\u0027t know, just currently it\u0027s a little confusing.",
+      "range": {
+        "startLine": 35,
+        "startChar": 21,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9caeda9_f656f181",
+        "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "this is past my point of expertise, as it\u0027s java ;-)\n\nbut I don\u0027t think we need a \u0027VendorConnectivityService\u0027.\n\nThe users of this may be vendor code (ie. who calls the rpcs),\nbut the implementation is aosp/mainline.\n\nI guess VendorConnServ only makes sense if we need it for security barrier reasons.\nOtherwise I think I\u0027d just put tings straight in ConnService itself.\n\nBut others can probably make a better call.",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 43
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d626071f_b31d6dcd",
+        "filename": "service/src/com/android/server/connectivity/PortBlockKey.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "file not needed any more",
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f46a6c1b_92eb08b4",
+        "filename": "service/src/com/android/server/connectivity/PortBlockValue.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "not needed any more",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1660a7b7_2a090124",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "int, long   probably?\n\nIn general though it may be desirable to write/implement a BpfBitmap class inheriting from or embedding BpfMap\u003cint, long\u003e.\n\nThen provide:\n  init(path_to_the_bpf_fs_map)\n  bool get(int bit)  // fetch boolean bit X\n  void set(int bit, value \u003d true)  // set boolean bit X to value\n  void clear(int bit)  // clear boolean bit X (ie. set to false)\n  void reset()  // wipe/zero the entire bitmap\n\ninterface or something like that\n\nI\u0027m not sure for example the existing \u0027BpfMap\u003c\u003e.clear()\u0027 works for ARRAYS, you might have to implement clear() as:\n  for (i \u003d 0..1023) Map[i] :\u003d 0\ninstead\n\n(basically I\u0027m not clear on whether ARRAYS - as opposed to HASHes - support the \u0027delete\u0027 operation, and even if they implement \u0027delete\u0027 as zero-out-the-entry, then .clear() might still not work because iteration would never complete if the entries don\u0027t actually vanish, just get zero\u0027ed)",
+      "range": {
+        "startLine": 80,
+        "startChar": 32,
+        "endLine": 80,
+        "endChar": 60
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2a51f18_7561f21f",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "should this detach the program as well?",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 31
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "191fe709_1ec6f7eb",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "I think we expect this to work on all Android T supported devices, since I believe the kernel floor will be 4.14+ R+.\n\nas such I\u0027d call this just \u0027attachPrograms\u0027, since there is no \u0027valid\u0027 reason for it to fail\n\n(I assume there will be something else preventing this entire class from triggering on pre-T os, since of course on pre-T there will be no map)",
+      "range": {
+        "startLine": 175,
+        "startChar": 20,
+        "endLine": 175,
+        "endChar": 38
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472dba29_26c9ffcf",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "should probably detach v4 first?",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 25
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a999e889_9d3b98e6",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-28T15:49:46Z",
+      "side": 1,
+      "message": "ditto -\u003e detachPrograms",
+      "range": {
+        "startLine": 194,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 34
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
