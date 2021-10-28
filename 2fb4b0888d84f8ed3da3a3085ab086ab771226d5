@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5214387_7bc296b1",
+        "filename": "Tethering/jarjar-rules.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-28T09:31:15Z",
+      "side": 1,
+      "message": "What is the purpose jarjar protobuf from com.android* to com.google* ?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 71
+      },
+      "revId": "2fb4b0888d84f8ed3da3a3085ab086ab771226d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b664c03_984aaaf7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-28T09:31:15Z",
+      "side": 1,
+      "message": "If result is not NO_ERROR, we also need to update error here.\n\nf (result !\u003d TETHER_ERROR_NO_ERROR) {\n    mActiveTetheringRequests.remove(type);\n    // update stats here.\n}",
+      "range": {
+        "startLine": 677,
+        "startChar": 8,
+        "endLine": 677,
+        "endChar": 83
+      },
+      "revId": "2fb4b0888d84f8ed3da3a3085ab086ab771226d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae45393b_d51992ec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-28T09:31:15Z",
+      "side": 1,
+      "message": "Which is the purpose of NetworkTetheringReported ? I see you have handy downstreamTypeToEnum, errorCodeToEnum and userTypeToEnum functions to cover the types. NetworkTetheringReported seems do nothing that you just build NetworkTetheringReported and get the inputs back.",
+      "range": {
+        "startLine": 63,
+        "startChar": 45,
+        "endLine": 63,
+        "endChar": 58
+      },
+      "revId": "2fb4b0888d84f8ed3da3a3085ab086ab771226d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e90a25_689883ad",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-28T09:31:15Z",
+      "side": 1,
+      "message": "I remember you talk we could update multiple stats entry and aggregate them in server backend. If so, we could remove mErrorCode which is could not be final variable. Instead we could record a sequence number(for the future that could be used to know identify whether multiple entries belong to same tethering request).\n\nIt seems we don\u0027t need to record mErrorCode here because we only update errorCode stats when close tethering.",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "2fb4b0888d84f8ed3da3a3085ab086ab771226d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "137bc8f7_c1d7c209",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-28T09:31:15Z",
+      "side": 1,
+      "message": "nit: maybe rename to setErrorCode ?",
+      "range": {
+        "startLine": 75,
+        "startChar": 20,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "2fb4b0888d84f8ed3da3a3085ab086ab771226d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "166feb60_c55e6c65",
+        "filename": "Tethering/src/com/android/networkstack/tethering/metrics/TetheringStatsUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-10-28T09:31:15Z",
+      "side": 1,
+      "message": "What happen if mErrorCode is null ? It is not intuition for caller to check #isReadyToWrite() before call #getNetworkTetheringReported().",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 45
+      },
+      "revId": "2fb4b0888d84f8ed3da3a3085ab086ab771226d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
