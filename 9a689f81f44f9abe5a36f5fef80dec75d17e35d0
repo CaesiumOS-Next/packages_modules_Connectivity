@@ -16,6 +16,24 @@
       "message": "Changes in our codebase LGTM.\n\nThat said - RequiresDevice seems misnamed. Cuttlefish is a device, it\u0027s just not a physical device. Is this actually the annotation that we use to say \"doesn\u0027t run on cuttlefish\"? If so, this may be the best we can do.\n\nSome of these tests (openConnection, DNS) aren\u0027t impossible to run on a virtual device, it\u0027s just that cuttlefish networking is too limited for them to work. Again, maybe this is the best we can do?",
       "revId": "9a689f81f44f9abe5a36f5fef80dec75d17e35d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e57aa20_d76cf95b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-28T08:30:26Z",
+      "side": 1,
+      "message": "Agree that it\u0027s misnamed; it\u0027s documented to mean \"requires a physical device\", with the doc saying \"It will be executed only if the test is running on the physical android device\":\nhttps://developer.android.com/reference/androidx/test/filters/RequiresDevice\n\nI think this is the canonical annotation to use to mean \"don\u0027t run on virtual devices\".\n\nIt\u0027s true that the tests could run on virtual devices if they had better networking support. I think we\u0027ll have to re-enable them when that\u0027s the case, but until now we\u0027ve had to disable them so the rest of the tests can pass on such devices (particularly in presubmit).",
+      "parentUuid": "a37b7d3a_e5673e8c",
+      "revId": "9a689f81f44f9abe5a36f5fef80dec75d17e35d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
