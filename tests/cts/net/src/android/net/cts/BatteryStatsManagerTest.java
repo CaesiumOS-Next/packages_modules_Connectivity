@@ -43,10 +43,16 @@ import android.os.connectivity.WifiBatteryStats;
 import android.platform.test.annotations.AppModeFull;
 import android.util.Log;
 
+<<<<<<< HEAD   (00cc501ede14a4ce8309e86de3320bbfbfe4b71d Add mcts tag to MainlineCTS dnsresolver test modules.)
+||||||| BASE   (2685c929f40dfa8510b0b25aed6ef1ef57a1bf7a Add a test for metered/non-metered mobile network)
+import androidx.test.filters.SdkSuppress;
+=======
+import androidx.test.filters.RequiresDevice;
+import androidx.test.filters.SdkSuppress;
+>>>>>>> CHANGE (9a689f81f44f9abe5a36f5fef80dec75d17e35d0 Add RequiresDevice to relevant tests)
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.testutils.DevSdkIgnoreRule;
-import com.android.testutils.SkipPresubmit;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -94,7 +100,7 @@ public class BatteryStatsManagerTest{
     // properly.
     @Test
     @AppModeFull(reason = "Cannot get CHANGE_NETWORK_STATE to request wifi/cell in instant mode")
-    @SkipPresubmit(reason = "Virtual hardware does not support wifi battery stats")
+    @RequiresDevice // Virtual hardware does not support wifi battery stats
     public void testReportNetworkInterfaceForTransports() throws Exception {
         try {
             assumeTrue("Battery is not present. Ignore test.", hasBattery());
