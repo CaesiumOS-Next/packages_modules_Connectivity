@@ -19,6 +19,7 @@ package android.net.cts.util;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
 
@@ -44,7 +45,6 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.NetworkRequest;
 import android.net.TestNetworkManager;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
@@ -152,27 +152,28 @@ public final class CtsNetUtils {
     // Toggle WiFi twice, leaving it in the state it started in
     public void toggleWifi() throws Exception {
         if (mWifiManager.isWifiEnabled()) {
-            Network wifiNetwork = getWifiNetwork();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
-            expectNetworkIsSystemDefault(wifiNetwork);
+            final Network wifiNetwork = getSystemDefaultWifiOrFail();
             disconnectFromWifi(wifiNetwork);
             connectToWifi();
         } else {
             connectToWifi();
-            Network wifiNetwork = getWifiNetwork();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
-            expectNetworkIsSystemDefault(wifiNetwork);
+            final Network wifiNetwork = getSystemDefaultWifiOrFail();
             disconnectFromWifi(wifiNetwork);
         }
     }
 
-    private Network expectNetworkIsSystemDefault(Network network)
+    private Network getSystemDefaultWifiOrFail()
             throws Exception {
-        final CompletableFuture<Network> future = new CompletableFuture();
+        final CompletableFuture<Network> future = new CompletableFuture<>();
         final NetworkCallback cb = new NetworkCallback() {
             @Override
-            public void onAvailable(Network n) {
-                if (n.equals(network)) future.complete(network);
+            public void onCapabilitiesChanged(
+                    @NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
+                if (networkCapabilities.hasTransport(TRANSPORT_WIFI)) {
+                    future.complete(network);
+                }
             }
         };
 
@@ -181,8 +182,7 @@ public final class CtsNetUtils {
             return future.get(CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             throw new AssertionError("Timed out waiting for system default network to switch"
-                    + " to network " + network + ". Current default network is network "
-                    + mCm.getActiveNetwork(), e);
+                    + " to wifi. Current default network is network " + mCm.getActiveNetwork(), e);
         } finally {
             mCm.unregisterNetworkCallback(cb);
         }
@@ -249,7 +249,7 @@ public final class CtsNetUtils {
      *                           server before disconnecting, and to have that connection closed in
      *                           the process.
      */
-    public void disconnectFromWifi(Network wifiNetworkToCheck) {
+    public void disconnectFromWifi(Network wifiNetworkToCheck) throws Exception {
         disconnectFromWifi(wifiNetworkToCheck, true /* expectLegacyBroadcast */);
     }
 
@@ -261,7 +261,7 @@ public final class CtsNetUtils {
      *                           server before disconnecting, and to have that connection closed in
      *                           the process.
      */
-    public void ensureWifiDisconnected(Network wifiNetworkToCheck) {
+    public void ensureWifiDisconnected(Network wifiNetworkToCheck) throws Exception {
         disconnectFromWifi(wifiNetworkToCheck, false /* expectLegacyBroadcast */);
     }
 
@@ -278,23 +278,17 @@ public final class CtsNetUtils {
      *                              The check will always be skipped if the device was not connected
      *                              to wifi in the first place.
      */
-    private void disconnectFromWifi(Network wifiNetworkToCheck, boolean expectLegacyBroadcast) {
-        final TestNetworkCallback callback = new TestNetworkCallback();
-        mCm.registerNetworkCallback(makeWifiNetworkRequest(), callback);
-
+    private void disconnectFromWifi(Network wifiNetworkToCheck, boolean expectLegacyBroadcast)
+            throws Exception {
         ConnectivityActionReceiver receiver = new ConnectivityActionReceiver(
                 mCm, ConnectivityManager.TYPE_WIFI, NetworkInfo.State.DISCONNECTED);
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         mContext.registerReceiver(receiver, filter);
 
-        final WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
-        final boolean wasWifiConnected = wifiInfo != null && wifiInfo.getNetworkId() != -1;
         // Assert that we can establish a TCP connection on wifi.
         Socket wifiBoundSocket = null;
         if (wifiNetworkToCheck != null) {
-            assertTrue("Cannot check network " + wifiNetworkToCheck + ": wifi is not connected",
-                    wasWifiConnected);
             final NetworkCapabilities nc = mCm.getNetworkCapabilities(wifiNetworkToCheck);
             assertNotNull("Network " + wifiNetworkToCheck + " is not connected", nc);
             try {
@@ -305,20 +299,17 @@ public final class CtsNetUtils {
             }
         }
 
+        final boolean wasWifiConnected = new ConnectUtil(mContext).disableWifi(wifiNetworkToCheck);
+        if (wifiNetworkToCheck != null) {
+            assertTrue("Requested to check network " + wifiNetworkToCheck
+                            + " but wifi is not connected", wasWifiConnected);
+        }
+
         try {
-            SystemUtil.runShellCommand("svc wifi disable");
-            if (wasWifiConnected) {
-                // Ensure we get both an onLost callback and a CONNECTIVITY_ACTION.
-                assertNotNull("Did not receive onLost callback after disabling wifi",
-                        callback.waitForLost());
-            }
             if (wasWifiConnected && expectLegacyBroadcast) {
                 assertTrue("Wifi failed to reach DISCONNECTED state.", receiver.waitForState());
             }
-        } catch (InterruptedException ex) {
-            fail("disconnectFromWifi was interrupted");
         } finally {
-            mCm.unregisterNetworkCallback(callback);
             mContext.unregisterReceiver(receiver);
         }
 
@@ -331,21 +322,6 @@ public final class CtsNetUtils {
                 assertEquals(Os.strerror(OsConstants.ECONNABORTED), expected.getMessage());
             }
         }
-    }
-
-    public Network getWifiNetwork() {
-        TestNetworkCallback callback = new TestNetworkCallback();
-        mCm.registerNetworkCallback(makeWifiNetworkRequest(), callback);
-        Network network = null;
-        try {
-            network = callback.waitForAvailable();
-        } catch (InterruptedException e) {
-            fail("NetworkCallback wait was interrupted.");
-        } finally {
-            mCm.unregisterNetworkCallback(callback);
-        }
-        assertNotNull("Cannot find Network for wifi. Is wifi connected?", network);
-        return network;
     }
 
     public Network connectToCell() throws InterruptedException {
@@ -374,12 +350,6 @@ public final class CtsNetUtils {
 
     public boolean cellConnectAttempted() {
         return mCellNetworkCallback != null;
-    }
-
-    private NetworkRequest makeWifiNetworkRequest() {
-        return new NetworkRequest.Builder()
-                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                .build();
     }
 
     private void testHttpRequest(Socket s) throws IOException {

@@ -722,7 +722,7 @@ public class ConnectivityManagerTest {
 
     @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
     @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
-    public void testIsPrivateDnsBroken() throws InterruptedException {
+    public void testIsPrivateDnsBroken() throws Exception {
         final String invalidPrivateDnsServer = "invalidhostname.example.com";
         final String goodPrivateDnsServer = "dns.google";
         mCtsNetUtils.storePrivateDnsSetting();
@@ -992,7 +992,7 @@ public class ConnectivityManagerTest {
      */
     @AppModeFull(reason = "Cannot get WifiManager in instant app mode")
     @Test
-    public void testRequestNetworkCallback_onUnavailable() {
+    public void testRequestNetworkCallback_onUnavailable() throws Exception {
         final boolean previousWifiEnabledState = mWifiManager.isWifiEnabled();
         if (previousWifiEnabledState) {
             mCtsNetUtils.ensureWifiDisconnected(null);
@@ -2740,7 +2740,7 @@ public class ConnectivityManagerTest {
         mHttpServer.start();
     }
 
-    private Network reconnectWifi() {
+    private Network reconnectWifi() throws Exception {
         mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
         return mCtsNetUtils.ensureWifiConnected();
     }
