@@ -24,6 +24,7 @@ import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.wifi.WifiManager.SCAN_RESULTS_AVAILABLE_ACTION;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
+import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
@@ -55,7 +56,9 @@ import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.ConditionVariable;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.system.Os;
 import android.system.OsConstants;
@@ -173,19 +176,23 @@ public final class CtsNetUtils {
         if (mWifiManager.isWifiEnabled()) {
             Network wifiNetwork = getWifiNetwork();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
-            expectNetworkIsSystemDefault(wifiNetwork);
+            runWithShellPermissionIdentity(() -> {
+                expectSystemDefaultNetwork(wifiNetwork);
+            }, NETWORK_SETTINGS);
             disconnectFromWifi(wifiNetwork);
             connectToWifi();
         } else {
             connectToWifi();
             Network wifiNetwork = getWifiNetwork();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
-            expectNetworkIsSystemDefault(wifiNetwork);
+            runWithShellPermissionIdentity(() -> {
+                expectSystemDefaultNetwork(wifiNetwork);
+            }, NETWORK_SETTINGS);
             disconnectFromWifi(wifiNetwork);
         }
     }
 
-    private Network expectNetworkIsSystemDefault(Network network)
+    public Network expectSystemDefaultNetwork(Network network)
             throws Exception {
         final CompletableFuture<Network> future = new CompletableFuture();
         final NetworkCallback cb = new NetworkCallback() {
@@ -195,8 +202,9 @@ public final class CtsNetUtils {
             }
         };
 
+        final Handler handler = new Handler(Looper.getMainLooper());
         try {
-            mCm.registerDefaultNetworkCallback(cb);
+            mCm.registerSystemDefaultNetworkCallback(cb, handler);
             return future.get(CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             throw new AssertionError("Timed out waiting for system default network to switch"
