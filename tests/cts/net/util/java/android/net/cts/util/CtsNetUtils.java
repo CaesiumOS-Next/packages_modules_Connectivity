@@ -444,9 +444,6 @@ public final class CtsNetUtils {
      *                              to wifi in the first place.
      */
     private void disconnectFromWifi(Network wifiNetworkToCheck, boolean expectLegacyBroadcast) {
-        final TestNetworkCallback callback = new TestNetworkCallback();
-        mCm.registerNetworkCallback(makeWifiNetworkRequest(), callback);
-
         ConnectivityActionReceiver receiver = new ConnectivityActionReceiver(
                 mCm, ConnectivityManager.TYPE_WIFI, NetworkInfo.State.DISCONNECTED);
         IntentFilter filter = new IntentFilter();
