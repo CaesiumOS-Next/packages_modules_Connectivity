@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9c19af1_02570cbf",
+        "filename": "service/aidl_api/vendor_connectivity_aidl_interface/1/android/net/VendorConnectivity.aidl",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "should be fine since the API\u0027s were moved to SYNC.",
+      "parentUuid": "1c6c12ba_0a6df960",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0a7b810f_64c0c591",
         "filename": "service/bpf_progs/block.c",
         "patchSetId": 18
@@ -54,6 +78,30 @@
       "writtenOn": "2021-10-28T15:49:46Z",
       "side": 1,
       "message": "I *think* this program should probably first check that family is ipv4 or ipv6 and otherwise return 1 (allowed), then check protocol is udp/udplite/tcp/sctp/dccp, and otherwise return 1 (allowed).\n\nOtherwise we may potentially run into problems with blocking unix sockets or icmp sockets or raw sockets, etc...\n\nCould write this as a case statement\n\nswitch (ctx-\u003efamily) {\n  case AF_INET:\n  case AF_INET6:\n    break;\n  default:\n    return 1; // not ip -\u003e allowed\n}\n\nswitch (ctx-\u003eprotocol) {\n  case IPPROTO_TCP:  // might need to be wrapped in bpf_htons(IPPROTO_TCP)\n  case IPPROTO_MPTCP: // ?\n  case IPPROTO_UDP/UDPLITE/DCCP/SCTP:\n    break;\n  default:\n    return 1; // unknown protocols are allowed\n}",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "981e9716_2b1184c0",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Ports should be blocked across all family/protocol types based on our earlier discussion, since ephemeral ports are not family or proto specific. Wouldn\u0027t a check to see if port is being passed in suffice?\nif (!ctx-\u003euser_port) return ALLOW;",
+      "parentUuid": "0a7b810f_64c0c591",
       "range": {
         "startLine": 29,
         "startChar": 0,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "270dab89_ad382c9a",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Adding ALLOW and DISALLOW makes sense to improve readability",
+      "parentUuid": "7f7f0422_72d9404c",
+      "range": {
+        "startLine": 35,
+        "startChar": 21,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9caeda9_f656f181",
         "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
         "patchSetId": 18
@@ -100,6 +172,30 @@
       "writtenOn": "2021-10-28T15:49:46Z",
       "side": 1,
       "message": "this is past my point of expertise, as it\u0027s java ;-)\n\nbut I don\u0027t think we need a \u0027VendorConnectivityService\u0027.\n\nThe users of this may be vendor code (ie. who calls the rpcs),\nbut the implementation is aosp/mainline.\n\nI guess VendorConnServ only makes sense if we need it for security barrier reasons.\nOtherwise I think I\u0027d just put tings straight in ConnService itself.\n\nBut others can probably make a better call.",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 43
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db40e93b_67b2d3b1",
+        "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Class was created per ask. Will discuss with Lorenzo/Remi about proper location",
+      "parentUuid": "e9caeda9_f656f181",
       "range": {
         "startLine": 31,
         "startChar": 18,
@@ -129,6 +225,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2cd230a9_dd109678",
+        "filename": "service/src/com/android/server/connectivity/PortBlockKey.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Without reworking BpfMap a class extending Struct is necessary, was discussed in meeting to leave as is for now.",
+      "parentUuid": "d626071f_b31d6dcd",
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f46a6c1b_92eb08b4",
         "filename": "service/src/com/android/server/connectivity/PortBlockValue.java",
         "patchSetId": 18
@@ -140,6 +254,30 @@
       "writtenOn": "2021-10-28T15:49:46Z",
       "side": 1,
       "message": "not needed any more",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd50dc4f_7ea7a91d",
+        "filename": "service/src/com/android/server/connectivity/PortBlockValue.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Without reworking BpfMap a class extending Struct is necessary, was discussed in meeting to leave as is for now.",
+      "parentUuid": "f46a6c1b_92eb08b4",
       "range": {
         "startLine": 1,
         "startChar": 1,
@@ -175,6 +313,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca23dba8_d0f1f279",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Unable to pass class in to BpfMap that does not extend Struct as is. This was discussed in the meeting a current limitation and to leave as is.",
+      "parentUuid": "1660a7b7_2a090124",
+      "range": {
+        "startLine": 80,
+        "startChar": 32,
+        "endLine": 80,
+        "endChar": 60
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2a51f18_7561f21f",
         "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
         "patchSetId": 18
@@ -186,6 +348,30 @@
       "writtenOn": "2021-10-28T15:49:46Z",
       "side": 1,
       "message": "should this detach the program as well?",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 31
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70e64525_ce16700b",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Probably.\n\nFrom an efficiency standpoint, if a port is ever blocked, it is highly likely that ports continue to be blocked in the future. So the only case where detaching the program here that I was able to think of is during SSR where the ports would be added after system comes back up. Question is if it is more desirable to detach program here or leave it attached...",
+      "parentUuid": "c2a51f18_7561f21f",
       "range": {
         "startLine": 147,
         "startChar": 16,
@@ -219,6 +405,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f7edbbf_2f6c65db",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "191fe709_1ec6f7eb",
+      "range": {
+        "startLine": 175,
+        "startChar": 20,
+        "endLine": 175,
+        "endChar": 38
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "472dba29_26c9ffcf",
@@ -242,6 +452,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68a26549_22c43792",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "472dba29_26c9ffcf",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 25
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a999e889_9d3b98e6",
@@ -255,6 +489,30 @@
       "writtenOn": "2021-10-28T15:49:46Z",
       "side": 1,
       "message": "ditto -\u003e detachPrograms",
+      "range": {
+        "startLine": 194,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 34
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09427972_90515e17",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-28T16:42:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a999e889_9d3b98e6",
       "range": {
         "startLine": 194,
         "startChar": 16,
