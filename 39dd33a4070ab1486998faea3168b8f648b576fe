@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4585ee63_ecf6fd09",
+        "filename": "service/aidl_api/vendor_connectivity_aidl_interface/1/android/net/VendorConnectivity.aidl",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T16:09:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "796283e7_ad058186",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a7b810f_64c0c591",
