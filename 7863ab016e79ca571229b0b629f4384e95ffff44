@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a882f69_ee1ddee4",
+        "filename": "service/src/com/android/server/connectivity/PortBlockValue.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a845ce9_ea8febe6",
+      "range": {
+        "startLine": 34,
+        "startChar": 21,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c6fe437_2d0c9869",
@@ -70,6 +94,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb8ce93d_50b98703",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "855bbe60_03dbeefc",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 62
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1217863_aa8a78e1",
@@ -83,6 +131,30 @@
       "writtenOn": "2021-10-29T00:40:56Z",
       "side": 1,
       "message": "Is there any reason to use lateinit rather than just initializing this inline here ? lateinit is useful when there is no way to make a val really immutable, but when there is it should be avoided",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61fa17bc_143e1eaa",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "I was basing this off the current test cases for ConnectivityService. Will need to run this test to see how it behaves",
+      "parentUuid": "d1217863_aa8a78e1",
       "range": {
         "startLine": 45,
         "startChar": 12,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b67d05f_332b676e",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f8faf0b_b3a38056",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37712832_d8466390",
@@ -129,6 +225,30 @@
       "writtenOn": "2021-10-29T00:40:56Z",
       "side": 1,
       "message": "Normally you just say\n\n  assertFailsWith\u003cErrnoException\u003e {\n      OS.bind(sock, IPV4_LOOPBACK, port)\n  }",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b69b243_b719fc01",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37712832_d8466390",
       "range": {
         "startLine": 62,
         "startChar": 10,

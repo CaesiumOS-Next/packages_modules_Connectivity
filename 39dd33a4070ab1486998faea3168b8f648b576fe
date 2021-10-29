@@ -184,6 +184,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb0aafcd_90aa48f6",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a4e1bb1_55964c42",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f7f0422_72d9404c",
@@ -302,6 +326,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee8fe18f_f87f1d7c",
+        "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db40e93b_67b2d3b1",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 43
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d626071f_b31d6dcd",
@@ -333,6 +381,24 @@
       "side": 1,
       "message": "Without reworking BpfMap a class extending Struct is necessary, was discussed in meeting to leave as is for now.",
       "parentUuid": "d626071f_b31d6dcd",
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4390e6b_6255f235",
+        "filename": "service/src/com/android/server/connectivity/PortBlockKey.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cd230a9_dd109678",
       "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -408,6 +474,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1153d87_00fca5cd",
+        "filename": "service/src/com/android/server/connectivity/PortBlockValue.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fad7c39_23a8a45d",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1660a7b7_2a090124",
@@ -445,6 +535,30 @@
       "side": 1,
       "message": "Unable to pass class in to BpfMap that does not extend Struct as is. This was discussed in the meeting a current limitation and to leave as is.",
       "parentUuid": "1660a7b7_2a090124",
+      "range": {
+        "startLine": 80,
+        "startChar": 32,
+        "endLine": 80,
+        "endChar": 60
+      },
+      "revId": "39dd33a4070ab1486998faea3168b8f648b576fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8129cc8a_cd5dedf1",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T19:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca23dba8_d0f1f279",
       "range": {
         "startLine": 80,
         "startChar": 32,
