@@ -1,1 +1,9 @@
 // Baseline format: 1.0
+NoByteOrShort: android.net.DhcpOption#describeContents():
+    Should avoid odd sized primitives; use `int` instead of `byte` in method android.net.DhcpOption.describeContents()
+NoByteOrShort: android.net.DhcpOption#getType():
+    Should avoid odd sized primitives; use `int` instead of `byte` in method android.net.DhcpOption.getType()
+NoByteOrShort: android.net.DhcpOption#writeToParcel(android.os.Parcel, byte) parameter #1:
+    Should avoid odd sized primitives; use `int` instead of `byte` in parameter flags in android.net.DhcpOption.writeToParcel(android.os.Parcel dest, byte flags)
+NoByteOrShort: android.net.DhcpOption.Builder#setType(byte) parameter #0:
+    Should avoid odd sized primitives; use `int` instead of `byte` in parameter type in android.net.DhcpOption.Builder.setType(byte type)
