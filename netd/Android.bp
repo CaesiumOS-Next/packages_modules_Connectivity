@@ -8,6 +8,10 @@ cc_library {
         symbol_file: "libconn_for_netd.map.txt",
     },
     defaults: ["netd_defaults"],
+    header_libs: [
+        "bpf_connectivity_headers",
+        "bpf_syscall_wrappers",
+    ],
     srcs: [
         "BpfHandler.cpp",
         "ConnectivityForNetd.cpp",
@@ -18,6 +22,7 @@ cc_library {
     ],
     shared_libs: [
         "liblog",
+        "libprocessgroup",
     ],
     export_include_dirs: ["include"],
     header_abi_checker: {
