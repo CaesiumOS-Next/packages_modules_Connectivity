@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016682704",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d25",
+      "fixSuggestions": [
+        {
+          "fixId": "3840da53_a18ef50c",
+          "description": "Change to \"service/bpf_progs/dscp_policy.c\"",
+          "replacements": [
+            {
+              "path": "service/bpf_progs/dscp_policy.c",
+              "range": {
+                "startLine": 78,
+                "startChar": 18,
+                "endLine": 78,
+                "endChar": 26
+              },
+              "replacement": "separate"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "b8cbd32a_8370e739",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 25
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-10-29T16:00:51Z",
+      "side": 1,
+      "message": "Common typo found: \"seperate\" -- should it be \"separate\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 78,
+        "startChar": 18,
+        "endLine": 78,
+        "endChar": 26
+      },
+      "revId": "8e807afe13c7f172b5940aca11180b0745eba134",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
