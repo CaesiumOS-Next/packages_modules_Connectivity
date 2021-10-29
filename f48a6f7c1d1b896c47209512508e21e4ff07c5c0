@@ -16,6 +16,69 @@
       "message": "For unit test,  somehow I couldnot find the folder.  Where the unit test lives? \nFor CTS, I will add it when writing the Wifi API for set custom DHCP options.",
       "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f217d06_aa33046c",
+        "filename": "framework/api/system-lint-baseline.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-29T07:59:58Z",
+      "side": 1,
+      "message": "I think these should be fixed in code instead of adding ignore rules, as API reviewers would probably point at these rules",
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec814546_f39ce618",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-29T07:59:58Z",
+      "side": 1,
+      "message": "Can these be final ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 26
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82a5d234_30c53319",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-29T07:59:58Z",
+      "side": 1,
+      "message": "This makes the class effectively mutable since one can do:\n  option.getValue()[0] \u003d 123;\nDepending on the expected data size/performance, maybe returning a copy of the array, or ByteBuffer.wrap(mValue).asReadOnlyBuffer() may be safer",
+      "range": {
+        "startLine": 97,
+        "startChar": 15,
+        "endLine": 97,
+        "endChar": 21
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
