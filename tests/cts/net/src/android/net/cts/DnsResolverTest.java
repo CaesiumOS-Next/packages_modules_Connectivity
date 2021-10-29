@@ -27,13 +27,11 @@ import static android.system.OsConstants.ETIMEDOUT;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
-import android.net.ConnectivityManager.NetworkCallback;
 import android.net.DnsResolver;
-import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
@@ -43,12 +41,12 @@ import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
 import android.platform.test.annotations.AppModeFull;
-import android.provider.Settings;
 import android.system.ErrnoException;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
 import com.android.net.module.util.DnsPacket;
+import com.android.testutils.ConnectUtil;
 import com.android.testutils.SkipPresubmit;
 
 import java.net.Inet4Address;
@@ -95,6 +93,7 @@ public class DnsResolverTest extends AndroidTestCase {
     private ConnectivityManager mCM;
     private PackageManager mPackageManager;
     private CtsNetUtils mCtsNetUtils;
+    private ConnectUtil mConnectUtil;
     private Executor mExecutor;
     private Executor mExecutorInline;
     private DnsResolver mDns;
@@ -112,6 +111,7 @@ public class DnsResolverTest extends AndroidTestCase {
         mExecutorInline = (Runnable r) -> r.run();
         mCR = getContext().getContentResolver();
         mCtsNetUtils = new CtsNetUtils(getContext());
+        mConnectUtil = new ConnectUtil(getContext());
         mCtsNetUtils.storePrivateDnsSetting();
         mPackageManager = mContext.getPackageManager();
     }
@@ -145,7 +145,7 @@ public class DnsResolverTest extends AndroidTestCase {
                     .build();
             mWifiRequestCallback = new TestNetworkCallback();
             mCM.requestNetwork(request, mWifiRequestCallback);
-            mCtsNetUtils.ensureWifiConnected();
+            mConnectUtil.ensureWifiConnected();
         }
         final ArrayList<Network> testableNetworks = new ArrayList<Network>();
         for (Network network : mCM.getAllNetworks()) {

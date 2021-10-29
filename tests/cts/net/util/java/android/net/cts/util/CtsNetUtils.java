@@ -92,6 +92,7 @@ public final class CtsNetUtils {
     private final ConnectivityManager mCm;
     private final ContentResolver mCR;
     private final WifiManager mWifiManager;
+    private final ConnectUtil mConnectUtil;
     private TestNetworkCallback mCellNetworkCallback;
     private int mOldPrivateDnsMode = 0;
     private String mOldPrivateDnsSpecifier;
@@ -101,6 +102,7 @@ public final class CtsNetUtils {
         mCm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         mCR = context.getContentResolver();
+        mConnectUtil = new ConnectUtil(mContext);
     }
 
     /** Checks if FEATURE_IPSEC_TUNNELS is enabled on the device */
@@ -152,13 +154,13 @@ public final class CtsNetUtils {
         if (mWifiManager.isWifiEnabled()) {
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
             final Network wifiNetwork = expectWifiIsSystemDefault();
-            disconnectFromWifi(wifiNetwork);
-            connectToWifi();
+            disconnectWifiAndCheckSocketsClosed(wifiNetwork, true);
+            connectToWifiAndCheckLegacyBroadcast();
         } else {
-            connectToWifi();
+            connectToWifiAndCheckLegacyBroadcast();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
             final Network wifiNetwork = expectWifiIsSystemDefault();
-            disconnectFromWifi(wifiNetwork);
+            disconnectWifiAndCheckSocketsClosed(wifiNetwork, true);
         }
     }
 
@@ -192,30 +194,7 @@ public final class CtsNetUtils {
      * This method expects to receive a legacy broadcast on connect, which may not be sent if the
      * network does not become default or if it is not the first network.
      */
-    public Network connectToWifi() {
-        return connectToWifi(true /* expectLegacyBroadcast */);
-    }
-
-    /**
-     * Enable WiFi and wait for it to become connected to a network.
-     *
-     * A network is considered connected when a {@link NetworkRequest} with TRANSPORT_WIFI
-     * receives a {@link NetworkCallback#onAvailable(Network)} callback.
-     */
-    public Network ensureWifiConnected() {
-        return connectToWifi(false /* expectLegacyBroadcast */);
-    }
-
-    /**
-     * Enable WiFi and wait for it to become connected to a network.
-     *
-     * @param expectLegacyBroadcast Whether to check for a legacy CONNECTIVITY_ACTION connected
-     *                              broadcast. The broadcast is typically not sent if the network
-     *                              does not become the default network, and is not the first
-     *                              network to appear.
-     * @return The network that was newly connected.
-     */
-    private Network connectToWifi(boolean expectLegacyBroadcast) {
+    public Network connectToWifiAndCheckLegacyBroadcast() {
         ConnectivityActionReceiver receiver = new ConnectivityActionReceiver(
                 mCm, ConnectivityManager.TYPE_WIFI, NetworkInfo.State.CONNECTED);
         IntentFilter filter = new IntentFilter();
@@ -223,11 +202,9 @@ public final class CtsNetUtils {
         mContext.registerReceiver(receiver, filter);
 
         try {
-            final Network network = new ConnectUtil(mContext).ensureWifiConnected();
-            if (expectLegacyBroadcast) {
-                assertTrue("CONNECTIVITY_ACTION not received after connecting to " + network,
-                        receiver.waitForState());
-            }
+            final Network network = mConnectUtil.ensureWifiConnected();
+            assertTrue("CONNECTIVITY_ACTION not received after connecting to " + network,
+                    receiver.waitForState());
             return network;
         } catch (InterruptedException ex) {
             throw new AssertionError("connectToWifi was interrupted", ex);
@@ -247,20 +224,8 @@ public final class CtsNetUtils {
      *                           server before disconnecting, and to have that connection closed in
      *                           the process.
      */
-    public void disconnectFromWifi(Network wifiNetworkToCheck) {
-        disconnectFromWifi(wifiNetworkToCheck, true /* expectLegacyBroadcast */);
-    }
-
-    /**
-     * Disable WiFi and wait for it to become disconnected from the network.
-     *
-     * @param wifiNetworkToCheck If non-null, a network that should be disconnected. This network
-     *                           is expected to be able to establish a TCP connection to a remote
-     *                           server before disconnecting, and to have that connection closed in
-     *                           the process.
-     */
-    public void ensureWifiDisconnected(Network wifiNetworkToCheck) {
-        disconnectFromWifi(wifiNetworkToCheck, false /* expectLegacyBroadcast */);
+    public void disconnectWifiAndCheckSocketsClosed(Network wifiNetworkToCheck) {
+        disconnectWifiAndCheckSocketsClosed(wifiNetworkToCheck, false);
     }
 
     /**
@@ -276,7 +241,8 @@ public final class CtsNetUtils {
      *                              The check will always be skipped if the device was not connected
      *                              to wifi in the first place.
      */
-    private void disconnectFromWifi(Network wifiNetworkToCheck, boolean expectLegacyBroadcast) {
+    private void disconnectWifiAndCheckSocketsClosed(Network wifiNetworkToCheck,
+            boolean expectLegacyBroadcast) {
         ConnectivityActionReceiver receiver = new ConnectivityActionReceiver(
                 mCm, ConnectivityManager.TYPE_WIFI, NetworkInfo.State.DISCONNECTED);
         IntentFilter filter = new IntentFilter();
@@ -296,7 +262,7 @@ public final class CtsNetUtils {
             }
         }
 
-        final boolean wasWifiConnected = new ConnectUtil(mContext).disableWifi(wifiNetworkToCheck);
+        final boolean wasWifiConnected = mConnectUtil.disableWifi(wifiNetworkToCheck);
         if (wifiNetworkToCheck != null) {
             assertTrue("Requested to check network " + wifiNetworkToCheck
                             + " but wifi is not connected", wasWifiConnected);
