@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47b500d3_649c840b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-10-29T18:18:18Z",
+      "side": 1,
+      "message": "Thank you Remi and Xiao for reviewing. \nPTAL and please suggest we should insist on using \"byte\" or change it \"int\" for the value types.",
+      "revId": "2f8e04b6ced11424e001b6e235a72908b58819a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

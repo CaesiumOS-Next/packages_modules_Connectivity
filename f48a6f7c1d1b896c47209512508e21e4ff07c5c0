@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8472563e_4c86c411",
+        "filename": "framework/api/system-lint-baseline.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-10-29T18:18:18Z",
+      "side": 1,
+      "message": "Agree that the API council may not like this. \nIn the current DhcpOption class in NetworkStack,  the type and value of DhcpOption are all of type \"byte\",  but \"byte\" is not allowed for mainline API. \n\n@xiaom:  Should we insist on using byte here?  Or we change to use int here and also inside NetworkStack later?  Or we use int here and translate it to byte inside NetworkStack?",
+      "parentUuid": "5f217d06_aa33046c",
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec814546_f39ce618",
         "filename": "framework/src/android/net/DhcpOption.java",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2021-10-29T07:59:58Z",
       "side": 1,
       "message": "Can these be final ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 26
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7292bc8_cec44ea5",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-10-29T18:18:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ec814546_f39ce618",
       "range": {
         "startLine": 31,
         "startChar": 4,
@@ -81,6 +123,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7744124b_42a6c262",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-10-29T18:18:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "840626e6_98e37719",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e398687_fe95a71f",
@@ -94,6 +160,30 @@
       "writtenOn": "2021-10-29T15:39:03Z",
       "side": 1,
       "message": "option type 0 is pad option(https://datatracker.ietf.org/doc/html/rfc2132#section-3.1), if we would like to pick an invalid initialization value, how about \"-1\"? or define a constant(e.g. INVALID_DHCP_OPTION_TYPE) to replace -1.",
+      "range": {
+        "startLine": 42,
+        "startChar": 27,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed1751f_5379350c",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-10-29T18:18:18Z",
+      "side": 1,
+      "message": "Ack. \nmType is modified as final, so removed the initialization.",
+      "parentUuid": "6e398687_fe95a71f",
       "range": {
         "startLine": 42,
         "startChar": 27,
@@ -127,6 +217,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "346077a2_3101d2da",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-10-29T18:18:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1ef2bfe_e2d5b76c",
+      "range": {
+        "startLine": 52,
+        "startChar": 41,
+        "endLine": 52,
+        "endChar": 49
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3613ad3b_52406b25",
@@ -150,6 +264,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40e8d1ad_34df51c5",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-10-29T18:18:18Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "3613ad3b_52406b25",
+      "range": {
+        "startLine": 59,
+        "startChar": 16,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82a5d234_30c53319",
@@ -163,6 +301,30 @@
       "writtenOn": "2021-10-29T07:59:58Z",
       "side": 1,
       "message": "This makes the class effectively mutable since one can do:\n  option.getValue()[0] \u003d 123;\nDepending on the expected data size/performance, maybe returning a copy of the array, or ByteBuffer.wrap(mValue).asReadOnlyBuffer() may be safer",
+      "range": {
+        "startLine": 97,
+        "startChar": 15,
+        "endLine": 97,
+        "endChar": 21
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b20c7324_4654e4a5",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-10-29T18:18:18Z",
+      "side": 1,
+      "message": "Ack.  \nI chose to return a copy of the array so that the type of byte[] can be kept.",
+      "parentUuid": "82a5d234_30c53319",
       "range": {
         "startLine": 97,
         "startChar": 15,
