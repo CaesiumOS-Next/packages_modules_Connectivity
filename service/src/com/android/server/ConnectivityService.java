@@ -165,6 +165,7 @@ import android.net.NetworkUtils;
 import android.net.NetworkWatchlistManager;
 import android.net.OemNetworkPreferences;
 import android.net.PrivateDnsConfigParcel;
+import android.net.ProfileNetworkPreferences;
 import android.net.ProxyInfo;
 import android.net.QosCallbackException;
 import android.net.QosFilter;
@@ -10080,6 +10081,53 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @Override
     public void setProfileNetworkPreference(@NonNull final UserHandle profile,
             @ConnectivityManager.ProfileNetworkPreference final int preference,
+            @Nullable final IOnCompleteListener listener) {
+        Objects.requireNonNull(profile);
+        PermissionUtils.enforceNetworkStackPermission(mContext);
+        if (DBG) {
+            log("setProfileNetworkPreference " + profile + " to " + preference);
+        }
+        if (profile.getIdentifier() < 0) {
+            throw new IllegalArgumentException("Must explicitly specify a user handle ("
+                    + "UserHandle.CURRENT not supported)");
+        }
+        final UserManager um = mContext.getSystemService(UserManager.class);
+        if (!um.isManagedProfile(profile.getIdentifier())) {
+            throw new IllegalArgumentException("Profile must be a managed profile");
+        }
+
+        final NetworkCapabilities nc;
+        switch (preference) {
+            case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT:
+                nc = null;
+                break;
+            case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE:
+                final UidRange uids = UidRange.createForUser(profile);
+                nc = createDefaultNetworkCapabilitiesForUidRange(uids);
+                nc.addCapability(NET_CAPABILITY_ENTERPRISE);
+                nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
+                break;
+            default:
+                throw new IllegalArgumentException(
+                        "Invalid preference in setProfileNetworkPreference");
+        }
+        mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_PROFILE_NETWORK_PREFERENCE,
+                new Pair<>(new ProfileNetworkPreferences.Preference(profile, nc), listener)));
+    }
+
+    /**
+     * Request that a user profile is put by default on a network matching a given preference.
+     *
+     * See the documentation for the individual preferences for a description of the supported
+     * behaviors.
+     *
+     * @param profile the profile concerned.
+     * @param preference the preference for this profile, as one of the PROFILE_NETWORK_PREFERENCE_*
+     *                   constants.
+     * @param listener an optional listener to listen for completion of the operation.
+     */
+    @Override
+    public void setProfileNetworkPreference(android.net.ProfileNetworkPreferences profileNetworkPreferences,
             @Nullable final IOnCompleteListener listener) {
         Objects.requireNonNull(profile);
         PermissionUtils.enforceNetworkStackPermission(mContext);

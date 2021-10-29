@@ -40,13 +40,7 @@ import java.util.Objects;
  */
 @SystemApi
 public final class OemNetworkPreferences implements Parcelable {
-    // Valid production preferences must be > 0, negative values reserved for testing
-    /**
-     * This preference is only to be used for testing and nothing else.
-     * Use only TRANSPORT_TEST transport networks.
-     * @hide
-     */
-    public static final int OEM_NETWORK_PREFERENCE_TEST_ONLY = -2;
+    @ConnectivityManager.ProfileNetworkPreference final int preference;
 
     /**
      * This preference is only to be used for testing and nothing else.
