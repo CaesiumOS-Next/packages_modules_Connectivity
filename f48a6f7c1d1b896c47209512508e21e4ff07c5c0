@@ -60,6 +60,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "840626e6_98e37719",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-10-29T15:39:03Z",
+      "side": 1,
+      "message": "nit: @Nullable. Per the original design, the custom DHCP option value might be null, if it\u0027s null, that means this option should be put in the Parameter Request List option and server will response the requested options in OFFER or ACK packet.\n\nhttps://source.corp.google.com/android/packages/modules/NetworkStack/common/networkstackclient/src/android/net/networkstack/aidl/dhcp/DhcpOption.aidl;l\u003d25?q\u003dDhcpOption\u0026ss\u003dpiper%2FGoogle%2Fandroid",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e398687_fe95a71f",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-10-29T15:39:03Z",
+      "side": 1,
+      "message": "option type 0 is pad option(https://datatracker.ietf.org/doc/html/rfc2132#section-3.1), if we would like to pick an invalid initialization value, how about \"-1\"? or define a constant(e.g. INVALID_DHCP_OPTION_TYPE) to replace -1.",
+      "range": {
+        "startLine": 42,
+        "startChar": 27,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ef2bfe_e2d5b76c",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-10-29T15:39:03Z",
+      "side": 1,
+      "message": "nit: @Nullable",
+      "range": {
+        "startLine": 52,
+        "startChar": 41,
+        "endLine": 52,
+        "endChar": 49
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3613ad3b_52406b25",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-10-29T15:39:03Z",
+      "side": 1,
+      "message": "Consider that the null option value is allowed, could we check the invalid option type instead? something like:\n\nif (mType \u003d\u003d INVALID_DHCP_OPTION_TYPE) {\n    throw new IllegalArgumentException(\"Invalid DHCP option type \" + mType);\n}",
+      "range": {
+        "startLine": 59,
+        "startChar": 16,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82a5d234_30c53319",
         "filename": "framework/src/android/net/DhcpOption.java",
         "patchSetId": 1
