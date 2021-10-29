@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d5cafc0_33e6ef0f",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-29T06:43:11Z",
+      "side": 1,
+      "message": "As long as you\u0027re renaming this can we name it in such a way that clarifies what it does ? Especially since now we don\u0027t pass a network to start with.\n\nE.g. getSystemDefaultWiFiOrFail() or something.",
+      "range": {
+        "startLine": 169,
+        "startChar": 20,
+        "endLine": 169,
+        "endChar": 45
+      },
+      "revId": "bcbc59e2df6581ffef0ef9154561c90e406cb7be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d20e3f17_5edf2135",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-29T06:43:11Z",
+      "side": 1,
+      "message": "Just remove this and declare the method to throw Exception",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 79
+      },
+      "revId": "bcbc59e2df6581ffef0ef9154561c90e406cb7be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
