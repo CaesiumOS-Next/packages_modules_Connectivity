@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb7a491e_65170b5b",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-10-29T00:27:51Z",
+      "side": 1,
+      "message": "Is BPF_PROG_TYPE_sk_skb necessary or is there another way to access the params below from skb?",
+      "range": {
+        "startLine": 87,
+        "startChar": 23,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "fcbcf144352761259e3d901acd2df8dc6ef3f790",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
