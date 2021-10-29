@@ -16,6 +16,24 @@
       "message": "How difficult is it to move together disconnectFromWifi, connectToCell and... well, everything else really ? Can we just move the file wholesale ?\n",
       "revId": "14760f9004d57f38cce3048e879fa2f50437efac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a6c671c_a3ac98f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-29T06:00:07Z",
+      "side": 1,
+      "message": "The whole file is a bit too much I think, as it has some CTS-specific stuff (such as verifying that the legacy broadcast is sent, that sockets are closed on disconnect for example, and other utils).\n\nSee changes I added above though: moving disconnectFromWifi, connectToCell in particular.",
+      "parentUuid": "4778198e_f4ad4878",
+      "revId": "14760f9004d57f38cce3048e879fa2f50437efac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
