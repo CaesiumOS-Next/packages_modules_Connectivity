@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855bbe60_03dbeefc",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-29T00:40:56Z",
+      "side": 1,
+      "message": "I\u0027d say either the same package the class it tests is in, like you did, or some existing place like android.net.cts",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 62
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1217863_aa8a78e1",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-29T00:40:56Z",
+      "side": 1,
+      "message": "Is there any reason to use lateinit rather than just initializing this inline here ? lateinit is useful when there is no way to make a val really immutable, but when there is it should be avoided",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f8faf0b_b3a38056",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-29T00:40:56Z",
+      "side": 1,
+      "message": "I guess it should be ignored up to T",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37712832_d8466390",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-10-29T00:40:56Z",
+      "side": 1,
+      "message": "Normally you just say\n\n  assertFailsWith\u003cErrnoException\u003e {\n      OS.bind(sock, IPV4_LOOPBACK, port)\n  }",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
