@@ -52,7 +52,6 @@ import android.net.TetheringManager;
 import android.net.TetheringManager.OnTetheringEntitlementResultListener;
 import android.net.TetheringManager.TetheringInterfaceRegexps;
 import android.net.TetheringManager.TetheringRequest;
-import android.net.cts.util.CtsNetUtils;
 import android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import android.net.cts.util.CtsTetheringUtils;
 import android.net.cts.util.CtsTetheringUtils.StartTetheringCallback;
@@ -67,6 +66,8 @@ import android.telephony.TelephonyManager;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.android.testutils.ConnectUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -92,7 +93,7 @@ public class TetheringManagerTest {
     private PackageManager mPm;
 
     private TetherChangeReceiver mTetherChangeReceiver;
-    private CtsNetUtils mCtsNetUtils;
+    private ConnectUtil mConnectUtil;
     private CtsTetheringUtils mCtsTetheringUtils;
 
     private static final int DEFAULT_TIMEOUT_MS = 60_000;
@@ -117,7 +118,7 @@ public class TetheringManagerTest {
         mTM = (TetheringManager) mContext.getSystemService(Context.TETHERING_SERVICE);
         mWm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         mPm = mContext.getPackageManager();
-        mCtsNetUtils = new CtsNetUtils(mContext);
+        mConnectUtil = new ConnectUtil(mContext);
         mCtsTetheringUtils = new CtsTetheringUtils(mContext);
         mTetherChangeReceiver = new TetherChangeReceiver();
         final IntentFilter filter = new IntentFilter(
@@ -424,7 +425,7 @@ public class TetheringManagerTest {
 
             previousWifiEnabledState = mWm.isWifiEnabled();
             if (previousWifiEnabledState) {
-                mCtsNetUtils.ensureWifiDisconnected(null);
+                mConnectUtil.disableWifi();
             }
 
             final TestNetworkCallback networkCallback = new TestNetworkCallback();
@@ -460,7 +461,7 @@ public class TetheringManagerTest {
         } finally {
             mCtsTetheringUtils.unregisterTetheringEventCallback(tetherEventCallback);
             if (previousWifiEnabledState) {
-                mCtsNetUtils.connectToWifi();
+                mConnectUtil.ensureWifiConnected();
             }
         }
     }

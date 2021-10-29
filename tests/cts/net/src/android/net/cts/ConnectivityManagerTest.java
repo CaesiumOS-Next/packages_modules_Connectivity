@@ -577,7 +577,7 @@ public class ConnectivityManagerTest {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
 
-        Network wifiNetwork = mCtsNetUtils.connectToWifi();
+        Network wifiNetwork = mCtsNetUtils.connectToWifiAndCheckLegacyBroadcast();
         Network cellNetwork = requestCellNetwork();
         // This server returns the requestor's IP address as the response body.
         URL url = new URL("http://google-ipv6test.appspot.com/ip.js?fmt=text");
@@ -744,7 +744,7 @@ public class ConnectivityManagerTest {
         try {
             // Verifying the good private DNS sever
             mCtsNetUtils.setPrivateDnsStrictMode(goodPrivateDnsServer);
-            final Network networkForPrivateDns =  mCtsNetUtils.ensureWifiConnected();
+            final Network networkForPrivateDns =  mConnectUtil.ensureWifiConnected();
             cb.eventuallyExpect(CallbackEntry.NETWORK_CAPS_UPDATED, NETWORK_CALLBACK_TIMEOUT_MS,
                     entry -> hasPrivateDnsValidated(entry, networkForPrivateDns));
 
@@ -794,7 +794,7 @@ public class ConnectivityManagerTest {
         }
 
         Network wifiNetwork = null;
-        mCtsNetUtils.ensureWifiConnected();
+        mConnectUtil.ensureWifiConnected();
 
         // Now we should expect to get a network callback about availability of the wifi
         // network even if it was already connected as a state-based action when the callback
@@ -855,7 +855,7 @@ public class ConnectivityManagerTest {
         mCm.registerNetworkCallback(makeWifiNetworkRequest(), pendingIntent);
 
         try {
-            mCtsNetUtils.ensureWifiConnected();
+            mConnectUtil.ensureWifiConnected();
 
             // Now we expect to get the Intent delivered notifying of the availability of the wifi
             // network even if it was already connected as a state-based action when the callback
@@ -875,7 +875,7 @@ public class ConnectivityManagerTest {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
         // Disconnect before registering callbacks, reconnect later to fire them
-        mCtsNetUtils.ensureWifiDisconnected(null);
+        mCtsNetUtils.disconnectWifiAndCheckSocketsClosed(null);
 
         final NetworkRequest firstRequest = makeWifiNetworkRequest();
         final NetworkRequest secondRequest = new NetworkRequest(firstRequest);
@@ -934,7 +934,7 @@ public class ConnectivityManagerTest {
             };
             mContext.registerReceiver(receiver, filter);
 
-            final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+            final Network wifiNetwork = mConnectUtil.ensureWifiConnected();
             try {
                 assertEquals(wifiNetwork, networkFuture.get(
                         NETWORK_CALLBACK_TIMEOUT_MS, TimeUnit.MILLISECONDS));
@@ -956,7 +956,7 @@ public class ConnectivityManagerTest {
             if (firstIntent != null) mCm.unregisterNetworkCallback(firstIntent);
             if (secondIntent != null) mCm.unregisterNetworkCallback(secondIntent);
             if (receiver != null) mContext.unregisterReceiver(receiver);
-            mCtsNetUtils.ensureWifiConnected();
+            mConnectUtil.ensureWifiConnected();
         }
     }
 
@@ -1008,7 +1008,7 @@ public class ConnectivityManagerTest {
     public void testRequestNetworkCallback_onUnavailable() throws Exception {
         final boolean previousWifiEnabledState = mWifiManager.isWifiEnabled();
         if (previousWifiEnabledState) {
-            mCtsNetUtils.ensureWifiDisconnected(null);
+            mCtsNetUtils.disconnectWifiAndCheckSocketsClosed(null);
         }
 
         final TestNetworkCallback callback = new TestNetworkCallback();
@@ -1023,7 +1023,7 @@ public class ConnectivityManagerTest {
             fail("NetworkCallback wait was interrupted.");
         } finally {
             if (previousWifiEnabledState) {
-                mCtsNetUtils.connectToWifi();
+                mCtsNetUtils.connectToWifiAndCheckLegacyBroadcast();
             }
         }
     }
@@ -1146,7 +1146,7 @@ public class ConnectivityManagerTest {
     private Network setWifiMeteredStatusAndWait(String ssid, boolean isMetered,
             boolean waitForValidation) throws Exception {
         setWifiMeteredStatus(ssid, Boolean.toString(isMetered) /* metered */);
-        mCtsNetUtils.ensureWifiConnected();
+        mConnectUtil.ensureWifiConnected();
         return waitForActiveNetworkMetered(TRANSPORT_WIFI,
                 isMetered /* requestedMeteredness */,
                 waitForValidation,
@@ -1203,7 +1203,7 @@ public class ConnectivityManagerTest {
     public void testGetMultipathPreference() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         final ContentResolver resolver = mContext.getContentResolver();
-        mCtsNetUtils.ensureWifiConnected();
+        mConnectUtil.ensureWifiConnected();
         final String ssid = unquoteSSID(mWifiManager.getConnectionInfo().getSSID());
         final String oldMeteredSetting = getWifiMeteredStatus(ssid);
         final String oldMeteredMultipathPreference = Settings.Global.getString(
@@ -1425,7 +1425,7 @@ public class ConnectivityManagerTest {
     public void testKeepaliveWifiUnsupported() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
-        final Network network = mCtsNetUtils.ensureWifiConnected();
+        final Network network = mConnectUtil.ensureWifiConnected();
         if (getSupportedKeepalivesForNet(network) != 0) return;
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
@@ -1442,7 +1442,7 @@ public class ConnectivityManagerTest {
     public void testCreateTcpKeepalive() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
-        final Network network = mCtsNetUtils.ensureWifiConnected();
+        final Network network = mConnectUtil.ensureWifiConnected();
         if (getSupportedKeepalivesForNet(network) == 0) return;
         final InetAddress srcAddr = getFirstV4Address(network);
         assumeTrue("This test requires native IPv4", srcAddr != null);
@@ -1649,7 +1649,7 @@ public class ConnectivityManagerTest {
     public void testSocketKeepaliveLimitWifi() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
-        final Network network = mCtsNetUtils.ensureWifiConnected();
+        final Network network = mConnectUtil.ensureWifiConnected();
         final int supported = getSupportedKeepalivesForNet(network);
         if (supported == 0) {
             return;
@@ -1745,7 +1745,7 @@ public class ConnectivityManagerTest {
     public void testSocketKeepaliveUnprivileged() throws Exception {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
-        final Network network = mCtsNetUtils.ensureWifiConnected();
+        final Network network = mConnectUtil.ensureWifiConnected();
         final int supported = getSupportedKeepalivesForNet(network);
         if (supported == 0) {
             return;
@@ -1828,7 +1828,7 @@ public class ConnectivityManagerTest {
 
         if (mPackageManager.hasSystemFeature(FEATURE_WIFI)) {
             // Expect binding to the wifi network to succeed.
-            final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+            final Network wifiNetwork = mConnectUtil.ensureWifiConnected();
             try (Socket socket = new Socket()) {
                 wifiNetwork.bindSocket(socket);
             }
@@ -1875,7 +1875,7 @@ public class ConnectivityManagerTest {
         // test if none of them are supported since test should still able to verify the permission
         // mechanism.
         if (supportWifi) {
-            mCtsNetUtils.ensureWifiConnected();
+            mConnectUtil.ensureWifiConnected();
             registerCallbackAndWaitForAvailable(makeWifiNetworkRequest(), wifiCb);
         }
         if (supportTelephony) {
@@ -1921,7 +1921,7 @@ public class ConnectivityManagerTest {
             // Verify that turning airplane mode off takes effect as expected.
             // requestCellNetwork only registers a request, it cannot / does not need to be called
             // twice
-            mCtsNetUtils.ensureWifiConnected();
+            mConnectUtil.ensureWifiConnected();
             if (supportWifi) waitForAvailable(wifiCb);
             if (supportTelephony) waitForAvailable(telephonyCb);
         } finally {
@@ -2021,7 +2021,7 @@ public class ConnectivityManagerTest {
         assumeTrue("testSsidInNetworkCapabilities cannot execute unless device supports WiFi",
                 mPackageManager.hasSystemFeature(FEATURE_WIFI));
 
-        final Network network = mCtsNetUtils.ensureWifiConnected();
+        final Network network = mConnectUtil.ensureWifiConnected();
         final String ssid = unquoteSSID(mWifiManager.getConnectionInfo().getSSID());
         assertNotNull("Ssid getting from WifiManager is null", ssid);
         // This package should have no NETWORK_SETTINGS permission. Verify that no ssid is contained
@@ -2388,7 +2388,7 @@ public class ConnectivityManagerTest {
         final TestableNetworkCallback defaultCallback = new TestableNetworkCallback();
         final TestableNetworkCallback systemDefaultCallback = new TestableNetworkCallback();
 
-        final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        final Network wifiNetwork = mConnectUtil.ensureWifiConnected();
         final NetworkCapabilities wifiNetworkCapabilities = callWithShellPermissionIdentity(
                 () -> mCm.getNetworkCapabilities(wifiNetwork));
         final String ssid = unquoteSSID(wifiNetworkCapabilities.getSsid());
@@ -2449,7 +2449,7 @@ public class ConnectivityManagerTest {
         final TestableNetworkCallback defaultCallback = new TestableNetworkCallback();
         final TestableNetworkCallback systemDefaultCallback = new TestableNetworkCallback();
 
-        final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        final Network wifiNetwork = mConnectUtil.ensureWifiConnected();
 
         try {
             setOemNetworkPreferenceForMyPackage(
@@ -2594,7 +2594,7 @@ public class ConnectivityManagerTest {
             // Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
             runShellCommand("svc wifi disable");
-            mCtsNetUtils.ensureWifiConnected();
+            mConnectUtil.ensureWifiConnected();
         }
     }
 
@@ -2634,7 +2634,7 @@ public class ConnectivityManagerTest {
             /// Wifi will not automatically reconnect to the network. ensureWifiDisconnected cannot
             // apply here. Thus, turn off wifi first and restart to restore.
             runShellCommand("svc wifi disable");
-            mCtsNetUtils.ensureWifiConnected();
+            mConnectUtil.ensureWifiConnected();
         }
     }
 
@@ -2755,8 +2755,9 @@ public class ConnectivityManagerTest {
     }
 
     private Network reconnectWifi() throws Exception {
-        mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
-        return mCtsNetUtils.ensureWifiConnected();
+        mCtsNetUtils.disconnectWifiAndCheckSocketsClosed(
+                null /* wifiNetworkToCheck */);
+        return mConnectUtil.ensureWifiConnected();
     }
 
     private Network prepareValidatedNetwork() throws Exception {
@@ -2775,8 +2776,8 @@ public class ConnectivityManagerTest {
         configTestServer(Status.INTERNAL_ERROR  /* httpsStatusCode */,
                 Status.NO_CONTENT  /* httpStatusCode */);
         // Disconnect wifi first then start wifi network with configuration.
-        mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
-        final Network network = mCtsNetUtils.ensureWifiConnected();
+        mCtsNetUtils.disconnectWifiAndCheckSocketsClosed(null /* wifiNetworkToCheck */);
+        final Network network = mConnectUtil.ensureWifiConnected();
 
         return expectNetworkHasCapability(network, NET_CAPABILITY_PARTIAL_CONNECTIVITY,
                 WIFI_CONNECT_TIMEOUT_MS);
@@ -2789,8 +2790,8 @@ public class ConnectivityManagerTest {
                 Status.INTERNAL_ERROR /* httpStatusCode */);
 
         // Disconnect wifi first then start wifi network with configuration.
-        mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
-        final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        mCtsNetUtils.disconnectWifiAndCheckSocketsClosed(null /* wifiNetworkToCheck */);
+        final Network wifiNetwork = mConnectUtil.ensureWifiConnected();
         return expectNetworkHasCapability(wifiNetwork, NET_CAPABILITY_INTERNET,
                 WIFI_CONNECT_TIMEOUT_MS);
     }
@@ -2827,7 +2828,7 @@ public class ConnectivityManagerTest {
                 + " unless device supports WiFi or telephony", (supportWifi || supportTelephony));
 
         if (supportWifi) {
-            mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+            mCtsNetUtils.disconnectWifiAndCheckSocketsClosed(null /* wifiNetworkToCheck */);
         }
 
         final CompletableFuture<Boolean> future = new CompletableFuture<>();
@@ -2836,7 +2837,7 @@ public class ConnectivityManagerTest {
         testAndCleanup(() -> {
             // New default network connected will trigger a network activity notification.
             if (supportWifi) {
-                mCtsNetUtils.ensureWifiConnected();
+                mConnectUtil.ensureWifiConnected();
             } else {
                 requestCellNetwork();
             }
@@ -2878,7 +2879,7 @@ public class ConnectivityManagerTest {
         ConnectivitySettingsManager.setMobileDataPreferredUids(mContext, mobileDataPreferredUids);
 
         // For testing mobile data preferred uids feature, it needs both wifi and cell network.
-        final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        final Network wifiNetwork = mConnectUtil.ensureWifiConnected();
         final Network cellNetwork = requestCellNetwork();
         final TestableNetworkCallback defaultTrackingCb = new TestableNetworkCallback();
         final TestableNetworkCallback systemDefaultCb = new TestableNetworkCallback();
