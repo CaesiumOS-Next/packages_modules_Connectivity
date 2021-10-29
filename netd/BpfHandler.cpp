@@ -21,6 +21,7 @@
 #include <linux/bpf.h>
 
 #include <android-base/unique_fd.h>
+#include <bpf/WaitForProgsLoaded.h>
 #include <log/log.h>
 #include <processgroup/processgroup.h>
 
@@ -82,6 +83,10 @@ static Status initPrograms() {
 }
 
 Status BpfHandler::init() {
+    // Make sure BPF programs are loaded before doing anything
+    android::bpf::waitForProgsLoaded();
+    ALOGI("BPF programs are loaded");
+
     RETURN_IF_NOT_OK(initPrograms());
 
     return netdutils::status::ok;
