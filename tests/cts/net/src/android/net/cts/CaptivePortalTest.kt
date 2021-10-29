@@ -37,7 +37,6 @@ import android.net.cts.NetworkValidationTestUtil.clearValidationTestUrlsDeviceCo
 import android.net.cts.NetworkValidationTestUtil.setHttpUrlDeviceConfig
 import android.net.cts.NetworkValidationTestUtil.setHttpsUrlDeviceConfig
 import android.net.cts.NetworkValidationTestUtil.setUrlExpirationDeviceConfig
-import android.net.cts.util.CtsNetUtils
 import android.net.util.NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTPS_URL
 import android.net.util.NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTP_URL
 import android.net.wifi.WifiManager
@@ -59,8 +58,8 @@ import com.android.testutils.runAsShell
 import fi.iki.elonen.NanoHTTPD.Response.Status
 import junit.framework.AssertionFailedError
 import org.junit.After
-import org.junit.Assume.assumeTrue
 import org.junit.Assume.assumeFalse
+import org.junit.Assume.assumeTrue
 import org.junit.Before
 import org.junit.runner.RunWith
 import java.util.concurrent.CompletableFuture
@@ -98,7 +97,7 @@ class CaptivePortalTest {
     private val wm by lazy { context.getSystemService(WifiManager::class.java) }
     private val cm by lazy { context.getSystemService(ConnectivityManager::class.java) }
     private val pm by lazy { context.packageManager }
-    private val utils by lazy { CtsNetUtils(context) }
+    private val connUtil by lazy { ConnectUtil(context) }
 
     private val server = TestHttpServer("localhost")
 
@@ -135,7 +134,7 @@ class CaptivePortalTest {
         assumeTrue(pm.hasSystemFeature(FEATURE_TELEPHONY))
         assumeTrue(pm.hasSystemFeature(FEATURE_WIFI))
         assumeFalse(pm.hasSystemFeature(FEATURE_WATCH))
-        utils.ensureWifiConnected()
+        connUtil.ensureWifiConnected()
         val cellConnectReq = ConnectUtil(context).requestCellNetwork()
         val cellNetwork = cellConnectReq.network
 
@@ -215,7 +214,7 @@ class CaptivePortalTest {
     private fun makeUrl(path: String) = "http://localhost:${server.listeningPort}" + path
 
     private fun reconnectWifi() {
-        utils.ensureWifiDisconnected(null /* wifiNetworkToCheck */)
-        utils.ensureWifiConnected()
+        connUtil.disableWifi()
+        connUtil.ensureWifiConnected()
     }
 }

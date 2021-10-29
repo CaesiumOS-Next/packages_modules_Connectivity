@@ -17,11 +17,11 @@
 package android.net.cts
 
 import android.content.pm.PackageManager
-import android.net.cts.util.CtsNetUtils
 import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
+import com.android.testutils.ConnectUtil
 import org.junit.Assume.assumeTrue
 import org.junit.Test
 import kotlin.test.assertNotNull
@@ -42,7 +42,7 @@ class NetworkStackDependenciesTest {
         val wifiManager = context.getSystemService(WifiManager::class.java)
         assertNotNull(wifiManager, "Device supports wifi but there is no WifiManager")
 
-        CtsNetUtils(context).ensureWifiConnected()
+        ConnectUtil(context).ensureWifiConnected()
         val wifiInfo = wifiManager.getConnectionInfo()
         // The NetworkStack can handle any value of getFrequency; unknown frequencies will not be
         // classified in metrics, but this is expected behavior. It is only important that the
