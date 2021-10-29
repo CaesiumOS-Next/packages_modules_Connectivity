@@ -16,6 +16,23 @@
       "message": "Looks to still be\n\nJNIHelp : Native registration unable to find class \u0027com/android/net/module/util/BpfMap\u0027; aborting...\n\nare we sure it\u0027s not device/com/...",
       "revId": "d3fedd1e6433c9144cd81f4dfe75f8dad050affd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef2e88ee_e204f24c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-10-29T06:18:12Z",
+      "side": 1,
+      "message": "jar jar rules has:\n\n# Classes from net-utils-framework-common\nrule com.android.net.module.util.** com.android.networkstack.tethering.util.@1\n\nwill this rename the class?\n\ndo we need to be loading com.android.networkstack.tethering.util.BpfMap ?",
+      "revId": "d3fedd1e6433c9144cd81f4dfe75f8dad050affd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
