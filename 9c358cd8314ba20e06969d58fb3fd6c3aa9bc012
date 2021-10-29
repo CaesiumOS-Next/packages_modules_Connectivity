@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59457296_80b87b47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-10-29T09:04:56Z",
+      "side": 1,
+      "message": "As per discussion with Jean, OK to send to Lorenzo for CTS+1",
+      "revId": "9c358cd8314ba20e06969d58fb3fd6c3aa9bc012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
