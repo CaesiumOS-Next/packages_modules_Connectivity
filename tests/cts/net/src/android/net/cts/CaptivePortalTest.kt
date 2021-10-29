@@ -49,6 +49,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.AndroidJUnit4
+import com.android.testutils.ConnectUtil
 import com.android.testutils.RecorderCallback
 import com.android.testutils.TestHttpServer
 import com.android.testutils.TestHttpServer.Request
@@ -135,7 +136,8 @@ class CaptivePortalTest {
         assumeTrue(pm.hasSystemFeature(FEATURE_WIFI))
         assumeFalse(pm.hasSystemFeature(FEATURE_WATCH))
         utils.ensureWifiConnected()
-        val cellNetwork = utils.connectToCell()
+        val cellConnectReq = ConnectUtil(context).requestCellNetwork()
+        val cellNetwork = cellConnectReq.network
 
         // Verify cell network is validated
         val cellReq = NetworkRequest.Builder()
@@ -203,8 +205,7 @@ class CaptivePortalTest {
         } finally {
             cm.unregisterNetworkCallback(wifiCb)
             server.stop()
-            // disconnectFromCell should be called after connectToCell
-            utils.disconnectFromCell()
+            cellConnectReq.close()
         }
     }
 

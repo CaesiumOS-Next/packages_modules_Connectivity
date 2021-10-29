@@ -16,8 +16,6 @@
 
 package android.net.cts.util;
 
-import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
-import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
@@ -58,8 +56,6 @@ import android.util.Log;
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.net.module.util.ConnectivitySettingsUtils;
 import com.android.testutils.ConnectUtil;
-import com.android.testutils.RecorderCallback.CallbackEntry;
-import com.android.testutils.TestableNetworkCallback;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -325,35 +321,6 @@ public final class CtsNetUtils {
                 assertEquals(Os.strerror(OsConstants.ECONNABORTED), expected.getMessage());
             }
         }
-    }
-
-    public Network connectToCell() throws InterruptedException {
-        if (cellConnectAttempted()) {
-            throw new IllegalStateException("Already connected");
-        }
-        NetworkRequest cellRequest = new NetworkRequest.Builder()
-                .addTransportType(TRANSPORT_CELLULAR)
-                .addCapability(NET_CAPABILITY_INTERNET)
-                .build();
-        mCellNetworkCallback = new TestableNetworkCallback();
-        mCm.requestNetwork(cellRequest, mCellNetworkCallback);
-        final CallbackEntry.Available cellNetwork = mCellNetworkCallback.eventuallyExpect(
-                CallbackEntry.AVAILABLE, CONNECTIVITY_CHANGE_TIMEOUT_SECS, cb -> true);
-        assertNotNull("Cell network not available. " +
-                "Please ensure the device has working mobile data.", cellNetwork.getNetwork());
-        return cellNetwork.getNetwork();
-    }
-
-    public void disconnectFromCell() {
-        if (!cellConnectAttempted()) {
-            throw new IllegalStateException("Cell connection not attempted");
-        }
-        mCm.unregisterNetworkCallback(mCellNetworkCallback);
-        mCellNetworkCallback = null;
-    }
-
-    public boolean cellConnectAttempted() {
-        return mCellNetworkCallback != null;
     }
 
     private void testHttpRequest(Socket s) throws IOException {
