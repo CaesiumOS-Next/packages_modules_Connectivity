@@ -32,7 +32,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.net.cts.util.CtsNetUtils;
 import android.net.wifi.WifiManager;
 import android.os.BatteryStatsManager;
 import android.os.Build;
@@ -44,6 +43,7 @@ import android.util.Log;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.testutils.ConnectUtil;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.SkipPresubmit;
 
@@ -77,7 +77,7 @@ public class BatteryStatsManagerTest{
     private ConnectivityManager mCm;
     private WifiManager mWm;
     private PackageManager mPm;
-    private CtsNetUtils mCtsNetUtils;
+    private ConnectUtil mConnectUtil;
 
     @Before
     public void setUp() throws Exception {
@@ -86,7 +86,7 @@ public class BatteryStatsManagerTest{
         mCm = mContext.getSystemService(ConnectivityManager.class);
         mWm = mContext.getSystemService(WifiManager.class);
         mPm = mContext.getPackageManager();
-        mCtsNetUtils = new CtsNetUtils(mContext);
+        mConnectUtil = new ConnectUtil(mContext);
     }
 
     // reportNetworkInterfaceForTransports classifies one network interface as wifi or mobile, so
@@ -116,7 +116,7 @@ public class BatteryStatsManagerTest{
             executeShellCommand("dumpsys batterystats --write");
 
             // Make sure wifi is disabled.
-            mCtsNetUtils.ensureWifiDisconnected(null /* wifiNetworkToCheck */);
+            mConnectUtil.disableWifi();
 
             verifyGetCellBatteryStats();
             verifyGetWifiBatteryStats();
@@ -136,31 +136,36 @@ public class BatteryStatsManagerTest{
             return;
         }
 
-        final Network cellNetwork = mCtsNetUtils.connectToCell();
+        final ConnectUtil.ConnectedCellRequest cellReq = mConnectUtil.requestCellNetwork();
+        final Network cellNetwork = cellReq.getNetwork();
         final URL url = new URL(TEST_URL);
 
-        // Get cellular battery stats
-        CellularBatteryStats cellularStatsBefore = runAsShell(UPDATE_DEVICE_STATS,
-                mBsm::getCellularBatteryStats);
+        try {
+            // Get cellular battery stats
+            CellularBatteryStats cellularStatsBefore = runAsShell(UPDATE_DEVICE_STATS,
+                    mBsm::getCellularBatteryStats);
 
-        // Generate traffic on cellular network.
-        Log.d(TAG, "Generate traffic on cellular network.");
-        generateNetworkTraffic(cellNetwork, url);
+            // Generate traffic on cellular network.
+            Log.d(TAG, "Generate traffic on cellular network.");
+            generateNetworkTraffic(cellNetwork, url);
 
-        // The mobile battery stats are updated when a network stops being the default network.
-        // ConnectivityService will call BatteryStatsManager.reportMobileRadioPowerState when
-        // removing data activity tracking.
-        mCtsNetUtils.ensureWifiConnected();
+            // The mobile battery stats are updated when a network stops being the default network.
+            // ConnectivityService will call BatteryStatsManager.reportMobileRadioPowerState when
+            // removing data activity tracking.
+            mConnectUtil.ensureWifiConnected();
 
-        // Check cellular battery stats are updated.
-        runAsShell(UPDATE_DEVICE_STATS,
-                () -> assertStatsEventually(mBsm::getCellularBatteryStats,
-                    cellularStatsAfter -> cellularBatteryStatsIncreased(
-                    cellularStatsBefore, cellularStatsAfter)));
+            // Check cellular battery stats are updated.
+            runAsShell(UPDATE_DEVICE_STATS,
+                    () -> assertStatsEventually(mBsm::getCellularBatteryStats,
+                            cellularStatsAfter -> cellularBatteryStatsIncreased(
+                                    cellularStatsBefore, cellularStatsAfter)));
+        } finally {
+            cellReq.close();
+        }
     }
 
     private void verifyGetWifiBatteryStats() throws Exception {
-        final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        final Network wifiNetwork = mConnectUtil.ensureWifiConnected();
         final URL url = new URL(TEST_URL);
 
         if (!mWm.isEnhancedPowerReportingSupported()) {
@@ -175,7 +180,8 @@ public class BatteryStatsManagerTest{
         Log.d(TAG, "Generate traffic on wifi network.");
         generateNetworkTraffic(wifiNetwork, url);
         // Wifi battery stats are updated when wifi on.
-        mCtsNetUtils.toggleWifi();
+        mConnectUtil.disableWifi(wifiNetwork);
+        mConnectUtil.ensureWifiConnected();
 
         // Check wifi battery stats are updated.
         runAsShell(UPDATE_DEVICE_STATS,
@@ -189,7 +195,7 @@ public class BatteryStatsManagerTest{
     @Test
     public void testReportNetworkInterfaceForTransports_throwsSecurityException()
             throws Exception {
-        Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+        Network wifiNetwork = mConnectUtil.ensureWifiConnected();
         final String iface = mCm.getLinkProperties(wifiNetwork).getInterfaceName();
         final int[] transportType = mCm.getNetworkCapabilities(wifiNetwork).getTransportTypes();
         assertThrows(SecurityException.class,

@@ -16,8 +16,6 @@
 
 package android.net.cts.util;
 
-import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
-import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 
@@ -323,34 +321,6 @@ public final class CtsNetUtils {
                 assertEquals(Os.strerror(OsConstants.ECONNABORTED), expected.getMessage());
             }
         }
-    }
-
-    public Network connectToCell() throws InterruptedException {
-        if (cellConnectAttempted()) {
-            throw new IllegalStateException("Already connected");
-        }
-        NetworkRequest cellRequest = new NetworkRequest.Builder()
-                .addTransportType(TRANSPORT_CELLULAR)
-                .addCapability(NET_CAPABILITY_INTERNET)
-                .build();
-        mCellNetworkCallback = new TestNetworkCallback();
-        mCm.requestNetwork(cellRequest, mCellNetworkCallback);
-        final Network cellNetwork = mCellNetworkCallback.waitForAvailable();
-        assertNotNull("Cell network not available. " +
-                "Please ensure the device has working mobile data.", cellNetwork);
-        return cellNetwork;
-    }
-
-    public void disconnectFromCell() {
-        if (!cellConnectAttempted()) {
-            throw new IllegalStateException("Cell connection not attempted");
-        }
-        mCm.unregisterNetworkCallback(mCellNetworkCallback);
-        mCellNetworkCallback = null;
-    }
-
-    public boolean cellConnectAttempted() {
-        return mCellNetworkCallback != null;
     }
 
     private void testHttpRequest(Socket s) throws IOException {
