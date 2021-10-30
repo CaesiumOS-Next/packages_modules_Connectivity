@@ -38,6 +38,7 @@ apex {
         },
     },
     bpfs: [
+        "clatd_modular.o",
         "offload.o",
         "test.o",
     ],

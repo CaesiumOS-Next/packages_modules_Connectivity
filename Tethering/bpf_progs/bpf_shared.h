@@ -34,15 +34,15 @@
 #define STRUCT_SIZE(name, size) _Static_assert(sizeof(name) == (size), "Incorrect struct size.")
 
 #define BPF_PATH "/sys/fs/bpf/"
-#define BPF_PATH_TETHER BPF_PATH "tethering/"
+#define TETHER_PATH BPF_PATH "tethering/"  // TODO: rename once netd.o has removed to mainline.
 
-#define CLAT_INGRESS6_PROG_RAWIP_NAME "prog_clatd_schedcls_ingress6_clat_rawip"
-#define CLAT_INGRESS6_PROG_ETHER_NAME "prog_clatd_schedcls_ingress6_clat_ether"
+#define CLAT_INGRESS6_PROG_RAWIP_NAME "prog_clatd_modular_schedcls_ingress6_clat_rawip"
+#define CLAT_INGRESS6_PROG_ETHER_NAME "prog_clatd_modular_schedcls_ingress6_clat_ether"
 
-#define CLAT_INGRESS6_PROG_RAWIP_PATH BPF_PATH CLAT_INGRESS6_PROG_RAWIP_NAME
-#define CLAT_INGRESS6_PROG_ETHER_PATH BPF_PATH CLAT_INGRESS6_PROG_ETHER_NAME
+#define CLAT_INGRESS6_PROG_RAWIP_PATH TETHER_PATH CLAT_INGRESS6_PROG_RAWIP_NAME
+#define CLAT_INGRESS6_PROG_ETHER_PATH TETHER_PATH CLAT_INGRESS6_PROG_ETHER_NAME
 
-#define CLAT_INGRESS6_MAP_PATH BPF_PATH "map_clatd_clat_ingress6_map"
+#define CLAT_INGRESS6_MAP_PATH TETHER_PATH "map_clatd_modular_clat_ingress6_map"
 
 typedef struct {
     uint32_t iif;            // The input interface index
@@ -57,13 +57,13 @@ typedef struct {
 } ClatIngress6Value;
 STRUCT_SIZE(ClatIngress6Value, 4 + 4);  // 8
 
-#define CLAT_EGRESS4_PROG_RAWIP_NAME "prog_clatd_schedcls_egress4_clat_rawip"
-#define CLAT_EGRESS4_PROG_ETHER_NAME "prog_clatd_schedcls_egress4_clat_ether"
+#define CLAT_EGRESS4_PROG_RAWIP_NAME "prog_clatd_modular_schedcls_egress4_clat_rawip"
+#define CLAT_EGRESS4_PROG_ETHER_NAME "prog_clatd_modular_schedcls_egress4_clat_ether"
 
-#define CLAT_EGRESS4_PROG_RAWIP_PATH BPF_PATH CLAT_EGRESS4_PROG_RAWIP_NAME
-#define CLAT_EGRESS4_PROG_ETHER_PATH BPF_PATH CLAT_EGRESS4_PROG_ETHER_NAME
+#define CLAT_EGRESS4_PROG_RAWIP_PATH TETHER_PATH CLAT_EGRESS4_PROG_RAWIP_NAME
+#define CLAT_EGRESS4_PROG_ETHER_PATH TETHER_PATH CLAT_EGRESS4_PROG_ETHER_NAME
 
-#define CLAT_EGRESS4_MAP_PATH BPF_PATH "map_clatd_clat_egress4_map"
+#define CLAT_EGRESS4_MAP_PATH TETHER_PATH "map_clatd_modular_clat_egress4_map"
 
 typedef struct {
     uint32_t iif;           // The input interface index
