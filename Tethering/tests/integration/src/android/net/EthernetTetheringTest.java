@@ -64,6 +64,7 @@ import com.android.net.module.util.structs.Ipv6Header;
 import com.android.testutils.HandlerUtils;
 import com.android.testutils.TapPacketReader;
 import com.android.testutils.TestNetworkTracker;
+import com.android.testutils.ValueWaiter;
 
 import org.junit.After;
 import org.junit.Before;
@@ -357,14 +358,14 @@ public class EthernetTetheringTest {
         private final CountDownLatch mLocalOnlyStartedLatch = new CountDownLatch(1);
         private final CountDownLatch mLocalOnlyStoppedLatch = new CountDownLatch(1);
         private final CountDownLatch mClientConnectedLatch = new CountDownLatch(1);
-        private final CountDownLatch mUpstreamConnectedLatch = new CountDownLatch(1);
         private final TetheringInterface mIface;
 
         private volatile boolean mInterfaceWasTethered = false;
         private volatile boolean mInterfaceWasLocalOnly = false;
         private volatile boolean mUnregistered = false;
         private volatile Collection<TetheredClient> mClients = null;
-        private volatile Network mUpstream = null;
+
+        private final ValueWaiter<Network> mUpstream = new ValueWaiter<>(null);
 
         MyTetheringEventCallback(TetheringManager tm, String iface) {
             mTm = tm;
@@ -477,14 +478,15 @@ public class EthernetTetheringTest {
             if (mUnregistered) return;
 
             Log.d(TAG, "Got upstream changed: " + network);
-            mUpstream = network;
-            if (mUpstream != null) mUpstreamConnectedLatch.countDown();
+            mUpstream.setValue(network);
         }
 
-        public Network awaitFirstUpstreamConnected() throws Exception {
-            assertTrue("Did not receive upstream connected callback after " + TIMEOUT_MS + "ms",
-                    mUpstreamConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
-            return mUpstream;
+        /**
+         * Wait for the specified network to become the upstream.
+         */
+        public void awaitUpstreamConnected(Network expectedUpstream) throws Exception {
+            assertTrue(expectedUpstream + " was not the upstream after " + TIMEOUT_MS + "ms",
+                    mUpstream.tryWait(expectedUpstream, TIMEOUT_MS));
         }
     }
 
@@ -699,8 +701,7 @@ public class EthernetTetheringTest {
                 mDownstreamIface.getInterfaceName(), iface);
 
         mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName());
-        assertEquals("onUpstreamChanged for unexpected network", mUpstreamTracker.getNetwork(),
-                mTetheringEventCallback.awaitFirstUpstreamConnected());
+        mTetheringEventCallback.awaitUpstreamConnected(mUpstreamTracker.getNetwork());
 
         mDownstreamReader = makePacketReader(mDownstreamIface);
         // TODO: do basic forwarding test here.
