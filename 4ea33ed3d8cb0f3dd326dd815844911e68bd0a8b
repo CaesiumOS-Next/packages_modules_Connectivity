@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5719e754_6633cf13",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-01T08:58:55Z",
+      "side": 1,
+      "message": "Why check this ? It forbids using null as the expected upstream, but I don\u0027t really see a good reason (it could be useful), and it complexifies the change. You can use Objects.equals() here and in l.504.",
+      "range": {
+        "startLine": 489,
+        "startChar": 20,
+        "endLine": 489,
+        "endChar": 49
+      },
+      "revId": "4ea33ed3d8cb0f3dd326dd815844911e68bd0a8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9ecd625_da1f29f8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-01T08:58:55Z",
+      "side": 1,
+      "message": "Hmmmmm no ? Usages of this may, but what this does is just making sure the value eventually appears within the timeout.",
+      "range": {
+        "startLine": 498,
+        "startChar": 11,
+        "endLine": 499,
+        "endChar": 16
+      },
+      "revId": "4ea33ed3d8cb0f3dd326dd815844911e68bd0a8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b30f74b2_26e49218",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-01T08:58:55Z",
+      "side": 1,
+      "message": "I don\u0027t think so. It will only timeout if the upstream has already changed by the time the synchronized() block is entered, is that what you mean ?",
+      "range": {
+        "startLine": 499,
+        "startChar": 17,
+        "endLine": 500,
+        "endChar": 17
+      },
+      "revId": "4ea33ed3d8cb0f3dd326dd815844911e68bd0a8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd3d40c8_0c0e7b9f",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-01T08:58:55Z",
+      "side": 1,
+      "message": "More importantly, this assumes awaitUpstreamConnected is only ever called on one thread. Call it concurrently and it doesn\u0027t work.\nI think generally Java\u0027s ConditionVariable is not well adapted to this kind of code because it won\u0027t let you check the expected value in a loop. wait() and notify() may be more appropriate.\n\nWating for an expected value now or later is something that we\u0027ve needed a couple times now. Do you think we could have a general tool to do this ? It could look something like this.\n\n  class ValueWaiter\u003cT\u003e {\n    private T mValue;\n    public synchronized T setValue(final T newValue) {\n      final T oldValue \u003d mValue;\n      mValue \u003d newValue;\n      notifyAll();\n      return oldValue;\n    }\n    public synchronized T expect(final T value, final long timeout) {\n      final long deadline \u003d SystemClock.uptimeMillis() + timeout;\n      while (!Objects.equals(mValue, value)) {\n        final long waitTime \u003d timeout - SystemClock.uptimeMillis();\n        if (waitTime \u003c 0) throw;\n        wait(timeout - SystemClock.uptimeMillis());\n      }\n      return value;\n    }\n  }\n\nIf you don\u0027t like the use of the externally-visible synchronization, you can use Lock and Condition, which have the same semantics and are meant to solve the issue, or some vanilla private Object inside ValueWaiter.",
+      "range": {
+        "startLine": 501,
+        "startChar": 9,
+        "endLine": 501,
+        "endChar": 11
+      },
+      "revId": "4ea33ed3d8cb0f3dd326dd815844911e68bd0a8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
