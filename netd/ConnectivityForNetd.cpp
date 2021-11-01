@@ -35,12 +35,14 @@ bool libconn_init() {
     return true;
 }
 
-int libconn_tagSocket(int /*sockFd*/, uint32_t /*tag*/, uid_t /*uid*/, uid_t /*callingUid*/) {
-    return 0;
+int libconn_tagSocket(int sockFd, uint32_t tag, uid_t uid, uid_t callingUid) {
+    if (android::net::gConnectivity == nullptr) return -EPERM;
+    return android::net::gConnectivity->mBpfHandler.tagSocket(sockFd, tag, uid, callingUid);
 }
 
-int libconn_unTagSocket(int /*sockFd*/) {
-    return 0;
+int libconn_unTagSocket(int sockFd) {
+    if (android::net::gConnectivity == nullptr) return -EPERM;
+    return android::net::gConnectivity->mBpfHandler.untagSocket(sockFd);
 }
 
 namespace android {
