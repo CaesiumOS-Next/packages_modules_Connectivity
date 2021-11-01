@@ -47,6 +47,7 @@ import android.net.EthernetManager.TetheredInterfaceRequest;
 import android.net.TetheringManager.StartTetheringCallback;
 import android.net.TetheringManager.TetheringEventCallback;
 import android.net.TetheringManager.TetheringRequest;
+import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
@@ -85,6 +86,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import javax.annotation.concurrent.GuardedBy;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -357,14 +360,18 @@ public class EthernetTetheringTest {
         private final CountDownLatch mLocalOnlyStartedLatch = new CountDownLatch(1);
         private final CountDownLatch mLocalOnlyStoppedLatch = new CountDownLatch(1);
         private final CountDownLatch mClientConnectedLatch = new CountDownLatch(1);
-        private final CountDownLatch mUpstreamConnectedLatch = new CountDownLatch(1);
         private final TetheringInterface mIface;
 
         private volatile boolean mInterfaceWasTethered = false;
         private volatile boolean mInterfaceWasLocalOnly = false;
         private volatile boolean mUnregistered = false;
         private volatile Collection<TetheredClient> mClients = null;
-        private volatile Network mUpstream = null;
+
+        @GuardedBy("mExpectedUpstreamCv")
+        private Network mLastUpstream;
+        @GuardedBy("mExpectedUpstreamCv")
+        private Network mExpectedUpstream;
+        private final ConditionVariable mExpectedUpstreamCv = new ConditionVariable(false);
 
         MyTetheringEventCallback(TetheringManager tm, String iface) {
             mTm = tm;
@@ -477,14 +484,30 @@ public class EthernetTetheringTest {
             if (mUnregistered) return;
 
             Log.d(TAG, "Got upstream changed: " + network);
-            mUpstream = network;
-            if (mUpstream != null) mUpstreamConnectedLatch.countDown();
+            synchronized (mExpectedUpstreamCv) {
+                mLastUpstream = network;
+                if (mExpectedUpstream != null && mExpectedUpstream.equals(network)) {
+                    mExpectedUpstreamCv.open();
+                }
+            }
         }
 
-        public Network awaitFirstUpstreamConnected() throws Exception {
-            assertTrue("Did not receive upstream connected callback after " + TIMEOUT_MS + "ms",
-                    mUpstreamConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
-            return mUpstream;
+        /**
+         * Wait for the specified network to become the upstream.
+         *
+         * This assumes that the specified network will remain upstream for a reasonable amount of
+         * time. It may timeout if the network briefly becomes the upstream but is replaced shortly
+         * after. This is OK as tests could not run successfully if that happens in any case.
+         */
+        public void awaitUpstreamConnected(Network expectedUpstream) throws Exception {
+            synchronized (mExpectedUpstreamCv) {
+                if (expectedUpstream.equals(mLastUpstream)) return;
+                mExpectedUpstream = expectedUpstream;
+                mExpectedUpstreamCv.close();
+            }
+
+            assertTrue(expectedUpstream + "was not the upstream after " + TIMEOUT_MS + "ms",
+                    mExpectedUpstreamCv.block(TIMEOUT_MS));
         }
     }
 
@@ -699,8 +722,7 @@ public class EthernetTetheringTest {
                 mDownstreamIface.getInterfaceName(), iface);
 
         mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName());
-        assertEquals("onUpstreamChanged for unexpected network", mUpstreamTracker.getNetwork(),
-                mTetheringEventCallback.awaitFirstUpstreamConnected());
+        mTetheringEventCallback.awaitUpstreamConnected(mUpstreamTracker.getNetwork());
 
         mDownstreamReader = makePacketReader(mDownstreamIface);
         // TODO: do basic forwarding test here.
