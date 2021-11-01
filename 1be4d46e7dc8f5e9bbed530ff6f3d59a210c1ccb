@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad773e20_f75d98a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-11-01T15:02:58Z",
+      "side": 1,
+      "message": "Hmmm...not sure why android.net.cts.ConnectivityManagerTest#testToggleWifiConnectivityAction fail in presubmit, it said \"NetworkCallback was not registered\", but the test really called registerSystemDefaultNetworkCallback.",
+      "revId": "1be4d46e7dc8f5e9bbed530ff6f3d59a210c1ccb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
