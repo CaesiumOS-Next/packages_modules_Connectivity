@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6f3edd9_c99c45b3",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-01T03:15:30Z",
+      "side": 1,
+      "message": "Maybe you want to have a small comment here saying this handles both network and traffic permission, because there is no overlap in actual values, where network permission is NETWORK or SYSTEM, and traffic permission is INTERNET or UPDATE_DEVICE_STATS",
+      "range": {
+        "startLine": 492,
+        "startChar": 8,
+        "endLine": 492,
+        "endChar": 14
+      },
+      "revId": "c3acac1f249c0c36b0de14e137575b3483d1a54b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
