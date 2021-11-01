@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0abfceb7_43edb237",
+        "filename": "framework/api/system-lint-baseline.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-11-01T03:21:00Z",
+      "side": 1,
+      "message": "Yes, we can change to use int to represent the option type. and try to translate it to byte inside NetworkStack.",
+      "parentUuid": "8472563e_4c86c411",
+      "revId": "f48a6f7c1d1b896c47209512508e21e4ff07c5c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec814546_f39ce618",
         "filename": "framework/src/android/net/DhcpOption.java",
         "patchSetId": 1
