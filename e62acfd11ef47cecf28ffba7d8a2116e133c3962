@@ -16,6 +16,46 @@
       "message": "Thank you Xiao for reviewing. \nPTAL.",
       "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf931c63_e2dc54f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-01T09:38:38Z",
+      "side": 1,
+      "message": "LGTM apart from comment but I don\u0027t have API+1",
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b15e8a_47a6be2e",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-01T09:38:38Z",
+      "side": 1,
+      "message": "Are there actually cases where DhcpOption can have a null value ? Would there be a difference with having an empty byte[] as value ? I think that would avoid potential NullPointerExceptions.",
+      "range": {
+        "startLine": 99,
+        "startChar": 5,
+        "endLine": 99,
+        "endChar": 13
+      },
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
