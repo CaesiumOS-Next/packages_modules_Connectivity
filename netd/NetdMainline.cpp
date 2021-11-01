@@ -35,18 +35,20 @@ bool libnetd_mainline_init() {
     return true;
 }
 
-int libnetd_mainline_privilegedTagSocket(int /*sockFd*/, uint32_t /*tag*/, uid_t /*uid*/,
-                                         uid_t /*callingUid*/) {
-    return 0;
+int libnetd_mainline_privilegedTagSocket(int sockFd, uint32_t tag, uid_t uid, uid_t callingUid) {
+    if (android::net::gNetdMainline == nullptr) return -EPERM;
+    return android::net::gNetdMainline
+            ->mBpfHandler.privilegedTagSocket(sockFd, tag, uid, callingUid);
 }
 
-int libnetd_mainline_tagSocket(int /*sockFd*/, uint32_t /*tag*/, uid_t /*uid*/,
-                               uid_t /*callingUid*/) {
-    return 0;
+int libnetd_mainline_tagSocket(int sockFd, uint32_t tag, uid_t uid, uid_t callingUid) {
+    if (android::net::gNetdMainline == nullptr) return -EPERM;
+    return android::net::gNetdMainline->mBpfHandler.tagSocket(sockFd, tag, uid, callingUid);
 }
 
-int libnetd_mainline_unTagSocket(int /*sockFd*/) {
-    return 0;
+int libnetd_mainline_unTagSocket(int sockFd) {
+    if (android::net::gNetdMainline == nullptr) return -EPERM;
+    return android::net::gNetdMainline->mBpfHandler.untagSocket(sockFd);
 }
 
 namespace android {
