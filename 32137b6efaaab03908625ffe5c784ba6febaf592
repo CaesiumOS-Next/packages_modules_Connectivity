@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d16ac198_9d5d6609",
+        "filename": "service/src/com/android/server/connectivity/TcpKeepaliveController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2021-11-01T04:13:39Z",
+      "side": 1,
+      "message": "nit: maybe add a TODO use Ipv4Utils.buildTcpv4Packet() built by Nucca(aosp/1826137) to refactor this function?",
+      "range": {
+        "startLine": 167,
+        "startChar": 26,
+        "endLine": 167,
+        "endChar": 39
+      },
+      "revId": "32137b6efaaab03908625ffe5c784ba6febaf592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
