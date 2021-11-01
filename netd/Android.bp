@@ -19,6 +19,7 @@ cc_library {
     ],
     static_libs: [
         "libbase",
+        "libcutils",
         "libnetdutils",
     ],
     shared_libs: [
@@ -35,4 +36,28 @@ cc_library {
     },
     apex_available: ["com.android.tethering"],
     min_sdk_version: "30",
+}
+
+cc_test {
+    name: "libnetd_mainline_unit_test",
+    defaults: ["netd_defaults"],
+    test_suites: ["device-tests"],
+    require_root: true,
+    header_libs: [
+        "bpf_connectivity_headers",
+        "bpf_map_utils",
+        "bpf_syscall_wrappers",
+    ],
+    srcs: [
+        "BpfHandlerTest.cpp",
+    ],
+    static_libs: [
+        "libnetd_mainline",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "libnetdutils",
+    ],
 }
