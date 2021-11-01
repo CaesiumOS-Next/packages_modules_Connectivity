@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a21fd611_9eea2bf1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-11-01T15:59:22Z",
+      "side": 1,
+      "message": "Thank you Remi and Xiao.\nAssign it to Lorenzo for API+1.",
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63b15e8a_47a6be2e",
@@ -72,6 +89,30 @@
       "side": 1,
       "message": "Yes, per the original design, if there is only option type and value is null, which will be put in the PRL(which only requires option type, although for KT case, they don\u0027t have this requirement now) and send it to server. For further extension, maybe we can allow null value. Empty array(the value is all-zero) seems not good to represent above case? For example, pad option does include zeros.",
       "parentUuid": "63b15e8a_47a6be2e",
+      "range": {
+        "startLine": 99,
+        "startChar": 5,
+        "endLine": 99,
+        "endChar": 13
+      },
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16e12944_4ad77d7c",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-11-01T15:59:22Z",
+      "side": 1,
+      "message": "Ack. Keep value to be nullable as per Xiao\u0027s comment.",
+      "parentUuid": "aca32c3d_424effbf",
       "range": {
         "startLine": 99,
         "startChar": 5,
