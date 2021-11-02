@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b80916c9_785ae7c5",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 21
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-11-02T16:46:31Z",
+      "side": 1,
+      "message": "should be !ctx-\u003euser_port",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "221776161223951c2ccd5b09a13c570dd0248c2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
