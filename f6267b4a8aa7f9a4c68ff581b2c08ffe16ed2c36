@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016792204",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1878039?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f0f3de2c_f8d2e92d",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-02T04:49:21Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027deny list\u0027 or \u0027allow list\u0027; see https://developers.google.com/style/word-list#blacklist for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 201,
+        "startChar": 17,
+        "endLine": 201,
+        "endChar": 26
+      },
+      "revId": "f6267b4a8aa7f9a4c68ff581b2c08ffe16ed2c36",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
