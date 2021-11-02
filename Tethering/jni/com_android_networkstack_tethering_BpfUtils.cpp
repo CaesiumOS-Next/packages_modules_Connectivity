@@ -16,6 +16,8 @@
 
 #include <arpa/inet.h>
 #include <jni.h>
+#include <spawn.h>
+#include <string>
 #include <linux/if_arp.h>
 #include <linux/if_ether.h>
 #include <linux/netlink.h>
@@ -40,6 +42,134 @@
 #define CLS_BPF_KIND_NAME "bpf"
 
 namespace android {
+// Sync from system/netd/server/NetdConstants.h
+#define __INT_STRLEN(i) sizeof(#i)
+#define _INT_STRLEN(i) __INT_STRLEN(i)
+#define UINT32_STRLEN _INT_STRLEN(UINT32_MAX)
+
+// Sync from system/netd/include/Permission.h.
+enum Permission {
+    PERMISSION_NONE    = 0x0,
+    PERMISSION_NETWORK = 0x1,
+    PERMISSION_SYSTEM  = 0x3,  // Includes PERMISSION_NETWORK.
+};
+
+// Sync from system/netd/include/Fwmark.h.
+union Fwmark {
+    uint32_t intValue;
+    struct {
+        unsigned netId          : 16;
+        bool explicitlySelected :  1;
+        bool protectedFromVpn   :  1;
+        Permission permission   :  2;
+        bool uidBillingDone     :  1;
+    };
+    constexpr Fwmark() : intValue(0) {}
+};
+
+struct ClatdTracker {
+    pid_t pid = -1;
+    unsigned ifIndex;
+    char iface[IFNAMSIZ];
+    unsigned v4ifIndex;
+    char v4iface[IFNAMSIZ];
+    Fwmark fwmark;
+    char fwmarkString[UINT32_STRLEN];
+    in_addr v4;
+    char v4Str[INET_ADDRSTRLEN];
+    in6_addr v6;
+    char v6Str[INET6_ADDRSTRLEN];
+    in6_addr pfx96;
+    char pfx96String[INET6_ADDRSTRLEN];
+
+    int init(unsigned networkId, const std::string& interface, const std::string& v4interface,
+             const std::string& nat64Prefix);
+};
+
+bool isIpv4AddressFree(in_addr_t addr) {
+    int s = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (s == -1) {
+        return 0;
+    }
+
+    // Attempt to connect to the address. If the connection succeeds and getsockname returns the
+    // same then the address is already assigned to the system and we can't use it.
+    struct sockaddr_in sin = {
+            .sin_family = AF_INET,
+            .sin_port = htons(53),
+            .sin_addr = {addr},
+    };
+    socklen_t len = sizeof(sin);
+    bool inuse = connect(s, (struct sockaddr*)&sin, sizeof(sin)) == 0 &&
+                 getsockname(s, (struct sockaddr*)&sin, &len) == 0 && (size_t)len >= sizeof(sin) &&
+                 sin.sin_addr.s_addr == addr;
+
+    close(s);
+    return !inuse;
+}
+
+// Picks a free IPv4 address, starting from ip and trying all addresses in the prefix in order.
+//   ip        - the IP address from the configuration file
+//   prefixlen - the length of the prefix from which addresses may be selected.
+//   returns: the IPv4 address, or INADDR_NONE if no addresses were available
+in_addr_t selectIpv4Address(const in_addr ip, int16_t prefixlen) {
+    // Don't accept prefixes that are too large because we scan addresses one by one.
+    if (prefixlen < 16 || prefixlen > 32) {
+        return INADDR_NONE;
+    }
+
+    // All these are in host byte order.
+    in_addr_t mask = 0xffffffff >> (32 - prefixlen) << (32 - prefixlen);
+    in_addr_t ipv4 = ntohl(ip.s_addr);
+    in_addr_t first_ipv4 = ipv4;
+    in_addr_t prefix = ipv4 & mask;
+
+    // Pick the first IPv4 address in the pool, wrapping around if necessary.
+    // So, for example, 192.0.0.4 -> 192.0.0.5 -> 192.0.0.6 -> 192.0.0.7 -> 192.0.0.0.
+    do {
+        if (isIpv4AddressFree(htonl(ipv4))) {
+            return htonl(ipv4);
+        }
+        ipv4 = prefix | ((ipv4 + 1) & ~mask);
+    } while (ipv4 != first_ipv4);
+
+    return INADDR_NONE;
+}
+
+// Picks a random interface ID that is checksum neutral with the IPv4 address and the NAT64 prefix.
+int generateIpv6Address(const char* iface, const in_addr v4,
+                                         const in6_addr& nat64Prefix, in6_addr* v6) {
+    // TODO: socket s needs to be closed correctly.
+    int s(socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0));
+    if (s == -1) return -errno;
+
+    if (setsockopt(s, SOL_SOCKET, SO_BINDTODEVICE, iface, strlen(iface) + 1) == -1) {
+        return -errno;
+    }
+
+    sockaddr_in6 sin6 = {.sin6_family = AF_INET6, .sin6_addr = nat64Prefix};
+    if (connect(s, reinterpret_cast<struct sockaddr*>(&sin6), sizeof(sin6)) == -1) {
+        return -errno;
+    }
+
+    socklen_t len = sizeof(sin6);
+    if (getsockname(s, reinterpret_cast<struct sockaddr*>(&sin6), &len) == -1) {
+        return -errno;
+    }
+
+    *v6 = sin6.sin6_addr;
+
+    if (IN6_IS_ADDR_UNSPECIFIED(v6) || IN6_IS_ADDR_LOOPBACK(v6) || IN6_IS_ADDR_LINKLOCAL(v6) ||
+        IN6_IS_ADDR_SITELOCAL(v6) || IN6_IS_ADDR_ULA(v6)) {
+        return -ENETUNREACH;
+    }
+
+    // TODO: move makeChecksumNeutral
+    // makeChecksumNeutral(v6, v4, nat64Prefix);
+
+    return 0;
+}
+
 // Sync from system/netd/server/NetlinkCommands.h
 const uint16_t NETLINK_REQUEST_FLAGS = NLM_F_REQUEST | NLM_F_ACK;
 const sockaddr_nl KERNEL_NLADDR = {AF_NETLINK, 0, 0, 0};
@@ -289,6 +419,17 @@ static void com_android_networkstack_tethering_BpfUtils_tcFilterAddDevBpf(
 
     snprintf(req.options.name.str, sizeof(req.options.name.str), "%s:[*fsobj]",
             basename(pathname.c_str()));
+
+//+debug
+    // 9. register vfork requirement
+    posix_spawnattr_t attr;
+    int res = posix_spawnattr_init(&attr);
+    if (res) {}
+    res = posix_spawnattr_setflags(&attr, POSIX_SPAWN_USEVFORK);
+    posix_spawn_file_actions_t fa;
+    res = posix_spawn_file_actions_init(&fa);
+    if (res) {}
+//-debug
 
     // The exception may be thrown from sendAndProcessNetlinkResponse. Close the file descriptor of
     // BPF program before returning the function in any case.
