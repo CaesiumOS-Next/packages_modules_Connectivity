@@ -6064,6 +6064,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             int reqTypeInt, Messenger messenger, int timeoutMs, final IBinder binder,
             int legacyType, int callbackFlags, @NonNull String callingPackageName,
             @Nullable String callingAttributionTag) {
+        Log.d(TAG, "requestNetwork, this is in service-connectivity");
         if (legacyType != TYPE_NONE && !checkNetworkStackPermission()) {
             if (isTargetSdkAtleast(Build.VERSION_CODES.M, mDeps.getCallingUid(),
                     callingPackageName)) {

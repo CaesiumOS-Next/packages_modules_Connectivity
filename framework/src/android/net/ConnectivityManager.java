@@ -3952,6 +3952,7 @@ public class ConnectivityManager {
                 Messenger messenger = new Messenger(handler);
                 Binder binder = new Binder();
                 final int callbackFlags = callback.mFlags;
+                Log.d(TAG, "sendRequestForNetwork, this is in framework-connectivity");
                 if (reqType == LISTEN) {
                     request = mService.listenForNetwork(
                             need, messenger, binder, callbackFlags, callingPackageName,
