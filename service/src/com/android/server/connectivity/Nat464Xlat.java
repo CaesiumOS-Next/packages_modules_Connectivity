@@ -37,8 +37,10 @@ import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.net.module.util.NetworkStackConstants;
+import com.android.server.ClatCoordinator;
 import com.android.server.ConnectivityService;
 
+import java.io.IOException;
 import java.net.Inet6Address;
 import java.util.Objects;
 
@@ -96,6 +98,7 @@ public class Nat464Xlat {
     private String mIface;
     private Inet6Address mIPv6Address;
     private State mState = State.IDLE;
+    private final ClatCoordinator mClatCoordinator;
 
     private boolean mEnableClatOnCellular;
     private boolean mPrefixDiscoveryRunning;
@@ -106,6 +109,7 @@ public class Nat464Xlat {
         mNetd = netd;
         mNetwork = nai;
         mEnableClatOnCellular = deps.getCellular464XlatEnabled();
+        mClatCoordinator = new ClatCoordinator(mNetd);
     }
 
     /**
@@ -179,10 +183,19 @@ public class Nat464Xlat {
     private void enterStartingState(String baseIface) {
         mNat64PrefixInUse = selectNat64Prefix();
         String addrStr = null;
+        if (false) {
         try {
-            addrStr = mNetd.clatdStart(baseIface, mNat64PrefixInUse.toString());
-        } catch (RemoteException | ServiceSpecificException e) {
-            Log.e(TAG, "Error starting clatd on " + baseIface + ": " + e);
+                addrStr = mNetd.clatdStart(baseIface, mNat64PrefixInUse.toString());
+            } catch (RemoteException | ServiceSpecificException e) {
+                Log.e(TAG, "Error starting clatd on " + baseIface + ": " + e);
+            }
+        } else {
+            try {
+                addrStr = mClatCoordinator.startClat(baseIface, getNetId(), mNat64PrefixInUse);
+                Log.w(TAG, "[SSD] mClatCoordinator.startClat " + baseIface + ": " + addrStr);
+            } catch (IOException e) {
+                Log.e(TAG, "Error starting clatd on " + baseIface + ": " + e);
+            }
         }
         mIface = CLAT_PREFIX + baseIface;
         mBaseIface = baseIface;
