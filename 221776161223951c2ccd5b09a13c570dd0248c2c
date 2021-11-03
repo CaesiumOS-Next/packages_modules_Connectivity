@@ -22,6 +22,30 @@
       },
       "revId": "221776161223951c2ccd5b09a13c570dd0248c2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33fd9792_767e3aee",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 21
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2021-11-03T18:46:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b80916c9_785ae7c5",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "221776161223951c2ccd5b09a13c570dd0248c2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
