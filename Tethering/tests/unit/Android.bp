@@ -85,7 +85,14 @@ java_defaults {
 android_library {
     name: "TetheringTestsLatestSdkLib",
     defaults: ["TetheringTestsDefaults"],
+<<<<<<< HEAD   (d27845 [automerger skipped] Import translations. DO NOT MERGE ANYWH)
     target_sdk_version: "30",
+=======
+    static_libs: [
+        "TetheringApiStableLib",
+    ],
+    target_sdk_version: "31",
+>>>>>>> CHANGE (bf6225 Bump tethering target sdk version to 31)
     visibility: [
         "//packages/modules/Connectivity/tests:__subpackages__",
         "//packages/modules/Connectivity/Tethering/tests:__subpackages__",
