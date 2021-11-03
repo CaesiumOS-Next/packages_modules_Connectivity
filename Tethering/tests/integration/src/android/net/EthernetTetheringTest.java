@@ -79,6 +79,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -230,7 +231,7 @@ public class EthernetTetheringTest {
         final String localAddr = "192.0.2.3/28";
         final String clientAddr = "192.0.2.2/28";
         mTetheringEventCallback = enableEthernetTethering(iface,
-                requestWithStaticIpv4(localAddr, clientAddr));
+                requestWithStaticIpv4(localAddr, clientAddr), null);
 
         mTetheringEventCallback.awaitInterfaceTethered();
         assertInterfaceHasIpAddress(iface, localAddr);
@@ -313,7 +314,7 @@ public class EthernetTetheringTest {
 
         final TetheringRequest request = new TetheringRequest.Builder(TETHERING_ETHERNET)
                 .setConnectivityScope(CONNECTIVITY_SCOPE_LOCAL).build();
-        mTetheringEventCallback = enableEthernetTethering(iface, request);
+        mTetheringEventCallback = enableEthernetTethering(iface, request, null);
         mTetheringEventCallback.awaitInterfaceLocalOnly();
 
         // makePacketReader only works after tethering is started, because until then the interface
@@ -344,7 +345,7 @@ public class EthernetTetheringTest {
         final String iface = mTetheredInterfaceRequester.getInterface();
 
         // Enable Ethernet tethering and check that it starts.
-        mTetheringEventCallback = enableEthernetTethering(iface);
+        mTetheringEventCallback = enableEthernetTethering(iface, null);
 
         // There is nothing more we can do on a physical interface without connecting an actual
         // client, which is not possible in this test.
@@ -359,6 +360,7 @@ public class EthernetTetheringTest {
         private final CountDownLatch mClientConnectedLatch = new CountDownLatch(1);
         private final CountDownLatch mUpstreamConnectedLatch = new CountDownLatch(1);
         private final TetheringInterface mIface;
+        private final Network mNetwork;
 
         private volatile boolean mInterfaceWasTethered = false;
         private volatile boolean mInterfaceWasLocalOnly = false;
@@ -366,9 +368,10 @@ public class EthernetTetheringTest {
         private volatile Collection<TetheredClient> mClients = null;
         private volatile Network mUpstream = null;
 
-        MyTetheringEventCallback(TetheringManager tm, String iface) {
+        MyTetheringEventCallback(TetheringManager tm, String iface, Network network) {
             mTm = tm;
             mIface = new TetheringInterface(TETHERING_ETHERNET, iface);
+            mNetwork = network;
         }
 
         public void unregister() {
@@ -478,19 +481,19 @@ public class EthernetTetheringTest {
 
             Log.d(TAG, "Got upstream changed: " + network);
             mUpstream = network;
-            if (mUpstream != null) mUpstreamConnectedLatch.countDown();
+            if (Objects.equals(mUpstream, mNetwork)) mUpstreamConnectedLatch.countDown();
         }
 
-        public Network awaitFirstUpstreamConnected() throws Exception {
-            assertTrue("Did not receive upstream connected callback after " + TIMEOUT_MS + "ms",
-                    mUpstreamConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
+        public Network awaitUpstreamConnected() throws Exception {
+            assertTrue("Did not receive upstream " + mNetwork + " callback after " + TIMEOUT_MS
+                    + "ms", mUpstreamConnectedLatch.await(TIMEOUT_MS, TimeUnit.MILLISECONDS));
             return mUpstream;
         }
     }
 
     private MyTetheringEventCallback enableEthernetTethering(String iface,
-            TetheringRequest request) throws Exception {
-        MyTetheringEventCallback callback = new MyTetheringEventCallback(mTm, iface);
+            TetheringRequest request, Network upstream) throws Exception {
+        MyTetheringEventCallback callback = new MyTetheringEventCallback(mTm, iface, upstream);
         mTm.registerTetheringEventCallback(mHandler::post, callback);
 
         StartTetheringCallback startTetheringCallback = new StartTetheringCallback() {
@@ -517,10 +520,11 @@ public class EthernetTetheringTest {
         return callback;
     }
 
-    private MyTetheringEventCallback enableEthernetTethering(String iface) throws Exception {
+    private MyTetheringEventCallback enableEthernetTethering(String iface, Network upstream)
+            throws Exception {
         return enableEthernetTethering(iface,
                 new TetheringRequest.Builder(TETHERING_ETHERNET)
-                .setShouldShowEntitlementUi(false).build());
+                .setShouldShowEntitlementUi(false).build(), upstream);
     }
 
     private int getMTU(TestNetworkInterface iface) throws SocketException {
@@ -544,7 +548,7 @@ public class EthernetTetheringTest {
     private void checkVirtualEthernet(TestNetworkInterface iface, int mtu) throws Exception {
         FileDescriptor fd = iface.getFileDescriptor().getFileDescriptor();
         mDownstreamReader = makePacketReader(fd, mtu);
-        mTetheringEventCallback = enableEthernetTethering(iface.getInterfaceName());
+        mTetheringEventCallback = enableEthernetTethering(iface.getInterfaceName(), null);
         checkTetheredClientCallbacks(mDownstreamReader);
     }
 
@@ -642,7 +646,7 @@ public class EthernetTetheringTest {
     private void assertInvalidStaticIpv4Request(String iface, String local, String client)
             throws Exception {
         try {
-            enableEthernetTethering(iface, requestWithStaticIpv4(local, client));
+            enableEthernetTethering(iface, requestWithStaticIpv4(local, client), null);
             fail("Unexpectedly accepted invalid IPv4 configuration: " + local + ", " + client);
         } catch (IllegalArgumentException | NullPointerException expected) { }
     }
@@ -698,9 +702,10 @@ public class EthernetTetheringTest {
         assertEquals("TetheredInterfaceCallback for unexpected interface",
                 mDownstreamIface.getInterfaceName(), iface);
 
-        mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName());
+        mTetheringEventCallback = enableEthernetTethering(mDownstreamIface.getInterfaceName(),
+                mUpstreamTracker.getNetwork());
         assertEquals("onUpstreamChanged for unexpected network", mUpstreamTracker.getNetwork(),
-                mTetheringEventCallback.awaitFirstUpstreamConnected());
+                mTetheringEventCallback.awaitUpstreamConnected());
 
         mDownstreamReader = makePacketReader(mDownstreamIface);
         // TODO: do basic forwarding test here.
