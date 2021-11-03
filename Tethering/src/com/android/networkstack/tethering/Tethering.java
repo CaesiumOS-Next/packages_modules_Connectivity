@@ -265,8 +265,12 @@ public class Tethering {
 
     private EthernetManager.TetheredInterfaceRequest mEthernetIfaceRequest;
     private String mConfiguredEthernetIface;
+    private String mConfiguredBluetoothIface;
     private EthernetCallback mEthernetCallback;
     private SettingsObserver mSettingsObserver;
+
+    private BluetoothPan.TetheredInterfaceRequest mBluetoothIfaceRequest;
+    private BluetoothCallback mBluetoothCallback;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -701,6 +705,7 @@ public class Tethering {
             return;
         }
 
+
         adapter.getProfileProxy(mContext, new ServiceListener() {
             @Override
             public void onServiceDisconnected(int profile) { }
@@ -710,26 +715,66 @@ public class Tethering {
                 // Clear identify is fine because caller already pass tethering permission at
                 // ConnectivityService#startTethering()(or stopTethering) before the control comes
                 // here. Bluetooth will check tethering permission again that there is
-                // Context#getOpPackageName() under BluetoothPan#setBluetoothTethering() to get
+                // Context#getOpPackageName() under BluetoothPan#requestTetheredInterface() to get
                 // caller's package name for permission check.
-                // Calling BluetoothPan#setBluetoothTethering() here means the package name always
-                // be system server. If calling identity is not cleared, that package's uid might
-                // not match calling uid and end up in permission denied.
+                // Calling BluetoothPan#requestTetheredInterface() here means the package name
+                // always be system server. If calling identity is not cleared, that package's uid
+                // might not match calling uid and end up in permission denied.
                 final long identityToken = Binder.clearCallingIdentity();
-                try {
-                    ((BluetoothPan) proxy).setBluetoothTethering(enable);
-                } finally {
-                    Binder.restoreCallingIdentity(identityToken);
+
+                if (!enable) {
+                    stopBluetoothTethering();
+                } else {
+                    try {
+                        mBluetoothCallback = new BluetoothCallback();
+                        mBluetoothIfaceRequest = ((BluetoothPan) proxy).requestTetheredInterface(
+                                mExecutor, mBluetoothCallback);
+                    } finally {
+                        Binder.restoreCallingIdentity(identityToken);
+                    }
                 }
                 // TODO: Enabling bluetooth tethering can fail asynchronously here.
                 // We should figure out a way to bubble up that failure instead of sending success.
-                final int result = (((BluetoothPan) proxy).isTetheringOn() == enable)
+                int result = (((BluetoothPan) proxy).isTetheringOn() == enable)
                         ? TETHER_ERROR_NO_ERROR
                         : TETHER_ERROR_INTERNAL_ERROR;
                 sendTetherResult(listener, result, TETHERING_BLUETOOTH);
                 adapter.closeProfileProxy(BluetoothProfile.PAN, proxy);
             }
         }, BluetoothProfile.PAN);
+    }
+
+    private void stopBluetoothTethering() {
+        if (mConfiguredBluetoothIface != null) {
+            ensureIpServerStopped(mConfiguredBluetoothIface);
+            mConfiguredBluetoothIface = null;
+        }
+        if (mBluetoothCallback != null) {
+            mBluetoothIfaceRequest.release();
+            mBluetoothCallback = null;
+            mBluetoothIfaceRequest = null;
+        }
+    }
+
+    private class BluetoothCallback implements BluetoothPan.TetheredInterfaceCallback {
+        @Override
+        public void onAvailable(String iface) {
+            if (this != mBluetoothCallback) {
+                // Ethernet callback arrived after Ethernet tethering stopped. Ignore.
+                return;
+            }
+            enableIpServing(TETHERING_BLUETOOTH, iface, getRequestedState(TETHERING_BLUETOOTH));
+            mConfiguredBluetoothIface = iface;
+        }
+
+        @Override
+        public void onUnavailable() {
+            if (this != mBluetoothCallback) {
+                // onAvailable called after stopping Ethernet tethering.
+                return;
+            }
+            stopBluetoothTethering();
+        }
     }
 
     private int setEthernetTethering(final boolean enable) {
