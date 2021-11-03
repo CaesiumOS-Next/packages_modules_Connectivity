@@ -29,6 +29,7 @@ cc_library_shared {
         "-Wthread-safety",
     ],
     srcs: [
+        "jni/com_android_server_ClatCoordinator.cpp",
         "jni/com_android_server_TestNetworkService.cpp",
         "jni/onload.cpp",
     ],
