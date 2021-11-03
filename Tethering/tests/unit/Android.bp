@@ -85,7 +85,7 @@ java_defaults {
 android_library {
     name: "TetheringTestsLatestSdkLib",
     defaults: ["TetheringTestsDefaults"],
-    target_sdk_version: "30",
+    target_sdk_version: "31",
     visibility: [
         "//packages/modules/Connectivity/tests:__subpackages__",
         "//packages/modules/Connectivity/Tethering/tests:__subpackages__",
