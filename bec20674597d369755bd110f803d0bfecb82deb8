@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aea0d1e2_99984496",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-04T03:49:06Z",
+      "side": 1,
+      "message": "Typo: separate",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4067633d_73951a91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-04T03:49:06Z",
+      "side": 1,
+      "message": "Maybe also explain a bit more background on why that is / will be useful",
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72596aab_0fd26ce1",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-04T03:49:06Z",
+      "side": 1,
+      "message": "While NetworkStack has a similar comment on top, I\u0027ve found that it just went out-of-date without being well updated. It might be better not to have it as it\u0027s likely going to become out-of-date too - but up to you",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 6
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32a65594_f31944a1",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-04T03:49:06Z",
+      "side": 1,
+      "message": "This library would get both NetworkStackApiStableShims through TetheringAndroidLibraryDefaults, and NetworkStackApiCurrentShims - I think it should only have the \"current\" shims",
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e8d3fe4_1513cda5",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-04T03:49:06Z",
+      "side": 1,
+      "message": "Are you planning to change the sdk_version later to have 2 different versions ? I think TetheringApiStableLib should be module_31 (or at least target_sdk 31)",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 93,
+        "endChar": 26
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef05ce16_a0d8eb5a",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-04T03:49:06Z",
+      "side": 1,
+      "message": "The \"Next\" version should not be the one shipped via monthly updates (which is what this build rule is when automerged to mainline release branches). I think we\u0027ll need to have a separate apex build rule too, so there\u0027s 2 artifacts built.",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
