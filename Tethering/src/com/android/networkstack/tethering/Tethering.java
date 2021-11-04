@@ -137,6 +137,7 @@ import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 
 import java.io.FileDescriptor;
@@ -265,8 +266,12 @@ public class Tethering {
 
     private EthernetManager.TetheredInterfaceRequest mEthernetIfaceRequest;
     private String mConfiguredEthernetIface;
+    private String mConfiguredBluetoothIface;
     private EthernetCallback mEthernetCallback;
     private SettingsObserver mSettingsObserver;
+
+    private BluetoothPan.TetheredInterfaceRequest mBluetoothIfaceRequest;
+    private BluetoothCallback mBluetoothCallback;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -524,13 +529,15 @@ public class Tethering {
         }
     }
 
-    // This method needs to exist because TETHERING_BLUETOOTH and TETHERING_WIGIG can't use
-    // enableIpServing.
+    // This method needs to exist because TETHERING_BLUETOOTH before Android T and TETHERING_WIGIG
+    // can't use enableIpServing.
     private void processInterfaceStateChange(final String iface, boolean enabled) {
         // Do not listen to USB interface state changes or USB interface add/removes. USB tethering
         // is driven only by USB_ACTION broadcasts.
         final int type = ifaceNameToType(iface);
         if (type == TETHERING_USB || type == TETHERING_NCM) return;
+
+        if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
 
         if (enabled) {
             ensureIpServerStarted(iface);
@@ -710,16 +717,36 @@ public class Tethering {
                 // Clear identify is fine because caller already pass tethering permission at
                 // ConnectivityService#startTethering()(or stopTethering) before the control comes
                 // here. Bluetooth will check tethering permission again that there is
-                // Context#getOpPackageName() under BluetoothPan#setBluetoothTethering() to get
+                // Context#getOpPackageName() under BluetoothPan#requestTetheredInterface() to get
                 // caller's package name for permission check.
-                // Calling BluetoothPan#setBluetoothTethering() here means the package name always
-                // be system server. If calling identity is not cleared, that package's uid might
-                // not match calling uid and end up in permission denied.
+                // Calling BluetoothPan#requestTetheredInterface() here means the package name
+                // always be system server. If calling identity is not cleared, that package's uid
+                // might not match calling uid and end up in permission denied.
                 final long identityToken = Binder.clearCallingIdentity();
-                try {
-                    ((BluetoothPan) proxy).setBluetoothTethering(enable);
-                } finally {
-                    Binder.restoreCallingIdentity(identityToken);
+
+                // Checking SDK version to ensure backwards compatibility.
+                if (SdkLevel.isAtLeastT()) {
+                    if (!enable) {
+                        stopBluetoothTethering();
+                    } else {
+                        try {
+                            mBluetoothCallback = new BluetoothCallback();
+                            mBluetoothIfaceRequest = ((BluetoothPan) proxy)
+                                    .requestTetheredInterface(mExecutor,
+                                            mBluetoothCallback);
+                            if (mBluetoothIfaceRequest == null) {
+                                mBluetoothCallback = null;
+                            }
+                        } finally {
+                            Binder.restoreCallingIdentity(identityToken);
+                        }
+                    }
+                } else {
+                    try {
+                        ((BluetoothPan) proxy).setBluetoothTethering(enable);
+                    } finally {
+                        Binder.restoreCallingIdentity(identityToken);
+                    }
                 }
                 // TODO: Enabling bluetooth tethering can fail asynchronously here.
                 // We should figure out a way to bubble up that failure instead of sending success.
@@ -730,6 +757,38 @@ public class Tethering {
                 adapter.closeProfileProxy(BluetoothProfile.PAN, proxy);
             }
         }, BluetoothProfile.PAN);
+    }
+
+    private void stopBluetoothTethering() {
+        if (mConfiguredBluetoothIface != null) {
+            ensureIpServerStopped(mConfiguredBluetoothIface);
+            mConfiguredBluetoothIface = null;
+        }
+        if (mBluetoothCallback != null) {
+            mBluetoothIfaceRequest.release();
+            mBluetoothCallback = null;
+            mBluetoothIfaceRequest = null;
+        }
+    }
+
+    private class BluetoothCallback implements BluetoothPan.TetheredInterfaceCallback {
+        @Override
+        public void onAvailable(String iface) {
+            if (this != mBluetoothCallback) {
+                // Bluetooth callback arrived after Bluetooth tethering stopped. Ignore.
+                return;
+            }
+            enableIpServing(TETHERING_BLUETOOTH, iface, getRequestedState(TETHERING_BLUETOOTH));
+            mConfiguredBluetoothIface = iface;
+        }
+
+        @Override
+        public void onUnavailable() {
+            if (mConfiguredBluetoothIface != null) {
+                ensureIpServerStopped(mConfiguredBluetoothIface);
+                mConfiguredBluetoothIface = null;
+            }
+        }
     }
 
     private int setEthernetTethering(final boolean enable) {
