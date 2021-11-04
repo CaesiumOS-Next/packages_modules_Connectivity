@@ -46,6 +46,7 @@ import android.net.NetworkTemplate.buildTemplateMobileWildcard
 import android.net.NetworkTemplate.buildTemplateMobileWithRatType
 import android.net.NetworkTemplate.buildTemplateWifi
 import android.net.NetworkTemplate.buildTemplateWifiWildcard
+import android.net.NetworkTemplate.normalize
 import android.os.Build
 import android.telephony.TelephonyManager
 import com.android.testutils.DevSdkIgnoreRule
@@ -63,6 +64,7 @@ import kotlin.test.assertTrue
 
 private const val TEST_IMSI1 = "imsi1"
 private const val TEST_IMSI2 = "imsi2"
+private const val TEST_IMSI3 = "imsi3"
 private const val TEST_SSID1 = "ssid1"
 private const val TEST_SSID2 = "ssid2"
 
@@ -492,5 +494,25 @@ class NetworkTemplateTest {
         matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI, templateSsid = TEST_SSID1,
                 identSsid = TEST_SSID1)
         matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI_WILDCARD, identSsid = TEST_SSID1)
+    }
+
+    @Test
+    fun testNormalize() {
+        var lists = listOf(arrayOf(TEST_IMSI1, TEST_IMSI2))
+        val templateMobileImsi1 = buildTemplateMobileAll(TEST_IMSI1)
+        val templateCarrierImsi1Metered = buildTemplateCarrierMetered(TEST_IMSI1)
+        val templateWifiSsid1Imsi1 = buildTemplateWifi(TEST_SSID1, TEST_IMSI1)
+        val templateMobileWildcard = buildTemplateMobileWildcard()
+        assertTrue(normalize(templateMobileImsi1, lists).matchesSubscriberId(TEST_IMSI1))
+        assertTrue(normalize(templateMobileImsi1, lists).matchesSubscriberId(TEST_IMSI2))
+        assertFalse(normalize(templateMobileImsi1, lists).matchesSubscriberId(TEST_IMSI3))
+        assertTrue(normalize(templateCarrierImsi1Metered, lists).matchesSubscriberId(TEST_IMSI1))
+        assertTrue(normalize(templateCarrierImsi1Metered, lists).matchesSubscriberId(TEST_IMSI2))
+        assertFalse(normalize(templateCarrierImsi1Metered, lists).matchesSubscriberId(TEST_IMSI3))
+        assertTrue(normalize(templateWifiSsid1Imsi1, lists).matchesSubscriberId(TEST_IMSI1))
+        assertTrue(normalize(templateWifiSsid1Imsi1, lists).matchesSubscriberId(TEST_IMSI2))
+        assertFalse(normalize(templateWifiSsid1Imsi1, lists).matchesSubscriberId(TEST_IMSI3))
+        assertFalse(normalize(templateMobileWildcard, lists).matchesSubscriberId(TEST_IMSI1))
+        assertFalse(normalize(templateMobileWildcard, lists).matchesSubscriberId(TEST_IMSI2))
     }
 }
