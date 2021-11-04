@@ -137,6 +137,7 @@ import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
 
 import java.io.FileDescriptor;
@@ -528,13 +529,15 @@ public class Tethering {
         }
     }
 
-    // This method needs to exist because TETHERING_BLUETOOTH and TETHERING_WIGIG can't use
-    // enableIpServing.
+    // This method needs to exist because TETHERING_BLUETOOTH before Android T and TETHERING_WIGIG
+    // can't use enableIpServing.
     private void processInterfaceStateChange(final String iface, boolean enabled) {
         // Do not listen to USB interface state changes or USB interface add/removes. USB tethering
         // is driven only by USB_ACTION broadcasts.
         final int type = ifaceNameToType(iface);
         if (type == TETHERING_USB || type == TETHERING_NCM) return;
+
+        if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
 
         if (enabled) {
             ensureIpServerStarted(iface);
@@ -722,20 +725,30 @@ public class Tethering {
                 // might not match calling uid and end up in permission denied.
                 final long identityToken = Binder.clearCallingIdentity();
 
-                if (!enable) {
-                    stopBluetoothTethering();
+                // Checking SDK version to ensure backwards compatibility.
+                if (SdkLevel.isAtLeastT()) {
+                    if (!enable) {
+                        stopBluetoothTethering();
+                    } else {
+                        try {
+                            mBluetoothCallback = new BluetoothCallback();
+                            mBluetoothIfaceRequest = ((BluetoothPan) proxy)
+                                    .requestTetheredInterface(mExecutor,
+                                            mBluetoothCallback);
+                        } finally {
+                            Binder.restoreCallingIdentity(identityToken);
+                        }
+                    }
                 } else {
                     try {
-                        mBluetoothCallback = new BluetoothCallback();
-                        mBluetoothIfaceRequest = ((BluetoothPan) proxy).requestTetheredInterface(
-                                mExecutor, mBluetoothCallback);
+                        ((BluetoothPan) proxy).setBluetoothTethering(enable);
                     } finally {
                         Binder.restoreCallingIdentity(identityToken);
                     }
                 }
                 // TODO: Enabling bluetooth tethering can fail asynchronously here.
                 // We should figure out a way to bubble up that failure instead of sending success.
-                int result = (((BluetoothPan) proxy).isTetheringOn() == enable)
+                final int result = (((BluetoothPan) proxy).isTetheringOn() == enable)
                         ? TETHER_ERROR_NO_ERROR
                         : TETHER_ERROR_INTERNAL_ERROR;
                 sendTetherResult(listener, result, TETHERING_BLUETOOTH);
@@ -760,7 +773,7 @@ public class Tethering {
         @Override
         public void onAvailable(String iface) {
             if (this != mBluetoothCallback) {
-                // Ethernet callback arrived after Ethernet tethering stopped. Ignore.
+                // Bluetooth callback arrived after Bluetooth tethering stopped. Ignore.
                 return;
             }
             enableIpServing(TETHERING_BLUETOOTH, iface, getRequestedState(TETHERING_BLUETOOTH));
@@ -770,9 +783,10 @@ public class Tethering {
         @Override
         public void onUnavailable() {
             if (this != mBluetoothCallback) {
-                // onAvailable called after stopping Ethernet tethering.
+                // onAvailable called after stopping Bluetooth tethering.
                 return;
             }
+            // Stopping Bluetooth tethering when last device is disconnected.
             stopBluetoothTethering();
         }
     }
