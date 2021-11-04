@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2d01439_160b1277",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-04T04:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aea0d1e2_99984496",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4067633d_73951a91",
@@ -37,6 +61,42 @@
       "writtenOn": "2021-11-04T03:49:06Z",
       "side": 1,
       "message": "Maybe also explain a bit more background on why that is / will be useful",
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2532a34b_5957a1cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-04T04:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4067633d_73951a91",
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a965c865_5d1ec10f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-04T04:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4067633d_73951a91",
       "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +124,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab034b8_aa9effbd",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-04T04:42:52Z",
+      "side": 1,
+      "message": "Good point, deleted.",
+      "parentUuid": "72596aab_0fd26ce1",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 6
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32a65594_f31944a1",
@@ -77,6 +161,24 @@
       "writtenOn": "2021-11-04T03:49:06Z",
       "side": 1,
       "message": "This library would get both NetworkStackApiStableShims through TetheringAndroidLibraryDefaults, and NetworkStackApiCurrentShims - I think it should only have the \"current\" shims",
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "718d8d36_a4f1388c",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-04T04:42:52Z",
+      "side": 1,
+      "message": "Oops, thanks for catching up.",
+      "parentUuid": "32a65594_f31944a1",
       "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -104,6 +206,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cca70f90_2fa9a75a",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-04T04:42:52Z",
+      "side": 1,
+      "message": "Yes, will have follow up change to tun target_sdk_version.(Note: it would impact the permission define, so I separate it).\nFor sdk_version, I prefer to leave it as module_current, so I don\u0027t need to take care to bump it for every android sdk release. The infra team would make sure the release branch build with last stable sdk version, so leave it as current would be easier to maintain.",
+      "parentUuid": "1e8d3fe4_1513cda5",
+      "range": {
+        "startLine": 93,
+        "startChar": 9,
+        "endLine": 93,
+        "endChar": 26
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef05ce16_a0d8eb5a",
@@ -117,6 +243,30 @@
       "writtenOn": "2021-11-04T03:49:06Z",
       "side": 1,
       "message": "The \"Next\" version should not be the one shipped via monthly updates (which is what this build rule is when automerged to mainline release branches). I think we\u0027ll need to have a separate apex build rule too, so there\u0027s 2 artifacts built.",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc5ee0b_b66570c4",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-04T04:42:52Z",
+      "side": 1,
+      "message": "The shipping module use TetheringGoogle instead of TetheringNext(override Tethering). Actually this only take effect in aosp. Both release branch and master branch use TetheringGoogle. I will have follow up CL to add TetheringGoogleNext (Override TetheringNext) and only use it in master.\n\nBTW, I don\u0027t need to have separate apex. It make thing complicated. The apex just be the container, I just need to make sure it include the right thing for each branches(dev vs release).\n\nFor aosp:\ncom.android.tethering.apex include TetheringNext\n\nFor shipped branch: com.google.android.tethering.apex include TetheringGoogle\n\nFor master branch: com.google.android.tethering.apex include TetheringGoogleNext(will have follow up change for this).",
+      "parentUuid": "ef05ce16_a0d8eb5a",
       "range": {
         "startLine": 46,
         "startChar": 9,
