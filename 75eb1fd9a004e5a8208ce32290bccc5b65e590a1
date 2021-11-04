@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016909413",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1880831?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "8745a279_8bb11a28",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-04T14:18:09Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 106
+      },
+      "revId": "75eb1fd9a004e5a8208ce32290bccc5b65e590a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000016909413",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1880831?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "31d2ea46_bff55bb0",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-04T14:18:09Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 147
+      },
+      "revId": "75eb1fd9a004e5a8208ce32290bccc5b65e590a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
