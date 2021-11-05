@@ -3,6 +3,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b74ada22_650476e2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-11-05T07:35:27Z",
+      "side": 1,
+      "message": "nit: /* $(param name) */",
+      "range": {
+        "startLine": 234,
+        "startChar": 66,
+        "endLine": 234,
+        "endChar": 67
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3f2b3e1_fb80f391",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-11-05T07:35:27Z",
+      "side": 1,
+      "message": "probably comment that we don\u0027t care what upstream is it (even null). \"null\" can have many meanings. it could mean that \"don\u0027t care\" or \"expected null\" (but yes, awaitUpstreamXXXX needs to be called as well)",
+      "range": {
+        "startLine": 234,
+        "startChar": 62,
+        "endLine": 234,
+        "endChar": 66
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1657caf_e004d0a5",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-11-05T07:35:27Z",
+      "side": 1,
+      "message": "nit: /* $(param name) */",
+      "range": {
+        "startLine": 317,
+        "startChar": 78,
+        "endLine": 317,
+        "endChar": 79
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b348fe70_2d218037",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-11-05T07:35:27Z",
+      "side": 1,
+      "message": "nit: /* $(param name) */",
+      "range": {
+        "startLine": 348,
+        "startChar": 69,
+        "endLine": 348,
+        "endChar": 70
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67fda8f7_d5bd192b",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
         "patchSetId": 1
@@ -49,6 +141,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a1a83ec_7730ad84",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-11-05T07:35:27Z",
+      "side": 1,
+      "message": "probably rename because test may expect null upstream for special testing case as you mentioned.",
+      "range": {
+        "startLine": 487,
+        "startChar": 36,
+        "endLine": 487,
+        "endChar": 45
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd63495d_5e4371a5",
         "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
         "patchSetId": 1
@@ -65,6 +180,29 @@
         "startChar": 83,
         "endLine": 523,
         "endChar": 91
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54971e86_4c755bad",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-11-05T07:35:27Z",
+      "side": 1,
+      "message": "nit: /* $(param name) */",
+      "range": {
+        "startLine": 551,
+        "startChar": 88,
+        "endLine": 551,
+        "endChar": 89
       },
       "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
