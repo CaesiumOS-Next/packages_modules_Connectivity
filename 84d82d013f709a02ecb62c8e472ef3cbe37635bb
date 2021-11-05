@@ -116,6 +116,30 @@
       },
       "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac17fd3f_179241c3",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-05T03:34:51Z",
+      "side": 1,
+      "message": "The policy is designed to make the flag rollout safe, especially across rollbacks, regardless of how you\u0027re using the flag; in that sense \"new behavior\" is the behavior after rolling out the flag, and \"old behavior\" is the one before any flag is pushed. It ensures that if the module is too old or rolls back the flag is disabled.\n\nNow \"new behavior\" means different things depending on whether \"don\u0027t rematch all requests\" is pushed via flag rollout or binary rollout. I thought you wanted to roll it out via binary rollout, and have a flag that can be pushed to disable it (kill switch). This makes the rollout of \"don\u0027t rematch all requests\" less safe because it is enabled by default before any flag push (although there\u0027s binary rollback). In that case the flag should be \"rematch all requests if module \u003e X\", because it\u0027s a flag to turn off what has been put in the field via binary rollout.\n\nIt sounds like you want to do a flag rollout though, where we ship the feature disabled in the binary and have a flag to turn it on if version \u003e X - that\u0027s generally considered safer indeed. Is that right ?",
+      "parentUuid": "4fe38423_53a1c7bb",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
