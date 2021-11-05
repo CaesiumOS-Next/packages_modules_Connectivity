@@ -16,11 +16,14 @@
 
 package android.net.cts.util;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
+import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
+import static com.android.testutils.Cleanup.testAndCleanup;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -49,7 +52,9 @@ import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.ConditionVariable;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.system.Os;
 import android.system.OsConstants;
 import android.text.TextUtils;
@@ -67,7 +72,6 @@ import java.net.Socket;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public final class CtsNetUtils {
     private static final String TAG = CtsNetUtils.class.getSimpleName();
@@ -154,38 +158,40 @@ public final class CtsNetUtils {
         if (mWifiManager.isWifiEnabled()) {
             Network wifiNetwork = getWifiNetwork();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
-            expectNetworkIsSystemDefault(wifiNetwork);
+            expectSystemDefaultNetwork(wifiNetwork);
             disconnectFromWifi(wifiNetwork);
             connectToWifi();
         } else {
             connectToWifi();
             Network wifiNetwork = getWifiNetwork();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
-            expectNetworkIsSystemDefault(wifiNetwork);
+            expectSystemDefaultNetwork(wifiNetwork);
             disconnectFromWifi(wifiNetwork);
         }
     }
 
-    private Network expectNetworkIsSystemDefault(Network network)
-            throws Exception {
-        final CompletableFuture<Network> future = new CompletableFuture();
+    public void expectSystemDefaultNetwork(Network network) throws Exception {
+        final CompletableFuture<Boolean> future = new CompletableFuture();
         final NetworkCallback cb = new NetworkCallback() {
             @Override
             public void onAvailable(Network n) {
-                if (n.equals(network)) future.complete(network);
+                if (n.equals(network)) {
+                    future.complete(true);
+                } else {
+                    future.complete(false);
+                }
             }
         };
 
-        try {
-            mCm.registerDefaultNetworkCallback(cb);
-            return future.get(CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS);
-        } catch (TimeoutException e) {
-            throw new AssertionError("Timed out waiting for system default network to switch"
-                    + " to network " + network + ". Current default network is network "
-                    + mCm.getActiveNetwork(), e);
-        } finally {
-            mCm.unregisterNetworkCallback(cb);
-        }
+        final Handler handler = new Handler(Looper.getMainLooper());
+        testAndCleanup(() -> {
+            runWithShellPermissionIdentity(() -> {
+                mCm.registerSystemDefaultNetworkCallback(cb, handler);
+            }, NETWORK_SETTINGS);
+            assertTrue(future.get(CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS));
+        }, () -> {
+                mCm.unregisterNetworkCallback(cb);
+            });
     }
 
     /**
