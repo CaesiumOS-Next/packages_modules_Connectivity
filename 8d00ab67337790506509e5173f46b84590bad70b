@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cecf7cfb_bb3350cf",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-05T06:09:46Z",
+      "side": 1,
+      "message": "IIUC wildcard tempaltes matches mobile regardless off IMSI.\nHence this surprised me.\nDo you know why it pass the test?",
+      "range": {
+        "startLine": 515,
+        "startChar": 8,
+        "endLine": 515,
+        "endChar": 19
+      },
+      "revId": "8d00ab67337790506509e5173f46b84590bad70b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
