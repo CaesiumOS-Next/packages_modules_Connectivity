@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "236f52ae_75f0fcd0",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-05T08:36:35Z",
+      "side": 1,
+      "message": "nit: mergedImsiList?\nno strong opinion.",
+      "range": {
+        "startLine": 501,
+        "startChar": 12,
+        "endLine": 501,
+        "endChar": 17
+      },
+      "revId": "e3fc79951eef1f69caf6c4530a82c64e92f593d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d558efbc_3f25947d",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-05T08:36:35Z",
+      "side": 1,
+      "message": "Since imsi1 and imsi2 are common and well known merged imsi in this test.\nMaybe just normalizedTemplate...",
+      "range": {
+        "startLine": 502,
+        "startChar": 21,
+        "endLine": 502,
+        "endChar": 33
+      },
+      "revId": "e3fc79951eef1f69caf6c4530a82c64e92f593d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84b52e24_260dd82a",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-05T08:36:35Z",
+      "side": 1,
+      "message": "IIUC Metered is not what we cared about in this test.\nMaybe just identMobileImsi2?",
+      "range": {
+        "startLine": 513,
+        "startChar": 12,
+        "endLine": 513,
+        "endChar": 35
+      },
+      "revId": "e3fc79951eef1f69caf6c4530a82c64e92f593d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f86bf107_9243b8e6",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-05T08:36:35Z",
+      "side": 1,
+      "message": "Style: Since this is kotlin, for readibility, maybe just:\nnormalize(buildTemplateMobileAll(TEST_IMSI1), lists).also {\n   it.assertMatches(identMobileImsi1Metered)\n   it.assertMatches(identMobileImsi2Metered)\n   it.assertDoesNotMatch(identMobileImsi3Metered)\n}\nAlso for other places.",
+      "range": {
+        "startLine": 525,
+        "startChar": 8,
+        "endLine": 527,
+        "endChar": 92
+      },
+      "revId": "e3fc79951eef1f69caf6c4530a82c64e92f593d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
