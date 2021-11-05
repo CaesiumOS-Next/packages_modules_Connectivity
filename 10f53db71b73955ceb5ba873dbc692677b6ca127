@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67fda8f7_d5bd192b",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-05T03:55:38Z",
+      "side": 1,
+      "message": "Please rename this parameter to something less generic.",
+      "range": {
+        "startLine": 371,
+        "startChar": 76,
+        "endLine": 371,
+        "endChar": 83
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d82b424d_dd07a5fc",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-05T03:55:38Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem correct if mNetwork is null. AFAICT a null mNetwork means \"accept any upstream\", but in this method, a null |network| means that there is no upstream.",
+      "range": {
+        "startLine": 484,
+        "startChar": 12,
+        "endLine": 484,
+        "endChar": 89
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd63495d_5e4371a5",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-05T03:55:38Z",
+      "side": 1,
+      "message": "What does this parameter actually mean? There is no way to enable tethering with a given upstream. Is it the upstream that the test expects to see? If so, maybe call it \"expectedUpstream\"?",
+      "range": {
+        "startLine": 523,
+        "startChar": 83,
+        "endLine": 523,
+        "endChar": 91
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54f1f2f1_c573e0d8",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-05T03:55:38Z",
+      "side": 1,
+      "message": "null /* whateverThatMethodParameterIsCalled */\n\nAlso elsewhere.",
+      "range": {
+        "startLine": 649,
+        "startChar": 81,
+        "endLine": 649,
+        "endChar": 85
+      },
+      "revId": "10f53db71b73955ceb5ba873dbc692677b6ca127",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
