@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1849891_33410a68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-05T08:18:23Z",
+      "side": 1,
+      "message": "FWIW I don\u0027t think IFF_MULTICAST does anything at all, unless our userspace code checks for it.\n\nWhile you\u0027re at it, do you need IFF_BROADCAST as well?",
+      "revId": "6fc44359ebdc6bf10eec98cc5828a1d2fa75534d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
