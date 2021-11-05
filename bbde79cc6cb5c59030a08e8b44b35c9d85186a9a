@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "494166dc_60136ca9",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-05T03:44:14Z",
+      "side": 1,
+      "message": "In pratice, when will we have buildTemplateMobileAll with null?\nIf not, maybe test MATCH_MOBILE_WILDCARD instead?",
+      "range": {
+        "startLine": 504,
+        "startChar": 8,
+        "endLine": 504,
+        "endChar": 65
+      },
+      "revId": "bbde79cc6cb5c59030a08e8b44b35c9d85186a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b374947_a4386e64",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-05T03:44:14Z",
+      "side": 1,
+      "message": "Maybe also test with IMSI3 and to make sure the matches function won\u0027t match anything?",
+      "range": {
+        "startLine": 506,
+        "startChar": 7,
+        "endLine": 506,
+        "endChar": 89
+      },
+      "revId": "bbde79cc6cb5c59030a08e8b44b35c9d85186a9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
