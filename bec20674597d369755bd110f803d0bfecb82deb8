@@ -299,6 +299,30 @@
       },
       "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99547356_5de1ca3e",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-08T06:11:21Z",
+      "side": 1,
+      "message": "I see, I don\u0027t aware we have the master module build for stable(Q/R/S) builds continuous testing (Before you point out this, I though they all download from *-mainline-prod branch).\n\nIf so, the layout would be\n\nAOSP: com.android.tethering.apex include TetheringNext\n\nBoth *-mainline-prod and master would have:\n1. com.google.android.tethering.apex include TetheringGoogle(will have follow up change for this).\n2. com.google.android.tethering.next.apex include TetheringGoogleNext(will have follow up change for this).\nAnd *-mainline-prod default use com.google.android.tethering.apex, master default use com.google.android.tethering.next.apex. In continuous testing for master build, it could build com.google.android.tethering.apex which contain stable Tethering(TetheringGoogle).",
+      "parentUuid": "aefad219_54bb89de",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
