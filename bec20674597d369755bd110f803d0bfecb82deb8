@@ -275,6 +275,30 @@
       },
       "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aefad219_54bb89de",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-08T05:50:10Z",
+      "side": 1,
+      "message": "aosp/master should probably use TetheringNext too, otherwise we\u0027re not testing the latest tethering features and target SDK in AOSP, that makes development/testing a bit harder.\nAlso there\u0027s some continuous testing that is setup in master against stable (Q/R/S) builds, so you\u0027ll need to have a target available in master that can be used for that - it can\u0027t be TetheringGoogleNext as it targets newer SDKs.\nConsidering that I think you\u0027ll need to have both targets ? It would avoid some merge conflicts as well.",
+      "parentUuid": "ecc5ee0b_b66570c4",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
