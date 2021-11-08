@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fef349c_7567b73e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-08T05:52:56Z",
+      "side": 1,
+      "message": "Can you just say List.of(wifiNetwork) and remove the var ?",
+      "range": {
+        "startLine": 867,
+        "startChar": 24,
+        "endLine": 867,
+        "endChar": 50
+      },
+      "revId": "b75daba6ab560752530e5af220100d8a626de4fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87761c02_1f62f5d9",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-08T05:52:56Z",
+      "side": 1,
+      "message": "This is a large change in behavior ; if some network is the default at this time (because of a race) the old code would simply wait, but the new code will fail.\n\nFWIW, I prefered the old code that had a Future\u003cNetwork\u003e. It\u0027s a lot easier to understand on the calling site. If you need the new semantics, you can move the equals() to l.191.",
+      "range": {
+        "startLine": 180,
+        "startChar": 24,
+        "endLine": 181,
+        "endChar": 43
+      },
+      "revId": "b75daba6ab560752530e5af220100d8a626de4fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aedc4832_393972ce",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-08T05:52:56Z",
+      "side": 1,
+      "message": "This looks dangerous to do in a general utility.\n\n- If the main handler thread of the test is not started, I think this crashes (or at least, it won\u0027t run the callback test)\n- If you call expectSystemDefaultNetwork from the handler thread, future.get() will block it and prevent the callback from running\n\nYou can\u0027t know what situation the caller is in, so I don\u0027t think it\u0027s okay to do this.\n\nYou could have the caller pass a handler instead.",
+      "range": {
+        "startLine": 186,
+        "startChar": 32,
+        "endLine": 186,
+        "endChar": 67
+      },
+      "revId": "b75daba6ab560752530e5af220100d8a626de4fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
