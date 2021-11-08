@@ -140,6 +140,30 @@
       },
       "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f764745_01d5dd9d",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-08T05:57:07Z",
+      "side": 1,
+      "message": "Yes. I don\u0027t really know what I said that implied I wanted a binary rollout, but I don\u0027t see why we\u0027d want that. I think kill switches should be implemented by flag rollouts, like everything else.",
+      "parentUuid": "ac17fd3f_179241c3",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
