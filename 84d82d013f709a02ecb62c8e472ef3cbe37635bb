@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72783e85_c07bd108",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-08T10:20:33Z",
+      "side": 1,
+      "message": "Added comment in other patch as discussed",
+      "parentUuid": "dc59b93a_26ee2ed2",
+      "range": {
+        "startLine": 26,
+        "startChar": 60,
+        "endLine": 26,
+        "endChar": 81
+      },
+      "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6fb494d_b57e49d2",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-19T03:55:02Z",
       "side": 1,
       "message": "This doesn\u0027t work, because it\u0027s not initialized on the right thread. Keep in mind that if we need to use the kill switch, it\u0027s because we\u0027ll realize the current code is broken, which means that seeing the default value of the boolean will trigger whatever bug we try to avoid by using the kill switch : with the current \"false is new behavior\" semantics, if it\u0027s so broken it actually restarts the framework in some configurations, you risk the boot loop.\n\nHow about using the on-demand initialization idiom for this ? You\u0027ll need to have a class to hold the flags, which is what we\u0027ll want long-term anyway rather than booleans at the top level. That will give you thread safety, and even if we make a mistake and for some reason the holder is accessed on the handler thread, the only drawback is a small delay caused by the package manager lookup on a critical thread once per boot.",
+      "range": {
+        "startLine": 372,
+        "startChar": 20,
+        "endLine": 372,
+        "endChar": 49
+      },
+      "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1cc8545_be40c548",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-08T10:20:33Z",
+      "side": 1,
+      "message": "Done as discussed",
+      "parentUuid": "a6fb494d_b57e49d2",
       "range": {
         "startLine": 372,
         "startChar": 20,
@@ -156,6 +204,30 @@
       "side": 1,
       "message": "Yes. I don\u0027t really know what I said that implied I wanted a binary rollout, but I don\u0027t see why we\u0027d want that. I think kill switches should be implemented by flag rollouts, like everything else.",
       "parentUuid": "ac17fd3f_179241c3",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "84d82d013f709a02ecb62c8e472ef3cbe37635bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e3774bc_6397331b",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-08T10:20:33Z",
+      "side": 1,
+      "message": "Done - thanks",
+      "parentUuid": "5f764745_01d5dd9d",
       "range": {
         "startLine": 26,
         "startChar": 7,
