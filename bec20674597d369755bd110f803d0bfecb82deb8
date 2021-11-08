@@ -323,6 +323,30 @@
       },
       "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5886e8ae_2c4f6eab",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-08T06:23:44Z",
+      "side": 1,
+      "message": "As discussed separately, both stable/current targets will be created in other branches, but this one can just be the \"current\" target",
+      "parentUuid": "aefad219_54bb89de",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "bec20674597d369755bd110f803d0bfecb82deb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
