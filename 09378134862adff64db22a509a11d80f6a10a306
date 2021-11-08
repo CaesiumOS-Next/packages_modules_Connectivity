@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bbde327_b4d086d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-08T08:47:21Z",
+      "side": 1,
+      "message": "Yes, your understanding is correct. Done",
+      "parentUuid": "365c0af7_286a8b78",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 8
+      },
+      "revId": "09378134862adff64db22a509a11d80f6a10a306",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0a668af_5bb53841",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-08T08:03:49Z",
       "side": 1,
       "message": "Can you add a comment saying that this doesn\u0027t implement Closeable for consistency with the existing EthernetManager.TetheredInterfaceRequest, which is already released?\n\nIt\u0027s technically possible for this to implement Closeable but that might be confusing for users of this method, because callers wouldn\u0027t easily know if they should call close() or release().\n\nAn alternative would be to deprecate EthernetManager.TetheredInterfaceRequest#release, or even mark it @removed, and make this interface only specify close.\n\nIt doesn\u0027t seem useful to implement AutoCloseable because this is not synchronous, so it\u0027s not useful to use try-with-resources.",
+      "range": {
+        "startLine": 454,
+        "startChar": 4,
+        "endLine": 454,
+        "endChar": 33
+      },
+      "revId": "09378134862adff64db22a509a11d80f6a10a306",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb85e559_8cd6d005",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-08T08:47:21Z",
+      "side": 1,
+      "message": "Done, thanks for suggested wording.",
+      "parentUuid": "c0a668af_5bb53841",
       "range": {
         "startLine": 454,
         "startChar": 4,
