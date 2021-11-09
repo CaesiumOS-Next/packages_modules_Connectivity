@@ -80,7 +80,7 @@ public class DadProxyTest {
 
     @BeforeClass
     public static void setupOnce() {
-        System.loadLibrary("tetherutilsjni");
+        System.loadLibrary("com_android_networkstack_tethering_jni");
 
         final Instrumentation inst = InstrumentationRegistry.getInstrumentation();
         final IBinder netdIBinder =

@@ -37,7 +37,7 @@ import java.util.Objects;
  */
 public class TetheringUtils {
     static {
-        System.loadLibrary("tetherutilsjni");
+        System.loadLibrary("com_android_networkstack_tethering_jni");
     }
 
     public static final byte[] ALL_NODES = new byte[] {
