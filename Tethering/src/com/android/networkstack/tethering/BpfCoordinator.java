@@ -99,7 +99,7 @@ public class BpfCoordinator {
     // TetherService, but for tests it needs to be either loaded here or loaded by every test.
     // TODO: is there a better way?
     static {
-        System.loadLibrary("tetherutilsjni");
+        System.loadLibrary("com_android_networkstack_tethering_jni");
     }
 
     private static final String TAG = BpfCoordinator.class.getSimpleName();

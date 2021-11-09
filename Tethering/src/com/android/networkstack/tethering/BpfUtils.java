@@ -31,7 +31,7 @@ import java.io.IOException;
  */
 public class BpfUtils {
     static {
-        System.loadLibrary("tetherutilsjni");
+        System.loadLibrary("com_android_networkstack_tethering_jni");
     }
 
     // For better code clarity when used for 'bool ingress' parameter.

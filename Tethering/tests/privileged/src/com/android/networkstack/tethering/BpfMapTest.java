@@ -59,7 +59,7 @@ public final class BpfMapTest {
 
     @BeforeClass
     public static void setupOnce() {
-        System.loadLibrary("tetherutilsjni");
+        System.loadLibrary("com_android_networkstack_tethering_jni");
     }
 
     @Before
