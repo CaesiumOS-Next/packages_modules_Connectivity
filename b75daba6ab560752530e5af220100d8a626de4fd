@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a053a7_fdabf46f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-11-09T06:16:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fef349c_7567b73e",
+      "range": {
+        "startLine": 867,
+        "startChar": 24,
+        "endLine": 867,
+        "endChar": 50
+      },
+      "revId": "b75daba6ab560752530e5af220100d8a626de4fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87761c02_1f62f5d9",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec0815c_e6a62084",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-11-09T06:16:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87761c02_1f62f5d9",
+      "range": {
+        "startLine": 180,
+        "startChar": 24,
+        "endLine": 181,
+        "endChar": 43
+      },
+      "revId": "b75daba6ab560752530e5af220100d8a626de4fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aedc4832_393972ce",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-11-08T05:52:56Z",
       "side": 1,
       "message": "This looks dangerous to do in a general utility.\n\n- If the main handler thread of the test is not started, I think this crashes (or at least, it won\u0027t run the callback test)\n- If you call expectSystemDefaultNetwork from the handler thread, future.get() will block it and prevent the callback from running\n\nYou can\u0027t know what situation the caller is in, so I don\u0027t think it\u0027s okay to do this.\n\nYou could have the caller pass a handler instead.",
+      "range": {
+        "startLine": 186,
+        "startChar": 32,
+        "endLine": 186,
+        "endChar": 67
+      },
+      "revId": "b75daba6ab560752530e5af220100d8a626de4fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "196e76b5_3b882fa2",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-11-09T06:16:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aedc4832_393972ce",
       "range": {
         "startLine": 186,
         "startChar": 32,
