@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9bd22d0_8600dc70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-11-09T12:53:29Z",
+      "side": 1,
+      "message": "I added aosp/1885529 to use a real ProxyTracker to verify the broadcast is actually sent so this patch has a bit different from patchset 3.",
+      "revId": "32a5a151261d5ab5e2f5e693f417acca0edb5489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
