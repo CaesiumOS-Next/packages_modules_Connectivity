@@ -250,6 +250,8 @@ import android.net.NetworkStack;
 import android.net.NetworkStateSnapshot;
 import android.net.NetworkTestResultParcelable;
 import android.net.OemNetworkPreferences;
+import android.net.PacProxyManager;
+import android.net.Proxy;
 import android.net.ProxyInfo;
 import android.net.QosCallbackException;
 import android.net.QosFilter;
@@ -479,6 +481,7 @@ public class ConnectivityServiceTest {
     private Context mContext;
     private NetworkPolicyCallback mPolicyCallback;
     private WrappedMultinetworkPolicyTracker mPolicyTracker;
+    private ProxyTracker mProxyTracker;
     private HandlerThread mAlarmManagerThread;
     private TestNetIdManager mNetIdManager;
     private QosCallbackMockHelper mQosCallbackMockHelper;
@@ -513,7 +516,7 @@ public class ConnectivityServiceTest {
     @Mock VpnProfileStore mVpnProfileStore;
     @Mock SystemConfigManager mSystemConfigManager;
     @Mock Resources mResources;
-    @Mock ProxyTracker mProxyTracker;
+    @Mock PacProxyManager mPacProxyManager;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -615,6 +618,7 @@ public class ConnectivityServiceTest {
             if (Context.SYSTEM_CONFIG_SERVICE.equals(name)) return mSystemConfigManager;
             if (Context.NETWORK_STATS_SERVICE.equals(name)) return mStatsManager;
             if (Context.BATTERY_STATS_SERVICE.equals(name)) return mBatteryStatsManager;
+            if (Context.PAC_PROXY_SERVICE.equals(name)) return mPacProxyManager;
             return super.getSystemService(name);
         }
 
@@ -1705,6 +1709,8 @@ public class ConnectivityServiceTest {
 
         mCsHandlerThread = new HandlerThread("TestConnectivityService");
         mVMSHandlerThread = new HandlerThread("TestVpnManagerService");
+        mProxyTracker = new ProxyTracker(mServiceContext, mock(Handler.class),
+                16 /* EVENT_PROXY_HAS_CHANGED */);
         mDeps = makeDependencies();
         returnRealCallingUid();
         mService = new ConnectivityService(mServiceContext,
@@ -2010,6 +2016,39 @@ public class ConnectivityServiceTest {
                 Log.d(TAG, "Received CONNECTIVITY_ACTION type=" + type + " ni=" + ni);
                 if (!filter.test(intent)) return;
                 if (--mRemaining == 0) {
+                    expectedRef.get().complete(intent);
+                }
+            }
+        };
+        final ExpectedBroadcast expected = new ExpectedBroadcast(receiver);
+        expectedRef.set(expected);
+        mServiceContext.registerReceiver(receiver, intentFilter);
+        return expected;
+    }
+
+    private ExpectedBroadcast expectPorxyChangeAction(ProxyInfo proxy) {
+        return registerPacProxyBroadcastThat(intent -> {
+            final ProxyInfo actualProxy = (ProxyInfo) intent.getExtra(Proxy.EXTRA_PROXY_INFO,
+                    ProxyInfo.buildPacProxy(Uri.EMPTY));
+            return proxy.equals(actualProxy);
+        });
+    }
+
+    private ExpectedBroadcast registerPacProxyBroadcast() {
+        return registerPacProxyBroadcastThat(intent -> true);
+    }
+
+    private ExpectedBroadcast registerPacProxyBroadcastThat(
+            @NonNull final Predicate<Intent> filter) {
+        final IntentFilter intentFilter = new IntentFilter(Proxy.PROXY_CHANGE_ACTION);
+        // AtomicReference allows receiver to access expected even though it is constructed later.
+        final AtomicReference<ExpectedBroadcast> expectedRef = new AtomicReference<>();
+        final BroadcastReceiver receiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                    final ProxyInfo proxy = (ProxyInfo) intent.getExtra(
+                            Proxy.EXTRA_PROXY_INFO, ProxyInfo.buildPacProxy(Uri.EMPTY));
+                Log.d(TAG, "Receive PROXY_CHANGE_ACTION, proxy = " + proxy);
+                if (filter.test(intent)) {
                     expectedRef.get().complete(intent);
                 }
             }
@@ -9829,7 +9868,7 @@ public class ConnectivityServiceTest {
         final ProxyInfo testProxyInfo = ProxyInfo.buildDirectProxy("test", 8888);
         mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
         final Network wifiNetwork = mWiFiNetworkAgent.getNetwork();
-        doReturn(testProxyInfo).when(mService.mProxyTracker).getGlobalProxy();
+        mProxyTracker.setGlobalProxy(testProxyInfo);
         assertEquals(testProxyInfo, mService.getProxyForNetwork(wifiNetwork));
     }
 
@@ -11237,6 +11276,7 @@ public class ConnectivityServiceTest {
         assertNull(mService.getProxyForNetwork(null));
         assertNull(mCm.getDefaultProxy());
 
+        final ExpectedBroadcast b1 = registerPacProxyBroadcast();
         final LinkProperties lp = new LinkProperties();
         lp.setInterfaceName("tun0");
         lp.addRoute(new RouteInfo(new IpPrefix(Inet4Address.ANY, 0), null));
@@ -11246,9 +11286,10 @@ public class ConnectivityServiceTest {
         mMockVpn.establish(lp, VPN_UID, vpnRanges);
         assertVpnUidRangesUpdated(true, vpnRanges, VPN_UID);
         // VPN is connected but proxy is not set, so there is no need to send proxy broadcast.
-        verify(mProxyTracker, never()).sendProxyBroadcast();
+        b1.expectNoBroadcast(3000);
 
         // Update to new range which is old range minus APP1, i.e. only APP2
+        final ExpectedBroadcast b2 = registerPacProxyBroadcast();
         final Set<UidRange> newRanges = new HashSet<>(asList(
                 new UidRange(vpnRange.start, APP1_UID - 1),
                 new UidRange(APP1_UID + 1, vpnRange.stop)));
@@ -11259,37 +11300,37 @@ public class ConnectivityServiceTest {
         assertVpnUidRangesUpdated(false, vpnRanges, VPN_UID);
 
         // Uid has changed but proxy is not set, so there is no need to send proxy broadcast.
-        verify(mProxyTracker, never()).sendProxyBroadcast();
+        b2.expectNoBroadcast(3000);
 
         final ProxyInfo testProxyInfo = ProxyInfo.buildDirectProxy("test", 8888);
+        final ExpectedBroadcast b3 = expectPorxyChangeAction(testProxyInfo);
         lp.setHttpProxy(testProxyInfo);
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
         // Proxy is set, so send a proxy broadcast.
-        verify(mProxyTracker, times(1)).sendProxyBroadcast();
-        reset(mProxyTracker);
+        b3.expectBroadcast(3000);
 
+        final ExpectedBroadcast b4 = expectPorxyChangeAction(testProxyInfo);
         mMockVpn.setUids(vpnRanges);
         waitForIdle();
         // Uid has changed and proxy is already set, so send a proxy broadcast.
-        verify(mProxyTracker, times(1)).sendProxyBroadcast();
-        reset(mProxyTracker);
+        b4.expectBroadcast(3000);
 
+        final ExpectedBroadcast b5 = registerPacProxyBroadcast();
         // Proxy is removed, send a proxy broadcast.
         lp.setHttpProxy(null);
         mMockVpn.sendLinkProperties(lp);
         waitForIdle();
-        verify(mProxyTracker, times(1)).sendProxyBroadcast();
-        reset(mProxyTracker);
+        b5.expectBroadcast(3000);
 
         // Proxy is added in WiFi(default network), setDefaultProxy will be called.
         final LinkProperties wifiLp = mCm.getLinkProperties(mWiFiNetworkAgent.getNetwork());
         assertNotNull(wifiLp);
+        final ExpectedBroadcast b6 = expectPorxyChangeAction(testProxyInfo);
         wifiLp.setHttpProxy(testProxyInfo);
         mWiFiNetworkAgent.sendLinkProperties(wifiLp);
         waitForIdle();
-        verify(mProxyTracker, times(1)).setDefaultProxy(eq(testProxyInfo));
-        reset(mProxyTracker);
+        b6.expectBroadcast(3000);
     }
 
     @Test
@@ -11308,18 +11349,21 @@ public class ConnectivityServiceTest {
         lp.setHttpProxy(testProxyInfo);
         final UidRange vpnRange = PRIMARY_UIDRANGE;
         final Set<UidRange> vpnRanges = Collections.singleton(vpnRange);
+        final ExpectedBroadcast b1 = registerPacProxyBroadcast();
         mMockVpn.setOwnerAndAdminUid(VPN_UID);
         mMockVpn.registerAgent(false, vpnRanges, lp);
         // In any case, the proxy broadcast won't be sent before VPN goes into CONNECTED state.
         // Otherwise, the app that calls ConnectivityManager#getDefaultProxy() when it receives the
         // proxy broadcast will get null.
-        verify(mProxyTracker, never()).sendProxyBroadcast();
+        b1.expectNoBroadcast(3000);
+
+        final ExpectedBroadcast b2 = expectPorxyChangeAction(testProxyInfo);
         mMockVpn.connect(true /* validated */, true /* hasInternet */, false /* isStrictMode */);
         waitForIdle();
         assertVpnUidRangesUpdated(true, vpnRanges, VPN_UID);
         // Vpn is connected with proxy, so the proxy broadcast will be sent to inform the apps to
         // update their proxy data.
-        verify(mProxyTracker, times(1)).sendProxyBroadcast();
+        b2.expectBroadcast(3000);
     }
 
     @Test
@@ -11348,10 +11392,10 @@ public class ConnectivityServiceTest {
         final LinkProperties cellularLp = new LinkProperties();
         cellularLp.setInterfaceName(MOBILE_IFNAME);
         final ProxyInfo testProxyInfo = ProxyInfo.buildDirectProxy("test", 8888);
+        final ExpectedBroadcast b = expectPorxyChangeAction(testProxyInfo);
         cellularLp.setHttpProxy(testProxyInfo);
         mCellNetworkAgent.sendLinkProperties(cellularLp);
-        waitForIdle();
-        verify(mProxyTracker, times(1)).sendProxyBroadcast();
+        b.expectBroadcast(3000);
     }
 
     @Test

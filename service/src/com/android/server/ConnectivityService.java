@@ -5260,7 +5260,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ProxyInfo oldProxyInfo = oldLp == null ? null : oldLp.getHttpProxy();
 
         if (!ProxyTracker.proxyInfoEqual(newProxyInfo, oldProxyInfo)) {
-            mProxyTracker.sendProxyBroadcast();
+            //mProxyTracker.sendProxyBroadcast();
+            mProxyTracker.setDefaultProxy(newProxyInfo);
         }
     }
 
