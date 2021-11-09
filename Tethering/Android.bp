@@ -44,6 +44,7 @@ java_defaults {
         "net-utils-framework-common",
         "net-utils-device-common",
         "net-utils-device-common-netlink",
+        "net-utils-device-common-bpf",
         "netd-client",
     ],
     libs: [
@@ -103,7 +104,7 @@ cc_library {
         "libnativehelper_compat_libc++",
     ],
     static_libs: [
-        "libbpfmapjni",
+        "libnet_utils_device_common_bpf",
         "libnetjniutils",
     ],
 
