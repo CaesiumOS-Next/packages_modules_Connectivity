@@ -449,8 +449,8 @@ public class UpstreamNetworkMonitor {
         notifyTarget(EVENT_ON_LOST, mNetworkMap.remove(network));
     }
 
-    private void maybeHandleNetworkSwitch(@NonNull Network network) {
-        if (Objects.equals(mDefaultInternetNetwork, network)) return;
+    private boolean maybeHandleNetworkSwitch(@NonNull Network network) {
+        if (Objects.equals(mDefaultInternetNetwork, network)) return false;
 
         final UpstreamNetworkState ns = mNetworkMap.get(network);
         if (ns == null) {
@@ -458,13 +458,14 @@ public class UpstreamNetworkMonitor {
             // removed from mNetworkMap when receiving onLost, and onLost for a given network can
             // never be followed by any other callback on that network.
             Log.wtf(TAG, "maybeHandleNetworkSwitch: no UpstreamNetworkState for " + network);
-            return;
+            return false;
         }
 
         // Default network changed. Update local data and notify tethering.
         Log.d(TAG, "New default Internet network: " + network);
         mDefaultInternetNetwork = network;
         notifyTarget(EVENT_DEFAULT_SWITCHED, ns);
+        return true;
     }
 
     private void recomputeLocalPrefixes() {
@@ -534,12 +535,14 @@ public class UpstreamNetworkMonitor {
         @Override
         public void onLinkPropertiesChanged(Network network, LinkProperties newLp) {
             if (mCallbackType == CALLBACK_DEFAULT_INTERNET) {
-                updateLinkProperties(network, newLp);
+                final UpstreamNetworkState ns = updateLinkProperties(network, newLp);
                 // When the default network callback calls onLinkPropertiesChanged, it means that
                 // all the network information for the default network is known (because
                 // onLinkPropertiesChanged is called after onAvailable and onCapabilitiesChanged).
                 // Inform tethering that the default network might have changed.
-                maybeHandleNetworkSwitch(network);
+                if (!maybeHandleNetworkSwitch(network) && ns != null) {
+                    notifyTarget(EVENT_ON_LINKPROPERTIES, ns);
+                }
                 return;
             }
 
