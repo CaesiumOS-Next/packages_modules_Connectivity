@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d43a90a_b822ef31",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-10T06:58:36Z",
+      "side": 1,
+      "message": "nit: Since you are on it,\n1. maybe rename it to TestableSocketKeepaliveCallback and move to frameworks/libs/net/common/testutils/devicetests/com/android/testutils\nto be resided with other Testable*Callbacks?\n2. maybe rewrite it with kotlin?\n\nNo strong opinion.",
+      "range": {
+        "startLine": 1249,
+        "startChar": 25,
+        "endLine": 1249,
+        "endChar": 52
+      },
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "953f3b14_f4f0baa3",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
@@ -43,6 +66,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4be34a67_749693e2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1298,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-10T06:58:36Z",
+      "side": 1,
+      "message": "1. Question: Do we have other place that print error so we could know why this is failing?\n2. Is it possible to let OnErrorCallback overrides its own toString so we could still keep the error output?",
+      "range": {
+        "startLine": 1298,
+        "startChar": 87,
+        "endLine": 1298,
+        "endChar": 88
+      },
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69bd1432_19ffff7c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-10T06:58:36Z",
+      "side": 1,
+      "message": "Should we fail() the test if the test is not conclusive?",
+      "range": {
+        "startLine": 1499,
+        "startChar": 4,
+        "endLine": 1499,
+        "endChar": 5
+      },
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "544d1771_c711bd12",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-10T06:58:36Z",
+      "side": 1,
+      "message": "It looks to me this is more like javadoc, maybe use javadoc comment style?",
+      "range": {
+        "startLine": 1501,
+        "startChar": 3,
+        "endLine": 1501,
+        "endChar": 6
+      },
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6818e0d_201dfb86",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1574,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-10T06:58:36Z",
+      "side": 1,
+      "message": "IIUC This could only happen when data received before network agent responses onStartTcpSocketKeepalive.\nTo fix this I think we could not ignore onDataReceived since mTcpController is stopped because of this. Throw an error with SocketKeepalive.ERROR_SOCKET_NOT_IDLE instead of calling onDataReceived if not started might be an option.\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/src/com/android/server/connectivity/KeepaliveTracker.java;l\u003d515;drc\u003dmaster\n\nBut anyway could you add a tracking bug to me for this if it happens in pratice?\nIIUC we might want to fix this.",
+      "range": {
+        "startLine": 1573,
+        "startChar": 20,
+        "endLine": 1574,
+        "endChar": 96
+      },
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f29e6c9_771df76f",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 2
@@ -54,6 +169,30 @@
       "writtenOn": "2021-09-08T11:34:50Z",
       "side": 1,
       "message": "Is it any reason not add the test here instead of adding new test (e.g. testOnDataReceivedCallback)? I think have many small test would be better than one large test. If the test fail earlier, then the follow up test logic don\u0027t be run. Also OnDataReceived test need retry to lower down the fail rate. Move this to the separate test case can avoid retry existing test to save test time.",
+      "range": {
+        "startLine": 1556,
+        "startChar": 12,
+        "endLine": 1581,
+        "endChar": 13
+      },
+      "revId": "36be995cc0f96c301fec95b6cebff2f0d4987f77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39444f26_a2aecd5b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-10T06:58:36Z",
+      "side": 1,
+      "message": "+1 this test is alreay a large one I think.",
+      "parentUuid": "8f29e6c9_771df76f",
       "range": {
         "startLine": 1556,
         "startChar": 12,
