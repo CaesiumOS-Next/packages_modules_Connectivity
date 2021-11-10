@@ -16,6 +16,29 @@
       "message": "I added aosp/1885529 to use a real ProxyTracker to verify the broadcast is actually sent so this patch has a bit different from patchset 3.",
       "revId": "32a5a151261d5ab5e2f5e693f417acca0edb5489",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5040617_e20dd112",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-10T06:46:00Z",
+      "side": 1,
+      "message": "Maybe rename this to simulateUpdateProxyInfo or updateProxyInfoForTest.\n\nBut also, now that you have a real ProxyTracker in the test, it would be better to use it to send this event and remove this method. How difficult is it ?",
+      "range": {
+        "startLine": 1538,
+        "startChar": 9,
+        "endLine": 1538,
+        "endChar": 24
+      },
+      "revId": "32a5a151261d5ab5e2f5e693f417acca0edb5489",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
