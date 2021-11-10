@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24658a35_7c733b5e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2133,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-10T06:17:03Z",
+      "side": 1,
+      "message": "Proxy",
+      "range": {
+        "startLine": 2133,
+        "startChar": 36,
+        "endLine": 2133,
+        "endChar": 41
+      },
+      "revId": "cc96c85aaae4eac0a34d3b75e848d14759479e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1cef6ca_c4b1531f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2152,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-10T06:17:03Z",
+      "side": 1,
+      "message": "Indentation looks incorrect",
+      "range": {
+        "startLine": 2152,
+        "startChar": 16,
+        "endLine": 2152,
+        "endChar": 20
+      },
+      "revId": "cc96c85aaae4eac0a34d3b75e848d14759479e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21bb481f_d596e705",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11394,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-10T06:17:03Z",
+      "side": 1,
+      "message": "This timeout will be incurred every time, so can we reduce it a little bit ? 500ms sounds sufficient to make the test at least flake very often if the code is broken. Likewise for l.11408",
+      "range": {
+        "startLine": 11394,
+        "startChar": 29,
+        "endLine": 11394,
+        "endChar": 33
+      },
+      "revId": "cc96c85aaae4eac0a34d3b75e848d14759479e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51bc1629_40697870",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11416,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-10T06:17:03Z",
+      "side": 1,
+      "message": "Can we use BROADCAST_TIMEOUT_MS for this ?",
+      "range": {
+        "startLine": 11416,
+        "startChar": 27,
+        "endLine": 11416,
+        "endChar": 31
+      },
+      "revId": "cc96c85aaae4eac0a34d3b75e848d14759479e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
