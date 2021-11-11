@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55f70f0b_d03f3427",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-11-11T23:51:22Z",
+      "side": 1,
+      "message": "Thank you Lorenzo for reviewing. \nPTAL.",
+      "revId": "625e5f703f84bd6cd6e8e9cad7ee29e570a7a59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
