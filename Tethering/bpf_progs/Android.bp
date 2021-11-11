@@ -78,4 +78,5 @@ bpf {
     include_dirs: [
         "frameworks/libs/net/common/netd/libnetdutils/include",
     ],
+    sub_dir: "netd",
 }
