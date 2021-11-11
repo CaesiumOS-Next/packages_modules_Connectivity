@@ -1,0 +1,385 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ae109d18_6d7530d3",
+        "filename": "framework/src/android/app/usage/NetworkStats.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 101
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a3d45b4f_5ae9a379",
+        "filename": "framework/src/android/app/usage/NetworkStatsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 110
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "661a8e37_283515c2",
+        "filename": "framework/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 694,
+        "startChar": 0,
+        "endLine": 694,
+        "endChar": 101
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "6ca83fa3_23fab614",
+        "filename": "framework/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 696,
+        "startChar": 0,
+        "endLine": 696,
+        "endChar": 101
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "82c5d04f_a62edcc4",
+        "filename": "framework/src/android/net/NetworkStatsHistory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 737,
+        "startChar": 0,
+        "endLine": 737,
+        "endChar": 127
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "17c896c1_f54fe5cd",
+        "filename": "framework/src/android/net/NetworkTemplate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 824,
+        "startChar": 0,
+        "endLine": 824,
+        "endChar": 119
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "28639454_9491d13f",
+        "filename": "service/src/com/android/server/NetworkStatsAccess.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Prefer to use context.getSystemService(AppOpsManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 175,
+        "startChar": 35,
+        "endLine": 175,
+        "endChar": 76
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154418",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "94218d19_612b4f35",
+          "description": "Change to \"service/src/com/android/server/NetworkStatsManagerInternal.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/NetworkStatsManagerInternal.java",
+              "range": {
+                "startLine": 33,
+                "startChar": 15,
+                "endLine": 33,
+                "endChar": 26
+              },
+              "replacement": "persistence"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "2d4d6793_5a6a9c5c",
+        "filename": "service/src/com/android/server/NetworkStatsManagerInternal.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Common typo found: \"persistance\" -- should it be \"persistence\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 33,
+        "startChar": 15,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "e546ba6f_50b58af2",
+        "filename": "service/src/com/android/server/NetworkStatsRecorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 101
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "fe0df574_a7974152",
+        "filename": "service/src/com/android/server/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Prefer to use context.getSystemService(AlarmManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 407,
+        "startChar": 36,
+        "endLine": 407,
+        "endChar": 76
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "c6ba4544_28d09e96",
+        "filename": "service/src/com/android/server/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Prefer to use context.getSystemService(PowerManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 408,
+        "startChar": 36,
+        "endLine": 408,
+        "endChar": 76
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "5a06a89e_276d9e4a",
+        "filename": "service/src/com/android/server/NetworkStatsService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Prefer to use mContext.getSystemService(DropBoxManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 579,
+        "startChar": 39,
+        "endLine": 579,
+        "endChar": 82
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "dee2d38c_c8c43ef1",
+        "filename": "service/src/com/android/server/NetworkStatsSubscriptionsMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Prefer to use context.getSystemService(SubscriptionManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 85,
+        "startChar": 31,
+        "endLine": 85,
+        "endChar": 78
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017154416",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1888497?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "1bf19a2a_c446fa28",
+        "filename": "service/src/com/android/server/NetworkStatsSubscriptionsMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-11T08:23:36Z",
+      "side": 1,
+      "message": "Prefer to use context.getSystemService(TelephonyManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 87,
+        "startChar": 23,
+        "endLine": 87,
+        "endChar": 67
+      },
+      "revId": "57a7d952bae8282cc336cab31203f4d83e1aa1a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
