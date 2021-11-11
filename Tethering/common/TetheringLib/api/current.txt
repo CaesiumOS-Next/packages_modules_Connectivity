@@ -1,1 +1,22 @@
 // Signature format: 2.0
+package android.net {
+
+  public interface TetheringEntitlementResultCallback {
+    method public void onTetheringEntitlemntResult(int, @NonNull CharSequence);
+    field public static final String EXTRA_TETHERING_ENTITLEMENT_DIALOG_CONTENT = "android.net.extra.TETHERING_ENTITLEMENT_DIALOG_CONTENT";
+    field public static final String EXTRA_TETHERING_ENTITLEMENT_RESULT_CODE = "android.net.extra.TETHERING_ENTITLEMENT_RESULT_CODE";
+    field public static final int RESULT_CODE_FAIL = 1002; // 0x3ea
+    field public static final int RESULT_CODE_NETWORK_ERROR = 1003; // 0x3eb
+    field public static final int RESULT_CODE_SUCCESS = 1001; // 0x3e9
+    field public static final int RESULT_CODE_TIMEOUT = 1004; // 0x3ec
+    field public static final int RESULT_CODE_UNKNOWN_ERROR = 1111; // 0x457
+  }
+
+  public abstract class TetheringEntitlementService extends android.app.Service {
+    ctor public TetheringEntitlementService();
+    method public abstract void onTetheringEntitlementcheck(int, int, @NonNull android.net.TetheringEntitlementResultCallback);
+    field public static final String SERVICE_INTERFACE = "android.net.TetheringEntitlementService";
+  }
+
+}
+
