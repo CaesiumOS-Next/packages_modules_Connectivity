@@ -39,6 +39,30 @@
       },
       "revId": "e41490651f9be1c1e1b322fa3f90e369faa79884",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c6fda00_eacd6af1",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-11T01:41:58Z",
+      "side": 1,
+      "message": "Right, added a comment to clarify further",
+      "parentUuid": "cb1fb6fc_c990aca2",
+      "range": {
+        "startLine": 356,
+        "startChar": 34,
+        "endLine": 356,
+        "endChar": 36
+      },
+      "revId": "e41490651f9be1c1e1b322fa3f90e369faa79884",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
