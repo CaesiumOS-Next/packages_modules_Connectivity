@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b5aceb4_c44a3215",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-11-11T01:24:06Z",
+      "side": 1,
+      "message": "Thanks for fixing this, Remi.",
+      "revId": "e41490651f9be1c1e1b322fa3f90e369faa79884",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb1fb6fc_c990aca2",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-11-11T01:24:06Z",
+      "side": 1,
+      "message": "Since NetworkCapabilities.java becomes a part of mainline module starting from Android S, so we can just update this number in the future if we add something new, right?",
+      "range": {
+        "startLine": 356,
+        "startChar": 34,
+        "endLine": 356,
+        "endChar": 36
+      },
+      "revId": "e41490651f9be1c1e1b322fa3f90e369faa79884",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
