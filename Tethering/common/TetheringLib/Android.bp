@@ -72,6 +72,9 @@ filegroup {
         "src/android/net/TetherStatesParcel.aidl",
         "src/android/net/TetheringInterface.aidl",
         "src/android/net/TetheringInterface.java",
+        "src/android/net/ITetheringEntitlementService.aidl",
+        "src/android/net/TetheringEntitlementService.java",
+        "src/android/net/TetheringEntitlementResultCallback.java",
     ],
     path: "src"
 }
