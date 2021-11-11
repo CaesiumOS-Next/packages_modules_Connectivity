@@ -54,6 +54,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c182b33_47556b1b",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-11T00:13:38Z",
+      "side": 1,
+      "message": "I don\u0027t think this class is complex enough to need a Builder. There are guaranteed only ever to be two elements in it. I think it should be enough to have a two-arg constructor that takes an int type and a @Nullable byte value.",
+      "range": {
+        "startLine": 104,
+        "startChar": 28,
+        "endLine": 104,
+        "endChar": 46
+      },
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83474abc_5b49c48b",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-11T00:13:38Z",
+      "side": 1,
+      "message": "This should be @SystemApi(client \u003d MODULE_LIBRARIES) because nothing outside the system needs to use it.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 10
+      },
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e79ed330_8db077c3",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-11T00:13:38Z",
+      "side": 1,
+      "message": "Any reason not to simply use byte here? The field is 8 bits long, and the NetworkStack internally uses byte as well.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 26
+      },
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87ea6c59_36de9d91",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-11T00:13:38Z",
+      "side": 1,
+      "message": "If you want to keep this an int, then you should throw if the value is \u003e 255 as well.",
+      "range": {
+        "startLine": 63,
+        "startChar": 16,
+        "endLine": 63,
+        "endChar": 25
+      },
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "63b15e8a_47a6be2e",
         "filename": "framework/src/android/net/DhcpOption.java",
         "patchSetId": 3
