@@ -164,6 +164,6 @@ android_test {
         "android.test.base",
     ],
     jni_libs: [
-        "libservice-connectivity",
+        "libcom_android_connectivity_com_android_net_module_util_jni",
     ]
 }

@@ -30,7 +30,8 @@ public final class ConnectivityServiceInitializer extends SystemService {
     public ConnectivityServiceInitializer(Context context) {
         super(context);
         // Load JNI libraries used by ConnectivityService and its dependencies
-        System.loadLibrary("service-connectivity");
+	System.loadLibrary("com_android_connectivity_com_android_net_module_util_jni");
+        // TODO: Define formal APIs to get the needed services.
         mConnectivity = new ConnectivityService(context);
     }
 
