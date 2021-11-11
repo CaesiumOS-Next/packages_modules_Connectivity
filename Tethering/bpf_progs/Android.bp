@@ -78,4 +78,5 @@ bpf {
     include_dirs: [
         "frameworks/libs/net/common/netd/libnetdutils/include",
     ],
+    apex_sub_dir: "netd",
 }
