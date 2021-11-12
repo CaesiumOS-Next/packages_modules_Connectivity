@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b18916eb_aad6a4cc",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "There is only one user of this method and its name is not particularly clear, so I think you should inline it.",
+      "range": {
+        "startLine": 220,
+        "startChar": 30,
+        "endLine": 220,
+        "endChar": 43
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bb936ec_6b166716",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "From the name, this strongly looks like a function that will just make an array associated with the passed list, and that\u0027s what it is except that it will also update a member which I think is very unobvious/unexpected and might bite us hard in the future.\n\nCan we make this method static, and instead have the callers add the results to mAllApps or something ?",
+      "range": {
+        "startLine": 224,
+        "startChar": 27,
+        "endLine": 224,
+        "endChar": 46
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f39b6e1_6238103a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "Likewise, it would be much easier to understand if we could make this static, proving that it doesn\u0027t depends on current state.",
+      "range": {
+        "startLine": 241,
+        "startChar": 27,
+        "endLine": 241,
+        "endChar": 48
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcd04c4d_9654c1e8",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "I don\u0027t think this function is useful.\n• All it does is call the two lambdas passed as an argument in a sequence\n• It only makes sense with very specific pairs of functions\n• It documents *inside* the function what the lambdas do, which shows that it requires them to do something very specific\n\nConsider that this is 8 lines of code but it saves nothing from the callers :\n\n  final List\u003cPackageInfo\u003e apps \u003d getInstalledPackagesAsUser(user);\n  final SparseIntArray list \u003d makeUidsNetworkPerm(apps);\n  updateUidsNetworkPermission(list);\n  \nbecomes\n\n  updateAppsPermForUser(user,\n     apps -\u003e makeUidsNetworkPerm(apps),\n     list -\u003e updateUidsNetworkPermission(list));\n\nWhich is neither shorter or clearer, but the caller needs to know specifically the order in which it will call the lambdas and that the return value of the former will be passed to the latter. I think you should just inline this function, since it saves nothing from the callers.\n\n\nGenerally, lambdas are good when they let you abstract the sequence of calls. For example a method like map(element -\u003e transformed) is a great example of usage, because it will abstract iterating the list and creating the new one. Hence,\n\n  val transformedList \u003d new List\u003cTransformed\u003e\n  for (Elem elem : list) {\n    transformedList.add(transform(elem))\n  }\n\nbecomes\n\n  map { elem -\u003e transform(elem) }\n\n...which is much simpler to understand and puts the important thing front and center. And importantly, for collections that are not trivial to iterate, you only write the iterating code once.\n\nBut here, the sequence is just calling one after the other, so there isn\u0027t anything to abstract. So I don\u0027t think lambdas are the right tool for something like this.",
+      "range": {
+        "startLine": 273,
+        "startChar": 17,
+        "endLine": 273,
+        "endChar": 38
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e61c3c03_e34a9399",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "Considering you only have 2 pairs of value, wouldn\u0027t it be simpler to just write the code sequentially ? (also use foreach for the array)\nIt would give you something like :\n\n  final SparseIntArray appIdsPerm \u003d new SparseIntArray();\n  for (final int uid : mSystemConfigManager.getSystemPermissionUids(INTERNET)) {\n     final int appId \u003d UserHandle.getAppId(uid);\n     appIdsPerm.put(appId, appIdsPerm.get(appId) | PERMISSION_INTERNET);\n  }\n  for (final int uid : mSystemConfigManager.getSystemPermissionUids(UPDATE_DEVICE_STATS)) {\n     final int appId \u003d UserHandle.getAppId(uid);\n     appIdsPerm.put(appId, appIdsPerm.get(appId) | PERMISSION_UPDATE_DEVICE_STATS);\n  }\n\nIt does duplicate 2 lines of code, but I still find it easier to read.",
+      "range": {
+        "startLine": 285,
+        "startChar": 7,
+        "endLine": 297,
+        "endChar": 9
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f001f43_c0206ba9",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "Nit : as this is conceptually an app ID, do you want to have a constant like\n\n  final int SYSTEM_APPID \u003d SYSTEM_UID;",
+      "range": {
+        "startLine": 376,
+        "startChar": 56,
+        "endLine": 376,
+        "endChar": 66
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86b5c7ea_6ff05bb0",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "You could also iterate from the end to avoid the clone, but what you have is fine",
+      "range": {
+        "startLine": 483,
+        "startChar": 57,
+        "endLine": 483,
+        "endChar": 62
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d8e97f0_80cab9be",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "Why did you reverse the order ? Don\u0027t we need to add the new permissions before we remove the old ones, like was done before ?",
+      "range": {
+        "startLine": 913,
+        "startChar": 47,
+        "endLine": 913,
+        "endChar": 52
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d6e8dd6_01e6a5c6",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-12T04:51:24Z",
+      "side": 1,
+      "message": "(not for this patch) this code is becoming very common in our tests, can we have a method in common code doing this instead of copy-pasting it every time ?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 63
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
