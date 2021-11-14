@@ -28,6 +28,7 @@ import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED
 import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
+import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_NONE;
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
@@ -1495,15 +1496,15 @@ public class BpfCoordinator {
         // |      |ream  |ream  |udp   |      |      |      |      |
         // +------+------+------+------+------+------+------+------+
         //
-        // +------+---------------------------------------------------------------------+
-        // |      |      TetherUpstream4Value                                           |
-        // +------+------+------+------+------+------+------+------+------+------+------+
-        // |field |oif   |ethDst|ethSrc|ethPro|pmtu  |src46 |dst46 |srcPor|dstPor|lastUs|
-        // |      |      |mac   |mac   |to    |      |      |      |t     |t     |ed    |
-        // +------+------+------+------+------+------+------+------+------+------+------+
-        // |value |upstre|--    |--    |ETH_P_|1500  |upstre|server|upstre|server|--    |
-        // |      |am    |      |      |IP    |      |am    |      |am    |      |      |
-        // +------+------+------+------+------+------+------+------+------+------+------+
+        // +------+----------------------------------------------------------------------------+
+        // |      |      TetherUpstream4Value                                                  |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
+        // |field |oif   |ethDst|ethSrc|ethPro|pmtu  |tcpSta|src46 |dst46 |srcPor|dstPor|lastUs|
+        // |      |      |mac   |mac   |to    |      |te    |      |      |t     |t     |ed    |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
+        // |value |upstre|--    |--    |ETH_P_|1500  |conntr|upstre|server|upstre|server|--    |
+        // |      |am    |      |      |IP    |      |rack  |am    |      |am    |      |      |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
         //
         // downstream4 key and value:
         //
@@ -1517,15 +1518,15 @@ public class BpfCoordinator {
         // |      |am    |      |udp   |      |am    |      |am    |
         // +------+------+------+------+------+------+------+------+
         //
-        // +------+---------------------------------------------------------------------+
-        // |      |      TetherDownstream4Value                                         |
-        // +------+------+------+------+------+------+------+------+------+------+------+
-        // |field |oif   |ethDst|ethSrc|ethPro|pmtu  |src46 |dst46 |srcPor|dstPor|lastUs|
-        // |      |      |mac   |mac   |to    |      |      |      |t     |t     |ed    |
-        // +------+------+------+------+------+------+------+------+------+------+------+
-        // |value |downst|client|downst|ETH_P_|1500  |server|client|server|client|--    |
-        // |      |ream  |      |ream  |IP    |      |      |      |      |      |      |
-        // +------+------+------+------+------+------+------+------+------+------+------+
+        // +------+----------------------------------------------------------------------------+
+        // |      |      TetherDownstream4Value                                                |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
+        // |field |oif   |ethDst|ethSrc|ethPro|pmtu  |tcpSta|src46 |dst46 |srcPor|dstPor|lastUs|
+        // |      |      |mac   |mac   |to    |      |te    |      |      |t     |t     |ed    |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
+        // |value |downst|client|downst|ETH_P_|1500  |conntr|server|client|server|client|--    |
+        // |      |ream  |      |ream  |IP    |      |rack  |      |      |      |      |      |
+        // +------+------+------+------+------+------+------+------+------+------+------+------+
         //
         @NonNull
         private Tether4Key makeTetherUpstream4Key(
@@ -1549,7 +1550,9 @@ public class BpfCoordinator {
             return new Tether4Value(upstreamIndex,
                     NULL_MAC_ADDRESS /* ethDstMac (rawip) */,
                     NULL_MAC_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
-                    NetworkStackConstants.ETHER_MTU, toIpv4MappedAddressBytes(e.tupleReply.dstIp),
+                    Tether4Value.getPmtuAndTcpStateBitfield(NetworkStackConstants.ETHER_MTU,
+                            TCP_CONNTRACK_NONE),
+                    toIpv4MappedAddressBytes(e.tupleReply.dstIp),
                     toIpv4MappedAddressBytes(e.tupleReply.srcIp), e.tupleReply.dstPort,
                     e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */);
         }
@@ -1558,7 +1561,9 @@ public class BpfCoordinator {
         private Tether4Value makeTetherDownstream4Value(@NonNull ConntrackEvent e,
                 @NonNull ClientInfo c, int upstreamIndex) {
             return new Tether4Value(c.downstreamIfindex,
-                    c.clientMac, c.downstreamMac, ETH_P_IP, NetworkStackConstants.ETHER_MTU,
+                    c.clientMac, c.downstreamMac, ETH_P_IP,
+                    Tether4Value.getPmtuAndTcpStateBitfield(NetworkStackConstants.ETHER_MTU,
+                            TCP_CONNTRACK_NONE),
                     toIpv4MappedAddressBytes(e.tupleOrig.dstIp),
                     toIpv4MappedAddressBytes(e.tupleOrig.srcIp),
                     e.tupleOrig.dstPort, e.tupleOrig.srcPort,

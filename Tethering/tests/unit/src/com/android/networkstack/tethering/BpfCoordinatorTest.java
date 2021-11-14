@@ -36,6 +36,7 @@ import static com.android.dx.mockito.inline.extended.ExtendedMockito.staticMockM
 import static com.android.net.module.util.netlink.ConntrackMessage.DYING_MASK;
 import static com.android.net.module.util.netlink.ConntrackMessage.ESTABLISHED_MASK;
 import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_ESTABLISHED;
+import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_NONE;
 import static com.android.net.module.util.netlink.ConntrackMessage.TCP_STATE_INVALID;
 import static com.android.net.module.util.netlink.ConntrackMessage.Tuple;
 import static com.android.net.module.util.netlink.ConntrackMessage.TupleIpv4;
@@ -1358,20 +1359,19 @@ public class BpfCoordinatorTest {
         return new Tether4Value(UPSTREAM_IFINDEX,
                 MacAddress.ALL_ZEROS_ADDRESS /* ethDstMac (rawip) */,
                 MacAddress.ALL_ZEROS_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
-                NetworkStackConstants.ETHER_MTU, PUBLIC_ADDR_V4MAPPED_BYTES,
-                REMOTE_ADDR_V4MAPPED_BYTES, PUBLIC_PORT, REMOTE_PORT, 0 /* lastUsed */);
+                Tether4Value.getPmtuAndTcpStateBitfield(NetworkStackConstants.ETHER_MTU,
+                    TCP_CONNTRACK_NONE),
+                PUBLIC_ADDR_V4MAPPED_BYTES, REMOTE_ADDR_V4MAPPED_BYTES,
+                PUBLIC_PORT, REMOTE_PORT, 0 /* lastUsed */);
     }
 
     @NonNull
     private Tether4Value makeDownstream4Value() {
         return new Tether4Value(DOWNSTREAM_IFINDEX, MAC_A /* client mac */, DOWNSTREAM_MAC,
-                ETH_P_IP, NetworkStackConstants.ETHER_MTU, REMOTE_ADDR_V4MAPPED_BYTES,
-                PRIVATE_ADDR_V4MAPPED_BYTES, REMOTE_PORT, PRIVATE_PORT, 0 /* lastUsed */);
-    }
-
-    @NonNull
-    private Tether4Key makeDownstream4Key() {
-        return makeDownstream4Key(IPPROTO_TCP);
+                ETH_P_IP, Tether4Value.getPmtuAndTcpStateBitfield(NetworkStackConstants.ETHER_MTU,
+                    TCP_CONNTRACK_NONE),
+                REMOTE_ADDR_V4MAPPED_BYTES, PRIVATE_ADDR_V4MAPPED_BYTES,
+                REMOTE_PORT, PRIVATE_PORT, 0 /* lastUsed */);
     }
 
     @NonNull

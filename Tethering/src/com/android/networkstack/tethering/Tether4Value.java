@@ -41,8 +41,9 @@ public class Tether4Value extends Struct {
     @Field(order = 3, type = Type.UBE16)
     public final int ethProto;  // Packet type ID field.
 
+    // 12 bits pmtu and 4 bits TCP status
     @Field(order = 4, type = Type.U16)
-    public final int pmtu;
+    public final int pmtuAndTcpStatus;
 
     @Field(order = 5, type = Type.ByteArray, arraysize = 16)
     public final byte[] src46;
@@ -61,7 +62,7 @@ public class Tether4Value extends Struct {
     public final long lastUsed;
 
     public Tether4Value(final long oif, @NonNull final MacAddress ethDstMac,
-            @NonNull final MacAddress ethSrcMac, final int ethProto, final int pmtu,
+            @NonNull final MacAddress ethSrcMac, final int ethProto, final int pmtuAndTcpStatus,
             final byte[] src46, final byte[] dst46, final int srcPort,
             final int dstPort, final long lastUsed) {
         Objects.requireNonNull(ethDstMac);
@@ -71,7 +72,7 @@ public class Tether4Value extends Struct {
         this.ethDstMac = ethDstMac;
         this.ethSrcMac = ethSrcMac;
         this.ethProto = ethProto;
-        this.pmtu = pmtu;
+        this.pmtuAndTcpStatus = pmtuAndTcpStatus;
         this.src46 = src46;
         this.dst46 = dst46;
         this.srcPort = srcPort;
@@ -79,14 +80,42 @@ public class Tether4Value extends Struct {
         this.lastUsed = lastUsed;
     }
 
+    /**
+     * Build a bitfield of 12 bits pmtu and 4 bits tcp state.
+     *
+     * 0                   1
+     * 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     * |         pmtu          | tcp   |
+     * |                       | State |
+     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     */
+    public static int getPmtuAndTcpStateBitfield(int pmtu, int tcpState) {
+        return (pmtu & 0x0fff) | ((tcpState & 0x000f) << 12);
+    }
+
+    /**
+     * Get 12 bits pmtu from a bitfield.
+     */
+    public int getPmtu() {
+        return pmtuAndTcpStatus & 0x0fff;
+    }
+
+    /**
+     * Get 4 bits tcp state from a bitfield.
+     */
+    public int getTcpStatus() {
+        return (pmtuAndTcpStatus & 0xf000) >> 12;
+    }
+
     @Override
     public String toString() {
         try {
             return String.format(
-                    "oif: %d, ethDstMac: %s, ethSrcMac: %s, ethProto: %d, pmtu: %d, "
+                    "oif: %d, ethDstMac: %s, ethSrcMac: %s, ethProto: %d, pmtu: %d, tcpStatus: %d, "
                             + "src46: %s, dst46: %s, srcPort: %d, dstPort: %d, "
                             + "lastUsed: %d",
-                    oif, ethDstMac, ethSrcMac, ethProto, pmtu,
+                    oif, ethDstMac, ethSrcMac, ethProto, getPmtu(), getTcpStatus(),
                     InetAddress.getByAddress(src46), InetAddress.getByAddress(dst46),
                     Short.toUnsignedInt((short) srcPort), Short.toUnsignedInt((short) dstPort),
                     lastUsed);
