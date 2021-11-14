@@ -36,6 +36,7 @@ import static com.android.dx.mockito.inline.extended.ExtendedMockito.staticMockM
 import static com.android.net.module.util.netlink.ConntrackMessage.DYING_MASK;
 import static com.android.net.module.util.netlink.ConntrackMessage.ESTABLISHED_MASK;
 import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_ESTABLISHED;
+import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_NONE;
 import static com.android.net.module.util.netlink.ConntrackMessage.TCP_STATE_INVALID;
 import static com.android.net.module.util.netlink.ConntrackMessage.Tuple;
 import static com.android.net.module.util.netlink.ConntrackMessage.TupleIpv4;
@@ -1353,25 +1354,30 @@ public class BpfCoordinatorTest {
                 REMOTE_ADDR.getAddress(), PUBLIC_ADDR.getAddress(), REMOTE_PORT, PUBLIC_PORT);
     }
 
+    int makePmtuAndTcpStatus(int proto) {
+        if (proto != IPPROTO_TCP && proto != IPPROTO_UDP) {
+            fail("Not support protocol " + proto);
+        }
+        final int tcpState = (proto == IPPROTO_TCP)
+                ? TCP_CONNTRACK_ESTABLISHED : TCP_CONNTRACK_NONE;
+        return Tether4Value.combinePmtuAndTcpState(NetworkStackConstants.ETHER_MTU, tcpState);
+    }
+
     @NonNull
-    private Tether4Value makeUpstream4Value() {
+    private Tether4Value makeUpstream4Value(int proto) {
         return new Tether4Value(UPSTREAM_IFINDEX,
                 MacAddress.ALL_ZEROS_ADDRESS /* ethDstMac (rawip) */,
                 MacAddress.ALL_ZEROS_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
-                NetworkStackConstants.ETHER_MTU, PUBLIC_ADDR_V4MAPPED_BYTES,
+                makePmtuAndTcpStatus(proto), PUBLIC_ADDR_V4MAPPED_BYTES,
                 REMOTE_ADDR_V4MAPPED_BYTES, PUBLIC_PORT, REMOTE_PORT, 0 /* lastUsed */);
     }
 
     @NonNull
-    private Tether4Value makeDownstream4Value() {
+    private Tether4Value makeDownstream4Value(int proto) {
         return new Tether4Value(DOWNSTREAM_IFINDEX, MAC_A /* client mac */, DOWNSTREAM_MAC,
-                ETH_P_IP, NetworkStackConstants.ETHER_MTU, REMOTE_ADDR_V4MAPPED_BYTES,
+                ETH_P_IP, makePmtuAndTcpStatus(proto),
+                REMOTE_ADDR_V4MAPPED_BYTES,
                 PRIVATE_ADDR_V4MAPPED_BYTES, REMOTE_PORT, PRIVATE_PORT, 0 /* lastUsed */);
-    }
-
-    @NonNull
-    private Tether4Key makeDownstream4Key() {
-        return makeDownstream4Key(IPPROTO_TCP);
     }
 
     @NonNull
@@ -1465,13 +1471,13 @@ public class BpfCoordinatorTest {
         // TODO: Make the values of {TCP, UDP} rules different.
         final Tether4Key expectedUpstream4KeyTcp = makeUpstream4Key(IPPROTO_TCP);
         final Tether4Key expectedDownstream4KeyTcp = makeDownstream4Key(IPPROTO_TCP);
-        final Tether4Value expectedUpstream4ValueTcp = makeUpstream4Value();
-        final Tether4Value expectedDownstream4ValueTcp = makeDownstream4Value();
+        final Tether4Value expectedUpstream4ValueTcp = makeUpstream4Value(IPPROTO_TCP);
+        final Tether4Value expectedDownstream4ValueTcp = makeDownstream4Value(IPPROTO_TCP);
 
         final Tether4Key expectedUpstream4KeyUdp = makeUpstream4Key(IPPROTO_UDP);
         final Tether4Key expectedDownstream4KeyUdp = makeDownstream4Key(IPPROTO_UDP);
-        final Tether4Value expectedUpstream4ValueUdp = makeUpstream4Value();
-        final Tether4Value expectedDownstream4ValueUdp = makeDownstream4Value();
+        final Tether4Value expectedUpstream4ValueUdp = makeUpstream4Value(IPPROTO_UDP);
+        final Tether4Value expectedDownstream4ValueUdp = makeDownstream4Value(IPPROTO_UDP);
 
         // [1] Adding the first rule on current upstream immediately sends the quota.
         mConsumer.accept(makeTestConntrackEvent(IPCTNL_MSG_CT_NEW, IPPROTO_TCP));
@@ -1623,8 +1629,8 @@ public class BpfCoordinatorTest {
 
         final Tether4Key tcpKey = makeUpstream4Key(IPPROTO_TCP);
         final Tether4Key udpKey = makeUpstream4Key(IPPROTO_UDP);
-        final Tether4Value tcpValue = makeUpstream4Value();
-        final Tether4Value udpValue = makeUpstream4Value();
+        final Tether4Value tcpValue = makeUpstream4Value(IPPROTO_TCP);
+        final Tether4Value udpValue = makeUpstream4Value(IPPROTO_UDP);
 
         checkRefreshConntrackTimeout(bpfUpstream4Map, tcpKey, tcpValue, udpKey, udpValue);
     }
@@ -1639,8 +1645,8 @@ public class BpfCoordinatorTest {
 
         final Tether4Key tcpKey = makeDownstream4Key(IPPROTO_TCP);
         final Tether4Key udpKey = makeDownstream4Key(IPPROTO_UDP);
-        final Tether4Value tcpValue = makeDownstream4Value();
-        final Tether4Value udpValue = makeDownstream4Value();
+        final Tether4Value tcpValue = makeDownstream4Value(IPPROTO_TCP);
+        final Tether4Value udpValue = makeDownstream4Value(IPPROTO_UDP);
 
         checkRefreshConntrackTimeout(bpfDownstream4Map, tcpKey, tcpValue, udpKey, udpValue);
     }

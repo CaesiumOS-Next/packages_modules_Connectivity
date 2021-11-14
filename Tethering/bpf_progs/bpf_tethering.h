@@ -193,7 +193,8 @@ STRUCT_SIZE(Tether4Key, 4 + 6 + 2 + 4 + 4 + 2 + 2);  // 24
 typedef struct {
     uint32_t oif;             // The output interface to redirect to
     struct ethhdr macHeader;  // includes dst/src mac and ethertype (zeroed iff rawip egress)
-    uint16_t pmtu;            // Maximum L3 output path/route mtu
+    uint16_t pmtu : 12;       // Maximum L3 output path/route mtu (maximum 4096 bytes)
+    uint16_t tcpStatus : 4;   // TCP status
     struct in6_addr src46;    // source &                 (always IPv4 mapped for downstream)
     struct in6_addr dst46;    // destination IP addresses (may be IPv4 mapped or IPv6 for upstream)
     __be16 srcPort;           // source &
