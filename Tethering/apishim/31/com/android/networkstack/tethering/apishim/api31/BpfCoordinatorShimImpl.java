@@ -354,25 +354,25 @@ public class BpfCoordinatorShimImpl
             @NonNull Tether4Value value) {
         if (!isInitialized()) return false;
 
+        boolean ret = false;
         try {
             if (downstream) {
-                mBpfDownstream4Map.insertEntry(key, value);
+                ret = mBpfDownstream4Map.insertOrReplaceEntry(key, value);
 
-                // Increase the rule count while a adding rule is using a given upstream interface.
-                final int upstreamIfindex = (int) key.iif;
-                int count = mRule4CountOnUpstream.get(upstreamIfindex, 0 /* default */);
-                mRule4CountOnUpstream.put(upstreamIfindex, ++count);
+                // Increase the interface reference count while a new adding rule is using a
+                // given upstream interface.
+                if (ret) {
+                    final int upstreamIfindex = (int) key.iif;
+                    int count = mRule4CountOnUpstream.get(upstreamIfindex, 0 /* default */);
+                    mRule4CountOnUpstream.put(upstreamIfindex, ++count);
+                }
             } else {
-                mBpfUpstream4Map.insertEntry(key, value);
+                ret = mBpfUpstream4Map.insertOrReplaceEntry(key, value);
             }
         } catch (ErrnoException e) {
-            mLog.e("Could not insert entry (" + key + ", " + value + "): " + e);
-            return false;
-        } catch (IllegalStateException e) {
-            // Silent if the rule already exists. Note that the errno EEXIST was rethrown as
-            // IllegalStateException. See BpfMap#insertEntry.
+            mLog.e("Could not insert or replace entry (" + key + ", " + value + "): " + e);
         }
-        return true;
+        return ret;
     }
 
     @Override
@@ -422,6 +422,23 @@ public class BpfCoordinatorShimImpl
         } catch (ErrnoException e) {
             mLog.e("Could not iterate map: ", e);
         }
+    }
+
+    @Override
+    public Tether4Value tetherOffloadRuleGetValue(boolean downstream, @NonNull Tether4Key key) {
+        if (!isInitialized()) return null;
+
+        try {
+            if (downstream) {
+                return mBpfDownstream4Map.getValue(key);
+            } else {
+                return mBpfUpstream4Map.getValue(key);
+            }
+        } catch (ErrnoException e) {
+            mLog.e("Could not get value (key: " + key + "): ", e);
+        }
+
+        return null;
     }
 
     @Override

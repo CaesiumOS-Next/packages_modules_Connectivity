@@ -163,6 +163,12 @@ public class BpfCoordinatorShimImpl
     }
 
     @Override
+    public Tether4Value tetherOffloadRuleGetValue(boolean downstream, @NonNull Tether4Key key) {
+        /* no op */
+        return null;
+    }
+
+    @Override
     public void tetherOffloadRuleForEach(boolean downstream,
             @NonNull BiConsumer<Tether4Key, Tether4Value> action) {
         /* no op */

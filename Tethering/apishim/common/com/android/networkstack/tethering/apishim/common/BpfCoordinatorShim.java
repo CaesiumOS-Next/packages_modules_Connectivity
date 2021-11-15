@@ -166,6 +166,17 @@ public abstract class BpfCoordinatorShim {
             @NonNull BiConsumer<Tether4Key, Tether4Value> action);
 
     /**
+     * Retrieve the tethering IPv4 offload rule value for a given key from appropriate BPF map.
+     *
+     * @param downstream true if downstream, false if upstream.
+     * @param key the key to get value.
+     * @return Tether4Value the value for a given Tether4Key. Return null if there is no such key.
+     */
+    @Nullable
+    public abstract Tether4Value tetherOffloadRuleGetValue(boolean downstream,
+            @NonNull Tether4Key key);
+
+    /**
      * Whether there is currently any IPv4 rule on the specified upstream.
      */
     public abstract boolean isAnyIpv4RuleOnUpstream(int ifIndex);

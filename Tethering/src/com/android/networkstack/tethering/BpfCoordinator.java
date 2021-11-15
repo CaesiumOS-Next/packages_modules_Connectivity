@@ -29,6 +29,7 @@ import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
 import static com.android.net.module.util.netlink.ConntrackMessage.TCP_CONNTRACK_NONE;
+import static com.android.net.module.util.netlink.ConntrackMessage.TCP_STATE_INVALID;
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
@@ -1094,12 +1095,14 @@ public class BpfCoordinator {
             throw new AssertionError("IP address array not valid IPv4 address!");
         }
 
+        final String stateStr = (key.l4proto == OsConstants.IPPROTO_TCP)
+                ? ConntrackMessage.stringForTcpStatus(value.getTcpStatus()) : "-";
         final String ageStr = (value.lastUsed == 0) ? "-"
                 : String.format("%dms", (now - value.lastUsed) / 1_000_000);
-        return String.format("%s [%s] %d(%s) %s:%d -> %d(%s) %s:%d -> %s:%d [%s] %s",
+        return String.format("%s [%s] %d(%s) %s:%d -> %d(%s) %s:%d -> %s:%d [%s] %s %s",
                 l4protoToString(key.l4proto), key.dstMac, key.iif, getIfName(key.iif),
                 src4, key.srcPort, value.oif, getIfName(value.oif),
-                public4, publicPort, dst4, value.dstPort, value.ethDstMac, ageStr);
+                public4, publicPort, dst4, value.dstPort, value.ethDstMac, stateStr, ageStr);
     }
 
     private void dumpIpv4ForwardingRuleMap(long now, boolean downstream,
@@ -1121,13 +1124,13 @@ public class BpfCoordinator {
         try (BpfMap<Tether4Key, Tether4Value> upstreamMap = mDeps.getBpfUpstream4Map();
                 BpfMap<Tether4Key, Tether4Value> downstreamMap = mDeps.getBpfDownstream4Map()) {
             pw.println("IPv4 Upstream: proto [inDstMac] iif(iface) src -> nat -> "
-                    + "dst [outDstMac] age");
+                    + "dst [outDstMac] tcpstate age");
             pw.increaseIndent();
             dumpIpv4ForwardingRuleMap(now, UPSTREAM, upstreamMap, pw);
             pw.decreaseIndent();
 
             pw.println("IPv4 Downstream: proto [inDstMac] iif(iface) src -> nat -> "
-                    + "dst [outDstMac] age");
+                    + "dst [outDstMac] tcpstate age");
             pw.increaseIndent();
             dumpIpv4ForwardingRuleMap(now, DOWNSTREAM, downstreamMap, pw);
             pw.decreaseIndent();
@@ -1528,6 +1531,14 @@ public class BpfCoordinator {
         // |      |ream  |      |ream  |IP    |      |rack  |      |      |      |      |      |
         // +------+------+------+------+------+------+------+------+------+------+------+------+
         //
+        private int combine(int pmtu, int tcpState) {
+            // UDP conntrack message doesn't have TCP state information. Assign TCP_CONNTRACK_NONE.
+            // TCP conntrack message without TCP state has dropped in ConntrackMonitor. It wasn't
+            // sent to BpfCoordinator.
+            int state = (tcpState == TCP_STATE_INVALID) ? TCP_CONNTRACK_NONE : tcpState;
+            return Tether4Value.getPmtuAndTcpStateBitfield(pmtu, state);
+        }
+
         @NonNull
         private Tether4Key makeTetherUpstream4Key(
                 @NonNull ConntrackEvent e, @NonNull ClientInfo c) {
@@ -1550,8 +1561,7 @@ public class BpfCoordinator {
             return new Tether4Value(upstreamIndex,
                     NULL_MAC_ADDRESS /* ethDstMac (rawip) */,
                     NULL_MAC_ADDRESS /* ethSrcMac (rawip) */, ETH_P_IP,
-                    Tether4Value.getPmtuAndTcpStateBitfield(NetworkStackConstants.ETHER_MTU,
-                            TCP_CONNTRACK_NONE),
+                    combine(NetworkStackConstants.ETHER_MTU, e.tcpState),
                     toIpv4MappedAddressBytes(e.tupleReply.dstIp),
                     toIpv4MappedAddressBytes(e.tupleReply.srcIp), e.tupleReply.dstPort,
                     e.tupleReply.srcPort, 0 /* lastUsed, filled by bpf prog only */);
@@ -1562,8 +1572,7 @@ public class BpfCoordinator {
                 @NonNull ClientInfo c, int upstreamIndex) {
             return new Tether4Value(c.downstreamIfindex,
                     c.clientMac, c.downstreamMac, ETH_P_IP,
-                    Tether4Value.getPmtuAndTcpStateBitfield(NetworkStackConstants.ETHER_MTU,
-                            TCP_CONNTRACK_NONE),
+                    combine(NetworkStackConstants.ETHER_MTU, e.tcpState),
                     toIpv4MappedAddressBytes(e.tupleOrig.dstIp),
                     toIpv4MappedAddressBytes(e.tupleOrig.srcIp),
                     e.tupleOrig.dstPort, e.tupleOrig.srcPort,
@@ -1574,6 +1583,21 @@ public class BpfCoordinator {
             if (e.tupleOrig.protoNum != OsConstants.IPPROTO_TCP) return true;
             return !CollectionUtils.contains(
                     NON_OFFLOADED_UPSTREAM_IPV4_TCP_PORTS, e.tupleOrig.dstPort);
+        }
+
+        private boolean requireRuleInsertOrReplace(boolean downstream, @NonNull Tether4Key key,
+                @NonNull Tether4Value value) {
+            final Tether4Value found =
+                    mBpfCoordinatorShim.tetherOffloadRuleGetValue(downstream, key);
+
+            // New rule has never been added.
+            if (found == null) return true;
+
+            // UDP connection doesn't have TCP state.
+            if (key.l4proto != OsConstants.IPPROTO_TCP) return false;
+
+            // TCP state is changed.
+            return found.getTcpStatus() != value.getTcpStatus();
         }
 
         public void accept(ConntrackEvent e) {
@@ -1618,8 +1642,17 @@ public class BpfCoordinator {
 
             maybeAddDevMap(upstreamIndex, tetherClient.downstreamIfindex);
             maybeSetLimit(upstreamIndex);
-            mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM, upstream4Key, upstream4Value);
-            mBpfCoordinatorShim.tetherOffloadRuleAdd(DOWNSTREAM, downstream4Key, downstream4Value);
+
+            // Any time the TCP state changes (compare with existing tcp state in map) or a new
+            // established connection is added to the map, write tcp state and apply the new last
+            // used time of 0 to BPF map. Only check one direction is enough because both upstream
+            // and downstream rules are built from the same conntrack event.
+            if (requireRuleInsertOrReplace(UPSTREAM, upstream4Key, upstream4Value)) {
+                mBpfCoordinatorShim.tetherOffloadRuleAdd(UPSTREAM,
+                        upstream4Key, upstream4Value);
+                mBpfCoordinatorShim.tetherOffloadRuleAdd(DOWNSTREAM,
+                        downstream4Key, downstream4Value);
+            }
         }
     }
 
