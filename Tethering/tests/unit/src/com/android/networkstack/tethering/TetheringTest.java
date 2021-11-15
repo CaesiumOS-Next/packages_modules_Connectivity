@@ -183,11 +183,14 @@ import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.net.module.util.CollectionUtils;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreAfter;
 import com.android.testutils.MiscAsserts;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -209,6 +212,9 @@ import java.util.Vector;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class TetheringTest {
+    @Rule
+    public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
+
     private static final int IFINDEX_OFFSET = 100;
 
     private static final String TEST_MOBILE_IFNAME = "test_rmnet_data0";
@@ -2556,6 +2562,7 @@ public class TetheringTest {
     }
 
     @Test
+    @IgnoreAfter(Build.VERSION_CODES.S)
     public void testBluetoothTethering() throws Exception {
         final ResultListener result = new ResultListener(TETHER_ERROR_NO_ERROR);
         when(mBluetoothAdapter.isEnabled()).thenReturn(true);
