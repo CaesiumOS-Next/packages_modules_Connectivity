@@ -133,7 +133,12 @@ import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
+import com.android.networkstack.apishim.common.BluetoothPanShim;
+import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceCallbackShim;
+import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceRequestShim;
+import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
 import com.android.networkstack.tethering.util.TetheringUtils;
@@ -264,8 +269,11 @@ public class Tethering {
     private int mOffloadStatus = TETHER_HARDWARE_OFFLOAD_STOPPED;
 
     private EthernetManager.TetheredInterfaceRequest mEthernetIfaceRequest;
+    private TetheredInterfaceRequestShim mBluetoothIfaceRequest;
     private String mConfiguredEthernetIface;
+    private String mConfiguredBluetoothIface;
     private EthernetCallback mEthernetCallback;
+    private volatile TetheredInterfaceCallbackShim mBluetoothCallback;
     private SettingsObserver mSettingsObserver;
 
     public Tethering(TetheringDependencies deps) {
@@ -524,13 +532,15 @@ public class Tethering {
         }
     }
 
-    // This method needs to exist because TETHERING_BLUETOOTH and TETHERING_WIGIG can't use
-    // enableIpServing.
+    // This method needs to exist because TETHERING_BLUETOOTH before Android T and TETHERING_WIGIG
+    // can't use enableIpServing.
     private void processInterfaceStateChange(final String iface, boolean enabled) {
         // Do not listen to USB interface state changes or USB interface add/removes. USB tethering
         // is driven only by USB_ACTION broadcasts.
         final int type = ifaceNameToType(iface);
         if (type == TETHERING_USB || type == TETHERING_NCM) return;
+
+        if (type == TETHERING_BLUETOOTH && SdkLevel.isAtLeastT()) return;
 
         if (enabled) {
             ensureIpServerStarted(iface);
@@ -707,7 +717,30 @@ public class Tethering {
 
             @Override
             public void onServiceConnected(int profile, BluetoothProfile proxy) {
-                ((BluetoothPan) proxy).setBluetoothTethering(enable);
+                if (SdkLevel.isAtLeastT()) {
+                    final BluetoothPanShim panShim = mDeps.getBluetoothPanShim(
+                            (BluetoothPan) proxy);
+                    if (enable) {
+                        mBluetoothCallback = new BluetoothCallback();
+                        try {
+                            mBluetoothIfaceRequest = panShim.requestTetheredInterface(mExecutor,
+                                    mBluetoothCallback);
+                        } catch (UnsupportedApiLevelException e) {
+                            Log.wtf(TAG, "Use unsupported API, " + e);
+                        }
+                    } else {
+                        if (mBluetoothIfaceRequest != null) {
+                            mBluetoothIfaceRequest.release();
+                            mBluetoothIfaceRequest = null;
+                            // If bluetooth requet is released, tethering won't able to receive
+                            // onUnavailable callback, explicitly disable bluetooth ip serving
+                            // manually.
+                            mHandler.post(() -> maybeDisableBluetoothIpServing());
+                        }
+                    }
+                } else {
+                    ((BluetoothPan) proxy).setBluetoothTethering(enable);
+                }
 
                 // TODO: Enabling bluetooth tethering can fail asynchronously here.
                 // We should figure out a way to bubble up that failure instead of sending success.
@@ -718,6 +751,32 @@ public class Tethering {
                 adapter.closeProfileProxy(BluetoothProfile.PAN, proxy);
             }
         }, BluetoothProfile.PAN);
+    }
+
+    // BluetoothCallback only be called after T. Before T, PanService would call tether/untether to
+    // notify bluetooth interface status.
+    private class BluetoothCallback implements TetheredInterfaceCallbackShim {
+        @Override
+        public void onAvailable(String iface) {
+            if (this != mBluetoothCallback) return;
+
+            enableIpServing(TETHERING_BLUETOOTH, iface, getRequestedState(TETHERING_BLUETOOTH));
+            mConfiguredBluetoothIface = iface;
+        }
+
+        @Override
+        public void onUnavailable() {
+            if (this != mBluetoothCallback) return;
+
+            maybeDisableBluetoothIpServing();
+        }
+    }
+
+    private void maybeDisableBluetoothIpServing() {
+        if (mConfiguredBluetoothIface == null) return;
+
+        ensureIpServerStopped(mConfiguredBluetoothIface);
+        mConfiguredBluetoothIface = null;
     }
 
     private int setEthernetTethering(final boolean enable) {
