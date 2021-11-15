@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52a84bb6_f6af96d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-15T12:20:55Z",
+      "side": 1,
+      "message": "Not sure what you\u0027d prefer ? This says exactly what it does : it has S not crash when NetworkInfo(null) or setDetailedState(null) are called. Keep in mind this has to fit in 65 characters.\n\nAdded some expanded explanation below, but I think this is still the best I can do. Better ideas welcome.",
+      "parentUuid": "3ea7f770_e36294bb",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "f2c6f012b47b6e28f28b7aa02f377d3bf5fd11ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8a538eb_abc44472",
@@ -41,6 +65,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fadd3777_df2f95be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-15T12:20:55Z",
+      "side": 1,
+      "message": "They do pass on T, waiting for TH to test S",
+      "parentUuid": "e8a538eb_abc44472",
+      "revId": "f2c6f012b47b6e28f28b7aa02f377d3bf5fd11ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d789b26_1df85253",
@@ -54,6 +96,30 @@
       "writtenOn": "2021-11-15T12:12:35Z",
       "side": 1,
       "message": "Would this not throw ArrayOutOfBoundsException too in stateMap.get(detailedState) ?\n\nIn that case I\u0027m not sure it\u0027s really worth checking in CTS since it has always crashed and apps would probably not rely on it; but if you prefer to keep the test that works for me too.",
+      "range": {
+        "startLine": 151,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 40
+      },
+      "revId": "f2c6f012b47b6e28f28b7aa02f377d3bf5fd11ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d043739f_9a17f43c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-15T12:20:55Z",
+      "side": 1,
+      "message": "Yes it should. I was hoping TreeHugger would tell me 😊\nDone.",
+      "parentUuid": "7d789b26_1df85253",
       "range": {
         "startLine": 151,
         "startChar": 24,
