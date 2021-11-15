@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ea7f770_e36294bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-15T12:12:35Z",
+      "side": 1,
+      "message": "Nit: not very descriptive ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "f2c6f012b47b6e28f28b7aa02f377d3bf5fd11ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a538eb_abc44472",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-15T12:12:35Z",
+      "side": 1,
+      "message": "LGTM if the tests pass",
+      "revId": "f2c6f012b47b6e28f28b7aa02f377d3bf5fd11ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d789b26_1df85253",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-15T12:12:35Z",
+      "side": 1,
+      "message": "Would this not throw ArrayOutOfBoundsException too in stateMap.get(detailedState) ?\n\nIn that case I\u0027m not sure it\u0027s really worth checking in CTS since it has always crashed and apps would probably not rely on it; but if you prefer to keep the test that works for me too.",
+      "range": {
+        "startLine": 151,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 40
+      },
+      "revId": "f2c6f012b47b6e28f28b7aa02f377d3bf5fd11ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
