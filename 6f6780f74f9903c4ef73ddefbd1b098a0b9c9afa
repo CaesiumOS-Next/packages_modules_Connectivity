@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e30b2e_8f5bf31c",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkInfoTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-15T11:17:27Z",
+      "side": 1,
+      "message": "Nit: Can you also verify the behavior of setDetailedState? Like\n\n  if (SdkLevel.isAtLeastT()) {\n          assertFailsWith\u003cNullPointerException\u003e {\n              networkInfo.setDetailedState(null, reason, extraReason)\n          }\n  } else {\n      // Doesn\u0027t immediately crash on S-\n      networkInfo.setDetailedState(null, reason, extraReason)\n  }",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 5
+      },
+      "revId": "6f6780f74f9903c4ef73ddefbd1b098a0b9c9afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
