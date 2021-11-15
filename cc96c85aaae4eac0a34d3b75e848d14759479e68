@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62e373f2_e7f56f38",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2133,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-11-15T12:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24658a35_7c733b5e",
+      "range": {
+        "startLine": 2133,
+        "startChar": 36,
+        "endLine": 2133,
+        "endChar": 41
+      },
+      "revId": "cc96c85aaae4eac0a34d3b75e848d14759479e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1cef6ca_c4b1531f",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-10T06:17:03Z",
       "side": 1,
       "message": "Indentation looks incorrect",
+      "range": {
+        "startLine": 2152,
+        "startChar": 16,
+        "endLine": 2152,
+        "endChar": 20
+      },
+      "revId": "cc96c85aaae4eac0a34d3b75e848d14759479e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19394216_ec3ef65e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2152,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-11-15T12:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1cef6ca_c4b1531f",
       "range": {
         "startLine": 2152,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8a65039_5e23159b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11394,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-11-15T12:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21bb481f_d596e705",
+      "range": {
+        "startLine": 11394,
+        "startChar": 29,
+        "endLine": 11394,
+        "endChar": 33
+      },
+      "revId": "cc96c85aaae4eac0a34d3b75e848d14759479e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51bc1629_40697870",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-11-10T06:17:03Z",
       "side": 1,
       "message": "Can we use BROADCAST_TIMEOUT_MS for this ?",
+      "range": {
+        "startLine": 11416,
+        "startChar": 27,
+        "endLine": 11416,
+        "endChar": 31
+      },
+      "revId": "cc96c85aaae4eac0a34d3b75e848d14759479e68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a752997a_ceb7485e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11416,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2021-11-15T12:49:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51bc1629_40697870",
       "range": {
         "startLine": 11416,
         "startChar": 27,
