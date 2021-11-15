@@ -26,6 +26,7 @@ import android.telephony.TelephonyManager
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
+import com.android.modules.utils.build.SdkLevel
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import org.junit.Assert.assertEquals
@@ -36,6 +37,7 @@ import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.junit.Test
+import kotlin.test.assertFailsWith
 
 const val TYPE_MOBILE = ConnectivityManager.TYPE_MOBILE
 const val TYPE_WIFI = ConnectivityManager.TYPE_WIFI
@@ -103,6 +105,16 @@ class NetworkInfoTest {
             fail("Unexpected behavior. Network type is invalid.")
         } catch (e: IllegalArgumentException) {
             // Expected behavior.
+        }
+    }
+
+    @Test
+    fun testConstructorWithNull() {
+        if (SdkLevel.isAtLeastT()) {
+            assertFailsWith<NullPointerException> { NetworkInfo(null) }
+        } else {
+            // Doesn't immediately crash on S-
+            NetworkInfo(null)
         }
     }
 
