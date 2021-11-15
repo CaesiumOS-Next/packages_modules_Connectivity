@@ -33,6 +33,7 @@ import static android.net.ip.IpServer.STATE_TETHERED;
 import static android.net.ip.IpServer.STATE_UNAVAILABLE;
 import static android.system.OsConstants.ETH_P_IPV6;
 
+import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.net.module.util.Inet4AddressUtils.intToInet4AddressHTH;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_DELNEIGH;
 import static com.android.net.module.util.netlink.NetlinkConstants.RTM_NEWNEIGH;
@@ -400,11 +401,16 @@ public class IpServerTest {
     }
 
     @Test
-    public void canBeTethered() throws Exception {
+    public void canBeTetheredAsBluetooth() throws Exception {
         initStateMachine(TETHERING_BLUETOOTH);
 
         dispatchCommand(IpServer.CMD_TETHER_REQUESTED, STATE_TETHERED);
-        InOrder inOrder = inOrder(mCallback, mNetd);
+        InOrder inOrder = inOrder(mCallback, mNetd, mAddressCoordinator);
+        if (isAtLeastT()) {
+            inOrder.verify(mAddressCoordinator).requestDownstreamAddress(any(), eq(true));
+            inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg ->
+                    IFACE_NAME.equals(cfg.ifName) && assertContainsFlag(cfg.flags, IF_STATE_UP)));
+        }
         inOrder.verify(mNetd).tetherInterfaceAdd(IFACE_NAME);
         inOrder.verify(mNetd).networkAddInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
         // One for ipv4 route, one for ipv6 link local route.
@@ -426,7 +432,10 @@ public class IpServerTest {
         inOrder.verify(mNetd).tetherApplyDnsInterfaces();
         inOrder.verify(mNetd).tetherInterfaceRemove(IFACE_NAME);
         inOrder.verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
-        inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -> IFACE_NAME.equals(cfg.ifName)));
+        // One is ipv4 address clear (set to 0.0.0.0), another is set interface down which only
+        // happen after T. Before T, the interface configuration control in bluetooth side.
+        inOrder.verify(mNetd, times(isAtLeastT() ? 2 : 1)).interfaceSetCfg(
+                argThat(cfg -> IFACE_NAME.equals(cfg.ifName)));
         inOrder.verify(mAddressCoordinator).releaseDownstream(any());
         inOrder.verify(mCallback).updateInterfaceState(
                 mIpServer, STATE_AVAILABLE, TETHER_ERROR_NO_ERROR);
@@ -587,7 +596,8 @@ public class IpServerTest {
         inOrder.verify(mNetd).tetherApplyDnsInterfaces();
         inOrder.verify(mNetd).tetherInterfaceRemove(IFACE_NAME);
         inOrder.verify(mNetd).networkRemoveInterface(INetd.LOCAL_NET_ID, IFACE_NAME);
-        inOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -> IFACE_NAME.equals(cfg.ifName)));
+        inOrder.verify(mNetd, times(isAtLeastT() ? 2 : 1)).interfaceSetCfg(
+                argThat(cfg -> IFACE_NAME.equals(cfg.ifName)));
         inOrder.verify(mAddressCoordinator).releaseDownstream(any());
         inOrder.verify(mBpfCoordinator).tetherOffloadClientClear(mIpServer);
         inOrder.verify(mBpfCoordinator).stopMonitoring(mIpServer);
@@ -683,7 +693,11 @@ public class IpServerTest {
         initTetheredStateMachine(TETHERING_BLUETOOTH, UPSTREAM_IFACE);
         dispatchTetherConnectionChanged(UPSTREAM_IFACE);
 
-        assertDhcpStarted(mBluetoothPrefix);
+        if (isAtLeastT()) {
+            assertDhcpStarted(PrefixUtils.asIpPrefix(mTestAddress));
+        } else {
+            assertDhcpStarted(mBluetoothPrefix);
+        }
     }
 
     @Test
