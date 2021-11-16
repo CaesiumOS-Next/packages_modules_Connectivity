@@ -82,5 +82,13 @@ public abstract class QosFilter {
      */
     public abstract boolean matchesRemoteAddress(@NonNull InetAddress address,
             int startPort, int endPort);
+
+    /**
+     * Determines whether or not the parameters is a match for the filter.
+     *
+     * @param protocol the protocol identifier. (IPPROTO_TCP or IPPROTO_UDP)
+     * @return whether the parameters match the socket type of the filter
+     */
+    public abstract boolean matchesSocketType(int protocol);
 }
 
