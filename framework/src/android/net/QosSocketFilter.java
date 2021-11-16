@@ -18,6 +18,10 @@ package android.net;
 
 import static android.net.QosCallbackException.EX_TYPE_FILTER_NONE;
 import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED;
+import static android.system.OsConstants.IPPROTO_TCP;
+import static android.system.OsConstants.IPPROTO_UDP;
+import static android.system.OsConstants.SOCK_DGRAM;
+import static android.system.OsConstants.SOCK_STREAM;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -153,6 +157,18 @@ public class QosSocketFilter extends QosFilter {
         }
         return matchesAddress(mQosSocketInfo.getRemoteSocketAddress(), address, startPort,
                 endPort);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean matchesSocketType(final int protocol) {
+        if ((mQosSocketInfo.getSocketType() == SOCK_STREAM && protocol == IPPROTO_TCP)
+                || (mQosSocketInfo.getSocketType() == SOCK_DGRAM && protocol == IPPROTO_UDP)) {
+            return true;
+        }
+        return false;
     }
 
     /**
