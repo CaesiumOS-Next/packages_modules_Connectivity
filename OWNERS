@@ -1,7 +1,1 @@
-codewiz@google.com
-jchalard@google.com
-junyulai@google.com
-lorenzo@google.com
-maze@google.com
-reminv@google.com
-satk@google.com
+include platform/packages/modules/Connectivity:master:/OWNERS_core_networking
