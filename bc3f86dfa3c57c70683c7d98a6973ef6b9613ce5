@@ -16,6 +16,23 @@
       "message": "Hi Remi, \nptal",
       "revId": "bc3f86dfa3c57c70683c7d98a6973ef6b9613ce5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1b8b6cb_c34a8add",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-17T01:22:30Z",
+      "side": 1,
+      "message": "LGTM but only Lorenzo has owners here",
+      "revId": "bc3f86dfa3c57c70683c7d98a6973ef6b9613ce5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
