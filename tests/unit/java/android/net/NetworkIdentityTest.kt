@@ -34,6 +34,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 private const val TEST_IMSI = "testimsi"
+private const val TEST_SUBID = 1
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
