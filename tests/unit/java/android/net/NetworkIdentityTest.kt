@@ -34,6 +34,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 private const val TEST_IMSI = "testimsi"
+private const val TEST_SUBID = 1
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
@@ -78,7 +79,7 @@ class NetworkIdentityTest {
         // Verify network is metered.
         val netIdent1 = NetworkIdentity.buildNetworkIdentity(mockContext,
                 buildMobileNetworkStateSnapshot(NetworkCapabilities(), TEST_IMSI),
-                false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
+                false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS, TEST_SUBID)
         assertTrue(netIdent1.getMetered())
 
         // Verify network is not metered because it has NET_CAPABILITY_NOT_METERED capability.
@@ -87,7 +88,7 @@ class NetworkIdentityTest {
         }.build()
         val netIdent2 = NetworkIdentity.buildNetworkIdentity(mockContext,
                 buildMobileNetworkStateSnapshot(capsNotMetered, TEST_IMSI),
-                false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
+                false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS, TEST_SUBID)
         assertFalse(netIdent2.getMetered())
 
         // Verify network is not metered because it has NET_CAPABILITY_TEMPORARILY_NOT_METERED
@@ -97,7 +98,7 @@ class NetworkIdentityTest {
         }
         val netIdent3 = NetworkIdentity.buildNetworkIdentity(mockContext,
                 buildMobileNetworkStateSnapshot(capsTempNotMetered, TEST_IMSI),
-                false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
+                false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS, TEST_SUBID)
         assertFalse(netIdent3.getMetered())
     }
 }
