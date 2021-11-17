@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "145a3952_74c51817",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-17T15:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d81ec0ed_f144e018",
+      "range": {
+        "startLine": 277,
+        "startChar": 41,
+        "endLine": 277,
+        "endChar": 63
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f698fd3b_d4715f31",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-17T11:40:27Z",
       "side": 1,
       "message": "This looks like it may not be accessed on the tethering handler thread here, even though it is in BluetoothCallback, so there\u0027s some synchronization issue ?\n\nCould the contents of onServiceConnected be run on the mHandler thread maybe ?",
+      "range": {
+        "startLine": 734,
+        "startChar": 24,
+        "endLine": 734,
+        "endChar": 42
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cb7577e_5b0e1448",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-17T15:27:19Z",
+      "side": 1,
+      "message": "Oops, thanks for catching this.",
+      "parentUuid": "f698fd3b_d4715f31",
       "range": {
         "startLine": 734,
         "startChar": 24,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71b71fdd_ccace404",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-17T15:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "522ed7ac_997bc5eb",
+      "range": {
+        "startLine": 740,
+        "startChar": 18,
+        "endLine": 740,
+        "endChar": 22
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "259b1eb7_282eccb0",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-11-17T11:40:27Z",
       "side": 1,
       "message": "So this is never called on R because onAvailable is not called, because the shim ignores the callback ?\n\nThat\u0027s not very clear looking at the code here; see suggestion in the NetworkStack change, I think the 2 flows should be well separated here rather than partially hidden in the shim.",
+      "range": {
+        "startLine": 772,
+        "startChar": 12,
+        "endLine": 772,
+        "endChar": 37
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14507904_88d94a29",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-17T15:27:19Z",
+      "side": 1,
+      "message": "Yes, thanks for suggestion. Remove stopBluetoothTethering function here because its flow is different between S and T.",
+      "parentUuid": "259b1eb7_282eccb0",
       "range": {
         "startLine": 772,
         "startChar": 12,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eff2dcb_0c430ce5",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-17T15:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2084f28_686e18dc",
+      "range": {
+        "startLine": 435,
+        "startChar": 36,
+        "endLine": 435,
+        "endChar": 46
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff48d9ec_23e9002b",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-11-17T11:40:27Z",
       "side": 1,
       "message": "Can you write a test for what happens on T+ (with IgnoreUpTo) ?",
+      "range": {
+        "startLine": 2565,
+        "startChar": 5,
+        "endLine": 2565,
+        "endChar": 16
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32dc7691_58b8cf75",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2565,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-17T15:27:19Z",
+      "side": 1,
+      "message": "Yes, I\u0027ll add it in separate CL because the new BluetoothPan API doesn\u0027t available for mainline development branch.",
+      "parentUuid": "ff48d9ec_23e9002b",
       "range": {
         "startLine": 2565,
         "startChar": 5,
