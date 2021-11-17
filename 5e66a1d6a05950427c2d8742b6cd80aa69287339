@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec76e8a_17c01f3a",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-17T09:52:46Z",
+      "side": 1,
+      "message": "LinkedList can only be used single-threadedly (or all hell breaks loose). I think your test only accesses it on one thread, but maybe it\u0027s worth a comment.",
+      "range": {
+        "startLine": 85,
+        "startChar": 69,
+        "endLine": 85,
+        "endChar": 79
+      },
+      "revId": "5e66a1d6a05950427c2d8742b6cd80aa69287339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67432d3f_1f2547cf",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-17T09:52:46Z",
+      "side": 1,
+      "message": "Isn\u0027t this vanilla inheritance implemented by way of spy ? Wouldn\u0027t it be much simpler (and idiomatic) to say\n\n  private static class MyBinder extends Binder {\n    DeathRecipient mDR;\n    override linkToDeath()\n  }\n\n  ...\n  doReturn(new MyBinder).when(cb).asBinder();\n\nAnd getting the DR is just member access",
+      "range": {
+        "startLine": 183,
+        "startChar": 26,
+        "endLine": 183,
+        "endChar": 37
+      },
+      "revId": "5e66a1d6a05950427c2d8742b6cd80aa69287339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c45eba38_5ea653af",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-17T09:52:46Z",
+      "side": 1,
+      "message": "I guess it doesn\u0027t actually matter because all of this is single-threaded, but normally you\u0027d call doReturn before you add it to the list to prevent anybody getting it from the list before it\u0027s fully set up.",
+      "range": {
+        "startLine": 284,
+        "startChar": 12,
+        "endLine": 284,
+        "endChar": 29
+      },
+      "revId": "5e66a1d6a05950427c2d8742b6cd80aa69287339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59f389e7_79edaca9",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-17T09:52:46Z",
+      "side": 1,
+      "message": "This usage of spies is discouraged by Mockito documentation IIRC ; should you instead have an anonymous subclass of NsdService that overrides connect() and then just return a regular spy ? It will also simplify the code I think.",
+      "range": {
+        "startLine": 289,
+        "startChar": 11,
+        "endLine": 289,
+        "endChar": 15
+      },
+      "revId": "5e66a1d6a05950427c2d8742b6cd80aa69287339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db74e34_0a0bf434",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-17T09:52:46Z",
+      "side": 1,
+      "message": "This \"verifies\" test-only code – should it be called getCallback() ?",
+      "range": {
+        "startLine": 293,
+        "startChar": 32,
+        "endLine": 293,
+        "endChar": 38
+      },
+      "revId": "5e66a1d6a05950427c2d8742b6cd80aa69287339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14128178_5e0372e5",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-17T09:52:46Z",
+      "side": 1,
+      "message": "This is remove() but throwing a different exception, and not an easier one to understand I think.",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 295,
+        "endChar": 40
+      },
+      "revId": "5e66a1d6a05950427c2d8742b6cd80aa69287339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
