@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af4f8c02_4aef9762",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-11-17T05:54:34Z",
+      "side": 1,
+      "message": "nit: Maybe also says why we want to create a file other than OWNERS?\nNo strong opinion.",
+      "revId": "1e6a8aa75581b24f6e6ecd3ec4b5ba8bbcf38653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
