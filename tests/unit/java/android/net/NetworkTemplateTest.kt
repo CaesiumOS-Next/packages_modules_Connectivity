@@ -302,6 +302,7 @@ class NetworkTemplateTest {
                 mockContext, stateMobileImsi1Metered, false, SUBTYPE_COMBINED)
         val identImsi2UmtsMetered = buildNetworkIdentity(mockContext,
                 buildMobileNetworkState(TEST_IMSI2), false, TelephonyManager.NETWORK_TYPE_UMTS)
+
         val identWifi = buildNetworkIdentity(
                 mockContext, buildWifiNetworkState(null, TEST_SSID1), true, 0)
 

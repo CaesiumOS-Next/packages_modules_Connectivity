@@ -18,6 +18,7 @@ package android.net
 
 import android.content.Context
 import android.net.ConnectivityManager.TYPE_MOBILE
+import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
 import android.net.NetworkIdentity.OEM_NONE
 import android.net.NetworkIdentity.OEM_PAID
 import android.net.NetworkIdentity.OEM_PRIVATE
@@ -33,7 +34,10 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-private const val TEST_IMSI = "testimsi"
+private const val TEST_IMSI1 = "testimsi1"
+private const val TEST_IMSI2 = "testimsi2"
+private const val TEST_SUBID1 = 1
+private const val TEST_SUBID2 = 2
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
@@ -77,7 +81,7 @@ class NetworkIdentityTest {
     fun testGetMetered() {
         // Verify network is metered.
         val netIdent1 = NetworkIdentity.buildNetworkIdentity(mockContext,
-                buildMobileNetworkStateSnapshot(NetworkCapabilities(), TEST_IMSI),
+                buildMobileNetworkStateSnapshot(NetworkCapabilities(), TEST_IMSI1),
                 false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
         assertTrue(netIdent1.getMetered())
 
@@ -86,7 +90,7 @@ class NetworkIdentityTest {
             addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
         }.build()
         val netIdent2 = NetworkIdentity.buildNetworkIdentity(mockContext,
-                buildMobileNetworkStateSnapshot(capsNotMetered, TEST_IMSI),
+                buildMobileNetworkStateSnapshot(capsNotMetered, TEST_IMSI1),
                 false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
         assertFalse(netIdent2.getMetered())
 
@@ -96,8 +100,32 @@ class NetworkIdentityTest {
             setCapability(NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED, true)
         }
         val netIdent3 = NetworkIdentity.buildNetworkIdentity(mockContext,
-                buildMobileNetworkStateSnapshot(capsTempNotMetered, TEST_IMSI),
+                buildMobileNetworkStateSnapshot(capsTempNotMetered, TEST_IMSI1),
                 false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
         assertFalse(netIdent3.getMetered())
+    }
+
+    @Test
+    fun testGetSubId() {
+        val specifier1 = TelephonyNetworkSpecifier(TEST_SUBID1)
+        val specifier2 = TelephonyNetworkSpecifier(TEST_SUBID2)
+        val capSUBID1 = NetworkCapabilities().apply {
+            addTransportType(TRANSPORT_CELLULAR)
+            setNetworkSpecifier(specifier1)
+        }
+        val capSUBID2 = NetworkCapabilities().apply {
+            addTransportType(TRANSPORT_CELLULAR)
+            setNetworkSpecifier(specifier2)
+        }
+
+        val netIdent1 = NetworkIdentity.buildNetworkIdentity(mockContext,
+                buildMobileNetworkStateSnapshot(capSUBID1, TEST_IMSI1),
+                false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
+        assertEquals(netIdent1.getSubId(), TEST_SUBID1)
+
+        val netIdent2 = NetworkIdentity.buildNetworkIdentity(mockContext,
+                buildMobileNetworkStateSnapshot(capSUBID2, TEST_IMSI2),
+                false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
+        assertEquals(netIdent2.getSubId(), TEST_SUBID2)
     }
 }
