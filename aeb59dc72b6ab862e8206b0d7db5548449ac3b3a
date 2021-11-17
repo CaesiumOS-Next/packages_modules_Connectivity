@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "121ef2ae_49ddea1a",
+        "filename": "tests/privileged/java/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-17T00:49:45Z",
+      "side": 1,
+      "message": "For now place this in Tethering/privileged/tests. Google can handle moving those tests back to Connectivity after",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 39
+      },
+      "revId": "aeb59dc72b6ab862e8206b0d7db5548449ac3b3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
