@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d81ec0ed_f144e018",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-17T11:40:27Z",
+      "side": 1,
+      "message": "Nit: since mConfiguredBluetoothIface is below mConfiguredEthernetIface, maybe put this just below mEthernetIfaceRequest, and mBluetoothCallback just below mEthernetCallback\n\nI didn\u0027t notice that it was using the same scheme originally, this would make it clearer",
+      "range": {
+        "startLine": 277,
+        "startChar": 41,
+        "endLine": 277,
+        "endChar": 63
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f698fd3b_d4715f31",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-17T11:40:27Z",
+      "side": 1,
+      "message": "This looks like it may not be accessed on the tethering handler thread here, even though it is in BluetoothCallback, so there\u0027s some synchronization issue ?\n\nCould the contents of onServiceConnected be run on the mHandler thread maybe ?",
+      "range": {
+        "startLine": 734,
+        "startChar": 24,
+        "endLine": 734,
+        "endChar": 42
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "522ed7ac_997bc5eb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-17T11:40:27Z",
+      "side": 1,
+      "message": "This misses calling restoreCallingIdentity\n\nThe try should start just after calling clearCallingIdentity to be safe",
+      "range": {
+        "startLine": 740,
+        "startChar": 18,
+        "endLine": 740,
+        "endChar": 22
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "259b1eb7_282eccb0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-17T11:40:27Z",
+      "side": 1,
+      "message": "So this is never called on R because onAvailable is not called, because the shim ignores the callback ?\n\nThat\u0027s not very clear looking at the code here; see suggestion in the NetworkStack change, I think the 2 flows should be well separated here rather than partially hidden in the shim.",
+      "range": {
+        "startLine": 772,
+        "startChar": 12,
+        "endLine": 772,
+        "endChar": 37
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2084f28_686e18dc",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-17T11:40:27Z",
+      "side": 1,
+      "message": "Can you comment why it\u0027s 2 times on T ?",
+      "range": {
+        "startLine": 435,
+        "startChar": 36,
+        "endLine": 435,
+        "endChar": 46
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff48d9ec_23e9002b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2565,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-17T11:40:27Z",
+      "side": 1,
+      "message": "Can you write a test for what happens on T+ (with IgnoreUpTo) ?",
+      "range": {
+        "startLine": 2565,
+        "startChar": 5,
+        "endLine": 2565,
+        "endChar": 16
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
