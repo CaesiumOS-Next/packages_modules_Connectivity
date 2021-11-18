@@ -141,10 +141,14 @@ android_test {
         "FrameworksNetTests-jni-defaults",
     ],
     // this is in addition to FrameworksNetTestsLib.
-    srcs: [":non-connectivity-module-test"],
+    srcs: [
+       ":non-connectivity-module-test",
+       ":connectivity-nsd-unit-test-sources",
+    ],
     test_suites: ["device-tests"],
     static_libs: [
         "FrameworksNetTestsLib",
+        "services.connectivity-nsd",
     ],
     libs: [
         "android.test.mock",
