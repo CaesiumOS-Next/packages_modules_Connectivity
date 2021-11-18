@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bc46bf4_616e5dbf",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-18T20:29:21Z",
+      "side": 1,
+      "message": "should probably be saddr not ctx\n\nmay need to do\n\nif (!ctx) return ALLOW;\n\nmay need to do\n\nif (saddr-\u003etype !\u003d SOCK_STREAM \u0026\u0026 saddr-\u003etype !\u003d SOCK_DGRAM) return ALLOW;",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "081c7049796459419b9d7027dff687b40861cc58",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
