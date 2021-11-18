@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ccb5ffc_66a97548",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-18T08:14:21Z",
+      "side": 1,
+      "message": "Nit: How about having one verify where the argThat verifies that it\u0027s clearing the address to 0.0.0.0, and another one if isAtLeastT() where the argThat verifies that it\u0027s setting the interface down then ?\n\nAlso maybe explain why setting the interface down only happens on T and why it\u0027s not necessary before that",
+      "range": {
+        "startLine": 435,
+        "startChar": 11,
+        "endLine": 436,
+        "endChar": 25
+      },
+      "revId": "ecb9bd27f32b0ffd163dde17d83eecdcf284fafe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

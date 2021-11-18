@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2baa0a28_22c03c8f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-18T08:14:21Z",
+      "side": 1,
+      "message": "Sorry I realized that I wrote the suggestion in the NetworkStack change but didn\u0027t click send ^^\u0027\n\nAs I wrote there, I think onServiceConnected should check isAtLeastT and choose the flow (do the same thing as before, or call requestTetheredInterface with the BluetoothCallback), instead of the shim. It would make what happens on S or T clearer, and also make it clear that this change changes nothing on S (which makes it much easier to review safety and merge).",
+      "parentUuid": "14507904_88d94a29",
+      "range": {
+        "startLine": 772,
+        "startChar": 12,
+        "endLine": 772,
+        "endChar": 37
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2084f28_686e18dc",
         "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
         "patchSetId": 12
