@@ -717,43 +717,31 @@ public class Tethering {
 
             @Override
             public void onServiceConnected(int profile, BluetoothProfile proxy) {
-                // Clear identify is fine because caller already pass tethering permission at
-                // ConnectivityService#startTethering()(or stopTethering) before the control comes
-                // here. Bluetooth will check tethering permission again that there is
-                // Context#getOpPackageName() under BluetoothPan#setBluetoothTethering() to get
-                // caller's package name for permission check.
-                // Calling BluetoothPan#setBluetoothTethering() here means the package name always
-                // be system server. If calling identity is not cleared, that package's uid might
-                // not match calling uid and end up in permission denied.
-                final long identityToken = Binder.clearCallingIdentity();
-                try {
-                    if (SdkLevel.isAtLeastT()) {
-                        final BluetoothPanShim panShim = mDeps.getBluetoothPanShim(
-                                (BluetoothPan) proxy);
-                        if (enable) {
-                            mBluetoothCallback = new BluetoothCallback();
-                            try {
-                                mBluetoothIfaceRequest = panShim.requestTetheredInterface(mExecutor,
-                                        mBluetoothCallback);
-                            } catch (UnsupportedApiLevelException e) {
-                                Log.wtf(TAG, "Use unsupported API, " + e);
-                            }
-                        } else {
-                            if (mBluetoothIfaceRequest != null) {
-                                mBluetoothIfaceRequest.release();
-                                mBluetoothIfaceRequest = null;
-                                // If bluetooth requet is released, tethering won't able to receive
-                                // onUnavailable callback, explicitly disable bluetooth ip serving
-                                // manually.
-                                mHandler.post(() -> maybeDisableBluetoothIpServing());
-                            }
+                if (SdkLevel.isAtLeastT()) {
+                    final BluetoothPanShim panShim = mDeps.getBluetoothPanShim(
+                            (BluetoothPan) proxy);
+                    if (enable) {
+                        mBluetoothCallback = new BluetoothCallback();
+                        try {
+                            mBluetoothIfaceRequest = panShim.requestTetheredInterface(mExecutor,
+                                    mBluetoothCallback);
+                        } catch (UnsupportedApiLevelException e) {
+                            Log.wtf(TAG, "Use unsupported API, " + e);
                         }
                     } else {
-                        ((BluetoothPan) proxy).setBluetoothTethering(enable);
+                        if (mBluetoothIfaceRequest != null) {
+                            mBluetoothIfaceRequest.release();
+                            mBluetoothIfaceRequest = null;
+                            // If bluetooth requet is released, tethering won't able to receive
+                            // onUnavailable callback, explicitly disable bluetooth ip serving
+                            // manually.
+                            mHandler.post(() -> maybeDisableBluetoothIpServing());
+                        }
                     }
-                } finally {
-                    Binder.restoreCallingIdentity(identityToken);
+                } else {
+                    ((BluetoothPan) proxy).setBluetoothTethering(enable);
                 }
+
                 // TODO: Enabling bluetooth tethering can fail asynchronously here.
                 // We should figure out a way to bubble up that failure instead of sending success.
                 final int result = (((BluetoothPan) proxy).isTetheringOn() == enable)
