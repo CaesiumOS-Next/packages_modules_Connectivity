@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "547ffac0_ee39ceed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-18T10:04:22Z",
+      "side": 1,
+      "message": "-2 due to potential threading and security implications.",
+      "revId": "ecb9bd27f32b0ffd163dde17d83eecdcf284fafe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d499c295_c1aeb757",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-18T10:04:22Z",
+      "side": 1,
+      "message": "Why is this threading change in this CL? This CL is about adding/using a new API on T. This threading change looks entirely separate from that. Another reason for this change to be in another CL is that it looks like it will run on R and S as well, not just on T.\n\nEven more in general: please don\u0027t bury semantic changes (such as threading change) into unrelated CLs. It makes it very difficult to determine after the fact what happened. It also makes it very difficult to get fast code reviews because reviewers need to look at CLs very, very carefully to spot these issues.",
+      "range": {
+        "startLine": 719,
+        "startChar": 16,
+        "endLine": 719,
+        "endChar": 37
+      },
+      "revId": "ecb9bd27f32b0ffd163dde17d83eecdcf284fafe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54759dde_c3b1ee6f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-18T10:04:22Z",
+      "side": 1,
+      "message": "Isn\u0027t it always incorrect to call clearCallingIdentity on a handler thread? The calling identity is present when the onServiceConnected method executes, but the lambda posted to the handler thread loses the calling identity.\n\nIf this call to clearCallingIdentity is truly not necessary, then it should be removed. Otherwise folks might think it does something, when in fact it doesn\u0027t. And per comment above, please don\u0027t remove it in this CL - that sort of semantic change should be done in its own CL so it can be carefully reviewed and tested.",
+      "range": {
+        "startLine": 726,
+        "startChar": 47,
+        "endLine": 726,
+        "endChar": 74
+      },
+      "revId": "ecb9bd27f32b0ffd163dde17d83eecdcf284fafe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ccb5ffc_66a97548",
