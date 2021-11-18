@@ -153,6 +153,12 @@ android_test {
     ],
     // this is in addition to FrameworksNetTestsLib.
     srcs: [":non-connectivity-module-test"],
+    exclude_srcs: [
+        // TODO: add back after nsd relevant files are moved to modules/Connectivity
+        "java/android/net/nsd/NsdManagerTest.java",
+        "java/android/net/nsd/NsdServiceInfoTest.java",
+        "java/com/android/server/NsdServiceTest.java",
+    ],
     test_suites: ["device-tests"],
     static_libs: [
         "services.core",
