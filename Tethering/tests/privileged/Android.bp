@@ -43,7 +43,6 @@ android_test {
     platform_apis: true,
     test_suites: [
         "device-tests",
-        "mts-tethering",
     ],
     static_libs: [
         "androidx.test.rules",
