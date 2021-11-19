@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017490288",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d27",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "095fe82a_2728cada",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T21:23:47Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017490288",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d27",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ecb21e4c_31df86ab",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T21:23:47Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017490300",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d27",
+      "fixSuggestions": [
+        {
+          "fixId": "2ddca871_3d27481b",
+          "description": "Change to \"service/bpf_progs/dscp_policy.c\"",
+          "replacements": [
+            {
+              "path": "service/bpf_progs/dscp_policy.c",
+              "range": {
+                "startLine": 75,
+                "startChar": 31,
+                "endLine": 75,
+                "endChar": 36
+              },
+              "replacement": "struct"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "d7f92d44_0d060043",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T21:23:47Z",
+      "side": 1,
+      "message": "Common typo found: \"stuct\" -- should it be \"struct\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 75,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017490300",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d27",
+      "fixSuggestions": [
+        {
+          "fixId": "bd700edb_5bdbde24",
+          "description": "Change to \"service/bpf_progs/dscp_policy.c\"",
+          "replacements": [
+            {
+              "path": "service/bpf_progs/dscp_policy.c",
+              "range": {
+                "startLine": 109,
+                "startChar": 18,
+                "endLine": 109,
+                "endChar": 26
+              },
+              "replacement": "separate"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "65b6c414_1bd93599",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T21:23:47Z",
+      "side": 1,
+      "message": "Common typo found: \"seperate\" -- should it be \"separate\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 109,
+        "startChar": 18,
+        "endLine": 109,
+        "endChar": 26
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
