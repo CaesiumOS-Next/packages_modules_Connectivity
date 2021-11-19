@@ -1,0 +1,160 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017476431",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1879626?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "cb536cc2_904fb4f8",
+        "filename": "service/jni/com_android_server_ClatCoordinator.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T13:50:50Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 364,
+        "endChar": 101
+      },
+      "revId": "2e760cf8d9ba5201156b669bea46fa9e3f316490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017476431",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1879626?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "8d045d37_953e31e1",
+        "filename": "service/src/com/android/server/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T13:50:50Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 101
+      },
+      "revId": "2e760cf8d9ba5201156b669bea46fa9e3f316490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017476431",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1879626?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "8d6e75c1_86a555e7",
+        "filename": "service/src/com/android/server/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T13:50:50Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 114
+      },
+      "revId": "2e760cf8d9ba5201156b669bea46fa9e3f316490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017476431",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1879626?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "1f89010a_e021bc50",
+        "filename": "service/src/com/android/server/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T13:50:50Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 112
+      },
+      "revId": "2e760cf8d9ba5201156b669bea46fa9e3f316490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017476431",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1879626?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "17ab9a6f_eef1a19c",
+        "filename": "service/src/com/android/server/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T13:50:50Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 105
+      },
+      "revId": "2e760cf8d9ba5201156b669bea46fa9e3f316490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017476431",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1879626?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "3e14383f_432a85c6",
+        "filename": "service/src/com/android/server/ClatCoordinator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-19T13:50:50Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 109
+      },
+      "revId": "2e760cf8d9ba5201156b669bea46fa9e3f316490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
