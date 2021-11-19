@@ -50,4 +50,5 @@ android_test {
         "TetheringApiCurrentLib",
     ],
     compile_multilib: "both",
+    enabled: false,
 }
