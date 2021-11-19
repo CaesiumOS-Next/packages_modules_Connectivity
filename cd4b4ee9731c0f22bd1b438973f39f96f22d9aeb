@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb9078b4_146fd9f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-19T00:23:55Z",
+      "side": 1,
+      "message": "Implement the remaining nits or not at your option",
+      "revId": "cd4b4ee9731c0f22bd1b438973f39f96f22d9aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440cdf96_1729bba6",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-19T00:23:55Z",
+      "side": 1,
+      "message": "I think this could also be a vanilla subclass.",
+      "range": {
+        "startLine": 288,
+        "startChar": 47,
+        "endLine": 288,
+        "endChar": 51
+      },
+      "revId": "cd4b4ee9731c0f22bd1b438973f39f96f22d9aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7def32dc_61b6ac1b",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-19T00:23:55Z",
+      "side": 1,
+      "message": "Now that we\u0027re seeing this it\u0027s apparent this should probably be a final member inside this subclass of NsdService",
+      "range": {
+        "startLine": 291,
+        "startChar": 16,
+        "endLine": 291,
+        "endChar": 33
+      },
+      "revId": "cd4b4ee9731c0f22bd1b438973f39f96f22d9aeb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
