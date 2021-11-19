@@ -85,6 +85,30 @@
       },
       "revId": "ecb9bd27f32b0ffd163dde17d83eecdcf284fafe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7c21810_d17f30c2",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-19T07:36:53Z",
+      "side": 1,
+      "message": "The verify function doesn\u0027t support verify same function multiple times separately.\n\nFor example, below code would fail by \"Verification in order failure:... Wanted 1 time, but was 2 times\"\ninOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -\u003e IFACE_NAME.equals(cfg.ifName)));\ninOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -\u003e IFACE_NAME.equals(cfg.ifName)));",
+      "parentUuid": "3ccb5ffc_66a97548",
+      "range": {
+        "startLine": 435,
+        "startChar": 11,
+        "endLine": 436,
+        "endChar": 25
+      },
+      "revId": "ecb9bd27f32b0ffd163dde17d83eecdcf284fafe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
