@@ -106,4 +106,5 @@ android_test {
     ],
     compile_multilib: "both",
     jarjar_rules: ":TetheringTestsJarJarRules",
+    enabled: false;
 }
