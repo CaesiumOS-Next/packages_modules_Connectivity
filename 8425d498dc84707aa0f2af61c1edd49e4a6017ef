@@ -1,0 +1,696 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de4ed2d_a5a53ec7",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "I believe there\u0027s patches outstanding to do that already from cken@",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 43
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4059535_e7e3e92e",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "need comments about what each struct is meant for.\nhow is rule different from policy",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c0d69a6_15adb1af",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "(a) reorder this so there are no packing holes, they lead to undefined behaviour\n[this is particularly relevant for keys, where non-zero padding can lead to lookup failures]\n(b) if holes remain, then fill them with explicit fields\n(c) take a look at the other struct definitions for bpf, and duplicate the assert for the struct size",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 19
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8578e7ad_d2b0cadf",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "u64?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60a368de_68bac825",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "I\u0027d suggest using a single field with bitflags for this.\nOtherwise you\u0027re wasting a lot of bytes, and potentially causing this to grow above a cacheline (64 bytes).  It\u0027d be ideal if it fit in \u003c\u003d64",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "163f0ace_8e8ebc46",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "isn\u0027t this a u8",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 9
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "779619d0_56ee69b8",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "singular",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 14
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b1181eb_8f9aab27",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "\u003e Common typo found: \"stuct\" -- should it be \"struct\"?\n\u003e Note: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.\n\nPlease fix.",
+      "parentUuid": "d7f92d44_0d060043",
+      "range": {
+        "startLine": 75,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75a368e8_3fde9d23",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "array",
+      "range": {
+        "startLine": 89,
+        "startChar": 83,
+        "endLine": 89,
+        "endChar": 88
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c76cf1db_bbcbafdc",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "bit seems wrong.  bits?  and not \u0027add\u0027 maybe \u0027set\u0027 or \u0027change\u0027",
+      "range": {
+        "startLine": 96,
+        "startChar": 32,
+        "endLine": 96,
+        "endChar": 44
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7689bcbc_3728361c",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be zero.  first entry in the array is zero?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 16
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a6c5899_02713aae",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "\u003e Common typo found: \"seperate\" -- should it be \"separate\"?\n\u003e Note: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.\n\nPlease fix.",
+      "parentUuid": "65b6c414_1bd93599",
+      "range": {
+        "startLine": 109,
+        "startChar": 18,
+        "endLine": 109,
+        "endChar": 26
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7475374_013dff1a",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "what does netd.c use? map_a? map_A? A_map? a_map? stay consistent",
+      "range": {
+        "startLine": 113,
+        "startChar": 51,
+        "endLine": 113,
+        "endChar": 56
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d83746_aebd11a9",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "why inner? what\u0027s the outer ip header?",
+      "range": {
+        "startLine": 122,
+        "startChar": 21,
+        "endLine": 122,
+        "endChar": 30
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "471338cf_253cb99f",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "ALLOW?",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 20
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d7862e1_dc67e30e",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "ALLOW?",
+      "range": {
+        "startLine": 127,
+        "startChar": 19,
+        "endLine": 127,
+        "endChar": 20
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f3533f3_33a71d03",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "you should be able to use \u003d\u003d directly, possibly with a cast",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 87
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66cb6966_e17ed5d1",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "fix checksum",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 46
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e47f14_011f4f41",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "delete line",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 24
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c965f07_b0de5302",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "bestScore \u003d -1",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 24
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0bfae80_e7e964fe",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "should not be hardcoded, use a \u0027static const int SIZE \u003d 16;\u0027",
+      "range": {
+        "startLine": 142,
+        "startChar": 28,
+        "endLine": 142,
+        "endChar": 30
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab34d9c3_f2975727",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "int score \u003d 0;",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 29
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7270e502_78dbea08",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "\u003d\u003d",
+      "range": {
+        "startLine": 147,
+        "startChar": 44,
+        "endLine": 147,
+        "endChar": 50
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d5f9dfb_7e2be785",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "should be trivial to resolve if port \u003e\u003d start \u0026\u0026 port \u003c\u003d end",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 54
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aa5f5e1_d772593f",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "if (score \u003e bestScore)\n\nis enough.  that implies score is positive already",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 62
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1679681_1de4c36a",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "fix checksum",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 48
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ed53a48_c7f26b5f",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "think you can write this as .srcIp.s_addr \u003d skb-\u003elocal_ip4 perhaps?",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 42
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46b12939_dc0ca21c",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "you don\u0027t really need both here. this is for caching right? so just dst port should be enough",
+      "range": {
+        "startLine": 186,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 47
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3468dda_0789eb64",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "is this correct? not ANY?",
+      "range": {
+        "startLine": 194,
+        "startChar": 79,
+        "endLine": 194,
+        "endChar": 80
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f9eecac_a4a05af8",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-19T21:53:25Z",
+      "side": 1,
+      "message": "probably, see what other bpf progs use",
+      "range": {
+        "startLine": 200,
+        "startChar": 53,
+        "endLine": 200,
+        "endChar": 72
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
