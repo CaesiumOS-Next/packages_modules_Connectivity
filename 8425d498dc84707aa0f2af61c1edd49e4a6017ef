@@ -70,6 +70,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13345c6d_4604d55b",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c0d69a6_15adb1af",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 19
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8578e7ad_d2b0cadf",
@@ -83,6 +107,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "u64?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4ce3799_08780cee",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8578e7ad_d2b0cadf",
       "range": {
         "startLine": 47,
         "startChar": 0,
@@ -116,6 +164,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "629c2eb3_d41d7905",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60a368de_68bac825",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "163f0ace_8e8ebc46",
@@ -139,6 +211,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e45d7a_aff710eb",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "163f0ace_8e8ebc46",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 9
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "779619d0_56ee69b8",
@@ -152,6 +248,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "singular",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 14
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d62cee_e51d98f5",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "779619d0_56ee69b8",
       "range": {
         "startLine": 65,
         "startChar": 2,
@@ -186,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "434fd674_64a7bf95",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b1181eb_8f9aab27",
+      "range": {
+        "startLine": 75,
+        "startChar": 31,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75a368e8_3fde9d23",
@@ -209,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05721406_e52249c9",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75a368e8_3fde9d23",
+      "range": {
+        "startLine": 89,
+        "startChar": 83,
+        "endLine": 89,
+        "endChar": 88
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c76cf1db_bbcbafdc",
@@ -222,6 +390,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "bit seems wrong.  bits?  and not \u0027add\u0027 maybe \u0027set\u0027 or \u0027change\u0027",
+      "range": {
+        "startLine": 96,
+        "startChar": 32,
+        "endLine": 96,
+        "endChar": 44
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0607995_c2ec9d86",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c76cf1db_bbcbafdc",
       "range": {
         "startLine": 96,
         "startChar": 32,
@@ -257,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd4a0231_50a800c0",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Should be changed to hardcoded value in case more configuration items are used like netd",
+      "parentUuid": "7689bcbc_3728361c",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 16
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a6c5899_02713aae",
         "filename": "service/bpf_progs/dscp_policy.c",
         "patchSetId": 27
@@ -269,6 +485,30 @@
       "side": 1,
       "message": "\u003e Common typo found: \"seperate\" -- should it be \"separate\"?\n\u003e Note: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.\n\nPlease fix.",
       "parentUuid": "65b6c414_1bd93599",
+      "range": {
+        "startLine": 109,
+        "startChar": 18,
+        "endLine": 109,
+        "endChar": 26
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca38cc65_b2bd7686",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6c5899_02713aae",
       "range": {
         "startLine": 109,
         "startChar": 18,
@@ -292,6 +532,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "what does netd.c use? map_a? map_A? A_map? a_map? stay consistent",
+      "range": {
+        "startLine": 113,
+        "startChar": 51,
+        "endLine": 113,
+        "endChar": 56
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c7b6ce0_812f6481",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "map_A, will update",
+      "parentUuid": "a7475374_013dff1a",
       "range": {
         "startLine": 113,
         "startChar": 51,
@@ -348,6 +612,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e34794_a7c2755e",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "471338cf_253cb99f",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 20
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d7862e1_dc67e30e",
@@ -371,6 +659,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdc17519_c4883265",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7862e1_dc67e30e",
+      "range": {
+        "startLine": 127,
+        "startChar": 19,
+        "endLine": 127,
+        "endChar": 20
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f3533f3_33a71d03",
@@ -384,6 +696,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "you should be able to use \u003d\u003d directly, possibly with a cast",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 87
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad70d501_2c62959c",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f3533f3_33a71d03",
       "range": {
         "startLine": 129,
         "startChar": 0,
@@ -440,6 +776,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "493e4eb3_bdbe33d6",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5e47f14_011f4f41",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 24
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c965f07_b0de5302",
@@ -453,6 +813,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "bestScore \u003d -1",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 24
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ae70fb4_3aefdb76",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c965f07_b0de5302",
       "range": {
         "startLine": 140,
         "startChar": 16,
@@ -486,6 +870,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "494dceb3_3ef60300",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0bfae80_e7e964fe",
+      "range": {
+        "startLine": 142,
+        "startChar": 28,
+        "endLine": 142,
+        "endChar": 30
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab34d9c3_f2975727",
@@ -509,6 +917,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc577fed_c288cd30",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab34d9c3_f2975727",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 29
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7270e502_78dbea08",
@@ -522,6 +954,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "\u003d\u003d",
+      "range": {
+        "startLine": 147,
+        "startChar": 44,
+        "endLine": 147,
+        "endChar": 50
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3744bb0f_cc89f394",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7270e502_78dbea08",
       "range": {
         "startLine": 147,
         "startChar": 44,
@@ -578,6 +1034,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49415bd6_866ae86e",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aa5f5e1_d772593f",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 62
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1679681_1de4c36a",
@@ -624,6 +1104,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94423785_05f5ff5e",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ed53a48_c7f26b5f",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 42
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46b12939_dc0ca21c",
@@ -660,6 +1164,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "is this correct? not ANY?",
+      "range": {
+        "startLine": 194,
+        "startChar": 79,
+        "endLine": 194,
+        "endChar": 80
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cef4556d_076fba19",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-19T23:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3468dda_0789eb64",
       "range": {
         "startLine": 194,
         "startChar": 79,
