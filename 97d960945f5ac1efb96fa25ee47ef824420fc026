@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d0cefe9_cf364db9",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-11-20T00:29:28Z",
+      "side": 1,
+      "message": "based on the 5.10 bpf verifier failure:\n\n\n 3017 11-20 00:03:03.002   417   417 W LibBpfLoader: 60: (61) r2 \u003d *(u32 *)(r10 -40)\n 3018 11-20 00:03:03.002   417   417 W LibBpfLoader: 61: (bf) r1 \u003d r2\n 3019 11-20 00:03:03.002   417   417 W LibBpfLoader: 62: (07) r1 +\u003d 1\n 3020 11-20 00:03:03.002   417   417 W LibBpfLoader: 63: (63) *(u32 *)(r10 -40) \u003d r1\n 3021 11-20 00:03:03.002   417   417 W LibBpfLoader: 64: (67) r2 \u003c\u003c\u003d 32\n 3022 11-20 00:03:03.002   417   417 W LibBpfLoader: 65: (c7) r2 s\u003e\u003e\u003d 32\n 3023 11-20 00:03:03.002   417   417 W LibBpfLoader: 66: (6d) if r9 s\u003e r2 goto pc+1\n 3024 11-20 00:03:03.002   417   417 W LibBpfLoader: infinite loop detected at insn 68\n \nMy guess is that\n(a) using 32-bit int needlessly complicates things, hence the \u003c\u003c\u003d32 s\u003e\u003e\u003d32 up above.\nbpf is native 64-bit, so int64 is probably better for a counter\n\n(b) it\u0027s spilling out of register and to stack *(u32 *)(r10 -40)\nthus possibly defeating verifiers ability to track things\n\nso my suggestion would be to:\nfor (register int64 \u003d 0; i \u003c MAX_POLICIES; i++) {\n\nthough I\u0027m not sure if clang/llvm supports register.\n\nhttps://lwn.net/Articles/794934/ suggests it should be able to track across stack spillage",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 52
+      },
+      "revId": "97d960945f5ac1efb96fa25ee47ef824420fc026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
