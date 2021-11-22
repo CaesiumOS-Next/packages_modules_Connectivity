@@ -100,7 +100,5 @@ internal object NetworkValidationTestUtil {
         } cleanup {
             DeviceConfig.removeOnPropertiesChangedListener(listener)
         }
-        // Compiler isn't smart enough to understand return above will either return or throw
-        return null
     }
 }
