@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c85300b_1961c658",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-11-22T08:42:16Z",
+      "side": 1,
+      "message": "LGTM. Need other reviewers to input.",
+      "revId": "c8c36b94079760a8e77b7161b6ec86a7b7707a9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
