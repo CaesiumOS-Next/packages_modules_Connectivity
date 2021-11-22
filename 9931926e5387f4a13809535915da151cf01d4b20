@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017579808",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d29",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "9dc813f2_71db36d3",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-22T23:33:38Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "9931926e5387f4a13809535915da151cf01d4b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017579808",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d29",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "2476a69f_c51fb565",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-22T23:33:38Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "9931926e5387f4a13809535915da151cf01d4b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017579825",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d29",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b1a67ae9_d0f326d0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 3400,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-22T23:33:38Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 3400,
+        "startChar": 0,
+        "endLine": 3400,
+        "endChar": 102
+      },
+      "revId": "9931926e5387f4a13809535915da151cf01d4b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017579825",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d29",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "e66aff73_4e9dd43f",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-22T23:33:38Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 101
+      },
+      "revId": "9931926e5387f4a13809535915da151cf01d4b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
