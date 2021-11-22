@@ -25,6 +25,7 @@ import static com.android.server.connectivity.NetworkNotificationManager.Notific
 import static com.android.server.connectivity.NetworkNotificationManager.NotificationType.PARTIAL_CONNECTIVITY;
 import static com.android.server.connectivity.NetworkNotificationManager.NotificationType.PRIVATE_DNS_BROKEN;
 import static com.android.server.connectivity.NetworkNotificationManager.NotificationType.SIGN_IN;
+import static com.android.testutils.ContextUtils.mockContextAsUser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -33,7 +34,6 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -56,7 +56,6 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.UserHandle;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
@@ -79,7 +78,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -165,9 +163,7 @@ public class NetworkNotificationManagerTest {
         when(mCtx.getResources()).thenReturn(mResources);
         when(mCtx.getPackageManager()).thenReturn(mPm);
         when(mCtx.getApplicationInfo()).thenReturn(new ApplicationInfo());
-        final Context asUserCtx = mock(Context.class, AdditionalAnswers.delegatesTo(mCtx));
-        doReturn(UserHandle.ALL).when(asUserCtx).getUser();
-        when(mCtx.createContextAsUser(eq(UserHandle.ALL), anyInt())).thenReturn(asUserCtx);
+        mockContextAsUser(mCtx);
         when(mCtx.getSystemService(eq(Context.NOTIFICATION_SERVICE)))
                 .thenReturn(mNotificationManager);
         when(mNetworkInfo.getExtraInfo()).thenReturn(TEST_EXTRA_INFO);
