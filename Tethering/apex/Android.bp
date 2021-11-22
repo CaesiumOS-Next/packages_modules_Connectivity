@@ -18,6 +18,16 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+// Defaults to enable/disable java targets which uses development APIs. "enabled" may have a
+// different value depending on the branch.
+java_defaults {
+    name: "ConnectivityNextEnableDefaults",
+    enabled: true,
+}
+// This is a placeholder comment to avoid merge conflicts
+// as the above target may have different "enabled" values
+// depending on the branch
+
 apex {
     name: "com.android.tethering",
     compile_multilib: "both",
@@ -43,7 +53,10 @@ apex {
     ],
     apps: [
         "ServiceConnectivityResources",
+        // A placeholder comment to avoid merge conflicts, may need to change TetheringNext to
+        // Tethering if TetheringNext is disabled by ConnectivityNextEnableDefaults.
         "TetheringNext",
+        // A placeholder comment to avoid merge conflicts.
     ],
     prebuilts: ["current_sdkinfo"],
     manifest: "manifest.json",
