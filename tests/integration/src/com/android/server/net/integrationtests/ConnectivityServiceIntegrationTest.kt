@@ -41,7 +41,6 @@ import android.net.util.MultinetworkPolicyTracker
 import android.os.ConditionVariable
 import android.os.IBinder
 import android.os.SystemConfigManager
-import android.os.UserHandle
 import android.testing.TestableContext
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -53,16 +52,15 @@ import com.android.server.TestNetIdManager
 import com.android.server.connectivity.MockableSystemProperties
 import com.android.server.connectivity.ProxyTracker
 import com.android.testutils.TestableNetworkCallback
+import com.android.testutils.mockContextAsUser
 import org.junit.After
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.AdditionalAnswers
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito.any
-import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.doAnswer
 import org.mockito.Mockito.doNothing
 import org.mockito.Mockito.doReturn
@@ -157,9 +155,7 @@ class ConnectivityServiceIntegrationTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        val asUserCtx = mock(Context::class.java, AdditionalAnswers.delegatesTo<Context>(context))
-        doReturn(UserHandle.ALL).`when`(asUserCtx).user
-        doReturn(asUserCtx).`when`(context).createContextAsUser(eq(UserHandle.ALL), anyInt())
+        mockContextAsUser(context) { c, h -> }
         doNothing().`when`(context).sendStickyBroadcast(any(), any())
         doReturn(Context.SYSTEM_CONFIG_SERVICE).`when`(context)
                 .getSystemServiceName(SystemConfigManager::class.java)
