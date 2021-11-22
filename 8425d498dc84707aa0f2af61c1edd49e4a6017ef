@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "678ab6a5_e1bf6dfc",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-22T21:20:06Z",
+      "side": 1,
+      "message": "Mask is apart of the policy. Could use 1 type of struct but mask is not necessary for the maps with rule entries (socket to policies maps)",
+      "parentUuid": "e4059535_e7e3e92e",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c0d69a6_15adb1af",
         "filename": "service/bpf_progs/dscp_policy.c",
         "patchSetId": 27
@@ -589,6 +613,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94c9c154_b0178641",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-22T21:20:06Z",
+      "side": 1,
+      "message": "corrected to iph",
+      "parentUuid": "13d83746_aebd11a9",
+      "range": {
+        "startLine": 122,
+        "startChar": 21,
+        "endLine": 122,
+        "endChar": 30
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "471338cf_253cb99f",
@@ -1011,6 +1059,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cbfcece_0fd72458",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-22T21:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d5f9dfb_7e2be785",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 54
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0aa5f5e1_d772593f",
@@ -1151,6 +1223,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9943e8b_72c23c5f",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-22T21:20:06Z",
+      "side": 1,
+      "message": "Changed Ipv4/6RuleEntry structs to having just dstPort",
+      "parentUuid": "46b12939_dc0ca21c",
+      "range": {
+        "startLine": 186,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 47
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3468dda_0789eb64",
@@ -1211,6 +1307,30 @@
       "writtenOn": "2021-11-19T21:53:25Z",
       "side": 1,
       "message": "probably, see what other bpf progs use",
+      "range": {
+        "startLine": 200,
+        "startChar": 53,
+        "endLine": 200,
+        "endChar": 72
+      },
+      "revId": "8425d498dc84707aa0f2af61c1edd49e4a6017ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fb601b1_28308a53",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-22T21:20:06Z",
+      "side": 1,
+      "message": "Will need to run tests, some prog use this some don\u0027t",
+      "parentUuid": "5f9eecac_a4a05af8",
       "range": {
         "startLine": 200,
         "startChar": 53,
