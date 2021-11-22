@@ -18,13 +18,13 @@ package com.android.server;
 
 import static android.os.Build.VERSION_CODES.R;
 
+import static com.android.testutils.ContextUtils.mockContextAsUser;
 import static com.android.testutils.ContextUtils.mockService;
 import static com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import static com.android.testutils.MiscAsserts.assertThrows;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
@@ -107,7 +107,7 @@ public class VpnManagerServiceTest extends VpnTestBase {
 
         mHandlerThread = new HandlerThread("TestVpnManagerService");
         mDeps = new VpnManagerServiceDependencies();
-        doReturn(mContext).when(mContext).createContextAsUser(any(), anyInt());
+        mockContextAsUser(mContext, (c, h) -> {});
         doReturn(mPackageManager).when(mContext).getPackageManager();
         setMockedPackages(mPackageManager, sPackages);
 
