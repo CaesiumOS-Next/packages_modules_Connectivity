@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fff408f5_209638ef",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "Seperate it from makeUidsNetworkPerm, it\u0027s not one line now. So keep this method.",
+      "parentUuid": "b18916eb_aad6a4cc",
+      "range": {
+        "startLine": 220,
+        "startChar": 30,
+        "endLine": 220,
+        "endChar": 43
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bb936ec_6b166716",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-12T04:51:24Z",
       "side": 1,
       "message": "From the name, this strongly looks like a function that will just make an array associated with the passed list, and that\u0027s what it is except that it will also update a member which I think is very unobvious/unexpected and might bite us hard in the future.\n\nCan we make this method static, and instead have the callers add the results to mAllApps or something ?",
+      "range": {
+        "startLine": 224,
+        "startChar": 27,
+        "endLine": 224,
+        "endChar": 46
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb980c33_3edc7491",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "No. As we chat offline, add the comment to explain this method.",
+      "parentUuid": "7bb936ec_6b166716",
       "range": {
         "startLine": 224,
         "startChar": 27,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "657018de_5679321a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f39b6e1_6238103a",
+      "range": {
+        "startLine": 241,
+        "startChar": 27,
+        "endLine": 241,
+        "endChar": 48
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcd04c4d_9654c1e8",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-11-12T04:51:24Z",
       "side": 1,
       "message": "I don\u0027t think this function is useful.\n• All it does is call the two lambdas passed as an argument in a sequence\n• It only makes sense with very specific pairs of functions\n• It documents *inside* the function what the lambdas do, which shows that it requires them to do something very specific\n\nConsider that this is 8 lines of code but it saves nothing from the callers :\n\n  final List\u003cPackageInfo\u003e apps \u003d getInstalledPackagesAsUser(user);\n  final SparseIntArray list \u003d makeUidsNetworkPerm(apps);\n  updateUidsNetworkPermission(list);\n  \nbecomes\n\n  updateAppsPermForUser(user,\n     apps -\u003e makeUidsNetworkPerm(apps),\n     list -\u003e updateUidsNetworkPermission(list));\n\nWhich is neither shorter or clearer, but the caller needs to know specifically the order in which it will call the lambdas and that the return value of the former will be passed to the latter. I think you should just inline this function, since it saves nothing from the callers.\n\n\nGenerally, lambdas are good when they let you abstract the sequence of calls. For example a method like map(element -\u003e transformed) is a great example of usage, because it will abstract iterating the list and creating the new one. Hence,\n\n  val transformedList \u003d new List\u003cTransformed\u003e\n  for (Elem elem : list) {\n    transformedList.add(transform(elem))\n  }\n\nbecomes\n\n  map { elem -\u003e transform(elem) }\n\n...which is much simpler to understand and puts the important thing front and center. And importantly, for collections that are not trivial to iterate, you only write the iterating code once.\n\nBut here, the sequence is just calling one after the other, so there isn\u0027t anything to abstract. So I don\u0027t think lambdas are the right tool for something like this.",
+      "range": {
+        "startLine": 273,
+        "startChar": 17,
+        "endLine": 273,
+        "endChar": 38
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d60f9980_641bc4c0",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "Ack. Just inline these code.",
+      "parentUuid": "bcd04c4d_9654c1e8",
       "range": {
         "startLine": 273,
         "startChar": 17,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "419ad905_b4559733",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "Thanks for your suggestion. It\u0027s really easier to read now.",
+      "parentUuid": "e61c3c03_e34a9399",
+      "range": {
+        "startLine": 285,
+        "startChar": 7,
+        "endLine": 297,
+        "endChar": 9
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f001f43_c0206ba9",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-11-12T04:51:24Z",
       "side": 1,
       "message": "Nit : as this is conceptually an app ID, do you want to have a constant like\n\n  final int SYSTEM_APPID \u003d SYSTEM_UID;",
+      "range": {
+        "startLine": 376,
+        "startChar": 56,
+        "endLine": 376,
+        "endChar": 66
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f5fa882_ecf1df92",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f001f43_c0206ba9",
       "range": {
         "startLine": 376,
         "startChar": 56,
@@ -185,6 +329,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bf739d0_8eff5604",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "I forgot the reason that make me change the order. So change back to previous order.",
+      "parentUuid": "5d8e97f0_80cab9be",
+      "range": {
+        "startLine": 913,
+        "startChar": 47,
+        "endLine": 913,
+        "endChar": 52
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d6e8dd6_01e6a5c6",
@@ -198,6 +366,30 @@
       "writtenOn": "2021-11-12T04:51:24Z",
       "side": 1,
       "message": "(not for this patch) this code is becoming very common in our tests, can we have a method in common code doing this instead of copy-pasting it every time ?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 63
+      },
+      "revId": "c7074424de85fd38729404cef2e390556e845a4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f50158_286c1664",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "I made a common method for this aosp/1512270. Let\u0027s try to merge this commit.",
+      "parentUuid": "8d6e8dd6_01e6a5c6",
       "range": {
         "startLine": 168,
         "startChar": 0,

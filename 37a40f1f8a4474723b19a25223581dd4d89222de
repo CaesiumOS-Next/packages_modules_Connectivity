@@ -371,6 +371,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec9bce3_6f1c634a",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "097aac2e_e6319d24",
+      "range": {
+        "startLine": 567,
+        "startChar": 0,
+        "endLine": 585,
+        "endChar": 9
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "561cfc46_5a977612",
@@ -502,6 +526,30 @@
       "side": 1,
       "message": "Not done for MOCK_UID_1 and MOCK_UID_2",
       "parentUuid": "c43ce8a3_770eb83d",
+      "range": {
+        "startLine": 128,
+        "startChar": 36,
+        "endLine": 128,
+        "endChar": 41
+      },
+      "revId": "37a40f1f8a4474723b19a25223581dd4d89222de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0af3b55_629b0ab1",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-22T08:15:33Z",
+      "side": 1,
+      "message": "Done for MOCK_UID_1 and MOCK_UID_2 part.",
+      "parentUuid": "592cede7_12bcb8ed",
       "range": {
         "startLine": 128,
         "startChar": 36,
