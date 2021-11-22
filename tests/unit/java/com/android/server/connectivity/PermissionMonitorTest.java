@@ -41,6 +41,7 @@ import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.os.Process.SYSTEM_UID;
 
 import static com.android.server.connectivity.PermissionMonitor.isHigherNetworkPermission;
+import static com.android.testutils.ContextUtils.mockContextAsUser;
 
 import static junit.framework.Assert.fail;
 
@@ -59,7 +60,6 @@ import static org.mockito.ArgumentMatchers.intThat;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -100,7 +100,6 @@ import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.AdditionalAnswers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -183,13 +182,7 @@ public class PermissionMonitorTest {
             doCallRealMethod().when(mContext).getSystemService(SystemConfigManager.class);
         }
         when(mSystemConfigManager.getSystemPermissionUids(anyString())).thenReturn(new int[0]);
-        doAnswer(invocation -> {
-            final Object[] args = invocation.getArguments();
-            final Context asUserCtx = mock(Context.class, AdditionalAnswers.delegatesTo(mContext));
-            final UserHandle user = (UserHandle) args[0];
-            doReturn(user).when(asUserCtx).getUser();
-            return asUserCtx;
-        }).when(mContext).createContextAsUser(any(), anyInt());
+        mockContextAsUser(mContext, (c, h) -> {});
         when(mDeps.getUidsAllowedOnRestrictedNetworks(any())).thenReturn(Set.of());
         // Set DEVICE_INITIAL_SDK_INT to Q that SYSTEM_UID won't have restricted network permission
         // by default.

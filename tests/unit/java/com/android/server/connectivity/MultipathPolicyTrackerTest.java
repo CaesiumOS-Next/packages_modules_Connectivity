@@ -27,6 +27,7 @@ import static android.provider.Settings.Global.NETWORK_DEFAULT_DAILY_MULTIPATH_Q
 
 import static com.android.server.net.NetworkPolicyManagerInternal.QUOTA_TYPE_MULTIPATH;
 import static com.android.server.net.NetworkPolicyManagerService.OPPORTUNISTIC_QUOTA_UNKNOWN;
+import static com.android.testutils.ContextUtils.mockContextAsUser;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertNotNull;
@@ -58,7 +59,6 @@ import android.net.NetworkTemplate;
 import android.net.TelephonyNetworkSpecifier;
 import android.os.Build;
 import android.os.Handler;
-import android.os.UserHandle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.test.mock.MockContentResolver;
@@ -101,7 +101,6 @@ public class MultipathPolicyTrackerTest {
     private static final String TEST_IMSI1 = "TEST_IMSI1";
 
     @Mock private Context mContext;
-    @Mock private Context mUserAllContext;
     @Mock private Resources mResources;
     @Mock private Handler mHandler;
     @Mock private MultipathPolicyTracker.Dependencies mDeps;
@@ -142,12 +141,11 @@ public class MultipathPolicyTrackerTest {
         when(mContext.getResources()).thenReturn(mResources);
         when(mContext.getApplicationInfo()).thenReturn(new ApplicationInfo());
         // Mock user id to all users that Context#registerReceiver will register with all users too.
-        doReturn(UserHandle.ALL.getIdentifier()).when(mUserAllContext).getUserId();
-        when(mContext.createContextAsUser(eq(UserHandle.ALL), anyInt()))
-                .thenReturn(mUserAllContext);
-        when(mUserAllContext.registerReceiver(mConfigChangeReceiverCaptor.capture(),
-                argThat(f -> f.hasAction(ACTION_CONFIGURATION_CHANGED)), any(), any()))
-                .thenReturn(null);
+        mockContextAsUser(mContext, (context, user) -> {
+            doReturn(null).when(context).registerReceiver(
+                    mConfigChangeReceiverCaptor.capture(),
+                    argThat(f -> f.hasAction(ACTION_CONFIGURATION_CHANGED)), any(), any());
+        });
 
         when(mDeps.getClock()).thenReturn(mClock);
 
