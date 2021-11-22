@@ -26,6 +26,8 @@ import static android.net.INetd.IF_STATE_DOWN;
 import static android.net.INetd.IF_STATE_UP;
 import static android.os.UserHandle.PER_USER_RANGE;
 
+import static com.android.testutils.ContextUtils.mockContextAsUser;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -115,7 +117,6 @@ import com.android.testutils.DevSdkIgnoreRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.AdditionalAnswers;
 import org.mockito.Answers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
@@ -1311,10 +1312,7 @@ public class VpnTest {
      * Mock some methods of vpn object.
      */
     private Vpn createVpn(@UserIdInt int userId) {
-        final Context asUserContext = mock(Context.class, AdditionalAnswers.delegatesTo(mContext));
-        doReturn(UserHandle.of(userId)).when(asUserContext).getUser();
-        when(mContext.createContextAsUser(eq(UserHandle.of(userId)), anyInt()))
-                .thenReturn(asUserContext);
+        mockContextAsUser(mContext, (c, h) -> {});
         final TestLooper testLooper = new TestLooper();
         final Vpn vpn = new Vpn(testLooper.getLooper(), mContext, new TestDeps(), mNetService,
                 mNetd, userId, mVpnProfileStore, mSystemServices, mIkev2SessionCreator);
