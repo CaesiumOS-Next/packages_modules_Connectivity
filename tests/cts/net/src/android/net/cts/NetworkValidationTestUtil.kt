@@ -19,12 +19,19 @@ package android.net.cts
 import android.Manifest
 import android.net.util.NetworkStackUtils
 import android.provider.DeviceConfig
+import android.util.Log
 import com.android.testutils.runAsShell
+import com.android.testutils.tryTest
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.concurrent.TimeUnit
 
 /**
  * Collection of utility methods for configuring network validation.
  */
 internal object NetworkValidationTestUtil {
+    val TAG = NetworkValidationTestUtil::class.simpleName
+    const val TIMEOUT_MS = 20_000L
 
     /**
      * Clear the test network validation URLs.
@@ -59,10 +66,39 @@ internal object NetworkValidationTestUtil {
     @JvmStatic fun setUrlExpirationDeviceConfig(timestamp: Long?) =
             setConfig(NetworkStackUtils.TEST_URL_EXPIRATION_TIME, timestamp?.toString())
 
-    private fun setConfig(configKey: String, value: String?) {
-        runAsShell(Manifest.permission.WRITE_DEVICE_CONFIG) {
-            DeviceConfig.setProperty(
-                    DeviceConfig.NAMESPACE_CONNECTIVITY, configKey, value, false /* makeDefault */)
+    private fun setConfig(configKey: String, value: String?): String? {
+        Log.i(TAG, "Setting config \"$configKey\" to \"$value\"")
+
+        val existingValue = runAsShell(Manifest.permission.READ_DEVICE_CONFIG,
+                Manifest.permission.WRITE_DEVICE_CONFIG) {
+            DeviceConfig.getProperty(DeviceConfig.NAMESPACE_CONNECTIVITY, configKey)
+        }
+        // Already the correct value. Note that there may be a race here if there is a change in
+        // flight already but in presence of multiple threads updating the config there is no
+        // way to fix that anyway.
+        if (existingValue == value) return value
+
+        val future = CompletableFuture<String>()
+        val listener = DeviceConfig.OnPropertiesChangedListener {
+            if (it.getString(configKey, null) == value) {
+                future.complete(value)
+            }
+        }
+
+        return tryTest {
+            runAsShell(Manifest.permission.READ_DEVICE_CONFIG,
+                    Manifest.permission.WRITE_DEVICE_CONFIG) {
+                DeviceConfig.addOnPropertiesChangedListener(DeviceConfig.NAMESPACE_CONNECTIVITY,
+                        Executor { r -> r.run() }, listener)
+                DeviceConfig.setProperty(DeviceConfig.NAMESPACE_CONNECTIVITY, configKey, value,
+                        false /* makeDefault */)
+                // Don't drop the permission until the config is applied, just in case
+                future.get(TIMEOUT_MS, TimeUnit.MILLISECONDS)
+            }.also {
+                Log.i(TAG, "Config \"$configKey\" successfully set to \"$value\"")
+            }
+        } cleanup {
+            DeviceConfig.removeOnPropertiesChangedListener(listener)
         }
     }
 }
