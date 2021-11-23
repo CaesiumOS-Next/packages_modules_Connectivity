@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91af858f_8c66645d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1905361
+      },
+      "writtenOn": "2021-11-23T08:53:18Z",
+      "side": 1,
+      "message": "This code has moved location in 12. The CR for 11 and earlier is: https://android-review.googlesource.com/c/platform/cts/+/1899298",
+      "revId": "06d565cd9c34bdd36d1a065261c76403d4ec27c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
