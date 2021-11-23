@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b077cecd_0addc56e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1886292
+      },
+      "writtenOn": "2021-11-23T23:21:02Z",
+      "side": 1,
+      "message": "Hi, Chalard.\nCan you have a chance to review this CL?",
+      "revId": "561ef08078567fb5fce69c3803aad3f68715bbbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
