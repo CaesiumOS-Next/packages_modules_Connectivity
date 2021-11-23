@@ -213,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2426796_04909cde",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-23T05:03:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2baa0a28_22c03c8f",
+      "range": {
+        "startLine": 772,
+        "startChar": 12,
+        "endLine": 772,
+        "endChar": 37
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2084f28_686e18dc",
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "Yes, I\u0027ll add it in separate CL because the new BluetoothPan API doesn\u0027t available for mainline development branch.",
       "parentUuid": "ff48d9ec_23e9002b",
+      "range": {
+        "startLine": 2565,
+        "startChar": 5,
+        "endLine": 2565,
+        "endChar": 16
+      },
+      "revId": "173ac86d5c1f1fa17bb4080c26e18d54cd98b939",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df33f2b9_0b7868c3",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2565,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-23T05:03:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32dc7691_58b8cf75",
       "range": {
         "startLine": 2565,
         "startChar": 5,
