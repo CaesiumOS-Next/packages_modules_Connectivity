@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017583166",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1883778?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "372f61cd_d7923fe8",
+        "filename": "netd/BpfHandler.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-23T01:26:58Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 101
+      },
+      "revId": "4067806b8f2df3e330043381e4b1d1ea92699dd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017583166",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1883778?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "cb5f17c7_b373e01d",
+        "filename": "netd/BpfHandlerTest.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-23T01:26:58Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027exempted\u0027 or \u0027legacy\u0027; see https://source.android.com/setup/contribute/respectful-code for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 25,
+        "startChar": 72,
+        "endLine": 25,
+        "endChar": 83
+      },
+      "revId": "4067806b8f2df3e330043381e4b1d1ea92699dd5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
