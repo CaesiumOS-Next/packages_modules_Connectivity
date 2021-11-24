@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2153962e_2a2b7864",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-24T05:10:37Z",
+      "side": 1,
+      "message": "I meant a soong var so you should be able to do:\n\n  aosp_apex_tethering_app \u003d \"TetheringNext\"\n\n  apex {\n    apps: [\n      ...\n      aosp_apex_tethering_app,\n    ]\n  }\n\nBut what you have works too, I guess people are more used to defaults than vars so that\u0027s easier to look at.",
+      "parentUuid": "4b6671ea_371ac6a8",
+      "revId": "62a531d84435865c24529c4b5857f7f3f0cd3889",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03f206a6_6e698ddf",
