@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e9c8ab_d658d74d",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-24T03:48:05Z",
+      "side": 1,
+      "message": "At least it would be better if there\u0027s only one place to update depending on the branch.\n\nCould you use a soong variable that you put just below ConnectivityNextEnableDefaults ? Something like:\n\n  // Tethering app to include in the AOSP apex. Branches that disable\n  // the \"next\" targets may use a stable tethering app instead, but will generally\n  // override the AOSP apex to use updatable package names and keys, so that apex\n  // will be unused anyway.\n  aosp_apex_tethering_app \u003d \"TetheringNext\"",
+      "revId": "62a531d84435865c24529c4b5857f7f3f0cd3889",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03f206a6_6e698ddf",
+        "filename": "Tethering/tests/unit/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-24T03:48:05Z",
+      "side": 1,
+      "message": "This should be taken from the defaults and not specified here, right ?",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 19
+      },
+      "revId": "62a531d84435865c24529c4b5857f7f3f0cd3889",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
