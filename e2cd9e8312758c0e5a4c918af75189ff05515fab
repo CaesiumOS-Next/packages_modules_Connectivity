@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65bb9a67_b74dbb60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-24T09:57:51Z",
+      "side": 1,
+      "message": "Generally LGTM but see comment",
+      "revId": "e2cd9e8312758c0e5a4c918af75189ff05515fab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "540df25f_83d64962",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTestUtil.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-24T09:57:51Z",
+      "side": 1,
+      "message": "I think if \"value\" was null, this would return at the first properties change (configKey not in the map), not necessarily the properties change where it was reset ?\n\nTo fix that you might have to do:\n\n  if (it.getString(configKey, null) \u003d\u003d value \u0026\u0026 it.getKeyset().contains(configKey))\n  \nOr faster but ugly:\n\n  val def \u003d if (value \u003d\u003d null) \"notset\" else null\n  if (it.getString(configKey, def) \u003d\u003d value)",
+      "range": {
+        "startLine": 88,
+        "startChar": 49,
+        "endLine": 88,
+        "endChar": 54
+      },
+      "revId": "e2cd9e8312758c0e5a4c918af75189ff05515fab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
