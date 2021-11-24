@@ -39,6 +39,30 @@
       },
       "revId": "e2cd9e8312758c0e5a4c918af75189ff05515fab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "884f65d6_4b565202",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkValidationTestUtil.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-24T11:00:12Z",
+      "side": 1,
+      "message": "Nope. I just tested. Properties have default values separate from the default you pass in getString, and if ​the default value is null and you set to null, there is no callback. Code given below, with my logs that prove stuff is running where I expect removed for clarity\n\n  ​runAsShell(\n   ​Manifest.permission.READ_DEVICE_CONFIG,\n   ​Manifest.permission.WRITE_DEVICE_CONFIG) {\n    ​DeviceConfig.resetToDefaults(1, NAMESPACE_CONNECTIVITY)\n    ​DeviceConfig.getProperty(NAMESPACE_CONNECTIVITY, \"test_captive_portal_https_url\")\n    val f \u003d CompletableFuture\u003cString?\u003e()\n    ​val listener \u003d DeviceConfig.OnPropertiesChangedListener {\n      ​val x \u003d it.getString(\"test_captive_portal_https_url\", \"test\")\n      ​if (x \u003d\u003d null) {\n        f.complete(\"Done\")\n      ​}\n    ​}\n    ​DeviceConfig.addOnPropertiesChangedListener(NAMESPACE_CONNECTIVITY, java.util.concurrent.Executor { r -\u003e r.run() }, listener)\n    ​setHttpsUrlDeviceConfig(null)\n    throw RuntimeException(f.get())\n  }\n\nThe code above crashes with timeout, not RuntimeException(\"Done\"), because the default value for test_captive_portal_https_url is null.\n\nSo unfortunately I think what you suggest is worse, because it will crash with timeout instead of let you wait for null when the default is already null.",
+      "parentUuid": "540df25f_83d64962",
+      "range": {
+        "startLine": 88,
+        "startChar": 49,
+        "endLine": 88,
+        "endChar": 54
+      },
+      "revId": "e2cd9e8312758c0e5a4c918af75189ff05515fab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
