@@ -155,6 +155,7 @@ android_test {
     srcs: [":non-connectivity-module-test"],
     test_suites: ["device-tests"],
     static_libs: [
+        "collector-device-lib",
         "services.core",
         "services.net",
         "FrameworksNetTestsLib",
