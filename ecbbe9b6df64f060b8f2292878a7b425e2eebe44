@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "653c93a7_ac74b536",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-25T08:17:50Z",
+      "side": 1,
+      "message": "I think this is fine. Things to consider :\n- It may be possible to lower the risk by breaking this patch into several smaller patches. It would have been very hard in the first patchsets, but now that we have better separation I think there are some opportunities. I pointed out one inline.\n- Maybe you want to spend some time adding more testing for apps installed on external storage, since this is what we don\u0027t have dogfood for.\n",
+      "revId": "ecbbe9b6df64f060b8f2292878a7b425e2eebe44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4a406fd_123762aa",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-25T08:17:50Z",
+      "side": 1,
+      "message": "Now that it\u0027s much simpler, I realize we might be able to do a simplification.\n\nWould it work if we did the following :\n• Add a call to updateAppIdsTrafficPermission inside onUserAdded\n• Have this loop simply call onUserAdded with each user\n• Remove l.337, which is now useless\n\nI understand that we don\u0027t actually need to update traffic permissions when a user is added, but is it harmful ? Considering how rare it is, I don\u0027t think it\u0027s a problem if we do it.\n\nAlternatively you could also have a separate method called both from here and from onUserAdded. If you prefer we don\u0027t update traffic permissions in onUserAdded that method could have a boolean as an argument.\n\nWDYT ?",
+      "range": {
+        "startLine": 340,
+        "startChar": 39,
+        "endLine": 340,
+        "endChar": 40
+      },
+      "revId": "ecbbe9b6df64f060b8f2292878a7b425e2eebe44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9eeefba_5be0f222",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-25T08:17:50Z",
+      "side": 1,
+      "message": "I think this part here could be cut out to a separate patch right ? This would keep the probability of a revert lower.",
+      "range": {
+        "startLine": 660,
+        "startChar": 7,
+        "endLine": 671,
+        "endChar": 0
+      },
+      "revId": "ecbbe9b6df64f060b8f2292878a7b425e2eebe44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
