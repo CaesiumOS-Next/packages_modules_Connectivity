@@ -5470,6 +5470,7 @@ public class ConnectivityManager {
     @SuppressLint({"UserHandle"})
     @SystemApi(client = MODULE_LIBRARIES)
     @RequiresPermission(android.Manifest.permission.NETWORK_STACK)
+    @Deprecated
     public void setProfileNetworkPreference(@NonNull final UserHandle profile,
             @ProfileNetworkPreference final int preference,
             @Nullable @CallbackExecutor final Executor executor,
@@ -5489,7 +5490,56 @@ public class ConnectivityManager {
             };
         }
         try {
-            mService.setProfileNetworkPreference(profile, preference, proxy);
+            ProfileNetworkPreferenceDetails.Builder profileNetworkPreferenceBuilder =
+                    new ProfileNetworkPreferenceDetails.Builder();
+            profileNetworkPreferenceBuilder.setProfileAsUser(profile);
+            profileNetworkPreferenceBuilder.setProfileNetworkPreference(preference);
+            mService.setProfileNetworkPreference(profileNetworkPreferenceBuilder.build(), proxy);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Request that a user profile is put by default on a network matching a given preference.
+     *
+     * See the documentation for the individual preferences for a description of the supported
+     * behaviors.
+     *
+     * @param profileNetworkPreferenceDetails the preferences for this profile.
+     * @param executor an executor to execute the listener on. Optional if listener is null.
+     * @param listener an optional listener to listen for completion of the operation.
+     * @throws IllegalArgumentException if {@code profile} is not a valid user profile.
+     * @throws SecurityException if missing the appropriate permissions.
+     * @hide
+     */
+    // This function is for establishing per-profile default networking and can only be called by
+    // the device policy manager, running as the system server. It would make no sense to call it
+    // on a context for a user because it does not establish a setting on behalf of a user, rather
+    // it establishes a setting for a user on behalf of the DPM.
+    @SuppressLint({"UserHandle"})
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(android.Manifest.permission.NETWORK_STACK)
+    public void setProfileNetworkPreference(
+            @NonNull ProfileNetworkPreferenceDetails profileNetworkPreferenceDetails,
+            @Nullable @CallbackExecutor final Executor executor,
+            @Nullable final Runnable listener) {
+        if (null != listener) {
+            Objects.requireNonNull(executor, "Pass a non-null executor, or a null listener");
+        }
+        final IOnCompleteListener proxy;
+        if (null == listener) {
+            proxy = null;
+        } else {
+            proxy = new IOnCompleteListener.Stub() {
+                @Override
+                public void onComplete() {
+                    executor.execute(listener::run);
+                }
+            };
+        }
+        try {
+            mService.setProfileNetworkPreference(profileNetworkPreferenceDetails, proxy);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
