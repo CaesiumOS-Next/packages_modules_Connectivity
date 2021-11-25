@@ -123,6 +123,7 @@ import android.net.NetworkRequest;
 import android.net.NetworkSpecifier;
 import android.net.NetworkStateSnapshot;
 import android.net.OemNetworkPreferences;
+import android.net.ProfileNetworkPreferenceDetails;
 import android.net.ProxyInfo;
 import android.net.SocketKeepalive;
 import android.net.TelephonyNetworkSpecifier;
@@ -2325,6 +2326,14 @@ public class ConnectivityManagerTest {
         assumeTrue(TestUtils.shouldTestSApis());
         assertThrows(SecurityException.class, () -> mCm.setProfileNetworkPreference(
                 UserHandle.of(0), PROFILE_NETWORK_PREFERENCE_ENTERPRISE, null /* executor */,
+                null /* listener */));
+        final ProfileNetworkPreferenceDetails preferenceDetails =
+                new ProfileNetworkPreferenceDetails.Builder()
+                        .setProfileAsUser(UserHandle.of(0))
+                        .setProfileNetworkPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE)
+                        .build();
+        assertThrows(SecurityException.class, () -> mCm.setProfileNetworkPreference(
+                preferenceDetails, null /* executor */,
                 null /* listener */));
     }
 
