@@ -2328,6 +2328,26 @@ public class ConnectivityManagerTest {
                 null /* listener */));
     }
 
+    /**
+     * Verify that ConnectivityManager#setProfileNetworkPreference(UserHandle,
+     *      List<ProfileNetworkPreferences>, Executor, Runnable)
+     *      cannot be called without required NETWORK_STACK permissions.
+     */
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test
+    public void testSetProfileNetworkPreferenceBuilder_NoPermission() {
+        assumeTrue(TestUtils.shouldTestSApis());
+        final android.net.ProfileNetworkPreference  preferenceDetails =
+                new android.net.ProfileNetworkPreference.Builder()
+                        .setPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE)
+                        .build();
+        List<android.net.ProfileNetworkPreference> preferences = new ArrayList<>();
+        preferences.add(preferenceDetails);
+        assertThrows(SecurityException.class, () -> mCm.setProfileNetworkPreferences(
+                UserHandle.of(0), preferences, null /* executor */,
+                null /* listener */));
+    }
+
     @Test
     public void testSystemReady() {
         assumeTrue(TestUtils.shouldTestSApis());
