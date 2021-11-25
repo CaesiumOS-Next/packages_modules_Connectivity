@@ -36,6 +36,7 @@ import android.net.NetworkScore;
 import android.net.NetworkState;
 import android.net.NetworkStateSnapshot;
 import android.net.OemNetworkPreferences;
+import android.net.ProfileNetworkPreferenceDetails;
 import android.net.ProxyInfo;
 import android.net.UidRange;
 import android.net.QosSocketInfo;
@@ -45,7 +46,6 @@ import android.os.Messenger;
 import android.os.ParcelFileDescriptor;
 import android.os.PersistableBundle;
 import android.os.ResultReceiver;
-import android.os.UserHandle;
 
 /**
  * Interface that answers queries about, and allows changing, the
@@ -218,7 +218,7 @@ interface IConnectivityManager
     void setOemNetworkPreference(in OemNetworkPreferences preference,
             in IOnCompleteListener listener);
 
-    void setProfileNetworkPreference(in UserHandle profile, int preference,
+    void setProfileNetworkPreference(in ProfileNetworkPreferenceDetails preference,
             in IOnCompleteListener listener);
 
     int getRestrictBackgroundStatusByCaller();
