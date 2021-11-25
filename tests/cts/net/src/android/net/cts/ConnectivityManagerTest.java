@@ -2315,7 +2315,7 @@ public class ConnectivityManagerTest {
     }
 
     /**
-     * Verify that {@link ConnectivityManager#setProfileNetworkPreference} cannot be called
+     * Verify that ConnectivityManager#setProfileNetworkPreference cannot be called
      * without required NETWORK_STACK permissions.
      */
     @Test
@@ -2325,6 +2325,24 @@ public class ConnectivityManagerTest {
         assumeTrue(TestUtils.shouldTestSApis());
         assertThrows(SecurityException.class, () -> mCm.setProfileNetworkPreference(
                 UserHandle.of(0), PROFILE_NETWORK_PREFERENCE_ENTERPRISE, null /* executor */,
+                null /* listener */));
+    }
+
+    /**
+     * Verify that {@link ConnectivityManager#setProfileNetworkPreference(ProfileNetworkPreferences,
+     *      Executor, Runnable)} cannot be called without required NETWORK_STACK permissions.
+     */
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test
+    public void testSetProfileNetworkPreferenceBuilder_NoPermission() {
+        assumeTrue(TestUtils.shouldTestSApis());
+        final android.net.ProfileNetworkPreferences preferenceDetails =
+                new android.net.ProfileNetworkPreferences.Builder()
+                        .setUser(UserHandle.of(0))
+                        .setProfileNetworkPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE)
+                        .build();
+        assertThrows(SecurityException.class, () -> mCm.setProfileNetworkPreference(
+                preferenceDetails, null /* executor */,
                 null /* listener */));
     }
 

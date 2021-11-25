@@ -5461,6 +5461,8 @@ public class ConnectivityManager {
      * @param listener an optional listener to listen for completion of the operation.
      * @throws IllegalArgumentException if {@code profile} is not a valid user profile.
      * @throws SecurityException if missing the appropriate permissions.
+     * @deprecated Use {@link #setProfileNetworkPreference(ProfileNetworkPreferences,
+     * Executor, Runnable)} instead
      * @hide
      */
     // This function is for establishing per-profile default networking and can only be called by
@@ -5470,8 +5472,36 @@ public class ConnectivityManager {
     @SuppressLint({"UserHandle"})
     @SystemApi(client = MODULE_LIBRARIES)
     @RequiresPermission(android.Manifest.permission.NETWORK_STACK)
+    @Deprecated
     public void setProfileNetworkPreference(@NonNull final UserHandle profile,
             @ProfileNetworkPreference final int preference,
+            @Nullable @CallbackExecutor final Executor executor,
+            @Nullable final Runnable listener) {
+
+        ProfileNetworkPreferences.Builder preferenceBuilder =
+                new ProfileNetworkPreferences.Builder();
+        preferenceBuilder.setUser(profile);
+        preferenceBuilder.setProfileNetworkPreference(preference);
+        setProfileNetworkPreference(preferenceBuilder.build(), executor, listener);
+    }
+
+    /**
+     * Request that a user profile is put by default on a network matching a given preference.
+     *
+     * See the documentation for the individual preferences for a description of the supported
+     * behaviors.
+     *
+     * @param profileNetworkPreferences the preferences for this profile.
+     * @param executor an executor to execute the listener on. Optional if listener is null.
+     * @param listener an optional listener to listen for completion of the operation.
+     * @throws IllegalArgumentException if {@code profile} is not a valid user profile.
+     * @throws SecurityException if missing the appropriate permissions.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(android.Manifest.permission.NETWORK_STACK)
+    public void setProfileNetworkPreference(
+            @NonNull ProfileNetworkPreferences profileNetworkPreferences,
             @Nullable @CallbackExecutor final Executor executor,
             @Nullable final Runnable listener) {
         if (null != listener) {
@@ -5489,7 +5519,7 @@ public class ConnectivityManager {
             };
         }
         try {
-            mService.setProfileNetworkPreference(profile, preference, proxy);
+            mService.setProfileNetworkPreference(profileNetworkPreferences, proxy);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
