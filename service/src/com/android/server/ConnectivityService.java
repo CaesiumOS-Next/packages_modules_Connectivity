@@ -165,6 +165,7 @@ import android.net.NetworkUtils;
 import android.net.NetworkWatchlistManager;
 import android.net.OemNetworkPreferences;
 import android.net.PrivateDnsConfigParcel;
+import android.net.ProfileNetworkPreferenceDetails;
 import android.net.ProxyInfo;
 import android.net.QosCallbackException;
 import android.net.QosFilter;
@@ -10072,16 +10073,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * See the documentation for the individual preferences for a description of the supported
      * behaviors.
      *
-     * @param profile the profile concerned.
-     * @param preference the preference for this profile, as one of the PROFILE_NETWORK_PREFERENCE_*
-     *                   constants.
+     * @param preference the profile network preference for a given profile
      * @param listener an optional listener to listen for completion of the operation.
      */
     @Override
-    public void setProfileNetworkPreference(@NonNull final UserHandle profile,
-            @ConnectivityManager.ProfileNetworkPreference final int preference,
+    public void setProfileNetworkPreference(ProfileNetworkPreferenceDetails preference,
             @Nullable final IOnCompleteListener listener) {
+        Objects.requireNonNull(preference);
+        UserHandle profile = preference.getProfileAsUser();
         Objects.requireNonNull(profile);
+
         PermissionUtils.enforceNetworkStackPermission(mContext);
         if (DBG) {
             log("setProfileNetworkPreference " + profile + " to " + preference);
@@ -10096,7 +10097,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         final NetworkCapabilities nc;
-        switch (preference) {
+        switch (preference.getProfileNetworkPreference()) {
             case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT:
                 nc = null;
                 break;
