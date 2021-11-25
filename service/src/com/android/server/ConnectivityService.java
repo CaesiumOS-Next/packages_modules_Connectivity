@@ -166,6 +166,7 @@ import android.net.NetworkUtils;
 import android.net.NetworkWatchlistManager;
 import android.net.OemNetworkPreferences;
 import android.net.PrivateDnsConfigParcel;
+import android.net.ProfileNetworkPreference;
 import android.net.ProxyInfo;
 import android.net.QosCallbackException;
 import android.net.QosFilter;
@@ -224,6 +225,7 @@ import android.util.ArraySet;
 import android.util.LocalLog;
 import android.util.Log;
 import android.util.Pair;
+import android.util.Range;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
@@ -258,7 +260,7 @@ import com.android.server.connectivity.NetworkNotificationManager.NotificationTy
 import com.android.server.connectivity.NetworkOffer;
 import com.android.server.connectivity.NetworkRanker;
 import com.android.server.connectivity.PermissionMonitor;
-import com.android.server.connectivity.ProfileNetworkPreferences;
+import com.android.server.connectivity.ProfileNetworkPreferenceList;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
 
@@ -5046,8 +5048,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
                 case EVENT_SET_PROFILE_NETWORK_PREFERENCE: {
-                    final Pair<ProfileNetworkPreferences.Preference, IOnCompleteListener> arg =
-                            (Pair<ProfileNetworkPreferences.Preference, IOnCompleteListener>)
+                    final Pair<ProfileNetworkPreferenceList.Preference, IOnCompleteListener> arg =
+                            (Pair<ProfileNetworkPreferenceList.Preference, IOnCompleteListener>)
                                     msg.obj;
                     handleSetProfileNetworkPreference(arg.first, arg.second);
                     break;
@@ -5671,7 +5673,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void onUserRemoved(@NonNull final UserHandle user) {
         mPermissionMonitor.onUserRemoved(user);
         // If there was a network preference for this user, remove it.
-        handleSetProfileNetworkPreference(new ProfileNetworkPreferences.Preference(user, null),
+        handleSetProfileNetworkPreference(new ProfileNetworkPreferenceList.Preference(user, null),
                 null /* listener */);
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
@@ -6605,7 +6607,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // Current per-profile network preferences. This object follows the same threading rules as
     // the OEM network preferences above.
     @NonNull
-    private ProfileNetworkPreferences mProfileNetworkPreferences = new ProfileNetworkPreferences();
+    private ProfileNetworkPreferenceList mProfileNetworkPreferences =
+            new ProfileNetworkPreferenceList();
 
     // A set of UIDs that should use mobile data preferentially if available. This object follows
     // the same threading rules as the OEM network preferences above.
@@ -10103,19 +10106,26 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * See the documentation for the individual preferences for a description of the supported
      * behaviors.
      *
-     * @param profile the profile concerned.
-     * @param preference the preference for this profile, as one of the PROFILE_NETWORK_PREFERENCE_*
-     *                   constants.
+     * @param profile the user profile for whih the preference is being set.
+     * @param preferences the list of profile network preferences for the
+     *        provided profile.
      * @param listener an optional listener to listen for completion of the operation.
      */
     @Override
-    public void setProfileNetworkPreference(@NonNull final UserHandle profile,
-            @ConnectivityManager.ProfileNetworkPreference final int preference,
+    public void setProfileNetworkPreferences(
+            @NonNull final UserHandle profile,
+            @NonNull List<ProfileNetworkPreference> preferences,
             @Nullable final IOnCompleteListener listener) {
+        Objects.requireNonNull(preferences);
         Objects.requireNonNull(profile);
+
+        if (preferences.size() == 0) {
+            throw new IllegalArgumentException("Must explicitly pass a "
+                    + "valid profile network preference");
+        }
         PermissionUtils.enforceNetworkStackPermission(mContext);
         if (DBG) {
-            log("setProfileNetworkPreference " + profile + " to " + preference);
+            log("setProfileNetworkPreferences " + profile + " to " + preferences);
         }
         if (profile.getIdentifier() < 0) {
             throw new IllegalArgumentException("Must explicitly specify a user handle ("
@@ -10126,23 +10136,30 @@ public class ConnectivityService extends IConnectivityManager.Stub
             throw new IllegalArgumentException("Profile must be a managed profile");
         }
 
-        final NetworkCapabilities nc;
-        switch (preference) {
-            case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT:
-                nc = null;
-                break;
-            case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE:
-                final UidRange uids = UidRange.createForUser(profile);
-                nc = createDefaultNetworkCapabilitiesForUidRange(uids);
-                nc.addCapability(NET_CAPABILITY_ENTERPRISE);
-                nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
-                break;
-            default:
-                throw new IllegalArgumentException(
-                        "Invalid preference in setProfileNetworkPreference");
+        List<NetworkCapabilities> networkCapabilitiesList = new ArrayList<NetworkCapabilities>();
+        for (ProfileNetworkPreference preference : preferences) {
+            final NetworkCapabilities nc;
+            switch (preference.getProfileNetworkPreference()) {
+                case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT:
+                    nc = null;
+                    break;
+                case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE:
+                    final UidRange uids = UidRange.createForUser(profile);
+                    nc = createDefaultNetworkCapabilitiesForUidRange(uids);
+                    nc.addCapability(NET_CAPABILITY_ENTERPRISE);
+                    nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
+                    break;
+                default:
+                    throw new IllegalArgumentException(
+                            "Invalid preference in setProfileNetworkPreferences");
+            }
+            if (nc != null) {
+                networkCapabilitiesList.add(nc);
+            }
         }
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_PROFILE_NETWORK_PREFERENCE,
-                new Pair<>(new ProfileNetworkPreferences.Preference(profile, nc), listener)));
+                new Pair<>(new ProfileNetworkPreferenceList.Preference(profile,
+                        networkCapabilitiesList), listener)));
     }
 
     private void validateNetworkCapabilitiesOfProfileNetworkPreference(
@@ -10152,9 +10169,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private ArraySet<NetworkRequestInfo> createNrisFromProfileNetworkPreferences(
-            @NonNull final ProfileNetworkPreferences prefs) {
+            @NonNull final ProfileNetworkPreferenceList prefs) {
         final ArraySet<NetworkRequestInfo> result = new ArraySet<>();
-        for (final ProfileNetworkPreferences.Preference pref : prefs.preferences) {
+        for (final ProfileNetworkPreferenceList.Preference pref : prefs.preferences) {
             // The NRI for a user should be comprised of two layers:
             // - The request for the capabilities
             // - The request for the default network, for fallback. Create an image of it to
@@ -10163,10 +10180,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // Note that denying a fallback can be implemented simply by not adding the second
             // request.
             final ArrayList<NetworkRequest> nrs = new ArrayList<>();
-            nrs.add(createNetworkRequest(NetworkRequest.Type.REQUEST, pref.capabilities));
-            nrs.add(createDefaultInternetRequestForTransport(
-                    TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
-            setNetworkRequestUids(nrs, UidRange.fromIntRanges(pref.capabilities.getUids()));
+            for (NetworkCapabilities nc : pref.capabilitiesList) {
+                Set<Range<Integer>> uids = UidRange.toIntRanges(nc.getUidRanges());
+                NetworkRequest nr = createNetworkRequest(NetworkRequest.Type.REQUEST, nc);
+                nr.networkCapabilities.setUids(uids);
+                nrs.add(nr);
+
+                NetworkRequest defaultNr = createDefaultInternetRequestForTransport(
+                        TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT);
+                defaultNr.networkCapabilities.setUids(uids);
+                nrs.add(defaultNr);
+            }
             final NetworkRequestInfo nri = new NetworkRequestInfo(Process.myUid(), nrs,
                     PREFERENCE_ORDER_PROFILE);
             result.add(nri);
@@ -10175,10 +10199,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void handleSetProfileNetworkPreference(
-            @NonNull final ProfileNetworkPreferences.Preference preference,
+            @NonNull final ProfileNetworkPreferenceList.Preference preference,
             @Nullable final IOnCompleteListener listener) {
-        validateNetworkCapabilitiesOfProfileNetworkPreference(preference.capabilities);
-
+        for (NetworkCapabilities nc : preference.capabilitiesList) {
+            validateNetworkCapabilitiesOfProfileNetworkPreference(nc);
+        }
         mProfileNetworkPreferences = mProfileNetworkPreferences.plus(preference);
         removeDefaultNetworkRequestsForPreference(PREFERENCE_ORDER_PROFILE);
         addPerAppDefaultNetworkRequests(
