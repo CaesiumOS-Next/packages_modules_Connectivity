@@ -32,6 +32,8 @@ import android.annotation.CallbackExecutor;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.Looper;
 import android.os.MessageQueue;
@@ -283,7 +285,7 @@ public final class DnsResolver {
             mUserCallback.onAnswer(rfc6724Sort(mNetwork, mAllAnswers), mRcode);
         }
 
-        @Override
+        @Override @TargetApi(Build.VERSION_CODES.R)
         public void onAnswer(@NonNull byte[] answer, int rcode) {
             // If at least one query succeeded, return an rcode of 0.
             // Otherwise, arbitrarily return the first rcode received.
