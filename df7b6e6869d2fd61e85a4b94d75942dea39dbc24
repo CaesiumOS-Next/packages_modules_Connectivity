@@ -1,0 +1,97 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee9d30f_2db981ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-25T07:46:17Z",
+      "side": 1,
+      "message": "I don\u0027t think weird is the right word here because these devices are widely used. \"proprietary\"? \"non-standard\"? \"out-of-tree\"? ...?",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "df7b6e6869d2fd61e85a4b94d75942dea39dbc24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed0151ab_a2710c8a",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-25T07:46:17Z",
+      "side": 1,
+      "message": "Is the availability of that file in this branch imminent? If so, then assuming this CL doesn\u0027t need to go in urgently due to a release cut, it would be better to wait until that file is available.",
+      "range": {
+        "startLine": 163,
+        "startChar": 30,
+        "endLine": 163,
+        "endChar": 96
+      },
+      "revId": "df7b6e6869d2fd61e85a4b94d75942dea39dbc24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87a124f3_816b47fe",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-25T07:46:17Z",
+      "side": 1,
+      "message": "\u003e Prefer to use inclusive terms like \u0027complex\u0027, \u0027unexpected\u0027, or \u0027placeholder\u0027; see https://developers.google.com/style/inclusive-documentation#ableist-language for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.\n\nPlease fix.\n\nMaybe this could be called \"unused\"?",
+      "parentUuid": "d8f4ffef_74c024ed",
+      "range": {
+        "startLine": 180,
+        "startChar": 9,
+        "endLine": 180,
+        "endChar": 14
+      },
+      "revId": "df7b6e6869d2fd61e85a4b94d75942dea39dbc24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6dafe10_39643d58",
+        "filename": "Tethering/jni/com_android_networkstack_tethering_BpfUtils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-11-25T07:46:17Z",
+      "side": 1,
+      "message": "Might want to add a couple of words here to explain that 5.11+ is GKI guaranteed to be GKI 2.0 and to have these patches. I know that\u0027s already in the commit message, but having it here would help folks who just read the code.",
+      "range": {
+        "startLine": 215,
+        "startChar": 31,
+        "endLine": 215,
+        "endChar": 35
+      },
+      "revId": "df7b6e6869d2fd61e85a4b94d75942dea39dbc24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
