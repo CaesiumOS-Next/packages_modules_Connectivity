@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ee46e2f_41ec27ba",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-26T08:56:51Z",
+      "side": 1,
+      "message": "Okay this looks pretty invasive in fact.\n\nIs it possible from here to call ConnectivityThread.getInstanceLooper() ? Because that\u0027s where the old callback used to be called. If you could have a helper method that does the following :\n\n  public void toggleWifi() throws Exception {\n    toggleWifi(ConnectivityThread.getInstanceLooper());\n  }\n\n...then you could revert the invasive changes while keeping the flexibility.\n\nIf you can\u0027t call it... maybe make one on the same model ?",
+      "range": {
+        "startLine": 160,
+        "startChar": 27,
+        "endLine": 160,
+        "endChar": 51
+      },
+      "revId": "4fdf220b371c46bd876f3fa108060853b2b49a8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
