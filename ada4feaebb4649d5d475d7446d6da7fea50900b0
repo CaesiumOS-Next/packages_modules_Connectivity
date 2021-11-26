@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "944a8076_9159b6ec",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-26T09:18:19Z",
+      "side": 1,
+      "message": "This will never return if there is one non-matching packet received every 80ms; 80ms also seems very short if tests use this for async behavior (the timeout should be given as argument).\n\nBut this functionality is already in TapPacketReader:\n\n  public byte[] poll(long timeoutMs, @NonNull Predicate\u003cbyte[]\u003e filter)\n  \nCallers can apply their function on the returned byte[] if they want to transform it (it\u0027s just tests so performance is not very important at that level, calling it twice shouldn\u0027t be a big deal).",
+      "range": {
+        "startLine": 173,
+        "startChar": 55,
+        "endLine": 173,
+        "endChar": 77
+      },
+      "revId": "ada4feaebb4649d5d475d7446d6da7fea50900b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70d6b7c9_9ab5c1d7",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-26T09:18:19Z",
+      "side": 1,
+      "message": "This is deprecated in favor of poll() (just a naming change)",
+      "range": {
+        "startLine": 173,
+        "startChar": 45,
+        "endLine": 173,
+        "endChar": 54
+      },
+      "revId": "ada4feaebb4649d5d475d7446d6da7fea50900b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
