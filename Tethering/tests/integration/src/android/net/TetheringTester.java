@@ -141,7 +141,11 @@ public final class TetheringTester {
         });
     }
 
-    private <R> R getNextMatchedPacket(Function<byte[], R> match) {
+    public void sendPacket(ByteBuffer packet) throws Exception {
+        mDownstreamReader.sendResponse(packet);
+    }
+
+    public <R> R getNextMatchedPacket(Function<byte[], R> match) {
         byte[] packet;
         R result;
         while ((packet = mDownstreamReader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
@@ -151,5 +155,30 @@ public final class TetheringTester {
         }
 
         return null;
+    }
+
+    public static class RemoteResponder {
+        final TapPacketReader mUpstreamReader;
+        public RemoteResponder(TapPacketReader reader) {
+            mUpstreamReader = reader;
+        }
+
+        public void sendPacket(ByteBuffer packet) throws Exception {
+            mUpstreamReader.sendResponse(packet);
+        }
+
+        public <R> R getNextMatchedPacket(Function<byte[], R> match) throws Exception {
+            byte[] packet;
+            R result;
+            while ((packet = mUpstreamReader.popPacket(PACKET_READ_TIMEOUT_MS)) != null) {
+                result = match.apply(packet);
+
+                if (result != null) return result;
+            }
+
+            fail("No matched packet in upstream after " + PACKET_READ_TIMEOUT_MS + " ms");
+
+            return null;
+        }
     }
 }
