@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ea06c5_93898554",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-26T08:25:44Z",
+      "side": 1,
+      "message": "This can be final can\u0027t it ?",
+      "range": {
+        "startLine": 191,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 10
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83c46838_70ff46bd",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-26T08:25:44Z",
+      "side": 1,
+      "message": "This is not wrong but it\u0027s not useful as INTERNET is not included in the defaults, so you\u0027re removing a capability that already isn\u0027t there",
+      "range": {
+        "startLine": 769,
+        "startChar": 0,
+        "endLine": 769,
+        "endChar": 78
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3268428_07997b3d",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-26T08:25:44Z",
+      "side": 1,
+      "message": "How about just\n\n  expectUnderlyingNetworks(",
+      "range": {
+        "startLine": 773,
+        "startChar": 17,
+        "endLine": 773,
+        "endChar": 84
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6116e861_1dbdec3e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-26T08:25:44Z",
+      "side": 1,
+      "message": "You could call the expectUnderlyingNetworks if you just make the 2nd argument nullable and use Objects.equals",
+      "range": {
+        "startLine": 805,
+        "startChar": 25,
+        "endLine": 805,
+        "endChar": 41
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1aafa3_5c2b7045",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-26T08:25:44Z",
+      "side": 1,
+      "message": "Let\u0027s also try passing both :)",
+      "range": {
+        "startLine": 826,
+        "startChar": 48,
+        "endLine": 826,
+        "endChar": 49
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

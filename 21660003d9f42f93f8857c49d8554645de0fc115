@@ -189,6 +189,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a731334d_b297b385",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-26T08:25:44Z",
+      "side": 1,
+      "message": "Sure, it\u0027s fine. It\u0027s having to follow mutable stuff that\u0027s difficult. Final solves that.",
+      "parentUuid": "31e3b14c_d74957a7",
+      "range": {
+        "startLine": 774,
+        "startChar": 12,
+        "endLine": 774,
+        "endChar": 21
+      },
+      "revId": "21660003d9f42f93f8857c49d8554645de0fc115",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a68e82bc_4b31b70d",
