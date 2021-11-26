@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f9b6b5_38102643",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-11-26T02:33:06Z",
+      "side": 1,
+      "message": "You\u0027re right. I think it was fixed in b/177434707.  We do not need this annotation. Removed",
+      "parentUuid": "a08c17f5_1136296f",
+      "range": {
+        "startLine": 288,
+        "startChar": 19,
+        "endLine": 288,
+        "endChar": 28
+      },
+      "revId": "059d952642fda437c2b2cd4f80709ae62c4a8ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4141949_917829c1",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-26T00:50:42Z",
       "side": 1,
       "message": "Maybe have a comment to mention b/205923322 in each of these? This way we know when we can remove them.",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 33
+      },
+      "revId": "059d952642fda437c2b2cd4f80709ae62c4a8ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e81e51f4_7bc05e6f",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-11-26T02:33:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4141949_917829c1",
       "range": {
         "startLine": 98,
         "startChar": 24,
