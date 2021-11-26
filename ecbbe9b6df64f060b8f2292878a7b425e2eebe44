@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99307515_b4d205f2",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-26T08:21:45Z",
+      "side": 1,
+      "message": "\u003e Would it work if we did the following :\n\u003e • Add a call to updateAppIdsTrafficPermission inside onUserAdded\n\u003e • Have this loop simply call onUserAdded with each user\n\u003e • Remove l.337, which is now useless\nI\u0027m a big fan of this suggestion. It\u0027s really great and much simpler. Thanks for it.\n\n\u003e I understand that we don\u0027t actually need to update traffic permissions when a user is added, \u003e but is it harmful ? Considering how rare it is, I don\u0027t think it\u0027s a problem if we do it.\nI think it should not be painful because device users don\u0027t add a new user very often even not.  Besides, updating traffic permissions only change some values on the array, it\u0027s just a simple operation.",
+      "parentUuid": "b4a406fd_123762aa",
+      "range": {
+        "startLine": 340,
+        "startChar": 39,
+        "endLine": 340,
+        "endChar": 40
+      },
+      "revId": "ecbbe9b6df64f060b8f2292878a7b425e2eebe44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9eeefba_5be0f222",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-11-25T08:17:50Z",
       "side": 1,
       "message": "I think this part here could be cut out to a separate patch right ? This would keep the probability of a revert lower.",
+      "range": {
+        "startLine": 660,
+        "startChar": 7,
+        "endLine": 671,
+        "endChar": 0
+      },
+      "revId": "ecbbe9b6df64f060b8f2292878a7b425e2eebe44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f751f117_750543c5",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-26T08:21:45Z",
+      "side": 1,
+      "message": "Ack. Seperate it to aosp/1903462",
+      "parentUuid": "c9eeefba_5be0f222",
       "range": {
         "startLine": 660,
         "startChar": 7,
