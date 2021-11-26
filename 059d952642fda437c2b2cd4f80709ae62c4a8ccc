@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a08c17f5_1136296f",
+        "filename": "framework/src/android/net/DnsResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-26T00:50:42Z",
+      "side": 1,
+      "message": "This looks incorrect: the onAnswer API was added in Q, so it should be callable starting from there.\nThis uses the ParseException constructor, which is part of the same JAR, so this check shouldn\u0027t apply (even if we add methods in API 32, 33... we should still be able to call them from the same JAR without checks). Can you file a bug ?",
+      "range": {
+        "startLine": 288,
+        "startChar": 19,
+        "endLine": 288,
+        "endChar": 28
+      },
+      "revId": "059d952642fda437c2b2cd4f80709ae62c4a8ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4141949_917829c1",
+        "filename": "framework/src/android/net/util/MultinetworkPolicyTracker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-26T00:50:42Z",
+      "side": 1,
+      "message": "Maybe have a comment to mention b/205923322 in each of these? This way we know when we can remove them.",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 33
+      },
+      "revId": "059d952642fda437c2b2cd4f80709ae62c4a8ccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
