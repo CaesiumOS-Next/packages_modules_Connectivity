@@ -27,6 +27,8 @@ import static android.net.ip.ConntrackMonitor.ConntrackEvent;
 import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED;
 import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_DUMP;
+import static com.android.net.module.util.netlink.StructNlMsgHdr.NLM_F_REQUEST;
 
 import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
 import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
@@ -85,6 +87,22 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import android.os.NativeHandle;
+import java.io.FileDescriptor;
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.net.SocketAddress;
+import java.net.SocketException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import com.android.net.module.util.netlink.NetlinkSocket;
+import com.android.net.module.util.netlink.StructNfGenMsg;
+import com.android.net.module.util.netlink.StructNlMsgHdr;
+import android.net.util.SocketUtils;
+import android.system.Os;
 
 /**
  *  This coordinator is responsible for providing BPF offload relevant functionality.
@@ -925,6 +943,80 @@ public class BpfCoordinator {
         return mInterfaceNames.get((int) ifindex, Long.toString(ifindex));
     }
 
+    public NativeHandle createConntrackSocket(final int groups) {
+        final FileDescriptor fd;
+        try {
+            fd = NetlinkSocket.forProto(OsConstants.NETLINK_NETFILTER);
+        } catch (ErrnoException e) {
+            mLog.e("Unable to create conntrack socket " + e);
+            return null;
+        }
+
+        final SocketAddress sockAddr = SocketUtils.makeNetlinkSocketAddress(0, groups);
+        try {
+            Os.bind(fd, sockAddr);
+        } catch (ErrnoException | SocketException e) {
+            mLog.e("Unable to bind conntrack socket for groups " + groups + " error: " + e);
+            try {
+                SocketUtils.closeSocket(fd);
+            } catch (IOException ie) {
+                // Nothing we can do here
+            }
+            return null;
+        }
+        try {
+            Os.connect(fd, sockAddr);
+        } catch (ErrnoException | SocketException e) {
+            mLog.e("connect to kernel fail for groups " + groups + " error: " + e);
+            try {
+                SocketUtils.closeSocket(fd);
+            } catch (IOException ie) {
+                // Nothing we can do here
+            }
+            return null;
+        }
+
+        return new NativeHandle(fd, true);
+    }
+
+    private void sendCtDump() {
+        final long NETLINK_MESSAGE_TIMEOUT_MS = 500;
+
+        // Reference kernel/uapi/linux/netfilter/nfnetlink_compat.h
+        final int NF_NETLINK_CONNTRACK_NEW = 1;
+        final int NF_NETLINK_CONNTRACK_DESTROY = 4;
+
+        // Reference libnetfilter_conntrack/linux_nfnetlink_conntrack.h
+        final short NFNL_SUBSYS_CTNETLINK = 1;
+        final short IPCTNL_MSG_CT_GET = 1;
+
+        final NativeHandle handle = createConntrackSocket(
+                NF_NETLINK_CONNTRACK_NEW | NF_NETLINK_CONNTRACK_DESTROY);
+
+        final int length = StructNlMsgHdr.STRUCT_SIZE + StructNfGenMsg.STRUCT_SIZE;
+        final byte[] msg = new byte[length];
+        final ByteBuffer byteBuffer = ByteBuffer.wrap(msg);
+        byteBuffer.order(ByteOrder.nativeOrder());
+
+        final StructNlMsgHdr nlh = new StructNlMsgHdr();
+        nlh.nlmsg_len = length;
+        nlh.nlmsg_type = (short) ((NFNL_SUBSYS_CTNETLINK << 8) | IPCTNL_MSG_CT_GET);
+        nlh.nlmsg_flags = (short) (NLM_F_REQUEST | NLM_F_DUMP);
+        nlh.nlmsg_seq = 0;
+        nlh.pack(byteBuffer);
+
+        // Header needs to be added to buffer since a generic netlink request is being sent.
+        final StructNfGenMsg nfh = new StructNfGenMsg((byte) OsConstants.AF_INET);
+        nfh.pack(byteBuffer);
+
+        try {
+            NetlinkSocket.sendMessage(handle.getFileDescriptor(), msg, 0 /* offset */, length,
+                                      NETLINK_MESSAGE_TIMEOUT_MS);
+        } catch (ErrnoException | InterruptedIOException e) {
+            mLog.e("Unable to send netfilter message, error: " + e);
+        }
+    }
+
     /**
      * Dump information.
      * Block the function until all the data are dumped on the handler thread or timed-out. The
@@ -932,6 +1024,12 @@ public class BpfCoordinator {
      * be allowed to be accessed on the handler thread.
      */
     public void dump(@NonNull IndentingPrintWriter pw) {
+        
+        mLog.w("sendCtDump+");
+        pw.println("sendCtDump");
+        sendCtDump();
+        mLog.w("sendCtDump-");
+        
         pw.println("mIsBpfEnabled: " + mIsBpfEnabled);
         pw.println("Polling " + (mPollingStarted ? "started" : "not started"));
         pw.println("Stats provider " + (mStatsProvider != null
