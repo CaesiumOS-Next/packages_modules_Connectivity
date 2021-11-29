@@ -25,6 +25,8 @@ import android.net.ConnectivityManager.ProfileNetworkPreferencePolicy;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 /**
  * Network preferences to be set for the user profile
  * {@link ProfileNetworkPreferencePolicy}.
@@ -33,23 +35,40 @@ import android.os.Parcelable;
 @SystemApi(client = MODULE_LIBRARIES)
 public final class ProfileNetworkPreference implements Parcelable {
     private final @ProfileNetworkPreferencePolicy int mPreference;
+    private boolean mAllowFallback;
 
-    private ProfileNetworkPreference(int preference) {
+    private ProfileNetworkPreference(int preference, boolean allowFallback) {
         mPreference = preference;
+        mAllowFallback = allowFallback;
     }
 
     private ProfileNetworkPreference(Parcel in) {
         mPreference = in.readInt();
+        mAllowFallback = in.readBoolean();
     }
 
     public int getPreference() {
         return mPreference;
     }
 
+    /**
+     * is fallback to default network allowed. This boolean allows an enterprise admin to
+     * configure whether default connection (default internet or wifi) should be used or not
+     * if an enterprise connection is not available. If enterprise apn is available and if slice
+     * is not available then enterprise apn will be used to set up the data call. But if that fails
+     * then the data traffic will fall back to default pdn if allowFallback is set to true
+     * else no network will be marked as available for the enterprise profile.
+     * @return true if fallback is allowed, else false.
+     */
+    public boolean isAllowFallback() {
+        return mAllowFallback;
+    }
+
     @Override
     public String toString() {
         return "ProfileNetworkPreference{"
                 + "mPreference=" + getPreference()
+                + "mAllowFallback=" + isAllowFallback()
                 + '}';
     }
 
@@ -58,12 +77,14 @@ public final class ProfileNetworkPreference implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final ProfileNetworkPreference that = (ProfileNetworkPreference) o;
-        return mPreference == that.mPreference;
+        return mPreference == that.mPreference
+                && mAllowFallback == that.mAllowFallback;
     }
 
     @Override
     public int hashCode() {
-        return (mPreference);
+        return ((mPreference * 17)
+                + (Objects.hashCode(mAllowFallback) * 23));
     }
 
     /**
@@ -73,6 +94,7 @@ public final class ProfileNetworkPreference implements Parcelable {
     public static final class Builder {
         private @ProfileNetworkPreferencePolicy int mPreference =
                 PROFILE_NETWORK_PREFERENCE_DEFAULT;
+        private boolean mAllowFallback = true;
 
         /**
          * Constructs an empty Builder with PROFILE_NETWORK_PREFERENCE_DEFAULT profile preference
@@ -91,13 +113,30 @@ public final class ProfileNetworkPreference implements Parcelable {
             mPreference = preference;
             return this;
         }
+
+        /**
+         * Set allow fallback. This boolean allows an enterprise admin to configure whether
+         * default connection (default internet or wifi) should be used or not if an enterprise
+         * connection is not available. If enterprise apn is available and if slice is not
+         * available then enterprise apn will be used to set up the data call. But if that fails
+         * then the data traffic will fall back to default pdn if allowFallback is set to true
+         * else no network will be marked as available for the enterprise profile.
+         * @param allowFallback  true if fallback is allowed else false
+         * @return The builder to facilitate chaining.
+         */
+        @NonNull
+        public Builder setAllowFallback(boolean allowFallback) {
+            mAllowFallback = allowFallback;
+            return this;
+        }
+
         /**
          * Returns an instance of {@link ProfileNetworkPreference} created from the
          * fields set on this builder.
          */
         @NonNull
         public ProfileNetworkPreference  build() {
-            return new ProfileNetworkPreference(mPreference);
+            return new ProfileNetworkPreference(mPreference, mAllowFallback);
         }
     }
 

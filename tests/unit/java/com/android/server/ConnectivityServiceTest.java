@@ -250,6 +250,7 @@ import android.net.NetworkStateSnapshot;
 import android.net.NetworkTestResultParcelable;
 import android.net.OemNetworkPreferences;
 import android.net.PacProxyManager;
+import android.net.ProfileNetworkPreference;
 import android.net.Proxy;
 import android.net.ProxyInfo;
 import android.net.QosCallbackException;
@@ -13864,6 +13865,143 @@ public class ConnectivityServiceTest {
         mSystemDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
         mDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
         mProfileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+
+        // Waiting for the handler to be idle before checking for networkDestroy is necessary
+        // here because ConnectivityService calls onLost before the network is fully torn down.
+        waitForIdle();
+        inOrder.verify(mMockNetd).networkDestroy(mCellNetworkAgent.getNetwork().netId);
+
+        // If the control comes here, callbacks seem to behave correctly in the presence of
+        // a default network when the enterprise network goes up and down. Now, make sure they
+        // also behave correctly in the absence of a system-wide default network.
+        final TestNetworkAgentWrapper workAgent2 = makeEnterpriseNetworkAgent();
+        workAgent2.connect(false);
+
+        mProfileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent2);
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
+        inOrder.verify(mMockNetd).networkCreate(nativeNetworkConfigPhysical(
+                workAgent2.getNetwork().netId, INetd.PERMISSION_SYSTEM));
+        inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
+                workAgent2.getNetwork().netId, uidRangeFor(testHandle), PREFERENCE_ORDER_PROFILE));
+
+        workAgent2.setNetworkValid(true /* isStrictMode */);
+        workAgent2.mNetworkMonitor.forceReevaluation(Process.myUid());
+        mProfileDefaultNetworkCallback.expectCapabilitiesThat(workAgent2,
+                nc -> nc.hasCapability(NET_CAPABILITY_ENTERPRISE)
+                        && !nc.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
+        inOrder.verify(mMockNetd, never()).networkAddUidRangesParcel(any());
+
+        // When the agent disconnects, test that the app on the work profile falls back to the
+        // default network.
+        workAgent2.disconnect();
+        mProfileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, workAgent2);
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
+        inOrder.verify(mMockNetd).networkDestroy(workAgent2.getNetwork().netId);
+
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback,
+                mProfileDefaultNetworkCallback);
+
+        // Callbacks will be unregistered by tearDown()
+    }
+
+    /**
+     * Make sure per-profile networking preference behaves as expected when the enterprise network
+     * goes up and down while the preference is active. Make sure they behave as expected whether
+     * there is a general default network or not when configured to not fallback to default network.
+     */
+    @Test
+    public void testPreferenceForUserNetworkUpDownWithNoFallback() throws Exception {
+        final InOrder inOrder = inOrder(mMockNetd);
+        final UserHandle testHandle = setupEnterpriseNetwork();
+        registerDefaultNetworkCallbacks();
+
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+
+        mSystemDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        mProfileDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        inOrder.verify(mMockNetd).networkCreate(nativeNetworkConfigPhysical(
+                mCellNetworkAgent.getNetwork().netId, INetd.PERMISSION_NONE));
+
+        final TestOnCompleteListener listener = new TestOnCompleteListener();
+        ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
+                new ProfileNetworkPreference.Builder();
+        profileNetworkPreferenceBuilder.setPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE);
+        profileNetworkPreferenceBuilder.setAllowFallback(false);
+        mCm.setProfileNetworkPreferences(testHandle,
+                List.of(profileNetworkPreferenceBuilder.build()),
+                r -> r.run(), listener);
+        listener.expectOnComplete();
+
+        final TestNetworkAgentWrapper workAgent = makeEnterpriseNetworkAgent();
+        workAgent.connect(false);
+
+        mProfileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+        mProfileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent);
+        mSystemDefaultNetworkCallback.assertNoCallback();
+        mDefaultNetworkCallback.assertNoCallback();
+        inOrder.verify(mMockNetd).networkCreate(
+                nativeNetworkConfigPhysical(workAgent.getNetwork().netId, INetd.PERMISSION_SYSTEM));
+        inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
+                workAgent.getNetwork().netId, uidRangeFor(testHandle), PREFERENCE_ORDER_PROFILE));
+        //inOrder.verify(mMockNetd).networkRemoveUidRangesParcel(new NativeUidRangeConfig(
+        //        mCellNetworkAgent.getNetwork().netId, uidRangeFor(testHandle),
+        //        PREFERENCE_ORDER_PROFILE));
+
+        // Make sure changes to the work agent send callbacks to the app in the work profile, but
+        // not to the other apps.
+        workAgent.setNetworkValid(true /* isStrictMode */);
+        workAgent.mNetworkMonitor.forceReevaluation(Process.myUid());
+        mProfileDefaultNetworkCallback.expectCapabilitiesThat(workAgent,
+                nc -> nc.hasCapability(NET_CAPABILITY_VALIDATED)
+                        && nc.hasCapability(NET_CAPABILITY_ENTERPRISE));
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
+
+        workAgent.addCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED);
+        mProfileDefaultNetworkCallback.expectCapabilitiesThat(workAgent, nc ->
+                nc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED));
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
+
+        // Conversely, change a capability on the system-wide default network and make sure
+        // that only the apps outside of the work profile receive the callbacks.
+        mCellNetworkAgent.addCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED);
+        mSystemDefaultNetworkCallback.expectCapabilitiesThat(mCellNetworkAgent, nc ->
+                nc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED));
+        mDefaultNetworkCallback.expectCapabilitiesThat(mCellNetworkAgent, nc ->
+                nc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED));
+        mProfileDefaultNetworkCallback.assertNoCallback();
+
+        // Disconnect and reconnect the system-wide default network and make sure that the
+        // apps on this network see the appropriate callbacks, and the app on the work profile
+        // doesn't because it continues to use the enterprise network.
+        mCellNetworkAgent.disconnect();
+        mSystemDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+        mDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+        mProfileDefaultNetworkCallback.assertNoCallback();
+        inOrder.verify(mMockNetd).networkDestroy(mCellNetworkAgent.getNetwork().netId);
+
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        mSystemDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        mProfileDefaultNetworkCallback.assertNoCallback();
+        inOrder.verify(mMockNetd).networkCreate(nativeNetworkConfigPhysical(
+                mCellNetworkAgent.getNetwork().netId, INetd.PERMISSION_NONE));
+
+        // When the agent disconnects, test that the app on the work profile does not falls back
+        // to the default network.
+        workAgent.disconnect();
+        mProfileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, workAgent);
+        mProfileDefaultNetworkCallback.assertNoCallback();
+        assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
+        inOrder.verify(mMockNetd).networkDestroy(workAgent.getNetwork().netId);
+
+        mCellNetworkAgent.disconnect();
+        mSystemDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+        mDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+        mProfileDefaultNetworkCallback.assertNoCallback();
 
         // Waiting for the handler to be idle before checking for networkDestroy is necessary
         // here because ConnectivityService calls onLost before the network is fully torn down.
