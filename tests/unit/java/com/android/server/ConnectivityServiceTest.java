@@ -338,6 +338,7 @@ import com.android.server.connectivity.NetworkAgentInfo;
 import com.android.server.connectivity.NetworkNotificationManager.NotificationType;
 import com.android.server.connectivity.ProxyTracker;
 import com.android.server.connectivity.QosCallbackTracker;
+import com.android.server.connectivity.UidRangeUtils;
 import com.android.server.connectivity.Vpn;
 import com.android.server.connectivity.VpnProfileStore;
 import com.android.server.net.NetworkPinner;
@@ -443,6 +444,10 @@ public class ConnectivityServiceTest {
     private static final int TEST_WORK_PROFILE_USER_ID = 2;
     private static final int TEST_WORK_PROFILE_APP_UID =
             UserHandle.getUid(TEST_WORK_PROFILE_USER_ID, TEST_APP_ID);
+    private static final int TEST_APP_ID_2 = 104;
+    private static final int TEST_WORK_PROFILE_APP_UID_2 =
+            UserHandle.getUid(TEST_WORK_PROFILE_USER_ID, TEST_APP_ID_2);
+
     private static final String CLAT_PREFIX = "v4-";
     private static final String MOBILE_IFNAME = "test_rmnet_data0";
     private static final String CLAT_MOBILE_IFNAME = CLAT_PREFIX + MOBILE_IFNAME;
@@ -492,6 +497,8 @@ public class ConnectivityServiceTest {
     private TestNetworkCallback mSystemDefaultNetworkCallback;
     private TestNetworkCallback mProfileDefaultNetworkCallback;
     private TestNetworkCallback mTestPackageDefaultNetworkCallback;
+    private TestNetworkCallback mProfileDefaultNetworkCallback2;
+    private TestNetworkCallback mTestPackageDefaultNetworkCallback2;
 
     // State variables required to emulate NetworkPolicyManagerService behaviour.
     private int mBlockedReasons = BLOCKED_REASON_NONE;
@@ -12247,6 +12254,8 @@ public class ConnectivityServiceTest {
     private void registerDefaultNetworkCallbacks() {
         if (mSystemDefaultNetworkCallback != null || mDefaultNetworkCallback != null
                 || mProfileDefaultNetworkCallback != null
+                || mProfileDefaultNetworkCallback2 != null
+                || mTestPackageDefaultNetworkCallback2 != null
                 || mTestPackageDefaultNetworkCallback != null) {
             throw new IllegalStateException("Default network callbacks already registered");
         }
@@ -12257,12 +12266,18 @@ public class ConnectivityServiceTest {
         mDefaultNetworkCallback = new TestNetworkCallback();
         mProfileDefaultNetworkCallback = new TestNetworkCallback();
         mTestPackageDefaultNetworkCallback = new TestNetworkCallback();
+        mProfileDefaultNetworkCallback2 = new TestNetworkCallback();
+        mTestPackageDefaultNetworkCallback2 = new TestNetworkCallback();
         mCm.registerSystemDefaultNetworkCallback(mSystemDefaultNetworkCallback,
                 new Handler(ConnectivityThread.getInstanceLooper()));
         mCm.registerDefaultNetworkCallback(mDefaultNetworkCallback);
         registerDefaultNetworkCallbackAsUid(mProfileDefaultNetworkCallback,
                 TEST_WORK_PROFILE_APP_UID);
         registerDefaultNetworkCallbackAsUid(mTestPackageDefaultNetworkCallback, TEST_PACKAGE_UID);
+        registerDefaultNetworkCallbackAsUid(mProfileDefaultNetworkCallback2,
+                TEST_WORK_PROFILE_APP_UID_2);
+        registerDefaultNetworkCallbackAsUid(mTestPackageDefaultNetworkCallback2,
+                TEST_PACKAGE_UID2);
         // TODO: test using ConnectivityManager#registerDefaultNetworkCallbackAsUid as well.
         mServiceContext.setPermission(NETWORK_SETTINGS, PERMISSION_DENIED);
     }
@@ -12279,6 +12294,12 @@ public class ConnectivityServiceTest {
         }
         if (null != mTestPackageDefaultNetworkCallback) {
             mCm.unregisterNetworkCallback(mTestPackageDefaultNetworkCallback);
+        }
+        if (null != mProfileDefaultNetworkCallback2) {
+            mCm.unregisterNetworkCallback(mProfileDefaultNetworkCallback2);
+        }
+        if (null != mTestPackageDefaultNetworkCallback2) {
+            mCm.unregisterNetworkCallback(mTestPackageDefaultNetworkCallback2);
         }
     }
 
@@ -13712,6 +13733,40 @@ public class ConnectivityServiceTest {
         return new UidRangeParcel[] { new UidRangeParcel(range.start, range.stop) };
     }
 
+    private UidRangeParcel[] uidRangeFor(final UserHandle handle,
+            ProfileNetworkPreference profileNetworkPreference) {
+        if (profileNetworkPreference.getIncludedUids() != null
+                && profileNetworkPreference.getIncludedUids().size() != 0) {
+            Set<UidRange> uidRangeSet = UidRangeUtils.convertListToUidRange(
+                    profileNetworkPreference.getIncludedUids());
+            UidRangeParcel[] uidRangeParcels = new UidRangeParcel[uidRangeSet.size()];
+            int i = 0;
+            for (UidRange range : uidRangeSet) {
+                uidRangeParcels[i] = new UidRangeParcel(range.start, range.stop);
+                i++;
+            }
+            return uidRangeParcels;
+        } else {
+            UidRange range = UidRange.createForUser(handle);
+            if (profileNetworkPreference.getExcludedUids() != null
+                    && profileNetworkPreference.getExcludedUids().size() != 0) {
+                Set<UidRange> uidRangeSet = UidRangeUtils.removeRangeSetFromUidRange(range,
+                        UidRangeUtils.convertListToUidRange(
+                                profileNetworkPreference.getExcludedUids()));
+
+                UidRangeParcel[] uidRangeParcels = new UidRangeParcel[uidRangeSet.size()];
+                int i = 0;
+                for (UidRange range1 : uidRangeSet) {
+                    uidRangeParcels[i] = new UidRangeParcel(range1.start, range1.stop);
+                    i++;
+                }
+                return uidRangeParcels;
+            } else {
+                return new UidRangeParcel[]{new UidRangeParcel(range.start, range.stop)};
+            }
+        }
+    }
+
     private static class TestOnCompleteListener implements Runnable {
         final class OnComplete {}
         final ArrayTrackRecord<OnComplete>.ReadHead mHistory =
@@ -13762,17 +13817,22 @@ public class ConnectivityServiceTest {
      */
     public void testPreferenceForUserNetworkUpDownForGivenPreference(
             ProfileNetworkPreference profileNetworkPreference,
-            boolean connectWorkProfileAgentAhead) throws Exception {
+            boolean connectWorkProfileAgentAhead,
+            UserHandle testHandle,
+            TestNetworkCallback profileDefaultNetworkCallback,
+            TestNetworkCallback disAllowProfileDefaultNetworkCallback) throws Exception {
         final InOrder inOrder = inOrder(mMockNetd);
-        final UserHandle testHandle = setupEnterpriseNetwork();
-        registerDefaultNetworkCallbacks();
 
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mCellNetworkAgent.connect(true);
 
         mSystemDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
         mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
-        mProfileDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        profileDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            disAllowProfileDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(
+                    mCellNetworkAgent);
+        }
         inOrder.verify(mMockNetd).networkCreate(nativeNetworkConfigPhysical(
                 mCellNetworkAgent.getNetwork().netId, INetd.PERMISSION_NONE));
 
@@ -13800,33 +13860,43 @@ public class ConnectivityServiceTest {
             // system default is not handled specially, the rules are always active as long as
             // a preference is set.
             inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
-                    mCellNetworkAgent.getNetwork().netId, uidRangeFor(testHandle),
+                    mCellNetworkAgent.getNetwork().netId,
+                    uidRangeFor(testHandle, profileNetworkPreference),
                     PREFERENCE_ORDER_PROFILE));
         }
 
         // The enterprise network is not ready yet.
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
         if (allowFallback) {
-            assertNoCallbacks(mProfileDefaultNetworkCallback);
+            assertNoCallbacks(profileDefaultNetworkCallback);
         } else if (!connectWorkProfileAgentAhead) {
-            mProfileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+            profileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+            if (disAllowProfileDefaultNetworkCallback != null) {
+                assertNoCallbacks(disAllowProfileDefaultNetworkCallback);
+            }
         }
 
         if (!connectWorkProfileAgentAhead) {
             workAgent.connect(false);
         }
 
-        mProfileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent);
+        profileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent);
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            disAllowProfileDefaultNetworkCallback.assertNoCallback();
+        }
         mSystemDefaultNetworkCallback.assertNoCallback();
         mDefaultNetworkCallback.assertNoCallback();
         inOrder.verify(mMockNetd).networkCreate(
                 nativeNetworkConfigPhysical(workAgent.getNetwork().netId, INetd.PERMISSION_SYSTEM));
         inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
-                workAgent.getNetwork().netId, uidRangeFor(testHandle), PREFERENCE_ORDER_PROFILE));
+                workAgent.getNetwork().netId,
+                uidRangeFor(testHandle, profileNetworkPreference),
+                PREFERENCE_ORDER_PROFILE));
 
         if (allowFallback) {
             inOrder.verify(mMockNetd).networkRemoveUidRangesParcel(new NativeUidRangeConfig(
-                    mCellNetworkAgent.getNetwork().netId, uidRangeFor(testHandle),
+                    mCellNetworkAgent.getNetwork().netId,
+                    uidRangeFor(testHandle, profileNetworkPreference),
                     PREFERENCE_ORDER_PROFILE));
         }
 
@@ -13834,14 +13904,20 @@ public class ConnectivityServiceTest {
         // not to the other apps.
         workAgent.setNetworkValid(true /* isStrictMode */);
         workAgent.mNetworkMonitor.forceReevaluation(Process.myUid());
-        mProfileDefaultNetworkCallback.expectCapabilitiesThat(workAgent,
+        profileDefaultNetworkCallback.expectCapabilitiesThat(workAgent,
                 nc -> nc.hasCapability(NET_CAPABILITY_VALIDATED)
                         && nc.hasCapability(NET_CAPABILITY_ENTERPRISE));
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            assertNoCallbacks(disAllowProfileDefaultNetworkCallback);
+        }
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
 
         workAgent.addCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED);
-        mProfileDefaultNetworkCallback.expectCapabilitiesThat(workAgent, nc ->
+        profileDefaultNetworkCallback.expectCapabilitiesThat(workAgent, nc ->
                 nc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED));
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            assertNoCallbacks(disAllowProfileDefaultNetworkCallback);
+        }
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
 
         // Conversely, change a capability on the system-wide default network and make sure
@@ -13851,7 +13927,11 @@ public class ConnectivityServiceTest {
                 nc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED));
         mDefaultNetworkCallback.expectCapabilitiesThat(mCellNetworkAgent, nc ->
                 nc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED));
-        mProfileDefaultNetworkCallback.assertNoCallback();
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            disAllowProfileDefaultNetworkCallback.expectCapabilitiesThat(mCellNetworkAgent, nc ->
+                    nc.hasCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED));
+        }
+        profileDefaultNetworkCallback.assertNoCallback();
 
         // Disconnect and reconnect the system-wide default network and make sure that the
         // apps on this network see the appropriate callbacks, and the app on the work profile
@@ -13859,28 +13939,41 @@ public class ConnectivityServiceTest {
         mCellNetworkAgent.disconnect();
         mSystemDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
         mDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
-        mProfileDefaultNetworkCallback.assertNoCallback();
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            disAllowProfileDefaultNetworkCallback.expectCallback(
+                    CallbackEntry.LOST, mCellNetworkAgent);
+        }
+        profileDefaultNetworkCallback.assertNoCallback();
         inOrder.verify(mMockNetd).networkDestroy(mCellNetworkAgent.getNetwork().netId);
 
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mCellNetworkAgent.connect(true);
         mSystemDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
         mDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(mCellNetworkAgent);
-        mProfileDefaultNetworkCallback.assertNoCallback();
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            disAllowProfileDefaultNetworkCallback.expectAvailableThenValidatedCallbacks(
+                    mCellNetworkAgent);
+
+        }
+        profileDefaultNetworkCallback.assertNoCallback();
         inOrder.verify(mMockNetd).networkCreate(nativeNetworkConfigPhysical(
                 mCellNetworkAgent.getNetwork().netId, INetd.PERMISSION_NONE));
 
         // When the agent disconnects, test that the app on the work profile falls back to the
         // default network.
         workAgent.disconnect();
-        mProfileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, workAgent);
+        profileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, workAgent);
         if (allowFallback) {
-            mProfileDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+            profileDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+            if (disAllowProfileDefaultNetworkCallback != null) {
+                assertNoCallbacks(disAllowProfileDefaultNetworkCallback);
+            }
         }
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
         if (allowFallback) {
             inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
-                    mCellNetworkAgent.getNetwork().netId, uidRangeFor(testHandle),
+                    mCellNetworkAgent.getNetwork().netId,
+                    uidRangeFor(testHandle, profileNetworkPreference),
                     PREFERENCE_ORDER_PROFILE));
         }
         inOrder.verify(mMockNetd).networkDestroy(workAgent.getNetwork().netId);
@@ -13888,8 +13981,12 @@ public class ConnectivityServiceTest {
         mCellNetworkAgent.disconnect();
         mSystemDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
         mDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            disAllowProfileDefaultNetworkCallback.expectCallback(
+                    CallbackEntry.LOST, mCellNetworkAgent);
+        }
         if (allowFallback) {
-            mProfileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+            profileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
         }
 
         // Waiting for the handler to be idle before checking for networkDestroy is necessary
@@ -13903,30 +14000,40 @@ public class ConnectivityServiceTest {
         final TestNetworkAgentWrapper workAgent2 = makeEnterpriseNetworkAgent();
         workAgent2.connect(false);
 
-        mProfileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent2);
+        profileDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(workAgent2);
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            assertNoCallbacks(disAllowProfileDefaultNetworkCallback);
+        }
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
         inOrder.verify(mMockNetd).networkCreate(nativeNetworkConfigPhysical(
                 workAgent2.getNetwork().netId, INetd.PERMISSION_SYSTEM));
         inOrder.verify(mMockNetd).networkAddUidRangesParcel(new NativeUidRangeConfig(
-                workAgent2.getNetwork().netId, uidRangeFor(testHandle), PREFERENCE_ORDER_PROFILE));
+                workAgent2.getNetwork().netId,
+                uidRangeFor(testHandle, profileNetworkPreference), PREFERENCE_ORDER_PROFILE));
 
         workAgent2.setNetworkValid(true /* isStrictMode */);
         workAgent2.mNetworkMonitor.forceReevaluation(Process.myUid());
-        mProfileDefaultNetworkCallback.expectCapabilitiesThat(workAgent2,
+        profileDefaultNetworkCallback.expectCapabilitiesThat(workAgent2,
                 nc -> nc.hasCapability(NET_CAPABILITY_ENTERPRISE)
                         && !nc.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            assertNoCallbacks(disAllowProfileDefaultNetworkCallback);
+        }
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
         inOrder.verify(mMockNetd, never()).networkAddUidRangesParcel(any());
 
         // When the agent disconnects, test that the app on the work profile fall back to the
         // default network.
         workAgent2.disconnect();
-        mProfileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, workAgent2);
+        profileDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, workAgent2);
+        if (disAllowProfileDefaultNetworkCallback != null) {
+            assertNoCallbacks(disAllowProfileDefaultNetworkCallback);
+        }
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
         inOrder.verify(mMockNetd).networkDestroy(workAgent2.getNetwork().netId);
 
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback,
-                mProfileDefaultNetworkCallback);
+                profileDefaultNetworkCallback);
 
         // Callbacks will be unregistered by tearDown()
     }
@@ -13938,11 +14045,14 @@ public class ConnectivityServiceTest {
      */
     @Test
     public void testPreferenceForUserNetworkUpDown() throws Exception {
+        final UserHandle testHandle = setupEnterpriseNetwork();
         ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
                 new ProfileNetworkPreference.Builder();
         profileNetworkPreferenceBuilder.setPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE);
+        registerDefaultNetworkCallbacks();
         testPreferenceForUserNetworkUpDownForGivenPreference(
-                profileNetworkPreferenceBuilder.build(), false);
+                profileNetworkPreferenceBuilder.build(), false,
+                testHandle, mProfileDefaultNetworkCallback, null);
     }
 
     /**
@@ -13952,12 +14062,15 @@ public class ConnectivityServiceTest {
      */
     @Test
     public void testPreferenceForUserNetworkUpDownWithNoFallback() throws Exception {
+        final UserHandle testHandle = setupEnterpriseNetwork();
         ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
                 new ProfileNetworkPreference.Builder();
         profileNetworkPreferenceBuilder.setPreference(
                 PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK);
+        registerDefaultNetworkCallbacks();
         testPreferenceForUserNetworkUpDownForGivenPreference(
-                profileNetworkPreferenceBuilder.build(), false);
+                profileNetworkPreferenceBuilder.build(), false,
+                testHandle, mProfileDefaultNetworkCallback, null);
     }
 
     /**
@@ -13969,12 +14082,69 @@ public class ConnectivityServiceTest {
     @Test
     public void testPreferenceForUserNetworkUpDownWithNoFallbackWithAlreadyConnectedWorkAgent()
             throws Exception {
+        final UserHandle testHandle = setupEnterpriseNetwork();
         ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
                 new ProfileNetworkPreference.Builder();
         profileNetworkPreferenceBuilder.setPreference(
                 PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK);
+        registerDefaultNetworkCallbacks();
         testPreferenceForUserNetworkUpDownForGivenPreference(
-                profileNetworkPreferenceBuilder.build(), true);
+                profileNetworkPreferenceBuilder.build(), true, testHandle,
+                mProfileDefaultNetworkCallback, null);
+    }
+
+    /**
+     * Make sure per-profile networking preference for specific uid of test handle
+     * behaves as expected
+     */
+    @Test
+    public void testPreferenceForDefaultUidOfTestHandle() throws Exception {
+        final UserHandle testHandle = setupEnterpriseNetwork();
+        ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
+                new ProfileNetworkPreference.Builder();
+        profileNetworkPreferenceBuilder.setPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE);
+        profileNetworkPreferenceBuilder.setIncludedUids(
+                List.of(testHandle.getUid(TEST_WORK_PROFILE_APP_UID)));
+        registerDefaultNetworkCallbacks();
+        testPreferenceForUserNetworkUpDownForGivenPreference(
+                profileNetworkPreferenceBuilder.build(), false, testHandle,
+                mProfileDefaultNetworkCallback, null);
+    }
+
+    /**
+     * Make sure per-profile networking preference for specific uid of test handle
+     * behaves as expected
+     */
+    @Test
+    public void testPreferenceForSpecificUidOfOnlyOneApp() throws Exception {
+        final UserHandle testHandle = setupEnterpriseNetwork();
+        ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
+                new ProfileNetworkPreference.Builder();
+        profileNetworkPreferenceBuilder.setPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE);
+        profileNetworkPreferenceBuilder.setIncludedUids(
+                List.of(testHandle.getUid(TEST_WORK_PROFILE_APP_UID_2)));
+        registerDefaultNetworkCallbacks();
+        testPreferenceForUserNetworkUpDownForGivenPreference(
+                profileNetworkPreferenceBuilder.build(), false,
+                testHandle, mProfileDefaultNetworkCallback2, null);
+    }
+
+    /**
+     * Make sure per-profile networking preference for specific uid of test handle
+     * behaves as expected
+     */
+    @Test
+    public void testPreferenceForDisallowSpecificUidOfApp() throws Exception {
+        final UserHandle testHandle = setupEnterpriseNetwork();
+        ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
+                new ProfileNetworkPreference.Builder();
+        profileNetworkPreferenceBuilder.setPreference(PROFILE_NETWORK_PREFERENCE_ENTERPRISE);
+        profileNetworkPreferenceBuilder.setExcludedUids(
+                List.of(testHandle.getUid(TEST_WORK_PROFILE_APP_UID_2)));
+        registerDefaultNetworkCallbacks();
+        testPreferenceForUserNetworkUpDownForGivenPreference(
+                profileNetworkPreferenceBuilder.build(), false,
+                testHandle, mProfileDefaultNetworkCallback, mProfileDefaultNetworkCallback2);
     }
 
     /**
