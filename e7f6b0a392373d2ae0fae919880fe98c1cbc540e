@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38e62ccf_fb116340",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-29T11:31:56Z",
+      "side": 1,
+      "message": "As discussed earlier, could you just add a library to make soong happy in downstream branches ? The build rule should already be disabled there, so it just needs to pass creating the build graph.",
+      "revId": "e7f6b0a392373d2ae0fae919880fe98c1cbc540e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
