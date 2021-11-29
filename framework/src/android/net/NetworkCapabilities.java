@@ -212,6 +212,18 @@ public final class NetworkCapabilities implements Parcelable {
         return NetworkCapabilitiesUtils.unpackBits(mEnterpriseCapabilitySubLevel);
     }
 
+    /**
+     * Tests for the presence of an enterprise capability sublevel on this instance.
+     *
+     * @param enterpriseCapabilitySubLevel the enterprise capabilitiy sublevel to be tested for.
+     * @return {@code true} if set on this instance.
+     */
+    public boolean hasEnterpriseCapabilitySubLevel(
+            @EnterpriseCapabilitySubLevel int enterpriseCapabilitySubLevel) {
+        return isValidEnterpriseCapabilitySubLevel(enterpriseCapabilitySubLevel)
+                && ((mEnterpriseCapabilitySubLevel & (1L << enterpriseCapabilitySubLevel)) != 0);
+    }
+
     public NetworkCapabilities() {
         clearAll();
         mNetworkCapabilities = DEFAULT_CAPABILITIES;
@@ -792,7 +804,7 @@ public final class NetworkCapabilities implements Parcelable {
      * @return This NetworkCapabilities instance, to facilitate chaining.
      * @hide
      */
-    private @NonNull NetworkCapabilities addEnterpriseCapabilitySubLevel(
+    public @NonNull NetworkCapabilities addEnterpriseCapabilitySubLevel(
             @EnterpriseCapabilitySubLevel int enterpriseCapabilitySubLevel) {
         checkValidEnterpriseCapabilitySublevel(enterpriseCapabilitySubLevel);
         mEnterpriseCapabilitySubLevel |= 1 << enterpriseCapabilitySubLevel;
