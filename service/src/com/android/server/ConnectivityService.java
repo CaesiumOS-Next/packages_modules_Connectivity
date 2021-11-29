@@ -10153,6 +10153,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     final UidRange uids = UidRange.createForUser(profile);
                     nc = createDefaultNetworkCapabilitiesForUidRange(uids);
                     nc.addCapability(NET_CAPABILITY_ENTERPRISE);
+                    nc.addEnterpriseCapabilitySubLevel(
+                            preference.getPreferenceEnterpriseSubLevel());
                     nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
                     break;
                 default:

@@ -156,14 +156,21 @@ package android.net {
   public final class ProfileNetworkPreference implements android.os.Parcelable {
     method public int describeContents();
     method public int getPreference();
+    method public int getPreferenceEnterpriseSubLevel();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.ProfileNetworkPreference> CREATOR;
+    field public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_1 = 1; // 0x1
+    field public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_2 = 2; // 0x2
+    field public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_3 = 3; // 0x3
+    field public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_4 = 4; // 0x4
+    field public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_5 = 5; // 0x5
   }
 
   public static final class ProfileNetworkPreference.Builder {
     ctor public ProfileNetworkPreference.Builder();
     method @NonNull public android.net.ProfileNetworkPreference build();
     method @NonNull public android.net.ProfileNetworkPreference.Builder setPreference(int);
+    method @NonNull public android.net.ProfileNetworkPreference.Builder setPreferenceEnterpriseSubLevel(int);
   }
 
   public final class TestNetworkInterface implements android.os.Parcelable {

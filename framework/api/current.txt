@@ -302,6 +302,7 @@ package android.net {
     method public int getSignalStrength();
     method @Nullable public android.net.TransportInfo getTransportInfo();
     method public boolean hasCapability(int);
+    method public boolean hasEnterpriseCapabilitySubLevel(int);
     method public boolean hasTransport(int);
     method public void writeToParcel(android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.NetworkCapabilities> CREATOR;
