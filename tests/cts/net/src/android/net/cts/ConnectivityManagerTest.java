@@ -18,6 +18,7 @@ package android.net.cts;
 
 import static android.Manifest.permission.CONNECTIVITY_INTERNAL;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
+import static android.Manifest.permission.MANAGE_LOW_POWER_STANDBY;
 import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.content.pm.PackageManager.FEATURE_BLUETOOTH;
@@ -138,6 +139,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.MessageQueue;
+import android.os.PowerManager;
 import android.os.Process;
 import android.os.SystemClock;
 import android.os.SystemProperties;
@@ -203,6 +205,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
@@ -3027,6 +3030,47 @@ public class ConnectivityManagerTest {
         final String dumpOutput = DumpTestUtils.dumpServiceWithShellPermission(
                 Context.CONNECTIVITY_SERVICE, "--short");
         assertTrue(dumpOutput, dumpOutput.contains("Active default network"));
+    }
+
+    @Test
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S_V2)
+    @AppModeFull(reason = "MANAGE_LOW_POWER_STANDBY permission can't be granted to instant apps")
+    public void testLowPowerStandbyBlocksNetwork() throws Exception {
+        final PowerManager powerManager = mContext.getSystemService(PowerManager.class);
+        Boolean lowPowerStandbySupported = callWithShellPermissionIdentity(
+                () -> powerManager.isLowPowerStandbySupported(),
+                MANAGE_LOW_POWER_STANDBY);
+        assumeTrue(lowPowerStandbySupported);
+
+        final DetailedBlockedStatusCallback networkCallback = new DetailedBlockedStatusCallback();
+        final Handler handler = new Handler(Looper.getMainLooper());
+        final Network defaultNetwork = mCm.getActiveNetwork();
+
+        registerDefaultNetworkCallback(networkCallback, handler);
+        networkCallback.expectAvailableCallbacks(defaultNetwork);
+
+        try {
+            runWithShellPermissionIdentity(() -> {
+                powerManager.forceLowPowerStandbyActive(true);
+            }, MANAGE_LOW_POWER_STANDBY);
+
+            networkCallback.eventuallyExpect(CallbackEntry.BLOCKED_STATUS_INT,
+                    NETWORK_CALLBACK_TIMEOUT_MS,
+                    entry -> (((CallbackEntry.BlockedStatusInt) entry).getBlocked()
+                            & ConnectivityManager.BLOCKED_REASON_LOW_POWER_STANDBY) != 0);
+
+            final String randomHostName = String.format("lpscts-%d-ds.metric.gstatic.com",
+                    new Random().nextInt(1000000000));
+            try {
+                InetAddress.getByName(randomHostName);
+                fail("DNS lookup should fail with Low Power Standby enabled");
+            } catch (UnknownHostException expected) {
+            }
+        } finally {
+            runWithShellPermissionIdentity(() -> {
+                powerManager.forceLowPowerStandbyActive(false);
+            }, MANAGE_LOW_POWER_STANDBY);
+        }
     }
 
     private void unregisterRegisteredCallbacks() {
