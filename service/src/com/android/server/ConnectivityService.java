@@ -1502,6 +1502,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return netCap;
     }
 
+    private static NetworkCapabilities createDefaultNetworkCapabilitiesForUidRangeSet(
+            @NonNull final Set<UidRange> uidRangeSet) {
+        final NetworkCapabilities netCap = new NetworkCapabilities();
+        netCap.addCapability(NET_CAPABILITY_INTERNET);
+        netCap.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
+        netCap.removeCapability(NET_CAPABILITY_NOT_VPN);
+        netCap.setUids(UidRange.toIntRanges(uidRangeSet));
+        return netCap;
+    }
+
     private NetworkRequest createDefaultRequest() {
         return createDefaultInternetRequestForTransport(
                 TYPE_NONE, NetworkRequest.Type.REQUEST);
@@ -10151,7 +10161,37 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     // continue to process the enterprise preference.
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE:
                     final UidRange uids = UidRange.createForUser(profile);
-                    nc = createDefaultNetworkCapabilitiesForUidRange(uids);
+                    Set<UidRange> uidRangeSet = UidRange.convertListToUidRange(
+                            preference.getAllowUids());
+                    if (uidRangeSet != null && uidRangeSet.size() > 0) {
+                        if (UidRange.isRangeSetInUidRange(uids, uidRangeSet)) {
+                            if (!isRangeAlreadyInPreferenceList(preferenceList, uidRangeSet)) {
+                                nc = createDefaultNetworkCapabilitiesForUidRangeSet(uidRangeSet);
+                            } else {
+                                throw new IllegalArgumentException(
+                                        "Overlapping uid range in setProfileNetworkPreferences");
+                            }
+                        } else {
+                            throw new IllegalArgumentException(
+                                    "Allow uid range is outside the uid range of profile "
+                                            + "in setProfileNetworkPreferences");
+                        }
+                    } else {
+                        Set<UidRange> disallowUidRangeSet = UidRange.convertListToUidRange(
+                                preference.getDisallowUids());
+                        if (disallowUidRangeSet != null && disallowUidRangeSet.size() > 0) {
+                            if (!UidRange.isRangeSetInUidRange(uids, disallowUidRangeSet)) {
+                                throw new IllegalArgumentException(
+                                        "disallow uid range is outside the uid range of profile "
+                                                + "in setProfileNetworkPreferences");
+                            }
+                            uidRangeSet = UidRange.removeRangeSetFromUidRange(uids,
+                                    disallowUidRangeSet);
+                            nc = createDefaultNetworkCapabilitiesForUidRangeSet(uidRangeSet);
+                        } else {
+                            nc = createDefaultNetworkCapabilitiesForUidRange(uids);
+                        }
+                    }
                     nc.addCapability(NET_CAPABILITY_ENTERPRISE);
                     nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
                     break;
@@ -10187,12 +10227,36 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 nrs.add(createDefaultInternetRequestForTransport(
                         TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
             }
+            if (VDBG) {
+                loge("pref.capabilities.getUids():" + UidRange.fromIntRanges(
+                        pref.capabilities.getUids()));
+            }
+
             setNetworkRequestUids(nrs, UidRange.fromIntRanges(pref.capabilities.getUids()));
             final NetworkRequestInfo nri = new NetworkRequestInfo(Process.myUid(), nrs,
                     PREFERENCE_ORDER_PROFILE);
             result.add(nri);
         }
         return result;
+    }
+
+    /**
+     * Compare if the given UID range sets have the same UIDs.
+     *
+     */
+    private boolean isRangeAlreadyInPreferenceList(
+            @NonNull List<ProfileNetworkPreferenceList.Preference> preferenceList,
+            @NonNull Set<UidRange> uidRangeSet) {
+        if (uidRangeSet.size() == 0 || preferenceList.size() == 0) {
+            return false;
+        }
+        for (ProfileNetworkPreferenceList.Preference pref : preferenceList) {
+            if (UidRange.doesRangeSetOverlap(UidRange.fromIntRanges(pref.capabilities.getUids()),
+                    uidRangeSet)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void handleSetProfileNetworkPreference(
