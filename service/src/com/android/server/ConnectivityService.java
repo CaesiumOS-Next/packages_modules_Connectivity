@@ -10106,6 +10106,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 nc = createDefaultNetworkCapabilitiesForUidRange(uids);
                 nc.addCapability(NET_CAPABILITY_ENTERPRISE);
                 nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
+                /* Todo: pass the uids to network capability */
                 break;
             default:
                 throw new IllegalArgumentException(

@@ -140,6 +140,7 @@ package android.net {
     method public int describeContents();
     method @Nullable public android.os.UserHandle getProfileAsUser();
     method public int getProfileNetworkPreference();
+    method @NonNull public java.util.List<java.lang.Integer> getUids();
     method public boolean isAllowFallback();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.ProfileNetworkPreferenceDetails> CREATOR;
@@ -151,6 +152,7 @@ package android.net {
     method @NonNull public android.net.ProfileNetworkPreferenceDetails.Builder setAllowFallback(boolean);
     method @NonNull public android.net.ProfileNetworkPreferenceDetails.Builder setProfileAsUser(@NonNull android.os.UserHandle);
     method @NonNull public android.net.ProfileNetworkPreferenceDetails.Builder setProfileNetworkPreference(int);
+    method @NonNull public android.net.ProfileNetworkPreferenceDetails.Builder setUids(@NonNull java.util.List<java.lang.Integer>);
   }
 
   public final class TestNetworkInterface implements android.os.Parcelable {
