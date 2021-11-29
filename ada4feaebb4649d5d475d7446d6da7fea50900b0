@@ -45,6 +45,54 @@
       },
       "revId": "ada4feaebb4649d5d475d7446d6da7fea50900b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "753d6ca6_42f2e43d",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-29T15:04:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70d6b7c9_9ab5c1d7",
+      "range": {
+        "startLine": 173,
+        "startChar": 45,
+        "endLine": 173,
+        "endChar": 54
+      },
+      "revId": "ada4feaebb4649d5d475d7446d6da7fea50900b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac8e2f83_5c127eab",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-11-29T15:04:18Z",
+      "side": 1,
+      "message": "I think currently all the tests would use the same timeout that is why I don\u0027t add timeout as argument. Maybe future test will need different timeout. If so, we always can easily add new function support passing timeout as argument. This is test only code, we could change anytime if we want. I don\u0027t prefer add the argument if it isn\u0027t be used now.\n\nThanks the poll function suggestion, done.",
+      "parentUuid": "944a8076_9159b6ec",
+      "range": {
+        "startLine": 173,
+        "startChar": 55,
+        "endLine": 173,
+        "endChar": 77
+      },
+      "revId": "ada4feaebb4649d5d475d7446d6da7fea50900b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
