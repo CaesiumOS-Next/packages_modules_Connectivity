@@ -16,6 +16,23 @@
       "message": "Additional commit for branch \u0027android11-tests-dev\u0027, refer to:\nhttps://android-review.googlesource.com/c/platform/cts/+/1892435",
       "revId": "2cdbbc1a32450ee616e32955229cb05f678c1711",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bde5eb8b_f408cf8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-11-29T01:15:05Z",
+      "side": 1,
+      "message": "LGTM but Lorenzo needs to approve\n\nThanks !",
+      "revId": "2cdbbc1a32450ee616e32955229cb05f678c1711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
