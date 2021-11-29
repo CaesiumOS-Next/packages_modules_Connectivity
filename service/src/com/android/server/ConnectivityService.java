@@ -5674,7 +5674,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mPermissionMonitor.onUserRemoved(user);
         // If there was a network preference for this user, remove it.
         handleSetProfileNetworkPreference(
-                List.of(new ProfileNetworkPreferenceList.Preference(user, null)),
+                List.of(new ProfileNetworkPreferenceList.Preference(user, null, true)),
                 null /* listener */);
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
@@ -10155,8 +10155,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     throw new IllegalArgumentException(
                             "Invalid preference in setProfileNetworkPreferences");
             }
-            preferenceList.add(
-                    new ProfileNetworkPreferenceList.Preference(profile, nc));
+            preferenceList.add(new ProfileNetworkPreferenceList.Preference(
+                    profile, nc, preference.isAllowFallback()));
         }
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_PROFILE_NETWORK_PREFERENCE,
                 new Pair<>(preferenceList, listener)));
@@ -10181,8 +10181,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // request.
             final ArrayList<NetworkRequest> nrs = new ArrayList<>();
             nrs.add(createNetworkRequest(NetworkRequest.Type.REQUEST, pref.capabilities));
-            nrs.add(createDefaultInternetRequestForTransport(
-                    TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+            if (pref.allowFallback) {
+                nrs.add(createDefaultInternetRequestForTransport(
+                        TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+            }
             setNetworkRequestUids(nrs, UidRange.fromIntRanges(pref.capabilities.getUids()));
             final NetworkRequestInfo nri = new NetworkRequestInfo(Process.myUid(), nrs,
                     PREFERENCE_ORDER_PROFILE);
