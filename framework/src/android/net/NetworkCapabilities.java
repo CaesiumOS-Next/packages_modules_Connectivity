@@ -149,67 +149,84 @@ public final class NetworkCapabilities implements Parcelable {
     private String mRequestorPackageName;
 
     /**
-     * enterprise capability sub level 1
+     * Enterprise capability identifier 1.
      * @hide
      */
     @SystemApi(client = MODULE_LIBRARIES)
-    public static final int NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1 = 1;
+    public static final int NET_CAPABILITY_ENTERPRISE_ID_1 = 1;
 
     /**
-     * enterprise capability sub level 2
+     * Enterprise capability identifier 2.
      * @hide
      */
     @SystemApi(client = MODULE_LIBRARIES)
-    public static final int NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2 = 2;
+    public static final int NET_CAPABILITY_ENTERPRISE_ID_2 = 2;
 
     /**
-     * enterprise capability sub level 3
+     * Enterprise capability identifier 3.
      * @hide
      */
     @SystemApi(client = MODULE_LIBRARIES)
-    public static final int NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3 = 3;
+    public static final int NET_CAPABILITY_ENTERPRISE_ID_3 = 3;
 
     /**
-     * enterprise capability sub level 4
+     * Enterprise capability identifier 4.
      * @hide
      */
     @SystemApi(client = MODULE_LIBRARIES)
-    public static final int NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_4 = 4;
+    public static final int NET_CAPABILITY_ENTERPRISE_ID_4 = 4;
 
     /**
-     * enterprise capability sub level 5
+     * Enterprise capability identifier 5.
      * @hide
      */
     @SystemApi(client = MODULE_LIBRARIES)
-    public static final int NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5 = 5;
+    public static final int NET_CAPABILITY_ENTERPRISE_ID_5 = 5;
 
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(prefix = { "NET_CAPABILITY_ENTERPRISE_SUB_LEVEL" }, value = {
-            NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1,
-            NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2,
-            NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3,
-            NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_4,
-            NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5,
+            NET_CAPABILITY_ENTERPRISE_ID_1,
+            NET_CAPABILITY_ENTERPRISE_ID_2,
+            NET_CAPABILITY_ENTERPRISE_ID_3,
+            NET_CAPABILITY_ENTERPRISE_ID_4,
+            NET_CAPABILITY_ENTERPRISE_ID_5,
     })
 
-    public @interface EnterpriseCapabilitySubLevel {
+    public @interface EnterpriseCapabilityId {
     }
 
     /**
-     * Bitfield representing the network's enterprise capability sublevel.  If any are specified
+     * Bitfield representing the network's enterprise capability identifier.  If any are specified
      * they will be satisfied by any Network that matches all of them.
-     * {@see addEnterpriseCapabilitySubLevel} for details on how masks are added
+     * {@see addEnterpriseCapabilityId} for details on how masks are added
      */
-    private int mEnterpriseCapabilitySubLevel;
+    private int mEnterpriseCapabilityId;
 
     /**
-     * @return all the enteprise capabilities sub level set on this {@code NetworkCapability}
+     * @return all the enteprise capabilities identifier set on this {@code NetworkCapability}
      * instance.
      *
      */
-    public @NonNull @EnterpriseCapabilitySubLevel int[] getEnterpriseCapabilitySubLevels() {
-        return NetworkCapabilitiesUtils.unpackBits(mEnterpriseCapabilitySubLevel);
+    public @NonNull @EnterpriseCapabilityId int[] getEnterpriseCapabilityIds() {
+        return NetworkCapabilitiesUtils.unpackBits(mEnterpriseCapabilityId);
+    }
+
+    /**
+     * Tests for the presence of an enterprise capability identifier on this instance.
+     *
+     * @param enterpriseCapabilityId the enterprise capability identifier to be tested for.
+     * @return {@code true} if set on this instance.
+     */
+    public boolean hasEnterpriseCapabilityId(
+            @EnterpriseCapabilityId int enterpriseCapabilityId) {
+        if (enterpriseCapabilityId == NET_CAPABILITY_ENTERPRISE_ID_1) {
+            if (hasCapability(NET_CAPABILITY_ENTERPRISE) && mEnterpriseCapabilityId == 0) {
+                return true;
+            }
+        }
+        return isValidEnterpriseCapabilityId(enterpriseCapabilityId)
+                && ((mEnterpriseCapabilityId & (1L << enterpriseCapabilityId)) != 0);
     }
 
     public NetworkCapabilities() {
@@ -258,7 +275,7 @@ public final class NetworkCapabilities implements Parcelable {
         mRequestorPackageName = null;
         mSubIds = new ArraySet<>();
         mUnderlyingNetworks = null;
-        mEnterpriseCapabilitySubLevel = 0;
+        mEnterpriseCapabilityId = 0;
     }
 
     /**
@@ -291,7 +308,7 @@ public final class NetworkCapabilities implements Parcelable {
         // mUnderlyingNetworks is an unmodifiable list if non-null, so a defensive copy is not
         // necessary.
         mUnderlyingNetworks = nc.mUnderlyingNetworks;
-        mEnterpriseCapabilitySubLevel = nc.mEnterpriseCapabilitySubLevel;
+        mEnterpriseCapabilityId = nc.mEnterpriseCapabilityId;
     }
 
     /**
@@ -784,34 +801,34 @@ public final class NetworkCapabilities implements Parcelable {
     }
 
     /**
-     * Adds the given enterprise capability sub level to this {@code NetworkCapability} instance.
-     * Note that when searching for a network to satisfy a request, all capabilities sub level
+     * Adds the given enterprise capability identifier to this {@code NetworkCapability} instance.
+     * Note that when searching for a network to satisfy a request, all capabilities identifier
      * requested must be satisfied.
      *
-     * @param enterpriseCapabilitySubLevel the enterprise capability sub level to be added.
+     * @param enterpriseCapabilityId the enterprise capability identifier to be added.
      * @return This NetworkCapabilities instance, to facilitate chaining.
      * @hide
      */
-    private @NonNull NetworkCapabilities addEnterpriseCapabilitySubLevel(
-            @EnterpriseCapabilitySubLevel int enterpriseCapabilitySubLevel) {
-        checkValidEnterpriseCapabilitySublevel(enterpriseCapabilitySubLevel);
-        mEnterpriseCapabilitySubLevel |= 1 << enterpriseCapabilitySubLevel;
+    public @NonNull NetworkCapabilities addEnterpriseCapabilityId(
+            @EnterpriseCapabilityId int enterpriseCapabilityId) {
+        checkValidEnterpriseCapabilityId(enterpriseCapabilityId);
+        mEnterpriseCapabilityId |= 1 << enterpriseCapabilityId;
         return this;
     }
 
     /**
-     * Removes (if found) the given enterprise capability sublevel from this
-     * {@code NetworkCapability} instance that were added via addEnterpriseCapabilitySubLevel(int)
+     * Removes (if found) the given enterprise capability identifier from this
+     * {@code NetworkCapability} instance that were added via addEnterpriseCapabilityId(int)
      *
-     * @param enterpriseCapabilitySubLevel the enterprise capability sublevel to be removed.
+     * @param enterpriseCapabilityId the enterprise capability identifier to be removed.
      * @return This NetworkCapabilities instance, to facilitate chaining.
      * @hide
      */
-    private @NonNull NetworkCapabilities removeEnterpriseCapabilitySubLevel(
-            @EnterpriseCapabilitySubLevel  int enterpriseCapabilitySubLevel) {
-        checkValidEnterpriseCapabilitySublevel(enterpriseCapabilitySubLevel);
-        final int mask = ~(1 << enterpriseCapabilitySubLevel);
-        mEnterpriseCapabilitySubLevel &= mask;
+    private @NonNull NetworkCapabilities removeEnterpriseCapabilityId(
+            @EnterpriseCapabilityId  int enterpriseCapabilityId) {
+        checkValidEnterpriseCapabilityId(enterpriseCapabilityId);
+        final int mask = ~(1 << enterpriseCapabilityId);
+        mEnterpriseCapabilityId &= mask;
         return this;
     }
 
@@ -915,16 +932,19 @@ public final class NetworkCapabilities implements Parcelable {
         return null;
     }
 
-    private boolean equalsEnterpriseCapabilitiesSubLevel(@NonNull NetworkCapabilities nc) {
-        return nc.mEnterpriseCapabilitySubLevel == this.mEnterpriseCapabilitySubLevel;
+    private boolean equalsEnterpriseCapabilitiesId(@NonNull NetworkCapabilities nc) {
+        return nc.mEnterpriseCapabilityId == this.mEnterpriseCapabilityId;
     }
 
-    private boolean satisfiedByEnterpriseCapabilitiesSubLevel(@NonNull NetworkCapabilities nc) {
-        final int requestedEnterpriseCapabilitiesSubLevel = mEnterpriseCapabilitySubLevel;
-        final int providedEnterpriseCapabailitiesSubLevel = nc.mEnterpriseCapabilitySubLevel;
+    private boolean satisfiedByEnterpriseCapabilitiesId(@NonNull NetworkCapabilities nc) {
+        final int requestedEnterpriseCapabilitiesId = mEnterpriseCapabilityId;
+        final int providedEnterpriseCapabailitiesId = nc.mEnterpriseCapabilityId;
 
-        if ((providedEnterpriseCapabailitiesSubLevel & requestedEnterpriseCapabilitiesSubLevel)
-                == requestedEnterpriseCapabilitiesSubLevel) {
+        if ((providedEnterpriseCapabailitiesId & requestedEnterpriseCapabilitiesId)
+                == requestedEnterpriseCapabilitiesId) {
+            return true;
+        } else if (providedEnterpriseCapabailitiesId == 0
+                && (requestedEnterpriseCapabilitiesId == (1L << NET_CAPABILITY_ENTERPRISE_ID_1))) {
             return true;
         } else {
             return false;
@@ -1836,7 +1856,7 @@ public final class NetworkCapabilities implements Parcelable {
                 && satisfiedByTransportTypes(nc)
                 && (onlyImmutable || satisfiedByLinkBandwidths(nc))
                 && satisfiedBySpecifier(nc)
-                && satisfiedByEnterpriseCapabilitiesSubLevel(nc)
+                && satisfiedByEnterpriseCapabilitiesId(nc)
                 && (onlyImmutable || satisfiedBySignalStrength(nc))
                 && (onlyImmutable || satisfiedByUids(nc))
                 && (onlyImmutable || satisfiedBySSID(nc))
@@ -1940,7 +1960,7 @@ public final class NetworkCapabilities implements Parcelable {
                 && equalsAdministratorUids(that)
                 && equalsSubscriptionIds(that)
                 && equalsUnderlyingNetworks(that)
-                && equalsEnterpriseCapabilitiesSubLevel(that);
+                && equalsEnterpriseCapabilitiesId(that);
     }
 
     @Override
@@ -1965,7 +1985,7 @@ public final class NetworkCapabilities implements Parcelable {
                 + Arrays.hashCode(mAdministratorUids) * 61
                 + Objects.hashCode(mSubIds) * 67
                 + Objects.hashCode(mUnderlyingNetworks) * 71
-                + mEnterpriseCapabilitySubLevel * 73;
+                + mEnterpriseCapabilityId * 73;
     }
 
     @Override
@@ -2001,7 +2021,7 @@ public final class NetworkCapabilities implements Parcelable {
         dest.writeString(mRequestorPackageName);
         dest.writeIntArray(CollectionUtils.toIntArray(mSubIds));
         dest.writeTypedList(mUnderlyingNetworks);
-        dest.writeInt(mEnterpriseCapabilitySubLevel);
+        dest.writeInt(mEnterpriseCapabilityId);
     }
 
     public static final @android.annotation.NonNull Creator<NetworkCapabilities> CREATOR =
@@ -2031,7 +2051,7 @@ public final class NetworkCapabilities implements Parcelable {
                     netCap.mSubIds.add(subIdInts[i]);
                 }
                 netCap.setUnderlyingNetworks(in.createTypedArrayList(Network.CREATOR));
-                netCap.mEnterpriseCapabilitySubLevel = in.readInt();
+                netCap.mEnterpriseCapabilityId = in.readInt();
                 return netCap;
             }
             @Override
@@ -2123,10 +2143,10 @@ public final class NetworkCapabilities implements Parcelable {
             sb.append(" SubscriptionIds: ").append(mSubIds);
         }
 
-        if (0 != mEnterpriseCapabilitySubLevel) {
-            sb.append(" EnterpriseCapabilitySublevel: ");
-            appendStringRepresentationOfBitMaskToStringBuilder(sb, mEnterpriseCapabilitySubLevel,
-                    NetworkCapabilities::enterpriseCapabilitySublevelNameOf, "&");
+        if (0 != mEnterpriseCapabilityId) {
+            sb.append(" EnterpriseCapabilityId: ");
+            appendStringRepresentationOfBitMaskToStringBuilder(sb, mEnterpriseCapabilityId,
+                    NetworkCapabilities::enterpriseCapabilityIdNameOf, "&");
         }
 
         sb.append(" UnderlyingNetworks: ");
@@ -2228,7 +2248,7 @@ public final class NetworkCapabilities implements Parcelable {
         }
     }
 
-    private static @NonNull String enterpriseCapabilitySublevelNameOf(
+    private static @NonNull String enterpriseCapabilityIdNameOf(
             @NetCapability int capability) {
         return Integer.toString(capability);
     }
@@ -2273,17 +2293,17 @@ public final class NetworkCapabilities implements Parcelable {
         }
     }
 
-    private static boolean isValidEnterpriseCapabilitySubLevel(
-            @NetworkCapabilities.EnterpriseCapabilitySubLevel int enterpriseCapabilitySubLevel) {
-        return enterpriseCapabilitySubLevel >= NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1
-                && enterpriseCapabilitySubLevel <= NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5;
+    private static boolean isValidEnterpriseCapabilityId(
+            @NetworkCapabilities.EnterpriseCapabilityId int enterpriseCapabilityId) {
+        return enterpriseCapabilityId >= NET_CAPABILITY_ENTERPRISE_ID_1
+                && enterpriseCapabilityId <= NET_CAPABILITY_ENTERPRISE_ID_5;
     }
 
-    private static void checkValidEnterpriseCapabilitySublevel(
-            @NetworkCapabilities.EnterpriseCapabilitySubLevel int enterpriseCapabilitySubLevel) {
-        if (!isValidEnterpriseCapabilitySubLevel(enterpriseCapabilitySubLevel)) {
-            throw new IllegalArgumentException("enterprise capability sublevel "
-                    + enterpriseCapabilitySubLevel + " is out of range");
+    private static void checkValidEnterpriseCapabilityId(
+            @NetworkCapabilities.EnterpriseCapabilityId int enterpriseCapabilityId) {
+        if (!isValidEnterpriseCapabilityId(enterpriseCapabilityId)) {
+            throw new IllegalArgumentException("enterprise capability identifier "
+                    + enterpriseCapabilityId + " is out of range");
         }
     }
 
@@ -2613,33 +2633,33 @@ public final class NetworkCapabilities implements Parcelable {
         }
 
         /**
-         * Adds the given enterprise capability sub level.
-         * Note that when searching for a network to satisfy a request, all capabilities sub level
-         * requested must be satisfied. Enterprise capability sub-level is applicable only
+         * Adds the given enterprise capability identifier.
+         * Note that when searching for a network to satisfy a request, all capabilities identifier
+         * requested must be satisfied. Enterprise capability identifier is applicable only
          * for NET_CAPABILITY_ENTERPRISE capability
          *
-         * @param enterpriseCapabilitySubLevel enterprise capability sub-level.
+         * @param enterpriseCapabilityId enterprise capability identifier.
          *
          * @return this builder
          */
         @NonNull
-        public Builder addEnterpriseCapabilitySubLevel(
-                @EnterpriseCapabilitySubLevel  int enterpriseCapabilitySubLevel) {
-            mCaps.addEnterpriseCapabilitySubLevel(enterpriseCapabilitySubLevel);
+        public Builder addEnterpriseCapabilityId(
+                @EnterpriseCapabilityId  int enterpriseCapabilityId) {
+            mCaps.addEnterpriseCapabilityId(enterpriseCapabilityId);
             return this;
         }
 
         /**
-         * Removes the given enterprise capability sub level. Enterprise capability sub-level is
+         * Removes the given enterprise capability identifier. Enterprise capability identifier is
          * applicable only for NET_CAPABILITY_ENTERPRISE capability
          *
-         * @param enterpriseCapabilitySubLevel the enterprise capability subLevel
+         * @param enterpriseCapabilityId the enterprise capability identifier
          * @return this builder
          */
         @NonNull
-        public Builder removeEnterpriseCapabilitySubLevel(
-                @EnterpriseCapabilitySubLevel  int enterpriseCapabilitySubLevel) {
-            mCaps.removeEnterpriseCapabilitySubLevel(enterpriseCapabilitySubLevel);
+        public Builder removeEnterpriseCapabilityId(
+                @EnterpriseCapabilityId  int enterpriseCapabilityId) {
+            mCaps.removeEnterpriseCapabilityId(enterpriseCapabilityId);
             return this;
         }
 
@@ -2902,10 +2922,10 @@ public final class NetworkCapabilities implements Parcelable {
                 }
             }
 
-            if ((mCaps.getEnterpriseCapabilitySubLevels().length != 0)
+            if ((mCaps.getEnterpriseCapabilityIds().length != 0)
                     && !mCaps.hasCapability(NET_CAPABILITY_ENTERPRISE)) {
-                throw new IllegalStateException("Enterprise capability sublevel is applicable only"
-                        + " with ENTERPRISE capability.");
+                throw new IllegalStateException("Enterprise capability identifier is applicable"
+                        + " only with ENTERPRISE capability.");
             }
             return new NetworkCapabilities(mCaps);
         }

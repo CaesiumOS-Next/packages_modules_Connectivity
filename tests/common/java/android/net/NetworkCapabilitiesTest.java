@@ -23,11 +23,11 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CBS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_EIMS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_4;
-import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_ID_1;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_ID_2;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_ID_3;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_ID_4;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_ID_5;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
@@ -804,78 +804,78 @@ public class NetworkCapabilitiesTest {
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.S)
-    public void testEnterpriseCapabilitySubLevel() {
+    public void testEnterpriseCapabilityId() {
         final NetworkCapabilities nc1 = new NetworkCapabilities.Builder()
                 .addCapability(NET_CAPABILITY_ENTERPRISE)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_1)
                 .build();
-        assertEquals(1, nc1.getEnterpriseCapabilitySubLevels().length);
-        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1,
-                nc1.getEnterpriseCapabilitySubLevels()[0]);
+        assertEquals(1, nc1.getEnterpriseCapabilityIds().length);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_ID_1,
+                nc1.getEnterpriseCapabilityIds()[0]);
         final NetworkCapabilities nc2 = new NetworkCapabilities.Builder()
                 .addCapability(NET_CAPABILITY_ENTERPRISE)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_1)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_2)
                 .build();
-        assertEquals(2, nc2.getEnterpriseCapabilitySubLevels().length);
-        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1,
-                nc2.getEnterpriseCapabilitySubLevels()[0]);
-        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2,
-                nc2.getEnterpriseCapabilitySubLevels()[1]);
+        assertEquals(2, nc2.getEnterpriseCapabilityIds().length);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_ID_1,
+                nc2.getEnterpriseCapabilityIds()[0]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_ID_2,
+                nc2.getEnterpriseCapabilityIds()[1]);
         final NetworkCapabilities nc3 = new NetworkCapabilities.Builder()
                 .addCapability(NET_CAPABILITY_ENTERPRISE)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_4)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_1)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_2)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_3)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_4)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_5)
                 .build();
-        assertEquals(5, nc3.getEnterpriseCapabilitySubLevels().length);
-        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1,
-                nc3.getEnterpriseCapabilitySubLevels()[0]);
-        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2,
-                nc3.getEnterpriseCapabilitySubLevels()[1]);
-        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3,
-                nc3.getEnterpriseCapabilitySubLevels()[2]);
-        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_4,
-                nc3.getEnterpriseCapabilitySubLevels()[3]);
-        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5,
-                nc3.getEnterpriseCapabilitySubLevels()[4]);
+        assertEquals(5, nc3.getEnterpriseCapabilityIds().length);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_ID_1,
+                nc3.getEnterpriseCapabilityIds()[0]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_ID_2,
+                nc3.getEnterpriseCapabilityIds()[1]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_ID_3,
+                nc3.getEnterpriseCapabilityIds()[2]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_ID_4,
+                nc3.getEnterpriseCapabilityIds()[3]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_ID_5,
+                nc3.getEnterpriseCapabilityIds()[4]);
 
         final Class<IllegalArgumentException> illegalArgumentExceptionClass =
                 IllegalArgumentException.class;
         assertThrows(illegalArgumentExceptionClass, () -> new NetworkCapabilities.Builder()
-                .addEnterpriseCapabilitySubLevel(6)
+                .addEnterpriseCapabilityId(6)
                 .build());
         assertThrows(illegalArgumentExceptionClass, () -> new NetworkCapabilities.Builder()
-                .removeEnterpriseCapabilitySubLevel(6)
+                .removeEnterpriseCapabilityId(6)
                 .build());
 
         final Class<IllegalStateException> illegalStateException =
                 IllegalStateException.class;
         assertThrows(illegalStateException, () -> new NetworkCapabilities.Builder()
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_1)
                 .build());
 
         final NetworkCapabilities nc4 = new NetworkCapabilities.Builder()
                 .addCapability(NET_CAPABILITY_ENTERPRISE)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
-                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
-                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_1)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_2)
+                .removeEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_1)
+                .removeEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_2)
                 .build();
-        assertEquals(0, nc4.getEnterpriseCapabilitySubLevels().length);
+        assertEquals(0, nc4.getEnterpriseCapabilityIds().length);
 
         final NetworkCapabilities nc5 = new NetworkCapabilities.Builder()
                 .addCapability(NET_CAPABILITY_CBS)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
-                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
-                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
-                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_1)
+                .addEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_2)
+                .removeEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_1)
+                .removeEnterpriseCapabilityId(NET_CAPABILITY_ENTERPRISE_ID_2)
                 .build();
 
         assertTrue(nc4.satisfiedByNetworkCapabilities(nc1));
-        assertFalse(nc1.satisfiedByNetworkCapabilities(nc4));
+        assertTrue(nc1.satisfiedByNetworkCapabilities(nc4));
 
         assertFalse(nc3.satisfiedByNetworkCapabilities(nc2));
         assertTrue(nc2.satisfiedByNetworkCapabilities(nc3));
