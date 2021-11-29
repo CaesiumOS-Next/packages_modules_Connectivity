@@ -37,6 +37,7 @@ import java.util.Objects;
 public final class ProfileNetworkPreferenceDetails implements Parcelable {
     private UserHandle mUser;
     private @ProfileNetworkPreference int mProfilePreference;
+    private boolean mAllowFallback;
 
     private ProfileNetworkPreferenceDetails() {
     }
@@ -44,6 +45,7 @@ public final class ProfileNetworkPreferenceDetails implements Parcelable {
     private ProfileNetworkPreferenceDetails(Parcel in) {
         mUser = UserHandle.readFromParcel(in);
         mProfilePreference = in.readInt();
+        mAllowFallback = in.readBoolean();
     }
 
     public int getProfileNetworkPreference() {
@@ -53,11 +55,25 @@ public final class ProfileNetworkPreferenceDetails implements Parcelable {
         return mUser;
     }
 
+    /**
+     * is fallback to default network allowed. This boolean allows an enterprise admin to
+     * configure whether default connection (default internet or wifi) should be used or not
+     * if an enterprise connection is not available. If enterprise apn is available and if slice
+     * is not available then enterprise apn will be used to set up the data call. But if that fails
+     * then the data traffic will fall back to default pdn if allowFallback is set to true
+     * else no network will be marked as available for the enterprise profile.
+     * @return true if fallback is allowed, else false.
+     */
+    public boolean isAllowFallback() {
+        return mAllowFallback;
+    }
+
     @Override
     public String toString() {
         return "ProfileNetworkPreferenceDetails{"
                 + "mUser=" + getProfileAsUser()
                 + "mProfilePreference=" + getProfileNetworkPreference()
+                + "mAllowFallback=" + mAllowFallback
                 + '}';
     }
 
@@ -69,13 +85,15 @@ public final class ProfileNetworkPreferenceDetails implements Parcelable {
         if (mUser == null && that.mUser != null) return false;
 
         return mProfilePreference == that.mProfilePreference
+                && mAllowFallback == that.mAllowFallback
                 && (mUser == that.mUser || mUser.equals(that.mUser));
     }
 
     @Override
     public int hashCode() {
         return ((mProfilePreference * 17)
-                + (Objects.hashCode(mUser) * 23));
+                + (Objects.hashCode(mUser) * 23)
+                + (Objects.hashCode(mAllowFallback) * 29));
     }
 
     /**
@@ -112,6 +130,22 @@ public final class ProfileNetworkPreferenceDetails implements Parcelable {
         @NonNull
         public Builder setProfileAsUser(@NonNull @ProfileNetworkPreference UserHandle user) {
             mPreferences.mUser = user;
+            return this;
+        }
+
+        /**
+         * Set allow fallback. This boolean allows an enterprise admin to configure whether
+         * default connection (default internet or wifi) should be used or not if an enterprise
+         * connection is not available. If enterprise apn is available and if slice is not
+         * available then enterprise apn will be used to set up the data call. But if that fails
+         * then the data traffic will fall back to default pdn if allowFallback is set to true
+         * else no network will be marked as available for the enterprise profile.
+         * @param allowFallback  true if fallback is allowed else false
+         * @return The builder to facilitate chaining.
+         */
+        @NonNull
+        public Builder setAllowFallback(boolean allowFallback) {
+            mPreferences.mAllowFallback = allowFallback;
             return this;
         }
 
