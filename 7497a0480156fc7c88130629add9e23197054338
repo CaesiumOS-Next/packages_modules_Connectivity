@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017770798",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1904456?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "e769db91_66d83a49",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-29T14:49:22Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 1027,
+        "startChar": 0,
+        "endLine": 1027,
+        "endChar": 8
+      },
+      "revId": "7497a0480156fc7c88130629add9e23197054338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017770798",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1904456?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a775cb6e_bd16e8b5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-29T14:49:22Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 1032,
+        "startChar": 0,
+        "endLine": 1032,
+        "endChar": 8
+      },
+      "revId": "7497a0480156fc7c88130629add9e23197054338",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
