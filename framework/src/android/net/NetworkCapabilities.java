@@ -16,6 +16,8 @@
 
 package android.net;
 
+import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
 
 import android.annotation.IntDef;
@@ -146,6 +148,89 @@ public final class NetworkCapabilities implements Parcelable {
      */
     private String mRequestorPackageName;
 
+    /**
+     * capability sub level 1
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int NET_CAPABILITY_SUB_LEVEL_1 = 1;
+
+    /**
+     * capability sub level 2
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int NET_CAPABILITY_SUB_LEVEL_2 = 2;
+
+    /**
+     * capability sub level 3
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int NET_CAPABILITY_SUB_LEVEL_3 = 3;
+
+    /**
+     * capability sub level 4
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int NET_CAPABILITY_SUB_LEVEL_4 = 4;
+
+    /**
+     * capability sub level 5
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int NET_CAPABILITY_SUB_LEVEL_5 = 5;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(prefix = { "NET_CAPABILITY_SUB_LEVEL" }, value = {
+            NET_CAPABILITY_SUB_LEVEL_1,
+            NET_CAPABILITY_SUB_LEVEL_2,
+            NET_CAPABILITY_SUB_LEVEL_3,
+            NET_CAPABILITY_SUB_LEVEL_4,
+            NET_CAPABILITY_SUB_LEVEL_5,
+    })
+
+    public @interface CapabilitySubLevel {
+    }
+
+    /**
+     * capability sub-level. valid values starts from
+     * NET_CAPABILITY_SUB_LEVEL_DEFAULT to
+     * NET_CAPABILITY_SUB_LEVEL_MAX.
+     * Capability sub-level is applicable only for NET_CAPABILITY_ENTERPRISE */
+    private long mCapabilitySubLevel;
+
+    /**
+     * @return capability sub-level. valid values starts from
+     * NET_CAPABILITY_SUB_LEVEL_DEFAULT to
+     * NET_CAPABILITY_SUB_LEVEL_MAX.
+     * capability sub-level is applicable only if preference is set as
+     * NET_CAPABILITY_ENTERPRISE
+     *
+     */
+    public long getCapabilitySubLevel() {
+        return mCapabilitySubLevel;
+    }
+
+    /**
+     * @param capabilitySubLevel capability sub-level. Valid values starts from
+     * NET_CAPABILITY_SUB_LEVEL_DEFAULT to
+     * NET_CAPABILITY_SUB_LEVEL_MAX.
+     * capability sub-level is applicable only if preference is set as
+     * NET_CAPABILITY_ENTERPRISE
+     *
+     */
+    public void setCapabilitySubLevel(int capabilitySubLevel) {
+        if ((capabilitySubLevel < NET_CAPABILITY_SUB_LEVEL_DEFAULT)
+            || (capabilitySubLevel > NET_CAPABILITY_SUB_LEVEL_MAX)) {
+            return;
+        }
+        mCapabilitySubLevel = capabilitySubLevel;
+    }
+
     public NetworkCapabilities() {
         clearAll();
         mNetworkCapabilities = DEFAULT_CAPABILITIES;
@@ -192,6 +277,7 @@ public final class NetworkCapabilities implements Parcelable {
         mRequestorPackageName = null;
         mSubIds = new ArraySet<>();
         mUnderlyingNetworks = null;
+        mCapabilitySubLevel = NET_CAPABILITY_SUB_LEVEL_DEFAULT;
     }
 
     /**
@@ -224,6 +310,7 @@ public final class NetworkCapabilities implements Parcelable {
         // mUnderlyingNetworks is an unmodifiable list if non-null, so a defensive copy is not
         // necessary.
         mUnderlyingNetworks = nc.mUnderlyingNetworks;
+        mCapabilitySubLevel = nc.mCapabilitySubLevel;
     }
 
     /**
@@ -819,6 +906,24 @@ public final class NetworkCapabilities implements Parcelable {
             return "privateDnsBroken";
         }
         return null;
+    }
+
+    private boolean satisfiedByNetCapabilitiesSubLevel(@NonNull NetworkCapabilities nc) {
+        long requestedCapabilities = mNetworkCapabilities;
+        long providedCapabilities = nc.mNetworkCapabilities;
+        int requestedCapabilitiesSubLevel = mCapabilitySubLevel;
+        int providedCapabailitiesSubLevel = nc.mCapabilitySubLevel;
+
+        if ((providedCapabilities & NET_CAPABILITY_ENTERPRISE) == NET_CAPABILITY_ENTERPRISE
+            && (requestedCapabilities & NET_CAPABILITY_ENTERPRISE) == NET_CAPABILITY_ENTERPRISE) {
+            if ((providedCapabailitiesSubLevel & requestedCapabilitiesSubLevel)
+                    == requestedCapabilitiesSubLevel) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean satisfiedByNetCapabilities(@NonNull NetworkCapabilities nc,
@@ -1846,6 +1951,7 @@ public final class NetworkCapabilities implements Parcelable {
                 && satisfiedByTransportTypes(nc)
                 && (onlyImmutable || satisfiedByLinkBandwidths(nc))
                 && satisfiedBySpecifier(nc)
+                && satisfiedByNetCapabilitiesSubLevel(nc)
                 && (onlyImmutable || satisfiedBySignalStrength(nc))
                 && (onlyImmutable || satisfiedByUids(nc))
                 && (onlyImmutable || satisfiedBySSID(nc))
@@ -2621,6 +2727,28 @@ public final class NetworkCapabilities implements Parcelable {
         @NonNull
         public Builder removeCapability(@NetCapability final int capability) {
             mCaps.setCapability(capability, false);
+            return this;
+        }
+
+        /**
+         * Adds the given capability and capability sub level.
+         *
+         * @param capability the capability
+         * @param capabilitySubLevel capability sub-level. Capability sub-level is applicable
+         *        only for NET_CAPABILITY_ENTERPRISE capability
+         * @return this builder
+         */
+        @NonNull
+        public Builder addCapability(@NetCapability final int capability,
+                int capabilitySubLevel) {
+            if (capability != NET_CAPABILITY_ENTERPRISE
+                || capabilitySubLevel < NET_CAPABILITY_SUB_LEVEL_DEFAULT
+                || capabilitySubLevel > NET_CAPABILITY_SUB_LEVEL_MAX) {
+                throw new IllegalArgumentException("Invalid capability sub level");
+            }
+
+            mCaps.setCapability(capability, true);
+            mCaps.setCapabilitySubLevel(capabilitySubLevel);
             return this;
         }
 

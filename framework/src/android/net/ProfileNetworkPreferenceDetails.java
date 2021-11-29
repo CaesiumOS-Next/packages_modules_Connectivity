@@ -17,7 +17,9 @@
 package android.net;
 
 import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
 
+import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
@@ -26,7 +28,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.UserHandle;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Executor;
+
+import javax.sip.InvalidArgumentException;
 
 /**
  * Network preferences to be set for the user profile
@@ -38,14 +47,46 @@ public final class ProfileNetworkPreferenceDetails implements Parcelable {
     private UserHandle mUser;
     private @ProfileNetworkPreference int mProfilePreference;
     private boolean mAllowFallback;
+    private List<Integer> mUids;
+
+    /* preference sub-level. valid values starts from
+     * PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_DEFAULT to
+     * PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_MAX. */
+    private int mPreferenceSubLevel;
+
+    /**
+     * Preference sub level default value
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_DEFAULT = 1;
+
+    /**
+     * Preference sub level maximum value
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_MAX = 5;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(value = {
+            PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_DEFAULT,
+            PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_MAX
+    })
+    public @interface ProfileNetworkPreferenceSubLevel {
+    }
 
     private ProfileNetworkPreferenceDetails() {
+        mUids = new ArrayList<>();
     }
 
     private ProfileNetworkPreferenceDetails(Parcel in) {
         mUser = UserHandle.readFromParcel(in);
         mProfilePreference = in.readInt();
         mAllowFallback = in.readBoolean();
+        mUids = in.readArrayList(Integer.class.getClassLoader());
+        mPreferenceSubLevel = in.readInt();
     }
 
     public int getProfileNetworkPreference() {
@@ -68,12 +109,33 @@ public final class ProfileNetworkPreferenceDetails implements Parcelable {
         return mAllowFallback;
     }
 
+    /**
+     * @return List of uids applicable for the profile preference.
+     *      * Null would mean that this request applies to all uids in the profile.
+     */
+    public @NonNull List<Integer> getUids() {
+        return mUids;
+    }
+
+    /**
+     * @return preference sub-level. valid values starts from
+     * PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_DEFAULT to
+     * PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_MAX.
+     * preference sub-level is applicable only if preference is set as
+     * PROFILE_NETWORK_PREFERENCE_ENTERPRISE
+     *
+     */
+    public int getPreferenceSubLevel() {
+        return mPreferenceSubLevel;
+    }
+
     @Override
     public String toString() {
         return "ProfileNetworkPreferenceDetails{"
                 + "mUser=" + getProfileAsUser()
                 + "mProfilePreference=" + getProfileNetworkPreference()
                 + "mAllowFallback=" + mAllowFallback
+                + "mUids=" + mUids.toString()
                 + '}';
     }
 
@@ -83,17 +145,20 @@ public final class ProfileNetworkPreferenceDetails implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         ProfileNetworkPreferenceDetails that = (ProfileNetworkPreferenceDetails) o;
         if (mUser == null && that.mUser != null) return false;
+        if (mUids == null && that.mUids != null) return false;
 
         return mProfilePreference == that.mProfilePreference
                 && mAllowFallback == that.mAllowFallback
-                && (mUser == that.mUser || mUser.equals(that.mUser));
+                && (mUser == that.mUser || mUser.equals(that.mUser))
+                && (mUids == that.mUids || mUids.equals(that.mUids));
     }
 
     @Override
     public int hashCode() {
         return ((mProfilePreference * 17)
                 + (Objects.hashCode(mUser) * 23)
-                + (Objects.hashCode(mAllowFallback) * 29));
+                + (Objects.hashCode(mAllowFallback) * 29)
+                + (Objects.hashCode(mUids) * 31));
     }
 
     /**
@@ -150,11 +215,47 @@ public final class ProfileNetworkPreferenceDetails implements Parcelable {
         }
 
         /**
+         * This is a list of uids for which profile perefence is set.
+         * Null would mean that this preference applies to all uids in the profile.
+         * @param uids  list of uids
+         * @return The builder to facilitate chaining.
+         */
+        @NonNull
+        public Builder setUids(@NonNull List<Integer> uids) {
+            mPreferences.mUids = new ArrayList<Integer>(uids);
+            return this;
+        }
+
+        /**
+         * Set the preference sub-level. valid values starts from
+         * PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_DEFAULT to
+         * PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_MAX.
+         * preference sub-level is applicable only if preference is set as
+         * PROFILE_NETWORK_PREFERENCE_ENTERPRISE.
+         * @param preferenceSubLevel  preference sub level
+         * @return The builder to facilitate chaining.
+         */
+        @NonNull
+        public Builder setPreferenceSubLevel(int preferenceSubLevel) {
+            mPreferences.mPreferenceSubLevel = preferenceSubLevel;
+            return this;
+        }
+
+        /**
          * Build {@link ProfileNetworkPreferenceDetails} return the current Profile network
          * preferences.
+         * @throws IllegalArgumentException
          */
         @NonNull
         public ProfileNetworkPreferenceDetails build() {
+            if (mPreferences.mProfilePreference == PROFILE_NETWORK_PREFERENCE_ENTERPRISE) {
+                if ((mPreferences.mPreferenceSubLevel
+                        < PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_DEFAULT)
+                        || (mPreferences.mPreferenceSubLevel
+                        > PROFILE_NETWORK_PREFERENCE_SUB_LEVEL_MAX)) {
+                    throw new IllegalArgumentException("Invalid preference sub-level");
+                }
+            }
             return mPreferences;
         }
     }
