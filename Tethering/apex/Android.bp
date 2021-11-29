@@ -41,6 +41,7 @@ apex {
         "offload.o",
         "test.o",
     ],
+    binaries: ["clatd_mainline"],
     apps: [
         "ServiceConnectivityResources",
         "TetheringNext",
