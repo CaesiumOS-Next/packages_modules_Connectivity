@@ -10150,9 +10150,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     allowFallback = false;
                     // continue to process the enterprise preference.
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE:
+                    if (!ProfileNetworkPreference.isEnterpriseIdentifierValid(
+                            preference.getPreferenceEnterpriseId())) {
+                        throw new IllegalArgumentException(
+                                "Invalid enterprise identifier in setProfileNetworkPreferences");
+                    }
                     final UidRange uids = UidRange.createForUser(profile);
                     nc = createDefaultNetworkCapabilitiesForUidRange(uids);
                     nc.addCapability(NET_CAPABILITY_ENTERPRISE);
+                    nc.addEnterpriseCapabilityId(
+                            preference.getPreferenceEnterpriseId());
                     nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
                     break;
                 default:
