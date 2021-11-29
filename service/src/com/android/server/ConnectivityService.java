@@ -5672,8 +5672,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void onUserRemoved(@NonNull final UserHandle user) {
         mPermissionMonitor.onUserRemoved(user);
         // If there was a network preference for this user, remove it.
-        handleSetProfileNetworkPreference(new ProfileNetworkPreferenceList.Preference(user, null),
-                null /* listener */);
+        handleSetProfileNetworkPreference(
+                new ProfileNetworkPreferenceList.Preference(user, null, true), null /* listener */);
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
         }
@@ -10144,7 +10144,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         "Invalid preference in setProfileNetworkPreference");
         }
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_PROFILE_NETWORK_PREFERENCE,
-                new Pair<>(new ProfileNetworkPreferenceList.Preference(profile, nc), listener)));
+                new Pair<>(new ProfileNetworkPreferenceList.Preference(profile, nc,
+                        preference.isAllowFallback()), listener)));
     }
 
     private void validateNetworkCapabilitiesOfProfileNetworkPreference(
@@ -10166,8 +10167,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // request.
             final ArrayList<NetworkRequest> nrs = new ArrayList<>();
             nrs.add(createNetworkRequest(NetworkRequest.Type.REQUEST, pref.capabilities));
-            nrs.add(createDefaultInternetRequestForTransport(
-                    TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+            if (pref.allowFallback) {
+                nrs.add(createDefaultInternetRequestForTransport(
+                        TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
+            }
             setNetworkRequestUids(nrs, UidRange.fromIntRanges(pref.capabilities.getUids()));
             final NetworkRequestInfo nri = new NetworkRequestInfo(Process.myUid(), nrs,
                     PREFERENCE_ORDER_PROFILE);

@@ -39,15 +39,19 @@ import java.util.Objects;
 public final class ProfileNetworkPreferences implements Parcelable {
     private final @NonNull UserHandle mUser;
     private final @ProfileNetworkPreference int mProfilePreference;
+    private boolean mAllowFallback;
 
-    private ProfileNetworkPreferences(UserHandle user, int profilePreference) {
+    private ProfileNetworkPreferences(UserHandle user, int profilePreference,
+            boolean allowFallback) {
         mUser = user;
         mProfilePreference = profilePreference;
+        mAllowFallback = allowFallback;
     }
 
     private ProfileNetworkPreferences(Parcel in) {
         mUser = UserHandle.readFromParcel(in);
         mProfilePreference = in.readInt();
+        mAllowFallback = in.readBoolean();
     }
 
     public int getProfileNetworkPreference() {
@@ -57,11 +61,25 @@ public final class ProfileNetworkPreferences implements Parcelable {
         return mUser;
     }
 
+    /**
+     * is fallback to default network allowed. This boolean allows an enterprise admin to
+     * configure whether default connection (default internet or wifi) should be used or not
+     * if an enterprise connection is not available. If enterprise apn is available and if slice
+     * is not available then enterprise apn will be used to set up the data call. But if that fails
+     * then the data traffic will fall back to default pdn if allowFallback is set to true
+     * else no network will be marked as available for the enterprise profile.
+     * @return true if fallback is allowed, else false.
+     */
+    public boolean isAllowFallback() {
+        return mAllowFallback;
+    }
+
     @Override
     public String toString() {
         return "ProfileNetworkPreferences{"
                 + "mUser=" + getUser()
                 + "mProfilePreference=" + getProfileNetworkPreference()
+                + "mAllowFallback=" + mAllowFallback
                 + '}';
     }
 
@@ -71,13 +89,15 @@ public final class ProfileNetworkPreferences implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         ProfileNetworkPreferences that = (ProfileNetworkPreferences) o;
         return mProfilePreference == that.mProfilePreference
+                && mAllowFallback == that.mAllowFallback
                 && Objects.equals(mUser, that.mUser);
     }
 
     @Override
     public int hashCode() {
         return ((mProfilePreference * 17)
-                + (Objects.hashCode(mUser) * 23));
+                + (Objects.hashCode(mUser) * 23)
+                + (Objects.hashCode(mAllowFallback) * 29));
     }
 
     /**
@@ -88,6 +108,7 @@ public final class ProfileNetworkPreferences implements Parcelable {
         private @Nullable UserHandle mUser;
         private @ProfileNetworkPreference int mProfilePreference =
                 PROFILE_NETWORK_PREFERENCE_DEFAULT;
+        private boolean mAllowFallback = true;
 
         /**
          * Constructs an empty Builder with PROFILE_NETWORK_PREFERENCE_DEFAULT profile preference
@@ -125,6 +146,22 @@ public final class ProfileNetworkPreferences implements Parcelable {
         }
 
         /**
+         * Set allow fallback. This boolean allows an enterprise admin to configure whether
+         * default connection (default internet or wifi) should be used or not if an enterprise
+         * connection is not available. If enterprise apn is available and if slice is not
+         * available then enterprise apn will be used to set up the data call. But if that fails
+         * then the data traffic will fall back to default pdn if allowFallback is set to true
+         * else no network will be marked as available for the enterprise profile.
+         * @param allowFallback  true if fallback is allowed else false
+         * @return The builder to facilitate chaining.
+         */
+        @NonNull
+        public Builder setAllowFallback(boolean allowFallback) {
+            mAllowFallback = allowFallback;
+            return this;
+        }
+
+        /**
          * Returns an instance of {@link ProfileNetworkPreferences} created from the
          * fields set on this builder.
          */
@@ -133,7 +170,7 @@ public final class ProfileNetworkPreferences implements Parcelable {
             if (mUser == null) {
                 throw new IllegalStateException("user handle should not be null");
             }
-            return new ProfileNetworkPreferences(mUser, mProfilePreference);
+            return new ProfileNetworkPreferences(mUser, mProfilePreference, mAllowFallback);
         }
     }
 

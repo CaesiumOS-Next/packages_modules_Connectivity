@@ -154,6 +154,7 @@ package android.net {
     method public int describeContents();
     method public int getProfileNetworkPreference();
     method @Nullable public android.os.UserHandle getUser();
+    method public boolean isAllowFallback();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.ProfileNetworkPreferences> CREATOR;
   }
@@ -161,6 +162,7 @@ package android.net {
   public static final class ProfileNetworkPreferences.Builder {
     ctor public ProfileNetworkPreferences.Builder();
     method @NonNull public android.net.ProfileNetworkPreferences build();
+    method @NonNull public android.net.ProfileNetworkPreferences.Builder setAllowFallback(boolean);
     method @NonNull public android.net.ProfileNetworkPreferences.Builder setProfileNetworkPreference(int);
     method @NonNull public android.net.ProfileNetworkPreferences.Builder setUser(@NonNull android.os.UserHandle);
   }
