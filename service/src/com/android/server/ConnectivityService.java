@@ -60,6 +60,8 @@ import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_SKIPPED;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_VALID;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_ID_1;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_ID_5;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_CONGESTED;
@@ -10150,9 +10152,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     allowFallback = false;
                     // continue to process the enterprise preference.
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE:
+                    if (!isEnterpriseIdentifierValid(preference.getPreferenceEnterpriseId())) {
+                        throw new IllegalArgumentException(
+                                "Invalid enterprise identifier in setProfileNetworkPreferences");
+                    }
                     final UidRange uids = UidRange.createForUser(profile);
                     nc = createDefaultNetworkCapabilitiesForUidRange(uids);
                     nc.addCapability(NET_CAPABILITY_ENTERPRISE);
+                    nc.addEnterpriseCapabilityId(
+                            preference.getPreferenceEnterpriseId());
                     nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
                     break;
                 default:
@@ -10164,6 +10172,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_PROFILE_NETWORK_PREFERENCE,
                 new Pair<>(preferenceList, listener)));
+    }
+
+    private boolean isEnterpriseIdentifierValid(
+            @NetworkCapabilities.EnterpriseCapabilityId int identifier) {
+        if ((identifier >= NET_CAPABILITY_ENTERPRISE_ID_1)
+                && (identifier <= NET_CAPABILITY_ENTERPRISE_ID_5)) {
+            return true;
+        }
+        return false;
     }
 
     private void validateNetworkCapabilitiesOfProfileNetworkPreference(
