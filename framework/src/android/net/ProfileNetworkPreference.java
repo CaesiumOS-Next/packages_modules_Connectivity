@@ -20,11 +20,14 @@ import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT;
 
 import android.annotation.NonNull;
+import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.net.ConnectivityManager.ProfileNetworkPreferencePolicy;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -36,15 +39,18 @@ import java.util.Objects;
 public final class ProfileNetworkPreference implements Parcelable {
     private final @ProfileNetworkPreferencePolicy int mPreference;
     private boolean mAllowFallback;
+    private List<Integer> mUids;
 
     private ProfileNetworkPreference(int preference, boolean allowFallback) {
         mPreference = preference;
         mAllowFallback = allowFallback;
+        mUids = new ArrayList<>();
     }
 
     private ProfileNetworkPreference(Parcel in) {
         mPreference = in.readInt();
         mAllowFallback = in.readBoolean();
+        mUids = in.readArrayList(Integer.class.getClassLoader(), Integer.class);
     }
 
     public int getPreference() {
@@ -64,11 +70,20 @@ public final class ProfileNetworkPreference implements Parcelable {
         return mAllowFallback;
     }
 
+    /**
+     * @return List of uids applicable for the profile preference.
+     *      * Null would mean that this request applies to all uids in the profile.
+     */
+    public @NonNull List<Integer> getUids() {
+        return new ArrayList<>(mUids);
+    }
+
     @Override
     public String toString() {
         return "ProfileNetworkPreference{"
                 + "mPreference=" + getPreference()
                 + "mAllowFallback=" + isAllowFallback()
+                + "mUids=" + mUids.toString()
                 + '}';
     }
 
@@ -78,13 +93,15 @@ public final class ProfileNetworkPreference implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         final ProfileNetworkPreference that = (ProfileNetworkPreference) o;
         return mPreference == that.mPreference
-                && mAllowFallback == that.mAllowFallback;
+                && mAllowFallback == that.mAllowFallback
+                && (mUids == that.mUids || mUids.equals(that.mUids));
     }
 
     @Override
     public int hashCode() {
         return ((mPreference * 17)
-                + (Objects.hashCode(mAllowFallback) * 23));
+                + (Objects.hashCode(mAllowFallback) * 23)
+                + (Objects.hashCode(mUids) * 31));
     }
 
     /**
@@ -95,6 +112,7 @@ public final class ProfileNetworkPreference implements Parcelable {
         private @ProfileNetworkPreferencePolicy int mPreference =
                 PROFILE_NETWORK_PREFERENCE_DEFAULT;
         private boolean mAllowFallback = true;
+        private List<Integer> mUids;
 
         /**
          * Constructs an empty Builder with PROFILE_NETWORK_PREFERENCE_DEFAULT profile preference
@@ -131,6 +149,18 @@ public final class ProfileNetworkPreference implements Parcelable {
         }
 
         /**
+         * This is a list of uids for which profile perefence is set.
+         * Null would mean that this preference applies to all uids in the profile.
+         * @param uids  list of uids
+         * @return The builder to facilitate chaining.
+         */
+        @NonNull
+        public Builder setUids(@Nullable List<Integer> uids) {
+            mUids = new ArrayList<Integer>(uids);
+            return this;
+        }
+
+         /**
          * Returns an instance of {@link ProfileNetworkPreference} created from the
          * fields set on this builder.
          */

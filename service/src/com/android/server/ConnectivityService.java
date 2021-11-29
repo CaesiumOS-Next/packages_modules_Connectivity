@@ -1502,6 +1502,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return netCap;
     }
 
+    private static NetworkCapabilities createDefaultNetworkCapabilitiesForUidRangeSet(
+            @NonNull final Set<UidRange> uidRangeSet) {
+        final NetworkCapabilities netCap = new NetworkCapabilities();
+        netCap.addCapability(NET_CAPABILITY_INTERNET);
+        netCap.addCapability(NET_CAPABILITY_NOT_VCN_MANAGED);
+        netCap.removeCapability(NET_CAPABILITY_NOT_VPN);
+        netCap.setUids(UidRange.toIntRanges(uidRangeSet));
+        return netCap;
+    }
+
     private NetworkRequest createDefaultRequest() {
         return createDefaultInternetRequestForTransport(
                 TYPE_NONE, NetworkRequest.Type.REQUEST);
@@ -5674,7 +5684,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mPermissionMonitor.onUserRemoved(user);
         // If there was a network preference for this user, remove it.
         handleSetProfileNetworkPreference(
-                List.of(new ProfileNetworkPreferenceList.Preference(user, null, true)),
+                List.of(new ProfileNetworkPreferenceList.Preference(user, null, true, null)),
                 null /* listener */);
         if (mOemNetworkPreferences.getNetworkPreferences().size() > 0) {
             handleSetOemNetworkPreference(mOemNetworkPreferences, null);
@@ -10139,6 +10149,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         final List<ProfileNetworkPreferenceList.Preference> preferenceList =
                 new ArrayList<ProfileNetworkPreferenceList.Preference>();
+        Set<UidRange> uidRangeSet = null;
         for (final ProfileNetworkPreference preference : preferences) {
             final NetworkCapabilities nc;
             switch (preference.getPreference()) {
@@ -10147,7 +10158,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE:
                     final UidRange uids = UidRange.createForUser(profile);
-                    nc = createDefaultNetworkCapabilitiesForUidRange(uids);
+                    uidRangeSet = convertListToUidRange(preference.getUids());
+                    if (uidRangeSet != null && uidRangeSet.size() > 0) {
+                        if (isInTheRange(uids, uidRangeSet)) {
+                            nc = createDefaultNetworkCapabilitiesForUidRangeSet(uidRangeSet);
+                        } else {
+                            throw new IllegalArgumentException(
+                                    "Invalid uid range set in setProfileNetworkPreferences");
+                        }
+                    } else {
+                        nc = createDefaultNetworkCapabilitiesForUidRange(uids);
+                    }
                     nc.addCapability(NET_CAPABILITY_ENTERPRISE);
                     nc.removeCapability(NET_CAPABILITY_NOT_RESTRICTED);
                     break;
@@ -10156,7 +10177,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                             "Invalid preference in setProfileNetworkPreferences");
             }
             preferenceList.add(new ProfileNetworkPreferenceList.Preference(
-                    profile, nc, preference.isAllowFallback()));
+                    profile, nc, preference.isAllowFallback(), uidRangeSet));
         }
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_SET_PROFILE_NETWORK_PREFERENCE,
                 new Pair<>(preferenceList, listener)));
@@ -10185,12 +10206,58 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 nrs.add(createDefaultInternetRequestForTransport(
                         TYPE_NONE, NetworkRequest.Type.TRACK_DEFAULT));
             }
-            setNetworkRequestUids(nrs, UidRange.fromIntRanges(pref.capabilities.getUids()));
+            if (pref.mUidRangeSet != null && pref.mUidRangeSet.size() > 0) {
+                setNetworkRequestUids(nrs, pref.mUidRangeSet);
+            } else {
+                setNetworkRequestUids(nrs, UidRange.fromIntRanges(pref.capabilities.getUids()));
+            }
             final NetworkRequestInfo nri = new NetworkRequestInfo(Process.myUid(), nrs,
                     PREFERENCE_ORDER_PROFILE);
             result.add(nri);
         }
         return result;
+    }
+
+    private Set<UidRange> convertListToUidRange(List<Integer> uids) {
+        Collections.sort(uids);
+        Set<UidRange> uidRangeSet = new ArraySet<UidRange>();
+        if (uids == null || uids.size() == 0) {
+            return uidRangeSet;
+        }
+        int start = uids.get(0);
+        int stop = start;
+        for (Integer i : uids) {
+            if (i <= stop + 1) {
+                stop = i;
+            } else {
+                uidRangeSet.add(new UidRange(start, stop));
+                start = i;
+                stop = i;
+            }
+        }
+        if (uidRangeSet.size() == 0) {
+            uidRangeSet.add(new UidRange(start, stop));
+            return uidRangeSet;
+        }
+        return uidRangeSet;
+    }
+
+    /**
+     * Compare if the given UID range sets have the same UIDs.
+     *
+     * @hide
+     */
+    private boolean isInTheRange(@NonNull UidRange uids,
+            @NonNull Set<UidRange> uidRangeSet) {
+        if (uidRangeSet.size() == 0) {
+            return false;
+        }
+        for (UidRange range : uidRangeSet) {
+            if (!uids.contains(range.start) || !uids.contains(range.stop)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void handleSetProfileNetworkPreference(

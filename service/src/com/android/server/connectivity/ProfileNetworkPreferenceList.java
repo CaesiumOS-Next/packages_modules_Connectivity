@@ -19,11 +19,13 @@ package com.android.server.connectivity;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.NetworkCapabilities;
+import android.net.UidRange;
 import android.os.UserHandle;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A data class containing all the per-profile network preferences.
@@ -39,13 +41,16 @@ public class ProfileNetworkPreferenceList {
         // Capabilities are only null when sending an object to remove the setting for a user
         @Nullable public final NetworkCapabilities capabilities;
         public boolean allowFallback;
+        @Nullable public Set<UidRange> mUidRangeSet;
 
         public Preference(@NonNull final UserHandle user,
                 @Nullable final NetworkCapabilities capabilities,
-                boolean allowFallback) {
+                boolean allowFallback,
+                Set<UidRange> uidRangeSet) {
             this.user = user;
             this.capabilities = null == capabilities ? null : new NetworkCapabilities(capabilities);
             this.allowFallback = allowFallback;
+            this.mUidRangeSet = mUidRangeSet;
         }
 
         /** toString */
@@ -53,6 +58,7 @@ public class ProfileNetworkPreferenceList {
             return "[ProfileNetworkPreference user=" + user
                     + " caps=" + capabilities
                     + " allowFallback=" + allowFallback
+                    + " mUidRangeSet=" + mUidRangeSet
                     + "]";
         }
     }
