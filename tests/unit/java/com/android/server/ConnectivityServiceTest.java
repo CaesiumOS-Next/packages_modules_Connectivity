@@ -13836,7 +13836,9 @@ public class ConnectivityServiceTest {
         workAgent.mNetworkMonitor.forceReevaluation(Process.myUid());
         mProfileDefaultNetworkCallback.expectCapabilitiesThat(workAgent,
                 nc -> nc.hasCapability(NET_CAPABILITY_VALIDATED)
-                        && nc.hasCapability(NET_CAPABILITY_ENTERPRISE));
+                        && nc.hasCapability(NET_CAPABILITY_ENTERPRISE)
+                        && nc.hasEnterpriseCapabilityId(
+                                profileNetworkPreference.getPreferenceEnterpriseId()));
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
 
         workAgent.addCapability(NET_CAPABILITY_TEMPORARILY_NOT_METERED);
@@ -13914,7 +13916,9 @@ public class ConnectivityServiceTest {
         workAgent2.mNetworkMonitor.forceReevaluation(Process.myUid());
         mProfileDefaultNetworkCallback.expectCapabilitiesThat(workAgent2,
                 nc -> nc.hasCapability(NET_CAPABILITY_ENTERPRISE)
-                        && !nc.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
+                        && !nc.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                        && nc.hasEnterpriseCapabilityId(
+                        profileNetworkPreference.getPreferenceEnterpriseId()));
         assertNoCallbacks(mSystemDefaultNetworkCallback, mDefaultNetworkCallback);
         inOrder.verify(mMockNetd, never()).networkAddUidRangesParcel(any());
 
@@ -13972,9 +13976,57 @@ public class ConnectivityServiceTest {
         ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
                 new ProfileNetworkPreference.Builder();
         profileNetworkPreferenceBuilder.setPreference(
+                PROFILE_NETWORK_PREFERENCE_ENTERPRISE);
+        testPreferenceForUserNetworkUpDownForGivenPreference(
+                profileNetworkPreferenceBuilder.build(), true);
+    }
+
+    /**
+     * Make sure per-profile networking preference behaves as expected when the enterprise network
+     * goes up and down while the preference is active for a given enterprise identifier
+     */
+    @Test
+    public void testPreferenceForUserNetworkUpDownWithDefaultId()
+            throws Exception {
+        ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
+                new ProfileNetworkPreference.Builder();
+        profileNetworkPreferenceBuilder.setPreference(
                 PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK);
         testPreferenceForUserNetworkUpDownForGivenPreference(
                 profileNetworkPreferenceBuilder.build(), true);
+    }
+
+    /**
+     * Make sure per-profile networking preference behaves as expected when the enterprise network
+     * goes up and down while the preference is active for a given enterprise identifier
+     */
+    @Test
+    public void testPreferenceForUserNetworkUpDownWithId2()
+            throws Exception {
+        ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
+                new ProfileNetworkPreference.Builder();
+        profileNetworkPreferenceBuilder.setPreference(
+                PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK);
+        profileNetworkPreferenceBuilder.setPreferenceEnterpriseId(
+                NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_ID_2);
+        testPreferenceForUserNetworkUpDownForGivenPreference(
+                profileNetworkPreferenceBuilder.build(), true);
+    }
+
+    /**
+     * Make sure per-profile networking preference behaves as expected when the enterprise network
+     * goes up and down while the preference is active for a given enterprise identifier
+     */
+    @Test
+    public void testPreferenceForUserNetworkUpDownWithInvalidId()
+            throws Exception {
+        ProfileNetworkPreference.Builder profileNetworkPreferenceBuilder =
+                new ProfileNetworkPreference.Builder();
+        profileNetworkPreferenceBuilder.setPreference(
+                PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK);
+        profileNetworkPreferenceBuilder.setPreferenceEnterpriseId(0);
+        assertThrows("Should not be able to set invalid enterprise id",
+                IllegalStateException.class, () -> profileNetworkPreferenceBuilder.build());
     }
 
     /**
