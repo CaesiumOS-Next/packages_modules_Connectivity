@@ -17,8 +17,9 @@
 package android.net;
 
 import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
-import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_DEFAULT;
+import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
 
+import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
@@ -26,6 +27,8 @@ import android.net.ConnectivityManager.ProfileNetworkPreferencePolicy;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,16 +44,74 @@ public final class ProfileNetworkPreference implements Parcelable {
     private boolean mAllowFallback;
     private List<Integer> mUids;
 
-    private ProfileNetworkPreference(int preference, boolean allowFallback) {
+    /**
+     * Enterprise preference sublevel. Valid values starts from
+     * PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_1 to
+     * PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_5.
+     */
+    private int mPreferenceEnterpriseSubLevel;
+
+    /**
+     * enterprise capability sub level 1
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_1 = 1;
+
+    /**
+     * enterprise capability sub level 2
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_2 = 2;
+
+    /**
+     * enterprise capability sub level 3
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_3 = 3;
+
+    /**
+     * enterprise capability sub level 4
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_4 = 4;
+
+    /**
+     * enterprise capability sub level 5
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_5 = 5;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(prefix = { "PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_" }, value = {
+            PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_1,
+            PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_2,
+            PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_3,
+            PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_4,
+            PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_5,
+    })
+
+    public @interface ProfileNetworkEnterpriseSubLevel {
+    }
+
+    private ProfileNetworkPreference(int preference, boolean allowFallback, List<Integer> uids,
+            int preferenceEnterpriseSubLevel) {
         mPreference = preference;
         mAllowFallback = allowFallback;
-        mUids = new ArrayList<>();
+        mUids = uids;
+        mPreferenceEnterpriseSubLevel = preferenceEnterpriseSubLevel;
     }
 
     private ProfileNetworkPreference(Parcel in) {
         mPreference = in.readInt();
         mAllowFallback = in.readBoolean();
         mUids = in.readArrayList(Integer.class.getClassLoader(), Integer.class);
+        mPreferenceEnterpriseSubLevel = in.readInt();
     }
 
     public int getPreference() {
@@ -78,12 +139,25 @@ public final class ProfileNetworkPreference implements Parcelable {
         return new ArrayList<>(mUids);
     }
 
+    /**
+     * @return preference enterprise sub-level. valid values starts from
+     * PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_1 to
+     * PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_5.
+     * preference sub-level is applicable only if preference is set as
+     * PROFILE_NETWORK_PREFERENCE_ENTERPRISE
+     *
+     */
+    public int getPreferenceEnterpriseSubLevel() {
+        return mPreferenceEnterpriseSubLevel;
+    }
+
     @Override
     public String toString() {
         return "ProfileNetworkPreference{"
                 + "mPreference=" + getPreference()
                 + "mAllowFallback=" + isAllowFallback()
                 + "mUids=" + mUids.toString()
+                + "mPreferenceEnterpriseSubLevel=" + mPreferenceEnterpriseSubLevel
                 + '}';
     }
 
@@ -94,14 +168,16 @@ public final class ProfileNetworkPreference implements Parcelable {
         final ProfileNetworkPreference that = (ProfileNetworkPreference) o;
         return mPreference == that.mPreference
                 && mAllowFallback == that.mAllowFallback
+                && mPreferenceEnterpriseSubLevel == that.mPreferenceEnterpriseSubLevel
                 && (mUids == that.mUids || mUids.equals(that.mUids));
     }
 
     @Override
     public int hashCode() {
         return ((mPreference * 17)
-                + (Objects.hashCode(mAllowFallback) * 23)
-                + (Objects.hashCode(mUids) * 31));
+                + (Objects.hashCode(mAllowFallback) * 19)
+                + (Objects.hashCode(mUids) * 23)
+                + mPreferenceEnterpriseSubLevel * 29);
     }
 
     /**
@@ -110,9 +186,10 @@ public final class ProfileNetworkPreference implements Parcelable {
      */
     public static final class Builder {
         private @ProfileNetworkPreferencePolicy int mPreference =
-                PROFILE_NETWORK_PREFERENCE_DEFAULT;
+                PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_1;
         private boolean mAllowFallback = true;
         private List<Integer> mUids;
+        private int mPreferenceEnterpriseSubLevel;
 
         /**
          * Constructs an empty Builder with PROFILE_NETWORK_PREFERENCE_DEFAULT profile preference
@@ -166,7 +243,31 @@ public final class ProfileNetworkPreference implements Parcelable {
          */
         @NonNull
         public ProfileNetworkPreference  build() {
-            return new ProfileNetworkPreference(mPreference, mAllowFallback);
+            if (mPreference == PROFILE_NETWORK_PREFERENCE_ENTERPRISE) {
+                if ((mPreferenceEnterpriseSubLevel
+                        < PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_1)
+                        || (mPreferenceEnterpriseSubLevel
+                        > PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_5)) {
+                    throw new IllegalArgumentException("Invalid preference sub-level");
+                }
+            }
+            return new ProfileNetworkPreference(mPreference, mAllowFallback, mUids,
+                    mPreferenceEnterpriseSubLevel);
+        }
+
+        /**
+         * Set the preference enterprise sub-level. valid values starts from
+         * PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_1 to
+         * PROFILE_NETWORK_PREFERENCE_ENTERPRISE_SUB_LEVEL_5.
+         * preference sub-level is applicable only if preference is set as
+         * PROFILE_NETWORK_PREFERENCE_ENTERPRISE.
+         * @param preferenceSubLevel  preference sub level
+         * @return The builder to facilitate chaining.
+         */
+        @NonNull
+        public Builder setPreferenceEnterpriseSubLevel(int preferenceSubLevel) {
+            mPreferenceEnterpriseSubLevel = preferenceSubLevel;
+            return this;
         }
     }
 
