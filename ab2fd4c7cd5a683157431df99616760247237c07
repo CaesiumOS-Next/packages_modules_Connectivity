@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "619a7305_17fc21be",
+        "filename": "framework/src/android/net/Network.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-11-30T11:06:12Z",
+      "side": 1,
+      "message": "This comment should be updated. Sure, it still does this (and the new code guarantees it), but the old comment should be reworded and/or moved",
+      "range": {
+        "startLine": 388,
+        "startChar": 70,
+        "endLine": 389,
+        "endChar": 72
+      },
+      "revId": "ab2fd4c7cd5a683157431df99616760247237c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
