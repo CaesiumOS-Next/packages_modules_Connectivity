@@ -1,0 +1,70 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017837853",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d32",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "0f4f4cc3_176d5467",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-30T19:50:32Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "4b90078bf6d30fb3e36f34cf6c7fd244d63693e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017837853",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d32",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "266d50c9_64adf619",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-30T19:50:32Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "4b90078bf6d30fb3e36f34cf6c7fd244d63693e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000017837885",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d32",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f55f6f13_2dc767e0",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-11-30T19:50:32Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 101
+      },
+      "revId": "4b90078bf6d30fb3e36f34cf6c7fd244d63693e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
