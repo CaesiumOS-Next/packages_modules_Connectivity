@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa8cdda3_459c5d66",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 32
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-30T23:57:29Z",
+      "side": 1,
+      "message": "Since only DSCP is being tested here is fine to remove the other API\u0027s /callbacks?",
+      "range": {
+        "startLine": 250,
+        "startChar": 21,
+        "endLine": 250,
+        "endChar": 46
+      },
+      "revId": "4b90078bf6d30fb3e36f34cf6c7fd244d63693e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee28b503_7d637eee",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 32
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-11-30T23:57:29Z",
+      "side": 1,
+      "message": "Is it fine to use TRANSPORT_TEST or is necessary to use ETH like NetworkValidationTest?",
+      "range": {
+        "startLine": 316,
+        "startChar": 29,
+        "endLine": 316,
+        "endChar": 43
+      },
+      "revId": "4b90078bf6d30fb3e36f34cf6c7fd244d63693e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
