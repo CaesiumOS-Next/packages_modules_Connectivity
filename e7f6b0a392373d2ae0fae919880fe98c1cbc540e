@@ -16,6 +16,24 @@
       "message": "As discussed earlier, could you just add a library to make soong happy in downstream branches ? The build rule should already be disabled there, so it just needs to pass creating the build graph.",
       "revId": "e7f6b0a392373d2ae0fae919880fe98c1cbc540e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9cd116e_dfe53d5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-11-30T01:49:47Z",
+      "side": 1,
+      "message": "I add nsd source to service.core instead of using static lib. So it doens\u0027t need to add new lib or resources for building test now.",
+      "parentUuid": "38e62ccf_fb116340",
+      "revId": "e7f6b0a392373d2ae0fae919880fe98c1cbc540e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
