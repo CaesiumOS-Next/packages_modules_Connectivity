@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c82bf5ed_f491b88e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1626001
+      },
+      "writtenOn": "2021-12-01T02:15:10Z",
+      "side": 1,
+      "message": "How would you like the test to be designed? What would the scope be? Would you like to see a non-standard DNS parser? A reimplementation of DnsResolver::InetAddressAnswerAccumulator?",
+      "parentUuid": "40f8419e_402217f3",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "575b3b4931f1649bc6cfb10349a6aeefa864b015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b33a764f_f4d121aa",
