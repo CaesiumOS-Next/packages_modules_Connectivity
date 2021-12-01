@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "722508fe_9aae2236",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-01T06:54:07Z",
+      "side": 1,
+      "message": "I think an appropriate CTS could simply have a subclass of DnsException calling the constructor, and a function that throws an instance of the subclass and catches DnsException.\n\nYou could go the extra mile and have a (10-line) toy implementation of resolving a name with DnsResolver, but mock the DnsResolver and throw the exception, to make it as realistic as possible.\n\nIt does sound trivial, but the idea is just to demonstrate that this actually accomplishes the two goals that are stated in this cover comment. If you have a subclass, you show it can be used by internal packages. If you have a test that creates and catches the exception, you show it can be used in test, especially if the test looks like something an app could really want to do like I describe in the 2nd paragraph above.",
+      "parentUuid": "c82bf5ed_f491b88e",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "575b3b4931f1649bc6cfb10349a6aeefa864b015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b33a764f_f4d121aa",
