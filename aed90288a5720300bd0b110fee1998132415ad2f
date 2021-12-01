@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cb72715_535443d3",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-01T15:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26ea06c5_93898554",
+      "range": {
+        "startLine": 191,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 10
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83c46838_70ff46bd",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-26T08:25:44Z",
       "side": 1,
       "message": "This is not wrong but it\u0027s not useful as INTERNET is not included in the defaults, so you\u0027re removing a capability that already isn\u0027t there",
+      "range": {
+        "startLine": 769,
+        "startChar": 0,
+        "endLine": 769,
+        "endChar": 78
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8090408_7b68dc93",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 769,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-01T15:40:21Z",
+      "side": 1,
+      "message": "You\u0027re right, thanks.\nRemoved.",
+      "parentUuid": "83c46838_70ff46bd",
       "range": {
         "startLine": 769,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f77f695c_8525f625",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-01T15:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3268428_07997b3d",
+      "range": {
+        "startLine": 773,
+        "startChar": 17,
+        "endLine": 773,
+        "endChar": 84
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6116e861_1dbdec3e",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "183c529e_16e32ef3",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-01T15:40:21Z",
+      "side": 1,
+      "message": "It\u0027s a good idea! Thanks.\nBut in fact, as l.796 said, it should be an empty array but not a null.\nUpdated.",
+      "parentUuid": "6116e861_1dbdec3e",
+      "range": {
+        "startLine": 805,
+        "startChar": 25,
+        "endLine": 805,
+        "endChar": 41
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b1aafa3_5c2b7045",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-11-26T08:25:44Z",
       "side": 1,
       "message": "Let\u0027s also try passing both :)",
+      "range": {
+        "startLine": 826,
+        "startChar": 48,
+        "endLine": 826,
+        "endChar": 49
+      },
+      "revId": "aed90288a5720300bd0b110fee1998132415ad2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b29f378_7ac06296",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-01T15:40:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b1aafa3_5c2b7045",
       "range": {
         "startLine": 826,
         "startChar": 48,
