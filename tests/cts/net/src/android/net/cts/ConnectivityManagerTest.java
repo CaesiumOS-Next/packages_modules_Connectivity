@@ -1033,7 +1033,7 @@ public class ConnectivityManagerTest {
     public void testToggleWifiConnectivityAction() throws Exception {
         // toggleWifi calls connectToWifi and disconnectFromWifi, which both wait for
         // CONNECTIVITY_ACTION broadcasts.
-        mCtsNetUtils.toggleWifi();
+        mCtsNetUtils.toggleWifi(new Handler(Looper.getMainLooper()));
     }
 
     /** Verify restricted networks cannot be requested. */

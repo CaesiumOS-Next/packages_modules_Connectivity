@@ -36,6 +36,8 @@ import android.net.cts.util.CtsNetUtils;
 import android.net.wifi.WifiManager;
 import android.os.BatteryStatsManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.connectivity.CellularBatteryStats;
 import android.os.connectivity.WifiBatteryStats;
 import android.platform.test.annotations.AppModeFull;
@@ -175,7 +177,7 @@ public class BatteryStatsManagerTest{
         Log.d(TAG, "Generate traffic on wifi network.");
         generateNetworkTraffic(wifiNetwork, url);
         // Wifi battery stats are updated when wifi on.
-        mCtsNetUtils.toggleWifi();
+        mCtsNetUtils.toggleWifi(new Handler(Looper.getMainLooper()));
 
         // Check wifi battery stats are updated.
         runAsShell(UPDATE_DEVICE_STATS,
