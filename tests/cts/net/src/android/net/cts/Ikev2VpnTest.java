@@ -53,6 +53,7 @@ import android.platform.test.annotations.AppModeFull;
 import androidx.test.InstrumentationRegistry;
 
 import com.android.internal.util.HexDump;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 
@@ -394,8 +395,8 @@ public class Ikev2VpnTest {
         }
     }
 
-    private void checkStartStopVpnProfileBuildsNetworks(IkeTunUtils tunUtils, boolean testIpv6)
-            throws Exception {
+    private void checkStartStopVpnProfileBuildsNetworks(IkeTunUtils tunUtils, boolean testIpv6,
+            boolean testSessionKey) throws Exception {
         String serverAddr = testIpv6 ? TEST_SERVER_ADDR_V6 : TEST_SERVER_ADDR_V4;
         String initResp = testIpv6 ? SUCCESSFUL_IKE_INIT_RESP_V6 : SUCCESSFUL_IKE_INIT_RESP_V4;
         String authResp = testIpv6 ? SUCCESSFUL_IKE_AUTH_RESP_V6 : SUCCESSFUL_IKE_AUTH_RESP_V4;
@@ -408,7 +409,14 @@ public class Ikev2VpnTest {
                 buildIkev2VpnProfilePsk(serverAddr, true /* isRestrictedToTestNetworks */);
         assertNull(sVpnMgr.provisionVpnProfile(profile));
 
-        sVpnMgr.startProvisionedVpnProfile();
+        if (testSessionKey) {
+            // testSessionKey shouldn't be set to true if the android version is lower than T.
+            assumeTrue(SdkLevel.isAtLeastT());
+            // startProvisionedVpnProfileWithSessionKey() should return a non-null random UUID.
+            assertNotNull(sVpnMgr.startProvisionedVpnProfileWithSessionKey());
+        } else {
+            sVpnMgr.startProvisionedVpnProfile();
+        }
 
         // Inject IKE negotiation
         int expectedMsgId = 0;
@@ -439,14 +447,16 @@ public class Ikev2VpnTest {
 
     private class VerifyStartStopVpnProfileTest implements TestNetworkRunnable.Test {
         private final boolean mTestIpv6Only;
+        private final boolean mTestSessionKey;
 
         /**
          * Constructs the test
          *
          * @param testIpv6Only if true, builds a IPv6-only test; otherwise builds a IPv4-only test
          */
-        VerifyStartStopVpnProfileTest(boolean testIpv6Only) {
+        VerifyStartStopVpnProfileTest(boolean testIpv6Only, boolean testSessionKey) {
             mTestIpv6Only = testIpv6Only;
+            mTestSessionKey = testSessionKey;
         }
 
         @Override
@@ -454,7 +464,7 @@ public class Ikev2VpnTest {
                 throws Exception {
             final IkeTunUtils tunUtils = new IkeTunUtils(testIface.getFileDescriptor());
 
-            checkStartStopVpnProfileBuildsNetworks(tunUtils, mTestIpv6Only);
+            checkStartStopVpnProfileBuildsNetworks(tunUtils, mTestIpv6Only, mTestSessionKey);
         }
 
         @Override
@@ -478,7 +488,8 @@ public class Ikev2VpnTest {
 
         // Requires shell permission to update appops.
         runWithShellPermissionIdentity(
-                new TestNetworkRunnable(new VerifyStartStopVpnProfileTest(false)));
+                new TestNetworkRunnable(new VerifyStartStopVpnProfileTest(
+                        false /* testIpv6Only */, false /* testSessionKey */)));
     }
 
     @Test
@@ -487,7 +498,19 @@ public class Ikev2VpnTest {
 
         // Requires shell permission to update appops.
         runWithShellPermissionIdentity(
-                new TestNetworkRunnable(new VerifyStartStopVpnProfileTest(true)));
+                new TestNetworkRunnable(new VerifyStartStopVpnProfileTest(
+                        true /* testIpv6Only */, false /* testSessionKey */)));
+    }
+
+    @IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test
+    public void testStartProvisionedVpnProfileWithSessionKey() throws Exception {
+        assumeTrue(mCtsNetUtils.hasIpsecTunnelsFeature());
+
+        // Requires shell permission to update appops.
+        runWithShellPermissionIdentity(
+                new TestNetworkRunnable(new VerifyStartStopVpnProfileTest(
+                        false /* testIpv6Only */, true /* testSessionKey */)));
     }
 
     private static class CertificateAndKey {
