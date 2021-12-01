@@ -22,6 +22,30 @@
       },
       "revId": "ab2fd4c7cd5a683157431df99616760247237c07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcbc53b9_f9920902",
+        "filename": "framework/src/android/net/Network.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-12-01T02:37:56Z",
+      "side": 1,
+      "message": "Updated. See if it\u0027s ok to you.",
+      "parentUuid": "619a7305_17fc21be",
+      "range": {
+        "startLine": 388,
+        "startChar": 70,
+        "endLine": 389,
+        "endChar": 72
+      },
+      "revId": "ab2fd4c7cd5a683157431df99616760247237c07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
