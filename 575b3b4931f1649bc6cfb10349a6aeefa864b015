@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40f8419e_402217f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-01T01:35:13Z",
+      "side": 1,
+      "message": "Is there a reason there is no CTS test for this API in this CL? It doesn\u0027t seem like it would be very difficult to write one.\n\nGiven that one stated reason for making this a public API is to write tests, I think we should have a proof-of-concept test in this CL before the CL is merged.",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "575b3b4931f1649bc6cfb10349a6aeefa864b015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b33a764f_f4d121aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-01T01:35:13Z",
+      "side": 1,
+      "message": "Please add",
+      "revId": "575b3b4931f1649bc6cfb10349a6aeefa864b015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
