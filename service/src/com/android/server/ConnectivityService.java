@@ -6265,6 +6265,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     @Override
+    int setQosScsPolicy(int fd, int dscp) {
+        ScsPolicy policy;
+
+        // Pull the tuple information for policy from the fd
+        // add the dscp value.
+        nai.onRequestQosScsPolicy(policy);
+
+        // Return value will be the scs policy id
+        return id;
+    }
+
+    @Override
     public boolean requestBandwidthUpdate(Network network) {
         enforceAccessPermission();
         NetworkAgentInfo nai = null;

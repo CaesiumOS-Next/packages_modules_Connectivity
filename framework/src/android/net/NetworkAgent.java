@@ -396,6 +396,14 @@ public abstract class NetworkAgent {
     public static final int CMD_NETWORK_DESTROYED = BASE + 23;
 
     /**
+     * Sent by ConnectivityService to {@link NetworkAgent} to inform the agent that a
+     * request to add a QOS SCS policy has been sent.
+     *
+     * @hide
+     */
+    public static final int CMD_REQUEST_QOS_SCS_POLICY = BASE + 24;
+
+    /**
      * Sent by the NetworkAgent to ConnectivityService to set the linger duration for this network
      * agent.
      * arg1 = the linger duration, represents by {@link Duration}.
@@ -611,6 +619,10 @@ public abstract class NetworkAgent {
                     onNetworkDestroyed();
                     break;
                 }
+                case CMD_REQUEST_QOS_SCS_POLICY: {
+                    onRequestQosScsPolicy(ScsPolicy policy);
+                    break;
+                }
             }
         }
     }
@@ -759,6 +771,11 @@ public abstract class NetworkAgent {
 
         @Override
         public void onNetworkDestroyed() {
+            mHandler.sendMessage(mHandler.obtainMessage(CMD_NETWORK_DESTROYED));
+        }
+
+        @Override
+        public void onRequestQosScsPolicy(in ScsPolicy) {
             mHandler.sendMessage(mHandler.obtainMessage(CMD_NETWORK_DESTROYED));
         }
     }
@@ -1252,6 +1269,12 @@ public abstract class NetworkAgent {
     public void onQosCallbackUnregistered(final int qosCallbackId) {
     }
 
+    /**
+     * Called when a request to add a QoS SCS policy has came from ConnectivityManager.
+     * @param policy the policy requested to be added
+     */
+    public void onRequestQosScsPolicy(final ScsPolicy policy) {
+    }
 
     /**
      * Sends the attributes of Qos Session back to the Application

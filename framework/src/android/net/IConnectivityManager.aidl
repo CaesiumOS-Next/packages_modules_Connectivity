@@ -228,4 +228,6 @@ interface IConnectivityManager
     void unofferNetwork(in INetworkOfferCallback callback);
 
     void setTestAllowBadWifiUntil(long timeMs);
+
+    int setQosScsPolicy(int fd, int dscp);
 }

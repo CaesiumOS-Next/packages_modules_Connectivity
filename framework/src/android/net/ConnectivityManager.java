@@ -4594,6 +4594,19 @@ public class ConnectivityManager {
     }
 
     /**
+     * Sends a QoS SCS policy to the connected AP. Traffic with the associated
+     * DSCP mark on the fd will be prioritized over the connected AP if
+     * support is present.
+     */
+    public int setQosScsPolicy(int fd, int dscp) {
+        try {
+            return mService.onRequestQosScsPolicy(fd, dscp);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Unregisters a {@code NetworkCallback} and possibly releases networks originating from
      * {@link #requestNetwork(NetworkRequest, NetworkCallback)} and
      * {@link #registerNetworkCallback(NetworkRequest, NetworkCallback)} calls.
