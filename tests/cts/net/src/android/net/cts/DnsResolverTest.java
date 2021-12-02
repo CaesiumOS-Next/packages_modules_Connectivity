@@ -43,6 +43,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.ParseException;
 import android.net.cts.util.CtsNetUtils;
+import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
@@ -54,6 +55,8 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.DnsPacket;
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.SkipPresubmit;
 
 import org.junit.After;
@@ -783,6 +786,21 @@ public class DnsResolverTest {
                 assertTrue(msg + " returned " + (queryV6 ? "Ipv4" : "Ipv6") + " results",
                         queryV6 ? !callback.hasIpv4Answer() : !callback.hasIpv6Answer());
             }
+        }
+    }
+
+    /** Verifies that DnsResolver.DnsException can be subclassed and its constructor re-used. */
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testDnsExceptionConstructor() throws InterruptedException {
+        class TestDnsException extends DnsResolver.DnsException {
+            TestDnsException(int code, @Nullable Throwable cause) {
+                super(code, cause);
+            }
+        }
+        try {
+            throw new TestDnsException(DnsResolver.ERROR_SYSTEM, null);
+        } catch (DnsResolver.DnsException e) {
+            assertEquals(DnsResolver.ERROR_SYSTEM, e.code);
         }
     }
 }
