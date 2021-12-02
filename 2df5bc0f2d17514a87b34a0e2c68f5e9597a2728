@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b969c42_c0f48a89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-02T06:48:22Z",
+      "side": 1,
+      "message": "Happy with this considering CTS test is now available in a followup patch",
+      "revId": "2df5bc0f2d17514a87b34a0e2c68f5e9597a2728",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
