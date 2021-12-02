@@ -770,4 +770,17 @@ public class DnsResolverTest extends AndroidTestCase {
             }
         }
     }
+
+    public void testDnsExceptionConstructor() throws InterruptedException {
+        class TestDnsException extends DnsResolver.DnsException {
+            TestDnsException(int code, @Nullable Throwable cause) {
+                super(code, cause);
+            }
+        }
+        try {
+            throw new TestDnsException(DnsResolver.ERROR_SYSTEM, null);
+        } catch (DnsResolver.DnsException e) {
+            assertEquals(DnsResolver.ERROR_SYSTEM, e.code);
+        }
+    }
 }
