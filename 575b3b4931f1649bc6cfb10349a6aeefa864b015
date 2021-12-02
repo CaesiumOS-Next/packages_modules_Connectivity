@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3b557cfb_172b99fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1626001
+      },
+      "writtenOn": "2021-12-02T04:07:10Z",
+      "side": 1,
+      "message": "\u003e I think an appropriate CTS could simply have a subclass of DnsException calling the constructor, and a function that throws an instance of the subclass and catches DnsException.\n\nDone!",
+      "parentUuid": "722508fe_9aae2236",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "575b3b4931f1649bc6cfb10349a6aeefa864b015",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b33a764f_f4d121aa",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
