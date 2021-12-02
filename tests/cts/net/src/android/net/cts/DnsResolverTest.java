@@ -27,29 +27,31 @@ import static android.system.OsConstants.ETIMEDOUT;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
-import android.net.ConnectivityManager.NetworkCallback;
 import android.net.DnsResolver;
-import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.ParseException;
 import android.net.cts.util.CtsNetUtils;
+import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
 import android.platform.test.annotations.AppModeFull;
-import android.provider.Settings;
 import android.system.ErrnoException;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
 import com.android.net.module.util.DnsPacket;
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.SkipPresubmit;
+
+import org.junit.Rule;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -62,6 +64,9 @@ import java.util.concurrent.TimeUnit;
 
 @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
 public class DnsResolverTest extends AndroidTestCase {
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
     private static final String TAG = "DnsResolverTest";
     private static final char[] HEX_CHARS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
@@ -99,8 +104,6 @@ public class DnsResolverTest extends AndroidTestCase {
     private Executor mExecutorInline;
     private DnsResolver mDns;
 
-    private String mOldMode;
-    private String mOldDnsSpecifier;
     private TestNetworkCallback mWifiRequestCallback = null;
 
     @Override
@@ -771,6 +774,21 @@ public class DnsResolverTest extends AndroidTestCase {
                 assertTrue(msg + " returned " + (queryV6 ? "Ipv4" : "Ipv6") + " results",
                         queryV6 ? !callback.hasIpv4Answer() : !callback.hasIpv6Answer());
             }
+        }
+    }
+
+    /** Verifies that DnsResolver.DnsException can be subclassed and its constructor re-used. */
+    @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testDnsExceptionConstructor() throws InterruptedException {
+        class TestDnsException extends DnsResolver.DnsException {
+            TestDnsException(int code, @Nullable Throwable cause) {
+                super(code, cause);
+            }
+        }
+        try {
+            throw new TestDnsException(DnsResolver.ERROR_SYSTEM, null);
+        } catch (DnsResolver.DnsException e) {
+            assertEquals(DnsResolver.ERROR_SYSTEM, e.code);
         }
     }
 }
