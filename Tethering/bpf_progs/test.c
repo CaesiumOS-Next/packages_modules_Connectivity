@@ -25,6 +25,9 @@
 // Used only by TetheringPrivilegedTests, not by production code.
 DEFINE_BPF_MAP_GRW(tether_downstream6_map, HASH, TetherDownstream6Key, Tether6Value, 16,
                    AID_NETWORK_STACK)
+// Used only by BpfBitmapTest, not by production code.
+DEFINE_BPF_MAP_GRW(blocked_ports_map, ARRAY, int, uint64_t, 1024,
+                   AID_NETWORK_STACK)
 
 DEFINE_BPF_PROG_KVER("xdp/drop_ipv4_udp_ether", AID_ROOT, AID_NETWORK_STACK,
                       xdp_test, KVER(5, 9, 0))
