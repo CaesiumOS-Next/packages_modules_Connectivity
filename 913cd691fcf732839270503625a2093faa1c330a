@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d045386f_6f829fbb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-02T09:19:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the threading here. mBluetoothCallback is initialized on this thread, but the callback method are actually run on the handler thread. Is that correct?",
+      "range": {
+        "startLine": 737,
+        "startChar": 40,
+        "endLine": 737,
+        "endChar": 58
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6f15f08_45b2b6c5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-02T09:19:29Z",
+      "side": 1,
+      "message": "This can\u0027t *ever* happen, right? If so, maybe crashing is OK?",
+      "range": {
+        "startLine": 739,
+        "startChar": 32,
+        "endLine": 739,
+        "endChar": 74
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28a9c07e_4597fd48",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-02T09:19:29Z",
+      "side": 1,
+      "message": "This member is accessed on a thread that is not a handler thread. Given that pretty much all this code runs on the handler thread, I think reviewers and colleagues will assume that this member is safe to access on the handler thread, but it\u0027s not.\n\nWe should either make this code run on the handler thread, or at least clarify in comments that this member must only ever be accessed on this thread..\n\nSame applies to mBluetoothCallback.",
+      "range": {
+        "startLine": 742,
+        "startChar": 32,
+        "endLine": 742,
+        "endChar": 54
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b766ab9f_7515c706",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-02T09:19:29Z",
+      "side": 1,
+      "message": "Should this also be in onServiceDisconnected? If not, what happens when bluetooth crashes?",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 744,
+        "endChar": 62
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa63a66_9f5c2ad1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-02T09:19:29Z",
+      "side": 1,
+      "message": "There\u0027s quite a lot of indentation here. Move this to a helper method?",
+      "range": {
+        "startLine": 730,
+        "startChar": 0,
+        "endLine": 751,
+        "endChar": 28
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
