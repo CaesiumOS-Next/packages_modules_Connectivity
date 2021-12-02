@@ -46,6 +46,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -290,6 +291,7 @@ public final class DnsResolver {
             if (mReceivedAnswerCount == 0 || rcode == 0) {
                 mRcode = rcode;
             }
+            Log.d(TAG, Arrays.toString(answer));
             try {
                 mAllAnswers.addAll(new DnsAddressAnswer(answer).getAddresses());
             } catch (DnsPacket.ParseException e) {
