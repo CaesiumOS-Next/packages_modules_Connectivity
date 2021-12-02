@@ -22,6 +22,30 @@
       },
       "revId": "4fdf220b371c46bd876f3fa108060853b2b49a8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb70a46a_ffd6cf21",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-02T08:50:36Z",
+      "side": 1,
+      "message": "Per our discussion today, since CtsNetUtils cannot call ConnectivityThread, I make a new CtsCallbackHandlerThread for it.\nPlease take a look, see if it matches what you suggested.",
+      "parentUuid": "3ee46e2f_41ec27ba",
+      "range": {
+        "startLine": 160,
+        "startChar": 27,
+        "endLine": 160,
+        "endChar": 51
+      },
+      "revId": "4fdf220b371c46bd876f3fa108060853b2b49a8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
