@@ -16,11 +16,14 @@
 
 package android.net.cts.util;
 
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
+import static com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity;
+import static com.android.testutils.Cleanup.testAndCleanup;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -49,6 +52,7 @@ import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.ConditionVariable;
+import android.os.Handler;
 import android.os.IBinder;
 import android.system.Os;
 import android.system.OsConstants;
@@ -57,6 +61,8 @@ import android.util.Log;
 
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.net.module.util.ConnectivitySettingsUtils;
+import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
+import com.android.networkstack.apishim.common.ConnectivityManagerShim;
 import com.android.testutils.ConnectUtil;
 
 import java.io.IOException;
@@ -67,7 +73,6 @@ import java.net.Socket;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public final class CtsNetUtils {
     private static final String TAG = CtsNetUtils.class.getSimpleName();
@@ -97,12 +102,14 @@ public final class CtsNetUtils {
     private TestNetworkCallback mCellNetworkCallback;
     private int mOldPrivateDnsMode = 0;
     private String mOldPrivateDnsSpecifier;
+    private ConnectivityManagerShim mCmShim;
 
     public CtsNetUtils(Context context) {
         mContext = context;
         mCm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         mCR = context.getContentResolver();
+        mCmShim = ConnectivityManagerShimImpl.newInstance(mContext);
     }
 
     /** Checks if FEATURE_IPSEC_TUNNELS is enabled on the device */
@@ -149,43 +156,45 @@ public final class CtsNetUtils {
         return cb;
     }
 
-    // Toggle WiFi twice, leaving it in the state it started in
     public void toggleWifi() throws Exception {
+        toggleWifi(CtsCallbackHandlerThread.get().getThreadHandler());
+    }
+
+    // Toggle WiFi twice, leaving it in the state it started in
+    public void toggleWifi(@NonNull Handler handler) throws Exception {
         if (mWifiManager.isWifiEnabled()) {
             Network wifiNetwork = getWifiNetwork();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
-            expectNetworkIsSystemDefault(wifiNetwork);
+            expectSystemDefaultNetwork(wifiNetwork, handler);
             disconnectFromWifi(wifiNetwork);
             connectToWifi();
         } else {
             connectToWifi();
             Network wifiNetwork = getWifiNetwork();
             // Ensure system default network is WIFI because it's expected in disconnectFromWifi()
-            expectNetworkIsSystemDefault(wifiNetwork);
+            expectSystemDefaultNetwork(wifiNetwork, handler);
             disconnectFromWifi(wifiNetwork);
         }
     }
 
-    private Network expectNetworkIsSystemDefault(Network network)
-            throws Exception {
+    public void expectSystemDefaultNetwork(Network network, Handler handler) throws Exception {
         final CompletableFuture<Network> future = new CompletableFuture();
         final NetworkCallback cb = new NetworkCallback() {
             @Override
             public void onAvailable(Network n) {
-                if (n.equals(network)) future.complete(network);
+                if (n.equals(network)) future.complete(n);
             }
         };
 
-        try {
-            mCm.registerDefaultNetworkCallback(cb);
-            return future.get(CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS);
-        } catch (TimeoutException e) {
-            throw new AssertionError("Timed out waiting for system default network to switch"
-                    + " to network " + network + ". Current default network is network "
-                    + mCm.getActiveNetwork(), e);
-        } finally {
-            mCm.unregisterNetworkCallback(cb);
-        }
+        testAndCleanup(() -> {
+            runWithShellPermissionIdentity(() -> {
+                mCmShim.registerSystemDefaultNetworkCallback(cb, handler);
+            }, NETWORK_SETTINGS);
+            assertTrue(
+                    future.get(CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS).equals(network));
+        }, () -> {
+                mCm.unregisterNetworkCallback(cb);
+            });
     }
 
     /**
