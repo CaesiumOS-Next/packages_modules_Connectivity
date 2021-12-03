@@ -2561,7 +2561,7 @@ public class TetheringTest {
         when(mBluetoothAdapter.isEnabled()).thenReturn(true);
         mTethering.startTethering(createTetheringRequestParcel(TETHERING_BLUETOOTH), result);
         mLooper.dispatchAll();
-        verifySetBluetoothTethering(true);
+        verifySetBluetoothTethering(true /* enable */, true /* bindToPanService */);
         result.assertHasResult();
 
         mTethering.interfaceAdded(TEST_BT_IFNAME);
@@ -2592,7 +2592,7 @@ public class TetheringTest {
         mTethering.untether(TEST_BT_IFNAME, untetherResult);
         mLooper.dispatchAll();
         untetherResult.assertHasResult();
-        verifySetBluetoothTethering(false);
+        verifySetBluetoothTethering(false /* enable */, false /* bindToPanService */);
 
         verify(mNetd).tetherApplyDnsInterfaces();
         verify(mNetd).tetherInterfaceRemove(TEST_BT_IFNAME);
@@ -2603,18 +2603,20 @@ public class TetheringTest {
         verifyNoMoreInteractions(mNetd);
     }
 
-    private void verifySetBluetoothTethering(final boolean enable) {
+    private void verifySetBluetoothTethering(final boolean enable, final boolean bindToPanService) {
         final ArgumentCaptor<ServiceListener> listenerCaptor =
                 ArgumentCaptor.forClass(ServiceListener.class);
         verify(mBluetoothAdapter).isEnabled();
-        verify(mBluetoothAdapter).getProfileProxy(eq(mServiceContext), listenerCaptor.capture(),
-                eq(BluetoothProfile.PAN));
-        final ServiceListener listener = listenerCaptor.getValue();
         when(mBluetoothPan.isTetheringOn()).thenReturn(enable);
-        listener.onServiceConnected(BluetoothProfile.PAN, mBluetoothPan);
+        if (bindToPanService) {
+            verify(mBluetoothAdapter).getProfileProxy(eq(mServiceContext), listenerCaptor.capture(),
+                    eq(BluetoothProfile.PAN));
+            ServiceListener listener = listenerCaptor.getValue();
+            listener.onServiceConnected(BluetoothProfile.PAN, mBluetoothPan);
+            mLooper.dispatchAll();
+        }
         verify(mBluetoothPan).setBluetoothTethering(enable);
         verify(mBluetoothPan).isTetheringOn();
-        verify(mBluetoothAdapter).closeProfileProxy(eq(BluetoothProfile.PAN), eq(mBluetoothPan));
         verifyNoMoreInteractions(mBluetoothAdapter, mBluetoothPan);
         reset(mBluetoothAdapter, mBluetoothPan);
     }
