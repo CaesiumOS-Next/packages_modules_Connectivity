@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46df5e00_caacee51",
+        "filename": "Tethering/bpf_progs/test.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-03T19:43:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f595fdd2_f855bd9c",
+      "revId": "7d9b935c5cfcc411c9966bad2cdcf812c8239310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd3fe73f_c0227799",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-12-03T19:06:08Z",
       "side": 1,
       "message": "change to map_test_bit_map",
+      "range": {
+        "startLine": 45,
+        "startChar": 44,
+        "endLine": 45,
+        "endChar": 57
+      },
+      "revId": "7d9b935c5cfcc411c9966bad2cdcf812c8239310",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ee0f644_e9e78301",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-03T19:43:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd3fe73f_c0227799",
       "range": {
         "startLine": 45,
         "startChar": 44,
