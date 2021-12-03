@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "412b0613_4638711e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-12-03T19:19:39Z",
+      "side": 1,
+      "message": "As an alternative, we could move the unit \u0026 CTS tests back out of the module.",
+      "revId": "f543c46c8b167fe6bf9619d919dc1c856c730b21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
