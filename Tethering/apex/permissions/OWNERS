@@ -1,0 +1,2 @@
+set noparent
+include platform/frameworks/base:/data/etc/OWNERS
