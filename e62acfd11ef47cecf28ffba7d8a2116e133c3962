@@ -195,6 +195,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "638a548d_93d555c4",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-03T00:14:01Z",
+      "side": 1,
+      "message": "In this case for a module-lib API I think it makes sense to use byte. If API council feels strongly that it should be changed to int, we can have that discussion later.",
+      "parentUuid": "7421f1ac_ca1e37f7",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 26
+      },
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87ea6c59_36de9d91",
         "filename": "framework/src/android/net/DhcpOption.java",
         "patchSetId": 3

@@ -16,6 +16,75 @@
       "message": "Thank you Lorenzo for reviewing. \nPTAL.",
       "revId": "625e5f703f84bd6cd6e8e9cad7ee29e570a7a59c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b683364_dcd6e394",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-03T00:14:01Z",
+      "side": 1,
+      "message": "The option doesn\u0027t need to be custom, it can be a standard option. Maybe just say a \"A class representing a DHCP option.\" or \"A class representing an option in the DHCP protocol.\"",
+      "range": {
+        "startLine": 28,
+        "startChar": 24,
+        "endLine": 28,
+        "endChar": 34
+      },
+      "revId": "625e5f703f84bd6cd6e8e9cad7ee29e570a7a59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ceeb978_be0328d6",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-03T00:14:01Z",
+      "side": 1,
+      "message": "This needs a better javadoc.\n- Add a proper summary. (\"Constructs a new DhcpOption.\" maybe)\n- Add @param statements\n- Explain what it means for the value to be null and how it is different from an empty array. In the underlying networkstack API, this indicates that the type should be placed in the Parameter Request List, but not in the list of options, whereas a zero-length array means a zero-length option in the options section.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "625e5f703f84bd6cd6e8e9cad7ee29e570a7a59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c732c160_7b09cfcb",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-03T00:14:01Z",
+      "side": 1,
+      "message": "Any reason you can\u0027t just use mValue.clone()?",
+      "range": {
+        "startLine": 77,
+        "startChar": 39,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "625e5f703f84bd6cd6e8e9cad7ee29e570a7a59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
