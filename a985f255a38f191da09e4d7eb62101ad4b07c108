@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c5ebb3c_12a274c4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-03T18:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e319da9c_609f923a",
+      "revId": "a985f255a38f191da09e4d7eb62101ad4b07c108",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a97fa72c_dae4bc6b",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-12-03T06:28:13Z",
       "side": 1,
       "message": "Can you also remove this ?",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 80
+      },
+      "revId": "a985f255a38f191da09e4d7eb62101ad4b07c108",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "833a6ffc_74ceb6f5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-03T18:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a97fa72c_dae4bc6b",
       "range": {
         "startLine": 169,
         "startChar": 0,
