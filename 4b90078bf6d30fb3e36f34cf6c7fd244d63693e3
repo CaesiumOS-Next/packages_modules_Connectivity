@@ -69,6 +69,30 @@
       },
       "revId": "4b90078bf6d30fb3e36f34cf6c7fd244d63693e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2864cf8e_c79acd7f",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 32
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-03T22:04:16Z",
+      "side": 1,
+      "message": "removing ETH",
+      "parentUuid": "e4fda7f0_7d242908",
+      "range": {
+        "startLine": 316,
+        "startChar": 29,
+        "endLine": 316,
+        "endChar": 43
+      },
+      "revId": "4b90078bf6d30fb3e36f34cf6c7fd244d63693e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

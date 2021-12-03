@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fcdd2d8_72f5b7be",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-03T22:04:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e86fe90_52ed6598",
+      "range": {
+        "startLine": 156,
+        "startChar": 23,
+        "endLine": 156,
+        "endChar": 43
+      },
+      "revId": "291e795f8f3af2fb0ba6827b6731597225070fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fef2588c_e69e5678",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-01T01:49:35Z",
       "side": 1,
       "message": "This is where you need to add the interface name to the LinkProperties",
+      "range": {
+        "startLine": 339,
+        "startChar": 47,
+        "endLine": 339,
+        "endChar": 52
+      },
+      "revId": "291e795f8f3af2fb0ba6827b6731597225070fd4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df75af92_25d54b12",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-03T22:04:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fef2588c_e69e5678",
       "range": {
         "startLine": 339,
         "startChar": 47,
