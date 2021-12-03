@@ -267,6 +267,7 @@ public class Tethering {
     private String mConfiguredEthernetIface;
     private EthernetCallback mEthernetCallback;
     private SettingsObserver mSettingsObserver;
+    private BluetoothPan mBluetoothPan;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -693,6 +694,11 @@ public class Tethering {
     }
 
     private void setBluetoothTethering(final boolean enable, final IIntResultListener listener) {
+        if (mBluetoothPan != null) {
+            setBluetoothTetheringSettings(mBluetoothPan, enable, listener);
+            return;
+        }
+
         final BluetoothAdapter adapter = mDeps.getBluetoothAdapter();
         if (adapter == null || !adapter.isEnabled()) {
             Log.w(TAG, "Tried to enable bluetooth tethering with null or disabled adapter. null: "
@@ -702,34 +708,41 @@ public class Tethering {
         }
 
         adapter.getProfileProxy(mContext, new ServiceListener() {
+            private BluetoothPan mMyBluetoothPan = null;
+
             @Override
-            public void onServiceDisconnected(int profile) { }
+            public void onServiceDisconnected(int profile) {
+                mHandler.post(() -> {
+                    if (mMyBluetoothPan == mBluetoothPan) mBluetoothPan = null;
+
+                    mMyBluetoothPan = null;
+                });
+            }
 
             @Override
             public void onServiceConnected(int profile, BluetoothProfile proxy) {
-                // Clear identify is fine because caller already pass tethering permission at
-                // ConnectivityService#startTethering()(or stopTethering) before the control comes
-                // here. Bluetooth will check tethering permission again that there is
-                // Context#getOpPackageName() under BluetoothPan#setBluetoothTethering() to get
-                // caller's package name for permission check.
-                // Calling BluetoothPan#setBluetoothTethering() here means the package name always
-                // be system server. If calling identity is not cleared, that package's uid might
-                // not match calling uid and end up in permission denied.
-                final long identityToken = Binder.clearCallingIdentity();
-                try {
-                    ((BluetoothPan) proxy).setBluetoothTethering(enable);
-                } finally {
-                    Binder.restoreCallingIdentity(identityToken);
-                }
-                // TODO: Enabling bluetooth tethering can fail asynchronously here.
-                // We should figure out a way to bubble up that failure instead of sending success.
-                final int result = (((BluetoothPan) proxy).isTetheringOn() == enable)
-                        ? TETHER_ERROR_NO_ERROR
-                        : TETHER_ERROR_INTERNAL_ERROR;
-                sendTetherResult(listener, result, TETHERING_BLUETOOTH);
-                adapter.closeProfileProxy(BluetoothProfile.PAN, proxy);
+                mHandler.post(() -> {
+                    mMyBluetoothPan = (BluetoothPan) proxy;
+                    setBluetoothTetheringSettings(mMyBluetoothPan, enable, listener);
+
+                    if (mBluetoothPan != null) {
+                        adapter.closeProfileProxy(BluetoothProfile.PAN, mBluetoothPan);
+                    }
+                    mBluetoothPan = mMyBluetoothPan;
+                });
             }
         }, BluetoothProfile.PAN);
+    }
+
+    private void setBluetoothTetheringSettings(final BluetoothPan bluetoothPan,
+            final boolean enable, final IIntResultListener listener) {
+        bluetoothPan.setBluetoothTethering(enable);
+
+        // Enabling bluetooth tethering settings can fail asynchronously. Send internal error if the
+        // result is not expected.
+        final int result = bluetoothPan.isTetheringOn() == enable
+                ? TETHER_ERROR_NO_ERROR : TETHER_ERROR_INTERNAL_ERROR;
+        sendTetherResult(listener, result, TETHERING_BLUETOOTH);
     }
 
     private int setEthernetTethering(final boolean enable) {
