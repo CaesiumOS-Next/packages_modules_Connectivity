@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ef268bf_f995edef",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-12-04T19:07:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b683364_dcd6e394",
+      "range": {
+        "startLine": 28,
+        "startChar": 24,
+        "endLine": 28,
+        "endChar": 34
+      },
+      "revId": "625e5f703f84bd6cd6e8e9cad7ee29e570a7a59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ceeb978_be0328d6",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c3ec629_85f8d517",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-12-04T19:07:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8ceeb978_be0328d6",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 31
+      },
+      "revId": "625e5f703f84bd6cd6e8e9cad7ee29e570a7a59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c732c160_7b09cfcb",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-12-03T00:14:01Z",
       "side": 1,
       "message": "Any reason you can\u0027t just use mValue.clone()?",
+      "range": {
+        "startLine": 77,
+        "startChar": 39,
+        "endLine": 77,
+        "endChar": 76
+      },
+      "revId": "625e5f703f84bd6cd6e8e9cad7ee29e570a7a59c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19704262_86a53fdd",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-12-04T19:07:18Z",
+      "side": 1,
+      "message": "Ack. It is a nicer way.",
+      "parentUuid": "c732c160_7b09cfcb",
       "range": {
         "startLine": 77,
         "startChar": 39,

@@ -217,6 +217,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f6059f5_67b273e7",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-12-04T19:07:18Z",
+      "side": 1,
+      "message": "Ack.  \nChanged it to use byte that is cleaner.",
+      "parentUuid": "638a548d_93d555c4",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 26
+      },
+      "revId": "e62acfd11ef47cecf28ffba7d8a2116e133c3962",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87ea6c59_36de9d91",
