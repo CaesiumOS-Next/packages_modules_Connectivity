@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10fb2bfd_28d4396d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 34
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T09:15:56Z",
+      "side": 1,
+      "message": "Tyler just ping me says this CL hit sepolicy denied problem:\n43680 12-03 16:11:31.368  5213  5213 I auditd  : type\u003d1400 audit(0.0:356): avc: denied { search } for comm\u003d\"system_server\" name\u003d\"tethering\" dev\u003d\"bpf\" ino\u003d13164 scontext\u003du:r:system_server:s0 tcontext\u003du:object_r:fs_bpf_tethering:s0 tclass\u003ddir permissive\u003d1\n43681 12-03 16:11:31.368  5213  5213 I system_server: type\u003d1400 audit(0.0:356): avc: denied { search } for name\u003d\"tethering\" dev\u003d\"bpf\" ino\u003d13164 scontext\u003du:r:system_server:s0 tcontext\u003du:object_r:fs_bpf_tethering:s0 tclass\u003ddir permissive\u003d1\n43682 12-03 16:11:31.372  5213  5213 E ConnectivityService: Unable to create DSCP Policy Tracker\n43683 12-03 16:11:31.372  5213  5213 E ConnectivityService: android.system.ErrnoException: bpfFdGet failed: EACCES (Permission denied)\n\nI think it is because system_server don\u0027t have sufficient permission to use BpfMap which is the similar problem we meet for Android Go. There are WIP CLs from Nucca:\nhttps://android-review.googlesource.com/q/topic:bpf_tethering_on_go\n\nMaybe just take sepolicy part is enough ? Probably we should have discussion and revisit to make it work.",
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
