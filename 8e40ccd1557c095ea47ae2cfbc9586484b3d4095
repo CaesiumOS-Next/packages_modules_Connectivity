@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "160a775d_66a45289",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1431994
+      },
+      "writtenOn": "2021-12-06T13:12:03Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "8e40ccd1557c095ea47ae2cfbc9586484b3d4095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21b62171_debb39a5",
@@ -14,6 +31,30 @@
       "writtenOn": "2021-12-06T09:51:23Z",
       "side": 1,
       "message": "This file should be:\n\nset noparent\ninclude platform/frameworks/base:/data/etc/OWNERS",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 53
+      },
+      "revId": "8e40ccd1557c095ea47ae2cfbc9586484b3d4095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1043b596_00991179",
+        "filename": "Tethering/apex/permissions/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1431994
+      },
+      "writtenOn": "2021-12-06T13:12:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21b62171_debb39a5",
       "range": {
         "startLine": 1,
         "startChar": 0,
