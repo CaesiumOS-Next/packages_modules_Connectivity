@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21b62171_debb39a5",
+        "filename": "Tethering/apex/permissions/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2021-12-06T09:51:23Z",
+      "side": 1,
+      "message": "This file should be:\n\nset noparent\ninclude platform/frameworks/base:/data/etc/OWNERS",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 53
+      },
+      "revId": "8e40ccd1557c095ea47ae2cfbc9586484b3d4095",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
