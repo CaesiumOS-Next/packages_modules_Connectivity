@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a477806_1a2efde5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T08:59:52Z",
+      "side": 1,
+      "message": "LGTM, only nits.",
+      "revId": "721ac6f01947e2ddbbe9a52ac80e4010843c33e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "822d701a_ab36a800",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T08:59:52Z",
+      "side": 1,
+      "message": "There are existing makeXXX(e.g. l.1364 ~ 1430) utils. Move to the same place ? Also it is not friendly to read if the functions is the same but the default value is different. You could either:\n1. let the function with more arguments call base function(less arguments). E.g.:\nmakeKey(arg1, arg2) {\n    return makeKey(arg1, arg2, arg3Default);\n}\n\nmakeKey(arg1, arg2) {\n    return makeKey(arg1, arg2Default, arg3);\n}\n\nmakeKey(arg1) {\n    return makeKey(arg1, arg2Default, arg3Default);\n}\n\nmakeKey(arg1, arg2, arg3) {\n    return new key(arg1, arg2, arg3)\n}\n\n2. Rename. E.g.:\nmakeKey(arg1) {\n    makeKeyWithArg2(arg1, arg2Default);\n}\n\nmakeKeyWithArg2(arg1, arg2) {\n    return new key(arg1, arg2, arg3Default)\n}\n\nmakeKeyWithArg3(arg1, arg3) {\n    return new key(arg1, arg2Default, arg3)\n}",
+      "range": {
+        "startLine": 1779,
+        "startChar": 0,
+        "endLine": 1824,
+        "endChar": 5
+      },
+      "revId": "721ac6f01947e2ddbbe9a52ac80e4010843c33e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b34ba5_424b0321",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T08:59:52Z",
+      "side": 1,
+      "message": "nits: this is dup as l.135 ~ 141. We could separate l.135 ~ 141 to a function, then call it here which would more easily to know whether \"nothing happens\" as comment at l.1890.",
+      "range": {
+        "startLine": 1892,
+        "startChar": 0,
+        "endLine": 1897,
+        "endChar": 41
+      },
+      "revId": "721ac6f01947e2ddbbe9a52ac80e4010843c33e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d146642_1053dc6b",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T08:59:52Z",
+      "side": 1,
+      "message": "nits: this is dup as l.1902 ~ 1905.",
+      "range": {
+        "startLine": 1914,
+        "startChar": 0,
+        "endLine": 1917,
+        "endChar": 72
+      },
+      "revId": "721ac6f01947e2ddbbe9a52ac80e4010843c33e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
