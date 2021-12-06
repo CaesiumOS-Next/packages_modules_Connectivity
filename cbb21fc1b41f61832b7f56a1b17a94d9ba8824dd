@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ace6b899_e0a5a16c",
+        "filename": "Tethering/apex/permissions/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1060831
+      },
+      "writtenOn": "2021-12-06T14:38:54Z",
+      "side": 1,
+      "message": "Thank you!\n\nIs there a way we can make sure a similar OWNERS file is added for any further permissions.xml files created?\n\nNit: Missing newline at end of file",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 49
+      },
+      "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
