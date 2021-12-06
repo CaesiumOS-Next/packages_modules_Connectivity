@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c41b958_2d77dafd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T03:15:59Z",
+      "side": 1,
+      "message": "This is intended but I should a comment to avoid future mistake as the follow up suggestion. mBluetoothCallback is volatile and if we register the new BluetoothCallback, the old callback would be ignore. Anway, per talk I have separate CL aosp/1908683 to post all of operation in tethering thread. Please review it first.",
+      "parentUuid": "d045386f_6f829fbb",
+      "range": {
+        "startLine": 737,
+        "startChar": 40,
+        "endLine": 737,
+        "endChar": 58
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6f15f08_45b2b6c5",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-02T09:19:29Z",
       "side": 1,
       "message": "This can\u0027t *ever* happen, right? If so, maybe crashing is OK?",
+      "range": {
+        "startLine": 739,
+        "startChar": 32,
+        "endLine": 739,
+        "endChar": 74
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ba9d2c_9e509847",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T03:15:59Z",
+      "side": 1,
+      "message": "Do you mean rethrow except ? Otherwise this couldn\u0027t build. Given that we need to catch here whatever. I\u0027d prefer just have wtf log and this should easily able to find if something wrong happen here. The outcome of UnsupportedApiLevelException happen here is we could see the log in logcat and Bluetooth tethering Settings couldn\u0027t be ON. This should easily for us to aware if something run wrong here and also limit the error to bluetooth tethering only.",
+      "parentUuid": "f6f15f08_45b2b6c5",
       "range": {
         "startLine": 739,
         "startChar": 32,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "425177a4_a2427260",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T03:15:59Z",
+      "side": 1,
+      "message": "Ack, aosp/1908683 to run on handler thread.",
+      "parentUuid": "28a9c07e_4597fd48",
+      "range": {
+        "startLine": 742,
+        "startChar": 32,
+        "endLine": 742,
+        "endChar": 54
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b766ab9f_7515c706",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4090b0c9_41dac8c0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T03:15:59Z",
+      "side": 1,
+      "message": "If onServiceDisconnected, bluetooth is not reachable and every thing is reset to OFF. So release request is not necessary but we do need to set all the variable to null.",
+      "parentUuid": "b766ab9f_7515c706",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 744,
+        "endChar": 62
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eaa63a66_9f5c2ad1",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-12-02T09:19:29Z",
       "side": 1,
       "message": "There\u0027s quite a lot of indentation here. Move this to a helper method?",
+      "range": {
+        "startLine": 730,
+        "startChar": 0,
+        "endLine": 751,
+        "endChar": 28
+      },
+      "revId": "913cd691fcf732839270503625a2093faa1c330a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "899d680d_dc940ed2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T03:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaa63a66_9f5c2ad1",
       "range": {
         "startLine": 730,
         "startChar": 0,
