@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e3bf54_8529995f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1947,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-06T04:40:02Z",
+      "side": 1,
+      "message": "clientA and clientB seems be the same as CLIENT_INFO_A and CLIENT_INFO_B ? Why not just use them.",
+      "range": {
+        "startLine": 1944,
+        "startChar": 8,
+        "endLine": 1947,
+        "endChar": 38
+      },
+      "revId": "e5795a72283eb3a116a0de9e56df1ea04646eef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
