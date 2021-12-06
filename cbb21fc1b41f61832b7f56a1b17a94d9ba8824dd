@@ -22,6 +22,30 @@
       },
       "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af5752f_bff080ed",
+        "filename": "Tethering/apex/permissions/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2021-12-06T14:52:29Z",
+      "side": 1,
+      "message": "Good question, Alan!\n\nI don\u0027t think there is an established way to do this... A couple of options I can think of:\n1. git hooks to check for the right owners during repo upload\n2. new soong module \"permissions_xml\" for example that checks corresponding OWNERS file is the correct one.\n\nNote however that today it is already possible to include a random permissions.xml via \"requires\" option from any dir I believe. Perhaps this needs a more robust solution if security team wants it?",
+      "parentUuid": "ace6b899_e0a5a16c",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 49
+      },
+      "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
