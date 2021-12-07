@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3d0a434_26a4740e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T07:49:53Z",
+      "side": 1,
+      "message": "Err yes - updated",
+      "parentUuid": "30028412_2d473d9b",
+      "range": {
+        "startLine": 238,
+        "startChar": 28,
+        "endLine": 238,
+        "endChar": 60
+      },
+      "revId": "32bb88d5dadafd191d3e7e43954dc7002d612f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f0ecffb_2026e1b3",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-10-13T12:45:18Z",
       "side": 1,
       "message": "I\u0027d say the comment is not necessary because UTF-8 is the default for everything ; normally you comment when you use anything else",
+      "range": {
+        "startLine": 417,
+        "startChar": 7,
+        "endLine": 417,
+        "endChar": 22
+      },
+      "revId": "32bb88d5dadafd191d3e7e43954dc7002d612f53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef47d1c6_4003e982",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T07:49:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f0ecffb_2026e1b3",
       "range": {
         "startLine": 417,
         "startChar": 7,
