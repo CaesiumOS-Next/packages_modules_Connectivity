@@ -89,6 +89,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b94d24e_ce2fd600",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-07T20:31:20Z",
+      "side": 1,
+      "message": "Access permission error here.\n\n 7936 12-07 20:24:30.107   636   636 E ConnectivityService: Unable to create DSCP Policy Tracker\n 7937 12-07 20:24:30.107   636   636 E ConnectivityService: android.system.ErrnoException: bpfFdGet failed: EACCES (Permission denied)\n 7938 12-07 20:24:30.107   636   636 E ConnectivityService:     at com.android.connectivity.com.android.net.module.util.BpfMap.bpfFdGet(Native Method)\n 7939 12-07 20:24:30.107   636   636 E ConnectivityService:     at com.android.connectivity.com.android.net.module.util.BpfMap.\u003cinit\u003e(BpfMap.java:76)\n 7940 12-07 20:24:30.107   636   636 E ConnectivityService:     at com.android.server.connectivity.DscpPolicyTracker.\u003cinit\u003e(DscpPolicyTracker.java:78)",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 76
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66ad08b4_0fdbb30d",
         "filename": "tests/cts/net/Android.bp",
         "patchSetId": 34
