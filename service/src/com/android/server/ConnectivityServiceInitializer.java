@@ -19,6 +19,8 @@ package com.android.server;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.modules.utils.build.SdkLevel;
+
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
  * a new instance of ConnectivityService.
@@ -26,12 +28,14 @@ import android.util.Log;
 public final class ConnectivityServiceInitializer extends SystemService {
     private static final String TAG = ConnectivityServiceInitializer.class.getSimpleName();
     private final ConnectivityService mConnectivity;
+    private final NsdService mNsdService;
 
-    public ConnectivityServiceInitializer(Context context) {
+    public ConnectivityServiceInitializer(Context context) throws InterruptedException {
         super(context);
         // Load JNI libraries used by ConnectivityService and its dependencies
         System.loadLibrary("service-connectivity");
         mConnectivity = new ConnectivityService(context);
+        mNsdService = NsdService.create(context);
     }
 
     @Override
@@ -39,5 +43,9 @@ public final class ConnectivityServiceInitializer extends SystemService {
         Log.i(TAG, "Registering " + Context.CONNECTIVITY_SERVICE);
         publishBinderService(Context.CONNECTIVITY_SERVICE, mConnectivity,
                 /* allowIsolated= */ false);
+        if (SdkLevel.isAtLeastT()) {
+            Log.i(TAG, "Registering " + Context.NSD_SERVICE);
+            publishBinderService(Context.NSD_SERVICE, mNsdService, /* allowIsolated= */ false);
+        }
     }
 }
