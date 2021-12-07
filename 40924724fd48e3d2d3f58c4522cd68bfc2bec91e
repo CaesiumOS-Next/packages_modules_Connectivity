@@ -307,6 +307,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2532936_495b4183",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T16:17:02Z",
+      "side": 1,
+      "message": "BluetoothAdaptor is a manager instance and it communicate with system server service (BluetoothManagerService). So adapter.closeProfileProxy shouldn\u0027t crash.",
+      "parentUuid": "5f739513_a35bfe5b",
+      "range": {
+        "startLine": 728,
+        "startChar": 28,
+        "endLine": 728,
+        "endChar": 45
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93d60102_afbec7f8",
