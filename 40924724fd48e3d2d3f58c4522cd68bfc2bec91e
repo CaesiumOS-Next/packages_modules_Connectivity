@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c04cb9a0_94815a2c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "I would remove this else since the code in the else branch always runs if the code after line 720 runs.",
+      "range": {
+        "startLine": 716,
+        "startChar": 10,
+        "endLine": 716,
+        "endChar": 16
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea343f7_f212a660",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "This stores the listener in a persistent member in this class. That raises two questions:\n- The listener no longer goes out of scope (and is no longer garbage collected) once this method returns. Can this cause a memory leak in the app that passed in the listener? This listener will maintain a reference a binder proxy in another process, and maybe that can maintain a reference to something expensive.\n- If the calling process dies, will the listener ever be freed? If not, is that a memory leak in the networkstack process? Or (perhaps even worse) could it make it impossible to stop bluetooth tethering, because there is always a pending request for it?",
+      "range": {
+        "startLine": 717,
+        "startChar": 53,
+        "endLine": 717,
+        "endChar": 61
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "923d3a44_fe3bb399",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "If bluetooth tethering is quickly turned on, then off, then on again, then onServiceConnected (or onServiceDisconnected) could be called on an old listener that is not mBluetoothPanListener.\n\nNormally you\u0027d put something like:\n\n    // Ignore calls to stale listeners.\n    if (this !\u003d mBluetoothPanListener) return;\n\nboth here and in onServiceConnected. But I don\u0027t know whether that would break anything on existing devices. Would it?",
+      "range": {
+        "startLine": 725,
+        "startChar": 16,
+        "endLine": 725,
+        "endChar": 37
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89b058fe_47510f08",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "Lowercase off. Space before (.",
+      "range": {
+        "startLine": 726,
+        "startChar": 64,
+        "endLine": 726,
+        "endChar": 67
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc79fd36_5d649394",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "crashed",
+      "range": {
+        "startLine": 726,
+        "startChar": 71,
+        "endLine": 726,
+        "endChar": 76
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "913a1261_0fdf60bd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "If the service disconnected because bluetooth crashed, what will this call do? Will it silently fail to do anything? Or will it crash? Should you wrap it in a try/catch?",
+      "range": {
+        "startLine": 728,
+        "startChar": 28,
+        "endLine": 728,
+        "endChar": 45
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d60102_afbec7f8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "Before clearing the requests, shouldn\u0027t you fail all of them with some error?",
+      "range": {
+        "startLine": 731,
+        "startChar": 40,
+        "endLine": 731,
+        "endChar": 47
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f02db705_39b01620",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "Why is it likely? When can this happen? If the tethering thread just got onServiceConnected, then it\u0027s pretty likely that bluetooth is *not* disconnected, right?\n\nDid you mean \"It can happen that due to a race condition, the bluetooth service has already disconnected when onServiceConnected is called.\"?",
+      "range": {
+        "startLine": 737,
+        "startChar": 25,
+        "endLine": 737,
+        "endChar": 31
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cf0aae0_26352cc0",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "I can\u0027t read this sentence, could you fix the grammar? In particular, should \"that\" have said \"and\"?",
+      "range": {
+        "startLine": 738,
+        "startChar": 63,
+        "endLine": 741,
+        "endChar": 42
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a67ae4a9_c3d95526",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "Should this say \"are\"?\n\nBut if so - then what if the pan service is unreachable but bluetooth and bluetooth tethering settings are *not* both off?",
+      "range": {
+        "startLine": 743,
+        "startChar": 38,
+        "endLine": 743,
+        "endChar": 43
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f11037_2f281e2b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "Why ALL CAPS?",
+      "range": {
+        "startLine": 743,
+        "startChar": 47,
+        "endLine": 743,
+        "endChar": 50
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ff806e5_9ab3e8bb",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2578,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "// Turning tethering on a second time does not bind to the PAN service again,\n// since it\u0027s already bound.",
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d874f5_2bbf7965",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2616,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T08:34:29Z",
+      "side": 1,
+      "message": "Can/should you verify that closeProfileProxy is called?",
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
