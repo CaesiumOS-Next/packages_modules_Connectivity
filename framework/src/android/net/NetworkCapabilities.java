@@ -818,6 +818,7 @@ public final class NetworkCapabilities implements Parcelable {
         if (isPrivateDnsBroken()) {
             return "privateDnsBroken";
         }
+        if (mUnderlyingNetworks != null) return "underlyingNetworks";
         return null;
     }
 
@@ -2864,6 +2865,7 @@ public final class NetworkCapabilities implements Parcelable {
          * @param networks The underlying networks of this network.
          */
         @NonNull
+        @RequiresPermission(android.Manifest.permission.NETWORK_SETTINGS)
         public Builder setUnderlyingNetworks(@Nullable List<Network> networks) {
             mCaps.setUnderlyingNetworks(networks);
             return this;

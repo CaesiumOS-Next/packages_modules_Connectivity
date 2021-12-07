@@ -612,6 +612,11 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         }
     }
 
+    private boolean checkSettingsPermission(int pid, int uid) {
+        return PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_SETTINGS, pid, uid);
+    }
+
     // TODO: consider moving out of NetworkAgentInfo into its own class
     private class NetworkAgentMessageHandler extends INetworkAgentRegistry.Stub {
         private final Handler mHandler;
@@ -623,6 +628,11 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         @Override
         public void sendNetworkCapabilities(@NonNull NetworkCapabilities nc) {
             Objects.requireNonNull(nc);
+            if (nc.getUnderlyingNetworks() != null
+                    && !checkSettingsPermission(Binder.getCallingPid(), Binder.getCallingUid())) {
+                throw new SecurityException("Insufficient permissions to update underlying"
+                        + " networks");
+            }
             mHandler.obtainMessage(NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED,
                     new Pair<>(NetworkAgentInfo.this, nc)).sendToTarget();
         }
