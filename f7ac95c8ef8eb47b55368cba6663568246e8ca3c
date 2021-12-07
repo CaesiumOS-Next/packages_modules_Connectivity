@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52c35c75_15ce1a14",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-07T11:19:59Z",
+      "side": 1,
+      "message": "As its name indicates, ensureWifiConnected already does this :\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/libs/net/common/testutils/devicetests/com/android/testutils/ConnectUtil.kt;l\u003d77;bpv\u003d0;bpt\u003d0",
+      "range": {
+        "startLine": 844,
+        "startChar": 12,
+        "endLine": 844,
+        "endChar": 25
+      },
+      "revId": "f7ac95c8ef8eb47b55368cba6663568246e8ca3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b59918_57842368",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-07T11:19:59Z",
+      "side": 1,
+      "message": "Optional : now that it\u0027s supported you may want to split these into three independant cleanup blocks :\n\n  }, /* cleanup 1 */ () -\u003e {\n      mCM.unregisterNetworkCallback(callback);\n  }, /* cleanup 2 */ () -\u003e {\n      if (isWifiEnabled) {\n          mCtsNetUtils.ensureWifiConnected();\n      } else {\n          mCtsNetUtils.ensureWifiDisconnected(null);\n      }\n  }, /* cleanup 3 */ () -\u003e {\n      mCtsNetUtils.disconnectFromCell();\n  });\n\nThe point is that you\u0027ll execute subsequent cleanups even if earlier cleanups throw",
+      "range": {
+        "startLine": 875,
+        "startChar": 12,
+        "endLine": 875,
+        "endChar": 13
+      },
+      "revId": "f7ac95c8ef8eb47b55368cba6663568246e8ca3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7938fc1c_75d78d94",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsCallbackHandlerThread.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-07T11:19:59Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 32
+      },
+      "revId": "f7ac95c8ef8eb47b55368cba6663568246e8ca3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dfcacc9_9450a067",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-07T11:19:59Z",
+      "side": 1,
+      "message": "Suggest also offering a helper that doesn\u0027t take the Handler and uses CtsCallbackHandlerThread.get() by default",
+      "range": {
+        "startLine": 180,
+        "startChar": 16,
+        "endLine": 180,
+        "endChar": 42
+      },
+      "revId": "f7ac95c8ef8eb47b55368cba6663568246e8ca3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0189fc0c_6c2eb5f7",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-07T11:19:59Z",
+      "side": 1,
+      "message": "assertEquals ?",
+      "range": {
+        "startLine": 193,
+        "startChar": 12,
+        "endLine": 193,
+        "endChar": 22
+      },
+      "revId": "f7ac95c8ef8eb47b55368cba6663568246e8ca3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
