@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018100030",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1912733?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "38fb620a_f97c48cc",
+        "filename": "framework33/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-07T02:42:08Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "1bbae935e63a4eeceed38ee8af328caed089d629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018100032",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1912733?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "560d1cae_2b1c401d",
+        "filename": "framework33/src/android/net/nsd/NsdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-07T02:42:08Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 690,
+        "startChar": 0,
+        "endLine": 690,
+        "endChar": 103
+      },
+      "revId": "1bbae935e63a4eeceed38ee8af328caed089d629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018100032",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1912733?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "7fbb7555_3a5d9a3a",
+        "filename": "framework33/src/android/net/nsd/NsdServiceInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-07T02:42:08Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 109
+      },
+      "revId": "1bbae935e63a4eeceed38ee8af328caed089d629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018100034",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1912733?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "2db739a2_7730da2e",
+          "description": "Change to \"service/src/com/android/server/NativeDaemonConnector.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/NativeDaemonConnector.java",
+              "range": {
+                "startLine": 345,
+                "startChar": 35,
+                "endLine": 345,
+                "endChar": 46
+              },
+              "replacement": "asynchronous"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "9d1a258f_af891400",
+        "filename": "service/src/com/android/server/NativeDaemonConnector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-07T02:42:08Z",
+      "side": 1,
+      "message": "Common typo found: \"asychronous\" -- should it be \"asynchronous\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 345,
+        "startChar": 35,
+        "endLine": 345,
+        "endChar": 46
+      },
+      "revId": "1bbae935e63a4eeceed38ee8af328caed089d629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018100034",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1912733?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "fb639d40_a7fc4ad9",
+          "description": "Change to \"service/src/com/android/server/NativeDaemonConnector.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/NativeDaemonConnector.java",
+              "range": {
+                "startLine": 603,
+                "startChar": 61,
+                "endLine": 603,
+                "endChar": 69
+              },
+              "replacement": "retrieve"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "e4b1dd2c_b7e1e876",
+        "filename": "service/src/com/android/server/NativeDaemonConnector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-07T02:42:08Z",
+      "side": 1,
+      "message": "Common typo found: \"retreive\" -- should it be \"retrieve\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 603,
+        "startChar": 61,
+        "endLine": 603,
+        "endChar": 69
+      },
+      "revId": "1bbae935e63a4eeceed38ee8af328caed089d629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018100034",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1912733?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "9331e855_4ae3cf6d",
+          "description": "Change to \"service/src/com/android/server/NativeDaemonConnector.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/NativeDaemonConnector.java",
+              "range": {
+                "startLine": 612,
+                "startChar": 74,
+                "endLine": 612,
+                "endChar": 83
+              },
+              "replacement": "retrieved"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "bfe6dc31_ae872146",
+        "filename": "service/src/com/android/server/NativeDaemonConnector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-07T02:42:08Z",
+      "side": 1,
+      "message": "Common typo found: \"retreived\" -- should it be \"retrieved\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 612,
+        "startChar": 74,
+        "endLine": 612,
+        "endChar": 83
+      },
+      "revId": "1bbae935e63a4eeceed38ee8af328caed089d629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018100034",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1912733?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "bc2d7601_ff455fed",
+          "description": "Change to \"service/src/com/android/server/NativeDaemonEvent.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/NativeDaemonEvent.java",
+              "range": {
+                "startLine": 155,
+                "startChar": 65,
+                "endLine": 155,
+                "endChar": 74
+              },
+              "replacement": "arguments"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "a752fe2a_e1bd8a89",
+        "filename": "service/src/com/android/server/NativeDaemonEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-07T02:42:08Z",
+      "side": 1,
+      "message": "Common typo found: \"arguemnts\" -- should it be \"arguments\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 155,
+        "startChar": 65,
+        "endLine": 155,
+        "endChar": 74
+      },
+      "revId": "1bbae935e63a4eeceed38ee8af328caed089d629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018100032",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1912733?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b7dce22c_eace77f8",
+        "filename": "service/src/com/android/server/NsdService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-07T02:42:08Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 103
+      },
+      "revId": "1bbae935e63a4eeceed38ee8af328caed089d629",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
