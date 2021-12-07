@@ -112,6 +112,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fee8f0a2_f2b5597c",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-07T20:33:39Z",
+      "side": 1,
+      "message": "Unable to attach program...\n\n24238 12-07 11:15:04.082   637  1641 E AndroidRuntime: java.lang.UnsatisfiedLinkError: No implementation found for boolean com.android.connectivity.com.android.net.module.util.BpfUtils.attachProgramToCgroup(java.lang.String, int) (tried Java_com_android_connectivity_com_android_net_module_util_BpfUtils_attachProgramToCgroup and Java_com_android_connectivity_com_android_net_module_util_BpfUtils_attachProgramToCgroup__Ljava_lang_String_2I)",
+      "range": {
+        "startLine": 186,
+        "startChar": 12,
+        "endLine": 186,
+        "endChar": 70
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66ad08b4_0fdbb30d",
         "filename": "tests/cts/net/Android.bp",
         "patchSetId": 34
