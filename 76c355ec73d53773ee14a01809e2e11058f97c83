@@ -16,6 +16,328 @@
       "message": "Tyler just ping me says this CL hit sepolicy denied problem:\n43680 12-03 16:11:31.368  5213  5213 I auditd  : type\u003d1400 audit(0.0:356): avc: denied { search } for comm\u003d\"system_server\" name\u003d\"tethering\" dev\u003d\"bpf\" ino\u003d13164 scontext\u003du:r:system_server:s0 tcontext\u003du:object_r:fs_bpf_tethering:s0 tclass\u003ddir permissive\u003d1\n43681 12-03 16:11:31.368  5213  5213 I system_server: type\u003d1400 audit(0.0:356): avc: denied { search } for name\u003d\"tethering\" dev\u003d\"bpf\" ino\u003d13164 scontext\u003du:r:system_server:s0 tcontext\u003du:object_r:fs_bpf_tethering:s0 tclass\u003ddir permissive\u003d1\n43682 12-03 16:11:31.372  5213  5213 E ConnectivityService: Unable to create DSCP Policy Tracker\n43683 12-03 16:11:31.372  5213  5213 E ConnectivityService: android.system.ErrnoException: bpfFdGet failed: EACCES (Permission denied)\n\nI think it is because system_server don\u0027t have sufficient permission to use BpfMap which is the similar problem we meet for Android Go. There are WIP CLs from Nucca:\nhttps://android-review.googlesource.com/q/topic:bpf_tethering_on_go\n\nMaybe just take sepolicy part is enough ? Probably we should have discussion and revisit to make it work.",
       "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9b9cc8e_3257bf0e",
+        "filename": "framework/api/lint-baseline.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Can you add the @Nullable or @NonNull annotations instead of suppressing the linter ?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f05bdba8_d293b05f",
+        "filename": "framework/api/lint-baseline.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Unfortunately @IntDef annotations can\u0027t be used in module API ATM\n\nThere\u0027s not agreed upon solution to make them work",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 58
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e86da9f_54043a63",
+        "filename": "framework/jarjar-rules.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Is this necessary ? I think the netd AIDL shouldn\u0027t be in the framework jar (in the bootclasspath), so it shouldn\u0027t need to be jarjared ?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 4
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ad08b4_0fdbb30d",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 34
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "CTS shouldn\u0027t depend on service-connectivity (it\u0027s internal implementation details, while CTS is API-level tests).\nHaving it in \"libs\" also won\u0027t work since it\u0027s not in the bootclasspath, and not linked into the tests from other places, so the symbols won\u0027t be found at runtime.",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b199a627_eb43a278",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Maybe not necessary since you have the lazy context below ?",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 23
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c28bc17_975c21a5",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Nit: you\u0027ve got another handlerThread below (in Kotlin the \"m\" prefix isn\u0027t used also)",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36d57353_378ff9a6",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Nit: use assertHasService instead (as for TestNetworkManager)",
+      "range": {
+        "startLine": 108,
+        "startChar": 83,
+        "endLine": 108,
+        "endChar": 85
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aed04fb_8fa38d33",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Instead of taking shell permission for the whole test, could you use com.android.testutils.runAsShell with the specific permissions required for each call ?\n\nFor example,\n\n  iface \u003d runAsShell(MANAGE_TEST_NETWORKS) { nm.createTapInterface() }\n\nKeeping shell permissions during the test could have unintended side-effects",
+      "range": {
+        "startLine": 137,
+        "startChar": 42,
+        "endLine": 137,
+        "endChar": 70
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00cf7059_649aff4a",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Don\u0027t for get to close it on teardown too",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 13
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb6a4bd7_8e673ff8",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "makeTestNetworkSpecifier would be more appropriate here, since this is not used as an ethernet network (also in makeTestNetworkRequest)",
+      "range": {
+        "startLine": 208,
+        "startChar": 47,
+        "endLine": 208,
+        "endChar": 75
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0edb61e_d4d39cce",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Nit: since \"!!\" usage is frowned up-on, maybe do:\n\n  val network \u003d agent.network ?: fail(\"Expected a non-null network\")\n  expectAvailableThenValidatedCallbacks(network)",
+      "range": {
+        "startLine": 240,
+        "startChar": 68,
+        "endLine": 240,
+        "endChar": 70
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07e46c1_a248a909",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Note we\u0027ve got https://r.android.com/q/hashtag:struct_ipv4_tcp_udp+(status:open%20OR%20status:merged) in progress to make utils to create ethernet/IP/UDP packets. You may be able to use it later if it lands before this change.",
+      "range": {
+        "startLine": 249,
+        "startChar": 11,
+        "endLine": 249,
+        "endChar": 84
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86477327_e208373b",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Just ByteArray(4) would work",
+      "range": {
+        "startLine": 302,
+        "startChar": 45,
+        "endLine": 302,
+        "endChar": 56
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d8e0e9_e045c590",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-07T03:13:40Z",
+      "side": 1,
+      "message": "Nit: val",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 11
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
