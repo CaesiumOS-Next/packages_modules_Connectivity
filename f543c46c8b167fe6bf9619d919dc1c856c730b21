@@ -39,6 +39,30 @@
       },
       "revId": "f543c46c8b167fe6bf9619d919dc1c856c730b21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae17d59_ae9ab5ba",
+        "filename": "tests/cts/net/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-12-07T21:37:18Z",
+      "side": 1,
+      "message": "Pulled from Security\u0027s CTS Verifier, which does this same thing\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:cts/apps/CtsVerifier/src/com/android/cts/verifier/security/OWNERS;l\u003d4?q\u003d%22%3D%20per-file%22\u0026ss\u003dandroid%2Fplatform%2Fsuperproject",
+      "parentUuid": "44a01836_ad0dd3cd",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 26
+      },
+      "revId": "f543c46c8b167fe6bf9619d919dc1c856c730b21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
