@@ -22,6 +22,30 @@
       },
       "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9cb0bf5_3093c253",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1905361
+      },
+      "writtenOn": "2021-12-07T16:24:16Z",
+      "side": 1,
+      "message": "Ah, is the launch_on_wake terminology for something particular?\n\nThis is for TV\u0027s that return to their home after sleep, rather than resuming the previous activity.  It is a customization on top of what a stock AOSP TV would do. I left it as it seemed to accurately capture the difference, but if their is an official list of customization\u0027s somewhere this was referring to, the comment could be inaccurate.",
+      "parentUuid": "df98552d_48efdac7",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
