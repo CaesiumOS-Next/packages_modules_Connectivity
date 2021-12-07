@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b4ff5c6_cad69152",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T15:55:42Z",
+      "side": 1,
+      "message": "Done. I misread your comment, please just ignore my previous comment.",
+      "parentUuid": "3ef8857f_a6f9e7ad",
+      "range": {
+        "startLine": 716,
+        "startChar": 10,
+        "endLine": 716,
+        "endChar": 16
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ea343f7_f212a660",
