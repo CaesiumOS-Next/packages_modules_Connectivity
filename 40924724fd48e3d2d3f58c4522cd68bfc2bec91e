@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ef8857f_a6f9e7ad",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Usually your assumption is correct if Settings is the only caller (Bluetooth tethering button would be gray out till tethering trigger callback). But if OEM have its own application would also call startTethering(TETHEIRNG_BLUETOOTH), then your assumption would be wrong. Here is the case:\nIf bluetooth just shutdown (e.g. crash), mBluetoothPanListener would be reset to null. Then Settings and oem app start bluetooth at the same time. first one would create the listener and call getProfileProxy to bind to bluetooth service. The later one\u0027s request should be enqueue here instead of create new biner to bluetooth service.",
+      "parentUuid": "c04cb9a0_94815a2c",
+      "range": {
+        "startLine": 716,
+        "startChar": 10,
+        "endLine": 716,
+        "endChar": 16
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ea343f7_f212a660",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc562c6d_580bf503",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "The reference should only exist when app want to start tethering but tethering is not bind to bluetooth yet. Once tethering bind to pan service (onServiceConnected) or bluetooth just crash (onServiceDisconnected). The mPendingPanRequests would be cleared and reference doesn\u0027t exist. I think the leak only could happen if onServiceConnected/onServiceDisonnected never be called, and this should be a bug.\n\nIf the calling process dies(e.g. Settings), listener would still not be freed till onServiceConnected (I think tethering should always receive onServiceConnected because Settings would always turn on bluetooth adaptor to bring up bluetooth service (if it is unavailable) before calling startTethering). Once onServiceConnected, Calling a died \"listener\" would be no-op. died \"listener\" would throw RemoteException and we already catch it inside sendTetherResult function.",
+      "parentUuid": "8ea343f7_f212a660",
+      "range": {
+        "startLine": 717,
+        "startChar": 53,
+        "endLine": 717,
+        "endChar": 61
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "923d3a44_fe3bb399",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-12-07T08:34:29Z",
       "side": 1,
       "message": "If bluetooth tethering is quickly turned on, then off, then on again, then onServiceConnected (or onServiceDisconnected) could be called on an old listener that is not mBluetoothPanListener.\n\nNormally you\u0027d put something like:\n\n    // Ignore calls to stale listeners.\n    if (this !\u003d mBluetoothPanListener) return;\n\nboth here and in onServiceConnected. But I don\u0027t know whether that would break anything on existing devices. Would it?",
+      "range": {
+        "startLine": 725,
+        "startChar": 16,
+        "endLine": 725,
+        "endChar": 37
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69b97c7a_88d1df54",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "We create new ServiceListener only when old ServiceListener is onServiceDisconnected (mBluetoothPanListener is set to null). onServiceDisconnected means bluetooth process is gone and we also close the profile proxy to prevent the old service auto reconnect when bluetooth process is back. So the calls to stale listeners seems unlikely. In case the bug in bluetooth side, the suggestion looks safer. Done.",
+      "parentUuid": "923d3a44_fe3bb399",
       "range": {
         "startLine": 725,
         "startChar": 16,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad3fa8af_804e7e52",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc79fd36_5d649394",
+      "range": {
+        "startLine": 726,
+        "startChar": 71,
+        "endLine": 726,
+        "endChar": 76
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b2ee92_49ad9524",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89b058fe_47510f08",
+      "range": {
+        "startLine": 726,
+        "startChar": 64,
+        "endLine": 726,
+        "endChar": 67
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "913a1261_0fdf60bd",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-12-07T08:34:29Z",
       "side": 1,
       "message": "If the service disconnected because bluetooth crashed, what will this call do? Will it silently fail to do anything? Or will it crash? Should you wrap it in a try/catch?",
+      "range": {
+        "startLine": 728,
+        "startChar": 28,
+        "endLine": 728,
+        "endChar": 45
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f739513_a35bfe5b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "If we don\u0027t closeProfileProxy, this ServiceListener would automatically bind to bluetooth service if bluetooth service is available, then we would receive unexpected onServiceConnected even user to call startTetherng(bluetooth).\n\nThe BluetoothPan hold a BluetoothProfileConnector object which would listen bluetooth intent. If profile(BluetoothPan) is not close, it would automatically reconnect to pan service when it become from unavailable to available.",
+      "parentUuid": "913a1261_0fdf60bd",
       "range": {
         "startLine": 728,
         "startChar": 28,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fecf1c69_25ff9e41",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Indeed, thanks for catching this.",
+      "parentUuid": "93d60102_afbec7f8",
+      "range": {
+        "startLine": 731,
+        "startChar": 40,
+        "endLine": 731,
+        "endChar": 47
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f02db705_39b01620",
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "677dde2f_549e6744",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Because we are post to tethering handler thread. It is likely the flow be this:\nonServiceConnected (bluetooth thread) -\u003e onServiceDisconnected (bluetooth thread) -\u003e handle onServiceConnected (tethering thread) -\u003e handle onServiceDisconnected (tethering thread). And I try to explain how we handle this order.",
+      "parentUuid": "f02db705_39b01620",
+      "range": {
+        "startLine": 737,
+        "startChar": 25,
+        "endLine": 737,
+        "endChar": 31
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cf0aae0_26352cc0",
@@ -198,6 +390,30 @@
       "writtenOn": "2021-12-07T08:34:29Z",
       "side": 1,
       "message": "I can\u0027t read this sentence, could you fix the grammar? In particular, should \"that\" have said \"and\"?",
+      "range": {
+        "startLine": 738,
+        "startChar": 63,
+        "endLine": 741,
+        "endChar": 42
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cf7537d_017e644a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done, hope it would be clear this time.",
+      "parentUuid": "9cf0aae0_26352cc0",
       "range": {
         "startLine": 738,
         "startChar": 63,
@@ -254,6 +470,78 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08735c01_4e14d446",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a67ae4a9_c3d95526",
+      "range": {
+        "startLine": 743,
+        "startChar": 38,
+        "endLine": 743,
+        "endChar": 43
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa82007d_f5a3aa9c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82f11037_2f281e2b",
+      "range": {
+        "startLine": 743,
+        "startChar": 47,
+        "endLine": 743,
+        "endChar": 50
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c40e2f09_cb944f6b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82f11037_2f281e2b",
+      "range": {
+        "startLine": 743,
+        "startChar": 47,
+        "endLine": 743,
+        "endChar": 50
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ff806e5_9ab3e8bb",
@@ -271,6 +559,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c03731ed_53b704a7",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2578,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ff806e5_9ab3e8bb",
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92fc6f3d_c591cc33",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2578,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ff806e5_9ab3e8bb",
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96d874f5_2bbf7965",
@@ -284,6 +608,24 @@
       "writtenOn": "2021-12-07T08:34:29Z",
       "side": 1,
       "message": "Can/should you verify that closeProfileProxy is called?",
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b140c33a_8ffddb03",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2616,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-07T14:56:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d874f5_2bbf7965",
       "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
