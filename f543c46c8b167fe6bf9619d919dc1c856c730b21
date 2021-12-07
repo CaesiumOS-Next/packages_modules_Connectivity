@@ -16,6 +16,29 @@
       "message": "As an alternative, we could move the unit \u0026 CTS tests back out of the module.",
       "revId": "f543c46c8b167fe6bf9619d919dc1c856c730b21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44a01836_ad0dd3cd",
+        "filename": "tests/cts/net/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-07T01:51:51Z",
+      "side": 1,
+      "message": "Does this syntax work?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 26
+      },
+      "revId": "f543c46c8b167fe6bf9619d919dc1c856c730b21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
