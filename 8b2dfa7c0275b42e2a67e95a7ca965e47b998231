@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc93c85b_92cc3171",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2021-12-08T15:30:27Z",
+      "side": 1,
+      "message": "FYI - this change caused a breakage in CtsSystemApiAnnotationTestCases when run against a platform from a previous release with a train including this change. See http://b/208372854.",
+      "revId": "8b2dfa7c0275b42e2a67e95a7ca965e47b998231",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
