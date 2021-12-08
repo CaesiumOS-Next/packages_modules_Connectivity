@@ -46,6 +46,30 @@
       },
       "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8270ca77_c8ff3c70",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-08T05:25:52Z",
+      "side": 1,
+      "message": "If so, should we do this only on TVs with this customization, rather than the more general isTV() ?",
+      "parentUuid": "c9cb0bf5_3093c253",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
