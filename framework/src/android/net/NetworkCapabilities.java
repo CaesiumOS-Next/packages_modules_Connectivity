@@ -274,6 +274,7 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_VSIM,
             NET_CAPABILITY_BIP,
             NET_CAPABILITY_HEAD_UNIT,
+            NET_CAPABILITY_TEST,
     })
     public @interface NetCapability { }
 
@@ -512,8 +513,16 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static final int NET_CAPABILITY_HEAD_UNIT = 32;
 
+    /**
+     * A network capability allowing for differentiation of test networks
+     *
+     * @hide
+     */
+    @SystemApi
+    public static final int NET_CAPABILITY_TEST = 33;
+
     private static final int MIN_NET_CAPABILITY = NET_CAPABILITY_MMS;
-    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_HEAD_UNIT;
+    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_TEST;
 
     /**
      * Network capabilities that are expected to be mutable, i.e., can change while a particular
@@ -582,7 +591,8 @@ public final class NetworkCapabilities implements Parcelable {
             | (1 << NET_CAPABILITY_NOT_ROAMING)
             | (1 << NET_CAPABILITY_NOT_CONGESTED)
             | (1 << NET_CAPABILITY_NOT_SUSPENDED)
-            | (1 << NET_CAPABILITY_NOT_VCN_MANAGED);
+            | (1 << NET_CAPABILITY_NOT_VCN_MANAGED)
+            | (1 << NET_CAPABILITY_TEST);
 
     /**
      * Adds the given capability to this {@code NetworkCapability} instance.
@@ -2222,6 +2232,7 @@ public final class NetworkCapabilities implements Parcelable {
             case NET_CAPABILITY_VSIM:                 return "VSIM";
             case NET_CAPABILITY_BIP:                  return "BIP";
             case NET_CAPABILITY_HEAD_UNIT:            return "HEAD_UNIT";
+            case NET_CAPABILITY_TEST:                 return "TEST";
             default:                                  return Integer.toString(capability);
         }
     }
