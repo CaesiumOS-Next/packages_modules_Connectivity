@@ -22,6 +22,30 @@
       },
       "revId": "3bc52765682c773c5bcacbd44d8516e5879bb737",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00dd2b77_1b5a1c34",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-12-08T02:36:09Z",
+      "side": 1,
+      "message": "It includes other lib exception default. Ideally, I think it\u0027s needed for those targets that include new libs.",
+      "parentUuid": "8a8c3b3b_d4d8b7cd",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 8
+      },
+      "revId": "3bc52765682c773c5bcacbd44d8516e5879bb737",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
