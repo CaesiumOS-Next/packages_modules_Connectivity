@@ -63,6 +63,30 @@
       },
       "revId": "f543c46c8b167fe6bf9619d919dc1c856c730b21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bb544fc_2928382d",
+        "filename": "tests/cts/net/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2021-12-08T18:31:40Z",
+      "side": 1,
+      "message": "Resolving; assuming it works based on precedent.",
+      "parentUuid": "6ae17d59_ae9ab5ba",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 26
+      },
+      "revId": "f543c46c8b167fe6bf9619d919dc1c856c730b21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
