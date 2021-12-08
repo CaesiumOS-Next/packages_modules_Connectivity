@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a8c3b3b_d4d8b7cd",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-08T02:28:21Z",
+      "side": 1,
+      "message": "I was wondering: is this actually necessary here if it\u0027s already on the default ?\n\nNo need to respin since this is treehugged though",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 8
+      },
+      "revId": "3bc52765682c773c5bcacbd44d8516e5879bb737",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
