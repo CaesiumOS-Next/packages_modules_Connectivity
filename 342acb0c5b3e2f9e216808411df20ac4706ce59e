@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b9d9e8c_2a38f96f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-12-08T16:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80b710c2_0c5b42fe",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 52
+      },
+      "revId": "342acb0c5b3e2f9e216808411df20ac4706ce59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8bc74f4_44b3992c",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-08T12:36:56Z",
       "side": 1,
       "message": "nit : final",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 76,
+        "endChar": 16
+      },
+      "revId": "342acb0c5b3e2f9e216808411df20ac4706ce59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "650481e5_e3473165",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-12-08T16:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8bc74f4_44b3992c",
       "range": {
         "startLine": 76,
         "startChar": 12,
@@ -110,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b07d1510_85aa32a6",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/MyVpnService.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-12-08T16:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4059c2f3_ada5e705",
+      "range": {
+        "startLine": 166,
+        "startChar": 16,
+        "endLine": 166,
+        "endChar": 17
+      },
+      "revId": "342acb0c5b3e2f9e216808411df20ac4706ce59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d44313ee_3bcd6ff3",
@@ -133,6 +205,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9905f71a_def11a4f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-12-08T16:52:47Z",
+      "side": 1,
+      "message": "Done is separate aosp/1914937",
+      "parentUuid": "d44313ee_3bcd6ff3",
+      "range": {
+        "startLine": 928,
+        "startChar": 22,
+        "endLine": 928,
+        "endChar": 32
+      },
+      "revId": "342acb0c5b3e2f9e216808411df20ac4706ce59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1a4799e_c5fff9a9",
@@ -146,6 +242,30 @@
       "writtenOn": "2021-12-08T12:36:56Z",
       "side": 1,
       "message": "/* routes */ ?",
+      "range": {
+        "startLine": 953,
+        "startChar": 61,
+        "endLine": 953,
+        "endChar": 62
+      },
+      "revId": "342acb0c5b3e2f9e216808411df20ac4706ce59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f89dd0_4e930798",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-12-08T16:52:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1a4799e_c5fff9a9",
       "range": {
         "startLine": 953,
         "startChar": 61,
