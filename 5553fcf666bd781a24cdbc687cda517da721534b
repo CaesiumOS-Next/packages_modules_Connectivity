@@ -16,6 +16,24 @@
       "message": "Hi Jean, Lucas,\nplease re-review this CL.\n\nChange since last review: added RouteInfoTest#testRouteTypes to test RouteInfo#getType.\n\nBypassing lint: \"API Test Coverage\" doesn\u0027t consider packages/modules/Connectivity/tests/common directory\n",
       "revId": "5553fcf666bd781a24cdbc687cda517da721534b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08dd4269_79ac6509",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-08T11:45:49Z",
+      "side": 1,
+      "message": "I think you might have to file a bug to satisfy the linter, and immediately close it explaining that the test in this patch is actually run in CTS :/",
+      "parentUuid": "f4355940_95d32249",
+      "revId": "5553fcf666bd781a24cdbc687cda517da721534b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
