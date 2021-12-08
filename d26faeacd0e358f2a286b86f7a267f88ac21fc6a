@@ -70,6 +70,30 @@
       },
       "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c313ea0_b4bdf8a2",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1905361
+      },
+      "writtenOn": "2021-12-08T22:38:57Z",
+      "side": 1,
+      "message": "That is certainly doable, but I think you would do it via an application visible flag (ie, adding a feature called NO_RESUME_ON_WAKE).  That would certainly make it more extensible. However, I\u0027m not sure if it is desirable to expose that for applications?\n\nI suppose an argument can be made for applications being able to query this so they know they will not resume from sleep...",
+      "parentUuid": "8270ca77_c8ff3c70",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
