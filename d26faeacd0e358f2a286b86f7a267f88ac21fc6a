@@ -94,6 +94,30 @@
       },
       "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "482cedc3_c088fbe4",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-12-08T23:40:29Z",
+      "side": 1,
+      "message": "\u003e Ah, is the launch_on_wake terminology for something particular?\nYes, my understanding is that this is the name of a feature flag in Google TV launcher. I think it might be better to update the comment to indicate that \"This is for TV\u0027s that return to their home after sleep, rather than resuming the previous activity\". \n\n\u003e If so, should we do this only on TVs with this customization, rather than the more general isTV() ?\nYes, that\u0027d be ideal but this feature is not part of Android SDK or a AOSP concept and so, there is no way to identify the subset of devices that have this behavior using publicly available APIs. So, we are instead doing this on all TV devices but this is based on a conversation we had long ago. It seems we started special-casing tests in CTS using non-SDK constants since then: https://android.googlesource.com/platform/cts/+/master/tests/framework/base/windowmanager/util/src/android/server/wm/ActivityManagerTestBase.java#1029, so that\u0027s an option too.",
+      "parentUuid": "0c313ea0_b4bdf8a2",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
