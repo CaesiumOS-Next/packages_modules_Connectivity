@@ -51,6 +51,24 @@
       "parentUuid": "0681f968_62439df5",
       "revId": "2a171dbd6993268f1cd7e37ed9cf8a11161224ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7b07727_b58aaf89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1626001
+      },
+      "writtenOn": "2021-12-09T22:30:06Z",
+      "side": 1,
+      "message": "Still fails on \"suite/test-mapping-mainline-presubmit-retry_cloud-tf-R-base-image\".\n\nLooking at the advice at https://g3doc.corp.google.com/company/teams/android-core-networking/mainline_modules/mts.md?cl\u003dhead#excluding-tests-on-old-new-releases, this should work.\n\nLooking to re-order the function comments (highly unlikely but is it snuffing out the annotations?) and remove the mistakenly-introduced @Test annotation and retry..",
+      "parentUuid": "8914fc58_b4206b8b",
+      "revId": "2a171dbd6993268f1cd7e37ed9cf8a11161224ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
