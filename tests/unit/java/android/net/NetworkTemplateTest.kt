@@ -47,6 +47,8 @@ import android.net.NetworkTemplate.buildTemplateMobileWithRatType
 import android.net.NetworkTemplate.buildTemplateWifi
 import android.net.NetworkTemplate.buildTemplateWifiWildcard
 import android.net.NetworkTemplate.normalize
+import android.net.wifi.WifiInfo
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.TelephonyManager
 import com.android.testutils.DevSdkIgnoreRule
@@ -55,7 +57,10 @@ import com.android.testutils.assertParcelSane
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.doCallRealMethod
+import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -65,13 +70,25 @@ import kotlin.test.assertTrue
 private const val TEST_IMSI1 = "imsi1"
 private const val TEST_IMSI2 = "imsi2"
 private const val TEST_IMSI3 = "imsi3"
-private const val TEST_SSID1 = "ssid1"
-private const val TEST_SSID2 = "ssid2"
+private const val TEST_WIFI_NETWORK_KEY1 = "ssid1"
+private const val TEST_WIFI_NETWORK_KEY2 = "ssid2"
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 class NetworkTemplateTest {
-    private val mockContext = mock(Context::class.java)
+    private val mockWifiInfo = mock(WifiInfo::class.java)
+    private val mockWifiManager = mock(WifiManager::class.java).also {
+        doReturn(mockWifiInfo).`when`(it).getConnectionInfo()
+    }
+    private val mockContext = mock(Context::class.java).also {
+        doReturn(Context.WIFI_SERVICE).`when`(it)
+                .getSystemServiceName(WifiManager::class.java)
+        doReturn(mockWifiManager).`when`(it).getSystemService(Context.WIFI_SERVICE)
+        if (it.getSystemService(WifiManager::class.java) == null) {
+            // Test is using mockito extended
+            doCallRealMethod().`when`(it).getSystemService(WifiManager::class.java)
+        }
+    }
 
     private fun buildMobileNetworkState(subscriberId: String): NetworkStateSnapshot =
             buildNetworkState(TYPE_MOBILE, subscriberId = subscriberId)
@@ -85,6 +102,7 @@ class NetworkTemplateTest {
         oemManaged: Int = OEM_NONE,
         metered: Boolean = true
     ): NetworkStateSnapshot {
+        `when`(mockWifiInfo.getCurrentNetworkKey()).thenReturn(ssid)
         val lp = LinkProperties()
         val caps = NetworkCapabilities().apply {
             setCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED, !metered)
@@ -117,9 +135,9 @@ class NetworkTemplateTest {
                 buildMobileNetworkState(TEST_IMSI1),
                 false, TelephonyManager.NETWORK_TYPE_UMTS)
         val identWifiImsiNullSsid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(null, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(null, TEST_WIFI_NETWORK_KEY1), true, 0)
         val identWifiImsi1Ssid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_WIFI_NETWORK_KEY1), true, 0)
 
         templateWifiWildcard.assertDoesNotMatch(identMobileImsi1)
         templateWifiWildcard.assertMatches(identWifiImsiNullSsid1)
@@ -128,21 +146,21 @@ class NetworkTemplateTest {
 
     @Test
     fun testWifiMatches() {
-        val templateWifiSsid1 = buildTemplateWifi(TEST_SSID1)
-        val templateWifiSsid1ImsiNull = buildTemplateWifi(TEST_SSID1, null)
-        val templateWifiSsid1Imsi1 = buildTemplateWifi(TEST_SSID1, TEST_IMSI1)
+        val templateWifiSsid1 = buildTemplateWifi(TEST_WIFI_NETWORK_KEY1)
+        val templateWifiSsid1ImsiNull = buildTemplateWifi(TEST_WIFI_NETWORK_KEY1, null)
+        val templateWifiSsid1Imsi1 = buildTemplateWifi(TEST_WIFI_NETWORK_KEY1, TEST_IMSI1)
         val templateWifiSsidAllImsi1 = buildTemplateWifi(WIFI_NETWORKID_ALL, TEST_IMSI1)
 
         val identMobile1 = buildNetworkIdentity(mockContext, buildMobileNetworkState(TEST_IMSI1),
                 false, TelephonyManager.NETWORK_TYPE_UMTS)
         val identWifiImsiNullSsid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(null, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(null, TEST_WIFI_NETWORK_KEY1), true, 0)
         val identWifiImsi1Ssid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_WIFI_NETWORK_KEY1), true, 0)
         val identWifiImsi2Ssid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI2, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI2, TEST_WIFI_NETWORK_KEY1), true, 0)
         val identWifiImsi1Ssid2 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_SSID2), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_WIFI_NETWORK_KEY2), true, 0)
 
         // Verify that template with SSID only matches any subscriberId and specific SSID.
         templateWifiSsid1.assertDoesNotMatch(identMobile1)
@@ -191,7 +209,7 @@ class NetworkTemplateTest {
                 false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
 
         val identWifiImsi1Ssid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_WIFI_NETWORK_KEY1), true, 0)
 
         // Verify that the template matches type and the subscriberId.
         templateMobileImsi1.assertMatches(identMobile1)
@@ -220,7 +238,7 @@ class NetworkTemplateTest {
         templateMobileNullImsiWithRatType.assertMatches(identMobile1)
 
         val identWifiImsi1Ssid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_WIFI_NETWORK_KEY1), true, 0)
 
         // Verify that the different type does not match.
         templateMobileWildcard.assertDoesNotMatch(identWifiImsi1Ssid1)
@@ -235,10 +253,10 @@ class NetworkTemplateTest {
         val mobileImsi1Unmetered = buildNetworkState(TYPE_MOBILE, TEST_IMSI1, null /* ssid */,
                 OEM_NONE, false /* metered */)
         val mobileImsi2 = buildMobileNetworkState(TEST_IMSI2)
-        val wifiSsid1 = buildWifiNetworkState(null /* subscriberId */, TEST_SSID1)
-        val wifiImsi1Ssid1 = buildWifiNetworkState(TEST_IMSI1, TEST_SSID1)
-        val wifiImsi1Ssid1Unmetered = buildNetworkState(TYPE_WIFI, TEST_IMSI1, TEST_SSID1,
-                OEM_NONE, false /* metered */)
+        val wifiSsid1 = buildWifiNetworkState(null /* subscriberId */, TEST_WIFI_NETWORK_KEY1)
+        val wifiImsi1Ssid1 = buildWifiNetworkState(TEST_IMSI1, TEST_WIFI_NETWORK_KEY1)
+        val wifiImsi1Ssid1Unmetered = buildNetworkState(TYPE_WIFI, TEST_IMSI1,
+                TEST_WIFI_NETWORK_KEY1, OEM_NONE, false /* metered */)
 
         val identMobileImsi1Metered = buildNetworkIdentity(mockContext,
                 mobileImsi1, false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
@@ -303,7 +321,7 @@ class NetworkTemplateTest {
         val identImsi2UmtsMetered = buildNetworkIdentity(mockContext,
                 buildMobileNetworkState(TEST_IMSI2), false, TelephonyManager.NETWORK_TYPE_UMTS)
         val identWifi = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(null, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(null, TEST_WIFI_NETWORK_KEY1), true, 0)
 
         val identUmtsNonMetered = buildNetworkIdentity(
                 mockContext, stateMobileImsi1NonMetered, false, TelephonyManager.NETWORK_TYPE_UMTS)
@@ -391,18 +409,18 @@ class NetworkTemplateTest {
 
     @Test
     fun testParcelUnparcel() {
-        val templateMobile = NetworkTemplate(MATCH_MOBILE, TEST_IMSI1, null, null, METERED_ALL,
-                ROAMING_ALL, DEFAULT_NETWORK_ALL, TelephonyManager.NETWORK_TYPE_LTE,
+        val templateMobile = NetworkTemplate(MATCH_MOBILE, TEST_IMSI1, null, null, null,
+                METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, TelephonyManager.NETWORK_TYPE_LTE,
                 OEM_MANAGED_ALL, SUBSCRIBER_ID_MATCH_RULE_EXACT)
-        val templateWifi = NetworkTemplate(MATCH_WIFI, null, null, TEST_SSID1, METERED_ALL,
-                ROAMING_ALL, DEFAULT_NETWORK_ALL, 0, OEM_MANAGED_ALL,
-                SUBSCRIBER_ID_MATCH_RULE_EXACT)
-        val templateOem = NetworkTemplate(MATCH_MOBILE, null, null, null, METERED_ALL,
+        val templateWifi = NetworkTemplate(MATCH_WIFI, null, null, TEST_WIFI_NETWORK_KEY1,
+                arrayOf(TEST_WIFI_NETWORK_KEY1), METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, 0,
+                OEM_MANAGED_ALL, SUBSCRIBER_ID_MATCH_RULE_EXACT)
+        val templateOem = NetworkTemplate(MATCH_MOBILE, null, null, null, null, METERED_ALL,
                 ROAMING_ALL, DEFAULT_NETWORK_ALL, 0, OEM_MANAGED_YES,
                 SUBSCRIBER_ID_MATCH_RULE_EXACT)
-        assertParcelSane(templateMobile, 10)
-        assertParcelSane(templateWifi, 10)
-        assertParcelSane(templateOem, 10)
+        assertParcelSane(templateMobile, 11)
+        assertParcelSane(templateWifi, 11)
+        assertParcelSane(templateOem, 11)
     }
 
     // Verify NETWORK_TYPE_* constants in NetworkTemplate do not conflict with
@@ -452,13 +470,14 @@ class NetworkTemplateTest {
     ) {
         val oemManagedStates = arrayOf(OEM_NONE, OEM_PAID, OEM_PRIVATE, OEM_PAID or OEM_PRIVATE)
         val matchSubscriberIds = arrayOf(subscriberId)
+        val matchNetworkIds = arrayOf(templateSsid)
 
         val templateOemYes = NetworkTemplate(matchType, subscriberId, matchSubscriberIds,
-                templateSsid, METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
-                OEM_MANAGED_YES, SUBSCRIBER_ID_MATCH_RULE_EXACT)
+                templateSsid, matchNetworkIds, METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL,
+                NETWORK_TYPE_ALL, OEM_MANAGED_YES, SUBSCRIBER_ID_MATCH_RULE_EXACT)
         val templateOemAll = NetworkTemplate(matchType, subscriberId, matchSubscriberIds,
-                templateSsid, METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL,
-                OEM_MANAGED_ALL, SUBSCRIBER_ID_MATCH_RULE_EXACT)
+                templateSsid, matchNetworkIds, METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL,
+                NETWORK_TYPE_ALL, OEM_MANAGED_ALL, SUBSCRIBER_ID_MATCH_RULE_EXACT)
 
         for (identityOemManagedState in oemManagedStates) {
             val ident = buildNetworkIdentity(mockContext, buildNetworkState(networkType,
@@ -468,8 +487,9 @@ class NetworkTemplateTest {
             // Create a template with each OEM managed type and match it against the NetworkIdentity
             for (templateOemManagedState in oemManagedStates) {
                 val template = NetworkTemplate(matchType, subscriberId, matchSubscriberIds,
-                        templateSsid, METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL,
-                        NETWORK_TYPE_ALL, templateOemManagedState, SUBSCRIBER_ID_MATCH_RULE_EXACT)
+                        templateSsid, matchNetworkIds, METERED_ALL, ROAMING_ALL,
+                        DEFAULT_NETWORK_ALL, NETWORK_TYPE_ALL, templateOemManagedState,
+                        SUBSCRIBER_ID_MATCH_RULE_EXACT)
                 if (identityOemManagedState == templateOemManagedState) {
                     template.assertMatches(ident)
                 } else {
@@ -491,9 +511,9 @@ class NetworkTemplateTest {
     fun testOemManagedMatchesIdent() {
         matchOemManagedIdent(TYPE_MOBILE, MATCH_MOBILE, subscriberId = TEST_IMSI1)
         matchOemManagedIdent(TYPE_MOBILE, MATCH_MOBILE_WILDCARD)
-        matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI, templateSsid = TEST_SSID1,
-                identSsid = TEST_SSID1)
-        matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI_WILDCARD, identSsid = TEST_SSID1)
+        matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI, templateSsid = TEST_WIFI_NETWORK_KEY1,
+                identSsid = TEST_WIFI_NETWORK_KEY1)
+        matchOemManagedIdent(TYPE_WIFI, MATCH_WIFI_WILDCARD, identSsid = TEST_WIFI_NETWORK_KEY1)
     }
 
     @Test
@@ -509,11 +529,11 @@ class NetworkTemplateTest {
                 buildMobileNetworkState(TEST_IMSI3), false /* defaultNetwork */,
                 TelephonyManager.NETWORK_TYPE_UMTS)
         val identWifiImsi1Ssid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI1, TEST_WIFI_NETWORK_KEY1), true, 0)
         val identWifiImsi2Ssid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI2, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI2, TEST_WIFI_NETWORK_KEY1), true, 0)
         val identWifiImsi3Ssid1 = buildNetworkIdentity(
-                mockContext, buildWifiNetworkState(TEST_IMSI3, TEST_SSID1), true, 0)
+                mockContext, buildWifiNetworkState(TEST_IMSI3, TEST_WIFI_NETWORK_KEY1), true, 0)
 
         normalize(buildTemplateMobileAll(TEST_IMSI1), mergedImsiList).also {
             it.assertMatches(identMobileImsi1)
@@ -525,7 +545,7 @@ class NetworkTemplateTest {
             it.assertMatches(identMobileImsi2)
             it.assertDoesNotMatch(identMobileImsi3)
         }
-        normalize(buildTemplateWifi(TEST_SSID1, TEST_IMSI1), mergedImsiList).also {
+        normalize(buildTemplateWifi(TEST_WIFI_NETWORK_KEY1, TEST_IMSI1), mergedImsiList).also {
             it.assertMatches(identWifiImsi1Ssid1)
             it.assertMatches(identWifiImsi2Ssid1)
             it.assertDoesNotMatch(identWifiImsi3Ssid1)
