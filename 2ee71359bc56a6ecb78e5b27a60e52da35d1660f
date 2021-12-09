@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5edcf701_e7478126",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2021-12-09T13:50:31Z",
+      "side": 1,
+      "message": "Hi Remi, \nupdated this CL accoding to your comments (added separate build target for CtsHostsideTestApp)\nPlease review",
+      "revId": "2ee71359bc56a6ecb78e5b27a60e52da35d1660f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
