@@ -5555,4 +5555,28 @@ public class ConnectivityManager {
             throw ie;
         }
     }
+
+    /**
+     * Update firewall rule for target uid.
+     *
+     * @param chain target chain.
+     * @param uid uid to allow/deny.
+     * @param add either add or remove rule.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.NETWORK_SETTINGS,
+            android.Manifest.permission.NETWORK_STACK,
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
+    })
+    public void updateFirewallRule(final int chain, final int uid, final boolean add) {
+        try {
+            mService.updateFirewallRule(chain, uid, add);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        } catch (IllegalStateException ie) {
+            throw ie;
+        }
+    }
 }
