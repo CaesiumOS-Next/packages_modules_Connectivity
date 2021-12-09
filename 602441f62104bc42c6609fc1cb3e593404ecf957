@@ -22,6 +22,30 @@
       },
       "revId": "602441f62104bc42c6609fc1cb3e593404ecf957",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1deb605_b720190c",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-12-09T17:13:07Z",
+      "side": 1,
+      "message": "There is no mSubId class member in the NetworkStateSnapshot.\nSo, if we add the subId, we can not fill in subId by NetworkStateSnapshot constructor Line#101.\n\nNot sure if it is okay to add the class member mSubId to the NetworkStateSnapshot?",
+      "parentUuid": "d8e723ee_9d3ce463",
+      "range": {
+        "startLine": 90,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 27
+      },
+      "revId": "602441f62104bc42c6609fc1cb3e593404ecf957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
