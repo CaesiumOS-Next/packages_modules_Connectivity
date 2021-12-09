@@ -22,6 +22,29 @@
       },
       "revId": "999bdf96aa1a10df8170e8ac6969e1fa4855eaef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "631b80ed_60837564",
+        "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-09T18:29:11Z",
+      "side": 1,
+      "message": "run atest on another tap iface test",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 87
+      },
+      "revId": "999bdf96aa1a10df8170e8ac6969e1fa4855eaef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
