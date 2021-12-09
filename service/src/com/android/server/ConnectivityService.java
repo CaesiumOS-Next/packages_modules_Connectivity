@@ -10579,4 +10579,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             throw ie;
         }
     }
+
+    @Override
+    public void setFirewallChainEnabled(final int chain, final boolean enable) {
+        enforceNetworkStackOrSettingsPermission();
+
+        try {
+            mNetd.firewallEnableChildChain(chain, enable);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        } catch (IllegalStateException ie) {
+            throw ie;
+        }
+    }
+
 }
