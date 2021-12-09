@@ -5602,4 +5602,28 @@ public class ConnectivityManager {
             throw ie;
         }
     }
+
+    /**
+     * Replaces the contents of the specified UID-based firewall chain.
+     *
+     * @param chain target chain to replace.
+     * @param uids The list of UIDs to be placed into chain.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.NETWORK_SETTINGS,
+            android.Manifest.permission.NETWORK_STACK,
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
+    })
+    public void replaceFirewallChain(final int chain, @NonNull final int[] uids) {
+        Objects.requireNonNull(uids);
+        try {
+            mService.replaceFirewallChain(chain, uids);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        } catch (IllegalStateException ie) {
+            throw ie;
+        }
+    }
 }

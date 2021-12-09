@@ -10620,4 +10620,29 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @Override
+    public void replaceFirewallChain(final int chain, final int[] uids) {
+        enforceNetworkStackOrSettingsPermission();
+
+        try {
+            switch (chain) {
+                case INetd.FIREWALL_CHAIN_DOZABLE:
+                    mNetd.firewallReplaceUidChain("fw_dozable", true, uids);
+                    break;
+                case INetd.FIREWALL_CHAIN_STANDBY:
+                    mNetd.firewallReplaceUidChain("fw_standby", false, uids);
+                    break;
+                case INetd.FIREWALL_CHAIN_POWERSAVE:
+                    mNetd.firewallReplaceUidChain("fw_powersave", true, uids);
+                    break;
+                case INetd.FIREWALL_CHAIN_RESTRICTED:
+                    mNetd.firewallReplaceUidChain("fw_restricted", true, uids);
+                    break;
+                default:
+                    loge("replaceFirewallChain with invalid chain: " + chain);
+            }
+        } catch (RemoteException | ServiceSpecificException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 }
