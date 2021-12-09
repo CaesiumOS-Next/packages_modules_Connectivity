@@ -33,6 +33,24 @@
       "message": "Our CTS tests run on Q, R, S, and master phones. Is the test is failing on older releases because on those releases the API didn\u0027t exist? I think you want something like DevSdkIgnoreRule.IgnoreUpto(S) to ensure the test only runs on T+.",
       "revId": "2a171dbd6993268f1cd7e37ed9cf8a11161224ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8914fc58_b4206b8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1626001
+      },
+      "writtenOn": "2021-12-09T09:09:20Z",
+      "side": 1,
+      "message": "Yes:\n\nTe test fails on \"suite/test-mapping-mainline-presubmit-retry_cloud-tf-R-base-image\" but passes on \"\nsuite/test-mapping-mainline-presubmit-retry_cloud-tf-S-base-image\".\n\nThanks for your tip- hopefully it passes presubmit now.",
+      "parentUuid": "0681f968_62439df5",
+      "revId": "2a171dbd6993268f1cd7e37ed9cf8a11161224ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
