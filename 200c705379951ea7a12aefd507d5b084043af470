@@ -39,6 +39,30 @@
       },
       "revId": "200c705379951ea7a12aefd507d5b084043af470",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a2c1b61_70df3194",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 1626001
+      },
+      "writtenOn": "2021-12-09T03:37:28Z",
+      "side": 1,
+      "message": "Done (I imagine you meant commit msg).",
+      "parentUuid": "8eb55b0c_248e4e91",
+      "range": {
+        "startLine": 775,
+        "startChar": 14,
+        "endLine": 775,
+        "endChar": 30
+      },
+      "revId": "200c705379951ea7a12aefd507d5b084043af470",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
