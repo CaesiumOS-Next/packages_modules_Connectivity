@@ -16,6 +16,23 @@
       "message": "Don\u0027t really understand why the newly added CTS test is passing on some builds, for eg:\nhttps://fusion2.corp.google.com/invocations/c0bcf80c-694a-4d6b-a67f-81fbb76a41ff/targets/x86_64%20CtsNetTestCases;config\u003ddefault/tests\n\nWhile failing on others...\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI13400009999223836\u0026testResultId\u003dTR43127811009671575\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI83600009999229658\u0026testResultId\u003dTR08127811050549084",
       "revId": "2a171dbd6993268f1cd7e37ed9cf8a11161224ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0681f968_62439df5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-09T08:50:29Z",
+      "side": 1,
+      "message": "Our CTS tests run on Q, R, S, and master phones. Is the test is failing on older releases because on those releases the API didn\u0027t exist? I think you want something like DevSdkIgnoreRule.IgnoreUpto(S) to ensure the test only runs on T+.",
+      "revId": "2a171dbd6993268f1cd7e37ed9cf8a11161224ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
