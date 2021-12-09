@@ -10535,4 +10535,27 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return createNetworkRequest(NetworkRequest.Type.REQUEST, netcap);
         }
     }
+
+    @Override
+    public void updateMeteredNetworkAllowList(final int uid, final boolean add) {
+        enforceNetworkStackOrSettingsPermission();
+
+        if (enable) {
+            mNetd.bandwidthAddNiceApp(uid);
+        } else {
+            mNetd.bandwidthRemoveNiceApp(uid);
+        }
+    }
+
+    @Override
+    public void updateMeteredNetworkDenyList(final int uid, final boolean add) {
+        enforceNetworkStackOrSettingsPermission();
+
+        if (enable) {
+            mNetd.bandwidthAddNaughtyApp(uid);
+        } else {
+            mNetd.bandwidthRemoveNaughtyApp(uid);
+        }
+    }
+
 }
