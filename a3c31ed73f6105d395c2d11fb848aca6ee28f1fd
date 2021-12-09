@@ -16,6 +16,46 @@
       "message": "Thank you Lorenzo for reviewing. \nPTAL. ",
       "revId": "a3c31ed73f6105d395c2d11fb848aca6ee28f1fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "759f3561_8e60f256",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-09T00:55:17Z",
+      "side": 1,
+      "message": "Code LGTM, but please add CTS tests for the APIs that you are adding (the constructor and the accessors).",
+      "revId": "a3c31ed73f6105d395c2d11fb848aca6ee28f1fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b83d479_61bfa09a",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-09T00:55:17Z",
+      "side": 1,
+      "message": "NetworkStack is not a concept in the Android API surface, so maybe don\u0027t use it here? You could say something like:\n\n     * Constructs a DhcpOption object.\n     *\n     * @param type the type of this option\n     * @param value the value of this option. If {@code null},\n     *              DHCP packets containing this option will include\n     *              the option type in the Parameter Request List.\n     *              Otherwise, DHCP packets containing this option\n     *              will include the option in the options section.",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "a3c31ed73f6105d395c2d11fb848aca6ee28f1fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
