@@ -22,6 +22,30 @@
       },
       "revId": "05e762e3b58bd2f435f894143e3a9ad44168504c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0c2fb5c_3dc26017",
+        "filename": "tests/cts/hostside/app/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-09T10:46:53Z",
+      "side": 1,
+      "message": "For more background, this is especially important for testing APKs with different target SDK, which hostside tests are useful for: having multiple apps that build against different target SDKs allow testing them, but this is not possible with just one app that has a different target SDK depending on the branch.",
+      "parentUuid": "c0bb607f_4e0db416",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "05e762e3b58bd2f435f894143e3a9ad44168504c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
