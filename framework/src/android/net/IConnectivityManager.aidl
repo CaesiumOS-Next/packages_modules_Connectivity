@@ -232,4 +232,6 @@ interface IConnectivityManager
     void updateMeteredNetworkAllowList(int uid, boolean add);
 
     void updateMeteredNetworkDenyList(int uid, boolean add);
+
+    void updateFirewallRule(int chain, int uid, boolean add);
 }

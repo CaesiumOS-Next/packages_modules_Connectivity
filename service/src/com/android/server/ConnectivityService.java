@@ -10596,4 +10596,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
             throw new IllegalStateException(e);
         }
     }
+
+    @Override
+    public void updateFirewallRule(final int chain, final int uid, final boolean add) {
+        enforceNetworkStackOrSettingsPermission();
+
+        try {
+            mNetd.firewallSetUidRule(chain, uid,
+                    add ? INetd.FIREWALL_RULE_ALLOW : INetd.FIREWALL_RULE_DENY);
+        } catch (RemoteException | ServiceSpecificException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 }
