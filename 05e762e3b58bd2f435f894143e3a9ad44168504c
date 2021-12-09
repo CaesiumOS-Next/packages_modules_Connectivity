@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0bb607f_4e0db416",
+        "filename": "tests/cts/hostside/app/Android.bp",
+        "patchSetId": 16
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-09T10:43:38Z",
+      "side": 1,
+      "message": "Changing the shims used to build a test depending on the branch is not something we have in other mainline-compatible tests, the general approach we have is to completely disable the targets that don\u0027t make sense in sc-mainline-prod there.\n\nSo instead of switching with network_stack_shims, could you duplicate the android_test_helper_app to have CtsHostsideNetworkTestsApp (based on stable shims) and CtsHostsideNetworkTestsAppNext (based on current shims), and have CtsHostsideNetworkTestsAppNext use ConnectivityNextEnableDefaults ? This would disable the CtsHostsideNetworkTestsAppNext build rule in sc-mainline-prod (using the \"standard\" default we have for that).\n\nThen in com.android.cts.net.HostsideNetworkTestCase, use com.android.modules.utils.build.testing.DeviceSdkLevel to install CtsHostsideNetworkTestsAppNext if the device is T+, and CtsHostsideNetworkTestsApp if it is older.\n\nQuick notes we had in a meeting discussing this: go/conn-hostside-multi-sdk-cts-testing",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "05e762e3b58bd2f435f894143e3a9ad44168504c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
