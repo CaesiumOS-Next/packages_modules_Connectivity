@@ -831,6 +831,50 @@ public class VpnTest {
             });
     }
 
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S)
+    public void testUnderlyingNetworksFollowDefaultNetwork() throws Exception {
+        assumeTrue(supportedHardware());
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
+        final TestableNetworkCallback callback = new TestableNetworkCallback();
+        final boolean isWifiEnabled = mWifiManager.isWifiEnabled();
+        testAndCleanup(() -> {
+            // Ensure wifi is connected.
+            final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+            // Check if wifi is the default network.
+            mCtsNetUtils.expectSystemDefaultNetwork(wifiNetwork);
+            // Start VPN and set underlying networks to null to follow the default network.
+            startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[] {"0.0.0.0/0", "::/0"} /* routes */,
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, null /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+            runWithShellPermissionIdentity(() -> {
+                mCM.registerNetworkCallback(makeVpnNetworkRequest(), callback);
+                // Check the underlying networks of NetworkCapabilities which comes from
+                // onCapabilitiesChanged is wifi.
+                expectUnderlyingNetworks(callback, List.of(wifiNetwork));
+                // Disconnect wifi and ensure mobile data is connected.
+                mCtsNetUtils.ensureWifiDisconnected(null);
+                final Network cellNetwork = mCtsNetUtils.connectToCell();
+                assertNotNull("Mobile data is not connected", cellNetwork);
+                // Check the underlying networks of NetworkCapabilities which comes from
+                // onCapabilitiesChanged is mobile data.
+                expectUnderlyingNetworks(callback, List.of(cellNetwork));
+            }, NETWORK_SETTINGS);
+        }, () -> {
+                mCM.unregisterNetworkCallback(callback);
+            }, () -> {
+                if (isWifiEnabled) {
+                    mCtsNetUtils.ensureWifiConnected();
+                } else {
+                    mCtsNetUtils.ensureWifiDisconnected(null);
+                }
+            }, () -> {
+                mCtsNetUtils.disconnectFromCell();
+            });
+    }
+
     @Test
     public void testDefault() throws Exception {
         if (!supportedHardware()) return;
