@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a37e3b71_f62f5a3d",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-10T05:27:07Z",
+      "side": 1,
+      "message": "Plenty of ways, but a way that looks nice here would be :\n\n  generateSequence { reader.poll(PACKET_TIMEOUT_MS) }.forEach { packet -\u003e\n    ...\n  }\n\nThis will call poll() repeatedly and apply the processing to it until poll() returns null.",
+      "parentUuid": "cd1fb08d_b3d36df7",
+      "range": {
+        "startLine": 348,
+        "startChar": 7,
+        "endLine": 348,
+        "endChar": 55
+      },
+      "revId": "fd591b1a942d7b61386dca023519ded2fd7b064b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc66af49_49c5233b",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 36
