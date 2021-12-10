@@ -744,6 +744,15 @@ public final class NetworkCapabilities implements Parcelable {
         return Objects.equals(getUnderlyingNetworks(), nc.getUnderlyingNetworks());
     }
 
+    private boolean satisfiedByUnderlyingNetworks(@NonNull NetworkCapabilities nc) {
+        if (mUnderlyingNetworks == null) return true;
+        if (nc.getUnderlyingNetworks() == null) return false;
+        for (Network network : mUnderlyingNetworks) {
+            if (!nc.getUnderlyingNetworks().contains(network)) return false;
+        }
+        return true;
+    }
+
     /**
      * Tests for the presence of a capability on this instance.
      *
@@ -818,6 +827,7 @@ public final class NetworkCapabilities implements Parcelable {
         if (isPrivateDnsBroken()) {
             return "privateDnsBroken";
         }
+        if (mUnderlyingNetworks != null) return "underlyingNetworks";
         return null;
     }
 
@@ -1850,7 +1860,11 @@ public final class NetworkCapabilities implements Parcelable {
                 && (onlyImmutable || satisfiedByUids(nc))
                 && (onlyImmutable || satisfiedBySSID(nc))
                 && (onlyImmutable || satisfiedByRequestor(nc))
-                && (onlyImmutable || satisfiedBySubscriptionIds(nc)));
+                && (onlyImmutable || satisfiedBySubscriptionIds(nc))
+                // There is no known use case to listen the underlying networks, so don't compare
+                // the underlying networks to prevent paying the performance to handle it. If there
+                // is any need in the future, it's easy to enable it by removing the comment.
+                /* && (onlyImmutable || satisfiedByUnderlyingNetworks(nc)) */);
     }
 
     /**
@@ -2864,6 +2878,7 @@ public final class NetworkCapabilities implements Parcelable {
          * @param networks The underlying networks of this network.
          */
         @NonNull
+        @RequiresPermission(android.Manifest.permission.NETWORK_SETTINGS)
         public Builder setUnderlyingNetworks(@Nullable List<Network> networks) {
             mCaps.setUnderlyingNetworks(networks);
             return this;

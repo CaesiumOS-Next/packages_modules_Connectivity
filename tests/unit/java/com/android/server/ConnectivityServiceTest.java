@@ -2246,6 +2246,19 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testUnderlyingNetworkIsNotRequestable() throws Exception {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_VPN)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .setUnderlyingNetworks(List.of(new Network(100)))
+                .build();
+        final NetworkRequest nr = new NetworkRequest(nc, ConnectivityManager.TYPE_NONE,
+                ConnectivityManager.REQUEST_ID_UNSET, NetworkRequest.Type.REQUEST);
+        final TestNetworkCallback callback = new TestNetworkCallback();
+        assertThrows(IllegalArgumentException.class, () -> mCm.requestNetwork(nr, callback));
+    }
+
+    @Test
     public void testLingering() throws Exception {
         verifyNoNetwork();
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
