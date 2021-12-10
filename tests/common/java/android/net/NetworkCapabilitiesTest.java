@@ -22,6 +22,12 @@ import static android.net.NetworkCapabilities.MIN_TRANSPORT;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CBS;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_EIMS;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_4;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOREGROUND;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
@@ -923,6 +929,88 @@ public class NetworkCapabilitiesTest {
             fail("Must have a single transport type. Without transport type or multiple transport"
                     + " types is invalid.");
         } catch (IllegalStateException expected) { }
+    }
+
+    @Test
+    public void testEnterpriseCapabilitySubLevel() {
+        final NetworkCapabilities nc1 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_ENTERPRISE)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .build();
+        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1,
+                nc1.getEnterpriseCapabilitySubLevels()[0]);
+        assertEquals(1, nc1.getEnterpriseCapabilitySubLevels().length);
+        final NetworkCapabilities nc2 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_ENTERPRISE)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .build();
+        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1,
+                nc1.getEnterpriseCapabilitySubLevels()[0]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2,
+                nc1.getEnterpriseCapabilitySubLevels()[1]);
+        assertEquals(2, nc2.getEnterpriseCapabilitySubLevels().length);
+        final NetworkCapabilities nc3 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_ENTERPRISE)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_4)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5)
+                .build();
+        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1,
+                nc1.getEnterpriseCapabilitySubLevels()[0]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2,
+                nc1.getEnterpriseCapabilitySubLevels()[1]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3,
+                nc1.getEnterpriseCapabilitySubLevels()[2]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_4,
+                nc1.getEnterpriseCapabilitySubLevels()[3]);
+        assertEquals(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_5,
+                nc1.getEnterpriseCapabilitySubLevels()[4]);
+        assertEquals(5, nc3.getEnterpriseCapabilitySubLevels().length);
+
+        try {
+            final NetworkCapabilities nc4 = new NetworkCapabilities.Builder()
+                    .addEnterpriseCapabilitySubLevel(6)
+                    .build();
+            fail("Invalid enterprise capability sub level should not be accepted");
+        } catch (IllegalArgumentException expected) {
+        }
+
+        try {
+            final NetworkCapabilities nc4 = new NetworkCapabilities.Builder()
+                    .removeEnterpriseCapabilitySubLevel(6)
+                    .build();
+            fail("Invalid enterprise capability sub level should not be accepted");
+        } catch (IllegalArgumentException expected) {
+        }
+
+        final NetworkCapabilities nc4 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_ENTERPRISE)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .build();
+        assertEquals(0, nc4.getEnterpriseCapabilitySubLevels().length);
+
+        final NetworkCapabilities nc5 = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_CBS)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .addEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1)
+                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2)
+                .build();
+
+        assertFalse(nc4.satisfiedByNetworkCapabilities(nc1));
+        assertTrue(nc1.satisfiedByNetworkCapabilities(nc4));
+
+        assertFalse(nc3.satisfiedByNetworkCapabilities(nc2));
+        assertFalse(nc2.satisfiedByNetworkCapabilities(nc3));
+
+        assertFalse(nc1.satisfiedByNetworkCapabilities(nc5));
+        assertFalse(nc5.satisfiedByNetworkCapabilities(nc1));
     }
 
     @Test

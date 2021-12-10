@@ -17,6 +17,10 @@
 package android.net.cts;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_DUN;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_FOTA;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_MMS;
@@ -61,6 +65,7 @@ import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -470,6 +475,44 @@ public class NetworkRequestTest {
                 .setCapabilities(builder.build())
                 .build();
         assertArrayEquals(netCapabilities, nr.getCapabilities());
+    }
+
+    @Test @IgnoreUpTo(Build.VERSION_CODES.S)
+    public void testEnterpriseCapabilitiesSubLevel() {
+        final int[] netCapabilities = new int[] {
+                NET_CAPABILITY_ENTERPRISE};
+        final int[] netEnterpriseCapabilitiesSubLevel = new int[] {
+                NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_1,
+                NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2,
+                NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3};
+        final int[] netEnterpriseCapabilitiesSubLevel1 = new int[] {
+                NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_2,
+                NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3};
+        final NetworkCapabilities.Builder ncBuilder = NetworkCapabilities.Builder
+                .withoutDefaultCapabilities();
+        for (int capability : netCapabilities)  {
+            ncBuilder.addCapability(capability);
+        }
+        for (int subLevel : netEnterpriseCapabilitiesSubLevel) {
+            ncBuilder.addEnterpriseCapabilitySubLevel(subLevel);
+        }
+
+        final NetworkCapabilities nc = ncBuilder.build();
+        assertArrayEquals(netEnterpriseCapabilitiesSubLevel, nc.getEnterpriseCapabilitySubLevels());
+
+        final NetworkCapabilities nc1 = ncBuilder
+                .removeEnterpriseCapabilitySubLevel(NET_CAPABILITY_ENTERPRISE_SUB_LEVEL_3)
+                .build();
+        assertArrayEquals(netEnterpriseCapabilitiesSubLevel1,
+                nc1.getEnterpriseCapabilitySubLevels());
+
+        try {
+            final NetworkCapabilities nc2 = new NetworkCapabilities.Builder()
+                    .addEnterpriseCapabilitySubLevel(6)
+                    .build();
+            Assert.fail("Invalid enterprise capability sub level should not be accepted");
+        } catch (IllegalArgumentException expected) {
+        }
     }
 
     @Test
