@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018255905",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1918397?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b44fd9fe_cfd16b6a",
+        "filename": "tests/cts/net/src/android/net/cts/DnsResolverTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-10T13:12:43Z",
+      "side": 1,
+      "message": "Prefer to use mContext.getSystemService(ConnectivityManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 122,
+        "startChar": 14,
+        "endLine": 122,
+        "endChar": 62
+      },
+      "revId": "ee0cb4c79170d7a78d4c1bf0692d61dcbd456fb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
