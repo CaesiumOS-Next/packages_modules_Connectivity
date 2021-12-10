@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3de33f92_4d8a8f89",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-10T05:36:59Z",
+      "side": 1,
+      "message": "Also you can use reader.poll with a predicate filter to get the packet that you expect:\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/libs/net/common/testutils/devicetests/com/android/testutils/TapPacketReader.java;drc\u003d0fb2de46f071b50fe1e524ee16282a607a69d8c3;l\u003d109\n\nThere\u0027s also some packet filters for that that you might find useful:\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/libs/net/common/testutils/hostdevice/com/android/testutils/PacketFilter.kt",
+      "parentUuid": "cd1fb08d_b3d36df7",
+      "range": {
+        "startLine": 348,
+        "startChar": 7,
+        "endLine": 348,
+        "endChar": 55
+      },
+      "revId": "fd591b1a942d7b61386dca023519ded2fd7b064b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc66af49_49c5233b",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 36
@@ -61,6 +85,30 @@
       "writtenOn": "2021-12-10T00:25:41Z",
       "side": 1,
       "message": "Can a direct packet comparison be used or should the dscp value be pulled out?",
+      "range": {
+        "startLine": 349,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 49
+      },
+      "revId": "fd591b1a942d7b61386dca023519ded2fd7b064b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34c5e875_d02a305f",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-10T05:36:59Z",
+      "side": 1,
+      "message": "You could use assertContentEquals, if you expect that the DSCP bit was set you could update the \"expected\" array with that bit and compare; or if this test is just for testing whether the bit was set, just checking the DSCP value would work too.",
+      "parentUuid": "dc66af49_49c5233b",
       "range": {
         "startLine": 349,
         "startChar": 8,

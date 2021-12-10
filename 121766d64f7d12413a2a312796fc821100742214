@@ -46,6 +46,75 @@
       },
       "revId": "121766d64f7d12413a2a312796fc821100742214",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2975541_8fc9ba72",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-10T05:36:59Z",
+      "side": 1,
+      "message": "You can just do:\n\n  runAsShell(MANAGE_TEST_NETWORKS) {\n    mContext.assertHasService...\n    tnm.createTapInterface()\n  }",
+      "range": {
+        "startLine": 152,
+        "startChar": 18,
+        "endLine": 152,
+        "endChar": 28
+      },
+      "revId": "121766d64f7d12413a2a312796fc821100742214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "443fdd4a_34bf486f",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-10T05:36:59Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary if you don\u0027t have restricted capabilities in the request (the test should already have CHANGE_NETWORK_STATE)",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 18
+      },
+      "revId": "121766d64f7d12413a2a312796fc821100742214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99702d0c_713fdda8",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 37
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-10T05:36:59Z",
+      "side": 1,
+      "message": "This clears all default capabilities:\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java;drc\u003d7ea2767864ae69cb04e3cf815f02f3b660d14faa;l\u003d557\n\nincluding NET_CAPABILITY_NOT_RESTRICTED, so you\u0027d need additional permissions for this. You should probably add that capability to your NetworkAgent and request.\nSee capabilities allowed on test networks:\n\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework/src/android/net/NetworkCapabilities.java;drc\u003d7ea2767864ae69cb04e3cf815f02f3b660d14faa;l\u003d577",
+      "range": {
+        "startLine": 191,
+        "startChar": 17,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "121766d64f7d12413a2a312796fc821100742214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
