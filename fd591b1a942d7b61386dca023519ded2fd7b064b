@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd1fb08d_b3d36df7",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "In kotlin how do you create a loop to poll all packets?",
+      "range": {
+        "startLine": 348,
+        "startChar": 7,
+        "endLine": 348,
+        "endChar": 55
+      },
+      "revId": "fd591b1a942d7b61386dca023519ded2fd7b064b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc66af49_49c5233b",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "Can a direct packet comparison be used or should the dscp value be pulled out?",
+      "range": {
+        "startLine": 349,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 49
+      },
+      "revId": "fd591b1a942d7b61386dca023519ded2fd7b064b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

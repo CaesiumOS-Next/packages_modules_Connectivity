@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4c78afd_54894df0",
+        "filename": "framework/api/lint-baseline.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9b9cc8e_3257bf0e",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f05bdba8_d293b05f",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "Unfortunately @IntDef annotations can\u0027t be used in module API ATM\n\nThere\u0027s not agreed upon solution to make them work",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 58
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b94f61d_0104a7fe",
+        "filename": "framework/api/lint-baseline.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f05bdba8_d293b05f",
       "range": {
         "startLine": 27,
         "startChar": 4,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "906da09f_467a312e",
+        "filename": "framework/jarjar-rules.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "This may be leftover from the 1st implementation, will check",
+      "parentUuid": "0e86da9f_54043a63",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 4
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d69defcb_51c406dd",
         "filename": "service/bpf_progs/dscp_policy.c",
         "patchSetId": 34
@@ -100,6 +172,30 @@
       "writtenOn": "2021-12-08T02:12:53Z",
       "side": 1,
       "message": "Check system server group, AID_SYSTEM maybe",
+      "range": {
+        "startLine": 94,
+        "startChar": 61,
+        "endLine": 94,
+        "endChar": 78
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "196c66e7_a58ff5ed",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 34
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d69defcb_51c406dd",
       "range": {
         "startLine": 94,
         "startChar": 61,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7d4741f_ecee3a50",
+        "filename": "service/bpf_progs/dscp_policy.c",
+        "patchSetId": 34
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60ccb574_dcbc468a",
+      "range": {
+        "startLine": 101,
+        "startChar": 61,
+        "endLine": 101,
+        "endChar": 70
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b94d24e_ce2fd600",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-12-07T20:31:20Z",
       "side": 1,
       "message": "Access permission error here.\n\n 7936 12-07 20:24:30.107   636   636 E ConnectivityService: Unable to create DSCP Policy Tracker\n 7937 12-07 20:24:30.107   636   636 E ConnectivityService: android.system.ErrnoException: bpfFdGet failed: EACCES (Permission denied)\n 7938 12-07 20:24:30.107   636   636 E ConnectivityService:     at com.android.connectivity.com.android.net.module.util.BpfMap.bpfFdGet(Native Method)\n 7939 12-07 20:24:30.107   636   636 E ConnectivityService:     at com.android.connectivity.com.android.net.module.util.BpfMap.\u003cinit\u003e(BpfMap.java:76)\n 7940 12-07 20:24:30.107   636   636 E ConnectivityService:     at com.android.server.connectivity.DscpPolicyTracker.\u003cinit\u003e(DscpPolicyTracker.java:78)",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 76
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0797031_fa22dbbe",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 34
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b94d24e_ce2fd600",
       "range": {
         "startLine": 78,
         "startChar": 8,
@@ -251,6 +395,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19427978_0b2ef196",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "What is the difference between lazy and non lazy context?",
+      "parentUuid": "b199a627_eb43a278",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 23
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c28bc17_975c21a5",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 34
@@ -262,6 +430,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "Nit: you\u0027ve got another handlerThread below (in Kotlin the \"m\" prefix isn\u0027t used also)",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45d477e_1a63dfbf",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "Still testing these, 1 seems to work but not the other",
+      "parentUuid": "1c28bc17_975c21a5",
       "range": {
         "startLine": 107,
         "startChar": 16,
@@ -308,6 +500,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "Instead of taking shell permission for the whole test, could you use com.android.testutils.runAsShell with the specific permissions required for each call ?\n\nFor example,\n\n  iface \u003d runAsShell(MANAGE_TEST_NETWORKS) { nm.createTapInterface() }\n\nKeeping shell permissions during the test could have unintended side-effects",
+      "range": {
+        "startLine": 137,
+        "startChar": 42,
+        "endLine": 137,
+        "endChar": 70
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87f36930_a67aad35",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "is createTapInterface the only call that needs shell?",
+      "parentUuid": "9aed04fb_8fa38d33",
       "range": {
         "startLine": 137,
         "startChar": 42,
@@ -446,6 +662,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "Nit: val",
+      "range": {
+        "startLine": 338,
+        "startChar": 8,
+        "endLine": 338,
+        "endChar": 11
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d10174d_aa8159fe",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d8e0e9_e045c590",
       "range": {
         "startLine": 338,
         "startChar": 8,
