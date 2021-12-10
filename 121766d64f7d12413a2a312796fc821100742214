@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e25e16_d5144b1f",
+        "filename": "framework/api/lint-baseline.txt",
+        "patchSetId": 37
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T00:47:42Z",
+      "side": 1,
+      "message": "How to update this file?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "121766d64f7d12413a2a312796fc821100742214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
