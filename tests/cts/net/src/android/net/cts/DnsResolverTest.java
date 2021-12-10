@@ -25,15 +25,19 @@ import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import static android.system.OsConstants.ETIMEDOUT;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
-import android.net.ConnectivityManager.NetworkCallback;
 import android.net.DnsResolver;
-import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
@@ -43,13 +47,19 @@ import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
 import android.platform.test.annotations.AppModeFull;
-import android.provider.Settings;
 import android.system.ErrnoException;
-import android.test.AndroidTestCase;
 import android.util.Log;
+
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.android.net.module.util.DnsPacket;
 import com.android.testutils.SkipPresubmit;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.runner.RunWith;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -61,7 +71,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 @AppModeFull(reason = "WRITE_SECURE_SETTINGS permission can't be granted to instant apps")
-public class DnsResolverTest extends AndroidTestCase {
+@RunWith(AndroidJUnit4.class)
+public class DnsResolverTest {
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
     private static final String TAG = "DnsResolverTest";
     private static final char[] HEX_CHARS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
@@ -91,6 +105,7 @@ public class DnsResolverTest extends AndroidTestCase {
     static final int QUERY_TIMES = 10;
     static final int NXDOMAIN = 3;
 
+    private Context mContext;
     private ContentResolver mCR;
     private ConnectivityManager mCM;
     private PackageManager mPackageManager;
@@ -99,30 +114,27 @@ public class DnsResolverTest extends AndroidTestCase {
     private Executor mExecutorInline;
     private DnsResolver mDns;
 
-    private String mOldMode;
-    private String mOldDnsSpecifier;
     private TestNetworkCallback mWifiRequestCallback = null;
 
-    @Override
+    @Before
     protected void setUp() throws Exception {
-        super.setUp();
-        mCM = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        mContext = InstrumentationRegistry.getContext();
+        mCM = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         mDns = DnsResolver.getInstance();
         mExecutor = new Handler(Looper.getMainLooper())::post;
         mExecutorInline = (Runnable r) -> r.run();
-        mCR = getContext().getContentResolver();
-        mCtsNetUtils = new CtsNetUtils(getContext());
+        mCR = mContext.getContentResolver();
+        mCtsNetUtils = new CtsNetUtils(mContext);
         mCtsNetUtils.storePrivateDnsSetting();
         mPackageManager = mContext.getPackageManager();
     }
 
-    @Override
+    @After
     protected void tearDown() throws Exception {
         mCtsNetUtils.restorePrivateDnsSetting();
         if (mWifiRequestCallback != null) {
             mCM.unregisterNetworkCallback(mWifiRequestCallback);
         }
-        super.tearDown();
     }
 
     private static String byteArrayToHexString(byte[] bytes) {
