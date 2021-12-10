@@ -45,6 +45,30 @@
       },
       "revId": "999bdf96aa1a10df8170e8ac6969e1fa4855eaef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31b4f2be_98ac3dfb",
+        "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-10T14:00:17Z",
+      "side": 1,
+      "message": "ConnectivityServiceInitializer just be a place load the jni but it doesn\u0027t use jni. Since ConnectivityServiceInitializer don\u0027t be jarjar\u0027ed, so we can\u0027t use JniUtil.getJniLibraryName here otherwise getJniLibraryName would return wrong library name. This is also be the reason why we can\u0027t loadLibrary in static initializer in TestNetworkService. com_android_connectivity_com_android_net_module_util_jni not contain LibBfpMap which is shared with serveral modules but it also contains the service internal jni which is not in the same package name.\n\nOne option we could do is move the JNI usage from TestNetworkService to a util which the package name is com.android.net.module.util and loadLibrary in a static initializer in this new util class.\n\nJust hard-coding name and loadLibrary in ConnectivityServiceInitializer here would have benefit that in the future the new jni we add in libservice-connectivity don\u0027t need to be in the same package name (com.android.net.module.util). But the jni library libservice-connectivity used from outside connectivity module still need to make sure its package is com.android.net.module.util",
+      "parentUuid": "ec28863c_3fb41560",
+      "range": {
+        "startLine": 33,
+        "startChar": 28,
+        "endLine": 33,
+        "endChar": 84
+      },
+      "revId": "999bdf96aa1a10df8170e8ac6969e1fa4855eaef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
