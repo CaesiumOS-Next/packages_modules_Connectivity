@@ -56,6 +56,30 @@
       },
       "revId": "a3c31ed73f6105d395c2d11fb848aca6ee28f1fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab88f2b0_1d7d6cab",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-12-10T03:42:53Z",
+      "side": 1,
+      "message": "Ack.   Thanks for suggesting the text.",
+      "parentUuid": "7b83d479_61bfa09a",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "a3c31ed73f6105d395c2d11fb848aca6ee28f1fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

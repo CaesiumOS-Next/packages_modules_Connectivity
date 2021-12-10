@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7a11109_70c680e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2021-12-10T03:42:53Z",
+      "side": 1,
+      "message": "Thank you for reviewing.  CTS is added. \nPTAL.",
+      "revId": "2d87c6152dabfbbe0d03144f331dc3b4e5e935c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
