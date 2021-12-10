@@ -46,6 +46,30 @@
       },
       "revId": "602441f62104bc42c6609fc1cb3e593404ecf957",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12b2c036_0c377a85",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-10T03:00:42Z",
+      "side": 1,
+      "message": "You could do that – I think performance is what would dictate the choice.\n\nBut even if you don\u0027t add a member, you\u0027d still need to arrange for getSubId() to return the value you want. In practice, it would mean that if the type is CELLULAR, you\u0027d add a TelephonyNetworkSpecifier to the NetworkCapabilities object.",
+      "parentUuid": "e1deb605_b720190c",
+      "range": {
+        "startLine": 90,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 27
+      },
+      "revId": "602441f62104bc42c6609fc1cb3e593404ecf957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

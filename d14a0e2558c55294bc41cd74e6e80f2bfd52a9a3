@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f02554e_5253f230",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-10T03:00:42Z",
+      "side": 1,
+      "message": "It looks like you need to add tests for matching the subId. In this function looks like a reasonable place for it",
+      "range": {
+        "startLine": 180,
+        "startChar": 8,
+        "endLine": 180,
+        "endChar": 25
+      },
+      "revId": "d14a0e2558c55294bc41cd74e6e80f2bfd52a9a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
