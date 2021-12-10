@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c34cac2_9300f188",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 31
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-10T05:07:00Z",
+      "side": 1,
+      "message": "Separate into ipv4 and ipv6",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "ffa9ddd2d0b0734ad371abaf0a434a457fcd9604",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
