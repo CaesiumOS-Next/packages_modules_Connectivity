@@ -292,6 +292,7 @@ package android.net {
     ctor public NetworkCapabilities(android.net.NetworkCapabilities);
     method public int describeContents();
     method @NonNull public int[] getCapabilities();
+    method @NonNull public int[] getEnterpriseCapabilitySubLevels();
     method public int getLinkDownstreamBandwidthKbps();
     method public int getLinkUpstreamBandwidthKbps();
     method @Nullable public android.net.NetworkSpecifier getNetworkSpecifier();
@@ -300,6 +301,7 @@ package android.net {
     method @Nullable public android.net.TransportInfo getTransportInfo();
     method public boolean hasCapability(int);
     method public boolean hasTransport(int);
+    method public void setCapabilitySubLevel(int);
     method public void writeToParcel(android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.NetworkCapabilities> CREATOR;
     field public static final int NET_CAPABILITY_CAPTIVE_PORTAL = 17; // 0x11
