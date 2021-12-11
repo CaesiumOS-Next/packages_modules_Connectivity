@@ -70,6 +70,30 @@
       },
       "revId": "602441f62104bc42c6609fc1cb3e593404ecf957",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30fc8d17_349b8a2a",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-12-11T15:22:06Z",
+      "side": 1,
+      "message": "Thanks, I add the test in the tests/unit/java/android/net/NetworkIdentityTest.kt\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1895196/4/tests/unit/java/android/net/NetworkIdentityTest.kt#108\n\nBecause I haven\u0027t finished modifying aosp/1902812 to add subId to the network template, I will add a test on tests/unit/java/android/net/Network Template Test.kit when doing the aosp/1902812.",
+      "parentUuid": "12b2c036_0c377a85",
+      "range": {
+        "startLine": 90,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 27
+      },
+      "revId": "602441f62104bc42c6609fc1cb3e593404ecf957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "d14a0e2558c55294bc41cd74e6e80f2bfd52a9a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1a1b1c6_83d4a379",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-12-11T15:22:06Z",
+      "side": 1,
+      "message": "Because I haven\u0027t finished modifying aosp/1902812 to add subId to the network template, I will add a test on tests/unit/java/android/net/Network Template Test.kit when doing the aosp/1902812.",
+      "parentUuid": "3f02554e_5253f230",
+      "range": {
+        "startLine": 180,
+        "startChar": 8,
+        "endLine": 180,
+        "endChar": 25
+      },
+      "revId": "d14a0e2558c55294bc41cd74e6e80f2bfd52a9a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
