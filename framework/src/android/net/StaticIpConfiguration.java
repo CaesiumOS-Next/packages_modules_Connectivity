@@ -18,7 +18,6 @@ package android.net;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
-import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.os.Build;
 import android.os.Parcel;
@@ -47,10 +46,7 @@ import java.util.Objects;
  * not in fact capable of applying, or we could save a configuration that the
  * UI cannot display, which has the potential for malicious code to hide
  * hostile or unexpected configuration from the user.
- *
- * @hide
  */
-@SystemApi
 public final class StaticIpConfiguration implements Parcelable {
     /** @hide */
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
@@ -305,7 +301,7 @@ public final class StaticIpConfiguration implements Parcelable {
 
     /** Implement the Parcelable interface */
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeParcelable(ipAddress, flags);
         InetAddressUtils.parcelInetAddress(dest, gateway, flags);
         dest.writeInt(dnsServers.size());
@@ -316,7 +312,7 @@ public final class StaticIpConfiguration implements Parcelable {
     }
 
     /** @hide */
-    public static StaticIpConfiguration readFromParcel(Parcel in) {
+    public static @NonNull StaticIpConfiguration readFromParcel(Parcel in) {
         final StaticIpConfiguration s = new StaticIpConfiguration();
         s.ipAddress = in.readParcelable(null);
         s.gateway = InetAddressUtils.unparcelInetAddress(in);

@@ -204,6 +204,29 @@ package android.net {
     method @NonNull public static java.net.InetAddress parseNumericAddress(@NonNull String);
   }
 
+  public final class IpConfiguration implements android.os.Parcelable {
+    ctor public IpConfiguration();
+    ctor public IpConfiguration(@NonNull android.net.IpConfiguration);
+    method public int describeContents();
+    method @Nullable public android.net.ProxyInfo getHttpProxy();
+    method public int getIpAssignmentType();
+    method public int getProxySettingType();
+    method @Nullable public android.net.StaticIpConfiguration getStaticIpConfiguration();
+    method public void setHttpProxy(@Nullable android.net.ProxyInfo);
+    method public void setIpAssignmentType(int);
+    method public void setProxySettingType(int);
+    method public void setStaticIpConfiguration(@Nullable android.net.StaticIpConfiguration);
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.IpConfiguration> CREATOR;
+    field public static final int IP_ASSIGNMENT_DHCP = 1; // 0x1
+    field public static final int IP_ASSIGNMENT_STATIC = 0; // 0x0
+    field public static final int IP_ASSIGNMENT_UNASSIGNED = 2; // 0x2
+    field public static final int PROXY_SETTING_NONE = 0; // 0x0
+    field public static final int PROXY_SETTING_PAC = 3; // 0x3
+    field public static final int PROXY_SETTING_STATIC = 1; // 0x1
+    field public static final int PROXY_SETTING_UNASSIGNED = 2; // 0x2
+  }
+
   public final class IpPrefix implements android.os.Parcelable {
     method public boolean contains(@NonNull java.net.InetAddress);
     method public int describeContents();
@@ -467,6 +490,30 @@ package android.net {
     method public void onError(int);
     method public void onStarted();
     method public void onStopped();
+  }
+
+  public final class StaticIpConfiguration implements android.os.Parcelable {
+    ctor public StaticIpConfiguration();
+    ctor public StaticIpConfiguration(@Nullable android.net.StaticIpConfiguration);
+    method public void addDnsServer(@NonNull java.net.InetAddress);
+    method public void clear();
+    method public int describeContents();
+    method @NonNull public java.util.List<java.net.InetAddress> getDnsServers();
+    method @Nullable public String getDomains();
+    method @Nullable public java.net.InetAddress getGateway();
+    method @Nullable public android.net.LinkAddress getIpAddress();
+    method @NonNull public java.util.List<android.net.RouteInfo> getRoutes(@Nullable String);
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.StaticIpConfiguration> CREATOR;
+  }
+
+  public static final class StaticIpConfiguration.Builder {
+    ctor public StaticIpConfiguration.Builder();
+    method @NonNull public android.net.StaticIpConfiguration build();
+    method @NonNull public android.net.StaticIpConfiguration.Builder setDnsServers(@NonNull Iterable<java.net.InetAddress>);
+    method @NonNull public android.net.StaticIpConfiguration.Builder setDomains(@Nullable String);
+    method @NonNull public android.net.StaticIpConfiguration.Builder setGateway(@Nullable java.net.InetAddress);
+    method @NonNull public android.net.StaticIpConfiguration.Builder setIpAddress(@Nullable android.net.LinkAddress);
   }
 
   public interface TransportInfo {

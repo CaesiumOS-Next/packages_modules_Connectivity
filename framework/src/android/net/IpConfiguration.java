@@ -16,6 +16,7 @@
 
 package android.net;
 
+import android.annotation.IntDef;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SuppressLint;
@@ -25,19 +26,21 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Objects;
 
 /**
- * A class representing a configured network.
- * @hide
+ * A class representing the IP configuration of a network.
  */
-@SystemApi
 public final class IpConfiguration implements Parcelable {
     private static final String TAG = "IpConfiguration";
 
     // This enum has been used by apps through reflection for many releases.
     // Therefore they can't just be removed. Duplicating these constants to
     // give an alternate SystemApi is a worse option than exposing them.
+    /** @hide */
+    @SystemApi
     @SuppressLint("Enum")
     public enum IpAssignment {
         /* Use statically configured IP settings. Configuration can be accessed
@@ -50,6 +53,45 @@ public final class IpConfiguration implements Parcelable {
         UNASSIGNED
     }
 
+    /** Use statically configured IP settings via the
+     * {@link #setStaticIpConfiguration(StaticIpConfiguration)}. */
+    public static final int IP_ASSIGNMENT_STATIC = 0;
+
+    /** Use dynamically configured IP settings. */
+    public static final int IP_ASSIGNMENT_DHCP = 1;
+
+    /** No IP details are assigned. Use to indicate that any existing IP settings should be
+     * retained. */
+    public static final int IP_ASSIGNMENT_UNASSIGNED = 2;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(prefix = {"IP_ASSIGNMENT_"}, value = {
+            IP_ASSIGNMENT_STATIC,
+            IP_ASSIGNMENT_DHCP,
+            IP_ASSIGNMENT_UNASSIGNED
+    }) public @interface IpAssignmentType {}
+
+    /** convert IP assignment legacy enums to IntDef types */
+    private static @IpAssignmentType int ipAssignmentToIntDef(IpAssignment enumValue) {
+        switch (enumValue) {
+            case STATIC: return IP_ASSIGNMENT_STATIC;
+            case DHCP: return IP_ASSIGNMENT_DHCP;
+            case UNASSIGNED: return IP_ASSIGNMENT_UNASSIGNED;
+        }
+        return IP_ASSIGNMENT_UNASSIGNED; /* bad enum! */
+    }
+
+    /** concert IP assignment IntDef type to legacy enum */
+    private static IpAssignment ipAssignmentIntDefToEnum(@IpAssignmentType int intValue) {
+        switch (intValue) {
+            case IP_ASSIGNMENT_STATIC: return IpAssignment.STATIC;
+            case IP_ASSIGNMENT_DHCP: return IpAssignment.DHCP;
+            case IP_ASSIGNMENT_UNASSIGNED: return IpAssignment.UNASSIGNED;
+        }
+        return IpAssignment.UNASSIGNED; /* bad IntDef value! */
+    }
+
     /** @hide */
     public IpAssignment ipAssignment;
 
@@ -59,6 +101,8 @@ public final class IpConfiguration implements Parcelable {
     // This enum has been used by apps through reflection for many releases.
     // Therefore they can't just be removed. Duplicating these constants to
     // give an alternate SystemApi is a worse option than exposing them.
+    /** @hide */
+    @SystemApi
     @SuppressLint("Enum")
     public enum ProxySettings {
         /* No proxy is to be used. Any existing proxy settings
@@ -73,6 +117,50 @@ public final class IpConfiguration implements Parcelable {
         /* Use a Pac based proxy.
          */
         PAC
+    }
+
+    /** No proxy is to be sued. Any existing proxy settings should be cleared. */
+    public static final int PROXY_SETTING_NONE = 0;
+
+    /** Use statically configured proxy via {@link #setHttpProxy(ProxyInfo)}. */
+    public static final int PROXY_SETTING_STATIC = 1;
+
+    /** No proxy details are assigned. Used to indicate that any existing proxy settings should be
+     * retained. */
+    public static final int PROXY_SETTING_UNASSIGNED = 2;
+
+    /** Use a PAC-based proxy. */
+    public static final int PROXY_SETTING_PAC = 3;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(prefix = {"PROXY_SETTING_"}, value = {
+            PROXY_SETTING_NONE,
+            PROXY_SETTING_STATIC,
+            PROXY_SETTING_UNASSIGNED,
+            PROXY_SETTING_PAC
+    }) public @interface ProxySettingType {}
+
+    /** convert proxy setting legacy enums to IntDef types */
+    private static @ProxySettingType int proxySettingToIntDef(ProxySettings enumValue) {
+        switch (enumValue) {
+            case NONE: return PROXY_SETTING_NONE;
+            case STATIC: return PROXY_SETTING_STATIC;
+            case UNASSIGNED: return PROXY_SETTING_UNASSIGNED;
+            case PAC: return PROXY_SETTING_PAC;
+        }
+        return PROXY_SETTING_UNASSIGNED; /* bad enum! */
+    }
+
+    /** concert proxy setting IntDef type to legacy enum */
+    private static ProxySettings proxySettingIntDefToEnum(@ProxySettingType int intValue) {
+        switch (intValue) {
+            case PROXY_SETTING_NONE: return ProxySettings.NONE;
+            case PROXY_SETTING_STATIC: return ProxySettings.STATIC;
+            case PROXY_SETTING_UNASSIGNED: return ProxySettings.UNASSIGNED;
+            case PROXY_SETTING_PAC: return ProxySettings.PAC;
+        }
+        return ProxySettings.UNASSIGNED; /* bad IntDef value! */
     }
 
     /** @hide */
@@ -115,34 +203,100 @@ public final class IpConfiguration implements Parcelable {
         }
     }
 
+    /** @hide */
+    @SystemApi
     public @NonNull IpAssignment getIpAssignment() {
         return ipAssignment;
     }
 
+    /**
+     * Return the type of the IP assignment represented by this object.
+     */
+    public @IpAssignmentType int getIpAssignmentType() {
+        return ipAssignmentToIntDef(getIpAssignment());
+    }
+
+    /** @hide */
+    @SystemApi
     public void setIpAssignment(@NonNull IpAssignment ipAssignment) {
         this.ipAssignment = ipAssignment;
     }
 
+    /**
+     * Configure the IP assignment type represented by this object.
+     *
+     * @param ipAssignment An IP assignment type.
+     */
+    public void setIpAssignmentType(@IpAssignmentType int ipAssignment) {
+        setIpAssignment(ipAssignmentIntDefToEnum(ipAssignment));
+    }
+
+    /**
+     * Returns the static IP configuration of this object. Only used if the IP assignment type is
+     * {@link #IP_ASSIGNMENT_STATIC} as configured via {@link #setIpAssignmentType(int)}.
+     *
+     * @return The static IP configuration of this object.
+     */
     public @Nullable StaticIpConfiguration getStaticIpConfiguration() {
         return staticIpConfiguration;
     }
 
+    /**
+     * Set the static IP configuration of this object. Only used if the IP assignment type is
+     * {@link #IP_ASSIGNMENT_STATIC} as configured via {@link #setIpAssignmentType(int)}.
+     *
+     * @param staticIpConfiguration The static IP configuration of this object.
+     */
     public void setStaticIpConfiguration(@Nullable StaticIpConfiguration staticIpConfiguration) {
         this.staticIpConfiguration = staticIpConfiguration;
     }
 
+    /** @hide */
+    @SystemApi
     public @NonNull ProxySettings getProxySettings() {
         return proxySettings;
     }
 
+    /** @hide */
+    @SystemApi
     public void setProxySettings(@NonNull ProxySettings proxySettings) {
         this.proxySettings = proxySettings;
     }
 
+    /**
+     * Return the type of the proxy setting represented by this object.
+     */
+    public @ProxySettingType int getProxySettingType() {
+        return proxySettingToIntDef(getProxySettings());
+    }
+
+    /**
+     * Configure the proxy setting type represented by this object.
+     *
+     * @param proxySetting A proxy setting type.
+     */
+    public void setProxySettingType(@ProxySettingType int proxySetting) {
+        setProxySettings(proxySettingIntDefToEnum(proxySetting));
+    }
+
+    /**
+     * The proxy configuration of this object. Only valid if {@link #setProxySettingType(int)} is
+     * used to configure the proxy type to {@link #PROXY_SETTING_STATIC} or
+     * {@link #PROXY_SETTING_PAC}.
+     *
+     * @return The proxy information of this object configured via {@link #setHttpProxy(ProxyInfo)}.
+     */
     public @Nullable ProxyInfo getHttpProxy() {
         return httpProxy;
     }
 
+    /**
+     * Set the proxy configuration of this object. Only valid if {@link #setProxySettingType(int)}
+     * is used to configure the proxy type to {@link #PROXY_SETTING_STATIC} or
+     * {@link #PROXY_SETTING_PAC}.
+     *
+     * @param httpProxy The proxy information.
+     */
     public void setHttpProxy(@Nullable ProxyInfo httpProxy) {
         this.httpProxy = httpProxy;
     }
