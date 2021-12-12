@@ -33,24 +33,7 @@ import java.util.Objects;
 
 /**
  * Class that describes static IP configuration.
- *
- * <p>This class is different from {@link LinkProperties} because it represents
- * configuration intent. The general contract is that if we can represent
- * a configuration here, then we should be able to configure it on a network.
- * The intent is that it closely match the UI we have for configuring networks.
- *
- * <p>In contrast, {@link LinkProperties} represents current state. It is much more
- * expressive. For example, it supports multiple IP addresses, multiple routes,
- * stacked interfaces, and so on. Because LinkProperties is so expressive,
- * using it to represent configuration intent as well as current state causes
- * problems. For example, we could unknowingly save a configuration that we are
- * not in fact capable of applying, or we could save a configuration that the
- * UI cannot display, which has the potential for malicious code to hide
- * hostile or unexpected configuration from the user.
- *
- * @hide
  */
-@SystemApi
 public final class StaticIpConfiguration implements Parcelable {
     /** @hide */
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
@@ -69,10 +52,14 @@ public final class StaticIpConfiguration implements Parcelable {
     @Nullable
     public String domains;
 
+    /** @hide */
+    @SystemApi
     public StaticIpConfiguration() {
         dnsServers = new ArrayList<>();
     }
 
+    /** @hide */
+    @SystemApi
     public StaticIpConfiguration(@Nullable StaticIpConfiguration source) {
         this();
         if (source != null) {
@@ -84,6 +71,8 @@ public final class StaticIpConfiguration implements Parcelable {
         }
     }
 
+    /** @hide */
+    @SystemApi
     public void clear() {
         ipAddress = null;
         gateway = null;
@@ -188,7 +177,9 @@ public final class StaticIpConfiguration implements Parcelable {
 
     /**
      * Add a DNS server to this configuration.
+     * @hide
      */
+    @SystemApi
     public void addDnsServer(@NonNull InetAddress server) {
         dnsServers.add(server);
     }
@@ -197,7 +188,9 @@ public final class StaticIpConfiguration implements Parcelable {
      * Returns the network routes specified by this object. Will typically include a
      * directly-connected route for the IP address's local subnet and a default route.
      * @param iface Interface to include in the routes.
+     * @hide
      */
+    @SystemApi
     public @NonNull List<RouteInfo> getRoutes(@Nullable String iface) {
         List<RouteInfo> routes = new ArrayList<RouteInfo>(3);
         if (ipAddress != null) {
@@ -305,7 +298,7 @@ public final class StaticIpConfiguration implements Parcelable {
 
     /** Implement the Parcelable interface */
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeParcelable(ipAddress, flags);
         InetAddressUtils.parcelInetAddress(dest, gateway, flags);
         dest.writeInt(dnsServers.size());
@@ -316,7 +309,7 @@ public final class StaticIpConfiguration implements Parcelable {
     }
 
     /** @hide */
-    public static StaticIpConfiguration readFromParcel(Parcel in) {
+    public static @NonNull StaticIpConfiguration readFromParcel(Parcel in) {
         final StaticIpConfiguration s = new StaticIpConfiguration();
         s.ipAddress = in.readParcelable(null);
         s.gateway = InetAddressUtils.unparcelInetAddress(in);
