@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.net;
+package android.net.cts;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -23,6 +23,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import android.net.IpPrefix;
+import android.net.LinkAddress;
+import android.net.LinkProperties;
+import android.net.RouteInfo;
+import android.net.StaticIpConfiguration;
 import android.os.Parcel;
 
 import androidx.test.filters.SmallTest;
@@ -42,15 +47,15 @@ public class StaticIpConfigurationTest {
 
     private static final String ADDRSTR = "192.0.2.2/25";
     private static final LinkAddress ADDR = new LinkAddress(ADDRSTR);
-    private static final InetAddress GATEWAY = IpAddress("192.0.2.1");
-    private static final InetAddress OFFLINKGATEWAY = IpAddress("192.0.2.129");
-    private static final InetAddress DNS1 = IpAddress("8.8.8.8");
-    private static final InetAddress DNS2 = IpAddress("8.8.4.4");
-    private static final InetAddress DNS3 = IpAddress("4.2.2.2");
+    private static final InetAddress GATEWAY = ipAddress("192.0.2.1");
+    private static final InetAddress OFFLINKGATEWAY = ipAddress("192.0.2.129");
+    private static final InetAddress DNS1 = ipAddress("8.8.8.8");
+    private static final InetAddress DNS2 = ipAddress("8.8.4.4");
+    private static final InetAddress DNS3 = ipAddress("4.2.2.2");
     private static final String IFACE = "eth0";
     private static final String FAKE_DOMAINS = "google.com";
 
-    private static InetAddress IpAddress(String addr) {
+    private static InetAddress ipAddress(String addr) {
         return InetAddress.parseNumericAddress(addr);
     }
 
