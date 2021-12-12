@@ -99,6 +99,17 @@ public final class IpConfigurationTest {
         assertIpConfigurationEqual(ipConfig, new IpConfiguration(ipConfig));
     }
 
+    @Test
+    public void testBuilder() {
+        final IpConfiguration c = new IpConfiguration.Builder()
+                .setStaticIpConfiguration(mStaticIpConfig)
+                .setHttpProxy(mProxy)
+                .build();
+
+        assertEquals(mStaticIpConfig, c.getStaticIpConfiguration());
+        assertEquals(mProxy, c.getHttpProxy());
+    }
+
     private void checkEmpty(IpConfiguration config) {
         assertEquals(IpConfiguration.IpAssignment.UNASSIGNED,
                 config.getIpAssignment().UNASSIGNED);
