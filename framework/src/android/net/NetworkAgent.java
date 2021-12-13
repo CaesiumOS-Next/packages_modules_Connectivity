@@ -16,6 +16,8 @@
 
 package android.net;
 
+import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+
 import android.annotation.IntDef;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
@@ -34,6 +36,7 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.telephony.data.EpsBearerQosSessionAttributes;
 import android.telephony.data.NrQosSessionAttributes;
+import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -818,6 +821,51 @@ public abstract class NetworkAgent {
     }
 
     /**
+     * Make sure capabilities are acceptable from a network agent
+     *
+     * @param nc the capabilities to validate
+     * @hide
+     */
+    // This method should morally live in NetworkAgentInfo, but then this class could not use
+    // it. It also can't live in the static library because in requires access to some
+    // package-private methods that should not be made public.
+    public static void enforceValidNetworkCapabilitiesFromAgent(
+            @NonNull final NetworkCapabilities nc) {
+        Objects.requireNonNull(nc);
+        if (nc.hasAccessUids()) {
+            // TODO : accept the supported cases
+            throw new SecurityException("NetworkAgent has insufficient permissions to "
+                    + "set access UIDs");
+        }
+    }
+
+    /**
+     * Make sure the NC from network agents don't contain stuff they shouldn't.
+     *
+     * This is useful in cases an exception can't be thrown when the capabilities are incorrect.
+     * For example, the network agent channel is asynchronous, so it can't report exceptions.
+     *
+     * @param nc the capabilities to sanitize
+     * @param creatorUid the UID of the process creating this network agent
+     * @hide
+     */
+    // This method should morally live in NetworkAgentInfo, but then this class could not use
+    // it. It also can't live in the static library because in requires access to some
+    // package-private methods that should not be made public.
+    public static void restrictCapabilitiesFromNetworkAgent(@NonNull final NetworkCapabilities nc,
+            final int creatorUid) {
+        if (nc.hasTransport(TRANSPORT_TEST)) {
+            nc.restrictCapabilitiesForTestNetwork(creatorUid);
+        }
+        if (nc.hasAccessUids()) {
+            // TODO : accept the supported cases
+            nc.setAccessUids(new ArraySet<>());
+        }
+        // validate and restrict must agree, so any output of restrict must pass validate
+        enforceValidNetworkCapabilitiesFromAgent(nc);
+    }
+
+    /**
      * Must be called by the agent when the network's {@link LinkProperties} change.
      * @param linkProperties the new LinkProperties.
      */
@@ -957,7 +1005,11 @@ public abstract class NetworkAgent {
      * @param networkCapabilities the new NetworkCapabilities.
      */
     public final void sendNetworkCapabilities(@NonNull NetworkCapabilities networkCapabilities) {
-        Objects.requireNonNull(networkCapabilities);
+        // Fail-fast : throw an exception if the capabilities are not what is expected. This
+        // is not a security boundary, but only a hint for agent implementors since this runs in
+        // the agent process ; ConnectivityService will sanitize the capabilities.
+        // See #restrictCapabilitiesFromNetworkAgent.
+        enforceValidNetworkCapabilitiesFromAgent(networkCapabilities);
         mBandwidthUpdatePending.set(false);
         mLastBwRefreshTime = System.currentTimeMillis();
         final NetworkCapabilities nc =
