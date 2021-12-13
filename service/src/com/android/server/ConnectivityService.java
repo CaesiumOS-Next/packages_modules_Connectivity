@@ -2067,6 +2067,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         newNc.setAdministratorUids(new int[0]);
         if (!checkAnyPermissionOf(
                 callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
+            newNc.setAccessUids(new ArraySet<>());
             newNc.setSubscriptionIds(Collections.emptySet());
         }
 
@@ -3316,15 +3317,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             switch (msg.what) {
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
-                    NetworkCapabilities networkCapabilities = (NetworkCapabilities) arg.second;
-                    if (networkCapabilities.hasConnectivityManagedCapability()) {
-                        Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
-                    }
-                    // Make sure the original object is not mutated. NetworkAgent normally
-                    // makes a copy of the capabilities when sending the message through
-                    // the Messenger, but if this ever changes, not making a defensive copy
-                    // here will give attack vectors to clients using this code path.
-                    networkCapabilities = new NetworkCapabilities(networkCapabilities);
+                    final NetworkCapabilities networkCapabilities = new NetworkCapabilities(
+                            (NetworkCapabilities) arg.second);
                     processCapabilitiesFromAgent(nai, networkCapabilities);
                     updateCapabilities(nai.getCurrentScore(), nai, networkCapabilities);
                     break;
@@ -6138,6 +6132,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nc.isPrivateDnsBroken()) {
             throw new IllegalArgumentException("Can't request broken private DNS");
         }
+        if (nc.hasAccessUids()) {
+            throw new IllegalArgumentException("Can't request access UIDs");
+        }
     }
 
     // TODO: Set the mini sdk to 31 and remove @TargetApi annotation when b/205923322 is addressed.
@@ -6360,9 +6357,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureRequestableCapabilities(networkCapabilities);
         ensureSufficientPermissionsForRequest(networkCapabilities,
                 Binder.getCallingPid(), callingUid, callingPackageName);
-        ensureValidNetworkSpecifier(networkCapabilities);
         restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
                 callingUid, callingPackageName);
+        ensureValid(networkCapabilities);
 
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
@@ -6903,7 +6900,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleRegisterNetworkAgent(NetworkAgentInfo nai, INetworkMonitor networkMonitor) {
         nai.onNetworkMonitorCreated(networkMonitor);
-
         try {
             networkMonitor.start();
         } catch (RemoteException e) {
@@ -7372,9 +7368,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Stores into |nai| any data coming from the agent that might also be written to the network's
      * NetworkCapabilities by ConnectivityService itself. This ensures that the data provided by the
      * agent is not lost when updateCapabilities is called.
-     * This method should never alter the agent's NetworkCapabilities, only store data in |nai|.
      */
     private void processCapabilitiesFromAgent(NetworkAgentInfo nai, NetworkCapabilities nc) {
+        if (nc.hasConnectivityManagedCapability()) {
+            Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
+        }
         // Note: resetting the owner UID before storing the agent capabilities in NAI means that if
         // the agent attempts to change the owner UID, then nai.declaredCapabilities will not
         // actually be the same as the capabilities sent by the agent. Still, it is safer to reset
@@ -7385,9 +7383,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             nc.setOwnerUid(nai.networkCapabilities.getOwnerUid());
         }
         nai.declaredCapabilities = new NetworkCapabilities(nc);
-        if (nc.hasTransport(TRANSPORT_TEST)) {
-            nc.restrictCapabilitiesForTestNetwork(nai.creatorUid);
-        }
+        NetworkAgentInfo.restrictCapabilitiesFromNetworkAgent(nc, nai.creatorUid);
     }
 
     /** Modifies |newNc| based on the capabilities of |underlyingNetworks| and |agentCaps|. */
@@ -9748,7 +9744,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_STACK);
         final NetworkCapabilities nc = getNetworkCapabilitiesInternal(network);
         if (!nc.hasTransport(TRANSPORT_TEST)) {
-            throw new SecurityException("Data Stall simluation is only possible for test networks");
+            throw new SecurityException("Data Stall simulation is only possible for test networks");
         }
 
         final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
