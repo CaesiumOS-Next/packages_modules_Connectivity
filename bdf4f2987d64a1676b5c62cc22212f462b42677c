@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a7394ee_42851d2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-13T15:13:28Z",
+      "side": 1,
+      "message": "If in the many years since the first of these methods was written there are still no callers of combineCapabilities() - not even @UnsupportedAppUsage callers - then it does seem that this is not useful and should be deleted.",
+      "revId": "bdf4f2987d64a1676b5c62cc22212f462b42677c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
