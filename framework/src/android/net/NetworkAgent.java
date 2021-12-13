@@ -16,6 +16,8 @@
 
 package android.net;
 
+import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+
 import android.annotation.IntDef;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
@@ -34,6 +36,7 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.telephony.data.EpsBearerQosSessionAttributes;
 import android.telephony.data.NrQosSessionAttributes;
+import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -90,6 +93,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 @SystemApi
 public abstract class NetworkAgent {
+    // Use LOG_TAG where possible instead of TAG. TAG is useful for static methods, as
+    // these can't distinguish between different agents.
+    private static final String TAG = NetworkAgent.class.getSimpleName();
+
     /**
      * The {@link Network} corresponding to this object.
      */
@@ -818,6 +825,36 @@ public abstract class NetworkAgent {
     }
 
     /**
+     * Make sure the NC from network agents don't contain stuff they shouldn't.
+     *
+     * @param nc the capabilities to sanitize
+     * @param creatorUid the UID of the process creating this network agent
+     * @hide
+     */
+    // This method should morally live in NetworkAgentInfo, but then this class could not use
+    // it. It also can't live in the static library because in requires access to some
+    // package-private methods that should not be made public.
+    public static void restrictCapabilitiesFromNetworkAgent(@NonNull final NetworkCapabilities nc,
+            final int creatorUid) {
+        if (nc.hasTransport(TRANSPORT_TEST)) {
+            nc.restrictCapabilitiesForTestNetwork(creatorUid);
+        }
+        if (!areAccessUidsAcceptableFromNetworkAgent(nc)) {
+            nc.setAccessUids(new ArraySet<>());
+        }
+    }
+
+    private static boolean areAccessUidsAcceptableFromNetworkAgent(
+            @NonNull final NetworkCapabilities nc) {
+        if (nc.hasAccessUids()) {
+            Log.w(TAG, "Capabilities from network agent must not contain access UIDs");
+            // TODO : accept the supported cases
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Must be called by the agent when the network's {@link LinkProperties} change.
      * @param linkProperties the new LinkProperties.
      */
@@ -954,10 +991,10 @@ public abstract class NetworkAgent {
 
     /**
      * Must be called by the agent when the network's {@link NetworkCapabilities} change.
+     *
      * @param networkCapabilities the new NetworkCapabilities.
      */
     public final void sendNetworkCapabilities(@NonNull NetworkCapabilities networkCapabilities) {
-        Objects.requireNonNull(networkCapabilities);
         mBandwidthUpdatePending.set(false);
         mLastBwRefreshTime = System.currentTimeMillis();
         final NetworkCapabilities nc =
