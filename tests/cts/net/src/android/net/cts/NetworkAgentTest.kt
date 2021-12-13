@@ -23,7 +23,6 @@ import android.net.INetworkAgent
 import android.net.INetworkAgentRegistry
 import android.net.InetAddresses
 import android.net.IpPrefix
-import android.net.KeepalivePacketData
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NattKeepalivePacketData
@@ -53,7 +52,6 @@ import android.net.RouteInfo
 import android.net.QosCallback
 import android.net.QosCallbackException
 import android.net.QosCallback.QosCallbackRegistrationException
-import android.net.QosFilter
 import android.net.QosSession
 import android.net.QosSessionAttributes
 import android.net.QosSocketInfo
@@ -67,11 +65,11 @@ import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosS
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
-import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
 import android.telephony.TelephonyManager
 import android.telephony.data.EpsBearerQosSessionAttributes
+import android.util.ArraySet
 import android.util.DebugUtils.valueToString
 import androidx.test.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
@@ -100,7 +98,6 @@ import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnUnregisterQosC
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnValidationStatus
 import com.android.testutils.TestableNetworkCallback
 import org.junit.After
-import org.junit.Assert.assertArrayEquals
 import org.junit.Assume.assumeFalse
 import org.junit.Before
 import org.junit.Test
@@ -460,6 +457,36 @@ class NetworkAgentTest {
         callback.expectCapabilitiesThat(agent.network!!) {
             it.hasCapability(NET_CAPABILITY_NOT_METERED)
         }
+    }
+
+    @Test
+    fun testRejectedAgent() {
+        val uids = ArraySet<Int>()
+        uids.add(200)
+        val nc = NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_TEST)
+                .setAccessUids(uids).build()
+        createNetworkAgent(initialNc = nc).register()
+        // TODO : test that the access UIDs have not been used if they were invalid,
+        // when there is a way to observe it from this test (which is not the case now)
+    }
+
+    @Test
+    fun testRejectedUpdates(): Unit = createConnectedNetworkAgent().let { (agent, cb) ->
+        val uids = ArraySet<Int>()
+        uids.add(200)
+        val nc = NetworkCapabilities.Builder(agent.nc)
+                .addTransportType(TRANSPORT_TEST)
+                .setAccessUids(uids).build()
+        assertFailsWith<IllegalArgumentException> {
+            agent.sendNetworkCapabilities(nc)
+        }
+
+        // Make sure that even if the exception is worked around (e.g. by using reflection,
+        // simulated in this test by calling @VisibleForTesting sendNetworkCapabilitiesInternal)
+        // the capabilities are not updated.
+        agent.sendNetworkCapabilitiesInternal(nc)
+        cb.assertNoCallback(NO_CALLBACK_TIMEOUT)
     }
 
     @Test
