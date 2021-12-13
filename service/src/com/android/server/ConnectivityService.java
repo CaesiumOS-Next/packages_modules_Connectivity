@@ -2084,6 +2084,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         newNc.setAdministratorUids(new int[0]);
         if (!checkAnyPermissionOf(
                 callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
+            newNc.setAccessUids(new ArraySet<>());
             newNc.setSubscriptionIds(Collections.emptySet());
         }
 
@@ -6166,6 +6167,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureValidNetworkSpecifier(nc);
         if (nc.isPrivateDnsBroken()) {
             throw new IllegalArgumentException("Can't request broken private DNS");
+        }
+        if (nc.hasAccessUids()) {
+            throw new IllegalArgumentException("Can't request access UIDs");
         }
     }
 
