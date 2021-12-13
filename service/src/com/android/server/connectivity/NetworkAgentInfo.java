@@ -18,6 +18,7 @@ package com.android.server.connectivity;
 
 import static android.net.ConnectivityDiagnosticsManager.ConnectivityReport;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
+import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 import static android.net.NetworkCapabilities.transportNamesOf;
 
 import android.annotation.NonNull;
@@ -52,6 +53,7 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.telephony.data.EpsBearerQosSessionAttributes;
 import android.telephony.data.NrQosSessionAttributes;
+import android.util.ArraySet;
 import android.util.Log;
 import android.util.Pair;
 import android.util.SparseArray;
@@ -1186,6 +1188,33 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     @Nullable
     public ConnectivityReport getConnectivityReport() {
         return mConnectivityReport;
+    }
+
+    /**
+     * Make sure the NC from network agents don't contain stuff they shouldn't.
+     *
+     * @param nc the capabilities to sanitize
+     * @param creatorUid the UID of the process creating this network agent
+     * @hide
+     */
+    public static void restrictCapabilitiesFromNetworkAgent(@NonNull final NetworkCapabilities nc,
+            final int creatorUid) {
+        if (nc.hasTransport(TRANSPORT_TEST)) {
+            nc.restrictCapabilitiesForTestNetwork(creatorUid);
+        }
+        if (!areAccessUidsAcceptableFromNetworkAgent(nc)) {
+            nc.setAccessUids(new ArraySet<>());
+        }
+    }
+
+    private static boolean areAccessUidsAcceptableFromNetworkAgent(
+            @NonNull final NetworkCapabilities nc) {
+        if (nc.hasAccessUids()) {
+            Log.w(TAG, "Capabilities from network agent must not contain access UIDs");
+            // TODO : accept the supported cases
+            return false;
+        }
+        return true;
     }
 
     // TODO: Print shorter members first and only print the boolean variable which value is true
