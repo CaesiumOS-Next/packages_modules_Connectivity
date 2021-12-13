@@ -2060,6 +2060,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             newNc.setNetworkSpecifier(newNc.getNetworkSpecifier().redact());
         }
         newNc.setAdministratorUids(new int[0]);
+        newNc.setAccessUids(new ArraySet<>());
         if (!checkAnyPermissionOf(
                 callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
             newNc.setSubscriptionIds(Collections.emptySet());
@@ -3311,18 +3312,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             switch (msg.what) {
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
-                    NetworkCapabilities networkCapabilities = (NetworkCapabilities) arg.second;
+                    final NetworkCapabilities networkCapabilities = new NetworkCapabilities(
+                            (NetworkCapabilities) arg.second);
                     if (networkCapabilities.hasConnectivityManagedCapability()) {
                         Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
                     }
-                    if (networkCapabilities.hasTransport(TRANSPORT_TEST)) {
-                        // Make sure the original object is not mutated. NetworkAgent normally
-                        // makes a copy of the capabilities when sending the message through
-                        // the Messenger, but if this ever changes, not making a defensive copy
-                        // here will give attack vectors to clients using this code path.
-                        networkCapabilities = new NetworkCapabilities(networkCapabilities);
-                        networkCapabilities.restrictCapabilitiesForTestNetwork(nai.creatorUid);
-                    }
+                    NetworkAgent.restrictCapabilitiesFromNetworkAgent(networkCapabilities,
+                            nai.creatorUid);
                     processCapabilitiesFromAgent(nai, networkCapabilities);
                     updateCapabilities(nai.getCurrentScore(), nai, networkCapabilities);
                     break;
@@ -6134,6 +6130,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nc.isPrivateDnsBroken()) {
             throw new IllegalArgumentException("Can't request broken private DNS");
         }
+        if (nc.hasAccessUids()) {
+            throw new IllegalArgumentException("Can't request access UIDs");
+        }
     }
 
     // TODO: Set the mini sdk to 31 and remove @TargetApi annotation when b/205923322 is addressed.
@@ -6359,6 +6358,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureValidNetworkSpecifier(networkCapabilities);
         restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
                 callingUid, callingPackageName);
+        ensureValid(networkCapabilities);
 
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
@@ -6856,6 +6856,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             enforceNetworkFactoryPermission();
         }
+        NetworkAgent.enforceValidNetworkCapabilitiesFromAgent(networkCapabilities);
 
         final int uid = mDeps.getCallingUid();
         final long token = Binder.clearCallingIdentity();
@@ -6871,17 +6872,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             LinkProperties linkProperties, NetworkCapabilities networkCapabilities,
             NetworkScore currentScore, NetworkAgentConfig networkAgentConfig, int providerId,
             int uid) {
-        if (networkCapabilities.hasTransport(TRANSPORT_TEST)) {
-            // Strictly, sanitizing here is unnecessary as the capabilities will be sanitized in
-            // the call to mixInCapabilities below anyway, but sanitizing here means the NAI never
-            // sees capabilities that may be malicious, which might prevent mistakes in the future.
-            networkCapabilities = new NetworkCapabilities(networkCapabilities);
-            networkCapabilities.restrictCapabilitiesForTestNetwork(uid);
-        }
-
+        final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
+        NetworkAgent.restrictCapabilitiesFromNetworkAgent(nc, uid);
         LinkProperties lp = new LinkProperties(linkProperties);
 
-        final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
         final NetworkAgentInfo nai = new NetworkAgentInfo(na,
                 new Network(mNetIdManager.reserveNetId()), new NetworkInfo(networkInfo), lp, nc,
                 currentScore, mContext, mTrackerHandler, new NetworkAgentConfig(networkAgentConfig),
@@ -9739,7 +9733,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_STACK);
         final NetworkCapabilities nc = getNetworkCapabilitiesInternal(network);
         if (!nc.hasTransport(TRANSPORT_TEST)) {
-            throw new SecurityException("Data Stall simluation is only possible for test networks");
+            throw new SecurityException("Data Stall simulation is only possible for test networks");
         }
 
         final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
