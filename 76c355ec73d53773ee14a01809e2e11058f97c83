@@ -441,6 +441,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1b04e5_8618e111",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d361c753_b1fb7301",
+      "range": {
+        "startLine": 95,
+        "startChar": 12,
+        "endLine": 95,
+        "endChar": 23
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c28bc17_975c21a5",
@@ -488,6 +512,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ff0858_c40cc1d4",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b45d477e_1a63dfbf",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36d57353_378ff9a6",
@@ -501,6 +549,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "Nit: use assertHasService instead (as for TestNetworkManager)",
+      "range": {
+        "startLine": 108,
+        "startChar": 83,
+        "endLine": 108,
+        "endChar": 85
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a2615f_70c74a68",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36d57353_378ff9a6",
       "range": {
         "startLine": 108,
         "startChar": 83,
@@ -558,6 +630,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "500135f3_a281efd1",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87f36930_a67aad35",
+      "range": {
+        "startLine": 137,
+        "startChar": 42,
+        "endLine": 137,
+        "endChar": 70
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00cf7059_649aff4a",
@@ -571,6 +667,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "Don\u0027t for get to close it on teardown too",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 13
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e58d9264_99305439",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00cf7059_649aff4a",
       "range": {
         "startLine": 143,
         "startChar": 8,
@@ -604,6 +724,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "def6071e_c2cb672d",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb6a4bd7_8e673ff8",
+      "range": {
+        "startLine": 208,
+        "startChar": 47,
+        "endLine": 208,
+        "endChar": 75
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0edb61e_d4d39cce",
@@ -617,6 +761,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "Nit: since \"!!\" usage is frowned up-on, maybe do:\n\n  val network \u003d agent.network ?: fail(\"Expected a non-null network\")\n  expectAvailableThenValidatedCallbacks(network)",
+      "range": {
+        "startLine": 240,
+        "startChar": 68,
+        "endLine": 240,
+        "endChar": 70
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faafe5ed_1413bef9",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0edb61e_d4d39cce",
       "range": {
         "startLine": 240,
         "startChar": 68,
@@ -663,6 +831,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "Just ByteArray(4) would work",
+      "range": {
+        "startLine": 302,
+        "startChar": 45,
+        "endLine": 302,
+        "endChar": 56
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca309782_cd02b4e5",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 34
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86477327_e208373b",
       "range": {
         "startLine": 302,
         "startChar": 45,

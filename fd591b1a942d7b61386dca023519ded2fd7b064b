@@ -96,6 +96,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10d635dd_27b63112",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdb40891_928f1ba3",
+      "range": {
+        "startLine": 348,
+        "startChar": 7,
+        "endLine": 348,
+        "endChar": 55
+      },
+      "revId": "fd591b1a942d7b61386dca023519ded2fd7b064b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc66af49_49c5233b",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "You could use assertContentEquals, if you expect that the DSCP bit was set you could update the \"expected\" array with that bit and compare; or if this test is just for testing whether the bit was set, just checking the DSCP value would work too.",
       "parentUuid": "dc66af49_49c5233b",
+      "range": {
+        "startLine": 349,
+        "startChar": 8,
+        "endLine": 349,
+        "endChar": 49
+      },
+      "revId": "fd591b1a942d7b61386dca023519ded2fd7b064b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72aa34e8_721d33ee",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 36
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-13T23:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34c5e875_d02a305f",
       "range": {
         "startLine": 349,
         "startChar": 8,
