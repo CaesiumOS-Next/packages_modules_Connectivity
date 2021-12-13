@@ -622,7 +622,7 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
 
         @Override
         public void sendNetworkCapabilities(@NonNull NetworkCapabilities nc) {
-            Objects.requireNonNull(nc);
+            mConnService.validateNetworkCapabilitiesFromNetworkAgent(nc);
             mHandler.obtainMessage(NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED,
                     new Pair<>(NetworkAgentInfo.this, nc)).sendToTarget();
         }

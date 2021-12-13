@@ -301,6 +301,46 @@ public class NetworkCapabilitiesTest {
     }
 
     @Test
+    public void testSetAccessUids() {
+        final NetworkCapabilities nc = new NetworkCapabilities();
+        assertThrows(NullPointerException.class, () -> nc.setAccessUids(null));
+        assertFalse(nc.hasAccessUids());
+        assertFalse(nc.isAccessUid(0));
+        assertFalse(nc.isAccessUid(1000));
+        assertEquals(0, nc.getAccessUids().size());
+        nc.setAccessUids(new ArraySet<>());
+        assertFalse(nc.hasAccessUids());
+        assertFalse(nc.isAccessUid(0));
+        assertFalse(nc.isAccessUid(1000));
+        assertEquals(0, nc.getAccessUids().size());
+
+        final ArraySet<UidRange> uids = new ArraySet<>();
+        uids.add(new UidRange(200, 560));
+        uids.add(new UidRange(800, 900));
+        nc.setAccessUids(uids);
+        assertNotEquals(nc, new NetworkCapabilities());
+        assertTrue(nc.hasAccessUids());
+        assertFalse(nc.isAccessUid(0));
+        assertFalse(nc.isAccessUid(199));
+        assertTrue(nc.isAccessUid(200));
+        assertTrue(nc.isAccessUid(346));
+        assertTrue(nc.isAccessUid(560));
+        assertFalse(nc.isAccessUid(561));
+        assertFalse(nc.isAccessUid(700));
+        assertFalse(nc.isAccessUid(799));
+        assertTrue(nc.isAccessUid(800));
+        assertTrue(nc.isAccessUid(850));
+        assertTrue(nc.isAccessUid(900));
+        assertFalse(nc.isAccessUid(901));
+        assertFalse(nc.isAccessUid(1000));
+
+        final Set<Range<Integer>> range = nc.getAccessUids();
+        assertEquals(2, range.size());
+        assertTrue(range.contains(new Range<>(200, 560)));
+        assertTrue(range.contains(new Range<>(800, 900)));
+    }
+
+    @Test
     public void testParcelNetworkCapabilities() {
         final Set<Range<Integer>> uids = new ArraySet<>();
         uids.add(uidRange(50, 100));
@@ -309,6 +349,9 @@ public class NetworkCapabilitiesTest {
             .addCapability(NET_CAPABILITY_INTERNET)
             .addCapability(NET_CAPABILITY_EIMS)
             .addCapability(NET_CAPABILITY_NOT_METERED);
+        if (isAtLeastT()) {
+            netCap.setAccessUids(new ArraySet<>(new UidRange[] { new UidRange(4, 19) }));
+        }
         if (isAtLeastS()) {
             netCap.setSubscriptionIds(Set.of(TEST_SUBID1, TEST_SUBID2));
             netCap.setUids(uids);
@@ -344,9 +387,11 @@ public class NetworkCapabilitiesTest {
         // as the test. In the last case, starting from S NetworkCapabilities is updated as part
         // of Connectivity, so it is also as recent as the test. For MTS on Q and R,
         // NetworkCapabilities is not updatable, so it may have a different number of fields.
-        if (isAtLeastS()) {
-            // When this test is run on S+, NetworkCapabilities is as recent as the test,
+        if (isAtLeastT()) {
+            // When this test is run on T+, NetworkCapabilities is as recent as the test,
             // so this should be the most recent known number of fields.
+            assertParcelSane(cap, 18);
+        } else if (isAtLeastS()) {
             assertParcelSane(cap, 17);
         } else if (isAtLeastR()) {
             assertParcelSane(cap, 15);

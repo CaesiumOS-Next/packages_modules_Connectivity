@@ -2060,6 +2060,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             newNc.setNetworkSpecifier(newNc.getNetworkSpecifier().redact());
         }
         newNc.setAdministratorUids(new int[0]);
+        newNc.setAccessUids(new ArraySet<>());
         if (!checkAnyPermissionOf(
                 callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
             newNc.setSubscriptionIds(Collections.emptySet());
@@ -3291,6 +3292,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             switch (msg.what) {
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
                     NetworkCapabilities networkCapabilities = (NetworkCapabilities) arg.second;
+                    try {
+                        validateNetworkCapabilitiesFromNetworkAgent(networkCapabilities);
+                    } catch (Exception e) {
+                        Log.wtf(TAG, "BUG: invalid capabilities from " + nai, e);
+                        return;
+                    }
                     if (networkCapabilities.hasConnectivityManagedCapability()) {
                         Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
                     }
@@ -6113,6 +6120,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nc.isPrivateDnsBroken()) {
             throw new IllegalArgumentException("Can't request broken private DNS");
         }
+        if (nc.hasAccessUids()) {
+            throw new IllegalArgumentException("Can't request access UIDs");
+        }
     }
 
     // TODO: Set the mini sdk to 31 and remove @TargetApi annotation when b/205923322 is addressed.
@@ -6806,6 +6816,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     /**
+     * Validate that a NC object sent from a network agent is valid
+     * @param nc the capabilities to validate
+     * @throws NullPointerException if the capabilities are null
+     * @throws SecurityException if the agent doesn't have sufficient permissions
+     */
+    public void validateNetworkCapabilitiesFromNetworkAgent(@NonNull NetworkCapabilities nc) {
+        Objects.requireNonNull(nc, "Illegal null NetworkCapabilities");
+        if (nc.hasAccessUids()) {
+            // TODO : accept the supported cases
+            throw new SecurityException("NetworkAgent has insufficient permissions to "
+                    + "set access UIDs");
+
+        }
+    }
+
+    /**
      * Register a new agent with ConnectivityService to handle a network.
      *
      * @param na a reference for ConnectivityService to contact the agent asynchronously.
@@ -6835,6 +6861,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             enforceNetworkFactoryPermission();
         }
+        validateNetworkCapabilitiesFromNetworkAgent(networkCapabilities);
 
         final int uid = mDeps.getCallingUid();
         final long token = Binder.clearCallingIdentity();
@@ -6857,7 +6884,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             networkCapabilities = new NetworkCapabilities(networkCapabilities);
             networkCapabilities.restrictCapabilitiesForTestNetwork(uid);
         }
-
         LinkProperties lp = new LinkProperties(linkProperties);
 
         final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);

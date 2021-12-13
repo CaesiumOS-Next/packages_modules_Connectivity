@@ -86,7 +86,9 @@ import android.os.Message
 import android.os.SystemClock
 import android.telephony.TelephonyManager
 import android.telephony.data.EpsBearerQosSessionAttributes
+import android.util.ArraySet
 import android.util.DebugUtils.valueToString
+import android.util.Range
 import androidx.test.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
 import com.android.compatibility.common.util.ThrowingSupplier
@@ -607,6 +609,16 @@ class NetworkAgentTest {
         agent.sendNetworkCapabilities(nc)
         callback.expectCapabilitiesThat(agent.network!!) {
             it.hasCapability(NET_CAPABILITY_NOT_METERED)
+        }
+    }
+
+    @Test
+    fun testRejectedUpdates(): Unit = createConnectedNetworkAgent().let { (agent, _) ->
+        val uids = ArraySet<Range<Int>>()
+        uids.add(Range<Int>(0, 1000))
+        val nc = NetworkCapabilities.Builder().setAccessUids(uids).build()
+        assertFailsWith<SecurityException> {
+            agent.sendNetworkCapabilities(nc)
         }
     }
 
