@@ -22,11 +22,13 @@ import static android.os.UserHandle.USER_SYSTEM;
 import static android.os.UserHandle.getUid;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import android.os.Build;
 import android.os.UserHandle;
+import android.util.ArraySet;
 
 import androidx.test.filters.SmallTest;
 import androidx.test.runner.AndroidJUnit4;
@@ -37,6 +39,8 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.Set;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -109,5 +113,50 @@ public class UidRangeTest {
         assertEquals(USER_SYSTEM, uidRangeOfPrimaryUser.getEndUser());
         assertEquals(USER_SYSTEM + 1, uidRangeOfSecondaryUser.getStartUser());
         assertEquals(USER_SYSTEM + 1, uidRangeOfSecondaryUser.getEndUser());
+    }
+
+    // R doesn't have UidRange.hasSameUids, but since S has the module, it does have hasSameUids.
+    @Test @IgnoreUpTo(Build.VERSION_CODES.R)
+    public void testHasSameUids() {
+        final UidRange uids1 = new UidRange(1, 100);
+        final UidRange uids2 = new UidRange(3, 300);
+        final UidRange uids3 = new UidRange(1, 1000);
+        final UidRange uids4 = new UidRange(800, 1000);
+
+        assertTrue("null <> null", UidRange.hasSameUids(null, null));
+        final Set<UidRange> set1 = new ArraySet<>();
+        assertFalse("empty <> null", UidRange.hasSameUids(set1, null));
+        final Set<UidRange> set2 = new ArraySet<>();
+        set1.add(uids1);
+        assertFalse("uids1 <> null", UidRange.hasSameUids(set1, null));
+        assertFalse("null <> uids1", UidRange.hasSameUids(null, set1));
+        assertFalse("uids1 <> empty", UidRange.hasSameUids(set1, set2));
+        set2.add(uids1);
+        assertTrue("uids1 <> uids1", UidRange.hasSameUids(set1, set2));
+        set1.add(uids2);
+        assertFalse("uids1,2 <> uids1", UidRange.hasSameUids(set1, set2));
+        set1.add(uids3);
+        assertFalse("uids1,2,3 <> uids1", UidRange.hasSameUids(set1, set2));
+        set2.add(uids3);
+        assertFalse("uids1,2,3 <> uids1,3", UidRange.hasSameUids(set1, set2));
+        set2.add(uids2);
+        assertTrue("uids1,2,3 <> uids1,2,3", UidRange.hasSameUids(set1, set2));
+        set1.remove(uids2);
+        assertFalse("uids1,3 <> uids1,2,3", UidRange.hasSameUids(set1, set2));
+        set1.add(uids4);
+        assertFalse("uids1,3,4 <> uids1,2,3", UidRange.hasSameUids(set1, set2));
+        set2.add(uids4);
+        assertFalse("uids1,3,4 <> uids1,2,3,4", UidRange.hasSameUids(set1, set2));
+        assertFalse("uids1,3,4 <> null", UidRange.hasSameUids(set1, null));
+        set2.remove(uids2);
+        assertTrue("uids1,3,4 <> uids1,3,4", UidRange.hasSameUids(set1, set2));
+        set2.remove(uids1);
+        assertFalse("uids1,3,4 <> uids3,4", UidRange.hasSameUids(set1, set2));
+        set2.remove(uids3);
+        assertFalse("uids1,3,4 <> uids4", UidRange.hasSameUids(set1, set2));
+        set2.remove(uids4);
+        assertFalse("uids1,3,4 <> empty", UidRange.hasSameUids(set1, set2));
+        assertFalse("null <> empty", UidRange.hasSameUids(null, set2));
+        assertTrue("empty <> empty", UidRange.hasSameUids(set2, new ArraySet<>()));
     }
 }
