@@ -1596,10 +1596,8 @@ public final class NetworkCapabilities implements Parcelable {
      *
      * @hide
      */
-    public static boolean hasSameUids(@Nullable NetworkCapabilities nc1,
-            @Nullable NetworkCapabilities nc2) {
-        final Set<UidRange> uids1 = (nc1 == null) ? null : nc1.mUids;
-        final Set<UidRange> uids2 = (nc2 == null) ? null : nc2.mUids;
+    public static boolean hasSameUids(@Nullable Set<UidRange> uids1,
+            @Nullable Set<UidRange> uids2) {
         if (null == uids1) return null == uids2;
         if (null == uids2) return false;
         // Make a copy so it can be mutated to check that all ranges in uids2 also are in uids.
@@ -1629,7 +1627,7 @@ public final class NetworkCapabilities implements Parcelable {
      */
     @VisibleForTesting
     public boolean equalsUids(@NonNull NetworkCapabilities nc) {
-        return hasSameUids(nc, this);
+        return hasSameUids(nc.mUids, mUids);
     }
 
     /**
