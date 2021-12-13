@@ -34,6 +34,7 @@ import android.os.Message;
 import android.os.RemoteException;
 import android.telephony.data.EpsBearerQosSessionAttributes;
 import android.telephony.data.NrQosSessionAttributes;
+import android.util.ArraySet;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -953,11 +954,46 @@ public abstract class NetworkAgent {
     }
 
     /**
+     * Make sure capabilities are acceptable from a network agent
+     *
+     * @param nc the capabilities to sanitize
+     * @hide
+     */
+    public static void validateNetworkCapabilities(@NonNull final NetworkCapabilities nc) {
+        Objects.requireNonNull(nc);
+        if (nc.hasAccessUids()) {
+            // TODO : accept the supported cases
+            throw new SecurityException("NetworkAgent has insufficient permissions to "
+                    + "set access UIDs");
+        }
+    }
+
+    /**
+     * Make sure the NC from network agents don't contain stuff they shouldn't.
+     *
+     * This is useful in cases an exception can't be thrown when the capabilities are incorrect.
+     * For example, the network agent channel is asynchronous, so it can't report exceptions.
+     *
+     * @param nc the capabilities to sanitize
+     * @hide
+     */
+    public static void restrictCapabilitiesFromNetworkAgent(@NonNull final NetworkCapabilities nc) {
+        if (nc.hasAccessUids()) {
+            // TODO : accept the supported cases
+            nc.setAccessUids(new ArraySet<>());
+        }
+    }
+
+    /**
      * Must be called by the agent when the network's {@link NetworkCapabilities} change.
      * @param networkCapabilities the new NetworkCapabilities.
      */
     public final void sendNetworkCapabilities(@NonNull NetworkCapabilities networkCapabilities) {
-        Objects.requireNonNull(networkCapabilities);
+        // Fail-fast : throw an exception if the capabilities are not what is expected. This
+        // is not a security boundary, but only a hint for agent implementors since this runs in
+        // the agent process ; ConnectivityService will sanitize the capabilities.
+        // See #restrictCapabilitiesFromNetworkAgent.
+        validateNetworkCapabilities(networkCapabilities);
         mBandwidthUpdatePending.set(false);
         mLastBwRefreshTime = System.currentTimeMillis();
         final NetworkCapabilities nc =
