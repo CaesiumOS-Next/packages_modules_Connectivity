@@ -23,7 +23,6 @@ import android.net.INetworkAgent
 import android.net.INetworkAgentRegistry
 import android.net.InetAddresses
 import android.net.IpPrefix
-import android.net.KeepalivePacketData
 import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.NattKeepalivePacketData
@@ -53,7 +52,6 @@ import android.net.RouteInfo
 import android.net.QosCallback
 import android.net.QosCallbackException
 import android.net.QosCallback.QosCallbackRegistrationException
-import android.net.QosFilter
 import android.net.QosSession
 import android.net.QosSessionAttributes
 import android.net.QosSocketInfo
@@ -67,12 +65,13 @@ import android.net.cts.NetworkAgentTest.TestableQosCallback.CallbackEntry.OnQosS
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
-import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
 import android.telephony.TelephonyManager
 import android.telephony.data.EpsBearerQosSessionAttributes
+import android.util.ArraySet
 import android.util.DebugUtils.valueToString
+import android.util.Range
 import androidx.test.InstrumentationRegistry
 import com.android.compatibility.common.util.SystemUtil.runWithShellPermissionIdentity
 import com.android.compatibility.common.util.ThrowingSupplier
@@ -100,7 +99,6 @@ import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnUnregisterQosC
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnValidationStatus
 import com.android.testutils.TestableNetworkCallback
 import org.junit.After
-import org.junit.Assert.assertArrayEquals
 import org.junit.Assume.assumeFalse
 import org.junit.Before
 import org.junit.Test
@@ -119,6 +117,8 @@ import java.time.Duration
 import java.util.Arrays
 import java.util.UUID
 import java.util.concurrent.Executors
+import kotlin.reflect.full.declaredMemberFunctions
+import kotlin.reflect.jvm.isAccessible
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
@@ -460,6 +460,28 @@ class NetworkAgentTest {
         callback.expectCapabilitiesThat(agent.network!!) {
             it.hasCapability(NET_CAPABILITY_NOT_METERED)
         }
+    }
+
+    @Test
+    fun testRejectedAgent() {
+        val uids = ArraySet<Range<Int>>()
+        uids.add(Range<Int>(0, 1000))
+        val nc = NetworkCapabilities.Builder().setAccessUids(uids).build()
+        assertFailsWith<SecurityException> {
+            createNetworkAgent(initialNc = nc).register()
+        }
+    }
+
+    @Test
+    fun testRejectedUpdates(): Unit = createConnectedNetworkAgent().let { (agent, cb) ->
+        val uids = ArraySet<Range<Int>>()
+        uids.add(Range<Int>(0, 1000))
+        val nc = NetworkCapabilities.Builder(agent.nc).setAccessUids(uids).build()
+        assertFailsWith<SecurityException> {
+            agent.sendNetworkCapabilities(nc)
+        }
+        agent.sendNetworkCapabilitiesInternal(nc)
+        cb.assertNoCallback(NO_CALLBACK_TIMEOUT)
     }
 
     @Test
