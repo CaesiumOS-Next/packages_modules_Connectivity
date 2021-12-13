@@ -2065,6 +2065,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         newNc.setAdministratorUids(new int[0]);
         if (!checkAnyPermissionOf(
                 callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
+            newNc.setAccessUids(new ArraySet<>());
             newNc.setSubscriptionIds(Collections.emptySet());
         }
 
@@ -3314,18 +3315,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
             switch (msg.what) {
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
-                    NetworkCapabilities networkCapabilities = (NetworkCapabilities) arg.second;
-                    if (networkCapabilities.hasConnectivityManagedCapability()) {
-                        Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
-                    }
-                    if (networkCapabilities.hasTransport(TRANSPORT_TEST)) {
-                        // Make sure the original object is not mutated. NetworkAgent normally
-                        // makes a copy of the capabilities when sending the message through
-                        // the Messenger, but if this ever changes, not making a defensive copy
-                        // here will give attack vectors to clients using this code path.
-                        networkCapabilities = new NetworkCapabilities(networkCapabilities);
-                        networkCapabilities.restrictCapabilitiesForTestNetwork(nai.creatorUid);
-                    }
+                    final NetworkCapabilities networkCapabilities = new NetworkCapabilities(
+                            (NetworkCapabilities) arg.second);
                     processCapabilitiesFromAgent(nai, networkCapabilities);
                     updateCapabilities(nai.getCurrentScore(), nai, networkCapabilities);
                     break;
@@ -6139,6 +6130,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nc.isPrivateDnsBroken()) {
             throw new IllegalArgumentException("Can't request broken private DNS");
         }
+        if (nc.hasAccessUids()) {
+            throw new IllegalArgumentException("Can't request access UIDs");
+        }
     }
 
     // TODO: Set the mini sdk to 31 and remove @TargetApi annotation when b/205923322 is addressed.
@@ -6361,9 +6355,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureRequestableCapabilities(networkCapabilities);
         ensureSufficientPermissionsForRequest(networkCapabilities,
                 Binder.getCallingPid(), callingUid, callingPackageName);
-        ensureValidNetworkSpecifier(networkCapabilities);
         restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
                 callingUid, callingPackageName);
+        ensureValid(networkCapabilities);
 
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
@@ -6877,27 +6871,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
             LinkProperties linkProperties, NetworkCapabilities networkCapabilities,
             NetworkScore currentScore, NetworkAgentConfig networkAgentConfig, int providerId,
             int uid) {
-        if (networkCapabilities.hasTransport(TRANSPORT_TEST)) {
-            // Strictly, sanitizing here is unnecessary as the capabilities will be sanitized in
-            // the call to mixInCapabilities below anyway, but sanitizing here means the NAI never
-            // sees capabilities that may be malicious, which might prevent mistakes in the future.
-            networkCapabilities = new NetworkCapabilities(networkCapabilities);
-            networkCapabilities.restrictCapabilitiesForTestNetwork(uid);
-        }
-
+        // Some capabilities from the agent might still be invalid, e.g. checks that
+        // the capabilities' access UID comply with security limitations. They will be sanitized
+        // as the NAI registration finishes, in handleRegisterNetworkAgent(). This is
+        // because some of the checks must happen on the handler thread.
+        final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
         LinkProperties lp = new LinkProperties(linkProperties);
 
-        final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
         final NetworkAgentInfo nai = new NetworkAgentInfo(na,
                 new Network(mNetIdManager.reserveNetId()), new NetworkInfo(networkInfo), lp, nc,
                 currentScore, mContext, mTrackerHandler, new NetworkAgentConfig(networkAgentConfig),
                 this, mNetd, mDnsResolver, providerId, uid, mLingerDelayMs,
                 mQosCallbackTracker, mDeps);
-
-        // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info says.
-        processCapabilitiesFromAgent(nai, nc);
-        nai.getAndSetNetworkCapabilities(mixInCapabilities(nai, nc));
-        processLinkPropertiesFromAgent(nai, nai.linkProperties);
 
         final String extraInfo = networkInfo.getExtraInfo();
         final String name = TextUtils.isEmpty(extraInfo)
@@ -6914,17 +6899,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleRegisterNetworkAgent(NetworkAgentInfo nai, INetworkMonitor networkMonitor) {
         nai.onNetworkMonitorCreated(networkMonitor);
-        if (VDBG) log("Got NetworkAgent Messenger");
-        mNetworkAgentInfos.add(nai);
-        synchronized (mNetworkForNetId) {
-            mNetworkForNetId.put(nai.network.getNetId(), nai);
-        }
-
         try {
             networkMonitor.start();
         } catch (RemoteException e) {
             e.rethrowAsRuntimeException();
         }
+
+        if (VDBG) log("Got NetworkAgent Messenger");
+        final NetworkCapabilities nc = nai.networkCapabilities;
+        // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info says.
+        processCapabilitiesFromAgent(nai, nc);
+        nai.getAndSetNetworkCapabilities(mixInCapabilities(nai, nc));
+        processLinkPropertiesFromAgent(nai, nai.linkProperties);
+        mNetworkAgentInfos.add(nai);
+        synchronized (mNetworkForNetId) {
+            mNetworkForNetId.put(nai.network.getNetId(), nai);
+        }
+
         nai.notifyRegistered();
         NetworkInfo networkInfo = nai.networkInfo;
         updateNetworkInfo(nai, networkInfo);
@@ -7375,6 +7366,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * This method should never alter the agent's NetworkCapabilities, only store data in |nai|.
      */
     private void processCapabilitiesFromAgent(NetworkAgentInfo nai, NetworkCapabilities nc) {
+        if (nc.hasConnectivityManagedCapability()) {
+            Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
+        }
         // Note: resetting the owner UID before storing the agent capabilities in NAI means that if
         // the agent attempts to change the owner UID, then nai.declaredCapabilities will not
         // actually be the same as the capabilities sent by the agent. Still, it is safer to reset
@@ -7384,6 +7378,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + nai.networkCapabilities.getOwnerUid() + " to " + nc.getOwnerUid());
             nc.setOwnerUid(nai.networkCapabilities.getOwnerUid());
         }
+        NetworkAgent.restrictCapabilitiesFromNetworkAgent(nc, nai.creatorUid);
         nai.declaredCapabilities = new NetworkCapabilities(nc);
     }
 
@@ -9745,7 +9740,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_STACK);
         final NetworkCapabilities nc = getNetworkCapabilitiesInternal(network);
         if (!nc.hasTransport(TRANSPORT_TEST)) {
-            throw new SecurityException("Data Stall simluation is only possible for test networks");
+            throw new SecurityException("Data Stall simulation is only possible for test networks");
         }
 
         final NetworkAgentInfo nai = getNetworkAgentInfoForNetwork(network);
