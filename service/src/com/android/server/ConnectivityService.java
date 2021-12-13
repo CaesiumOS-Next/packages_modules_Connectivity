@@ -2060,6 +2060,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             newNc.setNetworkSpecifier(newNc.getNetworkSpecifier().redact());
         }
         newNc.setAdministratorUids(new int[0]);
+        newNc.setAccessUids(new ArraySet<>());
         if (!checkAnyPermissionOf(
                 callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
             newNc.setSubscriptionIds(Collections.emptySet());
@@ -3315,6 +3316,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     if (networkCapabilities.hasConnectivityManagedCapability()) {
                         Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
                     }
+                    NetworkAgent.restrictCapabilitiesFromNetworkAgent(networkCapabilities);
                     if (networkCapabilities.hasTransport(TRANSPORT_TEST)) {
                         // Make sure the original object is not mutated. NetworkAgent normally
                         // makes a copy of the capabilities when sending the message through
@@ -6134,6 +6136,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nc.isPrivateDnsBroken()) {
             throw new IllegalArgumentException("Can't request broken private DNS");
         }
+        if (nc.hasAccessUids()) {
+            throw new IllegalArgumentException("Can't request access UIDs");
+        }
     }
 
     // TODO: Set the mini sdk to 31 and remove @TargetApi annotation when b/205923322 is addressed.
@@ -6359,6 +6364,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureValidNetworkSpecifier(networkCapabilities);
         restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
                 callingUid, callingPackageName);
+        ensureValid(networkCapabilities);
 
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
@@ -6856,6 +6862,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             enforceNetworkFactoryPermission();
         }
+        NetworkAgent.validateNetworkCapabilities(networkCapabilities);
 
         final int uid = mDeps.getCallingUid();
         final long token = Binder.clearCallingIdentity();
@@ -6878,7 +6885,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             networkCapabilities = new NetworkCapabilities(networkCapabilities);
             networkCapabilities.restrictCapabilitiesForTestNetwork(uid);
         }
-
         LinkProperties lp = new LinkProperties(linkProperties);
 
         final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
