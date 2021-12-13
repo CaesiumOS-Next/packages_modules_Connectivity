@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed396206_33acd376",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-13T15:09:06Z",
+      "side": 1,
+      "message": "Remi, Taras: could this CL be useful in your work to test the new VPN APIs being added in T? IIRC when I discussed this with Remi a few weeks ago it seemed like something we wanted to do.\n\nIf it\u0027s useful and you haven\u0027t already done it, let me know and I can rebase it, or just take it over.",
+      "revId": "68c748fbfca63eafe31ec87d862ad5e8cf08d292",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
