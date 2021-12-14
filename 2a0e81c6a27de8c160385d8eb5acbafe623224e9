@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdf5e16d_61b0c192",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T10:10:44Z",
+      "side": 1,
+      "message": "Add a comment explaining what this is for. It sounds like this is intended to ensrure that if something calls startTethering just after bluetooth is enabled, but before onServiceConnected is called, the call does not silently fail, and tethering is started as soon as onServiceConnected is called.\n\nCould you double-check with the bluetooth team that this can actually happen?",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 283,
+        "endChar": 27
+      },
+      "revId": "2a0e81c6a27de8c160385d8eb5acbafe623224e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3578d5d1_d5e1096e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T10:10:44Z",
+      "side": 1,
+      "message": "Say that we close the proxy to prevent the service from reconnecting when bluetooth is started again?",
+      "range": {
+        "startLine": 740,
+        "startChar": 67,
+        "endLine": 740,
+        "endChar": 68
+      },
+      "revId": "2a0e81c6a27de8c160385d8eb5acbafe623224e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba0ce16_4af24780",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T10:10:44Z",
+      "side": 1,
+      "message": "I think the code would be more readable if this appears first, before onServiceDisconnected.",
+      "range": {
+        "startLine": 753,
+        "startChar": 24,
+        "endLine": 753,
+        "endChar": 42
+      },
+      "revId": "2a0e81c6a27de8c160385d8eb5acbafe623224e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9a0f4e5_68dc0732",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T10:10:44Z",
+      "side": 1,
+      "message": "If you don\u0027t do something like:\n\n    if (this !\u003d mBluetoothPanListener) return;\n\nhere, then the following can happen.\n\n1. onServiceConnected is called. Everything is good.\n2. The service crashes. onServiceDisconnected is called. The disconnect lambda gets posted to the handler thread but the handler thread is blocked for whatever reason.\n3. onServiceConnected is called. The connect lambda gets posted to the handler thread.\n4. mBluetoothPan gets reinitialized to non-null.\n\n\nNow we have a bug because mBluetoothPan is non-null but the listener is null, and future calls to onServiceDisconnected will have no effect.\n\n\nIn general I\u0027d advise reducing the amount of state in this code, for example, by making mBluetoothPan permanently non-null, and, if possible keeping the same listener object all the time. In general, the KISS principle applies.",
+      "range": {
+        "startLine": 762,
+        "startChar": 36,
+        "endLine": 762,
+        "endChar": 37
+      },
+      "revId": "2a0e81c6a27de8c160385d8eb5acbafe623224e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
