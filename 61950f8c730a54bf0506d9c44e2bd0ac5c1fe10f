@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "262397b9_f5bf09d4",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2021-12-14T00:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7848bee1_cb37ef5e",
+      "range": {
+        "startLine": 215,
+        "startChar": 23,
+        "endLine": 215,
+        "endChar": 26
+      },
+      "revId": "61950f8c730a54bf0506d9c44e2bd0ac5c1fe10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b73abaa_634e2884",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-13T08:56:59Z",
       "side": 1,
       "message": "I think this makes the API fairly confusing : you can now set it to PAC or static without setting a ProxyInfo, or you can set it to static and set a PAC ProxyInfo etc.\n\nI think instead, the proxy type (getter) should be obtained from the ProxyInfo object that was set, with null coding for NONE, and this setter removed. That leaves UNASSIGNED dangling ; considering I think it\u0027s pretty unclear what it does, I wonder if we have a way to remove UNASSIGNED.\n\nA similar argument can be made for the static IP, where null would code for DHCP and non-null for STATIC.",
+      "range": {
+        "startLine": 217,
+        "startChar": 23,
+        "endLine": 217,
+        "endChar": 42
+      },
+      "revId": "61950f8c730a54bf0506d9c44e2bd0ac5c1fe10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f49a67be_7168d368",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2021-12-14T00:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b73abaa_634e2884",
       "range": {
         "startLine": 217,
         "startChar": 23,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35db0284_148c6eaf",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2021-12-14T00:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b48b913_3ba5e6ba",
+      "range": {
+        "startLine": 498,
+        "startChar": 23,
+        "endLine": 498,
+        "endChar": 35
+      },
+      "revId": "61950f8c730a54bf0506d9c44e2bd0ac5c1fe10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c176f541_72c7ce64",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-12-13T08:56:59Z",
       "side": 1,
       "message": "Is this necessary ? I\u0027m not sure we have a use case in public API, and the information it uses is straight out of getIpAddress() and getGateway().",
+      "range": {
+        "startLine": 505,
+        "startChar": 65,
+        "endLine": 505,
+        "endChar": 74
+      },
+      "revId": "61950f8c730a54bf0506d9c44e2bd0ac5c1fe10f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fc89231_d8c2c890",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2021-12-14T00:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c176f541_72c7ce64",
       "range": {
         "startLine": 505,
         "startChar": 65,
