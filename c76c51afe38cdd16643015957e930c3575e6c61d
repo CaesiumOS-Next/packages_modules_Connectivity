@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e94bd32f_230339fb",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T06:11:54Z",
+      "side": 1,
+      "message": "Do we need to check the profile here? Or are you sure that this code only ever gets called with profile \u003d\u003d BluetoothProfile.PAN?",
+      "range": {
+        "startLine": 724,
+        "startChar": 46,
+        "endLine": 724,
+        "endChar": 57
+      },
+      "revId": "c76c51afe38cdd16643015957e930c3575e6c61d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb363818_4da63d19",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T06:11:54Z",
+      "side": 1,
+      "message": "Is it possible to add a test for this in MTS? It looks like the shell has the FORCE_STOP_PACKAGES permission, so maybe you could write a test that calls ActivityManager#forceStopPackage(\"com.android.bluetooth\") and checks what happens?",
+      "range": {
+        "startLine": 729,
+        "startChar": 68,
+        "endLine": 729,
+        "endChar": 80
+      },
+      "revId": "c76c51afe38cdd16643015957e930c3575e6c61d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef8687d_e3c35f9f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T06:11:54Z",
+      "side": 1,
+      "message": "Will they? Per comment below I don\u0027t think they will.",
+      "range": {
+        "startLine": 748,
+        "startChar": 35,
+        "endLine": 748,
+        "endChar": 91
+      },
+      "revId": "c76c51afe38cdd16643015957e930c3575e6c61d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d20f881_b43b5f3b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T06:11:54Z",
+      "side": 1,
+      "message": "Can this be static?",
+      "range": {
+        "startLine": 766,
+        "startChar": 12,
+        "endLine": 766,
+        "endChar": 16
+      },
+      "revId": "c76c51afe38cdd16643015957e930c3575e6c61d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21d97ac8_77402d8e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T06:11:54Z",
+      "side": 1,
+      "message": "I don\u0027t think this comment is correct, because it implies that if setBluetoothTethering fails asynchronously, this code will send an internal error.\n\nBut I don\u0027t think it will do that. This code isn\u0027t asynchronous, it\u0027s synchronous. It turns on tethering and then it calls isTetheringOn(). As far as I can tell by looking at PanService.java, setBluetoothTethering is synchronous and blocking (and throws exceptions on failure. And isTetheringOn just returns a boolean value that was set by setBluetoothTethering before it returns.\n\nI\u0027m not very familiar with the bluetooth code, but it\u0027s possible that when we call setBluetoothTethering, then the service is null. In that case setBluetoothTethering will simply do nothing. If we want to catch that case, calling isTetheringOn seems correct. But that has nothing to do with asynchronous failure.\n\nSeparately, it looks like setBluetoothTethering can *also* fail asynchronously, becaues setBluetoothTethering (even if it succeeds because the service is not null) just fires an intent, which is an asynchronous operation. But this code will not behave correctly in that case: it will call back the listener with TETHER_ERROR_NO_ERROR, but tethering will not have been started.\n\nI think the old code probably had the same problem, so I don\u0027t know if we can fix it in this CL, but we should at least make sure the comment you\u0027re adding is correct.",
+      "range": {
+        "startLine": 770,
+        "startChar": 49,
+        "endLine": 770,
+        "endChar": 72
+      },
+      "revId": "c76c51afe38cdd16643015957e930c3575e6c61d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
