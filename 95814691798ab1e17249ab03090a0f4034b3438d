@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb9ee85e_6ac2d32c",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-14T16:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e05cbb78_b64bcd47",
+      "range": {
+        "startLine": 852,
+        "startChar": 12,
+        "endLine": 852,
+        "endChar": 42
+      },
+      "revId": "95814691798ab1e17249ab03090a0f4034b3438d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79a8f1e2_a21052d0",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-13T15:00:18Z",
       "side": 1,
       "message": "Calling connectToCell here is confusing, because connectToCell *requests* cell data. It\u0027s used to ensure the device brings up cell even if the device has a better network, like wifi. If the device has no wifi and has working cell data, it will switch to cell regardless. So it\u0027s not needed here.\n\nI think the test would be better if it just waits for the default network to change to non-null, and then checks that the new default network is the underlying network. Then you could remove the disconnectFromCell cleanup step.",
+      "range": {
+        "startLine": 859,
+        "startChar": 16,
+        "endLine": 859,
+        "endChar": 73
+      },
+      "revId": "95814691798ab1e17249ab03090a0f4034b3438d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caa90a01_a648b68e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-14T16:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79a8f1e2_a21052d0",
       "range": {
         "startLine": 859,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13939b68_76a7d092",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-14T16:20:15Z",
+      "side": 1,
+      "message": "The purpose of this is to restore the wifi status, so I think testChangeUnderlyingNetworks() needs this too.\nI\u0027ll add this in testChangeUnderlyingNetworks() as well.",
+      "parentUuid": "bc2d3b65_644e3e51",
+      "range": {
+        "startLine": 868,
+        "startChar": 0,
+        "endLine": 872,
+        "endChar": 17
+      },
+      "revId": "95814691798ab1e17249ab03090a0f4034b3438d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0afecda6_c2efa292",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-12-13T15:00:18Z",
       "side": 1,
       "message": "Is this class really needed? It doesn\u0027t do anything except provide a thread to run a callback on. There are already running threads you can use for this. For example, you could just use ConnectivityThread or you could use the main thread.\n\nSomething like \"new Handler(ConnectivityThread.getInstanceLooper())\" or \"new Handler(Looper.getMainLooper())\".\n\nConnectivityThread has the advantage that it is the same thread which runs callbacks that specify no handler. The main thread has the advantage that it runs on the same thread that by default runs lots of other callbacks (though those are not typically used in our tests).\n\nThis CtsCallbackHandlerThread has neither of those properties so it seems strictly worse than choosing one of the two.",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 37
+      },
+      "revId": "95814691798ab1e17249ab03090a0f4034b3438d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c02fcc86_9aee8623",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsCallbackHandlerThread.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-14T16:20:15Z",
+      "side": 1,
+      "message": "- I don\u0027t use ConnectivityThread is because I can\u0027t call it.\n- For using Handler(Looper.getMainLooper()), Jean has left his concern in Patchset 10 of CtsNetUtils.java.",
+      "parentUuid": "0afecda6_c2efa292",
       "range": {
         "startLine": 22,
         "startChar": 13,
