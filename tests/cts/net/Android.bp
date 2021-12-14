@@ -16,6 +16,37 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+filegroup {
+    name: "connectivity-tiramisu-tests",
+    srcs: [
+        "src/android/net/cts/ConnectivityFrameworkInitializerTiramisuTest.kt",
+    ],
+    path: "src",
+    visibility: [
+        "//visibility:private",
+    ],
+}
+
+java_library {
+    name: "CtsNetTestCasesTiramisu",
+    srcs: [
+        ":connectivity-tiramisu-tests",
+    ],
+    static_libs: [
+        "androidx.core_core",
+        "androidx.test.rules",
+        "junit",
+        "mockito-target-minus-junit4",
+        "modules-utils-build",
+        "net-tests-utils",
+        "net-utils-framework-common",
+        "platform-test-annotations",
+    ],
+    libs: [
+        "android.test.base.stubs",
+    ],
+}
+
 java_defaults {
     name: "CtsNetTestCasesDefaults",
     defaults: [
@@ -43,6 +74,7 @@ java_defaults {
         "src/**/*.kt",
         ":ike-aes-xcbc",
     ],
+    exclude_srcs: [":connectivity-tiramisu-tests"],
     jarjar_rules: "jarjar-rules-shared.txt",
     static_libs: [
         "bouncycastle-unbundled",
@@ -73,6 +105,7 @@ android_test {
     // TODO: CTS should not depend on the entirety of the networkstack code.
     static_libs: [
         "NetworkStackApiCurrentLib",
+        "CtsNetTestCasesTiramisu",
     ],
     test_suites: [
         "cts",
