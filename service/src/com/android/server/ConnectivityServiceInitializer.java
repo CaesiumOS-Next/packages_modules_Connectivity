@@ -17,7 +17,10 @@
 package com.android.server;
 
 import android.content.Context;
+import android.os.IBinder;
 import android.util.Log;
+
+import com.android.connectivity.ServiceConnectivityTiramisuLoader;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -26,12 +29,14 @@ import android.util.Log;
 public final class ConnectivityServiceInitializer extends SystemService {
     private static final String TAG = ConnectivityServiceInitializer.class.getSimpleName();
     private final ConnectivityService mConnectivity;
+    private final Context mContext;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
         // Load JNI libraries used by ConnectivityService and its dependencies
         System.loadLibrary("service-connectivity");
         mConnectivity = new ConnectivityService(context);
+        mContext = context;
     }
 
     @Override
@@ -39,5 +44,11 @@ public final class ConnectivityServiceInitializer extends SystemService {
         Log.i(TAG, "Registering " + Context.CONNECTIVITY_SERVICE);
         publishBinderService(Context.CONNECTIVITY_SERVICE, mConnectivity,
                 /* allowIsolated= */ false);
+
+        final IBinder nsdService = ServiceConnectivityTiramisuLoader.getNsdService(mContext);
+        if (nsdService != null) {
+            Log.i(TAG, "Registering " + Context.NSD_SERVICE);
+            publishBinderService(Context.NSD_SERVICE, nsdService, /* allowIsolated= */ false);
+        }
     }
 }
