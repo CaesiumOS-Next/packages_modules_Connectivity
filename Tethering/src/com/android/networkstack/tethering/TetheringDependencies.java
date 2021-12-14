@@ -31,6 +31,8 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 
 import com.android.internal.util.StateMachine;
+import com.android.networkstack.apishim.WifiManagerShimImpl;
+import com.android.networkstack.apishim.common.WifiManagerShim;
 
 import java.util.ArrayList;
 
@@ -157,5 +159,15 @@ public abstract class TetheringDependencies {
     public PrivateAddressCoordinator getPrivateAddressCoordinator(Context ctx,
             TetheringConfiguration cfg) {
         return new PrivateAddressCoordinator(ctx, cfg);
+    }
+
+
+    /**
+     * Get WifiManagerShim object to deal with wifi API in different sdk.
+     *
+     * TODO: use WifiManager directly when mainline module is built with API 32.
+     */
+    public WifiManagerShim getWifiManagerShim(Context context) {
+        return WifiManagerShimImpl.newInstance(context);
     }
 }

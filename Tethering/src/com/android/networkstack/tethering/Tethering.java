@@ -133,7 +133,10 @@ import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.MessageUtils;
 import com.android.internal.util.State;
 import com.android.internal.util.StateMachine;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BaseNetdUnsolicitedEventListener;
+import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
+import com.android.networkstack.apishim.common.WifiManagerShim;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
 import com.android.networkstack.tethering.util.TetheringUtils;
@@ -425,6 +428,15 @@ public class Tethering {
         final WifiManager wifiManager = getWifiManager();
         if (wifiManager != null) {
             wifiManager.registerSoftApCallback(mExecutor, new TetheringSoftApCallback());
+        }
+        if (SdkLevel.isAtLeastT()) {
+            final WifiManagerShim wifiManagerShim = mDeps.getWifiManagerShim(mContext);
+            try {
+                wifiManagerShim.registerLocalOnlyHotspotSoftApCallback(mExecutor,
+                        new TetheringSoftApCallback());
+            } catch (UnsupportedApiLevelException e) {
+                Log.wtf(TAG, "Use unsupported API, " + e);
+            }
         }
 
         startTrackDefaultNetwork();
