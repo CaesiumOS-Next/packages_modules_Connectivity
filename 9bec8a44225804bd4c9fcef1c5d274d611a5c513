@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018395919",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1849156?revision\u003d8",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "c87b573f_13952b58",
+        "filename": "netd/BpfHandlerTest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-14T13:33:34Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027exempted\u0027 or \u0027legacy\u0027; see https://source.android.com/setup/contribute/respectful-code for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 25,
+        "startChar": 72,
+        "endLine": 25,
+        "endChar": 83
+      },
+      "revId": "9bec8a44225804bd4c9fcef1c5d274d611a5c513",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
