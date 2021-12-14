@@ -192,7 +192,9 @@ import com.android.networkstack.apishim.common.BluetoothPanShim;
 import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceCallbackShim;
 import com.android.networkstack.apishim.common.BluetoothPanShim.TetheredInterfaceRequestShim;
 import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
+import com.android.networkstack.apishim.common.WifiManagerShim;
 import com.android.networkstack.tethering.TestConnectivityManager.TestNetworkAgent;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.MiscAsserts;
 
 import org.junit.After;
@@ -258,6 +260,7 @@ public class TetheringTest {
     @Mock private TelephonyManager mTelephonyManager;
     @Mock private UsbManager mUsbManager;
     @Mock private WifiManager mWifiManager;
+    @Mock private WifiManagerShim mWifiManagerShim;
     @Mock private CarrierConfigManager mCarrierConfigManager;
     @Mock private IPv6TetheringCoordinator mIPv6TetheringCoordinator;
     @Mock private DadProxy mDadProxy;
@@ -297,6 +300,7 @@ public class TetheringTest {
     private OffloadController mOffloadCtrl;
     private PrivateAddressCoordinator mPrivateAddressCoordinator;
     private SoftApCallback mSoftApCallback;
+    private SoftApCallback mLocalOnlyHotspotCallback;
     private UpstreamNetworkMonitor mUpstreamNetworkMonitor;
     private TetheredInterfaceCallbackShim mTetheredInterfaceCallbackShim;
 
@@ -514,6 +518,10 @@ public class TetheringTest {
             }
             return mBluetoothPanShim;
         }
+
+        public WifiManagerShim getWifiManagerShim(Context context) {
+            return mWifiManagerShim;
+        }
     }
 
     private static LinkProperties buildUpstreamLinkProperties(String interfaceName,
@@ -661,6 +669,14 @@ public class TetheringTest {
                 ArgumentCaptor.forClass(SoftApCallback.class);
         verify(mWifiManager).registerSoftApCallback(any(), softApCallbackCaptor.capture());
         mSoftApCallback = softApCallbackCaptor.getValue();
+
+        if (isAtLeastT()) {
+            final ArgumentCaptor<SoftApCallback> localOnlyCallbackCaptor =
+                    ArgumentCaptor.forClass(SoftApCallback.class);
+            verify(mWifiManagerShim).registerLocalOnlyHotspotSoftApCallback(any(),
+                    localOnlyCallbackCaptor.capture());
+            mLocalOnlyHotspotCallback = localOnlyCallbackCaptor.getValue();
+        }
 
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI)).thenReturn(true);
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT)).thenReturn(true);
@@ -2473,12 +2489,11 @@ public class TetheringTest {
         eventCallbacks = dhcpEventCbsCaptor.getValue();
         // Update lease for local only tethering.
         final MacAddress testMac1 = MacAddress.fromString("11:11:11:11:11:11");
-        final ArrayList<DhcpLeaseParcelable> p2pLeases = new ArrayList<>();
-        p2pLeases.add(createDhcpLeaseParcelable("clientId1", testMac1, "192.168.50.24", 24,
-                Long.MAX_VALUE, "test1"));
-        notifyDhcpLeasesChanged(p2pLeases, eventCallbacks);
-        final List<TetheredClient> clients = toTetheredClients(p2pLeases, TETHERING_WIFI_P2P);
-        callback.expectTetheredClientChanged(clients);
+        final DhcpLeaseParcelable p2pLease = createDhcpLeaseParcelable("clientId1", testMac1,
+                "192.168.50.24", 24, Long.MAX_VALUE, "test1");
+        final List<TetheredClient> p2pClients = updateTetheredClients(TETHERING_WIFI_P2P,
+                eventCallbacks, p2pLease);
+        callback.expectTetheredClientChanged(p2pClients);
         reset(mDhcpServer);
 
         // Run wifi tethering.
@@ -2488,25 +2503,20 @@ public class TetheringTest {
                 any(), dhcpEventCbsCaptor.capture());
         eventCallbacks = dhcpEventCbsCaptor.getValue();
         // Update mac address from softAp callback before getting dhcp lease.
-        final ArrayList<WifiClient> wifiClients = new ArrayList<>();
         final MacAddress testMac2 = MacAddress.fromString("22:22:22:22:22:22");
-        final WifiClient testClient = mock(WifiClient.class);
-        when(testClient.getMacAddress()).thenReturn(testMac2);
-        wifiClients.add(testClient);
-        mSoftApCallback.onConnectedClientsChanged(wifiClients);
-        final TetheredClient noAddrClient = new TetheredClient(testMac2,
-                Collections.emptyList() /* addresses */, TETHERING_WIFI);
-        clients.add(noAddrClient);
-        callback.expectTetheredClientChanged(clients);
+        final TetheredClient noAddrClient = updateMacOnlyWifiTetheringClient(testMac2,
+                false /* isLocalOnly */);
+        final List<TetheredClient> p2pAndNoAddrClients = new ArrayList<>(p2pClients);
+        p2pAndNoAddrClients.add(noAddrClient);
+        callback.expectTetheredClientChanged(p2pAndNoAddrClients);
 
         // Update dhcp lease for wifi tethering.
-        clients.remove(noAddrClient);
-        final ArrayList<DhcpLeaseParcelable> wifiLeases = new ArrayList<>();
-        wifiLeases.add(createDhcpLeaseParcelable("clientId2", testMac2, "192.168.43.24", 24,
-                Long.MAX_VALUE, "test2"));
-        notifyDhcpLeasesChanged(wifiLeases, eventCallbacks);
-        clients.addAll(toTetheredClients(wifiLeases, TETHERING_WIFI));
-        callback.expectTetheredClientChanged(clients);
+        final DhcpLeaseParcelable wifiLease = createDhcpLeaseParcelable("clientId2", testMac2,
+                "192.168.43.24", 24, Long.MAX_VALUE, "test2");
+        final List<TetheredClient> p2pAndWifiClients = new ArrayList<>(p2pClients);
+        p2pAndWifiClients.addAll(updateTetheredClients(TETHERING_WIFI,
+                eventCallbacks, wifiLease));
+        callback.expectTetheredClientChanged(p2pAndWifiClients);
 
         // Test onStarted callback that register second callback when tethering is running.
         TestTetheringEventCallback callback2 = new TestTetheringEventCallback();
@@ -2514,18 +2524,74 @@ public class TetheringTest {
             mTethering.registerTetheringEventCallback(callback2);
             mLooper.dispatchAll();
         });
-        callback2.expectTetheredClientChanged(clients);
+        callback2.expectTetheredClientChanged(p2pAndWifiClients);
     }
 
-    private void notifyDhcpLeasesChanged(List<DhcpLeaseParcelable> leaseParcelables,
-            IDhcpEventCallbacks callback) throws Exception {
-        callback.onLeasesChanged(leaseParcelables);
+    @Test
+    @IgnoreUpTo(Build.VERSION_CODES.S)
+    public void testUpdateConnectedClientsForLocalOnlyHotspot() throws Exception {
+        TestTetheringEventCallback callback = new TestTetheringEventCallback();
+        runAsShell(NETWORK_SETTINGS, () -> {
+            mTethering.registerTetheringEventCallback(callback);
+            mLooper.dispatchAll();
+        });
+        callback.expectTetheredClientChanged(Collections.emptyList());
+
+        // Run local only hotspot.
+        mTethering.interfaceStatusChanged(TEST_WLAN_IFNAME, true);
+        sendWifiApStateChanged(WIFI_AP_STATE_ENABLED, TEST_WLAN_IFNAME, IFACE_IP_MODE_LOCAL_ONLY);
+
+        final ArgumentCaptor<IDhcpEventCallbacks> dhcpEventCbsCaptor =
+                 ArgumentCaptor.forClass(IDhcpEventCallbacks.class);
+        verify(mDhcpServer, timeout(DHCPSERVER_START_TIMEOUT_MS)).startWithCallbacks(
+                any(), dhcpEventCbsCaptor.capture());
+        final IDhcpEventCallbacks eventCallbacks = dhcpEventCbsCaptor.getValue();
+        // Update mac address from softAp callback before getting dhcp lease.
+        final MacAddress testMac = MacAddress.fromString("22:22:22:22:22:22");
+        final TetheredClient noAddrClient = updateMacOnlyWifiTetheringClient(testMac,
+                true /* isLocalOnly */);
+        final List<TetheredClient> noAddrLocalOnlyClients = new ArrayList<>();
+        noAddrLocalOnlyClients.add(noAddrClient);
+        callback.expectTetheredClientChanged(noAddrLocalOnlyClients);
+
+        // Update dhcp lease for local only hotspot.
+        final DhcpLeaseParcelable wifiLease = createDhcpLeaseParcelable("clientId", testMac,
+                "192.168.43.24", 24, Long.MAX_VALUE, "test");
+        final List<TetheredClient> localOnlyClients = updateTetheredClients(TETHERING_WIFI,
+                eventCallbacks, wifiLease);
+        callback.expectTetheredClientChanged(localOnlyClients);
+
+        // Client disconnect from local only hotspot.
+        mLocalOnlyHotspotCallback.onConnectedClientsChanged(Collections.emptyList());
+        callback.expectTetheredClientChanged(Collections.emptyList());
+    }
+
+    private TetheredClient updateMacOnlyWifiTetheringClient(final MacAddress mac,
+            boolean isLocalOnly) throws Exception {
+        final ArrayList<WifiClient> wifiClients = new ArrayList<>();
+        final WifiClient testClient = mock(WifiClient.class);
+        when(testClient.getMacAddress()).thenReturn(mac);
+        wifiClients.add(testClient);
+        if (isLocalOnly) {
+            mLocalOnlyHotspotCallback.onConnectedClientsChanged(wifiClients);
+        } else {
+            mSoftApCallback.onConnectedClientsChanged(wifiClients);
+        }
+        return new TetheredClient(mac, Collections.emptyList() /* addresses */, TETHERING_WIFI);
+    }
+
+    private List<TetheredClient> updateTetheredClients(int type, IDhcpEventCallbacks callback,
+            DhcpLeaseParcelable... leases) throws Exception {
+        final List<DhcpLeaseParcelable> dhcpLeases = Arrays.asList(leases);
+        callback.onLeasesChanged(dhcpLeases);
         mLooper.dispatchAll();
+
+        return toTetheredClients(dhcpLeases, type);
     }
 
     private List<TetheredClient> toTetheredClients(List<DhcpLeaseParcelable> leaseParcelables,
             int type) throws Exception {
-        final ArrayList<TetheredClient> leases = new ArrayList<>();
+        final ArrayList<TetheredClient> clients = new ArrayList<>();
         for (DhcpLeaseParcelable lease : leaseParcelables) {
             final LinkAddress address = new LinkAddress(
                     intToInet4AddressHTH(lease.netAddr), lease.prefixLength,
@@ -2535,13 +2601,13 @@ public class TetheringTest {
             final MacAddress macAddress = MacAddress.fromBytes(lease.hwAddr);
 
             final AddressInfo addressInfo = new TetheredClient.AddressInfo(address, lease.hostname);
-            leases.add(new TetheredClient(
+            clients.add(new TetheredClient(
                     macAddress,
                     Collections.singletonList(addressInfo),
                     type));
         }
 
-        return leases;
+        return clients;
     }
 
     private DhcpLeaseParcelable createDhcpLeaseParcelable(final String clientId,
