@@ -33,6 +33,24 @@
       "message": "I was worried about future usage, but that concern is addressed by lorenzo\u0027s comment.",
       "revId": "bdf4f2987d64a1676b5c62cc22212f462b42677c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2fdb1a7_51f79f0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-14T10:46:57Z",
+      "side": 1,
+      "message": "It\u0027s the other way around : we\u0027ve had usage for a while, but they have shown themselves to be less and less useful over time, and more and more problematic. We removed the last usage of this in aosp/1563812, making this cleanup possible.",
+      "parentUuid": "5a7394ee_42851d2a",
+      "revId": "bdf4f2987d64a1676b5c62cc22212f462b42677c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
