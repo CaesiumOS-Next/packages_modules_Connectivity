@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf15acf6_aa70ce64",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2021-12-14T12:05:29Z",
+      "side": 1,
+      "message": "s/current/Tiramisu",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "85c932f07c6ba870b4fc49970b5d1287e750c2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "654f02ff_9ee8d442",
         "filename": "service/Android.bp",
         "patchSetId": 5
