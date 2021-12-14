@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e85358db_6e45504e",
+        "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-14T10:39:16Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be created pre-T\n\nMaybe set it to null if pre-T, and only publish if non-null",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "78b2baa5ca5fc4a8f3321fa2f9f5c77d1cb269b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

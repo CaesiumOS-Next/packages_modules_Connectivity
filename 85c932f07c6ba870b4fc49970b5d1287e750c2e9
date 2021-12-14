@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c49ce8e_707eab02",
+        "filename": "Tethering/apex/hiddenapi/hiddenapi-max-target-o-low-priority.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-14T10:39:16Z",
+      "side": 1,
+      "message": "As per separate discussion this probably needs to be revised",
+      "revId": "85c932f07c6ba870b4fc49970b5d1287e750c2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "654f02ff_9ee8d442",
+        "filename": "service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-14T10:39:16Z",
+      "side": 1,
+      "message": "service-connectivity can\u0027t depend on this jar, because it won\u0027t be in the bootclasspath on S.\nInstead, use framework-connectivity-tiramisu.stubs.module_lib similarly to the libs below. This includes just the module API, and API usage will be checked by the linter so that\u0027s safer.",
+      "range": {
+        "startLine": 63,
+        "startChar": 40,
+        "endLine": 63,
+        "endChar": 45
+      },
+      "revId": "85c932f07c6ba870b4fc49970b5d1287e750c2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
