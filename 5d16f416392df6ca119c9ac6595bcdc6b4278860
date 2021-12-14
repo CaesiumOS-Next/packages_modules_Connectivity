@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ee4446b_4d6ae753",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-14T02:52:55Z",
+      "side": 1,
+      "message": "Fix LGTM, but this should have failed in presubmit. I\u0027ve asked on the bug why it did not.",
+      "revId": "5d16f416392df6ca119c9ac6595bcdc6b4278860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
