@@ -55,10 +55,12 @@ java_library {
         ":services-connectivity-shared-srcs",
         // TODO: move to net-utils-device-common
         ":connectivity-module-utils-srcs",
+        ":services.connectivity-tiramisu-updatable-sources",
     ],
     libs: [
         "framework-annotations-lib",
         "framework-connectivity.impl",
+        "framework-connectivity-tiramisu.impl",
         "framework-tethering.stubs.module_lib",
         "framework-wifi.stubs.module_lib",
         "unsupportedappusage",
@@ -68,6 +70,7 @@ java_library {
         "dnsresolver_aidl_interface-V9-java",
         "modules-utils-build",
         "modules-utils-shell-command-handler",
+        "modules-utils-statemachine",
         "net-utils-device-common",
         "net-utils-device-common-netlink",
         "net-utils-framework-common",
