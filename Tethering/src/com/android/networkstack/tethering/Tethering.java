@@ -448,6 +448,17 @@ public class Tethering {
         if (wifiManager != null) {
             wifiManager.registerSoftApCallback(mExecutor, new TetheringSoftApCallback());
         }
+        if (SdkLevel.isAtLeastT()) {
+            try {
+                wifiManager.registerLocalOnlyHotspotSoftApCallback(mExecutor,
+                        new TetheringSoftApCallback());
+            } catch (UnsupportedOperationException e) {
+                // Since wifi module development in internal branch,
+                // #registerLocalOnlyHotspotSoftApCallback currently doesn't supported in AOSP
+                // before AOSP switch to Android T + 1.
+                Log.wtf(TAG, "Use unsupported API, " + e);
+            }
+        }
 
         startTrackDefaultNetwork();
     }
