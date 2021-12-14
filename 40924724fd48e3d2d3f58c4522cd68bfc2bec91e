@@ -143,6 +143,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "031303ad_a428ec2a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-14T07:48:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17485694_e84651e7",
+      "range": {
+        "startLine": 717,
+        "startChar": 53,
+        "endLine": 717,
+        "endChar": 61
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "923d3a44_fe3bb399",
@@ -204,6 +228,30 @@
       "side": 1,
       "message": "I see. This can\u0027t happen because the \"turn off\" operation won\u0027t actually disconnect the service and clear the listener. It will just turn off tethering. The listener will only be cleared if the service disconnects. Can a listener be added while the service is disconnected?\n\nIt would be really useful to have a comment somewhere explaining the lifecycle of this code. Basically say (assuming it\u0027s correct) that the listener is created any time someone calls a bluetooth tethering method (even if it\u0027s just to disable tethering when it\u0027s already disabled) and remains set until the service disconnects. And also explain that the listener is only unset when the service disconnects.\n\nAlso, why did you do it this way? It seems like a simpler approach would have been to just keep the listener created at all times, and just rebind to the service when onServiceDisconnected happens. Then any call to start bluetooth tethering when the service is disconnected would simply fail.",
       "parentUuid": "69b97c7a_88d1df54",
+      "range": {
+        "startLine": 725,
+        "startChar": 16,
+        "endLine": 725,
+        "endChar": 37
+      },
+      "revId": "40924724fd48e3d2d3f58c4522cd68bfc2bec91e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2de941aa_2d14a935",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-14T07:48:36Z",
+      "side": 1,
+      "message": "Thanks the suggested comment. The reason why I do this way is because bluetooth tethering is not a popular feature. At least I never use it except for testing. Thus I don\u0027t want tethering bind to bluetooth pan service all the time if user never use it.",
+      "parentUuid": "fb3f5024_75441c88",
       "range": {
         "startLine": 725,
         "startChar": 16,
