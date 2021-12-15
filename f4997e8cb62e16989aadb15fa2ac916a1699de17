@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeac2b85_2d691eab",
+        "filename": "tests/common/java/android/net/UidRangeTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-15T17:54:23Z",
+      "side": 1,
+      "message": "S has the module but UidRange#hasSameUids only exists at T, right?\nIf so, should we IgnoreUpTo S ?",
+      "range": {
+        "startLine": 118,
+        "startChar": 54,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "f4997e8cb62e16989aadb15fa2ac916a1699de17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baabbef8_86810f05",
+        "filename": "tests/common/java/android/net/UidRangeTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-15T17:54:23Z",
+      "side": 1,
+      "message": "Assuming the test failed at this line.\nIIUC it is hard for the reader to know what is happening unless they trace the modification of UidRange from the beginning to the failed line.\nIf so, maybe:\n1. Add comments about what are the contents of the comparing ranges.\n2. Remove cases that are not significantly increase the test coverage.",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 19
+      },
+      "revId": "f4997e8cb62e16989aadb15fa2ac916a1699de17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
