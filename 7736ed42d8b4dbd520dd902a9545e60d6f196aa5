@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc3c26c5_06bee60c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "Looks good, comments inline",
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4099335d_a38cd9e1",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 5473,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "Let\u0027s have a description explaining to use the new method instead",
+      "range": {
+        "startLine": 5473,
+        "startChar": 5,
+        "endLine": 5473,
+        "endChar": 15
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89330f0a_1af45037",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 5497,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "Instead of calling this and having a copy of l.5478~5491, can this old method just call the new one with the object you\u0027re building here ?",
+      "range": {
+        "startLine": 5497,
+        "startChar": 21,
+        "endLine": 5497,
+        "endChar": 48
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2303105_45cfcc6a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 5520,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this ? The linter complains about this on the old method because it takes a UserHandle as an argument but here I think it should give you a pass. Granted, it\u0027s morally the same thing...",
+      "range": {
+        "startLine": 5516,
+        "startChar": 0,
+        "endLine": 5520,
+        "endChar": 33
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6109450f_2b67822c",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "Let\u0027s mirror OemNetworkPreferences and just call this ProfileNetworkPreferences",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "029142d1_e3221fb3",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "final and @NonNull. I know NetworkCapabilities is different, but it\u0027s because it\u0027s very old ; now we want objects immutable as much as possible. It will force you to have members in the builder ; you can observe that this is what almost all other Builders do too.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 11
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0276f858_17bf588d",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "How about getUserHandle() or simply getUser()",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a5805ef_03fff636",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "I think you don\u0027t need to say this ; you could just\n\n  return mProfilePreference \u003d\u003d that.mProfilePreference\n    \u0026\u0026 Objects.equals(mUser, that.mUser);",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 62
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8e1d86e_56c5003a",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "The doc doesn\u0027t seem to match the method ? This would be appropriate for a Builder that takes a built object in argument (which you could also have if you want to, but I see no immediate need).",
+      "range": {
+        "startLine": 89,
+        "startChar": 56,
+        "endLine": 91,
+        "endChar": 11
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bb947dc_6d13cde8",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "Suggest adding the same comment as in CM :\n\n     * See the documentation for the individual preferences for a description of the supported\n     * behaviors.\n\nLet\u0027s also say what the default value is.\n\nAlso as this is @SystemApi doc let\u0027s have it start with a capital and end in a period :)",
+      "range": {
+        "startLine": 97,
+        "startChar": 11,
+        "endLine": 97,
+        "endChar": 15
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c5b9389_828f1709",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "network",
+      "range": {
+        "startLine": 108,
+        "startChar": 49,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc1b94c_0d5abcb4",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "Seems like the grammar of this sentence is a bit strange",
+      "range": {
+        "startLine": 119,
+        "startChar": 56,
+        "endLine": 119,
+        "endChar": 57
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05c565c9_eda4d7d0",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "I think this makes no sense if the user is null. Which means :\n- According to guidelines we should have the constructor of the Builder take a @NonNull instance of UserHandle\n- build() should check that the handle is non-null",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 31
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d28353_d3a972eb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10091,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 10091,
+        "startChar": 8,
+        "endLine": 10091,
+        "endChar": 18
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2aa90fdf_b4f726c8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2330,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:43:21Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 2330,
+        "startChar": 8,
+        "endLine": 2330,
+        "endChar": 39
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
