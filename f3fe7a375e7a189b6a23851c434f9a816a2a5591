@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55780c35_a3ad8c24",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-15T14:26:24Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but now that CtsNetUtils has a tearDown method, I think we could move all the complexity of restoring wifi into CtsNetUtils. All we would need to do is:\n\n- Add a \"Boolean mWifiStateBeforeTest \u003d null\" member to CtsNetUtils\n- The first time ensureWifiConnected or ensureWifiDisconnected is called, populate that member with the current wifi state before doing anything.\n- In tearDown, if mWifiStateBeforeTest is not null, enable or disable wifi to match the value.",
+      "range": {
+        "startLine": 833,
+        "startChar": 0,
+        "endLine": 837,
+        "endChar": 17
+      },
+      "revId": "f3fe7a375e7a189b6a23851c434f9a816a2a5591",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
