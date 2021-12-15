@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "195bc35e_8a68f090",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "This implements what we agreed on, it looks good, thanks. Comments inline.",
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d19ea540_ed126e6c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "You probably also want to mention that it\u0027s a bit field and add a word on how it\u0027s computed (or @see to where it is computed)",
+      "range": {
+        "startLine": 201,
+        "startChar": 59,
+        "endLine": 201,
+        "endChar": 60
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91ffb717_4d82b7ec",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "I think an int will be plenty :)",
+      "range": {
+        "startLine": 203,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 16
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48e55f7f_34730124",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "You don\u0027t need to say this because the annotation will have tools add the doc for you.",
+      "range": {
+        "startLine": 207,
+        "startChar": 17,
+        "endLine": 209,
+        "endChar": 45
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "346a83c3_56832a19",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "Do we need these methods need to be public ? I think we want to encourage usage of the Builder ; it\u0027s also iffy to check for the presence of the capability in this method, but Builder.build() is a good place to do that.\n\nI think it\u0027s good to have them private now, and if we see a need to make it public we can change it later.",
+      "range": {
+        "startLine": 790,
+        "startChar": 4,
+        "endLine": 790,
+        "endChar": 10
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a70e82_1c4dd52c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "I don\u0027t think this is the method you want – this checks a @NetCapability. Did you want to call checkValidEnterpriseCapabilitySublevel ?",
+      "range": {
+        "startLine": 792,
+        "startChar": 8,
+        "endLine": 792,
+        "endChar": 28
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f076cec_0f8a37a3",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "Also check valid here before masking ?",
+      "range": {
+        "startLine": 806,
+        "startChar": 77,
+        "endLine": 806,
+        "endChar": 78
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31374155_5351f365",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "I\u0027d argue you won\u0027t need this method, but oh well.",
+      "range": {
+        "startLine": 818,
+        "startChar": 40,
+        "endLine": 818,
+        "endChar": 71
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d24f96f1_3b208853",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 942,
+        "startChar": 8,
+        "endLine": 942,
+        "endChar": 12
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91d5e678_33e7f3b1",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2065,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "I think you need to update this",
+      "range": {
+        "startLine": 2065,
+        "startChar": 19,
+        "endLine": 2065,
+        "endChar": 25
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6dfaa36_a1aa6d1a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2106,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "It\u0027s just an int, so you could just use it * 73 (this will box it, unbox it, and return it).",
+      "range": {
+        "startLine": 2106,
+        "startChar": 18,
+        "endLine": 2106,
+        "endChar": 34
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa8c07b0_14ccf67e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2262,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "Let\u0027s add the sublevels here",
+      "range": {
+        "startLine": 2262,
+        "startChar": 8,
+        "endLine": 2262,
+        "endChar": 9
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ef089a_e11b65df",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 3058,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "Let\u0027s check here that if the enterprise sublevel is not 0, the NC must have CAPABILITY_ENTERPRISE",
+      "range": {
+        "startLine": 3058,
+        "startChar": 35,
+        "endLine": 3058,
+        "endChar": 40
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "343129f5_e7cadfb8",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "I think you wanted T+\n\nBut I don\u0027t think this is correct. The comment explicitly says the NC is as recent as the test, because it\u0027s built together in the mainline module. In other words, when running on S, you\u0027ll also see 18.\n\nIn fact I think we may actually need to accept both the old and the new value. I have the exact same problem in aosp/1919251 ; I\u0027ll make sure I get a definitive answer.",
+      "range": {
+        "startLine": 362,
+        "startChar": 40,
+        "endLine": 362,
+        "endChar": 41
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e0d5e1c_5b902cfd",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T11:08:43Z",
+      "side": 1,
+      "message": "Use assertThrows",
+      "range": {
+        "startLine": 981,
+        "startChar": 12,
+        "endLine": 981,
+        "endChar": 16
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
