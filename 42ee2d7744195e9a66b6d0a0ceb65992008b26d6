@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d88ee7_46f2004b",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1595,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T14:13:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36ec26bb_4ed59cb7",
+      "range": {
+        "startLine": 1595,
+        "startChar": 28,
+        "endLine": 1595,
+        "endChar": 47
+      },
+      "revId": "42ee2d7744195e9a66b6d0a0ceb65992008b26d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5faa6439_e0872763",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-14T02:47:42Z",
       "side": 1,
       "message": "This is more like a utility method of UidRange instead of NetworkCapabilities member function to me, since there is nothing about NetworkCapabilities now.\nIf so:\n1. Is it better to put this around UidRange#containsUid?\nRefer to https://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/framework/src/android/net/UidRange.java;l\u003d146?q\u003dUidRange.java\u0026ss\u003dandroid\n\n2. Do we want to give it a simple unit test at UidRangeTest?",
+      "range": {
+        "startLine": 1599,
+        "startChar": 26,
+        "endLine": 1599,
+        "endChar": 37
+      },
+      "revId": "42ee2d7744195e9a66b6d0a0ceb65992008b26d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4873aa26_acb4c719",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T14:13:33Z",
+      "side": 1,
+      "message": "Absolutely on both counds. Thanks.",
+      "parentUuid": "5faa6439_e0872763",
       "range": {
         "startLine": 1599,
         "startChar": 26,
