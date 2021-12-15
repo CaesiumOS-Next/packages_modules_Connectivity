@@ -46,6 +46,30 @@
       },
       "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a496291_5b016ff7",
+        "filename": "Tethering/apex/permissions/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1521295
+      },
+      "writtenOn": "2021-12-15T19:18:13Z",
+      "side": 1,
+      "message": "Is there a requirement that these files be named \"permissions.xml\"? If not it seems like the git hook may miss some cases.\n\nBeing able to \"requires\" files from random directories is not great, but I think there is probably similar risk to owners approving a change like that to them approving sketchy overreaching permissions directly.",
+      "parentUuid": "5af5752f_bff080ed",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 49
+      },
+      "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
