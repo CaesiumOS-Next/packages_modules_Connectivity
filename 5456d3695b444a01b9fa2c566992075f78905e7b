@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5785bb7a_5ded4b04",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 38
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-15T02:36:25Z",
+      "side": 1,
+      "message": "move to CreateTunInterface()",
+      "range": {
+        "startLine": 135,
+        "startChar": 24,
+        "endLine": 135,
+        "endChar": 42
+      },
+      "revId": "5456d3695b444a01b9fa2c566992075f78905e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1bb3e12_f6382e5f",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 38
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-15T02:36:25Z",
+      "side": 1,
+      "message": "check return code",
+      "range": {
+        "startLine": 304,
+        "startChar": 8,
+        "endLine": 304,
+        "endChar": 17
+      },
+      "revId": "5456d3695b444a01b9fa2c566992075f78905e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
