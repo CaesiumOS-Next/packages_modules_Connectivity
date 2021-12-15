@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e98a0f8a_f6d0eec9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-12-15T22:32:23Z",
+      "side": 1,
+      "message": "I thought this change would be a new onload.cpp file, plus a new Android.bp code block to define a jni lib using it and statically linking the bpf lib.\nAnd then something adding that lib as a dependency.\n\nThat I see, but I don\u0027t understand the extra pieces.",
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168e17f7_e81f09d7",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-12-15T22:32:23Z",
+      "side": 1,
+      "message": "I don\u0027t understand this change, can it be removed?",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 6
+      },
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "970df880_c74020ed",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-12-15T22:32:23Z",
+      "side": 1,
+      "message": "why?",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
