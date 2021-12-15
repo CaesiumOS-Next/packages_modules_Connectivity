@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e38dfe3c_74b6d665",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T14:20:47Z",
+      "side": 1,
+      "message": "I think this doesn\u0027t work because sendNetworkCapabilities is one-way. I have the same issue in aosp/1919251, but I found it because I wrote a test for it 😊\n\nLook at aosp/1919251 to see how I solved this.",
+      "range": {
+        "startLine": 635,
+        "startChar": 26,
+        "endLine": 635,
+        "endChar": 43
+      },
+      "revId": "af36932bfd846aad708e0a166d53ec296c45f9a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11119018_351de142",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 3
