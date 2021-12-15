@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e2b1519_e881d0b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-15T18:39:30Z",
+      "side": 1,
+      "message": "Not finished but there are some comments.",
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e14d973_9b85fe04",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-15T18:39:30Z",
+      "side": 1,
+      "message": "Stupid questions: \n1. It seems to me this is not very healthy in long term to support such API.\nIs it possible in future this API is abused, and we need another USE_MORE_RESTRICTED_NETWORKS permission to restrict these uids?\n2. For the examples below, can they be satisfied by using mOwnerUid or mRequestorUid?",
+      "range": {
+        "startLine": 1665,
+        "startChar": 54,
+        "endLine": 1666,
+        "endChar": 98
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f3c049d_5c1266c3",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-15T18:39:30Z",
+      "side": 1,
+      "message": "nit: It is unclear to me about the functionality by its name.\nMaybe setAlwaysAccessUids?\nNo strong opinion.",
+      "range": {
+        "startLine": 1685,
+        "startChar": 16,
+        "endLine": 1685,
+        "endChar": 29
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1832f51a_33c88658",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6134,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-15T18:39:30Z",
+      "side": 1,
+      "message": "Maybe not for this CL.\nTo me this is more like part of ensureRequestableCapabilities.\nAlso the name of this function is super vague.\nIs it feasible to refactor these checks and delete this function?\ne.g. rename to ensureListenableCapabilities and make ensureRequestableCapabilities calls it?",
+      "range": {
+        "startLine": 6134,
+        "startChar": 17,
+        "endLine": 6134,
+        "endChar": 28
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59dc5e5a_d6170120",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6865,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-15T18:39:30Z",
+      "side": 1,
+      "message": "It looks to me this could be a generic function that also do other permission enforcement?\n1. If so maybe refactor other checks to this function?\n2. validateNetworkCapabilities is vague to me about its purpose. Is it better to name it more specific? e.g. enforeceNetworkCapabilitiesPermissions",
+      "range": {
+        "startLine": 6865,
+        "startChar": 21,
+        "endLine": 6865,
+        "endChar": 48
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
