@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10e28533_040d81f8",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2021-12-15T11:37:34Z",
+      "side": 1,
+      "message": "Looks like a problem that we tried to fix, but something slipped. Remi, do you want to take a look at this?",
+      "parentUuid": "d39f97c7_5e6612be",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "85c932f07c6ba870b4fc49970b5d1287e750c2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "654f02ff_9ee8d442",
         "filename": "service/Android.bp",
         "patchSetId": 5
