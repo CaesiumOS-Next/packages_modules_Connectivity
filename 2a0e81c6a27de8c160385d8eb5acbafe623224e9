@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c507eff5_b3a53d00",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-15T05:14:00Z",
+      "side": 1,
+      "message": "Although I don\u0027t get the feedback from bluetooth team yet, I have traced the code by myself. And I do think this could happen. BluetoothAdapter#isEnabled() could not guarantee the onServiceConnected is fired.\n\nHere is the flow:\n1. When bluetooth service is up. The AdapterState (state machine) would transit to STATE_ON and callback to BluetoothManagerService\nhttps://source.corp.google.com/aosp-master/packages/modules/Bluetooth/android/app/src/com/android/bluetooth/btservice/AdapterState.java;l\u003d162?q\u003dupdateAdapterState\u0026ss\u003dpiper%2FGoogle%2Faosp-master:packages%2Fmodules%2FBluetooth%2F\n2. The callback would send the message to handler thread of BluetoothManagerService and callback to all of the BluetoothProfileConnector\nhttps://source.corp.google.com/aosp-master/frameworks/base/services/core/java/com/android/server/BluetoothManagerService.java?q\u003dbluetoothmanagerservice\n3. Then the BluetoothProfileConnector (which hold by BluetoothPan) would bind to pan service. If the bind successful, the onServiceConnected would call.\nhttps://source.corp.google.com/aosp-master/frameworks/base/core/java/android/bluetooth/BluetoothProfileConnector.java;l\u003d53\n\nIn step 1, once AdapterState is STATE_ON, BluetoothAdapter#isEnabled() would return true. Since the step 2 send the message to handler thread, this means the whole flow is not synchronized. This could have race that BluetoothAdapter#isEnabled() is true but onServiceConnected is not called yet.",
+      "parentUuid": "33ce9337_93ecd23f",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 283,
+        "endChar": 27
+      },
+      "revId": "2a0e81c6a27de8c160385d8eb5acbafe623224e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3578d5d1_d5e1096e",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "keeping listener object once is created first. Will ask bluetooth team to see whether we can get rid of mPendingPanRequests. Otherwise I still need mBluetoothPan to null while onServiceDisconnected. Because I need to know whether to put the request into mPendingPanRequests while pan is unavailable (onServiceDisconnected).",
       "parentUuid": "b9a0f4e5_68dc0732",
+      "range": {
+        "startLine": 762,
+        "startChar": 36,
+        "endLine": 762,
+        "endChar": 37
+      },
+      "revId": "2a0e81c6a27de8c160385d8eb5acbafe623224e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f7b9dc2_1138f0cd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-15T05:14:00Z",
+      "side": 1,
+      "message": "As previous reply, mPendingPanRequests is necessary I think.",
+      "parentUuid": "83c97896_cd7d5243",
       "range": {
         "startLine": 762,
         "startChar": 36,
