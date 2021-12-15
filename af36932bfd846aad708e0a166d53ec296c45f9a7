@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95ef18bd_22aeff44",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1864,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T06:46:22Z",
+      "side": 1,
+      "message": "I know I\u0027ve asked for this, but now that I\u0027m seeing it I think it\u0027s fine to actually do it. I don\u0027t think it will make a noticeable difference, considering almost all networks don\u0027t have an underlying network.",
+      "range": {
+        "startLine": 1864,
+        "startChar": 16,
+        "endLine": 1864,
+        "endChar": 79
+      },
+      "revId": "af36932bfd846aad708e0a166d53ec296c45f9a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18d08626_99a7b230",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2882,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T06:46:22Z",
+      "side": 1,
+      "message": "Let\u0027s have a comment saying the permission can\u0027t be checked in the builder because it\u0027s running in the client\u0027s process, but the system server will check it upon receiving the built object.",
+      "range": {
+        "startLine": 2882,
+        "startChar": 79,
+        "endLine": 2882,
+        "endChar": 80
+      },
+      "revId": "af36932bfd846aad708e0a166d53ec296c45f9a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11119018_351de142",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2259,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-15T06:46:22Z",
+      "side": 1,
+      "message": "I think you also need three other tests :\n- One that makes sure requestNetwork still rejects it when the app has permission (it\u0027s not a requestable capability)\n- One that makes sure registerNetworkCallback will reject it in the absence of permission\n- One that makes sure registerNetworkCallback will accept it in the presence of permission",
+      "range": {
+        "startLine": 2259,
+        "startChar": 4,
+        "endLine": 2259,
+        "endChar": 5
+      },
+      "revId": "af36932bfd846aad708e0a166d53ec296c45f9a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
