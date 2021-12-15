@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42ffdf5b_478feb6f",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-15T01:19:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98cbdeee_7c16d89d",
+      "range": {
+        "startLine": 30,
+        "startChar": 53,
+        "endLine": 30,
+        "endChar": 57
+      },
+      "revId": "a9ea07f90ec03d68071e9cf1b11b23a67090059b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41a9b8f5_79600750",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-12T00:26:18Z",
       "side": 1,
       "message": "comment wrong.  !val means lookup failure (ie. key not present basically)",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "a9ea07f90ec03d68071e9cf1b11b23a67090059b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41538d4f_cecba169",
+        "filename": "service/bpf_progs/block.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-15T01:19:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41a9b8f5_79600750",
       "range": {
         "startLine": 50,
         "startChar": 4,
