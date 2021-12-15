@@ -204,6 +204,30 @@
       },
       "revId": "95814691798ab1e17249ab03090a0f4034b3438d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e01b5f1_c88c47d6",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsCallbackHandlerThread.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-15T14:19:12Z",
+      "side": 1,
+      "message": "Why can\u0027t you use ConnectivityThread? This code has access to @hide methods, doesn\u0027t it?\n\nIf I\u0027m reading Jean\u0027s comment correctly, he didn\u0027t suggest adding a new CtsCallbackHandlerThread class. I think the suggested passing in a handler. That seems like a better option than adding this class.\n\nIf you do really need another thread, then I think it\u0027s better for it to be a private implementation detail of CtsNetUtils (i.e., created by CtsNetUtils and used only there) instead of a public class like CtsCallbackHandlerThread.\n\nI don\u0027t think it\u0027s a good idea to use a single thread for all callbacks in all our CTS tests because it reduces the opportunity for our tests to find race conditions.",
+      "parentUuid": "c02fcc86_9aee8623",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 37
+      },
+      "revId": "95814691798ab1e17249ab03090a0f4034b3438d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

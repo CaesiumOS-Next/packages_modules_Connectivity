@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edd57f73_b5ef9504",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-15T14:19:12Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58aec655_0754a852",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-15T14:19:12Z",
+      "side": 1,
+      "message": "and for calling registerSystemDefaultNetworkCallback.",
+      "range": {
+        "startLine": 868,
+        "startChar": 90,
+        "endLine": 868,
+        "endChar": 91
+      },
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94be7add_529d8c3f",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-15T14:19:12Z",
+      "side": 1,
+      "message": "Nit: this \"the\" is unnecessary too.",
+      "range": {
+        "startLine": 878,
+        "startChar": 50,
+        "endLine": 878,
+        "endChar": 53
+      },
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3617adae_efca9d87",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-15T14:19:12Z",
+      "side": 1,
+      "message": "Nit: remove the.",
+      "range": {
+        "startLine": 878,
+        "startChar": 24,
+        "endLine": 878,
+        "endChar": 27
+      },
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8301e08b_737a55f9",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-15T14:19:12Z",
+      "side": 1,
+      "message": "I find these multiply-indented callback lambdas quite hard to read, so I\u0027m not sure exactly what is happening here, but... is there a reason this can\u0027t be in the same brace as the unregisterNetworkCallback call in line 886?",
+      "range": {
+        "startLine": 888,
+        "startChar": 16,
+        "endLine": 888,
+        "endChar": 70
+      },
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
