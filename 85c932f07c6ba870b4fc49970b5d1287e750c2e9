@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd1f086d_20e1a38e",
+        "filename": "Tethering/apex/hiddenapi/hiddenapi-max-target-o-low-priority.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-12-15T11:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c49ce8e_707eab02",
+      "revId": "85c932f07c6ba870b4fc49970b5d1287e750c2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf15acf6_aa70ce64",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d39f97c7_5e6612be",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-12-15T11:27:26Z",
+      "side": 1,
+      "message": "I have tried to set it but it would meet this problem.\n\nerror: packages/modules/Connectivity/framework-t/Android.bp:22:1: module \"framework-connectivity-tiramisu\" variant \"android_common\": violates neverallow Apex_available\u003dcom.android.tethering Permitted_packages.not-in-list(android.ne\nt) Min_sdk_version.sdk-version(lessThan\u003dTiramisu) inBcp which is restricted because jars that are part of the com.android.tethering module may only allow these packages: android.net with min_sdk \u003c T. Please jarjar or move code around.",
+      "parentUuid": "cf15acf6_aa70ce64",
+      "range": {
+        "startLine": 25,
+        "startChar": 22,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "85c932f07c6ba870b4fc49970b5d1287e750c2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "654f02ff_9ee8d442",
         "filename": "service/Android.bp",
         "patchSetId": 5
@@ -54,6 +96,30 @@
       "writtenOn": "2021-12-14T10:39:16Z",
       "side": 1,
       "message": "service-connectivity can\u0027t depend on this jar, because it won\u0027t be in the bootclasspath on S.\nInstead, use framework-connectivity-tiramisu.stubs.module_lib similarly to the libs below. This includes just the module API, and API usage will be checked by the linter so that\u0027s safer.",
+      "range": {
+        "startLine": 63,
+        "startChar": 40,
+        "endLine": 63,
+        "endChar": 45
+      },
+      "revId": "85c932f07c6ba870b4fc49970b5d1287e750c2e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c466517f_8d354471",
+        "filename": "service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-12-15T11:27:26Z",
+      "side": 1,
+      "message": "As discussed, NsdServcie is using lots of hidden apis, so we can\u0027t use framework-connectivity-tiramisu.stubs.module_lib here.",
+      "parentUuid": "654f02ff_9ee8d442",
       "range": {
         "startLine": 63,
         "startChar": 40,
