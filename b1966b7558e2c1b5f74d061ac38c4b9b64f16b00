@@ -46,6 +46,30 @@
       },
       "revId": "b1966b7558e2c1b5f74d061ac38c4b9b64f16b00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b7aa1ad_b1704ed0",
+        "filename": "tests/common/java/android/net/UidRangeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-16T13:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f33d77e2_2087bd28",
+      "range": {
+        "startLine": 128,
+        "startChar": 20,
+        "endLine": 128,
+        "endChar": 35
+      },
+      "revId": "b1966b7558e2c1b5f74d061ac38c4b9b64f16b00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
