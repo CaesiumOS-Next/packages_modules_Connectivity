@@ -6046,13 +6046,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void ensureRequestableCapabilities(NetworkCapabilities networkCapabilities) {
-        final String badCapability = networkCapabilities.describeFirstNonRequestableCapability();
-        if (badCapability != null) {
-            throw new IllegalArgumentException("Cannot request network with " + badCapability);
-        }
-    }
-
     // This checks that the passed capabilities either do not request a
     // specific SSID/SignalStrength, or the calling app has permission to do so.
     private void ensureSufficientPermissionsForRequest(NetworkCapabilities nc,
@@ -6110,7 +6103,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         nai.onSignalStrengthThresholdsUpdated(thresholdsArray);
     }
 
-    private void ensureValidNetworkSpecifier(NetworkCapabilities nc) {
+    private static void ensureValidNetworkSpecifier(NetworkCapabilities nc) {
         if (nc == null) {
             return;
         }
@@ -6123,13 +6116,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void ensureValid(NetworkCapabilities nc) {
+    private static void ensureListenableCapabilities(@NonNull final NetworkCapabilities nc) {
         ensureValidNetworkSpecifier(nc);
         if (nc.isPrivateDnsBroken()) {
             throw new IllegalArgumentException("Can't request broken private DNS");
         }
         if (nc.hasAccessUids()) {
             throw new IllegalArgumentException("Can't request access UIDs");
+        }
+    }
+
+    private void ensureRequestableCapabilities(@NonNull final NetworkCapabilities nc) {
+        ensureListenableCapabilities(nc);
+        final String badCapability = nc.describeFirstNonRequestableCapability();
+        if (badCapability != null) {
+            throw new IllegalArgumentException("Cannot request network with " + badCapability);
         }
     }
 
@@ -6225,7 +6226,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (timeoutMs < 0) {
             throw new IllegalArgumentException("Bad timeout specified");
         }
-        ensureValid(networkCapabilities);
 
         final NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, legacyType,
                 nextNetworkRequestId(), reqType);
@@ -6355,7 +6355,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 Binder.getCallingPid(), callingUid, callingPackageName);
         restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
                 callingUid, callingPackageName);
-        ensureValid(networkCapabilities);
 
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
@@ -6422,7 +6421,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // There is no need to do this for requests because an app without CHANGE_NETWORK_STATE
         // can't request networks.
         restrictBackgroundRequestForCaller(nc);
-        ensureValid(nc);
+        ensureListenableCapabilities(nc);
 
         NetworkRequest networkRequest = new NetworkRequest(nc, TYPE_NONE, nextNetworkRequestId(),
                 NetworkRequest.Type.LISTEN);
@@ -6444,7 +6443,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (!hasWifiNetworkListenPermission(networkCapabilities)) {
             enforceAccessPermission();
         }
-        ensureValid(networkCapabilities);
+        ensureListenableCapabilities(networkCapabilities);
         ensureSufficientPermissionsForRequest(networkCapabilities,
                 Binder.getCallingPid(), callingUid, callingPackageName);
         final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
