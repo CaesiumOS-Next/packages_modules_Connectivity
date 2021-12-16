@@ -935,6 +935,7 @@ public final class NetworkCapabilities implements Parcelable {
             TRANSPORT_LOWPAN,
             TRANSPORT_TEST,
             TRANSPORT_USB,
+            TRANSPORT_VCN,
     })
     public @interface Transport { }
 
@@ -986,10 +987,15 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static final int TRANSPORT_USB = 8;
 
+    /**
+     * Indicates this network uses a VCN transport.
+     */
+    public static final int TRANSPORT_VCN = 9;
+
     /** @hide */
     public static final int MIN_TRANSPORT = TRANSPORT_CELLULAR;
     /** @hide */
-    public static final int MAX_TRANSPORT = TRANSPORT_USB;
+    public static final int MAX_TRANSPORT = TRANSPORT_VCN;
 
     /** @hide */
     public static boolean isValidTransport(@Transport int transportType) {
@@ -1005,7 +1011,8 @@ public final class NetworkCapabilities implements Parcelable {
         "WIFI_AWARE",
         "LOWPAN",
         "TEST",
-        "USB"
+        "USB",
+        "VCN"
     };
 
     /**
