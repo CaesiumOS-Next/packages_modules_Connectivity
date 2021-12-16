@@ -94,6 +94,30 @@
       },
       "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0efcf188_03c91092",
+        "filename": "Tethering/apex/permissions/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1521295
+      },
+      "writtenOn": "2021-12-16T16:43:13Z",
+      "side": 1,
+      "message": "For sure, we don\u0027t need to design this in the comments here.",
+      "parentUuid": "abe033d8_569037b1",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 49
+      },
+      "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
