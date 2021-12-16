@@ -225,7 +225,7 @@ public class NsdServiceTest {
         client.resolveService(request, listener3);
         waitForIdle();
         verify(mDaemon, times(1)).maybeStart();
-        verifyDaemonCommand("resolve 4 a_name a_type local.");
+        verifyDaemonCommand("resolve 4 a_name a_type local. any");
 
         // Client disconnects, stop the daemon after CLEANUP_DELAY_MS.
         deathRecipient.binderDied();
