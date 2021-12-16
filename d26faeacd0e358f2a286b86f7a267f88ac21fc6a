@@ -118,6 +118,30 @@
       },
       "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07435c0b_86ce2424",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1905361
+      },
+      "writtenOn": "2021-12-16T22:26:56Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "482cedc3_c088fbe4",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
