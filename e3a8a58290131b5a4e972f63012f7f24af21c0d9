@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "47e078b6_0e081f6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-16T04:13:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "039cff43_9dca63a0",
+      "revId": "e3a8a58290131b5a4e972f63012f7f24af21c0d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "106572da_99d29372",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 14
@@ -234,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "816dfdd2_ef6397f6",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2601,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-16T04:13:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2da45b7_bbea6a80",
+      "range": {
+        "startLine": 2601,
+        "startChar": 16,
+        "endLine": 2601,
+        "endChar": 40
+      },
+      "revId": "e3a8a58290131b5a4e972f63012f7f24af21c0d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b38187b_6a703233",
@@ -247,6 +289,30 @@
       "writtenOn": "2021-12-15T15:34:51Z",
       "side": 1,
       "message": "Would be good to also test what happens when the service reconnects. Not necessarily in this CL.",
+      "range": {
+        "startLine": 2627,
+        "startChar": 4,
+        "endLine": 2627,
+        "endChar": 5
+      },
+      "revId": "e3a8a58290131b5a4e972f63012f7f24af21c0d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd5af9fc_6ab75faf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2627,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-16T04:13:20Z",
+      "side": 1,
+      "message": "Ack, will add the test in separate CL.",
+      "parentUuid": "4b38187b_6a703233",
       "range": {
         "startLine": 2627,
         "startChar": 4,
