@@ -211,7 +211,7 @@ public class NsdServiceTest {
         client.registerService(request, PROTOCOL, listener1);
         waitForIdle();
         verify(mDaemon, times(1)).maybeStart();
-        verifyDaemonCommands("start-service", "register 2 a_name a_type 2201");
+        verifyDaemonCommands("start-service", "register 2 a_name a_type 2201 \"\"");
 
         // Client discovery request
         NsdManager.DiscoveryListener listener2 = mock(NsdManager.DiscoveryListener.class);
@@ -225,7 +225,7 @@ public class NsdServiceTest {
         client.resolveService(request, listener3);
         waitForIdle();
         verify(mDaemon, times(1)).maybeStart();
-        verifyDaemonCommand("resolve 4 a_name a_type local.");
+        verifyDaemonCommand("resolve 4 a_name a_type local. \"\"");
 
         // Client disconnects, stop the daemon after CLEANUP_DELAY_MS.
         deathRecipient.binderDied();
@@ -249,7 +249,7 @@ public class NsdServiceTest {
         verify(mDaemon, times(1)).maybeStart();
         final INsdManagerCallback cb1 = getCallback();
         final IBinder.DeathRecipient deathRecipient = verifyLinkToDeath(cb1);
-        verifyDaemonCommands("start-service", "register 2 a_name a_type 2201");
+        verifyDaemonCommands("start-service", "register 2 a_name a_type 2201 \"\"");
 
         client.unregisterService(listener1);
         verifyDaemonCommand("stop-register 2");
@@ -319,7 +319,7 @@ public class NsdServiceTest {
         verify(mDaemon, times(n)).execute(argumentsCaptor.capture());
         String got = "";
         for (Object o : argumentsCaptor.getAllValues()) {
-            got += o + " ";
+            got += ("".equals(o) ? "\"\"" : o) + " ";
         }
         assertEquals(want, got.trim());
         // rearm deamon for next command verification
