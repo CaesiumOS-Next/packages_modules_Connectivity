@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3f8821c_b7df2baa",
+        "filename": "tests/unit/java/com/android/server/IpSecServiceParameterizedTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-16T12:21:15Z",
+      "side": 1,
+      "message": "Optional, since you\u0027re only moving this code : use the modern syntax\n\n  doReturn(mMockNetd).when(deps).getNetdInstance(mTestContext);",
+      "range": {
+        "startLine": 194,
+        "startChar": 8,
+        "endLine": 194,
+        "endChar": 12
+      },
+      "revId": "9792b5b5e65dfedbe732b45cc06e7c3bbcd7a8bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ababb16b_91212d98",
+        "filename": "tests/unit/java/com/android/server/IpSecServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-16T12:21:15Z",
+      "side": 1,
+      "message": "This is not useful – new can never return null.",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 21
+      },
+      "revId": "9792b5b5e65dfedbe732b45cc06e7c3bbcd7a8bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
