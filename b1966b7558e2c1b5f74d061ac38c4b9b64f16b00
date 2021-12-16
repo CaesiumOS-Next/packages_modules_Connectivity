@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177463f1_9740fe76",
+        "filename": "tests/common/java/android/net/UidRangeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-16T13:01:09Z",
+      "side": 1,
+      "message": "1. IIUC these are the messages that will be printed when the assertion is not true.\nIf so should we print \"empty \u003d\u003d null\" for this case?\nAlso for other assertFalse invocations.\n\n2. However I\u0027m not sure whether print such oppsite messages might still confuse people who is reading the code.\nMaybe put these in comments and use helper functions like \nassertHasSameUids or asssertHasDifferentUids to dump the contents and call assert functions for you?\nNo strong opinion.",
+      "range": {
+        "startLine": 128,
+        "startChar": 20,
+        "endLine": 128,
+        "endChar": 35
+      },
+      "revId": "b1966b7558e2c1b5f74d061ac38c4b9b64f16b00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
