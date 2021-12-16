@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1fb613e_3c494024",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-16T12:06:42Z",
+      "side": 1,
+      "message": "Stupid question: what is the purpose of this section?",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9de3373a_a3919ee9",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-16T12:06:42Z",
+      "side": 1,
+      "message": "Maybe use WifiKey1 or just Key1 as the shorthand given that we all know it is wifi network?\nAlso for other places.",
+      "range": {
+        "startLine": 137,
+        "startChar": 29,
+        "endLine": 137,
+        "endChar": 44
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ca68f03_2d545736",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-16T12:06:42Z",
+      "side": 1,
+      "message": "line break? also for below.",
+      "range": {
+        "startLine": 459,
+        "startChar": 90,
+        "endLine": 459,
+        "endChar": 112
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
