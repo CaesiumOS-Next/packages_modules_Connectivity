@@ -22,6 +22,30 @@
       },
       "revId": "b1966b7558e2c1b5f74d061ac38c4b9b64f16b00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f33d77e2_2087bd28",
+        "filename": "tests/common/java/android/net/UidRangeTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-16T13:50:46Z",
+      "side": 1,
+      "message": "1. I thought of this and opted against. I think that the important thing, as you correctly identified on the previous patchset, is that it\u0027s easy to figure out which of these lines is failing even if the line numbers don\u0027t match. I think this achieves that goal whether we differenciate \u003c\u003e from \u003d\u003d or not.\n\nI do not think differenciating will help debugging. From the string you only get what line is failing really ; \"null \u003d\u003d uids1\" doesn\u0027t tell you what\u0027s wrong any better than \"null \u003c\u003e uids1\". To understand this you will definitely have to look up the test anyway.\n\nHowever, I think updating the test is more complex if we differenciate. Using the same symbol everywhere means I don\u0027t have to care or think about what to use. After all, the indication of whether it\u0027s equal is already in \"assert{False,True}\", and I\u0027m not a fan of having to copy this information inside a string with my human eyes and hands.\n\n\nImplemented 2, as I think the helpers make the code a little bit more readable. I understand it doesn\u0027t really address your suggestion (which was more about automating \u003c\u003e vs \u003d\u003d) but I think doing that part would complexify by passing two strings instead of one.",
+      "parentUuid": "177463f1_9740fe76",
+      "range": {
+        "startLine": 128,
+        "startChar": 20,
+        "endLine": 128,
+        "endChar": 35
+      },
+      "revId": "b1966b7558e2c1b5f74d061ac38c4b9b64f16b00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
