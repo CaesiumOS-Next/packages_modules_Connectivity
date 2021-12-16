@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "099cfb16_522dc6b6",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-16T05:43:12Z",
+      "side": 1,
+      "message": "This is not really because there are files from both packages; com.android.connectivity is a prefix added to the original com.android.net.module.util package name.\n\nI think you can just say the library name match the service-connectivity jarjar rules that put the JNI utils in the com.android.connectivity.com.android.net.module.util package",
+      "range": {
+        "startLine": 22,
+        "startChar": 84,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e35726b_cdfe44ba",
         "filename": "service/Android.bp",
         "patchSetId": 7
@@ -54,6 +77,30 @@
       "writtenOn": "2021-12-15T22:32:23Z",
       "side": 1,
       "message": "I don\u0027t understand this change, can it be removed?",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 6
+      },
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f92e049_f18bd8f2",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-16T05:43:12Z",
+      "side": 1,
+      "message": "Not sure about this either; is libservice-connectivity going to be loaded via loadLibrary and include all JNI symbols ? Or are both native libs going to be used in some way ?\n\nI think ideally we\u0027d move all JNI Java utils into the same package, and have a single library for it in service-connectivity",
+      "parentUuid": "168e17f7_e81f09d7",
       "range": {
         "startLine": 67,
         "startChar": 4,
