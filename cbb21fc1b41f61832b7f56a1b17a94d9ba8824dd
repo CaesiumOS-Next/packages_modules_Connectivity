@@ -70,6 +70,30 @@
       },
       "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abe033d8_569037b1",
+        "filename": "Tethering/apex/permissions/OWNERS",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2021-12-16T11:27:21Z",
+      "side": 1,
+      "message": "Git hook can inspect contents of the xml files as well, perhaps a simple grep filtering would do.\n\nAn important difference though is that owners _are_ approving a sketchy permissions directly, vs, say me going and adding a new allowlist without even telling security team about it.\n\nDo we think this discussion can be moved out of this code review though?",
+      "parentUuid": "0a496291_5b016ff7",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 49
+      },
+      "revId": "cbb21fc1b41f61832b7f56a1b17a94d9ba8824dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
