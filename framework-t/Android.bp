@@ -38,9 +38,15 @@ java_sdk_library {
     srcs: [
         ":framework-connectivity-tiramisu-updatable-sources",
     ],
+    stub_only_libs: [
+        "framework-connectivity.stubs.module_lib",
+    ],
     libs: [
         "unsupportedappusage",
         "app-compat-annotations",
+        // TODO: use framework-connectivity (implementation) instead
+        // of just the stubs after circular dependencies are sorted out
+        "framework-connectivity.stubs.module_lib",
     ],
     permitted_packages: [
         "android.net",
