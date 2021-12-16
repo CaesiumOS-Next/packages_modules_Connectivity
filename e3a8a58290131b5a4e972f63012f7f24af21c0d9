@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d77b0053_42b353a1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-16T04:05:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a965757_a803c6f2",
+      "range": {
+        "startLine": 284,
+        "startChar": 72,
+        "endLine": 284,
+        "endChar": 73
+      },
+      "revId": "e3a8a58290131b5a4e972f63012f7f24af21c0d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a10424ee_f3fcfad8",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-12-15T15:34:51Z",
       "side": 1,
       "message": "Why turn on? enable could be false, right? Maybe just say:\n\n    // The PAN service is connected. Enable or disable bluetooth tethering.\n    // When bluetooth tethering is enabled, any time a PAN client pairs with this\n    // host, bluetooth will bring up a bt-pan interface and notify tethering to\n    // enable IP serving.",
+      "range": {
+        "startLine": 714,
+        "startChar": 15,
+        "endLine": 714,
+        "endChar": 22
+      },
+      "revId": "e3a8a58290131b5a4e972f63012f7f24af21c0d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b834be66_e185524e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-16T04:05:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a10424ee_f3fcfad8",
       "range": {
         "startLine": 714,
         "startChar": 15,
@@ -104,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca0cf1bf_f19cde66",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-16T04:05:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b91d9186_4354ae4f",
+      "range": {
+        "startLine": 728,
+        "startChar": 8,
+        "endLine": 728,
+        "endChar": 50
+      },
+      "revId": "e3a8a58290131b5a4e972f63012f7f24af21c0d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96955957_dd21f1b4",
@@ -117,6 +189,24 @@
       "writtenOn": "2021-12-15T15:34:51Z",
       "side": 1,
       "message": "Seems like it would be clearer if you set mBluetoothPan to null here.",
+      "revId": "e3a8a58290131b5a4e972f63012f7f24af21c0d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e52db9_0b47f67d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-16T04:05:42Z",
+      "side": 1,
+      "message": "I want to explicitly reference mBluetoothPan all the time. I have review the bluetooth code. It seems it is unsafe to set mBluetoothPan to null while onServiceDisconnected. BluetoothAdapter don\u0027t reference to BluetoothPan object after leaving the getProfileProxy function. It seems just rely on that mBluetoothPan would be reference by ServiceConnection (inside BluetoothProfileConnector) and it would reference from PanService while doBind(). When bluetooth is gone, it seems the only reference is self-reference between BluetoothPan \u003c-\u003e BluetoothProfileConnector. This seems can\u0027t protect BluetoothPan to be GC\u0027ed.",
+      "parentUuid": "96955957_dd21f1b4",
       "revId": "e3a8a58290131b5a4e972f63012f7f24af21c0d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
