@@ -88,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2faed08_f2331db5",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 38
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-12-16T02:10:44Z",
+      "side": 1,
+      "message": "actually looks like this should be 0.\n\nprobably should use the bpf_skb_load_bytes_relative(..., BPF_HDR_START_NET) instead",
+      "parentUuid": "09a32418_a56fb378",
+      "range": {
+        "startLine": 132,
+        "startChar": 36,
+        "endLine": 132,
+        "endChar": 44
+      },
+      "revId": "5456d3695b444a01b9fa2c566992075f78905e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "471c785c_28922187",
