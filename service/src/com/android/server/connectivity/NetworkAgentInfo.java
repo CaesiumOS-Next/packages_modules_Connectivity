@@ -316,6 +316,9 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     // the ConnectivityService-managed bits.
     private FullScore mScore;
 
+    // Whether the local traffic is excluded from this network.
+    private boolean mExcludeLocalRoute;
+
     // The list of NetworkRequests being satisfied by this Network.
     private final SparseArray<NetworkRequest> mNetworkRequests = new SparseArray<>();
 
@@ -652,6 +655,12 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
             mHandler.obtainMessage(NetworkAgent.EVENT_SET_EXPLICITLY_SELECTED,
                     explicitlySelected ? 1 : 0, acceptPartial ? 1 : 0,
                     new Pair<>(NetworkAgentInfo.this, null)).sendToTarget();
+        }
+
+        @Override
+        public void sendExcludeLocalRoute(boolean excludeLocalRoute) {
+            mHandler.obtainMessage(NetworkAgent.EVENT_SET_EXCLUDE_LOCAL_ROUTE,
+                     new Pair<>(NetworkAgentInfo.this, excludeLocalRoute)).sendToTarget();
         }
 
         @Override
@@ -1091,6 +1100,13 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
 
     public boolean isLingering() {
         return mInactive && !isNascent();
+    }
+
+    /**
+     *  Set wether the local traffic is excluded from this NAI.
+     */
+    public void setExcludeLocalRoute(boolean excludeLocalRoute) {
+        mExcludeLocalRoute = excludeLocalRoute;
     }
 
     /**

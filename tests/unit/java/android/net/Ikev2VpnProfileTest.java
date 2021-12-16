@@ -18,6 +18,7 @@ package android.net;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -381,6 +382,18 @@ public class Ikev2VpnProfileTest {
         assertNull(result.getUsername());
         assertNull(result.getPassword());
         assertNull(result.getPresharedKey());
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test
+    public void testSetExcludeLocalRoute() {
+        final Ikev2VpnProfile.Builder builder = getBuilderWithDefaultOptions();
+        builder.setAuthPsk(PSK_BYTES);
+        // Verify the default value for the excludeLocalRoute value.
+        assertFalse(builder.build().isExcludeLocalRoute());
+
+        builder.setExcludeLocalRoute(true);
+        assertTrue(builder.build().isExcludeLocalRoute());
     }
 
     @Test

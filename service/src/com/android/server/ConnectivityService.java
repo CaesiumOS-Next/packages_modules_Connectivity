@@ -3380,6 +3380,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     nai.setLingerDuration((int) arg.second);
                     break;
                 }
+                case NetworkAgent.EVENT_SET_EXCLUDE_LOCAL_ROUTE: {
+                    nai.setExcludeLocalRoute((boolean) arg.second);
+                    // TDOO: Apply corresponding routing change.
+                    break;
+                }
             }
         }
 
