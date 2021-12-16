@@ -404,6 +404,15 @@ public abstract class NetworkAgent {
      */
     public static final int EVENT_LINGER_DURATION_CHANGED = BASE + 24;
 
+    /**
+     * Sent by NetworkAgent to ConnectivityService to set whether the local traffic is excluded from
+     * this network agent.
+     *
+     * obj = boolean indicating whether to exclude local traffic.
+     * @hide
+     */
+    public static final int EVENT_SET_EXCLUDE_LOCAL_ROUTE = BASE + 25;
+
     private static NetworkInfo getLegacyNetworkInfo(final NetworkAgentConfig config) {
         final NetworkInfo ni = new NetworkInfo(config.legacyType, config.legacySubType,
                 config.legacyTypeName, config.legacySubTypeName);
@@ -1024,6 +1033,15 @@ public abstract class NetworkAgent {
     public void explicitlySelected(boolean explicitlySelected, boolean acceptUnvalidated) {
         queueOrSendMessage(reg -> reg.sendExplicitlySelected(
                 explicitlySelected, acceptUnvalidated));
+    }
+
+    /**
+     * Must be called by the agent to indicate whether the local traffic is excluded from the
+     * network agent.
+     * TODO: determine whether this should be called after network being connected.
+     */
+    public void excludeLocalRoute(boolean excludeLocalRoute) {
+        queueOrSendMessage(reg -> reg.sendExcludeLocalRoute(excludeLocalRoute));
     }
 
     /**

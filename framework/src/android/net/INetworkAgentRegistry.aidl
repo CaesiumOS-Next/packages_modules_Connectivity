@@ -43,4 +43,5 @@ oneway interface INetworkAgentRegistry {
     void sendQosCallbackError(int qosCallbackId, int exceptionType);
     void sendTeardownDelayMs(int teardownDelayMs);
     void sendLingerDuration(int durationMs);
+    void sendExcludeLocalRoute(boolean excludeLocalRoute);
 }
