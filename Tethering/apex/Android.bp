@@ -65,6 +65,8 @@ apex {
     apps: [
         "ServiceConnectivityResources",
     ],
+    binaries: ["clatd"],
+    canned_fs_config: "canned_fs_config",
     prebuilts: ["current_sdkinfo"],
     manifest: "manifest.json",
     key: "com.android.tethering.key",
