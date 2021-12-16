@@ -20,6 +20,7 @@ import android.os.Build
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import com.android.modules.utils.build.SdkLevel.isAtLeastS
+import com.android.modules.utils.build.SdkLevel.isAtLeastT
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
 import com.android.testutils.assertParcelSane
@@ -48,7 +49,10 @@ class NetworkAgentConfigTest {
                 setBypassableVpn(true)
             }
         }.build()
-        if (isAtLeastS()) {
+        if (isAtLeastT()) {
+            // From T, the config will have 13 items
+            assertParcelSane(config, 13)
+        } else if (isAtLeastS()) {
             // From S, the config will have 12 items
             assertParcelSane(config, 12)
         } else {
