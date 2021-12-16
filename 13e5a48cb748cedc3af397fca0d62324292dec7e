@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "371c212e_b52e072a",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-16T05:33:30Z",
+      "side": 1,
+      "message": "At that point you could just have a method to get the DownstreamReader or a DownstreamReader ReadHead, it may make it simpler for future use-cases.\n\nNo strong opinion though.",
+      "range": {
+        "startLine": 149,
+        "startChar": 16,
+        "endLine": 149,
+        "endChar": 26
+      },
+      "revId": "13e5a48cb748cedc3af397fca0d62324292dec7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc955bb1_11b24c2c",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2021-12-16T05:33:30Z",
+      "side": 1,
+      "message": "Is that really useful compared to just using the TapPacketReader, considering the current implementation ?",
+      "range": {
+        "startLine": 157,
+        "startChar": 24,
+        "endLine": 157,
+        "endChar": 39
+      },
+      "revId": "13e5a48cb748cedc3af397fca0d62324292dec7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
