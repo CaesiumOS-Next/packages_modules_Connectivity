@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95866044_345fe23f",
+        "filename": "tests/common/java/android/net/UidRangeTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-16T12:47:17Z",
+      "side": 1,
+      "message": "No ; the unit tests are always as recent as the module\u0027s implementation. This is a private API, and it\u0027s always available when these tests run on a platform that has the module, be it AOSP, master, or in MTS on an S+ device.",
+      "parentUuid": "aeac2b85_2d691eab",
+      "range": {
+        "startLine": 118,
+        "startChar": 54,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "f4997e8cb62e16989aadb15fa2ac916a1699de17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "baabbef8_86810f05",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-15T17:54:23Z",
       "side": 1,
       "message": "Assuming the test failed at this line.\nIIUC it is hard for the reader to know what is happening unless they trace the modification of UidRange from the beginning to the failed line.\nIf so, maybe:\n1. Add comments about what are the contents of the comparing ranges.\n2. Remove cases that are not significantly increase the test coverage.",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 19
+      },
+      "revId": "f4997e8cb62e16989aadb15fa2ac916a1699de17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc6c34f_324a1145",
+        "filename": "tests/common/java/android/net/UidRangeTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-16T12:47:17Z",
+      "side": 1,
+      "message": "Good point, done.",
+      "parentUuid": "baabbef8_86810f05",
       "range": {
         "startLine": 154,
         "startChar": 8,
