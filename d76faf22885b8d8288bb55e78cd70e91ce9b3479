@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d730040a_1bbed99a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d19ea540_ed126e6c",
+      "range": {
+        "startLine": 201,
+        "startChar": 59,
+        "endLine": 201,
+        "endChar": 60
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91ffb717_4d82b7ec",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-15T11:08:43Z",
       "side": 1,
       "message": "I think an int will be plenty :)",
+      "range": {
+        "startLine": 203,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 16
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6530dd3a_724bc5c7",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91ffb717_4d82b7ec",
       "range": {
         "startLine": 203,
         "startChar": 12,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02edac6e_b27cf63a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "48e55f7f_34730124",
+      "range": {
+        "startLine": 207,
+        "startChar": 17,
+        "endLine": 209,
+        "endChar": 45
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "346a83c3_56832a19",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-12-15T11:08:43Z",
       "side": 1,
       "message": "Do we need these methods need to be public ? I think we want to encourage usage of the Builder ; it\u0027s also iffy to check for the presence of the capability in this method, but Builder.build() is a good place to do that.\n\nI think it\u0027s good to have them private now, and if we see a need to make it public we can change it later.",
+      "range": {
+        "startLine": 790,
+        "startChar": 4,
+        "endLine": 790,
+        "endChar": 10
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc449653_59a79cc8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "346a83c3_56832a19",
       "range": {
         "startLine": 790,
         "startChar": 4,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba6c1b78_5f316e07",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47a70e82_1c4dd52c",
+      "range": {
+        "startLine": 792,
+        "startChar": 8,
+        "endLine": 792,
+        "endChar": 28
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f076cec_0f8a37a3",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-12-15T11:08:43Z",
       "side": 1,
       "message": "Also check valid here before masking ?",
+      "range": {
+        "startLine": 806,
+        "startChar": 77,
+        "endLine": 806,
+        "endChar": 78
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17e4846f_a77a6c53",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f076cec_0f8a37a3",
       "range": {
         "startLine": 806,
         "startChar": 77,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ab412f3_7e6747ce",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31374155_5351f365",
+      "range": {
+        "startLine": 818,
+        "startChar": 40,
+        "endLine": 818,
+        "endChar": 71
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d24f96f1_3b208853",
@@ -192,6 +360,30 @@
       "writtenOn": "2021-12-15T11:08:43Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 942,
+        "startChar": 8,
+        "endLine": 942,
+        "endChar": 12
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e5d2c36_d3782669",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d24f96f1_3b208853",
       "range": {
         "startLine": 942,
         "startChar": 8,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d01dc0a_d101ddb1",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2065,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91d5e678_33e7f3b1",
+      "range": {
+        "startLine": 2065,
+        "startChar": 19,
+        "endLine": 2065,
+        "endChar": 25
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6dfaa36_a1aa6d1a",
@@ -238,6 +454,30 @@
       "writtenOn": "2021-12-15T11:08:43Z",
       "side": 1,
       "message": "It\u0027s just an int, so you could just use it * 73 (this will box it, unbox it, and return it).",
+      "range": {
+        "startLine": 2106,
+        "startChar": 18,
+        "endLine": 2106,
+        "endChar": 34
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbb2a5bd_405335a9",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2106,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6dfaa36_a1aa6d1a",
       "range": {
         "startLine": 2106,
         "startChar": 18,
@@ -271,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd421809_7cc3f2b8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2262,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa8c07b0_14ccf67e",
+      "range": {
+        "startLine": 2262,
+        "startChar": 8,
+        "endLine": 2262,
+        "endChar": 9
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75ef089a_e11b65df",
@@ -284,6 +548,30 @@
       "writtenOn": "2021-12-15T11:08:43Z",
       "side": 1,
       "message": "Let\u0027s check here that if the enterprise sublevel is not 0, the NC must have CAPABILITY_ENTERPRISE",
+      "range": {
+        "startLine": 3058,
+        "startChar": 35,
+        "endLine": 3058,
+        "endChar": 40
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3695d0e_09954710",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 3058,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75ef089a_e11b65df",
       "range": {
         "startLine": 3058,
         "startChar": 35,
@@ -319,6 +607,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "049645db_5ccffc81",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Please confirm. If this is an issue, below checks also should have the same issue.",
+      "parentUuid": "343129f5_e7cadfb8",
+      "range": {
+        "startLine": 362,
+        "startChar": 40,
+        "endLine": 362,
+        "endChar": 41
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e0d5e1c_5b902cfd",
         "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
         "patchSetId": 8
@@ -330,6 +642,54 @@
       "writtenOn": "2021-12-15T11:08:43Z",
       "side": 1,
       "message": "Use assertThrows",
+      "range": {
+        "startLine": 981,
+        "startChar": 12,
+        "endLine": 981,
+        "endChar": 16
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca9b05a_2c264df1",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e0d5e1c_5b902cfd",
+      "range": {
+        "startLine": 981,
+        "startChar": 12,
+        "endLine": 981,
+        "endChar": 16
+      },
+      "revId": "d76faf22885b8d8288bb55e78cd70e91ce9b3479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70d3ba4b_74631dc1",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T03:34:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e0d5e1c_5b902cfd",
       "range": {
         "startLine": 981,
         "startChar": 12,
