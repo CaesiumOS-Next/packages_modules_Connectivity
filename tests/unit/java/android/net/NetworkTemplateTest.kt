@@ -545,6 +545,56 @@ class NetworkTemplateTest {
 
     @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S)
     @Test
+    fun testBuilderRatType() {
+        val supportedRatTypes = TelephonyManager.getAllNetworkTypes().toList()
+
+        // Verify other types of templates could not specify the ratType other than ALL.
+        listOf(MATCH_WIFI, MATCH_BLUETOOTH, MATCH_ETHERNET).forEach { matchRule ->
+            // Any ratTypes other than ALL should throw exception.
+            (supportedRatTypes + listOf(Integer.MIN_VALUE, Integer.MAX_VALUE, NETWORK_TYPE_ALL - 1))
+                    .forEach { ratType ->
+                        assertThrows(IllegalArgumentException::class.java) {
+                            NetworkTemplate.Builder(matchRule).setRatType(ratType).build()
+                        }
+                    }
+            // Only type ALL could build a template.
+            NetworkTemplate.Builder(matchRule).setRatType(NETWORK_TYPE_ALL).build().also {
+                assertEquals(NETWORK_TYPE_ALL, it.ratType)
+            }
+        }
+
+        // Verify template which match cellular or carrier networks with the given IMSI,
+        // {@code ratType} and {@code metered}. See buildTemplateMobileWithRatType.
+        // Test legal ratTypes which includes type ALL.
+        supportedRatTypes.plus(NETWORK_TYPE_ALL).forEach { ratType ->
+            // Template with no IMSI.
+            NetworkTemplate.Builder(MATCH_MOBILE).setRatType(ratType).build().also {
+                assertEquals(ratType, it.ratType)
+            }
+            // Template which has IMSI and metered.
+            listOf(MATCH_MOBILE, MATCH_CARRIER).forEach { matchRule ->
+                NetworkTemplate.Builder(matchRule).setRatType(ratType)
+                        .setSubscriberIds(listOf(TEST_IMSI1)).setMeteredness(METERED_YES)
+                        .build().also {
+                            assertEquals(TEST_IMSI1, it.subscriberId)
+                            assertEquals(ratType, it.ratType)
+                            assertEquals(METERED_YES, it.meteredness)
+                        }
+            }
+        }
+        // Test illegal ratTypes.
+        listOf(Integer.MIN_VALUE, Integer.MAX_VALUE, NETWORK_TYPE_ALL - 1).forEach { ratType ->
+            listOf(MATCH_MOBILE, MATCH_CARRIER).forEach { matchRule ->
+                assertThrows(IllegalArgumentException::class.java) {
+                    NetworkTemplate.Builder(matchRule).setSubscriberIds(listOf(TEST_IMSI1))
+                            .setRatType(ratType).build()
+                }
+            }
+        }
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test
     fun testBuilderMatchRules() {
         // Verify unknown match rules cannot construct templates.
         listOf(Integer.MIN_VALUE, -1, Integer.MAX_VALUE).forEach {
