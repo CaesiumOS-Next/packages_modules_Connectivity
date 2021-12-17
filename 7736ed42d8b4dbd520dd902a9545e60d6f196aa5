@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e640f710_533ce704",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 5473,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4099335d_a38cd9e1",
+      "range": {
+        "startLine": 5473,
+        "startChar": 5,
+        "endLine": 5473,
+        "endChar": 15
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89330f0a_1af45037",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f845048e_329c28ae",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 5497,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89330f0a_1af45037",
+      "range": {
+        "startLine": 5497,
+        "startChar": 21,
+        "endLine": 5497,
+        "endChar": 48
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2303105_45cfcc6a",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-12-15T11:43:21Z",
       "side": 1,
       "message": "I don\u0027t think you need this ? The linter complains about this on the old method because it takes a UserHandle as an argument but here I think it should give you a pass. Granted, it\u0027s morally the same thing...",
+      "range": {
+        "startLine": 5516,
+        "startChar": 0,
+        "endLine": 5520,
+        "endChar": 33
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24e879da_b0db4660",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 5520,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2303105_45cfcc6a",
       "range": {
         "startLine": 5516,
         "startChar": 0,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bdfd258c_9806dad0",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "I see there is an internal class named ProfileNetworkPreferences, and did not want to create confusion. Let me know",
+      "parentUuid": "6109450f_2b67822c",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "029142d1_e3221fb3",
         "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
         "patchSetId": 7
@@ -123,6 +219,30 @@
       "writtenOn": "2021-12-15T11:43:21Z",
       "side": 1,
       "message": "final and @NonNull. I know NetworkCapabilities is different, but it\u0027s because it\u0027s very old ; now we want objects immutable as much as possible. It will force you to have members in the builder ; you can observe that this is what almost all other Builders do too.",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 11
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5802973_ca87650d",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "029142d1_e3221fb3",
       "range": {
         "startLine": 38,
         "startChar": 4,
@@ -158,6 +278,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84d88f48_e9ef1ce2",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "I get this errors\n\n1. \"Method taking UserHandle should be named `doFooAsUser` or `queryFooForUser`, was `setUser` [UserHandleName]Error: metalava detected the following problems\" \n\n2. : android.net.ProfileNetworkPreferenceDetails does not declare a `getProfileAsUser()` method matching method android.net.ProfileNetworkPreferenceDetails.Builder.setProfileAsUser(a\nndroid.os.UserHandle) [MissingGetterMatchingBuilder]Error: metalava detected the following problems:\n\nerror and was forced to something like this",
+      "parentUuid": "0276f858_17bf588d",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2a5805ef_03fff636",
         "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
         "patchSetId": 7
@@ -169,6 +313,30 @@
       "writtenOn": "2021-12-15T11:43:21Z",
       "side": 1,
       "message": "I think you don\u0027t need to say this ; you could just\n\n  return mProfilePreference \u003d\u003d that.mProfilePreference\n    \u0026\u0026 Objects.equals(mUser, that.mUser);",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 62
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df6e6e07_159b7baa",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a5805ef_03fff636",
       "range": {
         "startLine": 69,
         "startChar": 0,
@@ -202,6 +370,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25772e08_3f7ebe77",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8e1d86e_56c5003a",
+      "range": {
+        "startLine": 89,
+        "startChar": 56,
+        "endLine": 91,
+        "endChar": 11
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6bb947dc_6d13cde8",
@@ -215,6 +407,30 @@
       "writtenOn": "2021-12-15T11:43:21Z",
       "side": 1,
       "message": "Suggest adding the same comment as in CM :\n\n     * See the documentation for the individual preferences for a description of the supported\n     * behaviors.\n\nLet\u0027s also say what the default value is.\n\nAlso as this is @SystemApi doc let\u0027s have it start with a capital and end in a period :)",
+      "range": {
+        "startLine": 97,
+        "startChar": 11,
+        "endLine": 97,
+        "endChar": 15
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a63888c_c38ff308",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bb947dc_6d13cde8",
       "range": {
         "startLine": 97,
         "startChar": 11,
@@ -248,6 +464,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fff9d2f4_b4a6c4ad",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c5b9389_828f1709",
+      "range": {
+        "startLine": 108,
+        "startChar": 49,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dc1b94c_0d5abcb4",
@@ -261,6 +501,30 @@
       "writtenOn": "2021-12-15T11:43:21Z",
       "side": 1,
       "message": "Seems like the grammar of this sentence is a bit strange",
+      "range": {
+        "startLine": 119,
+        "startChar": 56,
+        "endLine": 119,
+        "endChar": 57
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db22ed48_7d2d4377",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dc1b94c_0d5abcb4",
       "range": {
         "startLine": 119,
         "startChar": 56,
@@ -294,6 +558,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b513b77d_cc72e734",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05c565c9_eda4d7d0",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 31
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93d28353_d3a972eb",
@@ -307,6 +595,30 @@
       "writtenOn": "2021-12-15T11:43:21Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 10091,
+        "startChar": 8,
+        "endLine": 10091,
+        "endChar": 18
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b837d71_168cb21d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 10091,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-17T04:06:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93d28353_d3a972eb",
       "range": {
         "startLine": 10091,
         "startChar": 8,
