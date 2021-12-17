@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b5b17ee_76226efd",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-12-17T12:38:41Z",
+      "side": 1,
+      "message": "It will face NPE because NetworkIdentity get null object. I didn\u0027t add null check since WifiManager is a systemService.",
+      "parentUuid": "babc4da6_076e6aef",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9de3373a_a3919ee9",
         "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
         "patchSetId": 2
