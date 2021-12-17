@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d15079b2_a02b2f92",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-12-17T03:14:29Z",
+      "side": 1,
+      "message": "NetworkIdentity would call WifiManager API to get wifi network key.",
+      "parentUuid": "d1fb613e_3c494024",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9de3373a_a3919ee9",
         "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-16T12:06:42Z",
       "side": 1,
       "message": "Maybe use WifiKey1 or just Key1 as the shorthand given that we all know it is wifi network?\nAlso for other places.",
+      "range": {
+        "startLine": 137,
+        "startChar": 29,
+        "endLine": 137,
+        "endChar": 44
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea91aa11_b12d7710",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-12-17T03:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9de3373a_a3919ee9",
       "range": {
         "startLine": 137,
         "startChar": 29,
@@ -60,6 +108,30 @@
       "writtenOn": "2021-12-16T12:06:42Z",
       "side": 1,
       "message": "line break? also for below.",
+      "range": {
+        "startLine": 459,
+        "startChar": 90,
+        "endLine": 459,
+        "endChar": 112
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09431b7a_9686132c",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-12-17T03:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ca68f03_2d545736",
       "range": {
         "startLine": 459,
         "startChar": 90,
