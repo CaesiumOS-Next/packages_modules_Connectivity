@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a43a27d7_0852b879",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-12-18T10:29:00Z",
+      "side": 1,
+      "message": "The key has 7 args and the value has 10 args.\n\n- base function approach may have many dup default args\nmakeKey(arg1, arg2) {\n    return makeKey(arg1, arg2, arg3Default, arg4Default, arg5Default, \n    arg6Default, arg7Default);\n}\nmakeKey(arg1, arg3) {\n    return makeKey(arg1, arg3Default, arg3, arg4Default, arg5Default, \n    arg6Default, arg7Default);\n}\nmakeKey(arg1) {\n    return makeKey(arg1, arg2Default, arg3Default, arg4Default, \n    arg5Default, arg6Default, arg7Default);\n}\nmakeKey(arg1, arg2, arg3, arg4, arg5, arg6, arg7) {\n    return new key(arg1, arg2, arg3, arg4, arg5, arg6, arg7)\n}\n\n- renaming build helper may be hard for mutli-arg\nmakeKey\u0027WithArg2\u0027(arg1, arg2) { \u003c- actually arg1 and arg2 are both changing. \u0027\u0027\n    return new key(arg1, arg2, arg3Default)\n}\n\n\nHow about builder? Or any new arg change in test key/value, we may need a new build helper which has many duped default values because key/value needs many arg in ctor.\n\nHere is a comparison for builder v.s. helper\n\n// Downstream4Key\n// Use builder\nUpstream4Key keyTcp \u003d new Upstream4Key()\n    .setProto(IPPROTO_TCP)\n    .build();\n\nUpstream4Key keyDownstreamA \u003d new Upstream4Key()\n    .setDownstreamIfindex(downstreamIfindex)\n    .setDownstreamMac(downstreamMac)\n    .setPrivateAddr(privateAddr)\n    .setPrivatePort(privatePort)\n    .build();\n\n// Current required helper function (l.1360, l.1780)\n@NonNull\nprivate Tether4Key makeUpstream4Key(int proto) {\n    if (proto !\u003d IPPROTO_TCP \u0026\u0026 proto !\u003d IPPROTO_UDP) {\n        fail(\"Not support protocol \" + proto);\n    }\n    return new Tether4Key(DOWNSTREAM_IFINDEX, DOWNSTREAM_MAC, (short) proto,\n        PRIVATE_ADDR.getAddress(), REMOTE_ADDR.getAddress(), PRIVATE_PORT, REMOTE_PORT);\n}\n\n@NonNull\nprivate static Tether4Key makeUpstream4Key(final int downstreamIfindex,\n        @NonNull final MacAddress downstreamMac, @NonNull final Inet4Address privateAddr,\n        final short privatePort) {\n    return new Tether4Key(downstreamIfindex, downstreamMac, (short) IPPROTO_TCP,\n        privateAddr.getAddress(), REMOTE_ADDR.getAddress(), privatePort, REMOTE_PORT);\n}\n\n\n// Downstream4Key\n// Use builder\nDownstream4Key keyDefault \u003d new Downstream4Key()\n    .build();\n\nDownstream4Key keyUdp \u003d new Downstream4Key()\n    .setProto(IPPROTO_UDP)\n    .build();\n\nUpstream4Key keyDownstreamA \u003d new Downstream4Key()\n    .setPublicPort(publicPort)\n    .build();\n\n\n// Current required helper function (l.1374, l.1401, l.1788)\n@NonNull\nprivate Tether4Key makeDownstream4Key() {\n    return makeDownstream4Key(IPPROTO_TCP);\n}\n\n@NonNull\nprivate Tether4Key makeDownstream4Key(int proto) {\n    if (proto !\u003d IPPROTO_TCP \u0026\u0026 proto !\u003d IPPROTO_UDP) {\n        fail(\"Not support protocol \" + proto);\n    }\n    return new Tether4Key(UPSTREAM_IFINDEX,\n            MacAddress.ALL_ZEROS_ADDRESS /* dstMac (rawip) */, (short) proto,\n            REMOTE_ADDR.getAddress(), PUBLIC_ADDR.getAddress(), REMOTE_PORT, PUBLIC_PORT);\n}\n\n@NonNull\nprivate static Tether4Key makeDownstream4Key(final short publicPort) {\n    return new Tether4Key(UPSTREAM_IFINDEX, MacAddress.ALL_ZEROS_ADDRESS /* dstMac (rawip) */,\n            (short) IPPROTO_TCP, REMOTE_ADDR.getAddress(), PUBLIC_ADDR.getAddress(),\n            REMOTE_PORT, publicPort);\n}",
+      "parentUuid": "822d701a_ab36a800",
+      "range": {
+        "startLine": 1779,
+        "startChar": 0,
+        "endLine": 1824,
+        "endChar": 5
+      },
+      "revId": "721ac6f01947e2ddbbe9a52ac80e4010843c33e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39b34ba5_424b0321",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-06T08:59:52Z",
       "side": 1,
       "message": "nits: this is dup as l.135 ~ 141. We could separate l.135 ~ 141 to a function, then call it here which would more easily to know whether \"nothing happens\" as comment at l.1890.",
+      "range": {
+        "startLine": 1892,
+        "startChar": 0,
+        "endLine": 1897,
+        "endChar": 41
+      },
+      "revId": "721ac6f01947e2ddbbe9a52ac80e4010843c33e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e699c1b5_851c31fd",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-12-18T10:29:00Z",
+      "side": 1,
+      "message": "Done\n\ntypo?\n135 -\u003e 1835\n141 -\u003e 1841",
+      "parentUuid": "39b34ba5_424b0321",
       "range": {
         "startLine": 1892,
         "startChar": 0,
@@ -77,6 +125,30 @@
       "writtenOn": "2021-12-06T08:59:52Z",
       "side": 1,
       "message": "nits: this is dup as l.1902 ~ 1905.",
+      "range": {
+        "startLine": 1914,
+        "startChar": 0,
+        "endLine": 1917,
+        "endChar": 72
+      },
+      "revId": "721ac6f01947e2ddbbe9a52ac80e4010843c33e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7facf0b_74124647",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-12-18T10:29:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d146642_1053dc6b",
       "range": {
         "startLine": 1914,
         "startChar": 0,
