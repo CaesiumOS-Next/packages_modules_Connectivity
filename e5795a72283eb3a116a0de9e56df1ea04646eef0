@@ -22,6 +22,30 @@
       },
       "revId": "e5795a72283eb3a116a0de9e56df1ea04646eef0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "269ce37e_0df0add1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1947,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2021-12-18T10:29:13Z",
+      "side": 1,
+      "message": "Sorry for the wrong comment. The comment is updated.\n\nClient B is different. This test case is testing two clients on the same downstream. (two clients on different downstream case is covered in L.1849)\n\nSo L.1944 - L.1946 are used for two clients on the same downstream.\nCLIENT_INFO_A and CLIENT_INFO_B are used for two clients on different downstream.\n\nFor easier comparison arguments between clientA and clientB, I still define l.1944 but use CLIENT_INFO_A",
+      "parentUuid": "93e3bf54_8529995f",
+      "range": {
+        "startLine": 1944,
+        "startChar": 8,
+        "endLine": 1947,
+        "endChar": 38
+      },
+      "revId": "e5795a72283eb3a116a0de9e56df1ea04646eef0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
