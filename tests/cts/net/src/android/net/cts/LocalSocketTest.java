@@ -16,14 +16,15 @@
 
 package android.net.cts;
 
-import junit.framework.TestCase;
-
 import android.net.Credentials;
 import android.net.LocalServerSocket;
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
+import android.os.ParcelFileDescriptor;
 import android.system.Os;
 import android.system.OsConstants;
+
+import junit.framework.TestCase;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -295,12 +296,13 @@ public class LocalSocketTest extends TestCase {
         // descriptor.
         try (LocalSocketPair socketPair = LocalSocketPair.createConnectedSocketPair(address)) {
             // Extract the client FileDescriptor we can use.
-            FileDescriptor fileDescriptor = socketPair.clientSocket.getFileDescriptor();
-            assertTrue(fileDescriptor.valid());
+            ParcelFileDescriptor parcelfileDescriptor = ParcelFileDescriptor.dup(
+                    socketPair.clientSocket.getFileDescriptor());
+            assertTrue(parcelfileDescriptor.getFileDescriptor().valid());
 
             // Create the LocalSocket we want to test.
             LocalSocket clientSocketCreatedFromFileDescriptor =
-                    LocalSocket.createConnectedLocalSocket(fileDescriptor);
+                    LocalSocket.createConnectedLocalSocket(parcelfileDescriptor);
             assertTrue(clientSocketCreatedFromFileDescriptor.isConnected());
             assertTrue(clientSocketCreatedFromFileDescriptor.isBound());
 
@@ -315,11 +317,11 @@ public class LocalSocketTest extends TestCase {
 
             // Closing clientSocketCreatedFromFileDescriptor does not close the file descriptor.
             clientSocketCreatedFromFileDescriptor.close();
-            assertTrue(fileDescriptor.valid());
+            assertTrue(parcelfileDescriptor.getFileDescriptor().valid());
 
             // .. while closing the LocalSocket that owned the file descriptor does.
             socketPair.clientSocket.close();
-            assertFalse(fileDescriptor.valid());
+            assertFalse(parcelfileDescriptor.getFileDescriptor().valid());
         }
     }
 
