@@ -28,6 +28,9 @@
   "postsubmit": [
     {
       "name": "TetheringPrivilegedTests"
+    },
+    {
+      "name": "libclat_test"
     }
   ],
   "mainline-presubmit": [
