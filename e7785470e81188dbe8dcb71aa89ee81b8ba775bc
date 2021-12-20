@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ae3f644_07e30112",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T09:26:57Z",
+      "side": 1,
+      "message": "field ? I don\u0027t think this is a mask, except in its use in matching but that\u0027s an implementation detail that your comment already clarifies",
+      "range": {
+        "startLine": 200,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 14
+      },
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5ebeb20_15e37b08",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T09:26:57Z",
+      "side": 1,
+      "message": "I think this won\u0027t build the doc ; you wanted something like {@see #add...}\n\n  m checkdocs",
+      "range": {
+        "startLine": 201,
+        "startChar": 71,
+        "endLine": 202,
+        "endChar": 41
+      },
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646012e9_e35ff806",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2621,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T09:26:57Z",
+      "side": 1,
+      "message": "This is already checked by the called method, so I don\u0027t think we need to check it twice",
+      "range": {
+        "startLine": 2621,
+        "startChar": 12,
+        "endLine": 2621,
+        "endChar": 50
+      },
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3890ae9d_35d87c2a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2901,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T09:26:57Z",
+      "side": 1,
+      "message": "I\u0027m afraid the framework team is opposed to usage of streams in the framework because of its high overhead\n\nBut since you\u0027re in the same file you can just say mCaps.mCapabilities \u0026 ENTERPRISE !\u003d 0",
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
