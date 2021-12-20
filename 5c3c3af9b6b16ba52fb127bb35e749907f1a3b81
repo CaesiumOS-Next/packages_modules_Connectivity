@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8946d3e_edb8d16a",
+        "filename": "Tethering/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:43:26Z",
+      "side": 0,
+      "message": "\"networkstack\" is in the name of the apex though. If we\u0027re doing this for consistency with other rule names, maybe we should instead change the rules names that don\u0027t contain this to have it.\n\nNot feeling strongly (at least this should not be blocking this patch)",
+      "range": {
+        "startLine": 175,
+        "startChar": 39,
+        "endLine": 175,
+        "endChar": 51
+      },
+      "revId": "5c3c3af9b6b16ba52fb127bb35e749907f1a3b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
