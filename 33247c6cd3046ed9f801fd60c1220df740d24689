@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "49fb634d_a782fa71",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T05:50:19Z",
+      "side": 1,
+      "message": "IIUC if you getSystemService(Context.WIFI_SERVICE) in NetworkIdentity you don\u0027t need this line?",
+      "parentUuid": "3b5b17ee_76226efd",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9de3373a_a3919ee9",
         "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
         "patchSetId": 2
