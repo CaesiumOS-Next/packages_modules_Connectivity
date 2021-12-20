@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da78ac36_bc9feef2",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T15:10:30Z",
+      "side": 1,
+      "message": "Thanks for the explanation.\nAlso done for other places.",
+      "parentUuid": "e8970206_20b7da64",
+      "range": {
+        "startLine": 567,
+        "startChar": 57,
+        "endLine": 567,
+        "endChar": 61
+      },
+      "revId": "084a5054270a048d783b8b38d20666e62ed1d442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "153eb6e9_407ddee6",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-20T12:19:49Z",
       "side": 1,
       "message": "carrier",
+      "range": {
+        "startLine": 576,
+        "startChar": 18,
+        "endLine": 576,
+        "endChar": 24
+      },
+      "revId": "084a5054270a048d783b8b38d20666e62ed1d442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55c71af4_4795b1ac",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T15:10:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "153eb6e9_407ddee6",
       "range": {
         "startLine": 576,
         "startChar": 18,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "926cfb0f_260355e2",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T15:10:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62f2a05c_496e274d",
+      "range": {
+        "startLine": 577,
+        "startChar": 8,
+        "endLine": 577,
+        "endChar": 20
+      },
+      "revId": "084a5054270a048d783b8b38d20666e62ed1d442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb5e8666_81a0548f",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-12-20T12:19:49Z",
       "side": 1,
       "message": "Could also try one that uses MATCH_CARRIER and sets the wifi key\n\nIn fact the most interesting thing in the builder is the checking logic in build(), so you probably should have a few more tests for unvalid cases where you set a match rule and other parameters but not the right ones",
+      "range": {
+        "startLine": 578,
+        "startChar": 36,
+        "endLine": 578,
+        "endChar": 49
+      },
+      "revId": "084a5054270a048d783b8b38d20666e62ed1d442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a3f6cd_1472e090",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T15:10:30Z",
+      "side": 1,
+      "message": "Yes, but my current plan is to \n 1. Cover only the most basic use cases like buildTemplateXyz function.\n 2. Exercise more input checks and do more compprehensive unit tests in the follow-up CLs like https://android-review.googlesource.com/q/topic:ms13-ratcheck, since this topic is already too big I think.\nDoes that work for you?",
+      "parentUuid": "fb5e8666_81a0548f",
       "range": {
         "startLine": 578,
         "startChar": 36,
