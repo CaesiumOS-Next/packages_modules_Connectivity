@@ -208,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95eb1d3b_bd4ab726",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:50:47Z",
+      "side": 1,
+      "message": "It\u0027s just an internal class, I don\u0027t think it should have priority over the preferred name for a public API. We can rename it to ProfileNetworkPreferenceList or something, and call this ProfileNetworkPreferences.",
+      "parentUuid": "bdfd258c_9806dad0",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "029142d1_e3221fb3",
         "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
         "patchSetId": 7
@@ -290,6 +314,30 @@
       "side": 1,
       "message": "I get this errors\n\n1. \"Method taking UserHandle should be named `doFooAsUser` or `queryFooForUser`, was `setUser` [UserHandleName]Error: metalava detected the following problems\" \n\n2. : android.net.ProfileNetworkPreferenceDetails does not declare a `getProfileAsUser()` method matching method android.net.ProfileNetworkPreferenceDetails.Builder.setProfileAsUser(a\nndroid.os.UserHandle) [MissingGetterMatchingBuilder]Error: metalava detected the following problems:\n\nerror and was forced to something like this",
       "parentUuid": "0276f858_17bf588d",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7917bc6_9f3e04d9",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:50:47Z",
+      "side": 1,
+      "message": "That\u0027s when you use @SuppressLint({\"UserHandle\"}) :) I don\u0027t think the lint is reasonable in this case, because this is not doing anything \"as\" the passed user. If the council pod disagrees they\u0027ll make us change it.",
+      "parentUuid": "84d88f48_e9ef1ce2",
       "range": {
         "startLine": 52,
         "startChar": 32,

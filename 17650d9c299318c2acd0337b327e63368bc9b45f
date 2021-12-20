@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d10b43_4fdd8136",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 5504,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:50:47Z",
+      "side": 1,
+      "message": "This comment was about the @SuppressList annotation, you no longer need it",
+      "range": {
+        "startLine": 5501,
+        "startChar": 0,
+        "endLine": 5504,
+        "endChar": 64
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bc3f310_50e99794",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:50:47Z",
+      "side": 1,
+      "message": "Sorry to realize only now but this object associates one user to one preference right ? Did we have a use case where different profiles should have different preferences ?\n\nIf so, is it reasonable to ask the DPM to track this ? It would make it easier to handle if we only had one such object and it contained a list of associations (then you\u0027d say PNP.Builder().addPreference(user, pref).addPreference(user, pref).build()). This is what we\u0027re doing for setOemNetworkPreference and in retrospect this is probably also what we should have done for this if the use case exists.",
+      "range": {
+        "startLine": 39,
+        "startChar": 38,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f121bf2b_e428555c",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:50:47Z",
+      "side": 1,
+      "message": "You can\u0027t do that ; mUser is @NonNull.",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 24
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
