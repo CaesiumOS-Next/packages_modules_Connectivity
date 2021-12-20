@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8970206_20b7da64",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:19:49Z",
+      "side": 1,
+      "message": "IIUC you are writing this instead of procedurally\n\n  val expectedTemplate \u003d NetworkTemplate(matchRule, ...\n          )\n  val actual \u003d NetworkTemplate.Builder(matchRule)\n          .setSubscriberIds()\n          .setMeteredNess()\n  assertEquals()\n\n...because in l.583 and below it lets you avoid naming variables. That\u0027s reasonable. However \"also\" sound like something you do that\u0027s unimportant. You usually use also to log something about the object, or possibly set something inside, but it sounds a little bit weird to assert() inside. I think let{} is more appropriate.",
+      "range": {
+        "startLine": 567,
+        "startChar": 57,
+        "endLine": 567,
+        "endChar": 61
+      },
+      "revId": "084a5054270a048d783b8b38d20666e62ed1d442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "153eb6e9_407ddee6",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:19:49Z",
+      "side": 1,
+      "message": "carrier",
+      "range": {
+        "startLine": 576,
+        "startChar": 18,
+        "endLine": 576,
+        "endChar": 24
+      },
+      "revId": "084a5054270a048d783b8b38d20666e62ed1d442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62f2a05c_496e274d",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:19:49Z",
+      "side": 1,
+      "message": "assertFailsWith\u003cIllegalArgumentException\u003e {\n}",
+      "range": {
+        "startLine": 577,
+        "startChar": 8,
+        "endLine": 577,
+        "endChar": 20
+      },
+      "revId": "084a5054270a048d783b8b38d20666e62ed1d442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5e8666_81a0548f",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-20T12:19:49Z",
+      "side": 1,
+      "message": "Could also try one that uses MATCH_CARRIER and sets the wifi key\n\nIn fact the most interesting thing in the builder is the checking logic in build(), so you probably should have a few more tests for unvalid cases where you set a match rule and other parameters but not the right ones",
+      "range": {
+        "startLine": 578,
+        "startChar": 36,
+        "endLine": 578,
+        "endChar": 49
+      },
+      "revId": "084a5054270a048d783b8b38d20666e62ed1d442",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
