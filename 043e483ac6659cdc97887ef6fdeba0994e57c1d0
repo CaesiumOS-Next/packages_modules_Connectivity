@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696e56d6_abe2043a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T09:52:52Z",
+      "side": 1,
+      "message": "Can this be removed as well?",
+      "range": {
+        "startLine": 89,
+        "startChar": 19,
+        "endLine": 89,
+        "endChar": 50
+      },
+      "revId": "043e483ac6659cdc97887ef6fdeba0994e57c1d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2292c29c_ae8a5117",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T09:52:52Z",
+      "side": 1,
+      "message": "Is it better to name it buildTetherStatsParcel?\nIIUC it is not empty since we filled the fields?",
+      "range": {
+        "startLine": 242,
+        "startChar": 42,
+        "endLine": 242,
+        "endChar": 47
+      },
+      "revId": "043e483ac6659cdc97887ef6fdeba0994e57c1d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecfd61c0_ff4b6eb9",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T09:52:52Z",
+      "side": 1,
+      "message": "Vec(vector) is the particular structor that used by c++.\nI don\u0027t really see what is the reason of changing all variable names here.\nSuggest remove it from the naming since we don\u0027t have such thing in java.\ne.g tetheredStats1, tetheredStatsParcel1 or tetheredStatsEntry1\n\nAlso for all other places.",
+      "range": {
+        "startLine": 1028,
+        "startChar": 39,
+        "endLine": 1028,
+        "endChar": 42
+      },
+      "revId": "043e483ac6659cdc97887ef6fdeba0994e57c1d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b842fec_4bcdbe57",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-20T09:52:52Z",
+      "side": 1,
+      "message": "Is it used anywhere?\nAlso for tetheredStats1",
+      "range": {
+        "startLine": 1031,
+        "startChar": 27,
+        "endLine": 1031,
+        "endChar": 41
+      },
+      "revId": "043e483ac6659cdc97887ef6fdeba0994e57c1d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
