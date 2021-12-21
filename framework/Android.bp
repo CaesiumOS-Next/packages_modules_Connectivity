@@ -48,6 +48,7 @@ filegroup {
     srcs: [
         ":framework-connectivity-internal-sources",
         ":framework-connectivity-aidl-export-sources",
+        ":framework-connectivity-netstats-aidl-export-sources",
     ],
     visibility: [
         "//frameworks/base",
