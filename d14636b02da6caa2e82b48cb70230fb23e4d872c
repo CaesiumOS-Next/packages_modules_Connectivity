@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08bcb344_d1c920fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-21T13:17:47Z",
+      "side": 1,
+      "message": "This is working on aosp.\nBut doesn\u0027t work on sc-mainline-prod,\nsince there is no f/b/packages/ConnectivityT folder in there.\n",
+      "revId": "d14636b02da6caa2e82b48cb70230fb23e4d872c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
