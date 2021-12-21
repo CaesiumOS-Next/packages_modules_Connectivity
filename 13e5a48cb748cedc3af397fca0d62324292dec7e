@@ -45,6 +45,30 @@
       },
       "revId": "13e5a48cb748cedc3af397fca0d62324292dec7e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3bd41a2_83e779e6",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-21T04:09:34Z",
+      "side": 1,
+      "message": "At this moment (current implementation), RemoteResponder is not useful. Is just equivalent with TapPacketReader.\n\nThe reason I add this class is I want a base class provide the consistent interface as client object (TetheringTester#sendPacket, #getNextMatchedPacket). In the future, if we need to test more complicated use case. E.g.: we could have DnsResponder (extend RemoteResponder) for dns testing or HttpResponder (also extend RemoteResponder) for http testing.",
+      "parentUuid": "bc955bb1_11b24c2c",
+      "range": {
+        "startLine": 157,
+        "startChar": 24,
+        "endLine": 157,
+        "endChar": 39
+      },
+      "revId": "13e5a48cb748cedc3af397fca0d62324292dec7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
