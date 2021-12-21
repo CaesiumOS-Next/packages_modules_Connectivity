@@ -120,6 +120,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "245b452a_63da2ec2",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1368080
+      },
+      "writtenOn": "2021-12-21T02:54:58Z",
+      "side": 1,
+      "message": "Good catch!. Thanks",
+      "parentUuid": "49fb634d_a782fa71",
+      "range": {
+        "startLine": 87,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "33247c6cd3046ed9f801fd60c1220df740d24689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9de3373a_a3919ee9",
