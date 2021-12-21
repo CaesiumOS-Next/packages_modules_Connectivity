@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d257b6b_ceb4e9c7",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-21T12:59:08Z",
+      "side": 1,
+      "message": "That\u0027s fair, but I can\u0027t approve an API that we expect to change immediately. The council has limited bandwidth and should be looking at the stuff that we actually intend to put in, not intermediate state.",
+      "parentUuid": "da55bc4f_e3562e73",
+      "range": {
+        "startLine": 39,
+        "startChar": 38,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f121bf2b_e428555c",
         "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
         "patchSetId": 9
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "But i do not let the build to be successful without non null mUser. Or can you please specific about what your suggestion is. Considering removal of mUser will happen with b/211528484",
       "parentUuid": "f121bf2b_e428555c",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 24
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b526543c_e307be8c",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-21T12:59:08Z",
+      "side": 1,
+      "message": "API guidelines say that a required argument is normally found in the constructor for the builder :\ngo/android-api-guidelines#builders-nonnull-constructors\n\nI don\u0027t understand how b/211528484 would remove the mUser field ; the suggestion is to have the preferences be a list of pairs of user/preference-int. We\u0027ll still have the user argument.",
+      "parentUuid": "a28d6d4e_f712a782",
       "range": {
         "startLine": 93,
         "startChar": 11,
