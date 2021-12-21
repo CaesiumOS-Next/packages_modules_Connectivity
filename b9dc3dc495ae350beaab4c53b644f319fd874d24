@@ -22,6 +22,30 @@
       },
       "revId": "b9dc3dc495ae350beaab4c53b644f319fd874d24",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d248ff39_9a94ca59",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-21T14:57:47Z",
+      "side": 1,
+      "message": "ok, let me check not null and not empty by: assertTrue(!TextUtils.isEmpty(mVmShim.startProvisionedVpnProfileSession));",
+      "parentUuid": "b01824d4_b57cce5a",
+      "range": {
+        "startLine": 416,
+        "startChar": 12,
+        "endLine": 416,
+        "endChar": 25
+      },
+      "revId": "b9dc3dc495ae350beaab4c53b644f319fd874d24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

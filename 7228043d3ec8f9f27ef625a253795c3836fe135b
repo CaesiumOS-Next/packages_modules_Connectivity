@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5460231_7bcd7f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-21T14:57:47Z",
+      "side": 1,
+      "message": "It seems like \"@IgnoreUpTo(Build.VERSION_CODES.S)\" is not working in sc-mainline-prod but I don\u0027t know why.\nAlso, it seems like \"assumeTrue()\" is also not working in runWithShellPermissionIdentity().",
+      "revId": "7228043d3ec8f9f27ef625a253795c3836fe135b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
