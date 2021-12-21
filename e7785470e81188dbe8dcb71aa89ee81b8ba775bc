@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc94b6d1_4142fc07",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T02:55:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ae3f644_07e30112",
+      "range": {
+        "startLine": 200,
+        "startChar": 10,
+        "endLine": 200,
+        "endChar": 14
+      },
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5ebeb20_15e37b08",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-20T09:26:57Z",
       "side": 1,
       "message": "I think this won\u0027t build the doc ; you wanted something like {@see #add...}\n\n  m checkdocs",
+      "range": {
+        "startLine": 201,
+        "startChar": 71,
+        "endLine": 202,
+        "endChar": 41
+      },
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18e8aa5d_960833f4",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T02:55:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5ebeb20_15e37b08",
       "range": {
         "startLine": 201,
         "startChar": 71,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7183197f_93104580",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2621,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T02:55:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "646012e9_e35ff806",
+      "range": {
+        "startLine": 2621,
+        "startChar": 12,
+        "endLine": 2621,
+        "endChar": 50
+      },
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3890ae9d_35d87c2a",
@@ -83,6 +155,24 @@
       "writtenOn": "2021-12-20T09:26:57Z",
       "side": 1,
       "message": "I\u0027m afraid the framework team is opposed to usage of streams in the framework because of its high overhead\n\nBut since you\u0027re in the same file you can just say mCaps.mCapabilities \u0026 ENTERPRISE !\u003d 0",
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "677f9dd1_df831619",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2901,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T02:55:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3890ae9d_35d87c2a",
       "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
