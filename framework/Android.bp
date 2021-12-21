@@ -72,6 +72,8 @@ java_sdk_library {
             // TODO(b/180293679): remove these dependencies as they should not be necessary once
             // the module builds against API (the parcelable declarations exist in framework.aidl)
             "frameworks/base/core/java", // For framework parcelables
+            // For frameworkT parcelables
+            "frameworks/base/packages/ConnectivityT/framework-t/aidl-export",
             "frameworks/native/aidl/binder", // For PersistableBundle.aidl
         ],
     },
