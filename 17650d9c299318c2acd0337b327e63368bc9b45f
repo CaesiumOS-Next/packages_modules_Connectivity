@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77f92bad_846a6846",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 5504,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T04:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02d10b43_4fdd8136",
+      "range": {
+        "startLine": 5501,
+        "startChar": 0,
+        "endLine": 5504,
+        "endChar": 64
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bc3f310_50e99794",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da55bc4f_e3562e73",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T04:58:17Z",
+      "side": 1,
+      "message": "as that is moving away  from our previous design, I will need to sync with DPC team. So it may take longer to resolve. I will track it using a seperate bug so that this doesnt block this feature. b/211528484 to track the same",
+      "parentUuid": "5bc3f310_50e99794",
+      "range": {
+        "startLine": 39,
+        "startChar": 38,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f121bf2b_e428555c",
         "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
         "patchSetId": 9
@@ -60,6 +108,30 @@
       "writtenOn": "2021-12-20T12:50:47Z",
       "side": 1,
       "message": "You can\u0027t do that ; mUser is @NonNull.",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 24
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a28d6d4e_f712a782",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T04:58:17Z",
+      "side": 1,
+      "message": "But i do not let the build to be successful without non null mUser. Or can you please specific about what your suggestion is. Considering removal of mUser will happen with b/211528484",
+      "parentUuid": "f121bf2b_e428555c",
       "range": {
         "startLine": 93,
         "startChar": 11,

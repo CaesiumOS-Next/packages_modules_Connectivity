@@ -230,6 +230,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0a20c0e_e497dd75",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T04:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95eb1d3b_bd4ab726",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "029142d1_e3221fb3",
@@ -338,6 +362,30 @@
       "side": 1,
       "message": "That\u0027s when you use @SuppressLint({\"UserHandle\"}) :) I don\u0027t think the lint is reasonable in this case, because this is not doing anything \"as\" the passed user. If the council pod disagrees they\u0027ll make us change it.",
       "parentUuid": "84d88f48_e9ef1ce2",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "7736ed42d8b4dbd520dd902a9545e60d6f196aa5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1266add_cc274fe8",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-21T04:58:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7917bc6_9f3e04d9",
       "range": {
         "startLine": 52,
         "startChar": 32,
