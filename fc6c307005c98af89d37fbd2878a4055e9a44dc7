@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52c93e88_a6de6c04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-21T07:10:13Z",
+      "side": 1,
+      "message": "Could you also add the unit test at least to verify your change ?",
+      "revId": "fc6c307005c98af89d37fbd2878a4055e9a44dc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c63d29_c89ebe88",
+        "filename": "Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-21T07:10:13Z",
+      "side": 1,
+      "message": "Instead of doing this. Maybe you just need to pass newLp to maybeHandleNetworkSwitch and move l.538 into maybeHandleNetworkSwitch.\n\n void maybeHandleNetworkSwitch(Network network, LinkProperties newLp) {\n     if (Objects.equals(mDefaultInternetNetwork, network)) return;\n\n +   updateLinkProperties(network, newLp);\n\n     final UpstreamNetworkState ns \u003d mNetworkMap.get(network);\n     if (ns \u003d\u003d null) {\n         //....\n         Log.wtf(TAG, \"maybeHandleNetworkSwitch: no UpstreamNetworkState for \" + network);\n         return;\n     }\n\n     //....\n     Log.d(TAG, \"New default Internet network: \" + network);\n     mDefaultInternetNetwork \u003d network;\n     notifyTarget(EVENT_DEFAULT_SWITCHED, ns);\n }",
+      "range": {
+        "startLine": 543,
+        "startChar": 16,
+        "endLine": 545,
+        "endChar": 17
+      },
+      "revId": "fc6c307005c98af89d37fbd2878a4055e9a44dc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
