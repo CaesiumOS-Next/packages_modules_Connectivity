@@ -34,6 +34,24 @@
       "parentUuid": "08bcb344_d1c920fd",
       "revId": "d14636b02da6caa2e82b48cb70230fb23e4d872c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03515080_56c64972",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-12-21T14:31:00Z",
+      "side": 1,
+      "message": "Maybe you can mark this directory on sc-mainline-prod since it doesn\u0027t need for that branch actually.",
+      "parentUuid": "aca3c619_154ae5d2",
+      "revId": "d14636b02da6caa2e82b48cb70230fb23e4d872c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
