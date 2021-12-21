@@ -142,6 +142,30 @@
       },
       "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c739db3b_b53b3778",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/DataSaverModeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1101746
+      },
+      "writtenOn": "2021-12-21T18:13:42Z",
+      "side": 1,
+      "message": "It seems the comment was not changed in the last patch, so in order to expedite this, I made an edit and updated the comment.",
+      "parentUuid": "07435c0b_86ce2424",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 52
+      },
+      "revId": "d26faeacd0e358f2a286b86f7a267f88ac21fc6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
