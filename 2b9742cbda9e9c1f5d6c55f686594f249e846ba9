@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b7f361_f17cc03a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2021-12-21T03:55:20Z",
+      "side": 1,
+      "message": "Why do you need to include NetworkStateSnapshot aidl to framework-connectivity-sources? Would that cause a build breaek without this aidl? What\u0027s error message. I think you only need to import framework-connectivity-tiramisu lib since NetworkStateSnapshot is already a module api.",
+      "revId": "2b9742cbda9e9c1f5d6c55f686594f249e846ba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
