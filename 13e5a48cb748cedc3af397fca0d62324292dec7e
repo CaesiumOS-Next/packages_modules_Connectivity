@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2967cc5d_1067ea1c",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-22T09:29:45Z",
+      "side": 1,
+      "message": "Yes, this is doable. But currently I don\u0027t have use case which need to check history packets. We could have method to get DownstreamReader ReadHead as suggested in the future if we have use case.",
+      "parentUuid": "371c212e_b52e072a",
+      "range": {
+        "startLine": 149,
+        "startChar": 16,
+        "endLine": 149,
+        "endChar": 26
+      },
+      "revId": "13e5a48cb748cedc3af397fca0d62324292dec7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc955bb1_11b24c2c",
