@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41d2532_8fdf3267",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-22T06:50:56Z",
+      "side": 1,
+      "message": "extra space.",
+      "range": {
+        "startLine": 10,
+        "startChar": 13,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "f624a03cb6eedc6f43ef55a3f9fc3d28d460c65a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4be5642_3056e2cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2021-12-22T06:50:56Z",
+      "side": 1,
+      "message": "Do we have a bug to track this?",
+      "revId": "f624a03cb6eedc6f43ef55a3f9fc3d28d460c65a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
