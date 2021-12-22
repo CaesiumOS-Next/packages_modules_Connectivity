@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca752ffc_4d0c09d9",
+        "filename": "Tethering/tests/privileged/src/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-22T21:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bd57346_08c2fbfd",
+      "range": {
+        "startLine": 53,
+        "startChar": 12,
+        "endLine": 53,
+        "endChar": 20
+      },
+      "revId": "0e07a11e42997e33b38c8e751ed2c0e9d5e08645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c0e2c95_63aeba51",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "I think the problem here is that the library is jarjared to a different name.\n\nSource has it in com.android.net.module.util.BpfMap\nIn the module/service it\u0027s jarjar\u0027d to com.android.connectivity.com.android.net.module.util.BpfMap\nBut in the tests it\u0027s jarjar\u0027d to com.android.networkstack.tethering.util.BpfMap\n\nYou can check if my idea is correct by replacing in Tethering/tests/jarjar-rules.txt :\n\n  - rule com.android.net.module.util.** com.android.networkstack.tethering.util.@1\n  + rule com.android.net.module.util.** com.android.connectivity.@0\n\nIf I\u0027m right, this will let the test pass (or at least it will change the error message). Unfortunately this is not really a good solution to this problem, because it would mean we\u0027d have to use the same final class name in all cases, which is contrary to the point of jarjar\u0027ing them. This looks like an overlook of whomever designed this scheme.\n\nIt looks like we might have to figure out a way to pass some value to the JNI initialization code, e.g. a Java constant that is guaranteed not to be in the bootclasspath or something.\n\nI think Mark and Rémi designed this scheme, I\u0027ll reach out to Mark and see if he can provide context.",
       "parentUuid": "2ee5a0c5_249bf256",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 90
+      },
+      "revId": "0e07a11e42997e33b38c8e751ed2c0e9d5e08645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b71c321_a1157074",
+        "filename": "Tethering/tests/privileged/src/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2021-12-22T21:32:48Z",
+      "side": 1,
+      "message": "This is confirmed to work. Will need to discuss longterm solution",
+      "parentUuid": "04a8d8ff_0f403667",
       "range": {
         "startLine": 61,
         "startChar": 12,
