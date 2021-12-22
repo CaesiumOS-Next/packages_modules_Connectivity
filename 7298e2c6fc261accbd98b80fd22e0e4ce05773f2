@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56575812_a672d631",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T08:43:03Z",
+      "side": 1,
+      "message": "Generally : for this kind of use case we are using shims. I understand that for this particular file what you\u0027re doing makes more sense than shims, but I am also worried about using yet another different scheme to add or exclude specific tests in specific builds. We already have large problems managing all these different schemes, so I\u0027d prefer we don\u0027t introduce a new one if an existing one can serve.",
+      "revId": "7298e2c6fc261accbd98b80fd22e0e4ce05773f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50b77399_20cd4f8a",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T08:43:03Z",
+      "side": 1,
+      "message": "Instead of having to list each file independently here, can we have a directory for these tests that are only built in T ?",
+      "range": {
+        "startLine": 22,
+        "startChar": 29,
+        "endLine": 22,
+        "endChar": 76
+      },
+      "revId": "7298e2c6fc261accbd98b80fd22e0e4ce05773f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
