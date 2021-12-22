@@ -16,6 +16,24 @@
       "message": "sc-mainline-prod is the downstream of aosp in this package/modules/Connectivity. I don\u0027t think your Merged-In tag could prevent this change auto merge to sc-mainline-prod branch. Your Merged-In tag should use the id which exist in sc-mainline-prod but not exist in master.\n\nBTW, I think I don\u0027t have enough context to review change for systemserverclasspath_fragments. Could you at least have someone in your team or someone should know this well to review this change ? Once this change get +2, you could Global-Approval to approve this change. If Global-Approval doesn\u0027t work for you, I could give you owner vote then.",
       "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10192143_f9b638f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2021-12-22T10:00:43Z",
+      "side": 1,
+      "message": "It\u0027s impossible to get a change id that exists in sc-mainline-prod but does not exist in master, because master is a downstream branch of sc-mainline-prod. Even a DO NOT MERGE change will leave footage in downstream branchs. Therefore, the common practice that the mainline modularization team uses is to land a CL on master first, then cherry-pick it into aosp-master with a Merged-In tag that exists in both sc-mainline-prod and master.",
+      "parentUuid": "bdeb3a93_67664eac",
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
