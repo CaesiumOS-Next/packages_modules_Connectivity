@@ -36,10 +36,12 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import android.app.usage.NetworkStats;
 import android.app.usage.NetworkStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -69,7 +71,6 @@ import com.android.internal.R;
 import com.android.internal.util.test.FakeSettingsProvider;
 import com.android.server.LocalServices;
 import com.android.server.net.NetworkPolicyManagerInternal;
-import com.android.server.net.NetworkStatsManagerInternal;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
@@ -88,6 +89,7 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Set;
 
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
@@ -107,7 +109,6 @@ public class MultipathPolicyTrackerTest {
     @Mock private NetworkPolicyManager mNPM;
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private NetworkPolicyManagerInternal mNPMI;
-    @Mock private NetworkStatsManagerInternal mNetworkStatsManagerInternal;
     @Mock private TelephonyManager mTelephonyManager;
     private MockContentResolver mContentResolver;
 
@@ -165,9 +166,6 @@ public class MultipathPolicyTrackerTest {
         LocalServices.removeServiceForTest(NetworkPolicyManagerInternal.class);
         LocalServices.addService(NetworkPolicyManagerInternal.class, mNPMI);
 
-        LocalServices.removeServiceForTest(NetworkStatsManagerInternal.class);
-        LocalServices.addService(NetworkStatsManagerInternal.class, mNetworkStatsManagerInternal);
-
         mTracker = new MultipathPolicyTracker(mContext, mHandler, mDeps);
     }
 
@@ -215,7 +213,9 @@ public class MultipathPolicyTrackerTest {
             final boolean snoozeLimit = policyLimit == POLICY_SNOOZED;
             when(mNPM.getNetworkPolicies()).thenReturn(new NetworkPolicy[] {
                     new NetworkPolicy(
-                            NetworkTemplate.buildTemplateMobileWildcard(),
+                            new NetworkTemplate.Builder(NetworkTemplate.MATCH_MOBILE)
+                                    .setSubscriberIds(Set.of(TEST_IMSI1))
+                                    .setMeteredness(android.net.NetworkStats.METERED_YES).build(),
                             recurrenceRule,
                             snoozeWarning ? 0 : policyWarning,
                             snoozeLimit ? 0 : policyLimit,
@@ -236,8 +236,10 @@ public class MultipathPolicyTrackerTest {
         when(mResources.getInteger(R.integer.config_networkDefaultDailyMultipathQuotaBytes))
                 .thenReturn((int) defaultResSetting);
 
-        when(mNetworkStatsManagerInternal.getNetworkTotalBytes(
-                any(), anyLong(), anyLong())).thenReturn(usedBytesToday);
+        final NetworkStats.Bucket bucket = mock(NetworkStats.Bucket.class);
+        when(bucket.getTxBytes()).thenReturn(usedBytesToday / 3);
+        when(bucket.getRxBytes()).thenReturn(usedBytesToday - usedBytesToday / 3);
+        when(mStatsManager.querySummaryForDevice(any(), anyLong(), anyLong())).thenReturn(bucket);
 
         ArgumentCaptor<ConnectivityManager.NetworkCallback> networkCallback =
                 ArgumentCaptor.forClass(ConnectivityManager.NetworkCallback.class);
