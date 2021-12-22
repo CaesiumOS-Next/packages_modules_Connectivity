@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fe316fd_2afc7055",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2621,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T07:55:52Z",
+      "side": 1,
+      "message": "Sorry I meant it should be removed from here, not from there ; if you keep it there and remove it here both methods get the benefit of the check.",
+      "parentUuid": "7183197f_93104580",
+      "range": {
+        "startLine": 2621,
+        "startChar": 12,
+        "endLine": 2621,
+        "endChar": 50
+      },
+      "revId": "e7785470e81188dbe8dcb71aa89ee81b8ba775bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3890ae9d_35d87c2a",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 10

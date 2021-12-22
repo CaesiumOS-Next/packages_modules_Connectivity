@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8adcccd_c68b2031",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T07:55:52Z",
+      "side": 1,
+      "message": "Did you m checkdocs ? I think this still doesn\u0027t build.",
+      "range": {
+        "startLine": 202,
+        "startChar": 13,
+        "endLine": 202,
+        "endChar": 14
+      },
+      "revId": "6dda7a2fe0945a331a4ea1291c7dea62130835f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5be82683_153b11f2",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 2899,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T07:55:52Z",
+      "side": 1,
+      "message": "Did you re-run the tests ? I think this won\u0027t pass them because you removed the check for getEnterpriseCapabilitySubLevels().length() !\u003d 0, so all uses of the builder will throw unless they add ENTERPRISE",
+      "range": {
+        "startLine": 2899,
+        "startChar": 16,
+        "endLine": 2899,
+        "endChar": 21
+      },
+      "revId": "6dda7a2fe0945a331a4ea1291c7dea62130835f9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
