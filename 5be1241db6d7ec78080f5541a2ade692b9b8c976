@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "51041ad6_11c4ca44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-12-22T05:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6441076_2967162b",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "5be1241db6d7ec78080f5541a2ade692b9b8c976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "76268b64_17f79592",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b68ca225_c1a84666",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-12-22T05:46:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc43c8b3_b4c57318",
+      "range": {
+        "startLine": 1043,
+        "startChar": 16,
+        "endLine": 1043,
+        "endChar": 33
+      },
+      "revId": "5be1241db6d7ec78080f5541a2ade692b9b8c976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05b485d7_422e23b6",
@@ -77,6 +125,30 @@
       "writtenOn": "2021-12-21T06:45:32Z",
       "side": 1,
       "message": "VPN. This is only relevant for VPNs.",
+      "range": {
+        "startLine": 319,
+        "startChar": 55,
+        "endLine": 319,
+        "endChar": 62
+      },
+      "revId": "5be1241db6d7ec78080f5541a2ade692b9b8c976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bb7172b_98d33770",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-12-22T05:46:13Z",
+      "side": 1,
+      "message": "moved into NetworkAgentConfig",
+      "parentUuid": "05b485d7_422e23b6",
       "range": {
         "startLine": 319,
         "startChar": 55,
@@ -123,6 +195,54 @@
       "writtenOn": "2021-12-21T06:45:32Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 320,
+        "startChar": 4,
+        "endLine": 320,
+        "endChar": 11
+      },
+      "revId": "5be1241db6d7ec78080f5541a2ade692b9b8c976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f63509c4_e1554947",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-12-22T05:46:13Z",
+      "side": 1,
+      "message": "moved into NetworkAgentConfig",
+      "parentUuid": "82a5e8aa_6a2fb1e0",
+      "range": {
+        "startLine": 320,
+        "startChar": 33,
+        "endLine": 320,
+        "endChar": 38
+      },
+      "revId": "5be1241db6d7ec78080f5541a2ade692b9b8c976",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51e75bb9_93deaeb8",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2021-12-22T05:46:13Z",
+      "side": 1,
+      "message": "moved into NetworkAgentConfig",
+      "parentUuid": "dec69bb4_f3b08aa6",
       "range": {
         "startLine": 320,
         "startChar": 4,
