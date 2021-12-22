@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14ccbba1_cc113211",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T12:48:33Z",
+      "side": 1,
+      "message": "1.\nI agree with your assessment. The bind I\u0027m in about this is a mix of legacy, performance and timelines.\n\nLong-term I hope we can use these UIDs for all cases. We\u0027d retire the SYSTEM permission from netd and implement backward compatibility in CS by leveraging this field. Details : http://go/per-uid-net-permissions in section \"The future\". \n\nNow, doing this is a medium amount of work in CS and PermissionMonitor. But importantly, the netd architecture would not really support this performance-wise because of the large number of IP rules involved, which have to be matched for each packet.\n\nMaze is trying to improve that architecture and hopefully the future architecture can support this kind of use case, letting us simplify the whole thing.\n\nBut for T, we can\u0027t do something like this ; we don\u0027t even know exactly how we\u0027d do it. We do need however to have a list of UIDs that can access restricted networks without the permission, so something like this is needed regardless. We can discuss the naming and the documentation.\n\nAbuse is meant to be regulated by the restrictions described below. Agents have pretty stringent limitations on what they can do, and this code is mainline.\n\nThe USE_MORE_RESTRICTED_NETWORKS is a valid concern in principle, but I think it\u0027s not very dangerous because we\u0027ve been having only these two levels of privilege for years and it\u0027s never come up in practice. What this API does though is strictly allow : it\u0027s not about changing privilege \"levels\". In other words, even if we needed to have more than 2 permission levels, the semantics of this would still have to be to allow or deny, it wouldn\u0027t be \"increase privilege to level x\".\n\n\n2.\nNo. Both mOwnerUid and mRequestorUid do something else, and both of them are only one UID, when this needs to be a list. What we could use instead is mUids, however mUids is defined to not send callbacks to UIDs not in the list. I regret that we made this choice back then, but I don\u0027t think we can change the semantics of that now because of backward compatibility.\nWhat we could do instead is to say that mUids keeps the current semantics for VPNs, but takes these new semantics for other networks (which don\u0027t use it). This would work, but then the callback code in CS has to be very careful about what it sends to whom. This here allows to not change the current code.",
+      "parentUuid": "7e14d973_9b85fe04",
+      "range": {
+        "startLine": 1665,
+        "startChar": 54,
+        "endLine": 1666,
+        "endChar": 98
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f3c049d_5c1266c3",
         "filename": "framework/src/android/net/NetworkCapabilities.java",
         "patchSetId": 4
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-15T18:39:30Z",
       "side": 1,
       "message": "nit: It is unclear to me about the functionality by its name.\nMaybe setAlwaysAccessUids?\nNo strong opinion.",
+      "range": {
+        "startLine": 1685,
+        "startChar": 16,
+        "endLine": 1685,
+        "endChar": 29
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edf0697f_1975ebf8",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T12:48:33Z",
+      "side": 1,
+      "message": "Main problem with \"setAlwaysAccessUids\" is the future plans, where hopefully we can remove the SYSTEM permission in netd. When that happens, \"always\" (while not particularly incorrect) will feel strange.\n\nI don\u0027t find this great either. I\u0027m open to other suggestions. Given that you don\u0027t seem to feel strongly I think I\u0027ll keep what I have, and maybe the API council will tell me to change it to something else.",
+      "parentUuid": "3f3c049d_5c1266c3",
       "range": {
         "startLine": 1685,
         "startChar": 16,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd1035e_d337e16b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6134,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T12:48:33Z",
+      "side": 1,
+      "message": "This is a great idea. Done in aosp/1927031",
+      "parentUuid": "1832f51a_33c88658",
+      "range": {
+        "startLine": 6134,
+        "startChar": 17,
+        "endLine": 6134,
+        "endChar": 28
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59dc5e5a_d6170120",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-12-15T18:39:30Z",
       "side": 1,
       "message": "It looks to me this could be a generic function that also do other permission enforcement?\n1. If so maybe refactor other checks to this function?\n2. validateNetworkCapabilities is vague to me about its purpose. Is it better to name it more specific? e.g. enforeceNetworkCapabilitiesPermissions",
+      "range": {
+        "startLine": 6865,
+        "startChar": 21,
+        "endLine": 6865,
+        "endChar": 48
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b6d1201_4a2a38c3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6865,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-22T12:48:33Z",
+      "side": 1,
+      "message": "1. Yes it is a generic function but not sure what other tests you want me to move there ; the requireNonNull()s above are not about the caps (except the one check for caps which is admittedly redundant), and the TRANSPORT_TEST check has the same issue I have in \n\n2. I was thinking that the \"NetworkAgent\" qualification was sufficient, but now that I see it spelled out I tend to agree. Renamed.",
+      "parentUuid": "59dc5e5a_d6170120",
       "range": {
         "startLine": 6865,
         "startChar": 21,
