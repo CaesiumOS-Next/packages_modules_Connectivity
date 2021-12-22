@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdeb3a93_67664eac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-22T09:55:57Z",
+      "side": 1,
+      "message": "sc-mainline-prod is the downstream of aosp in this package/modules/Connectivity. I don\u0027t think your Merged-In tag could prevent this change auto merge to sc-mainline-prod branch. Your Merged-In tag should use the id which exist in sc-mainline-prod but not exist in master.\n\nBTW, I think I don\u0027t have enough context to review change for systemserverclasspath_fragments. Could you at least have someone in your team or someone should know this well to review this change ? Once this change get +2, you could Global-Approval to approve this change. If Global-Approval doesn\u0027t work for you, I could give you owner vote then.",
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
