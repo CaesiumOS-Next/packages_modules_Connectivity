@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fab2626_200c25c7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-12-22T03:50:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "696e56d6_abe2043a",
+      "range": {
+        "startLine": 89,
+        "startChar": 19,
+        "endLine": 89,
+        "endChar": 50
+      },
+      "revId": "043e483ac6659cdc97887ef6fdeba0994e57c1d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2292c29c_ae8a5117",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-20T09:52:52Z",
       "side": 1,
       "message": "Is it better to name it buildTetherStatsParcel?\nIIUC it is not empty since we filled the fields?",
+      "range": {
+        "startLine": 242,
+        "startChar": 42,
+        "endLine": 242,
+        "endChar": 47
+      },
+      "revId": "043e483ac6659cdc97887ef6fdeba0994e57c1d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ecc0ba2_cd9afcc7",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-12-22T03:50:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2292c29c_ae8a5117",
       "range": {
         "startLine": 242,
         "startChar": 42,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "216290be_4c1929cd",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-12-22T03:50:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecfd61c0_ff4b6eb9",
+      "range": {
+        "startLine": 1028,
+        "startChar": 39,
+        "endLine": 1028,
+        "endChar": 42
+      },
+      "revId": "043e483ac6659cdc97887ef6fdeba0994e57c1d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b842fec_4bcdbe57",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-12-20T09:52:52Z",
       "side": 1,
       "message": "Is it used anywhere?\nAlso for tetheredStats1",
+      "range": {
+        "startLine": 1031,
+        "startChar": 27,
+        "endLine": 1031,
+        "endChar": 41
+      },
+      "revId": "043e483ac6659cdc97887ef6fdeba0994e57c1d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbcb7e9d_8f823021",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2021-12-22T03:50:28Z",
+      "side": 1,
+      "message": "The tetheredStats2 is not used, so remove it.\nThe tetheredStats1 is still used in L1066, so keep it.",
+      "parentUuid": "7b842fec_4bcdbe57",
       "range": {
         "startLine": 1031,
         "startChar": 27,
