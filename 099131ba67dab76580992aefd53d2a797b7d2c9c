@@ -321,6 +321,30 @@
       },
       "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d96a8a_37a56694",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T15:15:14Z",
+      "side": 1,
+      "message": "I wanted this to be in a CTS test as well. Hence it is here. I did not see a specific NetworkCapabilities test in CTS.",
+      "parentUuid": "b7e36f6d_776dbf3b",
+      "range": {
+        "startLine": 482,
+        "startChar": 16,
+        "endLine": 482,
+        "endChar": 50
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
