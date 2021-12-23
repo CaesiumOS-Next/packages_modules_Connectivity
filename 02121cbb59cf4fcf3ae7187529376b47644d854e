@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f595da_f2787f49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:41:53Z",
+      "side": 1,
+      "message": "Do you want to add the tests before we check this in ?\n",
+      "revId": "02121cbb59cf4fcf3ae7187529376b47644d854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bccf911_b933530e",
+        "filename": "framework/src/android/net/IpConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:41:53Z",
+      "side": 1,
+      "message": "This scheme means there is a difference between not calling setStaticIpConfiguration and calling it with null ; worse, it means there is no way to reset it to its original state.\n\nI think this is at least very uncustomary. API guidelines section 5.6.5.1, albeit discussing another topic, speaks of using @Nullable setters to reset the properties of the builder.\n\nDo we actually need UNASSIGNED at all ? When reviewing the previous patchset I was thinking that, given that this is a new public API, we may not want to support UNASSIGNED semantics at all ; I was observing that it\u0027s difficult to understand where the old settings will be taken from. At the end of the day a user of this API is looking to configure a network, so API-wise I think it makes more sense to only give them the choice between DHCP or static, without a \"don\u0027t touch what existed\" option, because if they\u0027re looking to configure it they should know what the configuration should be.",
+      "range": {
+        "startLine": 295,
+        "startChar": 16,
+        "endLine": 295,
+        "endChar": 41
+      },
+      "revId": "02121cbb59cf4fcf3ae7187529376b47644d854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67f1b2f5_11267ee8",
+        "filename": "framework/src/android/net/StaticIpConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:41:53Z",
+      "side": 1,
+      "message": "Presumably this needs to be updated, since OEMs have every right to alter this and it\u0027s even more unclear who \"we\" is now that this is public.",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 40,
+        "endChar": 79
+      },
+      "revId": "02121cbb59cf4fcf3ae7187529376b47644d854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7c9c960_89ea7048",
+        "filename": "framework/src/android/net/StaticIpConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:41:53Z",
+      "side": 1,
+      "message": "This also is mostly an implementation note and probably doesn\u0027t really belong in public documentation.",
+      "range": {
+        "startLine": 44,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "02121cbb59cf4fcf3ae7187529376b47644d854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
