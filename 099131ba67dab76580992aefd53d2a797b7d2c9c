@@ -345,6 +345,30 @@
       },
       "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d4d1899_5f1a86ef",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T17:18:11Z",
+      "side": 1,
+      "message": "Thinking again, I can cover it in DPM tests. Will remove it from here",
+      "parentUuid": "39d96a8a_37a56694",
+      "range": {
+        "startLine": 482,
+        "startChar": 16,
+        "endLine": 482,
+        "endChar": 50
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
