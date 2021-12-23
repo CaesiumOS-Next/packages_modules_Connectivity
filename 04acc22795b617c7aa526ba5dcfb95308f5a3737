@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c9177d3_8598c6c2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 6121,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-23T12:38:34Z",
+      "side": 1,
+      "message": "nit: It seems to me these could be static.\nFeel free to ignore.",
+      "range": {
+        "startLine": 6121,
+        "startChar": 12,
+        "endLine": 6121,
+        "endChar": 16
+      },
+      "revId": "04acc22795b617c7aa526ba5dcfb95308f5a3737",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
