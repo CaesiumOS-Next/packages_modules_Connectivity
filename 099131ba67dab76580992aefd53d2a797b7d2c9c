@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac27a521_b6db2121",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:52:54Z",
+      "side": 1,
+      "message": "LGTM but please look at comments. You can address them in a followup.\n\nAnother thing to consider is that this is fine on the network side, but apps will also need an API in NetworkRequest so that they can actually request this.\n",
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "633dae7f_5d2afc5e",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:52:54Z",
+      "side": 1,
+      "message": "How did we choose that 5 was the right number ? I think having few constants limits the potential for abuse to some extent ; if we\u0027re happy with 2 or 3 I think we should only define 2 or 3.",
+      "range": {
+        "startLine": 128,
+        "startChar": 34,
+        "endLine": 128,
+        "endChar": 71
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ff5df45_a184b820",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:52:54Z",
+      "side": 1,
+      "message": "I think you wanted an int here now that mEnterpriseCapabilitySubLevel is an int. This will cause the intermediate rvalue below to be a long and to cast it with truncation inside the int. It would work fine now because we don\u0027t touch the sign bit, but let\u0027s type it correctly now :)",
+      "range": {
+        "startLine": 813,
+        "startChar": 14,
+        "endLine": 813,
+        "endChar": 18
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c0927c4_9498bc5e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:52:54Z",
+      "side": 1,
+      "message": "int here too",
+      "range": {
+        "startLine": 924,
+        "startChar": 14,
+        "endLine": 924,
+        "endChar": 18
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f77d10fa_041b7d24",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2282,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:52:54Z",
+      "side": 1,
+      "message": "I think we usually call these methods that throw enforce* instead of check*\n\nNot feeling strongly",
+      "range": {
+        "startLine": 2282,
+        "startChar": 24,
+        "endLine": 2282,
+        "endChar": 29
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e0e294e_4f59a023",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:52:54Z",
+      "side": 1,
+      "message": "nit : final (also in l.854)",
+      "range": {
+        "startLine": 845,
+        "startChar": 8,
+        "endLine": 845,
+        "endChar": 13
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f880b3_84ecd1c7",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:52:54Z",
+      "side": 1,
+      "message": "nit : i",
+      "range": {
+        "startLine": 854,
+        "startChar": 37,
+        "endLine": 854,
+        "endChar": 38
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7e36f6d_776dbf3b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkRequestTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T08:52:54Z",
+      "side": 1,
+      "message": "QQ : Why is this in NetworkRequestTest rather than NetworkCapabilitiesTest ? It doesn\u0027t seem to use NetworkRequest at all.",
+      "range": {
+        "startLine": 482,
+        "startChar": 16,
+        "endLine": 482,
+        "endChar": 50
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
