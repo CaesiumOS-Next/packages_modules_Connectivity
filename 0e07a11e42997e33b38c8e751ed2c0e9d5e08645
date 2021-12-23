@@ -141,6 +141,30 @@
       },
       "revId": "0e07a11e42997e33b38c8e751ed2c0e9d5e08645",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be639ad1_7698b2ff",
+        "filename": "Tethering/tests/privileged/src/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-23T11:03:31Z",
+      "side": 1,
+      "message": "There are two option you could do:\n1. Have new test target (ConnectivityPriviledgedTests) for this test.\n\n2. Second option is just let the test use its own jarjar and have its own JNI.\nI have upload a new CL: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1930834.\nIt separate the tethering JNI to libtetheringjni which is tethering internal jni and libcom_android_networkstack_tethering_util_jni which is include the shared jni from frameworks/libs/net. You could base on that CL and add your own jni for this test (see below code snippet). And you don\u0027t need call System.loadLibrary in the test file, it should be statically load by BpfMap.java. Note: the jni lib name \"libcom_android_tethering_test_jni\" is matter. It match the jarjar\u0027ed package name.\n\nReplacing jarjar in Tethering/tests/jarjar-rules.txt :\n  - rule com.android.net.module.util.** com.android.networkstack.tethering.util.@1\n  + rule com.android.net.module.util.** com.android.tethering.test.@1\n\nIn packages/modules/Connectivity/Tethering/tests/privileged/Android.bp\n+cc_library_shared {\n+    name: \"libcom_android_tethering_test_jni\",\n+    sdk_version: \"30\",\n+    min_sdk_version: \"30\",\n+    srcs: [\n+        \"jni/onload.cpp\",\n+    ],\n+    stl: \"libc++_static\",\n+    header_libs: [\n+        \"bpf_syscall_wrappers\",\n+        \"bpf_connectivity_headers\",\n+    ],\n+    static_libs: [\n+        \"libnet_utils_device_common_bpfjni\",\n+        \"libbpfutilsjni\",\n+    ],\n+    shared_libs: [\n+        \"liblog\",\n+        \"libnativehelper_compat_libc++\",\n+    ],\n+}\n\nandroid_test {\n    name: \"TetheringPrivilegedTests\",\n    \n+    jni_libs: [\n+        \"libcom_android_tethering_test_jni\",\n+    ],    \n     ....\n}\n\nImplement your own onLoad\npackages/modules/Connectivity/Tethering/tests/privileged/jni/onload.cpp\n\n+#include \u003cnativehelper/JNIHelp.h\u003e\n+#include \u003clog/log.h\u003e\n+\n+namespace android {\n+\n+int register_com_android_net_module_util_BpfMap(JNIEnv* env, char const* +class_name);\n+\n+extern \"C\" jint JNI_OnLoad(JavaVM* vm, void*) {\n+    JNIEnv *env;\n+    if (vm-\u003eGetEnv(reinterpret_cast\u003cvoid**\u003e(\u0026env), JNI_VERSION_1_6) !\u003d JNI_OK) {\n+        ALOGE(\"GetEnv failed\");\n+        return JNI_ERR;\n+    }\n+\n+    if (register_com_android_net_module_util_BpfMap(env,\n+            \"com/android/tethering/test/BpfMap\") \u003c 0) return JNI_ERR;\n+\n+    return JNI_VERSION_1_6;\n+}\n+\n+};",
+      "parentUuid": "0b71c321_a1157074",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 90
+      },
+      "revId": "0e07a11e42997e33b38c8e751ed2c0e9d5e08645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
