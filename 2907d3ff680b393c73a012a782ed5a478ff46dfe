@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afeb67e6_9c60d1cb",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-23T06:33:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "099cfb16_522dc6b6",
+      "range": {
+        "startLine": 22,
+        "startChar": 84,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e35726b_cdfe44ba",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-15T22:34:30Z",
       "side": 1,
       "message": "technically I also don\u0027t understand the difference between\n  \"net-utils-device-common-bpf\",\nand\n  \"libnet_utils_device_common_bpfjni\",",
+      "range": {
+        "startLine": 39,
+        "startChar": 9,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6059d181_4c8ff5e4",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-23T06:33:37Z",
+      "side": 1,
+      "message": "This is the native implementation library and provide the register function for JNI. libcom_android_connectivity_com_android_net_module_util_jni here implement the onLoad which call the register function from libnet_utils_device_common_bpfjni.\n\nnet-utils-device-common-bpf is the java side library which provide the java class to use and load JNI.",
+      "parentUuid": "5e35726b_cdfe44ba",
       "range": {
         "startLine": 39,
         "startChar": 9,
@@ -111,6 +159,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebd8138c_e1778625",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-23T06:33:37Z",
+      "side": 1,
+      "message": "Oops, I should remove this.",
+      "parentUuid": "9f92e049_f18bd8f2",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 6
+      },
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "970df880_c74020ed",
@@ -124,6 +196,30 @@
       "writtenOn": "2021-12-15T22:32:23Z",
       "side": 1,
       "message": "why?",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "2907d3ff680b393c73a012a782ed5a478ff46dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eab8a88_8aaed1bb",
+        "filename": "service/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-23T06:33:37Z",
+      "side": 1,
+      "message": "This is the java library which use and statically load JNI.",
+      "parentUuid": "970df880_c74020ed",
       "range": {
         "startLine": 103,
         "startChar": 0,
