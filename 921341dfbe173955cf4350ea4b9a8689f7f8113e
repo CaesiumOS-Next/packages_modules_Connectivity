@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5be58bac_d1cb1dcd",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 8
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-23T11:47:55Z",
+      "side": 1,
+      "message": "Is it better if we have a separate test about:\n 1. a template which has KEY1, KEY2 is equal to KEY2, KEY1?\n 2. a set contains null key generates the template you want.\n 3. a empty set of key generates the template you want.",
+      "revId": "921341dfbe173955cf4350ea4b9a8689f7f8113e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
