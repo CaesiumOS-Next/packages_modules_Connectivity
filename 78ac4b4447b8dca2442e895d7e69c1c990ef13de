@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3381f672_8c97f326",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-23T12:36:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "14ccbba1_cc113211",
+      "range": {
+        "startLine": 1665,
+        "startChar": 54,
+        "endLine": 1666,
+        "endChar": 98
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f3c049d_5c1266c3",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "Main problem with \"setAlwaysAccessUids\" is the future plans, where hopefully we can remove the SYSTEM permission in netd. When that happens, \"always\" (while not particularly incorrect) will feel strange.\n\nI don\u0027t find this great either. I\u0027m open to other suggestions. Given that you don\u0027t seem to feel strongly I think I\u0027ll keep what I have, and maybe the API council will tell me to change it to something else.",
       "parentUuid": "3f3c049d_5c1266c3",
+      "range": {
+        "startLine": 1685,
+        "startChar": 16,
+        "endLine": 1685,
+        "endChar": 29
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb0ef9e_52cc2403",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-23T12:36:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "edf0697f_1975ebf8",
       "range": {
         "startLine": 1685,
         "startChar": 16,
@@ -196,6 +244,30 @@
       "side": 1,
       "message": "1. Yes it is a generic function but not sure what other tests you want me to move there ; the requireNonNull()s above are not about the caps (except the one check for caps which is admittedly redundant), and the TRANSPORT_TEST check has the same issue I have in \n\n2. I was thinking that the \"NetworkAgent\" qualification was sufficient, but now that I see it spelled out I tend to agree. Renamed.",
       "parentUuid": "59dc5e5a_d6170120",
+      "range": {
+        "startLine": 6865,
+        "startChar": 21,
+        "endLine": 6865,
+        "endChar": 48
+      },
+      "revId": "78ac4b4447b8dca2442e895d7e69c1c990ef13de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67d694cb_46358f1c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 6865,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-23T12:36:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b6d1201_4a2a38c3",
       "range": {
         "startLine": 6865,
         "startChar": 21,
