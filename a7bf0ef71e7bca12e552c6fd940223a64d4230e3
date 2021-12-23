@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f333466b_32b452c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T09:18:04Z",
+      "side": 1,
+      "message": "Only an unimportant nit, feel free to ignore",
+      "revId": "a7bf0ef71e7bca12e552c6fd940223a64d4230e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e50f2b_fa2f848b",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultipathPolicyTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T09:18:04Z",
+      "side": 1,
+      "message": "Since this is new code you\u0027re writing let\u0027s use the modern scheme :\n\n  doReturn(...).when(bytes).getTxBytes()",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 240,
+        "endChar": 12
+      },
+      "revId": "a7bf0ef71e7bca12e552c6fd940223a64d4230e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
