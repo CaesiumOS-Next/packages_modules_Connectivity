@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40afb3a8_8032ae84",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T15:12:54Z",
+      "side": 1,
+      "message": "This was the requirement before I joined. Stella said this went back and forth a lot and was decided as 5.",
+      "parentUuid": "633dae7f_5d2afc5e",
+      "range": {
+        "startLine": 128,
+        "startChar": 34,
+        "endLine": 128,
+        "endChar": 71
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ff5df45_a184b820",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-12-23T08:52:54Z",
       "side": 1,
       "message": "I think you wanted an int here now that mEnterpriseCapabilitySubLevel is an int. This will cause the intermediate rvalue below to be a long and to cast it with truncation inside the int. It would work fine now because we don\u0027t touch the sign bit, but let\u0027s type it correctly now :)",
+      "range": {
+        "startLine": 813,
+        "startChar": 14,
+        "endLine": 813,
+        "endChar": 18
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4683a112_cd4cdb9a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T15:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ff5df45_a184b820",
       "range": {
         "startLine": 813,
         "startChar": 14,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57d3c296_be154df1",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T15:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c0927c4_9498bc5e",
+      "range": {
+        "startLine": 924,
+        "startChar": 14,
+        "endLine": 924,
+        "endChar": 18
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f77d10fa_041b7d24",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-12-23T08:52:54Z",
       "side": 1,
       "message": "I think we usually call these methods that throw enforce* instead of check*\n\nNot feeling strongly",
+      "range": {
+        "startLine": 2282,
+        "startChar": 24,
+        "endLine": 2282,
+        "endChar": 29
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "490f6f66_cf625f12",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 2282,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T15:12:54Z",
+      "side": 1,
+      "message": "this follows the checkValidCapability convention, so sticks with existing convention.",
+      "parentUuid": "f77d10fa_041b7d24",
       "range": {
         "startLine": 2282,
         "startChar": 24,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2938a230_f092ce33",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T15:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e0e294e_4f59a023",
+      "range": {
+        "startLine": 845,
+        "startChar": 8,
+        "endLine": 845,
+        "endChar": 13
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84f880b3_84ecd1c7",
@@ -146,6 +266,30 @@
       "writtenOn": "2021-12-23T08:52:54Z",
       "side": 1,
       "message": "nit : i",
+      "range": {
+        "startLine": 854,
+        "startChar": 37,
+        "endLine": 854,
+        "endChar": 38
+      },
+      "revId": "099131ba67dab76580992aefd53d2a797b7d2c9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96ff434e_147c651c",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T15:12:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84f880b3_84ecd1c7",
       "range": {
         "startLine": 854,
         "startChar": 37,
