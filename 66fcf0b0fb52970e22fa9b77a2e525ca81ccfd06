@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc6182f5_1d12ad16",
+        "filename": "tests/common/java/android/net/NetworkAgentConfigTest.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T11:45:45Z",
+      "side": 1,
+      "message": "That\u0027s exactly correct, and that will mean that when we run this CTS on S with a recent module that has this, the S CTS will fail.\n\nNow, this is a bug in the existing CTS and there isn\u0027t anything you can do about the S CTS failing ; we\u0027ll be asked for waivers I think. We should try to find a way to avoid this happening in T too, but immediately your patch is not making things worse.",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 72
+      },
+      "revId": "66fcf0b0fb52970e22fa9b77a2e525ca81ccfd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a4494e_600772c1",
+        "filename": "tests/unit/java/com/android/internal/net/VpnProfileTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-23T11:45:45Z",
+      "side": 1,
+      "message": "I think you wanted to add the same test for the new flag",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 19
+      },
+      "revId": "66fcf0b0fb52970e22fa9b77a2e525ca81ccfd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
