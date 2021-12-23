@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28d05bef_ed7faf40",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-23T02:01:56Z",
+      "side": 1,
+      "message": "We could have similar utils in TetheringTester and RemoteResponder\n\nclass TetheringTester {\n    ....\n    public void verifyUpload(@NonNull final RemoteResponder dst, @NonNull final \n            ByteBuffer packet, final Predicate\u003cbyte[]\u003e filter) {\n        sendPacket(packet);\n        \n        assertNotNull(\"Upload fail\", dst.getNextMatchedPacket(filter));\n    }\n}\n\nclass RemoteResponder {\n    ....\n    public void verifyDownload(@NonNull final TetheringTester dst, @NonNull final \n            ByteBuffer packet, final Predicate\u003cbyte[]\u003e filter) {\n        sendPacket(packet);\n        \n        assertNotNull(\"Download fail\", dst.getNextMatchedPacket(filter));\n    }\n}\n\nThen you could use them like:\n\nverifyUpload(remote, packet, p -\u003e {\n    Log.d(TAG, \"Packet in upstream: \" + dumpHexString(p));\n    return isExpectedUdpPacket(false /* hasEther */, PAYLOAD, p);\n})\n\nverifyUpload(tester, packet, p -\u003e {\n    Log.d(TAG, \"Packet in downstream: \" + dumpHexString(p));\n    return isExpectedUdpPacket(true/* hasEther */, PAYLOAD2, p);\n})",
+      "range": {
+        "startLine": 770,
+        "startChar": 0,
+        "endLine": 794,
+        "endChar": 5
+      },
+      "revId": "8fac90b8fe96a3aa93e463394711e952fe56de44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9da62a_dc29779e",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-23T02:01:56Z",
+      "side": 1,
+      "message": "Is this guarantee that downstream interface would always asking ARP after runDhcp ?\nIf no, maybe you need to manually broadcast a ARP request to ask the mac address of downstream interface",
+      "range": {
+        "startLine": 89,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 65
+      },
+      "revId": "8fac90b8fe96a3aa93e463394711e952fe56de44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
