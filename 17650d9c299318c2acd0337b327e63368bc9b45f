@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00d08885_2099d2f9",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T04:36:52Z",
+      "side": 1,
+      "message": "As discussed we will keep the current design",
+      "parentUuid": "6d257b6b_ceb4e9c7",
+      "range": {
+        "startLine": 39,
+        "startChar": 38,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f121bf2b_e428555c",
@@ -180,6 +204,30 @@
       "side": 1,
       "message": "API guidelines say that a required argument is normally found in the constructor for the builder :\ngo/android-api-guidelines#builders-nonnull-constructors\n\nI don\u0027t understand how b/211528484 would remove the mUser field ; the suggestion is to have the preferences be a list of pairs of user/preference-int. We\u0027ll still have the user argument.",
       "parentUuid": "a28d6d4e_f712a782",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 24
+      },
+      "revId": "17650d9c299318c2acd0337b327e63368bc9b45f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a27f778_ebce8dfa",
+        "filename": "framework/src/android/net/ProfileNetworkPreferenceDetails.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-23T04:36:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b526543c_e307be8c",
       "range": {
         "startLine": 93,
         "startChar": 11,
