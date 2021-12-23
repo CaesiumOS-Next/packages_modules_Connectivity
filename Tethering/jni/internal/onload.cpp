@@ -22,7 +22,6 @@
 
 namespace android {
 
-int register_com_android_net_module_util_BpfMap(JNIEnv* env, char const* class_name);
 int register_com_android_networkstack_tethering_BpfCoordinator(JNIEnv* env);
 int register_com_android_networkstack_tethering_BpfUtils(JNIEnv* env);
 int register_com_android_networkstack_tethering_util_TetheringUtils(JNIEnv* env);
@@ -35,9 +34,6 @@ extern "C" jint JNI_OnLoad(JavaVM* vm, void*) {
     }
 
     if (register_com_android_networkstack_tethering_util_TetheringUtils(env) < 0) return JNI_ERR;
-
-    if (register_com_android_net_module_util_BpfMap(env,
-            "com/android/networkstack/tethering/util/BpfMap") < 0) return JNI_ERR;
 
     if (register_com_android_networkstack_tethering_BpfCoordinator(env) < 0) return JNI_ERR;
 

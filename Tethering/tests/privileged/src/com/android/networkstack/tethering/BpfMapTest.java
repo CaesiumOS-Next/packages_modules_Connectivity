@@ -18,8 +18,6 @@ package com.android.networkstack.tethering;
 
 import static android.system.OsConstants.ETH_P_IPV6;
 
-import static com.android.networkstack.tethering.util.TetheringUtils.getTetheringJniLibraryName;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -38,7 +36,6 @@ import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -58,11 +55,6 @@ public final class BpfMapTest {
     private ArrayMap<TetherDownstream6Key, Tether6Value> mTestData;
 
     private BpfMap<TetherDownstream6Key, Tether6Value> mTestMap;
-
-    @BeforeClass
-    public static void setupOnce() {
-        System.loadLibrary(getTetheringJniLibraryName());
-    }
 
     @Before
     public void setUp() throws Exception {

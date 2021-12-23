@@ -18,8 +18,6 @@ package com.android.networkstack.tethering;
 import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
-import static com.android.networkstack.tethering.util.TetheringUtils.getTetheringJniLibraryName;
-
 import android.net.util.InterfaceParams;
 
 import androidx.annotation.NonNull;
@@ -33,7 +31,7 @@ import java.io.IOException;
  */
 public class BpfUtils {
     static {
-        System.loadLibrary(getTetheringJniLibraryName());
+        System.loadLibrary("tetheringjni");
     }
 
     // For better code clarity when used for 'bool ingress' parameter.
