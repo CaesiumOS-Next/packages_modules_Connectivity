@@ -16,6 +16,46 @@
       "message": "(though you may want +1/+2 from Remi as well)",
       "revId": "8fb75e39167538aaf79ca4fa234ee3564fae97ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "747fe321_709a559f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-12-23T18:44:40Z",
+      "side": 1,
+      "message": "I\u0027m going to submit this.  Further changes - if desired - can go on top of this instead of blocking this CL.  It\u0027s TreeHugged and all that.",
+      "revId": "8fb75e39167538aaf79ca4fa234ee3564fae97ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b98820d0_df659bea",
+        "filename": "service/Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2021-12-23T18:44:40Z",
+      "side": 1,
+      "message": "it would be nice if we could replace this file with a shared one and -D CLASS_NAME\u003d\"com/android/connectivity/com/android/net/module/util/BpfMap\" up above.\n\nBut... that\u0027s an improvement and shouldn\u0027t get in the way of this which is already better than what we have now I think.\n\nOTOH, packages/modules/Connectivity/Tethering/jni/onload.cpp isn\u0027t a dupe of the new onload.cpp anyway... (because it registers more things)",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "8fb75e39167538aaf79ca4fa234ee3564fae97ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
