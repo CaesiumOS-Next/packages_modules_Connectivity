@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a00c4784_476794c9",
+        "filename": "framework/src/android/net/IpConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-24T01:35:49Z",
+      "side": 1,
+      "message": "+1, the IpAssignment enum does not seem particularly useful. From a public API perspective, I think it\u0027s best to say that IP configuration is either static (in which case the caller must set a non-null StaticIpConfiguration) or dynamic (in which case IP configuration must be null).\n\nI think it\u0027s fine not to support things like \"DHCP but with a manually configured gateway\" or \"DHCP with manually configured DNS servers\". That seems like a marginal use case and one that is difficult to get right (e.g., if the IPv4 address assigned by DHCP is not in the subnet as the gateway).",
+      "parentUuid": "1bccf911_b933530e",
+      "range": {
+        "startLine": 295,
+        "startChar": 16,
+        "endLine": 295,
+        "endChar": 41
+      },
+      "revId": "02121cbb59cf4fcf3ae7187529376b47644d854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "67f1b2f5_11267ee8",
         "filename": "framework/src/android/net/StaticIpConfiguration.java",
         "patchSetId": 2
