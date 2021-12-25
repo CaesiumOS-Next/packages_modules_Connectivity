@@ -20,6 +20,8 @@
 #include <linux/ioctl.h>
 #include <nativehelper/JNIHelp.h>
 #include <net/if.h>
+#include <spawn.h>
+#include <string>
 
 #include <netjniutils/netjniutils.h>
 
@@ -29,7 +31,14 @@
 // Sync from system/netd/include/netid_client.h
 #define MARK_UNSET 0u
 
+// Sync from system/netd/server/NetdConstants.h
+#define __INT_STRLEN(i) sizeof(#i)
+#define _INT_STRLEN(i) __INT_STRLEN(i)
+#define INT32_STRLEN _INT_STRLEN(INT32_MIN)
+
 namespace android {
+static const char* kClatdPath = "/apex/com.android.tethering/bin/for-system/clatd";
+
 static void throwIOException(JNIEnv* env, const char* msg, int error) {
     jniThrowExceptionFmt(env, "java/io/IOException", "%s: %s", msg, strerror(error));
 }
@@ -233,6 +242,129 @@ static void com_android_server_connectivity_ClatCoordinator_configurePacketSocke
     }
 }
 
+static jint com_android_server_connectivity_ClatCoordinator_startClatd(
+        JNIEnv* env, jobject clazz, jobject tunJavaFd, jobject readSockJavaFd,
+        jobject writeSockJavaFd, jstring iface, jstring pfx96, jstring v4, jstring v6) {
+    ScopedUtfChars ifaceStr(env, iface);
+    ScopedUtfChars pfx96Str(env, pfx96);
+    ScopedUtfChars v4Str(env, v4);
+    ScopedUtfChars v6Str(env, v6);
+
+    int tunFd = netjniutils::GetNativeFileDescriptor(env, tunJavaFd);
+    if (tunFd < 0) {
+        jniThrowExceptionFmt(env, "java/io/IOException", "Invalid tun file descriptor");
+        return -1;
+    }
+
+    int readSock = netjniutils::GetNativeFileDescriptor(env, readSockJavaFd);
+    if (readSock < 0) {
+        jniThrowExceptionFmt(env, "java/io/IOException", "Invalid read socket");
+        return -1;
+    }
+
+    int writeSock = netjniutils::GetNativeFileDescriptor(env, writeSockJavaFd);
+    if (writeSock < 0) {
+        jniThrowExceptionFmt(env, "java/io/IOException", "Invalid write socket");
+        return -1;
+    }
+
+    // 1. create a throwaway socket to reserve a file descriptor number
+    int passedTunFd = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (passedTunFd == -1) {
+        throwIOException(env, "socket(ipv6/udp) for tun fd failed", errno);
+        return -1;
+    }
+    int passedSockRead = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (passedSockRead == -1) {
+        throwIOException(env, "socket(ipv6/udp) for read socket failed", errno);
+        return -1;
+    }
+    int passedSockWrite = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (passedSockWrite == -1) {
+        throwIOException(env, "socket(ipv6/udp) for write socket failed", errno);
+        return -1;
+    }
+
+    // these are the FD we'll pass to clatd on the cli, so need it as a string
+    char passedTunFdStr[INT32_STRLEN];
+    char passedSockReadStr[INT32_STRLEN];
+    char passedSockWriteStr[INT32_STRLEN];
+    snprintf(passedTunFdStr, sizeof(passedTunFdStr), "%d", passedTunFd);
+    snprintf(passedSockReadStr, sizeof(passedSockReadStr), "%d", passedSockRead);
+    snprintf(passedSockWriteStr, sizeof(passedSockWriteStr), "%d", passedSockWrite);
+
+    // 2. we're going to use this as argv[0] to clatd to make ps output more useful
+    std::string progname("clatd-");
+    progname += ifaceStr.c_str();
+
+    // clang-format off
+    const char* args[] = {progname.c_str(),
+                          "-i", ifaceStr.c_str(),
+                          "-p", pfx96Str.c_str(),
+                          "-4", v4Str.c_str(),
+                          "-6", v6Str.c_str(),
+                          "-t", passedTunFdStr,
+                          "-r", passedSockReadStr,
+                          "-w", passedSockWriteStr,
+                          nullptr};
+    // clang-format on
+
+    // 3. register vfork requirement
+    posix_spawnattr_t attr;
+    if (posix_spawnattr_init(&attr)) {
+        throwIOException(env, "posix_spawnattr_init failed", errno);
+        return -1;
+    }
+    // TODO: const android::base::ScopeGuard attrGuard = [&] { posix_spawnattr_destroy(&attr); };
+    if (posix_spawnattr_setflags(&attr, POSIX_SPAWN_USEVFORK)) {
+        posix_spawnattr_destroy(&attr);
+        throwIOException(env, "posix_spawnattr_setflags failed", errno);
+        return -1;
+    }
+
+    // 4. register dup2() action: this is what 'clears' the CLOEXEC flag
+    // on the tun fd that we want the child clatd process to inherit
+    // (this will happen after the vfork, and before the execve)
+    posix_spawn_file_actions_t fa;
+    if (posix_spawn_file_actions_init(&fa)) {
+        posix_spawnattr_destroy(&attr);
+        throwIOException(env, "posix_spawn_file_actions_init failed", errno);
+        return -1;
+    }
+
+    if (posix_spawn_file_actions_adddup2(&fa, tunFd, passedTunFd)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        throwIOException(env, "posix_spawn_file_actions_adddup2 for tun fd failed", errno);
+        return -1;
+    }
+    if (posix_spawn_file_actions_adddup2(&fa, readSock, passedSockRead)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        throwIOException(env, "posix_spawn_file_actions_adddup2 for read socket failed", errno);
+        return -1;
+    }
+    if (posix_spawn_file_actions_adddup2(&fa, writeSock, passedSockWrite)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        throwIOException(env, "posix_spawn_file_actions_adddup2 for write socket failed", errno);
+        return -1;
+    }
+
+    // 5. actually perform vfork/dup2/execve
+    pid_t pid;
+    if (posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        throwIOException(env, "posix_spawn failed", errno);
+        return -1;
+    }
+
+    posix_spawnattr_destroy(&attr);
+    posix_spawn_file_actions_destroy(&fa);
+    return pid;
+}
+
 /*
  * JNI registration.
  */
@@ -255,6 +387,10 @@ static const JNINativeMethod gMethods[] = {
          (void*)com_android_server_connectivity_ClatCoordinator_addAnycastSetsockopt},
         {"configurePacketSocket", "(Ljava/io/FileDescriptor;Ljava/lang/String;I)V",
          (void*)com_android_server_connectivity_ClatCoordinator_configurePacketSocket},
+        {"startClatd",
+         "(Ljava/io/FileDescriptor;Ljava/io/FileDescriptor;Ljava/io/FileDescriptor;Ljava/lang/"
+         "String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I",
+         (void*)com_android_server_connectivity_ClatCoordinator_startClatd},
 };
 
 int register_android_server_connectivity_ClatCoordinator(JNIEnv* env) {
