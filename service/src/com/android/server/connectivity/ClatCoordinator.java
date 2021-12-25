@@ -171,6 +171,13 @@ public class ClatCoordinator {
                 @NonNull String v4, @NonNull String v6) throws IOException {
             return startClatd(tunfd, readsock6, writesock6, iface, pfx96, v4, v6);
         }
+
+        /**
+         * Stop clatd.
+         */
+        public void jniStopClatd(int pid) throws IOException {
+            stopClatd(pid);
+        }
     }
 
     @VisibleForTesting
@@ -328,6 +335,24 @@ public class ClatCoordinator {
         return v6;
     }
 
+    /**
+     * Stop clatd
+     */
+    public void clatStop() throws IOException {
+        if (mPid == -1) {
+            throw new IOException("Clatd has not started");
+        }
+        Log.i(TAG, "Stopping clatd pid=" + mPid + " on " + mIface);
+
+        mDeps.jniStopClatd(mPid);
+        // TODO: remove setIptablesDropRule
+
+        Log.i(TAG, "clatd on " + mIface + " stopped");
+
+        mIface = null;
+        mPid = INVALID_PID;
+    }
+
     private static native String selectIpv4Address(String v4addr, int prefixlen)
             throws IOException;
     private static native String generateIpv6Address(String iface, String v4, String prefix64)
@@ -344,4 +369,5 @@ public class ClatCoordinator {
     private static native int startClatd(FileDescriptor tunfd, FileDescriptor readsock6,
             FileDescriptor writesock6, String iface, String pfx96, String v4, String v6)
             throws IOException;
+    private static native void stopClatd(int pid) throws IOException;
 }
