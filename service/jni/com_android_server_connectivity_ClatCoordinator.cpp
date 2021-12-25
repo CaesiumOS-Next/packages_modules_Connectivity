@@ -22,6 +22,7 @@
 #include <nativehelper/JNIHelp.h>
 #include <net/if.h>
 #include <spawn.h>
+#include <sys/wait.h>
 #include <string>
 
 #include <netjniutils/netjniutils.h>
@@ -370,6 +371,17 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     return pid;
 }
 
+static void com_android_server_connectivity_ClatCoordinator_stopClatd(JNIEnv* env, jobject clazz,
+                                                                      jint pid) {
+    if (pid == -1) {
+        jniThrowExceptionFmt(env, "java/io/IOException", "Invalid pid");
+        return;
+    }
+
+    kill(pid, SIGTERM);
+    waitpid(pid, nullptr, 0);  // Should we block in JNI?
+}
+
 /*
  * JNI registration.
  */
@@ -396,6 +408,8 @@ static const JNINativeMethod gMethods[] = {
          "(Ljava/io/FileDescriptor;Ljava/io/FileDescriptor;Ljava/io/FileDescriptor;Ljava/lang/"
          "String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I",
          (void*)com_android_server_connectivity_ClatCoordinator_startClatd},
+        {"native_stopClatd", "(I)V",
+         (void*)com_android_server_connectivity_ClatCoordinator_stopClatd},
 };
 
 int register_android_server_connectivity_ClatCoordinator(JNIEnv* env) {
