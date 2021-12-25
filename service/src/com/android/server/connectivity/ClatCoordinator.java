@@ -162,6 +162,15 @@ public class ClatCoordinator {
                 throws IOException {
             native_configurePacketSocket(sock, v6, ifindex);
         }
+
+        /**
+         * Start clatd.
+         */
+        public int startClatd(@NonNull FileDescriptor tunfd, @NonNull FileDescriptor readsock6,
+                @NonNull FileDescriptor writesock6, @NonNull String iface, @NonNull String pfx96,
+                @NonNull String v4, @NonNull String v6) throws IOException {
+            return native_startClatd(tunfd, readsock6, writesock6, iface, pfx96, v4, v6);
+        }
     }
 
     @VisibleForTesting
@@ -196,6 +205,9 @@ public class ClatCoordinator {
     public String clatStart(final String iface, final int netId,
             @NonNull final IpPrefix nat64Prefix)
             throws IOException {
+        if (mIface != null || mPid != INVALID_PID) {
+            throw new IOException("Clatd has started on " + mIface + " (pid " + mPid + ")");
+        }
         if (nat64Prefix.getPrefixLength() != 96) {
             throw new IOException("Prefix must be 96 bits long: " + nat64Prefix);
         }
@@ -304,8 +316,16 @@ public class ClatCoordinator {
             throw new IOException("configure packet socket failed: " + e);
         }
 
-        // TODO: start clatd and returns local xlat464 v6 address.
-        return null;
+        // [5] Start clatd.
+        try {
+            mPid = mDeps.startClatd(tunFd.getFileDescriptor(), readSock6.getFileDescriptor(),
+                    writeSock6.getFileDescriptor(), iface, pfx96, v4, v6);
+            mIface = iface;
+        } catch (IOException e) {
+            throw new IOException("Error start clatd on " + iface + ": " + e);
+        }
+
+        return v6;
     }
 
     private static native String native_selectIpv4Address(String v4addr, int prefixlen)
@@ -321,4 +341,7 @@ public class ClatCoordinator {
             int ifindex) throws IOException;
     private static native void native_configurePacketSocket(FileDescriptor sock, String v6,
             int ifindex) throws IOException;
+    private static native int native_startClatd(FileDescriptor tunfd, FileDescriptor readsock6,
+            FileDescriptor writesock6, String iface, String pfx96, String v4, String v6)
+            throws IOException;
 }
