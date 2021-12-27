@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d81badb0_2ecc4c97",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-27T04:19:20Z",
+      "side": 1,
+      "message": "nits: these port are the same and be static final. Maybe just be TEST_PORT or change to different value.",
+      "range": {
+        "startLine": 739,
+        "startChar": 0,
+        "endLine": 740,
+        "endChar": 50
+      },
+      "revId": "bd9db77650098edbebaf2cc3d9682a574b446791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b753fab9_1a3bdfd0",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-27T04:19:20Z",
+      "side": 1,
+      "message": "nits: byte array would be more flexible for payload. Then, you could just wrap payload to ByteBuffer. E.g. l.809 ~ 810 could be removed.\n\n        final ByteBuffer replyPacket \u003d buildUdpv4Packet(ID2, REMOTE_IP4_ADDR /* srcIp */,\n                publicIp4Addr /* dstIp */, REMOTE_PORT /* srcPort */, PUBLIC_PORT /*dstPort */,\n                ByteBuffer.wrap(PAYLOAD) /* payload */);",
+      "range": {
+        "startLine": 747,
+        "startChar": 0,
+        "endLine": 748,
+        "endChar": 46
+      },
+      "revId": "bd9db77650098edbebaf2cc3d9682a574b446791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dfd71c7_e8693b11",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-27T04:19:20Z",
+      "side": 1,
+      "message": "srcMac and dstMac is annotated as NonNull, so you should pass null at l.800 and check whether it is null here.\n\nYou could just remove hasEther check and expected if caller use this function, it always build L2 Header and call to another buildUdpv4Packet function which only build L3+ layer.\n\n    @NonNull\n    private ByteBuffer buildUdpv4Packet(@NonNull final MacAddress srcMac,\n            @NonNull final MacAddress dstMac, short id,\n            @NonNull final Inet4Address srcIp, @NonNull final Inet4Address dstIp,\n            short srcPort, short dstPort, @Nullable final ByteBuffer payload)\n            throws Exception {\n        packetBuilder.writeL2Header(srcMac, dstMac, (short) ETHER_TYPE_IPV4);\n        buildUdpv4Packet(id, srcIp, dstIp, srcPort, dstPort, payload);\n    }\n\n    @NonNull\n    private ByteBuffer buildUdpv4Packet(short id, @NonNull final Inet4Address srcIp, @NonNull final Inet4Address dstIp, short srcPort, short dstPort, @Nullable final ByteBuffer payload) throws Exception {       \n        final int payloadLen \u003d (payload \u003d\u003d null) ? 0 : payload.limit();\n        final ByteBuffer buffer \u003d PacketBuilder.allocate(hasEther, IPPROTO_IP, IPPROTO_UDP,\n                payloadLen);\n        final PacketBuilder packetBuilder \u003d new PacketBuilder(buffer);\n\n        packetBuilder.writeIpv4Header(TYPE_OF_SERVICE, ID, FLAGS_AND_FRAGMENT_OFFSET,\n                TIME_TO_LIVE, (byte) IPPROTO_UDP, srcIp, dstIp);\n        packetBuilder.writeUdpHeader(srcPort, dstPort);\n        if (payload !\u003d null) {\n            buffer.put(payload);\n            // in case data might be reused by caller, restore the position and\n            // limit of bytebuffer.\n            payload.clear();\n        }\n\n        return packetBuilder.finalizePacket();\n    }",
+      "range": {
+        "startLine": 776,
+        "startChar": 34,
+        "endLine": 776,
+        "endChar": 66
+      },
+      "revId": "bd9db77650098edbebaf2cc3d9682a574b446791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "801a5149_5b3d2bc7",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-27T04:19:20Z",
+      "side": 1,
+      "message": "nits: maybe just name this as parseArpPacket and add @Nullable. Then user can know this would return null if paring fail.",
+      "range": {
+        "startLine": 159,
+        "startChar": 22,
+        "endLine": 159,
+        "endChar": 42
+      },
+      "revId": "bd9db77650098edbebaf2cc3d9682a574b446791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28db74f4_6377cf98",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-27T04:19:20Z",
+      "side": 1,
+      "message": "Does this need to move into the retry loop (l.201)?",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 29
+      },
+      "revId": "bd9db77650098edbebaf2cc3d9682a574b446791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edadbff1_b4d94ac3",
+        "filename": "Tethering/tests/integration/src/android/net/TetheringTester.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-27T04:19:20Z",
+      "side": 1,
+      "message": "Add a \"TODO: fix this race and remove this loop\" and also briefly mention why we need this.",
+      "range": {
+        "startLine": 201,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 53
+      },
+      "revId": "bd9db77650098edbebaf2cc3d9682a574b446791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
