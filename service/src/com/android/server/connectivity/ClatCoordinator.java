@@ -354,15 +354,13 @@ public class ClatCoordinator {
             mXlatLocalAddress4 = v4;
             mXlatLocalAddress6 = v6;
         } catch (IOException e) {
+            throw new IOException("Error start clatd on " + iface + ": " + e);
+        } finally {
             tunFd.close();
             readSock6.close();
             writeSock6.close();
-            throw new IOException("Error start clatd on " + iface + ": " + e);
         }
 
-        tunFd.close();
-        readSock6.close();
-        writeSock6.close();
         return v6;
     }
 
