@@ -19,6 +19,7 @@ package com.android.server.connectivity;
 import static android.net.ConnectivityDiagnosticsManager.ConnectivityReport;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.transportNamesOf;
+import static android.net.shared.NetworkMonitorUtils.isPrivateDnsValidationRequired;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -45,6 +46,8 @@ import android.net.QosFilter;
 import android.net.QosFilterParcelable;
 import android.net.QosSession;
 import android.net.TcpKeepalivePacketData;
+import android.net.PrivateDnsConfigParcel;
+import android.net.shared.PrivateDnsConfig;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -57,6 +60,7 @@ import android.util.SparseArray;
 
 import com.android.internal.util.WakeupMessage;
 import com.android.server.ConnectivityService;
+import com.android.server.connectivity.DnsManager;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -338,6 +342,8 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     // Used by ConnectivityService to keep track of 464xlat.
     public final Nat464Xlat clatd;
 
+    private final DnsManager mDnsManager;
+
     // Set after asynchronous creation of the NetworkMonitor.
     private volatile NetworkMonitorManager mNetworkMonitor;
 
@@ -377,6 +383,7 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         this.creatorUid = creatorUid;
         mLingerDurationMs = lingerDurationMs;
         mQosCallbackTracker = qosCallbackTracker;
+        mDnsManager = new DnsManager(mContext, dnsResolver);
         declaredUnderlyingNetworks = (nc.getUnderlyingNetworks() != null)
                 ? nc.getUnderlyingNetworks().toArray(new Network[0])
                 : null;
@@ -727,6 +734,11 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         final NetworkMonitorManager nm = mNetworkMonitor;
         if (nm != null) {
             nm.notifyNetworkCapabilitiesChanged(nc);
+            final boolean isOldNcRequired = isPrivateDnsValidationRequired(oldNc);
+            final boolean isNewNcRequired = isPrivateDnsValidationRequired(networkCapabilities);
+            if (isNewNcRequired && !isOldNcRequired) {
+                nm.notifyPrivateDnsChanged(mDnsManager.getPrivateDnsConfig().toParcel());
+            }
         }
         return oldNc;
     }
