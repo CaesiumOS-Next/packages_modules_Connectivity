@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa4552a0_be92d724",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-27T02:27:33Z",
+      "side": 1,
+      "message": "What\u0027s a sublevel? \"Sublevel\" seems to imply it\u0027s an additional level below another level that exists, but AFAIK there is no concept of \"level\" at the moment in NetworkCapabilities. If so, then why not just \"getEnterpriseCapabilityLevel\"? But also, why \"level\" at all? Are multiple levels supersets of each other, or otherwise ordered with respect to each other? If not, then maybe this should be called EnterpriseSpecifier or EnterpriseSelector or EnterpriseDiscriminator or EnterpriseIdentifier or some such? (I don\u0027t think you need the word \"capability\" in the name since this is already in a class called NetworkCapabilities.",
+      "range": {
+        "startLine": 296,
+        "startChar": 56,
+        "endLine": 296,
+        "endChar": 65
+      },
+      "revId": "4196937bdda20ef09fdba47325abb7e497e635eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0d05bc4_c99f6be4",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-27T02:27:33Z",
+      "side": 1,
+      "message": "This needs better javadoc. It should at least explain, for example:\n\n- That it\u0027s only intended for use with NET_CAPABILITY_ENTERPRISE.\n- Which (if any) of these capabilities will be set by default on enterprise networks.\n- Which (if any) of these are present by default in a request with NET_CAPABILITY_ENTERPRISE (presumably none of them?)\n- What the matching semantics are. Are they mutually exclusive? Can more than one of these be offered by a given network? Can more than one of these be present in a given request? If not, why not? If so, then is the request satisfied when at least one of these matches the network (like transports) or only when all of them match the network (like capabilities)?\n\nPlease also start sentences with a capital letter and end them with a period.",
+      "range": {
+        "startLine": 152,
+        "startChar": 7,
+        "endLine": 152,
+        "endChar": 40
+      },
+      "revId": "4196937bdda20ef09fdba47325abb7e497e635eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
