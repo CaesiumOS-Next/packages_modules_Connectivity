@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000018744895",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1934178?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "92d79eec_4dbd152b",
+          "description": "Change to \"tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java\"",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+              "range": {
+                "startLine": 97,
+                "startChar": 11,
+                "endLine": 97,
+                "endChar": 20
+              },
+              "replacement": "overridden"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "0d2a5b58_f0fb50ef",
+        "filename": "tests/unit/java/com/android/server/connectivity/ClatCoordinatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2021-12-27T07:12:15Z",
+      "side": 1,
+      "message": "Common typo found: \"overriden\" -- should it be \"overridden\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 97,
+        "startChar": 11,
+        "endLine": 97,
+        "endChar": 20
+      },
+      "revId": "1b8b8e929bdc467ad6d6f2edfb2b538ebf193ee9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
