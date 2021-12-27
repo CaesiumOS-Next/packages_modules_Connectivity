@@ -7596,6 +7596,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     nai.network.getNetId(), newNc.getTransportTypes());
         }
 
+        if (!prevNc.hasCapability(NET_CAPABILITY_INTERNET)
+                && nc.hasCapability(NET_CAPABILITY_INTERNET)) {
+            handlePrivateDnsSettingsChanged();
+        }
+
         maybeSendProxyBroadcast(nai, prevNc, newNc);
     }
 
