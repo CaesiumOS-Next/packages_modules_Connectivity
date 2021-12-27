@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "245bc2b7_f15c90ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-27T11:35:54Z",
+      "side": 1,
+      "message": "We can\u0027t test this directly in CTS with our infrastructure as it is now, because CTS can\u0027t create the networks required to test this. That\u0027s why testing is done in ConnectivityServiceTest, which has good coverage, and we use the PANS code coverage to gain some confidence about this as it uses all the same infrastructer.\n\nWhat we can do is create a new constant only for test in the same way we have for PANS and use that in CTS ; we didn\u0027t do this before because that would make the test almost identical to the PANS one.",
+      "parentUuid": "046afe0a_c3b2a78e",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "fafa183f95b0b93cfba752cf57a2db6c8f300921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c202d15c_e9c72354",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 15

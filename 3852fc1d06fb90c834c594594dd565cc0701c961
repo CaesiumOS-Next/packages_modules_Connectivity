@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96cd1384_483bb0a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-27T11:35:54Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s a goal to avoid affecting the API signature – besides it doesn\u0027t because we\u0027ll be adding methods to the builder of the new object.\n\nThe reason we\u0027re doing this is because the new object will offer a simpler public API by letting callers only set the parameters they care about, and not deal with an API with a lot of arguments.",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 65
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19f06c0b_fec76f9e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 5465,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-27T11:35:54Z",
+      "side": 1,
+      "message": "Maybe just \"as it provides a more flexible API with more options\" ?",
+      "range": {
+        "startLine": 5465,
+        "startChar": 42,
+        "endLine": 5465,
+        "endChar": 49
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
