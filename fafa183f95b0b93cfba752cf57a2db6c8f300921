@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "046afe0a_c3b2a78e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-27T07:34:59Z",
+      "side": 1,
+      "message": "I created a bug to track the same b/212206303. Let me know if we must have it as part of this cl itself.",
+      "parentUuid": "b5e6951f_a97382d0",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "fafa183f95b0b93cfba752cf57a2db6c8f300921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c202d15c_e9c72354",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 15
