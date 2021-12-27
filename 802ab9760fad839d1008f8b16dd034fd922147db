@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf1b758a_f1202aa3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-27T10:45:22Z",
+      "side": 1,
+      "message": "Fine as this is identical to ag/16465448 ; please have a followup to address outstanding comments on ag/16465448",
+      "revId": "802ab9760fad839d1008f8b16dd034fd922147db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
