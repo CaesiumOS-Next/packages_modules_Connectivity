@@ -145,3 +145,46 @@ cc_library_shared {
         "com.android.tethering",
     ],
 }
+
+java_library {
+    name: "framework-connectivity-netstats",
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    defaults: ["framework-module-defaults"],
+    srcs: [
+        ":framework-connectivity-netstats-sources",
+        ":framework-connectivity-aidl-export-sources",
+        ":framework-connectivityT-shared-srcs",
+    ],
+    libs: [
+        "framework-connectivity",
+        "framework-wifi",
+        "unsupportedappusage",
+        "framework-annotations-lib",
+        "net-utils-framework-common",
+    ],
+}
+
+java_library {
+    name: "service-connectivity-netstats-pre-jarjar",
+    sdk_version: "system_server_current",
+    min_sdk_version: "30",
+    srcs: [
+        ":services.connectivity-netstats-sources",
+        ":framework-connectivity-netstats-sources",
+        ":framework-connectivity-aidl-export-sources",
+        ":framework-connectivityT-shared-srcs",
+    ],
+    libs: [
+            "framework-connectivity.stubs.module_lib",
+            "framework-wifi.stubs.module_lib",
+            "framework-tethering.stubs.module_lib",
+            "unsupportedappusage",
+            "framework-annotations-lib",
+            "net-utils-framework-common",
+    ],
+    static_libs: [
+        "net-utils-framework-common",
+        "netd-client", // For INetd
+    ]
+}
