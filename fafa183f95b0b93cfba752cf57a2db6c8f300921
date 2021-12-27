@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "530489ca_bcd0dbaf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-27T07:32:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bd8f084_27c46d7c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "fafa183f95b0b93cfba752cf57a2db6c8f300921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5e6951f_a97382d0",
@@ -60,6 +84,30 @@
       "writtenOn": "2021-12-27T06:38:57Z",
       "side": 1,
       "message": "This should explain why code should use the new API instead? Is the old one somehow error-prone or incorrect? If the new API is more capable, but the old API satisfies its use case with no problems, then it might not be necessary to deprecate the old one.",
+      "range": {
+        "startLine": 5465,
+        "startChar": 28,
+        "endLine": 5465,
+        "endChar": 35
+      },
+      "revId": "fafa183f95b0b93cfba752cf57a2db6c8f300921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71c5744e_079b381d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 5465,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-27T07:32:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c202d15c_e9c72354",
       "range": {
         "startLine": 5465,
         "startChar": 28,
