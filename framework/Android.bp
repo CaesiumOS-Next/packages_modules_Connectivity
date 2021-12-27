@@ -145,3 +145,22 @@ cc_library_shared {
         "com.android.tethering",
     ],
 }
+
+java_library {
+    name: "framework-connectivity-netstats",
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    defaults: ["framework-module-defaults"],
+    srcs: [
+        ":framework-connectivity-netstats-sources",
+        ":framework-connectivity-aidl-export-sources",
+        ":framework-connectivityT-shared-srcs",
+    ],
+    libs: [
+        "framework-connectivity",
+        "framework-wifi",
+        "unsupportedappusage",
+        "framework-annotations-lib",
+        "net-utils-framework-common",
+    ],
+}
