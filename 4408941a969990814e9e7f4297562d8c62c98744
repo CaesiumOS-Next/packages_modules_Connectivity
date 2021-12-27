@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87965385_96804e69",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7599,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-27T11:14:43Z",
+      "side": 1,
+      "message": "I think we can do more readable and more generic than this by using NetworkMonitorUtils :\n\n  if (NetworkMonitorUtils.isPrivateDnsValidationRequired(nc)\n          \u0026\u0026 NetworkMonitorUtils.isPrivateDnsValidationRequired(prevNc)) {\n      ...\n  }",
+      "range": {
+        "startLine": 7599,
+        "startChar": 13,
+        "endLine": 7599,
+        "endChar": 58
+      },
+      "revId": "4408941a969990814e9e7f4297562d8c62c98744",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1855246_1632d59d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7601,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-27T11:14:43Z",
+      "side": 1,
+      "message": "The settings haven\u0027t changed ; this will cause revalidation of private DNS on all connected networks (causing additional network traffic), as well as cause reevaluation of link properties that haven\u0027t changed.\n\nI think we should just revalidate private DNS on this one network. You should be able to do that by simply calling handlePerNetworkPrivateDnsConfig(nai, mDnsManager.getPrivateDnsConfig())",
+      "range": {
+        "startLine": 7601,
+        "startChar": 12,
+        "endLine": 7601,
+        "endChar": 46
+      },
+      "revId": "4408941a969990814e9e7f4297562d8c62c98744",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
