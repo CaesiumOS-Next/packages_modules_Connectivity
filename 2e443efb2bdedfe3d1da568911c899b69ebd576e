@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "330377fd_aa60b2d2",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 10
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2021-12-28T03:13:21Z",
+      "side": 1,
+      "message": "IIUC this is pretty isolated with other part.\nmaybe move it to a standalone test? e.g. testBuilderWifiNetworkKeys",
+      "range": {
+        "startLine": 636,
+        "startChar": 0,
+        "endLine": 662,
+        "endChar": 0
+      },
+      "revId": "2e443efb2bdedfe3d1da568911c899b69ebd576e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
