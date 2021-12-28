@@ -26,6 +26,76 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a9dc010_00c2c08e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T01:20:45Z",
+      "side": 1,
+      "message": "Ah, I see this is covered in future CLs in the stack. Thanks.",
+      "parentUuid": "96cd1384_483bb0a6",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 65
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6962fce9_141a0285",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 18
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T01:20:45Z",
+      "side": 1,
+      "message": "The name of this class (ProfileNetworkPreferences, plural) is inconsistent with the name of the method (setProfileNetworkPreference). Since this is a new API, can we make them consistent?",
+      "range": {
+        "startLine": 23,
+        "startChar": 135,
+        "endLine": 23,
+        "endChar": 160
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d5ca825_15685eee",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 18
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T01:20:45Z",
+      "side": 1,
+      "message": "Given that this class is called ProfileNetworkPreferences, then this object should always be associated with a profile. If that\u0027s the case, then the profile (which I assume means a UserHandle) should be required to construct the object, so probably it should be passed as an argument to the Builder constructor instead of a being a setter?\n\n(BTW: if a profile is a UserHandle, then should this be called UserNetworkPreference? Or did we prefer ProfileNetworkPreference for consistency with the already-shipped setProfileNetworkPreference API?)",
+      "range": {
+        "startLine": 162,
+        "startChar": 42,
+        "endLine": 162,
+        "endChar": 51
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19f06c0b_fec76f9e",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 18
@@ -42,6 +112,29 @@
         "startChar": 42,
         "endLine": 5465,
         "endChar": 49
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08e06a38_33f1121d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 5494,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T01:20:45Z",
+      "side": 1,
+      "message": "This should document what happens if this method is called twice. Will it replace any previous preference set by this method for this user? That seems like the most natural behaviour here.\n\nHowever, if those are the semantics, then it will not be possible to use this method for a DPC to say, \"put apps A, B, and C onto this network, but apps X, Y, and Z onto this other network\". At least if the proposed API shape looks like the one in aosp/1905551 where the list of UIDs is part of this object.",
+      "range": {
+        "startLine": 5494,
+        "startChar": 16,
+        "endLine": 5494,
+        "endChar": 17
       },
       "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"

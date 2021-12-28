@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45aa7424_97d3fa8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T01:20:45Z",
+      "side": 1,
+      "message": "Ack. I think it would be good to have some amount of CTS testing for this and for setProfileNetworkPreference, even if the code is mainlined. I don\u0027t think we need to block this CL for this, but let\u0027s try to ensure we have this before T ships.",
+      "parentUuid": "245bc2b7_f15c90ec",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "fafa183f95b0b93cfba752cf57a2db6c8f300921",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c202d15c_e9c72354",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 15
