@@ -138,6 +138,30 @@
       },
       "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "373ff99d_20e99e55",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 5494,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T01:50:40Z",
+      "side": 1,
+      "message": "Per discussion with Jean, a possible API shape that would address this issue is:\n\n    @RequiresPermission(android.Manifest.permission.NETWORK_STACK) public void setProfileNetworkPreferences(@NonNull UserHandle, @NonNull List\u003candroid.net.ProfileNetworkPreference\u003e, @Nullable java.util.concurrent.Executor, @Nullable Runnable);\n\nIf we add this API now in this CL, then all future improvements (e.g., the list of UIDs, the fallback option, etc.) can be members of ProfileNetworkPreference and will be specific to the list of UIDs in that preference.\n\nWe can also then document that the method will replace all preferences previously set for that same user.",
+      "parentUuid": "08e06a38_33f1121d",
+      "range": {
+        "startLine": 5494,
+        "startChar": 16,
+        "endLine": 5494,
+        "endChar": 17
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
