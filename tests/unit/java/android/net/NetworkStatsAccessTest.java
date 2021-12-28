@@ -45,6 +45,7 @@ import org.mockito.MockitoAnnotations;
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.S)
 public class NetworkStatsAccessTest {
     private static final String TEST_PKG = "com.example.test";
+    private static final int TEST_PID = 1234;
     private static final int TEST_UID = 12345;
 
     @Mock private Context mContext;
@@ -78,7 +79,7 @@ public class NetworkStatsAccessTest {
         setHasAppOpsPermission(AppOpsManager.MODE_DEFAULT, false);
         setHasReadHistoryPermission(false);
         assertEquals(NetworkStatsAccess.Level.DEVICE,
-                NetworkStatsAccess.checkAccessLevel(mContext, TEST_UID, TEST_PKG));
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
     }
 
     @Test
@@ -89,7 +90,7 @@ public class NetworkStatsAccessTest {
         setHasAppOpsPermission(AppOpsManager.MODE_DEFAULT, false);
         setHasReadHistoryPermission(false);
         assertEquals(NetworkStatsAccess.Level.DEVICE,
-                NetworkStatsAccess.checkAccessLevel(mContext, TEST_UID, TEST_PKG));
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
     }
 
     @Test
@@ -100,7 +101,7 @@ public class NetworkStatsAccessTest {
         setHasAppOpsPermission(AppOpsManager.MODE_DEFAULT, false);
         setHasReadHistoryPermission(false);
         assertEquals(NetworkStatsAccess.Level.USER,
-                NetworkStatsAccess.checkAccessLevel(mContext, TEST_UID, TEST_PKG));
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
     }
 
     @Test
@@ -111,7 +112,7 @@ public class NetworkStatsAccessTest {
         setHasAppOpsPermission(AppOpsManager.MODE_ALLOWED, false);
         setHasReadHistoryPermission(false);
         assertEquals(NetworkStatsAccess.Level.DEVICESUMMARY,
-                NetworkStatsAccess.checkAccessLevel(mContext, TEST_UID, TEST_PKG));
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
     }
 
     @Test
@@ -122,7 +123,7 @@ public class NetworkStatsAccessTest {
         setHasAppOpsPermission(AppOpsManager.MODE_DEFAULT, true);
         setHasReadHistoryPermission(false);
         assertEquals(NetworkStatsAccess.Level.DEVICESUMMARY,
-                NetworkStatsAccess.checkAccessLevel(mContext, TEST_UID, TEST_PKG));
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
     }
 
     @Test
@@ -133,7 +134,7 @@ public class NetworkStatsAccessTest {
         setHasAppOpsPermission(AppOpsManager.MODE_DEFAULT, false);
         setHasReadHistoryPermission(true);
         assertEquals(NetworkStatsAccess.Level.DEVICESUMMARY,
-                NetworkStatsAccess.checkAccessLevel(mContext, TEST_UID, TEST_PKG));
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
     }
 
     @Test
@@ -144,7 +145,7 @@ public class NetworkStatsAccessTest {
         setHasAppOpsPermission(AppOpsManager.MODE_ERRORED, true);
         setHasReadHistoryPermission(false);
         assertEquals(NetworkStatsAccess.Level.DEFAULT,
-                NetworkStatsAccess.checkAccessLevel(mContext, TEST_UID, TEST_PKG));
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
     }
 
     @Test
@@ -155,7 +156,26 @@ public class NetworkStatsAccessTest {
         setHasAppOpsPermission(AppOpsManager.MODE_DEFAULT, false);
         setHasReadHistoryPermission(false);
         assertEquals(NetworkStatsAccess.Level.DEFAULT,
-                NetworkStatsAccess.checkAccessLevel(mContext, TEST_UID, TEST_PKG));
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
+    }
+
+    @Test
+    public void testCheckAccessLevel_hasNetworkStackPermission() throws Exception {
+        setHasCarrierPrivileges(false);
+        setIsDeviceOwner(false);
+        setIsProfileOwner(false);
+        setHasAppOpsPermission(AppOpsManager.MODE_DEFAULT, false);
+        setHasReadHistoryPermission(false);
+        assertEquals(NetworkStatsAccess.Level.DEFAULT,
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
+
+        setHasNetworkStackPermission(true);
+        assertEquals(NetworkStatsAccess.Level.DEFAULT,
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
+
+        setHasNetworkStackPermission(false);
+        assertEquals(NetworkStatsAccess.Level.DEFAULT,
+                NetworkStatsAccess.checkAccessLevel(mContext, TEST_PID, TEST_UID, TEST_PKG));
     }
 
     private void setHasCarrierPrivileges(boolean hasPrivileges) {
@@ -184,5 +204,11 @@ public class NetworkStatsAccessTest {
         when(mContext.checkCallingOrSelfPermission(permission.READ_NETWORK_USAGE_HISTORY))
                 .thenReturn(hasPermission ? PackageManager.PERMISSION_GRANTED
                         : PackageManager.PERMISSION_DENIED);
+    }
+
+    private void setHasNetworkStackPermission(boolean hasPermission) {
+        when(mContext.checkPermission(eq(android.Manifest.permission.NETWORK_STACK),
+                anyInt(), anyInt())).thenReturn(hasPermission ? PackageManager.PERMISSION_GRANTED
+                : PackageManager.PERMISSION_DENIED);
     }
 }
