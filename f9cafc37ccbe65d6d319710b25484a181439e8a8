@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b82de38_9b207798",
+        "filename": "framework/src/android/net/IpConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-28T06:13:19Z",
+      "side": 1,
+      "message": "unused",
+      "range": {
+        "startLine": 304,
+        "startChar": 24,
+        "endLine": 304,
+        "endChar": 29
+      },
+      "revId": "f9cafc37ccbe65d6d319710b25484a181439e8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "983bdf8e_01fc1b4e",
+        "filename": "framework/src/android/net/IpConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-28T06:13:19Z",
+      "side": 1,
+      "message": "I think the same comments apply here as for the static configuration. I don\u0027t think we need UNASSIGNED ; I think it\u0027s much easier to understand if we just say that null means NONE and something set means STATIC or PAC as per l.300~303",
+      "range": {
+        "startLine": 306,
+        "startChar": 54,
+        "endLine": 306,
+        "endChar": 64
+      },
+      "revId": "f9cafc37ccbe65d6d319710b25484a181439e8a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
