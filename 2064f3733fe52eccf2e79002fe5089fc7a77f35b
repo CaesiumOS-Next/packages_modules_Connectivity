@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f74dea0_0158e729",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-28T07:46:52Z",
+      "side": 1,
+      "message": "Unused",
+      "range": {
+        "startLine": 90,
+        "startChar": 34,
+        "endLine": 90,
+        "endChar": 44
+      },
+      "revId": "2064f3733fe52eccf2e79002fe5089fc7a77f35b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5745206_246c806e",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-28T07:46:52Z",
+      "side": 1,
+      "message": "Let\u0027s remove the lengthy explanation and the code, and just replace with a comment saying\n\n // testSessionKey must never be true if running on \u003cS",
+      "range": {
+        "startLine": 423,
+        "startChar": 0,
+        "endLine": 427,
+        "endChar": 47
+      },
+      "revId": "2064f3733fe52eccf2e79002fe5089fc7a77f35b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "787eb697_d40a4efb",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-28T07:46:52Z",
+      "side": 1,
+      "message": "assertFalse(TextUtils.isEmpty)",
+      "range": {
+        "startLine": 429,
+        "startChar": 18,
+        "endLine": 429,
+        "endChar": 22
+      },
+      "revId": "2064f3733fe52eccf2e79002fe5089fc7a77f35b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
