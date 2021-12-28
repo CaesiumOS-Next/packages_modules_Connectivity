@@ -69,6 +69,30 @@
       },
       "revId": "66fcf0b0fb52970e22fa9b77a2e525ca81ccfd06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f07ac246_47444e84",
+        "filename": "tests/unit/java/com/android/internal/net/VpnProfileTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2021-12-28T06:18:35Z",
+      "side": 1,
+      "message": "Oh I just meant another assertFalse here in this test, but what you did is fine too",
+      "parentUuid": "b5acbf79_52e6e5bb",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 19
+      },
+      "revId": "66fcf0b0fb52970e22fa9b77a2e525ca81ccfd06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
