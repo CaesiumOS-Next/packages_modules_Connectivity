@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3492bf75_1f72f321",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-28T20:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96cd1384_483bb0a6",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 65
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6962fce9_141a0285",
@@ -61,6 +85,30 @@
       "writtenOn": "2021-12-28T01:20:45Z",
       "side": 1,
       "message": "The name of this class (ProfileNetworkPreferences, plural) is inconsistent with the name of the method (setProfileNetworkPreference). Since this is a new API, can we make them consistent?",
+      "range": {
+        "startLine": 23,
+        "startChar": 135,
+        "endLine": 23,
+        "endChar": 160
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adfa9a6a_bb9b5d6a",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 18
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-28T20:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6962fce9_141a0285",
       "range": {
         "startLine": 23,
         "startChar": 135,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a150ad8_1c48e012",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 18
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-28T20:00:51Z",
+      "side": 1,
+      "message": "Yes, ProfileNetworkPreference is preferred as it is consistent with the setApi",
+      "parentUuid": "2d5ca825_15685eee",
+      "range": {
+        "startLine": 162,
+        "startChar": 42,
+        "endLine": 162,
+        "endChar": 51
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19f06c0b_fec76f9e",
@@ -107,6 +179,30 @@
       "writtenOn": "2021-12-27T11:35:54Z",
       "side": 1,
       "message": "Maybe just \"as it provides a more flexible API with more options\" ?",
+      "range": {
+        "startLine": 5465,
+        "startChar": 42,
+        "endLine": 5465,
+        "endChar": 49
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f33d19_3701de00",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 5465,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-28T20:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19f06c0b_fec76f9e",
       "range": {
         "startLine": 5465,
         "startChar": 42,
@@ -154,6 +250,30 @@
       "side": 1,
       "message": "Per discussion with Jean, a possible API shape that would address this issue is:\n\n    @RequiresPermission(android.Manifest.permission.NETWORK_STACK) public void setProfileNetworkPreferences(@NonNull UserHandle, @NonNull List\u003candroid.net.ProfileNetworkPreference\u003e, @Nullable java.util.concurrent.Executor, @Nullable Runnable);\n\nIf we add this API now in this CL, then all future improvements (e.g., the list of UIDs, the fallback option, etc.) can be members of ProfileNetworkPreference and will be specific to the list of UIDs in that preference.\n\nWe can also then document that the method will replace all preferences previously set for that same user.",
       "parentUuid": "08e06a38_33f1121d",
+      "range": {
+        "startLine": 5494,
+        "startChar": 16,
+        "endLine": 5494,
+        "endChar": 17
+      },
+      "revId": "3852fc1d06fb90c834c594594dd565cc0701c961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba89d777_d6987eb3",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 5494,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2021-12-28T20:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "373ff99d_20e99e55",
       "range": {
         "startLine": 5494,
         "startChar": 16,
