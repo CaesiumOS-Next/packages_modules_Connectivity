@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2158065d_7d42e23f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7599,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T04:38:55Z",
+      "side": 1,
+      "message": "If we want NetworkMonitor to be able to take action (e.g., start validation) based on capability changes, it seems like it would be better to handle that in NetworkMonitor itself. When we get here, I think NetworkMonitor was just informed of the capability change by the getAndSetNetworkCapabilities call in line 7555.\n\nAdditionally: what happens if the internet capability gets *removed*? We should stop NetworkMonitor, right? That\u0027s another reason to do this in NetworkMonitor instead of in ConnectivityService.",
+      "parentUuid": "87965385_96804e69",
+      "range": {
+        "startLine": 7599,
+        "startChar": 13,
+        "endLine": 7599,
+        "endChar": 58
+      },
+      "revId": "4408941a969990814e9e7f4297562d8c62c98744",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1855246_1632d59d",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
