@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f17335f_2e03a6ef",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2021-12-28T06:44:25Z",
+      "side": 1,
+      "message": "Ack, and done.\n\nBut: note that this is a change from the previous SystemApi behavior. While we have more flexibility in breaking SystemApis that may be a concern. \n\nAlso note about the shape of the builder: we may want to move mandatory argument to the constructor of the Builder. Let me know if that\u0027s your preference.",
+      "parentUuid": "2530ad7a_acf5eb39",
+      "range": {
+        "startLine": 503,
+        "startChar": 69,
+        "endLine": 503,
+        "endChar": 81
+      },
+      "revId": "02121cbb59cf4fcf3ae7187529376b47644d854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1bccf911_b933530e",
         "filename": "framework/src/android/net/IpConfiguration.java",
         "patchSetId": 2
