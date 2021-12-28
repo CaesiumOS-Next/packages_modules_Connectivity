@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b216dd6b_7fe97381",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T01:37:31Z",
+      "side": 1,
+      "message": "If this object is associated with a specific user (as seems to be the case here), this must be @NonNull.",
+      "range": {
+        "startLine": 156,
+        "startChar": 11,
+        "endLine": 156,
+        "endChar": 20
+      },
+      "revId": "e7ea5983769c7293a870f33d321c023f81621892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
