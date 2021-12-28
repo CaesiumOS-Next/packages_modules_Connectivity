@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b704de9a_1adf0bd4",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Suggest refactoring to a helper function. Something like:\n\n    private boolean bool shouldConfigureBluetoothInterface() {\n        return mInterfaceType \u003d\u003d TetheringManager.TETHERING_BLUETOOTH \u0026\u0026 !SdkLevel.isAtLeastT();\n    }",
+      "range": {
+        "startLine": 617,
+        "startChar": 12,
+        "endLine": 617,
+        "endChar": 94
+      },
+      "revId": "de9bae86a705a5fb62855de89547d90fc99ebc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a959db75_0ed8b69e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Since this is the new codepath, suggest removing \"AfterT\" and renaming the old one (maybe call it setBluetoothTetheringSettingsPreT or something).",
+      "range": {
+        "startLine": 808,
+        "startChar": 17,
+        "endLine": 808,
+        "endChar": 55
+      },
+      "revId": "de9bae86a705a5fb62855de89547d90fc99ebc06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

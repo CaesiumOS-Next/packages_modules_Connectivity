@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d34522b1_e9cc7322",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 7,
+        "startChar": 46,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fd89599_9cde2ccf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Fix commit message? This CL doesn\u0027t add any new APIs.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 11
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c38041dd_405ced33",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "It\u0027s good that we disable the bluetooth IpServer when bluetooth crashes. Can we add a test for that?",
+      "range": {
+        "startLine": 784,
+        "startChar": 16,
+        "endLine": 784,
+        "endChar": 49
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "495df5d7_ba153c81",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Do we want to log an error or wtf if onAvailable is called but mConfiguredBluetoothIface is non-null? That would be a bug in bluetooth, right?",
+      "range": {
+        "startLine": 846,
+        "startChar": 12,
+        "endLine": 846,
+        "endChar": 27
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9146922_103ef859",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Do we need to null out mBluetoothCallback and mBluetoothInterface request here? Or is it expected that when PAN reconnects, tethering will start again?",
+      "range": {
+        "startLine": 854,
+        "startChar": 44,
+        "endLine": 854,
+        "endChar": 45
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6254920_06cac425",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Can we do better than just add a comment, and actually check what happens? Something like:\n\n    if (isAtLeastT()) {\n        inOrder.verify(mNetd).interfaceSetCfg(argThat(() -\u003e {\n            ...\n        }));\n        inOrder.verify(mNetd).interfaceSetCfg(argThat(() -\u003e {\n            ...\n        }));\n    } else {\n        inOrder.verify(mNetd).interfaceSetCfg(argThat(() -\u003e {\n            ...\n        }));\n    }",
+      "range": {
+        "startLine": 435,
+        "startChar": 0,
+        "endLine": 436,
+        "endChar": 91
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0b7556_57891a16",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Ditto. If adding another copy of the code I suggested in the comment at line 436 results in lots of boilerplate, then you could factor out to a function.",
+      "range": {
+        "startLine": 599,
+        "startChar": 30,
+        "endLine": 599,
+        "endChar": 58
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e97db166_3aa2b40e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2589,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Why do you need this here? The mockBluetoothSettings call above already does this. And if BluetoothAdapter#isEnabled returned false, the test would already have failed. Does something in lines 2579-2587 cause isBluetoothEnabled to return false? If so, should probably add a comment to explain.",
+      "range": {
+        "startLine": 2589,
+        "startChar": 8,
+        "endLine": 2589,
+        "endChar": 61
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71cb9b72_dd38df62",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2593,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Would be good to check there that we don\u0027t tell netd to do anything until onUnavailable is called.",
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e65a60f5_91e8ff1c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2683,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "This seems super pretty vague. Is there nothing in the parcel that we can check? Would be good to check the IP address as well, but if we can\u0027t, then could we at least check the interface name and the flags?",
+      "range": {
+        "startLine": 2683,
+        "startChar": 56,
+        "endLine": 2683,
+        "endChar": 59
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac16f066_55f3657e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2702,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 2702,
+        "startChar": 28,
+        "endLine": 2702,
+        "endChar": 48
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3bd786_d6280e7d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2733,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2021-12-28T07:32:06Z",
+      "side": 1,
+      "message": "Why no else clause? Does that mean that we never exercise disabling BT tethering on T+?",
+      "range": {
+        "startLine": 2733,
+        "startChar": 12,
+        "endLine": 2733,
+        "endChar": 13
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
