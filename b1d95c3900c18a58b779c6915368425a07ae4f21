@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd8c1d56_f6a511c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d34522b1_e9cc7322",
+      "range": {
+        "startLine": 7,
+        "startChar": 46,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0108c047_c0bcf96b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fd89599_9cde2ccf",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 11
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c38041dd_405ced33",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-12-28T07:32:06Z",
       "side": 1,
       "message": "It\u0027s good that we disable the bluetooth IpServer when bluetooth crashes. Can we add a test for that?",
+      "range": {
+        "startLine": 784,
+        "startChar": 16,
+        "endLine": 784,
+        "endChar": 49
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fddbb317_aae68ad2",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Yes, this is cover by TetheringTest#testBluetoothServiceDisconnects. If the bluetooth crash (onUnavailable called), the test verifyNetdCommandForBtTearDown which means IpServer is disabled because netd command is called from IpServer.",
+      "parentUuid": "c38041dd_405ced33",
       "range": {
         "startLine": 784,
         "startChar": 16,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d0bca05_46b5322f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Yes, this means the bug in bluetooth that onAvailable get called 1+ times without onUnavailable. If this case happen, we will see below log print from ensureIpServerStarted.\n\n\"active iface (bt-pan) reported as added, ignoring\"",
+      "parentUuid": "495df5d7_ba153c81",
+      "range": {
+        "startLine": 846,
+        "startChar": 12,
+        "endLine": 846,
+        "endChar": 27
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9146922_103ef859",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-12-28T07:32:06Z",
       "side": 1,
       "message": "Do we need to null out mBluetoothCallback and mBluetoothInterface request here? Or is it expected that when PAN reconnects, tethering will start again?",
+      "range": {
+        "startLine": 854,
+        "startChar": 44,
+        "endLine": 854,
+        "endChar": 45
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8df766d3_a7e54c72",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "No, we should NOT null out mBluetoothCallback and mBluetoothInterface. User could disconnect PAN (e.g. disconnect bluetooth pair) without disable tethering settings. When PAN reconnects (re-pair bluetooth and trigger bluetooth tethering), bluetooth would just call onAvailable without calling startTethering again.\n\nAlso add the test to verify the behavior mentioned above.",
+      "parentUuid": "c9146922_103ef859",
       "range": {
         "startLine": 854,
         "startChar": 44,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3300b733_05aa2289",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "The verify function doesn\u0027t support verify same function multiple times separately.\n\nFor example, below code would fail by \"Verification in order failure:... Wanted 1 time, but was 2 times\"\ninOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -\u003e IFACE_NAME.equals(cfg.ifName)));\ninOrder.verify(mNetd).interfaceSetCfg(argThat(cfg -\u003e IFACE_NAME.equals(cfg.ifName)));",
+      "parentUuid": "b6254920_06cac425",
+      "range": {
+        "startLine": 435,
+        "startChar": 0,
+        "endLine": 436,
+        "endChar": 91
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b0b7556_57891a16",
@@ -152,6 +296,30 @@
       "writtenOn": "2021-12-28T07:32:06Z",
       "side": 1,
       "message": "Ditto. If adding another copy of the code I suggested in the comment at line 436 results in lots of boilerplate, then you could factor out to a function.",
+      "range": {
+        "startLine": 599,
+        "startChar": 30,
+        "endLine": 599,
+        "endChar": 58
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcd9f2c0_d5fa6006",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Unfortunately, verify function doesn\u0027t support verify same function multiple times separately.",
+      "parentUuid": "0b0b7556_57891a16",
       "range": {
         "startLine": 599,
         "startChar": 30,
@@ -185,6 +353,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0537f85b_cdaf1d10",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2589,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e97db166_3aa2b40e",
+      "range": {
+        "startLine": 2589,
+        "startChar": 8,
+        "endLine": 2589,
+        "endChar": 61
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71cb9b72_dd38df62",
@@ -202,6 +394,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e43245c_3a999210",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2593,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71cb9b72_dd38df62",
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e65a60f5_91e8ff1c",
@@ -215,6 +425,30 @@
       "writtenOn": "2021-12-28T07:32:06Z",
       "side": 1,
       "message": "This seems super pretty vague. Is there nothing in the parcel that we can check? Would be good to check the IP address as well, but if we can\u0027t, then could we at least check the interface name and the flags?",
+      "range": {
+        "startLine": 2683,
+        "startChar": 56,
+        "endLine": 2683,
+        "endChar": 59
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a34bfda_8835b175",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2683,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e65a60f5_91e8ff1c",
       "range": {
         "startLine": 2683,
         "startChar": 56,
@@ -248,6 +482,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fbf8e58_e7f4d2fe",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2702,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "Unfortunately, verify function doesn\u0027t support verify same function multiple times separately.",
+      "parentUuid": "ac16f066_55f3657e",
+      "range": {
+        "startLine": 2702,
+        "startChar": 28,
+        "endLine": 2702,
+        "endChar": 48
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa3bd786_d6280e7d",
@@ -261,6 +519,30 @@
       "writtenOn": "2021-12-28T07:32:06Z",
       "side": 1,
       "message": "Why no else clause? Does that mean that we never exercise disabling BT tethering on T+?",
+      "range": {
+        "startLine": 2733,
+        "startChar": 12,
+        "endLine": 2733,
+        "endChar": 13
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b61d59ea_ce36de86",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 2733,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2021-12-28T14:14:04Z",
+      "side": 1,
+      "message": "The test did cover disable flow. Add the verify here.",
+      "parentUuid": "fa3bd786_d6280e7d",
       "range": {
         "startLine": 2733,
         "startChar": 12,
