@@ -28,8 +28,8 @@ import static android.net.netstats.provider.NetworkStatsProvider.QUOTA_UNLIMITED
 import static android.system.OsConstants.ETH_P_IP;
 import static android.system.OsConstants.ETH_P_IPV6;
 
-import static com.android.networkstack.tethering.BpfUtils.DOWNSTREAM;
-import static com.android.networkstack.tethering.BpfUtils.UPSTREAM;
+import static com.android.net.module.util.BpfUtils.DOWNSTREAM;
+import static com.android.net.module.util.BpfUtils.UPSTREAM;
 import static com.android.networkstack.tethering.TetheringConfiguration.DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS;
 import static com.android.networkstack.tethering.UpstreamNetworkState.isVcnInterface;
 import static com.android.networkstack.tethering.util.TetheringUtils.getTetheringJniLibraryName;
