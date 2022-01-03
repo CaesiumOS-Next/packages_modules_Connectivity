@@ -96,6 +96,7 @@ import android.net.NetworkStats;
 import android.net.NetworkStatsHistory;
 import android.net.NetworkTemplate;
 import android.net.TelephonyNetworkSpecifier;
+import android.net.TetheringManager;
 import android.net.UnderlyingNetworkInfo;
 import android.net.netstats.provider.INetworkStatsProviderCallback;
 import android.os.Build;
@@ -182,6 +183,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private MockContext mServiceContext;
     private @Mock TelephonyManager mTelephonyManager;
     private @Mock INetworkManagementService mNetManager;
+    private @Mock TetheringManager mTetheringManager;
     private @Mock NetworkStatsFactory mStatsFactory;
     private @Mock NetworkStatsSettings mSettings;
     private @Mock IBinder mBinder;
@@ -207,6 +209,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         @Override
         public Object getSystemService(String name) {
             if (Context.TELEPHONY_SERVICE.equals(name)) return mTelephonyManager;
+            if (Context.TETHERING_SERVICE.equals(name)) return mTetheringManager;
             return mBaseContext.getSystemService(name);
         }
 
