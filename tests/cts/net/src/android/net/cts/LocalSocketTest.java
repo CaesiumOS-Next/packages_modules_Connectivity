@@ -16,14 +16,15 @@
 
 package android.net.cts;
 
-import junit.framework.TestCase;
-
 import android.net.Credentials;
 import android.net.LocalServerSocket;
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
+import android.os.ParcelFileDescriptor;
 import android.system.Os;
 import android.system.OsConstants;
+
+import junit.framework.TestCase;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -300,7 +301,8 @@ public class LocalSocketTest extends TestCase {
 
             // Create the LocalSocket we want to test.
             LocalSocket clientSocketCreatedFromFileDescriptor =
-                    LocalSocket.createConnectedLocalSocket(fileDescriptor);
+                    LocalSocket.createConnectedLocalSocket(
+                            ParcelFileDescriptor.dup(fileDescriptor));
             assertTrue(clientSocketCreatedFromFileDescriptor.isConnected());
             assertTrue(clientSocketCreatedFromFileDescriptor.isBound());
 
