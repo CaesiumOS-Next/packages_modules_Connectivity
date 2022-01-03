@@ -39,6 +39,7 @@ import android.net.ConnectivitySettingsManager.getConnectivityKeepPendingIntentD
 import android.net.ConnectivitySettingsManager.getDnsResolverSampleRanges
 import android.net.ConnectivitySettingsManager.getDnsResolverSampleValidityDuration
 import android.net.ConnectivitySettingsManager.getDnsResolverSuccessThresholdPercent
+import android.net.ConnectivitySettingsManager.getIngressRateLimitInBytesPerSecond
 import android.net.ConnectivitySettingsManager.getMobileDataActivityTimeout
 import android.net.ConnectivitySettingsManager.getMobileDataAlwaysOn
 import android.net.ConnectivitySettingsManager.getNetworkSwitchNotificationMaximumDailyCount
@@ -51,6 +52,7 @@ import android.net.ConnectivitySettingsManager.setConnectivityKeepPendingIntentD
 import android.net.ConnectivitySettingsManager.setDnsResolverSampleRanges
 import android.net.ConnectivitySettingsManager.setDnsResolverSampleValidityDuration
 import android.net.ConnectivitySettingsManager.setDnsResolverSuccessThresholdPercent
+import android.net.ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond
 import android.net.ConnectivitySettingsManager.setMobileDataActivityTimeout
 import android.net.ConnectivitySettingsManager.setMobileDataAlwaysOn
 import android.net.ConnectivitySettingsManager.setNetworkSwitchNotificationMaximumDailyCount
@@ -291,5 +293,21 @@ class ConnectivitySettingsManagerTest {
                 getter = { getWifiAlwaysRequested(context, true /* def */) },
                 setter = { setWifiAlwaysRequested(context, it) },
                 testIntValues = intArrayOf(0))
+    }
+
+    @Test
+    fun testInternetNetworkRateLimitInBytesPerSecond() {
+        val defaultRate = 123
+        assertEquals(
+            defaultRate,
+            getIngressRateLimitInBytesPerSecond(context, defaultRate)
+        )
+        val testRate = 1000
+        setIngressRateLimitInBytesPerSecond(context, testRate)
+        assertEquals(testRate, getIngressRateLimitInBytesPerSecond(context, defaultRate))
+
+        assertFailsWith<IllegalArgumentException>("Expected failure, but setting accepted") {
+            setIngressRateLimitInBytesPerSecond(context, -10)
+        }
     }
 }
