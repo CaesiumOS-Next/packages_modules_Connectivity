@@ -27,6 +27,7 @@ import android.net.ConnectivitySettingsManager.DNS_RESOLVER_MAX_SAMPLES
 import android.net.ConnectivitySettingsManager.DNS_RESOLVER_MIN_SAMPLES
 import android.net.ConnectivitySettingsManager.DNS_RESOLVER_SAMPLE_VALIDITY_SECONDS
 import android.net.ConnectivitySettingsManager.DNS_RESOLVER_SUCCESS_THRESHOLD_PERCENT
+import android.net.ConnectivitySettingsManager.INTERNET_NETWORK_RATE_LIMIT_BYTES_PER_SECOND
 import android.net.ConnectivitySettingsManager.MOBILE_DATA_ALWAYS_ON
 import android.net.ConnectivitySettingsManager.NETWORK_SWITCH_NOTIFICATION_DAILY_LIMIT
 import android.net.ConnectivitySettingsManager.NETWORK_SWITCH_NOTIFICATION_RATE_LIMIT_MILLIS
@@ -39,6 +40,7 @@ import android.net.ConnectivitySettingsManager.getConnectivityKeepPendingIntentD
 import android.net.ConnectivitySettingsManager.getDnsResolverSampleRanges
 import android.net.ConnectivitySettingsManager.getDnsResolverSampleValidityDuration
 import android.net.ConnectivitySettingsManager.getDnsResolverSuccessThresholdPercent
+import android.net.ConnectivitySettingsManager.getInternetNetworkRateLimitInBytesPerSecond
 import android.net.ConnectivitySettingsManager.getMobileDataActivityTimeout
 import android.net.ConnectivitySettingsManager.getMobileDataAlwaysOn
 import android.net.ConnectivitySettingsManager.getNetworkSwitchNotificationMaximumDailyCount
@@ -51,6 +53,7 @@ import android.net.ConnectivitySettingsManager.setConnectivityKeepPendingIntentD
 import android.net.ConnectivitySettingsManager.setDnsResolverSampleRanges
 import android.net.ConnectivitySettingsManager.setDnsResolverSampleValidityDuration
 import android.net.ConnectivitySettingsManager.setDnsResolverSuccessThresholdPercent
+import android.net.ConnectivitySettingsManager.setInternetNetworkRateLimitInBytesPerSecond
 import android.net.ConnectivitySettingsManager.setMobileDataActivityTimeout
 import android.net.ConnectivitySettingsManager.setMobileDataAlwaysOn
 import android.net.ConnectivitySettingsManager.setNetworkSwitchNotificationMaximumDailyCount
@@ -291,5 +294,18 @@ class ConnectivitySettingsManagerTest {
                 getter = { getWifiAlwaysRequested(context, true /* def */) },
                 setter = { setWifiAlwaysRequested(context, it) },
                 testIntValues = intArrayOf(0))
+    }
+
+    @Test
+    fun testInternetNetworkRateLimitInBytesPerSecond() {
+        testIntSetting(
+            names = arrayOf(INTERNET_NETWORK_RATE_LIMIT_BYTES_PER_SECOND),
+            type = settingsTypeGlobal,
+            value1 = 0,
+            value2 = 1024,
+            getter = { getInternetNetworkRateLimitInBytesPerSecond(context, 0) },
+            setter = { setInternetNetworkRateLimitInBytesPerSecond(context, it) },
+            testIntValues = intArrayOf(0)
+        )
     }
 }
