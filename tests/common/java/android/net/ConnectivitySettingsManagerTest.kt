@@ -16,48 +16,7 @@
 
 package android.net
 
-import android.net.ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE
-import android.net.ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_AVOID
-import android.net.ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_IGNORE
-import android.net.ConnectivitySettingsManager.CAPTIVE_PORTAL_MODE_PROMPT
-import android.net.ConnectivitySettingsManager.CONNECTIVITY_RELEASE_PENDING_INTENT_DELAY_MS
-import android.net.ConnectivitySettingsManager.DATA_ACTIVITY_TIMEOUT_MOBILE
-import android.net.ConnectivitySettingsManager.DATA_ACTIVITY_TIMEOUT_WIFI
-import android.net.ConnectivitySettingsManager.DNS_RESOLVER_MAX_SAMPLES
-import android.net.ConnectivitySettingsManager.DNS_RESOLVER_MIN_SAMPLES
-import android.net.ConnectivitySettingsManager.DNS_RESOLVER_SAMPLE_VALIDITY_SECONDS
-import android.net.ConnectivitySettingsManager.DNS_RESOLVER_SUCCESS_THRESHOLD_PERCENT
-import android.net.ConnectivitySettingsManager.MOBILE_DATA_ALWAYS_ON
-import android.net.ConnectivitySettingsManager.NETWORK_SWITCH_NOTIFICATION_DAILY_LIMIT
-import android.net.ConnectivitySettingsManager.NETWORK_SWITCH_NOTIFICATION_RATE_LIMIT_MILLIS
-import android.net.ConnectivitySettingsManager.PRIVATE_DNS_DEFAULT_MODE
-import android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_OFF
-import android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_OPPORTUNISTIC
-import android.net.ConnectivitySettingsManager.WIFI_ALWAYS_REQUESTED
-import android.net.ConnectivitySettingsManager.getCaptivePortalMode
-import android.net.ConnectivitySettingsManager.getConnectivityKeepPendingIntentDuration
-import android.net.ConnectivitySettingsManager.getDnsResolverSampleRanges
-import android.net.ConnectivitySettingsManager.getDnsResolverSampleValidityDuration
-import android.net.ConnectivitySettingsManager.getDnsResolverSuccessThresholdPercent
-import android.net.ConnectivitySettingsManager.getMobileDataActivityTimeout
-import android.net.ConnectivitySettingsManager.getMobileDataAlwaysOn
-import android.net.ConnectivitySettingsManager.getNetworkSwitchNotificationMaximumDailyCount
-import android.net.ConnectivitySettingsManager.getNetworkSwitchNotificationRateDuration
-import android.net.ConnectivitySettingsManager.getPrivateDnsDefaultMode
-import android.net.ConnectivitySettingsManager.getWifiAlwaysRequested
-import android.net.ConnectivitySettingsManager.getWifiDataActivityTimeout
-import android.net.ConnectivitySettingsManager.setCaptivePortalMode
-import android.net.ConnectivitySettingsManager.setConnectivityKeepPendingIntentDuration
-import android.net.ConnectivitySettingsManager.setDnsResolverSampleRanges
-import android.net.ConnectivitySettingsManager.setDnsResolverSampleValidityDuration
-import android.net.ConnectivitySettingsManager.setDnsResolverSuccessThresholdPercent
-import android.net.ConnectivitySettingsManager.setMobileDataActivityTimeout
-import android.net.ConnectivitySettingsManager.setMobileDataAlwaysOn
-import android.net.ConnectivitySettingsManager.setNetworkSwitchNotificationMaximumDailyCount
-import android.net.ConnectivitySettingsManager.setNetworkSwitchNotificationRateDuration
-import android.net.ConnectivitySettingsManager.setPrivateDnsDefaultMode
-import android.net.ConnectivitySettingsManager.setWifiAlwaysRequested
-import android.net.ConnectivitySettingsManager.setWifiDataActivityTimeout
+import android.net.ConnectivitySettingsManager.*
 import android.os.Build
 import android.platform.test.annotations.AppModeFull
 import android.provider.Settings
@@ -291,5 +250,18 @@ class ConnectivitySettingsManagerTest {
                 getter = { getWifiAlwaysRequested(context, true /* def */) },
                 setter = { setWifiAlwaysRequested(context, it) },
                 testIntValues = intArrayOf(0))
+    }
+
+    @Test
+    fun testInternetNetworkRateLimitInBytesPerSecond() {
+        testIntSetting(
+            names = arrayOf(INTERNET_NETWORK_RATE_LIMIT_BYTES_PER_SECOND),
+            type = settingsTypeGlobal,
+            value1 = 0,
+            value2 = 1024,
+            getter = { getInternetNetworkRateLimitInBytesPerSecond(context) },
+            setter = { setInternetNetworkRateLimitBytesPerSecond(context, it) },
+            testIntValues = intArrayOf(0)
+        )
     }
 }
