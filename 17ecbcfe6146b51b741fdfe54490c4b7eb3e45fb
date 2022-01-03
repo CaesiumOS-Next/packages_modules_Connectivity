@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac35f676_dd6543e1",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-03T02:36:25Z",
+      "side": 1,
+      "message": "Maybe also execrise MATCH_CARRIER, MATCH_ETHERNET, MATCH_BLUETOOTH, -1, Integer.MAX_VALUE?",
+      "range": {
+        "startLine": 674,
+        "startChar": 36,
+        "endLine": 674,
+        "endChar": 48
+      },
+      "revId": "17ecbcfe6146b51b741fdfe54490c4b7eb3e45fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
