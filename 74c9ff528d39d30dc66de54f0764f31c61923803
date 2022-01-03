@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40456b8b_74fd8473",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-03T03:14:38Z",
+      "side": 1,
+      "message": "LGTM, only nits.",
+      "revId": "74c9ff528d39d30dc66de54f0764f31c61923803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aebd252_007fd899",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-03T03:14:38Z",
+      "side": 1,
+      "message": "nits: Assume port 9876 is not used yet that public port and private port are the same in the testing.",
+      "range": {
+        "startLine": 742,
+        "startChar": 45,
+        "endLine": 743,
+        "endChar": 22
+      },
+      "revId": "74c9ff528d39d30dc66de54f0764f31c61923803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cca792a_c915afea",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-03T03:14:38Z",
+      "side": 1,
+      "message": "for (int i \u003d 0; i \u003c TETHER_REACHABILITY_ATTEMPTS; i++) {\n            tester.sendPacket(probePacket);\n            byte[] expectedPacket \u003d remote.getNextMatchedPacket(p -\u003e {\n                Log.d(TAG, \"Packet in upstream: \" + dumpHexString(p));\n                return isExpectedUdpPacket(p, false /* hasEther */, TEST_REACHABILITY_PAYLOAD);\n            });\n            \n            if (expectedPacket !\u003d null) return true;\n        }\n        return false",
+      "range": {
+        "startLine": 821,
+        "startChar": 0,
+        "endLine": 831,
+        "endChar": 25
+      },
+      "revId": "74c9ff528d39d30dc66de54f0764f31c61923803",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
