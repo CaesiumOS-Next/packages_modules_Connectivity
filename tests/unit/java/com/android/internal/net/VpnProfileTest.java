@@ -16,7 +16,6 @@
 
 package com.android.internal.net;
 
-import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
 import static com.android.testutils.ParcelUtils.assertParcelSane;
 
 import static org.junit.Assert.assertEquals;
@@ -49,7 +48,6 @@ public class VpnProfileTest {
 
     private static final int ENCODED_INDEX_AUTH_PARAMS_INLINE = 23;
     private static final int ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS = 24;
-    private static final int ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE = 25;
 
     @Test
     public void testDefaults() throws Exception {
@@ -128,12 +126,7 @@ public class VpnProfileTest {
 
     @Test
     public void testParcelUnparcel() {
-        if (isAtLeastT()) {
-            // excludeLocalRoutes is added in T.
-            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 24);
-        } else {
-            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 23);
-        }
+        assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 23);
     }
 
     @Test
@@ -173,8 +166,7 @@ public class VpnProfileTest {
         final String tooFewValues =
                 getEncodedDecodedIkev2ProfileMissingValues(
                         ENCODED_INDEX_AUTH_PARAMS_INLINE,
-                        ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS,
-                        ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE /* missingIndices */);
+                        ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS /* missingIndices */);
 
         assertNull(VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes()));
     }
@@ -188,17 +180,6 @@ public class VpnProfileTest {
         // Verify decoding without isRestrictedToTestNetworks defaults to false
         final VpnProfile decoded = VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes());
         assertFalse(decoded.isRestrictedToTestNetworks);
-    }
-
-    @Test
-    public void testEncodeDecodeMissingExcludeLocalRoutes() {
-        final String tooFewValues =
-                getEncodedDecodedIkev2ProfileMissingValues(
-                        ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE /* missingIndices */);
-
-        // Verify decoding without isRestrictedToTestNetworks defaults to false
-        final VpnProfile decoded = VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes());
-        assertFalse(decoded.excludeLocalRoutes);
     }
 
     @Test
