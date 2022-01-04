@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cb8c474_978e87a5",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-04T06:42:51Z",
+      "side": 1,
+      "message": "Using if clause looks good to me, not sure if we want to follow the way that aosp/1760698 did that using while loop to wait for a network to be validated.",
+      "range": {
+        "startLine": 609,
+        "startChar": 12,
+        "endLine": 609,
+        "endChar": 52
+      },
+      "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
