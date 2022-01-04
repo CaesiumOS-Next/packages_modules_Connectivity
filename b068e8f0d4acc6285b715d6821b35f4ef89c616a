@@ -117,6 +117,30 @@
       },
       "revId": "b068e8f0d4acc6285b715d6821b35f4ef89c616a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3361992_ff7246ba",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-01-04T05:06:07Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "23763e2e_22931753",
+      "range": {
+        "startLine": 641,
+        "startChar": 80,
+        "endLine": 641,
+        "endChar": 87
+      },
+      "revId": "b068e8f0d4acc6285b715d6821b35f4ef89c616a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
