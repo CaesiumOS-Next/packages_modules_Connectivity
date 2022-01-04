@@ -17,6 +17,7 @@
 package android.net.cts.util;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
@@ -572,6 +573,7 @@ public final class CtsNetUtils {
         private final ConditionVariable mAvailableCv = new ConditionVariable(false);
         private final CountDownLatch mLostLatch = new CountDownLatch(1);
         private final CountDownLatch mUnavailableLatch = new CountDownLatch(1);
+        private final ConditionVariable mValidatedLatch = new ConditionVariable(false);
 
         public Network currentNetwork;
         public Network lastLostNetwork;
@@ -602,16 +604,25 @@ public final class CtsNetUtils {
             return mUnavailableLatch.await(2, TimeUnit.SECONDS);
         }
 
+        public Network waitForValidated() throws InterruptedException {
+            final long timeoutMs = TimeUnit.SECONDS.toMillis(CONNECTIVITY_CHANGE_TIMEOUT_SECS);
+            if (mValidatedLatch.block(timeoutMs))  {
+                return currentNetwork;
+            }
+            Log.i(TAG, "Timed-out waiting for a validated network");
+            return null;
+        }
+
         @Override
         public void onAvailable(Network network) {
-            Log.i(TAG, "CtsNetUtils TestNetworkCallback onAvailable " + network);
+            Log.i(TAG, "TestNetworkCallback onAvailable " + network);
             currentNetwork = network;
             mAvailableCv.open();
         }
 
         @Override
         public void onLost(Network network) {
-            Log.i(TAG, "CtsNetUtils TestNetworkCallback onLost " + network);
+            Log.i(TAG, "TestNetworkCallback onLost " + network);
             lastLostNetwork = network;
             if (network.equals(currentNetwork)) {
                 mAvailableCv.close();
@@ -623,6 +634,15 @@ public final class CtsNetUtils {
         @Override
         public void onUnavailable() {
             mUnavailableLatch.countDown();
+        }
+
+        @Override
+        public void onCapabilitiesChanged(Network network, NetworkCapabilities nc) {
+            Log.i(TAG, "TestNetworkCallback onCapabilitiesChanged " + network + ", cap=" + nc);
+            if (nc.hasCapability(NET_CAPABILITY_VALIDATED)) {
+                currentNetwork = network;
+                mValidatedLatch.open();
+            }
         }
     }
 }
