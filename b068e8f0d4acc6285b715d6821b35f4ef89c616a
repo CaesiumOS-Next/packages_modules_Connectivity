@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8279743_50921439",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-04T03:53:25Z",
+      "side": 1,
+      "message": "- Why don\u0027t you return currentNetwork directly?\n- If mValidatedLatch is opened, is there any case that makes currentNetwork to be null?",
+      "range": {
+        "startLine": 610,
+        "startChar": 16,
+        "endLine": 611,
+        "endChar": 40
+      },
+      "revId": "b068e8f0d4acc6285b715d6821b35f4ef89c616a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "530c11d3_7ac8406d",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-04T03:53:25Z",
+      "side": 1,
+      "message": "What about \", cap\u003d\" ?",
+      "range": {
+        "startLine": 641,
+        "startChar": 80,
+        "endLine": 641,
+        "endChar": 87
+      },
+      "revId": "b068e8f0d4acc6285b715d6821b35f4ef89c616a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
