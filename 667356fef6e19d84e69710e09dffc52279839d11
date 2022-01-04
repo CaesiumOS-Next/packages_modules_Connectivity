@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fd92672_9b8dce96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-04T03:04:20Z",
+      "side": 1,
+      "message": "I only see you add TetheringManager mock but doesn\u0027t use it. Do you miss upload the patch to verify the test ?",
+      "revId": "667356fef6e19d84e69710e09dffc52279839d11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
