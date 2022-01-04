@@ -16,6 +16,24 @@
       "message": "I only see you add TetheringManager mock but doesn\u0027t use it. Do you miss upload the patch to verify the test ?",
       "revId": "667356fef6e19d84e69710e09dffc52279839d11",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5159c7c9_eee4daa8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-04T03:09:14Z",
+      "side": 1,
+      "message": "Please refer to the counter part CL in the same topic: aosp/1935965",
+      "parentUuid": "0fd92672_9b8dce96",
+      "revId": "667356fef6e19d84e69710e09dffc52279839d11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
