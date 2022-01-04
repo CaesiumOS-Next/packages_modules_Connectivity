@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "472b525a_05efdd27",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-01-04T04:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8279743_50921439",
+      "range": {
+        "startLine": 610,
+        "startChar": 16,
+        "endLine": 611,
+        "endChar": 40
+      },
+      "revId": "b068e8f0d4acc6285b715d6821b35f4ef89c616a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "530c11d3_7ac8406d",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-04T03:53:25Z",
       "side": 1,
       "message": "What about \", cap\u003d\" ?",
+      "range": {
+        "startLine": 641,
+        "startChar": 80,
+        "endLine": 641,
+        "endChar": 87
+      },
+      "revId": "b068e8f0d4acc6285b715d6821b35f4ef89c616a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38ee96ea_11bf9f2e",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-01-04T04:35:07Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "530c11d3_7ac8406d",
       "range": {
         "startLine": 641,
         "startChar": 80,
