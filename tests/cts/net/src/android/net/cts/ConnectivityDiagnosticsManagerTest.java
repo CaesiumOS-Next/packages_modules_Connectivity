@@ -275,7 +275,7 @@ public class ConnectivityDiagnosticsManagerTest {
                     android.Manifest.permission.CONNECTIVITY_INTERNAL);
         }
 
-        final Network network = testNetworkCallback.waitForAvailable();
+        final Network network = testNetworkCallback.waitForValidated();
         assertNotNull(network);
 
         assertTrue("Didn't receive broadcast for ACTION_CARRIER_CONFIG_CHANGED for subId=" + subId,
