@@ -22,6 +22,30 @@
       },
       "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c39537a_a5dc3614",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-01-04T06:57:34Z",
+      "side": 1,
+      "message": "I think there may be risk using while loop. It may become an infinity loop if we could not get next validated cap change after the conditionVariable was evered opened. Test may be blocked there.\n\n+Jean who had reviewed aosp/1760698 to review this.",
+      "parentUuid": "5cb8c474_978e87a5",
+      "range": {
+        "startLine": 609,
+        "startChar": 12,
+        "endLine": 609,
+        "endChar": 52
+      },
+      "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
