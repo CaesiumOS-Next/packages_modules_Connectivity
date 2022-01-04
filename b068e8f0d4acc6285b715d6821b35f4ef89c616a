@@ -93,6 +93,30 @@
       },
       "revId": "b068e8f0d4acc6285b715d6821b35f4ef89c616a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23763e2e_22931753",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-04T04:52:56Z",
+      "side": 1,
+      "message": "nit: there should be a white space between \",\" and \"cap\u003d\".\nIt doesn\u0027t matter. 😊",
+      "parentUuid": "38ee96ea_11bf9f2e",
+      "range": {
+        "startLine": 641,
+        "startChar": 80,
+        "endLine": 641,
+        "endChar": 87
+      },
+      "revId": "b068e8f0d4acc6285b715d6821b35f4ef89c616a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
