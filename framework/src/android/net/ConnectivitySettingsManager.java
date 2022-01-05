@@ -19,6 +19,9 @@ package android.net;
 import static android.net.ConnectivityManager.MULTIPATH_PREFERENCE_HANDOVER;
 import static android.net.ConnectivityManager.MULTIPATH_PREFERENCE_PERFORMANCE;
 import static android.net.ConnectivityManager.MULTIPATH_PREFERENCE_RELIABILITY;
+import static android.text.format.DateUtils.DAY_IN_MILLIS;
+import static android.text.format.DateUtils.HOUR_IN_MILLIS;
+import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 
 import static com.android.net.module.util.ConnectivitySettingsUtils.getPrivateDnsModeAsString;
 
@@ -27,6 +30,7 @@ import android.annotation.IntRange;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.net.ConnectivityManager.MultipathPreference;
 import android.os.Binder;
@@ -276,6 +280,45 @@ public class ConnectivitySettingsManager {
      * @hide
      */
     public static final String MOBILE_DATA_ALWAYS_ON = "mobile_data_always_on";
+    /** {@hide} */
+    public static final String NETSTATS_POLL_INTERVAL = "netstats_poll_interval";
+    /** {@hide} */
+    public static final String NETSTATS_SAMPLE_ENABLED = "netstats_sample_enabled";
+    /** {@hide} */
+    public static final String NETSTATS_GLOBAL_ALERT_BYTES = "netstats_global_alert_bytes";
+    /** {@hide} */
+    public static final String NETSTATS_AUGMENT_ENABLED = "netstats_augment_enabled";
+    /** {@hide} */
+    public static final String NETSTATS_COMBINE_SUBTYPE_ENABLED =
+            "netstats_combine_subtype_enabled";
+    /** {@hide} */
+    public static final String NETSTATS_DEV_BUCKET_DURATION = "netstats_dev_bucket_duration";
+    /** {@hide} */
+    public static final String NETSTATS_DEV_PERSIST_BYTES = "netstats_dev_persist_bytes";
+    /** {@hide} */
+    public static final String NETSTATS_DEV_ROTATE_AGE = "netstats_dev_rotate_age";
+    /** {@hide} */
+    public static final String NETSTATS_DEV_DELETE_AGE = "netstats_dev_delete_age";
+
+    /** {@hide} */
+    public static final String NETSTATS_UID_BUCKET_DURATION = "netstats_uid_bucket_duration";
+    /** {@hide} */
+    public static final String NETSTATS_UID_PERSIST_BYTES = "netstats_uid_persist_bytes";
+    /** {@hide} */
+    public static final String NETSTATS_UID_ROTATE_AGE = "netstats_uid_rotate_age";
+    /** {@hide} */
+    public static final String NETSTATS_UID_DELETE_AGE = "netstats_uid_delete_age";
+
+    /** {@hide} */
+    public static final String NETSTATS_UID_TAG_BUCKET_DURATION =
+            "netstats_uid_tag_bucket_duration";
+    /** {@hide} */
+    public static final String NETSTATS_UID_TAG_PERSIST_BYTES =
+            "netstats_uid_tag_persist_bytes";
+    /** {@hide} */
+    public static final String NETSTATS_UID_TAG_ROTATE_AGE = "netstats_uid_tag_rotate_age";
+    /** {@hide} */
+    public static final String NETSTATS_UID_TAG_DELETE_AGE = "netstats_uid_tag_delete_age";
 
     /**
      * Whether the wifi data connection should remain active even when higher
@@ -969,6 +1012,190 @@ public class ConnectivitySettingsManager {
                 context.getContentResolver(), NETWORK_METERED_MULTIPATH_PREFERENCE, preference);
     }
 
+    /**
+     * Get poll interval from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The poll interval in milliseconds.
+     */
+    public static long getPollInterval(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_POLL_INTERVAL,
+                30 * MINUTE_IN_MILLIS);
+    }
+
+    /**
+     * Get global alert bytes from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The number of global alert bytes.
+     */
+    public static long getGlobalAlertBytes(@NonNull Context context, long def) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_GLOBAL_ALERT_BYTES, def);
+    }
+
+    /**
+     * Get sample enabled from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return Enabled or disabled netstats sample.
+     */
+    public static boolean getSampleEnabled(@NonNull Context context) {
+        return getGlobalBoolean(context.getContentResolver(), NETSTATS_SAMPLE_ENABLED, true);
+    }
+
+    /**
+     * Get augment enabled from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return Enabled or disabled netstats augment.
+     */
+    public static boolean getAugmentEnabled(@NonNull Context context) {
+        return getGlobalBoolean(context.getContentResolver(), NETSTATS_AUGMENT_ENABLED, true);
+    }
+
+    /**
+     * Get combine subtype enabled from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return When enabled, all mobile data is reported under
+     *         {@link NetworkIdentity#SUBTYPE_COMBINED}. When disabled,
+     *         mobile data is broken down by a granular subtype
+     *         representative of the actual subtype.
+     */
+    public static boolean getCombineSubtypeEnabled(@NonNull Context context) {
+        return getGlobalBoolean(context.getContentResolver(), NETSTATS_COMBINE_SUBTYPE_ENABLED,
+                false);
+    }
+
+    /**
+     * Get netstats dev bucket duration from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The dev bucket duration in milliseconds
+     */
+    public static long getDevBucketDuration(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_DEV_BUCKET_DURATION,
+                1 * HOUR_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats dev rotate age from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The dev rotate age in milliseconds
+     */
+    public static long getDevRotateAge(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_DEV_ROTATE_AGE,
+                15 * DAY_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats dev delete age from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The dev delete age in milliseconds.
+     */
+    public static long getDevDeleteAge(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_DEV_DELETE_AGE,
+                90 * DAY_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats uid bucket duration from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The uid bucket duration in milliseconds.
+     */
+    public static long getUidBucketDuration(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_UID_BUCKET_DURATION,
+                2 * HOUR_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats uid rotate age from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The uid rotate age in milliseconds.
+     */
+    public static long getUidRotateAge(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_UID_ROTATE_AGE,
+                15 * DAY_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats uid delete age from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The uid delete age in milliseconds.
+     */
+    public static long getUidDeleteAge(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_UID_DELETE_AGE,
+                90 * DAY_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats uid tag bucket duration from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The uid tag bucket duration in milliseconds.
+     */
+    public static long getUidTagBucketDuration(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_UID_TAG_BUCKET_DURATION,
+                2 * HOUR_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats uid tag rotate age from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The uid tag rotate age in milliseconds.
+     */
+    public static long getUidTagRotateAge(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_UID_TAG_ROTATE_AGE,
+                15 * DAY_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats uid tag delete age from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The uid tag delete age in milliseconds.
+     */
+    public static long getUidTagDeleteAge(@NonNull Context context) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_UID_TAG_DELETE_AGE,
+                90 * DAY_IN_MILLIS);
+    }
+
+    /**
+     * Get netstats dev persist bytes from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The number of netstats dev persist bytes.
+     */
+    public static long getDevPersistBytes(@NonNull Context context, long def) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_DEV_PERSIST_BYTES, def);
+    }
+
+    /**
+     * Get netstats uid persist bytes from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The number of netstats uid persist bytes.
+     */
+    public static long getUidPersistBytes(@NonNull Context context, long def) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_UID_PERSIST_BYTES, def);
+    }
+
+    /**
+     * Get uid tag persist bytes from {@link Settings}.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return The number of uid tag persist bytes.
+     */
+    public static long getUidTagPersistBytes(@NonNull Context context, long def) {
+        return getGlobalLong(context.getContentResolver(), NETSTATS_UID_TAG_PERSIST_BYTES, def);
+    }
+
     private static Set<Integer> getUidSetFromString(@Nullable String uidList) {
         final Set<Integer> uids = new ArraySet<>();
         if (TextUtils.isEmpty(uidList)) {
@@ -1071,4 +1298,16 @@ public class ConnectivitySettingsManager {
         Settings.Global.putString(context.getContentResolver(), UIDS_ALLOWED_ON_RESTRICTED_NETWORKS,
                 uids);
     }
+
+    private static long getGlobalLong(@NonNull ContentResolver resolver, @NonNull String name,
+            long def) {
+        return Settings.Global.getLong(resolver, name, def);
+    }
+
+    private static boolean getGlobalBoolean(@NonNull ContentResolver resolver,
+            @NonNull String name, boolean def) {
+        final int defInt = def ? 1 : 0;
+        return Settings.Global.getInt(resolver, name, defInt) != 0;
+    }
+
 }
