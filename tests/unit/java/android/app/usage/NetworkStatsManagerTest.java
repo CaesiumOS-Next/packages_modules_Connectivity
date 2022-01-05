@@ -220,6 +220,26 @@ public class NetworkStatsManagerTest {
                         TEST_SUBSCRIBER_ID));
     }
 
+    @Test
+    public void testQueryDetailsForNetwork() throws Exception {
+        final long startTime = 1;
+        final long endTime = 100;
+
+        reset(mStatsSession);
+        when(mService.openSessionForUsageStats(anyInt(), anyString())).thenReturn(mStatsSession);
+        when(mStatsSession.getHistoryIntervalForNetwork(any(NetworkTemplate.class),
+                anyInt(), anyLong(), anyLong()))
+                .thenReturn(new NetworkStatsHistory(10, 0));
+        final NetworkTemplate template = new NetworkTemplate.Builder(NetworkTemplate.MATCH_MOBILE)
+                .setMeteredness(NetworkStats.Bucket.METERED_YES).build();
+        NetworkStats stats = mManager.queryDetailsForNetwork(template, startTime, endTime);
+
+        verify(mStatsSession, times(1)).getHistoryIntervalForNetwork(
+                eq(template), eq(NetworkStatsHistory.FIELD_ALL), eq(startTime), eq(endTime));
+
+        assertFalse(stats.hasNextBucket());
+    }
+
     private void assertBucketMatches(Entry expected, NetworkStats.Bucket actual) {
         assertEquals(expected.uid, actual.getUid());
         assertEquals(expected.rxBytes, actual.getRxBytes());
