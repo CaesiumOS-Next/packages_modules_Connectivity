@@ -16,6 +16,7 @@
 
 package com.android.server.connectivity;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityDiagnosticsManager.ConnectivityReport;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.transportNamesOf;
@@ -45,6 +46,7 @@ import android.net.QosFilter;
 import android.net.QosFilterParcelable;
 import android.net.QosSession;
 import android.net.TcpKeepalivePacketData;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -612,6 +614,11 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         }
     }
 
+    private boolean checkSettingsPermission(int pid, int uid) {
+        return PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_SETTINGS, pid, uid);
+    }
+
     // TODO: consider moving out of NetworkAgentInfo into its own class
     private class NetworkAgentMessageHandler extends INetworkAgentRegistry.Stub {
         private final Handler mHandler;
@@ -623,6 +630,11 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         @Override
         public void sendNetworkCapabilities(@NonNull NetworkCapabilities nc) {
             Objects.requireNonNull(nc);
+            if (nc.getUnderlyingNetworks() != null
+                    && !checkSettingsPermission(Binder.getCallingPid(), Binder.getCallingUid())) {
+                throw new SecurityException("Insufficient permissions to update underlying"
+                        + " networks");
+            }
             mHandler.obtainMessage(NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED,
                     new Pair<>(NetworkAgentInfo.this, nc)).sendToTarget();
         }

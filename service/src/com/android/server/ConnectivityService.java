@@ -6063,8 +6063,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // specific SSID/SignalStrength, or the calling app has permission to do so.
     private void ensureSufficientPermissionsForRequest(NetworkCapabilities nc,
             int callerPid, int callerUid, String callerPackageName) {
-        if (null != nc.getSsid() && !checkSettingsPermission(callerPid, callerUid)) {
-            throw new SecurityException("Insufficient permissions to request a specific SSID");
+        if ((null != nc.getSsid() || null != nc.getUnderlyingNetworks())
+                && !checkSettingsPermission(callerPid, callerUid)) {
+            throw new SecurityException("Insufficient permissions to request "
+                    + ((null != nc.getSsid()) ? "a specific SSID" : "underlying networks"));
         }
 
         if (nc.hasSignalStrength()
@@ -6855,6 +6857,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             enforceAnyPermissionOf(Manifest.permission.MANAGE_TEST_NETWORKS);
         } else {
             enforceNetworkFactoryPermission();
+        }
+
+        if (networkCapabilities.getUnderlyingNetworks() != null
+                && !checkSettingsPermission(Binder.getCallingPid(), Binder.getCallingUid())) {
+            throw new SecurityException("Insufficient permissions to set underlying networks");
         }
 
         final int uid = mDeps.getCallingUid();
