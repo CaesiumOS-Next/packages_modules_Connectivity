@@ -48,12 +48,19 @@ package android.net {
 
   public class ConnectivitySettingsManager {
     method public static void clearGlobalProxy(@NonNull android.content.Context);
+    method public static boolean getAugmentEnabled(@NonNull android.content.Context);
     method @Nullable public static String getCaptivePortalHttpUrl(@NonNull android.content.Context);
     method public static int getCaptivePortalMode(@NonNull android.content.Context, int);
+    method public static boolean getCombineSubtypeEnabled(@NonNull android.content.Context);
     method @NonNull public static java.time.Duration getConnectivityKeepPendingIntentDuration(@NonNull android.content.Context, @NonNull java.time.Duration);
+    method public static long getDevBucketDuration(@NonNull android.content.Context);
+    method public static long getDevDeleteAge(@NonNull android.content.Context);
+    method public static long getDevPersistBytes(@NonNull android.content.Context, long);
+    method public static long getDevRotateAge(@NonNull android.content.Context);
     method @NonNull public static android.util.Range<java.lang.Integer> getDnsResolverSampleRanges(@NonNull android.content.Context);
     method @NonNull public static java.time.Duration getDnsResolverSampleValidityDuration(@NonNull android.content.Context, @NonNull java.time.Duration);
     method public static int getDnsResolverSuccessThresholdPercent(@NonNull android.content.Context, int);
+    method public static long getGlobalAlertBytes(@NonNull android.content.Context, long);
     method @Nullable public static android.net.ProxyInfo getGlobalProxy(@NonNull android.content.Context);
     method @NonNull public static java.time.Duration getMobileDataActivityTimeout(@NonNull android.content.Context, @NonNull java.time.Duration);
     method public static boolean getMobileDataAlwaysOn(@NonNull android.content.Context, boolean);
@@ -62,9 +69,19 @@ package android.net {
     method @Nullable public static String getNetworkMeteredMultipathPreference(@NonNull android.content.Context);
     method public static int getNetworkSwitchNotificationMaximumDailyCount(@NonNull android.content.Context, int);
     method @NonNull public static java.time.Duration getNetworkSwitchNotificationRateDuration(@NonNull android.content.Context, @NonNull java.time.Duration);
+    method public static long getPollInterval(@NonNull android.content.Context);
     method @NonNull public static String getPrivateDnsDefaultMode(@NonNull android.content.Context);
     method @Nullable public static String getPrivateDnsHostname(@NonNull android.content.Context);
     method public static int getPrivateDnsMode(@NonNull android.content.Context);
+    method public static boolean getSampleEnabled(@NonNull android.content.Context);
+    method public static long getUidBucketDuration(@NonNull android.content.Context);
+    method public static long getUidDeleteAge(@NonNull android.content.Context);
+    method public static long getUidPersistBytes(@NonNull android.content.Context, long);
+    method public static long getUidRotateAge(@NonNull android.content.Context);
+    method public static long getUidTagBucketDuration(@NonNull android.content.Context);
+    method public static long getUidTagDeleteAge(@NonNull android.content.Context);
+    method public static long getUidTagPersistBytes(@NonNull android.content.Context, long);
+    method public static long getUidTagRotateAge(@NonNull android.content.Context);
     method @NonNull public static java.util.Set<java.lang.Integer> getUidsAllowedOnRestrictedNetworks(@NonNull android.content.Context);
     method public static boolean getWifiAlwaysRequested(@NonNull android.content.Context, boolean);
     method @NonNull public static java.time.Duration getWifiDataActivityTimeout(@NonNull android.content.Context, @NonNull java.time.Duration);
