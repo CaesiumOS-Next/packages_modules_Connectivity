@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c7323d_1dc7549d",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-05T13:30:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fade5f4_92d83123",
+      "range": {
+        "startLine": 1685,
+        "startChar": 45,
+        "endLine": 1685,
+        "endChar": 53
+      },
+      "revId": "1bee3e324e6dee99847f26a395a4599dd1313dc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59b43e40_c7b1f642",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-23T12:36:17Z",
       "side": 1,
       "message": "1. Do we need to make a defensive copy?\n\n2. It seems to me we don\u0027t need semantics for null.\nIf so can we make mAccessUids final?",
+      "range": {
+        "startLine": 1687,
+        "startChar": 22,
+        "endLine": 1687,
+        "endChar": 26
+      },
+      "revId": "1bee3e324e6dee99847f26a395a4599dd1313dc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cef9224c_86e8622e",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1687,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-05T13:30:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59b43e40_c7b1f642",
       "range": {
         "startLine": 1687,
         "startChar": 22,
@@ -72,6 +120,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "737606c7_8bfd007d",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1965,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-05T13:30:30Z",
+      "side": 1,
+      "message": "It was meant to help make sure it\u0027s never possible that it\u0027s null, though it might be a bit overkill.\n\nThat being said your comments higher in this file have changed this for the better and removed the concern.",
+      "parentUuid": "bd1e8c55_e8bd126f",
+      "range": {
+        "startLine": 1965,
+        "startChar": 16,
+        "endLine": 1965,
+        "endChar": 47
+      },
+      "revId": "1bee3e324e6dee99847f26a395a4599dd1313dc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dc742e59_82c137b1",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 12
@@ -95,6 +167,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e54274da_1dd4a657",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 6361,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-05T13:30:30Z",
+      "side": 1,
+      "message": "Yes – in fact it\u0027s an overlook that it wasn\u0027t enforced. I hope this is not going to crash any app...",
+      "parentUuid": "dc742e59_82c137b1",
+      "range": {
+        "startLine": 6361,
+        "startChar": 8,
+        "endLine": 6361,
+        "endChar": 19
+      },
+      "revId": "1bee3e324e6dee99847f26a395a4599dd1313dc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f7a87636_fbbfc760",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 12
@@ -106,6 +202,30 @@
       "writtenOn": "2021-12-23T12:36:17Z",
       "side": 1,
       "message": "nit: Do we want to test calling this with empty set?\nMaybe not since all other tests should already cover this case.",
+      "range": {
+        "startLine": 3822,
+        "startChar": 30,
+        "endLine": 3822,
+        "endChar": 43
+      },
+      "revId": "1bee3e324e6dee99847f26a395a4599dd1313dc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eed92b0_56099136",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 3822,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-05T13:30:30Z",
+      "side": 1,
+      "message": "Yes, I think all other tests already cover this, but just in case there is any difference between doing nothing and calling with an empty set : done.",
+      "parentUuid": "f7a87636_fbbfc760",
       "range": {
         "startLine": 3822,
         "startChar": 30,
