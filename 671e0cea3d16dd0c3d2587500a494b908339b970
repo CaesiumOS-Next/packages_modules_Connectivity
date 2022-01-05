@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad88e13a_62da8518",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-05T03:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58aec655_0754a852",
+      "range": {
+        "startLine": 868,
+        "startChar": 90,
+        "endLine": 868,
+        "endChar": 91
+      },
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94be7add_529d8c3f",
@@ -87,6 +111,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b14dac_9d390fc0",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-05T03:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94be7add_529d8c3f",
+      "range": {
+        "startLine": 878,
+        "startChar": 50,
+        "endLine": 878,
+        "endChar": 53
+      },
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "328cd1c1_b96dc05e",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-05T03:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3617adae_efca9d87",
+      "range": {
+        "startLine": 878,
+        "startChar": 24,
+        "endLine": 878,
+        "endChar": 27
+      },
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8301e08b_737a55f9",
@@ -100,6 +172,30 @@
       "writtenOn": "2021-12-15T14:19:12Z",
       "side": 1,
       "message": "I find these multiply-indented callback lambdas quite hard to read, so I\u0027m not sure exactly what is happening here, but... is there a reason this can\u0027t be in the same brace as the unregisterNetworkCallback call in line 886?",
+      "range": {
+        "startLine": 888,
+        "startChar": 16,
+        "endLine": 888,
+        "endChar": 70
+      },
+      "revId": "671e0cea3d16dd0c3d2587500a494b908339b970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e4fc4f2_20b5261b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-05T03:22:51Z",
+      "side": 1,
+      "message": "This is suggested by Jean at patchset-14(https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1842952/14/tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java#875), the point is that if the eariler cleanups throws, the subsequent cleanups can keep executing.",
+      "parentUuid": "8301e08b_737a55f9",
       "range": {
         "startLine": 888,
         "startChar": 16,

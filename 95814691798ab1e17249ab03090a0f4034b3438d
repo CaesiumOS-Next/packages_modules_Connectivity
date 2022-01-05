@@ -228,6 +228,30 @@
       },
       "revId": "95814691798ab1e17249ab03090a0f4034b3438d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bce00c2_eedbfb24",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsCallbackHandlerThread.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-05T03:22:51Z",
+      "side": 1,
+      "message": "After adding framework-connectivity.impl into Android.bp, I can use ConnectivityThread.\nUpdated.",
+      "parentUuid": "0e01b5f1_c88c47d6",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 37
+      },
+      "revId": "95814691798ab1e17249ab03090a0f4034b3438d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
