@@ -16,6 +16,7 @@
 
 package com.android.server.net;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.READ_NETWORK_USAGE_HISTORY;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.Intent.ACTION_UID_REMOVED;
@@ -66,6 +67,7 @@ import static com.android.server.net.NetworkStatsService.ACTION_NETWORK_STATS_PO
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -203,10 +205,15 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
+        private boolean mGrantCoarseLocation;
 
         MockContext(Context base) {
             super(base);
             mBaseContext = base;
+        }
+
+        public void setGrantCoarseLocation(boolean grantCoarseLocation) {
+            mGrantCoarseLocation = grantCoarseLocation;
         }
 
         @Override
@@ -230,6 +237,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 case READ_NETWORK_USAGE_HISTORY:
                 case UPDATE_DEVICE_STATS:
                     return PERMISSION_GRANTED;
+                case ACCESS_COARSE_LOCATION:
+                    return mGrantCoarseLocation ? PERMISSION_GRANTED : PERMISSION_DENIED;
                 default:
                     return PERMISSION_DENIED;
             }
@@ -262,6 +271,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         MockitoAnnotations.initMocks(this);
         final Context context = InstrumentationRegistry.getContext();
         mServiceContext = new MockContext(context);
+        mServiceContext.setGrantCoarseLocation(true);
         when(sWifiInfo.getCurrentNetworkKey()).thenReturn(TEST_WIFI_NETWORK_KEY);
         mStatsDir = TestIoUtils.createTemporaryDirectory(getClass().getSimpleName());
 
@@ -1688,6 +1698,26 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         provider.expectOnRequestStatsUpdate(0 /* unused */);
     }
 
+    /**
+     * Verify the service will throw exceptions if the template is location sensitive but
+     * the permission is not granted.
+     */
+    @Test
+    public void testEnforceTemplateLocationPermission() throws Exception {
+        mServiceContext.setGrantCoarseLocation(false);
+        initWifiStats(buildWifiState(true, TEST_IFACE, IMSI_1));
+        assertThrows(SecurityException.class, () ->
+                assertNetworkTotal(sTemplateWifi, 0L, 0L, 0L, 0L, 0));
+        // Templates w/o wifi network keys can query stats as usual.
+        assertNetworkTotal(sTemplateCarrierWifi1, 0L, 0L, 0L, 0L, 0);
+        assertNetworkTotal(sTemplateImsi1, 0L, 0L, 0L, 0L, 0);
+
+        mServiceContext.setGrantCoarseLocation(true);
+        assertNetworkTotal(sTemplateCarrierWifi1, 0L, 0L, 0L, 0L, 0);
+        assertNetworkTotal(sTemplateWifi, 0L, 0L, 0L, 0L, 0);
+        assertNetworkTotal(sTemplateImsi1, 0L, 0L, 0L, 0L, 0);
+    }
+
     private static File getBaseDir(File statsDir) {
         File baseDir = new File(statsDir, "netstats");
         baseDir.mkdirs();
@@ -1703,7 +1733,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private void assertNetworkTotal(NetworkTemplate template, long start, long end, long rxBytes,
             long rxPackets, long txBytes, long txPackets, int operations) throws Exception {
         // verify history API
-        final NetworkStatsHistory history = mSession.getHistoryForNetwork(template, FIELD_ALL);
+        final NetworkStatsHistory history =
+                mSession.getHistoryIntervalForNetwork(template, FIELD_ALL, start, end);
         assertValues(history, start, end, rxBytes, rxPackets, txBytes, txPackets, operations);
 
         // verify summary API
