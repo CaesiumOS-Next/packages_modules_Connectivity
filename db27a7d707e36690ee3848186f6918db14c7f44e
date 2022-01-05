@@ -16,6 +16,29 @@
       "message": "+Remi \u0026 Jean who might be a better person to review the change.",
       "revId": "db27a7d707e36690ee3848186f6918db14c7f44e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9370e5c_f7f05e29",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-05T03:28:00Z",
+      "side": 1,
+      "message": "Just to check : this has no effect on parcelables right ? This target includes a large number of parcelables that are rarely used and b/208515821 mentions this wasn\u0027t done by default to avoid bloating.\n\nAnother thought from the bug is, for a given SKU, the transaction number always translates to a specific method name, maybe it\u0027s a generally better idea to deduce the method name from the number and the build info on the server side because that will make all method names available including on older devices and without adding methods.\n\nThat being said, I don\u0027t think this change is a problem at all",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 37
+      },
+      "revId": "db27a7d707e36690ee3848186f6918db14c7f44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
