@@ -90,4 +90,61 @@ public final class TetheringConstants {
      */
     public static final String EXTRA_TETHER_PROVISIONING_RESPONSE =
             "android.net.extra.TETHER_PROVISIONING_RESPONSE";
+
+    /**
+     * An action to start a foreground activity to show the UI for entitlement check.
+     *
+     * <p>The {@link EXTRA_REQUEST_TETHER_TYPE} extra indicates the current tether type. This extra
+     * value can refer to {@link TetheringManager#TetheringType}. A second extra
+     * {@link android.telephony.SubscriptionManager#EXTRA_SUBSCRIPTION_INDEX} indicates
+     * the current subscription id for tethering. A third extra
+     * {@link #EXTRA_PROVISION_CALLBACK} provides the callback {@link ResultReceiver} to send
+     * the entitlement result back.
+     *
+     * <p>Example of result callback:
+     * Result code uses {@link TetheringManager#TETHER_ERROR_NO_ERROR} or
+     * {@link TetheringManager#TETHER_ERROR_PROVISIONING_FAILED} to indicate the result.
+     *
+     * <pre> {@code
+     *     int result = TetheringManager#TETHER_ERROR_NO_ERROR
+     *     ResultReceiver.send(result, null);
+     * }</pre>
+     */
+    public static final String ACTION_TETHERING_ENTITLEMENT = "android.net.TETHERING_ENTITLEMENT";
+
+    /**
+     * An action to start a background service to do the entitlement check.
+     *
+     * <p>The {@link EXTRA_REQUEST_TETHER_TYPE} extra indicates the current tether type. This extra
+     * value can refer to {@link TetheringManager#TetheringType}.
+     */
+    public static final String ACTION_TETHERING_ENTITLEMENT_BACKGROUND =
+            "android.net.TETHERING_ENTITLEMENT_BACKGROUND";
+
+    /**
+     * The extra EXTRA_ENTITLEMENT_RESULT indicates the entitlement result
+     * for background entitlement. The extra value can refer to
+     * {@link android.app.Activity#RESULT_OK} or {@link android.app.Activity#RESULT_CANCELED}.
+     *
+     * <p>Example:
+     * <pre>{@code
+     *   Intent intent = new Intent(ACTION_TETHERING_ENTITLEMENT_RESULT);
+     *   intent.putExtra(EXTRA_ENTITLEMENT_RESULT, resultCode);
+     *   sendBroadcast(intent, "android.permission.TETHER_PRIVILEGE")
+     * }</pre>
+     */
+    public static final String ACTION_TETHERING_ENTITLEMENT_RESULT =
+            "android.net.TETHERING_ENTITLEMENT_RESULT";
+
+    /**
+     * A Extra used for communicating with the provisioning application.
+     * Includes the type of tethering to enable if any.
+     */
+    public static final String EXTRA_REQUEST_TETHER_TYPE = "TETHER_TYPE";
+
+    /**
+     * A Extra used for passing entitlement result for background entitlement check.
+     */
+    public static final String EXTRA_ENTITLEMENT_RESULT = "EntitlementResult";
+
 }

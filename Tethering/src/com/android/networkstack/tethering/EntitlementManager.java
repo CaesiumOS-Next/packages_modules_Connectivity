@@ -74,6 +74,46 @@ public class EntitlementManager {
     protected static final String ACTION_PROVISIONING_ALARM =
             "com.android.networkstack.tethering.PROVISIONING_RECHECK_ALARM";
 
+    /**
+     * An action to start a foreground activity to show the UI for entitlement check.
+     *
+     * The "TETHER_TYPE" extra indicates the current tether type. This extra value can refer
+     * to {@link TetheringManager#TetheringType}. A second extra
+     * {@link SubscriptionManager#EXTRA_SUBSCRIPTION_INDEX} indicates the current subscription id
+     * for tethering. A third extra {@link #EXTRA_PROVISION_CALLBACK} provides the
+     *    callback {@link android.os.ResultReceiver} to send the entitlement result back.
+     *
+     * Example: int result = resultCode
+     *               == RESULT_OK ? {@link TetheringManager#TETHER_ERROR_NO_ERROR}
+     *                   : {@link TetheringManager#TETHER_ERROR_PROVISIONING_FAILED};
+     *           ResultReceiver.send(result, null);
+     */
+    public static final String ACTION_TETHERING_ENTITLEMENT = "android.net.TETHERING_ENTITLEMENT";
+
+    /**
+     * An action to start a background service to do the entitlement check.
+     *
+     * The "TETHER_TYPE" extra indicates the current tether type. This extra value can refer to
+     * {@link TetheringManager#TetheringType}.
+     */
+    public static final String ACTION_TETHERING_ENTITLEMENT_BACKGROUND =
+            "android.net.TETHERING_ENTITLEMENT_BACKGROUND";
+
+    /**
+     * The extra "EntitlementResult" indicates the entitlement result. The extra value can
+     * refer to {@link Activity#RESULT_OK} or {@link Activity#RESULT_CANCELED}.
+     *
+     * Example:
+     *   Intent intent = new Intent(ACTION_TETHERING_ENTITLEMENT_RESULT);
+     *   intent.putExtra("EntitlementResult", resultCode);
+     *   sendBroadcast(intent, "android.permission.TETHER_PRIVILEGE")
+     */
+    public static final String ACTION_TETHERING_ENTITLEMENT_RESULT =
+            "android.net.TETHERING_ENTITLEMENT_RESULT";
+
+    /** A extra to include the callback {@link android.os.ResultReceiver}.*/
+    public static final String EXTRA_PROVISION_CALLBACK = "extraProvisionCallback";
+
     private final ComponentName mSilentProvisioningService;
     private static final int MS_PER_HOUR = 60 * 60 * 1000;
     private static final int DUMP_TIMEOUT = 10_000;
