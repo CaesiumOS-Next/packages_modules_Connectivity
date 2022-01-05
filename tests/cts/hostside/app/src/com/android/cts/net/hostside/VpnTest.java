@@ -791,7 +791,6 @@ public class VpnTest {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
         final TestableNetworkCallback callback = new TestableNetworkCallback();
-        final boolean isWifiEnabled = mWifiManager.isWifiEnabled();
         testAndCleanup(() -> {
             // Ensure both of wifi and mobile data are connected.
             final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
@@ -836,12 +835,6 @@ public class VpnTest {
                 expectUnderlyingNetworks(callback, List.of(wifiNetwork, cellNetwork));
             }, NETWORK_SETTINGS);
         }, () -> {
-                if (isWifiEnabled) {
-                    mCtsNetUtils.ensureWifiConnected();
-                } else {
-                    mCtsNetUtils.ensureWifiDisconnected(null);
-                }
-            }, () -> {
                 mCM.unregisterNetworkCallback(callback);
             });
     }
@@ -853,7 +846,6 @@ public class VpnTest {
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
         final TestableNetworkCallback callback = new TestableNetworkCallback();
         final TestNetworkCallback defaultNetworkCallback = new TestNetworkCallback();
-        final boolean isWifiEnabled = mWifiManager.isWifiEnabled();
         testAndCleanup(() -> {
             // Ensure wifi is connected.
             final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
@@ -887,12 +879,6 @@ public class VpnTest {
                 mCM.unregisterNetworkCallback(callback);
             }, () -> {
                 mCM.unregisterNetworkCallback(defaultNetworkCallback);
-            }, () -> {
-                if (isWifiEnabled) {
-                    mCtsNetUtils.ensureWifiConnected();
-                } else {
-                    mCtsNetUtils.ensureWifiDisconnected(null);
-                }
             });
     }
 

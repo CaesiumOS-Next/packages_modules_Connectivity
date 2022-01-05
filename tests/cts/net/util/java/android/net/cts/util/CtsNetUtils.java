@@ -104,6 +104,7 @@ public final class CtsNetUtils {
     private int mOldPrivateDnsMode = 0;
     private String mOldPrivateDnsSpecifier;
     private ConnectivityManagerShim mCmShim;
+    private Boolean mWifiStateBeforeTest;
 
     public CtsNetUtils(Context context) {
         mContext = context;
@@ -227,6 +228,7 @@ public final class CtsNetUtils {
      * @return The network that was newly connected.
      */
     private Network connectToWifi(boolean expectLegacyBroadcast) {
+        if (mWifiStateBeforeTest == null) mWifiStateBeforeTest = mWifiManager.isWifiEnabled();
         ConnectivityActionReceiver receiver = new ConnectivityActionReceiver(
                 mCm, ConnectivityManager.TYPE_WIFI, NetworkInfo.State.CONNECTED);
         IntentFilter filter = new IntentFilter();
@@ -288,6 +290,7 @@ public final class CtsNetUtils {
      *                              to wifi in the first place.
      */
     private void disconnectFromWifi(Network wifiNetworkToCheck, boolean expectLegacyBroadcast) {
+        if (mWifiStateBeforeTest == null) mWifiStateBeforeTest = mWifiManager.isWifiEnabled();
         final TestNetworkCallback callback = new TestNetworkCallback();
         mCm.registerNetworkCallback(makeWifiNetworkRequest(), callback);
 
@@ -392,6 +395,14 @@ public final class CtsNetUtils {
     public void tearDown() {
         if (cellConnectAttempted()) {
             disconnectFromCell();
+        }
+
+        if (mWifiStateBeforeTest != null) {
+            if (mWifiStateBeforeTest) {
+                ensureWifiConnected();
+            } else {
+                ensureWifiDisconnected(null);
+            }
         }
     }
 
