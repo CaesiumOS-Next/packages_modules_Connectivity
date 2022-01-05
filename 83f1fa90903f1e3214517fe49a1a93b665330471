@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c53e9af_9c3151b8",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-01-05T18:59:10Z",
+      "side": 1,
+      "message": "TH is failing on this test for mainline presubmit.\n\nDoes it need this at the start?\n\n    assumeTrue(isAtLeastT());",
+      "range": {
+        "startLine": 310,
+        "startChar": 16,
+        "endLine": 310,
+        "endChar": 35
+      },
+      "revId": "83f1fa90903f1e3214517fe49a1a93b665330471",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
