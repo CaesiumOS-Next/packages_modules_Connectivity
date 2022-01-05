@@ -16,8 +16,10 @@
 
 package com.android.networkstack.tethering;
 
+import static android.net.TetheringConstants.ACTION_TETHERING_ENTITLEMENT_FOREGROUND;
 import static android.net.TetheringConstants.EXTRA_ADD_TETHER_TYPE;
 import static android.net.TetheringConstants.EXTRA_PROVISION_CALLBACK;
+import static android.net.TetheringConstants.EXTRA_REQUEST_TETHER_TYPE;
 import static android.net.TetheringConstants.EXTRA_RUN_PROVISION;
 import static android.net.TetheringConstants.EXTRA_TETHER_PROVISIONING_RESPONSE;
 import static android.net.TetheringConstants.EXTRA_TETHER_SILENT_PROVISIONING_ACTION;
@@ -49,6 +51,7 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.telephony.CarrierConfigManager;
+import android.telephony.SubscriptionManager;
 import android.util.SparseIntArray;
 
 import com.android.internal.annotations.VisibleForTesting;
@@ -281,14 +284,19 @@ public class EntitlementManager {
      */
     @VisibleForTesting
     protected boolean isTetherProvisioningRequired(final TetheringConfiguration config) {
-        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)
-                || config.provisioningApp.length == 0) {
-            return false;
+        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)) {
+            return true;
         }
-        if (carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
-            return false;
+
+        if (getEntitlementAppPackageName(config).isEmpty()) {
+            if (config.provisioningApp.length == 0
+                    || carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
+                return false;
+            }
+            return (config.provisioningApp.length == 2);
+        } else {
+            return true;
         }
-        return (config.provisioningApp.length == 2);
     }
 
     /**
@@ -310,9 +318,7 @@ public class EntitlementManager {
         mEntitlementCacheValue.clear();
         mCurrentEntitlementResults.clear();
 
-        // TODO: refine provisioning check to isTetherProvisioningRequired() ??
-        if (!config.hasMobileHotspotProvisionApp()
-                || carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
+        if (carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
             evaluateCellularPermission(config);
             return;
         }
@@ -358,6 +364,15 @@ public class EntitlementManager {
         return !isEntitlementCheckRequired;
     }
 
+    private String getEntitlementAppPackageName(final TetheringConfiguration config) {
+        final PersistableBundle carrierConfig = getCarrierConfig(config);
+        if (carrierConfig == null) {
+            return "";
+        }
+        return carrierConfig.getString(
+                CarrierConfigManager.Tethering.KEY_ENTITLEMENT_SERVICE_PACKAGE_STRING);
+    }
+
     /**
      * Run no UI tethering provisioning check.
      * @param type tethering type from TetheringManager.TETHERING_{@code *}
@@ -399,12 +414,20 @@ public class EntitlementManager {
             ResultReceiver receiver) {
         if (DBG) mLog.i("runUiTetherProvisioning: " + type);
 
-        Intent intent = new Intent(Settings.ACTION_TETHER_PROVISIONING_UI);
-        intent.putExtra(EXTRA_ADD_TETHER_TYPE, type);
-        intent.putExtra(EXTRA_TETHER_UI_PROVISIONING_APP_NAME, config.provisioningApp);
-        intent.putExtra(EXTRA_PROVISION_CALLBACK, receiver);
-        intent.putExtra(EXTRA_TETHER_SUBID, config.activeDataSubId);
+        Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (getEntitlementAppPackageName(config).isEmpty()) {
+            intent.setAction(Settings.ACTION_TETHER_PROVISIONING_UI);
+            intent.putExtra(EXTRA_ADD_TETHER_TYPE, type);
+            intent.putExtra(EXTRA_TETHER_UI_PROVISIONING_APP_NAME, config.provisioningApp);
+            intent.putExtra(EXTRA_PROVISION_CALLBACK, receiver);
+            intent.putExtra(EXTRA_TETHER_SUBID, config.activeDataSubId);
+        } else {
+            intent.setAction(ACTION_TETHERING_ENTITLEMENT_FOREGROUND);
+            intent.putExtra(EXTRA_REQUEST_TETHER_TYPE, type);
+            intent.putExtra(EXTRA_PROVISION_CALLBACK, receiver);
+            intent.putExtra(SubscriptionManager.EXTRA_SUBSCRIPTION_INDEX, config.activeDataSubId);
+        }
         // Only launch entitlement UI for system user. Entitlement UI should not appear for other
         // user because only admin user is allowed to change tethering.
         mContext.startActivity(intent);
