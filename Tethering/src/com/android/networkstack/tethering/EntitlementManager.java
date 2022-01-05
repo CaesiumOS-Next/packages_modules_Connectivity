@@ -281,14 +281,19 @@ public class EntitlementManager {
      */
     @VisibleForTesting
     protected boolean isTetherProvisioningRequired(final TetheringConfiguration config) {
-        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)
-                || config.provisioningApp.length == 0) {
+        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)) {
             return false;
         }
-        if (carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
-            return false;
+
+        if (getEntitlementAppPackageNameFromCarrierConfig(config).isEmpty()) {
+            if (config.provisioningApp.length == 0
+                    || carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
+                return false;
+            }
+            return (config.provisioningApp.length == 2);
+        } else {
+            return true;
         }
-        return (config.provisioningApp.length == 2);
     }
 
     /**
@@ -356,6 +361,16 @@ public class EntitlementManager {
         final boolean isEntitlementCheckRequired = carrierConfig.getBoolean(
                 CarrierConfigManager.KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL);
         return !isEntitlementCheckRequired;
+    }
+
+    private String getEntitlementAppPackageNameFromCarrierConfig(
+            final TetheringConfiguration config) {
+        final PersistableBundle carrierConfig = getCarrierConfig(config);
+        if (carrierConfig == null) {
+            return "";
+        }
+        return carrierConfig.getString(
+                CarrierConfigManager.Tethering.KEY_ENTITLEMENT_SERVICE_PACKAGE_STRING);
     }
 
     /**
