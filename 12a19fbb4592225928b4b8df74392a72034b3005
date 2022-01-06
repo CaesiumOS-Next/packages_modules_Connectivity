@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698d092b_00989317",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-06T00:37:30Z",
+      "side": 1,
+      "message": "Not sure if this is a good idea.\nSee comment in the other CL.",
+      "range": {
+        "startLine": 87,
+        "startChar": 51,
+        "endLine": 87,
+        "endChar": 89
+      },
+      "revId": "12a19fbb4592225928b4b8df74392a72034b3005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06b7fae8_68840128",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-06T00:37:30Z",
+      "side": 1,
+      "message": "getGlobalLong?",
+      "range": {
+        "startLine": 1101,
+        "startChar": 15,
+        "endLine": 1101,
+        "endChar": 43
+      },
+      "revId": "12a19fbb4592225928b4b8df74392a72034b3005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a59c2d5_de81697c",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-06T00:37:30Z",
+      "side": 1,
+      "message": "If this is needed maybe just expose the string?",
+      "range": {
+        "startLine": 1196,
+        "startChar": 41,
+        "endLine": 1196,
+        "endChar": 73
+      },
+      "revId": "12a19fbb4592225928b4b8df74392a72034b3005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
