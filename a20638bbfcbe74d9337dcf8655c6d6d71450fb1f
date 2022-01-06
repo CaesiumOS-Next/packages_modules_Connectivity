@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a6cf48_eed3d002",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T04:06:54Z",
+      "side": 1,
+      "message": "This bug looks completely unrelated",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "a20638bbfcbe74d9337dcf8655c6d6d71450fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c708ca86_08432dc3",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T04:06:54Z",
+      "side": 1,
+      "message": "Is it expensive to call this ? Can we call it when we create the instance of CtsNetUtils ?\n\nThere are two drawbacks to this design :\n- It adds a requirement that connectToWifi and disconnectFromWifi are only called on the same thread as tearDown. We\u0027ve seen at least setUp being called on a different thread ; this looks dangerous to me.\n- It will not restore the state for tests that use ConnectUtil#ensureWifiConnected directly.\n\nMaybe it\u0027s not the end of the world, but if we make mWifiStateBeforeTest a final boolean initialized in the constructor we fix both of these issues trivially.",
+      "range": {
+        "startLine": 231,
+        "startChar": 65,
+        "endLine": 231,
+        "endChar": 94
+      },
+      "revId": "a20638bbfcbe74d9337dcf8655c6d6d71450fb1f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
