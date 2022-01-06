@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f459db89_ed973676",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-01-06T15:49:16Z",
+      "side": 1,
+      "message": "Hi Jean, \nthis CL is a re-land of aosp/1551943.\n\nThere was a trivial merge conflict during revert. See resolution here:\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1931760/1..2/tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java\n\nplease approve",
+      "revId": "1a6d19e4b8eab2de70f61474ed9580131c994f26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
