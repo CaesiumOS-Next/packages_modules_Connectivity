@@ -1,0 +1,9 @@
+// Signature format: 2.0
+
+package android.net {
+
+  public final class IpSecManager {
+    field public static final int INVALID_SECURITY_PARAMETER_INDEX = 0; // 0x0
+  }
+
+}

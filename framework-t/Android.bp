@@ -41,14 +41,24 @@ java_sdk_library {
     libs: [
         "unsupportedappusage",
         "app-compat-annotations",
+        "framework-connectivity.stubs.module_lib",
     ],
     permitted_packages: [
         "android.net",
         "android.net.nsd",
     ],
+    stub_only_libs: [
+        "framework-connectivity.stubs.module_lib",
+    ],
     apex_available: [
         "com.android.tethering",
     ],
+    aidl: {
+        generate_get_transaction_name: true,
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
     impl_library_visibility: [
         "//packages/modules/Connectivity/Tethering/apex",
         // In preparation for future move
