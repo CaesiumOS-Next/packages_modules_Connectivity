@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95ad12d8_b88914e7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T10:22:38Z",
+      "side": 1,
+      "message": "While you\u0027re here can you fix this typo ? (\"deterministically\")",
+      "range": {
+        "startLine": 291,
+        "startChar": 11,
+        "endLine": 291,
+        "endChar": 26
+      },
+      "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71b50dfd_843affd8",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T10:22:38Z",
+      "side": 1,
+      "message": "It seems this comment needs to be updated now",
+      "range": {
+        "startLine": 570,
+        "startChar": 14,
+        "endLine": 570,
+        "endChar": 26
+      },
+      "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5cb8c474_978e87a5",
         "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
         "patchSetId": 4
@@ -43,6 +89,76 @@
         "startChar": 12,
         "endLine": 609,
         "endChar": 52
+      },
+      "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bb4095d_2343f8ad",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T10:22:38Z",
+      "side": 1,
+      "message": "I think neither if nor while make sense here. Please look at the comment at the bottom of this file.",
+      "parentUuid": "1c39537a_a5dc3614",
+      "range": {
+        "startLine": 609,
+        "startChar": 12,
+        "endLine": 609,
+        "endChar": 52
+      },
+      "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a606db8_a63640da",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T10:22:38Z",
+      "side": 1,
+      "message": "The threading is incorrect. Remember that this code is not running on the same thread as the callbacks. You might receive onCapabilitiesChanged for a network and open the latch, but before the thread blocked in l.609 resumes, there is a call to onAvailable with another network. Then you\u0027ll return the wrong Network object.",
+      "range": {
+        "startLine": 610,
+        "startChar": 23,
+        "endLine": 610,
+        "endChar": 37
+      },
+      "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a00b44f_67b34149",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T10:22:38Z",
+      "side": 1,
+      "message": "This does not look correct. It does not fit into the design of this callback. Imagine what happens when multiple networks match the callback.\n\nThe entire reason this callback was fine before was that it was only looking at available/unavailable/lost. This allows this callback to track exactly one network, because you can only wait for available or unavailable, and once you\u0027ve done this you can only wait for lost.\n\nIf you\u0027re only waiting for available or unavailable, you don\u0027t know what network you are expecting, and you want the callback to tell you what network that is. You are explicitly interested in exactly one network : the first one that matches the request.\n\nBut when you wait for onCapabilitiesChanged, you don\u0027t want \"whatever network first validates\". What you want is to wait for validation of a particular network, and therefore assigning here is not what you want.\n\nWhat you *could* want is to open the latch if and only if currentNetwork.equals(network) ; it would be a relatively natural extension of this class.\nUnfortunately this is also pretty difficult to understand, because these semantics mean it doesn\u0027t really make sense to wait for validation without first waiting for availability. In fact, your usage in this patch does that, so it would already not agree with the semantics.\n\nFrankly I think we would be much better served by converting the test to using TestableNetworkCallback.",
+      "range": {
+        "startLine": 643,
+        "startChar": 0,
+        "endLine": 643,
+        "endChar": 41
       },
       "revId": "21513ecbb18b127facacf0ffa825b22f77dac2d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "431c3063_64ddc81b",
+        "filename": "tests/cts/net/util/java/android/net/cts/util/CtsNetUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T10:22:38Z",
+      "side": 0,
+      "message": "I don\u0027t think you should remove this because there is another TestNetworkCallback class in our tests. This at least clarifies which TestNetworkCallback this is using.",
+      "range": {
+        "startLine": 607,
+        "startChar": 24,
+        "endLine": 607,
+        "endChar": 35
+      },
+      "revId": "bb754d6cc59611cc033928786cc51d93afc1ef89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
