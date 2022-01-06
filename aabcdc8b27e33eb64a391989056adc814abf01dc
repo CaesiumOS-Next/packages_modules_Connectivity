@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba613c1_f7f91cee",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-06T18:23:56Z",
+      "side": 1,
+      "message": "\".\" instead of \"#\" since this is a code snippet not javadoc",
+      "range": {
+        "startLine": 109,
+        "startChar": 40,
+        "endLine": 109,
+        "endChar": 41
+      },
+      "revId": "aabcdc8b27e33eb64a391989056adc814abf01dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b256d36_834acafa",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-06T18:23:56Z",
+      "side": 1,
+      "message": "I suggest name this as ACTION_TETHERING_ENTITLEMENT_FOREGROUND and the background action ACTION_TETHERING_ENTITLEMENT. \n\nThe reason is to align with the roadmap: to deprecate FOREGROUND activity and keep a background service only. At that time, we just need to deprecate ACTION_TETHERING_ENTITLEMENT_FOREGROUND and continue using ACTION_TETHERING_ENTITLEMENT for the background service. It\u0027s also possible that we will decide to deprecate both and use a new action for the service, and the proposed change won\u0027t hurt anyways.",
+      "range": {
+        "startLine": 113,
+        "startChar": 31,
+        "endLine": 113,
+        "endChar": 59
+      },
+      "revId": "aabcdc8b27e33eb64a391989056adc814abf01dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51f9d095_d9986a57",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-06T18:23:56Z",
+      "side": 1,
+      "message": "Why defining the same constants again here?",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 59
+      },
+      "revId": "aabcdc8b27e33eb64a391989056adc814abf01dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
