@@ -260,6 +260,25 @@ public class Ikev2VpnProfileTest {
     }
 
     @Test
+    @DevSdkIgnoreRule.IgnoreUpTo(32) // Refer to Build.VERSION_CODES when it's available in AOSP
+    public void testBuildExcludeLocalRoutesSet() throws Exception {
+        final Ikev2VpnProfile.Builder builder = getBuilderWithDefaultOptions();
+        builder.setAuthPsk(PSK_BYTES);
+        builder.setExcludeLocalRoutes(true);
+
+        final Ikev2VpnProfile profile = builder.build();
+        assertNotNull(profile);
+        assertTrue(profile.getExcludeLocalRoutes());
+
+        builder.setBypassable(false);
+        try {
+            builder.build();
+            fail("Expected exception because excludeLocalRoutes should be set on bypassable VPN");
+        } catch (IllegalArgumentException expected) {
+        }
+    }
+
+    @Test
     public void testBuildInvalidMtu() throws Exception {
         final Ikev2VpnProfile.Builder builder = getBuilderWithDefaultOptions();
 
