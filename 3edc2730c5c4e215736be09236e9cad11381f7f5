@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8908fb5a_a1ecb8ef",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultipathPolicyTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T12:53:45Z",
+      "side": 1,
+      "message": "Thanks for the explanation. Now I understand the issue, but I don\u0027t understand the solution.\n\nCan we do something like\n  \n  when(mNetworkStatsManagerInternal.getNetworkTotalBytes(\n          any(),\n          leq(startOfDay.toInstant().toEpochMilli()),\n          geq(now.toInstant().toEpochMilli()))).thenReturn(usedBytesToday);\n\n(import AdditionalMatchers.{leq,geq})\nThis looks more correct.",
+      "parentUuid": "f1b0b6c9_9802601e",
+      "range": {
+        "startLine": 240,
+        "startChar": 23,
+        "endLine": 240,
+        "endChar": 43
+      },
+      "revId": "3edc2730c5c4e215736be09236e9cad11381f7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d411db65_6298fba4",
         "filename": "tests/unit/java/com/android/server/connectivity/MultipathPolicyTrackerTest.java",
         "patchSetId": 1
