@@ -39,6 +39,30 @@
       },
       "revId": "db27a7d707e36690ee3848186f6918db14c7f44e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf6421ba_5e7c97dd",
+        "filename": "framework/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1337780
+      },
+      "writtenOn": "2022-01-06T14:42:32Z",
+      "side": 1,
+      "message": "It does not have any impact on parcelables. It tells the AIDL generator to implement the Binder.getTransactionName. The only side effect will be that it will add a few strings to the binary.\n\nThe telemetry code will call getTransactionName from time to time to in the local process before uploading the telemetry data (this is not in any critical path).\n\nWe do not do it server side because it would be hard to keep the mapping up-to-date.",
+      "parentUuid": "f9370e5c_f7f05e29",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 37
+      },
+      "revId": "db27a7d707e36690ee3848186f6918db14c7f44e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
