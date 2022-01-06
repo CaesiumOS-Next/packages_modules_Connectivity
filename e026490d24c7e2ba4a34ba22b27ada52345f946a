@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24586fa5_e6411340",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-06T10:41:37Z",
+      "side": 1,
+      "message": "Thanks for the information. \n\nI added these api to TetheringConstants.java.",
+      "parentUuid": "0da7ead9_87a3b50d",
+      "revId": "e026490d24c7e2ba4a34ba22b27ada52345f946a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad18cc9a_0fc6eb21",
@@ -82,6 +100,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c060e459_f45bb273",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-06T10:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a69fd772_009b214f",
+      "range": {
+        "startLine": 80,
+        "startChar": 12,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "e026490d24c7e2ba4a34ba22b27ada52345f946a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1e10fa7_8e0ebb60",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-06T10:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad18cc9a_0fc6eb21",
+      "range": {
+        "startLine": 80,
+        "startChar": 6,
+        "endLine": 80,
+        "endChar": 7
+      },
+      "revId": "e026490d24c7e2ba4a34ba22b27ada52345f946a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1837c890_3d208554",
@@ -95,6 +161,30 @@
       "writtenOn": "2022-01-05T19:56:26Z",
       "side": 1,
       "message": "remove space",
+      "range": {
+        "startLine": 84,
+        "startChar": 7,
+        "endLine": 84,
+        "endChar": 10
+      },
+      "revId": "e026490d24c7e2ba4a34ba22b27ada52345f946a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9db89e71_d03afffa",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-06T10:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1837c890_3d208554",
       "range": {
         "startLine": 84,
         "startChar": 7,
@@ -128,6 +218,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "081cb05d_7ebee6cf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-06T10:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40a53c2e_3ac627b4",
+      "range": {
+        "startLine": 86,
+        "startChar": 16,
+        "endLine": 89,
+        "endChar": 51
+      },
+      "revId": "e026490d24c7e2ba4a34ba22b27ada52345f946a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6108fda1_e8b731e3",
@@ -151,6 +265,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f13ec032_fda01095",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-06T10:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6108fda1_e8b731e3",
+      "range": {
+        "startLine": 104,
+        "startChar": 23,
+        "endLine": 104,
+        "endChar": 31
+      },
+      "revId": "e026490d24c7e2ba4a34ba22b27ada52345f946a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a693d33b_6eafc148",
@@ -164,6 +302,30 @@
       "writtenOn": "2022-01-05T19:56:26Z",
       "side": 1,
       "message": "These needs to be formatted as code:\n\n  ... example:\n  \u003cpre\u003e{@code\n    code here\n  }\u003c/pre\u003e",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 69
+      },
+      "revId": "e026490d24c7e2ba4a34ba22b27ada52345f946a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8cac97e_80df1539",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-06T10:41:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a693d33b_6eafc148",
       "range": {
         "startLine": 107,
         "startChar": 0,
