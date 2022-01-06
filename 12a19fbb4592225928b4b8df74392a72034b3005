@@ -47,6 +47,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5e751a9_f908ed1b",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-06T06:01:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06b7fae8_68840128",
+      "range": {
+        "startLine": 1101,
+        "startChar": 15,
+        "endLine": 1101,
+        "endChar": 43
+      },
+      "revId": "12a19fbb4592225928b4b8df74392a72034b3005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a59c2d5_de81697c",
