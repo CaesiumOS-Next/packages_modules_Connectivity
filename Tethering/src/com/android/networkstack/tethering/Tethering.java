@@ -1533,16 +1533,17 @@ public class Tethering {
         return mConfig;
     }
 
-    boolean hasTetherableConfiguration() {
-        final TetheringConfiguration cfg = mConfig;
-        final boolean hasDownstreamConfiguration =
-                (cfg.tetherableUsbRegexs.length != 0)
-                || (cfg.tetherableWifiRegexs.length != 0)
-                || (cfg.tetherableBluetoothRegexs.length != 0);
-        final boolean hasUpstreamConfiguration = !cfg.preferredUpstreamIfaceTypes.isEmpty()
-                || cfg.chooseUpstreamAutomatically;
+    boolean hasAnySupportedDownstream() {
+        return (mConfig.tetherableUsbRegexs.length != 0)
+                || (mConfig.tetherableWifiRegexs.length != 0)
+                || (mConfig.tetherableBluetoothRegexs.length != 0)
+                || (mConfig.tetherableWifiP2pRegexs.length != 0)
+                || (mConfig.tetherableNcmRegexs.length != 0)
+                || isEthernetSupported();
+    }
 
-        return hasDownstreamConfiguration && hasUpstreamConfiguration;
+    private boolean isEthernetSupported() {
+        return mContext.getSystemService(Context.ETHERNET_SERVICE) != null;
     }
 
     void setUsbTethering(boolean enable, IIntResultListener listener) {
@@ -2463,7 +2464,7 @@ public class Tethering {
         final boolean tetherEnabledInSettings = tetherSupported
                 && !mUserManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_TETHERING);
 
-        return tetherEnabledInSettings && hasTetherableConfiguration()
+        return tetherEnabledInSettings && hasAnySupportedDownstream()
                 && !isProvisioningNeededButUnavailable();
     }
 
