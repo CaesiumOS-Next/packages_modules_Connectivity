@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0da7ead9_87a3b50d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-06T08:10:23Z",
+      "side": 1,
+      "message": "Yes, this is the API class. You should either define your constants in\npackages/modules/Connectivity/Tethering/common/TetheringLib/src/android/net/TetheringConstants.java\n\nor \n\npackages/modules/Connectivity/Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+      "parentUuid": "1afb890f_1d197853",
+      "revId": "e026490d24c7e2ba4a34ba22b27ada52345f946a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad18cc9a_0fc6eb21",
         "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
         "patchSetId": 1
