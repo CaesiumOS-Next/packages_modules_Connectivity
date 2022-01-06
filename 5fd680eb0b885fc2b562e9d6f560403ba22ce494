@@ -1,0 +1,458 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d7a6243_47461eb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "Compared with patchset 18, the new patchset 24 is adding lists of NetworkCapabilities ; it looks to me like it was an attempt at a start of an implementation for the UID ranges that we want to have eventually, but these are not in the preference object yet, so I don\u0027t think this patch should attempt to start building it.\nInstead I think moving to lists where necessary should either be done by the patch that adds the relevant members in the preference object, or as a preliminary change to that patch.\n",
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ae4448_21cf2f38",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5487,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "It\u0027s inconsequential but you could just have said List.of(new ProfileNetworkPreference.Builder().build());",
+      "range": {
+        "startLine": 5487,
+        "startChar": 16,
+        "endLine": 5487,
+        "endChar": 27
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe41ece8_9bf524bb",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5491,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "It\u0027s a little bit more complex than this now though. Suggested rewording :\n\n  Set a list of default network selection policies for a user profile.",
+      "range": {
+        "startLine": 5491,
+        "startChar": 15,
+        "endLine": 5491,
+        "endChar": 52
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8904074b_cf6cac6d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5494,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "the latest preference will take effect\n\nBut also I think we can clarify a bit with something like :\n\n  Calling this API with a user handle defines the entire policy for that user handle. It will overwrite any setting previously set for the same user profile, and not affect previously set settings for other handles.",
+      "range": {
+        "startLine": 5494,
+        "startChar": 12,
+        "endLine": 5494,
+        "endChar": 28
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a819a7bb_1ad8ff47",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5497,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "This is true as of this patch, but it won\u0027t remain so when you extend ProfileNetworkPreference to have a set of UIDs right ?",
+      "range": {
+        "startLine": 5497,
+        "startChar": 7,
+        "endLine": 5497,
+        "endChar": 34
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e0fcfb3_82a8136c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5497,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "the corresponding",
+      "range": {
+        "startLine": 5497,
+        "startChar": 48,
+        "endLine": 5497,
+        "endChar": 61
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24623815_9b4fadbd",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5500,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "This is just an empty list right ? So how about :\n\n  Call this API with an empty list to remove settings for this user profile.",
+      "range": {
+        "startLine": 5499,
+        "startChar": 79,
+        "endLine": 5500,
+        "endChar": 81
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f108959f_b7c0a83a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5503,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "parameter\n(each takes the singular)",
+      "range": {
+        "startLine": 5503,
+        "startChar": 7,
+        "endLine": 5503,
+        "endChar": 17
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b847acc_f2d9ab0a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5505,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "which",
+      "range": {
+        "startLine": 5505,
+        "startChar": 43,
+        "endLine": 5505,
+        "endChar": 47
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bdabc3e_275c858c",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "I\u0027m surprised checkstyle allows the double space here\n\nDoesn\u0027t matter if checkstyle doesn\u0027t complain",
+      "range": {
+        "startLine": 34,
+        "startChar": 43,
+        "endLine": 34,
+        "endChar": 45
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0e2a2b1_fd7e9cb1",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "final and double space",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 32
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae379ad9_db4943fa",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "This is not wrong but why bother ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 35,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71adbbdd_a83aed13",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 10139,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 10139,
+        "startChar": 8,
+        "endLine": 10139,
+        "endChar": 12
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ec49ce6_6837ca6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 10140,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 10140,
+        "startChar": 13,
+        "endLine": 10140,
+        "endChar": 37
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e378d839_78e56205",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 10184,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 10184,
+        "startChar": 16,
+        "endLine": 10184,
+        "endChar": 19
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04f568cf_8c7503ce",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 10185,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 10185,
+        "startChar": 16,
+        "endLine": 10185,
+        "endChar": 30
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6d0651c_49172e45",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 10187,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "This is not going to work. This method is creating one NRI, and each NRI has a list of network requests that code for the requested network in priority order. All capabilities from the NRs inside a given NRI *must* have the same list of UIDs.\n\nSo before your change, as the comment in l.10175 explains, this was matching the entire range of UIDs for that user, and would have one layer for the enterprise capabilities and one for the default network.\n\nWith your new code, if the client passes a list of 3 ProfileNetworkPreference objects, you\u0027ll have 6 layers, with layers 2 4 and 6 being identical, and layers 3~6 never ever used because layer 2 will always match the default network of the device.\n\nBecause eventually each ProfileNetworkPreference will apply to a different set of UID ranges, what you\u0027ll need is not one NRI with a stack of requests each matching a different set. You\u0027ll need one NRI for each distinct set of UID ranges, and each NRI will have one (if no fallback) or two (if fallback) NetworkRequest objects.",
+      "range": {
+        "startLine": 10187,
+        "startChar": 20,
+        "endLine": 10187,
+        "endChar": 23
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5457ed8_11ace3d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 10189,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 10189,
+        "startChar": 16,
+        "endLine": 10189,
+        "endChar": 30
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b424599b_16de4b0c",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceList.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "I\u0027m not too sure where you\u0027re going with this list. IIUC eventually what we\u0027ll need in this object is one NetworkCapabilities object, and a boolean for fallback, and the UserHandle will be replaced with the set of UID ranges contained inside of the NetworkCapabilities.",
+      "range": {
+        "startLine": 45,
+        "startChar": 40,
+        "endLine": 45,
+        "endChar": 49
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee048145_1251d97e",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceList.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-06T13:41:02Z",
+      "side": 1,
+      "message": "nit : .isEmpty()",
+      "range": {
+        "startLine": 84,
+        "startChar": 68,
+        "endLine": 84,
+        "endChar": 72
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
