@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9fc8418_a9a9af68",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-06T13:43:44Z",
+      "side": 1,
+      "message": "As discussion, removed it.",
+      "parentUuid": "698d092b_00989317",
+      "range": {
+        "startLine": 87,
+        "startChar": 51,
+        "endLine": 87,
+        "endChar": 89
+      },
+      "revId": "12a19fbb4592225928b4b8df74392a72034b3005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06b7fae8_68840128",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-01-06T00:37:30Z",
       "side": 1,
       "message": "If this is needed maybe just expose the string?",
+      "range": {
+        "startLine": 1196,
+        "startChar": 41,
+        "endLine": 1196,
+        "endChar": 73
+      },
+      "revId": "12a19fbb4592225928b4b8df74392a72034b3005",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1091cbe_29e43346",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-06T13:43:44Z",
+      "side": 1,
+      "message": "removed it, do the following actions to replace it. \n1. use \"netstats_combine_subtype_enabled\" to  replace ettings.Global.NETSTATS_COMBINE_SUBTYPE_ENABLED in NetworkStatsService\n2. add todo to Replace the string \"netstats_combine_subtype_enabled\" with ConnectivitySettingsManager.NETSTATS_COMBINE_SUBTYPE_ENABLED after NetworkStatsService becomes the mainline module.",
+      "parentUuid": "6a59c2d5_de81697c",
       "range": {
         "startLine": 1196,
         "startChar": 41,
