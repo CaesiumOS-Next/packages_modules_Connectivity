@@ -876,6 +876,15 @@ public class ConnectivityManager {
     public static final int BLOCKED_REASON_LOCKDOWN_VPN = 1 << 4;
 
     /**
+     * Flag to indicate that an app can't access a network because the network is restricted
+     * and the app does not meet any of the conditions to bypass the restriction.
+     *
+     * @hide
+     */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    public static final int BLOCKED_REASON_NETWORK_RESTRICTED = 1 << 5;
+
+    /**
      * Flag to indicate that an app is subject to Data saver restrictions that would
      * result in its metered network access being blocked.
      *
@@ -913,6 +922,7 @@ public class ConnectivityManager {
             BLOCKED_REASON_APP_STANDBY,
             BLOCKED_REASON_RESTRICTED_MODE,
             BLOCKED_REASON_LOCKDOWN_VPN,
+            BLOCKED_REASON_NETWORK_RESTRICTED,
             BLOCKED_METERED_REASON_DATA_SAVER,
             BLOCKED_METERED_REASON_USER_RESTRICTED,
             BLOCKED_METERED_REASON_ADMIN_DISABLED,
