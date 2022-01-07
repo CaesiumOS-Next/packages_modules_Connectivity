@@ -237,6 +237,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7222accf_42b2afb9",
+        "filename": "tests/cts/net/src/com/android/server/connectivity/VendorConnectivityTest.kt",
+        "patchSetId": 20
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-07T04:52:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7844ebf_c024615e",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "7863ab016e79ca571229b0b629f4384e95ffff44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f8faf0b_b3a38056",
