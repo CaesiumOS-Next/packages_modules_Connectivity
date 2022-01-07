@@ -139,6 +139,7 @@ import android.net.TetheredClient.AddressInfo;
 import android.net.TetheringCallbackStartedParcel;
 import android.net.TetheringConfigurationParcel;
 import android.net.TetheringInterface;
+import android.net.TetheringManager;
 import android.net.TetheringRequestParcel;
 import android.net.dhcp.DhcpLeaseParcelable;
 import android.net.dhcp.DhcpServerCallbacks;
@@ -173,6 +174,7 @@ import android.telephony.CarrierConfigManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.test.mock.MockContentResolver;
+import android.util.ArraySet;
 
 import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
@@ -204,6 +206,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 @RunWith(AndroidJUnit4.class)
@@ -1671,6 +1674,7 @@ public class TetheringTest {
         private final ArrayList<TetherStatesParcel> mTetherStates = new ArrayList<>();
         private final ArrayList<Integer> mOffloadStatus = new ArrayList<>();
         private final ArrayList<List<TetheredClient>> mTetheredClients = new ArrayList<>();
+        private final ArrayList<Integer> mSupportedBitMap = new ArrayList<>();
 
         // This function will remove the recorded callbacks, so it must be called once for
         // each callback. If this is called after multiple callback, the order matters.
@@ -1723,6 +1727,11 @@ public class TetheringTest {
             assertTrue(leases.containsAll(result));
         }
 
+        public void expectSupportedTetheringTypes(Set<Integer> expectedTypes) {
+            assertEquals(expectedTypes, TetheringManager.typeBitMapToArraySet(
+                    mSupportedBitMap.remove(0)));
+        }
+
         @Override
         public void onUpstreamChanged(Network network) {
             mActualUpstreams.add(network);
@@ -1755,10 +1764,16 @@ public class TetheringTest {
             mTetherStates.add(parcel.states);
             mOffloadStatus.add(parcel.offloadStatus);
             mTetheredClients.add(parcel.tetheredClients);
+            mSupportedBitMap.add(parcel.supportedTypeBitMap);
         }
 
         @Override
         public void onCallbackStopped(int errorCode) { }
+
+        @Override
+        public void onSupportedTetheringTypes(int supportedBitMap) {
+            mSupportedBitMap.add(supportedBitMap);
+        }
 
         public void assertNoUpstreamChangeCallback() {
             assertTrue(mActualUpstreams.isEmpty());
@@ -2741,45 +2756,79 @@ public class TetheringTest {
         runStopUSBTethering();
     }
 
+    public static ArraySet getAllSupportedTetheringTypes() {
+        final ArraySet<Integer> types = new ArraySet<>();
+        types.add(TETHERING_USB);
+        types.add(TETHERING_NCM);
+        types.add(TETHERING_WIFI);
+        types.add(TETHERING_WIFI_P2P);
+        types.add(TETHERING_BLUETOOTH);
+        types.add(TETHERING_ETHERNET);
+
+        return types;
+    }
+
     @Test
     public void testTetheringSupported() throws Exception {
+        final ArraySet expectedTypes = getAllSupportedTetheringTypes();
+        // Check tethering is supported after initization.
         setTetheringSupported(true /* supported */);
-        updateConfigAndVerifySupported(true /* supported */);
+        TestTetheringEventCallback callback = new TestTetheringEventCallback();
+        mTethering.registerTetheringEventCallback(callback);
+        mLooper.dispatchAll();
+        updateConfigAndVerifySupported(callback, expectedTypes);
 
         // Could disable tethering supported by settings.
         Settings.Global.putInt(mContentResolver, Settings.Global.TETHER_SUPPORTED, 0);
-        updateConfigAndVerifySupported(false /* supported */);
+        updateConfigAndVerifySupported(callback, new ArraySet<>());
 
         // Could disable tethering supported by user restriction.
         setTetheringSupported(true /* supported */);
+        updateConfigAndVerifySupported(callback, expectedTypes);
         when(mUserManager.hasUserRestriction(
                 UserManager.DISALLOW_CONFIG_TETHERING)).thenReturn(true);
-        updateConfigAndVerifySupported(false /* supported */);
+        updateConfigAndVerifySupported(callback, new ArraySet<>());
 
         // Tethering is supported if it has any supported downstream.
         setTetheringSupported(true /* supported */);
+        updateConfigAndVerifySupported(callback, expectedTypes);
+        // Usb tethering is not supported:
+        expectedTypes.remove(TETHERING_USB);
         when(mResources.getStringArray(R.array.config_tether_usb_regexs))
                 .thenReturn(new String[0]);
-        updateConfigAndVerifySupported(true /* supported */);
+        updateConfigAndVerifySupported(callback, expectedTypes);
+        // Wifi tethering is not supported:
+        expectedTypes.remove(TETHERING_WIFI);
         when(mResources.getStringArray(R.array.config_tether_wifi_regexs))
                 .thenReturn(new String[0]);
-        updateConfigAndVerifySupported(true /* supported */);
+        updateConfigAndVerifySupported(callback, expectedTypes);
+        // P2p tethering is not supported:
+        expectedTypes.remove(TETHERING_WIFI_P2P);
         when(mResources.getStringArray(R.array.config_tether_wifi_p2p_regexs))
                 .thenReturn(new String[0]);
-        updateConfigAndVerifySupported(true /* supported */);
+        updateConfigAndVerifySupported(callback, expectedTypes);
+        // Bluetooth tethering is not supported:
+        expectedTypes.remove(TETHERING_BLUETOOTH);
         when(mResources.getStringArray(R.array.config_tether_bluetooth_regexs))
                 .thenReturn(new String[0]);
-        updateConfigAndVerifySupported(true /* supported */);
+        updateConfigAndVerifySupported(callback, expectedTypes);
+        // Ncm tethering is not supported:
+        expectedTypes.remove(TETHERING_NCM);
         when(mResources.getStringArray(R.array.config_tether_ncm_regexs))
                 .thenReturn(new String[0]);
-        updateConfigAndVerifySupported(true /* supported */);
+        updateConfigAndVerifySupported(callback, expectedTypes);
+        // Ethernet tethering (last supported type) is not supported:
+        expectedTypes.remove(TETHERING_ETHERNET);
         when(mPackageManager.hasSystemFeature(PackageManager.FEATURE_ETHERNET)).thenReturn(false);
-        updateConfigAndVerifySupported(false /* supported */);
+        updateConfigAndVerifySupported(callback, new ArraySet<>());
     }
 
-    private void updateConfigAndVerifySupported(boolean supported) {
+    private void updateConfigAndVerifySupported(final TestTetheringEventCallback callback,
+            final ArraySet<Integer> expectedTypes) {
         sendConfigurationChanged();
-        assertEquals(supported, mTethering.isTetheringSupported());
+
+        assertEquals(expectedTypes.size() > 0, mTethering.isTetheringSupported());
+        callback.expectSupportedTetheringTypes(expectedTypes);
     }
     // TODO: Test that a request for hotspot mode doesn't interfere with an
     // already operating tethering mode interface.
