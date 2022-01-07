@@ -32,6 +32,7 @@ import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP
 import static android.net.ConnectivityDiagnosticsManager.DataStallReport.KEY_TCP_PACKET_FAIL_RATE;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
+import static android.net.ConnectivityManager.BLOCKED_REASON_NETWORK_RESTRICTED;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
@@ -5500,6 +5501,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private boolean isUidBlockedByRestrictedNetwork(final int uid,
+            @NonNull final NetworkAgentInfo nai) {
+        if (nai.networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED)) return false;
+        if (mPermissionMonitor.hasRestrictedNetworksPermission(uid)) return false;
+        if (nai == getDefaultNetworkForUid(uid)) return false;
+        return true;
+    }
+
     private boolean isUidBlockedByVpn(int uid, List<UidRange> blockedUidRanges) {
         // Determine whether this UID is blocked because of always-on VPN lockdown. If a VPN applies
         // to the UID, then the UID is not blocked because always-on VPN lockdown applies only when
@@ -8765,8 +8774,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int blockedReasons = mUidBlockedReasons.get(nri.mAsUid, BLOCKED_REASON_NONE);
         final boolean metered = nai.networkCapabilities.isMetered();
         final boolean vpnBlocked = isUidBlockedByVpn(nri.mAsUid, mVpnBlockedUidRanges);
+        final boolean restrictedBlocked = isUidBlockedByRestrictedNetwork(nri.mAsUid, nai);
         callCallbackForRequest(nri, nai, ConnectivityManager.CALLBACK_AVAILABLE,
-                getBlockedState(blockedReasons, metered, vpnBlocked));
+                getBlockedState(blockedReasons, metered, vpnBlocked, restrictedBlocked));
     }
 
     // Notify the requests on this NAI that the network is now lingered.
@@ -8775,8 +8785,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         notifyNetworkCallbacks(nai, ConnectivityManager.CALLBACK_LOSING, lingerTime);
     }
 
-    private static int getBlockedState(int reasons, boolean metered, boolean vpnBlocked) {
+    private static int getBlockedState(int reasons, boolean metered, boolean vpnBlocked,
+            boolean restrictedBlocked) {
         if (!metered) reasons &= ~BLOCKED_METERED_REASON_MASK;
+        if (restrictedBlocked) {
+            reasons |= BLOCKED_REASON_NETWORK_RESTRICTED;
+        } else {
+            reasons &= ~BLOCKED_REASON_NETWORK_RESTRICTED;
+        }
         return vpnBlocked
                 ? reasons | BLOCKED_REASON_LOCKDOWN_VPN
                 : reasons & ~BLOCKED_REASON_LOCKDOWN_VPN;
@@ -8815,9 +8831,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final boolean newVpnBlocked = (oldBlockedUidRanges != newBlockedUidRanges)
                     ? isUidBlockedByVpn(nri.mAsUid, newBlockedUidRanges)
                     : oldVpnBlocked;
+            final boolean restrictedBlocked = isUidBlockedByRestrictedNetwork(nri.mAsUid, nai);
 
-            final int oldBlockedState = getBlockedState(blockedReasons, oldMetered, oldVpnBlocked);
-            final int newBlockedState = getBlockedState(blockedReasons, newMetered, newVpnBlocked);
+            final int oldBlockedState = getBlockedState(blockedReasons, oldMetered, oldVpnBlocked,
+                    restrictedBlocked);
+            final int newBlockedState = getBlockedState(blockedReasons, newMetered, newVpnBlocked,
+                    restrictedBlocked);
             if (oldBlockedState != newBlockedState) {
                 callCallbackForRequest(nri, nai, ConnectivityManager.CALLBACK_BLK_CHANGED,
                         newBlockedState);
@@ -8828,16 +8847,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
     /**
      * Notify apps with a given UID of the new blocked state according to new uid state.
      * @param uid The uid for which the rules changed.
-     * @param blockedReasons The reasons for why an uid is blocked.
+     * @param newBlockedReasons The reasons for why an uid is blocked.
      */
-    private void maybeNotifyNetworkBlockedForNewState(int uid, @BlockedReason int blockedReasons) {
+    private void maybeNotifyNetworkBlockedForNewState(int uid,
+            @BlockedReason int newBlockedReasons) {
         for (final NetworkAgentInfo nai : mNetworkAgentInfos) {
             final boolean metered = nai.networkCapabilities.isMetered();
             final boolean vpnBlocked = isUidBlockedByVpn(uid, mVpnBlockedUidRanges);
+            final boolean restrictedBlocked = isUidBlockedByRestrictedNetwork(uid, nai);
 
-            final int oldBlockedState = getBlockedState(
-                    mUidBlockedReasons.get(uid, BLOCKED_REASON_NONE), metered, vpnBlocked);
-            final int newBlockedState = getBlockedState(blockedReasons, metered, vpnBlocked);
+            final int oldBlockedReasons = mUidBlockedReasons.get(uid, BLOCKED_REASON_NONE);
+            final int oldBlockedState = getBlockedState(oldBlockedReasons, metered, vpnBlocked,
+                    restrictedBlocked);
+            final int newBlockedState = getBlockedState(newBlockedReasons, metered, vpnBlocked,
+                    restrictedBlocked);
             if (oldBlockedState == newBlockedState) {
                 continue;
             }

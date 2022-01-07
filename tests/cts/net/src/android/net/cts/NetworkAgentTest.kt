@@ -117,8 +117,6 @@ import java.time.Duration
 import java.util.Arrays
 import java.util.UUID
 import java.util.concurrent.Executors
-import kotlin.reflect.full.declaredMemberFunctions
-import kotlin.reflect.jvm.isAccessible
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
