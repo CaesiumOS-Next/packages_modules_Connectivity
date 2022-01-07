@@ -131,6 +131,7 @@ import static com.android.server.ConnectivityService.PREFERENCE_ORDER_OEM;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_PROFILE;
 import static com.android.server.ConnectivityService.PREFERENCE_ORDER_VPN;
 import static com.android.server.ConnectivityServiceTestUtils.transportToLegacyType;
+import static com.android.testutils.Cleanup.testAndCleanup;
 import static com.android.testutils.ConcurrentUtils.await;
 import static com.android.testutils.ConcurrentUtils.durationOf;
 import static com.android.testutils.ExceptionUtils.ignoreExceptions;
@@ -2244,6 +2245,73 @@ public class ConnectivityServiceTest {
         b = expectConnectivityAction(TYPE_MOBILE, DetailedState.DISCONNECTED);
         mCellNetworkAgent.disconnect();
         b.expectBroadcast();
+    }
+
+    @Test
+    public void testUnderlyingNetworkIsNotRequestable() throws Exception {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_VPN)
+                .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                .setUnderlyingNetworks(List.of(new Network(100)))
+                .build();
+        final NetworkRequest nr = new NetworkRequest(nc, ConnectivityManager.TYPE_NONE,
+                ConnectivityManager.REQUEST_ID_UNSET, NetworkRequest.Type.REQUEST);
+        final TestNetworkCallback callback = new TestNetworkCallback();
+        assertThrows(IllegalArgumentException.class, () -> mCm.requestNetwork(nr, callback));
+        runAsShell(NETWORK_SETTINGS, () -> {
+            assertThrows(IllegalArgumentException.class, () -> mCm.requestNetwork(nr, callback));
+        });
+    }
+
+    @Test
+    public void testRegisterNetworkCallbackWithUnderlyingNetwork() throws Exception {
+        final TestNetworkCallback callback = new TestNetworkCallback();
+        // Bring up mobile data and set it as the underlying network of VPN that the caller wants.
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
+        mCellNetworkAgent.connect(true);
+        final Network cellNetwork = mCellNetworkAgent.getNetwork();
+        assertEquals(cellNetwork, mCm.getActiveNetwork());
+        // Bring up wifi and it will be the underlying network of VPN later.
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI);
+        mWiFiNetworkAgent.connect(true);
+        final Network wifiNetwork = mWiFiNetworkAgent.getNetwork();
+        // Ensure wifi is the default network before establishing VPN, so it will also be the
+        // underlying network of VPN by default.
+        assertEquals(wifiNetwork, mCm.getActiveNetwork());
+        // Set the underlying network of VPN to mobile data.
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .removeCapability(NET_CAPABILITY_NOT_VPN)
+                .setUnderlyingNetworks(List.of(cellNetwork))
+                .build();
+        final NetworkRequest request = new NetworkRequest.Builder().setCapabilities(nc).build();
+        // registerNetworkCallback() will throw SecurityException due to lack of NETWORK_SETTINGS
+        // permission.
+        assertThrows(SecurityException.class, () -> mCm.registerNetworkCallback(request, callback));
+
+        // With NETWORK_SETTINGS, the caller can register network callback with underlying network.
+        testAndCleanup(() -> {
+            runAsShell(NETWORK_SETTINGS, () -> {
+                mCm.registerNetworkCallback(request, callback);
+                mMockVpn.establishForMyUid(false /* validated */, true /*hasInternet */,
+                        false /* isStrictMode */);
+                // Currently, the underlying network of VPN is wifi which is not the one that the
+                // caller wants.
+                callback.assertNoCallback();
+                // Set the underlying network of VPN to mobile data and expect the callback will be
+                // called.
+                mMockVpn.setUnderlyingNetworks(new Network[]{cellNetwork});
+                waitForIdle();
+                callback.expectAvailableCallbacksUnvalidated(mMockVpn);
+            });
+        }, () -> {
+                mMockVpn.disconnect();
+            }, () -> {
+                mCellNetworkAgent.disconnect();
+            }, () -> {
+                mWiFiNetworkAgent.disconnect();
+            }, () -> {
+                mCm.unregisterNetworkCallback(callback);
+            });
     }
 
     @Test
