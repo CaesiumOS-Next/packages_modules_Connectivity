@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd541ba3_b6fdf52c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 35
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-07T05:56:04Z",
+      "side": 1,
+      "message": "add service_context like connectivity_service for connectivity_vendor. Check service.te as well for connectivity. Also may need service_manager find",
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ddd86a_9265d954",
+        "filename": "Tethering/tests/privileged/src/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-07T05:56:04Z",
+      "side": 1,
+      "message": "Leave test case in Tethering/tests/privileged, but change to integration test and use AIDL to call.\n\nrefer to netdintegrationtest, binder_test.cpp\n\n\nAdd test location as Connectivity/tests/native",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 39
+      },
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4205353_0eec78d2",
+        "filename": "Tethering/tests/privileged/src/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-07T05:56:04Z",
+      "side": 1,
+      "message": "create a socket and pull the port from it to ensure that the port isn\u0027t already in use.\n\n1. socket to get port, set reuse port\n2. socket to ensure socket can bind to port, set reuse port\n3. blockPort(), check that socket fails",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 23
+      },
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8659fd7e_99857525",
@@ -20,6 +83,23 @@
         "endLine": 39,
         "endChar": 27
       },
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b25bd4d_978f1073",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-07T05:56:04Z",
+      "side": 1,
+      "message": "add binder.getcallinguid(), check against radio/system/root",
       "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
