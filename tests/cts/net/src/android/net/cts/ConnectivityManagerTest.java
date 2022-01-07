@@ -136,9 +136,11 @@ import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.MessageQueue;
 import android.os.Process;
+import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.UserHandle;
@@ -146,6 +148,7 @@ import android.os.VintfRuntimeInfo;
 import android.platform.test.annotations.AppModeFull;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
+import android.system.Os;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -184,6 +187,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -3019,6 +3023,20 @@ public class ConnectivityManagerTest {
                     ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks(
                             mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
         }
+    }
+
+    private String dumpToString(String serviceName, String... args) throws Exception {
+        final IBinder icm = ServiceManager.getService(serviceName);
+        FileDescriptor[] pipe = Os.pipe();
+        icm.dump(pipe[1], args);
+        return Streams.readFully(
+                new InputStreamReader(new FileInputStream(pipe[0]), StandardCharsets.UTF_8));
+    }
+
+    @Test
+    public void testDump() throws Exception {
+        final String dumpOutput = dumpToString(Context.CONNECTIVITY_SERVICE, "short");
+        assertTrue(dumpOutput, dumpOutput.contains("Active default network"));
     }
 
     private void unregisterRegisteredCallbacks() {
