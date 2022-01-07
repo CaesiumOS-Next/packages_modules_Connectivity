@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23246e06_d7c377b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-07T02:12:04Z",
+      "side": 1,
+      "message": "This is a \"dangerous\" (runtime) permission; can you also comment about whether/why it is granted automatically to the app without prompt ? Does it apply even on module update (when the original installed version did not ask for the permission) ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "310a55fff80f72c4a2ce257edc01742588f8b872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "495b4260_877168fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-07T02:12:04Z",
+      "side": 1,
+      "message": "Can you link the contents of \"aapt dump xmltree Tethering.apk\" before and after the change ? To make sure only the target SDK is being changed (I see you removed minSdk 29, I\u0027m guessing it wasn\u0027t used).\n\nWe\u0027ll need in-depth testing for this change, as it can affect various behavior (as with BLUETOOTH_CONNECT for example). Can you also run all the tethering-related privileged/integration tests and  check that all downstream types still work ?",
+      "revId": "310a55fff80f72c4a2ce257edc01742588f8b872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
