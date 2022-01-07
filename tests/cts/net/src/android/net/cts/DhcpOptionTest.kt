@@ -16,7 +16,6 @@
 
 package android.net.cts
 
-import android.os.Build
 import android.net.DhcpOption
 import androidx.test.filters.SmallTest
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -28,7 +27,7 @@ import org.junit.runner.RunWith
 import org.junit.Test
 
 @SmallTest
-@IgnoreUpTo(Build.VERSION_CODES.S)
+@IgnoreUpTo(32) // TODO: Refer to Build.VERSION_CODES when it's available in AOSP
 @RunWith(DevSdkIgnoreRunner::class)
 class DhcpOptionTest {
     private val DHCP_OPTION_TYPE: Byte = 2

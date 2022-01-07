@@ -71,7 +71,6 @@ import android.net.VpnService;
 import android.net.VpnTransportInfo;
 import android.net.cts.util.CtsNetUtils;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
@@ -779,7 +778,7 @@ public class VpnTest {
                                 .getCaps().getUnderlyingNetworks())));
     }
 
-    @Test @IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test @IgnoreUpTo(32) // // TODO: Refer to Build.VERSION_CODES when it's available in AOSP
     public void testChangeUnderlyingNetworks() throws Exception {
         assumeTrue(supportedHardware());
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));

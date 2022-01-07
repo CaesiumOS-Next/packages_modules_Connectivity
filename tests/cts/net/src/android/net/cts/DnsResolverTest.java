@@ -43,7 +43,6 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.ParseException;
 import android.net.cts.util.CtsNetUtils;
-import android.os.Build;
 import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
@@ -814,7 +813,7 @@ public class DnsResolverTest {
     }
 
     /** Verifies that DnsResolver.DnsException can be subclassed and its constructor re-used. */
-    @Test @IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test @IgnoreUpTo(32) // TODO: Refer to Build.VERSION_CODES when it's available in AOSP
     public void testDnsExceptionConstructor() throws InterruptedException {
         class TestDnsException extends DnsResolver.DnsException {
             TestDnsException(int code, @Nullable Throwable cause) {

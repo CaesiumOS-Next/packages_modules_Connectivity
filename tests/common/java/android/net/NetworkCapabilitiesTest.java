@@ -803,7 +803,7 @@ public class NetworkCapabilitiesTest {
         } catch (IllegalStateException expected) { }
     }
 
-    @Test @IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test @IgnoreUpTo(32) // TODO: Refer to Build.VERSION_CODES when it's available in AOSP
     public void testEnterpriseCapabilitySubLevel() {
         final NetworkCapabilities nc1 = new NetworkCapabilities.Builder()
                 .addCapability(NET_CAPABILITY_ENTERPRISE)
