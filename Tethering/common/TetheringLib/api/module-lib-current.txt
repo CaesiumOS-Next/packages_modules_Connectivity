@@ -37,6 +37,7 @@ package android.net {
   }
 
   public static interface TetheringManager.TetheringEventCallback {
+    method public default void onSupportedTetheringTypes(@NonNull java.util.Set<java.lang.Integer>);
     method @Deprecated public default void onTetherableInterfaceRegexpsChanged(@NonNull android.net.TetheringManager.TetheringInterfaceRegexps);
   }
 
