@@ -365,6 +365,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0657ff3_b51e6e55",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 5506,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T04:48:05Z",
+      "side": 1,
+      "message": "The issue immediately is that in this patch it doesn\u0027t really make any sense to pass multiple ProfileNetworkPreference objects, because they all code for the same thing and the same UID range.\n\nEventually each of these only applies to a set of UID ranges, and we\u0027ll be checking that there is no overlap (because then it\u0027s unclear what is meant and it\u0027s necessarily a programming error). When that\u0027s done, there aren\u0027t any priorities to set because each preference applies to a disjoint set of UIDs.",
+      "parentUuid": "b9b9e8c7_d3e18f57",
+      "range": {
+        "startLine": 5506,
+        "startChar": 40,
+        "endLine": 5506,
+        "endChar": 51
+      },
+      "revId": "5fd680eb0b885fc2b562e9d6f560403ba22ce494",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8bdabc3e_275c858c",
         "filename": "framework/src/android/net/ProfileNetworkPreference.java",
         "patchSetId": 24
