@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8659fd7e_99857525",
+        "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-07T05:22:22Z",
+      "side": 1,
+      "message": "This needs to be published to be accessible by other components\n\nUse:\n\n  publishBinderService(name, mVendorConnectivity, false)\n\nfor the name, since it\u0027s only used by native code, having a constant in VendorConnectivity.aidl would be useful.\n\nWhen publishing the service, you\u0027ll also need to add permission checks on every method accessible via the aidl interface. You can check for MAINLINE_NETWORK_STACK permission, which will only be held by NetworkStack/Tethering and the system server (because the system server passes all permission checks)",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
