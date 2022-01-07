@@ -45,6 +45,7 @@ import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_DATA_SAVER;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_USER_RESTRICTED;
 import static android.net.ConnectivityManager.BLOCKED_REASON_BATTERY_SAVER;
+import static android.net.ConnectivityManager.BLOCKED_REASON_NETWORK_RESTRICTED;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_INFO;
@@ -123,6 +124,7 @@ import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.PREFI
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_FAILURE;
 import static android.net.resolv.aidl.IDnsResolverUnsolicitedEventListener.VALIDATION_RESULT_SUCCESS;
 import static android.os.Process.INVALID_UID;
+import static android.os.Process.SYSTEM_UID;
 import static android.system.OsConstants.IPPROTO_TCP;
 
 import static com.android.server.ConnectivityService.MAX_NETWORK_REQUESTS_PER_SYSTEM_UID;
@@ -3327,6 +3329,8 @@ public class ConnectivityServiceTest {
         mCm.unregisterNetworkCallback(trackDefaultCallback);
     }
 
+    // TODO : rename this into grantSystemPermissionForUid, as it also grants the
+    // USE_RESTRICTED_NETWORK permission
     private void grantUsingBackgroundNetworksPermissionForUid(final int uid) throws Exception {
         grantUsingBackgroundNetworksPermissionForUid(uid, mContext.getPackageName());
     }
@@ -8691,12 +8695,46 @@ public class ConnectivityServiceTest {
     }
 
     @Test
+    public void testRestrictedNetworkBlockedStatus() throws Exception {
+        grantUsingBackgroundNetworksPermissionForUid(SYSTEM_UID);
+
+        final NetworkCapabilities restrictedCaps = new NetworkCapabilities.Builder()
+                .addCapability(NET_CAPABILITY_OEM_PAID)
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .build();
+        final NetworkRequest cellRequest = new NetworkRequest.Builder()
+                .removeCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .addTransportType(TRANSPORT_CELLULAR)
+                .build();
+        final DetailedBlockedStatusCallback cb1 = new DetailedBlockedStatusCallback();
+        mCm.registerNetworkCallback(cellRequest, cb1);
+        final DetailedBlockedStatusCallback privilegedCb1 = new DetailedBlockedStatusCallback();
+        registerNetworkCallbackAsUid(cellRequest, privilegedCb1, SYSTEM_UID);
+
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR,
+                new LinkProperties(), restrictedCaps);
+        mCellNetworkAgent.connect(true);
+
+        // The network is restricted, so it's blocked for the test UID.
+        cb1.expectAvailableThenValidatedCallbacks(mCellNetworkAgent,
+                BLOCKED_REASON_NETWORK_RESTRICTED);
+        // But it's not blocked for the system UID.
+        privilegedCb1.expectAvailableThenValidatedCallbacks(mCellNetworkAgent, 0 /*blockedStatus*/);
+
+        // Set the OEM_PAID network the default for the current UID
+        setupMultipleDefaultNetworksForOemNetworkPreferenceCurrentUidTest(
+                OEM_NETWORK_PREFERENCE_OEM_PAID_ONLY);
+        // Network is unblocked.
+        cb1.expectBlockedStatusCallback(mCellNetworkAgent, 0);
+    }
+
+    @Test
     public void testNetworkBlockedStatusBeforeAndAfterConnect() throws Exception {
         final TestNetworkCallback defaultCallback = new TestNetworkCallback();
         mCm.registerDefaultNetworkCallback(defaultCallback);
         mockUidNetworkingBlocked();
 
-        // No Networkcallbacks invoked before any network is active.
+        // No NetworkCallbacks invoked before any network is active.
         setBlockedReasonChanged(BLOCKED_REASON_BATTERY_SAVER);
         setBlockedReasonChanged(BLOCKED_REASON_NONE);
         setBlockedReasonChanged(BLOCKED_METERED_REASON_DATA_SAVER);
