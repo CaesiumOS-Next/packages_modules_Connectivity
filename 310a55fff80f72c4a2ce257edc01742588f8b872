@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "501951aa_4bf10dd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-07T04:16:28Z",
+      "side": 1,
+      "message": "It would grant to privilege application without prompt.",
+      "parentUuid": "23246e06_d7c377b2",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "310a55fff80f72c4a2ce257edc01742588f8b872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "495b4260_877168fe",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-01-07T02:12:04Z",
       "side": 1,
       "message": "Can you link the contents of \"aapt dump xmltree Tethering.apk\" before and after the change ? To make sure only the target SDK is being changed (I see you removed minSdk 29, I\u0027m guessing it wasn\u0027t used).\n\nWe\u0027ll need in-depth testing for this change, as it can affect various behavior (as with BLUETOOTH_CONNECT for example). Can you also run all the tethering-related privileged/integration tests and  check that all downstream types still work ?",
+      "revId": "310a55fff80f72c4a2ce257edc01742588f8b872",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c318a5_0f114746",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-07T04:16:28Z",
+      "side": 1,
+      "message": "I believe TH would run the tests, actually lack of permission is catching by TH. The original I just bump sdk version to 31 and TH complain there is no BLUETOOTH_CONNECT permission and end up with the test crash. BTW, I did manual testing bluetooth tethering, update the commit message.",
+      "parentUuid": "495b4260_877168fe",
       "revId": "310a55fff80f72c4a2ce257edc01742588f8b872",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
