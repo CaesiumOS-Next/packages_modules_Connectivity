@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec5349cd_5c39a81f",
+        "filename": "tests/unit/java/com/android/server/connectivity/MultipathPolicyTrackerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-07T06:38:26Z",
+      "side": 1,
+      "message": "Addressed in MS17.3 to prevent double efforts.",
+      "parentUuid": "8908fb5a_a1ecb8ef",
+      "range": {
+        "startLine": 240,
+        "startChar": 23,
+        "endLine": 240,
+        "endChar": 43
+      },
+      "revId": "3edc2730c5c4e215736be09236e9cad11381f7f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d411db65_6298fba4",
