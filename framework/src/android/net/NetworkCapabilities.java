@@ -852,6 +852,15 @@ public final class NetworkCapabilities implements Parcelable {
         return Objects.equals(getUnderlyingNetworks(), nc.getUnderlyingNetworks());
     }
 
+    private boolean satisfiedByUnderlyingNetworks(@NonNull NetworkCapabilities nc) {
+        if (mUnderlyingNetworks == null) return true;
+        if (nc.getUnderlyingNetworks() == null) return false;
+        for (Network network : mUnderlyingNetworks) {
+            if (!nc.getUnderlyingNetworks().contains(network)) return false;
+        }
+        return true;
+    }
+
     /**
      * Tests for the presence of a capability on this instance.
      *
@@ -914,6 +923,7 @@ public final class NetworkCapabilities implements Parcelable {
         if (isPrivateDnsBroken()) {
             return "privateDnsBroken";
         }
+        if (mUnderlyingNetworks != null) return "underlyingNetworks";
         return null;
     }
 
@@ -1906,7 +1916,8 @@ public final class NetworkCapabilities implements Parcelable {
                 && (onlyImmutable || satisfiedByUids(nc))
                 && (onlyImmutable || satisfiedBySSID(nc))
                 && (onlyImmutable || satisfiedByRequestor(nc))
-                && (onlyImmutable || satisfiedBySubscriptionIds(nc)));
+                && (onlyImmutable || satisfiedBySubscriptionIds(nc))
+                && (onlyImmutable || satisfiedByUnderlyingNetworks(nc)));
     }
 
     /**
@@ -2978,7 +2989,10 @@ public final class NetworkCapabilities implements Parcelable {
          * @param networks The underlying networks of this network.
          */
         @NonNull
+        @RequiresPermission(android.Manifest.permission.NETWORK_SETTINGS)
         public Builder setUnderlyingNetworks(@Nullable List<Network> networks) {
+            // The permission can't be checked in the builder because it's running in the client's
+            // process, but the system server will check it upon receiving the built object.
             mCaps.setUnderlyingNetworks(networks);
             return this;
         }

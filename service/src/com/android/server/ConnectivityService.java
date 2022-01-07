@@ -3318,7 +3318,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
                     }
                     NetworkAgent.restrictCapabilitiesFromNetworkAgent(networkCapabilities,
-                            nai.creatorUid);
+                            nai.creatorUid, mContext);
                     processCapabilitiesFromAgent(nai, networkCapabilities);
                     updateCapabilities(nai.getCurrentScore(), nai, networkCapabilities);
                     break;
@@ -6059,8 +6059,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // specific SSID/SignalStrength, or the calling app has permission to do so.
     private void ensureSufficientPermissionsForRequest(NetworkCapabilities nc,
             int callerPid, int callerUid, String callerPackageName) {
-        if (null != nc.getSsid() && !checkSettingsPermission(callerPid, callerUid)) {
-            throw new SecurityException("Insufficient permissions to request a specific SSID");
+        if ((null != nc.getSsid() || null != nc.getUnderlyingNetworks())
+                && !checkSettingsPermission(callerPid, callerUid)) {
+            throw new SecurityException("Insufficient permissions to request "
+                    + ((null != nc.getSsid()) ? "a specific SSID" : "underlying networks"));
         }
 
         if (nc.hasSignalStrength()
@@ -6856,7 +6858,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else {
             enforceNetworkFactoryPermission();
         }
-        NetworkAgent.enforceValidNetworkCapabilitiesFromAgent(networkCapabilities);
+        NetworkAgent.enforceValidNetworkCapabilitiesFromAgent(networkCapabilities, mContext);
 
         final int uid = mDeps.getCallingUid();
         final long token = Binder.clearCallingIdentity();
@@ -6873,7 +6875,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             NetworkScore currentScore, NetworkAgentConfig networkAgentConfig, int providerId,
             int uid) {
         final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
-        NetworkAgent.restrictCapabilitiesFromNetworkAgent(nc, uid);
+        NetworkAgent.restrictCapabilitiesFromNetworkAgent(nc, uid, mContext);
         LinkProperties lp = new LinkProperties(linkProperties);
 
         final NetworkAgentInfo nai = new NetworkAgentInfo(na,

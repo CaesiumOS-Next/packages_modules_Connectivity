@@ -16,6 +16,7 @@
 
 package android.net;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
 import android.annotation.IntDef;
@@ -27,6 +28,7 @@ import android.annotation.SystemApi;
 import android.annotation.TestApi;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ConditionVariable;
@@ -107,6 +109,7 @@ public abstract class NetworkAgent {
     }
 
     private final Handler mHandler;
+    private final Context mContext;
     private final String LOG_TAG;
     private static final boolean DBG = true;
     private static final boolean VDBG = false;
@@ -470,6 +473,7 @@ public abstract class NetworkAgent {
             @NonNull NetworkScore score, @NonNull NetworkAgentConfig config, int providerId,
             @NonNull NetworkInfo ni) {
         mHandler = new NetworkAgentHandler(looper);
+        mContext = context;
         LOG_TAG = logTag;
         mNetworkInfo = new NetworkInfo(ni);
         this.providerId = providerId;
@@ -820,6 +824,11 @@ public abstract class NetworkAgent {
         }
     }
 
+    private static boolean checkSettingsPermission(Context context, int pid, int uid) {
+        return PERMISSION_GRANTED == context.checkPermission(
+                android.Manifest.permission.NETWORK_SETTINGS, pid, uid);
+    }
+
     /**
      * Make sure capabilities are acceptable from a network agent
      *
@@ -830,12 +839,16 @@ public abstract class NetworkAgent {
     // it. It also can't live in the static library because in requires access to some
     // package-private methods that should not be made public.
     public static void enforceValidNetworkCapabilitiesFromAgent(
-            @NonNull final NetworkCapabilities nc) {
+            @NonNull final NetworkCapabilities nc, @NonNull final Context context) {
         Objects.requireNonNull(nc);
         if (nc.hasAccessUids()) {
             // TODO : accept the supported cases
             throw new SecurityException("NetworkAgent has insufficient permissions to "
                     + "set access UIDs");
+        }
+        if (nc.getUnderlyingNetworks() != null && !checkSettingsPermission(context,
+                Binder.getCallingPid(), Binder.getCallingUid())) {
+            throw new SecurityException("Insufficient permissions to update underlying networks");
         }
     }
 
@@ -853,7 +866,7 @@ public abstract class NetworkAgent {
     // it. It also can't live in the static library because in requires access to some
     // package-private methods that should not be made public.
     public static void restrictCapabilitiesFromNetworkAgent(@NonNull final NetworkCapabilities nc,
-            final int creatorUid) {
+            final int creatorUid, @NonNull final Context context) {
         if (nc.hasTransport(TRANSPORT_TEST)) {
             nc.restrictCapabilitiesForTestNetwork(creatorUid);
         }
@@ -862,7 +875,7 @@ public abstract class NetworkAgent {
             nc.setAccessUids(new ArraySet<>());
         }
         // validate and restrict must agree, so any output of restrict must pass validate
-        enforceValidNetworkCapabilitiesFromAgent(nc);
+        enforceValidNetworkCapabilitiesFromAgent(nc, context);
     }
 
     /**
@@ -1009,7 +1022,7 @@ public abstract class NetworkAgent {
         // is not a security boundary, but only a hint for agent implementors since this runs in
         // the agent process ; ConnectivityService will sanitize the capabilities.
         // See #restrictCapabilitiesFromNetworkAgent.
-        enforceValidNetworkCapabilitiesFromAgent(networkCapabilities);
+        enforceValidNetworkCapabilitiesFromAgent(networkCapabilities, mContext);
         mBandwidthUpdatePending.set(false);
         mLastBwRefreshTime = System.currentTimeMillis();
         final NetworkCapabilities nc =
