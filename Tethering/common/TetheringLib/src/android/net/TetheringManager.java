@@ -183,6 +183,12 @@ public class TetheringManager {
      */
     public static final int TETHERING_WIGIG = 6;
 
+    /**
+     * The int value of last tethering type.
+     * @hide
+     */
+    public static final int MAX_TETHERING_TYPE = TETHERING_WIGIG;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(value = {
@@ -518,6 +524,9 @@ public class TetheringManager {
                 mWaitForCallback.open();
             }
         }
+
+        @Override
+        public void onSupportedTetheringTypes(int supportedBitMap) { }
 
         @Override
         public void onUpstreamChanged(Network network) { }
@@ -1039,9 +1048,26 @@ public class TetheringManager {
          * <p>Tethering may be disabled via system properties, device configuration, or device
          * policy restrictions.
          *
-         * @param supported The new supported status
+         * @param supported Any of @TetheringType is supported.
          */
         default void onTetheringSupported(boolean supported) {}
+
+        /**
+         * Called when tethering supported status changed.
+         *
+         * <p>This will be called immediately after the callback is registered, and may be called
+         * multiple times later upon changes.
+         *
+         * <p>Tethering may be disabled via system properties, device configuration, or device
+         * policy restrictions.
+         *
+         * @param supportedTypes a set of @TetheringType which is supported.
+         * @hide
+         */
+        @SystemApi(client = MODULE_LIBRARIES)
+        default void onSupportedTetheringTypes(@NonNull Set<Integer> supportedTypes) {
+            onTetheringSupported(!supportedTypes.isEmpty());
+        }
 
         /**
          * Called when tethering upstream changed.
@@ -1339,7 +1365,8 @@ public class TetheringManager {
                 @Override
                 public void onCallbackStarted(TetheringCallbackStartedParcel parcel) {
                     executor.execute(() -> {
-                        callback.onTetheringSupported(parcel.tetheringSupported);
+                        callback.onSupportedTetheringTypes(
+                                typeBitMapToArraySet(parcel.supportedTypeBitMap));
                         callback.onUpstreamChanged(parcel.upstreamNetwork);
                         sendErrorCallbacks(parcel.states);
                         sendRegexpsChanged(parcel.config);
@@ -1355,6 +1382,13 @@ public class TetheringManager {
                 public void onCallbackStopped(int errorCode) {
                     executor.execute(() -> {
                         throwIfPermissionFailure(errorCode);
+                    });
+                }
+
+                @Override
+                public void onSupportedTetheringTypes(int supportedBitMap) {
+                    executor.execute(() -> {
+                        callback.onSupportedTetheringTypes(typeBitMapToArraySet(supportedBitMap));
                     });
                 }
 
@@ -1393,6 +1427,19 @@ public class TetheringManager {
             getConnector(c -> c.registerTetheringEventCallback(remoteCallback, callerPkg));
             mTetheringEventCallbacks.put(callback, remoteCallback);
         }
+    }
+
+    /**
+     * Covert tethering type bitmap to a set of types.
+     * @hide
+     */
+    public static ArraySet typeBitMapToArraySet(final int bitMap) {
+        final ArraySet<Integer> typeSet = new ArraySet<>();
+        for (int type = 0; type <= MAX_TETHERING_TYPE; type++) {
+            if ((bitMap & (1 << type)) > 0) typeSet.add(type);
+        }
+
+        return typeSet;
     }
 
     /**
