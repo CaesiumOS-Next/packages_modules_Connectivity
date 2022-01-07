@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41d07489_2e32b4a6",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T14:40:26Z",
+      "side": 1,
+      "message": "This test is broader and enforcing. In followup patches, this method will gain domain-specific checks : if the capabilities have TRANSPORT_CELLULAR, accessUids must contain 0 or 1 UID and if 1 then it must be the carrier config package ; if it has NET_CAP_INTERNAL_NETWORK the device must have FEATURE_AUTO. Neither of these really fit in hasConnectivityManagedCapability.\n\nToday there is only one call to hasConnectivityManagedCapability and it\u0027s only used to check whether to emit a Log.wtf. I can incorporate that method into this one – it would probably be an improvement.\n\nHowever it would be a change of behavior observable by network factories.  I haven\u0027t heard from OEMs complaining about this, but since all hasConnectivityManagedCapability does is log a wtf, I think it\u0027s difficult to guarantee this would not break any existing use case.\n\nIn any case, if we\u0027re going to do this, it should be a separate patch.",
+      "parentUuid": "8d2e04c0_11e3d265",
+      "range": {
+        "startLine": 832,
+        "startChar": 23,
+        "endLine": 832,
+        "endChar": 63
+      },
+      "revId": "9dbf1d39407f337abf2ca4d3e1ea50467cdecc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08325421_3c9dfe47",
         "filename": "framework/src/android/net/NetworkAgent.java",
         "patchSetId": 14
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-07T08:53:22Z",
       "side": 1,
       "message": "FWIW I don\u0027t think this provides much value.\n\n- The set of callers of this API is small enough that it\u0027s probably fine if we simply ignore invalid values being passed in, like we do if the caller attempts to change the owner UID.\n- There is already lots of sanitization of networkcapabilities going on, and this code duplicates that.\n- Further, some of that sanitization may not even be possible in app space because it might require data that is only available in CS at runtime (for example, this method cannot implement the previously-mentioned \"ignore owner UID changes\" sanitization because the previous owner is not known to this method (and not even known to this class, because this class does not remember previously-sent capabilities). It also cannot reliably implement a \"only the carrier privileged app can be in the access UIDs restriction\", because there is a race between when this code can check the carrier privileged app and when CS checks it.\n- Even though you have a comment in line 1009, the presence of this code might cause folks to think that this method can somehow guarantee that CS doesn\u0027t get any invalid input. This isn\u0027t possible due to the point above.",
+      "range": {
+        "startLine": 1012,
+        "startChar": 8,
+        "endLine": 1012,
+        "endChar": 48
+      },
+      "revId": "9dbf1d39407f337abf2ca4d3e1ea50467cdecc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10c3b065_97302d89",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T14:40:26Z",
+      "side": 1,
+      "message": "I am fairly concerned with this being silent though, because some of these failure modes may be a bit subtle, and the symptom will be that the requested UIDs will not have access to the requested network, with the only way to tell a sole line of log.\n\nSo I addressed your concerns in the following way instead.\n• Removed the enforce* method.\n• Split out a method to do the check of the access UIDs, so that it\u0027s factorized.\n• Use the access UIDs check here to keep the fail-fast exception.\n• Moved the sendNetworkCapabilities internal implementation into  a separate *internal method that is @VisibleForTesting. This lets me remove the reflection in the test.\n• Added a Log.wtf in restrictNetworkCapabilitiesFromAgent.\nPlease let me know if you think we can do better.\n\nHowever, you are right that some of the sanitization will not be possible in app space, or at least require some convoluted logic. That means some of the followup patches will have to find a trade-off for these. Still, I think the fail-fast behavior is worth it.",
+      "parentUuid": "08325421_3c9dfe47",
       "range": {
         "startLine": 1012,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd84314_d26fe03a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1800,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T14:40:26Z",
+      "side": 1,
+      "message": "Made this an ArraySet\u003cInteger\u003e",
+      "parentUuid": "e959a8b0_f9b0b7ea",
+      "range": {
+        "startLine": 1800,
+        "startChar": 18,
+        "endLine": 1800,
+        "endChar": 36
+      },
+      "revId": "9dbf1d39407f337abf2ca4d3e1ea50467cdecc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39652385_7820b5d2",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e35f29f5_a44ab5ce",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1845,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39652385_7820b5d2",
+      "range": {
+        "startLine": 1845,
+        "startChar": 24,
+        "endLine": 1845,
+        "endChar": 35
+      },
+      "revId": "9dbf1d39407f337abf2ca4d3e1ea50467cdecc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f790cf3f_2da7a1b2",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-01-07T08:53:22Z",
       "side": 1,
       "message": "hasAccessUids()",
+      "range": {
+        "startLine": 2169,
+        "startChar": 12,
+        "endLine": 2169,
+        "endChar": 34
+      },
+      "revId": "9dbf1d39407f337abf2ca4d3e1ea50467cdecc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dca83da1_c4bd7746",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 2169,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T14:40:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f790cf3f_2da7a1b2",
       "range": {
         "startLine": 2169,
         "startChar": 12,
@@ -158,6 +278,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9800600_e4238619",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3315,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T14:40:26Z",
+      "side": 1,
+      "message": "Not really. The copy here is meant to avoid mutating an object that belongs to another component, when it comes from a provider in the same process. The copy inside processCapabilitiesFromAgent is meant to keep a copy of the original object that was sent by the agent, which needs to be distinct both from the object actually sent by the agent (which the agent can mutate) and to the capabilities we\u0027ll keep in the agent (which CS can mutate). So we really need three objects.\n\nIn fact, the old code was mutating ownerUid on the object passed by the agent, which may really be an object that the agent holds a reference to.\n\nI did however change the patch in response to your comment : I moved restrictCapabilitiesFromNetworkAgent inside processCapabilitiesFromAgent, since that\u0027s where it morally belongs. That makes the patch a little bit more dangerous though, because I had to move the call to processCapabilitiesFromAgent in registerNetworkAgentInternal to handleRegisterNetworkAgent – since restrictCapabilitiesFromNetworkAgent will eventually have to run on the handler thread to see an up-to-date value for the carrier config package for the CBS feature.\nI don\u0027t think this is very dangerous as nobody is supposed to have a reference to the pending NAI, but it deserves some scrutiny.",
+      "parentUuid": "df690fc8_4a8dd98e",
+      "range": {
+        "startLine": 3315,
+        "startChar": 68,
+        "endLine": 3315,
+        "endChar": 91
+      },
+      "revId": "9dbf1d39407f337abf2ca4d3e1ea50467cdecc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9e36850_a6bdc3b2",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 14
@@ -169,6 +313,30 @@
       "writtenOn": "2022-01-07T08:53:22Z",
       "side": 1,
       "message": "Was this a bug in existing code?",
+      "range": {
+        "startLine": 6361,
+        "startChar": 8,
+        "endLine": 6361,
+        "endChar": 41
+      },
+      "revId": "9dbf1d39407f337abf2ca4d3e1ea50467cdecc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a11d207_3416d4af",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 6361,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T14:40:26Z",
+      "side": 1,
+      "message": "Yes, though the intent of this line is less to fix the bug than to disallow access UIDs in this method.\n\nSpecifically, before this patch it was possible to file a network request for an NC with broken private DNS with an intent. Assuming you managed to build such a request, which you can\u0027t really do.\n\nI can split this into a preliminary patch if you prefer that ; I didn\u0027t think it mattered too much considering the new check is 99.99% of the point here.",
+      "parentUuid": "a9e36850_a6bdc3b2",
       "range": {
         "startLine": 6361,
         "startChar": 8,
@@ -192,6 +360,30 @@
       "writtenOn": "2022-01-07T08:53:22Z",
       "side": 1,
       "message": "This isn\u0027t great. Per comments elsewhere, I think we\u0027d be better off simply ignoring invalid input in the service (which we already do for other things).",
+      "range": {
+        "startLine": 494,
+        "startChar": 47,
+        "endLine": 494,
+        "endChar": 93
+      },
+      "revId": "9dbf1d39407f337abf2ca4d3e1ea50467cdecc67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d87f2347_2d71baac",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 14
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-07T14:40:26Z",
+      "side": 1,
+      "message": "Removed this as described in the other comment. Found a way to still be more useful in most cases, keep test coverage, but not need any of this.",
+      "parentUuid": "a3813ae2_6d951a68",
       "range": {
         "startLine": 494,
         "startChar": 47,
