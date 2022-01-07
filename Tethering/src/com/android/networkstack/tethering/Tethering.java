@@ -271,6 +271,9 @@ public class Tethering {
     private BluetoothPan mBluetoothPan;
     private PanServiceListener mBluetoothPanListener;
     private ArrayList<Pair<Boolean, IIntResultListener>> mPendingPanRequests;
+    // AIDL doesn't support Integer. Maintain a int bitmap here. When the bitmap is passed to
+    // TetheringManager, TetheringManager would covert it to a set of Integer types.
+    private int mSupportedTypeBitMap;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -484,6 +487,7 @@ public class Tethering {
     // NOTE: This is always invoked on the mLooper thread.
     private void updateConfiguration() {
         mConfig = mDeps.generateTetheringConfiguration(mContext, mLog, mActiveDataSubId);
+        updateSupportedDownstreams(mConfig);
         mUpstreamNetworkMonitor.setUpstreamConfig(mConfig.chooseUpstreamAutomatically,
                 mConfig.isDunRequired);
         reportConfigurationChanged(mConfig.toStableParcelable());
@@ -1454,15 +1458,6 @@ public class Tethering {
         return mConfig;
     }
 
-    boolean hasAnySupportedDownstream() {
-        return (mConfig.tetherableUsbRegexs.length != 0)
-                || (mConfig.tetherableWifiRegexs.length != 0)
-                || (mConfig.tetherableBluetoothRegexs.length != 0)
-                || (mConfig.tetherableWifiP2pRegexs.length != 0)
-                || (mConfig.tetherableNcmRegexs.length != 0)
-                || isEthernetSupported();
-    }
-
     private boolean isEthernetSupported() {
         final PackageManager pm = mContext.getPackageManager();
         return pm.hasSystemFeature(PackageManager.FEATURE_ETHERNET);
@@ -2253,7 +2248,7 @@ public class Tethering {
         mHandler.post(() -> {
             mTetheringEventCallbacks.register(callback, new CallbackCookie(hasListPermission));
             final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
-            parcel.tetheringSupported = isTetheringSupported();
+            parcel.supportedTypeBitMap = mSupportedTypeBitMap;
             parcel.upstreamNetwork = mTetherUpstream;
             parcel.config = mConfig.toStableParcelable();
             parcel.states =
@@ -2376,18 +2371,48 @@ public class Tethering {
         }
     }
 
+    private void updateSupportedDownstreams(final TetheringConfiguration config) {
+        mSupportedTypeBitMap = 0;
+        if (!isTetherEnabledInSettings() || isProvisioningNeededButUnavailable()) return;
+
+        if (config.tetherableUsbRegexs.length != 0) {
+            mSupportedTypeBitMap = mSupportedTypeBitMap | TETHERING_USB;
+        }
+
+        if (config.tetherableNcmRegexs.length != 0) {
+            mSupportedTypeBitMap = mSupportedTypeBitMap | TETHERING_NCM;
+        }
+
+        if (config.tetherableWifiRegexs.length != 0) {
+            mSupportedTypeBitMap = mSupportedTypeBitMap | TETHERING_WIFI;
+        }
+
+        if (config.tetherableBluetoothRegexs.length != 0) {
+            mSupportedTypeBitMap = mSupportedTypeBitMap | TETHERING_BLUETOOTH;
+        }
+
+        if (config.tetherableWifiP2pRegexs.length != 0) {
+            mSupportedTypeBitMap = mSupportedTypeBitMap | TETHERING_WIFI_P2P;
+        }
+
+        if (isEthernetSupported()) {
+            mSupportedTypeBitMap = mSupportedTypeBitMap | TETHERING_ETHERNET;
+        }
+    }
+
     // if ro.tether.denied = true we default to no tethering
     // gservices could set the secure setting to 1 though to enable it on a build where it
     // had previously been turned off.
-    boolean isTetheringSupported() {
+    private boolean isTetherEnabledInSettings() {
         final int defaultVal = mDeps.isTetheringDenied() ? 0 : 1;
         final boolean tetherSupported = Settings.Global.getInt(mContext.getContentResolver(),
                 Settings.Global.TETHER_SUPPORTED, defaultVal) != 0;
-        final boolean tetherEnabledInSettings = tetherSupported
+        return tetherSupported
                 && !mUserManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_TETHERING);
+    }
 
-        return tetherEnabledInSettings && hasAnySupportedDownstream()
-                && !isProvisioningNeededButUnavailable();
+    boolean isTetheringSupported() {
+        return mSupportedTypeBitMap > 0;
     }
 
     private void dumpBpf(IndentingPrintWriter pw) {
