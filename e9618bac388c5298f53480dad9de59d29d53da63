@@ -22,6 +22,30 @@
       },
       "revId": "e9618bac388c5298f53480dad9de59d29d53da63",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bca3c8b_ba4e345a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-07T07:48:10Z",
+      "side": 1,
+      "message": "Ah, you should \"topic\" this commit with aosp/1928394. 😊",
+      "parentUuid": "2ee17b74_4f3af7b6",
+      "range": {
+        "startLine": 598,
+        "startChar": 78,
+        "endLine": 598,
+        "endChar": 89
+      },
+      "revId": "e9618bac388c5298f53480dad9de59d29d53da63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
