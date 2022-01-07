@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ee17b74_4f3af7b6",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-07T07:43:08Z",
+      "side": 1,
+      "message": "There is no packBitList() method in NetworkCapabilitiesUtils, did you have a commit to add this new method but forgot to upload it?",
+      "range": {
+        "startLine": 598,
+        "startChar": 78,
+        "endLine": 598,
+        "endChar": 89
+      },
+      "revId": "e9618bac388c5298f53480dad9de59d29d53da63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
