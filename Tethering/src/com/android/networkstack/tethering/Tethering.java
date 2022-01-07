@@ -279,6 +279,9 @@ public class Tethering {
     private BluetoothPan mBluetoothPan;
     private PanServiceListener mBluetoothPanListener;
     private ArrayList<Pair<Boolean, IIntResultListener>> mPendingPanRequests;
+    // AIDL doesn't support Integer. Maintain a int bitmap here. When the bitmap is passed to
+    // TetheringManager, TetheringManager would covert it to a set of Integer types.
+    private int mSupportedTypeBitMap;
 
     public Tethering(TetheringDependencies deps) {
         mLog.mark("Tethering.constructed");
@@ -495,6 +498,11 @@ public class Tethering {
         mUpstreamNetworkMonitor.setUpstreamConfig(mConfig.chooseUpstreamAutomatically,
                 mConfig.isDunRequired);
         reportConfigurationChanged(mConfig.toStableParcelable());
+        final int preSupportedBitMap = mSupportedTypeBitMap;
+        updateSupportedDownstreams(mConfig);
+        if (preSupportedBitMap != mSupportedTypeBitMap) {
+            reportTetheringSupportedChange(mSupportedTypeBitMap);
+        }
     }
 
     private void maybeDunSettingChanged() {
@@ -1533,15 +1541,6 @@ public class Tethering {
         return mConfig;
     }
 
-    boolean hasAnySupportedDownstream() {
-        return (mConfig.tetherableUsbRegexs.length != 0)
-                || (mConfig.tetherableWifiRegexs.length != 0)
-                || (mConfig.tetherableBluetoothRegexs.length != 0)
-                || (mConfig.tetherableWifiP2pRegexs.length != 0)
-                || (mConfig.tetherableNcmRegexs.length != 0)
-                || isEthernetSupported();
-    }
-
     private boolean isEthernetSupported() {
         return mContext.getSystemService(Context.ETHERNET_SERVICE) != null;
     }
@@ -2331,7 +2330,7 @@ public class Tethering {
         mHandler.post(() -> {
             mTetheringEventCallbacks.register(callback, new CallbackCookie(hasListPermission));
             final TetheringCallbackStartedParcel parcel = new TetheringCallbackStartedParcel();
-            parcel.tetheringSupported = isTetheringSupported();
+            parcel.supportedTypeBitMap = mSupportedTypeBitMap;
             parcel.upstreamNetwork = mTetherUpstream;
             parcel.config = mConfig.toStableParcelable();
             parcel.states =
@@ -2368,6 +2367,22 @@ public class Tethering {
         mHandler.post(() -> {
             mTetheringEventCallbacks.unregister(callback);
         });
+    }
+
+    private void reportTetheringSupportedChange(final int supportedBitMap) {
+        final int length = mTetheringEventCallbacks.beginBroadcast();
+        try {
+            for (int i = 0; i < length; i++) {
+                try {
+                    mTetheringEventCallbacks.getBroadcastItem(i).onSupportedTetheringTypes(
+                            supportedBitMap);
+                } catch (RemoteException e) {
+                    // Not really very much to do here.
+                }
+            }
+        } finally {
+            mTetheringEventCallbacks.finishBroadcast();
+        }
     }
 
     private void reportUpstreamChanged(UpstreamNetworkState ns) {
@@ -2454,18 +2469,40 @@ public class Tethering {
         }
     }
 
+    private void updateSupportedDownstreams(final TetheringConfiguration config) {
+        mSupportedTypeBitMap = 0;
+        if (!isTetherEnabledInSettings() || isProvisioningNeededButUnavailable()) return;
+
+        if (config.tetherableUsbRegexs.length != 0) updateBitMap(TETHERING_USB);
+
+        if (config.tetherableNcmRegexs.length != 0) updateBitMap(TETHERING_NCM);
+
+        if (config.tetherableWifiRegexs.length != 0) updateBitMap(TETHERING_WIFI);
+
+        if (config.tetherableBluetoothRegexs.length != 0) updateBitMap(TETHERING_BLUETOOTH);
+
+        if (config.tetherableWifiP2pRegexs.length != 0) updateBitMap(TETHERING_WIFI_P2P);
+
+        if (isEthernetSupported()) updateBitMap(TETHERING_ETHERNET);
+    }
+
+    private void updateBitMap(int tetheringType) {
+        mSupportedTypeBitMap = mSupportedTypeBitMap | (1 << tetheringType);
+    }
+
     // if ro.tether.denied = true we default to no tethering
     // gservices could set the secure setting to 1 though to enable it on a build where it
     // had previously been turned off.
-    boolean isTetheringSupported() {
+    private boolean isTetherEnabledInSettings() {
         final int defaultVal = mDeps.isTetheringDenied() ? 0 : 1;
         final boolean tetherSupported = Settings.Global.getInt(mContext.getContentResolver(),
                 Settings.Global.TETHER_SUPPORTED, defaultVal) != 0;
-        final boolean tetherEnabledInSettings = tetherSupported
+        return tetherSupported
                 && !mUserManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_TETHERING);
+    }
 
-        return tetherEnabledInSettings && hasAnySupportedDownstream()
-                && !isProvisioningNeededButUnavailable();
+    boolean isTetheringSupported() {
+        return mSupportedTypeBitMap > 0;
     }
 
     private void dumpBpf(IndentingPrintWriter pw) {
