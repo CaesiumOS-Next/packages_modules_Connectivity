@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c36b915_ba69927f",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-07T17:00:24Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "8ba613c1_f7f91cee",
+      "range": {
+        "startLine": 109,
+        "startChar": 40,
+        "endLine": 109,
+        "endChar": 41
+      },
+      "revId": "aabcdc8b27e33eb64a391989056adc814abf01dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b256d36_834acafa",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f87b7d27_39074bbd",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-07T17:00:24Z",
+      "side": 1,
+      "message": "It make sense. 😊",
+      "parentUuid": "0b256d36_834acafa",
+      "range": {
+        "startLine": 113,
+        "startChar": 31,
+        "endLine": 113,
+        "endChar": 59
+      },
+      "revId": "aabcdc8b27e33eb64a391989056adc814abf01dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51f9d095_d9986a57",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-06T18:23:56Z",
       "side": 1,
       "message": "Why defining the same constants again here?",
+      "range": {
+        "startLine": 91,
+        "startChar": 31,
+        "endLine": 91,
+        "endChar": 59
+      },
+      "revId": "aabcdc8b27e33eb64a391989056adc814abf01dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf306ad2_1b10a33d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-07T17:00:24Z",
+      "side": 1,
+      "message": "forget to remove. Thanks for the catching.",
+      "parentUuid": "51f9d095_d9986a57",
       "range": {
         "startLine": 91,
         "startChar": 31,
