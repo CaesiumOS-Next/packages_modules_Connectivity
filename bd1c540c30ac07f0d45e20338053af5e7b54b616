@@ -89,6 +89,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebaa9f7b_7c44fcaa",
+        "filename": "service/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-08T01:23:30Z",
+      "side": 1,
+      "message": "What should the name be here? Context.CONNECTIVITY_SERVICE or Context.VENDOR_CONNECTIVITY_SERVICE?",
+      "parentUuid": "8659fd7e_99857525",
+      "range": {
+        "startLine": 39,
+        "startChar": 8,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b25bd4d_978f1073",
         "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
         "patchSetId": 35
