@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50c1ca41_bf162043",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 10126,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-08T01:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b77fbbd9_107628a0",
+      "range": {
+        "startLine": 10123,
+        "startChar": 7,
+        "endLine": 10126,
+        "endChar": 9
+      },
+      "revId": "c0999da9bb60d2b0bd09adfb8ef28402f4c2c1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c50697cb_b7128d54",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-08T01:24:32Z",
       "side": 1,
       "message": "I find this structure really difficult to understand. Normally you avoid having private methods whose contract is to have a side effect inside a member, because then the caller has to understand exactly the internal details of the callee and to care about the order of usage of the member. Case in point here, this method needs to understand the effect of handleSetProfileNetworkPreference on the mProfileNetworkPreferences member.\n\nThis is also confusing on grounds that one would normally expect two methods named the same to do the same thing, but here the method that takes one argument will not actually install the preference – in fact it *must* not be called outside of this method, but it\u0027s named like it could. It\u0027s even more confusing for someone who knew the old code, because they would expect the old method to continue doing what it used to.\n\nInstead, I think it\u0027s easier to understand if this method inlines the current contents of the method that takes only one, so that it explicitly mutates the member right here. You can have the old method shove the argument in a list and call this (and then you don\u0027t need the change to l.5677), or you can keep l.5677 and completely remove the method that only takes one object.",
+      "range": {
+        "startLine": 10198,
+        "startChar": 12,
+        "endLine": 10198,
+        "endChar": 45
+      },
+      "revId": "c0999da9bb60d2b0bd09adfb8ef28402f4c2c1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4477b0d_2e1ab7c5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 10198,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-08T01:51:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c50697cb_b7128d54",
       "range": {
         "startLine": 10198,
         "startChar": 12,
