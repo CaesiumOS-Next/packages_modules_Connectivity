@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8764a720_d6a71a74",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/BpfCoordinatorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-09T13:22:46Z",
+      "side": 1,
+      "message": "per talked, refactor to builder. please help to review again. thank you",
+      "parentUuid": "a43a27d7_0852b879",
+      "range": {
+        "startLine": 1779,
+        "startChar": 0,
+        "endLine": 1824,
+        "endChar": 5
+      },
+      "revId": "721ac6f01947e2ddbbe9a52ac80e4010843c33e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39b34ba5_424b0321",
