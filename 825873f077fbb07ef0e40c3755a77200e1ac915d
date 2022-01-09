@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80901bbe_9ee39311",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-09T15:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d3c42d5_446b0dc9",
+      "range": {
+        "startLine": 1037,
+        "startChar": 11,
+        "endLine": 1037,
+        "endChar": 16
+      },
+      "revId": "825873f077fbb07ef0e40c3755a77200e1ac915d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e86deb0_ee890569",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-06T14:25:58Z",
       "side": 1,
       "message": "s?",
+      "range": {
+        "startLine": 1040,
+        "startChar": 44,
+        "endLine": 1040,
+        "endChar": 45
+      },
+      "revId": "825873f077fbb07ef0e40c3755a77200e1ac915d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec11dfa9_f33ec61f",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1040,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-09T15:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e86deb0_ee890569",
       "range": {
         "startLine": 1040,
         "startChar": 44,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "703ce152_b4eae508",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-09T15:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "953208dc_d7a0e838",
+      "range": {
+        "startLine": 1047,
+        "startChar": 11,
+        "endLine": 1047,
+        "endChar": 16
+      },
+      "revId": "825873f077fbb07ef0e40c3755a77200e1ac915d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b52568f3_0be0cf63",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-06T14:25:58Z",
       "side": 1,
       "message": "Need to format like:\n * @return When enabled, all mobile data is reported under\n *         {@link NetworkIdentity#SUBTYPE_COMBINED}. When disabled, \n *         mobile data is broken down by a granular subtype\n *         representative of the actual subtype.",
+      "range": {
+        "startLine": 1060,
+        "startChar": 7,
+        "endLine": 1062,
+        "endChar": 61
+      },
+      "revId": "825873f077fbb07ef0e40c3755a77200e1ac915d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e87935fe_bd8548b1",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1062,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-09T15:41:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b52568f3_0be0cf63",
       "range": {
         "startLine": 1060,
         "startChar": 7,
