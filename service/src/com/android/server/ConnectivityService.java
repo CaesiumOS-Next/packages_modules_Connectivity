@@ -53,6 +53,7 @@ import static android.net.ConnectivityManager.TYPE_WIFI;
 import static android.net.ConnectivityManager.TYPE_WIFI_P2P;
 import static android.net.ConnectivityManager.getNetworkTypeName;
 import static android.net.ConnectivityManager.isNetworkTypeValid;
+import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_ON;
 import static android.net.ConnectivitySettingsManager.PRIVATE_DNS_MODE_OPPORTUNISTIC;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_PROBE_PRIVDNS;
 import static android.net.INetworkMonitor.NETWORK_VALIDATION_RESULT_PARTIAL;
@@ -3791,6 +3792,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final PrivateDnsConfig cfg = mDnsManager.getPrivateDnsConfig();
 
         for (NetworkAgentInfo nai : mNetworkAgentInfos) {
+            // TODO: Skip configuring resolver if only the checkbox state is changed.
             handlePerNetworkPrivateDnsConfig(nai, cfg);
             if (networkRequiresPrivateDnsValidation(nai)) {
                 handleUpdateLinkProperties(nai, new LinkProperties(nai.linkProperties));
@@ -3814,9 +3816,20 @@ public class ConnectivityService extends IConnectivityManager.Stub
         updatePrivateDns(nai, cfg);
     }
 
+    private void notifyBlockDo53(NetworkAgentInfo nai, PrivateDnsConfig cfg) {
+        if (!SdkLevel.isAtLeastT()) return;
+
+        final boolean activated = !cfg.inStrictMode() ? false
+                : (ConnectivitySettingsManager.getPrivateDnsBlockUnencryptedDns(mContext)
+                        == PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_ON);
+
+        // TODO: notify TrafficController of the block status.
+    }
+
     private void updatePrivateDns(NetworkAgentInfo nai, PrivateDnsConfig newCfg) {
         mDnsManager.updatePrivateDns(nai.network, newCfg);
         updateDnses(nai.linkProperties, null, nai.network.getNetId());
+        notifyBlockDo53(nai, newCfg);
     }
 
     private void handlePrivateDnsValidationUpdate(PrivateDnsValidationUpdate update) {
@@ -4025,6 +4038,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // for an unnecessarily long time.
             destroyNativeNetwork(nai);
             mDnsManager.removeNetwork(nai.network);
+
+            // Clean up the configuration related to this feature for this network.
+            notifyBlockDo53(nai, new PrivateDnsConfig() /* PRIVATE_DNS_OFF */);
         }
         mNetIdManager.releaseNetId(nai.network.getNetId());
         nai.onNetworkDestroyed();
