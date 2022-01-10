@@ -33,6 +33,11 @@ public class HostsideVpnTests extends HostsideNetworkTestCase {
         uninstallPackage(TEST_APP2_PKG, true);
     }
 
+    public void testUnderlyingNetworksFollowDefaultNetwork() throws Exception {
+        runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest",
+                "testUnderlyingNetworksFollowDefaultNetwork");
+    }
+
     public void testChangeUnderlyingNetworks() throws Exception {
         runDeviceTests(TEST_PKG, TEST_PKG + ".VpnTest", "testChangeUnderlyingNetworks");
     }

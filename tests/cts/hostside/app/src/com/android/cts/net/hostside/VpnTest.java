@@ -21,6 +21,7 @@ import static android.content.pm.PackageManager.FEATURE_TELEPHONY;
 import static android.content.pm.PackageManager.FEATURE_WIFI;
 import static android.net.ConnectivityManager.TYPE_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_VPN;
+import static android.net.cts.util.CtsNetUtils.TestNetworkCallback;
 import static android.os.Process.INVALID_UID;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -58,6 +59,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.ConnectivityThread;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -71,7 +73,6 @@ import android.net.VpnService;
 import android.net.VpnTransportInfo;
 import android.net.cts.util.CtsNetUtils;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
@@ -95,6 +96,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.android.compatibility.common.util.BlockingBroadcastReceiver;
 import com.android.modules.utils.build.SdkLevel;
+import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
+import com.android.networkstack.apishim.common.ConnectivityManagerShim;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.RecorderCallback;
@@ -175,6 +178,7 @@ public class VpnTest {
     private ConnectivityManager mCM;
     private WifiManager mWifiManager;
     private RemoteSocketFactoryClient mRemoteSocketFactoryClient;
+    private ConnectivityManagerShim mCmShim;
     private CtsNetUtils mCtsNetUtils;
     private PackageManager mPackageManager;
     private TelephonyManager mTelephonyManager;
@@ -219,6 +223,7 @@ public class VpnTest {
         mRemoteSocketFactoryClient = new RemoteSocketFactoryClient(mActivity);
         mRemoteSocketFactoryClient.bind();
         mDevice.waitForIdle();
+        mCmShim = ConnectivityManagerShimImpl.newInstance(getInstrumentation().getContext());
         mCtsNetUtils = new CtsNetUtils(getInstrumentation().getContext());
         mPackageManager = getInstrumentation().getContext().getPackageManager();
         mTelephonyManager =
@@ -779,7 +784,7 @@ public class VpnTest {
                                 .getCaps().getUnderlyingNetworks())));
     }
 
-    @Test @IgnoreUpTo(Build.VERSION_CODES.S)
+    @Test @IgnoreUpTo(32) // TODO: Change 32 to S_V2 once it's defined in Build.java
     public void testChangeUnderlyingNetworks() throws Exception {
         assumeTrue(supportedHardware());
         assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
@@ -837,6 +842,56 @@ public class VpnTest {
                 }
             }, () -> {
                 mCM.unregisterNetworkCallback(callback);
+            });
+    }
+
+    @Test @IgnoreUpTo(32) // TODO: Change 32 to S_V2 once it's defined in Build.java
+    public void testUnderlyingNetworksFollowDefaultNetwork() throws Exception {
+        assumeTrue(supportedHardware());
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_WIFI));
+        assumeTrue(mPackageManager.hasSystemFeature(FEATURE_TELEPHONY));
+        final TestableNetworkCallback callback = new TestableNetworkCallback();
+        final TestNetworkCallback defaultNetworkCallback = new TestNetworkCallback();
+        final boolean isWifiEnabled = mWifiManager.isWifiEnabled();
+        testAndCleanup(() -> {
+            // Ensure wifi is connected.
+            final Network wifiNetwork = mCtsNetUtils.ensureWifiConnected();
+            // Check if wifi is the default network.
+            mCtsNetUtils.expectSystemDefaultNetwork(wifiNetwork);
+            // Start VPN and set underlying networks to null to follow the default network.
+            startVpn(new String[] {"192.0.2.2/32", "2001:db8:1:2::ffe/128"} /* addresses */,
+                    new String[] {"0.0.0.0/0", "::/0"} /* routes */,
+                    "" /* allowedApplications */, "" /* disallowedApplications */,
+                    null /* proxyInfo */, null /* underlyingNetworks */,
+                    false /* isAlwaysMetered */);
+            // Acquire the NETWORK_SETTINGS permission for getting the underlying networks and for
+            // calling registerSystemDefaultNetworkCallback.
+            runWithShellPermissionIdentity(() -> {
+                mCM.registerNetworkCallback(makeVpnNetworkRequest(), callback);
+                // Check the underlying networks of NetworkCapabilities which comes from
+                // onCapabilitiesChanged is wifi.
+                expectUnderlyingNetworks(callback, List.of(wifiNetwork));
+                // Disconnect wifi and ensure mobile data is connected.
+                mCtsNetUtils.ensureWifiDisconnected(null);
+                mCmShim.registerSystemDefaultNetworkCallback(defaultNetworkCallback,
+                        ConnectivityThread.get().getThreadHandler());
+                // When wifi is disconnected, mobile data should be the default network.
+                final Network cellNetwork = defaultNetworkCallback.waitForAvailable();
+                assertNotNull("Mobile data is not connected", cellNetwork);
+                // Check the underlying networks of NetworkCapabilities which comes from
+                // onCapabilitiesChanged is mobile data.
+                expectUnderlyingNetworks(callback, List.of(cellNetwork));
+            }, NETWORK_SETTINGS);
+        }, () -> {
+                mCM.unregisterNetworkCallback(callback);
+            }, () -> {
+                mCM.unregisterNetworkCallback(defaultNetworkCallback);
+            }, () -> {
+                if (isWifiEnabled) {
+                    mCtsNetUtils.ensureWifiConnected();
+                } else {
+                    mCtsNetUtils.ensureWifiDisconnected(null);
+                }
             });
     }
 
