@@ -62,6 +62,7 @@ package android.net {
     method @Nullable public static String getNetworkMeteredMultipathPreference(@NonNull android.content.Context);
     method public static int getNetworkSwitchNotificationMaximumDailyCount(@NonNull android.content.Context, int);
     method @NonNull public static java.time.Duration getNetworkSwitchNotificationRateDuration(@NonNull android.content.Context, @NonNull java.time.Duration);
+    method public static int getPrivateDnsBlockUnencryptedDns(@NonNull android.content.Context);
     method @NonNull public static String getPrivateDnsDefaultMode(@NonNull android.content.Context);
     method @Nullable public static String getPrivateDnsHostname(@NonNull android.content.Context);
     method public static int getPrivateDnsMode(@NonNull android.content.Context);
@@ -82,6 +83,7 @@ package android.net {
     method public static void setNetworkMeteredMultipathPreference(@NonNull android.content.Context, @NonNull String);
     method public static void setNetworkSwitchNotificationMaximumDailyCount(@NonNull android.content.Context, @IntRange(from=0) int);
     method public static void setNetworkSwitchNotificationRateDuration(@NonNull android.content.Context, @NonNull java.time.Duration);
+    method public static void setPrivateDnsBlockUnencryptedDns(@NonNull android.content.Context, int);
     method public static void setPrivateDnsDefaultMode(@NonNull android.content.Context, @NonNull int);
     method public static void setPrivateDnsHostname(@NonNull android.content.Context, @Nullable String);
     method public static void setPrivateDnsMode(@NonNull android.content.Context, int);
@@ -94,6 +96,8 @@ package android.net {
     field public static final int NETWORK_AVOID_BAD_WIFI_AVOID = 2; // 0x2
     field public static final int NETWORK_AVOID_BAD_WIFI_IGNORE = 0; // 0x0
     field public static final int NETWORK_AVOID_BAD_WIFI_PROMPT = 1; // 0x1
+    field public static final int PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_OFF = 0; // 0x0
+    field public static final int PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_ON = 1; // 0x1
     field public static final int PRIVATE_DNS_MODE_OFF = 1; // 0x1
     field public static final int PRIVATE_DNS_MODE_OPPORTUNISTIC = 2; // 0x2
     field public static final int PRIVATE_DNS_MODE_PROVIDER_HOSTNAME = 3; // 0x3
