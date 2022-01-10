@@ -3822,7 +3822,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 : (ConnectivitySettingsManager.getPrivateDnsBlockUnencryptedDns(mContext)
                         == PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_ON);
 
-        // TODO: notify TrafficController of the block status.
+        log("Block unencrypted DNS is " + (activated ? "activated" : "deactivated")
+                + " for " + nai);
+        try {
+            // Use networkCreateVpn() as a temporary interface to notify TrafficController of
+            // the block status.
+            mNetd.networkCreateVpn(-nai.network.getNetId(), activated);
+        } catch (RemoteException e) {
+            log("notifyBlockDo53: " + e);
+        }
     }
 
     private void updatePrivateDns(NetworkAgentInfo nai, PrivateDnsConfig newCfg) {
