@@ -38,7 +38,8 @@
 #define INT32_STRLEN _INT_STRLEN(INT32_MIN)
 
 namespace android {
-static const char* kClatdPath = "/system/bin/clatd";
+//static const char* kClatdPath = "/system/bin/clatd";
+static const char* kClatdLuncherPath = "/apex/com.android.tethering/bin/clat";
 
 static void throwIOException(JNIEnv* env, const char* msg, int error) {
     jniThrowExceptionFmt(env, "java/io/IOException", "%s: %s", msg, strerror(error));
@@ -295,7 +296,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     snprintf(passedSockWriteStr, sizeof(passedSockWriteStr), "%d", passedSockWrite);
 
     // 2. we're going to use this as argv[0] to clatd to make ps output more useful
-    std::string progname("clatd-");
+    std::string progname("clat-");
     progname += ifaceStr.c_str();
 
     // clang-format off
@@ -308,6 +309,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
                           "-t", passedTunFdStr,
                           "-r", passedSockReadStr,
                           "-w", passedSockWriteStr,
+                          "-s",
                           nullptr};
     // clang-format on
 
@@ -354,8 +356,16 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     }
 
     // 5. actually perform vfork/dup2/execve
+//    pid_t pid;
+//    if (posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+//        posix_spawnattr_destroy(&attr);
+//        posix_spawn_file_actions_destroy(&fa);
+//        throwIOException(env, "posix_spawn failed", errno);
+//        return -1;
+//    }
+
     pid_t pid;
-    if (posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+    if (posix_spawn(&pid, kClatdLuncherPath, &fa, &attr, (char* const*)args, nullptr)) {
         posix_spawnattr_destroy(&attr);
         posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn failed", errno);
