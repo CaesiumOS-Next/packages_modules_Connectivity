@@ -300,6 +300,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public static final String SHORT_ARG = "--short";
     private static final String NETWORK_ARG = "networks";
     private static final String REQUEST_ARG = "requests";
+    private static final String BPF_TEST_ARG = "bpf_test";
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
@@ -3024,6 +3025,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else if (CollectionUtils.contains(args, REQUEST_ARG)) {
             dumpNetworkRequests(pw);
             return;
+        } else if (CollectionUtils.contains(args, BPF_TEST_ARG)) {
+            dumpNetdTrafficController(fd, "trafficcontroller");
+            return;
         }
 
         pw.print("NetworkProviders for:");
@@ -3254,6 +3258,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
             @Override public void close() {}
         })) {
             mNetworkRequestInfoLogs.dump(logPw);
+        }
+    }
+
+    private void dumpNetdTrafficController(FileDescriptor fd, String... args) {
+        try {
+            final IBinder netd = (IBinder) mContext.getSystemService(Context.NETD_SERVICE);
+            netd.dump(fd, args);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Fail to dump netd log: " + e);
         }
     }
 

@@ -136,9 +136,11 @@ import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.MessageQueue;
 import android.os.Process;
+import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.UserHandle;
@@ -146,6 +148,7 @@ import android.os.VintfRuntimeInfo;
 import android.platform.test.annotations.AppModeFull;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
+import android.system.Os;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -183,7 +186,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.BufferedReader;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -3019,6 +3024,37 @@ public class ConnectivityManagerTest {
                     ConnectivitySettingsManager.setUidsAllowedOnRestrictedNetworks(
                             mContext, originalUidsAllowedOnRestrictedNetworks), NETWORK_SETTINGS);
         }
+    }
+
+    private ArrayList<String> dumpToString(String serviceName, String... args) throws Exception {
+        final IBinder icm = ServiceManager.getService(serviceName);
+        FileDescriptor[] pipe = Os.pipe();
+        runWithShellPermissionIdentity(() -> icm.dump(pipe[1], args));
+        Os.close(pipe[1]);
+        Log.e(TAG, "read dump++");
+        BufferedReader br = null;
+        try (InputStream in = new FileInputStream(pipe[0]);) {
+            br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+            String str = null;
+            ArrayList<String> out = new ArrayList<String>();
+            while ((str = br.readLine()) != null) {
+                Log.d(TAG, "> " + str);
+                out.add(str);
+            }
+            Log.e(TAG, "read dump--");
+            return out;
+        } finally {
+            if (br != null) br.close();
+        }
+    }
+
+    @Test
+    public void testDump() throws Exception {
+        final ArrayList<String> dumpOutputs = dumpToString(Context.CONNECTIVITY_SERVICE, "bpf_test");
+        for (String dump : dumpOutputs) {
+            if (dump.contains("mUidPermissionMap:")); return;
+        }
+        fail("Could not find expected dump log");
     }
 
     private void unregisterRegisteredCallbacks() {
