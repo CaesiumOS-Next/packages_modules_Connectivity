@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019048644",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1943017?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "400e19d8_35f86819",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3266,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-10T14:37:31Z",
+      "side": 1,
+      "message": "Prefer to use mContext.getSystemService(IBinder.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 3266,
+        "startChar": 33,
+        "endLine": 3266,
+        "endChar": 69
+      },
+      "revId": "6f83588ca84ef4456a53de1b2d91ec612496a5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019048644",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1943017?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "01fc77f1_0c3e9b8f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3053,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-10T14:37:31Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 3053,
+        "startChar": 0,
+        "endLine": 3053,
+        "endChar": 101
+      },
+      "revId": "6f83588ca84ef4456a53de1b2d91ec612496a5a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
