@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee21c3e_e7449c6b",
+        "filename": "tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-01-10T07:42:00Z",
+      "side": 1,
+      "message": "If this test is intended for T, the precise SDK code here should be 32. Then the test will not run before SDK33(T).",
+      "range": {
+        "startLine": 849,
+        "startChar": 22,
+        "endLine": 849,
+        "endChar": 43
+      },
+      "revId": "7f04badaf1fb1334e0ee72f75ae758b47034c9cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
