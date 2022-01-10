@@ -24,8 +24,10 @@
 #include <sys/wait.h>
 #include <string>
 
+#include <android-base/unique_fd.h>
 #include <netjniutils/netjniutils.h>
 
+#include "TcUtils.h"
 #include "libclat/clatutils.h"
 #include "nativehelper/scoped_utf_chars.h"
 
@@ -37,8 +39,22 @@
 #define _INT_STRLEN(i) __INT_STRLEN(i)
 #define INT32_STRLEN _INT_STRLEN(INT32_MIN)
 
+#define DEVICEPREFIX "v4-"
+
+using android::net::RAWIP;
+//using android::net::getClatEgress4MapFd;
+//using android::net::getClatIngress6MapFd;
+using android::net::getClatEgress4ProgFd;
+using android::net::getClatIngress6ProgFd;
+using android::net::tcQdiscAddDevClsact;
+using android::net::tcFilterAddDevEgressClatIpv4;
+using android::net::tcFilterAddDevIngressClatIpv6;
+using android::net::tcFilterDelDevEgressClatIpv4;
+using android::net::tcFilterDelDevIngressClatIpv6;
+
 namespace android {
-static const char* kClatdPath = "/system/bin/clatd";
+//static const char* kClatdPath = "/system/bin/clatd";
+static const char* kClatdLuncherPath = "/apex/com.android.tethering/bin/clat";
 
 static void throwIOException(JNIEnv* env, const char* msg, int error) {
     jniThrowExceptionFmt(env, "java/io/IOException", "%s: %s", msg, strerror(error));
@@ -295,7 +311,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     snprintf(passedSockWriteStr, sizeof(passedSockWriteStr), "%d", passedSockWrite);
 
     // 2. we're going to use this as argv[0] to clatd to make ps output more useful
-    std::string progname("clatd-");
+    std::string progname("clat-");
     progname += ifaceStr.c_str();
 
     // clang-format off
@@ -308,6 +324,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
                           "-t", passedTunFdStr,
                           "-r", passedSockReadStr,
                           "-w", passedSockWriteStr,
+                          "-s",
                           nullptr};
     // clang-format on
 
@@ -354,11 +371,138 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     }
 
     // 5. actually perform vfork/dup2/execve
+//    pid_t pid;
+//    if (posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+//        posix_spawnattr_destroy(&attr);
+//        posix_spawn_file_actions_destroy(&fa);
+//        throwIOException(env, "posix_spawn failed", errno);
+//        return -1;
+//    }
+
     pid_t pid;
-    if (posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+    if (posix_spawn(&pid, kClatdLuncherPath, &fa, &attr, (char* const*)args, nullptr)) {
         posix_spawnattr_destroy(&attr);
         posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn failed", errno);
+        return -1;
+    }
+
+    //+debug
+    unsigned ifIndex = if_nametoindex(ifaceStr.c_str());
+    if (ifIndex == 0) {
+        ALOGE("interface %s not found", ifaceStr.c_str());
+        jniThrowExceptionFmt(env, "java/io/IOException", "interface %s not found", ifaceStr.c_str());
+        exit(1);
+    }
+    
+    auto isEthernet = android::net::isEthernet(ifaceStr.c_str());
+    if (!isEthernet.ok()) {
+        ALOGE("isEthernet(%s[%d]) failure: %s", ifaceStr.c_str(), ifIndex,
+              isEthernet.error().message().c_str());
+        jniThrowExceptionFmt(env, "java/io/IOException", "isEthernet(%s[%d]) failure: %s", ifaceStr.c_str(), ifIndex,
+              isEthernet.error().message().c_str());
+        return -1;
+    }
+
+    
+    int v4ifIndex;
+    char v4iface[IFNAMSIZ];
+
+    unsigned len = snprintf(v4iface, sizeof(v4iface), "%s%s", DEVICEPREFIX, ifaceStr.c_str());
+    if (len >= sizeof(v4iface)) {
+        ALOGE("interface name too long '%s'", v4iface);
+        jniThrowExceptionFmt(env, "java/io/IOException", "interface name too long '%s'", v4iface);
+        return -1;
+    }
+    v4ifIndex = if_nametoindex(v4iface);
+    if (v4ifIndex == 0) {
+        ALOGE("interface %s not found", v4iface);
+        jniThrowExceptionFmt(env, "java/io/IOException", "interface %s not found", v4iface);
+        return -1;
+    }
+
+    int rv = tcQdiscAddDevClsact(v4ifIndex);
+    ALOGI("[SSD] tcQdiscAddDevClsact(%d[%s]) rv = %d", v4ifIndex, v4iface, rv); // +debug
+    if (rv) {
+        ALOGE("[SSD] tcQdiscAddDevClsact(%d[%s]) failure: %s", v4ifIndex, v4iface,
+              strerror(-rv));
+        jniThrowExceptionFmt(env, "java/io/IOException", "tcQdiscAddDevClsact(%d[%s]) failure: %s", v4ifIndex, v4iface,
+              strerror(-rv));
+        //ret = mClatEgress4Map.deleteValue(txKey);
+        //if (!ret.ok())
+        //    ALOGE("mClatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
+        //ret = mClatIngress6Map.deleteValue(rxKey);
+        //if (!ret.ok())
+        //    ALOGE("mClatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
+        return -1;
+    }
+
+    // This program will be attached to the v4-* interface which is a TUN and thus always rawip.
+    rv = getClatEgress4ProgFd(RAWIP);
+    ALOGI("[SSD] getClatEgress4ProgFd(RAWIP) rv = %d", rv); // +debug
+    if (rv < 0) {
+        ALOGE("[SSD] getClatEgress4ProgFd(RAWIP) failure: %s", strerror(-rv));
+        jniThrowExceptionFmt(env, "java/io/IOException", "getClatEgress4ProgFd(RAWIP) failure: %s", strerror(-rv));
+        return -1;
+    }
+    base::unique_fd txRawIpProgFd(rv);
+
+    rv = getClatIngress6ProgFd(isEthernet.value());
+    ALOGI("[SSD] getClatIngress6ProgFd(%d) rv = %d", isEthernet.value(), rv); // +debug
+    if (rv < 0) {
+        ALOGE("[SSD] getClatIngress6ProgFd(%d) failure: %s", isEthernet.value(), strerror(-rv));
+        jniThrowExceptionFmt(env, "java/io/IOException", "getClatIngress6ProgFd(%d) failure: %s", isEthernet.value(), strerror(-rv));
+        return -1;
+    }
+    base::unique_fd rxProgFd(rv);
+
+
+    rv = tcFilterAddDevEgressClatIpv4(v4ifIndex, txRawIpProgFd, RAWIP);
+    ALOGI("[SSD] tcFilterAddDevEgressClatIpv4() rv = %d", rv); // +debug
+    if (rv) {
+        ALOGE("[SSD] tcFilterAddDevEgressClatIpv4(%d[%s], RAWIP) failure: %s", v4ifIndex,
+              v4iface, strerror(-rv));
+        jniThrowExceptionFmt(env, "java/io/IOException", "tcFilterAddDevEgressClatIpv4(%d[%s], RAWIP) failure: %s", v4ifIndex,
+              v4iface, strerror(-rv));
+
+        // The v4- interface clsact is not deleted for unwinding error because once it is created
+        // with interface addition, the lifetime is till interface deletion. Moreover, the clsact
+        // has no clat filter now. It should not break anything.
+
+        //ret = mClatEgress4Map.deleteValue(txKey);
+        //if (!ret.ok())
+        //    ALOGE("mClatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
+        //ret = mClatIngress6Map.deleteValue(rxKey);
+        //if (!ret.ok())
+        //    ALOGE("mClatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
+        return -1;
+    }
+
+    rv = tcFilterAddDevIngressClatIpv6(ifIndex, rxProgFd, isEthernet.value());
+    ALOGI("[SSD] tcFilterAddDevIngressClatIpv6() rv = %d", rv); // +debug
+    if (rv) {
+        ALOGE("[SSD] tcFilterAddDevIngressClatIpv6(%d[%s], %d) failure: %s", ifIndex,
+              ifaceStr.c_str(), isEthernet.value(), strerror(-rv));
+        jniThrowExceptionFmt(env, "java/io/IOException", "tcFilterAddDevIngressClatIpv6(%d[%s], %d) failure: %s", ifIndex,
+              ifaceStr.c_str(), isEthernet.value(), strerror(-rv));
+
+        rv = tcFilterDelDevEgressClatIpv4(v4ifIndex);
+        if (rv) {
+            ALOGE("[SSD] tcFilterDelDevEgressClatIpv4(%d[%s]) failure: %s", v4ifIndex,
+                  v4iface, strerror(-rv));
+            jniThrowExceptionFmt(env, "java/io/IOException", "tcFilterDelDevEgressClatIpv4(%d[%s]) failure: %s", v4ifIndex,
+                  v4iface, strerror(-rv));
+        }
+
+        // The v4- interface clsact is not deleted. See the reason in the error unwinding code of
+        // the egress filter attaching of v4- tun interface.
+
+        //ret = mClatEgress4Map.deleteValue(txKey);
+        //if (!ret.ok())
+        //    ALOGE("mClatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
+        //ret = mClatIngress6Map.deleteValue(rxKey);
+        //if (!ret.ok())
+        //    ALOGE("mClatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
         return -1;
     }
 
@@ -369,6 +513,19 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
 
 static void com_android_server_connectivity_ClatCoordinator_stopClatd(JNIEnv* env, jobject clazz,
                                                                       jint pid) {
+
+    //int rv = tcFilterDelDevIngressClatIpv6(tracker.ifIndex);
+    //if (rv < 0) {
+    //    ALOGE("tcFilterDelDevIngressClatIpv6(%d[%s]) failure: %s", tracker.ifIndex, tracker.iface,
+    //          strerror(-rv));
+    //}
+    //
+    //rv = tcFilterDelDevEgressClatIpv4(tracker.v4ifIndex);
+    //if (rv < 0) {
+    //    ALOGE("tcFilterDelDevEgressClatIpv4(%d[%s]) failure: %s", tracker.v4ifIndex,
+    //          tracker.v4iface, strerror(-rv));
+    //}
+
     if (pid == -1) {
         jniThrowExceptionFmt(env, "java/io/IOException", "Invalid pid");
         return;

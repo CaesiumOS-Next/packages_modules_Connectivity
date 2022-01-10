@@ -63,11 +63,17 @@ cc_library_shared {
     stl: "libc++_static",
     header_libs: [
         "libbase_headers",
+        "bpf_connectivity_headers",
+        "bpf_headers",
+        "bpf_syscall_wrappers",
     ],
     static_libs: [
+        "libbase",
         "libclat",
         "libip_checksum",
         "libnetjniutils",
+        "libtcutils",
+        "libnetdutils",
     ],
     shared_libs: [
         "liblog",
