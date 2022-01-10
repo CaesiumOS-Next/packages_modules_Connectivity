@@ -9611,6 +9611,9 @@ public class ConnectivityServiceTest {
         verify(mMockNetd, times(1)).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
                 eq(Integer.toString(TRANSPORT_CELLULAR)));
         verify(mMockNetd).networkDestroy(cellNetId);
+        if (SdkLevel.isAtLeastT()) {
+            verify(mMockNetd).networkCreateVpn(anyInt(), anyBoolean());
+        }
         verifyNoMoreInteractions(mMockNetd);
         reset(mMockNetd);
 
@@ -9648,6 +9651,9 @@ public class ConnectivityServiceTest {
         verify(mMockNetd).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
                 eq(Integer.toString(TRANSPORT_CELLULAR)));
         verify(mMockNetd).networkDestroy(cellNetId);
+        if (SdkLevel.isAtLeastT()) {
+            verify(mMockNetd).networkCreateVpn(anyInt(), anyBoolean());
+        }
         verifyNoMoreInteractions(mMockNetd);
 
         mCm.unregisterNetworkCallback(networkCallback);
