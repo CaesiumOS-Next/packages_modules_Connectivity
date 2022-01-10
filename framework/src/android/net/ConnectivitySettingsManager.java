@@ -253,6 +253,14 @@ public class ConnectivitySettingsManager {
      */
     public static final String PRIVATE_DNS_DEFAULT_MODE = "private_dns_default_mode";
 
+    /**
+     * The Block Unencrypted DNS feature.
+     *
+     * @hide
+     */
+    public static final String PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS =
+            "private_dns_block_unencrypted_dns";
+
     /** Other settings */
 
     /**
@@ -374,6 +382,16 @@ public class ConnectivitySettingsManager {
             PRIVATE_DNS_MODE_PROVIDER_HOSTNAME,
     })
     public @interface PrivateDnsMode {}
+
+    /**
+     * Indicates the Block Unencrypted DNS feature is disabled.
+     */
+    public static final int PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_OFF = 0;
+
+    /**
+     * Indicates the Block Unencrypted DNS feature is enabled.
+     */
+    public static final int PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_ON = 1;
 
     /**
      * A list of uids that is allowed to use restricted networks.
@@ -753,6 +771,28 @@ public class ConnectivitySettingsManager {
      */
     public static void setPrivateDnsMode(@NonNull Context context, @PrivateDnsMode int mode) {
         ConnectivitySettingsUtils.setPrivateDnsMode(context, mode);
+    }
+
+    /**
+     * Get the Block Unencrypted DNS feature from settings.
+     *
+     * @param context The {@link Context} to query the setting.
+     * @return Whether the feature is enabled.
+     */
+    public static int getPrivateDnsBlockUnencryptedDns(@NonNull Context context) {
+        return Settings.Global.getInt(context.getContentResolver(),
+                PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS, PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_OFF);
+    }
+
+    /**
+     * Set the Block Unencrypted DNS feature to settings.
+     *
+     * @param context The {@link Context} to set the setting.
+     * @param enabled This should be either PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_{ON,OFF}.
+     */
+    public static void setPrivateDnsBlockUnencryptedDns(@NonNull Context context, int enabled) {
+        Settings.Global.putInt(
+                context.getContentResolver(), PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS, enabled);
     }
 
     /**

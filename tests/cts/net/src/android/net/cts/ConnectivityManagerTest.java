@@ -2276,6 +2276,8 @@ public class ConnectivityManagerTest {
         final int curAvoidBadWifi =
                 ConnectivitySettingsManager.getNetworkAvoidBadWifi(mContext);
         final int curPrivateDnsMode = ConnectivitySettingsManager.getPrivateDnsMode(mContext);
+        final int curBlockUnencryptedDns =
+                ConnectivitySettingsManager.getPrivateDnsBlockUnencryptedDns(mContext);
 
         TestTetheringEventCallback tetherEventCallback = null;
         final CtsTetheringUtils tetherUtils = new CtsTetheringUtils(mContext);
@@ -2298,7 +2300,8 @@ public class ConnectivityManagerTest {
             mCm.factoryReset();
             verifySettings(AIRPLANE_MODE_OFF,
                     ConnectivitySettingsManager.PRIVATE_DNS_MODE_OPPORTUNISTIC,
-                    ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI_PROMPT);
+                    ConnectivitySettingsManager.NETWORK_AVOID_BAD_WIFI_PROMPT,
+                    ConnectivitySettingsManager.PRIVATE_DNS_BLOCK_UNENCRYPTED_DNS_OFF);
 
             tetherEventCallback.expectNoTetheringActive();
         } finally {
@@ -2306,6 +2309,8 @@ public class ConnectivityManagerTest {
             mCm.setAirplaneMode(false);
             ConnectivitySettingsManager.setNetworkAvoidBadWifi(mContext, curAvoidBadWifi);
             ConnectivitySettingsManager.setPrivateDnsMode(mContext, curPrivateDnsMode);
+            ConnectivitySettingsManager.setPrivateDnsBlockUnencryptedDns(
+                    mContext, curBlockUnencryptedDns);
             if (tetherEventCallback != null) {
                 tetherUtils.unregisterTetheringEventCallback(tetherEventCallback);
             }
@@ -2347,13 +2352,15 @@ public class ConnectivityManagerTest {
     }
 
     private void verifySettings(int expectedAirplaneMode, int expectedPrivateDnsMode,
-            int expectedAvoidBadWifi) throws Exception {
+            int expectedAvoidBadWifi, int expectedBlockUnencryptedDns) throws Exception {
         assertEquals(expectedAirplaneMode, Settings.Global.getInt(
                 mContext.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON));
         assertEquals(expectedPrivateDnsMode,
                 ConnectivitySettingsManager.getPrivateDnsMode(mContext));
         assertEquals(expectedAvoidBadWifi,
                 ConnectivitySettingsManager.getNetworkAvoidBadWifi(mContext));
+        assertEquals(expectedBlockUnencryptedDns,
+                ConnectivitySettingsManager.getPrivateDnsBlockUnencryptedDns(mContext));
     }
 
     /**
