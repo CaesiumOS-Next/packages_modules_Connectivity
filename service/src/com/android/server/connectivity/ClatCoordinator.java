@@ -250,13 +250,21 @@ public class ClatCoordinator {
         try {
             mNetd.interfaceSetEnableIPv6(tunIface, false /* enabled */);
         } catch (RemoteException | ServiceSpecificException e) {
+            tunFd.close();
             Log.e(TAG, "Disable IPv6 on " + tunIface + " failed: " + e);
         }
 
         // Detect ipv4 mtu.
         final Integer fwmark = getFwmark(netId);
-        final int detectedMtu = mDeps.jniDetectMtu(pfx96,
+        final int detectedMtu;
+        try {
+            detectedMtu = mDeps.jniDetectMtu(pfx96,
                 ByteBuffer.wrap(GOOGLE_DNS_4.getAddress()).getInt(), fwmark);
+        }
+        catch (IOException e) {
+            tunFd.close();
+            throw new IOException("Detect MTU on " + tunIface + " failed: " + e);
+        }
         final int mtu = adjustMtu(detectedMtu);
         Log.i(TAG, "ipv4 mtu is " + mtu);
 
@@ -266,6 +274,7 @@ public class ClatCoordinator {
         try {
             mNetd.interfaceSetMtu(tunIface, mtu);
         } catch (RemoteException | ServiceSpecificException e) {
+            tunFd.close();
             throw new IOException("Set MTU " + mtu + " on " + tunIface + " failed: " + e);
         }
         final InterfaceConfigurationParcel ifConfig = new InterfaceConfigurationParcel();
@@ -277,6 +286,7 @@ public class ClatCoordinator {
         try {
             mNetd.interfaceSetCfg(ifConfig);
         } catch (RemoteException | ServiceSpecificException e) {
+            tunFd.close();
             throw new IOException("Setting IPv4 address to " + ifConfig.ipv4Addr + "/"
                     + ifConfig.prefixLength + " failed on " + ifConfig.ifName + ": " + e);
         }
@@ -291,6 +301,7 @@ public class ClatCoordinator {
             // descriptor to initialize ParcelFileDescriptor object instead.
             readSock6 = mDeps.adoptFd(mDeps.jniOpenPacketSocket6());
         } catch (IOException e) {
+            tunFd.close();
             throw new IOException("Open packet socket failed: " + e);
         }
 
@@ -301,11 +312,13 @@ public class ClatCoordinator {
             // reason why we use jniOpenPacketSocket6().
             writeSock6 = mDeps.adoptFd(mDeps.jniOpenRawSocket6(fwmark));
         } catch (IOException e) {
+            tunFd.close();
             throw new IOException("Open raw socket failed: " + e);
         }
 
         final int ifaceIndex = mDeps.getInterfaceIndex(iface);
         if (ifaceIndex == INVALID_IFINDEX) {
+            tunFd.close();
             throw new IOException("Fail to get interface index for interface " + iface);
         }
 
@@ -313,6 +326,7 @@ public class ClatCoordinator {
         try {
             mDeps.jniAddAnycastSetsockopt(writeSock6.getFileDescriptor(), v6, ifaceIndex);
         } catch (IOException e) {
+            tunFd.close();
             throw new IOException("add anycast sockopt failed: " + e);
         }
 
@@ -320,6 +334,7 @@ public class ClatCoordinator {
         try {
             mDeps.jniConfigurePacketSocket(readSock6.getFileDescriptor(), v6, ifaceIndex);
         } catch (IOException e) {
+            tunFd.close();
             throw new IOException("configure packet socket failed: " + e);
         }
 
@@ -329,9 +344,11 @@ public class ClatCoordinator {
                     writeSock6.getFileDescriptor(), iface, pfx96, v4, v6);
             mIface = iface;
         } catch (IOException e) {
+            tunFd.close();
             throw new IOException("Error start clatd on " + iface + ": " + e);
         }
 
+        tunFd.close();
         return v6;
     }
 
