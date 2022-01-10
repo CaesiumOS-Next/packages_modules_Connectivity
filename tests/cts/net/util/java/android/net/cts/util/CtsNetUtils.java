@@ -104,6 +104,7 @@ public final class CtsNetUtils {
     private int mOldPrivateDnsMode = 0;
     private String mOldPrivateDnsSpecifier;
     private ConnectivityManagerShim mCmShim;
+    private final boolean mWifiStateBeforeTest;
 
     public CtsNetUtils(Context context) {
         mContext = context;
@@ -111,6 +112,7 @@ public final class CtsNetUtils {
         mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         mCR = context.getContentResolver();
         mCmShim = ConnectivityManagerShimImpl.newInstance(mContext);
+        mWifiStateBeforeTest = mWifiManager.isWifiEnabled();
     }
 
     /** Checks if FEATURE_IPSEC_TUNNELS is enabled on the device */
@@ -392,6 +394,12 @@ public final class CtsNetUtils {
     public void tearDown() {
         if (cellConnectAttempted()) {
             disconnectFromCell();
+        }
+
+        if (mWifiStateBeforeTest) {
+            ensureWifiConnected();
+        } else {
+            ensureWifiDisconnected(null);
         }
     }
 
