@@ -58,6 +58,8 @@ apex {
             jni_libs: ["libframework-connectivity-jni"],
         },
     },
+    binaries: ["clatd", "clat"],
+    canned_fs_config: "canned_fs_config",
     bpfs: [
         "offload.o",
         "test.o",
