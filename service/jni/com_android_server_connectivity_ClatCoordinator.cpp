@@ -18,6 +18,7 @@
 #include <fcntl.h>
 #include <linux/if_tun.h>
 #include <linux/ioctl.h>
+#include <linux/netlink.h>
 #include <nativehelper/JNIHelp.h>
 #include <net/if.h>
 #include <spawn.h>
@@ -38,7 +39,8 @@
 #define INT32_STRLEN _INT_STRLEN(INT32_MIN)
 
 namespace android {
-static const char* kClatdPath = "/system/bin/clatd";
+//static const char* kClatdPath = "/system/bin/clatd";
+static const char* kClatdLuncherPath = "/apex/com.android.tethering/bin/clat";
 
 static void throwIOException(JNIEnv* env, const char* msg, int error) {
     jniThrowExceptionFmt(env, "java/io/IOException", "%s: %s", msg, strerror(error));
@@ -294,8 +296,47 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     snprintf(passedSockReadStr, sizeof(passedSockReadStr), "%d", passedSockRead);
     snprintf(passedSockWriteStr, sizeof(passedSockWriteStr), "%d", passedSockWrite);
 
+    //+debug
+    // Sync from system/netd/server/NetlinkCommands.h
+    const sockaddr_nl KERNEL_NLADDR = {AF_NETLINK, 0, 0, 0};
+
+    // Create netlink socket.
+    int netlinkSock = socket(AF_NETLINK, SOCK_RAW | SOCK_CLOEXEC, NETLINK_ROUTE);
+    if (netlinkSock == -1) {
+        throwIOException(env, "socket(AF_NETLINK) for netlink socket failed", errno);
+        return -1;
+    }
+    static constexpr int on = 1;
+    int rv = setsockopt(netlinkSock, SOL_NETLINK, NETLINK_CAP_ACK, &on, sizeof(on));
+    if (rv) throwIOException(env, "setsockopt(fd, SOL_NETLINK, NETLINK_CAP_ACK)", errno);
+
+    // this is needed to get sane strace netlink parsing, it allocates the pid
+    rv = bind(netlinkSock, (const struct sockaddr*)&KERNEL_NLADDR, sizeof(KERNEL_NLADDR));
+    if (rv) {
+        const int err = errno;
+        throwIOException(env, "bind(fd, {AF_NETLINK, 0, 0})", errno);
+        return -err;
+    }
+
+    // we do not want to receive messages from anyone besides the kernel
+    rv = connect(netlinkSock, (const struct sockaddr*)&KERNEL_NLADDR, sizeof(KERNEL_NLADDR));
+    if (rv) {
+        const int err = errno;
+        throwIOException(env, "connect(fd, {AF_NETLINK, 0, 0})", errno);
+        return -err;
+    }
+    
+    int passedSockNetlink = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (passedSockNetlink == -1) {
+        throwIOException(env, "socket(ipv6/udp) for netlink socket failed", errno);
+        return -1;
+    }
+    char passedSockNetlinkStr[INT32_STRLEN];
+    snprintf(passedSockNetlinkStr, sizeof(passedSockNetlinkStr), "%d", passedSockNetlink);
+    //-debug
+
     // 2. we're going to use this as argv[0] to clatd to make ps output more useful
-    std::string progname("clatd-");
+    std::string progname("clat-");
     progname += ifaceStr.c_str();
 
     // clang-format off
@@ -308,6 +349,8 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
                           "-t", passedTunFdStr,
                           "-r", passedSockReadStr,
                           "-w", passedSockWriteStr,
+                          "-n", passedSockNetlinkStr,
+                          "-s",
                           nullptr};
     // clang-format on
 
@@ -352,10 +395,26 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         throwIOException(env, "posix_spawn_file_actions_adddup2 for write socket failed", errno);
         return -1;
     }
+    //+debug
+    if (posix_spawn_file_actions_adddup2(&fa, netlinkSock, passedSockNetlink)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        throwIOException(env, "posix_spawn_file_actions_adddup2 for netlink socket failed", errno);
+        return -1;
+    }
+    //-debug
 
     // 5. actually perform vfork/dup2/execve
+//    pid_t pid;
+//    if (posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+//        posix_spawnattr_destroy(&attr);
+//        posix_spawn_file_actions_destroy(&fa);
+//        throwIOException(env, "posix_spawn failed", errno);
+//        return -1;
+//    }
+
     pid_t pid;
-    if (posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+    if (posix_spawn(&pid, kClatdLuncherPath, &fa, &attr, (char* const*)args, nullptr)) {
         posix_spawnattr_destroy(&attr);
         posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn failed", errno);
