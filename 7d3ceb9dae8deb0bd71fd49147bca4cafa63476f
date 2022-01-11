@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f338895c_c44e10b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-11T18:54:49Z",
+      "side": 1,
+      "message": "Actually this should automerge if you +2 it.",
+      "revId": "7d3ceb9dae8deb0bd71fd49147bca4cafa63476f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
