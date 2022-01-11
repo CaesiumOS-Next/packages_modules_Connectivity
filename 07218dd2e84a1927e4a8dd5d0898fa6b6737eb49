@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e0fdb12_46a77a47",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-11T14:35:48Z",
+      "side": 1,
+      "message": "LGTM, comments optional.",
+      "revId": "07218dd2e84a1927e4a8dd5d0898fa6b6737eb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05adefbf_99a830e5",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-11T14:35:48Z",
+      "side": 1,
+      "message": "Nit: because this method not only waits for a callback, it also expects that the callback is of type V, you might want to rename it \"expectCallback\" instead of \"waitForCallback.",
+      "range": {
+        "startLine": 80,
+        "startChar": 42,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "07218dd2e84a1927e4a8dd5d0898fa6b6737eb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4774727c_7cd1e514",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-11T14:35:48Z",
+      "side": 1,
+      "message": "Nit: \"Setting invalid ${it.third} unexpectedly succeeded\"?",
+      "range": {
+        "startLine": 216,
+        "startChar": 55,
+        "endLine": 216,
+        "endChar": 76
+      },
+      "revId": "07218dd2e84a1927e4a8dd5d0898fa6b6737eb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
