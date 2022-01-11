@@ -46,6 +46,30 @@
       },
       "revId": "e9618bac388c5298f53480dad9de59d29d53da63",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4c006f7_2169d442",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:13:13Z",
+      "side": 1,
+      "message": "No ; aosp/1928394 should simply be submitted before this. There is no mutual dependency.",
+      "parentUuid": "8bca3c8b_ba4e345a",
+      "range": {
+        "startLine": 598,
+        "startChar": 78,
+        "endLine": 598,
+        "endChar": 89
+      },
+      "revId": "e9618bac388c5298f53480dad9de59d29d53da63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
