@@ -16,6 +16,24 @@
       "message": "Since this is a pretty scary change make sure you read through:\n\nhttps://developer.android.com/about/versions/11/behavior-changes-11\nand\nhttps://developer.android.com/about/versions/12/behavior-changes-12#foreground-service-launch-restrictions\n\nIn particular,\n\n - Does tethering read APNs anywhere, does it have the right permissions ? (https://developer.android.com/about/versions/11/behavior-changes-11#apn-database-restrictions)\n - Do we have the right permissions for alarms ? (https://developer.android.com/about/versions/12/behavior-changes-12#exact-alarm-permission), here: https://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/EntitlementManager.java;drc\u003d52158b1d474f75ee7acf9a79f92fd9ffc354c2cc;l\u003d430 ? How is that code path tested ?\n\nCan you also file a bug and follow up with our testing teams to go through all our tethering CUJs for this release ?",
       "revId": "4fc4b5be478bb2f14f9d3626c436f996cb414e78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59fc861f_bc32f62d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-11T06:37:11Z",
+      "side": 1,
+      "message": "Tethering don\u0027t read APN directly and the alarm permission is allowlist for privilege application.\n\nAck, I\u0027ll file a bug for Q team to test.",
+      "parentUuid": "adc44f63_3f44ccda",
+      "revId": "4fc4b5be478bb2f14f9d3626c436f996cb414e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
