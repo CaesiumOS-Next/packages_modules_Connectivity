@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d65fdbc5_ba416000",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-11T21:38:44Z",
+      "side": 1,
+      "message": "note: there should be a cl that removes the dependency from elsewhere as well /system/bin/clatd should vanish",
+      "revId": "378e323000abc5bffa06f3f733fe5e50af352761",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
