@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff3b7e78_8325b67e",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-11T05:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5745206_246c806e",
+      "range": {
+        "startLine": 423,
+        "startChar": 0,
+        "endLine": 427,
+        "endChar": 47
+      },
+      "revId": "2064f3733fe52eccf2e79002fe5089fc7a77f35b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "787eb697_d40a4efb",
@@ -84,6 +108,30 @@
       "writtenOn": "2021-12-28T07:46:52Z",
       "side": 1,
       "message": "assertFalse(TextUtils.isEmpty)",
+      "range": {
+        "startLine": 429,
+        "startChar": 18,
+        "endLine": 429,
+        "endChar": 22
+      },
+      "revId": "2064f3733fe52eccf2e79002fe5089fc7a77f35b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab3dcb2e_3c8d097e",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-11T05:10:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "787eb697_d40a4efb",
       "range": {
         "startLine": 429,
         "startChar": 18,
