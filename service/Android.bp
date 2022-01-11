@@ -142,6 +142,20 @@ java_library {
     lint: { strict_updatability_linting: true },
 }
 
+java_library {
+    name: "traffic-controller-utils",
+    sdk_version: "system_current",
+    min_sdk_version: "30",
+    srcs: [
+        "src/com/android/server/BpfNetMaps.java",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+    lint: { strict_updatability_linting: true },
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
+}
+
 filegroup {
     name: "connectivity-jarjar-rules",
     srcs: ["jarjar-rules.txt"],
