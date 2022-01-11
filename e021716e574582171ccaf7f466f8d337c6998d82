@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04374d38_610616a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "I don\u0027t think you need a detailed description if it\u0027s going to be identical to the one-line summary :)",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 45
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59c2165e_159c1939",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "\"isAllow\" sounds pretty strange. Also I\u0027m not sure it\u0027s very clear to a user what it should fall back to.\n\nSuggest getAllowsFallbackToSystemDefault or just getFallbackToSystemDefault",
+      "range": {
+        "startLine": 156,
+        "startChar": 26,
+        "endLine": 156,
+        "endChar": 28
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c3f5fc4_3a97b4c9",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "final (or you\u0027ll have multithreading problems)",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 19
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aa75d2a_1113b2c8",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "This is an API method, so let\u0027s follow standard javadoc :\n\n /**\n  * Single line summarizing what this does.\n  *\n  * Detailed description on multiple lines\n  */\n\nIncluding capital and punctuation",
+      "range": {
+        "startLine": 55,
+        "startChar": 5,
+        "endLine": 55,
+        "endChar": 6
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb377421_87914af3",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "The doc for this API intentionally does not call out APN or slices and we should not mention them in the doc. As far as this API is concerned this is just an \"enterprise network\".\n\nKeep in mind that in principle this could be an ethernet network, in which case things like \"data call\" are non-sensical. Case in point, in many cases the data will fall back to a wifi connection (and not the default pdn).",
+      "range": {
+        "startLine": 57,
+        "startChar": 67,
+        "endLine": 57,
+        "endChar": 70
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557a2c54_35500546",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "Still not sure how that\u0027s relevant",
+      "range": {
+        "startLine": 86,
+        "startChar": 29,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c52745d9_488eb639",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "I mean, this is a boolean. Do we really need to convert it to a Boolean, find a hashcode for it, and multiply by 23 ?",
+      "range": {
+        "startLine": 87,
+        "startChar": 36,
+        "endLine": 87,
+        "endChar": 50
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd93c88d_a0bfbdc5",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "Likewise : let\u0027s use standard javadoc style",
+      "range": {
+        "startLine": 118,
+        "startChar": 9,
+        "endLine": 118,
+        "endChar": 10
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "056f2cf6_fc0e3908",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "Or anything else. It could be bluetooth, or ethernet, or other things.",
+      "range": {
+        "startLine": 119,
+        "startChar": 48,
+        "endLine": 119,
+        "endChar": 55
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e576d46_9a46e1ea",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "You did that, so you should now update the comment",
+      "range": {
+        "startLine": 10180,
+        "startChar": 0,
+        "endLine": 10181,
+        "endChar": 23
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc991441_59f0a9b4",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "final (this is essential for thread correctness)",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 14
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd3a5606_5d304837",
+        "filename": "service/src/com/android/server/connectivity/ProfileNetworkPreferenceList.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "final here too, as other arguments have it",
+      "range": {
+        "startLine": 45,
+        "startChar": 16,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "820854d4_e84bc022",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13909,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "This is a staggering amount of copy-paste. These tests are difficult enough to follow as it is ; we should not make it so that developers have to read the same thing multiple times to follow them, and that improving or fixing a test requires copy-paste the improvements.\n\nHere you could simply have the two tests call a method that would take as an argument whether it should allow fallback. The ifs() shouldn\u0027t be very complex to manage.",
+      "range": {
+        "startLine": 13909,
+        "startChar": 5,
+        "endLine": 13909,
+        "endChar": 6
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a999f836_c393df4d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13941,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "Why is this happening ? It absolutely should not : the network hasn\u0027t been lost.",
+      "range": {
+        "startLine": 13941,
+        "startChar": 0,
+        "endLine": 13941,
+        "endChar": 93
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e65068f6_dcaf20cb",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13993,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "fall",
+      "range": {
+        "startLine": 13993,
+        "startChar": 86,
+        "endLine": 13993,
+        "endChar": 91
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "172f4ccf_51fe8efd",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13997,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T13:35:41Z",
+      "side": 1,
+      "message": "This is not incorrect but it\u0027s not useful because the next check on this callback will also check this",
+      "range": {
+        "startLine": 13997,
+        "startChar": 39,
+        "endLine": 13997,
+        "endChar": 55
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
