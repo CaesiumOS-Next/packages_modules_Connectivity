@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c4a4c1_2ee42073",
+        "filename": "tests/unit/java/android/net/Ikev2VpnProfileTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T08:20:10Z",
+      "side": 1,
+      "message": "Normally you say assertThrows(IllegalArgumentException.class, () -\u003e builder.build());\n\nBut since this is consistent with other tests it\u0027s fine",
+      "range": {
+        "startLine": 280,
+        "startChar": 10,
+        "endLine": 280,
+        "endChar": 15
+      },
+      "revId": "b4a319bf2463a1a9f80da85b14fa1d1a7461a8e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
