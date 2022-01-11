@@ -34,6 +34,24 @@
       "parentUuid": "adc44f63_3f44ccda",
       "revId": "4fc4b5be478bb2f14f9d3626c436f996cb414e78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa806932_13a8fd43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-11T10:10:39Z",
+      "side": 1,
+      "message": "Thanks. Can you also work with Natasha and the mainline team to have OEMs run these modules through their own tests? Ideally we\u0027d be able to bump multiple modules at the same time so that OEMs can test all the modules together.",
+      "parentUuid": "59fc861f_bc32f62d",
+      "revId": "4fc4b5be478bb2f14f9d3626c436f996cb414e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
