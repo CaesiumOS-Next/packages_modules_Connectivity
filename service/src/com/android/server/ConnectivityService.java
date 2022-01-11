@@ -10591,9 +10591,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         try {
             if (add) {
-                mNetd.bandwidthAddNiceApp(uid);
+                if (SdkLevel.isAtLeastT()) {
+                    BpfNetMaps.addNiceApp(uid);
+                } else {
+                    mNetd.bandwidthAddNiceApp(uid);
+                }
             } else {
-                mNetd.bandwidthRemoveNiceApp(uid);
+                if (SdkLevel.isAtLeastT()) {
+                    BpfNetMaps.removeNiceApp(uid);
+                } else {
+                    mNetd.bandwidthRemoveNiceApp(uid);
+                }
             }
         } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
@@ -10606,9 +10614,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         try {
             if (add) {
-                mNetd.bandwidthAddNaughtyApp(uid);
+                if (SdkLevel.isAtLeastT()) {
+                    BpfNetMaps.addNaughtyApp(uid);
+                } else {
+                    mNetd.bandwidthAddNaughtyApp(uid);
+                }
             } else {
-                mNetd.bandwidthRemoveNaughtyApp(uid);
+                if (SdkLevel.isAtLeastT()) {
+                    BpfNetMaps.removeNaughtyApp(uid);
+                } else {
+                    mNetd.bandwidthRemoveNaughtyApp(uid);
+                }
             }
         } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
@@ -10620,8 +10636,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceNetworkStackOrSettingsPermission();
 
         try {
-            mNetd.firewallSetUidRule(chain, uid,
-                    allow ? INetd.FIREWALL_RULE_ALLOW : INetd.FIREWALL_RULE_DENY);
+            if (SdkLevel.isAtLeastT()) {
+                BpfNetMaps.setUidRule(chain, uid,
+                        allow ? INetd.FIREWALL_RULE_ALLOW : INetd.FIREWALL_RULE_DENY);
+            } else {
+                mNetd.firewallSetUidRule(chain, uid,
+                        allow ? INetd.FIREWALL_RULE_ALLOW : INetd.FIREWALL_RULE_DENY);
+            }
         } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
@@ -10632,7 +10653,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceNetworkStackOrSettingsPermission();
 
         try {
-            mNetd.firewallEnableChildChain(chain, enable);
+            if (SdkLevel.isAtLeastT()) {
+                BpfNetMaps.setChildChain(chain, enable);
+            } else {
+                mNetd.firewallEnableChildChain(chain, enable);
+            }
         } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
@@ -10645,16 +10670,34 @@ public class ConnectivityService extends IConnectivityManager.Stub
         try {
             switch (chain) {
                 case ConnectivityManager.FIREWALL_CHAIN_DOZABLE:
-                    mNetd.firewallReplaceUidChain("fw_dozable", true /* isAllowList */, uids);
+                    if (SdkLevel.isAtLeastT()) {
+                        BpfNetMaps.replaceUidChain("fw_dozable", true /* isAllowList */, uids);
+                    } else {
+                        mNetd.firewallReplaceUidChain("fw_dozable", true /* isAllowList */, uids);
+                    }
                     break;
                 case ConnectivityManager.FIREWALL_CHAIN_STANDBY:
-                    mNetd.firewallReplaceUidChain("fw_standby", false /* isAllowList */, uids);
+                    if (SdkLevel.isAtLeastT()) {
+                        BpfNetMaps.replaceUidChain("fw_standby", false /* isAllowList */, uids);
+                    } else {
+                        mNetd.firewallReplaceUidChain("fw_standby", false /* isAllowList */, uids);
+                    }
                     break;
                 case ConnectivityManager.FIREWALL_CHAIN_POWERSAVE:
-                    mNetd.firewallReplaceUidChain("fw_powersave", true /* isAllowList */, uids);
+                    if (SdkLevel.isAtLeastT()) {
+                        BpfNetMaps.replaceUidChain("fw_powersave", true /* isAllowList */, uids);
+                    } else {
+                        mNetd.firewallReplaceUidChain("fw_powersave", true /* isAllowList */,
+                                uids);
+                    }
                     break;
                 case ConnectivityManager.FIREWALL_CHAIN_RESTRICTED:
-                    mNetd.firewallReplaceUidChain("fw_restricted", true /* isAllowList */, uids);
+                    if (SdkLevel.isAtLeastT()) {
+                        BpfNetMaps.replaceUidChain("fw_restricted", true /* isAllowList */, uids);
+                    } else {
+                        mNetd.firewallReplaceUidChain("fw_restricted", true /* isAllowList */,
+                                uids);
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("replaceFirewallChain with invalid chain: "
@@ -10669,7 +10712,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public void swapActiveStatsMap() {
         enforceNetworkStackOrSettingsPermission();
         try {
-            mNetd.trafficSwapActiveStatsMap();
+            if (SdkLevel.isAtLeastT()) {
+                BpfNetMaps.swapActiveStatsMap();
+            } else {
+                mNetd.trafficSwapActiveStatsMap();
+            }
         } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
