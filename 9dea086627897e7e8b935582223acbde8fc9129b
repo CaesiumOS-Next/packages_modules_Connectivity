@@ -1,0 +1,134 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019110985",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1944729?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "9e551005_9dbcafcc",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-11T15:42:38Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 396,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 4
+      },
+      "revId": "9dea086627897e7e8b935582223acbde8fc9129b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019110985",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1944729?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b2590e86_f5299e6a",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-11T15:42:38Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 404,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 4
+      },
+      "revId": "9dea086627897e7e8b935582223acbde8fc9129b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019110985",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1944729?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b60e67a2_a1fbdb93",
+        "filename": "service/native/bin/clat/main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-11T15:42:38Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 101
+      },
+      "revId": "9dea086627897e7e8b935582223acbde8fc9129b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019110985",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1944729?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ddce1b83_e01f5891",
+        "filename": "service/native/bin/clat/main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-11T15:42:38Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 469,
+        "startChar": 0,
+        "endLine": 469,
+        "endChar": 4
+      },
+      "revId": "9dea086627897e7e8b935582223acbde8fc9129b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019110985",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1944729?revision\u003d2",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "7909e6d1_1e48f3b0",
+        "filename": "service/native/libs/libtcutils/TcUtils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-11T15:42:38Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027valid\u0027, \u0027validity check\u0027 or \u0027initial check\u0027; see https://source.android.com/setup/contribute/respectful-code for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 112,
+        "startChar": 29,
+        "endLine": 112,
+        "endChar": 33
+      },
+      "revId": "9dea086627897e7e8b935582223acbde8fc9129b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
