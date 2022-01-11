@@ -16,6 +16,23 @@
       "message": "Actually this should automerge if you +2 it.",
       "revId": "7d3ceb9dae8deb0bd71fd49147bca4cafa63476f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e070a6d_bddd8ef0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-11T19:23:00Z",
+      "side": 1,
+      "message": "thanks!",
+      "revId": "7d3ceb9dae8deb0bd71fd49147bca4cafa63476f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
