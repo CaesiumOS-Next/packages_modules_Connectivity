@@ -56,6 +56,9 @@ java_library {
         // TODO: move to net-utils-device-common
         ":connectivity-module-utils-srcs",
     ],
+    exclude_srcs: [
+        "src/**/TrafficControllerUtils.java",
+    ],
     libs: [
         "framework-annotations-lib",
         "framework-connectivity.impl",
@@ -75,6 +78,7 @@ java_library {
         "networkstack-client",
         "PlatformProperties",
         "service-connectivity-protos",
+        "traffic-controller-utils",
     ],
     apex_available: [
         "com.android.tethering",
@@ -112,6 +116,20 @@ java_library {
         "com.android.tethering",
     ],
     lint: { strict_updatability_linting: true },
+}
+
+java_library {
+    name: "traffic-controller-utils",
+    sdk_version: "system_current",
+    min_sdk_version: "30",
+    srcs: [
+        "src/**/TrafficControllerUtils.java",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+    lint: { strict_updatability_linting: true },
+    visibility: ["//packages/modules/Connectivity:__subpackages__"],
 }
 
 filegroup {
