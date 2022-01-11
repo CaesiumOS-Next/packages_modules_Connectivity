@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e69d75ee_f4d8072b",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-11T15:11:16Z",
+      "side": 1,
+      "message": "Is the intent of this number to prevent multiple subsequent runs of this test from interfering with each other due to code outside the test caching results? If so, would suggest making this a larger number due to the birthday paradox. Having 1000 different numbers (~2**9) will result in a roughly 50% chance of collision after about 2**4 or 2**5 tries.",
+      "range": {
+        "startLine": 50,
+        "startChar": 68,
+        "endLine": 50,
+        "endChar": 72
+      },
+      "revId": "eaada07913e2abf413e7bbea5af68295bde0f205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bf62273_2f36ee74",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-11T15:11:16Z",
+      "side": 1,
+      "message": "How does this work? I don\u0027t see any code that modifies index, so this statement should always be false and this method should always return null after TIMEOUT milliseconds.\n\nThe previous Java code had a for loop here over the contents of the event cache. Was that loop incorrect?",
+      "range": {
+        "startLine": 196,
+        "startChar": 16,
+        "endLine": 196,
+        "endChar": 46
+      },
+      "revId": "eaada07913e2abf413e7bbea5af68295bde0f205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91d38bc_78ddb8ca",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-11T15:11:16Z",
+      "side": 1,
+      "message": "The previous code would break and stop waiting if onServiceFound was never called.\n\nIt looks like the intent was that if a callback happened for the desired name, then it should be returned, but if (up to 32) callbacks happened for a different name, they\u0027d be ignored.\n\nBut it looks like this code continues looping if no callback is called, slowing down the test. Is this a problem?",
+      "range": {
+        "startLine": 369,
+        "startChar": 61,
+        "endLine": 369,
+        "endChar": 74
+      },
+      "revId": "eaada07913e2abf413e7bbea5af68295bde0f205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

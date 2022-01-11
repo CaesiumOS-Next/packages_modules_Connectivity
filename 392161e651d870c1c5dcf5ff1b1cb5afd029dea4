@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fe9fc6b_998b77af",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-11T15:11:16Z",
+      "side": 0,
+      "message": "See other comment. Where did this for loop go?",
+      "range": {
+        "startLine": 229,
+        "startChar": 16,
+        "endLine": 229,
+        "endChar": 61
+      },
+      "revId": "392161e651d870c1c5dcf5ff1b1cb5afd029dea4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
