@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62a0a1ff_205c16db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "AFAIK this is done by presubmits",
+      "parentUuid": "19c162ec_3985daad",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 12,
+        "endChar": 5
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87396f30_1ed46c4e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-10T14:11:38Z",
       "side": 1,
       "message": ".. but cannot distinguish the logs from different agents?",
+      "range": {
+        "startLine": 96,
+        "startChar": 82,
+        "endLine": 96,
+        "endChar": 83
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e367e29_83de50b3",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87396f30_1ed46c4e",
       "range": {
         "startLine": 96,
         "startChar": 82,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "782aa221_5baca218",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2eea7eb_65a2d6aa",
+      "range": {
+        "startLine": 1006,
+        "startChar": 70,
+        "endLine": 1006,
+        "endChar": 82
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f918625_186e2fd2",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-10T14:11:38Z",
       "side": 1,
       "message": "Does this imply you are testing different behavior between production code and test code?\nIf so, is there any way to mock diffrent permission so we can test both behavior with the same code?\nno strong opinion.",
+      "range": {
+        "startLine": 1008,
+        "startChar": 7,
+        "endLine": 1008,
+        "endChar": 33
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44a209c5_c51db8d4",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "No – tests also call the public sendNetworkCapabilities method. But it\u0027s possible to bypass the check with reflection, and this method is useful to test what happens in this case without writing reflection code in the test.",
+      "parentUuid": "8f918625_186e2fd2",
       "range": {
         "startLine": 1008,
         "startChar": 7,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f5eb7b9_d9d7ff20",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 2091,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "I don\u0027t think the code is any more or less readable, but it would increase complexity by requiring a topic.",
+      "parentUuid": "ed2f090d_f0c88c64",
+      "range": {
+        "startLine": 2088,
+        "startChar": 16,
+        "endLine": 2091,
+        "endChar": 17
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49d89dd7_dbcf7c32",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-01-10T14:11:38Z",
       "side": 1,
       "message": "1. Do we also need to check this when handleRegisterNetworkAgent?\n\n2. If so, this looks like kind of processCapabilitiesFromAgent from my point of view.\nIs it better to refactor this?",
+      "range": {
+        "startLine": 3317,
+        "startChar": 20,
+        "endLine": 3319,
+        "endChar": 21
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c072c15_0bdd7543",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 3319,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "In comment https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1919251/14..15/framework/src/android/net/NetworkAgent.java#b832 where Lorenzo suggested the same thing I was saying it is good but it should be a separate patch.\n\nThat being said, in patchset 14 this was a bit complex, but patchset 15 makes this trivial, so done.",
+      "parentUuid": "49d89dd7_dbcf7c32",
       "range": {
         "startLine": 3317,
         "startChar": 20,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df8c724a_36cce1f1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 6871,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1306f7ff_292f658d",
+      "range": {
+        "startLine": 6871,
+        "startChar": 66,
+        "endLine": 6871,
+        "endChar": 67
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef5e03ab_7317a6d2",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-01-10T14:11:38Z",
       "side": 1,
       "message": "I don\u0027t really see test coverage increased for the later 4 uids.\nMaybe just keep 2?\nor alternatively strengthen the boundaries like -1 0 Integer.MIN_VALUE Integer.MAX_VALUE?",
+      "range": {
+        "startLine": 326,
+        "startChar": 1,
+        "endLine": 329,
+        "endChar": 22
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cae05b01_e13556e3",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef5e03ab_7317a6d2",
       "range": {
         "startLine": 326,
         "startChar": 1,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59f2ed06_7626293c",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0ab807f_9eeaa94a",
+      "range": {
+        "startLine": 332,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 42
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0fc3a981_87267e06",
@@ -231,6 +447,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf672a4_4b9caa1d",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "This is correct AFAICT. S devices are not affected by the change to this test, since they run the S-era CTS.\n\nAdding a field to NetworkCapabilities will break the S-era CTS, because S with a newer module will see the new count for fields, so an OEM looking to qualify an S device with a newer module will see this test fail.\n\nI realized that in December and looped in Rémi and Lorenzo. I reached out to the CTS team with my concerns ; we\u0027ll need to submit a patch to stop testing this in CTS. That work isn\u0027t really related to this patch though, so it has no impact on it.",
+      "parentUuid": "0fc3a981_87267e06",
+      "range": {
+        "startLine": 411,
+        "startChar": 12,
+        "endLine": 413,
+        "endChar": 77
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e59a8a6_f07400d7",
@@ -244,6 +484,30 @@
       "writtenOn": "2022-01-10T14:11:38Z",
       "side": 1,
       "message": "Stupid question: what is the expected behavior of this? maybe add some comment?",
+      "range": {
+        "startLine": 483,
+        "startChar": 8,
+        "endLine": 484,
+        "endChar": 48
+      },
+      "revId": "b87385b442339e0a80321e07f7eda6f16d4eba08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82857219_173e3fd5",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-11T11:11:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e59a8a6_f07400d7",
       "range": {
         "startLine": 483,
         "startChar": 8,
