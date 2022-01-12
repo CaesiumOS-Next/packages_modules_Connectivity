@@ -45,6 +45,29 @@
       },
       "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "867163ee_b8e7b256",
+        "filename": "service/src/com/android/server/TrafficControllerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-12T03:15:43Z",
+      "side": 1,
+      "message": "The JNI is processed by same process/thread, so RemoteException is not a reasonable Exception. Could you also upload JNI native part ? Is hard to give suggestion without seeing detail implementation.",
+      "range": {
+        "startLine": 161,
+        "startChar": 60,
+        "endLine": 161,
+        "endChar": 83
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
