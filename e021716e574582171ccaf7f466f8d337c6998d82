@@ -283,6 +283,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84bc3d07_7d129289",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-12T05:34:23Z",
+      "side": 1,
+      "message": "Sync\u0027d offline",
+      "parentUuid": "8bba9b6f_1cad0f9d",
+      "range": {
+        "startLine": 86,
+        "startChar": 29,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c52745d9_488eb639",
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "isnt that needed to make sure it is unique? and does not repeat for another obect for different combinations of value?",
       "parentUuid": "c52745d9_488eb639",
+      "range": {
+        "startLine": 87,
+        "startChar": 36,
+        "endLine": 87,
+        "endChar": 50
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc77d51d_266871ce",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-12T05:34:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08e1380c_e359e680",
       "range": {
         "startLine": 87,
         "startChar": 36,
@@ -649,6 +697,30 @@
       "side": 1,
       "message": "but the default network will be removed as we say dont fallback, so should the app receive that it is lost?",
       "parentUuid": "a999f836_c393df4d",
+      "range": {
+        "startLine": 13941,
+        "startChar": 0,
+        "endLine": 13941,
+        "endChar": 93
+      },
+      "revId": "e021716e574582171ccaf7f466f8d337c6998d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86a4164f_a8a10b17",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 13941,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-12T05:34:23Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right ; I missed that the call came from setting the preference, which happens before the new network is registered.",
+      "parentUuid": "e54c6090_6006e823",
       "range": {
         "startLine": 13941,
         "startChar": 0,

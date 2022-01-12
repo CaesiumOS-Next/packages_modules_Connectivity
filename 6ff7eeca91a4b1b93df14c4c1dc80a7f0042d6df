@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93a2d5ea_3ab220a2",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-12T05:34:23Z",
+      "side": 1,
+      "message": "By conversation offline : instead of having this separate boolean, let\u0027s make a new constant for the preference ConnectivityManager#PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK",
+      "range": {
+        "startLine": 155,
+        "startChar": 26,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "6ff7eeca91a4b1b93df14c4c1dc80a7f0042d6df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29942136_70969d8b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 10179,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-12T05:34:23Z",
+      "side": 1,
+      "message": "Let\u0027s also update this",
+      "range": {
+        "startLine": 10177,
+        "startChar": 1,
+        "endLine": 10179,
+        "endChar": 71
+      },
+      "revId": "6ff7eeca91a4b1b93df14c4c1dc80a7f0042d6df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
