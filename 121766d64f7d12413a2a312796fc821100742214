@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2fe53b8d_48c47978",
+        "filename": "framework/api/lint-baseline.txt",
+        "patchSetId": 37
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-12T02:33:19Z",
+      "side": 1,
+      "message": "Please fix. Generally speaking having anything at all in these files is very much frowned upon, prefer the @SuppressLint annotations in the Java files.",
+      "parentUuid": "407ab46e_68dd180f",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "121766d64f7d12413a2a312796fc821100742214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2975541_8fc9ba72",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 37
