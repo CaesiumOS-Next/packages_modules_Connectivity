@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53921f27_fa6ebf4e",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T11:48:34Z",
+      "side": 1,
+      "message": "Fixed in aosp/1945137 since this was treehugged with the child commit",
+      "parentUuid": "e69d75ee_f4d8072b",
+      "range": {
+        "startLine": 50,
+        "startChar": 68,
+        "endLine": 50,
+        "endChar": 72
+      },
+      "revId": "eaada07913e2abf413e7bbea5af68295bde0f205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bf62273_2f36ee74",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f5b601_d8dedd98",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T11:48:34Z",
+      "side": 1,
+      "message": "index won\u0027t change, but eventCache should grow: this loop waits until its size is \u003e\u003d index, and returns the element at index.\n\nThe previous loop:\n\n    for (; index \u003c mEventCache.size(); index++) {\n        EventData e \u003d mEventCache.get(index);\n        return e;\n    }\n\nIs actually an overcomplicated \"if\" statement, since it returns if it enters the loop once. So \"index\" is actually never incremented, and it\u0027s equivalent to:\n\n    if (index \u003c mEventCache.size())",
+      "parentUuid": "1bf62273_2f36ee74",
+      "range": {
+        "startLine": 196,
+        "startChar": 16,
+        "endLine": 196,
+        "endChar": 46
+      },
+      "revId": "eaada07913e2abf413e7bbea5af68295bde0f205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a91d38bc_78ddb8ca",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-11T15:11:16Z",
       "side": 1,
       "message": "The previous code would break and stop waiting if onServiceFound was never called.\n\nIt looks like the intent was that if a callback happened for the desired name, then it should be returned, but if (up to 32) callbacks happened for a different name, they\u0027d be ignored.\n\nBut it looks like this code continues looping if no callback is called, slowing down the test. Is this a problem?",
+      "range": {
+        "startLine": 369,
+        "startChar": 61,
+        "endLine": 369,
+        "endChar": 74
+      },
+      "revId": "eaada07913e2abf413e7bbea5af68295bde0f205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5c112e7_3576deb6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 12
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T11:48:34Z",
+      "side": 1,
+      "message": "Oh right, I intended this to be a break but it\u0027s more like a continue, so slowing down the test (only in cases where it would have failed) is a bug.\n\nThis is removed in the next commit though, where it\u0027s based on ArrayTrackRecord poll which should have the right behavior, so submitting the 2 together.",
+      "parentUuid": "a91d38bc_78ddb8ca",
       "range": {
         "startLine": 369,
         "startChar": 61,

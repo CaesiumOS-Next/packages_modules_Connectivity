@@ -22,6 +22,30 @@
       },
       "revId": "392161e651d870c1c5dcf5ff1b1cb5afd029dea4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0bf199c_93e5d7f4",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T11:48:34Z",
+      "side": 0,
+      "message": "This is actually equivalent to an \"if\", since it returns and won\u0027t loop",
+      "parentUuid": "5fe9fc6b_998b77af",
+      "range": {
+        "startLine": 229,
+        "startChar": 16,
+        "endLine": 229,
+        "endChar": 61
+      },
+      "revId": "392161e651d870c1c5dcf5ff1b1cb5afd029dea4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
