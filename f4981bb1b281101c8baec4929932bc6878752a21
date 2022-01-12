@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dee51ff_5d7f735e",
+        "filename": "service/src/com/android/server/TrafficControllerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-12T02:34:13Z",
+      "side": 1,
+      "message": "perhaps \u0027set\u0027 since enable is an arg",
+      "range": {
+        "startLine": 77,
+        "startChar": 23,
+        "endLine": 77,
+        "endChar": 29
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "314d4c67_6bd38beb",
+        "filename": "service/src/com/android/server/TrafficControllerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-12T02:34:13Z",
+      "side": 1,
+      "message": "perhaps addNetPermForUids\n\nbut I don\u0027t see a remove... how does this work...\nis \u0027permission\u0027 actually a bitfield and thus should be called \u0027permissions\u0027 ?",
+      "range": {
+        "startLine": 143,
+        "startChar": 23,
+        "endLine": 143,
+        "endChar": 40
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
