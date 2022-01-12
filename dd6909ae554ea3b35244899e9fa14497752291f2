@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6e1b87a_e15e5347",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-12T01:41:26Z",
+      "side": 1,
+      "message": "setsockopt sol_ip_tos\n\nunsigned int ecn \u003d INET_ECN_ECT_0;",
+      "range": {
+        "startLine": 241,
+        "startChar": 40,
+        "endLine": 241,
+        "endChar": 51
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
