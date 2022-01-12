@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c352c1d_41770339",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-12T04:15:06Z",
+      "side": 1,
+      "message": "Isn\u0027t libtraffic_controller only used for JNI ? If so, you should static build this into JNI instead of make it share library here. Otherwise other modules/platform could also see this shared library, if they misuse this library we may have trouble.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 6
+      },
+      "revId": "02dc3c8a15fc31b2c8a37eb401cb1c65fca452cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98072dcd_f4d2f6d2",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-12T04:15:06Z",
+      "side": 1,
+      "message": "1. use libbase_ndk instead of libbase ?\n2. libnetdutils doesn\u0027t have ndk version, so you may need to static link it.\n3. libutils also not have ndk, is this necessary ? If yes, maybe you also need to static link it.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "02dc3c8a15fc31b2c8a37eb401cb1c65fca452cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa20992b_f2026989",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-12T04:15:06Z",
+      "side": 1,
+      "message": "It seems you just copy NetlinkListener.h and NetlinkListener.cpp from netd ? To avoid maintain duplicated code effort. Could you move the shared code into frameworks/libs/net and move it shared with module and netd ?",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 30
+      },
+      "revId": "048286b2bc57563c87bd440f55235a05743cb2a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
