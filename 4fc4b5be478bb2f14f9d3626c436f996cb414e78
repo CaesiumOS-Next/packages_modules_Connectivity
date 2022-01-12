@@ -52,6 +52,24 @@
       "parentUuid": "59fc861f_bc32f62d",
       "revId": "4fc4b5be478bb2f14f9d3626c436f996cb414e78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99fcbf71_9a831fb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-12T03:06:29Z",
+      "side": 1,
+      "message": "Sure, will work with Natasha for this. Maybe also put this suggestion in release note says the modules are bumped to higher target sdk which means the modules would apply the requirement for higher sdk and suggest they run their own tests with the modules.",
+      "parentUuid": "fa806932_13a8fd43",
+      "revId": "4fc4b5be478bb2f14f9d3626c436f996cb414e78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
