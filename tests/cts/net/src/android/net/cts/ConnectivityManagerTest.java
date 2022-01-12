@@ -158,8 +158,8 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.RequiresDevice;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.android.compatibility.common.util.PropertyUtil;
 import com.android.internal.util.ArrayUtils;
-import com.android.modules.utils.build.SdkLevel;
 import com.android.networkstack.apishim.ConnectivityManagerShimImpl;
 import com.android.networkstack.apishim.ConstantsShim;
 import com.android.networkstack.apishim.NetworkInformationShimImpl;
@@ -251,7 +251,8 @@ public class ConnectivityManagerTest {
     private static final long APPLYING_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_TIMEOUT_MS = 3_000L;
 
     // Minimum supported keepalive counts for wifi and cellular.
-    public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT = 1;
+    public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT_S = 1;
+    public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT_T = 3;
     public static final int MIN_SUPPORTED_WIFI_KEEPALIVE_COUNT = 3;
 
     private static final String NETWORK_METERED_MULTIPATH_PREFERENCE_RES_NAME =
@@ -1676,6 +1677,11 @@ public class ConnectivityManagerTest {
         });
     }
 
+    /** Get the API level used for CTS testing of Radio-HAL-dependent requirements. */
+    private static int getFirstSdkIntForRadioHalEnforcement() throws Exception {
+        return Math.min(PropertyUtil.getFirstApiLevel(), PropertyUtil.getVendorApiLevel());
+    }
+
     /**
      * Verifies that the concurrent keepalive slots meet the minimum telephony requirement, and
      * don't get leaked after iterations.
@@ -1690,15 +1696,20 @@ public class ConnectivityManagerTest {
             return;
         }
 
-        final int firstSdk = SdkLevel.isAtLeastS()
-                ? Build.VERSION.DEVICE_INITIAL_SDK_INT
-                // FIRST_SDK_INT was a @TestApi field renamed to DEVICE_INITIAL_SDK_INT in S
-                : Build.VERSION.class.getField("FIRST_SDK_INT").getInt(null);
-        if (firstSdk < Build.VERSION_CODES.Q) {
+        final int firstSdk = getFirstSdkIntForRadioHalEnforcement();
+
+        int requiredKeepalives = 0;
+        if (firstSdk >= Build.VERSION_CODES.TIRAMISU) {
+            requiredKeepalives = MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT_T;
+        } else if (firstSdk >= Build.VERSION_CODES.S) {
+            requiredKeepalives = MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT_S;
+        } else {
             Log.i(TAG, "testSocketKeepaliveLimitTelephony: skip test for devices launching"
                     + " before Q: " + firstSdk);
             return;
         }
+        final int requiredKeepalivesFinal = requiredKeepalives;
+
 
         final Network network = mCtsNetUtils.connectToCell();
         final int supported = getSupportedKeepalivesForNet(network);
@@ -1707,7 +1718,7 @@ public class ConnectivityManagerTest {
 
         runWithShellPermissionIdentity(() -> {
             // Verifies that the supported keepalive slots meet minimum requirement.
-            assertGreaterOrEqual(supported, MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT);
+            assertGreaterOrEqual(supported, requiredKeepalivesFinal);
             // Verifies that Nat-T keepalives can be established.
             assertEquals(supported, createConcurrentSocketKeepalives(network, srcAddr,
                     supported + 1, 0));
