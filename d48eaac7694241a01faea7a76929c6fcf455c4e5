@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62bee0b3_0e1594f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T05:51:18Z",
+      "side": 1,
+      "message": "LGTM but let\u0027s talk about the change at our release meeting. We\u0027ll want to get enough attention from our testing teams and OEMs.",
+      "revId": "d48eaac7694241a01faea7a76929c6fcf455c4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
