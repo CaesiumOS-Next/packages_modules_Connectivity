@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019140032",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1879617?revision\u003d8",
+      "fixSuggestions": [
+        {
+          "fixId": "aaacdc59_3d04bd26",
+          "description": "Change to \"Tethering/AndroidManifest.xml\"",
+          "replacements": [
+            {
+              "path": "Tethering/AndroidManifest.xml",
+              "range": {
+                "startLine": 28,
+                "startChar": 9,
+                "endLine": 28,
+                "endChar": 19
+              },
+              "replacement": "privilege"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "414bc68b_ca041004",
+        "filename": "Tethering/AndroidManifest.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-12T07:23:31Z",
+      "side": 1,
+      "message": "Common typo found: \"priviledge\" -- should it be \"privilege\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 19
+      },
+      "revId": "27d4b74d3a870a5e8fbbb6efb607b161d9e2f222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
