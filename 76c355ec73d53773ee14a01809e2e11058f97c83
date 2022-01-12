@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7eea9c4d_f60e3bd0",
+        "filename": "framework/jarjar-rules.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-12T02:48:26Z",
+      "side": 1,
+      "message": "Let\u0027s remove this then?",
+      "parentUuid": "906da09f_467a312e",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 4
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d69defcb_51c406dd",
         "filename": "service/bpf_progs/dscp_policy.c",
         "patchSetId": 34

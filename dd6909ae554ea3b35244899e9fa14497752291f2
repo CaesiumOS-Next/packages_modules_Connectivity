@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f1af067_b210125d",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-12T02:48:26Z",
+      "side": 1,
+      "message": "Will this program load and work? If it\u0027s in the com.android.networkstack.tethering apex then the program and maps will be put into /sys/fs/bpf/tethering which the system server is not allowed to access (so this code won\u0027t work).",
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47fc53b1_c8c60789",
         "filename": "framework/api/current.txt",
         "patchSetId": 41
@@ -456,6 +473,115 @@
         "startChar": 16,
         "endLine": 1388,
         "endChar": 44
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dce1db24_0f40b136",
+        "filename": "service/jni/com_android_net_module_util/onload.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-12T02:48:26Z",
+      "side": 1,
+      "message": "Will this code work on R? Should we only load this on T or above?",
+      "range": {
+        "startLine": 36,
+        "startChar": 66,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "654ca97e_f0eb1326",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-12T02:48:26Z",
+      "side": 1,
+      "message": "Please don\u0027t add commented-out code.",
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6a0b906_09c5ea53",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-12T02:48:26Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 24,
+        "startChar": 71,
+        "endLine": 24,
+        "endChar": 97
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e92e95a8_988b2b9d",
+        "filename": "tests/cts/net/AndroidManifest.xml",
+        "patchSetId": 41
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-12T02:48:26Z",
+      "side": 1,
+      "message": "This will not work. This requires that CTS be either signed with the platform key (which is not possible since Google does not have that key) or preinstalled (which is not possible).",
+      "range": {
+        "startLine": 29,
+        "startChar": 54,
+        "endLine": 29,
+        "endChar": 75
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "997e447e_91d2f01e",
+        "filename": "tests/cts/net/AndroidManifest.xml",
+        "patchSetId": 41
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-12T02:48:26Z",
+      "side": 1,
+      "message": "This will also not work, as it requires being signed by the platform key. Use runWithShellPermission instead. Same goes for the one above.",
+      "range": {
+        "startLine": 34,
+        "startChar": 54,
+        "endLine": 34,
+        "endChar": 74
       },
       "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
