@@ -16,6 +16,23 @@
       "message": "LGTM but let\u0027s talk about the change at our release meeting. We\u0027ll want to get enough attention from our testing teams and OEMs.",
       "revId": "d48eaac7694241a01faea7a76929c6fcf455c4e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "808aa0d1_a401cef5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T05:54:40Z",
+      "side": 1,
+      "message": "Oh to go with this change: could you also update the target SDK of the tethering unit tests ?",
+      "revId": "d48eaac7694241a01faea7a76929c6fcf455c4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
