@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-#ifndef NETD_SERVER_TRAFFIC_CONTROLLER_H
-#define NETD_SERVER_TRAFFIC_CONTROLLER_H
+#pragma once
 
-#include <linux/bpf.h>
+#include <set>
+#include <Common.h>
 
-#include "Network.h"
 #include "android-base/thread_annotations.h"
-#include "android-base/unique_fd.h"
 #include "bpf/BpfMap.h"
 #include "bpf_shared.h"
 #include "netdutils/DumpWriter.h"
@@ -34,40 +32,15 @@ using android::bpf::BpfMap;
 namespace android {
 namespace net {
 
+using netdutils::StatusOr;
+
 class TrafficController {
   public:
-    TrafficController();
     /*
      * Initialize the whole controller
      */
     netdutils::Status start();
-    /*
-     * Tag the socket with the specified tag and uid. In the qtaguid module, the
-     * first tag request that grab the spinlock of rb_tree can update the tag
-     * information first and other request need to wait until it finish. All the
-     * tag request will be addressed in the order of they obtaining the spinlock.
-     * In the eBPF implementation, the kernel will try to update the eBPF map
-     * entry with the tag request. And the hashmap update process is protected by
-     * the spinlock initialized with the map. So the behavior of two modules
-     * should be the same. No additional lock needed.
-     */
-    int tagSocket(int sockFd, uint32_t tag, uid_t uid, uid_t callingUid) EXCLUDES(mMutex);
 
-    /*
-     * Similar as tagSocket, but skip UPDATE_DEVICE_STATS permission check.
-     */
-    int privilegedTagSocket(int sockFd, uint32_t tag, uid_t uid) EXCLUDES(mMutex);
-
-    /*
-     * The untag process is similar to tag socket and both old qtaguid module and
-     * new eBPF module have spinlock inside the kernel for concurrent update. No
-     * external lock is required.
-     */
-    int untagSocket(int sockFd);
-
-    /*
-     * Similar as above, no external lock required.
-     */
     int setCounterSet(int counterSetNum, uid_t uid, uid_t callingUid) EXCLUDES(mMutex);
 
     /*
@@ -213,34 +186,7 @@ class TrafficController {
     netdutils::Status addRule(uint32_t uid, UidOwnerMatchType match, uint32_t iif = 0)
             REQUIRES(mMutex);
 
-    // mMutex guards all accesses to mConfigurationMap, mUidOwnerMap, mUidPermissionMap,
-    // mStatsMapA, mStatsMapB and mPrivilegedUser. It is designed to solve the following
-    // problems:
-    // 1. Prevent concurrent access and modification to mConfigurationMap, mUidOwnerMap,
-    //    mUidPermissionMap, and mPrivilegedUser. These data members are controlled by netd but can
-    //    be modified from different threads. TrafficController provides several APIs directly
-    //    called by the binder RPC, and different binder threads can concurrently access these data
-    //    members mentioned above. Some of the data members such as mUidPermissionMap and
-    //    mPrivilegedUsers are also accessed from a different thread when tagging sockets or
-    //    setting the counterSet through FwmarkServer
-    // 2. Coordinate the deletion of uid stats in mStatsMapA and mStatsMapB. The system server
-    //    always call into netd to ask for a live stats map change before it pull and clean up the
-    //    stats from the inactive map. The mMutex will block netd from accessing the stats map when
-    //    the mConfigurationMap is updating the current stats map so netd will not accidentally
-    //    read the map that system_server is cleaning up.
     std::mutex mMutex;
-
-    // The limit on the number of stats entries a uid can have in the per uid stats map.
-    // TrafficController will block that specific uid from tagging new sockets after the limit is
-    // reached.
-    const uint32_t mPerUidStatsEntriesLimit;
-
-    // The limit on the total number of stats entries in the per uid stats map. TrafficController
-    // will block all tagging requests after the limit is reached.
-    const uint32_t mTotalUidStatsEntriesLimit;
-
-    netdutils::Status loadAndAttachProgram(bpf_attach_type type, const char* path, const char* name,
-                                           base::unique_fd& cg_fd);
 
     netdutils::Status initMaps() EXCLUDES(mMutex);
 
@@ -249,8 +195,6 @@ class TrafficController {
     std::set<uid_t> mPrivilegedUser GUARDED_BY(mMutex);
 
     bool hasUpdateDeviceStatsPermission(uid_t uid) REQUIRES(mMutex);
-
-    int privilegedTagSocketLocked(int sockFd, uint32_t tag, uid_t uid) REQUIRES(mMutex);
 
     // For testing
     TrafficController(uint32_t perUidLimit, uint32_t totalLimit);
@@ -261,5 +205,3 @@ class TrafficController {
 
 }  // namespace net
 }  // namespace android
-
-#endif  // NETD_SERVER_TRAFFIC_CONTROLLER_H
