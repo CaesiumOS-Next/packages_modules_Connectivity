@@ -1,0 +1,36 @@
+cc_library {
+    name: "libtraffic_controller",
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wthread-safety",
+    ],
+    srcs: [
+        "NetlinkListener.cpp",
+        "TrafficController.cpp",
+    ],
+    header_libs: [
+        "bpf_connectivity_headers",
+        "bpf_headers",
+        "bpf_syscall_wrappers",
+    ],
+    static_libs: [
+        "netd_aidl_interface-lateststable-ndk",
+    ],
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "liblog",
+        "libnetdutils",
+        "libutils",
+    ],
+    local_include_dirs: ["include"],
+    sanitize: {
+        cfi: true,
+    },
+    apex_available: [
+        "com.android.tethering",
+    ],
+    min_sdk_version: "30",
+}
