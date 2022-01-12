@@ -55,6 +55,11 @@ apex {
             jni_libs: ["libframework-connectivity-jni"],
         },
     },
+    /*
+    native_shared_libs: [
+        "libtraffic_controller"
+    ],
+    */
     bpfs: [
         "offload.o",
         "test.o",
