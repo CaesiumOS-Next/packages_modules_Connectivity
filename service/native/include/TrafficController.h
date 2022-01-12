@@ -195,6 +195,9 @@ class TrafficController {
     std::set<uid_t> mPrivilegedUser GUARDED_BY(mMutex);
 
     bool hasUpdateDeviceStatsPermission(uid_t uid) REQUIRES(mMutex);
+
+    // For testing
+    friend class TrafficControllerTest;
 };
 
 }  // namespace net
