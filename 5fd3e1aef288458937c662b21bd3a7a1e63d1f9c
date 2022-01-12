@@ -22,6 +22,30 @@
       },
       "revId": "5fd3e1aef288458937c662b21bd3a7a1e63d1f9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a26b4454_52e90da0",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2968,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-12T01:36:46Z",
+      "side": 1,
+      "message": "It will, but I can\u0027t do this here because as of this patch it doesn\u0027t work yet.",
+      "parentUuid": "c9e5bd3a_d71bb7b0",
+      "range": {
+        "startLine": 2968,
+        "startChar": 13,
+        "endLine": 2968,
+        "endChar": 72
+      },
+      "revId": "5fd3e1aef288458937c662b21bd3a7a1e63d1f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
