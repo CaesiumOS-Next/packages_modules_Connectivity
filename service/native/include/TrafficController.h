@@ -197,9 +197,6 @@ class TrafficController {
     bool hasUpdateDeviceStatsPermission(uid_t uid) REQUIRES(mMutex);
 
     // For testing
-    TrafficController(uint32_t perUidLimit, uint32_t totalLimit);
-
-    // For testing
     friend class TrafficControllerTest;
 };
 
