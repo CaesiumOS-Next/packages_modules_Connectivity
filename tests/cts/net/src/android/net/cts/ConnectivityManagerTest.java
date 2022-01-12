@@ -227,6 +227,9 @@ public class ConnectivityManagerTest {
 
     private static final String TAG = ConnectivityManagerTest.class.getSimpleName();
 
+    private static final String BOARD_API_LEVEL = "ro.board.api_level";
+    private static final String BOARD_FIRST_API_LEVEL = "ro.board.first_api_level";
+
     public static final int TYPE_MOBILE = ConnectivityManager.TYPE_MOBILE;
     public static final int TYPE_WIFI = ConnectivityManager.TYPE_WIFI;
 
@@ -251,7 +254,8 @@ public class ConnectivityManagerTest {
     private static final long APPLYING_UIDS_ALLOWED_ON_RESTRICTED_NETWORKS_TIMEOUT_MS = 3_000L;
 
     // Minimum supported keepalive counts for wifi and cellular.
-    public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT = 1;
+    public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT_S = 1;
+    public static final int MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT_T = 3;
     public static final int MIN_SUPPORTED_WIFI_KEEPALIVE_COUNT = 3;
 
     private static final String NETWORK_METERED_MULTIPATH_PREFERENCE_RES_NAME =
@@ -1676,6 +1680,24 @@ public class ConnectivityManagerTest {
         });
     }
 
+    /** Get the API level used for CTS testing of HAL-dependent requirements */
+    private static int getFirstSdkIntForHalEnforcement() throws Exception {
+        final int firstSdk = SdkLevel.isAtLeastS()
+                ? Build.VERSION.DEVICE_INITIAL_SDK_INT
+                // FIRST_SDK_INT was a @TestApi field renamed to DEVICE_INITIAL_SDK_INT in S
+                : Build.VERSION.class.getField("FIRST_SDK_INT").getInt(null);
+
+        final int boardFirstSdk = SystemProperties.getInt(
+                BOARD_FIRST_API_LEVEL, Integer.MAX_VALUE);
+        // If the board level is defined, assume that the first board level is also defined.
+        // If the board level is undefined, assume it's equal to the first board level.
+        final int boardSdk = SystemProperties.getInt(BOARD_API_LEVEL, boardFirstSdk);
+
+        // Return the minimum of the current board level and the first SDK int for API enforcement.
+        // If the board level is undefined, this is just the first SDK int.
+        return Math.min(Math.max(boardFirstSdk, boardSdk), firstSdk);
+    }
+
     /**
      * Verifies that the concurrent keepalive slots meet the minimum telephony requirement, and
      * don't get leaked after iterations.
@@ -1690,15 +1712,20 @@ public class ConnectivityManagerTest {
             return;
         }
 
-        final int firstSdk = SdkLevel.isAtLeastS()
-                ? Build.VERSION.DEVICE_INITIAL_SDK_INT
-                // FIRST_SDK_INT was a @TestApi field renamed to DEVICE_INITIAL_SDK_INT in S
-                : Build.VERSION.class.getField("FIRST_SDK_INT").getInt(null);
-        if (firstSdk < Build.VERSION_CODES.Q) {
+        final int firstSdk = getFirstSdkIntForHalEnforcement();
+
+        int requiredKeepalives = 0;
+        if (firstSdk >= 32 /* Android T */) {
+            requiredKeepalives = MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT_T;
+        } else if (firstSdk >= 31 /* Android S */) {
+            requiredKeepalives = MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT_S;
+        } else {
             Log.i(TAG, "testSocketKeepaliveLimitTelephony: skip test for devices launching"
                     + " before Q: " + firstSdk);
             return;
         }
+        final int requiredKeepalivesFinal = requiredKeepalives;
+
 
         final Network network = mCtsNetUtils.connectToCell();
         final int supported = getSupportedKeepalivesForNet(network);
@@ -1707,7 +1734,7 @@ public class ConnectivityManagerTest {
 
         runWithShellPermissionIdentity(() -> {
             // Verifies that the supported keepalive slots meet minimum requirement.
-            assertGreaterOrEqual(supported, MIN_SUPPORTED_CELLULAR_KEEPALIVE_COUNT);
+            assertGreaterOrEqual(supported, requiredKeepalivesFinal);
             // Verifies that Nat-T keepalives can be established.
             assertEquals(supported, createConcurrentSocketKeepalives(network, srcAddr,
                     supported + 1, 0));
