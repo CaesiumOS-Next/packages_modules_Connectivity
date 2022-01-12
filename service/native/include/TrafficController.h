@@ -205,6 +205,9 @@ class TrafficController {
     bool hasUpdateDeviceStatsPermission(uid_t uid) REQUIRES(mMutex);
 
     typedef std::unique_ptr<struct ifaddrs, struct IfaddrsDeleter2> ScopedIfaddrs;
+
+    // For testing
+    friend class TrafficControllerTest;
 };
 
 }  // namespace net
