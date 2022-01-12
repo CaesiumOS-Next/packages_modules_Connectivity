@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -275,6 +275,7 @@ class TrafficControllerTest : public ::testing::Test {
     }
 };
 
+
 TEST_F(TrafficControllerTest, TestSetCounterSet) {
     uid_t callingUid = TEST_UID2;
     addPrivilegedUid(callingUid);
@@ -478,66 +479,88 @@ TEST_F(TrafficControllerTest, TestReplaceSameChain) {
 
 TEST_F(TrafficControllerTest, TestDenylistUidMatch) {
     std::vector<uint32_t> appUids = {1000, 1001, 10012};
-    ASSERT_TRUE(isOk(
-            mTc.updateUidOwnerMap(appUids, PENALTY_BOX_MATCH, TrafficController::IptOpInsert)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(isOk(
+                mTc.updateUidOwnerMap(uid, PENALTY_BOX_MATCH, TrafficController::IptOpInsert)));
+    }
     expectUidOwnerMapValues(appUids, PENALTY_BOX_MATCH, 0);
-    ASSERT_TRUE(isOk(
-            mTc.updateUidOwnerMap(appUids, PENALTY_BOX_MATCH, TrafficController::IptOpDelete)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(isOk(
+                mTc.updateUidOwnerMap(uid, PENALTY_BOX_MATCH, TrafficController::IptOpDelete)));
+    }
     expectMapEmpty(mFakeUidOwnerMap);
 }
 
 TEST_F(TrafficControllerTest, TestAllowlistUidMatch) {
     std::vector<uint32_t> appUids = {1000, 1001, 10012};
-    ASSERT_TRUE(
-            isOk(mTc.updateUidOwnerMap(appUids, HAPPY_BOX_MATCH, TrafficController::IptOpInsert)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(
+                isOk(mTc.updateUidOwnerMap(uid, HAPPY_BOX_MATCH, TrafficController::IptOpInsert)));
+    }
     expectUidOwnerMapValues(appUids, HAPPY_BOX_MATCH, 0);
-    ASSERT_TRUE(
-            isOk(mTc.updateUidOwnerMap(appUids, HAPPY_BOX_MATCH, TrafficController::IptOpDelete)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(
+                isOk(mTc.updateUidOwnerMap(uid, HAPPY_BOX_MATCH, TrafficController::IptOpDelete)));
+    }
     expectMapEmpty(mFakeUidOwnerMap);
 }
 
 TEST_F(TrafficControllerTest, TestReplaceMatchUid) {
     std::vector<uint32_t> appUids = {1000, 1001, 10012};
     // Add appUids to the denylist and expect that their values are all PENALTY_BOX_MATCH.
-    ASSERT_TRUE(isOk(
-            mTc.updateUidOwnerMap(appUids, PENALTY_BOX_MATCH, TrafficController::IptOpInsert)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(isOk(
+                mTc.updateUidOwnerMap(uid, PENALTY_BOX_MATCH, TrafficController::IptOpInsert)));
+    }
     expectUidOwnerMapValues(appUids, PENALTY_BOX_MATCH, 0);
 
     // Add the same UIDs to the allowlist and expect that we get PENALTY_BOX_MATCH |
     // HAPPY_BOX_MATCH.
-    ASSERT_TRUE(
-            isOk(mTc.updateUidOwnerMap(appUids, HAPPY_BOX_MATCH, TrafficController::IptOpInsert)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(
+                isOk(mTc.updateUidOwnerMap(uid, HAPPY_BOX_MATCH, TrafficController::IptOpInsert)));
+    }
     expectUidOwnerMapValues(appUids, HAPPY_BOX_MATCH | PENALTY_BOX_MATCH, 0);
 
     // Remove the same UIDs from the allowlist and check the PENALTY_BOX_MATCH is still there.
-    ASSERT_TRUE(
-            isOk(mTc.updateUidOwnerMap(appUids, HAPPY_BOX_MATCH, TrafficController::IptOpDelete)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(
+                isOk(mTc.updateUidOwnerMap(uid, HAPPY_BOX_MATCH, TrafficController::IptOpDelete)));
+    }
     expectUidOwnerMapValues(appUids, PENALTY_BOX_MATCH, 0);
 
     // Remove the same UIDs from the denylist and check the map is empty.
-    ASSERT_TRUE(isOk(
-            mTc.updateUidOwnerMap(appUids, PENALTY_BOX_MATCH, TrafficController::IptOpDelete)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(isOk(
+                mTc.updateUidOwnerMap(uid, PENALTY_BOX_MATCH, TrafficController::IptOpDelete)));
+    }
     ASSERT_FALSE(mFakeUidOwnerMap.getFirstKey().ok());
 }
 
 TEST_F(TrafficControllerTest, TestDeleteWrongMatchSilentlyFails) {
     std::vector<uint32_t> appUids = {1000, 1001, 10012};
     // If the uid does not exist in the map, trying to delete a rule about it will fail.
-    ASSERT_FALSE(
-            isOk(mTc.updateUidOwnerMap(appUids, HAPPY_BOX_MATCH, TrafficController::IptOpDelete)));
+    for (auto uid : appUids) {
+        ASSERT_FALSE(
+                isOk(mTc.updateUidOwnerMap(uid, HAPPY_BOX_MATCH, TrafficController::IptOpDelete)));
+    }
     expectMapEmpty(mFakeUidOwnerMap);
 
     // Add denylist rules for appUids.
-    ASSERT_TRUE(
-            isOk(mTc.updateUidOwnerMap(appUids, HAPPY_BOX_MATCH, TrafficController::IptOpInsert)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(
+                isOk(mTc.updateUidOwnerMap(uid, HAPPY_BOX_MATCH, TrafficController::IptOpInsert)));
+    }
     expectUidOwnerMapValues(appUids, HAPPY_BOX_MATCH, 0);
 
     // Delete (non-existent) denylist rules for appUids, and check that this silently does
     // nothing if the uid is in the map but does not have denylist match. This is required because
     // NetworkManagementService will try to remove a uid from denylist after adding it to the
     // allowlist and if the remove fails it will not update the uid status.
-    ASSERT_TRUE(isOk(
-            mTc.updateUidOwnerMap(appUids, PENALTY_BOX_MATCH, TrafficController::IptOpDelete)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(isOk(
+                mTc.updateUidOwnerMap(uid, PENALTY_BOX_MATCH, TrafficController::IptOpDelete)));
+    }
     expectUidOwnerMapValues(appUids, HAPPY_BOX_MATCH, 0);
 }
 
@@ -585,9 +608,12 @@ TEST_F(TrafficControllerTest, TestRemoveUidInterfaceFilteringRules) {
 }
 
 TEST_F(TrafficControllerTest, TestUidInterfaceFilteringRulesCoexistWithExistingMatches) {
+    std::vector<uint32_t> appUids = {1000, 1001, 10012};
     // Set up existing PENALTY_BOX_MATCH rules
-    ASSERT_TRUE(isOk(mTc.updateUidOwnerMap({1000, 1001, 10012}, PENALTY_BOX_MATCH,
-                                           TrafficController::IptOpInsert)));
+    for (auto uid : appUids) {
+        ASSERT_TRUE(isOk(mTc.updateUidOwnerMap(uid, PENALTY_BOX_MATCH,
+                                            TrafficController::IptOpInsert)));
+    }
     expectUidOwnerMapValues({1000, 1001, 10012}, PENALTY_BOX_MATCH, 0);
 
     // Add some partially-overlapping uid owner rules and check result
@@ -598,8 +624,11 @@ TEST_F(TrafficControllerTest, TestUidInterfaceFilteringRulesCoexistWithExistingM
     expectUidOwnerMapValues({10013, 10014}, IIF_MATCH, iif1);
 
     // Removing some PENALTY_BOX_MATCH rules should not change uid interface rule
-    ASSERT_TRUE(isOk(mTc.updateUidOwnerMap({1001, 10012}, PENALTY_BOX_MATCH,
-                                           TrafficController::IptOpDelete)));
+    std::vector<uint32_t> appUids2 = {1001, 10012};
+    for (auto uid : appUids2) {
+        ASSERT_TRUE(isOk(mTc.updateUidOwnerMap(uid, PENALTY_BOX_MATCH,
+                                            TrafficController::IptOpDelete)));
+    }
     expectUidOwnerMapValues({1000}, PENALTY_BOX_MATCH, 0);
     expectUidOwnerMapValues({10012, 10013, 10014}, IIF_MATCH, iif1);
 
