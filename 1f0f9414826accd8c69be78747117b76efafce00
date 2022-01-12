@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96251dd1_cd6b96c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-12T01:45:54Z",
+      "side": 1,
+      "message": "Only an unimportant nit, feel free to ignore",
+      "revId": "1f0f9414826accd8c69be78747117b76efafce00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39984326_f88b41fe",
+        "filename": "tests/cts/net/src/android/net/cts/StaticIpConfigurationTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-12T01:45:54Z",
+      "side": 1,
+      "message": "nit : Normally you use assertThrows(TypeOfException.class, () -\u003e new SIP.Builder()...build());",
+      "range": {
+        "startLine": 257,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 16
+      },
+      "revId": "1f0f9414826accd8c69be78747117b76efafce00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
