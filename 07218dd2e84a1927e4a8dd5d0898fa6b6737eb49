@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "228d77de_6d5c8cea",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T11:46:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05adefbf_99a830e5",
+      "range": {
+        "startLine": 80,
+        "startChar": 42,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "07218dd2e84a1927e4a8dd5d0898fa6b6737eb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4774727c_7cd1e514",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-11T14:35:48Z",
       "side": 1,
       "message": "Nit: \"Setting invalid ${it.third} unexpectedly succeeded\"?",
+      "range": {
+        "startLine": 216,
+        "startChar": 55,
+        "endLine": 216,
+        "endChar": 76
+      },
+      "revId": "07218dd2e84a1927e4a8dd5d0898fa6b6737eb49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf6797bc_168f4fa9",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T11:46:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4774727c_7cd1e514",
       "range": {
         "startLine": 216,
         "startChar": 55,

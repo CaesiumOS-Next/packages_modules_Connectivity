@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "916dc7fd_c19ef014",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T11:46:10Z",
+      "side": 0,
+      "message": "Hmm I wrote this a while back but it seems incorrect. Reverted to previous behavior.",
+      "parentUuid": "1f1e76cc_a4c0e075",
+      "range": {
+        "startLine": 358,
+        "startChar": 8,
+        "endLine": 358,
+        "endChar": 68
+      },
+      "revId": "eaada07913e2abf413e7bbea5af68295bde0f205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd3fd8db_ad8a4a2d",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-11T14:35:48Z",
       "side": 0,
       "message": "Does the new code never need to check that no further callbacks are received?",
+      "range": {
+        "startLine": 408,
+        "startChar": 8,
+        "endLine": 408,
+        "endChar": 32
+      },
+      "revId": "eaada07913e2abf413e7bbea5af68295bde0f205",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fb034cd_6199a49a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 18
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-12T11:46:10Z",
+      "side": 0,
+      "message": "The return value was never used, so this method was only used to clear the events queue, which is now achieved by waitForCallbackEventually (the tests did not check whether it returns false). So old code didn\u0027t really check no further callbacks were received either",
+      "parentUuid": "dd3fd8db_ad8a4a2d",
       "range": {
         "startLine": 408,
         "startChar": 8,
