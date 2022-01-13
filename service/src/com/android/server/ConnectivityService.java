@@ -247,6 +247,7 @@ import com.android.net.module.util.NetworkCapabilitiesUtils;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
 import com.android.server.connectivity.AutodestructReference;
+import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
 import com.android.server.connectivity.ConnectivityFlags;
 import com.android.server.connectivity.DnsManager;
 import com.android.server.connectivity.DnsManager.PrivateDnsValidationUpdate;
@@ -756,6 +757,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private Set<String> mWolSupportedInterfaces;
 
     private final TelephonyManager mTelephonyManager;
+    private final CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     private final AppOpsManager mAppOpsManager;
 
     private final LocationPermissionChecker mLocationPermissionChecker;
@@ -1402,6 +1404,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
+        mCarrierPrivilegeAuthenticator = new CarrierPrivilegeAuthenticator(mContext,
+                mTelephonyManager);
 
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
@@ -6201,7 +6205,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             case REQUEST:
                 networkCapabilities = new NetworkCapabilities(networkCapabilities);
                 enforceNetworkRequestPermissions(networkCapabilities, callingPackageName,
-                        callingAttributionTag);
+                        callingAttributionTag, callingUid);
                 // TODO: this is incorrect. We mark the request as metered or not depending on
                 //  the state of the app when the request is filed, but we never change the
                 //  request if the app changes network state. http://b/29964605
@@ -6292,9 +6296,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
-            String callingPackageName, String callingAttributionTag) {
+            String callingPackageName, String callingAttributionTag,
+            int callingUid) {
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
-            enforceConnectivityRestrictedNetworksPermission();
+            if (!mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(callingUid,
+                    callingPackageName, networkCapabilities)) {
+                enforceConnectivityRestrictedNetworksPermission();
+            }
         } else {
             enforceChangePermission(callingPackageName, callingAttributionTag);
         }
@@ -6358,7 +6366,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int callingUid = mDeps.getCallingUid();
         networkCapabilities = new NetworkCapabilities(networkCapabilities);
         enforceNetworkRequestPermissions(networkCapabilities, callingPackageName,
-                callingAttributionTag);
+                callingAttributionTag, callingUid);
         enforceMeteredApnPolicy(networkCapabilities);
         ensureRequestableCapabilities(networkCapabilities);
         ensureSufficientPermissionsForRequest(networkCapabilities,
