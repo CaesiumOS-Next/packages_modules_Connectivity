@@ -187,6 +187,7 @@ package android.net {
     method public boolean removeDnsServer(@NonNull java.net.InetAddress);
     method public boolean removeLinkAddress(@NonNull android.net.LinkAddress);
     method public boolean removeRoute(@NonNull android.net.RouteInfo);
+    method @NonNull public android.net.LinkProperties restrictedForCallerPermissions(@NonNull android.content.Context, @NonNull String);
     method public void setCaptivePortalApiUrl(@Nullable android.net.Uri);
     method public void setCaptivePortalData(@Nullable android.net.CaptivePortalData);
     method public void setPcscfServers(@NonNull java.util.Collection<java.net.InetAddress>);
@@ -280,6 +281,7 @@ package android.net {
     method @NonNull public int[] getTransportTypes();
     method @Nullable public java.util.List<android.net.Network> getUnderlyingNetworks();
     method public boolean isPrivateDnsBroken();
+    method @NonNull public android.net.NetworkCapabilities restrictedForCallerPermissions(@NonNull android.content.Context, @NonNull String);
     method public boolean satisfiedByNetworkCapabilities(@Nullable android.net.NetworkCapabilities);
     field public static final int NET_CAPABILITY_BIP = 31; // 0x1f
     field public static final int NET_CAPABILITY_NOT_VCN_MANAGED = 28; // 0x1c

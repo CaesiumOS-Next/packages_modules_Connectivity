@@ -14080,9 +14080,8 @@ public class ConnectivityServiceTest {
         final NetworkCapabilities nc = new NetworkCapabilities();
         nc.setSubscriptionIds(Collections.singleton(Process.myUid()));
 
-        final NetworkCapabilities result =
-                mService.networkCapabilitiesRestrictedForCallerPermissions(
-                        nc, Process.myPid(), Process.myUid());
+        final NetworkCapabilities result = nc.restrictedForCallerPermissions(
+                mServiceContext, Process.myPid(), Process.myUid());
         assertTrue(result.getSubscriptionIds().isEmpty());
     }
 
@@ -14094,9 +14093,8 @@ public class ConnectivityServiceTest {
         final NetworkCapabilities nc = new NetworkCapabilities();
         nc.setSubscriptionIds(subIds);
 
-        final NetworkCapabilities result =
-                mService.networkCapabilitiesRestrictedForCallerPermissions(
-                        nc, Process.myPid(), Process.myUid());
+        final NetworkCapabilities result = nc.restrictedForCallerPermissions(
+                mServiceContext, Process.myPid(), Process.myUid());
         assertEquals(subIds, result.getSubscriptionIds());
     }
 

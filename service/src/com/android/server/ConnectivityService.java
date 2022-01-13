@@ -1990,8 +1990,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final int uid = mDeps.getCallingUid();
         NetworkAgentInfo nai = getNetworkAgentInfoForUid(uid);
         if (nai == null) return null;
-        return linkPropertiesRestrictedForCallerPermissions(nai.linkProperties,
-                Binder.getCallingPid(), uid);
+        if (nai.linkProperties == null) return new LinkProperties();
+        return nai.linkProperties.restrictedForCallerPermissions(mContext, Binder.getCallingPid(),
+                uid);
     }
 
     @Override
@@ -2000,8 +2001,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         NetworkAgentInfo nai = mLegacyTypeTracker.getNetworkForType(networkType);
         final LinkProperties lp = getLinkProperties(nai);
         if (lp == null) return null;
-        return linkPropertiesRestrictedForCallerPermissions(
-                lp, Binder.getCallingPid(), mDeps.getCallingUid());
+        return lp.restrictedForCallerPermissions(mContext, Binder.getCallingPid(),
+                mDeps.getCallingUid());
     }
 
     // TODO - this should be ALL networks
@@ -2010,8 +2011,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceAccessPermission();
         final LinkProperties lp = getLinkProperties(getNetworkAgentInfoForNetwork(network));
         if (lp == null) return null;
-        return linkPropertiesRestrictedForCallerPermissions(
-                lp, Binder.getCallingPid(), mDeps.getCallingUid());
+        return lp.restrictedForCallerPermissions(mContext, Binder.getCallingPid(),
+                mDeps.getCallingUid());
     }
 
     @Nullable
@@ -2031,8 +2032,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private NetworkCapabilities getNetworkCapabilitiesInternal(NetworkAgentInfo nai) {
         if (nai == null) return null;
         synchronized (nai) {
-            return networkCapabilitiesRestrictedForCallerPermissions(
-                    nai.networkCapabilities, Binder.getCallingPid(), mDeps.getCallingUid());
+            return (nai.networkCapabilities == null) ? new NetworkCapabilities(null)
+                    .restrictedForCallerPermissions(
+                            mContext, Binder.getCallingPid(), mDeps.getCallingUid())
+                    : nai.networkCapabilities.restrictedForCallerPermissions(
+                            mContext, Binder.getCallingPid(), mDeps.getCallingUid());
         }
     }
 
@@ -2221,29 +2225,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             newNc.setOwnerUid(INVALID_UID);
         }
         return newNc;
-    }
-
-    private LinkProperties linkPropertiesRestrictedForCallerPermissions(
-            LinkProperties lp, int callerPid, int callerUid) {
-        if (lp == null) return new LinkProperties();
-
-        // Only do a permission check if sanitization is needed, to avoid unnecessary binder calls.
-        final boolean needsSanitization =
-                (lp.getCaptivePortalApiUrl() != null || lp.getCaptivePortalData() != null);
-        if (!needsSanitization) {
-            return new LinkProperties(lp);
-        }
-
-        if (checkSettingsPermission(callerPid, callerUid)) {
-            return new LinkProperties(lp, true /* parcelSensitiveFields */);
-        }
-
-        final LinkProperties newLp = new LinkProperties(lp);
-        // Sensitive fields would not be parceled anyway, but sanitize for consistency before the
-        // object gets parceled.
-        newLp.setCaptivePortalApiUrl(null);
-        newLp.setCaptivePortalData(null);
-        return newLp;
     }
 
     private void restrictRequestUidsForCallerAndSetRequestorInfo(NetworkCapabilities nc,
@@ -7859,17 +7840,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 (nri.mCallbackFlags & NetworkCallback.FLAG_INCLUDE_LOCATION_INFO) != 0;
         switch (notificationType) {
             case ConnectivityManager.CALLBACK_AVAILABLE: {
-                final NetworkCapabilities nc =
-                        networkCapabilitiesRestrictedForCallerPermissions(
-                                networkAgent.networkCapabilities, nri.mPid, nri.mUid);
+                final NetworkCapabilities nc = (networkAgent.networkCapabilities == null)
+                        ? new NetworkCapabilities(null).restrictedForCallerPermissions(
+                                mContext, nri.mPid, nri.mUid)
+                        : networkAgent.networkCapabilities.restrictedForCallerPermissions(
+                                mContext, nri.mPid, nri.mUid);
                 putParcelable(
                         bundle,
                         createWithLocationInfoSanitizedIfNecessaryWhenParceled(
                                 nc, includeLocationSensitiveInfo, nri.mPid, nri.mUid,
                                 nrForCallback.getRequestorPackageName(),
                                 nri.mCallingAttributionTag));
-                putParcelable(bundle, linkPropertiesRestrictedForCallerPermissions(
-                        networkAgent.linkProperties, nri.mPid, nri.mUid));
+                final LinkProperties lp = (networkAgent.linkProperties == null) ? null
+                        : networkAgent.linkProperties.restrictedForCallerPermissions(
+                                mContext, nri.mPid, nri.mUid);
+                putParcelable(bundle, lp);
                 // For this notification, arg1 contains the blocked status.
                 msg.arg1 = arg1;
                 break;
@@ -7880,9 +7865,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             case ConnectivityManager.CALLBACK_CAP_CHANGED: {
                 // networkAgent can't be null as it has been accessed a few lines above.
-                final NetworkCapabilities netCap =
-                        networkCapabilitiesRestrictedForCallerPermissions(
-                                networkAgent.networkCapabilities, nri.mPid, nri.mUid);
+                final NetworkCapabilities netCap = (networkAgent.networkCapabilities == null)
+                        ? new NetworkCapabilities(null).restrictedForCallerPermissions(
+                                mContext, nri.mPid, nri.mUid)
+                        : networkAgent.networkCapabilities.restrictedForCallerPermissions(
+                                mContext, nri.mPid, nri.mUid);
                 putParcelable(
                         bundle,
                         createWithLocationInfoSanitizedIfNecessaryWhenParceled(
@@ -7892,8 +7879,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 break;
             }
             case ConnectivityManager.CALLBACK_IP_CHANGED: {
-                putParcelable(bundle, linkPropertiesRestrictedForCallerPermissions(
-                        networkAgent.linkProperties, nri.mPid, nri.mUid));
+                final LinkProperties lp = (networkAgent.linkProperties == null) ? null
+                        : networkAgent.linkProperties.restrictedForCallerPermissions(
+                                mContext, nri.mPid, nri.mUid);
+                putParcelable(bundle, lp);
                 break;
             }
             case ConnectivityManager.CALLBACK_BLK_CHANGED: {

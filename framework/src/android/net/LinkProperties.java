@@ -16,10 +16,14 @@
 
 package android.net;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -200,6 +204,72 @@ public final class LinkProperties implements Parcelable {
         mWakeOnLanSupported = source.mWakeOnLanSupported;
         mCaptivePortalApiUrl = source.mCaptivePortalApiUrl;
         mCaptivePortalData = source.mCaptivePortalData;
+    }
+
+    private boolean checkAnyPermissionOf(Context context, String packageName,
+            String... permissions) {
+        final PackageManager pm = context.getPackageManager();
+        for (String permission : permissions) {
+            if (pm.checkPermission(permission, packageName) == PERMISSION_GRANTED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkAnyPermissionOf(Context context, int pid, int uid, String... permissions) {
+        for (String permission : permissions) {
+            if (context.checkPermission(permission, pid, uid) == PERMISSION_GRANTED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private LinkProperties restrictedForCallerPermissions(Context context, String packageName,
+            int pid, int uid) {
+        // Only do a permission check if sanitization is needed, to avoid unnecessary binder calls.
+        final boolean needsSanitization =
+                (this.getCaptivePortalApiUrl() != null || this.getCaptivePortalData() != null);
+        if (!needsSanitization) {
+            return new LinkProperties(this);
+        }
+
+        boolean hasNetworkSettingsPermission = false;
+
+        if (packageName != null) {
+            hasNetworkSettingsPermission = checkAnyPermissionOf(context, packageName,
+                    android.Manifest.permission.NETWORK_SETTINGS,
+                    NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+        } else {
+            hasNetworkSettingsPermission = checkAnyPermissionOf(context, pid, uid,
+                    android.Manifest.permission.NETWORK_SETTINGS,
+                    NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+        }
+
+        if (hasNetworkSettingsPermission) {
+            return new LinkProperties(this, true /* parcelSensitiveFields */);
+        }
+
+        final LinkProperties newLp = new LinkProperties(this);
+        // Sensitive fields would not be parceled anyway, but sanitize for consistency before the
+        // object gets parceled.
+        newLp.setCaptivePortalApiUrl(null);
+        newLp.setCaptivePortalData(null);
+        return newLp;
+    }
+
+    /** @hide */
+    @SystemApi
+    @NonNull
+    public LinkProperties restrictedForCallerPermissions(@NonNull Context context,
+            @NonNull String packageName) {
+        return restrictedForCallerPermissions(context, packageName, -1 /* pid */, -1 /* uid */);
+    }
+
+    /** @hide */
+    public LinkProperties restrictedForCallerPermissions(Context context, int pid, int uid) {
+        return restrictedForCallerPermissions(context, null, pid, uid);
     }
 
     /**
