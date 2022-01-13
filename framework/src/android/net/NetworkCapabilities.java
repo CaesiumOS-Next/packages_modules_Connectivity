@@ -17,6 +17,7 @@
 package android.net;
 
 import static android.annotation.SystemApi.Client.MODULE_LIBRARIES;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import static com.android.internal.annotations.VisibleForTesting.Visibility.PRIVATE;
 
@@ -28,6 +29,8 @@ import android.annotation.RequiresPermission;
 import android.annotation.SuppressLint;
 import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.os.Build;
 import android.os.Parcel;
@@ -891,6 +894,76 @@ public final class NetworkCapabilities implements Parcelable {
         } else {
             return null;
         }
+    }
+
+    private boolean checkAnyPermissionOf(Context context, String packageName,
+            String... permissions) {
+        final PackageManager pm = context.getPackageManager();
+        for (String permission : permissions) {
+            if (pm.checkPermission(permission, packageName) == PERMISSION_GRANTED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkAnyPermissionOf(Context context, int pid, int uid, String... permissions) {
+        for (String permission : permissions) {
+            if (context.checkPermission(permission, pid, uid) == PERMISSION_GRANTED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private NetworkCapabilities restrictedForCallerPermissions(Context context, String packageName,
+            int pid, int uid) {
+        boolean hasNetworkSettingsPermission = false;
+        boolean hasNetworkFactoryPermission = false;
+
+        if (packageName != null) {
+            hasNetworkSettingsPermission = checkAnyPermissionOf(context, packageName,
+                    android.Manifest.permission.NETWORK_SETTINGS,
+                    NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+            hasNetworkFactoryPermission = checkAnyPermissionOf(context, packageName,
+                    android.Manifest.permission.NETWORK_FACTORY);
+        } else {
+            hasNetworkSettingsPermission = checkAnyPermissionOf(context, pid, uid,
+                    android.Manifest.permission.NETWORK_SETTINGS,
+                    NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+            hasNetworkFactoryPermission = checkAnyPermissionOf(context, pid, uid,
+                    android.Manifest.permission.NETWORK_FACTORY);
+        }
+
+        final NetworkCapabilities newNc = new NetworkCapabilities(this);
+
+        if (!hasNetworkSettingsPermission) {
+            newNc.setUids(null);
+            newNc.setSSID(null);
+            newNc.setUnderlyingNetworks(null);
+        }
+        if (newNc.getNetworkSpecifier() != null) {
+            newNc.setNetworkSpecifier(newNc.getNetworkSpecifier().redact());
+        }
+        newNc.setAdministratorUids(new int[0]);
+        if (!hasNetworkFactoryPermission) {
+            newNc.setSubscriptionIds(Collections.emptySet());
+        }
+
+        return newNc;
+    }
+
+    /** @hide */
+    @SystemApi
+    @NonNull
+    public NetworkCapabilities restrictedForCallerPermissions(@NonNull Context context,
+            @NonNull String packageName) {
+        return restrictedForCallerPermissions(context, packageName, -1 /* pid */, -1 /* uid */);
+    }
+
+    /** @hide */
+    public NetworkCapabilities restrictedForCallerPermissions(Context context, int pid, int uid) {
+        return restrictedForCallerPermissions(context, null, pid, uid);
     }
 
     /**
