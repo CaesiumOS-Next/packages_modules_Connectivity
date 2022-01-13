@@ -19,10 +19,11 @@ package com.android.server;
 import static libcore.junit.util.compat.CoreCompatChangeRule.DisableCompatChanges;
 import static libcore.junit.util.compat.CoreCompatChangeRule.EnableCompatChanges;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
@@ -34,6 +35,7 @@ import static org.mockito.Mockito.when;
 import android.compat.testing.PlatformCompatChangeRule;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.net.netd.aidl.IMdns;
 import android.net.nsd.INsdManagerCallback;
 import android.net.nsd.INsdServiceConnector;
 import android.net.nsd.NsdManager;
@@ -49,9 +51,6 @@ import android.os.Message;
 import androidx.annotation.NonNull;
 import androidx.test.filters.SmallTest;
 
-import com.android.server.NsdService.DaemonConnection;
-import com.android.server.NsdService.DaemonConnectionSupplier;
-import com.android.server.NsdService.NativeCallbackReceiver;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.HandlerUtils;
@@ -63,10 +62,8 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.mockito.AdditionalAnswers;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -92,8 +89,7 @@ public class NsdServiceTest {
     public TestRule compatChangeRule = new PlatformCompatChangeRule();
     @Mock Context mContext;
     @Mock ContentResolver mResolver;
-    NativeCallbackReceiver mDaemonCallback;
-    @Spy DaemonConnection mDaemon = new DaemonConnection(mDaemonCallback);
+    @Mock IMdns mMockMdns;
     HandlerThread mThread;
     TestHandler mHandler;
 
@@ -112,7 +108,6 @@ public class NsdServiceTest {
         MockitoAnnotations.initMocks(this);
         mThread = new HandlerThread("mock-service-handler");
         mThread.start();
-        doReturn(true).when(mDaemon).execute(any());
         mHandler = new TestHandler(mThread.getLooper());
         when(mContext.getContentResolver()).thenReturn(mResolver);
     }
@@ -135,24 +130,25 @@ public class NsdServiceTest {
         waitForIdle();
         final INsdManagerCallback cb1 = getCallback();
         final IBinder.DeathRecipient deathRecipient1 = verifyLinkToDeath(cb1);
-        verify(mDaemon, times(1)).maybeStart();
-        verifyDaemonCommands("start-service");
+        verify(mMockMdns, times(1)).registerUnsolicitedEventListener(any());
+        verify(mMockMdns, times(1)).mdnsStart();
 
+        reset(mMockMdns);
         connectClient(service);
         waitForIdle();
         final INsdManagerCallback cb2 = getCallback();
         final IBinder.DeathRecipient deathRecipient2 = verifyLinkToDeath(cb2);
-        verify(mDaemon, times(1)).maybeStart();
+        verify(mMockMdns, never()).registerUnsolicitedEventListener(any());
+        verify(mMockMdns, times(1)).mdnsStart();
 
         deathRecipient1.binderDied();
         // Still 1 client remains, daemon shouldn't be stopped.
         waitForIdle();
-        verify(mDaemon, never()).maybeStop();
+        verify(mMockMdns, never()).mdnsStop();
 
         deathRecipient2.binderDied();
         // All clients are disconnected, the daemon should be stopped.
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
-        verifyDaemonCommands("stop-service");
     }
 
     @Test
@@ -160,18 +156,19 @@ public class NsdServiceTest {
     public void testNoDaemonStartedWhenClientsConnect() throws Exception {
         final NsdService service = makeService();
 
-        // Creating an NsdManager will not cause any cmds executed, which means
-        // no daemon is started.
+        // Creating an NsdManager will not cause daemon startup.
         connectClient(service);
         waitForIdle();
-        verify(mDaemon, never()).execute(any());
+        verify(mMockMdns, never()).registerUnsolicitedEventListener(any());
+        verify(mMockMdns, never()).mdnsStart();
         final INsdManagerCallback cb1 = getCallback();
         final IBinder.DeathRecipient deathRecipient1 = verifyLinkToDeath(cb1);
 
-        // Creating another NsdManager will not cause any cmds executed.
+        // Creating another NsdManager will not cause daemon startup either.
         connectClient(service);
         waitForIdle();
-        verify(mDaemon, never()).execute(any());
+        verify(mMockMdns, never()).registerUnsolicitedEventListener(any());
+        verify(mMockMdns, never()).mdnsStart();
         final INsdManagerCallback cb2 = getCallback();
         final IBinder.DeathRecipient deathRecipient2 = verifyLinkToDeath(cb2);
 
@@ -179,7 +176,7 @@ public class NsdServiceTest {
         // every time the client disconnects.
         deathRecipient1.binderDied();
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
-        reset(mDaemon);
+        reset(mMockMdns);
         deathRecipient2.binderDied();
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
     }
@@ -200,8 +197,8 @@ public class NsdServiceTest {
         waitForIdle();
         final INsdManagerCallback cb1 = getCallback();
         final IBinder.DeathRecipient deathRecipient = verifyLinkToDeath(cb1);
-        verify(mDaemon, never()).maybeStart();
-        verify(mDaemon, never()).execute(any());
+        verify(mMockMdns, never()).registerUnsolicitedEventListener(any());
+        verify(mMockMdns, never()).mdnsStart();
 
         NsdServiceInfo request = new NsdServiceInfo("a_name", "a_type");
         request.setPort(2201);
@@ -210,29 +207,34 @@ public class NsdServiceTest {
         NsdManager.RegistrationListener listener1 = mock(NsdManager.RegistrationListener.class);
         client.registerService(request, PROTOCOL, listener1);
         waitForIdle();
-        verify(mDaemon, times(1)).maybeStart();
-        verifyDaemonCommands("start-service", "register 2 a_name a_type 2201");
+        verify(mMockMdns, times(1)).mdnsStart();
+        verify(mMockMdns, times(1)).registerServiceNameToNetwork(
+                eq(2), eq("a_name"), eq("a_type"), eq(2201), anyString());
 
         // Client discovery request
+        reset(mMockMdns);
         NsdManager.DiscoveryListener listener2 = mock(NsdManager.DiscoveryListener.class);
         client.discoverServices("a_type", PROTOCOL, listener2);
         waitForIdle();
-        verify(mDaemon, times(1)).maybeStart();
-        verifyDaemonCommand("discover 3 a_type");
+        verify(mMockMdns, times(1)).mdnsStart();
+        verify(mMockMdns, times(1)).discover(eq(3), eq("a_type"));
 
         // Client resolve request
+        reset(mMockMdns);
         NsdManager.ResolveListener listener3 = mock(NsdManager.ResolveListener.class);
         client.resolveService(request, listener3);
         waitForIdle();
-        verify(mDaemon, times(1)).maybeStart();
-        verifyDaemonCommand("resolve 4 a_name a_type local.");
+        verify(mMockMdns, times(1)).mdnsStart();
+        verify(mMockMdns, times(1)).resolve(
+                eq(4), eq("a_name"), eq("a_type"), eq("local."));
 
         // Client disconnects, stop the daemon after CLEANUP_DELAY_MS.
         deathRecipient.binderDied();
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
         // checks that request are cleaned
-        verifyDaemonCommands("stop-register 2", "stop-discover 3",
-                "stop-resolve 4", "stop-service");
+        verify(mMockMdns, times(1)).unregisterServiceNameFromNetwork(eq(2));
+        verify(mMockMdns, times(1)).discoverStop(eq(3));
+        verify(mMockMdns, times(1)).resolveStop(eq(4));
     }
 
     @Test
@@ -246,17 +248,18 @@ public class NsdServiceTest {
         NsdManager.RegistrationListener listener1 = mock(NsdManager.RegistrationListener.class);
         client.registerService(request, PROTOCOL, listener1);
         waitForIdle();
-        verify(mDaemon, times(1)).maybeStart();
         final INsdManagerCallback cb1 = getCallback();
         final IBinder.DeathRecipient deathRecipient = verifyLinkToDeath(cb1);
-        verifyDaemonCommands("start-service", "register 2 a_name a_type 2201");
+        verify(mMockMdns, times(1)).mdnsStart();
+        verify(mMockMdns, times(1)).registerServiceNameToNetwork(
+                eq(2), eq("a_name"), eq("a_type"), eq(2201), anyString());
 
         client.unregisterService(listener1);
-        verifyDaemonCommand("stop-register 2");
+        waitForIdle();
+        verify(mMockMdns, times(1)).unregisterServiceNameFromNetwork(eq(2));
 
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
-        verifyDaemonCommand("stop-service");
-        reset(mDaemon);
+        reset(mMockMdns);
         deathRecipient.binderDied();
         // Client disconnects, after CLEANUP_DELAY_MS, maybeStop the daemon.
         verifyDelayMaybeStopDaemon(CLEANUP_DELAY_MS);
@@ -267,11 +270,7 @@ public class NsdServiceTest {
     }
 
     NsdService makeService() {
-        DaemonConnectionSupplier supplier = (callback) -> {
-            mDaemonCallback = callback;
-            return mDaemon;
-        };
-        final NsdService service = new NsdService(mContext, mHandler, supplier, CLEANUP_DELAY_MS) {
+        final NsdService service = new NsdService(mContext, mHandler, CLEANUP_DELAY_MS, mMockMdns) {
             @Override
             public INsdServiceConnector connect(INsdManagerCallback baseCb) {
                 // Wrap the callback in a transparent mock, to mock asBinder returning a
@@ -285,7 +284,6 @@ public class NsdServiceTest {
                 return super.connect(cb);
             }
         };
-        verify(mDaemon, never()).execute(any(String.class));
         return service;
     }
 
@@ -297,34 +295,12 @@ public class NsdServiceTest {
         return new NsdManager(mContext, service);
     }
 
-    void verifyDelayMaybeStopDaemon(long cleanupDelayMs) {
+    void verifyDelayMaybeStopDaemon(long cleanupDelayMs) throws Exception {
         waitForIdle();
         // Stop daemon shouldn't be called immediately.
-        verify(mDaemon, never()).maybeStop();
+        verify(mMockMdns, never()).mdnsStop();
         // Clean up the daemon after CLEANUP_DELAY_MS.
-        verify(mDaemon, timeout(cleanupDelayMs + TIMEOUT_MS)).maybeStop();
-    }
-
-    void verifyDaemonCommands(String... wants) {
-        verifyDaemonCommand(String.join(" ", wants), wants.length);
-    }
-
-    void verifyDaemonCommand(String want) {
-        verifyDaemonCommand(want, 1);
-    }
-
-    void verifyDaemonCommand(String want, int n) {
-        waitForIdle();
-        final ArgumentCaptor<Object> argumentsCaptor = ArgumentCaptor.forClass(Object.class);
-        verify(mDaemon, times(n)).execute(argumentsCaptor.capture());
-        String got = "";
-        for (Object o : argumentsCaptor.getAllValues()) {
-            got += o + " ";
-        }
-        assertEquals(want, got.trim());
-        // rearm deamon for next command verification
-        reset(mDaemon);
-        doReturn(true).when(mDaemon).execute(any());
+        verify(mMockMdns, timeout(cleanupDelayMs + TIMEOUT_MS)).mdnsStop();
     }
 
     public static class TestHandler extends Handler {
