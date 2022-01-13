@@ -42,9 +42,14 @@ java_sdk_library {
         "unsupportedappusage",
         "app-compat-annotations",
     ],
+    static_libs: [
+        "mdns_aidl_interface-lateststable-java",
+    ],
+    jarjar_rules: "jarjar-rules.txt",
     permitted_packages: [
         "android.net",
         "android.net.nsd",
+        "com.android.connectivity",
     ],
     apex_available: [
         "com.android.tethering",
