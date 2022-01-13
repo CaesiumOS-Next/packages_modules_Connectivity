@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d319ed3_6467b69d",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T10:08:45Z",
+      "side": 1,
+      "message": "When you put libtraffic_controller_jni into the tethering apex, does it causes these libraries to be put into the apex as well?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 32
+      },
+      "revId": "389a784f9333a37ae534e74baa122eb36e05d047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aa2f439_f3a51836",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T10:08:45Z",
+      "side": 1,
+      "message": "Why does this depend on netd_aidl_interface? Does it call into netd?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 6
+      },
+      "revId": "389a784f9333a37ae534e74baa122eb36e05d047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
