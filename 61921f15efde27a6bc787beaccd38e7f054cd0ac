@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c3d5b70_afc804ea",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-13T09:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4db4d653_bf6a3f9c",
+      "range": {
+        "startLine": 156,
+        "startChar": 64,
+        "endLine": 156,
+        "endChar": 69
+      },
+      "revId": "61921f15efde27a6bc787beaccd38e7f054cd0ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "361413f0_35533ae1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-13T06:35:40Z",
       "side": 1,
       "message": "Let\u0027s validate that at most one of them is non-empty here",
+      "range": {
+        "startLine": 176,
+        "startChar": 41,
+        "endLine": 176,
+        "endChar": 46
+      },
+      "revId": "61921f15efde27a6bc787beaccd38e7f054cd0ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c96c6c24_ef6c7671",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-13T09:05:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "361413f0_35533ae1",
       "range": {
         "startLine": 176,
         "startChar": 41,
