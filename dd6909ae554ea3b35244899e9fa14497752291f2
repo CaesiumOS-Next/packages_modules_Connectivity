@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60da56f9_bdd1cdd6",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47fc53b1_c8c60789",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 121
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4232db1a_168bc7fc",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Is this really needed? If we want to keep it the words \"dscp policy\" should be removed because this method is already in a class called DscpPolicy.",
+      "range": {
+        "startLine": 206,
+        "startChar": 41,
+        "endLine": 206,
+        "endChar": 65
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "942bd52a_d28802df",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4232db1a_168bc7fc",
       "range": {
         "startLine": 206,
         "startChar": 41,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82c28d7c_9a8a4143",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a84f11e_57a65244",
+      "range": {
+        "startLine": 207,
+        "startChar": 22,
+        "endLine": 207,
+        "endChar": 29
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dd36f60_d8d36fa0",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Generally convention for a relatively complex object like this is to make the object immutable and leave all the setters in the builder. Can we remove these or mark them @hide?",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 66
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68f7cad5_28d67d2a",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dd36f60_d8d36fa0",
       "range": {
         "startLine": 215,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e6680f_cd32ebed",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cfbefc6_64cb7284",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 84
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2eb3823c_cc20e2e9",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Do these actually need to be public? DSCP policies can only be created by NetworkAgents, right? If so, I\u0027d just make these system API or module-lib API.",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 3
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c620a30b_1dbcffb3",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eb3823c_cc20e2e9",
       "range": {
         "startLine": 231,
         "startChar": 0,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e9d46d_12a17b5d",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1427848a_d8e5edec",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ed67f76_4bc5ce7c",
@@ -192,6 +360,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Any reason we can\u0027t use the same field name for this?",
+      "range": {
+        "startLine": 66,
+        "startChar": 50,
+        "endLine": 66,
+        "endChar": 82
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39f9ff29_5c1afcc8",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ed67f76_4bc5ce7c",
       "range": {
         "startLine": 66,
         "startChar": 50,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7950672_2c9a86bd",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0941e95d_51add61a",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 30
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "595ef458_8926d402",
@@ -238,6 +454,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf976e54_0542f62a",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "595ef458_8926d402",
       "range": {
         "startLine": 90,
         "startChar": 4,
@@ -294,6 +534,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cabd686_ddbe6900",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3892768_8b532030",
+      "range": {
+        "startLine": 111,
+        "startChar": 13,
+        "endLine": 111,
+        "endChar": 19
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8442a8dd_424aecbd",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15265be5_02859ae8",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 30
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f826f927_e83429c1",
@@ -307,6 +595,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Document what this returns if the source port is not set. Also for all the other getters of optional policy parameters.",
+      "range": {
+        "startLine": 183,
+        "startChar": 22,
+        "endLine": 183,
+        "endChar": 23
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca9c6199_7c5405ed",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f826f927_e83429c1",
       "range": {
         "startLine": 183,
         "startChar": 22,
@@ -363,6 +675,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8732373_5a9dbd95",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af808168_b18c9dd7",
+      "range": {
+        "startLine": 190,
+        "startChar": 49,
+        "endLine": 190,
+        "endChar": 81
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f48a4f4_5ff9610b",
@@ -376,6 +712,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Ensure that the Builder#build throws an exception if this constraint (and other similar constraints) is not met.",
+      "range": {
+        "startLine": 197,
+        "startChar": 57,
+        "endLine": 197,
+        "endChar": 86
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f67d51c_cd0116f2",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Not needed since Range is now used.",
+      "parentUuid": "4f48a4f4_5ff9610b",
       "range": {
         "startLine": 197,
         "startChar": 57,
@@ -409,6 +769,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c965512b_148daf3b",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba4c6f9b_ca0c775f",
+      "range": {
+        "startLine": 1152,
+        "startChar": 56,
+        "endLine": 1152,
+        "endChar": 59
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38ae966a_2e81fbf5",
@@ -422,6 +806,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Do we really need the word QOS here? There is no use for DSCP that is *not* for QOS, right?",
+      "range": {
+        "startLine": 1372,
+        "startChar": 20,
+        "endLine": 1372,
+        "endChar": 23
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b31a373_d1e1390d",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38ae966a_2e81fbf5",
       "range": {
         "startLine": 1372,
         "startChar": 20,
@@ -455,6 +863,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14fa0dd5_76f12d9f",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4feaf606_4bfb357d",
+      "range": {
+        "startLine": 1381,
+        "startChar": 16,
+        "endLine": 1381,
+        "endChar": 39
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "401c0355_d167ef40",
@@ -468,6 +900,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "If we want to keep this, we should probably ensure it fires all the DSCP_POLICY_STATUS_DELETED callbacks for all previously-added policies. Would suggest deleting it since that might be difficult to implement.",
+      "range": {
+        "startLine": 1388,
+        "startChar": 16,
+        "endLine": 1388,
+        "endChar": 44
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f31564e7_5e766d19",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 1388,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "401c0355_d167ef40",
       "range": {
         "startLine": 1388,
         "startChar": 16,
@@ -503,6 +959,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a07aca97_3c615f99",
+        "filename": "service/jni/com_android_net_module_util/onload.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "How to do this in native?",
+      "parentUuid": "dce1db24_0f40b136",
+      "range": {
+        "startLine": 36,
+        "startChar": 66,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "654ca97e_f0eb1326",
         "filename": "service/jni/onload.cpp",
         "patchSetId": 41
@@ -514,6 +994,24 @@
       "writtenOn": "2022-01-12T02:48:26Z",
       "side": 1,
       "message": "Please don\u0027t add commented-out code.",
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f2b7bf6_8c974127",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "654ca97e_f0eb1326",
       "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -531,6 +1029,30 @@
       "writtenOn": "2022-01-12T02:48:26Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 24,
+        "startChar": 71,
+        "endLine": 24,
+        "endChar": 97
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05d4cd2_96b64c22",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6a0b906_09c5ea53",
       "range": {
         "startLine": 24,
         "startChar": 71,
@@ -564,6 +1086,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56d62a9e_a87954fd",
+        "filename": "tests/cts/net/AndroidManifest.xml",
+        "patchSetId": 41
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e92e95a8_988b2b9d",
+      "range": {
+        "startLine": 29,
+        "startChar": 54,
+        "endLine": 29,
+        "endChar": 75
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "997e447e_91d2f01e",
@@ -577,6 +1123,30 @@
       "writtenOn": "2022-01-12T02:48:26Z",
       "side": 1,
       "message": "This will also not work, as it requires being signed by the platform key. Use runWithShellPermission instead. Same goes for the one above.",
+      "range": {
+        "startLine": 34,
+        "startChar": 54,
+        "endLine": 34,
+        "endChar": 74
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c70487_9ef4011a",
+        "filename": "tests/cts/net/AndroidManifest.xml",
+        "patchSetId": 41
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "997e447e_91d2f01e",
       "range": {
         "startLine": 34,
         "startChar": 54,
@@ -633,6 +1203,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86769225_aa4dbe2f",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a56d33a2_3d2ab8d9",
+      "range": {
+        "startLine": 124,
+        "startChar": 41,
+        "endLine": 124,
+        "endChar": 62
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dbeb31f_9877cdac",
@@ -646,6 +1240,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Well, if this failed it would definitely be unexpected, but... do you need this?",
+      "range": {
+        "startLine": 125,
+        "startChar": 34,
+        "endLine": 125,
+        "endChar": 50
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc8a5c9_10af6ede",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dbeb31f_9877cdac",
       "range": {
         "startLine": 125,
         "startChar": 34,
@@ -679,6 +1297,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf485098_9deece7b",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f888d57b_8b01f853",
+      "range": {
+        "startLine": 132,
+        "startChar": 45,
+        "endLine": 132,
+        "endChar": 67
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "195978cf_09db89b7",
@@ -692,6 +1334,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Not needed since this test does not run on R.",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 40
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d42cbb26_80140b15",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "195978cf_09db89b7",
       "range": {
         "startLine": 183,
         "startChar": 12,
@@ -725,6 +1391,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48b00abb_f795edab",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f8dc246_6a6e4083",
+      "range": {
+        "startLine": 201,
+        "startChar": 16,
+        "endLine": 201,
+        "endChar": 43
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc346276_a5dcb6c8",
@@ -738,6 +1428,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Use Builder instead.",
+      "range": {
+        "startLine": 232,
+        "startChar": 21,
+        "endLine": 232,
+        "endChar": 31
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2dc9bdf_eed41529",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc346276_a5dcb6c8",
       "range": {
         "startLine": 232,
         "startChar": 21,
@@ -797,6 +1511,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c690369_17ec957f",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Added. Change in TestableNetworkAgent can\u0027t merge before this unless we separate out the NetworkAgent changes and merge them first, then TestableNetworkAgent, then the remaining changes in Connectivity",
+      "parentUuid": "c263713e_7feaf03b",
+      "range": {
+        "startLine": 233,
+        "startChar": 42,
+        "endLine": 233,
+        "endChar": 43
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6e1b87a_e15e5347",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 41
@@ -808,6 +1546,30 @@
       "writtenOn": "2022-01-12T01:41:26Z",
       "side": 1,
       "message": "setsockopt sol_ip_tos\n\nunsigned int ecn \u003d INET_ECN_ECT_0;",
+      "range": {
+        "startLine": 241,
+        "startChar": 40,
+        "endLine": 241,
+        "endChar": 51
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc4b224_c6991351",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "setsockopt(SOL_IP, IP_TOS)",
+      "parentUuid": "e6e1b87a_e15e5347",
       "range": {
         "startLine": 241,
         "startChar": 40,
@@ -831,6 +1593,30 @@
       "writtenOn": "2022-01-12T02:33:19Z",
       "side": 1,
       "message": "Does this even work? I think it requires CAP_NET_ADMIN which this test should not have. Bind the socket to the NetworkAgent network instead (agent.network.bindSocket(socket)).",
+      "range": {
+        "startLine": 242,
+        "startChar": 20,
+        "endLine": 242,
+        "endChar": 41
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e93034_7d3ac57c",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Moving to NetworkAgent results in loopback address being the source address instead of LOCAL_IPV4_ADDRESS (defined #104), breaking the test case since reader will not get the packet in this case.",
+      "parentUuid": "b5d0a63e_c56ee55e",
       "range": {
         "startLine": 242,
         "startChar": 20,

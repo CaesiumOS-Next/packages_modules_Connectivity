@@ -183,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21b39978_74644ae8",
+        "filename": "framework/jarjar-rules.txt",
+        "patchSetId": 34
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7eea9c4d_f60e3bd0",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 4
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d69defcb_51c406dd",
@@ -384,6 +408,30 @@
       "writtenOn": "2021-12-07T03:13:40Z",
       "side": 1,
       "message": "CTS shouldn\u0027t depend on service-connectivity (it\u0027s internal implementation details, while CTS is API-level tests).\nHaving it in \"libs\" also won\u0027t work since it\u0027s not in the bootclasspath, and not linked into the tests from other places, so the symbols won\u0027t be found at runtime.",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "76c355ec73d53773ee14a01809e2e11058f97c83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b430a5d4_f474e272",
+        "filename": "tests/cts/net/Android.bp",
+        "patchSetId": 34
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-13T00:16:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66ad08b4_0fdbb30d",
       "range": {
         "startLine": 32,
         "startChar": 9,
