@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ad8558c_4ee7c0fb",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5560,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:15:58Z",
+      "side": 1,
+      "message": "Sets a firewall rule for the specified UID on the specified chain.",
+      "range": {
+        "startLine": 5560,
+        "startChar": 7,
+        "endLine": 5560,
+        "endChar": 43
+      },
+      "revId": "5666a39428fb77f59ea207420ed59a70fa8defb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e92667_80064a3a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5562,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:15:58Z",
+      "side": 1,
+      "message": "We need to have constants for the types of chains that are supported. I think you want something like:\n\n    /**\n     * Firewall chain for device idle (doze mode).\n     * Allowlist of apps that have network access in device idle.\n     * @hide\n     */\n    @SystemApi(client \u003d MODULE_LIBRARIES)\n    public static final int FIREWALL_CHAIN_DOZABLE \u003d 1;\n\n    /**\n     * Firewall chain used for app standby.\n     * Denylist of apps that do not have network access.\n     * @hide\n     */\n    @SystemApi(client \u003d MODULE_LIBRARIES)\n    public static final int FIREWALL_CHAIN_STANDBY \u003d 2;\n\n    /**\n     * Firewall chain used for battery saver.\n     * Allowlist of apps that have network access when battery saver is on.\n     * @hide\n     */\n    @SystemApi(client \u003d MODULE_LIBRARIES)\n    public static final int FIREWALL_CHAIN_POWERSAVE \u003d 3;\n\n    /**\n     * Firewall chain used for restricted networking mode.\n     * Allowlist of apps that have access in restricted networking mode.\n     * @hide\n     */\n    @SystemApi(client \u003d MODULE_LIBRARIES)\n    public static final int FIREWALL_CHAIN_RESTRICTED \u003d 4;\n\n    @Retention(RetentionPolicy.SOURCE)\n    @IntDef(flag \u003d false, prefix \u003d \"FIREWALL_CHAIN_\", value \u003d {\n        FIREWALL_CHAIN_DOZABLE,\n        FIREWALL_CHAIN_STANDBY,\n        FIREWALL_CHAIN_POWERSAVE,\n        FIREWALL_CHAIN_RESTRICTED\n    })\n    public @interface FirewallChain;",
+      "range": {
+        "startLine": 5562,
+        "startChar": 14,
+        "endLine": 5562,
+        "endChar": 33
+      },
+      "revId": "5666a39428fb77f59ea207420ed59a70fa8defb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cc03b67_af54aaa4",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5573,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:15:58Z",
+      "side": 1,
+      "message": "@FirewallChain int",
+      "range": {
+        "startLine": 5573,
+        "startChar": 41,
+        "endLine": 5573,
+        "endChar": 44
+      },
+      "revId": "5666a39428fb77f59ea207420ed59a70fa8defb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffe2c3d0_dbc07978",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10606,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:15:58Z",
+      "side": 1,
+      "message": "I think this is incorrect. add is the same as allow for an allowlist rule such as dozable. But not for a denylist rule such as powersave, add is the same as deny. The netd code does:\n\n    FirewallType fType \u003d gCtls-\u003etrafficCtrl.getFirewallType(chain);\n    int res \u003d gCtls-\u003etrafficCtrl.changeUidOwnerRule(chain, uid, rule, fType);\n    ...\n    ...\n    if ((rule \u003d\u003d ALLOW \u0026\u0026 type \u003d\u003d ALLOWLIST) || (rule \u003d\u003d DENY \u0026\u0026 type \u003d\u003d DENYLIST)) {\n        RETURN_IF_NOT_OK(addRule(uid, match));\n    } else if ((rule \u003d\u003d ALLOW \u0026\u0026 type \u003d\u003d DENYLIST) || (rule \u003d\u003d DENY \u0026\u0026 type \u003d\u003d ALLOWLIST)) {\n        RETURN_IF_NOT_OK(removeRule(uid, match));\n    }\n\nI think there are two choices here:\n1. Name the parameter \"boolean allow\" and make the caller pass in allow/deny instead of add/remove.\n2. Continue to call the parameter \"boolean add\" and figure whether to call netd with allow or deny depending on the chain type.\n\nGiven that the netd implementation will be going away almost immediately, we should probably prefer whatever the caller passes in. Given that NetworkPolicyManagerService and NetworkManagementService both directly import INetd.FIREWALL_RULE_*, I think that means #1.",
+      "range": {
+        "startLine": 10606,
+        "startChar": 20,
+        "endLine": 10606,
+        "endChar": 78
+      },
+      "revId": "5666a39428fb77f59ea207420ed59a70fa8defb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
