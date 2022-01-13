@@ -285,6 +285,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b1918ca_b18c74b7",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T15:20:25Z",
+      "side": 1,
+      "message": "Can you get around this by making the first argThat only match the first event (interface up) and the second argThat only match the second event (interface down)? That way each verify will only match once.",
+      "parentUuid": "3300b733_05aa2289",
+      "range": {
+        "startLine": 435,
+        "startChar": 0,
+        "endLine": 436,
+        "endChar": 91
+      },
+      "revId": "b1d95c3900c18a58b779c6915368425a07ae4f21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b0b7556_57891a16",
         "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
         "patchSetId": 22

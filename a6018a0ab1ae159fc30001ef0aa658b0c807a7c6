@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ac19341_30c90a81",
+        "filename": "Tethering/src/android/net/ip/IpServer.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T15:20:25Z",
+      "side": 1,
+      "message": "was already",
+      "range": {
+        "startLine": 618,
+        "startChar": 25,
+        "endLine": 618,
+        "endChar": 35
+      },
+      "revId": "a6018a0ab1ae159fc30001ef0aa658b0c807a7c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68688a37_4cd0b3e8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T15:20:25Z",
+      "side": 1,
+      "message": "is only called",
+      "range": {
+        "startLine": 844,
+        "startChar": 25,
+        "endLine": 844,
+        "endChar": 39
+      },
+      "revId": "a6018a0ab1ae159fc30001ef0aa658b0c807a7c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1783757_5b76e7d2",
+        "filename": "Tethering/tests/unit/src/android/net/ip/IpServerTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T15:20:25Z",
+      "side": 1,
+      "message": "Not a big deal, and there\u0027s already code that does this, but... it seems strange to call fail() in the lambda that decides whether the assert should fail. I\u0027d have expected to see something that returns false if that flag is not present, not something that fails the test if the flag is not present. Something like:\n\n    argThat(cfg -\u003e IFACE_NAME.equals(cfg.ifName)\n            \u0026\u0026 ArrayUtils.contains(cfg.flags, IF_STATE_UP))",
+      "range": {
+        "startLine": 412,
+        "startChar": 53,
+        "endLine": 412,
+        "endChar": 71
+      },
+      "revId": "a6018a0ab1ae159fc30001ef0aa658b0c807a7c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e85347_7cddebe9",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 2605,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T15:20:25Z",
+      "side": 1,
+      "message": "How can this happen? verifyNetdCommandForBtSetup doesn\u0027t touch either of the mocks touched by mockBluetoothSettings.\n\nMaybe the reason is that you need to call mockBluetoothSettings again is that in line 2584 you call it with tetheringOn \u003d true, but here you call it with tetheringOn \u003d false. If so, maybe just delete this comment? Or replace it with just:\n\n    // Pretend that bluetooth tethering was disabled.",
+      "range": {
+        "startLine": 2604,
+        "startChar": 0,
+        "endLine": 2605,
+        "endChar": 17
+      },
+      "revId": "a6018a0ab1ae159fc30001ef0aa658b0c807a7c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c5b823_ebeb1e69",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 2701,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T15:20:25Z",
+      "side": 1,
+      "message": "Per comment on other file, I\u0027d remove this and just replace it with \"ArrayUtils.contains(cfg.flags, Inetd.IF_STATE_UP)\" in the caller.",
+      "range": {
+        "startLine": 2701,
+        "startChar": 23,
+        "endLine": 2701,
+        "endChar": 41
+      },
+      "revId": "a6018a0ab1ae159fc30001ef0aa658b0c807a7c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
