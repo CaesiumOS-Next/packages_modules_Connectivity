@@ -3722,7 +3722,6 @@ public class ConnectivityServiceTest {
         tryNetworkFactoryRequests(NET_CAPABILITY_DUN);
         tryNetworkFactoryRequests(NET_CAPABILITY_FOTA);
         tryNetworkFactoryRequests(NET_CAPABILITY_IMS);
-        tryNetworkFactoryRequests(NET_CAPABILITY_CBS);
         tryNetworkFactoryRequests(NET_CAPABILITY_WIFI_P2P);
         tryNetworkFactoryRequests(NET_CAPABILITY_IA);
         tryNetworkFactoryRequests(NET_CAPABILITY_RCS);
@@ -5725,6 +5724,21 @@ public class ConnectivityServiceTest {
             testFactory.terminate();
             handlerThread.quit();
         }
+    }
+
+    /**
+     * Validate the callback flow CBS request without carrier privilege.
+     */
+    @Test
+    public void testCBSRequestWithoutCarrierPrivilege() throws Exception {
+        NetworkRequest nr = new NetworkRequest.Builder().addTransportType(
+                TRANSPORT_CELLULAR).addCapability(NET_CAPABILITY_CBS).build();
+        final TestNetworkCallback networkCallback = new TestNetworkCallback();
+
+        // Now file the test request and expect it.
+        mCm.requestNetwork(nr, networkCallback);
+        networkCallback.expectCallback(CallbackEntry.UNAVAILABLE, (Network) null);
+        mCm.unregisterNetworkCallback(networkCallback);
     }
 
     private static class TestKeepaliveCallback extends PacketKeepaliveCallback {
