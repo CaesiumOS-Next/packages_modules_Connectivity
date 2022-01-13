@@ -84,6 +84,7 @@ java_defaults {
         "net-utils-device-common",
     ],
     static_libs: [
+        "mdns_aidl_interface-lateststable-java",
         "modules-utils-build",
         "modules-utils-preconditions",
     ],
