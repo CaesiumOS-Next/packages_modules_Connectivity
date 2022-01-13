@@ -247,6 +247,7 @@ import com.android.net.module.util.NetworkCapabilitiesUtils;
 import com.android.net.module.util.PermissionUtils;
 import com.android.net.module.util.netlink.InetDiagMessage;
 import com.android.server.connectivity.AutodestructReference;
+import com.android.server.connectivity.CarrierPrivilegeAuthenticator;
 import com.android.server.connectivity.ConnectivityFlags;
 import com.android.server.connectivity.DnsManager;
 import com.android.server.connectivity.DnsManager.PrivateDnsValidationUpdate;
@@ -589,6 +590,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // Handle private DNS validation status updates.
     private static final int EVENT_PRIVATE_DNS_VALIDATION_UPDATE = 38;
 
+    /**
+     * used to remove a network request, either a listener or a real request and call unavailable
+     * arg1 = UID of caller
+     * obj  = NetworkRequest
+     */
+    private static final int EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE = 39;
+
      /**
       * Event for NetworkMonitor/NetworkAgentInfo to inform ConnectivityService that the network has
       * been tested.
@@ -756,6 +764,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private Set<String> mWolSupportedInterfaces;
 
     private final TelephonyManager mTelephonyManager;
+    private final CarrierPrivilegeAuthenticator mCarrierPrivilegeAuthenticator;
     private final AppOpsManager mAppOpsManager;
 
     private final LocationPermissionChecker mLocationPermissionChecker;
@@ -1402,6 +1411,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
+        mCarrierPrivilegeAuthenticator = new CarrierPrivilegeAuthenticator(mContext,
+                mTelephonyManager);
 
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
@@ -4127,6 +4138,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleRegisterNetworkRequests(@NonNull final Set<NetworkRequestInfo> nris) {
         ensureRunningOnConnectivityServiceThread();
+        NetworkRequest requestToBeReleased = null;
         for (final NetworkRequestInfo nri : nris) {
             mNetworkRequestInfoLogs.log("REGISTER " + nri);
             checkNrisConsistency(nri);
@@ -4141,7 +4153,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         }
                     }
                 }
+                if (req.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
+                    if (!mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(
+                                    nri.mUid, req) && !nri.mHasNetworkRestrictedPermission) {
+                        requestToBeReleased = req;
+                    }
+                }
             }
+
             // If this NRI has a satisfier already, it is replacing an older request that
             // has been removed. Track it.
             final NetworkRequest activeRequest = nri.getActiveRequest();
@@ -4149,6 +4168,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // If there is an active request, then for sure there is a satisfier.
                 nri.getSatisfier().addRequest(activeRequest);
             }
+        }
+
+        if (requestToBeReleased != null) {
+            releaseNetworkRequestAndCallOnUnavailable(requestToBeReleased);
+            return;
         }
 
         if (mFlags.noRematchAllRequestsOnRegister()) {
@@ -4988,6 +5012,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_RELEASE_NETWORK_REQUEST: {
                     handleReleaseNetworkRequest((NetworkRequest) msg.obj, msg.arg1,
                             /* callOnUnavailable */ false);
+                    break;
+                }
+                case EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE: {
+                    handleReleaseNetworkRequest((NetworkRequest) msg.obj, msg.arg1,
+                            /* callOnUnavailable */ true);
                     break;
                 }
                 case EVENT_SET_ACCEPT_UNVALIDATED: {
@@ -5839,6 +5868,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // Preference order of this request.
         final int mPreferenceOrder;
 
+        // Will be set to true if network request has restricted network permission and if
+        // the user should receive onUnavailable instead of security exception if
+        // network restricted permisison is miising.
+        boolean mHasNetworkRestrictedPermission = false;
+
         // In order to preserve the mapping of NetworkRequest-to-callback when apps register
         // callbacks using a returned NetworkRequest, the original NetworkRequest needs to be
         // maintained for keying off of. This is only a concern when the original nri
@@ -6243,6 +6277,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 asUid, networkRequest, messenger, binder, callbackFlags,
                 callingAttributionTag);
         if (DBG) log("requestNetwork for " + nri);
+        if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
+            nri.mHasNetworkRestrictedPermission = checkConnectivityRestrictedNetworksPermission();
+        }
 
         // For TRACK_SYSTEM_DEFAULT callbacks, the capabilities have been modified since they were
         // copied from the default request above. (This is necessary to ensure, for example, that
@@ -6294,10 +6331,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
             String callingPackageName, String callingAttributionTag) {
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
-            enforceConnectivityRestrictedNetworksPermission();
+            if (!networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
+                enforceConnectivityRestrictedNetworksPermission();
+            }
         } else {
             enforceChangePermission(callingPackageName, callingAttributionTag);
         }
+    }
+
+    private boolean checkConnectivityRestrictedNetworksPermission() {
+        try {
+            enforceConnectivityRestrictedNetworksPermission();
+        } catch (SecurityException se) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -6366,11 +6414,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureValidNetworkSpecifier(networkCapabilities);
         restrictRequestUidsForCallerAndSetRequestorInfo(networkCapabilities,
                 callingUid, callingPackageName);
-
         NetworkRequest networkRequest = new NetworkRequest(networkCapabilities, TYPE_NONE,
                 nextNetworkRequestId(), NetworkRequest.Type.REQUEST);
         NetworkRequestInfo nri = new NetworkRequestInfo(callingUid, networkRequest, operation,
                 callingAttributionTag);
+        if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
+            nri.mHasNetworkRestrictedPermission = checkConnectivityRestrictedNetworksPermission();
+        }
         if (DBG) log("pendingRequest for " + nri);
         mHandler.sendMessage(mHandler.obtainMessage(EVENT_REGISTER_NETWORK_REQUEST_WITH_INTENT,
                 nri));
@@ -6480,6 +6530,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureNetworkRequestHasType(networkRequest);
         mHandler.sendMessage(mHandler.obtainMessage(
                 EVENT_RELEASE_NETWORK_REQUEST, mDeps.getCallingUid(), 0, networkRequest));
+    }
+
+    private void releaseNetworkRequestAndCallOnUnavailable(NetworkRequest networkRequest) {
+        ensureNetworkRequestHasType(networkRequest);
+        mHandler.sendMessage(mHandler.obtainMessage(
+                EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE, mDeps.getCallingUid(), 0,
+                networkRequest));
     }
 
     private void handleRegisterNetworkProvider(NetworkProviderInfo npi) {
