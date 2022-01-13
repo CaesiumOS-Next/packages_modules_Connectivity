@@ -114,6 +114,30 @@
       },
       "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7871645f_2ac2e6dc",
+        "filename": "service/src/com/android/server/TrafficControllerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T10:03:59Z",
+      "side": 1,
+      "message": "Maybe you could use ServiceSpecificException, which is what most netd IPCs throw? It has the advantage is that any caller of this code will likly be handling ServiceSpecificException already. It also contains an errno code which is useful.",
+      "parentUuid": "867163ee_b8e7b256",
+      "range": {
+        "startLine": 161,
+        "startChar": 60,
+        "endLine": 161,
+        "endChar": 83
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
