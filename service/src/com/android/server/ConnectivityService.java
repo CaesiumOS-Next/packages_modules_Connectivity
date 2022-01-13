@@ -753,6 +753,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private Set<String> mWolSupportedInterfaces;
 
     private final TelephonyManager mTelephonyManager;
+    private final CarrierPrivilegeTracker mCarrierPrivilegeTracker;
     private final AppOpsManager mAppOpsManager;
 
     private final LocationPermissionChecker mLocationPermissionChecker;
@@ -1399,6 +1400,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
+        mCarrierPrivilegeTracker = new CarrierPrivielgeTracker(mContext, mTelephonyManager);
 
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
@@ -6290,7 +6292,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
             String callingPackageName, String callingAttributionTag) {
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
-            enforceConnectivityRestrictedNetworksPermission();
+            if (!mCarrierPrivilegeTracker.hasCarrierPrivilegeForNetworkRequest(callingUid,
+                    callingPackageName, networkCapabilities)) {
+                enforceConnectivityRestrictedNetworksPermission();
+            }
         } else {
             enforceChangePermission(callingPackageName, callingAttributionTag);
         }
