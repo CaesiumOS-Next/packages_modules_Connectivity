@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0fc37bf_9dcaf7f0",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-13T00:51:52Z",
+      "side": 1,
+      "message": "I think /sys/fs/bpf/tethering should be a constant, it might be different on android go",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "89ee55d4572c7aa3cbaedeb32156e98f14de4e9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4718aec_6c497110",
         "filename": "tests/mts/bpf_existence_test.cpp",
         "patchSetId": 5
