@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03108840_29c621a0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-01-13T02:47:01Z",
+      "side": 1,
+      "message": "There are two utlity methods\ncom.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;\ncom.android.compatibility.common.util.PropertyUtil.getVendorApiLevel;\nThen you just need to do min(getFirstApiLevel(), getVendorApiLevel())",
+      "parentUuid": "0a612a8b_94bd09da",
+      "range": {
+        "startLine": 1684,
+        "startChar": 23,
+        "endLine": 1684,
+        "endChar": 54
+      },
+      "revId": "869fa5a7e1a8a7de9291770782db2acfa5990636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08dca11c_e2525157",
         "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-13T01:41:36Z",
       "side": 1,
       "message": "I\u0027m not a fan of magic numbers, but I also don\u0027t know where if there are restrictions on the module using the values not in the module from a newer SDK than the minSdk. Does it need to build against earlier versions? If not, I can just use the constants in Android.os.Build.VERSION... or is there another source of truth?",
+      "range": {
+        "startLine": 1718,
+        "startChar": 24,
+        "endLine": 1718,
+        "endChar": 26
+      },
+      "revId": "869fa5a7e1a8a7de9291770782db2acfa5990636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65e1c35f_b82eeafe",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1297255
+      },
+      "writtenOn": "2022-01-13T02:47:01Z",
+      "side": 1,
+      "message": "This CTS will only be built on SDK T, but as part of MTS it needs to pass on devices with older SDKs. Thus you should be able to use Android.os.Build.VERSION here. Many places in the Connectivity module and IPsec module do similar things to their cts.",
+      "parentUuid": "08dca11c_e2525157",
       "range": {
         "startLine": 1718,
         "startChar": 24,
