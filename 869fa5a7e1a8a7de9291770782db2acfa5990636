@@ -72,6 +72,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "397c0823_a95c660f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-13T03:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21dd9a7b_0bff75b8",
+      "range": {
+        "startLine": 1684,
+        "startChar": 23,
+        "endLine": 1684,
+        "endChar": 54
+      },
+      "revId": "869fa5a7e1a8a7de9291770782db2acfa5990636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08dca11c_e2525157",
