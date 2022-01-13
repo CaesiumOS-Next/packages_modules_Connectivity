@@ -27,6 +27,11 @@ import android.util.Log;
 public final class BpfNetMaps {
     private static final String TAG = "BpfNetMaps";
 
+    static {
+        System.loadLibrary("traffic_controller_jni");
+        native_init();
+    }
+
     /**
      * Add naughty app
      */
@@ -158,6 +163,7 @@ public final class BpfNetMaps {
         return native_deleteTagData(tag, uid);
     }
 
+    private static native void native_init();
     private static native int native_addNaughtyApp(int uid) throws ServiceSpecificException;
     private static native int native_removeNaughtyApp(int uid) throws ServiceSpecificException;
     private static native int native_addNiceApp(int uid) throws ServiceSpecificException;
