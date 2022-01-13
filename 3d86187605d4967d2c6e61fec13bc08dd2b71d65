@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6610082b_dfe2a648",
+        "filename": "service/native/TEST_MAPPING",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-13T06:54:26Z",
+      "side": 1,
+      "message": "Could you move this into packages/modules/Connectivity/TEST_MAPPING ?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "3d86187605d4967d2c6e61fec13bc08dd2b71d65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
