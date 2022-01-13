@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d8b4ce4_7c4ca542",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T07:44:00Z",
+      "side": 1,
+      "message": "LGTM. Feel free to address nits in a follow-up CL if needed.",
+      "revId": "738ad911c7e433462d5b8a83e96d60fb4763c6a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "449e3fd0_a3b03562",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5516,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T07:44:00Z",
+      "side": 1,
+      "message": "Sets whether the specified UID is allowed to use data on metered networks even when background data is restricted.",
+      "range": {
+        "startLine": 5516,
+        "startChar": 7,
+        "endLine": 5516,
+        "endChar": 54
+      },
+      "revId": "738ad911c7e433462d5b8a83e96d60fb4763c6a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf0f056b_4baff87c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 5538,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T07:44:00Z",
+      "side": 1,
+      "message": "Sets whether the specified UID is prevented from using background data on metered networks. Takes precedence over {@link #updateMeteredNetworkAllowList}.",
+      "range": {
+        "startLine": 5538,
+        "startChar": 7,
+        "endLine": 5538,
+        "endChar": 57
+      },
+      "revId": "738ad911c7e433462d5b8a83e96d60fb4763c6a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
