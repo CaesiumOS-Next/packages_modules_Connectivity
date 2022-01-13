@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5736cf17_33833003",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5651,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:34:04Z",
+      "side": 1,
+      "message": "These two lines don\u0027t do anything. Remove?",
+      "range": {
+        "startLine": 5649,
+        "startChar": 0,
+        "endLine": 5651,
+        "endChar": 0
+      },
+      "revId": "860145eca00874130c0a32b88f37db97c2f33eec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
