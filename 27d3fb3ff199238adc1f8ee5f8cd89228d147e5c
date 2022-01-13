@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec3be52c_f9cb3639",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:30:55Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "27d3fb3ff199238adc1f8ee5f8cd89228d147e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b5c2ba7_f0e13ce2",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5619,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:30:55Z",
+      "side": 1,
+      "message": "Use the intdef here (see comment on other CL).",
+      "range": {
+        "startLine": 5619,
+        "startChar": 43,
+        "endLine": 5619,
+        "endChar": 46
+      },
+      "revId": "27d3fb3ff199238adc1f8ee5f8cd89228d147e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea4299c3_36e191c4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10630,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:30:55Z",
+      "side": 1,
+      "message": "/* isAllowList */",
+      "range": {
+        "startLine": 10630,
+        "startChar": 64,
+        "endLine": 10630,
+        "endChar": 68
+      },
+      "revId": "27d3fb3ff199238adc1f8ee5f8cd89228d147e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0af1b1f_5f52064a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10642,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:30:55Z",
+      "side": 1,
+      "message": "It is not good practice to fail silently like this in the presence of invalid input. Throw IllegalArgumentException instead.",
+      "range": {
+        "startLine": 10642,
+        "startChar": 20,
+        "endLine": 10642,
+        "endChar": 78
+      },
+      "revId": "27d3fb3ff199238adc1f8ee5f8cd89228d147e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
