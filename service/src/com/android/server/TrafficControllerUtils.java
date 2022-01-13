@@ -27,6 +27,11 @@ import android.util.Log;
 public final class TrafficControllerUtils {
     private static final String TAG = "TrafficControllerUtils";
 
+    static {
+        System.loadLibrary("traffic_controller_jni");
+        native_init();
+    }
+
     /**
      * Add naughty app
      */
@@ -158,6 +163,7 @@ public final class TrafficControllerUtils {
         return native_deleteTagData(tag, uid);
     }
 
+    private static native void native_init();
     private static native int native_addNaughtyApp(int uid) throws RemoteException;
     private static native int native_removeNaughtyApp(int uid) throws RemoteException;
     private static native int native_addNiceApp(int uid) throws RemoteException;
