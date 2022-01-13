@@ -1,0 +1,2 @@
+# From mdns_aidl_interface
+rule android.net.nsd.aidl.** android.net.connectivity.framework.nsd.aidl.@1

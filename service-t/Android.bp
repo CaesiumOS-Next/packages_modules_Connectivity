@@ -42,6 +42,7 @@ java_library {
         "unsupportedappusage",
     ],
     static_libs: [
+        "mdns_aidl_interface-lateststable-java",
         "modules-utils-build",
         "modules-utils-statemachine",
         "net-utils-framework-common",

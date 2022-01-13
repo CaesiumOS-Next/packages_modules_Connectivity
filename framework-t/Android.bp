@@ -37,11 +37,13 @@ java_sdk_library {
     ],
     srcs: [
         ":framework-connectivity-tiramisu-updatable-sources",
+        ":mdns_aidl_interface-V1-java-source",
     ],
     libs: [
         "unsupportedappusage",
         "app-compat-annotations",
     ],
+    jarjar_rules: "jarjar-rules.txt",
     permitted_packages: [
         "android.net",
         "android.net.nsd",
