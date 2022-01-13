@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e8c342_9049194c",
+        "filename": "tests/mts/bpf_existence_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-13T06:18:25Z",
+      "side": 1,
+      "message": "btw. this is empty on Q and R.",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 14
+      },
+      "revId": "378982849c62b3d88c29c8df15052e4f19770734",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
