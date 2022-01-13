@@ -1,0 +1,2 @@
+# From mdns_aidl_interface
+rule android.net.nsd.aidl.** com.android.connectivity.tiramisu.@0

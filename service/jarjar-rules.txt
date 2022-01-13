@@ -1,6 +1,7 @@
 # Classes in framework-connectivity are restricted to the android.net package
 rule com.android.net.module.util.** android.net.connectivity.@0
 rule com.android.modules.utils.** android.net.connectivity.@0
+rule android.net.nsd.aidl.** android.net.connectivity.@0
 rule android.net.NetworkFactory* android.net.connectivity.@0
 
 # Internal util classes from framework-connectivity-shared-srcs,
