@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a612a8b_94bd09da",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-13T01:41:36Z",
+      "side": 1,
+      "message": "Is there already a method somewhere that\u0027s module-accessible for this? I couldn\u0027t find one.",
+      "range": {
+        "startLine": 1684,
+        "startChar": 23,
+        "endLine": 1684,
+        "endChar": 54
+      },
+      "revId": "869fa5a7e1a8a7de9291770782db2acfa5990636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08dca11c_e2525157",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1718,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-13T01:41:36Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of magic numbers, but I also don\u0027t know where if there are restrictions on the module using the values not in the module from a newer SDK than the minSdk. Does it need to build against earlier versions? If not, I can just use the constants in Android.os.Build.VERSION... or is there another source of truth?",
+      "range": {
+        "startLine": 1718,
+        "startChar": 24,
+        "endLine": 1718,
+        "endChar": 26
+      },
+      "revId": "869fa5a7e1a8a7de9291770782db2acfa5990636",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
