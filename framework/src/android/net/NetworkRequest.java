@@ -750,4 +750,6 @@ public class NetworkRequest implements Parcelable {
         // a new array.
         return networkCapabilities.getTransportTypes();
     }
+
+
 }
