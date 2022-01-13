@@ -91,6 +91,30 @@
       },
       "revId": "5666a39428fb77f59ea207420ed59a70fa8defb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "497c202d_011dec69",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10606,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-13T08:51:58Z",
+      "side": 1,
+      "message": "Looking at the code that calls this API:\n\nhttps://android-review.googlesource.com/c/platform/frameworks/base/+/1944968/1/services/core/java/com/android/server/NetworkManagementService.java#1561\n\nit looks like the caller already tries to determine whether this is an allow rule or a deny rule\u003e if so, then I think this code might be correct; the only issue is that the parameter is called \"add\" when it should be called \"allow\".\n\nDid you run CtsNetworkHostsideTests? I think that test suite has pretty comprehensive test coverage for all this code, so if it passed, then maybe the code is correct.",
+      "parentUuid": "ffe2c3d0_dbc07978",
+      "range": {
+        "startLine": 10606,
+        "startChar": 20,
+        "endLine": 10606,
+        "endChar": 78
+      },
+      "revId": "5666a39428fb77f59ea207420ed59a70fa8defb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
