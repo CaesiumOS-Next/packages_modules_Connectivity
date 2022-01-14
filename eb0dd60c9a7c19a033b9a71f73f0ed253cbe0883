@@ -16,6 +16,24 @@
       "message": "Eason, can you take a look? Also, is it true that the mainline module information is required both in TEST_MAPPING and in AndroidTest.xml/Android.bp? If so, why? Would it be possible to have that information only in one place?",
       "revId": "eb0dd60c9a7c19a033b9a71f73f0ed253cbe0883",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "312447f7_4973d778",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1330217
+      },
+      "writtenOn": "2022-01-14T03:01:09Z",
+      "side": 1,
+      "message": "Yes, the mainline module info is required both in TEST_MAPPING and AndroidTest.xml/Android.bp. \n\nThis is a decision decision that test harness team raised a concern that test config and mainline modules may be maintained by different teams, so test owner might be unhappy that there tests are used for testing for some mainline modules that they don\u0027t know, and fix issues for them.\n\nAgree that it might be a bit inconvenient, but this way we can ensure that test owners know that their tests are used for another mainline module. We can try to improving it if that\u0027s really not useful.",
+      "parentUuid": "979934c0_75d29437",
+      "revId": "eb0dd60c9a7c19a033b9a71f73f0ed253cbe0883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
