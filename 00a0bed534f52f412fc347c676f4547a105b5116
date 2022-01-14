@@ -22,6 +22,30 @@
       },
       "revId": "00a0bed534f52f412fc347c676f4547a105b5116",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff4022c6_5c91873d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5691,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-14T05:50:08Z",
+      "side": 1,
+      "message": "Fix by https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1949799",
+      "parentUuid": "967ee481_b7d9c212",
+      "range": {
+        "startLine": 5691,
+        "startChar": 40,
+        "endLine": 5691,
+        "endChar": 47
+      },
+      "revId": "00a0bed534f52f412fc347c676f4547a105b5116",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
