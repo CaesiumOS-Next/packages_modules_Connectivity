@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afbe3ba8_9da6e1c5",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-14T00:11:36Z",
+      "side": 1,
+      "message": "By design, this API only supports IPv4.\n\nThe reason is that IPv6 configuration needs to be much more dynamic; has lots more flexibility such as multiple IP addresses, multiple gateways, temporary addresses, etc.; and must be kept much more tightly in sync with the network because there is no NAT.\n\nIs it possible to change all of these InetAddress types to Inet4Address, or is that no longer possible because this was already shipped as a system API and the signatures must be identical?\n\nIf the latter, let\u0027s at least ensure the code throws if an app tries to construct one of these objects with an IPv6 address or DNS server. If we\u0027re concerned that this might break apps, we can check this only on T+, though at least for the IP address, IpClient will already fail to apply an IPv6 address, due to this code in InterfaceController#setInterfaceConfiguration:\n\n        if (!(ipv4Addr.getAddress() instanceof Inet4Address)) {\n            throw new IllegalArgumentException(\"Invalid or mismatched Inet4Address\");\n        }",
+      "range": {
+        "startLine": 508,
+        "startChar": 110,
+        "endLine": 508,
+        "endChar": 121
+      },
+      "revId": "1f0f9414826accd8c69be78747117b76efafce00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "39984326_f88b41fe",
         "filename": "tests/cts/net/src/android/net/cts/StaticIpConfigurationTest.java",
         "patchSetId": 6
