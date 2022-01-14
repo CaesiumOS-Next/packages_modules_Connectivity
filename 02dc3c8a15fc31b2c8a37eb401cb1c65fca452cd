@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "313169d5_f406f25a",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-14T03:24:21Z",
+      "side": 1,
+      "message": "It would have another problem if I delete native_shared_libs and static build this library into JNI.\nlibbase must be shared_libs for both libtraffic_controller and libtraffic_controller_jni. It would increase around 200k in libtraffic_controller and libtraffic_controller_jni if change libbase to static_libs.",
+      "parentUuid": "8c352c1d_41770339",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 6
+      },
+      "revId": "02dc3c8a15fc31b2c8a37eb401cb1c65fca452cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98072dcd_f4d2f6d2",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-12T04:15:06Z",
       "side": 1,
       "message": "1. use libbase_ndk instead of libbase ?\n2. libnetdutils doesn\u0027t have ndk version, so you may need to static link it.\n3. libutils also not have ndk, is this necessary ? If yes, maybe you also need to static link it.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "02dc3c8a15fc31b2c8a37eb401cb1c65fca452cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52a0640c_466aa97c",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-14T03:24:21Z",
+      "side": 1,
+      "message": "1. Need to fix some dependencies to use libbase_ndk, not sure it\u0027s a good idea.\n2. Done.\n3. Done.",
+      "parentUuid": "98072dcd_f4d2f6d2",
       "range": {
         "startLine": 22,
         "startChar": 0,

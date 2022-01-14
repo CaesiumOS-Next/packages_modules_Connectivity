@@ -22,6 +22,30 @@
       },
       "revId": "048286b2bc57563c87bd440f55235a05743cb2a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43627843_db844c66",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-14T03:24:21Z",
+      "side": 1,
+      "message": "I can move the shared code to frameworks/libs/net in follow-up change.",
+      "parentUuid": "aa20992b_f2026989",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 30
+      },
+      "revId": "048286b2bc57563c87bd440f55235a05743cb2a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
