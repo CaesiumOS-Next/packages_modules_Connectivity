@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e2e4a95_2864e19f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5584,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-14T02:26:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eced580_c35785e5",
+      "range": {
+        "startLine": 5584,
+        "startChar": 7,
+        "endLine": 5584,
+        "endChar": 36
+      },
+      "revId": "902ea0c96b32182001d93aca022f1a21ce1d03f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "271c4db9_00997a8c",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96b66ae1_3b903175",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5587,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-14T02:26:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "271c4db9_00997a8c",
+      "range": {
+        "startLine": 5587,
+        "startChar": 21,
+        "endLine": 5587,
+        "endChar": 57
+      },
+      "revId": "902ea0c96b32182001d93aca022f1a21ce1d03f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54adc0e2_22c1f8d9",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-01-13T08:17:50Z",
       "side": 1,
       "message": "You need the IntDef here. See comment on other CL.",
+      "range": {
+        "startLine": 5596,
+        "startChar": 46,
+        "endLine": 5596,
+        "endChar": 49
+      },
+      "revId": "902ea0c96b32182001d93aca022f1a21ce1d03f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9116665_afd8a55d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5596,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-14T02:26:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54adc0e2_22c1f8d9",
       "range": {
         "startLine": 5596,
         "startChar": 46,
