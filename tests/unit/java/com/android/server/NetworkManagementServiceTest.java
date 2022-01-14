@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -32,6 +33,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import android.annotation.NonNull;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.INetd;
 import android.net.INetdUnsolicitedEventListener;
 import android.net.LinkAddress;
@@ -71,6 +73,7 @@ import java.util.function.BiFunction;
 public class NetworkManagementServiceTest {
     private NetworkManagementService mNMService;
     @Mock private Context mContext;
+    @Mock private ConnectivityManager mCm;
     @Mock private IBatteryStats.Stub mBatteryStatsService;
     @Mock private INetd.Stub mNetdService;
 
@@ -113,6 +116,9 @@ public class NetworkManagementServiceTest {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mNetdService)
                 .registerUnsolicitedEventListener(mUnsolListenerCaptor.capture());
+        doReturn(Context.CONNECTIVITY_SERVICE).when(mContext).getSystemServiceName(
+                eq(ConnectivityManager.class));
+        doReturn(mCm).when(mContext).getSystemService(eq(Context.CONNECTIVITY_SERVICE));
         // Start the service and wait until it connects to our socket.
         mNMService = NetworkManagementService.create(mContext, mDeps);
     }
