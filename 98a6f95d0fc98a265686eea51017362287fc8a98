@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c3d90f3_a1c8c572",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5669,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-14T02:43:04Z",
+      "side": 1,
+      "message": "enabling or disabling the",
+      "range": {
+        "startLine": 5669,
+        "startChar": 40,
+        "endLine": 5669,
+        "endChar": 43
+      },
+      "revId": "98a6f95d0fc98a265686eea51017362287fc8a98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
