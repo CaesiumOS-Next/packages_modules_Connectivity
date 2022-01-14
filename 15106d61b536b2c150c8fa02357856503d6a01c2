@@ -1,0 +1,648 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "137c6290_b9a4c414",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "included in",
+      "range": {
+        "startLine": 71,
+        "startChar": 28,
+        "endLine": 71,
+        "endChar": 39
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b86e6528_cec426ee",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Maybe clarify this a bit :\n- included and excluded can\u0027t both be non-empty\n- if both are empty, it means the entire range of UIDs for this user\n- if included is not empty, then it\u0027s only these UIDs\n- if excluded is not empty, then it\u0027s the entire range except these UIDs",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 86
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dc7b302_82a48a61",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Suggestion : make this @NonNull final and then use clear() in the setters. Then you don\u0027t have to check for nullity in the builder.",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 15
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d619a9cc_85670c40",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1504,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Since this is only used in l.1493 now, can we inline the \"Collections.singleton\" and call the new method, then remove this function ?",
+      "range": {
+        "startLine": 1495,
+        "startChar": 0,
+        "endLine": 1504,
+        "endChar": 5
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e03bb3f5_519c9f6e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10164,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Let\u0027s rename this to, e.g. profileUids or so",
+      "range": {
+        "startLine": 10164,
+        "startChar": 35,
+        "endLine": 10164,
+        "endChar": 39
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8efe5744_943ce25f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 10165,
+        "startChar": 20,
+        "endLine": 10165,
+        "endChar": 23
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4ca198_0b36f6c5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10167,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "since convertListToUidRange returns non-null we don\u0027t need to check for this",
+      "range": {
+        "startLine": 10167,
+        "startChar": 24,
+        "endLine": 10167,
+        "endChar": 43
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "705e7633_3dba6b81",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10183,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 10183,
+        "startChar": 28,
+        "endLine": 10183,
+        "endChar": 56
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ff3751f_389e563d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10199,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be simpler to write something like this :\n\n  final Set\u003cUidRange\u003e uidRangeSet;\n  if (includedUids.size() \u003e 0) {\n    if (!isRangeSetInUidRange) \n    uidRangeSet \u003d convertListToUidRange\n  } else if (excludedUids.size() \u003e 0) {\n    if (!isRangeSetInUidRange) \n    convertListToUidRange\n    uidRangeSet \u003d removeRange\n  } else {\n    uidRangeSet \u003d createForUser or whatever\n  }\n  if isRangeAlreadyInPreferenceList then throw\n  nc \u003d createDefaultNCForUidRangeSet()\n  \nLet\u0027s also cut a private function to do this work",
+      "range": {
+        "startLine": 10199,
+        "startChar": 24,
+        "endLine": 10199,
+        "endChar": 25
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "309778fd_86aa09f4",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "If it\u0027s possible to make one or both of these arguments non-null then it might be easier. (use Objects.requireNonNull)\n\nI would only advise this if your implementation already never sends null.",
+      "range": {
+        "startLine": 42,
+        "startChar": 48,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d27e47b1_8cd307a7",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "If uids is null, then by definition it is included in any range.\nE.g. uids \u003d [0~1000], is \"null\" in this range ? Answer should be yes.",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 84
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42f3181_44ddcbc0",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "This is incorrect in the case of an empty uidRangeSet",
+      "range": {
+        "startLine": 46,
+        "startChar": 19,
+        "endLine": 46,
+        "endChar": 24
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8643728_048dd13a",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "We have problems of ordering and iteration order here. We don\u0027t want to use SortedSet for various complexity and performance reasons.\n\nLet\u0027s have uidRangeSet be an ArraySet.\n\nAlso please add warnings to the documentation :\n\nWARNING : This function requires the UidRanges in uidRangeSet to be disjoint\nWARNING : This function requires the arrayset to be iterated in increasing order of the ranges. Today this is provided by the iteration order stability of ArraySet, and the fact that the code creating this ArraySet always creates it in increasing order.\nNote : if any of the above is not satisfied this function throws\nTODO : remove these limitations",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb894dfa_5a7535c5",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86bcc0b4_4a22e236",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 11
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "def1e677_04628a30",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Likewise, consider @NonNull if that\u0027s not going to make the caller do the null checks",
+      "range": {
+        "startLine": 98,
+        "startChar": 47,
+        "endLine": 98,
+        "endChar": 55
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10194d79_72cf7a05",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Case where this doesn\u0027t work :\nRangeSet1 :     |1000 ---------- 3000|\nRangeSet2 :  |500   ------------------  3500|",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 31
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cebfff1e_5eae352d",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 11
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc07a92_fc76a44e",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "This will mutate the list that was passed to you (and can\u0027t work if that was an immutable list)",
+      "range": {
+        "startLine": 125,
+        "startChar": 20,
+        "endLine": 125,
+        "endChar": 24
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996096b4_a29af85f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 12269,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "\"Callback2\" is a bit puzzling for a reader ; maybe we want to rename it to CallbackAsAppUid2 or so.\n\nAlternatively, keep these callbacks local to the test",
+      "range": {
+        "startLine": 12269,
+        "startChar": 0,
+        "endLine": 12269,
+        "endChar": 30
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a1caca_a833d69d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13738,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "This can\u0027t happen right ? Then maybe not check this",
+      "range": {
+        "startLine": 13738,
+        "startChar": 12,
+        "endLine": 13738,
+        "endChar": 62
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b118caa1_5165d1a4",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13740,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "final here and below",
+      "range": {
+        "startLine": 13740,
+        "startChar": 12,
+        "endLine": 13740,
+        "endChar": 15
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f39e8418_cff4a391",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13751,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "likewise",
+      "range": {
+        "startLine": 13751,
+        "startChar": 16,
+        "endLine": 13751,
+        "endChar": 66
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6354774d_0ed8c184",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13767,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Like in the production code I think this can be written a bit easier by exporting the loop that makes the array to the bottom of the function",
+      "range": {
+        "startLine": 13767,
+        "startChar": 8,
+        "endLine": 13767,
+        "endChar": 9
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "815016be_52ad5f48",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 14148,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Let\u0027s have tests for the error use cases :\n- Pass a list with overlapping ranges\n- Pass a list with UIDs out of the profile",
+      "range": {
+        "startLine": 14148,
+        "startChar": 4,
+        "endLine": 14148,
+        "endChar": 5
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "591d5e6e_aaab593b",
+        "filename": "tests/unit/java/com/android/server/connectivity/UidRangeUtilsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "I think this should be R",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 51
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "052b27e9_2ebbf65d",
+        "filename": "tests/unit/java/com/android/server/connectivity/UidRangeUtilsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s correct – the result should be UidRange(1, 2) because it is (1,100)-(3,300)\n\nLet\u0027s also add a check for removing sets that completely enclose the range, e.g. (100,200)-(1,1000) and (100,200)-(100,150)-(151-200) and both of these should be the empty set",
+      "range": {
+        "startLine": 143,
+        "startChar": 45,
+        "endLine": 143,
+        "endChar": 71
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab12f9d_adb9d8c1",
+        "filename": "tests/unit/java/com/android/server/connectivity/UidRangeUtilsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:10:52Z",
+      "side": 1,
+      "message": "Let\u0027s have a test where the set contains 2 consecutive sets, e.g. {[3, 30], [30, 39]}, and make sure the resulting range is fine",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 5
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
