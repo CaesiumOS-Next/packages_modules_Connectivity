@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc3a5a9_7c56fd3a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5601,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-14T05:49:28Z",
+      "side": 1,
+      "message": "Fix by https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1949799",
+      "parentUuid": "c2952aec_3cc032dc",
+      "range": {
+        "startLine": 5601,
+        "startChar": 40,
+        "endLine": 5601,
+        "endChar": 46
+      },
+      "revId": "e1561fa800dd287221d91edd453f524fa59eddba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61a2e747_6397216e",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-14T02:33:12Z",
       "side": 1,
       "message": "whether networking is allowed or denied",
+      "range": {
+        "startLine": 5645,
+        "startChar": 20,
+        "endLine": 5645,
+        "endChar": 46
+      },
+      "revId": "e1561fa800dd287221d91edd453f524fa59eddba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "558233a1_7c889e89",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5645,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-14T05:49:28Z",
+      "side": 1,
+      "message": "Fix by https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1949799",
+      "parentUuid": "61a2e747_6397216e",
       "range": {
         "startLine": 5645,
         "startChar": 20,
