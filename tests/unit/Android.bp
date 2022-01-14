@@ -165,4 +165,5 @@ android_test {
     jni_libs: [
         "libservice-connectivity",
     ]
+    exclude_kotlinc_generated_files: false,
 }
