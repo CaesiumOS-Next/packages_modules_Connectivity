@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fea64606_86301723",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1377410
+      },
+      "writtenOn": "2022-01-14T23:58:44Z",
+      "side": 1,
+      "message": "Ankit,\nWere you able to run the cts test and verified to pass on your platform with this change? If so, can you please add either the run command or the full testcase module that verifies this change, instead of just the \"Build\" test? \nAlso update this change with Verified+1.",
+      "revId": "0fa26d0ac965f58ca3207bf4ba6d27349c82f224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8700bae3_7989b555",
