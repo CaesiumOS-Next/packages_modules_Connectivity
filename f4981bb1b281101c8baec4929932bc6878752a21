@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfa6a059_48b8b5c6",
+        "filename": "service/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-14T03:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a328906_22d18032",
+      "range": {
+        "startLine": 126,
+        "startChar": 13,
+        "endLine": 126,
+        "endChar": 15
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5bda1da_e14c5263",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-12T12:37:15Z",
       "side": 1,
       "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6660b423_d4b1154c",
+        "filename": "service/src/com/android/server/TrafficControllerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-14T03:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5bda1da_e14c5263",
       "range": {
         "startLine": 2,
         "startChar": 17,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a71c3163_1d0c2a17",
+        "filename": "service/src/com/android/server/TrafficControllerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-14T03:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dee51ff_5d7f735e",
+      "range": {
+        "startLine": 77,
+        "startChar": 23,
+        "endLine": 77,
+        "endChar": 29
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "314d4c67_6bd38beb",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-12T02:34:13Z",
       "side": 1,
       "message": "perhaps addNetPermForUids\n\nbut I don\u0027t see a remove... how does this work...\nis \u0027permission\u0027 actually a bitfield and thus should be called \u0027permissions\u0027 ?",
+      "range": {
+        "startLine": 143,
+        "startChar": 23,
+        "endLine": 143,
+        "endChar": 40
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0076cbb2_fd4cad97",
+        "filename": "service/src/com/android/server/TrafficControllerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-14T03:23:43Z",
+      "side": 1,
+      "message": "If possible, I would like to keep setNetPermForUids.\n\nnative_setPermissionForUids goes to TrafficController::setPermissionForUids()\nand it would write and delete permission map depends on \"permission\".\n\nYes, permission is a bitfield.\n\nhttps://source.corp.google.com/android/out/soong/.intermediates/frameworks/libs/net/common/netd/netd_aidl_interface-V7-cpp-source/gen/include/android/net/INetd.h;l\u003d53;rcl\u003dHEAD\n\nenum : int32_t { PERMISSION_INTERNET \u003d 4 };\nenum : int32_t { PERMISSION_UPDATE_DEVICE_STATS \u003d 8 };\nenum : int32_t { PERMISSION_UNINSTALLED \u003d -1 };",
+      "parentUuid": "314d4c67_6bd38beb",
       "range": {
         "startLine": 143,
         "startChar": 23,
@@ -129,6 +225,30 @@
       "writtenOn": "2022-01-13T10:03:59Z",
       "side": 1,
       "message": "Maybe you could use ServiceSpecificException, which is what most netd IPCs throw? It has the advantage is that any caller of this code will likly be handling ServiceSpecificException already. It also contains an errno code which is useful.",
+      "parentUuid": "867163ee_b8e7b256",
+      "range": {
+        "startLine": 161,
+        "startChar": 60,
+        "endLine": 161,
+        "endChar": 83
+      },
+      "revId": "f4981bb1b281101c8baec4929932bc6878752a21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fc3e611_ada57c3d",
+        "filename": "service/src/com/android/server/TrafficControllerUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-14T03:23:43Z",
+      "side": 1,
+      "message": "JNI native part is in aosp/1948169",
       "parentUuid": "867163ee_b8e7b256",
       "range": {
         "startLine": 161,
