@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ea194b_87c293f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-14T02:33:12Z",
+      "side": 1,
+      "message": "LGTM, feel free to address comments in a follow-up if this CL passes presubmit.",
+      "revId": "e1561fa800dd287221d91edd453f524fa59eddba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2952aec_3cc032dc",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5601,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-14T02:33:12Z",
+      "side": 1,
+      "message": "updating the\n\nAlso elsewhere.",
+      "range": {
+        "startLine": 5601,
+        "startChar": 40,
+        "endLine": 5601,
+        "endChar": 46
+      },
+      "revId": "e1561fa800dd287221d91edd453f524fa59eddba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a2e747_6397216e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 5645,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-14T02:33:12Z",
+      "side": 1,
+      "message": "whether networking is allowed or denied",
+      "range": {
+        "startLine": 5645,
+        "startChar": 20,
+        "endLine": 5645,
+        "endChar": 46
+      },
+      "revId": "e1561fa800dd287221d91edd453f524fa59eddba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
