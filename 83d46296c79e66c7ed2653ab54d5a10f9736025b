@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ff59e8d_82957ac6",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:16:32Z",
+      "side": 1,
+      "message": "getPreferenceEnterpriseId",
+      "range": {
+        "startLine": 159,
+        "startChar": 45,
+        "endLine": 159,
+        "endChar": 53
+      },
+      "revId": "83d46296c79e66c7ed2653ab54d5a10f9736025b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34b2db68_1e28a08d",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-14T06:16:32Z",
+      "side": 1,
+      "message": "Could we just make this @NetworkCapabilities.EnterpriseCapabilitySubLevel and eschew the need for the additional constants ?",
+      "range": {
+        "startLine": 91,
+        "startChar": 53,
+        "endLine": 91,
+        "endChar": 56
+      },
+      "revId": "83d46296c79e66c7ed2653ab54d5a10f9736025b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
