@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d51ecdde_d2561593",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2022-01-14T22:54:49Z",
+      "side": 1,
+      "message": "Added code to check for this as well as CTS for this condition.",
+      "parentUuid": "afbe3ba8_9da6e1c5",
+      "range": {
+        "startLine": 508,
+        "startChar": 110,
+        "endLine": 508,
+        "endChar": 121
+      },
+      "revId": "1f0f9414826accd8c69be78747117b76efafce00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39984326_f88b41fe",
