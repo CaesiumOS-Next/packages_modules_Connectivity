@@ -22,6 +22,30 @@
       },
       "revId": "f9d40ae77aa5884cb14bec350b8c44d35fe75fda",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f56b147c_ff0d6b0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-14T18:32:20Z",
+      "side": 1,
+      "message": "Yes, there is an selinux policy in place as well (currently only netd can, in the future only system server)",
+      "parentUuid": "13569313_ce9101fe",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 34
+      },
+      "revId": "f9d40ae77aa5884cb14bec350b8c44d35fe75fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
