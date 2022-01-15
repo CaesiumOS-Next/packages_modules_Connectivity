@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5f66763_312b4ce3",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-15T08:06:38Z",
+      "side": 1,
+      "message": "I see libc++ , libnetdutils and libtraffic_controller are put into the apex.\nBut I\u0027ll move libnetdutils and libtraffic_controller to static_libs then there is only libtraffic_controller_jni put into the apex.",
+      "parentUuid": "5d319ed3_6467b69d",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 32
+      },
+      "revId": "389a784f9333a37ae534e74baa122eb36e05d047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9aa2f439_f3a51836",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-13T10:08:45Z",
       "side": 1,
       "message": "Why does this depend on netd_aidl_interface? Does it call into netd?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 6
+      },
+      "revId": "389a784f9333a37ae534e74baa122eb36e05d047",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aa92bad_90044545",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-15T08:06:38Z",
+      "side": 1,
+      "message": "There is a utils function in JNI code, and FirewallType will touch INetd in Common.h.\n\nhttps://googleplex-android-review.git.corp.google.com/c/platform/packages/modules/Connectivity/+/16613698/18/service/native/include/Common.h#28\n\n\nstatic FirewallType getFirewallType(ChildChain chain) {\n    switch (chain) {\n        case DOZABLE:\n            return ALLOWLIST;\n        case STANDBY:\n            return DENYLIST;\n        case POWERSAVE:\n            return ALLOWLIST;\n        case RESTRICTED:\n            return ALLOWLIST;\n        case NONE:\n        default:\n            return DENYLIST;\n    }\n}\n\nenum FirewallType { ALLOWLIST \u003d INetd::FIREWALL_ALLOWLIST, DENYLIST \u003d INetd::FIREWALL_DENYLIST };",
+      "parentUuid": "9aa2f439_f3a51836",
       "range": {
         "startLine": 58,
         "startChar": 0,
