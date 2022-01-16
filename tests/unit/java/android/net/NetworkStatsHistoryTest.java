@@ -532,6 +532,39 @@ public class NetworkStatsHistoryTest {
         assertEquals(512L + 4096L, stats.getTotalBytes());
     }
 
+    @Test
+    public void testBuilder() {
+        final NetworkStatsHistory.Entry entry1 = new NetworkStatsHistory.Entry(10, 30, 40,
+                4, 50, 5, 60);
+        final NetworkStatsHistory.Entry entry2 = new NetworkStatsHistory.Entry(30, 15, 3,
+                41, 7, 1, 0);
+        final NetworkStatsHistory.Entry entry3 = new NetworkStatsHistory.Entry(7, 301, 11,
+                14, 31, 2, 80);
+
+        final NetworkStatsHistory statsEmpty = new NetworkStatsHistory
+                .Builder(HOUR_IN_MILLIS, 10).build();
+        assertEquals(0, statsEmpty.size());
+        assertEquals(HOUR_IN_MILLIS, statsEmpty.getBucketDuration());
+
+        NetworkStatsHistory statsSingle = new NetworkStatsHistory
+                .Builder(HOUR_IN_MILLIS, 8)
+                .addEntry(entry1)
+                .build();
+        assertEquals(1, statsSingle.size());
+        assertEquals(HOUR_IN_MILLIS, statsSingle.getBucketDuration());
+        assertEquals(entry1, statsSingle.getValues(0, null /* recycle */));
+
+        NetworkStatsHistory statsMultiple = new NetworkStatsHistory
+                .Builder(SECOND_IN_MILLIS, 0)
+                .addEntry(entry1).addEntry(entry2).addEntry(entry3)
+                .build();
+        assertEquals(3, statsMultiple.size());
+        assertEquals(SECOND_IN_MILLIS, statsMultiple.getBucketDuration());
+        assertEquals(entry1, statsMultiple.getValues(0, null /* recycle */));
+        assertEquals(entry2, statsMultiple.getValues(1, null /* recycle */));
+        assertEquals(entry3, statsMultiple.getValues(2, null /* recycle */));
+    }
+
     private static void assertIndexBeforeAfter(
             NetworkStatsHistory stats, int before, int after, long time) {
         assertEquals("unexpected before", before, stats.getIndexBefore(time));
