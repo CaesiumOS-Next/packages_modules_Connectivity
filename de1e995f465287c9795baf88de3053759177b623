@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc09f741_57685f78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T21:52:48Z",
+      "side": 1,
+      "message": "LGTM, let\u0027s wait for Mark\u0027s second pair of eyes.\n\nAlso, have you run some tests that actually exercised each JNI function?",
+      "revId": "de1e995f465287c9795baf88de3053759177b623",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
