@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#define LOG_TAG "jniClatCoordinator"
 
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <linux/if_tun.h>
 #include <linux/ioctl.h>
+#include <log/log.h>
 #include <nativehelper/JNIHelp.h>
 #include <net/if.h>
 #include <spawn.h>
@@ -26,6 +28,7 @@
 
 #include <netjniutils/netjniutils.h>
 
+#include "libclat/bpfhelper.h"
 #include "libclat/clatutils.h"
 #include "nativehelper/scoped_utf_chars.h"
 
@@ -36,6 +39,8 @@
 #define __INT_STRLEN(i) sizeof(#i)
 #define _INT_STRLEN(i) __INT_STRLEN(i)
 #define INT32_STRLEN _INT_STRLEN(INT32_MIN)
+
+#define DEVICEPREFIX "v4-"
 
 namespace android {
 static const char* kClatdPath = "/apex/com.android.tethering/bin/for-system/clatd";
@@ -243,6 +248,46 @@ static void com_android_server_connectivity_ClatCoordinator_configurePacketSocke
     }
 }
 
+int initTracker(const std::string& iface, const std::string& pfx96, const std::string& v4,
+        const std::string& v6, net::clat::ClatdTracker* output) {
+    strlcpy(output->iface, iface.c_str(), sizeof(output->iface));
+    output->ifIndex = if_nametoindex(iface.c_str());
+    if (output->ifIndex == 0) {
+        ALOGE("interface %s not found", output->iface);
+        return -1;
+    }
+
+    unsigned len = snprintf(output->v4iface, sizeof(output->v4iface),
+            "%s%s", DEVICEPREFIX, iface.c_str());
+    if (len >= sizeof(output->v4iface)) {
+        ALOGE("interface name too long '%s'", output->v4iface);
+        return -1;
+    }
+
+    output->v4ifIndex = if_nametoindex(output->v4iface);
+    if (output->v4ifIndex == 0) {
+        ALOGE("v4-interface %s not found", output->v4iface);
+        return -1;
+    }
+
+    if (!inet_pton(AF_INET6, pfx96.c_str(), &output->pfx96)) {
+        ALOGE("invalid IPv6 address specified for plat prefix: %s", pfx96.c_str());
+        return -1;
+    }
+
+    if (!inet_pton(AF_INET, v4.c_str(), &output->v4)) {
+        ALOGE("Invalid IPv4 address %s", v4.c_str());
+        return -1;
+    }
+
+    if (!inet_pton(AF_INET6, v6.c_str(), &output->v6)) {
+        ALOGE("Invalid source address %s", v6.c_str());
+        return -1;
+    }
+
+    return 0;
+}
+
 static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         JNIEnv* env, jobject clazz, jobject tunJavaFd, jobject readSockJavaFd,
         jobject writeSockJavaFd, jstring iface, jstring pfx96, jstring v4, jstring v6) {
@@ -363,6 +408,16 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
 
     posix_spawnattr_destroy(&attr);
     posix_spawn_file_actions_destroy(&fa);
+
+    // 5. Start BPF if any
+    if (!net::clat::initMaps()) {
+        net::clat::ClatdTracker tracker = {};
+        if (!initTracker(ifaceStr.c_str(), pfx96Str.c_str(), v4Str.c_str(), v6Str.c_str(),
+                &tracker)) {
+            net::clat::maybeStartBpf(tracker);
+        }
+    }
+
     return pid;
 }
 
