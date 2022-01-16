@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f72d4db_7345c486",
+        "filename": "netd/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:55:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd55817a_6dc63e9a",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 31
+      },
+      "revId": "b31885c834ad8efeeaa3f591e3492ab6fca6b653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84102103_8701b6d9",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-16T05:12:29Z",
       "side": 1,
       "message": "remove?",
+      "range": {
+        "startLine": 22,
+        "startChar": 9,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "b31885c834ad8efeeaa3f591e3492ab6fca6b653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd3e8dc8_e4431902",
+        "filename": "netd/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:55:09Z",
+      "side": 1,
+      "message": "Use AID_ROOT and AID_SYSTEM defined in system/core/libcutils/include/private/android_filesystem_config.h.\n\nMove it to shared_lib since libcutils is one of Dynamic Common Libraries.",
+      "parentUuid": "84102103_8701b6d9",
       "range": {
         "startLine": 22,
         "startChar": 9,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44106acf_95108d1f",
+        "filename": "netd/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:55:09Z",
+      "side": 1,
+      "message": "libnetdutils is not a header_lib.",
+      "parentUuid": "f01a643b_cd83cfd8",
+      "range": {
+        "startLine": 23,
+        "startChar": 9,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "b31885c834ad8efeeaa3f591e3492ab6fca6b653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9882a6ee_d073c628",
@@ -83,6 +155,24 @@
       "writtenOn": "2022-01-16T05:12:29Z",
       "side": 1,
       "message": "remove?",
+      "revId": "b31885c834ad8efeeaa3f591e3492ab6fca6b653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bffd977_79beafe0",
+        "filename": "netd/Android.bp",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:55:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9882a6ee_d073c628",
       "revId": "b31885c834ad8efeeaa3f591e3492ab6fca6b653",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
