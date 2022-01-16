@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37af7e5a_d137c0d0",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:05:43Z",
+      "side": 1,
+      "message": "shared_link\nhttps://yaqs.corp.google.com/eng/q/6878399607831789568#a1",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "f15b8bd66e6da16646553a8061273b55caf1c52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651808ce_b6e85f78",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:05:43Z",
+      "side": 1,
+      "message": "shared_link\nhttps://yaqs.corp.google.com/eng/q/6878399607831789568#a1",
+      "range": {
+        "startLine": 16,
+        "startChar": 9,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "f15b8bd66e6da16646553a8061273b55caf1c52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b12013e_4c8fbf59",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:05:43Z",
+      "side": 1,
+      "message": "Still missing\nRETURN_IF_NOT_OK(mUidPermissionMap.init(UID_PERMISSION_MAP_PATH));",
+      "revId": "f15b8bd66e6da16646553a8061273b55caf1c52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eb7e418_727de52a",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:05:43Z",
+      "side": 1,
+      "message": "NetlinkHandler",
+      "range": {
+        "startLine": 187,
+        "startChar": 70,
+        "endLine": 187,
+        "endChar": 86
+      },
+      "revId": "f15b8bd66e6da16646553a8061273b55caf1c52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "809ba2d4_afb04a2c",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T13:05:43Z",
+      "side": 1,
+      "message": "TODO: delete it when Mark\u0027s solution is merged.",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 193,
+        "endChar": 5
+      },
+      "revId": "f15b8bd66e6da16646553a8061273b55caf1c52c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
