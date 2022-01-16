@@ -9,6 +9,7 @@ rule android.util.LocalLog* com.android.connectivity.@0
 rule android.util.IndentingPrintWriter* com.android.connectivity.@0
 rule com.android.internal.util.IndentingPrintWriter* com.android.connectivity.@0
 rule com.android.internal.util.MessageUtils* com.android.connectivity.@0
+rule com.android.internal.util.State* com.android.connectivity.@0
 rule com.android.internal.util.WakeupMessage* com.android.connectivity.@0
 
 rule com.android.internal.messages.** com.android.connectivity.@0
