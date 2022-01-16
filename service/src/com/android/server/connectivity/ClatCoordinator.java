@@ -82,8 +82,12 @@ public class ClatCoordinator {
     private String mXlatLocalAddress6 = null;
     private int mPid = INVALID_PID;
 
+    /**
+     * public dependencies of ConnectivityService which makes ClatCoordinator injection
+     * in tests.
+     */
     @VisibleForTesting
-    abstract static class Dependencies {
+    public abstract static class Dependencies {
         /**
           * Get netd.
           */
