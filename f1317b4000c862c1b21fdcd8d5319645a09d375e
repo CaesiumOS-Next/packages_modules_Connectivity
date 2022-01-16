@@ -18,6 +18,29 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "146c93af_7b99b671",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T21:38:53Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be cc_library_static? We don\u0027t expect any other users except for the libtraffic_controller_jni.so.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 10
+      },
+      "revId": "f1317b4000c862c1b21fdcd8d5319645a09d375e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c184fb99_cfc3d5ee",
