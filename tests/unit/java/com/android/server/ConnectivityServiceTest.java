@@ -332,6 +332,7 @@ import com.android.net.module.util.LocationPermissionChecker;
 import com.android.server.ConnectivityService.ConnectivityDiagnosticsCallbackInfo;
 import com.android.server.ConnectivityService.NetworkRequestInfo;
 import com.android.server.ConnectivityServiceTest.ConnectivityServiceDependencies.ReportedInterfaces;
+import com.android.server.connectivity.ClatCoordinator;
 import com.android.server.connectivity.ConnectivityFlags;
 import com.android.server.connectivity.MockableSystemProperties;
 import com.android.server.connectivity.Nat464Xlat;
@@ -526,6 +527,7 @@ public class ConnectivityServiceTest {
     @Mock SystemConfigManager mSystemConfigManager;
     @Mock Resources mResources;
     @Mock PacProxyManager mPacProxyManager;
+    @Mock ClatCoordinator mClatCoordinator;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -1943,6 +1945,11 @@ public class ConnectivityServiceTest {
                 default:
                     return super.isFeatureEnabled(context, name, defaultEnabled);
             }
+        }
+
+        @Override
+        public ClatCoordinator getClatCoordinator(INetd netd) {
+            return mClatCoordinator;
         }
     }
 
@@ -9398,6 +9405,59 @@ public class ConnectivityServiceTest {
         return event;
     }
 
+    private <T> T verifyWithOrder(@Nullable InOrder inOrder, @NonNull T t) {
+        if (inOrder != null) {
+            return inOrder.verify(t);
+        } else {
+            return verify(t);
+        }
+    }
+
+    private <T> T verifyNeverWithOrder(@Nullable InOrder inOrder, @NonNull T t) {
+        if (inOrder != null) {
+            return inOrder.verify(t, never());
+        } else {
+            return verify(t, never());
+        }
+    }
+
+    private void verifyClatdStart(@Nullable InOrder inOrder, @NonNull String iface, int netId,
+            @NonNull String nat64Prefix) throws Exception {
+        if (SdkLevel.isAtLeastT()) {
+            verifyWithOrder(inOrder, mClatCoordinator)
+                .clatStart(eq(iface), eq(netId), eq(new IpPrefix(nat64Prefix)));
+        } else {
+            verifyWithOrder(inOrder, mMockNetd).clatdStart(eq(iface), eq(nat64Prefix));
+        }
+    }
+
+    private void verifyNeverClatdStart(@Nullable InOrder inOrder, @NonNull String iface)
+            throws Exception {
+        if (SdkLevel.isAtLeastT()) {
+            verifyNeverWithOrder(inOrder, mClatCoordinator).clatStart(eq(iface), anyInt(), any());
+        } else {
+            verifyNeverWithOrder(inOrder, mMockNetd).clatdStart(eq(iface), anyString());
+        }
+    }
+
+    private void verifyClatdStop(@Nullable InOrder inOrder, @NonNull String iface)
+            throws Exception {
+        if (SdkLevel.isAtLeastT()) {
+            verifyWithOrder(inOrder, mClatCoordinator).clatStop();
+        } else {
+            verifyWithOrder(inOrder, mMockNetd).clatdStop(eq(iface));
+        }
+    }
+
+    private void verifyNeverClatdStop(@Nullable InOrder inOrder, @NonNull String iface)
+            throws Exception {
+        if (SdkLevel.isAtLeastT()) {
+            verifyNeverWithOrder(inOrder, mClatCoordinator).clatStop();
+        } else {
+            verifyNeverWithOrder(inOrder, mMockNetd).clatdStop(eq(iface));
+        }
+    }
+
     @Test
     public void testStackedLinkProperties() throws Exception {
         final LinkAddress myIpv4 = new LinkAddress("1.2.3.4/24");
@@ -9430,6 +9490,7 @@ public class ConnectivityServiceTest {
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
         reset(mMockDnsResolver);
         reset(mMockNetd);
+        reset(mClatCoordinator);
 
         // Connect with ipv6 link properties. Expect prefix discovery to be started.
         mCellNetworkAgent.connect(true);
@@ -9468,8 +9529,10 @@ public class ConnectivityServiceTest {
                 && ri.iface != null && ri.iface.startsWith("v4-")));
 
         verifyNoMoreInteractions(mMockNetd);
+        verifyNoMoreInteractions(mClatCoordinator);
         verifyNoMoreInteractions(mMockDnsResolver);
         reset(mMockNetd);
+        reset(mClatCoordinator);
         reset(mMockDnsResolver);
         doReturn(getClatInterfaceConfigParcel(myIpv4)).when(mMockNetd)
                 .interfaceGetCfg(CLAT_MOBILE_IFNAME);
@@ -9490,7 +9553,7 @@ public class ConnectivityServiceTest {
                 CallbackEntry.LINK_PROPERTIES_CHANGED, mCellNetworkAgent).getLp();
         assertEquals(0, lpBeforeClat.getStackedLinks().size());
         assertEquals(kNat64Prefix, lpBeforeClat.getNat64Prefix());
-        verify(mMockNetd, times(1)).clatdStart(MOBILE_IFNAME, kNat64Prefix.toString());
+        verifyClatdStart(null /* inOrder */, MOBILE_IFNAME, cellNetId, kNat64Prefix.toString());
 
         // Clat iface comes up. Expect stacked link to be added.
         clat.interfaceLinkStateChanged(CLAT_MOBILE_IFNAME, true);
@@ -9522,6 +9585,7 @@ public class ConnectivityServiceTest {
                     new int[] { TRANSPORT_CELLULAR })));
         }
         reset(mMockNetd);
+        reset(mClatCoordinator);
         doReturn(getClatInterfaceConfigParcel(myIpv4)).when(mMockNetd)
                 .interfaceGetCfg(CLAT_MOBILE_IFNAME);
         // Change the NAT64 prefix without first removing it.
@@ -9530,11 +9594,12 @@ public class ConnectivityServiceTest {
                 cellNetId, PREFIX_OPERATION_ADDED, kOtherNat64PrefixString, 96));
         networkCallback.expectLinkPropertiesThat(mCellNetworkAgent,
                 (lp) -> lp.getStackedLinks().size() == 0);
-        verify(mMockNetd, times(1)).clatdStop(MOBILE_IFNAME);
+        verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
         assertRoutesRemoved(cellNetId, stackedDefault);
         verify(mMockNetd, times(1)).networkRemoveInterface(cellNetId, CLAT_MOBILE_IFNAME);
 
-        verify(mMockNetd, times(1)).clatdStart(MOBILE_IFNAME, kOtherNat64Prefix.toString());
+        verifyClatdStart(null /* inOrder */, MOBILE_IFNAME, cellNetId,
+                kOtherNat64Prefix.toString());
         networkCallback.expectLinkPropertiesThat(mCellNetworkAgent,
                 (lp) -> lp.getNat64Prefix().equals(kOtherNat64Prefix));
         clat.interfaceLinkStateChanged(CLAT_MOBILE_IFNAME, true);
@@ -9543,6 +9608,7 @@ public class ConnectivityServiceTest {
         assertRoutesAdded(cellNetId, stackedDefault);
         verify(mMockNetd, times(1)).networkAddInterface(cellNetId, CLAT_MOBILE_IFNAME);
         reset(mMockNetd);
+        reset(mClatCoordinator);
 
         // Add ipv4 address, expect that clatd and prefix discovery are stopped and stacked
         // linkproperties are cleaned up.
@@ -9551,7 +9617,7 @@ public class ConnectivityServiceTest {
         mCellNetworkAgent.sendLinkProperties(cellLp);
         networkCallback.expectCallback(CallbackEntry.LINK_PROPERTIES_CHANGED, mCellNetworkAgent);
         assertRoutesAdded(cellNetId, ipv4Subnet);
-        verify(mMockNetd, times(1)).clatdStop(MOBILE_IFNAME);
+        verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
         verify(mMockDnsResolver, times(1)).stopPrefix64Discovery(cellNetId);
 
         // As soon as stop is called, the linkproperties lose the stacked interface.
@@ -9568,8 +9634,10 @@ public class ConnectivityServiceTest {
         networkCallback.assertNoCallback();
         verify(mMockNetd, times(1)).networkRemoveInterface(cellNetId, CLAT_MOBILE_IFNAME);
         verifyNoMoreInteractions(mMockNetd);
+        verifyNoMoreInteractions(mClatCoordinator);
         verifyNoMoreInteractions(mMockDnsResolver);
         reset(mMockNetd);
+        reset(mClatCoordinator);
         reset(mMockDnsResolver);
         doReturn(getClatInterfaceConfigParcel(myIpv4)).when(mMockNetd)
                 .interfaceGetCfg(CLAT_MOBILE_IFNAME);
@@ -9591,7 +9659,7 @@ public class ConnectivityServiceTest {
         mService.mResolverUnsolEventCallback.onNat64PrefixEvent(makeNat64PrefixEvent(
                 cellNetId, PREFIX_OPERATION_ADDED, kNat64PrefixString, 96));
         networkCallback.expectCallback(CallbackEntry.LINK_PROPERTIES_CHANGED, mCellNetworkAgent);
-        verify(mMockNetd, times(1)).clatdStart(MOBILE_IFNAME, kNat64Prefix.toString());
+        verifyClatdStart(null /* inOrder */, MOBILE_IFNAME, cellNetId, kNat64Prefix.toString());
 
         // Clat iface comes up. Expect stacked link to be added.
         clat.interfaceLinkStateChanged(CLAT_MOBILE_IFNAME, true);
@@ -9608,7 +9676,7 @@ public class ConnectivityServiceTest {
         assertRoutesRemoved(cellNetId, ipv4Subnet, stackedDefault);
 
         // Stop has no effect because clat is already stopped.
-        verify(mMockNetd, times(1)).clatdStop(MOBILE_IFNAME);
+        verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
         networkCallback.expectLinkPropertiesThat(mCellNetworkAgent,
                 (lp) -> lp.getStackedLinks().size() == 0);
         verify(mMockNetd, times(1)).networkRemoveInterface(cellNetId, CLAT_MOBILE_IFNAME);
@@ -9621,7 +9689,9 @@ public class ConnectivityServiceTest {
                 eq(Integer.toString(TRANSPORT_CELLULAR)));
         verify(mMockNetd).networkDestroy(cellNetId);
         verifyNoMoreInteractions(mMockNetd);
+        verifyNoMoreInteractions(mClatCoordinator);
         reset(mMockNetd);
+        reset(mClatCoordinator);
 
         // Test disconnecting a network that is running 464xlat.
 
@@ -9638,7 +9708,7 @@ public class ConnectivityServiceTest {
         assertRoutesAdded(cellNetId, ipv6Subnet, ipv6Default);
 
         // Clatd is started and clat iface comes up. Expect stacked link to be added.
-        verify(mMockNetd).clatdStart(MOBILE_IFNAME, kNat64Prefix.toString());
+        verifyClatdStart(null /* inOrder */, MOBILE_IFNAME, cellNetId, kNat64Prefix.toString());
         clat = getNat464Xlat(mCellNetworkAgent);
         clat.interfaceLinkStateChanged(CLAT_MOBILE_IFNAME, true /* up */);
         networkCallback.expectLinkPropertiesThat(mCellNetworkAgent,
@@ -9648,16 +9718,18 @@ public class ConnectivityServiceTest {
         // assertRoutesAdded sees all calls since last mMockNetd reset, so expect IPv6 routes again.
         assertRoutesAdded(cellNetId, ipv6Subnet, ipv6Default, stackedDefault);
         reset(mMockNetd);
+        reset(mClatCoordinator);
 
         // Disconnect the network. clat is stopped and the network is destroyed.
         mCellNetworkAgent.disconnect();
         networkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
         networkCallback.assertNoCallback();
-        verify(mMockNetd).clatdStop(MOBILE_IFNAME);
+        verifyClatdStop(null /* inOrder */, MOBILE_IFNAME);
         verify(mMockNetd).idletimerRemoveInterface(eq(MOBILE_IFNAME), anyInt(),
                 eq(Integer.toString(TRANSPORT_CELLULAR)));
         verify(mMockNetd).networkDestroy(cellNetId);
         verifyNoMoreInteractions(mMockNetd);
+        verifyNoMoreInteractions(mClatCoordinator);
 
         mCm.unregisterNetworkCallback(networkCallback);
     }
@@ -9688,7 +9760,7 @@ public class ConnectivityServiceTest {
         baseLp.addDnsServer(InetAddress.getByName("2001:4860:4860::6464"));
 
         reset(mMockNetd, mMockDnsResolver);
-        InOrder inOrder = inOrder(mMockNetd, mMockDnsResolver);
+        InOrder inOrder = inOrder(mMockNetd, mMockDnsResolver, mClatCoordinator);
 
         // If a network already has a NAT64 prefix on connect, clatd is started immediately and
         // prefix discovery is never started.
@@ -9699,7 +9771,7 @@ public class ConnectivityServiceTest {
         final Network network = mWiFiNetworkAgent.getNetwork();
         int netId = network.getNetId();
         callback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
-        inOrder.verify(mMockNetd).clatdStart(iface, pref64FromRa.toString());
+        verifyClatdStart(inOrder, iface, netId, pref64FromRa.toString());
         inOrder.verify(mMockDnsResolver).setPrefix64(netId, pref64FromRa.toString());
         inOrder.verify(mMockDnsResolver, never()).startPrefix64Discovery(netId);
         callback.assertNoCallback();
@@ -9709,7 +9781,7 @@ public class ConnectivityServiceTest {
         lp.setNat64Prefix(null);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         expectNat64PrefixChange(callback, mWiFiNetworkAgent, null);
-        inOrder.verify(mMockNetd).clatdStop(iface);
+        verifyClatdStop(inOrder, iface);
         inOrder.verify(mMockDnsResolver).setPrefix64(netId, "");
         inOrder.verify(mMockDnsResolver).startPrefix64Discovery(netId);
 
@@ -9718,7 +9790,7 @@ public class ConnectivityServiceTest {
         lp.setNat64Prefix(pref64FromRa);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         expectNat64PrefixChange(callback, mWiFiNetworkAgent, pref64FromRa);
-        inOrder.verify(mMockNetd).clatdStart(iface, pref64FromRa.toString());
+        verifyClatdStart(inOrder, iface, netId, pref64FromRa.toString());
         inOrder.verify(mMockDnsResolver).stopPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver).setPrefix64(netId, pref64FromRa.toString());
 
@@ -9727,22 +9799,22 @@ public class ConnectivityServiceTest {
         lp.setNat64Prefix(null);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         expectNat64PrefixChange(callback, mWiFiNetworkAgent, null);
-        inOrder.verify(mMockNetd).clatdStop(iface);
+        verifyClatdStop(inOrder, iface);
         inOrder.verify(mMockDnsResolver).setPrefix64(netId, "");
         inOrder.verify(mMockDnsResolver).startPrefix64Discovery(netId);
 
         mService.mResolverUnsolEventCallback.onNat64PrefixEvent(
                 makeNat64PrefixEvent(netId, PREFIX_OPERATION_ADDED, pref64FromDnsStr, 96));
         expectNat64PrefixChange(callback, mWiFiNetworkAgent, pref64FromDns);
-        inOrder.verify(mMockNetd).clatdStart(iface, pref64FromDns.toString());
+        verifyClatdStart(inOrder, iface, netId, pref64FromDns.toString());
 
         // If an RA advertises the same prefix that was discovered by DNS, nothing happens: prefix
         // discovery is not stopped, and there are no callbacks.
         lp.setNat64Prefix(pref64FromDns);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         callback.assertNoCallback();
-        inOrder.verify(mMockNetd, never()).clatdStop(iface);
-        inOrder.verify(mMockNetd, never()).clatdStart(eq(iface), anyString());
+        verifyNeverClatdStop(inOrder, iface);
+        verifyNeverClatdStart(inOrder, iface);
         inOrder.verify(mMockDnsResolver, never()).stopPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).startPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).setPrefix64(eq(netId), anyString());
@@ -9751,8 +9823,8 @@ public class ConnectivityServiceTest {
         lp.setNat64Prefix(null);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         callback.assertNoCallback();
-        inOrder.verify(mMockNetd, never()).clatdStop(iface);
-        inOrder.verify(mMockNetd, never()).clatdStart(eq(iface), anyString());
+        verifyNeverClatdStop(inOrder, iface);
+        verifyNeverClatdStart(inOrder, iface);
         inOrder.verify(mMockDnsResolver, never()).stopPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).startPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).setPrefix64(eq(netId), anyString());
@@ -9761,14 +9833,14 @@ public class ConnectivityServiceTest {
         lp.setNat64Prefix(pref64FromRa);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         expectNat64PrefixChange(callback, mWiFiNetworkAgent, pref64FromRa);
-        inOrder.verify(mMockNetd).clatdStop(iface);
+        verifyClatdStop(inOrder, iface);
         inOrder.verify(mMockDnsResolver).stopPrefix64Discovery(netId);
 
         // Stopping prefix discovery results in a prefix removed notification.
         mService.mResolverUnsolEventCallback.onNat64PrefixEvent(
                 makeNat64PrefixEvent(netId, PREFIX_OPERATION_REMOVED, pref64FromDnsStr, 96));
 
-        inOrder.verify(mMockNetd).clatdStart(iface, pref64FromRa.toString());
+        verifyClatdStart(inOrder, iface, netId, pref64FromRa.toString());
         inOrder.verify(mMockDnsResolver).setPrefix64(netId, pref64FromRa.toString());
         inOrder.verify(mMockDnsResolver, never()).startPrefix64Discovery(netId);
 
@@ -9776,9 +9848,9 @@ public class ConnectivityServiceTest {
         lp.setNat64Prefix(newPref64FromRa);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         expectNat64PrefixChange(callback, mWiFiNetworkAgent, newPref64FromRa);
-        inOrder.verify(mMockNetd).clatdStop(iface);
+        verifyClatdStop(inOrder, iface);
         inOrder.verify(mMockDnsResolver).setPrefix64(netId, "");
-        inOrder.verify(mMockNetd).clatdStart(iface, newPref64FromRa.toString());
+        verifyClatdStart(inOrder, iface, netId, newPref64FromRa.toString());
         inOrder.verify(mMockDnsResolver).setPrefix64(netId, newPref64FromRa.toString());
         inOrder.verify(mMockDnsResolver, never()).stopPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).startPrefix64Discovery(netId);
@@ -9788,8 +9860,8 @@ public class ConnectivityServiceTest {
         mWiFiNetworkAgent.sendLinkProperties(lp);
         callback.assertNoCallback();
         assertEquals(newPref64FromRa, mCm.getLinkProperties(network).getNat64Prefix());
-        inOrder.verify(mMockNetd, never()).clatdStop(iface);
-        inOrder.verify(mMockNetd, never()).clatdStart(eq(iface), anyString());
+        verifyNeverClatdStop(inOrder, iface);
+        verifyNeverClatdStart(inOrder, iface);
         inOrder.verify(mMockDnsResolver, never()).stopPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).startPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).setPrefix64(eq(netId), anyString());
@@ -9801,20 +9873,20 @@ public class ConnectivityServiceTest {
         lp.setNat64Prefix(null);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         expectNat64PrefixChange(callback, mWiFiNetworkAgent, null);
-        inOrder.verify(mMockNetd).clatdStop(iface);
+        verifyClatdStop(inOrder, iface);
         inOrder.verify(mMockDnsResolver).setPrefix64(netId, "");
         inOrder.verify(mMockDnsResolver).startPrefix64Discovery(netId);
         mService.mResolverUnsolEventCallback.onNat64PrefixEvent(
                 makeNat64PrefixEvent(netId, PREFIX_OPERATION_ADDED, pref64FromDnsStr, 96));
         expectNat64PrefixChange(callback, mWiFiNetworkAgent, pref64FromDns);
-        inOrder.verify(mMockNetd).clatdStart(iface, pref64FromDns.toString());
+        verifyClatdStart(inOrder, iface, netId, pref64FromDns.toString());
         inOrder.verify(mMockDnsResolver, never()).setPrefix64(eq(netId), any());
 
         lp.setNat64Prefix(pref64FromDns);
         mWiFiNetworkAgent.sendLinkProperties(lp);
         callback.assertNoCallback();
-        inOrder.verify(mMockNetd, never()).clatdStop(iface);
-        inOrder.verify(mMockNetd, never()).clatdStart(eq(iface), anyString());
+        verifyNeverClatdStop(inOrder, iface);
+        verifyNeverClatdStart(inOrder, iface);
         inOrder.verify(mMockDnsResolver, never()).stopPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).startPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).setPrefix64(eq(netId), anyString());
@@ -9827,7 +9899,7 @@ public class ConnectivityServiceTest {
         callback.expectCallback(CallbackEntry.LOST, mWiFiNetworkAgent);
         b.expectBroadcast();
 
-        inOrder.verify(mMockNetd).clatdStop(iface);
+        verifyClatdStop(inOrder, iface);
         inOrder.verify(mMockDnsResolver).stopPrefix64Discovery(netId);
         inOrder.verify(mMockDnsResolver, never()).setPrefix64(eq(netId), anyString());
 
