@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec9b7dc5_6fcf1fa4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T21:31:21Z",
+      "side": 1,
+      "message": "What is the size of libtraffic_controller.so?",
+      "revId": "f1317b4000c862c1b21fdcd8d5319645a09d375e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c184fb99_cfc3d5ee",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 14
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T21:31:21Z",
+      "side": 1,
+      "message": "Not in this CL, but we probably need a net_native_defaults or net_defaults.",
+      "range": {
+        "startLine": 3,
+        "startChar": 16,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "f1317b4000c862c1b21fdcd8d5319645a09d375e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
