@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c2affe_960af610",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "shared link",
+      "range": {
+        "startLine": 48,
+        "startChar": 9,
+        "endLine": 48,
+        "endChar": 16
+      },
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30d40c4_7c7c6dc4",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "shared link",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 17
+      },
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9150253_e88dbb6e",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "This is wrong. It should be \"if (res)\".\nElsewhere too. Please review all functions.",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 11
+      },
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b14c3359_ec6f8e4c",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "We should also print the error code here (from \u0027res\u0027). Handler functions in TrafficController.cpp does not print error log in all cases.",
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b821e98f_0ae0349e",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "nit: jint* (it\u0027s the same as int here, though)\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:libnativehelper/include_jni/jni.h;drc\u003dmaster;l\u003d890",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 8
+      },
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2083b3e4_c2f068dd",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "nit: uidsToReplace(numUids)",
+      "range": {
+        "startLine": 99,
+        "startChar": 25,
+        "endLine": 99,
+        "endChar": 38
+      },
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a542e58_5405de6e",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "You need\nenv-\u003eReleaseIntArrayElements(jUids, uids, 0);",
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9034295_b5cf2218",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "wrong",
+      "range": {
+        "startLine": 106,
+        "startChar": 4,
+        "endLine": 106,
+        "endChar": 13
+      },
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad243cfd_53391ab8",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-16T11:15:56Z",
+      "side": 1,
+      "message": "env-\u003eReleaseIntArrayElements(jUids, uids, 0);",
+      "revId": "35aba09adba727856fc21904a6bc80a726883675",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
