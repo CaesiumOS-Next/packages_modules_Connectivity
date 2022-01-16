@@ -115,8 +115,12 @@ public class ClatCoordinator {
     private int mIfaceIndex = INVALID_IFINDEX;
     private int mStackedIfaceIndex = INVALID_IFINDEX;
 
+    /**
+     * Dependencies of ClatCoordinator which makes ConnectivityService injection
+     * in tests.
+     */
     @VisibleForTesting
-    abstract static class Dependencies {
+    public abstract static class Dependencies {
         /**
           * Get netd.
           */
