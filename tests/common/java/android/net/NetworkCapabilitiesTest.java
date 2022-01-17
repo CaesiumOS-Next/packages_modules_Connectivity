@@ -34,6 +34,8 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_OEM_PAID;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_OEM_PRIVATE;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_BANDWIDTH;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_PRIORITIZE_LATENCY;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_TRUSTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_WIFI_P2P;
@@ -128,6 +130,28 @@ public class NetworkCapabilitiesTest {
         assertTrue(netCap.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
         netCap = new NetworkCapabilities();
         netCap.addCapability(NET_CAPABILITY_INTERNET);
+        netCap.removeCapability(NET_CAPABILITY_NOT_METERED);
+        netCap.maybeMarkCapabilitiesRestricted();
+        assertTrue(netCap.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
+
+        netCap = new NetworkCapabilities();
+        netCap.addCapability(NET_CAPABILITY_PRIORITIZE_LATENCY);
+        netCap.addCapability(NET_CAPABILITY_NOT_METERED);
+        netCap.maybeMarkCapabilitiesRestricted();
+        assertTrue(netCap.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
+        netCap = new NetworkCapabilities();
+        netCap.addCapability(NET_CAPABILITY_PRIORITIZE_LATENCY);
+        netCap.removeCapability(NET_CAPABILITY_NOT_METERED);
+        netCap.maybeMarkCapabilitiesRestricted();
+        assertTrue(netCap.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
+
+        netCap = new NetworkCapabilities();
+        netCap.addCapability(NET_CAPABILITY_PRIORITIZE_BANDWIDTH);
+        netCap.addCapability(NET_CAPABILITY_NOT_METERED);
+        netCap.maybeMarkCapabilitiesRestricted();
+        assertTrue(netCap.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
+        netCap = new NetworkCapabilities();
+        netCap.addCapability(NET_CAPABILITY_PRIORITIZE_BANDWIDTH);
         netCap.removeCapability(NET_CAPABILITY_NOT_METERED);
         netCap.maybeMarkCapabilitiesRestricted();
         assertTrue(netCap.hasCapability(NET_CAPABILITY_NOT_RESTRICTED));
