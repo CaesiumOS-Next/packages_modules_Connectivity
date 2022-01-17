@@ -525,6 +525,7 @@ public class ConnectivityServiceTest {
     @Mock SystemConfigManager mSystemConfigManager;
     @Mock Resources mResources;
     @Mock PacProxyManager mPacProxyManager;
+    @Mock BpfNetMaps mBpfNetMaps;
 
     // BatteryStatsManager is final and cannot be mocked with regular mockito, so just mock the
     // underlying binder calls.
@@ -1725,7 +1726,7 @@ public class ConnectivityServiceTest {
         doReturn(mResources).when(mockResContext).getResources();
         ConnectivityResources.setResourcesContextForTest(mockResContext);
         mDeps = new ConnectivityServiceDependencies(mockResContext);
-
+        when(mDeps.getBpfNetMaps(eq(mMockNetd))).thenReturn(mBpfNetMaps);
         mService = new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
@@ -10073,7 +10074,7 @@ public class ConnectivityServiceTest {
         // A connected VPN should have interface rules set up. There are two expected invocations,
         // one during the VPN initial connection, one during the VPN LinkProperties update.
         ArgumentCaptor<int[]> uidCaptor = ArgumentCaptor.forClass(int[].class);
-        verify(mMockNetd, times(2)).firewallAddUidInterfaceRules(eq("tun0"), uidCaptor.capture());
+        verify(mBpfNetMaps, times(2)).addUidInterfaceRules(eq("tun0"), uidCaptor.capture());
         assertContainsExactly(uidCaptor.getAllValues().get(0), APP1_UID, APP2_UID);
         assertContainsExactly(uidCaptor.getAllValues().get(1), APP1_UID, APP2_UID);
         assertTrue(mService.mPermissionMonitor.getVpnUidRanges("tun0").equals(vpnRange));
@@ -10082,7 +10083,7 @@ public class ConnectivityServiceTest {
         waitForIdle();
 
         // Disconnected VPN should have interface rules removed
-        verify(mMockNetd).firewallRemoveUidInterfaceRules(uidCaptor.capture());
+        verify(mBpfNetMaps).removeUidInterfaceRules(uidCaptor.capture());
         assertContainsExactly(uidCaptor.getValue(), APP1_UID, APP2_UID);
         assertNull(mService.mPermissionMonitor.getVpnUidRanges("tun0"));
     }
