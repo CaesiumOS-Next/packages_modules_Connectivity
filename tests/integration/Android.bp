@@ -53,6 +53,7 @@ android_test {
         // android_library does not include JNI libs: include NetworkStack dependencies here
         "libnativehelper_compat_libc++",
         "libnetworkstackutilsjni",
+        "libtraffic_controller_jni",
     ],
     jarjar_rules: ":connectivity-jarjar-rules",
 }
