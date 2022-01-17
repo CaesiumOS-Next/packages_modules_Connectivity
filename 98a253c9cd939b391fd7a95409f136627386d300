@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c611b02d_fac369c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-01-17T22:56:26Z",
+      "side": 1,
+      "message": "Hi Lucas, Jean,\n\nThis CL implements compatibility change for excluded routes: \nfor apps with target sdk \u003c T LinkProperties#get[All]Routes will return a set of unicast-only routes, instead of actual routes.\n\nPlease take a look.",
+      "revId": "98a253c9cd939b391fd7a95409f136627386d300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
