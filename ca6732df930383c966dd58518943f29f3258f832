@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31b5f967_538b3829",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 6892,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-17T01:37:45Z",
+      "side": 0,
+      "message": "What happens if the agent immediately sends an nc or lp update before handleRegisterNetworkAgent runs? Could we end up with invalid capabilities or LinkProperties (e.g., an invalid owner UID) because processCapabilitiesFromAgent and processLinkPropertiesFromAgent have never run yet?",
+      "range": {
+        "startLine": 6892,
+        "startChar": 8,
+        "endLine": 6892,
+        "endChar": 36
+      },
+      "revId": "ca6732df930383c966dd58518943f29f3258f832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28f19193_08a8205b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 6893,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-17T01:37:45Z",
+      "side": 0,
+      "message": "Now that getAndSetNetworkCapabilities runs after the agent is registered, does it mean we can remove the \"if (nm !\u003d null)\" check in getAndSetNetworkCapabilities? Or can it still happen that capabilities might change before the NetworkMonitor is created?",
+      "range": {
+        "startLine": 6893,
+        "startChar": 12,
+        "endLine": 6893,
+        "endChar": 40
+      },
+      "revId": "ca6732df930383c966dd58518943f29f3258f832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
