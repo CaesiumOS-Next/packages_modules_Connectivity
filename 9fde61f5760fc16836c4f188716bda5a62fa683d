@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "463bd60c_f941171a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "Could you use ScopedXXX util instead of getting/release array/utfchar by yourself ? JNI is hard that you may easily to forget the release or release in invalid status.\nLooking at the JNI tip, it says \"You must Release every array you Get. Also, if the Get call fails, you must ensure that your code doesn\u0027t try to Release a NULL pointer later.\" So the current code would crash if the JNI getXXX fail.\n\nhttps://developer.android.com/training/articles/perf-jni",
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e640bdc8_537c0665",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "Could you change the parameter of TrafficController#updateUidOwnerMap from vector to int ? It seems all the callers here pass int, convert to vector is unnecessary.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 45
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8dd072d_69fb6248",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "Could you use ScopedUtfChars, it is more safe that you don\u0027t need to care whether you are release memory correctly.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 66
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b58c56e3_a531ed6d",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "Could you use ScopedPrimitiveArray instead ? e.g. ScopedIntArrayRW",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbdbaf4d_7062757f",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 72
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03e1453a_81b977e0",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2d30903_dd5d902e",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e32acaa5_d0618477",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2041cc74_e65bf94d",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:44:36Z",
+      "side": 1,
+      "message": "What #setPermissionForUids do for intUids is iterator with loop without modify the array. It seems convert array to vector is unnecessary. Just iterate the array would make the code simpler. Note: I may be wrong because I am not familiar with C++.",
+      "range": {
+        "startLine": 211,
+        "startChar": 41,
+        "endLine": 211,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
