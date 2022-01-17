@@ -74,6 +74,12 @@ public class ClatCoordinator {
     private final Dependencies mDeps;
     @Nullable
     private String mIface = null;
+    @Nullable
+    private String mNat64Prefix = null;
+    @Nullable
+    private String mXlatLocalAddress4 = null;
+    @Nullable
+    private String mXlatLocalAddress6 = null;
     private int mPid = INVALID_PID;
 
     @VisibleForTesting
@@ -175,8 +181,9 @@ public class ClatCoordinator {
         /**
          * Stop clatd.
          */
-        public void jniStopClatd(int pid) throws IOException {
-            stopClatd(pid);
+        public void jniStopClatd(String iface, String pfx96, String v4, String v6, int pid)
+                throws IOException {
+            stopClatd(iface, pfx96, v4, v6, pid);
         }
     }
 
@@ -328,6 +335,9 @@ public class ClatCoordinator {
             mPid = mDeps.jniStartClatd(tunFd.getFileDescriptor(), readSock6.getFileDescriptor(),
                     writeSock6.getFileDescriptor(), iface, pfx96, v4, v6);
             mIface = iface;
+            mNat64Prefix = pfx96;
+            mXlatLocalAddress4 = v4;
+            mXlatLocalAddress6 = v6;
         } catch (IOException e) {
             throw new IOException("Error start clatd on " + iface + ": " + e);
         }
@@ -344,12 +354,15 @@ public class ClatCoordinator {
         }
         Log.i(TAG, "Stopping clatd pid=" + mPid + " on " + mIface);
 
-        mDeps.jniStopClatd(mPid);
+        mDeps.jniStopClatd(mIface, mNat64Prefix, mXlatLocalAddress4, mXlatLocalAddress6, mPid);
         // TODO: remove setIptablesDropRule
 
         Log.i(TAG, "clatd on " + mIface + " stopped");
 
         mIface = null;
+        mNat64Prefix = null;
+        mXlatLocalAddress4 = null;
+        mXlatLocalAddress6 = null;
         mPid = INVALID_PID;
     }
 
@@ -369,5 +382,6 @@ public class ClatCoordinator {
     private static native int startClatd(FileDescriptor tunfd, FileDescriptor readsock6,
             FileDescriptor writesock6, String iface, String pfx96, String v4, String v6)
             throws IOException;
-    private static native void stopClatd(int pid) throws IOException;
+    private static native void stopClatd(String iface, String pfx96, String v4, String v6, int pid)
+            throws IOException;
 }

@@ -422,10 +422,25 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
 }
 
 static void com_android_server_connectivity_ClatCoordinator_stopClatd(JNIEnv* env, jobject clazz,
+                                                                      jstring iface, jstring pfx96,
+                                                                      jstring v4, jstring v6,
                                                                       jint pid) {
+    ScopedUtfChars ifaceStr(env, iface);
+    ScopedUtfChars pfx96Str(env, pfx96);
+    ScopedUtfChars v4Str(env, v4);
+    ScopedUtfChars v6Str(env, v6);
+
     if (pid == -1) {
         jniThrowExceptionFmt(env, "java/io/IOException", "Invalid pid");
         return;
+    }
+
+    if (!net::clat::initMaps()) {
+        net::clat::ClatdTracker tracker = {};
+        if (!initTracker(ifaceStr.c_str(), pfx96Str.c_str(), v4Str.c_str(), v6Str.c_str(),
+                &tracker)) {
+            net::clat::maybeStopBpf(tracker);
+        }
     }
 
     kill(pid, SIGTERM);
@@ -458,7 +473,9 @@ static const JNINativeMethod gMethods[] = {
          "(Ljava/io/FileDescriptor;Ljava/io/FileDescriptor;Ljava/io/FileDescriptor;Ljava/lang/"
          "String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I",
          (void*)com_android_server_connectivity_ClatCoordinator_startClatd},
-        {"stopClatd", "(I)V", (void*)com_android_server_connectivity_ClatCoordinator_stopClatd},
+        {"stopClatd",
+         "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+         (void*)com_android_server_connectivity_ClatCoordinator_stopClatd},
 };
 
 int register_android_server_connectivity_ClatCoordinator(JNIEnv* env) {
