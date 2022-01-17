@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b616dcf_37c331a4",
+        "filename": "service/jarjar-rules.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-17T07:39:09Z",
+      "side": 1,
+      "message": "StateMachine also has com.android.internal.util.IState, so I think this should also have com.android.internal.util.IState*",
+      "range": {
+        "startLine": 12,
+        "startChar": 31,
+        "endLine": 12,
+        "endChar": 36
+      },
+      "revId": "20dbcd845360a1b0db9b6e2010d69e94ff1d7fc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
