@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a3dc5d6_6202e412",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-01-17T12:02:53Z",
+      "side": 1,
+      "message": "Hi Remi. Thank you for bringing this up. This change can\u0027t be merged into sc-mainline-prod because it depends on some Soong changes, which are not in sc-mainline-prod.\n\nThis CL only changed a few lines, so the chance of getting merge conflicts is small. Besides, the dexpreopt artifacts are stored on the system partition, rather than in the APEX. Therefore, this CL does not cause a diff in the module itself other than an entry in etc/systemserverclasspath.pb, which will not be used on S devices anyway, so merging this change into sc-mainline-prod does not make a difference.\n\nUnfortunately, we cannot revert this change because we want to enforce standalone system server jars to be dexopted, as system server jars are performance sensitive, and we already have checks for that:\n1. There is dexpreopt_check in the build system to check that dexpreopt artifacts are generated.\n2. There is an ongoing effort (aosp/1925695) to add a runtime check to reject APEX standalone system server jars that are not dexopted.",
+      "parentUuid": "f68fb684_d5d4bbe2",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bdeb3a93_67664eac",
