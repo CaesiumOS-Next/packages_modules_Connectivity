@@ -218,7 +218,7 @@ public class NsdServiceTest {
         client.discoverServices("a_type", PROTOCOL, listener2);
         waitForIdle();
         verify(mDaemon, times(1)).maybeStart();
-        verifyDaemonCommand("discover 3 a_type");
+        verifyDaemonCommand("discover 3 a_type any");
 
         // Client resolve request
         NsdManager.ResolveListener listener3 = mock(NsdManager.ResolveListener.class);
