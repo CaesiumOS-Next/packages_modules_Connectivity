@@ -343,6 +343,8 @@ public final class NetworkCapabilities implements Parcelable {
             NET_CAPABILITY_BIP,
             NET_CAPABILITY_HEAD_UNIT,
             NET_CAPABILITY_MMTEL,
+            NET_CAPABILITY_LOW_LATENCY,
+            NET_CAPABILITY_HIGH_BANDWIDTH,
     })
     public @interface NetCapability { }
 
@@ -586,8 +588,18 @@ public final class NetworkCapabilities implements Parcelable {
      */
     public static final int NET_CAPABILITY_MMTEL = 33;
 
+    /**
+     * Indicates that this network should be able to reach the internet with low latency.
+     */
+    public static final int NET_CAPABILITY_LOW_LATENCY = 34;
+
+    /**
+     * Indicates that this network should be able to reach the internet with high bandwidth.
+     */
+    public static final int NET_CAPABILITY_HIGH_BANDWIDTH = 35;
+
     private static final int MIN_NET_CAPABILITY = NET_CAPABILITY_MMS;
-    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_MMTEL;
+    private static final int MAX_NET_CAPABILITY = NET_CAPABILITY_HIGH_BANDWIDTH;
 
     /**
      * Network capabilities that are expected to be mutable, i.e., can change while a particular
@@ -2224,6 +2236,8 @@ public final class NetworkCapabilities implements Parcelable {
             case NET_CAPABILITY_BIP:                  return "BIP";
             case NET_CAPABILITY_HEAD_UNIT:            return "HEAD_UNIT";
             case NET_CAPABILITY_MMTEL:                return "MMTEL";
+            case NET_CAPABILITY_LOW_LATENCY:          return "LOW_LATENCY";
+            case NET_CAPABILITY_HIGH_BANDWIDTH:             return "HIGH_BANDWIDTH";
             default:                                  return Integer.toString(capability);
         }
     }

@@ -313,9 +313,11 @@ package android.net {
     field public static final int NET_CAPABILITY_FOREGROUND = 19; // 0x13
     field public static final int NET_CAPABILITY_FOTA = 3; // 0x3
     field public static final int NET_CAPABILITY_HEAD_UNIT = 32; // 0x20
+    field public static final int NET_CAPABILITY_HIGH_BANDWIDTH = 35; // 0x23
     field public static final int NET_CAPABILITY_IA = 7; // 0x7
     field public static final int NET_CAPABILITY_IMS = 4; // 0x4
     field public static final int NET_CAPABILITY_INTERNET = 12; // 0xc
+    field public static final int NET_CAPABILITY_LOW_LATENCY = 34; // 0x22
     field public static final int NET_CAPABILITY_MCX = 23; // 0x17
     field public static final int NET_CAPABILITY_MMS = 0; // 0x0
     field public static final int NET_CAPABILITY_MMTEL = 33; // 0x21
