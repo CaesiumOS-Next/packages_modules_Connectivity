@@ -16,9 +16,13 @@
 
 package com.android.server;
 
+import android.net.INetd;
+import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.system.Os;
 import android.util.Log;
+
+import com.android.modules.utils.build.SdkLevel;
 
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
@@ -27,6 +31,16 @@ import android.util.Log;
  */
 public class BpfNetMaps {
     private static final String TAG = "BpfNetMaps";
+    private final INetd mNetd;
+
+    static {
+        System.loadLibrary("traffic_controller_jni");
+        native_init();
+    }
+
+    public BpfNetMaps(INetd netd) {
+        mNetd = netd;
+    }
 
     static {
         System.loadLibrary("traffic_controller_jni");
@@ -41,6 +55,14 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void addNaughtyApp(final int uid) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.bandwidthAddNaughtyApp(uid);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+            return;
+        }
         final int err = native_addNaughtyApp(uid);
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to add naughty app: "
@@ -56,6 +78,14 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void removeNaughtyApp(final int uid) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.bandwidthRemoveNaughtyApp(uid);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+            return;
+        }
         final int err = native_removeNaughtyApp(uid);
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to remove naughty app: "
@@ -71,6 +101,14 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void addNiceApp(final int uid) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.bandwidthAddNiceApp(uid);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+            return;
+        }
         final int err = native_addNiceApp(uid);
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to add nice app: "
@@ -86,6 +124,14 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void removeNiceApp(final int uid) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.bandwidthRemoveNiceApp(uid);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+            return;
+        }
         final int err = native_removeNiceApp(uid);
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to remove nice app: "
@@ -102,6 +148,14 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void setChildChain(final int childChain, final boolean enable) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.firewallEnableChildChain(childChain, enable);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+            return;
+        }
         final int err = native_setChildChain(childChain, enable);
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to set child chain: "
@@ -124,6 +178,14 @@ public class BpfNetMaps {
      */
     public int replaceUidChain(final String chainName, final boolean isAllowlist,
             final int[] uids) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.firewallReplaceUidChain(chainName, isAllowlist, uids);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+            return 0;
+        }
         final int err = native_replaceUidChain(chainName, isAllowlist, uids);
         if (err != 0) {
             Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
@@ -140,8 +202,15 @@ public class BpfNetMaps {
     * @throws ServiceSpecificException in case of failure, with an error code indicating the
     *         cause of the failure.
     */
-    public void setUidRule(final int childChain, final int uid,
-            final int firewallRule) {
+    public void setUidRule(final int childChain, final int uid, final int firewallRule) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.firewallSetUidRule(childChain, uid, firewallRule);
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+            return;
+        }
         final int err = native_setUidRule(childChain, uid, firewallRule);
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to set uid rule: "
@@ -166,6 +235,14 @@ public class BpfNetMaps {
      *         cause of the failure.
      */
     public void addUidInterfaceRules(final String ifName, final int[] uids) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.firewallAddUidInterfaceRules(ifName, uids);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Exception when updating permissions: " + e);
+            }
+            return;
+        }
         final int err = native_addUidInterfaceRules(ifName, uids);
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to add uid interface rules: "
@@ -184,6 +261,14 @@ public class BpfNetMaps {
      *         cause of the failure.
      */
     public void removeUidInterfaceRules(final int[] uids) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.firewallRemoveUidInterfaceRules(uids);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Exception when updating permissions: " + e);
+            }
+            return;
+        }
         final int err = native_removeUidInterfaceRules(uids);
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to remove uid interface rules: "
@@ -197,6 +282,14 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void swapActiveStatsMap() {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.trafficSwapActiveStatsMap();
+            } catch (RemoteException e) {
+                throw new IllegalStateException(e);
+            }
+            return;
+        }
         final int err = native_swapActiveStatsMap();
         if (err != 0) {
             throw new ServiceSpecificException(-err, "Unable to swap active stats map: "
@@ -213,8 +306,16 @@ public class BpfNetMaps {
     *                   revoke all permissions for the uids.
     * @param uids uid of users to grant permission
     */
-    public void setNetPermForUids(final int permission, final int[] uids) {
-        native_setPermissionForUids(permission, uids);
+    public void setNetPermForUids(final int permissions, final int[] uids) {
+        if (!SdkLevel.isAtLeastT()) {
+            try {
+                mNetd.trafficSetNetPermForUids(permissions, uids);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Pass appId list of special permission failed." + e);
+            }
+            return;
+        }
+        native_setPermissionForUids(permissions, uids);
     }
 
     /**
@@ -255,7 +356,7 @@ public class BpfNetMaps {
     private native int native_addUidInterfaceRules(String ifName, int[] uids);
     private native int native_removeUidInterfaceRules(int[] uids);
     private native int native_swapActiveStatsMap();
-    private native void native_setPermissionForUids(int permission, int[] uids);
+    private native void native_setPermissionForUids(int permissions, int[] uids);
     private native int native_setCounterSet(int counterSet, int uid);
     private native int native_deleteTagData(int tag, int uid);
 }
