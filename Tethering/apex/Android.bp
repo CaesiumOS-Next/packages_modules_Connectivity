@@ -63,6 +63,7 @@ apex {
         "clatd",
     ],
     bpfs: [
+        "netd_mainline.o",
         "offload.o",
         "test.o",
     ],
