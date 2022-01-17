@@ -54,6 +54,7 @@ android_test {
         "libnativehelper_compat_libc++",
         "libnetworkstackutilsjni",
         "libcom_android_connectivity_com_android_net_module_util_jni",
+        "libtraffic_controller_jni",
     ],
     jarjar_rules: ":connectivity-jarjar-rules",
 }
