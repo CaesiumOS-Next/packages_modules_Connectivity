@@ -146,6 +146,7 @@ public class PermissionMonitorTest {
     @Mock private UserManager mUserManager;
     @Mock private PermissionMonitor.Dependencies mDeps;
     @Mock private SystemConfigManager mSystemConfigManager;
+    @Mock private BpfNetMaps mBpfNetMaps;
 
     private PermissionMonitor mPermissionMonitor;
     private NetdMonitor mNetdMonitor;
@@ -173,6 +174,7 @@ public class PermissionMonitorTest {
             return asUserCtx;
         }).when(mContext).createContextAsUser(any(), anyInt());
         when(mDeps.getUidsAllowedOnRestrictedNetworks(any())).thenReturn(Set.of());
+        when(mDeps.getBpfNetMaps(eq(mNetdService))).thenReturn(mBpfNetMaps);
         // Set DEVICE_INITIAL_SDK_INT to Q that SYSTEM_UID won't have restricted network permission
         // by default.
         doReturn(VERSION_Q).when(mDeps).getDeviceFirstSdkInt();
@@ -702,30 +704,30 @@ public class PermissionMonitorTest {
 
         // When VPN is connected, expect a rule to be set up for user app MOCK_UID11
         mPermissionMonitor.onVpnUidRangesAdded("tun0", vpnRange1, VPN_UID);
-        verify(mNetdService).firewallAddUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID11}));
+        verify(mBpfNetMaps).addUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID11}));
 
         reset(mNetdService);
 
         // When MOCK_UID11 package is uninstalled and reinstalled, expect Netd to be updated
         mPermissionMonitor.onPackageRemoved(MOCK_PACKAGE1, MOCK_UID11);
-        verify(mNetdService).firewallRemoveUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
+        verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
         mPermissionMonitor.onPackageAdded(MOCK_PACKAGE1, MOCK_UID11);
-        verify(mNetdService).firewallAddUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID11}));
+        verify(mBpfNetMaps).addUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID11}));
 
         reset(mNetdService);
 
         // During VPN uid update (vpnRange1 -> vpnRange2), ConnectivityService first deletes the
         // old UID rules then adds the new ones. Expect netd to be updated
         mPermissionMonitor.onVpnUidRangesRemoved("tun0", vpnRange1, VPN_UID);
-        verify(mNetdService).firewallRemoveUidInterfaceRules(aryEq(new int[] {MOCK_UID11}));
+        verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[] {MOCK_UID11}));
         mPermissionMonitor.onVpnUidRangesAdded("tun0", vpnRange2, VPN_UID);
-        verify(mNetdService).firewallAddUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID12}));
+        verify(mBpfNetMaps).addUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID12}));
 
         reset(mNetdService);
 
         // When VPN is disconnected, expect rules to be torn down
         mPermissionMonitor.onVpnUidRangesRemoved("tun0", vpnRange2, VPN_UID);
-        verify(mNetdService).firewallRemoveUidInterfaceRules(aryEq(new int[] {MOCK_UID12}));
+        verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[] {MOCK_UID12}));
         assertNull(mPermissionMonitor.getVpnUidRanges("tun0"));
     }
 
@@ -744,13 +746,13 @@ public class PermissionMonitorTest {
 
         // Newly-installed package should have uid rules added
         addPackageForUsers(new UserHandle[]{MOCK_USER1, MOCK_USER2}, MOCK_PACKAGE1, MOCK_APPID1);
-        verify(mNetdService).firewallAddUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID11}));
-        verify(mNetdService).firewallAddUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID21}));
+        verify(mBpfNetMaps).addUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID11}));
+        verify(mBpfNetMaps).addUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID21}));
 
         // Removed package should have its uid rules removed
         mPermissionMonitor.onPackageRemoved(MOCK_PACKAGE1, MOCK_UID11);
-        verify(mNetdService).firewallRemoveUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
-        verify(mNetdService, never()).firewallRemoveUidInterfaceRules(aryEq(new int[]{MOCK_UID21}));
+        verify(mBpfNetMaps).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID11}));
+        verify(mBpfNetMaps, never()).removeUidInterfaceRules(aryEq(new int[]{MOCK_UID21}));
     }
 
 
