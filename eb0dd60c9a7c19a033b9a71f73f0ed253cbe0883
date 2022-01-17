@@ -34,6 +34,29 @@
       "parentUuid": "979934c0_75d29437",
       "revId": "eb0dd60c9a7c19a033b9a71f73f0ed253cbe0883",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f48691a4_2767d066",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-17T15:29:15Z",
+      "side": 1,
+      "message": "As far as I can tell, this doesn\u0027t work. test_mainline_modules is an array, but each element of the array is a list of modules separated by \"+\". I don\u0027t understand why the array doesn\u0027t just specify the list of modules (like I did here), but it doesn\u0027t. Fixed.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 6
+      },
+      "revId": "eb0dd60c9a7c19a033b9a71f73f0ed253cbe0883",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
