@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f68fb684_d5d4bbe2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-17T07:28:44Z",
+      "side": 1,
+      "message": "This was called out in our mainline release meeting for the module\n\nWhy is this not merged in sc-mainline-prod ?\n\nIt\u0027s not OK to have such module changes in AOSP/master without having it in the module release branch, as we try hard to keep the branches identical to avoid merge conflicts, and having the change in device branches but not module branches means that dogfood does not use what actually gets pushed to the public, which increases risk.\n\nCan this be merged into sc-mainline-prod ? Otherwise I think we should revert it until t-mainline-prod is available.",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bdeb3a93_67664eac",
