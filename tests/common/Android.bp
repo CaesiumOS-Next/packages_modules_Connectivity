@@ -91,6 +91,7 @@ android_test {
         "libcom_android_networkstack_tethering_util_jni",
         // For framework tests
         "libservice-connectivity",
+        "libtraffic_controller_jni",
     ],
     libs: [
         // Although not required to compile the static libs together, the "libs" used to build each
