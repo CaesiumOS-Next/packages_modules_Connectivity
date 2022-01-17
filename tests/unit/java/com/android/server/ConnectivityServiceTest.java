@@ -1725,7 +1725,6 @@ public class ConnectivityServiceTest {
         doReturn(mResources).when(mockResContext).getResources();
         ConnectivityResources.setResourcesContextForTest(mockResContext);
         mDeps = new ConnectivityServiceDependencies(mockResContext);
-
         mService = new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
                 mock(IpConnectivityLog.class),
@@ -10099,7 +10098,7 @@ public class ConnectivityServiceTest {
         assertVpnUidRangesUpdated(true, vpnRange, Process.SYSTEM_UID);
 
         // Legacy VPN should not have interface rules set up
-        verify(mMockNetd, never()).firewallAddUidInterfaceRules(any(), any());
+        verify(mMockNetd, never()).firewallRddUidInterfaceRules(any(), any());
     }
 
     @Test
