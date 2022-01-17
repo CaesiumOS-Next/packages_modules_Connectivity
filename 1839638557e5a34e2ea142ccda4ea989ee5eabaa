@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae02b902_26d1054d",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-17T02:04:54Z",
+      "side": 1,
+      "message": "... potentially with a NetworkCallback flag similar to FLAG_INCLUDE_LOCATION_INFO. (Storing it in the flags makes it easy to check permissions: when registering a callback, check the flag, and if the flag is not set, never send unredacted info).",
+      "parentUuid": "21c1f637_3e25df22",
+      "range": {
+        "startLine": 842,
+        "startChar": 8,
+        "endLine": 842,
+        "endChar": 59
+      },
+      "revId": "1839638557e5a34e2ea142ccda4ea989ee5eabaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2916eb92_4bb6dd4c",
         "filename": "framework/src/android/net/NetworkAgent.java",
         "patchSetId": 17
