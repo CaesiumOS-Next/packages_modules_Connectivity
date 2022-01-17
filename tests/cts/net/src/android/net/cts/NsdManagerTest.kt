@@ -396,6 +396,37 @@ class NsdManagerTest {
     }
 
     @Test
+    fun testNsdManager_DiscoverOnNetwork() {
+        val si = NsdServiceInfo()
+        si.serviceType = SERVICE_TYPE
+        si.serviceName = this.serviceName
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        val registrationRecord = NsdRegistrationRecord()
+        val registeredInfo = registerService(registrationRecord, si)
+
+        tryTest {
+            val discoveryRecord = NsdDiscoveryRecord()
+            nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD,
+                    testNetwork1.network, discoveryRecord)
+
+            val foundInfo = discoveryRecord.waitForServiceDiscovered(
+                    serviceName, testNetwork1.network)
+            assertEquals(testNetwork1.network, foundInfo.network)
+
+            // Rewind to ensure the service is not found on the other interface
+            discoveryRecord.nextEvents.rewind(0)
+            assertNull(discoveryRecord.nextEvents.poll(timeoutMs = 100L) {
+                it is ServiceFound &&
+                        it.serviceInfo.serviceName == registeredInfo.serviceName &&
+                        it.serviceInfo.network != testNetwork1.network
+            }, "The service should not be found on this network")
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
+    }
+
+    @Test
     fun testNsdManager_ResolveOnNetwork() {
         // This tests requires shims supporting T+ APIs (NsdServiceInfo.network)
         assumeTrue(ConstantsShim.VERSION > SC_V2)
