@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3be6727_23053503",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "137c6290_b9a4c414",
+      "range": {
+        "startLine": 71,
+        "startChar": 28,
+        "endLine": 71,
+        "endChar": 39
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b86e6528_cec426ee",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "Maybe clarify this a bit :\n- included and excluded can\u0027t both be non-empty\n- if both are empty, it means the entire range of UIDs for this user\n- if included is not empty, then it\u0027s only these UIDs\n- if excluded is not empty, then it\u0027s the entire range except these UIDs",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 73,
+        "endChar": 86
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81b5d297_166cdee6",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b86e6528_cec426ee",
       "range": {
         "startLine": 72,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "079da4ff_83c02029",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dc7b302_82a48a61",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 15
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d619a9cc_85670c40",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "Since this is only used in l.1493 now, can we inline the \"Collections.singleton\" and call the new method, then remove this function ?",
+      "range": {
+        "startLine": 1495,
+        "startChar": 0,
+        "endLine": 1504,
+        "endChar": 5
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e2ea76b_70e7aae2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1504,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d619a9cc_85670c40",
       "range": {
         "startLine": 1495,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aa97ce4_2ef79d35",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10164,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e03bb3f5_519c9f6e",
+      "range": {
+        "startLine": 10164,
+        "startChar": 35,
+        "endLine": 10164,
+        "endChar": 39
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8efe5744_943ce25f",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 10165,
+        "startChar": 20,
+        "endLine": 10165,
+        "endChar": 23
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97ff1246_a613bb9f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10165,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8efe5744_943ce25f",
       "range": {
         "startLine": 10165,
         "startChar": 20,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e92cc2e_f3b6c419",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10167,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e4ca198_0b36f6c5",
+      "range": {
+        "startLine": 10167,
+        "startChar": 24,
+        "endLine": 10167,
+        "endChar": 43
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "705e7633_3dba6b81",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "Likewise",
+      "range": {
+        "startLine": 10183,
+        "startChar": 28,
+        "endLine": 10183,
+        "endChar": 56
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e5c42fe_0c769083",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10183,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "705e7633_3dba6b81",
       "range": {
         "startLine": 10183,
         "startChar": 28,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b22174c_1e87dea1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10199,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ff3751f_389e563d",
+      "range": {
+        "startLine": 10199,
+        "startChar": 24,
+        "endLine": 10199,
+        "endChar": 25
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "309778fd_86aa09f4",
@@ -221,6 +437,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "If it\u0027s possible to make one or both of these arguments non-null then it might be easier. (use Objects.requireNonNull)\n\nI would only advise this if your implementation already never sends null.",
+      "range": {
+        "startLine": 42,
+        "startChar": 48,
+        "endLine": 42,
+        "endChar": 56
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32c77dc3_813ab274",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "309778fd_86aa09f4",
       "range": {
         "startLine": 42,
         "startChar": 48,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb26c487_36d8d887",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d27e47b1_8cd307a7",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 84
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d42f3181_44ddcbc0",
@@ -267,6 +531,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "This is incorrect in the case of an empty uidRangeSet",
+      "range": {
+        "startLine": 46,
+        "startChar": 19,
+        "endLine": 46,
+        "endChar": 24
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fbb7e50_a3b78ff9",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d42f3181_44ddcbc0",
       "range": {
         "startLine": 46,
         "startChar": 19,
@@ -300,6 +588,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14d43a47_d970cef9",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8643728_048dd13a",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb894dfa_5a7535c5",
@@ -313,6 +625,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "Likewise",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f316e96_2d8bc75b",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb894dfa_5a7535c5",
       "range": {
         "startLine": 64,
         "startChar": 13,
@@ -346,6 +682,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd2803c6_335e358b",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86bcc0b4_4a22e236",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 11
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "def1e677_04628a30",
@@ -359,6 +719,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "Likewise, consider @NonNull if that\u0027s not going to make the caller do the null checks",
+      "range": {
+        "startLine": 98,
+        "startChar": 47,
+        "endLine": 98,
+        "endChar": 55
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9a70ca0_90e373a5",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "def1e677_04628a30",
       "range": {
         "startLine": 98,
         "startChar": 47,
@@ -392,6 +776,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a40f54_1ffc8b62",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10194d79_72cf7a05",
+      "range": {
+        "startLine": 107,
+        "startChar": 27,
+        "endLine": 107,
+        "endChar": 31
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cebfff1e_5eae352d",
@@ -405,6 +813,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 11
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f63f291_1b0c9fb0",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cebfff1e_5eae352d",
       "range": {
         "startLine": 121,
         "startChar": 8,
@@ -438,6 +870,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de2a908e_defed385",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abc07a92_fc76a44e",
+      "range": {
+        "startLine": 125,
+        "startChar": 20,
+        "endLine": 125,
+        "endChar": 24
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "996096b4_a29af85f",
@@ -451,6 +907,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "\"Callback2\" is a bit puzzling for a reader ; maybe we want to rename it to CallbackAsAppUid2 or so.\n\nAlternatively, keep these callbacks local to the test",
+      "range": {
+        "startLine": 12269,
+        "startChar": 0,
+        "endLine": 12269,
+        "endChar": 30
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c34ff79_f20814e2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 12269,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996096b4_a29af85f",
       "range": {
         "startLine": 12269,
         "startChar": 0,
@@ -484,6 +964,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e0aaa22_36141fb9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13738,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a1caca_a833d69d",
+      "range": {
+        "startLine": 13738,
+        "startChar": 12,
+        "endLine": 13738,
+        "endChar": 62
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b118caa1_5165d1a4",
@@ -497,6 +1001,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "final here and below",
+      "range": {
+        "startLine": 13740,
+        "startChar": 12,
+        "endLine": 13740,
+        "endChar": 15
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "097b4932_76b80945",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13740,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b118caa1_5165d1a4",
       "range": {
         "startLine": 13740,
         "startChar": 12,
@@ -530,6 +1058,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceab80b0_58b21ef6",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13751,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f39e8418_cff4a391",
+      "range": {
+        "startLine": 13751,
+        "startChar": 16,
+        "endLine": 13751,
+        "endChar": 66
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6354774d_0ed8c184",
@@ -543,6 +1095,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "Like in the production code I think this can be written a bit easier by exporting the loop that makes the array to the bottom of the function",
+      "range": {
+        "startLine": 13767,
+        "startChar": 8,
+        "endLine": 13767,
+        "endChar": 9
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b625fc4f_a5c57b44",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 13767,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6354774d_0ed8c184",
       "range": {
         "startLine": 13767,
         "startChar": 8,
@@ -589,6 +1165,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "I think this should be R",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 51
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fa7fbab_16048d34",
+        "filename": "tests/unit/java/com/android/server/connectivity/UidRangeUtilsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-17T22:58:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "591d5e6e_aaab593b",
       "range": {
         "startLine": 47,
         "startChar": 0,
