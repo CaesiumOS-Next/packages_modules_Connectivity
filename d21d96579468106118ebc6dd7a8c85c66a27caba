@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f53caf53_47cae832",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:53:01Z",
+      "side": 1,
+      "message": "Look at the caller (JNI), they always pass int. Change this to int ? Then you could get rid of for loop to simply the code.\n\nIf this code is identical with current netd code, maybe have the follow change to modify this.",
+      "range": {
+        "startLine": 400,
+        "startChar": 44,
+        "endLine": 400,
+        "endChar": 81
+      },
+      "revId": "d21d96579468106118ebc6dd7a8c85c66a27caba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daf289d5_6c7dd09f",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-17T17:53:01Z",
+      "side": 1,
+      "message": "Since the coder is JNI. Suggest to replace the vector to array, if it just used to iterator without modify the content. Then you don\u0027t need to convert the array to vector in JNI code.\n\nSame as the vector usage everywhere. Follow up change would be better, if this code just be identical with netd.",
+      "range": {
+        "startLine": 462,
+        "startChar": 44,
+        "endLine": 462,
+        "endChar": 71
+      },
+      "revId": "d21d96579468106118ebc6dd7a8c85c66a27caba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
