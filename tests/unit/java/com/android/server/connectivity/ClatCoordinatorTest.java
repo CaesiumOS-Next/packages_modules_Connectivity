@@ -27,6 +27,7 @@ import static com.android.testutils.MiscAsserts.assertThrows;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.argThat;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.eq;
@@ -257,7 +258,8 @@ public class ClatCoordinatorTest {
         /**
          * Stop clatd.
          */
-        public void stopClatd(int pid) throws IOException {
+        public void stopClatd(@NonNull String iface, @NonNull String pfx96, @NonNull String v4,
+                @NonNull String v6, int pid) throws IOException {
             if (pid == -1) {
                 fail("unsupported arg: " + pid);
             }
@@ -344,13 +346,15 @@ public class ClatCoordinatorTest {
 
         // [3] Expect clatd to stop successfully.
         coordinator.clatStop();
-        inOrder.verify(mDeps).stopClatd(eq(CLATD_PID));
+        inOrder.verify(mDeps).stopClatd(eq(BASE_IFACE), eq(NAT64_PREFIX_STRING),
+                eq(XLAT_LOCAL_IPV4ADDR_STRING), eq(XLAT_LOCAL_IPV6ADDR_STRING), eq(CLATD_PID));
         inOrder.verifyNoMoreInteractions();
 
         // [4] Expect an IO exception while stopping a clatd that doesn't exist.
         assertThrows("java.io.IOException: Clatd has not started", IOException.class,
                 () -> coordinator.clatStop());
-        inOrder.verify(mDeps, never()).stopClatd(anyInt());
+        inOrder.verify(mDeps, never()).stopClatd(anyString(), anyString(), anyString(),
+                anyString(), anyInt());
         inOrder.verifyNoMoreInteractions();
     }
 
