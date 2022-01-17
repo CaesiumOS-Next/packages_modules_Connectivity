@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21c1f637_3e25df22",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-17T02:01:08Z",
+      "side": 1,
+      "message": "Per discussion: looks like a better way to do this would be to allow anyone with NETWORK_FACTORY permission to see unredacted capabilities.",
+      "parentUuid": "a0f46419_18cbe53e",
+      "range": {
+        "startLine": 842,
+        "startChar": 8,
+        "endLine": 842,
+        "endChar": 59
+      },
+      "revId": "1839638557e5a34e2ea142ccda4ea989ee5eabaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2916eb92_4bb6dd4c",
         "filename": "framework/src/android/net/NetworkAgent.java",
         "patchSetId": 17
