@@ -89,6 +89,7 @@ import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 
 import com.android.net.module.util.CollectionUtils;
+import com.android.server.BpfNetMaps;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
@@ -146,6 +147,7 @@ public class PermissionMonitorTest {
     @Mock private UserManager mUserManager;
     @Mock private PermissionMonitor.Dependencies mDeps;
     @Mock private SystemConfigManager mSystemConfigManager;
+    @Mock private BpfNetMaps mBpfNetMaps;
 
     private PermissionMonitor mPermissionMonitor;
     private NetdMonitor mNetdMonitor;
@@ -177,7 +179,7 @@ public class PermissionMonitorTest {
         // by default.
         doReturn(VERSION_Q).when(mDeps).getDeviceFirstSdkInt();
 
-        mPermissionMonitor = new PermissionMonitor(mContext, mNetdService, mDeps);
+        mPermissionMonitor = new PermissionMonitor(mContext, mNetdService, mBpfNetMaps, mDeps);
         mNetdMonitor = new NetdMonitor(mNetdService);
 
         doReturn(List.of()).when(mPackageManager).getInstalledPackagesAsUser(anyInt(), anyInt());
@@ -876,7 +878,8 @@ public class PermissionMonitorTest {
         // Use the real context as this test must ensure the *real* system package holds the
         // necessary permission.
         final Context realContext = InstrumentationRegistry.getContext();
-        final PermissionMonitor monitor = new PermissionMonitor(realContext, mNetdService);
+        final PermissionMonitor monitor = new PermissionMonitor(realContext, mNetdService,
+                mBpfNetMaps);
         final PackageManager manager = realContext.getPackageManager();
         final PackageInfo systemInfo = manager.getPackageInfo(REAL_SYSTEM_PACKAGE_NAME,
                 GET_PERMISSIONS | MATCH_ANY_USER);
