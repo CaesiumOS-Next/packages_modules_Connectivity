@@ -165,5 +165,6 @@ android_test {
     ],
     jni_libs: [
         "libservice-connectivity",
+        "libtraffic_controller_jni",
     ]
 }
