@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "491e48b6_3a8246bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T02:49:23Z",
+      "side": 1,
+      "message": "LGTM as far as it goes, but it would be nice if we could add some asserts like:\n\n    verify(mCm).requestSwapActiveStatsMapLocked();\n\n",
+      "revId": "170ef352c0fd0bbf02fe64119dc6fd47e42f6add",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
