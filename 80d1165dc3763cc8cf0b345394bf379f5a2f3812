@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed278fe_27c1c4bd",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-18T19:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42f60c77_ee0308c9",
+      "range": {
+        "startLine": 62,
+        "startChar": 7,
+        "endLine": 63,
+        "endChar": 44
+      },
+      "revId": "80d1165dc3763cc8cf0b345394bf379f5a2f3812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54afcf74_d00b7dc6",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-18T01:55:35Z",
       "side": 1,
       "message": "!\u003d DEFAULT",
+      "range": {
+        "startLine": 128,
+        "startChar": 28,
+        "endLine": 128,
+        "endChar": 68
+      },
+      "revId": "80d1165dc3763cc8cf0b345394bf379f5a2f3812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d42d23d3_f2cea6f9",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-18T19:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54afcf74_d00b7dc6",
       "range": {
         "startLine": 128,
         "startChar": 28,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "227effa4_796aeb07",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-18T19:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a25bf60c_81cf2f44",
+      "range": {
+        "startLine": 133,
+        "startChar": 30,
+        "endLine": 133,
+        "endChar": 54
+      },
+      "revId": "80d1165dc3763cc8cf0b345394bf379f5a2f3812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99c3fe92_808b59cf",
@@ -110,6 +182,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eac28358_0bf4a191",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-18T19:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99c3fe92_808b59cf",
+      "range": {
+        "startLine": 146,
+        "startChar": 10,
+        "endLine": 147,
+        "endChar": 49
+      },
+      "revId": "80d1165dc3763cc8cf0b345394bf379f5a2f3812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46b4aa91_e75b85de",
@@ -123,6 +219,30 @@
       "writtenOn": "2022-01-18T01:55:35Z",
       "side": 1,
       "message": "Let\u0027s sanitize this, in case they use the AIDL interface directly through reflection or something",
+      "range": {
+        "startLine": 10157,
+        "startChar": 39,
+        "endLine": 10157,
+        "endChar": 64
+      },
+      "revId": "80d1165dc3763cc8cf0b345394bf379f5a2f3812",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3e6e239_348f4684",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 10157,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-18T19:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46b4aa91_e75b85de",
       "range": {
         "startLine": 10157,
         "startChar": 39,
