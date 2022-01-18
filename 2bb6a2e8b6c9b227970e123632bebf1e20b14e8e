@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12a44d0c_5dbad289",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-18T18:18:23Z",
+      "side": 1,
+      "message": "I see build failure https://android-build.googleplex.com/builds/pending/P29079143/mainline_modules_x86_64-userdebug/latest/view/logs/build_error.log:\n---------\npackages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/EntitlementManager.java:376: error: cannot find symbol\n                CarrierConfigManager.Tethering.KEY_ENTITLEMENT_SERVICE_PACKAGE_STRING);\n                                    ^\n  symbol:   variable Tethering\n  location: class CarrierConfigManager\n1 error\n---------\nI hope there is no restriction in using new Android APIs in Tethering module?",
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b13c7e2_f3d9173d",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
         "patchSetId": 11
