@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c5fdc87_3a22399c",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T10:45:01Z",
+      "side": 0,
+      "message": "We probably should keep these if !isAtLeastS() ; this is the class in which we had some actors add public fields which had them have to tell all their users to update to stop using them.\n\nThis may also apply to those classes that were testing for a given field count when running on \u003c\u003d Q.",
+      "range": {
+        "startLine": 357,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 9
+      },
+      "revId": "392161e651d870c1c5dcf5ff1b1cb5afd029dea4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
