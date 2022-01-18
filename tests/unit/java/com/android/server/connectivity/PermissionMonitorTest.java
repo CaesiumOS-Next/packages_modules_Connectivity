@@ -146,6 +146,7 @@ public class PermissionMonitorTest {
     @Mock private UserManager mUserManager;
     @Mock private PermissionMonitor.Dependencies mDeps;
     @Mock private SystemConfigManager mSystemConfigManager;
+    @Mock private BpfNetMaps mBpfNetMaps;
 
     private PermissionMonitor mPermissionMonitor;
     private NetdMonitor mNetdMonitor;
