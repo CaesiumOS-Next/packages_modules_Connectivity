@@ -146,3 +146,39 @@ cc_library_shared {
         "com.android.tethering",
     ],
 }
+
+java_library {
+    name: "framework-connectivity-ipsec",
+    sdk_version: "module_current",
+    min_sdk_version: "30",
+    defaults: ["framework-module-defaults"],
+    srcs: [
+        ":framework-connectivity-ipsec-sources",
+        ":framework-connectivity-aidl-export-sources",
+    ],
+    libs: [
+        "framework-connectivity",
+        "unsupportedappusage",
+        "framework-annotations-lib",
+        "net-utils-framework-common",
+    ],
+}
+
+java_library {
+    name: "service-connectivity-ipsec-pre-jarjar",
+    sdk_version: "system_server_current",
+    min_sdk_version: "30",
+    srcs: [
+        ":services.connectivity-ipsec-sources",
+        ":framework-connectivity-ipsec-sources",
+    ],
+    libs: [
+            "framework-connectivity.stubs.module_lib",
+            "framework-annotations-lib",
+            "net-utils-framework-common",
+    ],
+    static_libs: [
+          "netd-client", // For INetd
+          "modules-utils-preconditions", // For Preconditions.checkArgument
+    ]
+}
