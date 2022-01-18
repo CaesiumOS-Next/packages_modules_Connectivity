@@ -21,6 +21,7 @@ namespace android {
 
 int register_android_server_TestNetworkService(JNIEnv* env);
 int register_android_server_connectivity_ClatCoordinator(JNIEnv* env);
+int register_com_android_net_module_util_TcUtils(JNIEnv* env, char const* class_name);
 
 extern "C" jint JNI_OnLoad(JavaVM* vm, void*) {
     JNIEnv *env;
@@ -36,6 +37,9 @@ extern "C" jint JNI_OnLoad(JavaVM* vm, void*) {
     if (register_android_server_connectivity_ClatCoordinator(env) < 0) {
         return JNI_ERR;
     }
+
+    if (register_com_android_net_module_util_TcUtils(env,
+            "com/android/connectivity/com/android/net/module/util/TcUtils") < 0) return JNI_ERR;
 
     return JNI_VERSION_1_6;
 }
