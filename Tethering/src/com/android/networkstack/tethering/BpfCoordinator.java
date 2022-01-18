@@ -64,10 +64,10 @@ import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.CollectionUtils;
 import com.android.net.module.util.NetworkStackConstants;
-import com.android.net.module.util.Struct;
 import com.android.net.module.util.netlink.ConntrackMessage;
 import com.android.net.module.util.netlink.NetlinkConstants;
 import com.android.net.module.util.netlink.NetlinkSocket;
+import com.android.net.module.util.structs.U32Struct;
 import com.android.networkstack.tethering.apishim.common.BpfCoordinatorShim;
 import com.android.networkstack.tethering.util.TetheringUtils.ForwardedStats;
 
@@ -1133,15 +1133,6 @@ public class BpfCoordinator {
         } catch (ErrnoException e) {
             pw.println("Error dumping IPv4 map: " + e);
         }
-    }
-
-    /**
-     * Simple struct that only contains a u32. Must be public because Struct needs access to it.
-     * TODO: make this a public inner class of Struct so anyone can use it as, e.g., Struct.U32?
-     */
-    public static class U32Struct extends Struct {
-        @Struct.Field(order = 0, type = Struct.Type.U32)
-        public long val;
     }
 
     private void dumpCounters(@NonNull IndentingPrintWriter pw) {
