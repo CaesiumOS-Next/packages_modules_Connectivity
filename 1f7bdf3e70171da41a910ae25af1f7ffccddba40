@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f52a7f60_dc7068c3",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-18T03:04:23Z",
+      "side": 1,
+      "message": "Remove this and l.109 together ? They are the same as currently what you do.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 6
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a85d8ea_76dbe132",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-18T03:04:23Z",
+      "side": 1,
+      "message": "remove this ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 9,
+        "endLine": 109,
+        "endChar": 34
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cca19ef_9567eb92",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-18T03:04:23Z",
+      "side": 1,
+      "message": "Add the comment says this is temporary expose for NetworkStats and would be removed soon once NetworkStats move into the module",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 37
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
