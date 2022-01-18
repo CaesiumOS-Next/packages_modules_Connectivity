@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8bd75ba_54e87f3a",
+        "filename": "service/native/include/TrafficController.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:45:11Z",
+      "side": 1,
+      "message": "Per discussion, let\u0027s make sure that any code we move is identical, and make any necessary changes in a follow-up commit.",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 38
+      },
+      "revId": "5dd9681c287448bf8b7c48f4e6fa54a283007892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
