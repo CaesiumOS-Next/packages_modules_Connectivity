@@ -68,6 +68,29 @@
       },
       "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "040908c1_cfc9a56e",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-18T03:10:38Z",
+      "side": 1,
+      "message": "There is no ServiceSpecificException throw from native, it just throw by this function. So ServiceSpecificException is not necessary. Same for other functions everywhere.",
+      "range": {
+        "startLine": 33,
+        "startChar": 52,
+        "endLine": 33,
+        "endChar": 83
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
