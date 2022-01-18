@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d42f11f_db0c5eea",
+        "filename": "OWNERS_core_networking_xts",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-18T01:15:09Z",
+      "side": 1,
+      "message": "Since you\u0027re modifying this, maybe add \n\n  satk@google.com #{LAST_RESORT_SUGGESTION}\n   \n? This would save Sat some spam and avoid reviewers some back-and-forth",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 15
+      },
+      "revId": "5fe2811c8d61c5a5af60f162a603a4d12add5238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
