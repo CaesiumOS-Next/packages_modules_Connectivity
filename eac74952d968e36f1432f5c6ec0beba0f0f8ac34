@@ -22,6 +22,29 @@
       },
       "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32457532_ee746872",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-01-18T03:35:34Z",
+      "side": 1,
+      "message": "You have done this 4 times, please create a common method for it like below.\n\nprivate void setAppIdsTrafficPermission(int permission, int[] appIds) {\n    if (SdkLevel.isAtLeastT()) {\n        BpfNetMaps.setNetPermForUids(permission, appIds);\n    } else {\n        mNetd.trafficSetNetPermForUids(permission, appIds);\n    }\n}",
+      "range": {
+        "startLine": 891,
+        "startChar": 16,
+        "endLine": 899,
+        "endChar": 17
+      },
+      "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
