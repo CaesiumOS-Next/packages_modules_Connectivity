@@ -98,6 +98,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "30fd3803_4b2f77aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2022-01-18T11:45:34Z",
+      "side": 1,
+      "message": "To be clear, the cases Jiakai mentioned where testing in master is valuable are for preloaded modules in T, rather than train updates.\n\n\u003e could the checks be only enabled after t-mainline-prod is branched, when modules can start using it ?\n\nIf you mean it would be done only on tm-mainline-prod then it wouldn\u0027t cover preloaded modules.",
+      "parentUuid": "54f4c5ef_6679511b",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bdeb3a93_67664eac",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
