@@ -16,6 +16,24 @@
       "message": "Junyu and I looked at each of these and we do not think these should go in Settings. Instead they should go into the overlay for the Connectivity module.\n\nSo immediately, I think we just replace these with methods that return the default value, hardcoding them inside the methods.\n\nWe may have to reach out to OEMs to know what they customize, so we can offer overlays.",
       "revId": "5f5635384caec09f110cdc85a8146bbbb5e2e699",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e2f0035_75f8bae9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T07:28:38Z",
+      "side": 1,
+      "message": "E.g.\n\n   @Override\n   public long getPollInterval() {\n -    return getGlobalLong(NETSTATS_POLL_INTERVAL, 30 * MINUTE_IN_MILLIS);\n +    return 30 * MINUTE_IN_MILLIS;\n   }",
+      "parentUuid": "c062995a_aae0d7a7",
+      "revId": "5f5635384caec09f110cdc85a8146bbbb5e2e699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
