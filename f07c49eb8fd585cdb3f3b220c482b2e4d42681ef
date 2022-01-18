@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "407ff2ea_a3266625",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-18T14:04:30Z",
+      "side": 1,
+      "message": "Thanks for the catch!",
+      "parentUuid": "17f73ec1_23df9625",
+      "range": {
+        "startLine": 287,
+        "startChar": 8,
+        "endLine": 289,
+        "endChar": 9
+      },
+      "revId": "f07c49eb8fd585cdb3f3b220c482b2e4d42681ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23210452_9d4e0036",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2414c008_9d6bc818",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-18T14:04:30Z",
+      "side": 1,
+      "message": "You are correct. I do not consider very well about this part.\nI added this back.",
+      "parentUuid": "23210452_9d4e0036",
+      "range": {
+        "startLine": 321,
+        "startChar": 8,
+        "endLine": 321,
+        "endChar": 70
+      },
+      "revId": "f07c49eb8fd585cdb3f3b220c482b2e4d42681ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acc96b82_44b316a4",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-01-18T08:28:35Z",
       "side": 1,
       "message": "This name is too generic that current you have two way to get entitlement app name, but this function only get by carrier config. At least rename to something like getEntitlementAppNameFromCarrierConfig to match what this function actually do.\nOr both get entitlement app package name from carrier and rro in this function.",
+      "range": {
+        "startLine": 367,
+        "startChar": 19,
+        "endLine": 367,
+        "endChar": 47
+      },
+      "revId": "f07c49eb8fd585cdb3f3b220c482b2e4d42681ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1461ac2d_9ac5777a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-18T14:04:30Z",
+      "side": 1,
+      "message": "Looks good. Thanks for the explanation.",
+      "parentUuid": "acc96b82_44b316a4",
       "range": {
         "startLine": 367,
         "startChar": 19,
