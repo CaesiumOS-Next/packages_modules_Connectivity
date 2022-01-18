@@ -261,20 +261,26 @@ class NsdManagerTest {
                 .addTransportType(TRANSPORT_TEST)
                 .setNetworkSpecifier(testNetworkSpecifier)
                 .build(), cb)
+        val agent = registerTestNetworkAgent(iface.interfaceName)
+        val network = agent.network ?: fail("Registered agent should have a network")
+        cb.expectAvailableCallbacks(network, validated = false)
+        return TestTapNetwork(iface, cb, agent, network)
+    }
+
+    private fun registerTestNetworkAgent(ifaceName: String): TestableNetworkAgent {
         val agent = TestableNetworkAgent(context, handlerThread.looper,
                 NetworkCapabilities().apply {
                     removeCapability(NET_CAPABILITY_TRUSTED)
                     addTransportType(TRANSPORT_TEST)
-                    setNetworkSpecifier(testNetworkSpecifier)
+                    setNetworkSpecifier(TestNetworkSpecifier(ifaceName))
                 },
                 LinkProperties().apply {
-                    interfaceName = iface.interfaceName
+                    interfaceName = ifaceName
                 },
                 NetworkAgentConfig.Builder().build())
-        val network = agent.register()
+        agent.register()
         agent.markConnected()
-        cb.expectAvailableCallbacks(network, validated = false)
-        return TestTapNetwork(iface, cb, agent, network)
+        return agent
     }
 
     @After
@@ -421,6 +427,67 @@ class NsdManagerTest {
                         it.serviceInfo.serviceName == registeredInfo.serviceName &&
                         it.serviceInfo.network != testNetwork1.network
             }, "The service should not be found on this network")
+        } cleanup {
+            nsdManager.unregisterService(registrationRecord)
+        }
+    }
+
+    @Test
+    fun testNsdManager_DiscoverWithNetworkRequest() {
+        val si = NsdServiceInfo()
+        si.serviceType = SERVICE_TYPE
+        si.serviceName = this.serviceName
+        si.port = 12345 // Test won't try to connect so port does not matter
+
+        val registrationRecord = NsdRegistrationRecord()
+        val registeredInfo1 = registerService(registrationRecord, si)
+        val discoveryRecord = NsdDiscoveryRecord()
+
+        tryTest {
+            val specifier = TestNetworkSpecifier(testNetwork1.iface.interfaceName)
+            nsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD,
+                    NetworkRequest.Builder()
+                            .removeCapability(NET_CAPABILITY_TRUSTED)
+                            .addTransportType(TRANSPORT_TEST)
+                            .setNetworkSpecifier(specifier)
+                            .build(),
+                    discoveryRecord)
+
+            val discoveryStarted = discoveryRecord.expectCallback<DiscoveryStarted>()
+            assertEquals(SERVICE_TYPE, discoveryStarted.serviceType)
+
+            val serviceDiscovered = discoveryRecord.expectCallback<ServiceFound>()
+            assertEquals(registeredInfo1.serviceName, serviceDiscovered.serviceInfo.serviceName)
+            assertEquals(testNetwork1.network, serviceDiscovered.serviceInfo.network)
+
+            // Unregister, then register the service back: it should be lost and found again
+            nsdManager.unregisterService(registrationRecord)
+            val serviceLost1 = discoveryRecord.expectCallback<ServiceLost>()
+            assertEquals(registeredInfo1.serviceName, serviceLost1.serviceInfo.serviceName)
+            assertEquals(testNetwork1.network, serviceLost1.serviceInfo.network)
+
+            val registeredInfo2 = registerService(registrationRecord, si)
+            val serviceDiscovered2 = discoveryRecord.expectCallback<ServiceFound>()
+            assertEquals(registeredInfo2.serviceName, serviceDiscovered2.serviceInfo.serviceName)
+            assertEquals(testNetwork1.network, serviceDiscovered2.serviceInfo.network)
+
+            // Teardown, then bring back up a network on the test interface: the service should
+            // go away, then come back
+            testNetwork1.agent.unregister()
+            val serviceLost = discoveryRecord.expectCallback<ServiceLost>()
+            assertEquals(registeredInfo2.serviceName, serviceLost.serviceInfo.serviceName)
+            assertEquals(testNetwork1.network, serviceLost.serviceInfo.network)
+
+            val newAgent = runAsShell(MANAGE_TEST_NETWORKS) {
+                registerTestNetworkAgent(testNetwork1.iface.interfaceName)
+            }
+            val newNetwork = newAgent.network ?: fail("Registered agent should have a network")
+            val serviceDiscovered3 = discoveryRecord.expectCallback<ServiceFound>()
+            assertEquals(registeredInfo2.serviceName, serviceDiscovered3.serviceInfo.serviceName)
+            assertEquals(newNetwork, serviceDiscovered3.serviceInfo.network)
+        } cleanupStep {
+            nsdManager.stopServiceDiscovery(discoveryRecord)
+            discoveryRecord.expectCallback<DiscoveryStopped>()
         } cleanup {
             nsdManager.unregisterService(registrationRecord)
         }
