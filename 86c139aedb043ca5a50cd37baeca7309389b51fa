@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "54f4c5ef_6679511b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-01-18T11:21:03Z",
+      "side": 1,
+      "message": "If we cherry-pick the Soong change, we will be able to merge this CL into sc-mainline-prod, but it still won\u0027t change the device\u0027s behavior at all because this feature is for T and above. For this particular CL, the risk you described probably doesn\u0027t exist on S devices.\n\nHaving this CL and the checks on AOSP has values to us:\n1. Dogfooders can dogfood this change and report problems to us if any.\n2. Developers can be notified to ensure the jars dexopted when they add new standalone system server jars.",
+      "parentUuid": "43653f60_bf095093",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bdeb3a93_67664eac",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
