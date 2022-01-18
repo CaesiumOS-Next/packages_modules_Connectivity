@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c6a4fb4_299277dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:11:28Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f52a7f60_dc7068c3",
@@ -14,6 +31,29 @@
       "writtenOn": "2022-01-18T03:04:23Z",
       "side": 1,
       "message": "Remove this and l.109 together ? They are the same as currently what you do.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 6
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "419145b6_837fc1f1",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:11:28Z",
+      "side": 1,
+      "message": "It is very unexpected/unusual to have a file in the middle of a source tree be excluded from compilation. It\u0027s especially strange to have a file in the middle of a source tree be excluded from compilation and pulled in via a static lib. Can you remove this exclude_srcs and the traffic-controller-utils dependency?",
       "range": {
         "startLine": 86,
         "startChar": 0,
@@ -72,6 +112,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc673e65_fa54c8a1",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:11:28Z",
+      "side": 1,
+      "message": "Per discussion, it sounds like this is only temporarily needed by the networkstats code. If so, maybe add a TODO to delete it as soon as networkstats moves to the module? You could also make it a filegroup (and add a TODO to delete the filegroup).",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 37
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7358b41e_984713dd",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:11:28Z",
+      "side": 1,
+      "message": "These comments don\u0027t add anything useful because they are the same as the method name. Can you remove them? Or are they required by the linter?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 7
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "040908c1_cfc9a56e",
         "filename": "service/src/com/android/server/BpfNetMaps.java",
         "patchSetId": 9
@@ -88,6 +174,75 @@
         "startChar": 52,
         "endLine": 33,
         "endChar": 83
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22c87f5d_49fe9e6b",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:11:28Z",
+      "side": 1,
+      "message": "Do we need all these Log.e statements? The caller will probably log the ServiceSpecificException anyway. Maybe remove them?",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 36,
+        "endChar": 63
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f591ecae_c53fac80",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:11:28Z",
+      "side": 1,
+      "message": "\"Unable to add naughty app: \" + Os.strerror(-err)\n\nAlso elsewhere.",
+      "range": {
+        "startLine": 37,
+        "startChar": 52,
+        "endLine": 37,
+        "endChar": 79
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec13778b_0286d815",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:11:28Z",
+      "side": 1,
+      "message": "native_addNaughtyApp and the other native methods return negative errno, not errno, right? So for example, EINVAL would cause a return value of -22? If so, this (and all the others) should use -err, not err, because the exception should be constructed with an error of 22, not -22.",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 50
       },
       "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
