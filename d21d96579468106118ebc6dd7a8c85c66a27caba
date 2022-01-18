@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "691f59ce_44e95e62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:40:41Z",
+      "side": 1,
+      "message": "Can we ensure that the code that is being moved is identical to the current code? Any changes can be made in a follow-up CL. Even if doing so breaks this code so it doesn\u0027t even compile, that\u0027s still fine. We can just ensure that this CL is merged together with the follow-up CL.",
+      "revId": "d21d96579468106118ebc6dd7a8c85c66a27caba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f53caf53_47cae832",
