@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "650ac8c4_cbdc25e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-18T02:19:57Z",
+      "side": 1,
+      "message": "Make PermissionMonitor calls BpfNetMaps on T",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
