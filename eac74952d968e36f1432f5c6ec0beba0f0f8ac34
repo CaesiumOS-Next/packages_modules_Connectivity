@@ -26,6 +26,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7cb9373_eb0b42ca",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10677,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:37:10Z",
+      "side": 1,
+      "message": "You can make this simpler by using local variables:\n\n    try {\n        final String chainName;\n        final boolean isAllowList;\n\n        switch (chain) {\n            case ConnectivityManager.FIREWALL_CHAIN_STANDBY:\n                chainName \u003d \"fw_standby\";\n                isAllowList \u003d false;\n                break;\n            ...\n            default:\n               ...\n        }\n        if (SdkLevel.isAtLeastT()) {\n            BpfNetMaps.replaceUidChain(chainName, isAllowList, uids);\n        } else {\n            mNetd.firewallReplaceUidChain(\"fw_standby\", false /* isAllowList */, uids);\n        }\n\nBut you might not have to do that if you address the other comment about putting the if statement in BpfNetMaps.",
+      "range": {
+        "startLine": 10673,
+        "startChar": 0,
+        "endLine": 10677,
+        "endChar": 21
+      },
+      "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec573aa3_a757af61",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-18T03:37:10Z",
+      "side": 1,
+      "message": "You\u0027ll need to update PermissionMonitorTest and its NetdMonitor class otherwise that test will fail. The test should check that both old and new devices work correctly.\n\nI don\u0027t think we can do that easily because BpfNetMaps is a static and can\u0027t be mocked. Can we make its methods non-static?\n\nAlso not sure how to mock SdkLevel.isAtLeastT since that\u0027s also a static. A good way to do this might be to make BpfNetMaps support both T and pre-T. That way, we can remove all these these if statements in the callers (PermissionMonitor, ConnectivityService, etc.) and just call the BpfNetMaps method. BpfNetMaps would write to the map directly on T and call netd on S.\n\nThis approach would have the advantage that PermissionMonitorTest, ConnectivityServiceTest, etc. etc. don\u0027t have to deal with the complexity of testing both SDK versions. Those tests can simply use a mock of BpfNetMaps (like they use a mock of INetd today) and check that the appropriate method is called.\n\nThen we can have a very simple unit test of BpfNetMaps that checks that on S- the netd methods are called. Tests for S- are much more important than tests for T+ because the module will ship to S much sooner than it ships to T.\n\nOn T+ we can rely on the CTS tests for the APIs that call into BpfNetMaps, or even better, just switch to a Java implementation instead of JNI and use a fake BpfMap.",
+      "range": {
+        "startLine": 808,
+        "startChar": 0,
+        "endLine": 812,
+        "endChar": 17
+      },
+      "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32457532_ee746872",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 1
