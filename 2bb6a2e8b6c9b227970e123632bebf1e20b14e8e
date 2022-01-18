@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b13c7e2_f3d9173d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-18T18:14:06Z",
+      "side": 1,
+      "message": "This is @hide so cannot be used directly. Say \"one of the {@code TetheringManager.TETHERING_* constants}\" instead.\n\nOr remove this sentence completely since the Javadoc of EXTRA_REQUEST_TETHER_TYPE explains the possible values already.",
+      "range": {
+        "startLine": 98,
+        "startChar": 26,
+        "endLine": 98,
+        "endChar": 64
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42cc3907_f25408c8",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-18T18:14:06Z",
+      "side": 1,
+      "message": "The code may include how to retrieve the ResultReceiver:\n\n  ResultReceiver resultReceiver \u003d intent.get...;\n  int result \u003d TetheringManager.TETHER_ERROR_NO_ERROR;\n  resultReceiver.send(result, null);",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 45
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b58359_86c9ca9a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-18T18:14:06Z",
+      "side": 1,
+      "message": "This is @hide so cannot be used directly. Say \"one of the {@code TetheringManager.TETHERING_* constants}\" instead.\n\nOr remove this sentence completely since the Javadoc of EXTRA_REQUEST_TETHER_TYPE explains the possible values already.",
+      "range": {
+        "startLine": 120,
+        "startChar": 26,
+        "endLine": 120,
+        "endChar": 64
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbcadf0d_f9557e4e",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-18T18:14:06Z",
+      "side": 1,
+      "message": "Is subid an extra here?",
+      "range": {
+        "startLine": 122,
+        "startChar": 38,
+        "endLine": 123,
+        "endChar": 7
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7dad77f_39b9078b",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-18T18:14:06Z",
+      "side": 1,
+      "message": "how about \"in {@link ACTION_TETHERING_ENTITLEMENT_FOREGROUND} and {@link ACTION_TETHERING_ENTITLEMENT}\" to be more specific, and provides more context",
+      "range": {
+        "startLine": 128,
+        "startChar": 21,
+        "endLine": 128,
+        "endChar": 73
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758107f1_37cf2800",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-18T18:14:06Z",
+      "side": 1,
+      "message": "lowercase e",
+      "range": {
+        "startLine": 128,
+        "startChar": 10,
+        "endLine": 128,
+        "endChar": 11
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df8f019b_ac0e98cf",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-18T18:14:06Z",
+      "side": 1,
+      "message": "\u003cp\u003eIts value is the type of tethering to enable, one of {@code TetheringManager.TETHERING_*} constants.",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 55
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
