@@ -16,6 +16,24 @@
       "message": "Maybe also test empty stats.",
       "revId": "d970d9335265f81d7b4f326ab17301ae55cbe624",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ce31e08_1ee65677",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-18T07:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "030319d0_07654a67",
+      "revId": "d970d9335265f81d7b4f326ab17301ae55cbe624",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
