@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "43653f60_bf095093",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-18T03:21:32Z",
+      "side": 1,
+      "message": "Could the Soong changes be cherry-picked to sc-mainline-prod then, at least so that they don\u0027t require modules to take the merge conflicts ?\n\nIt\u0027s good that this particular change isn\u0027t a big conflict and likely won\u0027t affect R/S; but as a general rule we don\u0027t take changes that don\u0027t go to sc-mainline-prod in our modules because they increase risk of the first T-based release, where changes that were merged several months before would get pushed to public devices. This year such changes caused at least 2 large issues in resolv and cellbroadcast, so as a policy we try to avoid them. Looking at them on a case-by-case basis is risky, and merge conflicts can also pile up.\n\nIf the feature isn\u0027t developed in sc-mainline-prod (which would be better if it\u0027s affecting modules), could the checks be only enabled after t-mainline-prod is branched, when modules can start using it ?",
+      "parentUuid": "8a3dc5d6_6202e412",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bdeb3a93_67664eac",
