@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "677740ce_7ecb555a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T02:08:41Z",
+      "side": 1,
+      "message": "Production code LGTM",
+      "revId": "6fdaa56a863b49358384c3ff0cade0020c622ec2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c897e9b1_2fdceb25",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T02:08:41Z",
+      "side": 1,
+      "message": "Since this is public, let\u0027s follow javadoc format\n\n  /**\n   * One line description.\n   *\n   * Detailed discussion\n   * @param\n   * @return\n   */\n\nIncluding starting capitals",
+      "range": {
+        "startLine": 71,
+        "startChar": 5,
+        "endLine": 71,
+        "endChar": 6
+      },
+      "revId": "6fdaa56a863b49358384c3ff0cade0020c622ec2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b03feb9_df64fbff",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T02:08:41Z",
+      "side": 1,
+      "message": "only",
+      "range": {
+        "startLine": 74,
+        "startChar": 38,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "6fdaa56a863b49358384c3ff0cade0020c622ec2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4edb2462_654d20b6",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T02:08:41Z",
+      "side": 1,
+      "message": "Not sure the doc tools will understand that",
+      "range": {
+        "startLine": 153,
+        "startChar": 11,
+        "endLine": 153,
+        "endChar": 13
+      },
+      "revId": "6fdaa56a863b49358384c3ff0cade0020c622ec2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca946ee7_5347df17",
+        "filename": "service/src/com/android/server/connectivity/UidRangeUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T02:08:41Z",
+      "side": 1,
+      "message": "Maybe remove this condition and have l.91 take the max, then we have the usual mathematical set subtraction operation",
+      "range": {
+        "startLine": 75,
+        "startChar": 41,
+        "endLine": 75,
+        "endChar": 81
+      },
+      "revId": "6fdaa56a863b49358384c3ff0cade0020c622ec2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1d33a63_85ca5d38",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 13738,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T02:08:41Z",
+      "side": 1,
+      "message": "blank final",
+      "range": {
+        "startLine": 13738,
+        "startChar": 8,
+        "endLine": 13738,
+        "endChar": 11
+      },
+      "revId": "6fdaa56a863b49358384c3ff0cade0020c622ec2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
