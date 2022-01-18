@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8cff15c_fef71faa",
+        "filename": "tests/unit/java/android/net/NetworkTemplateTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-18T12:03:14Z",
+      "side": 1,
+      "message": "I was doing code searching and found that this test missed declaration of @DevSdkIgnoreRule.\nSomething like\n```\n@Rule\npublic final DevSdkIgnoreRule ignoreRule \u003d new DevSdkIgnoreRule();\n```\nAnd this patch didn\u0027t make TH failed because FrameworksNetTests is disabled in sc-mainline-prod(https://source.corp.google.com/sc-mainline-prod/packages/modules/Connectivity/tests/unit/Android.bp;l\u003d16?q\u003denable_frameworks_net_tests%20).\n\nThere is no harm right now, but I think we should add the declaration of rule.",
+      "range": {
+        "startLine": 546,
+        "startChar": 4,
+        "endLine": 546,
+        "endChar": 55
+      },
+      "revId": "00a8897e98a8c6afb806fda11fb8c4ae674abc17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
