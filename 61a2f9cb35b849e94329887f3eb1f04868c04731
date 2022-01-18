@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e0417df_c9934114",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-18T10:40:43Z",
+      "side": 1,
+      "message": "nit: iterator.next() but feel free to ignore.",
+      "range": {
+        "startLine": 1058,
+        "startChar": 32,
+        "endLine": 1058,
+        "endChar": 37
+      },
+      "revId": "61a2f9cb35b849e94329887f3eb1f04868c04731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
