@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c062995a_aae0d7a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T07:25:28Z",
+      "side": 1,
+      "message": "Junyu and I looked at each of these and we do not think these should go in Settings. Instead they should go into the overlay for the Connectivity module.\n\nSo immediately, I think we just replace these with methods that return the default value, hardcoding them inside the methods.\n\nWe may have to reach out to OEMs to know what they customize, so we can offer overlays.",
+      "revId": "5f5635384caec09f110cdc85a8146bbbb5e2e699",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
