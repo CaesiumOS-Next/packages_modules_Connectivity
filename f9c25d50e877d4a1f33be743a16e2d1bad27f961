@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fe70b38_c482ea5c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-18T01:43:08Z",
+      "side": 1,
+      "message": "I\u0027m not sure we want this now, because I think the majority of usages are to the users\u0027 experience detriment. Let\u0027s discuss this offline tomorrow",
+      "range": {
+        "startLine": 606,
+        "startChar": 28,
+        "endLine": 606,
+        "endChar": 69
+      },
+      "revId": "f9c25d50e877d4a1f33be743a16e2d1bad27f961",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
