@@ -22,7 +22,7 @@ import androidx.test.runner.AndroidJUnit4
 import com.android.modules.utils.build.SdkLevel.isAtLeastS
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
-import com.android.testutils.assertParcelSane
+import com.android.testutils.assertParcelingIsLossless
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -48,6 +48,7 @@ class NetworkAgentConfigTest {
                 setBypassableVpn(true)
             }
         }.build()
+<<<<<<< HEAD   (130951 cts: Re-launch the desired activity after screen-on on TVs.)
         if (isAtLeastS()) {
             // From S, the config will have 12 items
             assertParcelSane(config, 12)
@@ -55,6 +56,9 @@ class NetworkAgentConfigTest {
             // For R or below, the config will have 10 items
             assertParcelSane(config, 10)
         }
+=======
+        assertParcelingIsLossless(config)
+>>>>>>> CHANGE (8bc369 Do not verify field count in tests used in CTS)
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.Q)
