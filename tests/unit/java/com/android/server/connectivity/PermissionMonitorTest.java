@@ -146,6 +146,7 @@ public class PermissionMonitorTest {
     @Mock private UserManager mUserManager;
     @Mock private PermissionMonitor.Dependencies mDeps;
     @Mock private SystemConfigManager mSystemConfigManager;
+    @Mock private BpfNetMaps mBpfNetMaps;
 
     private PermissionMonitor mPermissionMonitor;
     private NetdMonitor mNetdMonitor;
@@ -173,6 +174,7 @@ public class PermissionMonitorTest {
             return asUserCtx;
         }).when(mContext).createContextAsUser(any(), anyInt());
         when(mDeps.getUidsAllowedOnRestrictedNetworks(any())).thenReturn(Set.of());
+        when(mDeps.getBpfNetMaps(eq(mNetdService))).thenReturn(mBpfNetMaps);
         // Set DEVICE_INITIAL_SDK_INT to Q that SYSTEM_UID won't have restricted network permission
         // by default.
         doReturn(VERSION_Q).when(mDeps).getDeviceFirstSdkInt();
@@ -702,7 +704,7 @@ public class PermissionMonitorTest {
 
         // When VPN is connected, expect a rule to be set up for user app MOCK_UID11
         mPermissionMonitor.onVpnUidRangesAdded("tun0", vpnRange1, VPN_UID);
-        verify(mNetdService).firewallAddUidInterfaceRules(eq("tun0"), aryEq(new int[]{MOCK_UID11}));
+        verify(mBpfNetMaps).addUidInterfaceRules(....);
 
         reset(mNetdService);
 

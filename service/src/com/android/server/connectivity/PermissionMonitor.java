@@ -67,7 +67,9 @@ import android.util.SparseIntArray;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.CollectionUtils;
+import com.android.server.BpfNetMaps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -181,6 +183,10 @@ public class PermissionMonitor {
                 boolean notifyForDescendants, @NonNull ContentObserver observer) {
             context.getContentResolver().registerContentObserver(
                     uri, notifyForDescendants, observer);
+        }
+      
+        public BpfNetMaps getBpfNetMaps(INetd netd) {
+            return new BpfNetMaps(netd);
         }
     }
 
@@ -803,9 +809,9 @@ public class PermissionMonitor {
         }
         try {
             if (add) {
-                mNetd.firewallAddUidInterfaceRules(iface, toIntArray(uids));
+                BpfNetMaps.addUidInterfaceRules(iface, toIntArray(uids));
             } else {
-                mNetd.firewallRemoveUidInterfaceRules(toIntArray(uids));
+                BpfNetMaps.removeUidInterfaceRules(toIntArray(uids));
             }
         } catch (ServiceSpecificException e) {
             // Silently ignore exception when device does not support eBPF, otherwise just log
@@ -878,26 +884,27 @@ public class PermissionMonitor {
         try {
             // TODO: add a lock inside netd to protect IPC trafficSetNetPermForUids()
             if (allPermissionAppIds.size() != 0) {
-                mNetd.trafficSetNetPermForUids(
-                        PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
-                        toIntArray(allPermissionAppIds));
+                    BpfNetMaps.setNetPermForUids(
+                            PERMISSION_INTERNET | PERMISSION_UPDATE_DEVICE_STATS,
+                            toIntArray(allPermissionAppIds));
             }
             if (internetPermissionAppIds.size() != 0) {
-                mNetd.trafficSetNetPermForUids(PERMISSION_INTERNET,
-                        toIntArray(internetPermissionAppIds));
+                    BpfNetMaps.setNetPermForUids(PERMISSION_INTERNET,
+                            toIntArray(internetPermissionAppIds));
             }
             if (updateStatsPermissionAppIds.size() != 0) {
-                mNetd.trafficSetNetPermForUids(PERMISSION_UPDATE_DEVICE_STATS,
-                        toIntArray(updateStatsPermissionAppIds));
+                    BpfNetMaps.setNetPermForUids(PERMISSION_UPDATE_DEVICE_STATS,
+                            toIntArray(updateStatsPermissionAppIds));
             }
             if (noPermissionAppIds.size() != 0) {
-                mNetd.trafficSetNetPermForUids(PERMISSION_NONE, toIntArray(noPermissionAppIds));
+                    BpfNetMaps.setNetPermForUids(PERMISSION_NONE,
+                            toIntArray(noPermissionAppIds));
             }
             if (uninstalledAppIds.size() != 0) {
-                mNetd.trafficSetNetPermForUids(PERMISSION_UNINSTALLED,
-                        toIntArray(uninstalledAppIds));
+                    BpfNetMaps.setNetPermForUids(PERMISSION_UNINSTALLED,
+                            toIntArray(uninstalledAppIds));
             }
-        } catch (RemoteException e) {
+        } catch (RemoteException | ServiceSpecificException e) {
             Log.e(TAG, "Pass appId list of special permission failed." + e);
         }
     }
