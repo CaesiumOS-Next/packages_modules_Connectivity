@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d6cd960_f808f06a",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-19T09:21:12Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "21122736_e650ac07",
+      "range": {
+        "startLine": 1043,
+        "startChar": 16,
+        "endLine": 1043,
+        "endChar": 28
+      },
+      "revId": "61a2f9cb35b849e94329887f3eb1f04868c04731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e0417df_c9934114",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-18T10:40:43Z",
       "side": 1,
       "message": "nit: iterator.next() but feel free to ignore.",
+      "range": {
+        "startLine": 1058,
+        "startChar": 32,
+        "endLine": 1058,
+        "endChar": 37
+      },
+      "revId": "61a2f9cb35b849e94329887f3eb1f04868c04731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7161bb41_9f42dc10",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-19T09:21:12Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "3e0417df_c9934114",
       "range": {
         "startLine": 1058,
         "startChar": 32,
