@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab7258f8_70649902",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-19T16:41:01Z",
+      "side": 1,
+      "message": "IIUC you will need to start 2 networks.\nAnd simulate traffic on both of them.\nassert that getUidStatsForTransport result for different transport is different.",
+      "range": {
+        "startLine": 992,
+        "startChar": 17,
+        "endLine": 992,
+        "endChar": 36
+      },
+      "revId": "9ef027c2f5fdc7eb8f8d4bfbdeb1c481db40a103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
