@@ -56,6 +56,29 @@
       },
       "revId": "728dc861650ea5b7f4bc61ef29e12b2b36e24527",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34eaa11b_932fdc76",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-19T10:14:42Z",
+      "side": 1,
+      "message": "IIUC this also depends on how we config resource overlay pixel devices.\nFor now it\u0027s default 1 for mobile. Do we want ot change it to 3?\nOr it is all overrided to 3 for every pixel device that is shipping after T?\nhttps://osscs.corp.google.com/android/platform/superproject/+/master:packages/modules/Connectivity/service/ServiceConnectivityResources/res/values/config.xml;l\u003d55?q\u003dconfig_networkSupportedKeepaliveCount\u0026ss\u003dandroid%2Fplatform%2Fsuperproject",
+      "range": {
+        "startLine": 1703,
+        "startChar": 33,
+        "endLine": 1703,
+        "endChar": 73
+      },
+      "revId": "728dc861650ea5b7f4bc61ef29e12b2b36e24527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
