@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21122736_e650ac07",
+        "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-19T05:52:52Z",
+      "side": 1,
+      "message": "Since this is @SystemApi it sounds like this should be CTS\n\nYou could also write the tests in the following way :\n\n  final ArrayList\u003cNetworkStats.Entry\u003e entries \u003d new\n  for (int i \u003d 0; i \u003c NUM_ENTRIES; ++i) {\n    stats.insertEntry(new Entry(something that depends on i));\n  }\n\n  for (Entry e : stats) {\n    assertEquals(e, entries.remove(0));\n  }",
+      "range": {
+        "startLine": 1043,
+        "startChar": 16,
+        "endLine": 1043,
+        "endChar": 28
+      },
+      "revId": "61a2f9cb35b849e94329887f3eb1f04868c04731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e0417df_c9934114",
         "filename": "tests/unit/java/android/net/NetworkStatsTest.java",
         "patchSetId": 2
