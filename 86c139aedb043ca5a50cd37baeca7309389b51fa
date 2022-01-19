@@ -168,6 +168,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b871c877_204f0bb5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-01-19T21:20:16Z",
+      "side": 1,
+      "message": "I created a Soong patch (ag/16672927) and tested it with `TARGET_BUILD_APPS\u003dcom.android.tethering vendor/google/build/mainline_modules_bundles.sh`. The build starts normally with the cherrypick and the patch. However, the build cannot complete due to an error:\n\n```\nframeworks/libs/net/common/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:30: error: cannot find symbol\nimport static android.net.NetworkCapabilities.NET_CAPABILITY_MMTEL;\n^\n  symbol:   static NET_CAPABILITY_MMTEL\n  location: class NetworkCapabilities\nframeworks/libs/net/common/framework/com/android/net/module/util/NetworkCapabilitiesUtils.java:102: error: cannot find symbol\n            NET_CAPABILITY_MMTEL);\n            ^\n  symbol:   variable NET_CAPABILITY_MMTEL\n  location: class NetworkCapabilitiesUtils\n2 errors\n```\n\nI encountered this error on my local machine on a clean sc-mainline-prod tree (without my change), but ab/ looks green. Any idea?",
+      "parentUuid": "301af32c_7000268b",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bdeb3a93_67664eac",
