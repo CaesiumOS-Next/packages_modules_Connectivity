@@ -120,6 +120,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "904775c8_de824aa4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-19T08:30:34Z",
+      "side": 1,
+      "message": "Generally the different behavior in dogfooding is actually what we are trying to avoid: now in AOSP a different binary than what gets shipped is being built, which makes the same codepaths run in a different way on S and T. So the dogfooding on T gets less representative of what happens on S builds. For example, if there was some race in the code that does not happen anymore with the T binary due to dexopt, we won\u0027t catch it in dogfooding anymore.\n\nBy enabling the checks after tm-mainline-prod is branched, I meant enabling them in both tm-dev and tm-mainline-prod at the same time - so the prebuilts and module updates binaries stay in sync. This would reduce the period of time where we have discrepancies between the dogfood and module update binaries, if the change couldn\u0027t be merged to sc-mainline-prod.\n\nNow for this particular change I understand that even with a cherry-pick to sc-mainline-prod, behavior shouldn\u0027t change on S, but it would at least avoid merge conflicts, avoid discrepancies in the binaries, and be released to S throughout the year instead of accumulating changes to ship around the T release. That\u0027s why as a policy we try not to take changes that don\u0027t go to sc-mainline-prod.\n\nI guess it wouldn\u0027t be productive reverting this one at this point, but in general for features that affect module code, it would really help if you could merge them in sc-mainline-prod first: this way we don\u0027t have to take the merge conflict, and we can avoid releasing many old changes in ~August, even if they seemed small and safe at the time.",
+      "parentUuid": "30fd3803_4b2f77aa",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bdeb3a93_67664eac",
