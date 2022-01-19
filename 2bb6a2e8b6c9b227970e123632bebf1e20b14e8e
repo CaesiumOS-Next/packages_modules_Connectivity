@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba343d14_67e42ede",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-19T12:24:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b13c7e2_f3d9173d",
+      "range": {
+        "startLine": 98,
+        "startChar": 26,
+        "endLine": 98,
+        "endChar": 64
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42cc3907_f25408c8",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-18T18:14:06Z",
       "side": 1,
       "message": "The code may include how to retrieve the ResultReceiver:\n\n  ResultReceiver resultReceiver \u003d intent.get...;\n  int result \u003d TetheringManager.TETHER_ERROR_NO_ERROR;\n  resultReceiver.send(result, null);",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 45
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48de9a35_8886131a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-19T12:24:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42cc3907_f25408c8",
       "range": {
         "startLine": 109,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db9550e5_2e9c3140",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-19T12:24:09Z",
+      "side": 1,
+      "message": "ok, I preferred removed.",
+      "parentUuid": "93b58359_86c9ca9a",
+      "range": {
+        "startLine": 120,
+        "startChar": 26,
+        "endLine": 120,
+        "endChar": 64
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbcadf0d_f9557e4e",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-01-18T18:14:06Z",
       "side": 1,
       "message": "Is subid an extra here?",
+      "range": {
+        "startLine": 122,
+        "startChar": 38,
+        "endLine": 123,
+        "endChar": 7
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b947720_98982194",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-19T12:24:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbcadf0d_f9557e4e",
       "range": {
         "startLine": 122,
         "startChar": 38,
@@ -156,6 +252,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8957a0d1_00328a59",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-19T12:24:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "758107f1_37cf2800",
+      "range": {
+        "startLine": 128,
+        "startChar": 10,
+        "endLine": 128,
+        "endChar": 11
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6398e1b1_8c13311c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-19T12:24:09Z",
+      "side": 1,
+      "message": "Thanks for this suggestion.",
+      "parentUuid": "c7dad77f_39b9078b",
+      "range": {
+        "startLine": 128,
+        "startChar": 21,
+        "endLine": 128,
+        "endChar": 73
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df8f019b_ac0e98cf",
@@ -169,6 +313,30 @@
       "writtenOn": "2022-01-18T18:14:06Z",
       "side": 1,
       "message": "\u003cp\u003eIts value is the type of tethering to enable, one of {@code TetheringManager.TETHERING_*} constants.",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 55
+      },
+      "revId": "2bb6a2e8b6c9b227970e123632bebf1e20b14e8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d3e3ed6_efa7f2cc",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-01-19T12:24:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df8f019b_ac0e98cf",
       "range": {
         "startLine": 129,
         "startChar": 7,
