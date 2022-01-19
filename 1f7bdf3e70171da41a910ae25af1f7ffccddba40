@@ -64,6 +64,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a47dcc02_786db58a",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "419145b6_837fc1f1",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 6
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ac62648_f055ebc4",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f52a7f60_dc7068c3",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 6
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a85d8ea_76dbe132",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-01-18T03:04:23Z",
       "side": 1,
       "message": "remove this ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 9,
+        "endLine": 109,
+        "endChar": 34
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fd04cf8_ff028b46",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a85d8ea_76dbe132",
       "range": {
         "startLine": 109,
         "startChar": 9,
@@ -133,6 +205,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b11967a9_01d939f8",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc673e65_fa54c8a1",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 37
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72f0335a_73b79913",
+        "filename": "service/Android.bp",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cca19ef_9567eb92",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 37
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7358b41e_984713dd",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-01-18T03:11:28Z",
       "side": 1,
       "message": "These comments don\u0027t add anything useful because they are the same as the method name. Can you remove them? Or are they required by the linter?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 7
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d866c76_8423573b",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "I can move the comments from INetd.aidl. They are required by clang check before uploading changes.",
+      "parentUuid": "7358b41e_984713dd",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e04b1308_aba7ad30",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "ServiceSpecificException is necessary for addNaughtyApp().\n\nhttps://source.corp.google.com/aosp-master/frameworks/libs/net/common/netd/binder/android/net/INetd.aidl?q\u003dINetd.aidl\n\n   /**\n    * Add naughty app bandwidth rule for specific app\n    *\n    * @param uid uid of target app\n    * @throws ServiceSpecificException in case of failure, with an error code indicating the\n    *         cause of the failure.\n    */\n    void bandwidthAddNaughtyApp(int uid);",
+      "parentUuid": "040908c1_cfc9a56e",
+      "range": {
+        "startLine": 33,
+        "startChar": 52,
+        "endLine": 33,
+        "endChar": 83
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22c87f5d_49fe9e6b",
@@ -192,6 +360,30 @@
       "writtenOn": "2022-01-18T03:11:28Z",
       "side": 1,
       "message": "Do we need all these Log.e statements? The caller will probably log the ServiceSpecificException anyway. Maybe remove them?",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 36,
+        "endChar": 63
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9554ab8_6a0a1ccc",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "We can keep the Log.e statements for other functions which don\u0027t throw ServiceSpecificException.",
+      "parentUuid": "22c87f5d_49fe9e6b",
       "range": {
         "startLine": 36,
         "startChar": 12,
@@ -243,6 +435,54 @@
         "startChar": 47,
         "endLine": 37,
         "endChar": 50
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46904747_f49e1c7f",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec13778b_0286d815",
+      "range": {
+        "startLine": 37,
+        "startChar": 47,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bda49fc_022eb0d4",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T06:05:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f591ecae_c53fac80",
+      "range": {
+        "startLine": 37,
+        "startChar": 52,
+        "endLine": 37,
+        "endChar": 79
       },
       "revId": "1f7bdf3e70171da41a910ae25af1f7ffccddba40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
