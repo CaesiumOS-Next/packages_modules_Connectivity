@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f7f97db_e79fa105",
+        "filename": "netd/Android.bp",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-19T05:03:27Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "02e6bddc979b8390852b8e869310d34c669d9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc4502c6_c6d7ce05",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-19T05:03:27Z",
+      "side": 1,
+      "message": "-DAID_ROOT\u003d0\n-DAID_SYSTEM\u003d1000\n\nin Android.bp",
+      "range": {
+        "startLine": 127,
+        "startChar": 22,
+        "endLine": 127,
+        "endChar": 30
+      },
+      "revId": "02e6bddc979b8390852b8e869310d34c669d9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74d22b4b_80dcf3c5",
+        "filename": "netd/BpfHandler.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-19T05:03:27Z",
+      "side": 1,
+      "message": ", euid)",
+      "range": {
+        "startLine": 66,
+        "startChar": 69,
+        "endLine": 66,
+        "endChar": 70
+      },
+      "revId": "02e6bddc979b8390852b8e869310d34c669d9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74f3f5b8_ad868eed",
+        "filename": "netd/include/NetdMainlinePublic.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-19T05:03:27Z",
+      "side": 1,
+      "message": "int, 0 on success, -errno on fail",
+      "range": {
+        "startLine": 23,
+        "startChar": 24,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "02e6bddc979b8390852b8e869310d34c669d9703",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
