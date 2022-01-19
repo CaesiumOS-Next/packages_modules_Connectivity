@@ -146,6 +146,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "301af32c_7000268b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2022-01-19T14:34:17Z",
+      "side": 1,
+      "message": "Thank you for the explanation. We discussed this in our team meeting. We, ART team, make sure that dexopted code as equivalent to original dex code, so you can regard the code as executed in the same way on S and T. Besides, it is inevitable that the same code can behave differently on S and T. Even if the binary is exactly the same and executed in the same way, it talks to different platform code, different kernel, etc. So dogfooding on T isn\u0027t quite representative of what happens on S anyway.\n\nRegarding the worries about merge conflicts, we can consider cherry-picking this change to sc-mainline-prod, with a patch to Soong to make accept this unrecognized new property `standalone_contents` but do nothing with it. We need to confirm with the mainline team if they are okay with this. Let me know if this solution works for you.",
+      "parentUuid": "904775c8_de824aa4",
+      "range": {
+        "startLine": 21,
+        "startChar": 11,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "86c139aedb043ca5a50cd37baeca7309389b51fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bdeb3a93_67664eac",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
