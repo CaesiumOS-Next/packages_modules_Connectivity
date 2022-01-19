@@ -16,6 +16,69 @@
       "message": "I guess we\u0027ll have a companion change that will do the same for the network stack module classes. Here is what I can find :\n\nDhcpLeaseTest DhcpResultsParcelableUtilsTest DhcpServingParamsTest ProvisioningConfigurationTest",
       "revId": "8bc36966d4e7aeb1eca933326d5e314af4909ed5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "180acfb8_f058c6dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-19T06:32:19Z",
+      "side": 1,
+      "message": "LGTM. Since this CL is treehugged, feel free to address the comments in a follow-up.",
+      "revId": "8bc36966d4e7aeb1eca933326d5e314af4909ed5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abbab40b_81e90e18",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-19T06:32:19Z",
+      "side": 1,
+      "message": "Nit: it would be better to remove this and change the callers to assertParcelingIsLossless. I think that would also improve the inclusiveness of the code.\n\nDoesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 345,
+        "startChar": 17,
+        "endLine": 345,
+        "endChar": 31
+      },
+      "revId": "8bc36966d4e7aeb1eca933326d5e314af4909ed5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb03732e_3709c1a0",
+        "filename": "tests/cts/net/src/android/net/cts/IpConfigurationTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-19T06:32:19Z",
+      "side": 1,
+      "message": "Line 121 doesn\u0027t test much, because new IpConfiguration() creates an object where all fields are the default. So the test would pass even if the parceling code was a total no-op. Suggest adding (or even replacing this with) a check with real data, such as:\n\n    assertParcelingIsLossless(mStaticIpConfig);",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 5
+      },
+      "revId": "8bc36966d4e7aeb1eca933326d5e314af4909ed5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

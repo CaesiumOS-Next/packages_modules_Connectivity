@@ -22,6 +22,30 @@
       },
       "revId": "392161e651d870c1c5dcf5ff1b1cb5afd029dea4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9f1718_5602ba26",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-19T06:32:19Z",
+      "side": 0,
+      "message": "In that case, weren\u0027t those additions integer constants, rather than members?",
+      "parentUuid": "4c5fdc87_3a22399c",
+      "range": {
+        "startLine": 357,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 9
+      },
+      "revId": "392161e651d870c1c5dcf5ff1b1cb5afd029dea4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
