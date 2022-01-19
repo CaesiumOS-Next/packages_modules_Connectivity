@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c012d10b_da730a96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T14:23:37Z",
+      "side": 1,
+      "message": "Move TrafficController relevant files to mainline module in aosp/1953486.",
+      "parentUuid": "9aa4b701_f91fe732",
+      "revId": "d21d96579468106118ebc6dd7a8c85c66a27caba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f53caf53_47cae832",
@@ -59,6 +77,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f6f72b_64083799",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T14:23:37Z",
+      "side": 1,
+      "message": "I\u0027ll modify it with the follow-up change.",
+      "parentUuid": "f53caf53_47cae832",
+      "range": {
+        "startLine": 400,
+        "startChar": 44,
+        "endLine": 400,
+        "endChar": 81
+      },
+      "revId": "d21d96579468106118ebc6dd7a8c85c66a27caba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "daf289d5_6c7dd09f",
@@ -72,6 +114,30 @@
       "writtenOn": "2022-01-17T17:53:01Z",
       "side": 1,
       "message": "Since the coder is JNI. Suggest to replace the vector to array, if it just used to iterator without modify the content. Then you don\u0027t need to convert the array to vector in JNI code.\n\nSame as the vector usage everywhere. Follow up change would be better, if this code just be identical with netd.",
+      "range": {
+        "startLine": 462,
+        "startChar": 44,
+        "endLine": 462,
+        "endChar": 71
+      },
+      "revId": "d21d96579468106118ebc6dd7a8c85c66a27caba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "252d6f84_99830ad7",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T14:23:37Z",
+      "side": 1,
+      "message": "I\u0027ll modify it with the follow-up change.",
+      "parentUuid": "daf289d5_6c7dd09f",
       "range": {
         "startLine": 462,
         "startChar": 44,
