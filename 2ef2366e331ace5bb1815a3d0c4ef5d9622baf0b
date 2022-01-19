@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6b608a6_0bdcde08",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-19T01:05:08Z",
+      "side": 1,
+      "message": "Why is this not simply what happens if you request both LOW_LATENCY and HIGH_BANDWIDTH as separate capabilities? AIUI there\u0027s no rule limiting a network request to a single capability. If these capabilities don\u0027t work together, then I think we have a bigger problem.",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 53
+      },
+      "revId": "2ef2366e331ace5bb1815a3d0c4ef5d9622baf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
