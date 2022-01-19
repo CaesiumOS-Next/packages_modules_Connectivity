@@ -93,6 +93,30 @@
       },
       "revId": "2ef2366e331ace5bb1815a3d0c4ef5d9622baf0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb121bfa_9ec94f82",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-19T17:37:15Z",
+      "side": 1,
+      "message": "These definitely don\u0027t need to map to a pre-existing standard, but if they don\u0027t, then we have to be able to provide a clear contract between users and implementers so that a user knows what they are asking for when they put HIGH_BANDWIDTH and the platform knows what it has to provide to fulfill HIGH_BANDWIDTH. Otherwise, we don\u0027t have much of an API contract.\n\nFor ULL you can add a comment and just say that the network provides a latency characteristic at least as good as or better than the 5QI of a URLLC connection, which would be an easy way to make the contract clear... but it\u0027s also fine to use something different, as long as both user and platform can reliably agree on a meaning. It also has to mean the same thing over time, which adds to the challenge since HIGH_BANDWIDTH a decade ago was not HIGH_BANDWIDTH today.",
+      "parentUuid": "61aa7a60_cfabaa20",
+      "range": {
+        "startLine": 600,
+        "startChar": 28,
+        "endLine": 600,
+        "endChar": 57
+      },
+      "revId": "2ef2366e331ace5bb1815a3d0c4ef5d9622baf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
