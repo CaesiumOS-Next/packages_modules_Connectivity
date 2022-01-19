@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019416258",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1953486?revision\u003d2",
+      "fixSuggestions": [
+        {
+          "fixId": "4d2db91e_f4d1b0a2",
+          "description": "Change to \"service/native/include/TrafficController.h\"",
+          "replacements": [
+            {
+              "path": "service/native/include/TrafficController.h",
+              "range": {
+                "startLine": 62,
+                "startChar": 28,
+                "endLine": 62,
+                "endChar": 36
+              },
+              "replacement": "similar"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "667fdc62_5a3721d5",
+        "filename": "service/native/include/TrafficController.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-19T09:00:31Z",
+      "side": 1,
+      "message": "Common typo found: \"similiar\" -- should it be \"similar\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 62,
+        "endChar": 36
+      },
+      "revId": "36c2452732c9a27ef2327983592caaa763f8f1c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
