@@ -1152,6 +1152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17d4ff1b_753dbdf7",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 14148,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-19T19:56:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "815016be_52ad5f48",
+      "range": {
+        "startLine": 14148,
+        "startChar": 4,
+        "endLine": 14148,
+        "endChar": 5
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "591d5e6e_aaab593b",
@@ -1222,6 +1246,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55941307_069650a7",
+        "filename": "tests/unit/java/com/android/server/connectivity/UidRangeUtilsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-19T19:56:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "052b27e9_2ebbf65d",
+      "range": {
+        "startLine": 143,
+        "startChar": 45,
+        "endLine": 143,
+        "endChar": 71
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fab12f9d_adb9d8c1",
@@ -1235,6 +1283,30 @@
       "writtenOn": "2022-01-14T06:10:52Z",
       "side": 1,
       "message": "Let\u0027s have a test where the set contains 2 consecutive sets, e.g. {[3, 30], [30, 39]}, and make sure the resulting range is fine",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 5
+      },
+      "revId": "15106d61b536b2c150c8fa02357856503d6a01c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaf0968c_e14ba987",
+        "filename": "tests/unit/java/com/android/server/connectivity/UidRangeUtilsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-19T19:56:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fab12f9d_adb9d8c1",
       "range": {
         "startLine": 174,
         "startChar": 4,
