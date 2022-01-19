@@ -16,6 +16,46 @@
       "message": "Friendly ping for a code review.",
       "revId": "728dc861650ea5b7f4bc61ef29e12b2b36e24527",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d24d879_ce93bd63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-19T09:16:03Z",
+      "side": 1,
+      "message": "Test LGTM as far as code goes, but Lorenzo needs to approve for owners; also regarding the policy I think Lorenzo and Robert have more context (I understand Robert did the outreach as per b/168064427#comment27)",
+      "revId": "728dc861650ea5b7f4bc61ef29e12b2b36e24527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc5b9293_cb8ea67a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-19T09:16:03Z",
+      "side": 1,
+      "message": "Nit: I think you should be able to just have \"final requiredKeepalives;\" here since below it\u0027s either initialized exactly once before being used or the method returns (?)",
+      "range": {
+        "startLine": 1701,
+        "startChar": 8,
+        "endLine": 1701,
+        "endChar": 35
+      },
+      "revId": "728dc861650ea5b7f4bc61ef29e12b2b36e24527",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
