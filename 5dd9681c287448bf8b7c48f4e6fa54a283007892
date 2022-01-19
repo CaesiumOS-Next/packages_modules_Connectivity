@@ -22,6 +22,30 @@
       },
       "revId": "5dd9681c287448bf8b7c48f4e6fa54a283007892",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "684cf91a_18f280a1",
+        "filename": "service/native/include/TrafficController.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-19T15:04:26Z",
+      "side": 1,
+      "message": "Move TrafficController relevant files to mainline module in aosp/1953486.",
+      "parentUuid": "a8bd75ba_54e87f3a",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 38
+      },
+      "revId": "5dd9681c287448bf8b7c48f4e6fa54a283007892",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
