@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d3345e_262c637a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-19T10:19:04Z",
+      "side": 1,
+      "message": "capability",
+      "range": {
+        "startLine": 218,
+        "startChar": 52,
+        "endLine": 218,
+        "endChar": 63
+      },
+      "revId": "fbebcd6f1fe03782ac6c657c9f03c16f2c18391a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e55632_71369af5",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-19T10:19:04Z",
+      "side": 1,
+      "message": "nit : double space",
+      "range": {
+        "startLine": 223,
+        "startChar": 34,
+        "endLine": 223,
+        "endChar": 36
+      },
+      "revId": "fbebcd6f1fe03782ac6c657c9f03c16f2c18391a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6e3335a_59727e01",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-19T10:19:04Z",
+      "side": 1,
+      "message": "This looks fairly counter-intuitive. Can we simply say that NET_CAPABILITY_ENTERPRISE_ID_1 \u003d 0, and renumber ? That way we don\u0027t need to special case anything : ID1 is just always the default.",
+      "range": {
+        "startLine": 223,
+        "startChar": 1,
+        "endLine": 227,
+        "endChar": 9
+      },
+      "revId": "fbebcd6f1fe03782ac6c657c9f03c16f2c18391a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d4106f6_eed8b68a",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 13788,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-19T10:19:04Z",
+      "side": 1,
+      "message": "Should we also have a (separate) test using 2 different networks on different enterprise IDs and check that each request goes on the right place ?",
+      "range": {
+        "startLine": 13788,
+        "startChar": 43,
+        "endLine": 13788,
+        "endChar": 95
+      },
+      "revId": "fbebcd6f1fe03782ac6c657c9f03c16f2c18391a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
