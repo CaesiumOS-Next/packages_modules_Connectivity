@@ -16,6 +16,29 @@
       "message": "LGTM assuming Mark has no other concerns.",
       "revId": "9dc406cfe79b8625a9e93af643333408e95c2bbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e06ff70_4ef92d1a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-20T12:46:47Z",
+      "side": 1,
+      "message": "Currently you don\u0027t throw ServiceSpecificException from native. The scheme would be return error code from native and throw it here (e.g. l.41). So you could remove \"throws ServiceSpecificException\" and everywhere. Using \"throws\" here means you may get ServiceSpecificException. But you don\u0027t want to handle it within this method, it would be propagating to the caller of this method.\n\nAnother way is just throwing ServiceSpecificException from JNI native instead of returning error cause.\n\nSame for \"throws ServiceSpecificException\" everywhere.",
+      "range": {
+        "startLine": 38,
+        "startChar": 45,
+        "endLine": 38,
+        "endChar": 76
+      },
+      "revId": "9dc406cfe79b8625a9e93af643333408e95c2bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
