@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff60f7b0_0444bd0e",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-20T14:59:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6440b7fa_d3b61dd8",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "5c0f41dd259a427ab6030b0e3ed921bb0686d207",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd11ff8f_1c39062e",
@@ -93,6 +117,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30a8fdf3_546e385a",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-20T14:59:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1ae1d5d_bf65df77",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "5c0f41dd259a427ab6030b0e3ed921bb0686d207",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85f320a2_bb43ffe3",
@@ -106,6 +154,30 @@
       "writtenOn": "2022-01-20T03:38:35Z",
       "side": 1,
       "message": "0",
+      "range": {
+        "startLine": 43,
+        "startChar": 44,
+        "endLine": 43,
+        "endChar": 45
+      },
+      "revId": "5c0f41dd259a427ab6030b0e3ed921bb0686d207",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "451f5d23_0ce1e797",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-20T14:59:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85f320a2_bb43ffe3",
       "range": {
         "startLine": 43,
         "startChar": 44,
