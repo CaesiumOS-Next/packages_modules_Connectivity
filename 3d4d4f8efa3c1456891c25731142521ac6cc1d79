@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6016d73f_e42da16b",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-20T15:18:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d39dfca6_b08bfbfa",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e879ff9_ef560dc6",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-20T09:16:23Z",
       "side": 1,
       "message": "What is this for? We should definitely not be using these interfaces in any way. Is this just for some constants? If so, can you add a comment to explain that?",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 45
+      },
+      "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7af21879_6960037a",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 18
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-20T15:18:56Z",
+      "side": 1,
+      "message": "The better way is either to move NetdConstants.h to frameworks/libs/net or only move INetd constants to frameworks/libs/net.\nMaybe to move INetd constants is better because many interfaces which are not related to constants are in there.",
+      "parentUuid": "0e879ff9_ef560dc6",
       "range": {
         "startLine": 14,
         "startChar": 9,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "912624c3_9a77603c",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-20T15:18:56Z",
+      "side": 1,
+      "message": "For libbase here are the dependencies we would have if we remove libbase.\nI don\u0027t have a good way to fix it at the moment, but it eventually will be gone if we re-write BPF in Java in the future. I\u0027ll leave a TODO here.\n\nld.lld: error: undefined symbol: android::base::StringPrintf(char const*, ...)\nld.lld: error: undefined symbol: fmt::v7::detail::vformat(fmt::v7::basic_string_view\u003cchar\u003e, fmt::v7::format_args)\nld.lld: error: undefined symbol: android::base::StringAppendV(std::__1::basic_string\u003cchar, std::__1::char_traits\u003cchar\u003e, std::__1::allocator\u003cchar\u003e \u003e*, char const*, std::__va_list)",
+      "parentUuid": "1e58a69e_814da334",
+      "range": {
+        "startLine": 17,
+        "startChar": 9,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d887121_14db9557",
@@ -83,6 +155,24 @@
       "writtenOn": "2022-01-20T09:16:23Z",
       "side": 1,
       "message": "// TODO: deduplicate with the constants in NetdConstants.h.",
+      "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91b125fa_55bdca98",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-20T15:18:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d887121_14db9557",
       "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
