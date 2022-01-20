@@ -213,6 +213,30 @@
       },
       "revId": "2ef2366e331ace5bb1815a3d0c4ef5d9622baf0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8bf8609_3d82b45f",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-20T02:36:03Z",
+      "side": 1,
+      "message": "Ok, so that\u0027s something... a network with NET_CAPABILITY_HIGH_BANDWIDTH cannot be the default network. That\u0027s a constraint. It also must offer higher bandwidth (measured \u003csomewhere\u003e) than the default on that same transport (if available)...\n\n@Jean, is that the case? A HIGH_BANDWIDTH network will not be allowed to become DEFAULT?",
+      "parentUuid": "2282cd46_c6ae3601",
+      "range": {
+        "startLine": 600,
+        "startChar": 28,
+        "endLine": 600,
+        "endChar": 57
+      },
+      "revId": "2ef2366e331ace5bb1815a3d0c4ef5d9622baf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
