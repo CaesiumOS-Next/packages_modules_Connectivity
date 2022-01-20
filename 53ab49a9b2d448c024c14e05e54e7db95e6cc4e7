@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff88f59_24e1ba67",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-20T09:08:15Z",
+      "side": 1,
+      "message": "See my comments on usage, but I think we should remove this member.",
+      "range": {
+        "startLine": 200,
+        "startChar": 20,
+        "endLine": 200,
+        "endChar": 32
+      },
+      "revId": "53ab49a9b2d448c024c14e05e54e7db95e6cc4e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80bb8fe2_04ce6b07",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-20T09:08:15Z",
+      "side": 1,
+      "message": "The mocking code sets things up so that createContextAsUser will return the right thing (see mContext.createContextAsUser(eq(UserHandle.of(userId))), so I think the test can just afford to get the right context by calling :\n\n  final Context userContext \u003d mContext.createContextAsUser(primaryUser.id);",
+      "range": {
+        "startLine": 943,
+        "startChar": 15,
+        "endLine": 943,
+        "endChar": 27
+      },
+      "revId": "53ab49a9b2d448c024c14e05e54e7db95e6cc4e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cc7e5d8_1e80c14c",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-20T09:08:15Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 963,
+        "startChar": 8,
+        "endLine": 963,
+        "endChar": 14
+      },
+      "revId": "53ab49a9b2d448c024c14e05e54e7db95e6cc4e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fb7ca2_d56085aa",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-20T09:08:15Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 965,
+        "startChar": 8,
+        "endLine": 965,
+        "endChar": 59
+      },
+      "revId": "53ab49a9b2d448c024c14e05e54e7db95e6cc4e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
