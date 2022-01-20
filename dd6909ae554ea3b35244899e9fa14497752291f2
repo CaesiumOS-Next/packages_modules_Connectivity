@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b186afb_5806f714",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T19:50:13Z",
+      "side": 1,
+      "message": "Yes, but sepolicy for system server to access bpf_tethering is necessary. Or a new apex would be necessary",
+      "parentUuid": "3f1af067_b210125d",
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47fc53b1_c8c60789",
         "filename": "framework/api/current.txt",
         "patchSetId": 41
@@ -699,6 +717,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c07f33a_b141fbd9",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 41
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T19:50:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "330ddbfd_aad06920",
+      "range": {
+        "startLine": 190,
+        "startChar": 39,
+        "endLine": 190,
+        "endChar": 47
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f48a4f4_5ff9610b",
@@ -1206,6 +1248,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6308df95_a359c869",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T19:50:13Z",
+      "side": 1,
+      "message": "So move to SC_V2 after 1938459 merges?",
+      "parentUuid": "44b6422f_f1a8a806",
+      "range": {
+        "startLine": 104,
+        "startChar": 62,
+        "endLine": 104,
+        "endChar": 77
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a56d33a2_3d2ab8d9",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 41
@@ -1557,6 +1623,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50bc1c4e_56bf87a9",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T19:50:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c690369_17ec957f",
+      "range": {
+        "startLine": 233,
+        "startChar": 42,
+        "endLine": 233,
+        "endChar": 43
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6e1b87a_e15e5347",
@@ -1641,6 +1731,30 @@
       "side": 1,
       "message": "Moving to NetworkAgent results in loopback address being the source address instead of LOCAL_IPV4_ADDRESS (defined #104), breaking the test case since reader will not get the packet in this case.",
       "parentUuid": "b5d0a63e_c56ee55e",
+      "range": {
+        "startLine": 242,
+        "startChar": 20,
+        "endLine": 242,
+        "endChar": 41
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e944b3af_47cb1e84",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 41
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T19:50:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07e93034_7d3ac57c",
       "range": {
         "startLine": 242,
         "startChar": 20,

@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e45bfc2_45ef0a54",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 38
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T19:50:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2361c456_2c7424ee",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 25
+      },
+      "revId": "5456d3695b444a01b9fa2c566992075f78905e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee37f3f9_a5d5cd03",
@@ -125,6 +149,30 @@
       "writtenOn": "2021-12-16T02:01:03Z",
       "side": 1,
       "message": "this is a no-op.  you\u0027re modifying a stack variable",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 40
+      },
+      "revId": "5456d3695b444a01b9fa2c566992075f78905e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c23a0d55_3d8ab2f3",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 38
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T19:50:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "471c785c_28922187",
       "range": {
         "startLine": 145,
         "startChar": 0,
