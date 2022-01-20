@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3632619f_e37eee7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-20T14:59:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a69e3dd4_453d0147",
+      "revId": "d46bdbf68d7b3224ad03fa0b15d61a36871e7970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0c2301c_4574a9bd",
@@ -41,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1553882_2e3f1656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-20T14:59:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0c2301c_4574a9bd",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "d46bdbf68d7b3224ad03fa0b15d61a36871e7970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46b71ad8_1a2fb427",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-01-20T03:19:41Z",
       "side": 1,
       "message": "and set SO_MARK.",
+      "range": {
+        "startLine": 133,
+        "startChar": 31,
+        "endLine": 133,
+        "endChar": 32
+      },
+      "revId": "d46bdbf68d7b3224ad03fa0b15d61a36871e7970",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bebc8af2_df98f8e0",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-20T14:59:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46b71ad8_1a2fb427",
       "range": {
         "startLine": 133,
         "startChar": 31,
