@@ -267,7 +267,10 @@ public class TetheringManager {
     public TetheringManager(@NonNull final Context context,
             @NonNull Supplier<IBinder> connectorSupplier) {
         mContext = context;
-        mCallback = new TetheringCallbackInternal(this);
+        // Use a final local variable to make sure it's captured by the lambda below
+        // Referencing the field in the lambda would not be thread-safe
+        final callback = new TetheringCallbackInternal(this);
+        mCallback = callback;
         mConnectorSupplier = connectorSupplier;
 
         final String pkgName = mContext.getOpPackageName();
@@ -288,7 +291,7 @@ public class TetheringManager {
         }
 
         Log.i(TAG, "registerTetheringEventCallback:" + pkgName);
-        getConnector(c -> c.registerTetheringEventCallback(mCallback, pkgName));
+        getConnector(c -> c.registerTetheringEventCallback(callback, pkgName));
     }
 
     /** @hide */
