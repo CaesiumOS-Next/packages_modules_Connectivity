@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "347f67e7_65abeff5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-20T09:10:37Z",
+      "side": 1,
+      "message": "WithSpecificIkeErrorCode",
+      "range": {
+        "startLine": 1051,
+        "startChar": 33,
+        "endLine": 1051,
+        "endChar": 76
+      },
+      "revId": "c0234198099b945ec668f3efa22bf015e66e32ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
