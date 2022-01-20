@@ -192,6 +192,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private @Mock AlarmManager mAlarmManager;
     @Mock
     private NetworkStatsSubscriptionsMonitor mNetworkStatsSubscriptionsMonitor;
+    private @Mock BpfInterfaceMapUpdater mBpfInterfaceMapUpdater;
     private HandlerThread mHandlerThread;
 
     private NetworkStatsService mService;
@@ -334,6 +335,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 return mContentObserver = super.makeContentObserver(handler, settings, monitor);
             }
 
+            @Override
+            public BpfInterfaceMapUpdater makeBpfInterfaceMapUpdater(
+                    @NonNull Handler handler, @NonNull INetd netd) {
+                return mBpfInterfaceMapUpdater;
+            }
         };
     }
 
