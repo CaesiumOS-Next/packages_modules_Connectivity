@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d966b441_2a4f563d",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T05:32:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd75637e_d07af739",
+      "range": {
+        "startLine": 146,
+        "startChar": 16,
+        "endLine": 146,
+        "endChar": 65
+      },
+      "revId": "4a47e5d64978cf8c02ff5947cfdd74c55d012440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03c03124_42297710",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51fe29c0_b08d5bec",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 10155,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T05:32:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03c03124_42297710",
+      "range": {
+        "startLine": 10155,
+        "startChar": 34,
+        "endLine": 10155,
+        "endChar": 58
+      },
+      "revId": "4a47e5d64978cf8c02ff5947cfdd74c55d012440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79daa546_803ece42",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-19T10:13:43Z",
       "side": 1,
       "message": "Nit : maybe we should also check that it doesn\u0027t also have the other IDs, but maybe it doesn\u0027t matter",
+      "range": {
+        "startLine": 13840,
+        "startChar": 30,
+        "endLine": 13840,
+        "endChar": 55
+      },
+      "revId": "4a47e5d64978cf8c02ff5947cfdd74c55d012440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "506cbe7e_ca86824e",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 13840,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T05:32:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79daa546_803ece42",
       "range": {
         "startLine": 13840,
         "startChar": 30,
