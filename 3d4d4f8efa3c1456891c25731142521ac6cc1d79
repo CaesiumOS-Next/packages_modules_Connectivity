@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39dfca6_b08bfbfa",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-20T09:16:23Z",
+      "side": 1,
+      "message": "Add license header at the top of this file?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e879ff9_ef560dc6",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 18
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-20T09:16:23Z",
+      "side": 1,
+      "message": "What is this for? We should definitely not be using these interfaces in any way. Is this just for some constants? If so, can you add a comment to explain that?",
+      "range": {
+        "startLine": 14,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 45
+      },
+      "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e58a69e_814da334",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-20T09:16:23Z",
+      "side": 1,
+      "message": "This might be OK for now, but adding this here will substantially increase apex size. Mainline shared library deduplication will help on S, but that doesn\u0027t work on R, and the tethering apex does ship to R.\n\nIs there an easy way to stop this code from compiling in sc-mainline-prod until we fix the size issue?",
+      "range": {
+        "startLine": 17,
+        "startChar": 9,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d887121_14db9557",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-20T09:16:23Z",
+      "side": 1,
+      "message": "// TODO: deduplicate with the constants in NetdConstants.h.",
+      "revId": "3d4d4f8efa3c1456891c25731142521ac6cc1d79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
