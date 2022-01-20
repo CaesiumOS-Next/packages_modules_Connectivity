@@ -38,7 +38,6 @@ import com.android.internal.annotations.GuardedBy;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -71,13 +70,10 @@ public class TetheringManager {
     private final List<ConnectorConsumer> mConnectorWaitQueue = new ArrayList<>();
     private final Supplier<IBinder> mConnectorSupplier;
 
-    private final TetheringCallbackInternal mCallback;
+    private final TetheringStateTracker mStateTracker;
     private final Context mContext;
     private final ArrayMap<TetheringEventCallback, ITetheringEventCallback>
             mTetheringEventCallbacks = new ArrayMap<>();
-
-    private volatile TetheringConfigurationParcel mTetheringConfiguration;
-    private volatile TetherStatesParcel mTetherStatesParcel;
 
     /**
      * Broadcast Action: A tetherable connection has come or gone.
@@ -267,7 +263,10 @@ public class TetheringManager {
     public TetheringManager(@NonNull final Context context,
             @NonNull Supplier<IBinder> connectorSupplier) {
         mContext = context;
-        mCallback = new TetheringCallbackInternal(this);
+        // Use a final local variable to make sure it's captured by the lambda below
+        // Referencing the field in the lambda would not be thread-safe
+        final TetheringStateTracker stateTracker = new TetheringStateTracker();
+        mStateTracker = stateTracker;
         mConnectorSupplier = connectorSupplier;
 
         final String pkgName = mContext.getOpPackageName();
@@ -288,7 +287,7 @@ public class TetheringManager {
         }
 
         Log.i(TAG, "registerTetheringEventCallback:" + pkgName);
-        getConnector(c -> c.registerTetheringEventCallback(mCallback, pkgName));
+        getConnector(c -> c.registerTetheringEventCallback(stateTracker, pkgName));
     }
 
     /** @hide */
@@ -303,7 +302,7 @@ public class TetheringManager {
         // it's guaranteed that registerTetheringEventCallback was already called before calling
         // unregisterTetheringEventCallback in finalize.
         if (mConnector == null) Log.wtf(TAG, "null connector in finalize!");
-        getConnector(c -> c.unregisterTetheringEventCallback(mCallback, pkgName));
+        getConnector(c -> c.unregisterTetheringEventCallback(mStateTracker, pkgName));
 
         super.finalize();
     }
@@ -483,40 +482,23 @@ public class TetheringManager {
         void onUnavailable();
     }
 
-    private static class TetheringCallbackInternal extends ITetheringEventCallback.Stub {
+    private static class TetheringStateTracker extends ITetheringEventCallback.Stub {
+        private volatile TetheringConfigurationParcel mTetheringConfiguration;
+        private volatile TetherStatesParcel mTetherStatesParcel;
         private volatile int mError = TETHER_ERROR_NO_ERROR;
         private final ConditionVariable mWaitForCallback = new ConditionVariable();
-        // This object is never garbage collected because the Tethering code running in
-        // the system server always maintains a reference to it for as long as
-        // mCallback is registered.
-        //
-        // Don't keep a strong reference to TetheringManager because otherwise
-        // TetheringManager cannot be garbage collected, and because TetheringManager
-        // stores the Context that it was created from, this will prevent the calling
-        // Activity from being garbage collected as well.
-        private final WeakReference<TetheringManager> mTetheringMgrRef;
-
-        TetheringCallbackInternal(final TetheringManager tm) {
-            mTetheringMgrRef = new WeakReference<>(tm);
-        }
 
         @Override
         public void onCallbackStarted(TetheringCallbackStartedParcel parcel) {
-            TetheringManager tetheringMgr = mTetheringMgrRef.get();
-            if (tetheringMgr != null) {
-                tetheringMgr.mTetheringConfiguration = parcel.config;
-                tetheringMgr.mTetherStatesParcel = parcel.states;
-                mWaitForCallback.open();
-            }
+            mTetheringConfiguration = parcel.config;
+            mTetherStatesParcel = parcel.states;
+            mWaitForCallback.open();
         }
 
         @Override
         public void onCallbackStopped(int errorCode) {
-            TetheringManager tetheringMgr = mTetheringMgrRef.get();
-            if (tetheringMgr != null) {
-                mError = errorCode;
-                mWaitForCallback.open();
-            }
+            mError = errorCode;
+            mWaitForCallback.open();
         }
 
         @Override
@@ -524,14 +506,12 @@ public class TetheringManager {
 
         @Override
         public void onConfigurationChanged(TetheringConfigurationParcel config) {
-            TetheringManager tetheringMgr = mTetheringMgrRef.get();
-            if (tetheringMgr != null) tetheringMgr.mTetheringConfiguration = config;
+            mTetheringConfiguration = config;
         }
 
         @Override
         public void onTetherStatesChanged(TetherStatesParcel states) {
-            TetheringManager tetheringMgr = mTetheringMgrRef.get();
-            if (tetheringMgr != null) tetheringMgr.mTetherStatesParcel = states;
+            mTetherStatesParcel = states;
         }
 
         @Override
@@ -1430,12 +1410,13 @@ public class TetheringManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public int getLastTetherError(@NonNull final String iface) {
-        mCallback.waitForStarted();
-        if (mTetherStatesParcel == null) return TETHER_ERROR_NO_ERROR;
+        mStateTracker.waitForStarted();
+        final TetherStatesParcel statesParcel = mStateTracker.mTetherStatesParcel;
+        if (statesParcel == null) return TETHER_ERROR_NO_ERROR;
 
         int i = 0;
-        for (TetheringInterface errored : mTetherStatesParcel.erroredIfaceList) {
-            if (iface.equals(errored.getInterface())) return mTetherStatesParcel.lastErrorList[i];
+        for (TetheringInterface errored : statesParcel.erroredIfaceList) {
+            if (iface.equals(errored.getInterface())) return statesParcel.lastErrorList[i];
 
             i++;
         }
@@ -1453,8 +1434,8 @@ public class TetheringManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public @NonNull String[] getTetherableUsbRegexs() {
-        mCallback.waitForStarted();
-        return mTetheringConfiguration.tetherableUsbRegexs;
+        mStateTracker.waitForStarted();
+        return mStateTracker.mTetheringConfiguration.tetherableUsbRegexs;
     }
 
     /**
@@ -1468,8 +1449,8 @@ public class TetheringManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public @NonNull String[] getTetherableWifiRegexs() {
-        mCallback.waitForStarted();
-        return mTetheringConfiguration.tetherableWifiRegexs;
+        mStateTracker.waitForStarted();
+        return mStateTracker.mTetheringConfiguration.tetherableWifiRegexs;
     }
 
     /**
@@ -1483,8 +1464,8 @@ public class TetheringManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public @NonNull String[] getTetherableBluetoothRegexs() {
-        mCallback.waitForStarted();
-        return mTetheringConfiguration.tetherableBluetoothRegexs;
+        mStateTracker.waitForStarted();
+        return mStateTracker.mTetheringConfiguration.tetherableBluetoothRegexs;
     }
 
     /**
@@ -1496,10 +1477,11 @@ public class TetheringManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public @NonNull String[] getTetherableIfaces() {
-        mCallback.waitForStarted();
-        if (mTetherStatesParcel == null) return new String[0];
+        mStateTracker.waitForStarted();
+        final TetherStatesParcel statesParcel = mStateTracker.mTetherStatesParcel;
+        if (statesParcel == null) return new String[0];
 
-        return toIfaces(mTetherStatesParcel.availableList);
+        return toIfaces(statesParcel.availableList);
     }
 
     /**
@@ -1510,10 +1492,11 @@ public class TetheringManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public @NonNull String[] getTetheredIfaces() {
-        mCallback.waitForStarted();
-        if (mTetherStatesParcel == null) return new String[0];
+        mStateTracker.waitForStarted();
+        final TetherStatesParcel statesParcel = mStateTracker.mTetherStatesParcel;
+        if (statesParcel == null) return new String[0];
 
-        return toIfaces(mTetherStatesParcel.tetheredList);
+        return toIfaces(statesParcel.tetheredList);
     }
 
     /**
@@ -1530,10 +1513,11 @@ public class TetheringManager {
      */
     @SystemApi(client = MODULE_LIBRARIES)
     public @NonNull String[] getTetheringErroredIfaces() {
-        mCallback.waitForStarted();
-        if (mTetherStatesParcel == null) return new String[0];
+        mStateTracker.waitForStarted();
+        final TetherStatesParcel statesParcel = mStateTracker.mTetherStatesParcel;
+        if (statesParcel == null) return new String[0];
 
-        return toIfaces(mTetherStatesParcel.erroredIfaceList);
+        return toIfaces(statesParcel.erroredIfaceList);
     }
 
     /**
@@ -1544,8 +1528,8 @@ public class TetheringManager {
      */
     @Deprecated
     public @NonNull String[] getTetheredDhcpRanges() {
-        mCallback.waitForStarted();
-        return mTetheringConfiguration.legacyDhcpRanges;
+        mStateTracker.waitForStarted();
+        return mStateTracker.mTetheringConfiguration.legacyDhcpRanges;
     }
 
     /**
