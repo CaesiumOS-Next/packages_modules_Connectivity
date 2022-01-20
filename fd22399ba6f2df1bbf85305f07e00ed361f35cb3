@@ -808,6 +808,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "996af100_5b6bc2cc",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 1411,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T22:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "010adeee_b20558d9",
+      "range": {
+        "startLine": 1411,
+        "startChar": 65,
+        "endLine": 1411,
+        "endChar": 96
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44236210_2bbf2b79",
@@ -821,6 +845,30 @@
       "writtenOn": "2022-01-19T07:02:52Z",
       "side": 1,
       "message": "CS is likely to throw an NPE at some point because the tracker is null, and this case won\u0027t be tested much\n\nTo avoid throwing in the constructor, maybe you could create the BPF maps when registering the program instead ? This could also save some memory, and avoid running extra code that won\u0027t be used (like on S)",
+      "range": {
+        "startLine": 1415,
+        "startChar": 12,
+        "endLine": 1415,
+        "endChar": 18
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50d178de_e460a305",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-20T22:11:22Z",
+      "side": 1,
+      "message": "Can do this, but the maps cannot be final in DscpPolicyTracker then",
+      "parentUuid": "44236210_2bbf2b79",
       "range": {
         "startLine": 1415,
         "startChar": 12,
