@@ -261,6 +261,30 @@
       },
       "revId": "2ef2366e331ace5bb1815a3d0c4ef5d9622baf0b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b028077_05c292b3",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-20T06:04:20Z",
+      "side": 1,
+      "message": "I think it is a lot clearer to call this NET_CAPABILITY_PRIORITY_BANDWIDTH and PRIORITY_LATENCY. This could be documented in the following way :\n\n  * Indicates that this network is configured to prioritize a lower latency,\n  * possibly at the expense of other characteristics.\n\nThis doesn\u0027t say that the latency will be low.",
+      "parentUuid": "d1d35a16_1824b3b0",
+      "range": {
+        "startLine": 600,
+        "startChar": 28,
+        "endLine": 600,
+        "endChar": 57
+      },
+      "revId": "2ef2366e331ace5bb1815a3d0c4ef5d9622baf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
