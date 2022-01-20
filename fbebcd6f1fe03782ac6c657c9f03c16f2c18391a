@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbd4cf4a_8323f809",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T08:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "739c2158_1e339296",
+      "range": {
+        "startLine": 223,
+        "startChar": 1,
+        "endLine": 227,
+        "endChar": 9
+      },
+      "revId": "fbebcd6f1fe03782ac6c657c9f03c16f2c18391a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d4106f6_eed8b68a",
@@ -203,6 +227,30 @@
       "side": 1,
       "message": "I will do it once the uid gerrits and the multiple enterprise gets in as I need both for that. Will do it as a seperate gerrit also.",
       "parentUuid": "5d4106f6_eed8b68a",
+      "range": {
+        "startLine": 13788,
+        "startChar": 43,
+        "endLine": 13788,
+        "endChar": 95
+      },
+      "revId": "fbebcd6f1fe03782ac6c657c9f03c16f2c18391a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abba7c42_9b704195",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 13788,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T08:42:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa7081cc_270f08a2",
       "range": {
         "startLine": 13788,
         "startChar": 43,

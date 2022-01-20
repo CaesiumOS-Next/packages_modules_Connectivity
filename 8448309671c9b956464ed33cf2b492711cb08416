@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38024fb7_ed4edeca",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T08:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f2f4110_b98211d1",
+      "range": {
+        "startLine": 305,
+        "startChar": 26,
+        "endLine": 305,
+        "endChar": 51
+      },
+      "revId": "8448309671c9b956464ed33cf2b492711cb08416",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b376661_cd70c4ff",
@@ -64,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "696484a2_6653b592",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T08:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b376661_cd70c4ff",
+      "range": {
+        "startLine": 136,
+        "startChar": 34,
+        "endLine": 136,
+        "endChar": 64
+      },
+      "revId": "8448309671c9b956464ed33cf2b492711cb08416",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "113ce792_4b7de60c",
@@ -77,6 +125,30 @@
       "writtenOn": "2022-01-20T06:33:43Z",
       "side": 1,
       "message": "Make this public by removing @hide and @system API, rename as per other comment",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 41
+      },
+      "revId": "8448309671c9b956464ed33cf2b492711cb08416",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71f73149_0abfe39d",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T08:42:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "113ce792_4b7de60c",
       "range": {
         "startLine": 153,
         "startChar": 0,
