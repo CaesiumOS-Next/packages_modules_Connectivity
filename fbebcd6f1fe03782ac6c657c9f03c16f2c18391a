@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "739c2158_1e339296",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-20T06:33:43Z",
+      "side": 1,
+      "message": "Per discussion : I still think it\u0027s dangerous but I can\u0027t find a better way to handle it, so let\u0027s keep what you have.\n\nWe do need to update the getEnterpriseCapabilityIds() getter too.\n\nAlso add comments on the member to explain this backward compatibility story.",
+      "parentUuid": "9ccc75f3_f2496cb9",
+      "range": {
+        "startLine": 223,
+        "startChar": 1,
+        "endLine": 227,
+        "endChar": 9
+      },
+      "revId": "fbebcd6f1fe03782ac6c657c9f03c16f2c18391a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5d4106f6_eed8b68a",
         "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
         "patchSetId": 9
