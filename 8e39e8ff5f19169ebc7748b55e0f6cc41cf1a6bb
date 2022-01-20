@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ee5b15b_c0d25165",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T09:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c64a513b_9131a7b4",
+      "range": {
+        "startLine": 71,
+        "startChar": 24,
+        "endLine": 71,
+        "endChar": 25
+      },
+      "revId": "8e39e8ff5f19169ebc7748b55e0f6cc41cf1a6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8d035ed_09767591",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bb2665e_a0c48b7e",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T09:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8d035ed_09767591",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 25
+      },
+      "revId": "8e39e8ff5f19169ebc7748b55e0f6cc41cf1a6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8de474c7_a1f1c523",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-20T06:42:15Z",
       "side": 1,
       "message": "\u003cul\u003e and capital I\n\n(to be really pedantic)",
+      "range": {
+        "startLine": 86,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 9
+      },
+      "revId": "8e39e8ff5f19169ebc7748b55e0f6cc41cf1a6bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6aa6a9_a37ee047",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T09:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8de474c7_a1f1c523",
       "range": {
         "startLine": 86,
         "startChar": 6,
