@@ -22,6 +22,30 @@
       },
       "revId": "de6b6f9af68233c11705400bca72399ae97d8f44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a822bb0e_8ccc37f5",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-20T06:22:15Z",
+      "side": 1,
+      "message": "Oh sorry I missed this reference.\n\nUpdated the commit to avoid this one too",
+      "parentUuid": "74fb3b70_770d6e1c",
+      "range": {
+        "startLine": 272,
+        "startChar": 81,
+        "endLine": 272,
+        "endChar": 85
+      },
+      "revId": "de6b6f9af68233c11705400bca72399ae97d8f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
