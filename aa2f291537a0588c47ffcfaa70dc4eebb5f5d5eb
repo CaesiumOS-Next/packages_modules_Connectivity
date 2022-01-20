@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff1376be_f90f57e4",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-20T13:03:46Z",
+      "side": 1,
+      "message": "aosp/1849156 will init mCookieTagMap, do you still need to init it here. Is it safe to init map multiple times ?",
+      "range": {
+        "startLine": 167,
+        "startChar": 4,
+        "endLine": 167,
+        "endChar": 62
+      },
+      "revId": "aa2f291537a0588c47ffcfaa70dc4eebb5f5d5eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b34d6cb_ac9dd40a",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-20T13:03:46Z",
+      "side": 1,
+      "message": "After this change, it seems the here is the only usage for mCookieTagMap. Is it possible to move entire mCooieTagMap out ?",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 63
+      },
+      "revId": "aa2f291537a0588c47ffcfaa70dc4eebb5f5d5eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
