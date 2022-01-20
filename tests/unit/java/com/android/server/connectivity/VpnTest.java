@@ -1048,15 +1048,18 @@ public class VpnTest {
                 config -> Arrays.asList(config.flags).contains(flag)));
     }
 
-    @Test
-    public void testStartPlatformVpnAuthenticationFailed() throws Exception {
+    private void setupPlatformVpnWithSpecificErrorCodeOfIkeProtocolException(int errorType,
+            int errorCode) throws Exception {
         final ArgumentCaptor<IkeSessionCallback> captor =
                 ArgumentCaptor.forClass(IkeSessionCallback.class);
         final IkeProtocolException exception = mock(IkeProtocolException.class);
-        when(exception.getErrorType())
-                .thenReturn(IkeProtocolException.ERROR_TYPE_AUTHENTICATION_FAILED);
+        when(exception.getErrorType()).thenReturn(errorCode);
 
-        final Vpn vpn = startLegacyVpn(createVpn(primaryUser.id), (mVpnProfile));
+        final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
+        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+                .thenReturn(mVpnProfile.encode());
+
+        final String sessionKey = vpn.startVpnProfile(TEST_VPN_PKG);
         final NetworkCallback cb = triggerOnAvailableAndGetCallback();
 
         verifyInterfaceSetCfgWithFlags(IF_STATE_UP);
@@ -1068,8 +1071,24 @@ public class VpnTest {
         final IkeSessionCallback ikeCb = captor.getValue();
         ikeCb.onClosedExceptionally(exception);
 
-        verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS)).unregisterNetworkCallback(eq(cb));
-        assertEquals(LegacyVpnInfo.STATE_FAILED, vpn.getLegacyVpnInfo().state);
+        verifyVpnManagerEvent(sessionKey, VpnManager.CATEGORY_ERROR_IKE, errorType, errorCode);
+        if (errorType == VpnManager.ERROR_NOT_RECOVERABLE) {
+            verify(mConnectivityManager, timeout(TEST_TIMEOUT_MS))
+                    .unregisterNetworkCallback(eq(cb));
+        }
+    }
+
+    @Test
+    public void testStartPlatformVpnAuthenticationFailed() throws Exception {
+        setupPlatformVpnWithSpecificErrorCodeOfIkeProtocolException(
+                VpnManager.ERROR_NOT_RECOVERABLE,
+                IkeProtocolException.ERROR_TYPE_AUTHENTICATION_FAILED);
+    }
+
+    @Test
+    public void testStartPlatformVpnFailedWithRecoverableError() throws Exception {
+        setupPlatformVpnWithSpecificErrorCodeOfIkeProtocolException(VpnManager.ERROR_RECOVERABLE,
+                IkeProtocolException.ERROR_TYPE_TEMPORARY_FAILURE);
     }
 
     @Test
