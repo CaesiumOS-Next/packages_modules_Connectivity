@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74fb3b70_770d6e1c",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-20T05:53:44Z",
+      "side": 1,
+      "message": "As I explained in the meeting, it\u0027s still not okay if the callback embarks and uses a reference to `this`, and there you have it.\nAFAICT the callback only writes to members of `this` so it probably won\u0027t crash as of this patch, but this is a huge landmine for the future.",
+      "range": {
+        "startLine": 272,
+        "startChar": 81,
+        "endLine": 272,
+        "endChar": 85
+      },
+      "revId": "de6b6f9af68233c11705400bca72399ae97d8f44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
