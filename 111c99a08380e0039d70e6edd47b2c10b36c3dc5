@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f92a97c7_57cc5261",
+        "filename": "service/native/Android.bp",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-20T09:18:03Z",
+      "side": 1,
+      "message": "If we want to run this in mainline-presubmit it needs to be in general-tests, not device-tests.",
+      "range": {
+        "startLine": 34,
+        "startChar": 19,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "111c99a08380e0039d70e6edd47b2c10b36c3dc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
