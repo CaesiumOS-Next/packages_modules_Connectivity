@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b07f801d_a6966426",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-20T10:16:46Z",
+      "side": 1,
+      "message": "Bypass presubmit, the failures do not related to this change. This change should be pretty safe that it only change the comment.",
+      "revId": "68cfadc52371b21bb7e7f247916717a154a06a98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
