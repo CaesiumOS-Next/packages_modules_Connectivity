@@ -22,6 +22,30 @@
       },
       "revId": "9ef027c2f5fdc7eb8f8d4bfbdeb1c481db40a103",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02813f7f_749b4857",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-20T06:32:33Z",
+      "side": 1,
+      "message": "let\u0027s do that in a follow up cl\n(b/215464704)",
+      "parentUuid": "ab7258f8_70649902",
+      "range": {
+        "startLine": 992,
+        "startChar": 17,
+        "endLine": 992,
+        "endChar": 36
+      },
+      "revId": "9ef027c2f5fdc7eb8f8d4bfbdeb1c481db40a103",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
