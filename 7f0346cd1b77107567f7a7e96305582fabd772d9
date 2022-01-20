@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d9c255_d52facca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-20T04:05:52Z",
+      "side": 1,
+      "message": "Note for this CL: The new added files in this change are identical with the existing files in netd. There are follow up changes to make the change for JNI. When switching the code path from netd to JN, will remove the duplicated code in netd.",
+      "revId": "7f0346cd1b77107567f7a7e96305582fabd772d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
