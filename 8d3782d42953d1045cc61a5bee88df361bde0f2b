@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ed78f0f_516ae76e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-20T03:16:00Z",
+      "side": 1,
+      "message": "launch",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "8d3782d42953d1045cc61a5bee88df361bde0f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06317c23_bf68b8c4",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-20T03:16:00Z",
+      "side": 1,
+      "message": "no 6",
+      "range": {
+        "startLine": 152,
+        "startChar": 76,
+        "endLine": 152,
+        "endChar": 77
+      },
+      "revId": "8d3782d42953d1045cc61a5bee88df361bde0f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062aeb6c_a39fe954",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-20T03:16:00Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 126,
+        "startChar": 16,
+        "endLine": 126,
+        "endChar": 20
+      },
+      "revId": "8d3782d42953d1045cc61a5bee88df361bde0f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "851375a3_39e6eca9",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-20T03:16:00Z",
+      "side": 1,
+      "message": "remove 6",
+      "range": {
+        "startLine": 128,
+        "startChar": 38,
+        "endLine": 128,
+        "endChar": 39
+      },
+      "revId": "8d3782d42953d1045cc61a5bee88df361bde0f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c51ef71e_cb733fea",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-20T03:16:00Z",
+      "side": 1,
+      "message": "maybe call the native ones native_openPacketSocket() and the non native wrapper as just openPacketSocket()",
+      "range": {
+        "startLine": 129,
+        "startChar": 19,
+        "endLine": 129,
+        "endChar": 36
+      },
+      "revId": "8d3782d42953d1045cc61a5bee88df361bde0f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab59b179_60a275a9",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-20T03:16:00Z",
+      "side": 1,
+      "message": "hidden or @hide",
+      "range": {
+        "startLine": 237,
+        "startChar": 60,
+        "endLine": 237,
+        "endChar": 64
+      },
+      "revId": "8d3782d42953d1045cc61a5bee88df361bde0f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
