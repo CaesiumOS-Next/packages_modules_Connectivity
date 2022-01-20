@@ -100,4 +100,32 @@ class NetworkIdentityTest {
                 false /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
         assertFalse(netIdent3.getMetered())
     }
+
+    @Test
+    fun testBuilder() {
+        val oemPrivateRoamingNotMeteredCap = NetworkCapabilities().apply {
+            addCapability(NetworkCapabilities.NET_CAPABILITY_OEM_PRIVATE)
+            addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+        }
+        val identFromSnapshot = NetworkIdentity.Builder().setNetworkStateSnapshot(
+                buildMobileNetworkStateSnapshot(oemPrivateRoamingNotMeteredCap, TEST_IMSI))
+                .setDefaultNetworkStatus(true)
+                .setRatType(TelephonyManager.NETWORK_TYPE_UMTS)
+                .build()
+        val identFromLegacyBuild = NetworkIdentity.buildNetworkIdentity(mockContext,
+                buildMobileNetworkStateSnapshot(oemPrivateRoamingNotMeteredCap, TEST_IMSI),
+                true /* defaultNetwork */, TelephonyManager.NETWORK_TYPE_UMTS)
+        val identFromConstructor = NetworkIdentity(TYPE_MOBILE,
+                TelephonyManager.NETWORK_TYPE_UMTS,
+                TEST_IMSI,
+                null /* wifiNetworkKey */,
+                true /* roaming */,
+                false /* metered */,
+                true /* defaultNetwork */,
+                NetworkTemplate.OEM_MANAGED_NO)
+        assertEquals(identFromLegacyBuild, identFromSnapshot)
+        assertEquals(identFromConstructor, identFromSnapshot)
+
+        // TODO: Add test cases for wifiNetworkKey and ratType.
+    }
 }
