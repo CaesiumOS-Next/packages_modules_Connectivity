@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f067f6aa_55e92560",
+        "filename": "framework/src/android/net/StaticIpConfiguration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-20T09:55:06Z",
+      "side": 1,
+      "message": "Can we enforce that this is an Inet4Address as well, like we do for the DNS servers? Might need a \"throwIfNotIpv4Address(InetAddress addr)\" method :-)",
+      "range": {
+        "startLine": 130,
+        "startChar": 12,
+        "endLine": 130,
+        "endChar": 35
+      },
+      "revId": "a62ca006d73942f4418c830509d0f3fdb781132e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c2e994_d9e88331",
+        "filename": "framework/src/android/net/StaticIpConfiguration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-20T09:55:06Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 139,
+        "startChar": 12,
+        "endLine": 139,
+        "endChar": 31
+      },
+      "revId": "a62ca006d73942f4418c830509d0f3fdb781132e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
