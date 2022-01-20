@@ -39,6 +39,30 @@
       },
       "revId": "9dc406cfe79b8625a9e93af643333408e95c2bbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a076543a_ee12014c",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-20T16:02:05Z",
+      "side": 1,
+      "message": "Thank you for the explanation.",
+      "parentUuid": "1e06ff70_4ef92d1a",
+      "range": {
+        "startLine": 38,
+        "startChar": 45,
+        "endLine": 38,
+        "endChar": 76
+      },
+      "revId": "9dc406cfe79b8625a9e93af643333408e95c2bbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
