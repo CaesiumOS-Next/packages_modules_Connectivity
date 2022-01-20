@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b23cbbf8_9754b30a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-20T02:32:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48e8acf2_586007e5",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 348,
+        "endChar": 53
+      },
+      "revId": "2ef2366e331ace5bb1815a3d0c4ef5d9622baf0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a84f621_dca89dda",
