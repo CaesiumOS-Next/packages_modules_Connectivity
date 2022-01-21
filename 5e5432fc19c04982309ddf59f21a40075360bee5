@@ -16,6 +16,24 @@
       "message": "This one still needs to be submitted. Since the police filter will only be enabled on a subset of devices, I am wondering if we should make the priority of these values based on that (RRO configurable?) setting.\nOtherwise, we will leave a hole at PRIO \u003d 1, which does not sound great. Thoughts? (Also, maybe let\u0027s submit this and fix it after the IC closes, as none of this is exposed anywhere).",
       "revId": "5e5432fc19c04982309ddf59f21a40075360bee5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d437a038_2574b933",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-21T17:06:39Z",
+      "side": 1,
+      "message": "I think I\u0027d prefer consistent priorities... but either way we can make such design changes later.",
+      "parentUuid": "3f49b9b5_e32b6adc",
+      "revId": "5e5432fc19c04982309ddf59f21a40075360bee5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
