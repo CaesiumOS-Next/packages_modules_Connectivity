@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2abc24c6_915e6702",
+        "filename": "tests/unit/java/com/android/server/net/BpfInterfaceMapUpdaterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-21T15:35:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59b4cc8f_61653879",
+      "range": {
+        "startLine": 48,
+        "startChar": 37,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "3c478c19c24b0ad3e113ec098ac56af8b6ca23ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "568a1a81_2d4a5f45",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-21T07:47:14Z",
       "side": 1,
       "message": "Check that when the same interface is re-added, nothing happens.\nCheck that when onInterfaceRemoved is called, nothing happens.",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 5
+      },
+      "revId": "3c478c19c24b0ad3e113ec098ac56af8b6ca23ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1f6cc21_183b054c",
+        "filename": "tests/unit/java/com/android/server/net/BpfInterfaceMapUpdaterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-21T15:35:33Z",
+      "side": 1,
+      "message": "If the same interface is re-added, we will just added. This is also the current netd behavior. For onInterfaceRemoved, done.",
+      "parentUuid": "568a1a81_2d4a5f45",
       "range": {
         "startLine": 104,
         "startChar": 4,
