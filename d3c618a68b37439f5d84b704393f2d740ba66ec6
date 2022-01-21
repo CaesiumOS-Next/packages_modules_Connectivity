@@ -22,6 +22,29 @@
       },
       "revId": "d3c618a68b37439f5d84b704393f2d740ba66ec6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69dd741b_82f7348c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-21T01:20:20Z",
+      "side": 1,
+      "message": "not familiar with the code base, but looks like config.provisioningAppNoUi is read from resources before and the cached value is used here. \n\nFollowing the same logic, the value of config.provisioningAppNoUi should have been decided at the same place that reads from resources: now it reads both resources and carrier config and decide the final value to pick.\n\nSame comment to all other places where config.provisioningApp* is used and wrapped in a carrier config check.",
+      "range": {
+        "startLine": 388,
+        "startChar": 8,
+        "endLine": 390,
+        "endChar": 27
+      },
+      "revId": "d3c618a68b37439f5d84b704393f2d740ba66ec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
