@@ -1130,6 +1130,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1512491_c77cf6ff",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T19:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "851f0034_df1992e7",
+      "range": {
+        "startLine": 43,
+        "startChar": 7,
+        "endLine": 43,
+        "endChar": 12
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f54bf2f_53da7a54",
@@ -2072,6 +2096,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4a20c2c_6cc97096",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T19:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0c10ed9_4a24dbbb",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 15
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80436d73_51da3d0f",
@@ -2133,6 +2181,30 @@
       "side": 1,
       "message": "update",
       "parentUuid": "102c5027_838775d5",
+      "range": {
+        "startLine": 138,
+        "startChar": 53,
+        "endLine": 138,
+        "endChar": 56
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52499990_0ba54304",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T19:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e81e7c7_28ff580e",
       "range": {
         "startLine": 138,
         "startChar": 53,
@@ -2286,6 +2358,30 @@
       "side": 1,
       "message": "remove todo",
       "parentUuid": "4641c51c_8e22fbd6",
+      "range": {
+        "startLine": 126,
+        "startChar": 13,
+        "endLine": 126,
+        "endChar": 68
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31e96860_0a898033",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 44
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T19:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fce9642f_91ab37a9",
       "range": {
         "startLine": 126,
         "startChar": 13,
