@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91da9541_c612bfdb",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-21T01:07:51Z",
+      "side": 1,
+      "message": "This sound like we\u0027re using startService() but in fact we sendBroadcast(). How about:\n\n  An intent action, sent when a background entitlement check is needed.",
+      "range": {
+        "startLine": 117,
+        "startChar": 10,
+        "endLine": 117,
+        "endChar": 75
+      },
+      "revId": "d3c618a68b37439f5d84b704393f2d740ba66ec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
