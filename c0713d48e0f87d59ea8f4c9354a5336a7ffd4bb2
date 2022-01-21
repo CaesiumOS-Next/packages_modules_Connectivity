@@ -16,6 +16,24 @@
       "message": "Can you add some asserts that the CM method was called? In this case, it would be something like:\n\n    verify(mCm).updateMeteredNetworkDenyList(TEST_UID, true);\n\nAlso elsewhere.",
       "revId": "c0713d48e0f87d59ea8f4c9354a5336a7ffd4bb2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b54db6f2_9b7fc87c",
+        "filename": "tests/unit/java/com/android/server/NetworkManagementServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-21T14:24:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0789c8fe_19be298e",
+      "revId": "c0713d48e0f87d59ea8f4c9354a5336a7ffd4bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
