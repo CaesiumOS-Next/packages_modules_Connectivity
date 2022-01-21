@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72091c3c_3dc15f5d",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-21T02:50:28Z",
+      "side": 1,
+      "message": "done \nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1956037/",
+      "parentUuid": "6412bb4c_40ea5372",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 14
+      },
+      "revId": "5c0f41dd259a427ab6030b0e3ed921bb0686d207",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0ce993c_d62f5f72",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "e0ce993c_d62f5f72",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "5c0f41dd259a427ab6030b0e3ed921bb0686d207",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cde75dc2_9c98eced",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-21T02:50:28Z",
+      "side": 1,
+      "message": "done \nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1956037/",
+      "parentUuid": "e2b938be_c7684c0b",
       "range": {
         "startLine": 50,
         "startChar": 8,
