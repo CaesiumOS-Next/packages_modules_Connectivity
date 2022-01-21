@@ -45,8 +45,9 @@ java_defaults {
     ],
     jarjar_rules: "jarjar-rules-shared.txt",
     static_libs: [
-        "bouncycastle-unbundled",
+        "CtsNetTestsNonUpdatableLib",
         "FrameworksNetCommonTests",
+        "bouncycastle-unbundled",
         "core-tests-support",
         "cts-net-utils",
         "ctstestrunner-axt",
