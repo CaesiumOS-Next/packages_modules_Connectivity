@@ -1716,7 +1716,7 @@ public class ConnectivityServiceTest {
         final Context mockResContext = mock(Context.class);
         doReturn(mResources).when(mockResContext).getResources();
         ConnectivityResources.setResourcesContextForTest(mockResContext);
-        mDeps = new ConnectivityServiceDependencies(mockResContext);
+        mDeps = spy(new ConnectivityServiceDependencies(mockResContext));
 
         mService = new ConnectivityService(mServiceContext,
                 mMockDnsResolver,
@@ -1775,7 +1775,7 @@ public class ConnectivityServiceTest {
                 .getBoolean(R.bool.config_cellular_radio_timesharing_capable);
     }
 
-    class ConnectivityServiceDependencies extends ConnectivityService.Dependencies {
+    public class ConnectivityServiceDependencies extends ConnectivityService.Dependencies {
         final ConnectivityResources mConnRes;
         @Mock final MockableSystemProperties mSystemProperties;
 
@@ -4966,6 +4966,13 @@ public class ConnectivityServiceTest {
         ConnectivitySettingsManager.setPrivateDnsMode(mServiceContext, mode);
         ConnectivitySettingsManager.setPrivateDnsHostname(mServiceContext, specifier);
         mService.updatePrivateDnsSettings();
+        waitForIdle();
+    }
+
+    private void setInternetNetworkRateLimit(int rateLimitInBytesPerSec) {
+        ConnectivitySettingsManager.setInternetNetworkRateLimitBytesPerSecond(mServiceContext,
+                rateLimitInBytesPerSec);
+        mService.updateInternetNetworkRateLimit();
         waitForIdle();
     }
 
@@ -14747,5 +14754,114 @@ public class ConnectivityServiceTest {
         assertThrows(SecurityException.class, () -> mService.requestRouteToHostAddress(
                 ConnectivityManager.TYPE_NONE, null /* hostAddress */, "com.not.package.owner",
                 null /* callingAttributionTag */));
+    }
+
+    @Test
+    public void testUpdateRateLimit_EnableDisable() throws Exception {
+        doNothing().when(mDeps).tcFilterAddDevIngressPolice(anyString(), anyInt());
+        doNothing().when(mDeps).tcFilterDelDev(anyString());
+
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connect(true);
+
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        mCellNetworkAgent.connect(false);
+        
+        waitForIdle();
+
+        // set rate limit to 8MBit/s => 1MB/s
+        final int rateLimitInBytesPerSec = 1*1000*1000;
+        setInternetNetworkRateLimit(rateLimitInBytesPerSec);
+
+        verify(mDeps).tcFilterAddDevIngressPolice(wifiLp.getInterfaceName(), rateLimitInBytesPerSec);
+        verify(mDeps).tcFilterAddDevIngressPolice(cellLp.getInterfaceName(), rateLimitInBytesPerSec);
+
+        // disable rate limiting
+        setInternetNetworkRateLimit(0);
+
+        verify(mDeps).tcFilterDelDev(wifiLp.getInterfaceName());
+        verify(mDeps).tcFilterDelDev(cellLp.getInterfaceName());
+    }
+
+    @Test
+    public void testUpdateRateLimit_WhenNewNetworkIsAdded() throws Exception {
+        doNothing().when(mDeps).tcFilterAddDevIngressPolice(anyString(), anyInt());
+        doNothing().when(mDeps).tcFilterDelDev(anyString());
+
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connect(true);
+        
+        waitForIdle();
+
+        // set rate limit to 8MBit/s => 1MB/s
+        final int rateLimitInBytesPerSec = 1*1000*1000;
+        setInternetNetworkRateLimit(rateLimitInBytesPerSec);
+        verify(mDeps).tcFilterAddDevIngressPolice(wifiLp.getInterfaceName(), rateLimitInBytesPerSec);
+
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        mCellNetworkAgent.connect(false);
+        
+        waitForIdle();
+
+        verify(mDeps).tcFilterAddDevIngressPolice(cellLp.getInterfaceName(), rateLimitInBytesPerSec);
+    }
+
+    @Test
+    public void testUpdateRateLimit_OnlyAffectsInternetCapableNetworks() throws Exception {
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connectWithoutInternet();
+
+        waitForIdle();
+
+        setInternetNetworkRateLimit(1000);
+        verify(mDeps, never()).tcFilterAddDevIngressPolice(eq(wifiLp.getInterfaceName()), anyInt());
+
+        setInternetNetworkRateLimit(0);
+        verify(mDeps, never()).tcFilterDelDev(wifiLp.getInterfaceName());
+    }
+
+    @Test
+    public void testUpdateRateLimit_ConnectingPreviouslyConnectedNetworkResetsRateLimit()
+            throws Exception {
+        // Steps:
+        // - connect network
+        // - set rate limit
+        // - disconnect network (interface still exists)
+        // - disable rate limit
+        // - connect network
+        // - ensure network interface is not rate limited
+
+        doNothing().when(mDeps).tcFilterAddDevIngressPolice(anyString(), anyInt());
+        doNothing().when(mDeps).tcFilterDelDev(anyString());
+
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connect(true);
+        waitForIdle();
+
+        int rateLimitInBytesPerSecond = 1000;
+        setInternetNetworkRateLimit(rateLimitInBytesPerSecond);
+        verify(mDeps).tcFilterAddDevIngressPolice(wifiLp.getInterfaceName(), rateLimitInBytesPerSecond);
+
+        mWiFiNetworkAgent.disconnect();
+        waitForIdle();
+
+        setInternetNetworkRateLimit(0);
+
+        mWiFiNetworkAgent.connect(true);
+        waitForIdle();
+        verify(mDeps).tcFilterDelDev(wifiLp.getInterfaceName());
     }
 }
