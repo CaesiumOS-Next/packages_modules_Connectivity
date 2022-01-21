@@ -1,0 +1,87 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019572356",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d49",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ca67484f_5b4bae0b",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T19:19:51Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "bab0746b02ef95d8680a7a48e705084335211de4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019572356",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d49",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d105781a_bd365d67",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T19:19:51Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "bab0746b02ef95d8680a7a48e705084335211de4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019572364",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d49",
+      "fixSuggestions": [
+        {
+          "fixId": "50c02734_0dd6def1",
+          "description": "Change to \"service/src/com/android/server/connectivity/DscpPolicyValue.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+              "range": {
+                "startLine": 127,
+                "startChar": 11,
+                "endLine": 127,
+                "endChar": 19
+              },
+              "replacement": "Separate"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "39473293_08c3de46",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T19:19:51Z",
+      "side": 1,
+      "message": "Common typo found: \"Seperate\" -- should it be \"Separate\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 19
+      },
+      "revId": "bab0746b02ef95d8680a7a48e705084335211de4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
