@@ -1775,7 +1775,7 @@ public class ConnectivityServiceTest {
                 .getBoolean(R.bool.config_cellular_radio_timesharing_capable);
     }
 
-    class ConnectivityServiceDependencies extends ConnectivityService.Dependencies {
+    public class ConnectivityServiceDependencies extends ConnectivityService.Dependencies {
         final ConnectivityResources mConnRes;
         @Mock final MockableSystemProperties mSystemProperties;
 
@@ -1934,6 +1934,19 @@ public class ConnectivityServiceTest {
                 default:
                     return super.isFeatureEnabled(context, name, defaultEnabled);
             }
+        }
+
+        final ArrayTrackRecord<Pair<String, Integer>> mRateLimitHistory = new ArrayTrackRecord<>();
+
+        @Override
+        public void tcFilterAddDevIngressPolice(String iface, int rateInBytesPerSecond) throws
+                IOException {
+            mRateLimitHistory.add(new Pair<>(iface, rateInBytesPerSecond));
+        }
+
+        @Override
+        public void tcFilterDelDev(String iface) throws IOException {
+            mRateLimitHistory.add(new Pair<>(iface, 0));
         }
     }
 
@@ -4966,6 +4979,13 @@ public class ConnectivityServiceTest {
         ConnectivitySettingsManager.setPrivateDnsMode(mServiceContext, mode);
         ConnectivitySettingsManager.setPrivateDnsHostname(mServiceContext, specifier);
         mService.updatePrivateDnsSettings();
+        waitForIdle();
+    }
+
+    private void setInternetNetworkRateLimit(int rateLimitInBytesPerSec) {
+        ConnectivitySettingsManager.setInternetNetworkRateLimitInBytesPerSecond(mServiceContext,
+                rateLimitInBytesPerSec);
+        mService.updateInternetNetworkRateLimit();
         waitForIdle();
     }
 
@@ -14747,5 +14767,126 @@ public class ConnectivityServiceTest {
         assertThrows(SecurityException.class, () -> mService.requestRouteToHostAddress(
                 ConnectivityManager.TYPE_NONE, null /* hostAddress */, "com.not.package.owner",
                 null /* callingAttributionTag */));
+    }
+
+    @Test
+    public void testUpdateRateLimit_EnableDisable() throws Exception {
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connect(true);
+
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        mCellNetworkAgent.connect(false);
+
+        waitForIdle();
+
+        final ArrayTrackRecord<Pair<String, Integer>>.ReadHead readHeadWifi =
+                mDeps.mRateLimitHistory.newReadHead();
+        final ArrayTrackRecord<Pair<String, Integer>>.ReadHead readHeadCell =
+                mDeps.mRateLimitHistory.newReadHead();
+
+        // set rate limit to 8MBit/s => 1MB/s
+        final int rateLimitInBytesPerSec = 1 * 1000 * 1000;
+        setInternetNetworkRateLimit(rateLimitInBytesPerSec);
+
+        assertNotNull(readHeadWifi.poll(TIMEOUT_MS,
+                it -> it.first == wifiLp.getInterfaceName()
+                        && it.second == rateLimitInBytesPerSec));
+        assertNotNull(readHeadCell.poll(TIMEOUT_MS,
+                it -> it.first == cellLp.getInterfaceName()
+                        && it.second == rateLimitInBytesPerSec));
+
+        // disable rate limiting
+        setInternetNetworkRateLimit(0);
+
+        assertNotNull(readHeadWifi.poll(TIMEOUT_MS,
+                it -> it.first == wifiLp.getInterfaceName() && it.second == 0));
+        assertNotNull(readHeadCell.poll(TIMEOUT_MS,
+                it -> it.first == cellLp.getInterfaceName() && it.second == 0));
+    }
+
+    @Test
+    public void testUpdateRateLimit_WhenNewNetworkIsAdded() throws Exception {
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connect(true);
+
+        waitForIdle();
+
+        final ArrayTrackRecord<Pair<String, Integer>>.ReadHead readHeadWifi =
+                mDeps.mRateLimitHistory.newReadHead();
+        final ArrayTrackRecord<Pair<String, Integer>>.ReadHead readHeadCell =
+                mDeps.mRateLimitHistory.newReadHead();
+
+        // set rate limit to 8MBit/s => 1MB/s
+        final int rateLimitInBytesPerSec = 1 * 1000 * 1000;
+        setInternetNetworkRateLimit(rateLimitInBytesPerSec);
+        assertNotNull(readHeadWifi.poll(TIMEOUT_MS, it -> it.first == wifiLp.getInterfaceName()
+                && it.second == rateLimitInBytesPerSec));
+
+        final LinkProperties cellLp = new LinkProperties();
+        cellLp.setInterfaceName(MOBILE_IFNAME);
+        mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR, cellLp);
+        mCellNetworkAgent.connect(false);
+        assertNotNull(readHeadCell.poll(TIMEOUT_MS, it -> it.first == cellLp.getInterfaceName()
+                && it.second == rateLimitInBytesPerSec));
+    }
+
+    @Test
+    public void testUpdateRateLimit_OnlyAffectsInternetCapableNetworks() throws Exception {
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connectWithoutInternet();
+
+        waitForIdle();
+
+        setInternetNetworkRateLimit(1000);
+        setInternetNetworkRateLimit(0);
+
+        final ArrayTrackRecord<Pair<String, Integer>>.ReadHead readHeadWifi =
+                mDeps.mRateLimitHistory.newReadHead();
+        assertNull(readHeadWifi.poll(TIMEOUT_MS, it -> it.first == wifiLp.getInterfaceName()));
+    }
+
+    @Test
+    public void testUpdateRateLimit_DisconnectingResetsRateLimit()
+            throws Exception {
+        // Steps:
+        // - connect network
+        // - set rate limit
+        // - disconnect network (interface still exists)
+        // - disable rate limit
+        // - connect network
+        // - ensure network interface is not rate limited
+        final LinkProperties wifiLp = new LinkProperties();
+        wifiLp.setInterfaceName(WIFI_IFNAME);
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connect(true);
+        waitForIdle();
+
+        final ArrayTrackRecord<Pair<String, Integer>>.ReadHead readHeadWifi =
+                mDeps.mRateLimitHistory.newReadHead();
+
+        int rateLimitInBytesPerSec = 1000;
+        setInternetNetworkRateLimit(rateLimitInBytesPerSec);
+        assertNotNull(readHeadWifi.poll(TIMEOUT_MS,
+                it -> it.first == wifiLp.getInterfaceName()
+                        && it.second == rateLimitInBytesPerSec));
+
+        mWiFiNetworkAgent.disconnect();
+        assertNotNull(readHeadWifi.poll(TIMEOUT_MS,
+                it -> it.first == wifiLp.getInterfaceName() && it.second == 0));
+
+        setInternetNetworkRateLimit(0);
+
+        mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp);
+        mWiFiNetworkAgent.connect(true);
+        assertNull(readHeadWifi.poll(TIMEOUT_MS, it -> it.first == wifiLp.getInterfaceName()));
     }
 }
