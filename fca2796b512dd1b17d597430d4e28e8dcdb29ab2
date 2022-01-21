@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37c5fe28_fb6b944e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-21T11:09:25Z",
+      "side": 1,
+      "message": "Cherry-pick of change submitted in aosp/master\n\nSee conflicts between patchset 1 and 3",
+      "revId": "fca2796b512dd1b17d597430d4e28e8dcdb29ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
