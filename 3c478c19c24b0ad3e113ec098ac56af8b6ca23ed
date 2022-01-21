@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b6dec51_d2458b81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-21T07:47:14Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "3c478c19c24b0ad3e113ec098ac56af8b6ca23ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b4cc8f_61653879",
+        "filename": "tests/unit/java/com/android/server/net/BpfInterfaceMapUpdaterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-21T07:47:14Z",
+      "side": 1,
+      "message": "Typo, interface. Also elsewhere.",
+      "range": {
+        "startLine": 48,
+        "startChar": 37,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "3c478c19c24b0ad3e113ec098ac56af8b6ca23ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "568a1a81_2d4a5f45",
+        "filename": "tests/unit/java/com/android/server/net/BpfInterfaceMapUpdaterTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-21T07:47:14Z",
+      "side": 1,
+      "message": "Check that when the same interface is re-added, nothing happens.\nCheck that when onInterfaceRemoved is called, nothing happens.",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 5
+      },
+      "revId": "3c478c19c24b0ad3e113ec098ac56af8b6ca23ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
