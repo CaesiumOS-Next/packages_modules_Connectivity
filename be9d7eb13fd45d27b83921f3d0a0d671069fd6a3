@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d2eb659_e16cd9b9",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-21T04:38:04Z",
+      "side": 1,
+      "message": "Need to resolve conflict with libclat_test",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 5
+      },
+      "revId": "be9d7eb13fd45d27b83921f3d0a0d671069fd6a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
