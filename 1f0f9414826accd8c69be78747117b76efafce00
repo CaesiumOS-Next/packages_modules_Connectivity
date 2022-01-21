@@ -110,6 +110,30 @@
       },
       "revId": "1f0f9414826accd8c69be78747117b76efafce00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb0a5783_737af0fd",
+        "filename": "tests/cts/net/src/android/net/cts/StaticIpConfigurationTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1039103
+      },
+      "writtenOn": "2022-01-21T00:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39984326_f88b41fe",
+      "range": {
+        "startLine": 257,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 16
+      },
+      "revId": "1f0f9414826accd8c69be78747117b76efafce00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
