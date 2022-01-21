@@ -17,7 +17,9 @@
 package android.net
 
 import android.content.Context
+import android.net.ConnectivityManager.TYPE_ETHERNET
 import android.net.ConnectivityManager.TYPE_MOBILE
+import android.net.ConnectivityManager.TYPE_WIFI
 import android.net.NetworkIdentity.OEM_NONE
 import android.net.NetworkIdentity.OEM_PAID
 import android.net.NetworkIdentity.OEM_PRIVATE
@@ -30,10 +32,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 private const val TEST_IMSI = "testimsi"
+private const val TEST_WIFI_KEY = "testwifikey"
 
 @RunWith(DevSdkIgnoreRunner::class)
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
@@ -126,6 +130,32 @@ class NetworkIdentityTest {
         assertEquals(identFromLegacyBuild, identFromSnapshot)
         assertEquals(identFromConstructor, identFromSnapshot)
 
-        // TODO: Add test cases for wifiNetworkKey and ratType.
+        // Assert non-wifi can't have wifi network key.
+        assertFailsWith<IllegalArgumentException> {
+            NetworkIdentity.Builder()
+                    .setType(TYPE_ETHERNET)
+                    .setWifiNetworkKey(TEST_WIFI_KEY)
+                    .build()
+        }
+
+        // Assert non-mobile can't have ratType.
+        assertFailsWith<IllegalArgumentException> {
+            NetworkIdentity.Builder()
+                    .setType(TYPE_WIFI)
+                    .setRatType(TelephonyManager.NETWORK_TYPE_LTE)
+                    .build()
+        }
+
+        // Assert illegal ratType range cannot make an identity.
+        listOf(Integer.MIN_VALUE, NetworkTemplate.NETWORK_TYPE_ALL,
+                TelephonyManager.NETWORK_TYPE_UNKNOWN - 1, Integer.MAX_VALUE)
+                .forEach {
+                    assertFailsWith<IllegalArgumentException> {
+                        NetworkIdentity.Builder()
+                                .setType(TYPE_MOBILE)
+                                .setRatType(it)
+                                .build()
+                    }
+                }
     }
 }
