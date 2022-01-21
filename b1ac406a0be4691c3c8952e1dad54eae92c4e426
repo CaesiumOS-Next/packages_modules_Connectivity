@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019562402",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1953486?revision\u003d19",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a1a8cc44_5105afb5",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T15:36:54Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027exempted\u0027 or \u0027legacy\u0027; see https://source.android.com/setup/contribute/respectful-code for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 842,
+        "startChar": 46,
+        "endLine": 842,
+        "endChar": 57
+      },
+      "revId": "b1ac406a0be4691c3c8952e1dad54eae92c4e426",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019562402",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1953486?revision\u003d19",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a6b2ce37_f041033b",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T15:36:54Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027exempted\u0027 or \u0027legacy\u0027; see https://source.android.com/setup/contribute/respectful-code for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 41,
+        "startChar": 72,
+        "endLine": 41,
+        "endChar": 83
+      },
+      "revId": "b1ac406a0be4691c3c8952e1dad54eae92c4e426",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
