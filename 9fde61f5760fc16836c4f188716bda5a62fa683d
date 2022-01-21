@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed9c31f_b4ca7816",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e640bdc8_537c0665",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 45
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8dd072d_69fb6248",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-17T17:44:36Z",
       "side": 1,
       "message": "Could you use ScopedUtfChars, it is more safe that you don\u0027t need to care whether you are release memory correctly.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 66
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e55f821e_0a0c3aae",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8dd072d_69fb6248",
       "range": {
         "startLine": 96,
         "startChar": 0,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d699cdce_f86a29b0",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b58c56e3_a531ed6d",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbdbaf4d_7062757f",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-01-17T17:44:36Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 72
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a1f4f1d_6692ac83",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbdbaf4d_7062757f",
       "range": {
         "startLine": 147,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a2c766e_f442b6ce",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03e1453a_81b977e0",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2d30903_dd5d902e",
@@ -146,6 +266,54 @@
       "writtenOn": "2022-01-17T17:44:36Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3f54e97_022069b5",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2d30903_dd5d902e",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b679459_950af6e7",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2d30903_dd5d902e",
       "range": {
         "startLine": 170,
         "startChar": 0,
@@ -179,6 +347,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23bb980b_051207c0",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e32acaa5_d0618477",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2041cc74_e65bf94d",
@@ -192,6 +384,30 @@
       "writtenOn": "2022-01-17T17:44:36Z",
       "side": 1,
       "message": "What #setPermissionForUids do for intUids is iterator with loop without modify the array. It seems convert array to vector is unnecessary. Just iterate the array would make the code simpler. Note: I may be wrong because I am not familiar with C++.",
+      "range": {
+        "startLine": 211,
+        "startChar": 41,
+        "endLine": 211,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "997ab9c1_47e5c179",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-21T02:52:56Z",
+      "side": 1,
+      "message": "What the iterator with loop doing is iterator each element and convert type from int32_t to uid_t. I prefer using std::vector because it\u0027s a dynamic size array, no need to preserve size when declare a vector.\n\nMaybe we can have options from others.",
+      "parentUuid": "2041cc74_e65bf94d",
       "range": {
         "startLine": 211,
         "startChar": 41,
