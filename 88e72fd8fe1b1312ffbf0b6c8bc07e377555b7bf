@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "777720db_801a055a",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-21T03:02:18Z",
+      "side": 1,
+      "message": "static_assert(sizeof(*uids) \u003d\u003d sizeof(uid_t));\nstd::vector\u003cuid_t\u003e v ((uid_t *)uids, (uid_t*)uids + size);\nor\nstd::vector\u003cuid_t\u003e v ((uid_t *)\u0026uids[0], (uid_t*)\u0026uids[size]);",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 30
+      },
+      "revId": "88e72fd8fe1b1312ffbf0b6c8bc07e377555b7bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
