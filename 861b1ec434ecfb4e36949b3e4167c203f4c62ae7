@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019560226",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1951097?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f81b34d7_aa44c94d",
+        "filename": "service/native/libs/libclat/TcUtils.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:13:42Z",
+      "side": 1,
+      "message": "Prefer to use inclusive terms like \u0027valid\u0027, \u0027validity check\u0027 or \u0027initial check\u0027; see https://source.android.com/setup/contribute/respectful-code for more details. In the case of a false positive add BYPASS_INCLUSIVE_LANGUAGE_REASON\u003dmy_reason_here to your commit message to disable this check.",
+      "range": {
+        "startLine": 112,
+        "startChar": 29,
+        "endLine": 112,
+        "endChar": 33
+      },
+      "revId": "861b1ec434ecfb4e36949b3e4167c203f4c62ae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
