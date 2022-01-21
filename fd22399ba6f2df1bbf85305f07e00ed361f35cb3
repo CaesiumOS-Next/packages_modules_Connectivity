@@ -2050,6 +2050,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0c10ed9_4a24dbbb",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T05:41:02Z",
+      "side": 1,
+      "message": "add 2 locals",
+      "parentUuid": "635183f4_fe0b85eb",
+      "range": {
+        "startLine": 137,
+        "startChar": 10,
+        "endLine": 137,
+        "endChar": 15
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80436d73_51da3d0f",
         "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
         "patchSetId": 44
@@ -2085,6 +2109,30 @@
       "side": 1,
       "message": "pulled from the Tether4key/Value code",
       "parentUuid": "80436d73_51da3d0f",
+      "range": {
+        "startLine": 138,
+        "startChar": 53,
+        "endLine": 138,
+        "endChar": 56
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e81e7c7_28ff580e",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 44
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T05:41:02Z",
+      "side": 1,
+      "message": "update",
+      "parentUuid": "102c5027_838775d5",
       "range": {
         "startLine": 138,
         "startChar": 53,
@@ -2214,6 +2262,30 @@
       "side": 1,
       "message": "Right now there is nothing linking the policy to the network it was requested on. Needs to be added since we moved to TC bpf program.",
       "parentUuid": "a94ad552_2325df98",
+      "range": {
+        "startLine": 126,
+        "startChar": 13,
+        "endLine": 126,
+        "endChar": 68
+      },
+      "revId": "fd22399ba6f2df1bbf85305f07e00ed361f35cb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce9642f_91ab37a9",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 44
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T05:41:02Z",
+      "side": 1,
+      "message": "remove todo",
+      "parentUuid": "4641c51c_8e22fbd6",
       "range": {
         "startLine": 126,
         "startChar": 13,

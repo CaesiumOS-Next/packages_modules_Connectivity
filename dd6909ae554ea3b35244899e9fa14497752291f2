@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43789780_078d4a9d",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T05:41:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b186afb_5806f714",
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47fc53b1_c8c60789",
@@ -1013,6 +1031,30 @@
       "side": 1,
       "message": "How to do this in native?",
       "parentUuid": "dce1db24_0f40b136",
+      "range": {
+        "startLine": 36,
+        "startChar": 66,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "dd6909ae554ea3b35244899e9fa14497752291f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8c6eaeb_d279e790",
+        "filename": "service/jni/com_android_net_module_util/onload.cpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-21T05:41:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a07aca97_3c615f99",
       "range": {
         "startLine": 36,
         "startChar": 66,
