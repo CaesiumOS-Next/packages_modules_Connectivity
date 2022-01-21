@@ -1,0 +1,342 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "10475711_a21d3826",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1678,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 1678,
+        "startChar": 0,
+        "endLine": 1678,
+        "endChar": 116
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "16bd09f4_fb9ec87e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8757,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 8757,
+        "startChar": 0,
+        "endLine": 8757,
+        "endChar": 114
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a6953541_7308a7e3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8835,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 8835,
+        "startChar": 0,
+        "endLine": 8835,
+        "endChar": 111
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "2240e8fc_b1fefa33",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 8850,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 8850,
+        "startChar": 0,
+        "endLine": 8850,
+        "endChar": 112
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "e2b84a16_9a01bb95",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10379,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 10379,
+        "startChar": 0,
+        "endLine": 10379,
+        "endChar": 111
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d8668c27_494c4185",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14773,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 14773,
+        "startChar": 0,
+        "endLine": 14773,
+        "endChar": 8
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "10c332cb_b3eea74f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14780,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 14780,
+        "startChar": 0,
+        "endLine": 14780,
+        "endChar": 101
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "8ae92fc2_49e5d349",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14781,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 14781,
+        "startChar": 0,
+        "endLine": 14781,
+        "endChar": 101
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "4184e74b_6f5262e2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14799,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 14799,
+        "startChar": 0,
+        "endLine": 14799,
+        "endChar": 8
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "2df85921_985ebbd2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14805,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 14805,
+        "startChar": 0,
+        "endLine": 14805,
+        "endChar": 101
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "e0f39162_9eb3f491",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14811,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 14811,
+        "startChar": 0,
+        "endLine": 14811,
+        "endChar": 8
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "793e11e0_db9d896d",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14814,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 14814,
+        "startChar": 0,
+        "endLine": 14814,
+        "endChar": 101
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019559890",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f1b8119a_e5ec6f76",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 14856,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-21T14:02:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 14856,
+        "startChar": 0,
+        "endLine": 14856,
+        "endChar": 104
+      },
+      "revId": "ce8769a9c83798e864fd6e9b7db3ea1224fb14fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
