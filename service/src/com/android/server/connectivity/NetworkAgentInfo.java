@@ -724,10 +724,11 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         networkCapabilities = nc;
         mScore = mScore.mixInScore(networkCapabilities, networkAgentConfig, everValidatedForYield(),
                 yieldToBadWiFi());
-        final NetworkMonitorManager nm = mNetworkMonitor;
-        if (nm != null) {
-            nm.notifyNetworkCapabilitiesChanged(nc);
-        }
+        // mNetworkMonitor must have been initialized by the time this method is called. This
+        // is guaranteed by the call flow in ConnectivityService which never calls this method
+        // before the agent registration is finalized upon the NetworkMonitor being created, and
+        // NetworkAgent deferring any message until it's notified of the registration.
+        mNetworkMonitor.notifyNetworkCapabilitiesChanged(nc);
         return oldNc;
     }
 
