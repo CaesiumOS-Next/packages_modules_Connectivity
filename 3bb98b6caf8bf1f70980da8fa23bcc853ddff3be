@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5231889f_db7ba170",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "testBuilder()",
+      "range": {
+        "startLine": 537,
+        "startChar": 16,
+        "endLine": 537,
+        "endChar": 30
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04c46597_155a62e4",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "expectedEntries",
+      "range": {
+        "startLine": 538,
+        "startChar": 49,
+        "endLine": 538,
+        "endChar": 55
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0816e18_1fc5fd09",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "Maybe use different values.",
+      "range": {
+        "startLine": 553,
+        "startChar": 16,
+        "endLine": 553,
+        "endChar": 37
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bfea91d_b526b410",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "Maybe use empty history for history2.\nI don\u0027t see coverage encreased if we make two similar histories.",
+      "range": {
+        "startLine": 555,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 37
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e395713_c3f4b78c",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "Also need to verify this.",
+      "range": {
+        "startLine": 571,
+        "startChar": 79,
+        "endLine": 571,
+        "endChar": 83
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f73dceea_d908afe7",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "IIUC this is not what we want to test.",
+      "range": {
+        "startLine": 578,
+        "startChar": 8,
+        "endLine": 578,
+        "endChar": 39
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb23ba4d_4d37ebc3",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "1. Please use a local variable.\n\n2. Please assert size is the same with mStats",
+      "range": {
+        "startLine": 581,
+        "startChar": 42,
+        "endLine": 581,
+        "endChar": 65
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5615863_87a943ff",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "Please use local variable.",
+      "range": {
+        "startLine": 582,
+        "startChar": 25,
+        "endLine": 582,
+        "endChar": 41
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8707ddd0_b3feff69",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "1. Please use local variable.\n2. Please verify entries of history is also matching. If so I don\u0027t think you need to verify getStart or something else. Maybe refactor to an assertHistoryEquals.",
+      "range": {
+        "startLine": 584,
+        "startChar": 55,
+        "endLine": 584,
+        "endChar": 89
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7129a167_a17194c9",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-22T16:09:12Z",
+      "side": 1,
+      "message": "IIUC this will break if you make history empty.",
+      "range": {
+        "startLine": 589,
+        "startChar": 42,
+        "endLine": 589,
+        "endChar": 60
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
