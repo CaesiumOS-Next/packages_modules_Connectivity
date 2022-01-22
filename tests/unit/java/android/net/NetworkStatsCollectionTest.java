@@ -38,11 +38,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import android.content.res.Resources;
+import android.net.NetworkStats.Entry;
+import android.net.NetworkStatsCollection.Key;
 import android.os.Process;
 import android.os.UserHandle;
 import android.telephony.SubscriptionPlan;
 import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
+import android.util.ArrayMap;
 import android.util.RecurrenceRule;
 
 import androidx.test.InstrumentationRegistry;
@@ -73,6 +76,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Tests for {@link NetworkStatsCollection}.
@@ -530,6 +534,64 @@ public class NetworkStatsCollectionTest {
         assertThrows(ArithmeticException.class, () -> multiplySafeByRational(30, 3, 0));
     }
 
+    @Test
+    public void testBuilder() {
+        final Map<Key, NetworkStatsHistory> expectedEntries = new ArrayMap<>();
+        final NetworkStats.Entry entry = new NetworkStats.Entry();
+        final NetworkIdentitySet ident = new NetworkIdentitySet();
+        final Key key0 = new Key(ident, 0, 0, 0);
+        final Key key1 = new Key(ident, 1, 0, 0);
+        final Key key2 = new Key(ident, 2, 0, 0);
+        final int uid0 = 10001;
+        final int uid1 = 10002;
+        final long bucketDuration = 10;
+
+        Entry uid0Entry0 = new Entry("if1", uid0,
+                android.net.NetworkStats.SET_ALL, android.net.NetworkStats.TAG_NONE,
+                100, 10, 200, 20, 0);
+
+        Entry uid1Entry1 = new Entry("if2", uid1,
+                android.net.NetworkStats.SET_DEFAULT, android.net.NetworkStats.TAG_NONE,
+                300, 30, 300, 30, 0);
+
+        NetworkStatsHistory history0 = new NetworkStatsHistory(10, 2);
+        history0.recordData(10, 20, uid0Entry0);
+        NetworkStatsHistory history1 = new NetworkStatsHistory(10, 2);
+        history1.recordData(20, 30, uid1Entry1);
+
+        NetworkStatsHistory history2 = new NetworkStatsHistory(10, 2);
+
+        NetworkStatsCollection actualCollection = new NetworkStatsCollection.Builder(bucketDuration)
+                .addEntry(key0, history0)
+                .addEntry(key1, history1)
+                .addEntry(key2, history2)
+                .build();
+
+        expectedEntries.put(key0, history0);
+        expectedEntries.put(key1, history1);
+
+        final Map<Key, NetworkStatsHistory> actualEntries = actualCollection.getEntries();
+
+        assertEquals(expectedEntries.size(), actualEntries.size());
+        for (Key expectedKey : expectedEntries.keySet()) {
+            NetworkStatsHistory expectedHistory = expectedEntries.get(expectedKey);
+
+            final NetworkStatsHistory actualHistory = actualEntries.get(expectedKey);
+            assertNotNull(actualHistory);
+
+            assertHistoryEquals(expectedHistory, actualHistory);
+            actualEntries.remove(expectedKey);
+        }
+        assertEquals(0, actualEntries.size());
+    }
+
+    private static void assertHistoryEquals(NetworkStatsHistory expected,
+            NetworkStatsHistory actual) {
+        final List<NetworkStatsHistory.Entry> expectedEntries = expected.getEntries();
+        final List<NetworkStatsHistory.Entry> actualEntries = actual.getEntries();
+        assertEquals(expectedEntries, actualEntries);
+    }
+
     /**
      * Copy a {@link Resources#openRawResource(int)} into {@link File} for
      * testing purposes.
@@ -584,6 +646,14 @@ public class NetworkStatsCollectionTest {
     private static void assertEntry(NetworkStats.Entry expected,
             NetworkStatsHistory.Entry actual) {
         assertEntry(expected, new NetworkStats.Entry(actual.rxBytes, actual.rxPackets,
+                actual.txBytes, actual.txPackets, 0L));
+    }
+
+    private static void assertEntry(NetworkStatsHistory.Entry expected,
+            NetworkStatsHistory.Entry actual) {
+        assertEntry(new NetworkStats.Entry(actual.rxBytes, actual.rxPackets,
+                actual.txBytes, actual.txPackets, 0L),
+                new NetworkStats.Entry(actual.rxBytes, actual.rxPackets,
                 actual.txBytes, actual.txPackets, 0L));
     }
 
