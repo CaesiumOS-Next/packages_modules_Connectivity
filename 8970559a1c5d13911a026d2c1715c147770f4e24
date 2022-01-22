@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2773bdc8_57e2b336",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T01:52:14Z",
+      "side": 1,
+      "message": "I think the tests won\u0027t pass on sc-mainline-prod if you remove @IgnoreUpTo(Build.VERSION_CODES.S) ?",
+      "range": {
+        "startLine": 791,
+        "startChar": 16,
+        "endLine": 791,
+        "endChar": 32
+      },
+      "revId": "8970559a1c5d13911a026d2c1715c147770f4e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5d718a2_1252f55f",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 14266,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T01:52:14Z",
+      "side": 1,
+      "message": "This is starting to be a very large number of similar methods ; thankfully we have a common helper method implementing the complex stuff, but we should be looking into :\n• Moving these tests into a different file\n• Factorizing these tests further (e.g. pass the preference, enterprise ID, and necessary arguments to the helper\n• Ideally moving to @Parameterized to pass the arguments, or something equivalent\n\nNo need to do any of this before the IC, but we should keep in mind that we\u0027re piling up tech debt here.",
+      "range": {
+        "startLine": 14266,
+        "startChar": 16,
+        "endLine": 14266,
+        "endChar": 73
+      },
+      "revId": "8970559a1c5d13911a026d2c1715c147770f4e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
