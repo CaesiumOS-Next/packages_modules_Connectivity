@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9230659_49c2c621",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-22T08:07:59Z",
+      "side": 1,
+      "message": "Passed on S (redfin) and T (raven).\n\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nBuild: redfin-userdebug 12 SC 8106542 dev-keys\n\nRunning Tests...\n2022-01-22 15:30:26 client.py:795:INFO: Refreshing access_token\n\narm64-v8a CtsNativeNetTestCases\n-------------------------------\nCtsNativeNetTestCases (2 Test(s))\n[1/2] BpfTest#bpfStructSizeTestPreT: PASSED (0ms)\n[2/2] BpfTest#bpfStructSizeTest: PASSED (0ms)\n\nSummary (Test executed with 1 device(s).)\n-------\narm64-v8a CtsNativeNetTestCases: Passed: 2, Failed: 0, Ignored: 0, Assumption Failed: 0,  \n\nAll tests passed!\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nBuild: raven-userdebug Tiramisu MASTER 8106623 dev-keys\n\nRunning Tests...\n2022-01-22 16:03:25 client.py:795:INFO: Refreshing access_token\n\narm64-v8a CtsNativeNetTestCases\n-------------------------------\nCtsNativeNetTestCases (2 Test(s))\n[1/2] BpfTest#bpfStructSizeTestPreT: IGNORED (0ms)\n[2/2] BpfTest#bpfStructSizeTest: PASSED (0ms)\n\nSummary (Test executed with 1 device(s).)\n-------\narm64-v8a CtsNativeNetTestCases: Passed: 1, Failed: 0, Ignored: 1, Assumption Failed: 0,    \n\nAll tests passed!\n",
+      "revId": "6231d5b01cfd971eaac6a50260666abbd73973d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
