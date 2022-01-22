@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a235959_a18f3713",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-22T15:42:27Z",
+      "side": 1,
+      "message": "delete line",
+      "revId": "d8f14b420524fe9971a3b3a2bd6c954f1a602e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "727660fa_d3f1f08c",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-22T15:42:27Z",
+      "side": 1,
+      "message": "It will be good to have a helper function in this file that takes uid vector. Helper function may look like this:\n\nnamespace {\n\nStatus updateUidOwnerMaps(const std::vector\u003cuint32_t\u003e\u0026 appUids,\n                          UidOwnerMatchType matchType, IptOp op) {\n    Status ret{0};\n    for (auto uid : appUids) {\n        ret \u003d mTc.updateUidOwnerMap(uid, matchType, op);\n        if(!isOk(ret)) break;\n    }\n    return ret;\n}\n\n} // namespace\n\n\nASSERT_TRUE(isOk(\n            updateUidOwnerMaps(appUids, PENALTY_BOX_MATCH, TrafficController::IptOpInsert)));\n\nor just\n \nASSERT_OK(updateUidOwnerMaps(appUids, PENALTY_BOX_MATCH, TrafficController::IptOpInsert));",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 5
+      },
+      "revId": "d8f14b420524fe9971a3b3a2bd6c954f1a602e6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
