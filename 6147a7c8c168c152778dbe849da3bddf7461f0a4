@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3c7fc64_7fe4617e",
+        "filename": "service/jni/com_android_net_module_util/onload.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-22T13:32:23Z",
+      "side": 1,
+      "message": "feels like this is wrong - either already - or missing jarjar rules, or we\u0027re loading this from the wrong onload.cpp file",
+      "range": {
+        "startLine": 36,
+        "startChar": 25,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "6147a7c8c168c152778dbe849da3bddf7461f0a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
