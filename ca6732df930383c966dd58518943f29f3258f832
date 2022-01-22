@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d400e145_d3aa827c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 6892,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T11:49:40Z",
+      "side": 0,
+      "message": "The comment at the end of this function explains it. At this stage the NAI only exists in memory and is only held by the NetworkMonitorCallbacks object.\n\nMeanwhile on the remote side, the NetworkAgent instance exists but it doesn\u0027t know how to speak to Connectivity (you can see this method only returned an instance of Network).\nIt\u0027s finishing the registration which will tell NetworkAgent how to reach ConnectivityService – specifically NAI#notifyRegistered. Until then, the agent doesn\u0027t have the INetworkAgentRegistry object that it needs to send messages like capability updates. The owner of the NetworkAgent can still call methods like sendCapabilitiesUpdates, but these will be kept in memory and deferred by the implementation of NetworkAgent until the binder is available, at which time it will play them in order.\n\nSo I think this is safe.",
+      "parentUuid": "31b5f967_538b3829",
+      "range": {
+        "startLine": 6892,
+        "startChar": 8,
+        "endLine": 6892,
+        "endChar": 36
+      },
+      "revId": "ca6732df930383c966dd58518943f29f3258f832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28f19193_08a8205b",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-17T01:37:45Z",
       "side": 0,
       "message": "Now that getAndSetNetworkCapabilities runs after the agent is registered, does it mean we can remove the \"if (nm !\u003d null)\" check in getAndSetNetworkCapabilities? Or can it still happen that capabilities might change before the NetworkMonitor is created?",
+      "range": {
+        "startLine": 6893,
+        "startChar": 12,
+        "endLine": 6893,
+        "endChar": 40
+      },
+      "revId": "ca6732df930383c966dd58518943f29f3258f832",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f67622bd_a886c267",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 6893,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T11:49:40Z",
+      "side": 0,
+      "message": "By the reasoning above, this can no longer happen as you say.\n\nI prepared aosp/1956074 above this, as this is a refactoring best handled as a separate patch.",
+      "parentUuid": "28f19193_08a8205b",
       "range": {
         "startLine": 6893,
         "startChar": 12,

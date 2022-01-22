@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "523807ed_1564c162",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T11:49:40Z",
+      "side": 1,
+      "message": "- Changed to allow clients with NETWORK_FACTORY to see the access UIDs\n- Removed the synchronous exception\n\n...because I think that\u0027s what you meant from our offline discussions. However... it\u0027s kind of hard to tell because this code has nothing to do with either. This is not the place where the capabilities are redacted for sending to listeners (that would be ConnectivityService#networkCapabilitiesRestrictedForCallerPermissions) nor is this the place where we used to throw the exception (that would be NetworkAgent#sendNetworkCapabilities).\n\nThis is the place where we check that the capabilities received from the are acceptable (as it says on the tin). We do need to check this so we know not to accept just any list of UIDs from just any factory, lest any factory implementation decide to grant access to their own custom, \"faster\" network to a list of third-party apps of their choice.",
+      "parentUuid": "ae02b902_26d1054d",
+      "range": {
+        "startLine": 842,
+        "startChar": 8,
+        "endLine": 842,
+        "endChar": 59
+      },
+      "revId": "1839638557e5a34e2ea142ccda4ea989ee5eabaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2916eb92_4bb6dd4c",
@@ -102,6 +126,30 @@
       "writtenOn": "2022-01-15T09:19:09Z",
       "side": 1,
       "message": "nit: typo",
+      "range": {
+        "startLine": 1007,
+        "startChar": 54,
+        "endLine": 1007,
+        "endChar": 61
+      },
+      "revId": "1839638557e5a34e2ea142ccda4ea989ee5eabaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65d79ed3_b35b73e4",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T11:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2916eb92_4bb6dd4c",
       "range": {
         "startLine": 1007,
         "startChar": 54,
@@ -135,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfe41a6d_a54f3ab1",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 2959,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T11:49:40Z",
+      "side": 1,
+      "message": "Same issue as last time : bypassRestrictedNetworkUids is a very poor name in the future if we put all UIDs with access to this and retire the SYSTEM permission.",
+      "parentUuid": "5fd2e952_6799ce04",
+      "range": {
+        "startLine": 2959,
+        "startChar": 31,
+        "endLine": 2959,
+        "endChar": 54
+      },
+      "revId": "1839638557e5a34e2ea142ccda4ea989ee5eabaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3b8afac_dc1b4af1",
@@ -158,6 +230,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88fe5b47_829d6a37",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 6897,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T11:49:40Z",
+      "side": 1,
+      "message": "No – starting the NetworkMonitor does not pass the capabilities in itself. It puts NM in starting state, and it will wait for the first capabilities update, which in this case happens a few lines below inside the call to getAndSetNetworkCapabilities.",
+      "parentUuid": "a3b8afac_dc1b4af1",
+      "range": {
+        "startLine": 6897,
+        "startChar": 12,
+        "endLine": 6897,
+        "endChar": 26
+      },
+      "revId": "1839638557e5a34e2ea142ccda4ea989ee5eabaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d295cce_aaf6b02f",
@@ -171,6 +267,30 @@
       "writtenOn": "2022-01-15T09:19:09Z",
       "side": 1,
       "message": "Question: will this be fixed soon?\nIf not I don\u0027t think we should put the test here.",
+      "range": {
+        "startLine": 470,
+        "startChar": 8,
+        "endLine": 471,
+        "endChar": 87
+      },
+      "revId": "1839638557e5a34e2ea142ccda4ea989ee5eabaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "325ab1ed_d42783c9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-22T11:49:40Z",
+      "side": 1,
+      "message": "Fixed in this patch, since we decided NETWORK_FACTORY permission will let callers see the UIDs.\n\nAlso merged with the next test for simplicity.",
+      "parentUuid": "7d295cce_aaf6b02f",
       "range": {
         "startLine": 470,
         "startChar": 8,
