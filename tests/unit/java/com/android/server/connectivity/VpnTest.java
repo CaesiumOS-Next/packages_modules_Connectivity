@@ -17,6 +17,8 @@
 package com.android.server.connectivity;
 
 import static android.Manifest.permission.BIND_VPN_SERVICE;
+import static android.Manifest.permission.CONTROL_VPN;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.content.pm.UserInfo.FLAG_ADMIN;
 import static android.content.pm.UserInfo.FLAG_MANAGED_PROFILE;
 import static android.content.pm.UserInfo.FLAG_PRIMARY;
@@ -24,6 +26,7 @@ import static android.content.pm.UserInfo.FLAG_RESTRICTED;
 import static android.net.ConnectivityManager.NetworkCallback;
 import static android.net.INetd.IF_STATE_DOWN;
 import static android.net.INetd.IF_STATE_UP;
+import static android.net.VpnManager.TYPE_VPN_PLATFORM;
 import static android.os.UserHandle.PER_USER_RANGE;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -48,6 +51,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -59,6 +63,7 @@ import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -751,6 +756,30 @@ public class VpnTest {
         verify(mVpnProfileStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
     }
 
+    private void verifyPlatformVpnIsActivated(String packageName) {
+        verify(mAppOps).noteOpNoThrow(
+                eq(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN),
+                eq(Process.myUid()),
+                eq(packageName),
+                eq(null) /* attributionTag */,
+                eq(null) /* message */);
+        verify(mAppOps).startOp(
+                eq(AppOpsManager.OPSTR_ESTABLISH_VPN_MANAGER),
+                eq(Process.myUid()),
+                eq(packageName),
+                eq(null) /* attributionTag */,
+                eq(null) /* message */);
+    }
+
+    private void verifyPlatformVpnIsDeactivated(String packageName) {
+        // Add a small delay to double confirm that startOp is only called once.
+        verify(mAppOps, after(100)).finishOp(
+                eq(AppOpsManager.OPSTR_ESTABLISH_VPN_MANAGER),
+                eq(Process.myUid()),
+                eq(packageName),
+                eq(null) /* attributionTag */);
+    }
+
     @Test
     public void testStartVpnProfile() throws Exception {
         final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
@@ -761,13 +790,7 @@ public class VpnTest {
         vpn.startVpnProfile(TEST_VPN_PKG);
 
         verify(mVpnProfileStore).get(eq(vpn.getProfileNameForPackage(TEST_VPN_PKG)));
-        verify(mAppOps)
-                .noteOpNoThrow(
-                        eq(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN),
-                        eq(Process.myUid()),
-                        eq(TEST_VPN_PKG),
-                        eq(null) /* attributionTag */,
-                        eq(null) /* message */);
+        verifyPlatformVpnIsActivated(TEST_VPN_PKG);
     }
 
     @Test
@@ -780,8 +803,7 @@ public class VpnTest {
         vpn.startVpnProfile(TEST_VPN_PKG);
 
         // Verify that the the ACTIVATE_VPN appop was checked, but no error was thrown.
-        verify(mAppOps).noteOpNoThrow(AppOpsManager.OPSTR_ACTIVATE_VPN, Process.myUid(),
-                TEST_VPN_PKG, null /* attributionTag */, null /* message */);
+        verifyPlatformVpnIsActivated(TEST_VPN_PKG);
     }
 
     @Test
@@ -864,18 +886,7 @@ public class VpnTest {
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
                 .thenReturn(mVpnProfile.encode());
         vpn.startVpnProfile(TEST_VPN_PKG);
-        verify(mAppOps).noteOpNoThrow(
-                eq(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN),
-                eq(Process.myUid()),
-                eq(TEST_VPN_PKG),
-                eq(null) /* attributionTag */,
-                eq(null) /* message */);
-        verify(mAppOps).startOp(
-                eq(AppOpsManager.OPSTR_ESTABLISH_VPN_MANAGER),
-                eq(Process.myUid()),
-                eq(TEST_VPN_PKG),
-                eq(null) /* attributionTag */,
-                eq(null) /* message */);
+        verifyPlatformVpnIsActivated(TEST_VPN_PKG);
         // Add a small delay to make sure that startOp is only called once.
         verify(mAppOps, after(100).times(1)).startOp(
                 eq(AppOpsManager.OPSTR_ESTABLISH_VPN_MANAGER),
@@ -891,12 +902,7 @@ public class VpnTest {
                 eq(null) /* attributionTag */,
                 eq(null) /* message */);
         vpn.stopVpnProfile(TEST_VPN_PKG);
-        // Add a small delay to double confirm that startOp is only called once.
-        verify(mAppOps, after(100)).finishOp(
-                eq(AppOpsManager.OPSTR_ESTABLISH_VPN_MANAGER),
-                eq(Process.myUid()),
-                eq(TEST_VPN_PKG),
-                eq(null) /* attributionTag */);
+        verifyPlatformVpnIsDeactivated(TEST_VPN_PKG);
     }
 
     @Test
@@ -932,6 +938,57 @@ public class VpnTest {
                 eq(null) /* message */);
     }
 
+    private void verifyVpnManagerEvent(String sessionKey, String category, int errorType,
+            int errorCode) {
+        final Context userContext =
+                mContext.createContextAsUser(UserHandle.of(primaryUser.id), 0 /* flags */);
+        final ArgumentCaptor<Intent> intentArgumentCaptor = ArgumentCaptor.forClass(Intent.class);
+        verify(userContext, timeout(TEST_TIMEOUT_MS)).startService(
+                intentArgumentCaptor.capture());
+        final Intent intent = intentArgumentCaptor.getValue();
+        assertEquals(sessionKey, intent.getStringExtra(VpnManager.EXTRA_SESSION_KEY));
+        final Set<String> categories = intent.getCategories();
+        assertTrue(categories.contains(category));
+        assertEquals(errorType,
+                intent.getIntExtra(VpnManager.EXTRA_ERROR_TYPE, -1 /* defaultValue */));
+        assertEquals(errorCode,
+                intent.getIntExtra(VpnManager.EXTRA_ERROR_CODE, -1 /* defaultValue */));
+        reset(userContext);
+    }
+
+    @Test
+    public void testVpnManagerEventForUserDeactivated() throws Exception {
+        assumeTrue(SdkLevel.isAtLeastT());
+        // For security concern, Vpn#prepare() will check if one of the oldPackage or the newPackage
+        // is the same as the caller. In this test, it will call Vpn#prepare() to pretend the
+        // old VPN is replaced by the new one. But the caller is not the same as the newPackage, so
+        // to prevent SecurityException be thrown, having CONTROL_VPN in order to ignore checking
+        // calling uid and package is the same in Vpn#prepare().
+        doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(CONTROL_VPN);
+        final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
+        when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
+                .thenReturn(mVpnProfile.encode());
+
+        // Test the case that the user deactivates the vpn in vpn app.
+        final String sessionKey1 = vpn.startVpnProfile(TEST_VPN_PKG);
+        verifyPlatformVpnIsActivated(TEST_VPN_PKG);
+        vpn.stopVpnProfile(TEST_VPN_PKG);
+        verifyPlatformVpnIsDeactivated(TEST_VPN_PKG);
+        // The error code of CATEGORY_ERROR_USER_DEACTIVATED is always 0.
+        verifyVpnManagerEvent(sessionKey1, VpnManager.CATEGORY_ERROR_USER_DEACTIVATED,
+                VpnManager.ERROR_NOT_RECOVERABLE, 0 /* errorCode */);
+        reset(mAppOps);
+
+        // Test the case that the user chooses another vpn and the original one is replaced.
+        final String sessionKey2 = vpn.startVpnProfile(TEST_VPN_PKG);
+        verifyPlatformVpnIsActivated(TEST_VPN_PKG);
+        vpn.prepare(TEST_VPN_PKG, "com.new.vpn" /* newPackage */, TYPE_VPN_PLATFORM);
+        verifyPlatformVpnIsDeactivated(TEST_VPN_PKG);
+        // The error code of CATEGORY_ERROR_USER_DEACTIVATED is always 0.
+        verifyVpnManagerEvent(sessionKey2, VpnManager.CATEGORY_ERROR_USER_DEACTIVATED,
+                VpnManager.ERROR_NOT_RECOVERABLE, 0 /* errorCode */);
+    }
+
     @Test
     public void testSetPackageAuthorizationVpnService() throws Exception {
         final Vpn vpn = createVpnAndSetupUidChecks();
@@ -949,7 +1006,7 @@ public class VpnTest {
     public void testSetPackageAuthorizationPlatformVpn() throws Exception {
         final Vpn vpn = createVpnAndSetupUidChecks();
 
-        assertTrue(vpn.setPackageAuthorization(TEST_VPN_PKG, VpnManager.TYPE_VPN_PLATFORM));
+        assertTrue(vpn.setPackageAuthorization(TEST_VPN_PKG, TYPE_VPN_PLATFORM));
         verify(mAppOps)
                 .setMode(
                         eq(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN),
