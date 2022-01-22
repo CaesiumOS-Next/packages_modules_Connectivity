@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019612621",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1955585?revision\u003d2",
+      "fixSuggestions": [
+        {
+          "fixId": "592a5fca_98ac16f6",
+          "description": "Change to \"service/src/com/android/server/ConnectivityService.java\"",
+          "replacements": [
+            {
+              "path": "service/src/com/android/server/ConnectivityService.java",
+              "range": {
+                "startLine": 10383,
+                "startChar": 46,
+                "endLine": 10383,
+                "endChar": 55
+              },
+              "replacement": "registered"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "98fc8c79_0a414733",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 10383,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-22T22:43:20Z",
+      "side": 1,
+      "message": "Common typo found: \"registerd\" -- should it be \"registered\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 10383,
+        "startChar": 46,
+        "endLine": 10383,
+        "endChar": 55
+      },
+      "revId": "895137e45d63d29caebe9ff1a43209b0ed28b63b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
