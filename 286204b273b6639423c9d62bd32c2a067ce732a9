@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7586818_98029f08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-22T08:40:38Z",
+      "side": 1,
+      "message": "LGTM but the comment at aosp/1956046 should be clarified.",
+      "revId": "286204b273b6639423c9d62bd32c2a067ce732a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
