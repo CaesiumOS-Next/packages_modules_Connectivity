@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11c84c29_198e5711",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-22T09:57:32Z",
+      "side": 1,
+      "message": "Free feel to ignore, this can be addressed if we have chance to touch this file later.",
+      "revId": "bf846dcd58918202ca8508138401730a71d2b318",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "696081d7_3ddd2ecb",
+        "filename": "tests/unit/java/android/net/NetworkStatsHistoryTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-22T09:57:32Z",
+      "side": 1,
+      "message": "Probably\n (10 /*bucketStart*/,\n  30 /*activeTime*/,\n  40 /*rxBytes*/,\n  4 /*rxPackets*/,\n  50 /*txBytes*/,\n  5 /*txPackets*/,\n  60 /*operations*/)\n\nalso for below.",
+      "range": {
+        "startLine": 538,
+        "startChar": 78,
+        "endLine": 539,
+        "endChar": 29
+      },
+      "revId": "bf846dcd58918202ca8508138401730a71d2b318",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
