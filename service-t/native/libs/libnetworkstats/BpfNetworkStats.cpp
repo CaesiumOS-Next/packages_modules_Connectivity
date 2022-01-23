@@ -27,7 +27,7 @@
 #include "android-base/unique_fd.h"
 #include "bpf/BpfMap.h"
 #include "bpf_shared.h"
-#include "netdbpf/BpfNetworkStats.h"
+#include "BpfNetworkStats.h"
 
 #ifdef LOG_TAG
 #undef LOG_TAG
