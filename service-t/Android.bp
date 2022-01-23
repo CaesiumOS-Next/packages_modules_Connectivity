@@ -50,6 +50,7 @@ java_library {
         "com.android.tethering",
     ],
     visibility: [
+        "//frameworks/opt/net/ethernet/tests",
         "//packages/modules/Connectivity/service",
         "//packages/modules/Connectivity/tests:__subpackages__",
     ],
