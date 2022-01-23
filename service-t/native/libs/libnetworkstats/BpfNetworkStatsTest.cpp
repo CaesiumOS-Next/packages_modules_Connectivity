@@ -33,10 +33,9 @@
 #include <android-base/stringprintf.h>
 #include <android-base/strings.h>
 
-#include <netdutils/MockSyscalls.h>
 #include "bpf/BpfMap.h"
 #include "bpf/BpfUtils.h"
-#include "netdbpf/BpfNetworkStats.h"
+#include "BpfNetworkStats.h"
 
 using ::testing::Test;
 
