@@ -33,6 +33,23 @@
       "message": "The code change here looks fine, but it\u0027s not obvious. Why can\u0027t the netd.c and clatd.c programs be tested by this test even if they are in the mainline module? Is it because they could potentially be newer than this test due to a mainline update? If so, could you put that in the commit message?",
       "revId": "6231d5b01cfd971eaac6a50260666abbd73973d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b692530_8cf33c81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-23T14:43:09Z",
+      "side": 1,
+      "message": "LGTM assuming commit message makes it more obvious why the change is necessary.",
+      "revId": "6231d5b01cfd971eaac6a50260666abbd73973d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
