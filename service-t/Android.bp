@@ -47,9 +47,11 @@ java_library {
         "net-utils-framework-common",
     ],
     apex_available: [
+        "//apex_available:platform",
         "com.android.tethering",
     ],
     visibility: [
+        "//frameworks/opt/net/ethernet",
         "//packages/modules/Connectivity/service",
         "//packages/modules/Connectivity/tests:__subpackages__",
     ],

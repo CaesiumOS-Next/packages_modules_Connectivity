@@ -86,6 +86,7 @@ java_sdk_library {
     ],
     libs: [
         "unsupportedappusage",
+        "sdk_module-lib_current_android",
     ],
     jarjar_rules: "jarjar-rules.txt",
     permitted_packages: ["android.net"],
