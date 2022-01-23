@@ -39,6 +39,30 @@
       },
       "revId": "bf846dcd58918202ca8508138401730a71d2b318",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b36c974_8682d7d7",
+        "filename": "tests/unit/java/android/net/NetworkStatsHistoryTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-23T23:42:53Z",
+      "side": 1,
+      "message": "It will be too long if we do that for all places in this file I think.\nPrefer to keep the local style.\nReopen if disagree.",
+      "parentUuid": "696081d7_3ddd2ecb",
+      "range": {
+        "startLine": 538,
+        "startChar": 78,
+        "endLine": 539,
+        "endChar": 29
+      },
+      "revId": "bf846dcd58918202ca8508138401730a71d2b318",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
