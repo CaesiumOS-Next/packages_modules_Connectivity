@@ -1,0 +1,108 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019616850",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1945139?revision\u003d24",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ae71722e_c40d73b1",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-23T09:57:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 513,
+        "startChar": 0,
+        "endLine": 513,
+        "endChar": 102
+      },
+      "revId": "a9a65e83e54d1ded955d68f7ed7303e94e08b38d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019616850",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1945139?revision\u003d24",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "063d6100_aeae51f0",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-23T09:57:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 102
+      },
+      "revId": "a9a65e83e54d1ded955d68f7ed7303e94e08b38d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019616850",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1945139?revision\u003d24",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "f1e38004_55000114",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-23T09:57:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 533,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 101
+      },
+      "revId": "a9a65e83e54d1ded955d68f7ed7303e94e08b38d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019616850",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1945139?revision\u003d24",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "1047acac_5cf5e69e",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-23T09:57:44Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 544,
+        "startChar": 0,
+        "endLine": 544,
+        "endChar": 102
+      },
+      "revId": "a9a65e83e54d1ded955d68f7ed7303e94e08b38d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
