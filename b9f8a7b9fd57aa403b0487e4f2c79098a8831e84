@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "920e4c9b_79d81b72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-23T12:38:53Z",
+      "side": 1,
+      "message": "LGTM, assuming indent issues are fixed.",
+      "revId": "b9f8a7b9fd57aa403b0487e4f2c79098a8831e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45d7690_4802c2d4",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-23T12:38:53Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 284,
+        "startChar": 9,
+        "endLine": 284,
+        "endChar": 12
+      },
+      "revId": "b9f8a7b9fd57aa403b0487e4f2c79098a8831e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8a07af0_a5fc2968",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-23T12:38:53Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 286,
+        "startChar": 4,
+        "endLine": 286,
+        "endChar": 9
+      },
+      "revId": "b9f8a7b9fd57aa403b0487e4f2c79098a8831e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb127334_39b6a557",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-23T12:38:53Z",
+      "side": 1,
+      "message": "one more space",
+      "range": {
+        "startLine": 495,
+        "startChar": 38,
+        "endLine": 495,
+        "endChar": 39
+      },
+      "revId": "b9f8a7b9fd57aa403b0487e4f2c79098a8831e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0f66a4e_63d436cd",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-23T12:38:53Z",
+      "side": 1,
+      "message": "one more space",
+      "range": {
+        "startLine": 498,
+        "startChar": 38,
+        "endLine": 498,
+        "endChar": 39
+      },
+      "revId": "b9f8a7b9fd57aa403b0487e4f2c79098a8831e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42369fde_27edd0ce",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-23T12:38:53Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 599,
+        "startChar": 38,
+        "endLine": 599,
+        "endChar": 39
+      },
+      "revId": "b9f8a7b9fd57aa403b0487e4f2c79098a8831e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d9fb635_52cd5889",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-23T12:38:53Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 611,
+        "startChar": 38,
+        "endLine": 611,
+        "endChar": 39
+      },
+      "revId": "b9f8a7b9fd57aa403b0487e4f2c79098a8831e84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
