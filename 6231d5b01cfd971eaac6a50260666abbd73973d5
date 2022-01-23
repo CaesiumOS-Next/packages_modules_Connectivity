@@ -16,6 +16,23 @@
       "message": "Passed on S (redfin) and T (raven).\n\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nBuild: redfin-userdebug 12 SC 8106542 dev-keys\n\nRunning Tests...\n2022-01-22 15:30:26 client.py:795:INFO: Refreshing access_token\n\narm64-v8a CtsNativeNetTestCases\n-------------------------------\nCtsNativeNetTestCases (2 Test(s))\n[1/2] BpfTest#bpfStructSizeTestPreT: PASSED (0ms)\n[2/2] BpfTest#bpfStructSizeTest: PASSED (0ms)\n\nSummary (Test executed with 1 device(s).)\n-------\narm64-v8a CtsNativeNetTestCases: Passed: 2, Failed: 0, Ignored: 0, Assumption Failed: 0,  \n\nAll tests passed!\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nBuild: raven-userdebug Tiramisu MASTER 8106623 dev-keys\n\nRunning Tests...\n2022-01-22 16:03:25 client.py:795:INFO: Refreshing access_token\n\narm64-v8a CtsNativeNetTestCases\n-------------------------------\nCtsNativeNetTestCases (2 Test(s))\n[1/2] BpfTest#bpfStructSizeTestPreT: IGNORED (0ms)\n[2/2] BpfTest#bpfStructSizeTest: PASSED (0ms)\n\nSummary (Test executed with 1 device(s).)\n-------\narm64-v8a CtsNativeNetTestCases: Passed: 1, Failed: 0, Ignored: 1, Assumption Failed: 0,    \n\nAll tests passed!\n",
       "revId": "6231d5b01cfd971eaac6a50260666abbd73973d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "becbafc3_404dad5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-23T14:42:48Z",
+      "side": 1,
+      "message": "The code change here looks fine, but it\u0027s not obvious. Why can\u0027t the netd.c and clatd.c programs be tested by this test even if they are in the mainline module? Is it because they could potentially be newer than this test due to a mainline update? If so, could you put that in the commit message?",
+      "revId": "6231d5b01cfd971eaac6a50260666abbd73973d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
