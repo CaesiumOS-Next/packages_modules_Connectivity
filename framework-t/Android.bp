@@ -41,10 +41,21 @@ java_sdk_library {
     libs: [
         "unsupportedappusage",
         "app-compat-annotations",
+        "framework-connectivity.stubs.module_lib",
     ],
+    static_libs: [
+        "modules-utils-backgroundthread",
+    ],
+    aidl: {
+        generate_get_transaction_name: true,
+        include_dirs: [
+            "packages/modules/Connectivity/framework/aidl-export",
+        ],
+    },
     permitted_packages: [
         "android.net",
         "android.net.nsd",
+        "com.android.modules.utils",
     ],
     apex_available: [
         "com.android.tethering",
@@ -61,6 +72,7 @@ java_sdk_library {
         "//external/sl4a:__subpackages__",
         "//frameworks/libs/net/common/testutils",
         "//frameworks/libs/net/common/tests:__subpackages__",
+        "//frameworks/opt/net/ethernet:__subpackages__",
         "//frameworks/opt/telephony/tests/telephonytests",
         "//packages/modules/CaptivePortalLogin/tests",
         "//packages/modules/Connectivity/Tethering/tests:__subpackages__",

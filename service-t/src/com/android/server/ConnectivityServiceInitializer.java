@@ -17,9 +17,12 @@
 package com.android.server;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
+import com.android.server.ethernet.EthernetService;
+import com.android.server.ethernet.EthernetServiceImpl;
 
 /**
  * Connectivity service initializer for core networking. This is called by system server to create
@@ -27,15 +30,26 @@ import com.android.modules.utils.build.SdkLevel;
  */
 public final class ConnectivityServiceInitializer extends SystemService {
     private static final String TAG = ConnectivityServiceInitializer.class.getSimpleName();
+    private final PackageManager mPackageManager;
     private final ConnectivityService mConnectivity;
     private final NsdService mNsdService;
+    private final EthernetService mEthernetService;
+    private final EthernetServiceImpl mEthernetServiceImpl;
 
     public ConnectivityServiceInitializer(Context context) {
         super(context);
+        mPackageManager = context.getPackageManager();
         // Load JNI libraries used by ConnectivityService and its dependencies
         System.loadLibrary("service-connectivity");
         mConnectivity = new ConnectivityService(context);
         mNsdService = createNsdService(context);
+        mEthernetService = createEthernetService(context);
+        mEthernetServiceImpl = mEthernetService.getEthernetServiceImpl();
+    }
+
+    private boolean shouldStartEthernetService() {
+        return mPackageManager.hasSystemFeature(PackageManager.FEATURE_ETHERNET)
+                || mPackageManager.hasSystemFeature(PackageManager.FEATURE_USB_HOST);
     }
 
     @Override
@@ -46,6 +60,19 @@ public final class ConnectivityServiceInitializer extends SystemService {
         if (mNsdService != null) {
             Log.i(TAG, "Registering " + Context.NSD_SERVICE);
             publishBinderService(Context.NSD_SERVICE, mNsdService, /* allowIsolated= */ false);
+        }
+
+        if (mEthernetService != null && shouldStartEthernetService()) {
+            Log.i(TAG, "Registering " + Context.ETHERNET_SERVICE);
+            publishBinderService(Context.ETHERNET_SERVICE, mEthernetServiceImpl,
+                    /* allowIsolated= */ false);
+        }
+    }
+
+    @Override
+    public void onBootPhase(int phase) {
+        if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY && shouldStartEthernetService()) {
+            mEthernetServiceImpl.start();
         }
     }
 
@@ -58,5 +85,13 @@ public final class ConnectivityServiceInitializer extends SystemService {
             Log.d(TAG, "Unable to get NSD service", e);
             return null;
         }
+    }
+
+    /**
+     * Return EthernetService instance or null if current SDK is lower than T.
+     */
+    private EthernetService createEthernetService(final Context context) {
+        if (!SdkLevel.isAtLeastT()) return null;
+        return new EthernetService(context);
     }
 }
