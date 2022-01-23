@@ -5,5 +5,23 @@ package android.net {
     method public static void registerServiceWrappers();
   }
 
+  public class EthernetManager {
+    method public void addListener(@NonNull android.net.EthernetManager.Listener, @NonNull java.util.concurrent.Executor);
+    method public boolean isAvailable();
+    method public void removeListener(@NonNull android.net.EthernetManager.Listener);
+  }
+
+  public static interface EthernetManager.Listener {
+    method public void onAvailabilityChanged(String, boolean);
+  }
+
+  public final class EthernetNetworkSpecifier extends android.net.NetworkSpecifier implements android.os.Parcelable {
+    ctor public EthernetNetworkSpecifier(@NonNull String);
+    method public int describeContents();
+    method @Nullable public String getInterfaceName();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.EthernetNetworkSpecifier> CREATOR;
+  }
+
 }
 
