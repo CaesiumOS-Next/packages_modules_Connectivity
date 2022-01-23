@@ -416,6 +416,30 @@
       },
       "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f427a1a5_75adde99",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-23T01:53:09Z",
+      "side": 1,
+      "message": "Pass std:vector should be okay for now. This can be fine-tuned later, since both the caller and the callee are mainlined.",
+      "parentUuid": "997ab9c1_47e5c179",
+      "range": {
+        "startLine": 211,
+        "startChar": 41,
+        "endLine": 211,
+        "endChar": 51
+      },
+      "revId": "9fde61f5760fc16836c4f188716bda5a62fa683d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
