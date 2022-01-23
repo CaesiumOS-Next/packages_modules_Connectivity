@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a272f835_6e91ce74",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-01-23T22:32:45Z",
+      "side": 1,
+      "message": "Yes, unfortunately we also can\u0027t use @EnabledSince(T), because it\u0027s not available in downstream branches yet.\n\nI\u0027ve added comment to update this to S_V2",
+      "parentUuid": "0dab1453_02c0fda9",
+      "revId": "1a9e9f1221d7f75707a15920151e5aee52773126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d10f0f4d_1d1e3e59",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-01-21T07:54:45Z",
       "side": 1,
       "message": "So IIUC, the following scenario is possible :\n• You\u0027re an app targetting S\n• You get a LinkProperties from the system which internally contains an excluded route\n• You call getRoutes and it returns the complement\n• You call addRoutes with one of the routes in the returned liste\n\nThis should return false because the route looked already present, but it returns true.\nYou could also have the opposite case, where you add a route that matches an existing exclusion route. E.g. the LP has an exclude route for 128.0.0.0/1, so getRoutes returns 0.0.0.0/1, and when you try to add a route for 128.0.0.0/1 you unexpectedly receive a result of true, and your LP only routes 128.0.0.0/1.\n\nThis is not going to be easy to fix...",
+      "range": {
+        "startLine": 722,
+        "startChar": 16,
+        "endLine": 722,
+        "endChar": 34
+      },
+      "revId": "1a9e9f1221d7f75707a15920151e5aee52773126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cca0ca8f_a8c06814",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-01-23T22:32:45Z",
+      "side": 1,
+      "message": "Yes, that\u0027s a valid scenario that is not properly handled currently.\n\nLet\u0027s discuss this with Lorenzo on Chat",
+      "parentUuid": "d10f0f4d_1d1e3e59",
       "range": {
         "startLine": 722,
         "startChar": 16,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe9545d4_9e3087d3",
+        "filename": "tests/cts/hostside/app3/src/com/android/cts/net/hostside/app3/ExcludedRoutesGatingTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-01-23T22:32:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97df754b_705d4ef7",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "1a9e9f1221d7f75707a15920151e5aee52773126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "386eb132_589735eb",
@@ -87,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3958220_5e2affd8",
+        "filename": "tests/cts/hostside/app3/src/com/android/cts/net/hostside/app3/ExcludedRoutesGatingTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-01-23T22:32:45Z",
+      "side": 1,
+      "message": "Done\n\nAdded short comments in test cases + comment for test class linking to LinkProperties#EXCLUDED_ROUTES change id",
+      "parentUuid": "386eb132_589735eb",
+      "range": {
+        "startLine": 58,
+        "startChar": 34,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "1a9e9f1221d7f75707a15920151e5aee52773126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "429d55f9_daffd19e",
@@ -100,6 +190,30 @@
       "writtenOn": "2022-01-21T07:54:45Z",
       "side": 1,
       "message": "Won\u0027t java.util.Set.of() work fine ? It returns an immutable set all the same, but doesn\u0027t depend on google-specific code.",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "1a9e9f1221d7f75707a15920151e5aee52773126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b437fa14_f1620b8a",
+        "filename": "tests/cts/hostside/src/com/android/cts/net/HostsideLinkPropertiesGatingTests.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-01-23T22:32:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "429d55f9_daffd19e",
       "range": {
         "startLine": 21,
         "startChar": 7,
