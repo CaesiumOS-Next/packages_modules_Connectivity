@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019615724",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958139?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "14959599_f5935e45",
+          "description": "Change to \"service-t/native/libs/libnetdbpf/BpfNetworkStats.cpp\"",
+          "replacements": [
+            {
+              "path": "service-t/native/libs/libnetdbpf/BpfNetworkStats.cpp",
+              "range": {
+                "startLine": 43,
+                "startChar": 73,
+                "endLine": 43,
+                "endChar": 80
+              },
+              "replacement": "opposite"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "a2608a4d_a89caab9",
+        "filename": "service-t/native/libs/libnetdbpf/BpfNetworkStats.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-23T07:56:10Z",
+      "side": 1,
+      "message": "Common typo found: \"oppsite\" -- should it be \"opposite\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 43,
+        "startChar": 73,
+        "endLine": 43,
+        "endChar": 80
+      },
+      "revId": "c38239e5c5e6da47d9397d39e216a8a27f9468b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019615724",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958139?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "db7bcab9_aece3313",
+          "description": "Change to \"service-t/native/libs/libnetdbpf/BpfNetworkStats.cpp\"",
+          "replacements": [
+            {
+              "path": "service-t/native/libs/libnetdbpf/BpfNetworkStats.cpp",
+              "range": {
+                "startLine": 314,
+                "startChar": 18,
+                "endLine": 314,
+                "endChar": 30
+              },
+              "replacement": "smaller than"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "49db66d5_89e596d1",
+        "filename": "service-t/native/libs/libnetdbpf/BpfNetworkStats.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-23T07:56:10Z",
+      "side": 1,
+      "message": "Common typo found: \"smaller then\" -- should it be \"smaller than\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 314,
+        "startChar": 18,
+        "endLine": 314,
+        "endChar": 30
+      },
+      "revId": "c38239e5c5e6da47d9397d39e216a8a27f9468b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019615724",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958139?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "0946a2c4_bde43413",
+          "description": "Change to \"service-t/native/libs/libnetdbpf/BpfNetworkStatsTest.cpp\"",
+          "replacements": [
+            {
+              "path": "service-t/native/libs/libnetdbpf/BpfNetworkStatsTest.cpp",
+              "range": {
+                "startLine": 62,
+                "startChar": 33,
+                "endLine": 62,
+                "endChar": 44
+              },
+              "replacement": "bigger than"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "cc46c031_fc5d8668",
+        "filename": "service-t/native/libs/libnetdbpf/BpfNetworkStatsTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-23T07:56:10Z",
+      "side": 1,
+      "message": "Common typo found: \"bigger then\" -- should it be \"bigger than\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 62,
+        "startChar": 33,
+        "endLine": 62,
+        "endChar": 44
+      },
+      "revId": "c38239e5c5e6da47d9397d39e216a8a27f9468b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019615724",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958139?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "2a06f061_90e17113",
+          "description": "Change to \"service-t/native/libs/libnetdbpf/BpfNetworkStatsTest.cpp\"",
+          "replacements": [
+            {
+              "path": "service-t/native/libs/libnetdbpf/BpfNetworkStatsTest.cpp",
+              "range": {
+                "startLine": 355,
+                "startChar": 38,
+                "endLine": 355,
+                "endChar": 44
+              },
+              "replacement": "Unknown"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "9d410d74_c3757357",
+        "filename": "service-t/native/libs/libnetdbpf/BpfNetworkStatsTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-23T07:56:10Z",
+      "side": 1,
+      "message": "Common typo found: \"Unkown\" -- should it be \"Unknown\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 355,
+        "startChar": 38,
+        "endLine": 355,
+        "endChar": 44
+      },
+      "revId": "c38239e5c5e6da47d9397d39e216a8a27f9468b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
