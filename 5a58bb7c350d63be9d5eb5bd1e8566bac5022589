@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019634244",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1956055?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "ed5dfee5_dc395c68",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-24T09:03:01Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 122
+      },
+      "revId": "5a58bb7c350d63be9d5eb5bd1e8566bac5022589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019634249",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1956055?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "04ec491a_0a893033",
+          "description": "Change to \"service/ServiceConnectivityResources/res/values/config.xml\"",
+          "replacements": [
+            {
+              "path": "service/ServiceConnectivityResources/res/values/config.xml",
+              "range": {
+                "startLine": 147,
+                "startChar": 56,
+                "endLine": 147,
+                "endChar": 64
+              },
+              "replacement": "separated"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "9052e9e4_c303128e",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-24T09:03:01Z",
+      "side": 1,
+      "message": "Common typo found: \"seprated\" -- should it be \"separated\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 147,
+        "startChar": 56,
+        "endLine": 147,
+        "endChar": 64
+      },
+      "revId": "5a58bb7c350d63be9d5eb5bd1e8566bac5022589",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
