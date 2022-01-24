@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1cd06140_de2628f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-24T04:35:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3ea91a0_aa24797b",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "fca2796b512dd1b17d597430d4e28e8dcdb29ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "37c5fe28_fb6b944e",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -54,6 +78,24 @@
       "writtenOn": "2022-01-24T04:26:23Z",
       "side": 1,
       "message": "LGTM assuming commit message fixed.",
+      "revId": "fca2796b512dd1b17d597430d4e28e8dcdb29ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b7695ce_76feed65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-24T04:35:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3199902a_f88e2fd4",
       "revId": "fca2796b512dd1b17d597430d4e28e8dcdb29ab2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
