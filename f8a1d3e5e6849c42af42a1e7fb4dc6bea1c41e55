@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c1927e3d_6fbb79ae",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsObserversTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-24T14:14:42Z",
+      "side": 1,
+      "message": "Done in the follow-up.",
+      "parentUuid": "49a1d69b_7fb560b6",
+      "range": {
+        "startLine": 405,
+        "startChar": 16,
+        "endLine": 405,
+        "endChar": 22
+      },
+      "revId": "f8a1d3e5e6849c42af42a1e7fb4dc6bea1c41e55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "71aca109_712098eb",
         "filename": "tests/unit/java/com/android/server/net/TestableUsageCallback.kt",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-24T11:49:29Z",
       "side": 1,
       "message": "nit : does this need to be open ?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 4
+      },
+      "revId": "f8a1d3e5e6849c42af42a1e7fb4dc6bea1c41e55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7cd9987_1a4a141f",
+        "filename": "tests/unit/java/com/android/server/net/TestableUsageCallback.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-24T14:14:42Z",
+      "side": 1,
+      "message": "Done in the follow-up",
+      "parentUuid": "71aca109_712098eb",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b197534_ec381480",
+        "filename": "tests/unit/java/com/android/server/net/TestableUsageCallback.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-24T14:14:42Z",
+      "side": 1,
+      "message": "Done in the follow-up.",
+      "parentUuid": "79ec9b8e_a4afdf51",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "f8a1d3e5e6849c42af42a1e7fb4dc6bea1c41e55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "279adc42_7f4c6cc7",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-24T11:49:29Z",
       "side": 1,
       "message": "ArrayTrackRecord is in the static lib ; why can\u0027t you use it now ?",
+      "range": {
+        "startLine": 36,
+        "startChar": 44,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "f8a1d3e5e6849c42af42a1e7fb4dc6bea1c41e55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ce4ca2d_d92d03a0",
+        "filename": "tests/unit/java/com/android/server/net/TestableUsageCallback.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-24T14:14:42Z",
+      "side": 1,
+      "message": "This file is in non-connectivity-module-test, that makes it be included in FrameworksNetTests and can only see the jarjar\u0027d ArrayTrackRecord.\n\nHowever, it seems somehow jarjar rule doesn\u0027t work for inner class.\nSo it trys to find the original ReadHead inner class and failed like below:\nhttps://paste.googleplex.com/5666365139582976",
+      "parentUuid": "279adc42_7f4c6cc7",
       "range": {
         "startLine": 36,
         "startChar": 44,
