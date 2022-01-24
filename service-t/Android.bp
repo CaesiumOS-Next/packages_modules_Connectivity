@@ -45,8 +45,9 @@ java_library {
     static_libs: [
         "modules-utils-build",
         "modules-utils-statemachine",
-        "net-utils-services-common",
         "net-utils-framework-common",
+        "net-utils-services-common",
+        "ServiceConnectivityResources",
     ],
     apex_available: [
         "com.android.tethering",
