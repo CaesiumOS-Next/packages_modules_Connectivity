@@ -4351,7 +4351,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mNetd.networkRemoveUidRangesParcel(new NativeUidRangeConfig(
                             satisfier.network.getNetId(),
                             toUidRangeStableParcels(nri.getUids()),
-                            nri.getPreferenceOrderForNetd()));
+                            nri.getPreferenceOrderForNetd(),
+                            true /* isDefaultNetwork */));
                 } catch (RemoteException e) {
                     loge("Exception setting network preference default network", e);
                 }
@@ -7676,10 +7677,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         try {
             if (add) {
                 mNetd.networkAddUidRangesParcel(new NativeUidRangeConfig(
-                        nai.network.netId, ranges, PREFERENCE_ORDER_VPN));
+                        nai.network.netId, ranges, PREFERENCE_ORDER_VPN,
+                        true /* isDefaultNetwork */));
             } else {
                 mNetd.networkRemoveUidRangesParcel(new NativeUidRangeConfig(
-                        nai.network.netId, ranges, PREFERENCE_ORDER_VPN));
+                        nai.network.netId, ranges, PREFERENCE_ORDER_VPN,
+                        true /* isDefaultNetwork */));
             }
         } catch (Exception e) {
             loge("Exception while " + (add ? "adding" : "removing") + " uid ranges " + uidRanges +
@@ -8050,13 +8053,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 mNetd.networkAddUidRangesParcel(new NativeUidRangeConfig(
                         newDefaultNetwork.network.getNetId(),
                         toUidRangeStableParcels(nri.getUids()),
-                        nri.getPreferenceOrderForNetd()));
+                        nri.getPreferenceOrderForNetd(),
+                        true /* isDefaultNetwork */));
             }
             if (null != oldDefaultNetwork) {
                 mNetd.networkRemoveUidRangesParcel(new NativeUidRangeConfig(
                         oldDefaultNetwork.network.getNetId(),
                         toUidRangeStableParcels(nri.getUids()),
-                        nri.getPreferenceOrderForNetd()));
+                        nri.getPreferenceOrderForNetd(),
+                        true /* isDefaultNetwork */));
             }
         } catch (RemoteException | ServiceSpecificException e) {
             loge("Exception setting app default network", e);
