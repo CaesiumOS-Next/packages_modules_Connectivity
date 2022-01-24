@@ -106,6 +106,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/** this code could not build, just modify for demo*/
+
 @RunWith(DevSdkIgnoreRunner.class)
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
@@ -146,6 +148,7 @@ public class PermissionMonitorTest {
     @Mock private UserManager mUserManager;
     @Mock private PermissionMonitor.Dependencies mDeps;
     @Mock private SystemConfigManager mSystemConfigManager;
+    @Mock private BpfNetMap mBpfNetMaps;
 
     private PermissionMonitor mPermissionMonitor;
     private NetdMonitor mNetdMonitor;
@@ -173,12 +176,14 @@ public class PermissionMonitorTest {
             return asUserCtx;
         }).when(mContext).createContextAsUser(any(), anyInt());
         when(mDeps.getUidsAllowedOnRestrictedNetworks(any())).thenReturn(Set.of());
+        when(mDeps.getBpfNetMaps(eq(mNetdService))).thenReturn(mBpfNetMaps);
         // Set DEVICE_INITIAL_SDK_INT to Q that SYSTEM_UID won't have restricted network permission
         // by default.
         doReturn(VERSION_Q).when(mDeps).getDeviceFirstSdkInt();
 
         mPermissionMonitor = new PermissionMonitor(mContext, mNetdService, mDeps);
         mNetdMonitor = new NetdMonitor(mNetdService);
+        mBpfMapMonitor = new BpfMapMonitor(mBpfNetMaps);
 
         doReturn(List.of()).when(mPackageManager).getInstalledPackagesAsUser(anyInt(), anyInt());
     }
@@ -510,10 +515,37 @@ public class PermissionMonitorTest {
                 CONNECTIVITY_INTERNAL);
         assertBackgroundPermission(true, MOCK_PACKAGE2, MOCK_UID12, NETWORK_STACK);
     }
+  
+    private class BpfMapMoitor {
+        private final SparseIntArray mAppIdsTrafficPermission = new SparseIntArray();
+
+        BpfMapMonitor(BpfNetMap mockMap) throws Exception {
+            // Add hook to verify and track result of trafficSetNetPerm.
+            doAnswer((InvocationOnMock invocation) -> {
+                final Object[] args = invocation.getArguments();
+                final int permission = (int) args[0];
+                for (final int appId : (int[]) args[1]) {
+                    mAppIdsTrafficPermission.put(appId, permission);
+                }
+                return null;
+            }).when(mockMap).trafficSetNetPermForUids(anyInt(), any(int[].class));
+        }
+      
+        public void expectTrafficPerm(int permission, int... appIds) {
+            for (final int appId : appIds) {
+                if (mAppIdsTrafficPermission.get(appId, DOES_NOT_EXIST) == DOES_NOT_EXIST) {
+                    fail("appId " + appId + " does not exist.");
+                }
+                if (mAppIdsTrafficPermission.get(appId) != permission) {
+                    fail("appId " + appId + " has wrong permission: "
+                            + mAppIdsTrafficPermission.get(appId));
+                }
+            }
+        }
+    }
 
     private class NetdMonitor {
         private final SparseIntArray mUidsNetworkPermission = new SparseIntArray();
-        private final SparseIntArray mAppIdsTrafficPermission = new SparseIntArray();
         private static final int DOES_NOT_EXIST = -2;
 
         NetdMonitor(INetd mockNetd) throws Exception {
@@ -545,16 +577,6 @@ public class PermissionMonitorTest {
                 }
                 return null;
             }).when(mockNetd).networkClearPermissionForUser(any(int[].class));
-
-            // Add hook to verify and track result of trafficSetNetPerm.
-            doAnswer((InvocationOnMock invocation) -> {
-                final Object[] args = invocation.getArguments();
-                final int permission = (int) args[0];
-                for (final int appId : (int[]) args[1]) {
-                    mAppIdsTrafficPermission.put(appId, permission);
-                }
-                return null;
-            }).when(mockNetd).trafficSetNetPermForUids(anyInt(), any(int[].class));
         }
 
         public void expectNetworkPerm(int permission, UserHandle[] users, int... appIds) {
@@ -578,18 +600,6 @@ public class PermissionMonitorTest {
                     if (mUidsNetworkPermission.get(uid, DOES_NOT_EXIST) != DOES_NOT_EXIST) {
                         fail("uid " + uid + " has listed permissions, expected none.");
                     }
-                }
-            }
-        }
-
-        public void expectTrafficPerm(int permission, int... appIds) {
-            for (final int appId : appIds) {
-                if (mAppIdsTrafficPermission.get(appId, DOES_NOT_EXIST) == DOES_NOT_EXIST) {
-                    fail("appId " + appId + " does not exist.");
-                }
-                if (mAppIdsTrafficPermission.get(appId) != permission) {
-                    fail("appId " + appId + " has wrong permission: "
-                            + mAppIdsTrafficPermission.get(appId));
                 }
             }
         }
@@ -784,7 +794,8 @@ public class PermissionMonitorTest {
         // Send the permission information to netd, expect permission updated.
         mPermissionMonitor.sendAppIdsTrafficPermission(netdPermissionsAppIds);
 
-        mNetdMonitor.expectTrafficPerm(PERMISSION_INTERNET, MOCK_APPID1);
+        // Same as everwhere use mNetdMonitor.expectTrafficPerm
+        mBpfMonitor.expectTrafficPerm(PERMISSION_INTERNET, MOCK_APPID1);
         mNetdMonitor.expectTrafficPerm(PERMISSION_NONE, MOCK_APPID2);
         mNetdMonitor.expectTrafficPerm(PERMISSION_TRAFFIC_ALL, SYSTEM_APPID1);
         mNetdMonitor.expectTrafficPerm(PERMISSION_UPDATE_DEVICE_STATS, SYSTEM_APPID2);
