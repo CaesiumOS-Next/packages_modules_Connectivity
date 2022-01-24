@@ -124,15 +124,22 @@ public class NetworkStatsObserversTest {
 
     @Test
     public void testRegister_thresholdTooLow_setsDefaultThreshold() throws Exception {
-        long thresholdTooLowBytes = 1L;
-        DataUsageRequest inputRequest = new DataUsageRequest(
+        final long thresholdTooLowBytes = 1L;
+        final DataUsageRequest inputRequest = new DataUsageRequest(
                 DataUsageRequest.REQUEST_ID_UNSET, sTemplateWifi, thresholdTooLowBytes);
 
-        DataUsageRequest request = mStatsObservers.register(inputRequest, mUsageCallback,
-                Process.SYSTEM_UID, NetworkStatsAccess.Level.DEVICE);
-        assertTrue(request.requestId > 0);
-        assertTrue(Objects.equals(sTemplateWifi, request.template));
-        assertEquals(THRESHOLD_BYTES, request.thresholdInBytes);
+        final DataUsageRequest requestByApp = mStatsObservers.register(inputRequest, mUsageCallback,
+                UID_RED, NetworkStatsAccess.Level.DEVICE);
+        assertTrue(requestByApp.requestId > 0);
+        assertTrue(Objects.equals(sTemplateWifi, requestByApp.template));
+        assertEquals(THRESHOLD_BYTES, requestByApp.thresholdInBytes);
+
+        // Verify the threshold requested by system uid won't be overridden.
+        final DataUsageRequest requestBySystem = mStatsObservers.register(inputRequest,
+                mUsageCallback, Process.SYSTEM_UID, NetworkStatsAccess.Level.DEVICE);
+        assertTrue(requestBySystem.requestId > 0);
+        assertTrue(Objects.equals(sTemplateWifi, requestBySystem.template));
+        assertEquals(1, requestBySystem.thresholdInBytes);
     }
 
     @Test
