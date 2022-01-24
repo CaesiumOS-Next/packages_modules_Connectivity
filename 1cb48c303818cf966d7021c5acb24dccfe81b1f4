@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6c0cff0_2b6e1301",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1124543
+      },
+      "writtenOn": "2022-01-24T17:42:30Z",
+      "side": 1,
+      "message": "This class (or something that tells this class to re-register) should be listening to TM#ACTION_MULTISIM_CONFIG_CHANGED or similar to adjust the slot count + change the number of listeners up or down as needed",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "1cb48c303818cf966d7021c5acb24dccfe81b1f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f75d5f6_be32dbf6",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1124543
+      },
+      "writtenOn": "2022-01-24T17:42:30Z",
+      "side": 1,
+      "message": "Never called by real code? So this is just going to result in a single snapshot at ctor time, then it will never be updated",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 42
+      },
+      "revId": "1cb48c303818cf966d7021c5acb24dccfe81b1f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54c8d705_0d9356db",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1124543
+      },
+      "writtenOn": "2022-01-24T17:42:30Z",
+      "side": 1,
+      "message": "You can\u0027t reuse one instance across all slots. TelephonyRegistry just does \u003d\u003d equality on the binder instance for \"add or update\" logic (same for all registrant types it manages, not just CarrierPrivsListener) so you will only receive updated for the last `i` registered on, not all the prior ones.",
+      "range": {
+        "startLine": 113,
+        "startChar": 45,
+        "endLine": 113,
+        "endChar": 70
+      },
+      "revId": "1cb48c303818cf966d7021c5acb24dccfe81b1f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5980e4c5_31a48378",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1124543
+      },
+      "writtenOn": "2022-01-24T17:42:30Z",
+      "side": 1,
+      "message": "Re-getting? Already have as `slotId`",
+      "range": {
+        "startLine": 124,
+        "startChar": 38,
+        "endLine": 124,
+        "endChar": 77
+      },
+      "revId": "1cb48c303818cf966d7021c5acb24dccfe81b1f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
