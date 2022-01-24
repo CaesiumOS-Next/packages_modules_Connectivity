@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a74220e8_42cd3e3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-24T02:47:56Z",
+      "side": 1,
+      "message": "Just find I have submitted comment, fix in follow up is fine.",
+      "revId": "790c83e38799cdeb332c8210f95f846cdc2f0355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
