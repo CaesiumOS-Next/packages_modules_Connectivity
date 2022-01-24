@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78526b30_cbf49025",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-24T09:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75c158ee_8de87d83",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f69d421d_c372e952",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b334594_4278416a",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-24T09:56:47Z",
+      "side": 1,
+      "message": "Yes, It\u0027s required. It build fail if I removed this.\n\nld.lld: error: version script assignment of \u0027LIBNETD_UPDATABLE\u0027 to symbol \u0027libnetd_updatable_init\u0027 failed: symbol not defined\nld.lld: error: version script assignment of \u0027LIBNETD_UPDATABLE\u0027 to symbol \u0027libnetd_updatable_privilegedTagSocket\u0027 failed: symbol not defined\nld.lld: error: version script assignment of \u0027LIBNETD_UPDATABLE\u0027 to symbol \u0027libnetd_updatable_tagSocket\u0027 failed: symbol not defined\nld.lld: error: version script assignment of \u0027LIBNETD_UPDATABLE\u0027 to symbol \u0027libnetd_updatable_unTagSocket\u0027 failed: symbol not defined",
+      "parentUuid": "f69d421d_c372e952",
+      "range": {
+        "startLine": 21,
+        "startChar": 43,
+        "endLine": 21,
+        "endChar": 74
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c6ea446_38085b7a",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-24T04:45:00Z",
       "side": 1,
       "message": "what does this mean? Could you please explain the parameter in the comment?",
+      "range": {
+        "startLine": 29,
+        "startChar": 64,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1172a6a0_9759f4f6",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-24T09:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c6ea446_38085b7a",
       "range": {
         "startLine": 29,
         "startChar": 64,
@@ -116,6 +188,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c7a8c8c_36cba6a9",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-24T09:56:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ea2ddf5_808caaf4",
+      "range": {
+        "startLine": 36,
+        "startChar": 79,
+        "endLine": 36,
+        "endChar": 87
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09f0e2a_e5477b26",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-24T09:56:47Z",
+      "side": 1,
+      "message": "Done\n(No restrictions)",
+      "parentUuid": "e2a8d20d_ce44c38c",
+      "range": {
+        "startLine": 36,
+        "startChar": 88,
+        "endLine": 36,
+        "endChar": 91
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2520952b_8352dc4e",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-01-24T04:45:00Z",
       "side": 1,
       "message": "may be worth mentioning what\u0027s the difference between the privileged and a regular functions, instead of duplicating the comment. Also, looks like |callingUid| parameter is present in both but only documented here",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 92
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1b2fa7a_42bbd43c",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-24T09:56:47Z",
+      "side": 1,
+      "message": "Done\n(updated in comments)",
+      "parentUuid": "2520952b_8352dc4e",
       "range": {
         "startLine": 39,
         "startChar": 0,
