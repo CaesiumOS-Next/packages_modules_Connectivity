@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c158ee_8de87d83",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1080076
+      },
+      "writtenOn": "2022-01-24T04:45:00Z",
+      "side": 1,
+      "message": "nit: 2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f69d421d_c372e952",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1080076
+      },
+      "writtenOn": "2022-01-24T04:45:00Z",
+      "side": 1,
+      "message": "is this really required given the included map file?",
+      "range": {
+        "startLine": 21,
+        "startChar": 43,
+        "endLine": 21,
+        "endChar": 74
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c6ea446_38085b7a",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1080076
+      },
+      "writtenOn": "2022-01-24T04:45:00Z",
+      "side": 1,
+      "message": "what does this mean? Could you please explain the parameter in the comment?",
+      "range": {
+        "startLine": 29,
+        "startChar": 64,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2a8d20d_ce44c38c",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1080076
+      },
+      "writtenOn": "2022-01-24T04:45:00Z",
+      "side": 1,
+      "message": "are there any restrictions on the value of the tag? probably worth documenting it",
+      "range": {
+        "startLine": 36,
+        "startChar": 88,
+        "endLine": 36,
+        "endChar": 91
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ea2ddf5_808caaf4",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1080076
+      },
+      "writtenOn": "2022-01-24T04:45:00Z",
+      "side": 1,
+      "message": "please include stdint.h for this definition",
+      "range": {
+        "startLine": 36,
+        "startChar": 79,
+        "endLine": 36,
+        "endChar": 87
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2520952b_8352dc4e",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1080076
+      },
+      "writtenOn": "2022-01-24T04:45:00Z",
+      "side": 1,
+      "message": "may be worth mentioning what\u0027s the difference between the privileged and a regular functions, instead of duplicating the comment. Also, looks like |callingUid| parameter is present in both but only documented here",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 92
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
