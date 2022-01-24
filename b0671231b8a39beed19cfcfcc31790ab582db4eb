@@ -16,6 +16,29 @@
       "message": "There is a merge conflict in VpnTest.java due to security patch, we may need to merge this commit into internal master first.",
       "revId": "b0671231b8a39beed19cfcfcc31790ab582db4eb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c01e900a_a541882a",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 966,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-24T08:05:49Z",
+      "side": 1,
+      "message": "// For security reasons, Vpn#prepare() will check that oldPackage and newPackage\n// are either null or the package of the caller. This test will call Vpn#prepare() to pretend the\n// old VPN is replaced by a new one. But only Settings can change to some other\n// package, and this is checked with CONTROL_VPN so simulate holding CONTROL_VPN so\n// as to pass the security checks.",
+      "range": {
+        "startLine": 962,
+        "startChar": 0,
+        "endLine": 966,
+        "endChar": 64
+      },
+      "revId": "b0671231b8a39beed19cfcfcc31790ab582db4eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
