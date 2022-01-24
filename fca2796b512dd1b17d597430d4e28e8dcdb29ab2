@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ea91a0_aa24797b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T04:26:23Z",
+      "side": 1,
+      "message": "Duplicate Change-Id, please fix.",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 52
+      },
+      "revId": "fca2796b512dd1b17d597430d4e28e8dcdb29ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "37c5fe28_fb6b944e",
@@ -14,6 +37,23 @@
       "writtenOn": "2022-01-21T11:09:25Z",
       "side": 1,
       "message": "Cherry-pick of change submitted in aosp/master\n\nSee conflicts between patchset 1 and 3",
+      "revId": "fca2796b512dd1b17d597430d4e28e8dcdb29ab2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3199902a_f88e2fd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T04:26:23Z",
+      "side": 1,
+      "message": "LGTM assuming commit message fixed.",
       "revId": "fca2796b512dd1b17d597430d4e28e8dcdb29ab2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
