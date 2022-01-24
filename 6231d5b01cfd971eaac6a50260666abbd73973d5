@@ -50,6 +50,42 @@
       "message": "LGTM assuming commit message makes it more obvious why the change is necessary.",
       "revId": "6231d5b01cfd971eaac6a50260666abbd73973d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63b64a6_0cf5a66d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-24T20:06:05Z",
+      "side": 1,
+      "message": "Testing the mainline code defeats the purpose of the test, which is to test that the system components are in sync with mainline.  Of course mainline is in sync with mainline.",
+      "parentUuid": "becbafc3_404dad5c",
+      "revId": "6231d5b01cfd971eaac6a50260666abbd73973d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2705482_bf1c23d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-24T20:06:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5b692530_8cf33c81",
+      "revId": "6231d5b01cfd971eaac6a50260666abbd73973d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
