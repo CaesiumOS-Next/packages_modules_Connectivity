@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d692722c_521142e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T15:42:18Z",
+      "side": 1,
+      "message": "The access UIDs part of this change in itself LGTM.\n\nThe reshuffling of the code that happens when a network connects and sends its first updates looks like it could be an improvement, but I think it should be moved to its own CL so it can be carefully reviewed (remember that it\u0027s going to go out in a mainline release soon after being merged, and we\u0027ll want to make sure it doesn\u0027t negatively affect behaviour in the field. Not sure if the access UIDs part of the CL still depends on this reshuffling (IIRC it wasn\u0027t present a few patchsets ago).\n\nAlso I think it would be better for the code that implements the checks on the access UIDs to move to ConnectivityService or NetworkAgentInfo where it\u0027s called.",
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "265ea6ab_942eb056",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T15:42:18Z",
+      "side": 1,
+      "message": "This class doesn\u0027t use this method any more. Is there still a reason for this code to be here? I thought we had decided that the checks would be run in the service and not client-side, and if so, seems like this would be more useful in NetworkAgentInfo (which probably has the creatorUid already) or ConnectivityService.",
+      "range": {
+        "startLine": 834,
+        "startChar": 69,
+        "endLine": 835,
+        "endChar": 9
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6af276aa_5122b82d",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 2090,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T15:42:18Z",
+      "side": 1,
+      "message": "Nit: is it worth calling:\n\n    mAccessUids.ensureCapacity(accessUids.length);\n\nhere?",
+      "range": {
+        "startLine": 2090,
+        "startChar": 20,
+        "endLine": 2090,
+        "endChar": 48
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73b736c1_6bbe23d7",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6903,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T15:42:18Z",
+      "side": 1,
+      "message": "It looks a bit strange to be starting NetworkMonitor even though the network basically doesn\u0027t exist yet (since the NetworkAgentInfo is not inserted in the hash tables). At the moment I think it\u0027s fine because NetworkMonitor doesn\u0027t actually do anything until it gets CMD_NETWORK_CONNECTED, but still.",
+      "range": {
+        "startLine": 6903,
+        "startChar": 12,
+        "endLine": 6903,
+        "endChar": 35
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fbed891_897707bb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6917,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T15:42:18Z",
+      "side": 1,
+      "message": "I *think* this shuffling around of the code that \"intercepts\" NetworkAgent messages is an improvement, but it\u0027s difficult to tell within this this larger patch. It\u0027s also subtle and the kind of thing that could lead to hard-to-spot ordering bugs in the next mainline release. Do you think you could split it out to its own CL so it can be reviewed in isolation? That would also allow you to give that CL a detailed commit message explaining why it doesn\u0027t change any ordering (or that if it does, the changes don\u0027t matter).",
+      "range": {
+        "startLine": 6908,
+        "startChar": 0,
+        "endLine": 6917,
+        "endChar": 9
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fba06db1_1b3d942a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 7366,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T15:42:18Z",
+      "side": 1,
+      "message": "Time to remove this comment?\n\n- This method does several writes to nc, so \"should never alter\" isn\u0027t true any more. (Looks like it already wasn\u0027t true since the owner UID was already being mutated, though there is a comment about that.)\n- nc is already a defensive copy in both codepaths that call this method (handleRegisterNetworkAgent and EVENT_NETWORK_CAPABILITIES_CHANGED)",
+      "range": {
+        "startLine": 7366,
+        "startChar": 5,
+        "endLine": 7366,
+        "endChar": 96
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a4c39f7_2d74dbb6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 7382,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-24T15:42:18Z",
+      "side": 1,
+      "message": "nc is already a defensive copy in both codepaths that get here. Do we need this other copy? Are we keeping it just to ensure that equals() won\u0027t return true due to pointer equality even if the object has mutated?",
+      "range": {
+        "startLine": 7382,
+        "startChar": 35,
+        "endLine": 7382,
+        "endChar": 63
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
