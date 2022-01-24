@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d4c695_f129384b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-24T02:23:19Z",
+      "side": 1,
+      "message": "There is a merge conflict in VpnTest.java due to security patch, we may need to merge this commit into internal master first.",
+      "revId": "b0671231b8a39beed19cfcfcc31790ab582db4eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
