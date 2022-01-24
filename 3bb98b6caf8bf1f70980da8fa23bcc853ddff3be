@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad5528ad_52c4a8b8",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5231889f_db7ba170",
+      "range": {
+        "startLine": 537,
+        "startChar": 16,
+        "endLine": 537,
+        "endChar": 30
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04c46597_155a62e4",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb880c99_1983d5db",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04c46597_155a62e4",
+      "range": {
+        "startLine": 538,
+        "startChar": 49,
+        "endLine": 538,
+        "endChar": 55
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0816e18_1fc5fd09",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-22T16:09:12Z",
       "side": 1,
       "message": "Maybe use different values.",
+      "range": {
+        "startLine": 553,
+        "startChar": 16,
+        "endLine": 553,
+        "endChar": 37
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f824b498_e47f3f4f",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0816e18_1fc5fd09",
       "range": {
         "startLine": 553,
         "startChar": 16,
@@ -116,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32234e4a_01a7a877",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e395713_c3f4b78c",
+      "range": {
+        "startLine": 571,
+        "startChar": 79,
+        "endLine": 571,
+        "endChar": 83
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f73dceea_d908afe7",
@@ -129,6 +225,30 @@
       "writtenOn": "2022-01-22T16:09:12Z",
       "side": 1,
       "message": "IIUC this is not what we want to test.",
+      "range": {
+        "startLine": 578,
+        "startChar": 8,
+        "endLine": 578,
+        "endChar": 39
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "987e734b_7c5eb5b9",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f73dceea_d908afe7",
       "range": {
         "startLine": 578,
         "startChar": 8,
@@ -162,6 +282,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83f26ace_4f07be1d",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb23ba4d_4d37ebc3",
+      "range": {
+        "startLine": 581,
+        "startChar": 42,
+        "endLine": 581,
+        "endChar": 65
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5615863_87a943ff",
@@ -175,6 +319,30 @@
       "writtenOn": "2022-01-22T16:09:12Z",
       "side": 1,
       "message": "Please use local variable.",
+      "range": {
+        "startLine": 582,
+        "startChar": 25,
+        "endLine": 582,
+        "endChar": 41
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc1f8f40_3a8c7d77",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5615863_87a943ff",
       "range": {
         "startLine": 582,
         "startChar": 25,
@@ -208,6 +376,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ba7643b_fbc6ddaa",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8707ddd0_b3feff69",
+      "range": {
+        "startLine": 584,
+        "startChar": 55,
+        "endLine": 584,
+        "endChar": 89
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7129a167_a17194c9",
@@ -221,6 +413,30 @@
       "writtenOn": "2022-01-22T16:09:12Z",
       "side": 1,
       "message": "IIUC this will break if you make history empty.",
+      "range": {
+        "startLine": 589,
+        "startChar": 42,
+        "endLine": 589,
+        "endChar": 60
+      },
+      "revId": "3bb98b6caf8bf1f70980da8fa23bcc853ddff3be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bda45b03_81d9f0b2",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-24T22:19:29Z",
+      "side": 1,
+      "message": "Yes, you are right.\nWe should test the history empty.",
+      "parentUuid": "7129a167_a17194c9",
       "range": {
         "startLine": 589,
         "startChar": 42,
