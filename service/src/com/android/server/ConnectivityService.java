@@ -2063,11 +2063,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             newNc.setNetworkSpecifier(newNc.getNetworkSpecifier().redact());
         }
         newNc.setAdministratorUids(new int[0]);
+        Log.e("\033[31mYAY 1\033[0m", "" + newNc);
         if (!checkAnyPermissionOf(
                 callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
             newNc.setAccessUids(new ArraySet<>());
             newNc.setSubscriptionIds(Collections.emptySet());
         }
+        Log.e("\033[31mYAY 2\033[0m", "" + newNc);
 
         return newNc;
     }
@@ -3317,6 +3319,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
                     final NetworkCapabilities networkCapabilities = new NetworkCapabilities(
                             (NetworkCapabilities) arg.second);
+                    Log.e("\033[31mYAY X\033[0m", "" + networkCapabilities);
                     processCapabilitiesFromAgent(nai, networkCapabilities);
                     updateCapabilities(nai.getCurrentScore(), nai, networkCapabilities);
                     break;
@@ -4351,7 +4354,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mNetd.networkRemoveUidRangesParcel(new NativeUidRangeConfig(
                             satisfier.network.getNetId(),
                             toUidRangeStableParcels(nri.getUids()),
-                            nri.getPreferenceOrderForNetd()));
+                            nri.getPreferenceOrderForNetd(),
+                            true /* isDefaultNetwork */));
                 } catch (RemoteException e) {
                     loge("Exception setting network preference default network", e);
                 }
@@ -7643,6 +7647,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return stableRanges;
     }
 
+    private static UidRangeParcel[] intsToUidRangeStableParcels(
+            final @NonNull ArraySet<Integer> uids) {
+        final UidRangeParcel[] stableRanges = new UidRangeParcel[uids.size()];
+        int index = 0;
+        for (int uid : uids) {
+            stableRanges[index] = new UidRangeParcel(uid, uid);
+            index++;
+        }
+        return stableRanges;
+    }
+
     private static UidRangeParcel[] toUidRangeStableParcels(UidRange[] ranges) {
         final UidRangeParcel[] stableRanges = new UidRangeParcel[ranges.length];
         for (int i = 0; i < ranges.length; i++) {
@@ -7675,10 +7690,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         try {
             if (add) {
                 mNetd.networkAddUidRangesParcel(new NativeUidRangeConfig(
-                        nai.network.netId, ranges, PREFERENCE_ORDER_VPN));
+                        nai.network.netId, ranges, PREFERENCE_ORDER_VPN,
+                        true /* isDefaultNetwork */));
             } else {
                 mNetd.networkRemoveUidRangesParcel(new NativeUidRangeConfig(
-                        nai.network.netId, ranges, PREFERENCE_ORDER_VPN));
+                        nai.network.netId, ranges, PREFERENCE_ORDER_VPN,
+                        true /* isDefaultNetwork */));
             }
         } catch (Exception e) {
             loge("Exception while " + (add ? "adding" : "removing") + " uid ranges " + uidRanges +
@@ -7713,8 +7730,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void updateUids(NetworkAgentInfo nai, NetworkCapabilities prevNc,
-            NetworkCapabilities newNc) {
+    private void updateUids(@NonNull NetworkAgentInfo nai, @Nullable NetworkCapabilities prevNc,
+            @Nullable NetworkCapabilities newNc) {
+        updateVpnUids(nai, prevNc, newNc);
+        updateAccessUids(nai, prevNc, newNc);
+    }
+
+    private void updateVpnUids(@NonNull NetworkAgentInfo nai, @Nullable NetworkCapabilities prevNc,
+            @Nullable NetworkCapabilities newNc) {
         Set<UidRange> prevRanges = null == prevNc ? null : prevNc.getUidRanges();
         Set<UidRange> newRanges = null == newNc ? null : newNc.getUidRanges();
         if (null == prevRanges) prevRanges = new ArraySet<>();
@@ -7770,6 +7793,44 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (Exception e) {
             // Never crash!
             loge("Exception in updateUids: ", e);
+        }
+    }
+
+    private void updateAccessUids(@NonNull NetworkAgentInfo nai,
+            @Nullable NetworkCapabilities prevNc, @Nullable NetworkCapabilities newNc) {
+        // In almost all cases both NC code for empty access UIDs. return as fast as possible.
+        final boolean prevEmpty = null == prevNc || prevNc.mAccessUids.isEmpty();
+        final boolean newEmpty = null == newNc || newNc.mAccessUids.isEmpty();
+        if (prevEmpty && newEmpty) return;
+
+        final ArraySet<Integer> prevUids = null == prevNc ? new ArraySet<>() : prevNc.mAccessUids;
+        final ArraySet<Integer> newUids = null == newNc ? new ArraySet<>() : newNc.mAccessUids;
+
+        if (prevUids.equals(newUids)) return;
+
+        final ArraySet<Integer> toRemove = new ArraySet<>(prevUids);
+        final ArraySet<Integer> toAdd = new ArraySet<>(newUids);
+        toRemove.removeAll(newUids);
+        toAdd.removeAll(prevUids);
+
+        try {
+            if (!toAdd.isEmpty()) {
+                mNetd.networkAddUidRangesParcel(new NativeUidRangeConfig(
+                        nai.network.netId,
+                        intsToUidRangeStableParcels(toAdd),
+                        0 /* subPriority */,
+                        false /* isDefaultNetwork */));
+            }
+            if (!toRemove.isEmpty()) {
+                mNetd.networkRemoveUidRangesParcel(new NativeUidRangeConfig(
+                        nai.network.netId,
+                        intsToUidRangeStableParcels(toAdd),
+                        0 /* subPriority */,
+                        false /* isDefaultNetwork */));
+            }
+        } catch (RemoteException e) {
+            // If netd died, might as well crash
+            e.rethrowAsRuntimeException();
         }
     }
 
@@ -8049,13 +8110,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 mNetd.networkAddUidRangesParcel(new NativeUidRangeConfig(
                         newDefaultNetwork.network.getNetId(),
                         toUidRangeStableParcels(nri.getUids()),
-                        nri.getPreferenceOrderForNetd()));
+                        nri.getPreferenceOrderForNetd(),
+                        true /* isDefaultNetwork */));
             }
             if (null != oldDefaultNetwork) {
                 mNetd.networkRemoveUidRangesParcel(new NativeUidRangeConfig(
                         oldDefaultNetwork.network.getNetId(),
                         toUidRangeStableParcels(nri.getUids()),
-                        nri.getPreferenceOrderForNetd()));
+                        nri.getPreferenceOrderForNetd(),
+                        true /* isDefaultNetwork */));
             }
         } catch (RemoteException | ServiceSpecificException e) {
             loge("Exception setting app default network", e);

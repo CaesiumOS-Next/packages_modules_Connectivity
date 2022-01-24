@@ -998,6 +998,7 @@ public final class NetworkCapabilities implements Parcelable {
         final int[] originalAdministratorUids = getAdministratorUids();
         final TransportInfo originalTransportInfo = getTransportInfo();
         final Set<Integer> originalSubIds = getSubscriptionIds();
+        final Set<Integer> originalAccessUids = new ArraySet<>(mAccessUids);
         clearAll();
         if (0 != (originalCapabilities & (1 << NET_CAPABILITY_NOT_RESTRICTED))) {
             // If the test network is not restricted, then it is only allowed to declare some
@@ -1017,6 +1018,7 @@ public final class NetworkCapabilities implements Parcelable {
         mNetworkSpecifier = originalSpecifier;
         mSignalStrength = originalSignalStrength;
         mTransportInfo = originalTransportInfo;
+        mAccessUids.addAll(originalAccessUids);
 
         // Only retain the owner and administrator UIDs if they match the app registering the remote
         // caller that registered the network.
@@ -1795,9 +1797,10 @@ public final class NetworkCapabilities implements Parcelable {
      * subscription. Failure to comply with these rules will see this member cleared.
      * <p>
      * This member is never null, but can be empty.
+     * @hide
      */
     @NonNull
-    private final ArraySet<Integer> mAccessUids = new ArraySet<>();
+    public final ArraySet<Integer> mAccessUids = new ArraySet<>();
 
     /**
      * Set the list of UIDs that can always access this network.
