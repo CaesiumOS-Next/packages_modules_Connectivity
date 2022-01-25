@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "17dd528f_aef6dd6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T07:07:35Z",
+      "side": 1,
+      "message": "\u003e Unclear how one would prioritize both.\n\nThat\u0027s the point. Some apps prefer a network with lower latency but lower bandwidth. Some apps prefer a network with higher latency but higher bandwidth.\n\nA network with both is just a faster network. If it\u0027s the same cost, then why should we not make it the default network of the device always ? If it\u0027s more expensive, then we need access control. But there is none. So in T, it doesn\u0027t really make sense as a use case. The capability names reflect that.",
+      "parentUuid": "2a290232_d95b5d8a",
+      "revId": "7baea05a14693583b55a26dc33be4cde56f2ba41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be511348_de5c5dec",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "It will be like any other network for the application, it will be reported that the network is lost. Application can choose to use default network in that case",
       "parentUuid": "be511348_de5c5dec",
+      "range": {
+        "startLine": 608,
+        "startChar": 28,
+        "endLine": 608,
+        "endChar": 61
+      },
+      "revId": "7baea05a14693583b55a26dc33be4cde56f2ba41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dc341c2_424d9575",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T07:07:35Z",
+      "side": 1,
+      "message": "Yes it will be like any other network, but that behavior is not onLost. That behavior is that the request stays standing until the network becomes available or the app withdraws it. This is how requests have always worked and this capability is like any other.",
+      "parentUuid": "99dd4450_d84c9ff7",
       "range": {
         "startLine": 608,
         "startChar": 28,
