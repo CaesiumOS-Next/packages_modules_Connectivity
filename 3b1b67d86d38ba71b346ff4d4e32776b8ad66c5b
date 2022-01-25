@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f1d37d_202bd14d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-01-25T13:25:48Z",
+      "side": 1,
+      "message": "This is unused.",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 9
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be6ed4f7_c37faf86",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-01-25T13:25:48Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan for this test. It looks to me like a mpaaping check between BpfNetMap and Netd. I thihnk you should use PermssionMonitorTest and ConnectivitySerrviceTest to verify all BpfNetMap methods are called to correct Netd methods before T.",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 37
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aea9b11e_3ea28f56",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-01-25T13:25:48Z",
+      "side": 1,
+      "message": "It\u0027s unused.",
+      "range": {
+        "startLine": 179,
+        "startChar": 8,
+        "endLine": 179,
+        "endChar": 76
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93099174_c5502ea1",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-01-25T13:25:48Z",
+      "side": 1,
+      "message": "Is this necessary? I don\u0027t see where to use it.",
+      "range": {
+        "startLine": 552,
+        "startChar": 47,
+        "endLine": 552,
+        "endChar": 61
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84416c31_1e6df369",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-01-25T13:25:48Z",
+      "side": 1,
+      "message": "I don\u0027t think this verification would be passed. You are creating a new BpfNetMaps object not get it from dependencies, so mBpfNetMaps would never be called.",
+      "range": {
+        "startLine": 716,
+        "startChar": 15,
+        "endLine": 716,
+        "endChar": 26
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
