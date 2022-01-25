@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be511348_de5c5dec",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-25T05:54:02Z",
+      "side": 1,
+      "message": "What\u0027s the expected behavior if a low-latency network is unavailable?",
+      "range": {
+        "startLine": 608,
+        "startChar": 28,
+        "endLine": 608,
+        "endChar": 61
+      },
+      "revId": "7baea05a14693583b55a26dc33be4cde56f2ba41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2c19a71_10f79299",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-25T05:54:02Z",
+      "side": 1,
+      "message": "What\u0027s the expected behavior if a slice with high bandwidth is unavailable?",
+      "range": {
+        "startLine": 613,
+        "startChar": 28,
+        "endLine": 613,
+        "endChar": 63
+      },
+      "revId": "7baea05a14693583b55a26dc33be4cde56f2ba41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
