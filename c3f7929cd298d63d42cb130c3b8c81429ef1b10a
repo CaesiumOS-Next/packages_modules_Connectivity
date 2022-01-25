@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46f86849_1f34cb7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-01-25T21:58:07Z",
+      "side": 1,
+      "message": "Here only to ensure that telephony CLs can be developed in parallel.",
+      "revId": "c3f7929cd298d63d42cb130c3b8c81429ef1b10a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
