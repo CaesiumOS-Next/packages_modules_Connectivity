@@ -89,6 +89,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fe808fd_60329d90",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-25T14:28:24Z",
+      "side": 1,
+      "message": "I removed it.\n\nYes, I agree that attach program from system server sounds reasonable. But IC complete day is close, and we haven\u0027t put all pieces together yet. Maybe we can try this after IC?",
+      "parentUuid": "3faee36f_1c2795de",
+      "range": {
+        "startLine": 715,
+        "startChar": 4,
+        "endLine": 715,
+        "endChar": 6
+      },
+      "revId": "23d79b866462002079bee12c3682dedf35bd7156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c93c2ec_22322bd3",
