@@ -2,9 +2,12 @@
 package android.net {
 
   public final class TetheringConstants {
+    field public static final String ACTION_TETHERING_ENTITLEMENT = "android.net.action.TETHERING_ENTITLEMENT";
+    field public static final String ACTION_TETHERING_ENTITLEMENT_FOREGROUND = "android.net.action.TETHERING_ENTITLEMENT_FOREGROUND";
     field public static final String EXTRA_ADD_TETHER_TYPE = "extraAddTetherType";
     field public static final String EXTRA_PROVISION_CALLBACK = "extraProvisionCallback";
     field public static final String EXTRA_REM_TETHER_TYPE = "extraRemTetherType";
+    field public static final String EXTRA_REQUEST_TETHER_TYPE = "android.net.extra.REQUEST_TETHER_TYPE";
     field public static final String EXTRA_RUN_PROVISION = "extraRunProvision";
     field public static final String EXTRA_SET_ALARM = "extraSetAlarm";
   }
