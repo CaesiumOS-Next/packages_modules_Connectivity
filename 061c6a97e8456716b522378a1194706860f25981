@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019695753",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958903?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "d55dfaad_1eddeaad",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T13:32:39Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 722,
+        "startChar": 0,
+        "endLine": 722,
+        "endChar": 102
+      },
+      "revId": "061c6a97e8456716b522378a1194706860f25981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
