@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1545dedd_22e1c574",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T05:42:48Z",
+      "side": 1,
+      "message": "Please start from 1.\nFor human readable things 0 doesn\u0027t really make sense.\n\nalso for other places.",
+      "range": {
+        "startLine": 542,
+        "startChar": 21,
+        "endLine": 542,
+        "endChar": 22
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b365af8_824689f4",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T05:42:48Z",
+      "side": 1,
+      "message": "Maybe use different  values?",
+      "range": {
+        "startLine": 555,
+        "startChar": 16,
+        "endLine": 555,
+        "endChar": 35
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad291de_e28f93ea",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T05:42:48Z",
+      "side": 1,
+      "message": "I don\u0027t think this is the correct one.\nIt involves some arithmatic operation.\nPlease use the history builder.\n\nalso for other places.",
+      "range": {
+        "startLine": 558,
+        "startChar": 17,
+        "endLine": 558,
+        "endChar": 27
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be08ff2c_db3a1eaf",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T05:42:48Z",
+      "side": 1,
+      "message": "Since histroy 0 and 1 are very similar.\nI don\u0027t see how it extends test coverage, maybe just keep 1 of them?",
+      "range": {
+        "startLine": 559,
+        "startChar": 8,
+        "endLine": 560,
+        "endChar": 48
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66732009_9db9a516",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T05:42:48Z",
+      "side": 1,
+      "message": "nit: final",
+      "range": {
+        "startLine": 577,
+        "startChar": 12,
+        "endLine": 577,
+        "endChar": 31
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77e77349_9e237fbc",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T05:42:48Z",
+      "side": 1,
+      "message": "Maybe just inline this.",
+      "range": {
+        "startLine": 582,
+        "startChar": 12,
+        "endLine": 582,
+        "endChar": 31
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
