@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080e2148_b93628b6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4153,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "As discussed offline : let\u0027s have a flag to remember this and then after the for() call releaseNetworkRequest(nris.mRequests[0]) and return (so we don\u0027t do the rematch and the offers)",
+      "range": {
+        "startLine": 4148,
+        "startChar": 0,
+        "endLine": 4153,
+        "endChar": 17
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36e2cf38_8e5c118a",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "\u003d new Object()",
+      "range": {
+        "startLine": 59,
+        "startChar": 24,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b8f59b8_bbf45a92",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 11
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b916c782_30559ffd",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 11
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f10b7b15_6df61c4c",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 11
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c9d215d_18dcceeb",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "// TODO : migrate to the version in frameworks/libs/net when it\u0027s ready",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0b89ad2_429155fc",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "using unlocked",
+      "range": {
+        "startLine": 181,
+        "startChar": 33,
+        "endLine": 181,
+        "endChar": 51
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dbfcccc_01a65fd6",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "Could this just call getCarrierServiceUidForSubId",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 58
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c340ce71_f330ca44",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T05:09:10Z",
+      "side": 1,
+      "message": "unlocked\n\nIf the method must be called locked then please annotate with @GuardedBy(\"mLock\")",
+      "range": {
+        "startLine": 200,
+        "startChar": 19,
+        "endLine": 200,
+        "endChar": 37
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
