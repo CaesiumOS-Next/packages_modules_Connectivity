@@ -187,6 +187,30 @@
       },
       "revId": "f8a1d3e5e6849c42af42a1e7fb4dc6bea1c41e55",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b98ca246_bb628e41",
+        "filename": "tests/unit/java/com/android/server/net/TestableUsageCallback.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T11:11:15Z",
+      "side": 1,
+      "message": "I think it\u0027s probably a bug in our jarjar rules. Let\u0027s look into it later.\n\nIt\u0027s a bit concerning here because it\u0027s really hard to think about these concurrency primitives ; I spent a fair amount of time thinking about ArrayTrackRecord and we understand how it works. But I\u0027m not actually sure LinkedBlockingQueue will behave like we want in all cases, and it would require a lot of thought.",
+      "parentUuid": "4ce4ca2d_d92d03a0",
+      "range": {
+        "startLine": 36,
+        "startChar": 44,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "f8a1d3e5e6849c42af42a1e7fb4dc6bea1c41e55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
