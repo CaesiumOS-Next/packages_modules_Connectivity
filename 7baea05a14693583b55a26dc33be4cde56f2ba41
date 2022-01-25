@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a290232_d95b5d8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060151
+      },
+      "writtenOn": "2022-01-25T05:57:29Z",
+      "side": 1,
+      "message": "I believe one of the original design objectives was also a third capability that combined both low-latency (just called latency here) and bandwidth. Unclear how one would prioritize both. The original question remains about the expected behavior if a \"priority\" slice isn\u0027t available; I shudder to think of the matching code that uses priority like a hint and doesn\u0027t match against it?",
+      "revId": "7baea05a14693583b55a26dc33be4cde56f2ba41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be511348_de5c5dec",
