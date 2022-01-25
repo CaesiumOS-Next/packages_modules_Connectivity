@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f575f7f_7669d0c4",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T10:48:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1545dedd_22e1c574",
+      "range": {
+        "startLine": 542,
+        "startChar": 21,
+        "endLine": 542,
+        "endChar": 22
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b365af8_824689f4",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-25T05:42:48Z",
       "side": 1,
       "message": "Maybe use different  values?",
+      "range": {
+        "startLine": 555,
+        "startChar": 16,
+        "endLine": 555,
+        "endChar": 35
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ebad481_5466290d",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T10:48:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b365af8_824689f4",
       "range": {
         "startLine": 555,
         "startChar": 16,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1165b4d6_7ad66708",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T10:48:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aad291de_e28f93ea",
+      "range": {
+        "startLine": 558,
+        "startChar": 17,
+        "endLine": 558,
+        "endChar": 27
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be08ff2c_db3a1eaf",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-25T05:42:48Z",
       "side": 1,
       "message": "Since histroy 0 and 1 are very similar.\nI don\u0027t see how it extends test coverage, maybe just keep 1 of them?",
+      "range": {
+        "startLine": 559,
+        "startChar": 8,
+        "endLine": 560,
+        "endChar": 48
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d10e9572_2d6d1ad9",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T10:48:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be08ff2c_db3a1eaf",
       "range": {
         "startLine": 559,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1edd09f5_03277e7f",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T10:48:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66732009_9db9a516",
+      "range": {
+        "startLine": 577,
+        "startChar": 12,
+        "endLine": 577,
+        "endChar": 31
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77e77349_9e237fbc",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-01-25T05:42:48Z",
       "side": 1,
       "message": "Maybe just inline this.",
+      "range": {
+        "startLine": 582,
+        "startChar": 12,
+        "endLine": 582,
+        "endChar": 31
+      },
+      "revId": "70fa536b0ffe1cf1be31db75dbb2c90175254122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cf231bc_0773d563",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T10:48:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77e77349_9e237fbc",
       "range": {
         "startLine": 582,
         "startChar": 12,
