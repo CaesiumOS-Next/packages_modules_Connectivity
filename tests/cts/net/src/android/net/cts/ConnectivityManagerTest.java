@@ -3029,6 +3029,13 @@ public class ConnectivityManagerTest {
         assertTrue(dumpOutput, dumpOutput.contains("Active default network"));
     }
 
+    @Test
+    public void testDumpBpfNetMaps() throws Exception {
+        final String dumpOutput = DumpTestUtils.dumpServiceWithShellPermission(
+                Context.CONNECTIVITY_SERVICE, "trafficcontroller");
+        assertTrue(dumpOutput, dumpOutput.contains("BPF map content"));
+    }
+
     private void unregisterRegisteredCallbacks() {
         for (NetworkCallback callback: mRegisteredCallbacks) {
             mCm.unregisterNetworkCallback(callback);
