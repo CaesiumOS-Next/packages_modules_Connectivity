@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8abec294_7c229cee",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T11:35:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5abad106_538cbb28",
+      "range": {
+        "startLine": 547,
+        "startChar": 40,
+        "endLine": 547,
+        "endChar": 46
+      },
+      "revId": "9533c1876b7b39d2708e57532a68128a179fa82f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ec10d37_902696ca",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32945988_31669b71",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T11:35:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ec10d37_902696ca",
+      "range": {
+        "startLine": 560,
+        "startChar": 8,
+        "endLine": 560,
+        "endChar": 44
+      },
+      "revId": "9533c1876b7b39d2708e57532a68128a179fa82f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e850a26d_3f9a3b54",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-25T10:56:03Z",
       "side": 1,
       "message": "IIUC you could inline the variable?",
+      "range": {
+        "startLine": 573,
+        "startChar": 25,
+        "endLine": 573,
+        "endChar": 41
+      },
+      "revId": "9533c1876b7b39d2708e57532a68128a179fa82f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08b82df9_f12c0218",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1364839
+      },
+      "writtenOn": "2022-01-25T11:35:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e850a26d_3f9a3b54",
       "range": {
         "startLine": 573,
         "startChar": 25,
