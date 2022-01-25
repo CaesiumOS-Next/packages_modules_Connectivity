@@ -1829,9 +1829,8 @@ public final class NetworkCapabilities implements Parcelable {
      * This member is never null, but can be empty.
      * @hide
      */
-    // public for performance of manipulation in connectivity classes, as the accessor make copies
     @NonNull
-    public final ArraySet<Integer> mAccessUids = new ArraySet<>();
+    private final ArraySet<Integer> mAccessUids = new ArraySet<>();
 
     /**
      * Set the list of UIDs that can always access this network.
@@ -1864,6 +1863,13 @@ public final class NetworkCapabilities implements Parcelable {
     @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY)
     public @NonNull Set<Integer> getAccessUids() {
         return new ArraySet<>(mAccessUids);
+    }
+
+    /** @hide */
+    // For internal clients that know what they are doing and need to avoid the performance hit
+    // of the defensive copy.
+    public @NonNull ArraySet<Integer> getAccessUidsNoCopy() {
+        return mAccessUids;
     }
 
     /**
