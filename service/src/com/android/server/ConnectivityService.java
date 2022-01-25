@@ -273,6 +273,7 @@ import com.android.server.connectivity.UidRangeUtils;
 import libcore.io.IoUtils;
 
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
@@ -308,6 +309,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public static final String SHORT_ARG = "--short";
     private static final String NETWORK_ARG = "networks";
     private static final String REQUEST_ARG = "requests";
+    private static final String TRAFFICCONTROLLER_ARG = "trafficcontroller";
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
@@ -3080,6 +3082,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         } else if (CollectionUtils.contains(args, REQUEST_ARG)) {
             dumpNetworkRequests(pw);
+            return;
+        } else if (CollectionUtils.contains(args, TRAFFICCONTROLLER_ARG)) {
+            try {
+                mBpfNetMaps.dump(fd);
+            } catch (IOException e) {
+                loge("Dump BPF maps failed, " + e);
+            }
             return;
         }
 
