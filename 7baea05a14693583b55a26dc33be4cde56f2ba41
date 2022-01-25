@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99dd4450_d84c9ff7",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:19:19Z",
+      "side": 1,
+      "message": "It will be like any other network for the application, it will be reported that the network is lost. Application can choose to use default network in that case",
+      "parentUuid": "be511348_de5c5dec",
+      "range": {
+        "startLine": 608,
+        "startChar": 28,
+        "endLine": 608,
+        "endChar": 61
+      },
+      "revId": "7baea05a14693583b55a26dc33be4cde56f2ba41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2c19a71_10f79299",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-25T05:54:02Z",
       "side": 1,
       "message": "What\u0027s the expected behavior if a slice with high bandwidth is unavailable?",
+      "range": {
+        "startLine": 613,
+        "startChar": 28,
+        "endLine": 613,
+        "endChar": 63
+      },
+      "revId": "7baea05a14693583b55a26dc33be4cde56f2ba41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2dd0864_0dd5fed1",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:19:19Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "b2c19a71_10f79299",
       "range": {
         "startLine": 613,
         "startChar": 28,
