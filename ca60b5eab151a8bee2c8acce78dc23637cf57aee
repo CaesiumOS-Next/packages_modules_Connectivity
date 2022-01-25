@@ -1,0 +1,1205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1606530f_775a17af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 51
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Managed to look at everything except the test. Mostly LGTM assuming comments addressed, but I may have missed things.",
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1bdf6c0_0fca1ef3",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Why only \"bit\"? This sets all the DSCP bits, right? \"schedcls/set_dscp\" maybe?",
+      "range": {
+        "startLine": 104,
+        "startChar": 31,
+        "endLine": 104,
+        "endChar": 43
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778a3b58_78fd5da4",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Given the potential for devices to run Android T on old SoCs with really old kernels, we might want to make this number as small as possible. I don\u0027t think you use anything particularly recent here though. Could this run, say, on 4.9? Or 4.14?",
+      "range": {
+        "startLine": 105,
+        "startChar": 49,
+        "endLine": 105,
+        "endChar": 56
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8654826_3cc05537",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "This is a really long if clause. Can you factor it out to a function (\"processIpv4\" or \"doIpv4\" or...) that just takes skb, cookie and selectedMap? Maciej would know more, but I think you can use functions in BPF as long as you mark them __always_inline.",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6b71077_00c58290",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Add a comment here that says that a cached policy was found.",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 10
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "464f4dba_b87a5bec",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Does this result in packets having invalid checksums? That seems like a bit of a blocker unless we have a credible path to resolution.",
+      "range": {
+        "startLine": 160,
+        "startChar": 12,
+        "endLine": 160,
+        "endChar": 36
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "640524d4_81fcca67",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Do you need to do anything else here? If not, maybe return ALLOW and lose the else?",
+      "range": {
+        "startLine": 163,
+        "startChar": 72,
+        "endLine": 163,
+        "endChar": 73
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d33d8693_d9568198",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Checking in commented-out code is very strongly discouraged because we don\u0027t even know if the code compiles. Would suggest either fixing it so it compiles (but you can still return early before running it if the code isn\u0027t actually ready - in that case please add a TODO).",
+      "range": {
+        "startLine": 257,
+        "startChar": 8,
+        "endLine": 257,
+        "endChar": 40
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb69629_4c8e8231",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "I don\u0027t think GPL code is allowed in this repository. Everything must be Apache 2. Also, Apache 2 is also what\u0027s written in the license header at the top of the file.\n\nHopefully nothing actually depends on the program being GPL and you only added it temporarily to use printk or something. I did a quick scan of the code and didn\u0027t find any GPL-only helpers but I might have missed something.",
+      "range": {
+        "startLine": 287,
+        "startChar": 9,
+        "endLine": 287,
+        "endChar": 12
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0b5d947_f15ab4c5",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Off the top of my head I don\u0027t see anything that would cause this code not to load even on relatively old kernels. If so, then maybe we can mark this critical? Perhaps not for this CL, but if we don\u0027t do that in this CL please don\u0027t just leave the code commented out, add a proper TODO.",
+      "range": {
+        "startLine": 289,
+        "startChar": 2,
+        "endLine": 289,
+        "endChar": 27
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b66b7654_1e21d423",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 51
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "IIRC we said that because regular apps can\u0027t create DSCP policies, the builder should not be public API, only system API. If so, then there should be no changes to current.txt, only changes to system-current.txt.",
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2cbfa70_9a7007a0",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 51
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "This object should have getters corresponding to the setters on the Builder. So, getDscpValuer, getDestinationAddress, getDestinationPortRange, etc.\n\nFor parameters that are optional (which is... all of them right?) these getters should be @Nullable, otherwise they can be @NonNull.\n\nFor primitive types like integer, you\u0027ll need to return a guard value. You could do something like:\n\n    public static final int VALUE_UNSET \u003d -1;\n\nRemember that per other comment these should all be @SystemApi: this change should not touch add any public APIs and it should not modify current.txt, only system-current.txt.",
+      "range": {
+        "startLine": 212,
+        "startChar": 2,
+        "endLine": 212,
+        "endChar": 3
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b97efbc0_5b2f84e4",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 51
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Per other comment, setDscpValue?",
+      "range": {
+        "startLine": 97,
+        "startChar": 58,
+        "endLine": 97,
+        "endChar": 65
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cd28393_1840b226",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 51
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "These should probably not be abbreviated. setDestinationAddress, setDestinationPortRange, setSourceaddress, setSourcePort.",
+      "range": {
+        "startLine": 98,
+        "startChar": 58,
+        "endLine": 98,
+        "endChar": 68
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7052faa_99befd67",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Given that these are all in a class called DscpPolicy, could you shorten these to  just STATUS_SUCCESS, STATUS_REQUEST_DECLINED, ...?",
+      "range": {
+        "startLine": 44,
+        "startChar": 28,
+        "endLine": 44,
+        "endChar": 54
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9c0f594_c60b9e74",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "This is not a wifi-specific API, so I would not use wifi-specific terms such as AP here (and elsewhere; this CL uses \"AP\" in multiple places). Maybe say \"Each network is responsible for maintaining its own policy IDs.\"\n\nI don\u0027t think we can use the word \"unique\" since that sort of implies system-wide unique and there is no guarantee of that (e.g., if the device is connected simultaneously to 2 APs that both send QoS information.",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87447fea_3fa0b771",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Why commented out? Remove?",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 40
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16422d6d_de925ad3",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Why fully-specified class name? I think you can just:\n\nimport java.lang.annotation.RetentionPolicy;",
+      "range": {
+        "startLine": 106,
+        "startChar": 15,
+        "endLine": 106,
+        "endChar": 51
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f101d75_c6b51652",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "For legibility, indent subsequent lines. Generally I indent to match the previous line, but you could also indent 8 spaces.",
+      "range": {
+        "startLine": 113,
+        "startChar": 7,
+        "endLine": 113,
+        "endChar": 85
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07aefc75_123f9a81",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "I don\u0027t think this needs to be public, it can be package-private:\n\n    /* package */ DscpPolicy(int policyId, int dscpValue, ... ) {\n        ...\n    }\n\nUp to you. If it\u0027s not public it doesn\u0027t need a javadoc.",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 10
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35f1be13_544a5705",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "I think this should have some error checking. Invalid input should throw IllegalArgumentException. Possible things I can think of that are invalid:\n\n- DSCP value not between 0 and 0x7f (since we shouldn\u0027t use this API to set ECN bits).\n- Port range start or end not between 0 and 65535.\n- Source and destination address of different family. something like:\n    if (mSrcAddr !\u003d null \u0026\u0026 mdstAddr !\u003d null \u0026\u0026 (mSrcAddr instanceof Inet6Address) !\u003d (mDstAddr instanceof Inet6address)) { ...",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 5
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a637aa3_207588b7",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "There\u0027s no need to say this I think.",
+      "range": {
+        "startLine": 147,
+        "startChar": 39,
+        "endLine": 147,
+        "endChar": 59
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8a68ce7_eebaf56c",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "To maintain these getters in the system API without making them public, do something like:\n\n    * @return Policy ID set in Builder, must always be set.\n    * @hide\n    */\n    @SystemApi\n    public",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 12
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d8ae78_8fcf52b2",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "0 is a valid DSCP value. See other comment about unset. I guess what we do here depends on what should happen if the API passes in 0. Should it set the DSCP bits to 0? Presumably yes?",
+      "range": {
+        "startLine": 157,
+        "startChar": 44,
+        "endLine": 157,
+        "endChar": 45
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ccfdd42_97b8df58",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "{@code null}\n\nalso everywhere else.",
+      "range": {
+        "startLine": 167,
+        "startChar": 51,
+        "endLine": 167,
+        "endChar": 55
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb25e9f0_928389b4",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "0 is a valid IPv6 protocol, it\u0027s the hop-by-hop option. So it would be good to use something else such as -1 instead (see other comment about an UNSET constant). Otherwise, it\u0027s not possible to separate \"protocol 0\" from \"protocol is unset\".\n\nWhat we do here might depend on how the program works.\n1. If the BPF program uses 0 to mean \"no protocol\", then we might have to leave this as is for now. It\u0027s definitely going to be more common to say \"all protocols\" than to say \"protocol 0\".\n2. If the BPF program can enable/disable the protocol match independent of the protocol number, then we should use an UNSET constant here.\n\nIt looks like the BPF program already supports explicitly stating which parts of the packet must match (it\u0027s policy-\u003emask)",
+      "range": {
+        "startLine": 197,
+        "startChar": 68,
+        "endLine": 198,
+        "endChar": 36
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cea6528_9571bcd3",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "I don\u0027t recall this @SuppressLint being necessary in other data classes. Maybe if you change the line above to:\n\n    if (!(o instanceof DscpPolicy)) return false;\n\nthen you can remove it?",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 38
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "270801c2_a9ad4dae",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "If you do not already have one, please add a test that creates a DscpPolicy via Builder and then calls assertParcelingIsLossless.\n\nIt could go in your current DscpPolicyTest but you could also put it in packages/modules/Connectivity/tests/common/java/android/net/LinkPropertiesTest.java next to the tests for other data classes such as LinkPropertiesTest.",
+      "range": {
+        "startLine": 254,
+        "startChar": 16,
+        "endLine": 254,
+        "endChar": 29
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1282c14d_b78934ca",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Sets the...\n\nAlso in all the other setters.",
+      "range": {
+        "startLine": 322,
+        "startChar": 11,
+        "endLine": 322,
+        "endChar": 14
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b386d20e_1396de72",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Actually I think what this warning is saying is that the *built object* (i.e., DscpPolicy) should have a getter corresponding to this field that is @SystemApi. That\u0027s true for all the fields BTW (see other comment).",
+      "range": {
+        "startLine": 327,
+        "startChar": 0,
+        "endLine": 328,
+        "endChar": 57
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d50d2c6_5cec4350",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Remove this? I think mDstPort no longer exists, and even if it did, it would be an internal implementation detail that does not belong in the docstring.",
+      "range": {
+        "startLine": 387,
+        "startChar": 60,
+        "endLine": 387,
+        "endChar": 90
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98f564c6_84616877",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "This looks incorrect.",
+      "range": {
+        "startLine": 430,
+        "startChar": 59,
+        "endLine": 431,
+        "endChar": 29
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eee0beb0_400e19d4",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 1378,
+        "startChar": 7,
+        "endLine": 1378,
+        "endChar": 14
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1cb1a12_0ba84ab6",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 1386,
+        "startChar": 7,
+        "endLine": 1386,
+        "endChar": 14
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa6bc54_869914d5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 8
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a1594e3_cefee342",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "In what sense does it need NetworkAgentInfo? NetworkAgentInfo is a data class that represents a network. Instances of it only exist when networks are connected, so it\u0027s possible for them to be created much later, or even never (if the device never connects to a network).\n\nThat said, I would probably put this later in the constructor (maybe at the end?)",
+      "range": {
+        "startLine": 1415,
+        "startChar": 65,
+        "endLine": 1415,
+        "endChar": 96
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e63818d_7ac543fd",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "You don\u0027t use this. Can you run the repohooks on this CL so that the linter runs? If you leave unused imports in the codebase, that\u0027s not good for other folks working on this code because the linter will fail on repo upload.",
+      "range": {
+        "startLine": 22,
+        "startChar": 37,
+        "endLine": 22,
+        "endChar": 90
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a85456_ae7e2715",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Space around this \u003d.\n\nDid you run the repo hooks?",
+      "range": {
+        "startLine": 85,
+        "startChar": 18,
+        "endLine": 85,
+        "endChar": 19
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39ba615_8a7eb0e2",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Not for this CL, but could you move this to frameworks/libs/net and have both BpfCoordinator and this code pick it up from there?",
+      "range": {
+        "startLine": 92,
+        "startChar": 19,
+        "endLine": 92,
+        "endChar": 43
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0cf7d0c_7149adb0",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "What about the callback? Shouldn\u0027t we tell the nai there was an error?",
+      "range": {
+        "startLine": 119,
+        "startChar": 16,
+        "endLine": 119,
+        "endChar": 23
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a039055_e384672c",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "There\u0027s a lot of indentation in this function. Suggest factoring all the function to an addDscpPolicyInternal and making that just return an error code int. That function can use early returns to reduce indentation. As an added benefit, addDscpPolicy can become very simple and guarantee that the callback is always issued:\n\n    public void addDscpPolicy(NetworkAgentInfo nai, DscpPolicy policy) {\n        int status \u003d addDscpPolicyInternal(policy);\n        try {\n            nai.networkAgent.onDscpPolicyStatusUpdated(policy.getPolicyId(), status);\n        } catch (RemoteException e) {\n            Log.d(TAG, \"Failed update policy status: \", e);\n        }",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 16
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccbe2c87_17dbee8e",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "We should send a failure callback here? Not sure which one to use. The most appropriate seems STATUS_REQUEST_DECLINED, but perhaps it would be better to add a STATUS_POLICY_NOT_FOUND?",
+      "range": {
+        "startLine": 187,
+        "startChar": 8,
+        "endLine": 187,
+        "endChar": 9
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d08c6d89_a5df51d5",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Should this be an error? It indicates a bug in the calling NetworkAgent, right? Specifically, it means it called removeDscpPolicy without first adding one?",
+      "range": {
+        "startLine": 202,
+        "startChar": 12,
+        "endLine": 202,
+        "endChar": 18
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ac3c1cb_5fa2fa9d",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Ditto, should this be an error?",
+      "range": {
+        "startLine": 223,
+        "startChar": 12,
+        "endLine": 223,
+        "endChar": 18
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1e2fd6a_e4e52e8e",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "This should be ETH_P_ALL, right? I know the program doesn\u0027t support IPv6 yet, so actually setting QoS won\u0027t work, but if the program silently allows all IPv6 packets through, then that\u0027s fine.",
+      "range": {
+        "startLine": 244,
+        "startChar": 85,
+        "endLine": 244,
+        "endChar": 93
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d8b6739_748ce349",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Any reason these can\u0027t be private final and created in the constructor?",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 80
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64b5626f_033731e7",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "// TODO: add the interface index.",
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7fa8341_2c204d78",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Should this take a DscpPolicy instance instead?",
+      "range": {
+        "startLine": 73,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 71
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96bf04e0_65ef3f52",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Per comments on DscpPolicy, probably need to change this to whatever unset value we use there.",
+      "range": {
+        "startLine": 82,
+        "startChar": 23,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3041506b_f2690ef2",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "This seems like it should be a static value that never changes? Something like:\n\n    public static final DscpPolicyValue NONE \u003d new DscpPolicyValue(\n            new byte[16], new byte[16], ...);",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2ed3dd2_095882b5",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "Suggest getHostAddress instead, because toString puts / in front of the address.",
+      "range": {
+        "startLine": 129,
+        "startChar": 57,
+        "endLine": 129,
+        "endChar": 68
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bba12730_bd398e65",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this. If we can\u0027t find ConnectivityManager the device is probably about to crash and nothing else will work anyway.",
+      "range": {
+        "startLine": 115,
+        "startChar": 33,
+        "endLine": 115,
+        "endChar": 49
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f0e59fe_ca7c0902",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T16:02:39Z",
+      "side": 1,
+      "message": "FWIW I think this might not be needed.",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 52
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
