@@ -725,6 +725,30 @@ public class NetworkRequest implements Parcelable {
     }
 
     /**
+     * Get the enteprise identifiers.
+     *
+     * Get all the enterprise identifiers set on this {@code NetworkCapability}
+     * @return array of all the enterprise identifiers.
+     *
+     */
+    public @NonNull @NetworkCapabilities.EnterpriseId int[] getEnterpriseIds() {
+        // No need to make a defensive copy here as NC#getCapabilities() already returns
+        // a new array.
+        return networkCapabilities.getEnterpriseIds();
+    }
+
+    /**
+     * Tests for the presence of an enterprise identifier on this instance.
+     *
+     * @param enterpriseId the enterprise capability identifier to be tested for.
+     * @return {@code true} if set on this instance.
+     */
+    public boolean hasEnterpriseId(
+            @NetworkCapabilities.EnterpriseId int enterpriseId) {
+        return networkCapabilities.hasEnterpriseId(enterpriseId);
+    }
+
+    /**
      * Gets all the forbidden capabilities set on this {@code NetworkRequest} instance.
      *
      * @return an array of forbidden capability values for this instance.
