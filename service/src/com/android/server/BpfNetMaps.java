@@ -20,6 +20,8 @@ import android.os.ServiceSpecificException;
 import android.system.Os;
 import android.util.Log;
 
+import java.io.FileDescriptor;
+
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
  *
@@ -244,6 +246,14 @@ public class BpfNetMaps {
         return -err;
     }
 
+    /**
+     * Dump BPF maps and program status
+     * @param fd file descriptor to output
+     */
+    public void dump(final FileDescriptor fd) {
+        native_dump(fd);
+    }
+
     private static native void native_init();
     private native int native_addNaughtyApp(int uid);
     private native int native_removeNaughtyApp(int uid);
@@ -258,4 +268,5 @@ public class BpfNetMaps {
     private native void native_setPermissionForUids(int permission, int[] uids);
     private native int native_setCounterSet(int counterSet, int uid);
     private native int native_deleteTagData(int tag, int uid);
+    private native void native_dump(FileDescriptor fd);
 }

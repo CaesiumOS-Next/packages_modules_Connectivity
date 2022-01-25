@@ -302,6 +302,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public static final String SHORT_ARG = "--short";
     private static final String NETWORK_ARG = "networks";
     private static final String REQUEST_ARG = "requests";
+    private static final String TRAFFICCONTROLLER_ARG = "trafficcontroller";
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
@@ -390,6 +391,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private NetworkStatsManager mStatsManager;
     private NetworkPolicyManager mPolicyManager;
     private final NetdCallback mNetdCallback;
+    private final BpfNetMaps mBpfNetMaps;
 
     /**
      * TestNetworkService (lazily) created upon first usage. Locked to prevent creation of multiple
@@ -1397,6 +1399,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mProxyTracker = mDeps.makeProxyTracker(mContext, mHandler);
 
         mNetd = netd;
+        mBpfNetMaps = new BpfNetMaps();
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
@@ -3026,6 +3029,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return;
         } else if (CollectionUtils.contains(args, REQUEST_ARG)) {
             dumpNetworkRequests(pw);
+            return;
+        } else if (CollectionUtils.contains(args, TRAFFICCONTROLLER_ARG)) {
+            mBpfNetMaps.dump(fd);
             return;
         }
 
