@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f29b521f_8f4f6836",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-01-25T00:37:29Z",
+      "side": 1,
+      "message": "Going to revisit once the Ethernet code for this tests is moved to packages/modules/Connectivity.",
+      "revId": "eb9c94b4b0361b3ae0127accdc597bd792892395",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
