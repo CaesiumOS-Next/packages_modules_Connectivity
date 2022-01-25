@@ -1859,7 +1859,7 @@ public final class NetworkCapabilities implements Parcelable {
      *
      * @hide
      */
-    // @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY)
     public @NonNull Set<Integer> getAccessUids() {
         return new ArraySet<>(mAccessUids);
@@ -3035,7 +3035,7 @@ public final class NetworkCapabilities implements Parcelable {
          * @hide
          */
         @NonNull
-        // @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY)
         public Builder setAccessUids(@NonNull Set<Integer> uids) {
             Objects.requireNonNull(uids);
