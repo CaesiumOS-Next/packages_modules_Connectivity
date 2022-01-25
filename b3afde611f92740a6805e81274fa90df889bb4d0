@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bea4b4a4_457864c7",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T10:18:49Z",
+      "side": 1,
+      "message": "Do you mean \u003cT?",
+      "range": {
+        "startLine": 422,
+        "startChar": 63,
+        "endLine": 422,
+        "endChar": 65
+      },
+      "revId": "b3afde611f92740a6805e81274fa90df889bb4d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "308f1662_59096aa1",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T10:18:49Z",
+      "side": 1,
+      "message": "will",
+      "range": {
+        "startLine": 422,
+        "startChar": 30,
+        "endLine": 422,
+        "endChar": 34
+      },
+      "revId": "b3afde611f92740a6805e81274fa90df889bb4d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b96acf9b_dde63a1a",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T10:18:49Z",
+      "side": 1,
+      "message": "Add javadocs for testSessionKey",
+      "range": {
+        "startLine": 464,
+        "startChar": 9,
+        "endLine": 464,
+        "endChar": 11
+      },
+      "revId": "b3afde611f92740a6805e81274fa90df889bb4d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c5257f_24098253",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T10:18:49Z",
+      "side": 1,
+      "message": "Now I think you might be able to use:\n\nimport static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;",
+      "range": {
+        "startLine": 513,
+        "startChar": 16,
+        "endLine": 513,
+        "endChar": 18
+      },
+      "revId": "b3afde611f92740a6805e81274fa90df889bb4d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d328bc7_983305c6",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T10:18:49Z",
+      "side": 1,
+      "message": "What about tests with ipv6only true and testsessionkey true?",
+      "range": {
+        "startLine": 521,
+        "startChar": 24,
+        "endLine": 521,
+        "endChar": 29
+      },
+      "revId": "b3afde611f92740a6805e81274fa90df889bb4d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
