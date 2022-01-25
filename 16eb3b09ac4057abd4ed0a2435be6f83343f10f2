@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a21dcebb_87834fea",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T09:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "265ea6ab_942eb056",
+      "range": {
+        "startLine": 834,
+        "startChar": 69,
+        "endLine": 835,
+        "endChar": 9
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6af276aa_5122b82d",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-24T15:42:18Z",
       "side": 1,
       "message": "Nit: is it worth calling:\n\n    mAccessUids.ensureCapacity(accessUids.length);\n\nhere?",
+      "range": {
+        "startLine": 2090,
+        "startChar": 20,
+        "endLine": 2090,
+        "endChar": 48
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09219830_eab2f8a1",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 2090,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T09:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6af276aa_5122b82d",
       "range": {
         "startLine": 2090,
         "startChar": 20,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef185966_eb877934",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6903,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T09:48:24Z",
+      "side": 1,
+      "message": "I think it\u0027s a bit dangerous to insert the agent into the map before the capabilities are adequately processed and restricted, but getAndSet skips the setting if the monitor is not started.\n\nI\u0027m pretty sure it\u0027s safe exactly for the reason you mention : creating the NM doesn\u0027t actually do anything besides making it ready to accept the CONNECTED command.",
+      "parentUuid": "73b736c1_6bbe23d7",
+      "range": {
+        "startLine": 6903,
+        "startChar": 12,
+        "endLine": 6903,
+        "endChar": 35
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fbed891_897707bb",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-01-24T15:42:18Z",
       "side": 1,
       "message": "I *think* this shuffling around of the code that \"intercepts\" NetworkAgent messages is an improvement, but it\u0027s difficult to tell within this this larger patch. It\u0027s also subtle and the kind of thing that could lead to hard-to-spot ordering bugs in the next mainline release. Do you think you could split it out to its own CL so it can be reviewed in isolation? That would also allow you to give that CL a detailed commit message explaining why it doesn\u0027t change any ordering (or that if it does, the changes don\u0027t matter).",
+      "range": {
+        "startLine": 6908,
+        "startChar": 0,
+        "endLine": 6917,
+        "endChar": 9
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d45f516e_2425874c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6917,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T09:48:24Z",
+      "side": 1,
+      "message": "Done in preliminary patch aosp/1958906",
+      "parentUuid": "5fbed891_897707bb",
       "range": {
         "startLine": 6908,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b16ff109_fd020eae",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 7366,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T09:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fba06db1_1b3d942a",
+      "range": {
+        "startLine": 7366,
+        "startChar": 5,
+        "endLine": 7366,
+        "endChar": 96
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a4c39f7_2d74dbb6",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-01-24T15:42:18Z",
       "side": 1,
       "message": "nc is already a defensive copy in both codepaths that get here. Do we need this other copy? Are we keeping it just to ensure that equals() won\u0027t return true due to pointer equality even if the object has mutated?",
+      "range": {
+        "startLine": 7382,
+        "startChar": 35,
+        "endLine": 7382,
+        "endChar": 63
+      },
+      "revId": "16eb3b09ac4057abd4ed0a2435be6f83343f10f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8767bd4e_e79c26ab",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 7382,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T09:48:24Z",
+      "side": 1,
+      "message": "I now think that restricting the capabilities from the agent should not, in fact, affect the declared capabilities, so that does mean we need a defensive copy to avoid altering both objects.\n\nI\u0027m not sure what your point is about pointer equality ; the defensive copies are to avoid mutating an object inadvertently by touching another. In fact, I don\u0027t see where you see a defensive copy in handleRegisterNetworkAgent :\n\n final NetworkCapabilities nc \u003d nai.networkCapabilities;\n // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info says.\n processCapabilitiesFromAgent(nai, nc);\n\n...it WILL mutate the NCs stored in the NAI which I thought is already a bit on the risky side, but kept it to avoid more copies.\n\nWe\u0027ve been removing code that directly mutates nai.networkCapabilities but we still have some (e.g. in EVENT_PROBE_STATUS_CHANGED), if we don\u0027t copy it somewhere, we\u0027d mutate the declaredCapabilities member. I\u0027m happy to move that copy in handleRegisterNetworkAgent if you prefer that.",
+      "parentUuid": "7a4c39f7_2d74dbb6",
       "range": {
         "startLine": 7382,
         "startChar": 35,
