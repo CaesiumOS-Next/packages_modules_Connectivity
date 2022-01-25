@@ -16,6 +16,8 @@
 
 package com.android.server;
 
+import static android.system.OsConstants.EOPNOTSUPP;
+
 import android.net.INetd;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
@@ -23,6 +25,9 @@ import android.system.Os;
 import android.util.Log;
 
 import com.android.modules.utils.build.SdkLevel;
+
+import java.io.FileDescriptor;
+import java.io.IOException;
 
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
@@ -299,6 +304,21 @@ public class BpfNetMaps {
         maybeThrow(err, "deleteTagData failed");
     }
 
+    /**
+     * Dump BPF maps
+     *
+     * @param fd file descriptor to output
+     * @throws IOException when file descriptor is invalid.
+     * @throws ServiceSpecificException when the method is called on an unsupported device.
+     */
+    public void dump(final FileDescriptor fd) throws IOException, ServiceSpecificException {
+        if (USE_NETD) {
+            throw new ServiceSpecificException(
+                    EOPNOTSUPP, "Dump failed: " + Os.strerror(EOPNOTSUPP));
+        }
+        native_dump(fd);
+    }
+
     private static native void native_init();
     private native int native_addNaughtyApp(int uid);
     private native int native_removeNaughtyApp(int uid);
@@ -313,4 +333,5 @@ public class BpfNetMaps {
     private native void native_setPermissionForUids(int permissions, int[] uids);
     private native int native_setCounterSet(int counterSet, int uid);
     private native int native_deleteTagData(int tag, int uid);
+    private native void native_dump(FileDescriptor fd);
 }

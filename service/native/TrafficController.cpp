@@ -695,8 +695,10 @@ void dumpBpfMap(const std::string& mapName, DumpWriter& dw, const std::string& h
     }
 }
 
-void TrafficController::dump(DumpWriter& dw, bool verbose) {
+void TrafficController::dump(int fd) {
     std::lock_guard guard(mMutex);
+    DumpWriter dw(fd);
+
     ScopedIndent indentTop(dw);
     dw.println("TrafficController");
 
@@ -721,23 +723,6 @@ void TrafficController::dump(DumpWriter& dw, bool verbose) {
                getMapStatus(mConfigurationMap.getMap(), CONFIGURATION_MAP_PATH).c_str());
     dw.println("mUidOwnerMap status: %s",
                getMapStatus(mUidOwnerMap.getMap(), UID_OWNER_MAP_PATH).c_str());
-
-    dw.blankline();
-    dw.println("Cgroup ingress program status: %s",
-               getProgramStatus(BPF_INGRESS_PROG_PATH).c_str());
-    dw.println("Cgroup egress program status: %s", getProgramStatus(BPF_EGRESS_PROG_PATH).c_str());
-    dw.println("xt_bpf ingress program status: %s",
-               getProgramStatus(XT_BPF_INGRESS_PROG_PATH).c_str());
-    dw.println("xt_bpf egress program status: %s",
-               getProgramStatus(XT_BPF_EGRESS_PROG_PATH).c_str());
-    dw.println("xt_bpf bandwidth allowlist program status: %s",
-               getProgramStatus(XT_BPF_ALLOWLIST_PROG_PATH).c_str());
-    dw.println("xt_bpf bandwidth denylist program status: %s",
-               getProgramStatus(XT_BPF_DENYLIST_PROG_PATH).c_str());
-
-    if (!verbose) {
-        return;
-    }
 
     dw.blankline();
     dw.println("BPF map content:");
