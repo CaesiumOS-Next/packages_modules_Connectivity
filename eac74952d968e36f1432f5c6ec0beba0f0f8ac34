@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a787f7c5_9f45aa27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-25T08:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "650ac8c4_cbdc25e3",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7cb9373_eb0b42ca",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-18T03:37:10Z",
       "side": 1,
       "message": "You can make this simpler by using local variables:\n\n    try {\n        final String chainName;\n        final boolean isAllowList;\n\n        switch (chain) {\n            case ConnectivityManager.FIREWALL_CHAIN_STANDBY:\n                chainName \u003d \"fw_standby\";\n                isAllowList \u003d false;\n                break;\n            ...\n            default:\n               ...\n        }\n        if (SdkLevel.isAtLeastT()) {\n            BpfNetMaps.replaceUidChain(chainName, isAllowList, uids);\n        } else {\n            mNetd.firewallReplaceUidChain(\"fw_standby\", false /* isAllowList */, uids);\n        }\n\nBut you might not have to do that if you address the other comment about putting the if statement in BpfNetMaps.",
+      "range": {
+        "startLine": 10673,
+        "startChar": 0,
+        "endLine": 10677,
+        "endChar": 21
+      },
+      "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39447a6a_9390ccd3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10677,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-25T08:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7cb9373_eb0b42ca",
       "range": {
         "startLine": 10673,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b9dda41_5ecbd669",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-25T08:20:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec573aa3_a757af61",
+      "range": {
+        "startLine": 808,
+        "startChar": 0,
+        "endLine": 812,
+        "endChar": 17
+      },
+      "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32457532_ee746872",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-18T03:35:34Z",
       "side": 1,
       "message": "You have done this 4 times, please create a common method for it like below.\n\nprivate void setAppIdsTrafficPermission(int permission, int[] appIds) {\n    if (SdkLevel.isAtLeastT()) {\n        BpfNetMaps.setNetPermForUids(permission, appIds);\n    } else {\n        mNetd.trafficSetNetPermForUids(permission, appIds);\n    }\n}",
+      "range": {
+        "startLine": 891,
+        "startChar": 16,
+        "endLine": 899,
+        "endChar": 17
+      },
+      "revId": "eac74952d968e36f1432f5c6ec0beba0f0f8ac34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156c119e_82012bfb",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-25T08:20:55Z",
+      "side": 1,
+      "message": "I move the logic to BpfNetMaps so that we don\u0027t need too many SdkLevel.isAtLeastT() check here.",
+      "parentUuid": "32457532_ee746872",
       "range": {
         "startLine": 891,
         "startChar": 16,
