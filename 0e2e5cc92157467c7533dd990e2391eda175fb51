@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c519127_b4f5f16f",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T01:17:42Z",
+      "side": 1,
+      "message": "assertEquals(expectedEntries.size(), actualEntries.size());\nfor (Key expectedKey : expectedEntries.keySet()) {\n   NetworkStatsHistory expectedHistory \u003d expectedEntries.get(expectedKey)\n   \n   final NetworkStatsHistory actualHistory \u003d actualEntries.get(expectedKey);\n   assertNotNull(actualHistory);\n   \n   assertHistroyEquals(expectedHistory, actualHistory);\n   actualEntries.remove(expectedKey);\n}\nassertEmpty(actualEntries)\n\nprivate static void assertHistroyEquals(NetworkStatsHistory expected,  NetworkStatsHistory actual) {\n    final List\u003cNetworkStatsHistory.Entry\u003e expectedEntries \u003d expected.getEntries();\n    final List\u003cNetworkStatsHistory.Entry\u003e actualEntries \u003d actual.getEntries();\n    assertEquals(expectedEntries, actualEntries);\n}",
+      "range": {
+        "startLine": 569,
+        "startChar": 8,
+        "endLine": 569,
+        "endChar": 52
+      },
+      "revId": "0e2e5cc92157467c7533dd990e2391eda175fb51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
