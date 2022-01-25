@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9582efd1_b36802e6",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-25T13:44:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16baaa04_a5698078",
+      "range": {
+        "startLine": 715,
+        "startChar": 4,
+        "endLine": 715,
+        "endChar": 6
+      },
+      "revId": "23d79b866462002079bee12c3682dedf35bd7156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c93c2ec_22322bd3",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-25T06:32:52Z",
       "side": 1,
       "message": "No error checking? Seems like this should never fail so we should at least log an wtf if it does.",
+      "range": {
+        "startLine": 226,
+        "startChar": 4,
+        "endLine": 226,
+        "endChar": 17
+      },
+      "revId": "23d79b866462002079bee12c3682dedf35bd7156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6493072e_25103120",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-25T13:44:01Z",
+      "side": 1,
+      "message": "dump() is void returned. Error messages are written to dumpsys messages.\nI added an error handling for GetNativeFileDescriptor();",
+      "parentUuid": "2c93c2ec_22322bd3",
       "range": {
         "startLine": 226,
         "startChar": 4,
