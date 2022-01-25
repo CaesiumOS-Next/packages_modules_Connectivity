@@ -1,0 +1,82 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019682678",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1956053?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "3ebe5647_0e839018",
+        "filename": "tests/unit/java/com/android/server/net/BpfNetMapTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T07:24:02Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 2
+      },
+      "revId": "c6180bd306d193a2328d005c32fec179ad145d3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019682678",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1956053?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "49544485_b18e0d19",
+        "filename": "tests/unit/java/com/android/server/net/BpfNetMapTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T07:24:02Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "c6180bd306d193a2328d005c32fec179ad145d3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019682678",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1956053?revision\u003d3",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "8f99ad71_35af7b20",
+        "filename": "tests/unit/java/com/android/server/net/BpfNetMapTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T07:24:02Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "c6180bd306d193a2328d005c32fec179ad145d3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
