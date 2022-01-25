@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3faee36f_1c2795de",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-25T13:58:09Z",
+      "side": 1,
+      "message": "If dumping these programs is expected not to work, and we don\u0027t plan to fix it, we should delete this code.\n\nOtherwise, the comment should say what we expect to do about it. For example, something like:\n\n    // TODO: the system server cannot access these programs. Once the data usage\n    // code moves out of netd, fix them as follows:\n    // - xt_bpf programs are root/net_admin. Fix this by adding AID_NET_ADMIN to\n    //   system_server\u0027s list of groups.\n    // - cgroupskb programs are root/root. Fix this by (not sure what to do here,\n    //   maybe make them system/system?)\n\nIn general it seems to me that because the system server is the main user of all these programs, it should be attaching them itself, and in any case it should be able to see if they\u0027re attached.",
+      "parentUuid": "9582efd1_b36802e6",
+      "range": {
+        "startLine": 715,
+        "startChar": 4,
+        "endLine": 715,
+        "endChar": 6
+      },
+      "revId": "23d79b866462002079bee12c3682dedf35bd7156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c93c2ec_22322bd3",
         "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
         "patchSetId": 4
