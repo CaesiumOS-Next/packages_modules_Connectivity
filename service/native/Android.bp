@@ -64,6 +64,7 @@ cc_library_shared {
     ],
     static_libs: [
         "libnetdutils",
+        "libnetjniutils",
         "libtraffic_controller",
         "netd_aidl_interface-lateststable-ndk",
     ],
