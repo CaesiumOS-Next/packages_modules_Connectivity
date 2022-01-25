@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ec975e_0cdd54e6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6886,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T12:23:31Z",
+      "side": 0,
+      "message": "Stupid question: Where does this go?",
+      "range": {
+        "startLine": 6880,
+        "startChar": 8,
+        "endLine": 6886,
+        "endChar": 9
+      },
+      "revId": "479410551129075dc17aba98664b84dc4a1d3764",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
