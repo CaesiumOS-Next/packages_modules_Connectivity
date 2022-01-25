@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3361d4a6_c7c20c25",
+        "filename": "tests/cts/net/native/src/BpfCompatTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-25T19:07:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8706d73d_c88c29fa",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 24
+      },
+      "revId": "df4d89c7f3b5c2c3443dedce68074abd562a2ae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0beb579_9d0ed8bd",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-24T23:59:59Z",
       "side": 1,
       "message": "Per discussion: would it be useful to check the bpfloader min and max versions as well? Seems like we\u0027d have:\n- OEM programs: min_ver \u003d max_ver \u003d bpfloader ver\n- mainline programs: min_ver \u003d version in which they were introduced, max_ver \u003d 0x10000 (unless they are deprecated, in which case, max_ver is the highest version they run on)",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "df4d89c7f3b5c2c3443dedce68074abd562a2ae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2579f0fa_dfd4c80e",
+        "filename": "tests/cts/net/native/src/BpfCompatTest.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-25T19:07:04Z",
+      "side": 1,
+      "message": "Yeah we should do this.  Unfortunately now that the header files are mainlined / auto-merged, it is actually no longer obvious how to achieve this (the bpfloader version is not visible to the header files and cannot be...).  Will think about it some more.",
+      "parentUuid": "e0beb579_9d0ed8bd",
       "range": {
         "startLine": 34,
         "startChar": 33,
