@@ -1842,6 +1842,7 @@ public final class NetworkCapabilities implements Parcelable {
      * network agent in charge of creating the network.
      * @hide
      */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
     public @NonNull Set<Integer> getAccessUids() {
         return new ArraySet<>(mAccessUids);
     }
@@ -2990,7 +2991,7 @@ public final class NetworkCapabilities implements Parcelable {
          * @hide
          */
         @NonNull
-        // TODO : @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
         public Builder setAccessUids(@NonNull Set<Integer> uids) {
             Objects.requireNonNull(uids);
             mCaps.setAccessUids(uids);
