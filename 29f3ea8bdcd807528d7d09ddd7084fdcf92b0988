@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d43796a_954c997c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 4153,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "080e2148_b93628b6",
+      "range": {
+        "startLine": 4148,
+        "startChar": 0,
+        "endLine": 4153,
+        "endChar": 17
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36e2cf38_8e5c118a",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "267b8133_59bf95d3",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b8f59b8_bbf45a92",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 11
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b385cb52_b13f3449",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36e2cf38_8e5c118a",
+      "range": {
+        "startLine": 59,
+        "startChar": 24,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b916c782_30559ffd",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-25T05:09:10Z",
       "side": 1,
       "message": "final",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 11
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b06322a_5aa0fa3c",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b916c782_30559ffd",
       "range": {
         "startLine": 60,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49e366f9_fc19ac1a",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f10b7b15_6df61c4c",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 11
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c9d215d_18dcceeb",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-01-25T05:09:10Z",
       "side": 1,
       "message": "// TODO : migrate to the version in frameworks/libs/net when it\u0027s ready",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c09763a_d216e668",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c9d215d_18dcceeb",
       "range": {
         "startLine": 84,
         "startChar": 17,
@@ -185,6 +329,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d3f5944_eef1e488",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0b89ad2_429155fc",
+      "range": {
+        "startLine": 181,
+        "startChar": 33,
+        "endLine": 181,
+        "endChar": 51
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6265cfa_d3e0f391",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dbfcccc_01a65fd6",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 58
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c340ce71_f330ca44",
@@ -198,6 +390,30 @@
       "writtenOn": "2022-01-25T05:09:10Z",
       "side": 1,
       "message": "unlocked\n\nIf the method must be called locked then please annotate with @GuardedBy(\"mLock\")",
+      "range": {
+        "startLine": 200,
+        "startChar": 19,
+        "endLine": 200,
+        "endChar": 37
+      },
+      "revId": "29f3ea8bdcd807528d7d09ddd7084fdcf92b0988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d884671_bc07bfdc",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-25T06:39:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c340ce71_f330ca44",
       "range": {
         "startLine": 200,
         "startChar": 19,
