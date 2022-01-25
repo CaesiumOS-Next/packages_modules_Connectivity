@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d53d49e8_d65753fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T11:40:36Z",
+      "side": 1,
+      "message": "LGTM with nits which can be addressed in follow-up.",
+      "revId": "fe24153aab5e094f26aa275b12d45e7f96c6ad04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46b0ddb7_4bcce019",
+        "filename": "tests/unit/java/android/net/NetworkStatsCollectionTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-25T11:40:36Z",
+      "side": 1,
+      "message": "IIUC why this happens is more important.\nMaybe:\n// The builder will omit any entry with empty history. Thus, history2\n// is not expected in the result collection.",
+      "range": {
+        "startLine": 562,
+        "startChar": 8,
+        "endLine": 563,
+        "endChar": 75
+      },
+      "revId": "fe24153aab5e094f26aa275b12d45e7f96c6ad04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
