@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019674660",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1952516?revision\u003d4",
+      "fixSuggestions": [
+        {
+          "fixId": "0e18486f_1467d31c",
+          "description": "Change to \"framework/src/android/net/NetworkCapabilities.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkCapabilities.java",
+              "range": {
+                "startLine": 2256,
+                "startChar": 69,
+                "endLine": 2256,
+                "endChar": 78
+              },
+              "replacement": "PRIORITIZE"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "34dad2f4_b36e3c3a",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2256,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T02:46:11Z",
+      "side": 1,
+      "message": "Common typo found: \"PRIORITZE\" -- should it be \"PRIORITIZE\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 2256,
+        "startChar": 69,
+        "endLine": 2256,
+        "endChar": 78
+      },
+      "revId": "fb589051a98597a8c946a2a8ae505e99daeb694e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019674660",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1952516?revision\u003d4",
+      "fixSuggestions": [
+        {
+          "fixId": "dc34c511_86479e31",
+          "description": "Change to \"framework/src/android/net/NetworkCapabilities.java\"",
+          "replacements": [
+            {
+              "path": "framework/src/android/net/NetworkCapabilities.java",
+              "range": {
+                "startLine": 2257,
+                "startChar": 69,
+                "endLine": 2257,
+                "endChar": 78
+              },
+              "replacement": "PRIORITIZE"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "83b547a7_e6f61c63",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2257,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T02:46:11Z",
+      "side": 1,
+      "message": "Common typo found: \"PRIORITZE\" -- should it be \"PRIORITIZE\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 2257,
+        "startChar": 69,
+        "endLine": 2257,
+        "endChar": 78
+      },
+      "revId": "fb589051a98597a8c946a2a8ae505e99daeb694e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
