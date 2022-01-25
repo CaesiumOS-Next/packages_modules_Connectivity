@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd44344d_253416bb",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-01-25T05:40:39Z",
+      "side": 1,
+      "message": "I think there should be a \"#\" before the constant name for constants in the same class:\n\n  {@link #EXTRA_REQUEST_TETHER_TYPE}\n  \nSame for others like EXTRA_PROVISION_CALLBACK/ACTION_TETHERING_ENTITLEMENT_FOREGROUND/ACTION_TETHERING_ENTITLEMENT.",
+      "range": {
+        "startLine": 97,
+        "startChar": 22,
+        "endLine": 97,
+        "endChar": 55
+      },
+      "revId": "d3211997d98227c085fee57c0a2bdb6a94aa8c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
