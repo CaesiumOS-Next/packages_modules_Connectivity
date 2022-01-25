@@ -1852,8 +1852,15 @@ public final class NetworkCapabilities implements Parcelable {
      * The UIDs in this list can always access this network, even if it is restricted and
      * the UID doesn't hold the USE_RESTRICTED_NETWORKS permission. This is defined by the
      * network agent in charge of creating the network.
+     *
+     * Only network factories and the system server can see these UIDs, since the system
+     * server makes sure to redact them before sending a NetworkCapabilities to a process
+     * that doesn't hold the permission.
+     *
      * @hide
      */
+    @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+    @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY)
     public @NonNull Set<Integer> getAccessUids() {
         return new ArraySet<>(mAccessUids);
     }
@@ -2996,15 +3003,16 @@ public final class NetworkCapabilities implements Parcelable {
          *
          * Provide a list of UIDs that can access this network even if it is restricted and
          * they don't hold the USE_RESTRICTED_NETWORKS permission. This can only be used by
-         * network agents that create a network and is subject to restrictions depending on
-         * the network.
+         * network agents that create a network (hold NETWORK_FACTORY) and is subject to
+         * restrictions depending on the network.
          *
          * @param uids the list of UIDs that can always access this network
          * @return this builder
          * @hide
          */
         @NonNull
-        // TODO : @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+        @SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+        @RequiresPermission(android.Manifest.permission.NETWORK_FACTORY)
         public Builder setAccessUids(@NonNull Set<Integer> uids) {
             Objects.requireNonNull(uids);
             mCaps.setAccessUids(uids);
