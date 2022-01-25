@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a64af40_87a3e5a7",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-25T04:51:31Z",
+      "side": 1,
+      "message": "This should use the library (mdns_aidl_interface-lateststable-java), not the sources",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 44
+      },
+      "revId": "dcbee1e581c09af603628b40a24ddf3f838b324f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e826c04_ceb7f263",
+        "filename": "framework-t/jarjar-rules.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-25T04:51:31Z",
+      "side": 1,
+      "message": "service-connectivity renames to \"com.android.connectivity.@0\" (meaning it just appends com.android.connectivity to the name), could you use that ?\nYou\u0027ll need to add com.android.connectivity to permitted_packages",
+      "revId": "dcbee1e581c09af603628b40a24ddf3f838b324f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c8d44de_5b20dc6c",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-25T04:51:31Z",
+      "side": 1,
+      "message": "Instead of resetting, could you check that the next \"verify\" is still for times(1) ?\nresetting is generally discouraged, it also resets mocked methods and often indicates that tests are doing too many different things that should be in separate tests",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "dcbee1e581c09af603628b40a24ddf3f838b324f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2538768_6a2c4e86",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-25T04:51:31Z",
+      "side": 1,
+      "message": "Should the test not also verify that it is called ?",
+      "revId": "dcbee1e581c09af603628b40a24ddf3f838b324f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1057f853_bc5cdb55",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-25T04:51:31Z",
+      "side": 1,
+      "message": "Also here, the test doesn\u0027t check that it\u0027s called now",
+      "revId": "dcbee1e581c09af603628b40a24ddf3f838b324f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
