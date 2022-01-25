@@ -16,6 +16,7 @@
 
 package com.android.networkstack.tethering;
 
+import static android.net.TetheringConstants.ACTION_TETHERING_ENTITLEMENT;
 import static android.net.TetheringConstants.EXTRA_ADD_TETHER_TYPE;
 import static android.net.TetheringConstants.EXTRA_PROVISION_CALLBACK;
 import static android.net.TetheringConstants.EXTRA_RUN_PROVISION;
@@ -52,6 +53,7 @@ import android.telephony.CarrierConfigManager;
 import android.util.SparseIntArray;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.networkstack.tethering.util.TetheringUtils;
 
 import java.io.PrintWriter;
 import java.util.BitSet;
@@ -281,14 +283,21 @@ public class EntitlementManager {
      */
     @VisibleForTesting
     protected boolean isTetherProvisioningRequired(final TetheringConfiguration config) {
-        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)
-                || config.provisioningApp.length == 0) {
+        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)) {
             return false;
         }
-        if (carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
-            return false;
+
+        if (TetheringUtils
+                .getEntitlementAppPackageNameFromCarrierConfig(mContext, config.activeDataSubId)
+                .isEmpty()) {
+            if (config.provisioningApp.length == 0
+                    || carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
+                return false;
+            }
+            return (config.provisioningApp.length == 2);
+        } else {
+            return true;
         }
-        return (config.provisioningApp.length == 2);
     }
 
     /**
@@ -372,11 +381,17 @@ public class EntitlementManager {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_ADD_TETHER_TYPE, type);
         intent.putExtra(EXTRA_RUN_PROVISION, true);
-        intent.putExtra(EXTRA_TETHER_SILENT_PROVISIONING_ACTION, config.provisioningAppNoUi);
         intent.putExtra(EXTRA_TETHER_PROVISIONING_RESPONSE, config.provisioningResponse);
         intent.putExtra(EXTRA_PROVISION_CALLBACK, receiver);
         intent.putExtra(EXTRA_TETHER_SUBID, config.activeDataSubId);
         intent.setComponent(mSilentProvisioningService);
+        if (TetheringUtils
+                .getEntitlementAppPackageNameFromCarrierConfig(mContext, config.activeDataSubId)
+                .isEmpty()) {
+            intent.putExtra(EXTRA_TETHER_SILENT_PROVISIONING_ACTION, config.provisioningAppNoUi);
+        } else {
+            intent.putExtra(EXTRA_TETHER_SILENT_PROVISIONING_ACTION, ACTION_TETHERING_ENTITLEMENT);
+        }
         // Only admin user can change tethering and SilentTetherProvisioning don't need to
         // show UI, it is fine to always start setting's background service as system user.
         mContext.startService(intent);

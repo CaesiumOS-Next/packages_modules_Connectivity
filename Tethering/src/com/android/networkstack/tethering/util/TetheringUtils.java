@@ -15,13 +15,17 @@
  */
 package com.android.networkstack.tethering.util;
 
+import android.content.Context;
 import android.net.TetherStatsParcel;
 import android.net.TetheringRequestParcel;
+import android.os.PersistableBundle;
+import android.telephony.CarrierConfigManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.android.net.module.util.JniUtil;
+import com.android.networkstack.apishim.CarrierConfigManagerShim;
 import com.android.networkstack.tethering.TetherStatsValue;
 
 import java.io.FileDescriptor;
@@ -181,5 +185,21 @@ public class TetheringUtils {
                     + Arrays.toString(ALL_NODES) + " and scopedId " + scopeId);
             return null;
         }
+    }
+
+    /** Get the package name of entitlement app from Carrier Config. */
+    public static String getEntitlementAppPackageNameFromCarrierConfig(Context context, int subId) {
+        final CarrierConfigManager configManager =
+                context.getSystemService(CarrierConfigManager.class);
+        if (configManager == null) {
+            return "";
+        }
+
+        final PersistableBundle carrierConfig = configManager.getConfigForSubId(subId);
+        if (CarrierConfigManager.isConfigForIdentifiedCarrier(carrierConfig)) {
+            return carrierConfig.getString(
+                    CarrierConfigManagerShim.KEY_ENTITLEMENT_SERVICE_PACKAGE_STRING, "");
+        }
+        return "";
     }
 }
