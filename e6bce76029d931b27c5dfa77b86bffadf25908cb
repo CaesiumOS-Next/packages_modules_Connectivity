@@ -1,0 +1,93 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019683806",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1956052?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "3bf04ab0_eb3fcf53",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T07:50:25Z",
+      "side": 1,
+      "message": "This CL adds new API(s), but it doesn\u0027t include any CTS test to test them. Please add CTS test(s) in a change and include the change in the same topic. After adding that change, you may need to upload a new patchset such as updating commit message to rerun this presubmit test. If you are unable to add CTS test(s) now, please file a tracking bug via go/new-cts-coverage-bug and add \"CTS-Coverage-Bug: \u003cbug id\u003e\" in this CL\u0027s commit message to pass this presubmit. For more information, please refer to go/api-test-coverage.",
+      "revId": "e6bce76029d931b27c5dfa77b86bffadf25908cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019683811",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1956052?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "78b93afc_8009dc20",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T07:50:25Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 122
+      },
+      "revId": "e6bce76029d931b27c5dfa77b86bffadf25908cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019683813",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1956052?revision\u003d5",
+      "fixSuggestions": [
+        {
+          "fixId": "bfcad143_5ee1771c",
+          "description": "Change to \"service/ServiceConnectivityResources/res/values/config.xml\"",
+          "replacements": [
+            {
+              "path": "service/ServiceConnectivityResources/res/values/config.xml",
+              "range": {
+                "startLine": 147,
+                "startChar": 56,
+                "endLine": 147,
+                "endChar": 64
+              },
+              "replacement": "separated"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "87d8fb59_fc437b6a",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-25T07:50:25Z",
+      "side": 1,
+      "message": "Common typo found: \"seprated\" -- should it be \"separated\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 147,
+        "startChar": 56,
+        "endLine": 147,
+        "endChar": 64
+      },
+      "revId": "e6bce76029d931b27c5dfa77b86bffadf25908cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
