@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fb10067_22851546",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-25T06:39:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eaa5a0b_c6f7fa12",
+      "range": {
+        "startLine": 86,
+        "startChar": 76,
+        "endLine": 86,
+        "endChar": 77
+      },
+      "revId": "bec6bc2c1fd8487b5811821ee46b2decaced9f0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f384de4_51804e9a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-18T02:34:55Z",
       "side": 1,
       "message": "Can we have a new NsdServiceInfo with a network to verify the interface name?",
+      "range": {
+        "startLine": 228,
+        "startChar": 65,
+        "endLine": 228,
+        "endChar": 66
+      },
+      "revId": "bec6bc2c1fd8487b5811821ee46b2decaced9f0a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8373f041_2a94f5ac",
+        "filename": "tests/unit/java/com/android/server/NsdServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-25T06:39:00Z",
+      "side": 1,
+      "message": "Done in latest patchset (testNsdManager_ResolveOnNetwork checks the network in the resolved NsdServiceInfo)",
+      "parentUuid": "5f384de4_51804e9a",
       "range": {
         "startLine": 228,
         "startChar": 65,
