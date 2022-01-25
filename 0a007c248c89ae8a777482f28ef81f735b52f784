@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1199820_4a6b77cd",
+        "filename": "tests/unit/java/com/android/server/net/TestableUsageCallback.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-25T11:11:30Z",
+      "side": 1,
+      "message": "It looks like you\u0027re trying to return this but in fact it\u0027s discarded. You should probably either :\n\n- Have the compiler infer the type\n\n  ...\n  timeoutMs: Long) \u003d history.poll(...\n\n- Use return\n\n  ...\n  timeoutMs: Long): T {\n    return history.poll\n\n- Not evaluate this\n\n  ...\n  ) {\n    if (it !is T ||...) {\n      fail\n    }\n  }",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 18
+      },
+      "revId": "0a007c248c89ae8a777482f28ef81f735b52f784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
