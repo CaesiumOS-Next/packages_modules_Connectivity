@@ -695,8 +695,10 @@ void dumpBpfMap(const std::string& mapName, DumpWriter& dw, const std::string& h
     }
 }
 
-void TrafficController::dump(DumpWriter& dw, bool verbose) {
+void TrafficController::dump(int fd, bool verbose) {
     std::lock_guard guard(mMutex);
+    DumpWriter dw(fd);
+
     ScopedIndent indentTop(dw);
     dw.println("TrafficController");
 

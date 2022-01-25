@@ -24,6 +24,7 @@
 #include <nativehelper/JNIHelp.h>
 #include <nativehelper/ScopedUtfChars.h>
 #include <nativehelper/ScopedPrimitiveArray.h>
+#include <netjniutils/netjniutils.h>
 #include <net/if.h>
 #include <vector>
 
@@ -220,6 +221,15 @@ static jint native_deleteTagData(JNIEnv* env, jobject clazz, jint tagNum, jint u
     return (jint)res;
 }
 
+static void native_dump(JNIEnv* env, jobject clazz, jobject javaFd, jboolean verbose) {
+    int fd = netjniutils::GetNativeFileDescriptor(env, javaFd);
+    if (fd < 0) {
+        jniThrowExceptionFmt(env, "java/io/IOException", "Invalid file descriptor");
+        return;
+    }
+    mTc.dump(fd, verbose);
+}
+
 /*
  * JNI registration.
  */
@@ -254,6 +264,8 @@ static const JNINativeMethod gMethods[] = {
     (void*)native_setCounterSet},
     {"native_deleteTagData", "(II)I",
     (void*)native_deleteTagData},
+    {"native_dump", "(Ljava/io/FileDescriptor;Z)V",
+    (void*)native_dump},
 };
 // clang-format on
 

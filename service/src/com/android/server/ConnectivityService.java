@@ -273,6 +273,7 @@ import com.android.server.connectivity.UidRangeUtils;
 import libcore.io.IoUtils;
 
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Inet4Address;
@@ -308,6 +309,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     public static final String SHORT_ARG = "--short";
     private static final String NETWORK_ARG = "networks";
     private static final String REQUEST_ARG = "requests";
+    private static final String SHORT_TRAFFICCONTROLLER_ARG = "shorttrafficcontroller";
+    private static final String TRAFFICCONTROLLER_ARG = "trafficcontroller";
 
     private static final boolean DBG = true;
     private static final boolean DDBG = Log.isLoggable(TAG, Log.DEBUG);
@@ -3081,6 +3084,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } else if (CollectionUtils.contains(args, REQUEST_ARG)) {
             dumpNetworkRequests(pw);
             return;
+        } else if (CollectionUtils.contains(args, SHORT_TRAFFICCONTROLLER_ARG)) {
+            dumpTrafficController(fd, false);
+            return;
+        } else if (CollectionUtils.contains(args, TRAFFICCONTROLLER_ARG)) {
+            dumpTrafficController(fd, true);
+            return;
         }
 
         pw.print("NetworkProviders for:");
@@ -3295,6 +3304,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
         for (NetworkRequestInfo nri : infos) {
             pw.println(nri.toString());
+        }
+    }
+
+    private void dumpTrafficController(final FileDescriptor fd, boolean verbose) {
+        try {
+            mBpfNetMaps.dump(fd, verbose);
+        } catch (IOException e) {
+            loge("Dump BPF maps failed, " + e);
         }
     }
 
