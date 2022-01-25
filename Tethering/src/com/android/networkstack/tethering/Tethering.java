@@ -926,14 +926,21 @@ public class Tethering {
     }
 
     private boolean doesEntitlementPackageExist() {
-        // provisioningApp must contain package and class name.
-        if (mConfig.provisioningApp.length != 2) {
-            return false;
+        String packageName = TetheringUtils
+                .getEntitlementAppPackageNameFromCarrierConfig(mContext, mActiveDataSubId);
+
+        if (packageName.isEmpty()) {
+            // provisioningApp must contain package and class name.
+            if (mConfig.provisioningApp.length != 2) {
+                return false;
+            } else {
+                packageName = mConfig.provisioningApp[0];
+            }
         }
 
         final PackageManager pm = mContext.getPackageManager();
         try {
-            pm.getPackageInfo(mConfig.provisioningApp[0], GET_ACTIVITIES);
+            pm.getPackageInfo(packageName, GET_ACTIVITIES);
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
