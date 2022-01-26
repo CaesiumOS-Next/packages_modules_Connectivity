@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffef284a_b161ab7d",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-26T03:15:23Z",
+      "side": 1,
+      "message": "You need to create BpfNetMaps from deps.getBpftNetMaps, otherwise the unit test won\u0027t work.",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 44
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be6ed4f7_c37faf86",
         "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
         "patchSetId": 9
