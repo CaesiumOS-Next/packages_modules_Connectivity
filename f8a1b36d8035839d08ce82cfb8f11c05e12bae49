@@ -281,6 +281,30 @@
       },
       "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2ada366_5dd677fb",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-26T00:35:48Z",
+      "side": 1,
+      "message": "To avoid confusing, I combined API libnetd_updatable_privilegedTagSocket and libnetd_updatable_tagSocket into a single one.",
+      "parentUuid": "f1b2fa7a_42bbd43c",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 92
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
