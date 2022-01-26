@@ -32,6 +32,7 @@
 #include "libclat/bpfhelper.h"
 #include "libclat/clatutils.h"
 #include "nativehelper/scoped_utf_chars.h"
+#include "tcutils/scopeguard.h"
 
 // Sync from system/netd/include/netid_client.h
 #define MARK_UNSET 0u
@@ -366,10 +367,11 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         return -1;
     }
 
-    // TODO: use android::base::ScopeGuard.
+    [[maybe_unused]] const auto attrGuard = base::make_scope_guard([&] {
+        posix_spawnattr_destroy(&attr);
+    });
     if (int ret = posix_spawnattr_setflags(&attr,
                                            POSIX_SPAWN_USEVFORK | POSIX_SPAWN_CLOEXEC_DEFAULT)) {
-        posix_spawnattr_destroy(&attr);
         throwIOException(env, "posix_spawnattr_setflags failed", ret);
         return -1;
     }
@@ -379,26 +381,22 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     // (this will happen after the vfork, and before the execve)
     posix_spawn_file_actions_t fa;
     if (int ret = posix_spawn_file_actions_init(&fa)) {
-        posix_spawnattr_destroy(&attr);
         throwIOException(env, "posix_spawn_file_actions_init failed", ret);
         return -1;
     }
 
-    if (int ret = posix_spawn_file_actions_adddup2(&fa, tunFd, passedTunFd)) {
-        posix_spawnattr_destroy(&attr);
+    [[maybe_unused]] const auto faGuard = base::make_scope_guard([&] {
         posix_spawn_file_actions_destroy(&fa);
+    });
+    if (int ret = posix_spawn_file_actions_adddup2(&fa, tunFd, passedTunFd)) {
         throwIOException(env, "posix_spawn_file_actions_adddup2 for tun fd failed", ret);
         return -1;
     }
     if (int ret = posix_spawn_file_actions_adddup2(&fa, readSock, passedSockRead)) {
-        posix_spawnattr_destroy(&attr);
-        posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn_file_actions_adddup2 for read socket failed", ret);
         return -1;
     }
     if (int ret = posix_spawn_file_actions_adddup2(&fa, writeSock, passedSockWrite)) {
-        posix_spawnattr_destroy(&attr);
-        posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn_file_actions_adddup2 for write socket failed", ret);
         return -1;
     }
@@ -406,14 +404,9 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     // 5. actually perform vfork/dup2/execve
     pid_t pid;
     if (int ret = posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
-        posix_spawnattr_destroy(&attr);
-        posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn failed", ret);
         return -1;
     }
-
-    posix_spawnattr_destroy(&attr);
-    posix_spawn_file_actions_destroy(&fa);
 
     // 5. Start BPF if any
     if (!net::clat::initMaps()) {

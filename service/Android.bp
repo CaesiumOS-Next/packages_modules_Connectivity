@@ -69,6 +69,7 @@ cc_library_shared {
         "libclat",
         "libip_checksum",
         "libnetjniutils",
+        "libtcutils",
     ],
     shared_libs: [
         "liblog",
