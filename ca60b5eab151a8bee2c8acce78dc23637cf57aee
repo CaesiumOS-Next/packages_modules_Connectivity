@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4bca3b1b_3af2ff28",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T02:14:20Z",
+      "side": 1,
+      "message": "change to TC_ACT_PIPE, defined in pkt_cls.h",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 14
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1bdf6c0_0fca1ef3",
         "filename": "bpf_progs/dscp_policy.c",
         "patchSetId": 51
@@ -114,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc199fd3_c6e8ccc5",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T02:14:20Z",
+      "side": 1,
+      "message": "(4,14,0)",
+      "parentUuid": "3025b07c_983d4b0f",
+      "range": {
+        "startLine": 105,
+        "startChar": 49,
+        "endLine": 105,
+        "endChar": 56
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8654826_3cc05537",
         "filename": "bpf_progs/dscp_policy.c",
         "patchSetId": 51
@@ -149,6 +196,30 @@
       "side": 1,
       "message": "Can use functions, but I was trying not to factor them out until some other functionality was added",
       "parentUuid": "d8654826_3cc05537",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 32
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd24370f_0ec404b4",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T02:14:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2262a00_11a536ac",
       "range": {
         "startLine": 120,
         "startChar": 8,
@@ -295,6 +366,29 @@
         "startChar": 72,
         "endLine": 163,
         "endChar": 73
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a61ccecc_b28b6174",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T02:14:20Z",
+      "side": 1,
+      "message": "bpf_l3_checksum()",
+      "range": {
+        "startLine": 242,
+        "startChar": 16,
+        "endLine": 242,
+        "endChar": 35
       },
       "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -2251,6 +2345,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54416b6c_376ea62f",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T02:14:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81839ec0_24c8a4ec",
+      "range": {
+        "startLine": 73,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 71
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96bf04e0_65ef3f52",
@@ -2335,6 +2453,30 @@
       "side": 1,
       "message": "This still needs to be a constructor though. Changing this to a static value would need changes in Struct class.",
       "parentUuid": "3041506b_f2690ef2",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b4b2a3_5c8a3003",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T02:14:20Z",
+      "side": 1,
+      "message": "update",
+      "parentUuid": "2d1d0e61_a5bad0f2",
       "range": {
         "startLine": 110,
         "startChar": 4,
