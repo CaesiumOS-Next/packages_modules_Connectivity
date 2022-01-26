@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d7e87c_698b638e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T19:09:30Z",
+      "side": 1,
+      "message": "mention PRIO_CLAT PRIO_TETHER4/6 here so code search finds this when thinking about the other two",
+      "range": {
+        "startLine": 724,
+        "startChar": 0,
+        "endLine": 724,
+        "endChar": 86
+      },
+      "revId": "ceb1533af6da6c31452a92ce3caaa9503994c3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b986e4_273c8afa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T19:09:30Z",
+      "side": 1,
+      "message": "should this not be -1 disabled? 0 seems to mean no traffic...",
+      "range": {
+        "startLine": 823,
+        "startChar": 63,
+        "endLine": 823,
+        "endChar": 75
+      },
+      "revId": "ceb1533af6da6c31452a92ce3caaa9503994c3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "363096be_74783e89",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1366,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T19:09:30Z",
+      "side": 1,
+      "message": "I\u0027d suggest using a different method name, just so there\u0027s no confusion",
+      "range": {
+        "startLine": 1366,
+        "startChar": 20,
+        "endLine": 1366,
+        "endChar": 47
+      },
+      "revId": "ceb1533af6da6c31452a92ce3caaa9503994c3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37420ad0_bb62470f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1373,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T19:09:30Z",
+      "side": 1,
+      "message": "maybe this should be\n\nTcUtils.filterAddDevIngressPolice\n\n?",
+      "range": {
+        "startLine": 1373,
+        "startChar": 17,
+        "endLine": 1373,
+        "endChar": 51
+      },
+      "revId": "ceb1533af6da6c31452a92ce3caaa9503994c3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
