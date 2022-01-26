@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70b9b2e6_7d6294ed",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T09:35:00Z",
+      "side": 1,
+      "message": "should probably have this as a stop process helper in a common location\n\nstopProcess(int pid, const char *name)",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 68
+      },
+      "revId": "a4c55ee5973288697398e7b01ba7b6fb26fc4d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00510881_c9992f4c",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T09:35:00Z",
+      "side": 1,
+      "message": "I think this will hang if kill returned EPERM.\nNot sure if this won\u0027t bug on kill returning ESRCH as well...",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 39
+      },
+      "revId": "a4c55ee5973288697398e7b01ba7b6fb26fc4d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
