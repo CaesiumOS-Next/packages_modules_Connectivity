@@ -1,0 +1,1010 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29424f06_28534615",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 59
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "API LGTM. Before merging I think we should:\n- Remove lint-baseline.txt from the CL.\n- Investigate whether the test is checking that the packets are rewritten. See comments below on checkDscpValue and generateSequence.\n\nOther comments can wait until a follow-up change.",
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbfb2665_b20a5439",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit: would reword to \"maintaining policy IDs unique within that network\". Otherwise the text could be interpreted to read that the network is responsible for maintaining systemwide uniqueness.",
+      "range": {
+        "startLine": 82,
+        "startChar": 85,
+        "endLine": 83,
+        "endChar": 17
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a4fd796_0fd5323c",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Can this be @hide too? Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 108,
+        "startChar": 5,
+        "endLine": 108,
+        "endChar": 6
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cddbd285_f5b2005e",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Wow, is this really only an 8-bit number in the spec?",
+      "range": {
+        "startLine": 142,
+        "startChar": 48,
+        "endLine": 142,
+        "endChar": 76
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8060c3a_e0ee7262",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit: remove, this is always set now.",
+      "range": {
+        "startLine": 177,
+        "startChar": 40,
+        "endLine": 177,
+        "endChar": 63
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bbc7387_1e9393ba",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit: use\n\n    {@link #SOURCE_PORT_ANY}\n\ninstead of 0.",
+      "range": {
+        "startLine": 204,
+        "startChar": 45,
+        "endLine": 204,
+        "endChar": 46
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a0ab2bb_76db5152",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit:\n\n    {@link #PROTOCOL_ANY}\n\ninstead of -1.",
+      "range": {
+        "startLine": 213,
+        "startChar": 42,
+        "endLine": 213,
+        "endChar": 44
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5993fb_00903685",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit: it might be better to use:\n\n    + \"dstPortRange \u003d \"\n    + (mDstPortRange \u003d\u003d null) ? \"none\": mDstPortRange.toString()",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 88
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7797ecf_436d94cc",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Why is this @hide if CREATOR and describeContents are @SystemApi? Seems like either all of them should be @SystemApi, or none should. Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 16
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "661e3fc0_266e6335",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Can this be @hide too?",
+      "range": {
+        "startLine": 297,
+        "startChar": 64,
+        "endLine": 297,
+        "endChar": 71
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdfb59ea_a5aabf7a",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "* @param dscpValue The DSCP value to set.",
+      "range": {
+        "startLine": 332,
+        "startChar": 9,
+        "endLine": 332,
+        "endChar": 10
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce07f99_6468376d",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit: dscpValue",
+      "range": {
+        "startLine": 333,
+        "startChar": 41,
+        "endLine": 333,
+        "endChar": 46
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c18a7c0_75c26e55",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Would clarify/expand to a full sentence. Something like:\n\nSpecifies that this policy matches packets with the specified source IP address.\n\nor similar. Also elsewhere.",
+      "range": {
+        "startLine": 339,
+        "startChar": 11,
+        "endLine": 339,
+        "endChar": 14
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9485119_06931f3c",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Constructs a DscpPolicy with the specified parameters.",
+      "range": {
+        "startLine": 379,
+        "startChar": 11,
+        "endLine": 379,
+        "endChar": 31
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf6392a3_8dca52c6",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Why not? Actually I think API guidelines say it\u0027s OK to re-use builders. But I don\u0027t think there\u0027s anything in this Builder that prevents it from being re-used, is there?",
+      "range": {
+        "startLine": 379,
+        "startChar": 32,
+        "endLine": 379,
+        "endChar": 86
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15ef0ed9_f9be1e64",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "DSCP policy",
+      "range": {
+        "startLine": 431,
+        "startChar": 20,
+        "endLine": 431,
+        "endChar": 26
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a57cff1_40d16d2d",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "on this network.",
+      "range": {
+        "startLine": 1386,
+        "startChar": 35,
+        "endLine": 1386,
+        "endChar": 36
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c81932fd_755b125a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "I think you can make this \"private final\", if when you initialize it you do:\n\n        try {\n            mDscpPolicyTracker \u003d new DscpPolicyTracker();\n        } catch (ErrnoException e) {\n            mDscpPolicyTracker \u003d null;\n            loge(\"Unable to create DscpPolicyTracker\");\n        }",
+      "range": {
+        "startLine": 395,
+        "startChar": 4,
+        "endLine": 395,
+        "endChar": 56
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440c61b9_0ee77646",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Actually it doesn\u0027t. It guarantees that all code runs on the same thread so it nothing *needs* to be thread-safe. Suggest:\n\nThis guarantees that all code runs on the same thread and no locking is needed.",
+      "range": {
+        "startLine": 46,
+        "startChar": 24,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76af7170_c5ffbf5e",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "You use this below too. Would suggest:\n\n    final int existingIndex \u003d mPolicyIdToBpfMapIndex.get(policy.getPolicyId(), -1);\n    if (existingIndex \u003d\u003d -1 \u0026\u0026 mPolicyIdToBpfMapIndex.size() \u003e\u003d MAX_POLICIES) {\n        return STATUS_INSUFFICIENT_PROCESSING_RESOURCES;\n    }\n\n    if (existingIndex \u003d\u003d -1) {\n        addIndex \u003d existingIndex;\n    } else {\n        addIndex \u003d getFirstFreeIndex();\n    }",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea573041_0757c39b",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "No need for this else, you\u0027ve already returned. Remove else and unindent.",
+      "range": {
+        "startLine": 122,
+        "startChar": 8,
+        "endLine": 122,
+        "endChar": 16
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70245c0f_e22bb177",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "You don\u0027t need to initialize this. Suggest instead making it final and uninitialized:\n\n    final int addIndex;\n\nto ensure that the compiler will raise an error if there is any codepath that uses it unassigned (or assigns it twice).",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 29
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "333a1641_0476ca50",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "4",
+      "range": {
+        "startLine": 140,
+        "startChar": 70,
+        "endLine": 140,
+        "endChar": 71
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e749ca62_74d3ece0",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Suggest adding helper methods like:\n\n    private boolean matchesIpv6(DscpPolicy policy) {\n        return ((policy.getDestinationAddress() \u003d\u003d null\n                       || policy.getDestinationAddress() instanceof Inet6Address)\n            \u0026\u0026 (policy.getSourceAddress() \u003d\u003d null\n                        || policy.getSourceAddress() instanceof Inet6Address);\n    }",
+      "range": {
+        "startLine": 155,
+        "startChar": 20,
+        "endLine": 158,
+        "endChar": 77
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27c501c_9feddc99",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit: I think this would be more readable if you used final, like so:\n\n    final int status;\n    try {\n        ...\n        status \u003d STATUS_DELETED;\n    } catch (...) {\n        status \u003d STATUS_POLICY_NOT_FOUND;\n    }",
+      "range": {
+        "startLine": 198,
+        "startChar": 8,
+        "endLine": 198,
+        "endChar": 20
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9027b008_d60dab42",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "FWIW I think it would also be reasonable simply to fire no callbacks. That would be technically more correct, but what you have here might be more useful in practice because it lets the caller know when the operation has taken effect. I could see SUCCESS being reasonable too.",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 88
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c7869de_301649be",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Unable",
+      "range": {
+        "startLine": 264,
+        "startChar": 24,
+        "endLine": 264,
+        "endChar": 31
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b264b04_9bd0ca6c",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "DSCP setting?\nDSCP rewriting?",
+      "range": {
+        "startLine": 29,
+        "startChar": 19,
+        "endLine": 29,
+        "endChar": 56
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7efc28d_2f29bb47",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "If you address the comment below, you can make this just be:\n\n    if (src46 \u003d\u003d EMPTY_ADDRESS_FIELD) {\n\nGenerally pointer equality (\"\u003d\u003d\") is almost always wrong and .equals() should be used instead, but this is one of the exceptions.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 9
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d865a70_da95de07",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit: assuming external callers use the constructor below at line 107, this could probably be made private or package-private.",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0a8b10_50e926eb",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "I think you could simplify addPolicyInternal if you did something like:\n\n    private static final byte[] EMPTY_ADDRESS_FIELD \u003d\n        InetAddresses.parseNumericAddress(\"::\").getAddress();\n\n    private final byte[] toAddressField(InetAddress addr) {\n        if (addr \u003d\u003d null) {\n            return EMPTY_ADDRESS_FIELD;\n        } else if (addr instanceof Inet4Address) {\n            return toIpv4MappedAddressBytes(addr);\n        } else {\n            return addr.getAddress();\n        }\n    }\n\nand then here just did:\n\n    this.src46 \u003d toAddressField(src46);\n    this.dst46 \u003d toAddressField(dst46);",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 27
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a341e0f_065e69d6",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Which ifaces? the interfaces we use in this test are created by the test itself. They will generally go away when the test terminates and their tun/tap FDs are closed (but see comment below on tearDown).",
+      "range": {
+        "startLine": 131,
+        "startChar": 50,
+        "endLine": 131,
+        "endChar": 56
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ca14ff4_9ffeefb7",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Before you do this, you should probably stop the reader and delete the tap interface.\n\n    reader.stop()\n    Os.close(iface.fileDescriptor.fileDescriptor)",
+      "range": {
+        "startLine": 163,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 32
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514cbed0_bae8ee5e",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Do you need these?",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 70
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e0e127_5056b38d",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Don\u0027t think you need this, 0 is the default",
+      "range": {
+        "startLine": 215,
+        "startChar": 8,
+        "endLine": 215,
+        "endChar": 39
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0468b90a_666bc4d0",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Remove this comment.",
+      "range": {
+        "startLine": 217,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 26
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e35bf57_742b0acd",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "I don\u0027t think so, looks like that\u0027s only if not registering to the real ConnectivityService?",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 219,
+        "endChar": 46
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c0dc5a_e8716112",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "I don\u0027t think you need these.",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 74
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6984cc1f_ef7f2846",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 45
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e475e7af_0e3cb642",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "You don\u0027t use this. To use it you should do something like:\n\n    Os.bind(socket, new InetSocketAddress(srcPort))\n\nThis is going to make the test flaky because the bind will fail with EADDRINUSE if the port is not free. In order to avoid this you can create the socket, bind it to a port of 0 (or connect it) and get the port with Os.getsockname.",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 15
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ba1caba_337cbd7d",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "What if no such packet appears? Looks like the if will never trigger and the test will pass? That seems very bad. Seems like you should do something like:\n\n    val packets \u003d generateSequence {\n        ...\n    }\n    assertNotEquals(\"Did not receive any packets\", 0, packets.count())\n\nor, similarly, return packets.count() to the caller.",
+      "range": {
+        "startLine": 271,
+        "startChar": 12,
+        "endLine": 271,
+        "endChar": 14
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a467a24a_40dc78b7",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "checkDscpValue doesn\u0027t use the source port. Coupled with the fact that the generateSequence code doesn\u0027t check that any packets were matched (see comment above), I wonder whether this test is actually testing anything the packets at all. That would explain why the test passes even if the BPF program doesn\u0027t modify the IP header checksum.",
+      "range": {
+        "startLine": 302,
+        "startChar": 65,
+        "endLine": 302,
+        "endChar": 69
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "634def9c_ab9fa4a7",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "There should be an assertNoCallback method, yes.",
+      "range": {
+        "startLine": 440,
+        "startChar": 8,
+        "endLine": 440,
+        "endChar": 88
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c64f9a4_6a0b967c",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 1,
+      "message": "Nit: all.",
+      "range": {
+        "startLine": 533,
+        "startChar": 34,
+        "endLine": 533,
+        "endChar": 38
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4311270_91d7c647",
+        "filename": "framework/api/lint-baseline.txt",
+        "patchSetId": 59
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T15:44:48Z",
+      "side": 0,
+      "message": "This line removal looks spurious. Can you remove this file from the CL?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 69
+      },
+      "revId": "3f9584bfdaaa5bbeb933f248d2c47c16280592ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
