@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84cffd6f_79b274c6",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-01-26T03:08:58Z",
+      "side": 1,
+      "message": "Before this change, EthernetService(extends SystemService) starts EthernetServiceImpl(start EthernetTracker) on the onBootPhase callback, consider that ethernet service should be started from ConnectivityServiceInitializer, just move the code to this class.",
+      "parentUuid": "903cec85_241b79ef",
+      "range": {
+        "startLine": 75,
+        "startChar": 30,
+        "endLine": 75,
+        "endChar": 40
+      },
+      "revId": "e6bce76029d931b27c5dfa77b86bffadf25908cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f310c9bb_e252f2da",
         "filename": "service/ServiceConnectivityResources/res/values/config.xml",
         "patchSetId": 5
@@ -38,6 +62,30 @@
       "side": 1,
       "message": "\u003e Common typo found: \"seprated\" -- should it be \"separated\"?\n\u003e Note: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.\n\nPlease fix.",
       "parentUuid": "87d8fb59_fc437b6a",
+      "range": {
+        "startLine": 147,
+        "startChar": 56,
+        "endLine": 147,
+        "endChar": 64
+      },
+      "revId": "e6bce76029d931b27c5dfa77b86bffadf25908cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c5c9c14_48ad6bb3",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-01-26T03:08:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f310c9bb_e252f2da",
       "range": {
         "startLine": 147,
         "startChar": 56,
