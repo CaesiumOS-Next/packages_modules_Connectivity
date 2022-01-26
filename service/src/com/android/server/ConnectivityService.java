@@ -1338,6 +1338,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         /**
+         * @see CarrierPrivilegeAuthenticator
+         */
+        public CarrierPrivilegeAuthenticator makeCarrierPrivilegeAuthenticator(
+                @NonNull final Context context, @NonNull final TelephonyManager tm) {
+            if (SdkLevel.isAtLeastT()) {
+                return new CarrierPrivilegeAuthenticator(context, tm);
+            } else {
+                return null;
+            }
+        }
+
+        /**
          * @see DeviceConfigUtils#isFeatureEnabled
          */
         public boolean isFeatureEnabled(Context context, String name, boolean defaultEnabled) {
@@ -1415,12 +1427,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
-        if (SdkLevel.isAtLeastT()) {
-            mCarrierPrivilegeAuthenticator =
-                    new CarrierPrivilegeAuthenticator(mContext, mTelephonyManager);
-        } else {
-            mCarrierPrivilegeAuthenticator = null;
-        }
+        mCarrierPrivilegeAuthenticator =
+                mDeps.makeCarrierPrivilegeAuthenticator(mContext, mTelephonyManager);
 
         // To ensure uid state is synchronized with Network Policy, register for
         // NetworkPolicyManagerService events must happen prior to NetworkPolicyManagerService
@@ -4146,11 +4154,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private boolean hasCarrierPrivilegeForNetworkRequest(int callingUid,
-            NetworkRequest networkRequest) {
+    private boolean hasCarrierPrivilegeForNetworkCaps(final int callingUid,
+            @NonNull final NetworkCapabilities caps) {
         if (SdkLevel.isAtLeastT() && mCarrierPrivilegeAuthenticator != null) {
-            return mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(callingUid,
-                    networkRequest);
+            return mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                    callingUid, caps);
         }
         return false;
     }
@@ -4194,7 +4202,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     }
                 }
                 if (req.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
-                    if (!hasCarrierPrivilegeForNetworkRequest(nri.mUid, req)
+                    if (!hasCarrierPrivilegeForNetworkCaps(nri.mUid, req.networkCapabilities)
                             && !checkConnectivityRestrictedNetworksPermission(
                                     nri.mPid, nri.mUid)) {
                         requestToBeReleased = req;
@@ -7484,7 +7492,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             nc.setOwnerUid(nai.networkCapabilities.getOwnerUid());
         }
         nai.declaredCapabilities = new NetworkCapabilities(nc);
-        NetworkAgentInfo.restrictCapabilitiesFromNetworkAgent(nc, nai.creatorUid);
+        NetworkAgentInfo.restrictCapabilitiesFromNetworkAgent(nc, nai.creatorUid,
+                mCarrierPrivilegeAuthenticator);
     }
 
     /** Modifies |newNc| based on the capabilities of |underlyingNetworks| and |agentCaps|. */
