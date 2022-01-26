@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28086946_7360e408",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T00:08:33Z",
+      "side": 1,
+      "message": "what if kill fails?\nwhat if waitpid doesn\u0027t return (blocks forever)\n\nplease file a TODO to fix this to be safer.",
+      "range": {
+        "startLine": 452,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 57
+      },
+      "revId": "9d11ddfd5c3872b7ced68ecdef76af8fc0183981",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
