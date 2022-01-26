@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75c5c77e_0e9f1f27",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-26T12:46:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e2854b3_055e1d94",
+      "range": {
+        "startLine": 1092,
+        "startChar": 62,
+        "endLine": 1092,
+        "endChar": 63
+      },
+      "revId": "1473fb25d354650972f314e3378427083ddd2453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "267f7d0f_857ea0ea",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-23T16:01:31Z",
       "side": 1,
       "message": "This value should be \u003e\u003d 0. Can you add the IntRange annotation like setNetworkSwitchNotificationMaximumDailyCount().\nAnd please also check the invalide value (\u003c 0) and throw exception.",
+      "range": {
+        "startLine": 1103,
+        "startChar": 12,
+        "endLine": 1103,
+        "endChar": 15
+      },
+      "revId": "1473fb25d354650972f314e3378427083ddd2453",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa291c76_08de10fe",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-26T12:46:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "267f7d0f_857ea0ea",
       "range": {
         "startLine": 1103,
         "startChar": 12,
