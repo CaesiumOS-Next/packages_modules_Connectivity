@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac2ccb44_36da11e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T10:28:33Z",
+      "side": 1,
+      "message": "LGTM but needs visibility changes in p/m/NetworkStack",
+      "revId": "1e41ce771faafe0d32d1e0cb1e0244ebefaf40b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
