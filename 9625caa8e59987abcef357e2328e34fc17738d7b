@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9298792_bd4e06a0",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T00:26:37Z",
+      "side": 1,
+      "message": "FYI there\u0027s a scopeguard.h added by Patrick somewhere in frameworks/libs/net",
+      "range": {
+        "startLine": 368,
+        "startChar": 0,
+        "endLine": 368,
+        "endChar": 43
+      },
+      "revId": "9625caa8e59987abcef357e2328e34fc17738d7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "762277ec_6b89dda0",
+        "filename": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T00:26:37Z",
+      "side": 1,
+      "message": "perhaps better as:\nClatd is already running on",
+      "range": {
+        "startLine": 223,
+        "startChar": 41,
+        "endLine": 223,
+        "endChar": 44
+      },
+      "revId": "9625caa8e59987abcef357e2328e34fc17738d7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
