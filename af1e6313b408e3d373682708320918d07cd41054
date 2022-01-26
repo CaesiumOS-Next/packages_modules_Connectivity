@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5afe906_5f0ac125",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 6344,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-26T11:15:21Z",
+      "side": 1,
+      "message": "seperate patch",
+      "parentUuid": "858b0a43_706c61be",
+      "range": {
+        "startLine": 6344,
+        "startChar": 20,
+        "endLine": 6344,
+        "endChar": 65
+      },
+      "revId": "af1e6313b408e3d373682708320918d07cd41054",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18fbb644_cbfbaf51",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-26T09:24:16Z",
       "side": 1,
       "message": "Let\u0027s add a comment :\n\n  // The lock must be held to the end of the constructor because the\n  // methods above register listeners that may be called before this constructor\n  // is over",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 9
+      },
+      "revId": "af1e6313b408e3d373682708320918d07cd41054",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6e92e35_56855404",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-26T11:15:21Z",
+      "side": 1,
+      "message": "will be uploaded in seperate patch",
+      "parentUuid": "18fbb644_cbfbaf51",
       "range": {
         "startLine": 86,
         "startChar": 7,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e8a6d9_9c950a5c",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-26T11:15:21Z",
+      "side": 1,
+      "message": "seperate patch",
+      "parentUuid": "b81b0b4b_c4c97b23",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 15
+      },
+      "revId": "af1e6313b408e3d373682708320918d07cd41054",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7ae792d_c6e0244d",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-26T09:24:16Z",
       "side": 1,
       "message": "Let\u0027s add a comment :\n\n  // This method must not read any member before taking the lock because\n  // the constructor is only guaranteed to be over when the lock has\n  // been acquired.",
+      "range": {
+        "startLine": 203,
+        "startChar": 8,
+        "endLine": 203,
+        "endChar": 20
+      },
+      "revId": "af1e6313b408e3d373682708320918d07cd41054",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bc0b1c4_fc51955c",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-26T11:15:21Z",
+      "side": 1,
+      "message": "seperate patch",
+      "parentUuid": "c7ae792d_c6e0244d",
       "range": {
         "startLine": 203,
         "startChar": 8,
