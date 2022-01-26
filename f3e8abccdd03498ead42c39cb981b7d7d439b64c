@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0538f50_5776f18b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T11:11:50Z",
+      "side": 1,
+      "message": "Skipping the change in sc-mainline-prod is definitely not something we want to do in general, but considering this is temporary until the tethering.next target is updated to use the new shims, LGTM",
+      "revId": "f3e8abccdd03498ead42c39cb981b7d7d439b64c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
