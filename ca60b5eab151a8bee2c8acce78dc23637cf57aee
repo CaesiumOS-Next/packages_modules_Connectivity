@@ -1063,6 +1063,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eeeefff_2aa1b10f",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T00:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39d8ae78_8fcf52b2",
+      "range": {
+        "startLine": 157,
+        "startChar": 44,
+        "endLine": 157,
+        "endChar": 45
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ccfdd42_97b8df58",
@@ -1217,6 +1241,30 @@
       "writtenOn": "2022-01-25T16:02:39Z",
       "side": 1,
       "message": "If you do not already have one, please add a test that creates a DscpPolicy via Builder and then calls assertParcelingIsLossless.\n\nIt could go in your current DscpPolicyTest but you could also put it in packages/modules/Connectivity/tests/common/java/android/net/LinkPropertiesTest.java next to the tests for other data classes such as LinkPropertiesTest.",
+      "range": {
+        "startLine": 254,
+        "startChar": 16,
+        "endLine": 254,
+        "endChar": 29
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7268ace_a2915379",
+        "filename": "framework/src/android/net/DscpPolicy.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T00:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "270801c2_a9ad4dae",
       "range": {
         "startLine": 254,
         "startChar": 16,
@@ -1391,6 +1439,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7eccdd71_aa6322c7",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T00:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98f564c6_84616877",
+      "range": {
+        "startLine": 430,
+        "startChar": 59,
+        "endLine": 431,
+        "endChar": 29
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eee0beb0_400e19d4",
@@ -1414,6 +1486,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03006820_8c4fc14f",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 1378,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T00:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eee0beb0_400e19d4",
+      "range": {
+        "startLine": 1378,
+        "startChar": 7,
+        "endLine": 1378,
+        "endChar": 14
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1cb1a12_0ba84ab6",
@@ -1427,6 +1523,30 @@
       "writtenOn": "2022-01-25T16:02:39Z",
       "side": 1,
       "message": "Remove",
+      "range": {
+        "startLine": 1386,
+        "startChar": 7,
+        "endLine": 1386,
+        "endChar": 14
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d93f0653_e84ff442",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T00:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1cb1a12_0ba84ab6",
       "range": {
         "startLine": 1386,
         "startChar": 7,
@@ -1919,6 +2039,30 @@
       "writtenOn": "2022-01-25T16:02:39Z",
       "side": 1,
       "message": "Any reason these can\u0027t be private final and created in the constructor?",
+      "range": {
+        "startLine": 247,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 80
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffa3aa23_73b1c640",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T00:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d8b6739_748ce349",
       "range": {
         "startLine": 247,
         "startChar": 0,
