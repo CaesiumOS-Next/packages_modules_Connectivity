@@ -16,6 +16,24 @@
       "message": "Yurii, ",
       "revId": "361d6920e1eaf1e58314ef51dce778890c9954ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14832c3f_97feac19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-26T00:37:47Z",
+      "side": 1,
+      "message": "Yurii, comments were addressed.",
+      "parentUuid": "ed5963eb_24237623",
+      "revId": "361d6920e1eaf1e58314ef51dce778890c9954ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
