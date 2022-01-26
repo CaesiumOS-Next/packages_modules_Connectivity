@@ -372,6 +372,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8b979ad_745d6ff6",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T22:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58c3195a_ee5b1b89",
+      "range": {
+        "startLine": 160,
+        "startChar": 12,
+        "endLine": 160,
+        "endChar": 36
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "640524d4_81fcca67",
@@ -432,6 +456,30 @@
       "writtenOn": "2022-01-26T02:14:20Z",
       "side": 1,
       "message": "bpf_l3_checksum()",
+      "range": {
+        "startLine": 242,
+        "startChar": 16,
+        "endLine": 242,
+        "endChar": 35
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e99f0a3f_f7137aff",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T22:38:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a61ccecc_b28b6174",
       "range": {
         "startLine": 242,
         "startChar": 16,
@@ -2690,6 +2738,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "5f0e59fe_ca7c0902",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 52
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63bdafba_bfb56283",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 51
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T22:38:21Z",
+      "side": 1,
+      "message": "This is needed else src port is never bound, any is used",
+      "parentUuid": "e319bac5_a8f35f9e",
       "range": {
         "startLine": 244,
         "startChar": 8,
