@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c315139_033d779d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T04:35:49Z",
+      "side": 1,
+      "message": "LGTM when it\u0027s system API",
+      "revId": "28bd62bf56b7638f7444a820a8aa1eda28eb14dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4af8c7b4_73a3ec3c",
+        "filename": "framework/src/android/net/NetworkRequest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T04:35:49Z",
+      "side": 1,
+      "message": "@SystemApi(client \u003d MODULE_LIBS)",
+      "range": {
+        "startLine": 734,
+        "startChar": 21,
+        "endLine": 734,
+        "endChar": 40
+      },
+      "revId": "28bd62bf56b7638f7444a820a8aa1eda28eb14dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
