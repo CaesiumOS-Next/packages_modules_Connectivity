@@ -1562,6 +1562,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb26f402_9ea8f05e",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T23:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "514cbed0_bae8ee5e",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 70
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7e0e127_5056b38d",
@@ -1575,6 +1599,30 @@
       "writtenOn": "2022-01-26T15:44:48Z",
       "side": 1,
       "message": "Don\u0027t think you need this, 0 is the default",
+      "range": {
+        "startLine": 215,
+        "startChar": 8,
+        "endLine": 215,
+        "endChar": 39
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2816fe94_c9569b14",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T23:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7e0e127_5056b38d",
       "range": {
         "startLine": 215,
         "startChar": 8,
@@ -1704,6 +1752,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8e15f7e_7527e2ad",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T23:36:32Z",
+      "side": 1,
+      "message": "If the expects are not done here then the ones for OnDscpPolicyStatusUpdated\u003c\u003e will fail as these callback types will be found first",
+      "parentUuid": "75c0dc5a_e8716112",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 74
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6984cc1f_ef7f2846",
         "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
         "patchSetId": 59
@@ -1786,6 +1858,30 @@
       "side": 1,
       "message": "This was removed based on a previous comment, added back in. It is necessary for test to correctly pass",
       "parentUuid": "e475e7af_0e3cb642",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 15
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "499e9f4a_65dfcebe",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T23:36:32Z",
+      "side": 1,
+      "message": "Removing source port comparison for now. Will take total code revamp to allow socket to be created before sending sendAddDscpPolicy()\n\nAlso note that using Os.getsockname always results in port \u003d\u003d 0. The code was placed after bindSocket()\n\nval srcPort \u003d (Os.getsockname(socket) as InetSocketAddress).getPort()",
+      "parentUuid": "1bc589d7_7e8496c9",
       "range": {
         "startLine": 238,
         "startChar": 8,
