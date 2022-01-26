@@ -1994,7 +1994,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         NetworkAgentInfo nai = getNetworkAgentInfoForUid(uid);
         if (nai == null) return null;
         return linkPropertiesRestrictedForCallerPermissions(nai.linkProperties,
-                Binder.getCallingPid(), uid);
+                Binder.getCallingPid(), uid, null /* packageName */);
     }
 
     @Override
@@ -2004,7 +2004,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final LinkProperties lp = getLinkProperties(nai);
         if (lp == null) return null;
         return linkPropertiesRestrictedForCallerPermissions(
-                lp, Binder.getCallingPid(), mDeps.getCallingUid());
+                lp, Binder.getCallingPid(), mDeps.getCallingUid(), null /* packageName */);
     }
 
     // TODO - this should be ALL networks
@@ -2014,7 +2014,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final LinkProperties lp = getLinkProperties(getNetworkAgentInfoForNetwork(network));
         if (lp == null) return null;
         return linkPropertiesRestrictedForCallerPermissions(
-                lp, Binder.getCallingPid(), mDeps.getCallingUid());
+                lp, Binder.getCallingPid(), mDeps.getCallingUid(), null /* packageName */);
     }
 
     @Nullable
@@ -2027,6 +2027,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @Override
+    public LinkProperties getRedactedLinkProperties(LinkProperties lp, String packageName) {
+        enforceAccessPermission();
+        if (lp == null) return null;
+        return linkPropertiesRestrictedForCallerPermissions(
+                lp, -1 /* callerPid */, -1 /* callerUid */, packageName);
+    }
+
     private NetworkCapabilities getNetworkCapabilitiesInternal(Network network) {
         return getNetworkCapabilitiesInternal(getNetworkAgentInfoForNetwork(network));
     }
@@ -2035,7 +2043,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nai == null) return null;
         synchronized (nai) {
             return networkCapabilitiesRestrictedForCallerPermissions(
-                    nai.networkCapabilities, Binder.getCallingPid(), mDeps.getCallingUid());
+                    nai.networkCapabilities, Binder.getCallingPid(), mDeps.getCallingUid(),
+                    null /* packageName */);
         }
     }
 
@@ -2050,21 +2059,47 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 getCallingPid(), mDeps.getCallingUid(), callingPackageName, callingAttributionTag);
     }
 
+    @Override
+    public NetworkCapabilities getRedactedNetworkCapabilities(NetworkCapabilities nc,
+            String packageName, @Nullable String callingAttributionTag) {
+        enforceAccessPermission();
+        final int uidOfPackageName = getAppUid(packageName,
+                UserHandle.getUserHandleForUid(mDeps.getCallingUid()));
+        return createWithLocationInfoSanitizedIfNecessaryWhenParceled(
+                // callerUid should be the same as the packageName, otherwise the SecurityException
+                // will be thrown when calling LocationPermissionChecker.checkLocationPermission().
+                networkCapabilitiesRestrictedForCallerPermissions(
+                        nc, -1 /* callerPid */, uidOfPackageName, packageName),
+                false /* includeLocationSensitiveInfo */,
+                -1 /* callingPid */, uidOfPackageName, packageName, callingAttributionTag);
+    }
+
     @VisibleForTesting
     NetworkCapabilities networkCapabilitiesRestrictedForCallerPermissions(
-            NetworkCapabilities nc, int callerPid, int callerUid) {
+            NetworkCapabilities nc, int callerPid, int callerUid, String packageName) {
+        final boolean hasNetworkSettingsPermission;
+        final boolean hasNetworkFactoryPermission;
+
+        if (packageName != null) {
+            hasNetworkSettingsPermission = checkSettingsPermission(packageName);
+            hasNetworkFactoryPermission = checkNetworkFactoryPermission(packageName);
+        } else {
+            hasNetworkSettingsPermission = checkSettingsPermission(callerPid, callerUid);
+            hasNetworkFactoryPermission = checkNetworkFactoryPermission(callerPid, callerUid);
+        }
+
         final NetworkCapabilities newNc = new NetworkCapabilities(nc);
-        if (!checkSettingsPermission(callerPid, callerUid)) {
+        if (!hasNetworkSettingsPermission) {
             newNc.setUids(null);
             newNc.setSSID(null);
+            // TODO: Setting underlying networks should be guarded by NETWORK_FACTORY.
             newNc.setUnderlyingNetworks(null);
         }
         if (newNc.getNetworkSpecifier() != null) {
             newNc.setNetworkSpecifier(newNc.getNetworkSpecifier().redact());
         }
         newNc.setAdministratorUids(new int[0]);
-        if (!checkAnyPermissionOf(
-                callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
+        if (!hasNetworkFactoryPermission) {
             newNc.setSubscriptionIds(Collections.emptySet());
         }
 
@@ -2128,8 +2163,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public boolean hasLocalMacAddressPermission() {
             if (mHasLocalMacAddressPermission == null) {
                 // If there is no cached result, perform the check now.
-                mHasLocalMacAddressPermission =
-                        checkLocalMacAddressPermission(mCallingPid, mCallingUid);
+                // If mCallingPid is not set, using package name to check the permission instead.
+                // This is usually used by getRedactedNetworkCapabilities() since it only cares
+                // about the permission of the given package.
+                mHasLocalMacAddressPermission = (mCallingPid == -1)
+                        ? checkLocalMacAddressPermission(mCallingPackageName)
+                        : checkLocalMacAddressPermission(mCallingPid, mCallingUid);
             }
             return mHasLocalMacAddressPermission;
         }
@@ -2141,7 +2180,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         public boolean hasSettingsPermission() {
             if (mHasSettingsPermission == null) {
                 // If there is no cached result, perform the check now.
-                mHasSettingsPermission = checkSettingsPermission(mCallingPid, mCallingUid);
+                // If mCallingPid is not set, using package name to check the permission instead.
+                // This is usually used by getRedactedNetworkCapabilities() since it only cares
+                // about the permission of the given package.
+                mHasSettingsPermission = (mCallingPid == -1)
+                        ? checkSettingsPermission(mCallingPackageName)
+                        : checkSettingsPermission(mCallingPid, mCallingUid);
             }
             return mHasSettingsPermission;
         }
@@ -2227,7 +2271,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private LinkProperties linkPropertiesRestrictedForCallerPermissions(
-            LinkProperties lp, int callerPid, int callerUid) {
+            LinkProperties lp, int callerPid, int callerUid, String packageName) {
         if (lp == null) return new LinkProperties();
 
         // Only do a permission check if sanitization is needed, to avoid unnecessary binder calls.
@@ -2237,7 +2281,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return new LinkProperties(lp);
         }
 
-        if (checkSettingsPermission(callerPid, callerUid)) {
+        final boolean hasSettingsPermission;
+        if (packageName != null) {
+            hasSettingsPermission = checkSettingsPermission(packageName);
+        } else {
+            hasSettingsPermission = checkSettingsPermission(callerPid, callerUid);
+        }
+
+        if (hasSettingsPermission) {
             return new LinkProperties(lp, true /* parcelSensitiveFields */);
         }
 
@@ -2580,6 +2631,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return false;
     }
 
+    // The method will be ambiguous if naming checkAnyPermissionOf(), so name it
+    // checkAnyPermissionOfPackage() instead.
+    private boolean checkAnyPermissionOfPackage(String packageName, String... permissions) {
+        final PackageManager pm = mContext.getPackageManager();
+        for (String permission : permissions) {
+            if (pm.checkPermission(permission, packageName) == PERMISSION_GRANTED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void enforceAnyPermissionOf(String... permissions) {
         if (!checkAnyPermissionOf(permissions)) {
             throw new SecurityException("Requires one of the following permissions: "
@@ -2679,6 +2742,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, pid, uid);
     }
 
+    private boolean checkSettingsPermission(String packageName) {
+        return checkAnyPermissionOfPackage(packageName,
+                android.Manifest.permission.NETWORK_SETTINGS,
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+    }
+
+    private boolean checkNetworkFactoryPermission(int pid, int uid) {
+        return PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_FACTORY, pid, uid)
+                || PERMISSION_GRANTED == mContext.checkPermission(
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, pid, uid);
+    }
+
+    private boolean checkNetworkFactoryPermission(String packageName) {
+        return checkAnyPermissionOfPackage(packageName,
+                android.Manifest.permission.NETWORK_FACTORY,
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+    }
+
     private void enforceNetworkStackOrSettingsPermission() {
         enforceAnyPermissionOf(
                 android.Manifest.permission.NETWORK_SETTINGS,
@@ -2755,6 +2837,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private boolean checkLocalMacAddressPermission(int pid, int uid) {
         return PERMISSION_GRANTED == mContext.checkPermission(
                 Manifest.permission.LOCAL_MAC_ADDRESS, pid, uid);
+    }
+
+    private boolean checkLocalMacAddressPermission(String packageName) {
+        return checkAnyPermissionOfPackage(packageName, Manifest.permission.LOCAL_MAC_ADDRESS);
     }
 
     private void sendConnectedBroadcast(NetworkInfo info) {
@@ -7867,7 +7953,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             case ConnectivityManager.CALLBACK_AVAILABLE: {
                 final NetworkCapabilities nc =
                         networkCapabilitiesRestrictedForCallerPermissions(
-                                networkAgent.networkCapabilities, nri.mPid, nri.mUid);
+                                networkAgent.networkCapabilities, nri.mPid, nri.mUid,
+                                null /* packageName */);
                 putParcelable(
                         bundle,
                         createWithLocationInfoSanitizedIfNecessaryWhenParceled(
@@ -7875,7 +7962,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                                 nrForCallback.getRequestorPackageName(),
                                 nri.mCallingAttributionTag));
                 putParcelable(bundle, linkPropertiesRestrictedForCallerPermissions(
-                        networkAgent.linkProperties, nri.mPid, nri.mUid));
+                        networkAgent.linkProperties, nri.mPid, nri.mUid, null /* packageName */));
                 // For this notification, arg1 contains the blocked status.
                 msg.arg1 = arg1;
                 break;
@@ -7888,7 +7975,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 // networkAgent can't be null as it has been accessed a few lines above.
                 final NetworkCapabilities netCap =
                         networkCapabilitiesRestrictedForCallerPermissions(
-                                networkAgent.networkCapabilities, nri.mPid, nri.mUid);
+                                networkAgent.networkCapabilities, nri.mPid, nri.mUid,
+                                null /* packageName */);
                 putParcelable(
                         bundle,
                         createWithLocationInfoSanitizedIfNecessaryWhenParceled(
@@ -7899,7 +7987,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             case ConnectivityManager.CALLBACK_IP_CHANGED: {
                 putParcelable(bundle, linkPropertiesRestrictedForCallerPermissions(
-                        networkAgent.linkProperties, nri.mPid, nri.mUid));
+                        networkAgent.linkProperties, nri.mPid, nri.mUid, null /* packageName */));
                 break;
             }
             case ConnectivityManager.CALLBACK_BLK_CHANGED: {

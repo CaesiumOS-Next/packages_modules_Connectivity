@@ -1603,6 +1603,27 @@ public class ConnectivityManager {
     }
 
     /**
+     * Get the redacted {@link LinkProperties} for the given package.
+     *
+     * @param linkProperties A {@link LinkProperties} which will be redacted.
+     * @param packageName The package which is used for redacting the {@link LinkProperties}.
+     * @return A redacted {@link LinkProperties} which is based on the given package, or
+     *         {@code null} if the given {@link LinkProperties} is {@code null}.
+     * @hide
+     */
+    @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
+    @SystemApi
+    @Nullable
+    public LinkProperties getRedactedLinkProperties(@Nullable LinkProperties linkProperties,
+            @NonNull String packageName) {
+        try {
+            return mService.getRedactedLinkProperties(linkProperties, packageName);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Get the {@link NetworkCapabilities} for the given {@link Network}.  This
      * will return {@code null} if the network is unknown or if the |network| argument is null.
      *
@@ -1623,6 +1644,26 @@ public class ConnectivityManager {
         try {
             return mService.getNetworkCapabilities(
                     network, mContext.getOpPackageName(), getAttributionTag());
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Get the redacted {@link NetworkCapabilities} for the given package.
+     *
+     * @param nc A {@link NetworkCapabilities} which will be redacted.
+     * @param packageName The package which is used for redacting the {@link NetworkCapabilities}.
+     * @return A redacted {@link NetworkCapabilities} which is based on the given package.
+     * @hide
+     */
+    @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
+    @SystemApi
+    @NonNull
+    public NetworkCapabilities getRedactedNetworkCapabilities(@Nullable NetworkCapabilities nc,
+            @NonNull String packageName) {
+        try {
+            return mService.getRedactedNetworkCapabilities(nc, packageName, getAttributionTag());
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }

@@ -54,6 +54,7 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
 import static android.net.cts.util.CtsNetUtils.ConnectivityActionReceiver;
 import static android.net.cts.util.CtsNetUtils.HTTP_PORT;
@@ -64,6 +65,7 @@ import static android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
 import static android.net.util.NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTPS_URL;
 import static android.net.util.NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTP_URL;
 import static android.os.MessageQueue.OnFileDescriptorEventListener.EVENT_INPUT;
+import static android.os.Process.INVALID_UID;
 import static android.provider.Settings.Global.NETWORK_METERED_MULTIPATH_PREFERENCE;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -76,6 +78,7 @@ import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_LOCKDOWN_VPN;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_NONE;
 import static com.android.testutils.Cleanup.testAndCleanup;
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.MiscAsserts.assertThrows;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
@@ -103,6 +106,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.CaptivePortalData;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.ConnectivitySettingsManager;
@@ -551,6 +555,98 @@ public class ConnectivityManagerTest {
                 assertEquals(subscriberId, snapshot.getSubscriberId());
             }
         }
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @Test
+    public void testGetRedactedLinkProperties() throws Exception {
+        final String testPackage = mContext.getPackageName();
+        final String phonePackage = "com.android.phone";
+        // No matter which the given package is, if the given LinkProperties is null, then the
+        // return value is null.
+        assertNull(mCm.getRedactedLinkProperties(null, testPackage));
+        assertNull(mCm.getRedactedLinkProperties(null, phonePackage));
+
+        // Set parcelSensitiveFields to true to preserve CaptivePortalApiUrl & CaptivePortalData
+        // when parceling.
+        final LinkProperties lp = new LinkProperties(new LinkProperties(),
+                true /* parcelSensitiveFields */);
+        final Uri capportUrl = Uri.parse("https://capport.example.com/api");
+        final CaptivePortalData capportData = new CaptivePortalData.Builder().build();
+        lp.setCaptivePortalApiUrl(capportUrl);
+        lp.setCaptivePortalData(capportData);
+
+        // Confirm both of CaptivePortalApiUrl & CaptivePortalData are set.
+        assertNotNull(lp.getCaptivePortalApiUrl());
+        assertNotNull(lp.getCaptivePortalData());
+        // CaptivePortalApiUrl & CaptivePortalData will be set to null if given package doesn't have
+        // NETWORK_SETTINGS permission.
+        assertNull(mCm.getRedactedLinkProperties(lp, testPackage).getCaptivePortalApiUrl());
+        assertNull(mCm.getRedactedLinkProperties(lp, testPackage).getCaptivePortalData());
+        // CaptivePortalApiUrl & CaptivePortalData will be reserved if given package has
+        // NETWORK_SETTINGS permission.
+        assertEquals(capportUrl,
+                mCm.getRedactedLinkProperties(lp, phonePackage).getCaptivePortalApiUrl());
+        assertEquals(capportData,
+                mCm.getRedactedLinkProperties(lp, phonePackage).getCaptivePortalData());
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @Test
+    public void testGetRedactedNetworkCapabilities() throws Exception {
+        final String testPackage = mContext.getPackageName();
+        final String phonePackage = "com.android.phone";
+        final Set<Range<Integer>> uids = new ArraySet<>();
+        uids.add(new Range<Integer>(10000, 10100));
+        uids.add(new Range<Integer>(10200, 10300));
+        final String ssid = "My-WiFi";
+        final Network defaultNetwork = mCm.getActiveNetwork();
+        // This test will set underlying networks and get underlying networks to check if the given
+        // package can get the underlying networks or not, so the underlying networks which will be
+        // set later cannot be null.
+        assertNotNull(defaultNetwork);
+        final int subId1 = 1;
+        final int subId2 = 2;
+        final int[] administratorUids = {Process.myUid()};
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .setUids(uids)
+                .setSsid(ssid)
+                .setUnderlyingNetworks(List.of(defaultNetwork))
+                .setSubscriptionIds(Set.of(subId1, subId2))
+                .setAdministratorUids(administratorUids)
+                .setOwnerUid(Process.myUid())
+                .build();
+        // Uids, ssid, underlying networks & subscriptionIds will be reset if the given package
+        // doesn't have related permission.
+        assertNull(mCm.getRedactedNetworkCapabilities(nc, testPackage).getUids());
+        assertNull(mCm.getRedactedNetworkCapabilities(nc, testPackage).getSsid());
+        assertNull(mCm.getRedactedNetworkCapabilities(nc, testPackage).getUnderlyingNetworks());
+        assertTrue(mCm.getRedactedNetworkCapabilities(nc, testPackage)
+                .getSubscriptionIds().size() == 0);
+        // Uids, ssid, underlying networks & subscriptionIds will be reserved if the given package
+        // has related permission.
+        assertEquals(uids, mCm.getRedactedNetworkCapabilities(nc, phonePackage).getUids());
+        assertEquals(ssid, mCm.getRedactedNetworkCapabilities(nc, phonePackage).getSsid());
+        assertEquals(List.of(defaultNetwork),
+                mCm.getRedactedNetworkCapabilities(nc, phonePackage).getUnderlyingNetworks());
+        assertEquals(Set.of(subId1, subId2),
+                mCm.getRedactedNetworkCapabilities(nc, phonePackage).getSubscriptionIds());
+
+        // includeLocationSensitiveInfo is set to false in getRedactedNetworkCapabilities(), so no
+        // matter the given package has LOCATION permission or not, the owner uid will be set to
+        // INVALID_UID.
+        assertEquals(INVALID_UID,
+                mCm.getRedactedNetworkCapabilities(nc, testPackage).getOwnerUid());
+        assertEquals(INVALID_UID,
+                mCm.getRedactedNetworkCapabilities(nc, phonePackage).getOwnerUid());
+
+        // The owner uid is only reserved when the network is VPN and the calling uid is the same as
+        // the owner uid.
+        nc.addTransportType(TRANSPORT_VPN);
+        assertEquals(Process.myUid(),
+                mCm.getRedactedNetworkCapabilities(nc, testPackage).getOwnerUid());
+        assertEquals(INVALID_UID,
+                mCm.getRedactedNetworkCapabilities(nc, phonePackage).getOwnerUid());
     }
 
     /**
