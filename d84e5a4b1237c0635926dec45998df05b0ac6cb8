@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "789f03a6_b5bf5e04",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 4343,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "I think this should be changed to use your new message\n\nBut in another patch, because this is a refactoring unrelated to your change.",
+      "range": {
+        "startLine": 4341,
+        "startChar": 0,
+        "endLine": 4343,
+        "endChar": 68
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b374ea1e_bb09bcf2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 5874,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "Let\u0027s use mUid and mPid to perform the check at the correct time instead",
+      "range": {
+        "startLine": 5871,
+        "startChar": 0,
+        "endLine": 5874,
+        "endChar": 56
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cfed2f6_df0c6197",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "Let\u0027s add the @GuardedBy annotations to help readers knowing what needs to be accessed with the lock held",
+      "range": {
+        "startLine": 58,
+        "startChar": 18,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c1d337_de54eafe",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "This write isn\u0027t guaranteed to be seen by all readers. Two solutions :\n\n- Take the lock before you write to it here, and make sure all reads of this member are also locked\n- Remove the member and call the telephony getter every time",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cacdb3e0_52773e18",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "carrier service package",
+      "range": {
+        "startLine": 165,
+        "startChar": 54,
+        "endLine": 165,
+        "endChar": 72
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee6ffbb9_6301bbd4",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "returns",
+      "range": {
+        "startLine": 169,
+        "startChar": 24,
+        "endLine": 169,
+        "endChar": 32
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ca54e5f_81f499cb",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "carrier",
+      "range": {
+        "startLine": 173,
+        "startChar": 34,
+        "endLine": 173,
+        "endChar": 40
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fe94c6e_ce5d5dfa",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "You need the read to mModemCount above be inside the lock",
+      "range": {
+        "startLine": 199,
+        "startChar": 7,
+        "endLine": 199,
+        "endChar": 34
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d73413a_1645fe97",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "very strictly speaking I think this is also nullable",
+      "range": {
+        "startLine": 227,
+        "startChar": 23,
+        "endLine": 227,
+        "endChar": 56
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "060268a2_5da6cf2b",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "Can we use the real value that the test is using ?",
+      "range": {
+        "startLine": 100,
+        "startChar": 60,
+        "endLine": 100,
+        "endChar": 68
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a269b68_8be7df85",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "TestCarr..authenticator",
+      "range": {
+        "startLine": 107,
+        "startChar": 49,
+        "endLine": 107,
+        "endChar": 54
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e9ca391_c884f953",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "Add TODO : this will return all listeners, including those that have been registered. Also, nothing in the test can call `reset()` on the mock or this will stop working\nTODO : switch to TrackRecord to solve these",
+      "range": {
+        "startLine": 116,
+        "startChar": 61,
+        "endLine": 116,
+        "endChar": 90
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dc44bf6_a83a4303",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": "// These are the ones from setUp()",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 43
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06c19340_3cc8d4c7",
+        "filename": "tests/unit/java/com/android/server/connectivity/CarrierPrivilegeAuthenticatorTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T05:22:19Z",
+      "side": 1,
+      "message": ".find { slotId \u003d\u003d 0 }",
+      "range": {
+        "startLine": 194,
+        "startChar": 47,
+        "endLine": 194,
+        "endChar": 54
+      },
+      "revId": "d84e5a4b1237c0635926dec45998df05b0ac6cb8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
