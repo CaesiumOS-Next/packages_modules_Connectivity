@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2180c778_adec2c23",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "Such utils should be jarjared instead of put as-is in the module JAR: they are used by multiple modules, so if you keep them in the original package, different modules may put different versions of the same class in the bootclasspath.\n\nYou should have jarjar_rules to rename com.android.modules.utils.** to com.android.connectivity.tiramisu.@0 so there\u0027s no duplicate with other jars",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ada3fdc_b32fd71b",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "Can this be frameworks/opt/net/ethernet/tests:__subpackages__ ? Hidden APIs should not be used by production code",
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec1bd9e6_e7c01aa4",
+        "filename": "framework/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary, since \"sdk_version: module_current\" should already give the latest non-updatable stubs (\"android\"). If something is fixed by adding that, this is probably because of an API that is in the old prebuilts, but no longer in the latest module_current; so updating the prebuilts would break it.\n\nWhat actually fails if your remove this ? We can discuss it in chat",
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c5300db_147d2923",
+        "filename": "framework/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "To be consistent with framework-connectivity-t, add :__subpackages__",
+      "range": {
+        "startLine": 109,
+        "startChar": 44,
+        "endLine": 109,
+        "endChar": 46
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beccbd23_94ae553d",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "To be consistent with others, could you call it \"updatable-sources\" ?",
+      "range": {
+        "startLine": 33,
+        "startChar": 27,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5604ac5a_9a30805a",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "This should really be called net-utils-device-common-networkfactory (but that can be renamed separately).",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7acea4dd_ca4c2c4e",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "This should be in \"libs\", not \"static_libs\", otherwise you\u0027re including sources of the APK in the jar",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 39
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ea8db9e_06e0efcb",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "This initializes a bunch of code that would not be necessary if shouldStartEthernetService() \u003d\u003d false\n\nSimilarly to createNsdService, you could have createEthernetService that returns null if it\u0027s not necessary, and only register it if it\u0027s non-null ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 27,
+        "endLine": 46,
+        "endChar": 58
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52e4a08f_89d29c10",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-26T05:29:04Z",
+      "side": 1,
+      "message": "While we\u0027re here, should this be eth\\\\d+ ? Does this work for eth10 or eth11 today ?",
+      "range": {
+        "startLine": 170,
+        "startChar": 68,
+        "endLine": 170,
+        "endChar": 74
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
