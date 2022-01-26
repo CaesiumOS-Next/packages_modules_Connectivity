@@ -70,6 +70,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b89b390e_a744bdf7",
+        "filename": "tests/unit/java/com/android/server/BpfNetMapsTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-26T03:26:39Z",
+      "side": 1,
+      "message": "We don\u0027t want to deal with the complexity of testing both SDK versions in PermissionMonitorTest, ConnectivityServiceTest.\n\nThe scheme would be verify whether calling correct BpfNetMap functions for BptNetMap\u0027s caller (e.g. PermissionMonitorTest.java) and verify whether BpfNetMap calling correct netd functions before S. Unfortunately currently we need to rely on CTS to verify T JNI flow inside BpfNetMap, but BpfNetMap unit test for T could be supported once we switch to use BpfMap implementation native to java implementation.\n\nSee Lornezo\u0027s comment here for detail: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1952104/1..11/service/src/com/android/server/connectivity/PermissionMonitor.java#b812",
+      "parentUuid": "be6ed4f7_c37faf86",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 37
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aea9b11e_3ea28f56",
