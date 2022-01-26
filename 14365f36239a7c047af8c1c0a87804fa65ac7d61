@@ -33,6 +33,29 @@
       "message": "http://cs/aosp-master/frameworks/libs/net/common/device/com/android/net/module/util/BpfMap.java?l\u003d45\u0026rcl\u003dd70e9e42dd0bf1bf795f2ed316ded2c23dfb7836\n\npublic class BpfMap\u003cK extends Struct, V extends Struct\u003e implements IBpfMap\u003cK, V\u003e, AutoCloseable {\n    static {\n        System.loadLibrary(JniUtil.getJniLibraryName(BpfMap.class.getPackage()));\n    }\n    \nsuch a static load Library is not present in frameworks/libs/net/common/device/com/android/net/module/util/TcUtils.java\n\nit should be added. and then this won\u0027t work, because the .so library name will be wrong.",
       "revId": "14365f36239a7c047af8c1c0a87804fa65ac7d61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea57432c_773f22be",
+        "filename": "service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-26T18:44:44Z",
+      "side": 1,
+      "message": "possibly this needs to be renamed to be derived from the post jar jar package name,\n\nand then any system.loadlibrary calls to load libservice-connectivity.so need to be updated to directly use the new name\n\n--\n\nalternatively don\u0027t touch this .so at all, and just use a separate (possibly new or possibly the one in line 25 .so) for shipping the tcutils jni code.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 36
+      },
+      "revId": "14365f36239a7c047af8c1c0a87804fa65ac7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
