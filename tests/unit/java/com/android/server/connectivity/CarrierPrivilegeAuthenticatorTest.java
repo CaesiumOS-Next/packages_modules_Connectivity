@@ -160,10 +160,10 @@ public class CarrierPrivilegeAuthenticatorTest {
         networkRequestBuilder.addTransportType(TRANSPORT_CELLULAR);
         networkRequestBuilder.setNetworkSpecifier(telephonyNetworkSpecifier);
 
-        assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(
-                mCarrierConfigPkgUid, networkRequestBuilder.build()));
-        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(
-                mCarrierConfigPkgUid + 1, networkRequestBuilder.build()));
+        assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid, networkRequestBuilder.build().networkCapabilities));
+        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid + 1, networkRequestBuilder.build().networkCapabilities));
     }
 
     @Test
@@ -192,10 +192,10 @@ public class CarrierPrivilegeAuthenticatorTest {
         final NetworkRequest.Builder networkRequestBuilder = new NetworkRequest.Builder();
         networkRequestBuilder.addTransportType(TRANSPORT_CELLULAR);
         networkRequestBuilder.setNetworkSpecifier(telephonyNetworkSpecifier);
-        assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(
-                mCarrierConfigPkgUid, networkRequestBuilder.build()));
-        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(
-                mCarrierConfigPkgUid + 1, networkRequestBuilder.build()));
+        assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid, networkRequestBuilder.build().networkCapabilities));
+        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid + 1, networkRequestBuilder.build().networkCapabilities));
     }
 
     @Test
@@ -215,9 +215,9 @@ public class CarrierPrivilegeAuthenticatorTest {
                 .getApplicationInfo(eq(mTestPkg), anyInt());
         listener.onCarrierPrivilegesChanged(Collections.emptyList(), new int[] {});
 
-        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(
-                mCarrierConfigPkgUid, networkRequestBuilder.build()));
-        assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkRequest(
-                mCarrierConfigPkgUid + 1, networkRequestBuilder.build()));
+        assertFalse(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid, networkRequestBuilder.build().networkCapabilities));
+        assertTrue(mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                mCarrierConfigPkgUid + 1, networkRequestBuilder.build().networkCapabilities));
     }
 }

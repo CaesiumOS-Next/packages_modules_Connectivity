@@ -266,7 +266,9 @@ public class NetworkAgentWrapper implements TestableNetworkCallback.HasNetwork {
     }
 
     public void setNetworkCapabilities(NetworkCapabilities nc, boolean sendToConnectivityService) {
+        Log.e("\033[32mARGH\033[0m", "" + nc);
         mNetworkCapabilities.set(nc);
+        Log.e("\033[32mARGH2\033[0m", "" + mNetworkCapabilities);
         if (sendToConnectivityService) {
             mNetworkAgent.sendNetworkCapabilities(mNetworkCapabilities);
         }
