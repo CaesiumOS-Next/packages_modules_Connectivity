@@ -265,6 +265,30 @@
       },
       "revId": "c39b345c01ee2dc1a873ccb2166ff0f071f13dfb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1fc1ed6_25eb34a3",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 57
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T16:59:17Z",
+      "side": 1,
+      "message": "the 2nd policy below does that, this checks a partial policy",
+      "parentUuid": "22bad8af_748a784a",
+      "range": {
+        "startLine": 529,
+        "startChar": 58,
+        "endLine": 529,
+        "endChar": 60
+      },
+      "revId": "c39b345c01ee2dc1a873ccb2166ff0f071f13dfb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
