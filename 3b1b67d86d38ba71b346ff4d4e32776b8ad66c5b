@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "476b3983_659267f7",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-26T16:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0f1d37d_202bd14d",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 9
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffef284a_b161ab7d",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-26T03:15:23Z",
       "side": 1,
       "message": "You need to create BpfNetMaps from deps.getBpftNetMaps, otherwise the unit test won\u0027t work.",
+      "range": {
+        "startLine": 209,
+        "startChar": 8,
+        "endLine": 209,
+        "endChar": 44
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e125fb75_c9d9cd44",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-26T16:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffef284a_b161ab7d",
       "range": {
         "startLine": 209,
         "startChar": 8,
@@ -117,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81d7c7eb_c4d47fc6",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-26T16:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aea9b11e_3ea28f56",
+      "range": {
+        "startLine": 179,
+        "startChar": 8,
+        "endLine": 179,
+        "endChar": 76
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93099174_c5502ea1",
@@ -140,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f3d9f62_1d422028",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-26T16:48:13Z",
+      "side": 1,
+      "message": "It\u0027s wrong. thanks for pointing out.",
+      "parentUuid": "93099174_c5502ea1",
+      "range": {
+        "startLine": 552,
+        "startChar": 47,
+        "endLine": 552,
+        "endChar": 61
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84416c31_1e6df369",
@@ -153,6 +249,30 @@
       "writtenOn": "2022-01-25T13:25:48Z",
       "side": 1,
       "message": "I don\u0027t think this verification would be passed. You are creating a new BpfNetMaps object not get it from dependencies, so mBpfNetMaps would never be called.",
+      "range": {
+        "startLine": 716,
+        "startChar": 15,
+        "endLine": 716,
+        "endChar": 26
+      },
+      "revId": "3b1b67d86d38ba71b346ff4d4e32776b8ad66c5b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94873d42_7becd31d",
+        "filename": "tests/unit/java/com/android/server/connectivity/PermissionMonitorTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-26T16:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84416c31_1e6df369",
       "range": {
         "startLine": 716,
         "startChar": 15,

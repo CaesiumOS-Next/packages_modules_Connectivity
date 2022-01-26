@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eb96380_4e090c19",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-26T16:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "460436fe_20680860",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 0
+      },
+      "revId": "c87fea863b7b482c7cf7cf152e712ad3915e44ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a582aa98_05dcb930",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-26T04:53:59Z",
       "side": 1,
       "message": "swapActiveStatsMap() can throw IllegalStateException (BpfNetMaps.java L.289). Shouldn\u0027t it catch IllegalStateException and throw? What will happen if INetd binder call is failed?",
+      "range": {
+        "startLine": 10736,
+        "startChar": 10,
+        "endLine": 10736,
+        "endChar": 44
+      },
+      "revId": "c87fea863b7b482c7cf7cf152e712ad3915e44ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31931ba9_7f2b45bb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 10736,
+      "author": {
+        "id": 1351420
+      },
+      "writtenOn": "2022-01-26T16:48:13Z",
+      "side": 1,
+      "message": "It throws ServiceSpecificException if INetd binder call is failed.\nI think we could ignore IllegalStateException here",
+      "parentUuid": "a582aa98_05dcb930",
       "range": {
         "startLine": 10736,
         "startChar": 10,
