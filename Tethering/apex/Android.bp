@@ -133,6 +133,7 @@ override_apex {
     name: "com.android.tethering.inprocess",
     base: "com.android.tethering",
     package_name: "com.android.tethering.inprocess",
+    defaults: ["ConnectivityNextEnableDefaults"],
     apps: [
         "ServiceConnectivityResources",
         "InProcessTethering",
