@@ -22,6 +22,30 @@
       },
       "revId": "479410551129075dc17aba98664b84dc4a1d3764",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bcabbe4_6720f61f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6886,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-26T06:29:02Z",
+      "side": 0,
+      "message": "Argh good catch. It goes in another file as of the next patch, but this patch needs to keep it by moving it into processCapabilitiesFromAgent. Done.",
+      "parentUuid": "b0ec975e_0cdd54e6",
+      "range": {
+        "startLine": 6880,
+        "startChar": 8,
+        "endLine": 6886,
+        "endChar": 9
+      },
+      "revId": "479410551129075dc17aba98664b84dc4a1d3764",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
