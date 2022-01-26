@@ -117,6 +117,30 @@
       },
       "revId": "a4c55ee5973288697398e7b01ba7b6fb26fc4d3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60b037e0_e2a84c14",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-26T12:39:07Z",
+      "side": 1,
+      "message": "for EPERM, I guess that it could be found while testing. I think that we need an integration test (start/stop clatd) to detect this automatically but manual test",
+      "parentUuid": "5e2268cd_d5d26050",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 39
+      },
+      "revId": "a4c55ee5973288697398e7b01ba7b6fb26fc4d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
