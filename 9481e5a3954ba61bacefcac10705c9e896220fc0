@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24290550_08ae373f",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-26T08:14:04Z",
+      "side": 1,
+      "message": "Per discussion: if you translate network 123 to \"wlan0\" and when the lookup succeeds, wlan0 is in network 131, then what happens to the callback? will the NsdServiceInfo have network 123 in it? If so might want to drop the callback.",
+      "range": {
+        "startLine": 6,
+        "startChar": 84,
+        "endLine": 6,
+        "endChar": 91
+      },
+      "revId": "9481e5a3954ba61bacefcac10705c9e896220fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
