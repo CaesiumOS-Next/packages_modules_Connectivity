@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d15588e_eb2a04fb",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-26T10:36:42Z",
+      "side": 1,
+      "message": "Add a TODO and keep as unresolved",
+      "parentUuid": "70b9b2e6_7d6294ed",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 68
+      },
+      "revId": "a4c55ee5973288697398e7b01ba7b6fb26fc4d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "00510881_c9992f4c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-26T09:35:00Z",
       "side": 1,
       "message": "I think this will hang if kill returned EPERM.\nNot sure if this won\u0027t bug on kill returning ESRCH as well...",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 39
+      },
+      "revId": "a4c55ee5973288697398e7b01ba7b6fb26fc4d3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e2268cd_d5d26050",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-01-26T10:36:42Z",
+      "side": 1,
+      "message": "You are right. I think that ESRCH needs to be ignored. thank you",
+      "parentUuid": "00510881_c9992f4c",
       "range": {
         "startLine": 448,
         "startChar": 0,
