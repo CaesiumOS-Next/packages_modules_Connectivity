@@ -1196,19 +1196,21 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
      *
      * @param nc the capabilities to sanitize
      * @param creatorUid the UID of the process creating this network agent
+     * @param authenticator the carrier privilege authenticator to check for telephony constraints
      */
     public static void restrictCapabilitiesFromNetworkAgent(@NonNull final NetworkCapabilities nc,
-            final int creatorUid) {
+            final int creatorUid, @NonNull final CarrierPrivilegeAuthenticator authenticator) {
         if (nc.hasTransport(TRANSPORT_TEST)) {
             nc.restrictCapabilitiesForTestNetwork(creatorUid);
         }
-        if (!areAccessUidsAcceptableFromNetworkAgent(nc)) {
+        if (!areAccessUidsAcceptableFromNetworkAgent(nc, authenticator)) {
             nc.setAccessUids(new ArraySet<>());
         }
     }
 
     private static boolean areAccessUidsAcceptableFromNetworkAgent(
-            @NonNull final NetworkCapabilities nc) {
+            @NonNull final NetworkCapabilities nc,
+            @Nullable final CarrierPrivilegeAuthenticator carrierPrivilegeAuthenticator) {
         // NCs without access UIDs are fine.
         if (!nc.hasAccessUids()) return true;
 
@@ -1219,7 +1221,18 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         // access UIDs
         if (nc.hasTransport(TRANSPORT_TEST)) return true;
 
-        // TODO : accept more supported cases
+        // Factories that make cell networks can allow the UID for the carrier service package.
+        // This can only work in T where there is support for CarrierPrivilegeAuthenticator
+        if (null != carrierPrivilegeAuthenticator
+                && nc.hasSingleTransport(TRANSPORT_CELLULAR)
+                && (1 == nc.getAccessUidsNoCopy().size())
+                && (carrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
+                        nc.getAccessUidsNoCopy().valueAt(0), nc))) {
+            return true;
+        }
+
+        // TODO : accept Railway callers
+
         return false;
     }
 
