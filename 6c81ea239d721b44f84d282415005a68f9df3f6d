@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4dfa409_309a56da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-01-26T13:24:05Z",
+      "side": 1,
+      "message": "+Jean for API-Review.",
+      "revId": "6c81ea239d721b44f84d282415005a68f9df3f6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c51f550f_0833c2e9",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-01-26T13:24:05Z",
+      "side": 1,
+      "message": "Nit: Verify setting invalid value case like testNetworkSwitchNotificationMaximumDailyCount",
+      "range": {
+        "startLine": 309,
+        "startChar": 8,
+        "endLine": 309,
+        "endChar": 9
+      },
+      "revId": "6c81ea239d721b44f84d282415005a68f9df3f6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
