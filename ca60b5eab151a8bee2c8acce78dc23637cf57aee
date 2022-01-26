@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b440e8d_76939c31",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T03:11:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bca3b1b_3af2ff28",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 14
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1bdf6c0_0fca1ef3",
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "(4,14,0)",
       "parentUuid": "3025b07c_983d4b0f",
+      "range": {
+        "startLine": 105,
+        "startChar": 49,
+        "endLine": 105,
+        "endChar": 56
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1500db47_36a142d6",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 51
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T03:11:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc199fd3_c6e8ccc5",
       "range": {
         "startLine": 105,
         "startChar": 49,
@@ -2477,6 +2525,30 @@
       "side": 1,
       "message": "update",
       "parentUuid": "2d1d0e61_a5bad0f2",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "ca60b5eab151a8bee2c8acce78dc23637cf57aee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b786f0c5_19b1ef01",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 51
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-01-26T03:11:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99b4b2a3_5c8a3003",
       "range": {
         "startLine": 110,
         "startChar": 4,
