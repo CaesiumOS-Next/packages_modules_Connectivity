@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019779311",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1822141?revision\u003d63",
+      "fixSuggestions": [
+        {
+          "fixId": "3d613783_5973a95a",
+          "description": "Change to \"tests/cts/net/src/android/net/cts/DscpPolicyTest.kt\"",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+              "range": {
+                "startLine": 252,
+                "startChar": 37,
+                "endLine": 252,
+                "endChar": 48
+              },
+              "replacement": "comparison"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "ffaca4ed_0f690d19",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 63
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-26T23:36:55Z",
+      "side": 1,
+      "message": "Common typo found: \"comparision\" -- should it be \"comparison\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 252,
+        "startChar": 37,
+        "endLine": 252,
+        "endChar": 48
+      },
+      "revId": "3853ce595a3cc54c05d159edf6ef1f9464a25a4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
