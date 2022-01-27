@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "374b728e_eaaddf2d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-27T18:26:47Z",
+      "side": 1,
+      "message": "I wonder if this shouldn\u0027t also do \u0026\u0026 USE_JNI\n\nIndeed... why even try to loadLibrary the jni lib on pre-T?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "143f6759243dc9ee8f0173f259ff3d301fa9fa18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
