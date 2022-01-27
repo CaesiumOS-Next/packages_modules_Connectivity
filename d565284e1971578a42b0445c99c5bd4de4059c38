@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72acd4b9_ee06785e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-01-27T10:41:48Z",
+      "side": 1,
+      "message": "rebase since commit got conflict in module-lib-current.txt ",
+      "revId": "d565284e1971578a42b0445c99c5bd4de4059c38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
