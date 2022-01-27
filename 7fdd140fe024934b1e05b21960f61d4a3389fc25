@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60a4eb51_594841ab",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-27T01:10:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b673c88_38913320",
+      "range": {
+        "startLine": 1061,
+        "startChar": 12,
+        "endLine": 1061,
+        "endChar": 13
+      },
+      "revId": "7fdd140fe024934b1e05b21960f61d4a3389fc25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d8784c3_515082c4",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-24T08:10:18Z",
       "side": 1,
       "message": "While you\u0027re here, onClosedWithException",
+      "range": {
+        "startLine": 1079,
+        "startChar": 22,
+        "endLine": 1079,
+        "endChar": 35
+      },
+      "revId": "7fdd140fe024934b1e05b21960f61d4a3389fc25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd932283_480d9ee5",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-27T01:10:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d8784c3_515082c4",
       "range": {
         "startLine": 1079,
         "startChar": 22,
