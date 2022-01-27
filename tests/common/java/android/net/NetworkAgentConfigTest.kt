@@ -20,6 +20,7 @@ import android.os.Build
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import com.android.modules.utils.build.SdkLevel.isAtLeastS
+import com.android.modules.utils.build.SdkLevel.isAtLeastT
 import com.android.testutils.ConnectivityModuleTest
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo
@@ -49,6 +50,10 @@ class NetworkAgentConfigTest {
             if (isAtLeastS()) {
                 setBypassableVpn(true)
             }
+            if (isAtLeastT()) {
+                setExcludeLocalRoutesVpn(true)
+                setRequiresValidation(true)
+            }
         }.build()
         assertParcelingIsLossless(config)
     }
@@ -69,6 +74,10 @@ class NetworkAgentConfigTest {
                 setProvisioningNotificationEnabled(false)
                 setBypassableVpn(true)
             }
+            if (isAtLeastT()) {
+                setExcludeLocalRoutesVpn(true)
+                setRequiresValidation(true)
+            }
         }.build()
 
         assertTrue(config.isExplicitlySelected())
@@ -82,6 +91,9 @@ class NetworkAgentConfigTest {
             assertFalse(config.isNat64DetectionEnabled())
             assertFalse(config.isProvisioningNotificationEnabled())
             assertTrue(config.isBypassableVpn())
+        } else if (isAtLeastT()) {
+            assertTrue(config.getExcludeLocalRouteVpn())
+            assertTrue(config.getRequiresValidation())
         } else {
             assertTrue(config.isNat64DetectionEnabled())
             assertTrue(config.isProvisioningNotificationEnabled())

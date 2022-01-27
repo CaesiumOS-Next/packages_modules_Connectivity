@@ -246,6 +246,21 @@ public final class NetworkAgentConfig implements Parcelable {
         return excludeLocalRouteVpn;
     }
 
+    /**
+     * If the {@link Network} is a VPN, whether the network validation should be performed for the
+     * VPN network.
+     * @hide
+     */
+    public boolean requiresValidation = false;
+
+    /**
+     * @return whether the network validation should be performed for the VPN network.
+     * @hide
+     */
+    public boolean getRequiresValidation() {
+        return requiresValidation;
+    }
+
     /** @hide */
     public NetworkAgentConfig() {
     }
@@ -266,6 +281,7 @@ public final class NetworkAgentConfig implements Parcelable {
             legacySubTypeName = nac.legacySubTypeName;
             mLegacyExtraInfo = nac.mLegacyExtraInfo;
             excludeLocalRouteVpn = nac.excludeLocalRouteVpn;
+            requiresValidation = nac.requiresValidation;
         }
     }
 
@@ -409,6 +425,19 @@ public final class NetworkAgentConfig implements Parcelable {
         }
 
         /**
+         * Sets whether network validation should be performed in the VPN network.
+         *
+         * @return this builder, to facilitate chaining.
+         * @hide
+         */
+        @NonNull
+        @SystemApi(client = MODULE_LIBRARIES)
+        public Builder setRequiresValidation(boolean requiresValidation) {
+            mConfig.requiresValidation = requiresValidation;
+            return this;
+        }
+
+        /**
          * Sets whether the apps can bypass the VPN connection.
          *
          * @return this builder, to facilitate chaining.
@@ -456,14 +485,16 @@ public final class NetworkAgentConfig implements Parcelable {
                 && Objects.equals(subscriberId, that.subscriberId)
                 && Objects.equals(legacyTypeName, that.legacyTypeName)
                 && Objects.equals(mLegacyExtraInfo, that.mLegacyExtraInfo)
-                && excludeLocalRouteVpn == that.excludeLocalRouteVpn;
+                && excludeLocalRouteVpn == that.excludeLocalRouteVpn
+                && requiresValidation == that.requiresValidation;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(allowBypass, explicitlySelected, acceptUnvalidated,
                 acceptPartialConnectivity, provisioningNotificationDisabled, subscriberId,
-                skip464xlat, legacyType, legacyTypeName, mLegacyExtraInfo, excludeLocalRouteVpn);
+                skip464xlat, legacyType, legacyTypeName, mLegacyExtraInfo, excludeLocalRouteVpn,
+                requiresValidation);
     }
 
     @Override
@@ -481,6 +512,7 @@ public final class NetworkAgentConfig implements Parcelable {
                 + ", legacyTypeName = '" + legacyTypeName + '\''
                 + ", legacyExtraInfo = '" + mLegacyExtraInfo + '\''
                 + ", excludeLocalRouteVpn = '" + excludeLocalRouteVpn + '\''
+                + ", requiresValidation = '" + requiresValidation + '\''
                 + "}";
     }
 
@@ -504,6 +536,7 @@ public final class NetworkAgentConfig implements Parcelable {
         out.writeString(legacySubTypeName);
         out.writeString(mLegacyExtraInfo);
         out.writeInt(excludeLocalRouteVpn ? 1 : 0);
+        out.writeInt(requiresValidation ? 1 : 0);
     }
 
     public static final @NonNull Creator<NetworkAgentConfig> CREATOR =
@@ -524,6 +557,7 @@ public final class NetworkAgentConfig implements Parcelable {
             networkAgentConfig.legacySubTypeName = in.readString();
             networkAgentConfig.mLegacyExtraInfo = in.readString();
             networkAgentConfig.excludeLocalRouteVpn = in.readInt() != 0;
+            networkAgentConfig.requiresValidation = in.readInt() != 0;
             return networkAgentConfig;
         }
 

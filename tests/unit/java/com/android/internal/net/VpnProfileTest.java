@@ -50,6 +50,7 @@ public class VpnProfileTest {
     private static final int ENCODED_INDEX_AUTH_PARAMS_INLINE = 23;
     private static final int ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS = 24;
     private static final int ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE = 25;
+    private static final int ENCODED_INDEX_REQUIRE_VALIDATION = 26;
 
     @Test
     public void testDefaults() throws Exception {
@@ -78,6 +79,8 @@ public class VpnProfileTest {
         assertEquals(1360, p.maxMtu);
         assertFalse(p.areAuthParamsInline);
         assertFalse(p.isRestrictedToTestNetworks);
+        assertFalse(p.excludeLocalRoutes);
+        assertFalse(p.requiresValidation);
     }
 
     private VpnProfile getSampleIkev2Profile(String key) {
@@ -112,7 +115,7 @@ public class VpnProfileTest {
 
         // Not saved, but also not compared.
         p.saveLogin = true;
-
+        p.requiresValidation = true;
         return p;
     }
 
@@ -129,8 +132,8 @@ public class VpnProfileTest {
     @Test
     public void testParcelUnparcel() {
         if (isAtLeastT()) {
-            // excludeLocalRoutes is added in T.
-            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 24);
+            // excludeLocalRoutes, requiresValidation is added in T.
+            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 25);
         } else {
             assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 23);
         }
@@ -174,7 +177,8 @@ public class VpnProfileTest {
                 getEncodedDecodedIkev2ProfileMissingValues(
                         ENCODED_INDEX_AUTH_PARAMS_INLINE,
                         ENCODED_INDEX_RESTRICTED_TO_TEST_NETWORKS,
-                        ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE /* missingIndices */);
+                        ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE,
+                        ENCODED_INDEX_REQUIRE_VALIDATION /* missingIndices */);
 
         assertNull(VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes()));
     }
@@ -194,11 +198,23 @@ public class VpnProfileTest {
     public void testEncodeDecodeMissingExcludeLocalRoutes() {
         final String tooFewValues =
                 getEncodedDecodedIkev2ProfileMissingValues(
-                        ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE /* missingIndices */);
+                        ENCODED_INDEX_EXCLUDE_LOCAL_ROUTE,
+                        ENCODED_INDEX_REQUIRE_VALIDATION /* missingIndices */);
 
-        // Verify decoding without isRestrictedToTestNetworks defaults to false
+        // Verify decoding without excludeLocalRoutes defaults to false
         final VpnProfile decoded = VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes());
         assertFalse(decoded.excludeLocalRoutes);
+    }
+
+    @Test
+    public void testEncodeDecodeMissingRequiresValidation() {
+        final String tooFewValues =
+                getEncodedDecodedIkev2ProfileMissingValues(
+                        ENCODED_INDEX_REQUIRE_VALIDATION /* missingIndices */);
+
+        // Verify decoding without requiresValidation defaults to false
+        final VpnProfile decoded = VpnProfile.decode(DUMMY_PROFILE_KEY, tooFewValues.getBytes());
+        assertFalse(decoded.requiresValidation);
     }
 
     @Test
