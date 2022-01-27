@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45c46628_c46cadef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 66
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T04:16:44Z",
+      "side": 1,
+      "message": "The bootloops were due to the verifier rejecting the program:\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n01-27 12:39:08.449   943   943 D LibBpfLoader: bpf_prog_load lib call for /apex/com.android.tethering/etc/bpf/net_shared/dscp_policy.o (schedcls_set_dscp) returned fd: -1 (Invalid argument)\n01-27 12:39:08.449   943   943 W LibBpfLoader: bpf_prog_load - BEGIN log_buf contents:\n01-27 12:39:08.449   943   943 W LibBpfLoader: back-edge from insn 92 to 93\n01-27 12:39:08.449   943   943 W LibBpfLoader: \n01-27 12:39:08.449   943   943 W LibBpfLoader: bpf_prog_load - END log_buf contents.\n01-27 12:39:08.449   943   943 E LibBpfLoader: non-optional program failed to load.\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nThis is because the program contains a loop, and loops only became possible in 5.4. Now that the program has a min kver of 5.4 it should not bootloop any more devices.",
+      "revId": "952d4f57563de09534d47e020bf666a59dc740b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
