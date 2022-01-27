@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c4081f0_df2937ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-27T06:13:00Z",
+      "side": 1,
+      "message": "Ouch, I should upload all of these commits(or part of) to internal master and merge them there first due to merge conflict. (which is caused by security patch)",
+      "revId": "cf2ed90494fecb8f9480fd67349fee5c87e0c5d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
