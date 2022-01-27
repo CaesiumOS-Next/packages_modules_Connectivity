@@ -58,17 +58,20 @@ cc_library_shared {
     srcs: [
         "jni/com_android_server_TestNetworkService.cpp",
         "jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        ":services.connectivity-tiramisu-jni-sources",
         "jni/onload.cpp",
     ],
     stl: "libc++_static",
     header_libs: [
         "libbase_headers",
+        "bpf_connectivity_headers",
     ],
     static_libs: [
         "libbase",
         "libclat",
         "libip_checksum",
         "libnetjniutils",
+        "libnetworkstats",
     ],
     shared_libs: [
         "liblog",
