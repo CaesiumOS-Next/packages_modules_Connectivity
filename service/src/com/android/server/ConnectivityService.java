@@ -2080,6 +2080,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @Override
+    public LinkProperties redactLinkPropertiesForUid(LinkProperties lp, int uid,
+            @NonNull String packageName, @Nullable String callingAttributionTag) {
+        Objects.requireNonNull(packageName);
+        Objects.requireNonNull(lp);
+        enforceNetworkStackOrSettingsPermission();
+        return linkPropertiesRestrictedForCallerPermissions(lp, -1 /* callerPid */, uid);
+    }
+
     private NetworkCapabilities getNetworkCapabilitiesInternal(Network network) {
         return getNetworkCapabilitiesInternal(getNetworkAgentInfoForNetwork(network));
     }
@@ -2103,6 +2112,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 getCallingPid(), mDeps.getCallingUid(), callingPackageName, callingAttributionTag);
     }
 
+    @Override
+    public NetworkCapabilities redactNetworkCapabilitiesForUid(@NonNull NetworkCapabilities nc,
+            int uid, @NonNull String packageName, @Nullable String callingAttributionTag) {
+        Objects.requireNonNull(nc);
+        Objects.requireNonNull(packageName);
+        enforceNetworkStackOrSettingsPermission();
+        return createWithLocationInfoSanitizedIfNecessaryWhenParceled(
+                networkCapabilitiesRestrictedForCallerPermissions(nc, -1 /* callerPid */, uid),
+                true /* includeLocationSensitiveInfo */, -1 /* callingPid */, uid, packageName,
+                callingAttributionTag);
+    }
+
     @VisibleForTesting
     NetworkCapabilities networkCapabilitiesRestrictedForCallerPermissions(
             NetworkCapabilities nc, int callerPid, int callerUid) {
@@ -2110,6 +2131,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (!checkSettingsPermission(callerPid, callerUid)) {
             newNc.setUids(null);
             newNc.setSSID(null);
+            // TODO: Processes holding NETWORK_FACTORY should be able to see the underlying networks
             newNc.setUnderlyingNetworks(null);
         }
         if (newNc.getNetworkSpecifier() != null) {
@@ -2127,7 +2149,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     /**
      * Wrapper used to cache the permission check results performed for the corresponding
-     * app. This avoid performing multiple permission checks for different fields in
+     * app. This avoids performing multiple permission checks for different fields in
      * NetworkCapabilities.
      * Note: This wrapper does not support any sort of invalidation and thus must not be
      * persistent or long-lived. It may only be used for the time necessary to
