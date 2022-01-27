@@ -1603,6 +1603,29 @@ public class ConnectivityManager {
     }
 
     /**
+     * Get the redacted {@link LinkProperties} for the given uid.
+     *
+     * @param linkProperties A {@link LinkProperties} which will be redacted.
+     * @param uid The uid which is used for redacting the {@link LinkProperties}.
+     * @return A redacted {@link LinkProperties} which is appropriate to send to the given uid.
+     * @hide
+     */
+    @RequiresPermission(anyOf = {
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+            android.Manifest.permission.NETWORK_STACK,
+            android.Manifest.permission.NETWORK_SETTINGS})
+    @SystemApi
+    @NonNull
+    public LinkProperties redactLinkPropertiesForUid(@NonNull LinkProperties linkProperties,
+            int uid) {
+        try {
+            return mService.redactLinkPropertiesForUid(linkProperties, uid);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
      * Get the {@link NetworkCapabilities} for the given {@link Network}.  This
      * will return {@code null} if the network is unknown or if the |network| argument is null.
      *
@@ -1623,6 +1646,34 @@ public class ConnectivityManager {
         try {
             return mService.getNetworkCapabilities(
                     network, mContext.getOpPackageName(), getAttributionTag());
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Get the redacted {@link NetworkCapabilities} for the given uid.
+     *
+     * @param nc A {@link NetworkCapabilities} which will be redacted.
+     * @param uid The uid which is used for redacting the {@link NetworkCapabilities}.
+     * @param packageName The package which is used for redacting the {@link NetworkCapabilities}.
+     * @param includeLocationSensitiveInfo A boolean to indicate if the return
+     *                                     {@link NetworkCapabilities} should include location
+     *                                     sensitive info or not.
+     * @return A redacted {@link NetworkCapabilities} which is appropriate to send to the given uid.
+     * @hide
+     */
+    @RequiresPermission(anyOf = {
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+            android.Manifest.permission.NETWORK_STACK,
+            android.Manifest.permission.NETWORK_SETTINGS})
+    @SystemApi
+    @NonNull
+    public NetworkCapabilities redactNetworkCapabilitiesForUid(@Nullable NetworkCapabilities nc,
+            int uid, @NonNull String packageName, boolean includeLocationSensitiveInfo) {
+        try {
+            return mService.redactNetworkCapabilitiesForUid(nc, uid, packageName,
+                    getAttributionTag(), includeLocationSensitiveInfo);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }

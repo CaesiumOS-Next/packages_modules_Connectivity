@@ -2027,6 +2027,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @Override
+    public LinkProperties redactLinkPropertiesForUid(LinkProperties lp, int uid) {
+        enforceNetworkStackOrSettingsPermission();
+        Objects.requireNonNull(lp);
+        return linkPropertiesRestrictedForCallerPermissions(lp, -1 /* callerPid */, uid);
+    }
+
     private NetworkCapabilities getNetworkCapabilitiesInternal(Network network) {
         return getNetworkCapabilitiesInternal(getNetworkAgentInfoForNetwork(network));
     }
@@ -2050,6 +2057,18 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 getCallingPid(), mDeps.getCallingUid(), callingPackageName, callingAttributionTag);
     }
 
+    @Override
+    public NetworkCapabilities redactNetworkCapabilitiesForUid(NetworkCapabilities nc,
+            int uid, String packageName, @Nullable String callingAttributionTag,
+            boolean includeLocationSensitiveInfo) {
+        enforceNetworkStackOrSettingsPermission();
+        return createWithLocationInfoSanitizedIfNecessaryWhenParceled(
+                networkCapabilitiesRestrictedForCallerPermissions(
+                        nc, -1 /* callerPid */, uid),
+                includeLocationSensitiveInfo, -1 /* callingPid */, uid, packageName,
+                callingAttributionTag);
+    }
+
     @VisibleForTesting
     NetworkCapabilities networkCapabilitiesRestrictedForCallerPermissions(
             NetworkCapabilities nc, int callerPid, int callerUid) {
@@ -2057,6 +2076,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (!checkSettingsPermission(callerPid, callerUid)) {
             newNc.setUids(null);
             newNc.setSSID(null);
+            // TODO: Setting underlying networks should be guarded by NETWORK_FACTORY.
             newNc.setUnderlyingNetworks(null);
         }
         if (newNc.getNetworkSpecifier() != null) {
