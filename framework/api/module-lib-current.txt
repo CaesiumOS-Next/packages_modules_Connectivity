@@ -10,6 +10,8 @@ package android.net {
     method @NonNull @RequiresPermission(anyOf={android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_STACK, android.Manifest.permission.NETWORK_SETTINGS}) public java.util.List<android.net.NetworkStateSnapshot> getAllNetworkStateSnapshots();
     method @Nullable public android.net.ProxyInfo getGlobalProxy();
     method @NonNull public static android.util.Range<java.lang.Integer> getIpSecNetIdRange();
+    method @NonNull @RequiresPermission(anyOf={android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_STACK, android.Manifest.permission.NETWORK_SETTINGS}) public android.net.LinkProperties redactLinkPropertiesForUid(@NonNull android.net.LinkProperties, int, int);
+    method @NonNull @RequiresPermission(anyOf={android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_STACK, android.Manifest.permission.NETWORK_SETTINGS}) public android.net.NetworkCapabilities redactNetworkCapabilitiesForUid(@Nullable android.net.NetworkCapabilities, int, int);
     method @RequiresPermission(anyOf={android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_SETTINGS}) public void registerDefaultNetworkCallbackForUid(int, @NonNull android.net.ConnectivityManager.NetworkCallback, @NonNull android.os.Handler);
     method @RequiresPermission(anyOf={android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, android.Manifest.permission.NETWORK_SETTINGS}) public void registerSystemDefaultNetworkCallback(@NonNull android.net.ConnectivityManager.NetworkCallback, @NonNull android.os.Handler);
     method @RequiresPermission(anyOf={android.Manifest.permission.NETWORK_SETTINGS, android.Manifest.permission.NETWORK_STACK, android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK}) public void replaceFirewallChain(int, @NonNull int[]);
@@ -54,6 +56,8 @@ package android.net {
     field public static final int PROFILE_NETWORK_PREFERENCE_DEFAULT = 0; // 0x0
     field public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE = 1; // 0x1
     field public static final int PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK = 2; // 0x2
+    field public static final int REDACT_INCLUDE_LOCATION_INFO = 1; // 0x1
+    field public static final int REDACT_INCLUDE_NOTHING = 0; // 0x0
   }
 
   public static class ConnectivityManager.NetworkCallback {

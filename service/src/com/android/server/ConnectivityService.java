@@ -34,6 +34,7 @@ import static android.net.ConnectivityManager.BLOCKED_METERED_REASON_MASK;
 import static android.net.ConnectivityManager.BLOCKED_REASON_LOCKDOWN_VPN;
 import static android.net.ConnectivityManager.BLOCKED_REASON_NONE;
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+import static android.net.ConnectivityManager.REDACT_INCLUDE_LOCATION_INFO;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE;
@@ -121,6 +122,7 @@ import android.net.ConnectivityDiagnosticsManager.DataStallReport;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.BlockedReason;
 import android.net.ConnectivityManager.NetworkCallback;
+import android.net.ConnectivityManager.RedactionFlag;
 import android.net.ConnectivityManager.RestrictBackgroundStatus;
 import android.net.ConnectivityResources;
 import android.net.ConnectivitySettingsManager;
@@ -2080,6 +2082,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    @Override
+    public LinkProperties redactLinkPropertiesForUid(LinkProperties lp, int uid,
+            @RedactionFlag int flags, @Nullable String callingAttributionTag) {
+        enforceNetworkStackOrSettingsPermission();
+        Objects.requireNonNull(lp);
+        return linkPropertiesRestrictedForCallerPermissions(lp, -1 /* callerPid */, uid);
+    }
+
     private NetworkCapabilities getNetworkCapabilitiesInternal(Network network) {
         return getNetworkCapabilitiesInternal(getNetworkAgentInfoForNetwork(network));
     }
@@ -2103,6 +2113,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 getCallingPid(), mDeps.getCallingUid(), callingPackageName, callingAttributionTag);
     }
 
+    @Override
+    public NetworkCapabilities redactNetworkCapabilitiesForUid(NetworkCapabilities nc,
+            int uid, @RedactionFlag int flags, @Nullable String callingAttributionTag) {
+        enforceNetworkStackOrSettingsPermission();
+        final boolean includeLocationSensitiveInfo = 0 != (REDACT_INCLUDE_LOCATION_INFO & flags);
+        return createWithLocationInfoSanitizedIfNecessaryWhenParceled(
+                networkCapabilitiesRestrictedForCallerPermissions(nc, -1 /* callerPid */, uid),
+                includeLocationSensitiveInfo, -1 /* callingPid */, uid, null /* packageName */,
+                callingAttributionTag);
+    }
+
     @VisibleForTesting
     NetworkCapabilities networkCapabilitiesRestrictedForCallerPermissions(
             NetworkCapabilities nc, int callerPid, int callerUid) {
@@ -2110,6 +2131,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (!checkSettingsPermission(callerPid, callerUid)) {
             newNc.setUids(null);
             newNc.setSSID(null);
+            // TODO: Processes holding NETWORK_FACTORY should be able to see the underlying networks
             newNc.setUnderlyingNetworks(null);
         }
         if (newNc.getNetworkSpecifier() != null) {
@@ -2127,7 +2149,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     /**
      * Wrapper used to cache the permission check results performed for the corresponding
-     * app. This avoid performing multiple permission checks for different fields in
+     * app. This avoids performing multiple permission checks for different fields in
      * NetworkCapabilities.
      * Note: This wrapper does not support any sort of invalidation and thus must not be
      * persistent or long-lived. It may only be used for the time necessary to
@@ -2137,7 +2159,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private class RedactionPermissionChecker {
         private final int mCallingPid;
         private final int mCallingUid;
-        @NonNull private final String mCallingPackageName;
+        @Nullable private final String mCallingPackageName;
         @Nullable private final String mCallingAttributionTag;
 
         private Boolean mHasLocationPermission = null;
@@ -2145,7 +2167,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         private Boolean mHasSettingsPermission = null;
 
         RedactionPermissionChecker(int callingPid, int callingUid,
-                @NonNull String callingPackageName, @Nullable String callingAttributionTag) {
+                @Nullable String callingPackageName, @Nullable String callingAttributionTag) {
             mCallingPid = callingPid;
             mCallingUid = callingUid;
             mCallingPackageName = callingPackageName;
@@ -2240,7 +2262,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     @Nullable
     NetworkCapabilities createWithLocationInfoSanitizedIfNecessaryWhenParceled(
             @Nullable NetworkCapabilities nc, boolean includeLocationSensitiveInfo,
-            int callingPid, int callingUid, @NonNull String callingPkgName,
+            int callingPid, int callingUid, @Nullable String callingPkgName,
             @Nullable String callingAttributionTag) {
         if (nc == null) {
             return null;

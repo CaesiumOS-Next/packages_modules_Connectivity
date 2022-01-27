@@ -992,7 +992,39 @@ public class ConnectivityManager {
         FIREWALL_CHAIN_LOW_POWER_STANDBY
     })
     public @interface FirewallChain {}
-    // LINT.ThenChange(packages/modules/Connectivity/service/native/include/Common.h)
+
+    /**
+     * Redaction flags : redact everything, include nothing.
+     *
+     * Constant to pass to redacting methods to redact everything.
+     *
+     * @hide
+     **/
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int REDACT_INCLUDE_NOTHING = 0;
+
+    /**
+     * Redaction flags : include location information.
+     *
+     * Inclusion of this flag means location-sensitive redaction requests keep location info.
+     * <p>
+     * Some objects like {@link NetworkCapabilities} may contain location-sensitive information.
+     * Redacting methods in {@link ConnectivityManager} will remove these by default no matter
+     * the permissions held by the target UID. This flag will allow location-sensitive information
+     * to be included to the extent that the UID's location permissions allow. This usage will
+     * be noted by the system.
+     * <p>
+     * An example of sensitive information is the SSID of a Wi-Fi network.
+     * @hide */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int REDACT_INCLUDE_LOCATION_INFO = 1 << 0;
+
+    /** @hide */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(flag = true, prefix = "REDACT_", value = {
+            REDACT_INCLUDE_LOCATION_INFO
+    })
+    public @interface RedactionFlag {}
 
     /**
      * A kludge to facilitate static access where a Context pointer isn't available, like in the
@@ -1625,16 +1657,46 @@ public class ConnectivityManager {
     }
 
     /**
-     * Get the {@link NetworkCapabilities} for the given {@link Network}.  This
-     * will return {@code null} if the network is unknown or if the |network| argument is null.
+     * Redact {@link LinkProperties} for a given uid.
      *
-     * This will remove any location sensitive data in {@link TransportInfo} embedded in
-     * {@link NetworkCapabilities#getTransportInfo()}. Some transport info instances like
-     * {@link android.net.wifi.WifiInfo} contain location sensitive information. Retrieving
-     * this location sensitive information (subject to app's location permissions) will be
-     * noted by system. To include any location sensitive data in {@link TransportInfo},
-     * use a {@link NetworkCallback} with
+     * Returns an instance of the given {@link LinkProperties} appropriately redacted to send to the
+     * given UID, considering its permissions.
+     *
+     * @param lp A {@link LinkProperties} which will be redacted.
+     * @param uid The target uid.
+     * @param flags Flags to allow requesting or not requesting specific information ; this is
+     *              useful to avoid blaming a UID that holds location permissions but doesn't want
+     *              location-sensitive information in this case.
+     * @return A redacted {@link LinkProperties} which is appropriate to send to the given uid.
+     * @hide
+     */
+    @RequiresPermission(anyOf = {
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+            android.Manifest.permission.NETWORK_STACK,
+            android.Manifest.permission.NETWORK_SETTINGS})
+    @SystemApi(client = MODULE_LIBRARIES)
+    @NonNull
+    public LinkProperties redactLinkPropertiesForUid(@NonNull LinkProperties lp, int uid,
+            @RedactionFlag int flags) {
+        try {
+            return mService.redactLinkPropertiesForUid(lp, uid, flags, getAttributionTag());
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Get the {@link NetworkCapabilities} for the given {@link Network}, or null.
+     *
+     * This will remove any location sensitive data in the returned {@link NetworkCapabilities}.
+     * Some {@link TransportInfo} instances like {@link android.net.wifi.WifiInfo} contain location
+     * sensitive information. Retrieving this location sensitive information (subject to
+     * the caller's location permissions) will be noted by the system. To include any location
+     * sensitive data, use a {@link NetworkCallback} with the
      * {@link NetworkCallback#FLAG_INCLUDE_LOCATION_INFO} flag.
+     *
+     * This method returns {@code null} if the network is unknown or if the |network| argument
+     * is null.
      *
      * @param network The {@link Network} object identifying the network in question.
      * @return The {@link NetworkCapabilities} for the network, or {@code null}.
@@ -1645,6 +1707,37 @@ public class ConnectivityManager {
         try {
             return mService.getNetworkCapabilities(
                     network, mContext.getOpPackageName(), getAttributionTag());
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Redact {@link NetworkCapabilities} for a given uid.
+     *
+     * Returns an instance of {@link NetworkCapabilities} that is appropriately redacted to send
+     * to the given uid, considering its permissions. Calling this method will blame the UID for
+     * retrieving the device location if the passed capabilities contain location-sensitive
+     * information and the flags request that it is kept.
+     *
+     * @param nc A {@link NetworkCapabilities} instance which will be redacted.
+     * @param uid The target uid.
+     * @param flags Flags to allow requesting or not requesting specific information ; this is
+     *              useful to avoid blaming a UID that holds location permissions but doesn't want
+     *              location-sensitive information in this case.
+     * @return A redacted {@link NetworkCapabilities} which is appropriate to send to the given uid.
+     * @hide
+     */
+    @RequiresPermission(anyOf = {
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK,
+            android.Manifest.permission.NETWORK_STACK,
+            android.Manifest.permission.NETWORK_SETTINGS})
+    @SystemApi(client = MODULE_LIBRARIES)
+    @NonNull
+    public NetworkCapabilities redactNetworkCapabilitiesForUid(@Nullable NetworkCapabilities nc,
+            int uid, @RedactionFlag int flags) {
+        try {
+            return mService.redactNetworkCapabilitiesForUid(nc, uid, flags, getAttributionTag());
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
@@ -3547,7 +3640,17 @@ public class ConnectivityManager {
          * @hide
          */
         public static final int FLAG_NONE = 0;
+
         /**
+         * Inclusion of this flag means location-sensitive redaction requests keeping location info.
+         *
+         * Some objects like {@link NetworkCapabilities} may contain location-sensitive information.
+         * Prior to Android 12, this information is always returned to apps holding the appropriate
+         * permission, possibly noting that the app has used location.
+         * In Android 12 and above, it is possible for apps not to request location information even
+         * if they hold the permission. In this case, the objects will be redacted as if the app
+         * did not hold the permissions, and the system will not take note of location usage.
+         *
          * Use this flag to include any location sensitive data in {@link NetworkCapabilities} sent
          * via {@link #onCapabilitiesChanged(Network, NetworkCapabilities)}.
          * <p>
@@ -3564,12 +3667,11 @@ public class ConnectivityManager {
          * <li> Retrieving this location sensitive information (subject to app's location
          * permissions) will be noted by system. </li>
          * <li> Without this flag any {@link NetworkCapabilities} provided via the callback does
-         * not include location sensitive info.
-         * </p>
+         * not include location sensitive information.
          */
         // Note: Some existing fields which are location sensitive may still be included without
         // this flag if the app targets SDK < S (to maintain backwards compatibility).
-        public static final int FLAG_INCLUDE_LOCATION_INFO = 1 << 0;
+        public static final int FLAG_INCLUDE_LOCATION_INFO = REDACT_INCLUDE_LOCATION_INFO;
 
         /** @hide */
         @Retention(RetentionPolicy.SOURCE)
