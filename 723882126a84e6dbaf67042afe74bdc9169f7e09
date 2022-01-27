@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bef5975c_79fe8a40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 70
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T15:19:25Z",
+      "side": 1,
+      "message": "LGTM. Assuming this passes presubmit, feel free to merge as is and address the comments in a follow-up. Thank you for your patience.",
+      "revId": "723882126a84e6dbaf67042afe74bdc9169f7e09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ea88c9f_fcc838af",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T15:19:25Z",
+      "side": 1,
+      "message": "Nit: final int.",
+      "revId": "723882126a84e6dbaf67042afe74bdc9169f7e09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9525f021_4ff88b7d",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T15:19:25Z",
+      "side": 1,
+      "message": "Why do you need to do this again? Because of line 129 existingIndex is not -1. Because of line 117, then, that means that existingIndex \u003d\u003d mPolicyIdToBpfMapIndex.get(policy.getPolicyId()). So it looks like this could simply be:\n\n    addIndex \u003d existingIndex;\n\nThis also seems intuitively correct: if a policy with this ID exists, then it should be replaced, which means that the index to write to (addIndex) is the index of the existing policy (existingIndex).\n\nAm I missing something?",
+      "range": {
+        "startLine": 130,
+        "startChar": 23,
+        "endLine": 130,
+        "endChar": 72
+      },
+      "revId": "723882126a84e6dbaf67042afe74bdc9169f7e09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83c31799_79691966",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T15:19:25Z",
+      "side": 1,
+      "message": "4",
+      "range": {
+        "startLine": 139,
+        "startChar": 66,
+        "endLine": 139,
+        "endChar": 67
+      },
+      "revId": "723882126a84e6dbaf67042afe74bdc9169f7e09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d254b627_d8a3e64a",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 70
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T15:19:25Z",
+      "side": 1,
+      "message": "Could you preserve the TODO from https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1822141/59/service/src/com/android/server/connectivity/DscpPolicyTracker.java#93 here?",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "723882126a84e6dbaf67042afe74bdc9169f7e09",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

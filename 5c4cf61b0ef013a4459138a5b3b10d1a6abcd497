@@ -1187,6 +1187,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0369653e_ba5909c4",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T15:19:25Z",
+      "side": 1,
+      "message": "Yes, sorry, this was incorrect.",
+      "parentUuid": "96389a8c_cd9d041b",
+      "range": {
+        "startLine": 198,
+        "startChar": 8,
+        "endLine": 198,
+        "endChar": 20
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9027b008_d60dab42",
@@ -1412,6 +1436,30 @@
       "side": 1,
       "message": "BpfMap needs access to it from com.android.net.module.util, so I think it needs to be left public",
       "parentUuid": "4d865a70_da95de07",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a2082a_22795757",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 59
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T15:19:25Z",
+      "side": 1,
+      "message": "Why would BpfMap need to call this constructor? It must of course access this class, but BpfMap doesn\u0027t call the constructors for the objects it stores.",
+      "parentUuid": "fe481cb4_8af54448",
       "range": {
         "startLine": 94,
         "startChar": 4,
@@ -2047,6 +2095,30 @@
       "side": 1,
       "message": "I was unable to find any for testing",
       "parentUuid": "634def9c_ab9fa4a7",
+      "range": {
+        "startLine": 440,
+        "startChar": 8,
+        "endLine": 440,
+        "endChar": 88
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb38ef3e_ccfcd98f",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-27T15:19:25Z",
+      "side": 1,
+      "message": "Does this not work?\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/libs/net/common/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt;drc\u003d2f5bd16464d4e361df7710502b3307eb19197136;l\u003d198\n\n    fun assertNoCallback(timeoutMs: Long) {\n        val cb \u003d history.poll(timeoutMs)\n        if (null !\u003d cb) fail(\"Expected no callback but got $cb\")\n    }",
+      "parentUuid": "62a30e9c_6b7862ed",
       "range": {
         "startLine": 440,
         "startChar": 8,
