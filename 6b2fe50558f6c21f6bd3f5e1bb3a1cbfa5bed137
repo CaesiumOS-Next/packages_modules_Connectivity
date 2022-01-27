@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8b91dee_c1cbbd23",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1068,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-27T01:10:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28812f14_736cce1f",
+      "range": {
+        "startLine": 1068,
+        "startChar": 11,
+        "endLine": 1068,
+        "endChar": 82
+      },
+      "revId": "6b2fe50558f6c21f6bd3f5e1bb3a1cbfa5bed137",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f578ec64_e7e99dfd",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-24T08:26:12Z",
       "side": 1,
       "message": "Here you could say if exception instanceof IkeException",
+      "range": {
+        "startLine": 1085,
+        "startChar": 12,
+        "endLine": 1085,
+        "endChar": 29
+      },
+      "revId": "6b2fe50558f6c21f6bd3f5e1bb3a1cbfa5bed137",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc3525e7_5b88722e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1085,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-01-27T01:10:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f578ec64_e7e99dfd",
       "range": {
         "startLine": 1085,
         "startChar": 12,
