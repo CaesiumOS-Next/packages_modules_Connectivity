@@ -54,3 +54,38 @@ java_library {
         "//packages/modules/Connectivity/tests:__subpackages__",
     ],
 }
+
+// The JNI only be load after T platform.
+cc_library_shared {
+    name: "libservice-connectivity-t-jni",
+    min_sdk_version: "30",
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wthread-safety",
+    ],
+    srcs: [
+        ":services.connectivity-tiramisu-jni-sources",
+        "jni/onload.cpp",
+    ],
+    stl: "libc++_static",
+    header_libs: [
+        "libbase_headers",
+        "bpf_connectivity_headers",
+    ],
+    static_libs: [
+        "libbase",
+        //TODO: remove libcutil, replace qtaguid_deleteTagData by bpf map java implementaion.
+        "libcutils",
+        "libnetjniutils",
+        "libnetworkstats",
+    ],
+    shared_libs: [
+        "liblog",
+        "libnativehelper",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
