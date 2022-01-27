@@ -34,6 +34,9 @@ public final class ConnectivityServiceInitializer extends SystemService {
         super(context);
         // Load JNI libraries used by ConnectivityService and its dependencies
         System.loadLibrary("service-connectivity");
+
+        if (SdkLevel.isAtLeastT()) System.loadLibrary("service-connectivity-t-jni");
+
         mConnectivity = new ConnectivityService(context);
         mNsdService = createNsdService(context);
     }
