@@ -246,6 +246,26 @@ public final class NetworkAgentConfig implements Parcelable {
         return excludeLocalRouteVpn;
     }
 
+    /**
+     * Whether network validation should be performed for this VPN network.
+     * {@see #getVpnRequiresValidation}
+     * @hide
+     */
+    public boolean vpnRequiresValidation = false;
+
+    /**
+     * Whether network validation should be performed for this VPN network.
+     *
+     * If this network isn't a VPN this should always be {@code false}.
+     * If this network is a VPN, false means this network should always be considered validated ;
+     * true means it follows the same validation semantics as general internet networks;
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public boolean getVpnRequiresValidation() {
+        return vpnRequiresValidation;
+    }
+
     /** @hide */
     public NetworkAgentConfig() {
     }
@@ -266,6 +286,7 @@ public final class NetworkAgentConfig implements Parcelable {
             legacySubTypeName = nac.legacySubTypeName;
             mLegacyExtraInfo = nac.mLegacyExtraInfo;
             excludeLocalRouteVpn = nac.excludeLocalRouteVpn;
+            vpnRequiresValidation = nac.vpnRequiresValidation;
         }
     }
 
@@ -409,6 +430,24 @@ public final class NetworkAgentConfig implements Parcelable {
         }
 
         /**
+         * Sets whether network validation should be performed for this VPN network.
+         *
+         * Only agents registering a VPN network should use this setter.
+         * False means this network should always be considered validated ;
+         * true means it follows the same validation semantics as general internet.
+         *
+         * @param vpnRequiresValidation whether this VPN requires validation.
+         *                              Default is {@code false}.
+         * @hide
+         */
+        @NonNull
+        @SystemApi(client = MODULE_LIBRARIES)
+        public Builder setVpnRequiresValidation(boolean vpnRequiresValidation) {
+            mConfig.vpnRequiresValidation = vpnRequiresValidation;
+            return this;
+        }
+
+        /**
          * Sets whether the apps can bypass the VPN connection.
          *
          * @return this builder, to facilitate chaining.
@@ -458,14 +497,16 @@ public final class NetworkAgentConfig implements Parcelable {
                 && Objects.equals(subscriberId, that.subscriberId)
                 && Objects.equals(legacyTypeName, that.legacyTypeName)
                 && Objects.equals(mLegacyExtraInfo, that.mLegacyExtraInfo)
-                && excludeLocalRouteVpn == that.excludeLocalRouteVpn;
+                && excludeLocalRouteVpn == that.excludeLocalRouteVpn
+                && vpnRequiresValidation == that.vpnRequiresValidation;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(allowBypass, explicitlySelected, acceptUnvalidated,
                 acceptPartialConnectivity, provisioningNotificationDisabled, subscriberId,
-                skip464xlat, legacyType, legacyTypeName, mLegacyExtraInfo, excludeLocalRouteVpn);
+                skip464xlat, legacyType, legacyTypeName, mLegacyExtraInfo, excludeLocalRouteVpn,
+                vpnRequiresValidation);
     }
 
     @Override
@@ -483,6 +524,7 @@ public final class NetworkAgentConfig implements Parcelable {
                 + ", legacyTypeName = '" + legacyTypeName + '\''
                 + ", legacyExtraInfo = '" + mLegacyExtraInfo + '\''
                 + ", excludeLocalRouteVpn = '" + excludeLocalRouteVpn + '\''
+                + ", vpnRequiresValidation = '" + vpnRequiresValidation + '\''
                 + "}";
     }
 
@@ -506,6 +548,7 @@ public final class NetworkAgentConfig implements Parcelable {
         out.writeString(legacySubTypeName);
         out.writeString(mLegacyExtraInfo);
         out.writeInt(excludeLocalRouteVpn ? 1 : 0);
+        out.writeInt(vpnRequiresValidation ? 1 : 0);
     }
 
     public static final @NonNull Creator<NetworkAgentConfig> CREATOR =
@@ -526,6 +569,7 @@ public final class NetworkAgentConfig implements Parcelable {
             networkAgentConfig.legacySubTypeName = in.readString();
             networkAgentConfig.mLegacyExtraInfo = in.readString();
             networkAgentConfig.excludeLocalRouteVpn = in.readInt() != 0;
+            networkAgentConfig.vpnRequiresValidation = in.readInt() != 0;
             return networkAgentConfig;
         }
 
