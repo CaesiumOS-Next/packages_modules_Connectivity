@@ -443,6 +443,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4f173fd_15846f81",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2095,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-27T10:55:07Z",
+      "side": 1,
+      "message": "Ah I see. Then maybe reword this\n\n \"Process that hold NETWORK_FACTORY should be able to see the underlying networks\"",
+      "parentUuid": "1e36fb68_92fdb4dd",
+      "range": {
+        "startLine": 2095,
+        "startChar": 12,
+        "endLine": 2095,
+        "endChar": 86
+      },
+      "revId": "267673cb1976efc61cdbe9ba16a2660036aedbe5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "30a4bda9_7aa1c297",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
