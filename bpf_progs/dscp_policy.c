@@ -106,7 +106,7 @@ DEFINE_BPF_MAP_GRW(ipv6_dscp_policies_map, ARRAY, uint32_t, Ipv6RuleEntry, MAX_P
         AID_SYSTEM)
 
 DEFINE_BPF_PROG_KVER("schedcls/set_dscp", AID_ROOT, AID_SYSTEM,
-                     schedcls_set_dscp, KVER(5, 4, 0))
+                     schedcls_set_dscp, KVER(4, 14, 0))
 (struct __sk_buff* skb) {
     int one = 0;
     uint64_t* selectedMap = bpf_switch_comp_map_lookup_elem(&one);
@@ -175,6 +175,7 @@ DEFINE_BPF_PROG_KVER("schedcls/set_dscp", AID_ROOT, AID_SYSTEM,
         int bestScore = -1;
         uint32_t bestMatch = 0;
 
+# pragma unroll
         for (register uint64_t i = 0; i < MAX_POLICIES; i++) {
             int score = 0;
             uint8_t tempMask = 0;
