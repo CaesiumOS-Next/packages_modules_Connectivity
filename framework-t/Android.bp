@@ -69,3 +69,32 @@ java_sdk_library {
         "//packages/modules/Wifi/service/tests/wifitests",
     ],
 }
+
+// The JNI only be load after T platform.
+cc_library_shared {
+    name: "libframework-connectivity-t-jni",
+    min_sdk_version: "30",
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wthread-safety",
+    ],
+    srcs: [
+        "jni/android_server_NetworkManagementSocketTagger.cpp",
+        "jni/onload.cpp",
+    ],
+    stl: "libc++_static",
+    static_libs: [
+        "libbase",
+        "libnetjniutils",
+    ],
+    shared_libs: [
+        "liblog",
+        "libnativehelper",
+        "libandroid_net",
+    ],
+    apex_available: [
+        "com.android.tethering",
+    ],
+}
