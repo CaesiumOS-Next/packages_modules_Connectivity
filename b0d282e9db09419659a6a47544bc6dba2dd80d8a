@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f98d3df_f44db378",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-27T20:07:10Z",
+      "side": 1,
+      "message": "I fail to see how making global maps non-global makes anything better.\n\nIf anything we should be making the maps more global.",
+      "revId": "b0d282e9db09419659a6a47544bc6dba2dd80d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
