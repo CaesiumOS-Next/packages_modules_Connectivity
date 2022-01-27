@@ -1226,6 +1226,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @VisibleForTesting
     public static class Dependencies {
+        BpfNetMaps mBpfNetMaps;
+
+        public Dependencies() {}
+
+        public Dependencies(final BpfNetMaps bpfNetMaps) {
+            mBpfNetMaps = bpfNetMaps;
+        }
+
         public int getCallingUid() {
             return Binder.getCallingUid();
         }
@@ -1337,7 +1345,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
          * Get BpfNetMaps for given netd.
          */
         public BpfNetMaps getBpfNetMaps(INetd netd) {
-            return new BpfNetMaps(netd);
+            if (mBpfNetMaps == null) {
+                mBpfNetMaps = new BpfNetMaps(netd);
+            }
+            return mBpfNetMaps;
         }
     }
 
