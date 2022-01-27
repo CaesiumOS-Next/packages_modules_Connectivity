@@ -16,9 +16,14 @@
 
 package android.net.cts;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CONNECTIVITY_INTERNAL;
 import static android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS;
+import static android.Manifest.permission.NETWORK_FACTORY;
 import static android.Manifest.permission.NETWORK_SETTINGS;
+import static android.Manifest.permission.NETWORK_SETUP_WIZARD;
+import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.READ_DEVICE_CONFIG;
 import static android.content.pm.PackageManager.FEATURE_BLUETOOTH;
 import static android.content.pm.PackageManager.FEATURE_ETHERNET;
@@ -32,6 +37,8 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.net.ConnectivityManager.EXTRA_NETWORK;
 import static android.net.ConnectivityManager.EXTRA_NETWORK_REQUEST;
 import static android.net.ConnectivityManager.PROFILE_NETWORK_PREFERENCE_ENTERPRISE;
+import static android.net.ConnectivityManager.REDACT_INCLUDE_LOCATION_INFO;
+import static android.net.ConnectivityManager.REDACT_INCLUDE_NOTHING;
 import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
 import static android.net.ConnectivityManager.TYPE_ETHERNET;
 import static android.net.ConnectivityManager.TYPE_MOBILE_CBS;
@@ -54,7 +61,9 @@ import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_PARTIAL_CONNECTIVITY;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
+import static android.net.NetworkCapabilities.TRANSPORT_VPN;
 import static android.net.NetworkCapabilities.TRANSPORT_WIFI;
+import static android.net.NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK;
 import static android.net.cts.util.CtsNetUtils.ConnectivityActionReceiver;
 import static android.net.cts.util.CtsNetUtils.HTTP_PORT;
 import static android.net.cts.util.CtsNetUtils.NETWORK_CALLBACK_ACTION;
@@ -64,6 +73,7 @@ import static android.net.cts.util.CtsTetheringUtils.TestTetheringEventCallback;
 import static android.net.util.NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTPS_URL;
 import static android.net.util.NetworkStackUtils.TEST_CAPTIVE_PORTAL_HTTP_URL;
 import static android.os.MessageQueue.OnFileDescriptorEventListener.EVENT_INPUT;
+import static android.os.Process.INVALID_UID;
 import static android.provider.Settings.Global.NETWORK_METERED_MULTIPATH_PREFERENCE;
 import static android.system.OsConstants.AF_INET;
 import static android.system.OsConstants.AF_INET6;
@@ -76,6 +86,7 @@ import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_LOCKDOWN_VPN;
 import static com.android.networkstack.apishim.ConstantsShim.BLOCKED_REASON_NONE;
 import static com.android.testutils.Cleanup.testAndCleanup;
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.MiscAsserts.assertThrows;
 import static com.android.testutils.TestNetworkTrackerKt.initTestNetwork;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
@@ -103,6 +114,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.CaptivePortalData;
 import android.net.ConnectivityManager;
 import android.net.ConnectivityManager.NetworkCallback;
 import android.net.ConnectivitySettingsManager;
@@ -200,6 +212,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -552,6 +565,168 @@ public class ConnectivityManagerTest {
                 assertEquals(subscriberId, snapshot.getSubscriberId());
             }
         }
+    }
+
+    private boolean hasAnyPermissionOf(String[] requestedPermissions, String... permissions) {
+        for (String permission : permissions) {
+            if (Arrays.asList(requestedPermissions).contains(permission)) return true;
+        }
+        return false;
+    }
+
+    private String findSomePackageWithoutPermissions(String... permissions) {
+        final List<PackageInfo> packageInfos =
+                mPackageManager.getInstalledPackages(GET_PERMISSIONS);
+        for (PackageInfo packageInfo : packageInfos) {
+            if (packageInfo.requestedPermissions == null) return packageInfo.packageName;
+            if (!hasAnyPermissionOf(packageInfo.requestedPermissions, permissions)) {
+                return packageInfo.packageName;
+            }
+        }
+        return null;
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @Test
+    public void testRedactLinkPropertiesForUid() throws Exception {
+        final String testPackage = findSomePackageWithoutPermissions(NETWORK_SETTINGS);
+        assertNotNull("Couldn't find any package without NETWORK_SETTINGS", testPackage);
+        final int testUid = mPackageManager.getPackageUid(testPackage, 0 /* flags */);
+        // Set parcelSensitiveFields to true to preserve CaptivePortalApiUrl & CaptivePortalData
+        // when parceling.
+        final LinkProperties lp = new LinkProperties(new LinkProperties(),
+                true /* parcelSensitiveFields */);
+        final Uri capportUrl = Uri.parse("https://capport.example.com/api");
+        final CaptivePortalData capportData = new CaptivePortalData.Builder().build();
+        final int mtu = 123456;
+        lp.setMtu(mtu);
+        lp.setCaptivePortalApiUrl(capportUrl);
+        lp.setCaptivePortalData(capportData);
+
+        // No matter what the given uid is, a SecurityException will be thrown if the caller
+        // doesn't hold the NETWORK_SETTINGS permission.
+        assertThrows(SecurityException.class,
+                () -> mCm.redactLinkPropertiesForUid(lp, testUid, REDACT_INCLUDE_NOTHING));
+        assertThrows(SecurityException.class,
+                () -> mCm.redactLinkPropertiesForUid(lp, Process.PHONE_UID,
+                        REDACT_INCLUDE_NOTHING));
+
+        runAsShell(NETWORK_SETTINGS, () -> {
+            // No matter what the given uid is, if the given LinkProperties is null, then
+            // NullPointerException will be thrown.
+            assertThrows(NullPointerException.class,
+                    () -> mCm.redactLinkPropertiesForUid(null, testUid, REDACT_INCLUDE_NOTHING));
+            assertThrows(NullPointerException.class,
+                    () -> mCm.redactLinkPropertiesForUid(null, Process.PHONE_UID,
+                            REDACT_INCLUDE_NOTHING));
+
+            // MTU is not sensitive and is not redacted.
+            assertEquals(mtu, lp.getMtu());
+            // Check that both CaptivePortalApiUrl & CaptivePortalData are redacted.
+            assertNotNull(lp.getCaptivePortalApiUrl());
+            assertNotNull(lp.getCaptivePortalData());
+            // CaptivePortalApiUrl & CaptivePortalData will be set to null if given uid doesn't hold
+            // the NETWORK_SETTINGS permission.
+            assertNull(mCm.redactLinkPropertiesForUid(lp, testUid, REDACT_INCLUDE_NOTHING)
+                    .getCaptivePortalApiUrl());
+            assertNull(mCm.redactLinkPropertiesForUid(lp, testUid, REDACT_INCLUDE_NOTHING)
+                    .getCaptivePortalData());
+            // CaptivePortalApiUrl & CaptivePortalData will be preserved if the given uid holds the
+            // NETWORK_SETTINGS permission.
+            assertEquals(capportUrl,
+                    mCm.redactLinkPropertiesForUid(lp, Process.PHONE_UID, REDACT_INCLUDE_NOTHING)
+                            .getCaptivePortalApiUrl());
+            assertEquals(capportData,
+                    mCm.redactLinkPropertiesForUid(lp, Process.PHONE_UID, REDACT_INCLUDE_NOTHING)
+                            .getCaptivePortalData());
+        });
+    }
+
+    private NetworkCapabilities redactWithoutLoc(@NonNull final NetworkCapabilities nc, int uid) {
+        return mCm.redactNetworkCapabilitiesForUid(nc, uid, REDACT_INCLUDE_LOCATION_INFO);
+    }
+
+    private NetworkCapabilities redactWithLoc(@NonNull final NetworkCapabilities nc, int uid) {
+        return mCm.redactNetworkCapabilitiesForUid(nc, uid, REDACT_INCLUDE_LOCATION_INFO);
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @Test
+    public void testRedactNetworkCapabilitiesForUid() throws Exception {
+        // A package which doesn't have any of the permissions below.
+        final String testPackage = findSomePackageWithoutPermissions(NETWORK_SETTINGS,
+                NETWORK_FACTORY, NETWORK_SETUP_WIZARD, NETWORK_STACK,
+                PERMISSION_MAINLINE_NETWORK_STACK, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION);
+        assertNotNull("Can't find a package without any of the forbidden permissions", testPackage);
+        final int testUid = mPackageManager.getPackageUid(testPackage, 0 /* flags */);
+        final Set<Range<Integer>> uids = new ArraySet<>();
+        uids.add(new Range<>(10000, 10100));
+        uids.add(new Range<>(10200, 10300));
+        final String ssid = "My-WiFi";
+        // This test will set underlying networks in the capabilities to redact to see if they
+        // are appropriately redacted, so fetch the default network to put in there as an example.
+        final Network defaultNetwork = mCm.getActiveNetwork();
+        assertNotNull("CTS requires a working Internet connection", defaultNetwork);
+        final int subId1 = 1;
+        final int subId2 = 2;
+        final int[] administratorUids = {testUid};
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .setUids(uids)
+                .setSsid(ssid)
+                .setUnderlyingNetworks(List.of(defaultNetwork))
+                .setSubscriptionIds(Set.of(subId1, subId2))
+                .setAdministratorUids(administratorUids)
+                .setOwnerUid(testUid)
+                .build();
+
+        // No matter what the given uid is, a SecurityException will be thrown if the caller
+        // doesn't hold the NETWORK_SETTINGS permission.
+        assertThrows(SecurityException.class, () -> redactWithoutLoc(nc, testUid));
+        assertThrows(SecurityException.class, () -> redactWithoutLoc(nc, Process.PHONE_UID));
+
+        runAsShell(NETWORK_SETTINGS, () -> {
+            // Uids, ssid, underlying networks & subscriptionIds will be redacted if the given uid
+            // doesn't hold the associated permissions.
+            assertNull(redactWithLoc(nc, testUid).getUids());
+            assertNull(redactWithLoc(nc, testUid).getSsid());
+            assertNull(redactWithLoc(nc, testUid).getUnderlyingNetworks());
+            assertEquals(0, redactWithLoc(nc, testUid).getSubscriptionIds().size());
+
+            // Uids, ssid, underlying networks & subscriptionIds will be preserved if the given uid
+            // holds the associated permissions.
+            assertEquals(uids, redactWithLoc(nc, Process.PHONE_UID).getUids());
+            assertEquals(ssid, redactWithLoc(nc, Process.PHONE_UID).getSsid());
+            assertEquals(List.of(defaultNetwork),
+                    redactWithLoc(nc, Process.PHONE_UID).getUnderlyingNetworks());
+            assertEquals(Set.of(subId1, subId2),
+                    redactWithLoc(nc, Process.PHONE_UID).getSubscriptionIds());
+
+            // The owner uid is only preserved when the network is a VPN and the uid is the
+            // same as the owner uid.
+            nc.addTransportType(TRANSPORT_VPN);
+            assertEquals(testUid, redactWithLoc(nc, testUid).getOwnerUid());
+            assertEquals(INVALID_UID, redactWithLoc(nc, Process.PHONE_UID).getOwnerUid());
+
+            // If FLAG_INCLUDE_LOCATION_INFO is not set, the owner uid will be set to
+            // INVALID_UID whether the uid holds location permissions or not.
+            assertEquals(INVALID_UID, redactWithoutLoc(nc, testUid).getOwnerUid());
+            assertEquals(INVALID_UID, redactWithoutLoc(nc, Process.PHONE_UID).getOwnerUid());
+
+            nc.removeTransportType(TRANSPORT_VPN);
+
+            // If FLAG_INCLUDE_LOCATION_INFO is set, but the given uid doesn't have
+            // location permissions, the owner uid will be set to INVALID_UID even when sent
+            // to that UID (this avoids a wifi suggestor knowing where the device is by virtue
+            // of the device connecting to its own network).
+            assertEquals(INVALID_UID, redactWithLoc(nc, testUid).getOwnerUid());
+
+            // If FLAG_INCLUCE_LOCATION_INFO is set and the given uid has location permissions,
+            // the owner uid is preserved.
+            final int[] administratorUids2 = { Process.PHONE_UID };
+            nc.setAdministratorUids(administratorUids2);
+            nc.setOwnerUid(Process.PHONE_UID);
+            assertEquals(Process.PHONE_UID, redactWithLoc(nc, Process.PHONE_UID).getOwnerUid());
+        });
     }
 
     /**
