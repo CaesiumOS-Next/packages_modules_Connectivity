@@ -31,7 +31,6 @@ struct ClatdTracker {
     in6_addr pfx96;
 };
 
-int initMaps(void);
 void maybeStartBpf(const ClatdTracker& tracker);
 void maybeStopBpf(const ClatdTracker& tracker);
 

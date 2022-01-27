@@ -28,20 +28,17 @@
 #define DEVICEPREFIX "v4-"
 
 using android::base::unique_fd;
-using android::net::RAWIP;
+using android::bpf::BpfMap;
 using android::net::getClatEgress4MapFd;
-using android::net::getClatIngress6MapFd;
 using android::net::getClatEgress4ProgFd;
+using android::net::getClatIngress6MapFd;
 using android::net::getClatIngress6ProgFd;
-using android::net::tcQdiscAddDevClsact;
+using android::net::RAWIP;
 using android::net::tcFilterAddDevEgressClatIpv4;
 using android::net::tcFilterAddDevIngressClatIpv6;
 using android::net::tcFilterDelDevEgressClatIpv4;
 using android::net::tcFilterDelDevIngressClatIpv6;
-using android::bpf::BpfMap;
-
-BpfMap<ClatEgress4Key, ClatEgress4Value> mClatEgress4Map;
-BpfMap<ClatIngress6Key, ClatIngress6Value> mClatIngress6Map;
+using android::net::tcQdiscAddDevClsact;
 
 namespace android {
 namespace net {
@@ -50,26 +47,44 @@ namespace clat {
 // TODO: have a clearMap function to remove all stubs while system server crash.
 // For long term, move bpf access into java and map initialization should live
 // ClatCoordinator constructor.
-int initMaps(void) {
+
+int initClatEgress4Map(BpfMap<ClatEgress4Key, ClatEgress4Value>* clatEgress4Map) {
     int rv = getClatEgress4MapFd();
     if (rv < 0) {
         ALOGE("getClatEgress4MapFd() failure: %s", strerror(-rv));
         return -rv;
     }
-    mClatEgress4Map.reset(rv);
+    clatEgress4Map->reset(rv);
+    return 0;
+}
 
-    rv = getClatIngress6MapFd();
+int initClatIngress6Map(BpfMap<ClatIngress6Key, ClatIngress6Value>* clatIngress6Map) {
+    int rv = getClatIngress6MapFd();
     if (rv < 0) {
         ALOGE("getClatIngress6MapFd() failure: %s", strerror(-rv));
-        mClatEgress4Map.reset(-1);
         return -rv;
     }
-    mClatIngress6Map.reset(rv);
-
+    clatIngress6Map->reset(rv);
     return 0;
 }
 
 void maybeStartBpf(const ClatdTracker& tracker) {
+    BpfMap<ClatEgress4Key, ClatEgress4Value> clatEgress4Map;
+    BpfMap<ClatIngress6Key, ClatIngress6Value> clatIngress6Map;
+
+    int rv = initClatEgress4Map(&clatEgress4Map);
+    if (rv < 0) {
+        ALOGE("initClatEgress4Map failure: %s", strerror(-rv));
+        return;
+    }
+
+    rv = initClatIngress6Map(&clatIngress6Map);
+    if (rv < 0) {
+        ALOGE("initClatIngress6Map failure: %s", strerror(-rv));
+        clatEgress4Map.reset(-1);
+        return;
+    }
+
     auto isEthernet = android::net::isEthernet(tracker.iface);
     if (!isEthernet.ok()) {
         ALOGE("isEthernet(%s[%d]) failure: %s", tracker.iface, tracker.ifIndex,
@@ -78,7 +93,7 @@ void maybeStartBpf(const ClatdTracker& tracker) {
     }
 
     // This program will be attached to the v4-* interface which is a TUN and thus always rawip.
-    int rv = getClatEgress4ProgFd(RAWIP);
+    rv = getClatEgress4ProgFd(RAWIP);
     if (rv < 0) {
         ALOGE("getClatEgress4ProgFd(RAWIP) failure: %s", strerror(-rv));
         return;
@@ -103,9 +118,9 @@ void maybeStartBpf(const ClatdTracker& tracker) {
             .oifIsEthernet = isEthernet.value(),
     };
 
-    auto ret = mClatEgress4Map.writeValue(txKey, txValue, BPF_ANY);
+    auto ret = clatEgress4Map.writeValue(txKey, txValue, BPF_ANY);
     if (!ret.ok()) {
-        ALOGE("mClatEgress4Map.writeValue failure: %s", strerror(ret.error().code()));
+        ALOGE("clatEgress4Map.writeValue failure: %s", strerror(ret.error().code()));
         return;
     }
 
@@ -120,12 +135,12 @@ void maybeStartBpf(const ClatdTracker& tracker) {
             .local4 = tracker.v4,
     };
 
-    ret = mClatIngress6Map.writeValue(rxKey, rxValue, BPF_ANY);
+    ret = clatIngress6Map.writeValue(rxKey, rxValue, BPF_ANY);
     if (!ret.ok()) {
-        ALOGE("mClatIngress6Map.writeValue failure: %s", strerror(ret.error().code()));
-        ret = mClatEgress4Map.deleteValue(txKey);
+        ALOGE("clatIngress6Map.writeValue failure: %s", strerror(ret.error().code()));
+        ret = clatEgress4Map.deleteValue(txKey);
         if (!ret.ok())
-            ALOGE("mClatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
+            ALOGE("clatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
         return;
     }
 
@@ -140,12 +155,12 @@ void maybeStartBpf(const ClatdTracker& tracker) {
     if (rv) {
         ALOGE("tcQdiscAddDevClsact(%d[%s]) failure: %s", tracker.v4ifIndex, tracker.v4iface,
               strerror(-rv));
-        ret = mClatEgress4Map.deleteValue(txKey);
+        ret = clatEgress4Map.deleteValue(txKey);
         if (!ret.ok())
-            ALOGE("mClatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
-        ret = mClatIngress6Map.deleteValue(rxKey);
+            ALOGE("clatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
+        ret = clatIngress6Map.deleteValue(rxKey);
         if (!ret.ok())
-            ALOGE("mClatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
+            ALOGE("clatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
         return;
     }
 
@@ -158,12 +173,12 @@ void maybeStartBpf(const ClatdTracker& tracker) {
         // with interface addition, the lifetime is till interface deletion. Moreover, the clsact
         // has no clat filter now. It should not break anything.
 
-        ret = mClatEgress4Map.deleteValue(txKey);
+        ret = clatEgress4Map.deleteValue(txKey);
         if (!ret.ok())
-            ALOGE("mClatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
-        ret = mClatIngress6Map.deleteValue(rxKey);
+            ALOGE("clatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
+        ret = clatIngress6Map.deleteValue(rxKey);
         if (!ret.ok())
-            ALOGE("mClatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
+            ALOGE("clatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
         return;
     }
 
@@ -180,12 +195,12 @@ void maybeStartBpf(const ClatdTracker& tracker) {
         // The v4- interface clsact is not deleted. See the reason in the error unwinding code of
         // the egress filter attaching of v4- tun interface.
 
-        ret = mClatEgress4Map.deleteValue(txKey);
+        ret = clatEgress4Map.deleteValue(txKey);
         if (!ret.ok())
-            ALOGE("mClatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
-        ret = mClatIngress6Map.deleteValue(rxKey);
+            ALOGE("clatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
+        ret = clatIngress6Map.deleteValue(rxKey);
         if (!ret.ok())
-            ALOGE("mClatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
+            ALOGE("clatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
         return;
     }
 
@@ -193,7 +208,23 @@ void maybeStartBpf(const ClatdTracker& tracker) {
 }
 
 void maybeStopBpf(const ClatdTracker& tracker) {
-    int rv = tcFilterDelDevIngressClatIpv6(tracker.ifIndex);
+    BpfMap<ClatEgress4Key, ClatEgress4Value> clatEgress4Map;
+    BpfMap<ClatIngress6Key, ClatIngress6Value> clatIngress6Map;
+
+    int rv = initClatEgress4Map(&clatEgress4Map);
+    if (rv < 0) {
+        ALOGE("initClatEgress4Map failure: %s", strerror(-rv));
+        return;
+    }
+
+    rv = initClatIngress6Map(&clatIngress6Map);
+    if (rv < 0) {
+        ALOGE("initClatIngress6Map failure: %s", strerror(-rv));
+        clatEgress4Map.reset(-1);
+        return;
+    }
+
+    rv = tcFilterDelDevIngressClatIpv6(tracker.ifIndex);
     if (rv < 0) {
         ALOGE("tcFilterDelDevIngressClatIpv6(%d[%s]) failure: %s", tracker.ifIndex, tracker.iface,
               strerror(-rv));
@@ -213,8 +244,8 @@ void maybeStopBpf(const ClatdTracker& tracker) {
             .local4 = tracker.v4,
     };
 
-    auto ret = mClatEgress4Map.deleteValue(txKey);
-    if (!ret.ok()) ALOGE("mClatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
+    auto ret = clatEgress4Map.deleteValue(txKey);
+    if (!ret.ok()) ALOGE("clatEgress4Map.deleteValue failure: %s", strerror(ret.error().code()));
 
     ClatIngress6Key rxKey = {
             .iif = tracker.ifIndex,
@@ -222,8 +253,8 @@ void maybeStopBpf(const ClatdTracker& tracker) {
             .local6 = tracker.v6,
     };
 
-    ret = mClatIngress6Map.deleteValue(rxKey);
-    if (!ret.ok()) ALOGE("mClatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
+    ret = clatIngress6Map.deleteValue(rxKey);
+    if (!ret.ok()) ALOGE("clatIngress6Map.deleteValue failure: %s", strerror(ret.error().code()));
 }
 
 }  // namespace clat

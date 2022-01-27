@@ -416,12 +416,9 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     posix_spawn_file_actions_destroy(&fa);
 
     // 5. Start BPF if any
-    if (!net::clat::initMaps()) {
-        net::clat::ClatdTracker tracker = {};
-        if (!initTracker(ifaceStr.c_str(), pfx96Str.c_str(), v4Str.c_str(), v6Str.c_str(),
-                &tracker)) {
-            net::clat::maybeStartBpf(tracker);
-        }
+    net::clat::ClatdTracker tracker = {};
+    if (!initTracker(ifaceStr.c_str(), pfx96Str.c_str(), v4Str.c_str(), v6Str.c_str(), &tracker)) {
+        net::clat::maybeStartBpf(tracker);
     }
 
     return pid;
@@ -478,12 +475,9 @@ static void com_android_server_connectivity_ClatCoordinator_stopClatd(JNIEnv* en
         return;
     }
 
-    if (!net::clat::initMaps()) {
-        net::clat::ClatdTracker tracker = {};
-        if (!initTracker(ifaceStr.c_str(), pfx96Str.c_str(), v4Str.c_str(), v6Str.c_str(),
-                &tracker)) {
-            net::clat::maybeStopBpf(tracker);
-        }
+    net::clat::ClatdTracker tracker = {};
+    if (!initTracker(ifaceStr.c_str(), pfx96Str.c_str(), v4Str.c_str(), v6Str.c_str(), &tracker)) {
+        net::clat::maybeStopBpf(tracker);
     }
 
     stopClatdProcess(pid);
