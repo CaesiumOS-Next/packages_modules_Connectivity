@@ -32,26 +32,28 @@ import static com.android.server.NetworkManagementSocketTagger.kernelToTag;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkStats;
 import android.net.TrafficStats;
 import android.net.UnderlyingNetworkInfo;
 import android.os.Build;
+import android.os.SystemClock;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.filters.SmallTest;
 
 import com.android.frameworks.tests.net.R;
+import com.android.internal.util.ProcFileReader;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
 import libcore.io.IoUtils;
-import libcore.io.Streams;
 import libcore.testing.io.TestIoUtils;
 
 import org.junit.After;
@@ -62,10 +64,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.IOException;
+import java.net.ProtocolException;
 
 /** Tests for {@link NetworkStatsFactory}. */
 @RunWith(DevSdkIgnoreRunner.class)
@@ -78,6 +78,7 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
     private NetworkStatsFactory mFactory;
     @Mock private Context mContext;
     @Mock private ConnectivityManager mCm;
+    @Mock private NetworkStatsFactory.Dependencies mDeps;
 
     @Before
     public void setUp() throws Exception {
@@ -91,25 +92,13 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         doReturn(Context.CONNECTIVITY_SERVICE).when(mContext).getSystemServiceName(
                 eq(ConnectivityManager.class));
         doReturn(mCm).when(mContext).getSystemService(eq(Context.CONNECTIVITY_SERVICE));
-        mFactory = new NetworkStatsFactory(mContext, mTestProc, false);
+        mFactory = new NetworkStatsFactory(mContext, mDeps);
         mFactory.updateUnderlyingNetworkInfos(new UnderlyingNetworkInfo[0]);
     }
 
     @After
     public void tearDown() throws Exception {
         mFactory = null;
-    }
-
-    @Test
-    public void testNetworkStatsDetail() throws Exception {
-        final NetworkStats stats = parseDetailedStats(R.raw.xt_qtaguid_typical);
-
-        assertEquals(70, stats.size());
-        assertStatsEntry(stats, "wlan0", 0, SET_DEFAULT, 0x0, 18621L, 2898L);
-        assertStatsEntry(stats, "wlan0", 10011, SET_DEFAULT, 0x0, 35777L, 5718L);
-        assertStatsEntry(stats, "wlan0", 10021, SET_DEFAULT, 0x7fffff01, 562386L, 49228L);
-        assertStatsEntry(stats, "rmnet1", 10021, SET_DEFAULT, 0x30100000, 219110L, 227423L);
-        assertStatsEntry(stats, "rmnet2", 10001, SET_DEFAULT, 0x0, 1125899906842624L, 984L);
     }
 
     @Test
@@ -127,8 +116,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // over VPN.
         //
         // VPN UID rewrites packets read from TUN back to TUN, plus some of its own traffic
-
-        final NetworkStats tunStats = parseDetailedStats(R.raw.xt_qtaguid_vpn_rewrite_through_self);
+        final NetworkStats tunStats =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_rewrite_through_self);
 
         assertValues(tunStats, TUN_IFACE, UID_RED, SET_ALL, TAG_NONE, METERED_ALL, ROAMING_ALL,
                 DEFAULT_NETWORK_ALL, 2000L, 200L, 1000L, 100L, 0);
@@ -169,7 +158,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // UID_RED: 2000 bytes, 200 packets
         // UID_BLUE: 1000 bytes, 100 packets
         // UID_VPN: 6300 bytes, 0 packets
-        final NetworkStats tunStats = parseDetailedStats(R.raw.xt_qtaguid_vpn_with_clat);
+        final NetworkStats tunStats =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_with_clat);
 
         assertValues(tunStats, CLAT_PREFIX + TEST_IFACE, UID_RED, 2000L, 200L, 1000, 100L);
         assertValues(tunStats, CLAT_PREFIX + TEST_IFACE, UID_BLUE, 1000L, 100L, 500L, 50L);
@@ -193,7 +183,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // attributed to UID_BLUE, and 150 bytes attributed to UID_VPN.
         // Of 3300 bytes received over WiFi, expect 2000 bytes attributed to UID_RED, 1000 bytes
         // attributed to UID_BLUE, and 300 bytes attributed to UID_VPN.
-        final NetworkStats tunStats = parseDetailedStats(R.raw.xt_qtaguid_vpn_one_underlying);
+        final NetworkStats tunStats =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_one_underlying);
 
         assertValues(tunStats, TEST_IFACE, UID_RED, 2000L, 200L, 1000L, 100L);
         assertValues(tunStats, TEST_IFACE, UID_BLUE, 1000L, 100L, 500L, 50L);
@@ -222,7 +213,7 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // Of 8800 bytes received over WiFi, expect 2000 bytes attributed to UID_RED, 1000 bytes
         // attributed to UID_BLUE, and 5800 bytes attributed to UID_VPN.
         final NetworkStats tunStats =
-                parseDetailedStats(R.raw.xt_qtaguid_vpn_one_underlying_own_traffic);
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_one_underlying_own_traffic);
 
         assertValues(tunStats, TEST_IFACE, UID_RED, 2000L, 200L, 1000L, 100L);
         assertValues(tunStats, TEST_IFACE, UID_BLUE, 1000L, 100L, 500L, 50L);
@@ -244,7 +235,7 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // Of 1000 bytes over WiFi, expect 250 bytes attributed UID_RED and 750 bytes to UID_BLUE,
         // with nothing attributed to UID_VPN for both rx/tx traffic.
         final NetworkStats tunStats =
-                parseDetailedStats(R.raw.xt_qtaguid_vpn_one_underlying_compression);
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_one_underlying_compression);
 
         assertValues(tunStats, TEST_IFACE, UID_RED, 250L, 25L, 250L, 25L);
         assertValues(tunStats, TEST_IFACE, UID_BLUE, 750L, 75L, 750L, 75L);
@@ -268,7 +259,7 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // - 500 bytes rx/tx each over WiFi/Cell attributed to both UID_RED and UID_BLUE.
         // - 1200 bytes rx/tx each over WiFi/Cell for VPN_UID.
         final NetworkStats tunStats =
-                parseDetailedStats(R.raw.xt_qtaguid_vpn_two_underlying_duplication);
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_two_underlying_duplication);
 
         assertValues(tunStats, TEST_IFACE, UID_RED, 500L, 50L, 500L, 50L);
         assertValues(tunStats, TEST_IFACE, UID_BLUE, 500L, 50L, 500L, 50L);
@@ -308,7 +299,7 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // Of 3850 bytes received over Cell, expect 3000 bytes attributed to UID_RED, 500 bytes
         // attributed to UID_BLUE, and 350 bytes attributed to UID_VPN.
         final NetworkStats tunStats =
-                parseDetailedStats(R.raw.xt_qtaguid_vpn_one_underlying_two_vpn);
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_one_underlying_two_vpn);
 
         assertValues(tunStats, TEST_IFACE, UID_RED, 2000L, 200L, 1000L, 100L);
         assertValues(tunStats, TEST_IFACE, UID_BLUE, 1000L, 100L, 500L, 50L);
@@ -338,7 +329,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         //
         // For UID_VPN, expect 60 bytes attributed over WiFi and 40 bytes over Cell for tx traffic.
         // And, 30 bytes over WiFi and 20 bytes over Cell for rx traffic.
-        final NetworkStats tunStats = parseDetailedStats(R.raw.xt_qtaguid_vpn_two_underlying_split);
+        final NetworkStats tunStats =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_two_underlying_split);
 
         assertValues(tunStats, TEST_IFACE, UID_RED, 300L, 30L, 600L, 60L);
         assertValues(tunStats, TEST_IFACE, UID_VPN, 30L, 0L, 60L, 0L);
@@ -362,7 +354,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // rx/tx.
         // UID_VPN gets nothing attributed to it (avoiding negative stats).
         final NetworkStats tunStats =
-                parseDetailedStats(R.raw.xt_qtaguid_vpn_two_underlying_split_compression);
+                factoryReadNetworkStatsDetail(
+                        R.raw.xt_qtaguid_vpn_two_underlying_split_compression);
 
         assertValues(tunStats, TEST_IFACE, UID_RED, 600L, 60L, 600L, 60L);
         assertValues(tunStats, TEST_IFACE, UID_VPN, 0L, 0L, 0L, 0L);
@@ -383,7 +376,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         // 1000 bytes (100 packets) were sent/received by UID_RED over VPN.
         // VPN sent/received 1100 bytes (100 packets) over Cell.
         // Of 1100 bytes over Cell, expect all of it attributed to UID_VPN for both rx/tx traffic.
-        final NetworkStats tunStats = parseDetailedStats(R.raw.xt_qtaguid_vpn_incorrect_iface);
+        final NetworkStats tunStats =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_vpn_incorrect_iface);
 
         assertValues(tunStats, TEST_IFACE, UID_RED, 0L, 0L, 0L, 0L);
         assertValues(tunStats, TEST_IFACE, UID_VPN, 0L, 0L, 0L, 0L);
@@ -408,7 +402,9 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
 
     @Test
     public void testNetworkStatsWithSet() throws Exception {
-        final NetworkStats stats = parseDetailedStats(R.raw.xt_qtaguid_typical);
+        final NetworkStats stats =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_typical);
+
         assertEquals(70, stats.size());
         assertStatsEntry(stats, "rmnet1", 10021, SET_DEFAULT, 0x30100000, 219110L, 578L, 227423L,
                 676L);
@@ -417,9 +413,9 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
 
     @Test
     public void testNetworkStatsSingle() throws Exception {
-        stageFile(R.raw.xt_qtaguid_iface_typical, file("net/xt_qtaguid/iface_stat_all"));
+        final NetworkStats stats =
+                factoryReadNetworkStatsDev(R.raw.xt_qtaguid_iface_typical);
 
-        final NetworkStats stats = mFactory.readNetworkStatsSummaryDev();
         assertEquals(6, stats.size());
         assertStatsEntry(stats, "rmnet0", UID_ALL, SET_ALL, TAG_NONE, 2112L, 24L, 700L, 10L);
         assertStatsEntry(stats, "test1", UID_ALL, SET_ALL, TAG_NONE, 6L, 8L, 10L, 12L);
@@ -428,9 +424,7 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
 
     @Test
     public void testNetworkStatsXt() throws Exception {
-        stageFile(R.raw.xt_qtaguid_iface_fmt_typical, file("net/xt_qtaguid/iface_stat_fmt"));
-
-        final NetworkStats stats = mFactory.readNetworkStatsSummaryXt();
+        final NetworkStats stats = factoryReadNetworkStatsXt(R.raw.xt_qtaguid_iface_fmt_typical);
         assertEquals(3, stats.size());
         assertStatsEntry(stats, "rmnet0", UID_ALL, SET_ALL, TAG_NONE, 6824L, 16L, 5692L, 10L);
         assertStatsEntry(stats, "rmnet1", UID_ALL, SET_ALL, TAG_NONE, 11153922L, 8051L, 190226L,
@@ -446,7 +440,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         //  - 213 received 464xlat packets of size 200 bytes
         //  - 41 sent 464xlat packets of size 100 bytes
         //  - no other traffic on base interface for root uid.
-        NetworkStats stats = parseDetailedStats(R.raw.xt_qtaguid_with_clat_simple);
+        final NetworkStats stats =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_with_clat_simple);
         assertEquals(3, stats.size());
 
         assertStatsEntry(stats, "v4-wlan0", 10060, SET_DEFAULT, 0x0, 46860L, 4920L);
@@ -457,7 +452,8 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
     public void testDoubleClatAccounting() throws Exception {
         mFactory.noteStackedIface("v4-wlan0", "wlan0");
 
-        NetworkStats stats = parseDetailedStats(R.raw.xt_qtaguid_with_clat);
+        final NetworkStats stats =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_with_clat);
         assertEquals(42, stats.size());
 
         assertStatsEntry(stats, "v4-wlan0", 0, SET_DEFAULT, 0x0, 356L, 276L);
@@ -489,55 +485,168 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
         long rootRxBytes = 330187296L;
 
         mFactory.noteStackedIface("v4-wlan0", "wlan0");
-        NetworkStats stats;
 
         // Stats snapshot before the download
-        stats = parseDetailedStats(R.raw.xt_qtaguid_with_clat_100mb_download_before);
-        assertStatsEntry(stats, "v4-wlan0", 10106, SET_FOREGROUND, 0x0, appRxBytesBefore, 5199872L);
-        assertStatsEntry(stats, "wlan0", 0, SET_DEFAULT, 0x0, rootRxBytes, 0L);
+        final NetworkStats baselineStatsFromNative =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_with_clat_100mb_download_before);
+
+        assertStatsEntry(baselineStatsFromNative, "v4-wlan0", 10106, SET_FOREGROUND, 0x0,
+                appRxBytesBefore, 5199872L);
+        assertStatsEntry(baselineStatsFromNative, "wlan0", 0, SET_DEFAULT, 0x0, rootRxBytes, 0L);
 
         // Stats snapshot after the download
-        stats = parseDetailedStats(R.raw.xt_qtaguid_with_clat_100mb_download_after);
-        assertStatsEntry(stats, "v4-wlan0", 10106, SET_FOREGROUND, 0x0, appRxBytesAfter, 7867488L);
-        assertStatsEntry(stats, "wlan0", 0, SET_DEFAULT, 0x0, rootRxBytes, 0L);
+        final NetworkStats statsFromNative =
+                factoryReadNetworkStatsDetail(R.raw.xt_qtaguid_with_clat_100mb_download_after);
+        assertStatsEntry(statsFromNative, "v4-wlan0", 10106, SET_FOREGROUND, 0x0,
+                appRxBytesAfter, 7867488L);
+        assertStatsEntry(statsFromNative, "wlan0", 0, SET_DEFAULT, 0x0, rootRxBytes, 0L);
     }
 
     /**
-     * Copy a {@link Resources#openRawResource(int)} into {@link File} for
-     * testing purposes.
+     * Parse and return {@link NetworkStats} with UID-level details. Values are
+     * expected to monotonically increase since device boot.
      */
-    private void stageFile(int rawId, File file) throws Exception {
-        new File(file.getParent()).mkdirs();
-        InputStream in = null;
-        OutputStream out = null;
+    private static NetworkStats javaReadNetworkStatsDetail(int resourceId) throws IOException {
+        final NetworkStats stats = new NetworkStats(SystemClock.elapsedRealtime(), 24);
+        final NetworkStats.Entry entry = new NetworkStats.Entry();
+
+        int idx = 1;
+        int lastIdx = 1;
+
+        ProcFileReader reader = null;
         try {
-            in = InstrumentationRegistry.getContext().getResources().openRawResource(rawId);
-            out = new FileOutputStream(file);
-            Streams.copy(in, out);
+            // open and consume header line
+            reader = new ProcFileReader(InstrumentationRegistry.getContext().getResources()
+                            .openRawResource(resourceId));
+            reader.finishLine();
+
+            while (reader.hasMoreData()) {
+                idx = reader.nextInt();
+                if (idx != lastIdx + 1) {
+                    throw new ProtocolException(
+                            "inconsistent idx=" + idx + " after lastIdx=" + lastIdx);
+                }
+                lastIdx = idx;
+
+                entry.iface = reader.nextString();
+                entry.tag = kernelToTag(reader.nextString());
+                entry.uid = reader.nextInt();
+                entry.set = reader.nextInt();
+                entry.rxBytes = reader.nextLong();
+                entry.rxPackets = reader.nextLong();
+                entry.txBytes = reader.nextLong();
+                entry.txPackets = reader.nextLong();
+
+                stats.insertEntry(entry);
+
+                reader.finishLine();
+            }
+        } catch (NullPointerException | NumberFormatException e) {
+            final ProtocolException pe = new ProtocolException("problem parsing idx " + idx);
+            pe.initCause(e);
+            throw pe;
         } finally {
-            IoUtils.closeQuietly(in);
-            IoUtils.closeQuietly(out);
+            IoUtils.closeQuietly(reader);
         }
+
+        return stats;
     }
 
-    private void stageLong(long value, File file) throws Exception {
-        new File(file.getParent()).mkdirs();
-        FileWriter out = null;
+    private NetworkStats javaReadNetworkStatsDev(int resourceId) throws IOException {
+        final NetworkStats stats = new NetworkStats(SystemClock.elapsedRealtime(), 6);
+        final NetworkStats.Entry entry = new NetworkStats.Entry();
+        ProcFileReader reader = null;
         try {
-            out = new FileWriter(file);
-            out.write(Long.toString(value));
+            reader = new ProcFileReader(InstrumentationRegistry.getContext().getResources()
+                            .openRawResource(resourceId));
+
+            while (reader.hasMoreData()) {
+                entry.iface = reader.nextString();
+                entry.uid = UID_ALL;
+                entry.set = SET_ALL;
+                entry.tag = TAG_NONE;
+
+                final boolean active = reader.nextInt() != 0;
+
+                // always include snapshot values
+                entry.rxBytes = reader.nextLong();
+                entry.rxPackets = reader.nextLong();
+                entry.txBytes = reader.nextLong();
+                entry.txPackets = reader.nextLong();
+
+                // fold in active numbers, but only when active
+                if (active) {
+                    entry.rxBytes += reader.nextLong();
+                    entry.rxPackets += reader.nextLong();
+                    entry.txBytes += reader.nextLong();
+                    entry.txPackets += reader.nextLong();
+                }
+
+                stats.insertEntry(entry);
+                reader.finishLine();
+            }
+        } catch (NullPointerException | NumberFormatException e) {
+            final ProtocolException pe = new ProtocolException("problem parsing stats");
+            pe.initCause(e);
+            throw pe;
         } finally {
-            IoUtils.closeQuietly(out);
+            IoUtils.closeQuietly(reader);
         }
+        return stats;
     }
 
-    private File file(String path) throws Exception {
-        return new File(mTestProc, path);
+    private NetworkStats javaReadNetworkStatsXt(int resourceId) throws IOException {
+        final NetworkStats stats = new NetworkStats(SystemClock.elapsedRealtime(), 6);
+        final NetworkStats.Entry entry = new NetworkStats.Entry();
+
+        ProcFileReader reader = null;
+        try {
+            // open and consume header line
+            reader = new ProcFileReader(InstrumentationRegistry.getContext().getResources()
+                            .openRawResource(resourceId));
+            reader.finishLine();
+
+            while (reader.hasMoreData()) {
+                entry.iface = reader.nextString();
+                entry.uid = UID_ALL;
+                entry.set = SET_ALL;
+                entry.tag = TAG_NONE;
+
+                entry.rxBytes = reader.nextLong();
+                entry.rxPackets = reader.nextLong();
+                entry.txBytes = reader.nextLong();
+                entry.txPackets = reader.nextLong();
+
+                stats.insertEntry(entry);
+                reader.finishLine();
+            }
+        } catch (NullPointerException | NumberFormatException e) {
+            final ProtocolException pe = new ProtocolException("problem parsing stats");
+            pe.initCause(e);
+            throw pe;
+        } finally {
+            IoUtils.closeQuietly(reader);
+        }
+        return stats;
     }
 
-    private NetworkStats parseDetailedStats(int resourceId) throws Exception {
-        stageFile(resourceId, file("net/xt_qtaguid/stats"));
+    private NetworkStats factoryReadNetworkStatsDetail(int resourceId) throws Exception {
+        final NetworkStats statsFromNative = javaReadNetworkStatsDetail(resourceId);
+        doReturn(statsFromNative).when(mDeps).getNativeReadNetworkStatsDetail(anyInt(), any(),
+                anyInt());
         return mFactory.readNetworkStatsDetail();
+    }
+
+    private NetworkStats factoryReadNetworkStatsDev(int resourceId) throws Exception {
+        final NetworkStats statsFromNative = javaReadNetworkStatsDev(resourceId);
+        doReturn(statsFromNative).when(mDeps).getNativeReadNetworkStatsDev();
+        return mFactory.readNetworkStatsSummaryDev();
+    }
+
+    private NetworkStats factoryReadNetworkStatsXt(int resourceId) throws Exception {
+        final NetworkStats statsFromNative = javaReadNetworkStatsXt(resourceId);
+        doReturn(statsFromNative).when(mDeps).getNativeReadNetworkStatsDev();
+        return mFactory.readNetworkStatsSummaryDev();
     }
 
     private static void assertStatsEntry(NetworkStats stats, String iface, int uid, int set,
