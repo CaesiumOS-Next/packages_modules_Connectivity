@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019784218",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958890?revision\u003d4",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "b7568b49_ec27b59c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-27T01:00:49Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 643,
+        "startChar": 0,
+        "endLine": 643,
+        "endChar": 123
+      },
+      "revId": "25edbecc717583923027215c8727251b50de1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019784218",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958890?revision\u003d4",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "70334cf2_a88d44e2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-27T01:00:49Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 103
+      },
+      "revId": "25edbecc717583923027215c8727251b50de1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019784218",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958890?revision\u003d4",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "557b21c1_73c4e0e5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-27T01:00:49Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 679,
+        "endChar": 135
+      },
+      "revId": "25edbecc717583923027215c8727251b50de1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019784218",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958890?revision\u003d4",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "aac2ccd2_e595e3f0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-27T01:00:49Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 681,
+        "endChar": 135
+      },
+      "revId": "25edbecc717583923027215c8727251b50de1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019784218",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958890?revision\u003d4",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "940ba44a_70b6e76e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-27T01:00:49Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 684,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 126
+      },
+      "revId": "25edbecc717583923027215c8727251b50de1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019784218",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958890?revision\u003d4",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "a05642ff_9c0f2d37",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-27T01:00:49Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 686,
+        "startChar": 0,
+        "endLine": 686,
+        "endChar": 102
+      },
+      "revId": "25edbecc717583923027215c8727251b50de1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019784218",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1958890?revision\u003d4",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "c72366c4_6cdb83f7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-27T01:00:49Z",
+      "side": 1,
+      "message": "Lines longer than 100 characters should be wrapped to improve readability; see https://source.android.com/setup/contribute/code-style#limit-line-length for more details.",
+      "range": {
+        "startLine": 710,
+        "startChar": 0,
+        "endLine": 710,
+        "endChar": 104
+      },
+      "revId": "25edbecc717583923027215c8727251b50de1d9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
