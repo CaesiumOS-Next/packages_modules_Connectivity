@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49bf7fee_bf427892",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-27T06:23:16Z",
+      "side": 1,
+      "message": "We should have tests a little bit more end-to-end, because this only tests reading the data and doesn\u0027t have any coverage for finding the files.\n\nBut it will do for now.",
+      "revId": "a1bb3a36cd0e1c006c11e13598bd9e8b87a1306c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8c53287_57aec676",
+        "filename": "tests/unit/java/android/net/netstats/NetworkStatsDataMigrationUtilsTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-27T06:23:16Z",
+      "side": 1,
+      "message": "format",
+      "range": {
+        "startLine": 49,
+        "startChar": 51,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "a1bb3a36cd0e1c006c11e13598bd9e8b87a1306c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
