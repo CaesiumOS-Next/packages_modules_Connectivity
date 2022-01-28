@@ -69,6 +69,24 @@
       "parentUuid": "de01ef87_6d5aea62",
       "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20de0a60_97bf2fbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2022-01-28T18:20:13Z",
+      "side": 1,
+      "message": "Just wanted to confirm that \"OEM code can definitely call module-lib APIs\".\n  \nBased on go/android-api-types, @SystemApi (client\u003dMODULE_LIBRARIES) can only be used by module and platform.    How does Samsung app / OEM framework code can call WifiManager#addCustomDhcpOptions() if we use this annotation for it? \n\n(BTW, I tried to use @SystemApi (client\u003dMODULE_LIBRARIES) for WifiManager#addCustomDhcpOptions(),  the presubmit error (CheckBuild failure) disappears.  We just need make sure it can be used by OEM if we use this annotation.)",
+      "parentUuid": "f4a36785_e838b3e8",
+      "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
