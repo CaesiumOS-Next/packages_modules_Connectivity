@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccd20d40_593c5086",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-28T10:33:25Z",
+      "side": 1,
+      "message": "Why not just follow the same style that provide a getter instead ?\n\npublic static class Dependencies {\n    public PermissionMontior.Dependecies getPermissionMonitorDepencies() {\n        return new PermissionMontior.Dependencies();\n    }",
+      "range": {
+        "startLine": 1233,
+        "startChar": 0,
+        "endLine": 1239,
+        "endChar": 37
+      },
+      "revId": "0fb322972179d49b75c2823055b20c8ca056029f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0625d11_a4e4fcae",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-01-28T10:33:25Z",
+      "side": 1,
+      "message": "As above suggestion, you just needmPermissionMonitor \u003d new PermissionMonitor(mContext, mNetd, mDeps.getPermissionMonitorDepencies());",
+      "range": {
+        "startLine": 1453,
+        "startChar": 8,
+        "endLine": 1457,
+        "endChar": 9
+      },
+      "revId": "0fb322972179d49b75c2823055b20c8ca056029f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
