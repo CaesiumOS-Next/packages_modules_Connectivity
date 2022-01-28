@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7f15952_b6eb9301",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T11:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfba74b4_3bb4ce55",
+      "range": {
+        "startLine": 1817,
+        "startChar": 63,
+        "endLine": 1817,
+        "endChar": 86
+      },
+      "revId": "cb69332332dde534e1ed388d5bf0074f06f70384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b654df65_fd134fa4",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1817,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T11:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f13e32d0_55a9c353",
+      "range": {
+        "startLine": 1817,
+        "startChar": 7,
+        "endLine": 1817,
+        "endChar": 21
+      },
+      "revId": "cb69332332dde534e1ed388d5bf0074f06f70384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b25d863a_09199712",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-28T06:23:24Z",
       "side": 1,
       "message": "@link NetworkRequest",
+      "range": {
+        "startLine": 1820,
+        "startChar": 29,
+        "endLine": 1820,
+        "endChar": 37
+      },
+      "revId": "cb69332332dde534e1ed388d5bf0074f06f70384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c86dfe1_812a960f",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1820,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T11:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b25d863a_09199712",
       "range": {
         "startLine": 1820,
         "startChar": 29,
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13176d54_afe80edb",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 2203,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T11:23:56Z",
+      "side": 1,
+      "message": "It does.\n\nArraySet\u003cInteger\u003e(1,2,3,4) will toString into \"{1, 2, 3, 4}\"",
+      "parentUuid": "b82661c5_e1c795df",
+      "range": {
+        "startLine": 2203,
+        "startChar": 47,
+        "endLine": 2203,
+        "endChar": 58
+      },
+      "revId": "cb69332332dde534e1ed388d5bf0074f06f70384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0270f35_f8a71666",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-01-28T06:23:24Z",
       "side": 1,
       "message": "@link",
+      "range": {
+        "startLine": 2994,
+        "startChar": 31,
+        "endLine": 2994,
+        "endChar": 54
+      },
+      "revId": "cb69332332dde534e1ed388d5bf0074f06f70384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93670904_c902b7cf",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 2994,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T11:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0270f35_f8a71666",
       "range": {
         "startLine": 2994,
         "startChar": 31,
@@ -139,6 +259,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd9ad59e_57b5fe55",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T11:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8913dca_f0463d53",
+      "range": {
+        "startLine": 2995,
+        "startChar": 11,
+        "endLine": 2995,
+        "endChar": 25
+      },
+      "revId": "cb69332332dde534e1ed388d5bf0074f06f70384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acae1907_8fadfaaf",
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa615b6f_31170735",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 2996,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T11:23:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acae1907_8fadfaaf",
+      "range": {
+        "startLine": 2996,
+        "startChar": 22,
+        "endLine": 2996,
+        "endChar": 23
+      },
+      "revId": "cb69332332dde534e1ed388d5bf0074f06f70384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb4e0cce_ab1b85ea",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-01-28T06:23:24Z",
       "side": 1,
       "message": "Can we move this sort of thing to the other CL?",
+      "range": {
+        "startLine": 7409,
+        "startChar": 0,
+        "endLine": 7411,
+        "endChar": 9
+      },
+      "revId": "cb69332332dde534e1ed388d5bf0074f06f70384",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ae10171_bcf08375",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 7411,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T11:23:56Z",
+      "side": 1,
+      "message": "It\u0027s also unrelated to the other patch, so I made another intermediary patch for this kind of moving around.",
+      "parentUuid": "eb4e0cce_ab1b85ea",
       "range": {
         "startLine": 7409,
         "startChar": 0,
