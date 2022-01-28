@@ -94,8 +94,10 @@ import android.net.INetworkStatsSession;
 import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkIdentity;
 import android.net.NetworkStateSnapshot;
 import android.net.NetworkStats;
+import android.net.NetworkStatsCollection;
 import android.net.NetworkStatsHistory;
 import android.net.NetworkTemplate;
 import android.net.TelephonyNetworkSpecifier;
@@ -112,6 +114,7 @@ import android.os.SimpleClock;
 import android.provider.Settings;
 import android.system.ErrnoException;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 import androidx.test.InstrumentationRegistry;
@@ -146,6 +149,7 @@ import java.io.File;
 import java.time.Clock;
 import java.time.ZoneOffset;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -220,6 +224,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private ContentObserver mContentObserver;
     private Handler mHandler;
     private TetheringManager.TetheringEventCallback mTetheringEventCallback;
+    private NetworkStatsCollection mPlatformNetworkStatsCollection =
+            new NetworkStatsCollection(30 * HOUR_IN_MILLIS);
+    private boolean mStoreFilesInApexData = false;
+    private int mImportLegacyRemainingAttempts = 0;
 
     private class MockContext extends BroadcastInterceptingContext {
         private final Context mBaseContext;
@@ -295,8 +303,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         mHandlerThread = new HandlerThread("HandlerThread");
         final NetworkStatsService.Dependencies deps = makeDependencies();
         mService = new NetworkStatsService(mServiceContext, mNetd, mAlarmManager, wakeLock,
-                mClock, mSettings, mStatsFactory, new NetworkStatsObservers(), mStatsDir,
-                getBaseDir(mStatsDir), deps);
+                mClock, mSettings, mStatsFactory, new NetworkStatsObservers(), deps);
 
         mElapsedRealtime = 0L;
 
@@ -338,6 +345,36 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     @NonNull
     private NetworkStatsService.Dependencies makeDependencies() {
         return new NetworkStatsService.Dependencies() {
+            @Override
+            public File getStatsDir() {
+                return mStatsDir;
+            }
+
+            @Override
+            public boolean getStoreFilesInApexData() {
+                return mStoreFilesInApexData;
+            }
+
+            @Override
+            public int getImportLegacyRemainingAttampts() {
+                return mImportLegacyRemainingAttempts;
+            }
+
+            @Override
+            public void setDeviceConfigPropertyInt(@NonNull String name,
+                    int value) {
+                if (TextUtils.equals(name,
+                        NetworkStatsService.NETSTATS_IMPORT_LEGACY_REMAINING_ATTEMPTS)) {
+                    mImportLegacyRemainingAttempts = value;
+                }
+            }
+
+            @Override
+            public NetworkStatsCollection readPlatformCollection(
+                    @NonNull String prefix, long bucketDuration) {
+                return mPlatformNetworkStatsCollection;
+            }
+
             @Override
             public HandlerThread makeHandlerThread() {
                 return mHandlerThread;
@@ -1704,10 +1741,63 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertNetworkTotal(sTemplateImsi1, 0L, 0L, 0L, 0L, 0);
     }
 
-    private static File getBaseDir(File statsDir) {
-        File baseDir = new File(statsDir, "netstats");
-        baseDir.mkdirs();
-        return baseDir;
+    /**
+     * Verify the service will perform data migration process can be controlled by the device flag.
+     */
+    @Test
+    public void testDataMigration() throws Exception {
+        assertStatsFilesExist(false);
+        expectDefaultSettings();
+        final long bucketDuration = 30 * HOUR_IN_MILLIS;
+        final NetworkIdentity ident = new NetworkIdentity.Builder()
+                .setType(TYPE_MOBILE)
+                .setMetered(true)
+                .setSubscriberId(IMSI_1).build();
+        final NetworkStatsCollection.Key key = new NetworkStatsCollection.Key(
+                Set.of(ident), UID_ALL, SET_FOREGROUND, 0x0 /* tag */);
+        final NetworkStatsHistory history = new NetworkStatsHistory.Builder(bucketDuration, 0)
+                .addEntry(new NetworkStatsHistory.Entry(0, 10, 31, 3, 50, 5, 1)).build();
+
+        // Mock mobile traffic which will be reported by
+        // NetworkStatsDataMigrationUtils and verify it won't be absorbed if the flag is not set.
+        // TODO: Also mock UID traffic when service queries with PREFIX_UID. And
+        //  verify with assertUidTotal.
+        mPlatformNetworkStatsCollection = new NetworkStatsCollection.Builder(bucketDuration)
+                .addEntry(key, history).build();
+        mStoreFilesInApexData = true;
+        mImportLegacyRemainingAttempts = 0;
+        mServiceContext.sendBroadcast(new Intent(Intent.ACTION_SHUTDOWN));
+        assertStatsFilesExist(false);
+
+        // Mock zero usage and boot through serviceReady(), verify there is no imported data.
+        expectDefaultSettings();
+        expectNetworkStatsUidDetail(buildEmptyStats());
+        expectSystemReady();
+        mService.systemReady();
+        assertStatsFilesExist(false);
+
+        // Set the flag and reboot, verify the imported data is not there until next boot.
+        mImportLegacyRemainingAttempts = 3;
+        mServiceContext.sendBroadcast(new Intent(Intent.ACTION_SHUTDOWN));
+        assertStatsFilesExist(false);
+
+        // Boot through systemReady() again.
+        expectDefaultSettings();
+        expectNetworkStatsUidDetail(buildEmptyStats());
+        expectSystemReady();
+        mService.systemReady();
+
+        // After systemReady(), the service should have historical stats loaded again.
+        // Thus, verify
+        //  1. The stats are absorbed by the recorder.
+        //  2. The imported data are persisted.
+        //  3. The retry count is set to zero to indicate a successful migration.
+        assertNetworkTotal(sTemplateImsi1, 31L, 3L, 50L, 5L, 1);
+        assertStatsFilesExist(true);
+        assertEquals(0, mImportLegacyRemainingAttempts);
+
+        // TODO: Verify upgrading with Exception won't damege original data and
+        //  will decrease the retry counter by 1.
     }
 
     private void assertNetworkTotal(NetworkTemplate template, long rxBytes, long rxPackets,
@@ -1816,11 +1906,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     }
 
     private void assertStatsFilesExist(boolean exist) {
-        final File basePath = new File(mStatsDir, "netstats");
         if (exist) {
-            assertTrue(basePath.list().length > 0);
+            assertTrue(mStatsDir.list().length > 0);
         } else {
-            assertTrue(basePath.list().length == 0);
+            assertTrue(mStatsDir.list().length == 0);
         }
     }
 
