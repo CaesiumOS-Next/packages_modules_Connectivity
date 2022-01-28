@@ -10724,7 +10724,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } else {
                 mBpfNetMaps.removeNiceApp(uid);
             }
-        } catch (ServiceSpecificException e) {
+        } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -10739,7 +10739,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             } else {
                 mBpfNetMaps.removeNaughtyApp(uid);
             }
-        } catch (ServiceSpecificException e) {
+        } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -10751,7 +10751,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         try {
             mBpfNetMaps.setUidRule(chain, uid,
                     allow ? INetd.FIREWALL_RULE_ALLOW : INetd.FIREWALL_RULE_DENY);
-        } catch (ServiceSpecificException e) {
+        } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -10762,7 +10762,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         try {
             mBpfNetMaps.setChildChain(chain, enable);
-        } catch (ServiceSpecificException e) {
+        } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -10789,7 +10789,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     throw new IllegalArgumentException("replaceFirewallChain with invalid chain: "
                             + chain);
             }
-        } catch (ServiceSpecificException e) {
+        } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -10799,7 +10799,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         enforceNetworkStackOrSettingsPermission();
         try {
             mBpfNetMaps.swapActiveStatsMap();
-        } catch (ServiceSpecificException e) {
+        } catch (RemoteException | ServiceSpecificException e) {
             throw new IllegalStateException(e);
         }
     }
