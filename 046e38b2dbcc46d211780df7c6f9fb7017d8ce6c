@@ -33,6 +33,24 @@
       "message": "Ah, of course, this fails to build in mainline:\n\nerror: packages/modules/Connectivity/bpf_progs/Android.bp:91:8: unrecognized property \"btf\"\n\nbecause the build changes haven\u0027t been backported to sc-mainline-prod.\n",
       "revId": "046e38b2dbcc46d211780df7c6f9fb7017d8ce6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c7ae555_5efc6583",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1115183
+      },
+      "writtenOn": "2022-01-28T20:08:49Z",
+      "side": 1,
+      "message": "Might be worth testing manually on mainline as well, since the most likely problem would be a failure to properly chmod \u0026 chown the pinned programs without https://android-review.googlesource.com/c/platform/system/bpf/+/1954096, which might not be as easily detected as e.g. a complete failure to load",
+      "parentUuid": "f8f04e87_4be1dc94",
+      "revId": "046e38b2dbcc46d211780df7c6f9fb7017d8ce6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
