@@ -69,6 +69,7 @@ bpf {
 bpf {
     name: "offload.o",
     srcs: ["offload.c"],
+    btf: true,
     cflags: [
         "-Wall",
         "-Werror",
@@ -87,6 +88,7 @@ bpf {
 bpf {
     name: "clatd.o_mainline",
     srcs: ["clatd.c"],
+    btf: true,
     cflags: [
         "-Wall",
         "-Werror",
@@ -100,6 +102,7 @@ bpf {
 bpf {
     name: "netd.o_mainline",
     srcs: ["netd.c"],
+    btf: true,
     cflags: [
         "-Wall",
         "-Werror",
