@@ -93,6 +93,15 @@ package android.net {
     method @Deprecated public void onUpstreamChanged(@Nullable android.net.Network);
   }
 
+  public final class DhcpOption implements android.os.Parcelable {
+    ctor public DhcpOption(byte, @Nullable byte[]);
+    method public int describeContents();
+    method public byte getType();
+    method @Nullable public byte[] getValue();
+    method public void writeToParcel(@NonNull android.os.Parcel, int);
+    field @NonNull public static final android.os.Parcelable.Creator<android.net.DhcpOption> CREATOR;
+  }
+
   public final class InvalidPacketException extends java.lang.Exception {
     ctor public InvalidPacketException(int);
     method public int getError();
