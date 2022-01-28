@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f191a14_fcb89ad2",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T06:45:19Z",
+      "side": 1,
+      "message": "The UIDs are only visible to...",
+      "range": {
+        "startLine": 1856,
+        "startChar": 52,
+        "endLine": 1856,
+        "endChar": 59
+      },
+      "revId": "4e93896489e66e603fc0ced037b11b5c362c0188",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
