@@ -16,6 +16,41 @@
       "message": "Why do you think this hould be made available to priv-apps? I don\u0027t think there is any use case where we would want a priv-app to be able to set custom DHCP options.",
       "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de01ef87_6d5aea62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2022-01-28T05:54:42Z",
+      "side": 1,
+      "message": "Thank you Lorenzo for reviewing.  PTAL.",
+      "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "421394d5_f325fd1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2022-01-28T05:54:42Z",
+      "side": 1,
+      "message": "(1) In ag/15974921,  for the system API of WifiManager#addCustomDhcpOption(),  we use DhcpOption as a parameter.  There is a build failure on the target of aosp_bramble-userdebug on git_master branch (a CheckBuild).   The build error message is: \n\npackages/modules/Wifi/framework/java/android/net/wifi/WifiManager.java:9152: error: Class android.net.DhcpOption is hidden but was referenced (as parameter type) from public parameter options in android.net.wifi.WifiManager.addCustomDhcpOptions(android.net.wifi.WifiSsid ssid, byte[] oui, java.util.List\u003candroid.net.DhcpOption\u003e options) [ReferencesHidden]Error: metalava detected the following problems:\npackages/modules/Wifi/framework/java/android/net/wifi/WifiManager.java:9152: error: Class android.net.DhcpOption is hidden but was referenced (as parameter type) from public parameter options in android.net.wifi.WifiManager.addCustomDhcpOptions(android.net.wifi.WifiSsid ssid, byte[] oui, java.util.List\u003candroid.net.DhcpOption\u003e options) [ReferencesHidden]\n\nAfter it is changed to client.privilegedapps,  the build is successful.  (Thanks Nate for helping to figure this out.)\n\n\n2. Samsung app / OEM framework will call WifiManager#addCustomDhcpOption() to set their custom DhcpOption options.  I think this can be viewed a privileged app model.",
+      "parentUuid": "b041cfb0_bd9ce124",
+      "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
