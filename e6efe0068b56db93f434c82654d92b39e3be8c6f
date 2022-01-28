@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b041cfb0_bd9ce124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T05:40:22Z",
+      "side": 1,
+      "message": "Why do you think this hould be made available to priv-apps? I don\u0027t think there is any use case where we would want a priv-app to be able to set custom DHCP options.",
+      "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
