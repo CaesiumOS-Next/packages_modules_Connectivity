@@ -22,6 +22,8 @@ import android.os.ServiceSpecificException;
 import android.system.Os;
 import android.util.Log;
 
+import com.android.modules.utils.build.SdkLevel;
+
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
  *
@@ -30,11 +32,9 @@ import android.util.Log;
 public class BpfNetMaps {
     private static final String TAG = "BpfNetMaps";
     private final INetd mNetd;
-    // TODO: change USE_JNI to SdkLevel.isAtLeastT()
-    private static final boolean USE_JNI = false;
 
     static {
-        if (USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             System.loadLibrary("traffic_controller_jni");
             native_init();
         }
@@ -52,7 +52,7 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void addNaughtyApp(final int uid) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.bandwidthAddNaughtyApp(uid);
             } catch (RemoteException e) {
@@ -75,7 +75,7 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void removeNaughtyApp(final int uid) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.bandwidthRemoveNaughtyApp(uid);
             } catch (RemoteException e) {
@@ -98,7 +98,7 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void addNiceApp(final int uid) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.bandwidthAddNiceApp(uid);
             } catch (RemoteException e) {
@@ -121,7 +121,7 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void removeNiceApp(final int uid) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.bandwidthRemoveNiceApp(uid);
             } catch (RemoteException e) {
@@ -145,7 +145,7 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void setChildChain(final int childChain, final boolean enable) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.firewallEnableChildChain(childChain, enable);
             } catch (RemoteException e) {
@@ -175,7 +175,7 @@ public class BpfNetMaps {
      */
     public int replaceUidChain(final String chainName, final boolean isAllowlist,
             final int[] uids) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.firewallReplaceUidChain(chainName, isAllowlist, uids);
             } catch (RemoteException e) {
@@ -200,7 +200,7 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.firewallSetUidRule(childChain, uid, firewallRule);
             } catch (RemoteException e) {
@@ -232,7 +232,7 @@ public class BpfNetMaps {
      *         cause of the failure.
      */
     public void addUidInterfaceRules(final String ifName, final int[] uids) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.firewallAddUidInterfaceRules(ifName, uids);
             } catch (RemoteException e) {
@@ -258,7 +258,7 @@ public class BpfNetMaps {
      *         cause of the failure.
      */
     public void removeUidInterfaceRules(final int[] uids) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.firewallRemoveUidInterfaceRules(uids);
             } catch (RemoteException e) {
@@ -279,7 +279,7 @@ public class BpfNetMaps {
     *         cause of the failure.
     */
     public void swapActiveStatsMap() {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.trafficSwapActiveStatsMap();
             } catch (RemoteException e) {
@@ -304,7 +304,7 @@ public class BpfNetMaps {
     * @param uids uid of users to grant permission
     */
     public void setNetPermForUids(final int permissions, final int[] uids) {
-        if (!USE_JNI) {
+        if (!SdkLevel.isAtLeastT()) {
             try {
                 mNetd.trafficSetNetPermForUids(permissions, uids);
             } catch (RemoteException e) {
