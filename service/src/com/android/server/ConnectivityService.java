@@ -1230,6 +1230,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
      */
     @VisibleForTesting
     public static class Dependencies {
+        BpfNetMaps mBpfNetMaps;
+        public PermissionMonitor.Dependencies mPMDeps;
+
+        public Dependencies() {}
+
+        public Dependencies(final BpfNetMaps bpfNetMaps) {
+            mBpfNetMaps = bpfNetMaps;
+        }
+
         public int getCallingUid() {
             return Binder.getCallingUid();
         }
@@ -1336,6 +1345,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
             return DeviceConfigUtils.isFeatureEnabled(context, NAMESPACE_CONNECTIVITY, name,
                     TETHERING_MODULE_NAME, defaultEnabled);
         }
+
+        /**
+         * Get BpfNetMaps for given netd.
+         */
+        public BpfNetMaps getBpfNetMaps(INetd netd) {
+            if (mBpfNetMaps == null) {
+                mBpfNetMaps = new BpfNetMaps(netd);
+            }
+            return mBpfNetMaps;
+        }
     }
 
     public ConnectivityService(Context context) {
@@ -1404,7 +1423,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         mProxyTracker = mDeps.makeProxyTracker(mContext, mHandler);
 
         mNetd = netd;
-        mBpfNetMaps = new BpfNetMaps(mNetd);
+        mBpfNetMaps = mDeps.getBpfNetMaps(mNetd);
         mTelephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mLocationPermissionChecker = mDeps.makeLocationPermissionChecker(mContext);
@@ -1431,8 +1450,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
-
-        mPermissionMonitor = new PermissionMonitor(mContext, mNetd);
+        if (mDeps.mPMDeps == null) {
+            mPermissionMonitor = new PermissionMonitor(mContext, mNetd);
+        } else {
+            mPermissionMonitor = new PermissionMonitor(mContext, mNetd, mDeps.mPMDeps);
+        }
 
         mUserAllContext = mContext.createContextAsUser(UserHandle.ALL, 0 /* flags */);
         // Listen for user add/removes to inform PermissionMonitor.
