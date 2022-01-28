@@ -39,6 +39,29 @@
       },
       "revId": "59db1d1f554de1e34674770fe9e0ba0cd6ec1ed4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a844ac33_796b6de0",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3059,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T01:47:28Z",
+      "side": 1,
+      "message": "Can we check that networking does not work here? Maybe just do an HTTP request like other tests in this file do? Or at least do a DNS query for \u003crandomstring\u003e-ds.metric.gstatic.com and check that it fails? Or will this make the test run very slowly?",
+      "range": {
+        "startLine": 3059,
+        "startChar": 8,
+        "endLine": 3059,
+        "endChar": 9
+      },
+      "revId": "59db1d1f554de1e34674770fe9e0ba0cd6ec1ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
