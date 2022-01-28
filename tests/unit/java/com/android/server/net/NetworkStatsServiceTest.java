@@ -198,6 +198,7 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     @Mock
     private LocationPermissionChecker mLocationPermissionChecker;
     private @Mock IBpfMap<U32, U8> mUidCounterSetMap;
+    private @Mock NetworkStatsService.TagStatsDeleter mTagStatsDeleter;
 
     private NetworkStatsService mService;
     private INetworkStatsSession mSession;
@@ -357,6 +358,11 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             @Override
             public IBpfMap<U32, U8> getUidCounterSetMap() {
                 return mUidCounterSetMap;
+            }
+
+            @Override
+            public NetworkStatsService.TagStatsDeleter getTagStatsDeleter() {
+                return mTagStatsDeleter;
             }
         };
     }
