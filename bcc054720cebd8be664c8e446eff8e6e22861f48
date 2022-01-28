@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "509eb877_8b8b872a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T09:47:26Z",
+      "side": 1,
+      "message": "This starts the entirety of TrafficController and that doesn\u0027t seem like a good thing to do because there is already a TrafficController running in netd.\n\nUploaded aosp/1964824 to make this safer / easier to use.",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "bcc054720cebd8be664c8e446eff8e6e22861f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
