@@ -51,6 +51,24 @@
       "parentUuid": "b041cfb0_bd9ce124",
       "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4a36785_e838b3e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T07:17:59Z",
+      "side": 1,
+      "message": "I don\u0027t think that\u0027s a sufficient reason for making an API available to a larger set of callers than it could be. OEM code can definitely call module-lib APIs. Maybe you just ned to make the WifiManager method module-lib instead of system?",
+      "parentUuid": "de01ef87_6d5aea62",
+      "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
