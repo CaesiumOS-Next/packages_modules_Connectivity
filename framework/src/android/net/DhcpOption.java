@@ -28,7 +28,7 @@ import android.os.Parcelable;
  *
  * @hide
  */
-@SystemApi(client = SystemApi.Client.MODULE_LIBRARIES)
+@SystemApi(client = SystemApi.Client.PRIVILEGED_APPS)
 public final class DhcpOption implements Parcelable {
     private final byte mType;
     private final byte[] mValue;
