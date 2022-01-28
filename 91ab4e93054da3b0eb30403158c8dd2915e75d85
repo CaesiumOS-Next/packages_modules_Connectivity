@@ -22,6 +22,30 @@
       },
       "revId": "91ab4e93054da3b0eb30403158c8dd2915e75d85",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0504002b_ee977698",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T17:13:20Z",
+      "side": 0,
+      "message": "I think it\u0027s more readable the way it is.",
+      "parentUuid": "f259dc83_1ccbd8d2",
+      "range": {
+        "startLine": 36,
+        "startChar": 43,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "91ab4e93054da3b0eb30403158c8dd2915e75d85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75456627_b6ea1263",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T17:13:20Z",
+      "side": 1,
+      "message": "I think we will have to wait with submitting this. TrafficController should be removed from netd in the same topic, otherwise we\u0027ll run into issues.",
+      "revId": "61527cd6ff035c9e98ee5dec3f3ffa9263e8f522",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

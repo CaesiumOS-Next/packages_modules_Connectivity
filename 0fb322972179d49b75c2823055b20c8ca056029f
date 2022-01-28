@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ccc8ec3_545bc571",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T17:13:20Z",
+      "side": 1,
+      "message": "removed this altogether.",
+      "parentUuid": "ccd20d40_593c5086",
+      "range": {
+        "startLine": 1233,
+        "startChar": 0,
+        "endLine": 1239,
+        "endChar": 37
+      },
+      "revId": "0fb322972179d49b75c2823055b20c8ca056029f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0625d11_a4e4fcae",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-28T10:33:25Z",
       "side": 1,
       "message": "As above suggestion, you just needmPermissionMonitor \u003d new PermissionMonitor(mContext, mNetd, mDeps.getPermissionMonitorDepencies());",
+      "range": {
+        "startLine": 1453,
+        "startChar": 8,
+        "endLine": 1457,
+        "endChar": 9
+      },
+      "revId": "0fb322972179d49b75c2823055b20c8ca056029f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e8762b_294df2d5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T17:13:20Z",
+      "side": 1,
+      "message": "passing as constructor argument is preferable.",
+      "parentUuid": "e0625d11_a4e4fcae",
       "range": {
         "startLine": 1453,
         "startChar": 8,
