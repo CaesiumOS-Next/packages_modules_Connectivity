@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "260e57b7_0dca6ebd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T00:33:01Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "59db1d1f554de1e34674770fe9e0ba0cd6ec1ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c9c2db5_18bdfbfb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3035,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T00:33:01Z",
+      "side": 1,
+      "message": "This needs to exclude SCv2 as well.",
+      "range": {
+        "startLine": 3035,
+        "startChar": 53,
+        "endLine": 3035,
+        "endChar": 54
+      },
+      "revId": "59db1d1f554de1e34674770fe9e0ba0cd6ec1ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
