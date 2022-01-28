@@ -16,6 +16,23 @@
       "message": "Looks like the impact is now ~8KB per program, which is much more reasonable.\n\nI\u0027m curious to see if presubmit is happy with it, since it should test on older devices/kernels/bpfloaders (I hope...).",
       "revId": "046e38b2dbcc46d211780df7c6f9fb7017d8ce6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26e9f084_83fc873e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-28T19:59:55Z",
+      "side": 1,
+      "message": "Ah, of course, this fails to build in mainline:\n\nerror: packages/modules/Connectivity/bpf_progs/Android.bp:91:8: unrecognized property \"btf\"\n\nbecause the build changes haven\u0027t been backported to sc-mainline-prod.\n",
+      "revId": "046e38b2dbcc46d211780df7c6f9fb7017d8ce6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
