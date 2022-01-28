@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a51fc57f_15b6e63b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-28T18:36:10Z",
+      "side": 0,
+      "message": "This is an old artefact of how the tests used to connect the agent, but it\u0027s now both outdated (useless), unrealistic (agents don\u0027t, indeed *mustn\u0027t*, start without INTERNET and then add it) and inconvenient (doesn\u0027t allow custom capabilities with INTERNET passed as a template to NetworkAgentWrapper).",
+      "range": {
+        "startLine": 972,
+        "startChar": 12,
+        "endLine": 972,
+        "endChar": 89
+      },
+      "revId": "8a58694f2c0f85f124fdb12ec78e20f811c328ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
