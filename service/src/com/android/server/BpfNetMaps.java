@@ -22,6 +22,8 @@ import android.os.ServiceSpecificException;
 import android.system.Os;
 import android.util.Log;
 
+import com.android.modules.utils.build.SdkLevel;
+
 /**
  * BpfNetMaps is responsible for providing traffic controller relevant functionality.
  *
@@ -30,12 +32,11 @@ import android.util.Log;
 public class BpfNetMaps {
     private static final String TAG = "BpfNetMaps";
     private final INetd mNetd;
-    // TODO: change USE_JNI to SdkLevel.isAtLeastT()
-    private static final boolean USE_JNI = false;
+    private static final boolean USE_JNI = SdkLevel.isAtLeastT();
 
     static {
         if (USE_JNI) {
-            System.loadLibrary("traffic_controller_jni");
+            System.loadLibrary("service-connectivity");
             native_init();
         }
     }
@@ -44,119 +45,119 @@ public class BpfNetMaps {
         mNetd = netd;
     }
 
-   /**
-    * Add naughty app bandwidth rule for specific app
-    *
-    * @param uid uid of target app
-    * @throws ServiceSpecificException in case of failure, with an error code indicating the
-    *         cause of the failure.
-    */
+    /**
+     * Add naughty app bandwidth rule for specific app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
     public void addNaughtyApp(final int uid) {
-        if (!USE_JNI) {
-            try {
-                mNetd.bandwidthAddNaughtyApp(uid);
-            } catch (RemoteException e) {
-                throw new IllegalStateException(e);
+        if (USE_JNI) {
+            final int err = native_addNaughtyApp(uid);
+            if (err != 0) {
+                throw new ServiceSpecificException(err, "Unable to add naughty app: "
+                        + Os.strerror(err));
             }
             return;
         }
-        final int err = native_addNaughtyApp(uid);
-        if (err != 0) {
-            throw new ServiceSpecificException(err, "Unable to add naughty app: "
-                            + Os.strerror(err));
+        try {
+            mNetd.bandwidthAddNaughtyApp(uid);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
     }
 
-   /**
-    * Remove naughty app bandwidth rule for specific app
-    *
-    * @param uid uid of target app
-    * @throws ServiceSpecificException in case of failure, with an error code indicating the
-    *         cause of the failure.
-    */
+    /**
+     * Remove naughty app bandwidth rule for specific app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
     public void removeNaughtyApp(final int uid) {
-        if (!USE_JNI) {
-            try {
-                mNetd.bandwidthRemoveNaughtyApp(uid);
-            } catch (RemoteException e) {
-                throw new IllegalStateException(e);
+        if (USE_JNI) {
+            final int err = native_removeNaughtyApp(uid);
+            if (err != 0) {
+                throw new ServiceSpecificException(err, "Unable to remove naughty app: "
+                        + Os.strerror(err));
             }
             return;
         }
-        final int err = native_removeNaughtyApp(uid);
-        if (err != 0) {
-            throw new ServiceSpecificException(err, "Unable to remove naughty app: "
-                            + Os.strerror(err));
+        try {
+            mNetd.bandwidthRemoveNaughtyApp(uid);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
     }
 
-   /**
-    * Add nice app bandwidth rule for specific app
-    *
-    * @param uid uid of target app
-    * @throws ServiceSpecificException in case of failure, with an error code indicating the
-    *         cause of the failure.
-    */
+    /**
+     * Add nice app bandwidth rule for specific app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
     public void addNiceApp(final int uid) {
-        if (!USE_JNI) {
-            try {
-                mNetd.bandwidthAddNiceApp(uid);
-            } catch (RemoteException e) {
-                throw new IllegalStateException(e);
+        if (USE_JNI) {
+            final int err = native_addNiceApp(uid);
+            if (err != 0) {
+                throw new ServiceSpecificException(err, "Unable to add nice app: "
+                        + Os.strerror(err));
             }
             return;
         }
-        final int err = native_addNiceApp(uid);
-        if (err != 0) {
-            throw new ServiceSpecificException(err, "Unable to add nice app: "
-                            + Os.strerror(err));
+        try {
+            mNetd.bandwidthAddNiceApp(uid);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
     }
 
-   /**
-    * Remove nice app bandwidth rule for specific app
-    *
-    * @param uid uid of target app
-    * @throws ServiceSpecificException in case of failure, with an error code indicating the
-    *         cause of the failure.
-    */
+    /**
+     * Remove nice app bandwidth rule for specific app
+     *
+     * @param uid uid of target app
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
     public void removeNiceApp(final int uid) {
-        if (!USE_JNI) {
-            try {
-                mNetd.bandwidthRemoveNiceApp(uid);
-            } catch (RemoteException e) {
-                throw new IllegalStateException(e);
+        if (USE_JNI) {
+            final int err = native_removeNiceApp(uid);
+            if (err != 0) {
+                throw new ServiceSpecificException(err, "Unable to remove nice app: "
+                        + Os.strerror(err));
             }
             return;
         }
-        final int err = native_removeNiceApp(uid);
-        if (err != 0) {
-            throw new ServiceSpecificException(err, "Unable to remove nice app: "
-                            + Os.strerror(err));
+        try {
+            mNetd.bandwidthRemoveNiceApp(uid);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
     }
 
-   /**
-    * Set target firewall child chain
-    *
-    * @param childChain target chain to enable
-    * @param enable whether to enable or disable child chain.
-    * @throws ServiceSpecificException in case of failure, with an error code indicating the
-    *         cause of the failure.
-    */
+    /**
+     * Set target firewall child chain
+     *
+     * @param childChain target chain to enable
+     * @param enable     whether to enable or disable child chain.
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
     public void setChildChain(final int childChain, final boolean enable) {
-        if (!USE_JNI) {
-            try {
-                mNetd.firewallEnableChildChain(childChain, enable);
-            } catch (RemoteException e) {
-                throw new IllegalStateException(e);
+        if (USE_JNI) {
+            final int err = native_setChildChain(childChain, enable);
+            if (err != 0) {
+                throw new ServiceSpecificException(-err, "Unable to set child chain: "
+                        + Os.strerror(-err));
             }
             return;
         }
-        final int err = native_setChildChain(childChain, enable);
-        if (err != 0) {
-            throw new ServiceSpecificException(-err, "Unable to set child chain: "
-                            + Os.strerror(-err));
+        try {
+            mNetd.firewallEnableChildChain(childChain, enable);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
     }
 
@@ -168,50 +169,51 @@ public class BpfNetMaps {
      * rules for the system UID range (0 to {@code UID_APP} - 1), RETURN rules for for the specified
      * UIDs, and a DROP rule at the end. The chain will be created if it does not exist.
      *
-     * @param chainName The name of the chain to replace.
+     * @param chainName   The name of the chain to replace.
      * @param isAllowlist Whether this is an allowlist or denylist chain.
-     * @param uids The list of UIDs to allow/deny.
+     * @param uids        The list of UIDs to allow/deny.
      * @return true if the chain was successfully replaced, false otherwise.
      */
     public int replaceUidChain(final String chainName, final boolean isAllowlist,
             final int[] uids) {
-        if (!USE_JNI) {
-            try {
-                mNetd.firewallReplaceUidChain(chainName, isAllowlist, uids);
-            } catch (RemoteException e) {
-                throw new IllegalStateException(e);
+        if (USE_JNI) {
+            final int err = native_replaceUidChain(chainName, isAllowlist, uids);
+            if (err != 0) {
+                Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
             }
-            return 0;
+            return -err;
         }
-        final int err = native_replaceUidChain(chainName, isAllowlist, uids);
-        if (err != 0) {
-            Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
+        try {
+            mNetd.firewallReplaceUidChain(chainName, isAllowlist, uids);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
-        return -err;
+        return 0;
+
     }
 
-   /**
-    * Set firewall rule for uid
-    *
-    * @param childChain target chain
-    * @param uid uid to allow/deny
-    * @param firewallRule either FIREWALL_RULE_ALLOW or FIREWALL_RULE_DENY
-    * @throws ServiceSpecificException in case of failure, with an error code indicating the
-    *         cause of the failure.
-    */
+    /**
+     * Set firewall rule for uid
+     *
+     * @param childChain   target chain
+     * @param uid          uid to allow/deny
+     * @param firewallRule either FIREWALL_RULE_ALLOW or FIREWALL_RULE_DENY
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
-        if (!USE_JNI) {
-            try {
-                mNetd.firewallSetUidRule(childChain, uid, firewallRule);
-            } catch (RemoteException e) {
-                throw new IllegalStateException(e);
+        if (USE_JNI) {
+            final int err = native_setUidRule(childChain, uid, firewallRule);
+            if (err != 0) {
+                throw new ServiceSpecificException(-err, "Unable to set uid rule: "
+                        + Os.strerror(-err));
             }
             return;
         }
-        final int err = native_setUidRule(childChain, uid, firewallRule);
-        if (err != 0) {
-            throw new ServiceSpecificException(-err, "Unable to set uid rule: "
-                            + Os.strerror(-err));
+        try {
+            mNetd.firewallSetUidRule(childChain, uid, firewallRule);
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
     }
 
@@ -226,24 +228,24 @@ public class BpfNetMaps {
      * instead. Otherwise calling this method will not affect existing rules set on other UIDs.
      *
      * @param ifName the name of the interface on which the filtering rules will allow packets to
-              be received.
-     * @param uids an array of UIDs which the filtering rules will be set
+     *               be received.
+     * @param uids   an array of UIDs which the filtering rules will be set
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *         cause of the failure.
+     *                                  cause of the failure.
      */
     public void addUidInterfaceRules(final String ifName, final int[] uids) {
-        if (!USE_JNI) {
-            try {
-                mNetd.firewallAddUidInterfaceRules(ifName, uids);
-            } catch (RemoteException e) {
-                Log.e(TAG, "Exception when updating permissions: " + e);
+        if (USE_JNI) {
+            final int err = native_addUidInterfaceRules(ifName, uids);
+            if (err != 0) {
+                throw new ServiceSpecificException(err, "Unable to add uid interface rules: "
+                        + Os.strerror(err));
             }
             return;
         }
-        final int err = native_addUidInterfaceRules(ifName, uids);
-        if (err != 0) {
-            throw new ServiceSpecificException(err, "Unable to add uid interface rules: "
-                            + Os.strerror(err));
+        try {
+            mNetd.firewallAddUidInterfaceRules(ifName, uids);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Exception when updating permissions: " + e);
         }
     }
 
@@ -255,71 +257,72 @@ public class BpfNetMaps {
      *
      * @param uids an array of UIDs from which the filtering rules will be removed
      * @throws ServiceSpecificException in case of failure, with an error code indicating the
-     *         cause of the failure.
+     *                                  cause of the failure.
      */
     public void removeUidInterfaceRules(final int[] uids) {
-        if (!USE_JNI) {
-            try {
-                mNetd.firewallRemoveUidInterfaceRules(uids);
-            } catch (RemoteException e) {
-                Log.e(TAG, "Exception when updating permissions: " + e);
+        if (USE_JNI) {
+            final int err = native_removeUidInterfaceRules(uids);
+            if (err != 0) {
+                throw new ServiceSpecificException(err, "Unable to remove uid interface rules: "
+                        + Os.strerror(err));
             }
             return;
         }
-        final int err = native_removeUidInterfaceRules(uids);
-        if (err != 0) {
-            throw new ServiceSpecificException(err, "Unable to remove uid interface rules: "
-                            + Os.strerror(err));
+        try {
+            mNetd.firewallRemoveUidInterfaceRules(uids);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Exception when updating permissions: " + e);
         }
     }
 
-   /**
-    * Request netd to change the current active network stats map.
-    * @throws ServiceSpecificException in case of failure, with an error code indicating the
-    *         cause of the failure.
-    */
+    /**
+     * Request netd to change the current active network stats map.
+     *
+     * @throws ServiceSpecificException in case of failure, with an error code indicating the
+     *                                  cause of the failure.
+     */
     public void swapActiveStatsMap() {
-        if (!USE_JNI) {
-            try {
-                mNetd.trafficSwapActiveStatsMap();
-            } catch (RemoteException e) {
-                throw new IllegalStateException(e);
+        if (USE_JNI) {
+            final int err = native_swapActiveStatsMap();
+            if (err != 0) {
+                throw new ServiceSpecificException(err, "Unable to swap active stats map: "
+                        + Os.strerror(err));
             }
             return;
         }
-        final int err = native_swapActiveStatsMap();
-        if (err != 0) {
-            throw new ServiceSpecificException(err, "Unable to swap active stats map: "
-                            + Os.strerror(err));
+        try {
+            mNetd.trafficSwapActiveStatsMap();
+        } catch (RemoteException e) {
+            throw new IllegalStateException(e);
         }
     }
 
-   /**
-    * Assigns android.permission.INTERNET and/or android.permission.UPDATE_DEVICE_STATS to the uids
-    * specified. Or remove all permissions from the uids.
-    *
-    * @param permission The permission to grant, it could be either PERMISSION_INTERNET and/or
-    *                   PERMISSION_UPDATE_DEVICE_STATS. If the permission is NO_PERMISSIONS, then
-    *                   revoke all permissions for the uids.
-    * @param uids uid of users to grant permission
-    */
+    /**
+     * Assigns android.permission.INTERNET and/or android.permission.UPDATE_DEVICE_STATS to the uids
+     * specified. Or remove all permissions from the uids.
+     *
+     * @param permissions The permission to grant, it could be either PERMISSION_INTERNET and/or
+     *                    PERMISSION_UPDATE_DEVICE_STATS. If the permission is NO_PERMISSIONS, then
+     *                    revoke all permissions for the uids.
+     * @param uids        uid of users to grant permission
+     */
     public void setNetPermForUids(final int permissions, final int[] uids) {
-        if (!USE_JNI) {
-            try {
-                mNetd.trafficSetNetPermForUids(permissions, uids);
-            } catch (RemoteException e) {
-                Log.e(TAG, "Pass appId list of special permission failed." + e);
-            }
+        if (USE_JNI) {
+            native_setPermissionForUids(permissions, uids);
             return;
         }
-        native_setPermissionForUids(permissions, uids);
+        try {
+            mNetd.trafficSetNetPermForUids(permissions, uids);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Pass appId list of special permission failed." + e);
+        }
     }
 
     /**
      * Set counter set for uid
      *
      * @param counterSet either SET_DEFAULT or SET_FOREGROUND
-     * @param uid uid to foreground/background
+     * @param uid        uid to foreground/background
      */
     public int setCounterSet(final int counterSet, final int uid) {
         final int err = native_setCounterSet(counterSet, uid);
@@ -331,6 +334,7 @@ public class BpfNetMaps {
 
     /**
      * Reset Uid stats
+     *
      * @param tag default 0
      * @param uid given uid to be clear
      */
