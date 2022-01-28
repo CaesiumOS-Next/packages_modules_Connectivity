@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f879ac_e2bd0647",
+        "filename": "netd/Android.bp",
+        "patchSetId": 26
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2022-01-28T15:59:04Z",
+      "side": 1,
+      "message": "This min doesn\u0027t seem accurate seeing as the library doesn\u0027t exist at all until API 33?",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "57e1f193df906835a62997655d6ece8a2f1f478c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f872fdc1_37711776",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2022-01-28T15:59:04Z",
+      "side": 1,
+      "message": "you can just use __BEGIN_DECLS and __END_DECLS from sys/cdefs.h\n\nSince you\u0027re using a map file, you don\u0027t need the visibility attribute.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 73
+      },
+      "revId": "57e1f193df906835a62997655d6ece8a2f1f478c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56576d21_70356bbd",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010103
+      },
+      "writtenOn": "2022-01-28T15:59:04Z",
+      "side": 1,
+      "message": "nit on the naming, why not ANetd_init, ANetd_tagSocket, etc...? That follows the standard naming conventions, and the fact that it\u0027s in an updatable libnetd doesn\u0027t seem particularly useful to encode into the function name",
+      "range": {
+        "startLine": 34,
+        "startChar": 29,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "57e1f193df906835a62997655d6ece8a2f1f478c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
