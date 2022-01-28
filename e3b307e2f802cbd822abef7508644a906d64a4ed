@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6a3dc3_f1f68699",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T12:22:36Z",
+      "side": 1,
+      "message": "By the way, ktlint complains when trying to upload this file:\n\npackages/modules/Connectivity/tests/cts/net/src/android/net/cts/DscpPolicyTest.kt:175:55: Not a valid Kotlin file (expecting a parameter declaration) (cannot be auto-corrected)\\n\u0027",
+      "revId": "e3b307e2f802cbd822abef7508644a906d64a4ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
