@@ -22,6 +22,30 @@
       },
       "revId": "143f6759243dc9ee8f0173f259ff3d301fa9fa18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26db55a8_672a5ddf",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T11:52:30Z",
+      "side": 1,
+      "message": "I am with you here; I think we should only need USE_JNI. Using SYSTEM_UID \u003d\u003d android.os.Process.myUid() for (presumably) passing a unit tests feels wrong.",
+      "parentUuid": "374b728e_eaaddf2d",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "143f6759243dc9ee8f0173f259ff3d301fa9fa18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
