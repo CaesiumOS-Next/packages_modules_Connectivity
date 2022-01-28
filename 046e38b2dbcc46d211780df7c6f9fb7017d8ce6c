@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8f04e87_4be1dc94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-28T19:49:32Z",
+      "side": 1,
+      "message": "Looks like the impact is now ~8KB per program, which is much more reasonable.\n\nI\u0027m curious to see if presubmit is happy with it, since it should test on older devices/kernels/bpfloaders (I hope...).",
+      "revId": "046e38b2dbcc46d211780df7c6f9fb7017d8ce6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
