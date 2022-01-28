@@ -28,9 +28,17 @@ import android.util.Log;
 public class BpfNetMaps {
     private static final String TAG = "BpfNetMaps";
 
-    static {
+    private static boolean sInitialized;
+
+    /**
+     * Initializes the class if it is not already initialized. This method will open maps but not
+     * cause any other effects. This method may be called multiple times on any thread.
+     */
+    public static synchronized void ensureInitialized() {
+        if (sInitialized) return;
         System.loadLibrary("traffic_controller_jni");
         native_init();
+        sInitialized = true;
     }
 
    /**

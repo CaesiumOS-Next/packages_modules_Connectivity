@@ -39,7 +39,7 @@ static android::net::TrafficController mTc;
 namespace android {
 
 static void native_init(JNIEnv* env, jobject clazz) {
-  Status status = mTc.start();
+  Status status = mTc.initMaps();
    if (!isOk(status)) {
     ALOGE("%s failed", __func__);
   }
