@@ -184,14 +184,20 @@ public class PermissionMonitor {
             context.getContentResolver().registerContentObserver(
                     uri, notifyForDescendants, observer);
         }
+
+        /**
+         * Get BpfNetMaps for given netd.
+         */
+        public BpfNetMaps getBpfNetMaps(INetd netd) {
+            return new BpfNetMaps(netd);
+        }
     }
 
     public PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd) {
         this(context, netd, new Dependencies());
     }
 
-    @VisibleForTesting
-    PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
+    public PermissionMonitor(@NonNull final Context context, @NonNull final INetd netd,
             @NonNull final Dependencies deps) {
         mPackageManager = context.getPackageManager();
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
@@ -199,7 +205,12 @@ public class PermissionMonitor {
         mNetd = netd;
         mDeps = deps;
         mContext = context;
-        mBpfNetMaps = new BpfNetMaps(mNetd);
+        mBpfNetMaps = mDeps.getBpfNetMaps(mNetd);
+    }
+
+    @VisibleForTesting
+    public BpfNetMaps getBpfNetMaps() {
+        return mBpfNetMaps;
     }
 
     private int getPackageNetdNetworkPermission(@NonNull final PackageInfo app) {
