@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c01a292d_dd4d4984",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T20:53:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "066a5dcd_0f466d26",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "bcc054720cebd8be664c8e446eff8e6e22861f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c32456b3_7fedcac7",
@@ -71,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e13482a2_a99a16d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 1407,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T20:53:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c32456b3_7fedcac7",
+      "range": {
+        "startLine": 1407,
+        "startChar": 22,
+        "endLine": 1407,
+        "endChar": 44
+      },
+      "revId": "bcc054720cebd8be664c8e446eff8e6e22861f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e22d57c1_9e231169",
@@ -84,6 +132,30 @@
       "writtenOn": "2022-01-28T11:52:30Z",
       "side": 1,
       "message": "is this needed in all three locations? I guess right now it\u0027s not loaded anywhere. Maybe we should remove it and add it back once we start using it?",
+      "range": {
+        "startLine": 94,
+        "startChar": 9,
+        "endLine": 94,
+        "endChar": 34
+      },
+      "revId": "bcc054720cebd8be664c8e446eff8e6e22861f48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97cc703d_f35ed635",
+        "filename": "tests/common/Android.bp",
+        "patchSetId": 28
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-28T20:53:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e22d57c1_9e231169",
       "range": {
         "startLine": 94,
         "startChar": 9,
