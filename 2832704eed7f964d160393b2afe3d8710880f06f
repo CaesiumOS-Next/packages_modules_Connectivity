@@ -43,6 +43,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a83e0a7_0b7746ee",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T07:00:26Z",
+      "side": 1,
+      "message": "This is already a module-lib API (shipped in S), so it should not be in the same CL as APIs that are being newly exposed. Can you separate this CL into two, one containing only the APIs that already exist and are moving from platform to module, and one containing only the APIs that you are adding in T?",
+      "range": {
+        "startLine": 18,
+        "startChar": 21,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ab7f637_dc4b0ed5",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T07:00:26Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these APIs be module-lib instead of system?",
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a9e4512_aa67703b",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T07:00:26Z",
+      "side": 1,
+      "message": "Use TetheringManager.TetheredInterfaceCallback and TetheredInterfaceRequest instead.",
+      "range": {
+        "startLine": 8,
+        "startChar": 42,
+        "endLine": 8,
+        "endChar": 67
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ec1bd9e6_e7c01aa4",
         "filename": "framework/Android.bp",
         "patchSetId": 6
