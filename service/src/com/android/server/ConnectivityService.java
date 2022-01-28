@@ -6915,14 +6915,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             LinkProperties linkProperties, NetworkCapabilities networkCapabilities,
             NetworkScore currentScore, NetworkAgentConfig networkAgentConfig, int providerId,
             int uid) {
-        if (networkCapabilities.hasTransport(TRANSPORT_TEST)) {
-            // Strictly, sanitizing here is unnecessary as the capabilities will be sanitized in
-            // the call to mixInCapabilities below anyway, but sanitizing here means the NAI never
-            // sees capabilities that may be malicious, which might prevent mistakes in the future.
-            networkCapabilities = new NetworkCapabilities(networkCapabilities);
-            networkCapabilities.restrictCapabilitiesForTestNetwork(uid);
-        }
-
         LinkProperties lp = new LinkProperties(linkProperties);
 
         final NetworkCapabilities nc = new NetworkCapabilities(networkCapabilities);
@@ -6931,11 +6923,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 currentScore, mContext, mTrackerHandler, new NetworkAgentConfig(networkAgentConfig),
                 this, mNetd, mDnsResolver, providerId, uid, mLingerDelayMs,
                 mQosCallbackTracker, mDeps);
-
-        // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info says.
-        processCapabilitiesFromAgent(nai, nc);
-        nai.getAndSetNetworkCapabilities(mixInCapabilities(nai, nc));
-        processLinkPropertiesFromAgent(nai, nai.linkProperties);
 
         final String extraInfo = networkInfo.getExtraInfo();
         final String name = TextUtils.isEmpty(extraInfo)
@@ -6951,6 +6938,21 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void handleRegisterNetworkAgent(NetworkAgentInfo nai, INetworkMonitor networkMonitor) {
+        // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info says.
+        if (nai.networkCapabilities.hasTransport(TRANSPORT_TEST)) {
+            // Strictly, sanitizing here is unnecessary as the capabilities will be sanitized in
+            // the call to mixInCapabilities below anyway, but sanitizing here means the NAI never
+            // sees capabilities that may be malicious, which might prevent mistakes in the future.
+            // The defensive copy from nai.networkCapabilities to itself might seem surprising, but
+            // it is necessary because the capabilities are not yet sanitized and no defensive copy
+            // of them has yet been made.
+            nai.networkCapabilities = new NetworkCapabilities(nai.networkCapabilities);
+            nai.networkCapabilities.restrictCapabilitiesForTestNetwork(nai.creatorUid);
+        }
+        processCapabilitiesFromAgent(nai, nai.networkCapabilities);
+        nai.getAndSetNetworkCapabilities(mixInCapabilities(nai, nai.networkCapabilities));
+        processLinkPropertiesFromAgent(nai, nai.linkProperties);
+
         nai.onNetworkMonitorCreated(networkMonitor);
         if (VDBG) log("Got NetworkAgent Messenger");
         mNetworkAgentInfos.add(nai);
