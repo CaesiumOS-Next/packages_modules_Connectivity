@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7adf794_532609b2",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-01-28T18:24:34Z",
+      "side": 0,
+      "message": "wouldn\u0027t it be better to do \u003d SdkLevel.isAtLeastT() here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 43,
+        "endLine": 34,
+        "endChar": 48
+      },
+      "revId": "9211e91e3b54c84e1b558502feb243663ddb951b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
