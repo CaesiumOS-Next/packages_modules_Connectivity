@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd9cd9db_b7638717",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T00:39:46Z",
+      "side": 1,
+      "message": "This doesn\u0027t exist and we should not add it because this code is moving out of netd to the mainline module.\n\nObviously it\u0027s easy to specify the value here, but how can we test that the value matches the value in the module-lib API?",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 63
+      },
+      "revId": "ea613f9fa35ce9ecee053325cf2bf47462fd263c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
