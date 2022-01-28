@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019878875",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1962939?revision\u003d7",
+      "fixSuggestions": [
+        {
+          "fixId": "be222fa6_6b47b6b0",
+          "description": "Change to \"service-t/Android.bp\"",
+          "replacements": [
+            {
+              "path": "service-t/Android.bp",
+              "range": {
+                "startLine": 79,
+                "startChar": 79,
+                "endLine": 79,
+                "endChar": 92
+              },
+              "replacement": "implementation"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "03ae70c0_1c6aacaa",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-28T17:49:49Z",
+      "side": 1,
+      "message": "Common typo found: \"implementaion\" -- should it be \"implementation\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 79,
+        "startChar": 79,
+        "endLine": 79,
+        "endChar": 92
+      },
+      "revId": "01468f56c9f6da97806f3385ebff0989a7bad41f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
