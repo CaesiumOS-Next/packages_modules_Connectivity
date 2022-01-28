@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c471937_7e873e65",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T06:41:50Z",
+      "side": 1,
+      "message": "Optional: should this be in the CL where the access UIDs are defined?",
+      "range": {
+        "startLine": 1030,
+        "startChar": 8,
+        "endLine": 1030,
+        "endChar": 76
+      },
+      "revId": "640775b7a3036c02b5c9c3ba18a18b8359afe2cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6605fbf2_cf9bb405",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1831,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T06:41:50Z",
+      "side": 1,
+      "message": "Per discussion, it might be better to have an accessor that doesn\u0027t return the copy.",
+      "range": {
+        "startLine": 1831,
+        "startChar": 7,
+        "endLine": 1831,
+        "endChar": 13
+      },
+      "revId": "640775b7a3036c02b5c9c3ba18a18b8359afe2cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88a5fd78_bfcb63de",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7852,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T06:41:50Z",
+      "side": 1,
+      "message": "Isn\u0027t there some generic CompareOrUpdateResult class that you could use here? If not, suggest saying why we don\u0027t use it (e.g., we think it probably doesn\u0027t perform as well?)",
+      "range": {
+        "startLine": 7844,
+        "startChar": 0,
+        "endLine": 7852,
+        "endChar": 34
+      },
+      "revId": "640775b7a3036c02b5c9c3ba18a18b8359afe2cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f93adde5_ae56398d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 7870,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-28T06:41:50Z",
+      "side": 1,
+      "message": "In stock AOSP, when netd crashes the system server goes down as well. I guess OEMs might have modified that.",
+      "range": {
+        "startLine": 7870,
+        "startChar": 29,
+        "endLine": 7870,
+        "endChar": 42
+      },
+      "revId": "640775b7a3036c02b5c9c3ba18a18b8359afe2cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
