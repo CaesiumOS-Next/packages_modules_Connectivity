@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f711149_10ac056c",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T23:31:27Z",
+      "side": 0,
+      "message": "Maybe also described why this is deleted?",
+      "revId": "c5ad7cd775a0db590bf942ad1143c2534e407b14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
