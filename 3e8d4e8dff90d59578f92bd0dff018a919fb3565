@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72bfec5d_5e6ca53b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-29T18:43:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de4e53d2_fb47f12a",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 0
+      },
+      "revId": "3e8d4e8dff90d59578f92bd0dff018a919fb3565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3a178af_117450b6",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-29T14:41:09Z",
       "side": 1,
       "message": "Please remove dead code",
+      "range": {
+        "startLine": 455,
+        "startChar": 8,
+        "endLine": 455,
+        "endChar": 90
+      },
+      "revId": "3e8d4e8dff90d59578f92bd0dff018a919fb3565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4143612_a3cfa332",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-29T18:43:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3a178af_117450b6",
       "range": {
         "startLine": 455,
         "startChar": 8,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7da5338_f858c425",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-29T18:43:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99d0cb04_c88e0f9f",
+      "range": {
+        "startLine": 545,
+        "startChar": 27,
+        "endLine": 545,
+        "endChar": 48
+      },
+      "revId": "3e8d4e8dff90d59578f92bd0dff018a919fb3565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dbdff64_a8a4d80b",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-29T14:41:09Z",
       "side": 1,
       "message": "Maybe remove unused functions?\nAlso for other File accessing functions below.",
+      "range": {
+        "startLine": 624,
+        "startChar": 17,
+        "endLine": 624,
+        "endChar": 26
+      },
+      "revId": "3e8d4e8dff90d59578f92bd0dff018a919fb3565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f692e3a3_b999f8ff",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-29T18:43:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dbdff64_a8a4d80b",
       "range": {
         "startLine": 624,
         "startChar": 17,

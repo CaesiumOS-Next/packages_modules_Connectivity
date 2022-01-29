@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ffa010e_efb1031d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-29T18:43:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4410381b_f896b313",
+      "range": {
+        "startLine": 15,
+        "startChar": 11,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "7298c53d11e0c9d624aca3c32cb45a7cff3648bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1419092_7e28bbab",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-01-29T14:41:09Z",
       "side": 1,
       "message": "IIUC you can read nextString to see if this file support idx field.",
+      "revId": "7298c53d11e0c9d624aca3c32cb45a7cff3648bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3503cb3a_427f536f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-29T18:43:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1419092_7e28bbab",
       "revId": "7298c53d11e0c9d624aca3c32cb45a7cff3648bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -77,6 +119,30 @@
       "writtenOn": "2022-01-29T14:41:09Z",
       "side": 1,
       "message": "If there is only 1 caller maybe inline this?",
+      "range": {
+        "startLine": 615,
+        "startChar": 37,
+        "endLine": 615,
+        "endChar": 63
+      },
+      "revId": "7298c53d11e0c9d624aca3c32cb45a7cff3648bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24346c99_0f721d00",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1385042
+      },
+      "writtenOn": "2022-01-29T18:43:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2069ee44_648ed2d3",
       "range": {
         "startLine": 615,
         "startChar": 37,
