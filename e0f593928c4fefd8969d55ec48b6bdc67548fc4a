@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10212a3a_4b231da8",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T17:52:22Z",
+      "side": 1,
+      "message": "Delete this and add reason in commit message:\nDelete tests that rely on monotonic accumulative readings from native layer,\n which is not happening today.",
+      "range": {
+        "startLine": 478,
+        "startChar": 16,
+        "endLine": 478,
+        "endChar": 53
+      },
+      "revId": "e0f593928c4fefd8969d55ec48b6bdc67548fc4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
