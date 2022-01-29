@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019911729",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1965525?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "901d5dbc_0e9c02be",
+          "description": "Change to \"tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java\"",
+          "replacements": [
+            {
+              "path": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+              "range": {
+                "startLine": 1756,
+                "startChar": 62,
+                "endLine": 1756,
+                "endChar": 70
+              },
+              "replacement": "original"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "d49084bd_d607dfcb",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1756,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-01-29T17:21:54Z",
+      "side": 1,
+      "message": "Common typo found: \"origianl\" -- should it be \"original\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 1756,
+        "startChar": 62,
+        "endLine": 1756,
+        "endChar": 70
+      },
+      "revId": "bf338b3203b47e73c38b06616b89f4e7a056deee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
