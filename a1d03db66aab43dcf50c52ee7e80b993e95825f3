@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfac37fd_f2011c1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-01-29T02:23:28Z",
+      "side": 1,
+      "message": "Just a suggestion or two to generalize using getSubscriptionIds(), as well as make sure this works for Carrier WiFi as well",
+      "revId": "a1d03db66aab43dcf50c52ee7e80b993e95825f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f053605_d0ee854f",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-01-29T02:23:28Z",
+      "side": 1,
+      "message": "Suggest checking networkCapabilities.getSubscriptionIds().\n\nIt\u0027s populated for both Telephony and Carrier WiFi. It\u0027s technically a set, so we\u0027d have to check for a singular subId (multiple make no sense in the output path, multiple was primarily for the input path)",
+      "range": {
+        "startLine": 244,
+        "startChar": 30,
+        "endLine": 245,
+        "endChar": 61
+      },
+      "revId": "a1d03db66aab43dcf50c52ee7e80b993e95825f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6c1bf33_cf3d8e05",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-01-29T02:23:28Z",
+      "side": 1,
+      "message": "If we\u0027d like to enable this for carrier wifi, we could do the following (together with the genericization of the subId checks):\n\n(nc.hasSingleTransport(TRANSPORT_CELLULAR) || nc.hasSingleTransport(TRANSPORT_WIFI))",
+      "range": {
+        "startLine": 1227,
+        "startChar": 19,
+        "endLine": 1227,
+        "endChar": 60
+      },
+      "revId": "a1d03db66aab43dcf50c52ee7e80b993e95825f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
