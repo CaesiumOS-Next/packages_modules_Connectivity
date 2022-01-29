@@ -57,7 +57,10 @@ apex {
             ],
         },
         both: {
-            jni_libs: ["libframework-connectivity-jni"],
+            jni_libs: [
+                "libframework-connectivity-jni",
+                "libframework-connectivity-tiramisu-jni"
+            ],
         },
     },
     binaries: [
