@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de4e53d2_fb47f12a",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T14:41:09Z",
+      "side": 1,
+      "message": "It seems to me these 3 lines are very repetitive.\nMaybe refactor them into one function like before but name it more clearly, e.g. \nfactoryReadNetworkStatsDetail,\ndoReadNetworkStatsDetail\n ?",
+      "range": {
+        "startLine": 126,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 0
+      },
+      "revId": "3e8d4e8dff90d59578f92bd0dff018a919fb3565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3a178af_117450b6",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T14:41:09Z",
+      "side": 1,
+      "message": "Please remove dead code",
+      "range": {
+        "startLine": 455,
+        "startChar": 8,
+        "endLine": 455,
+        "endChar": 90
+      },
+      "revId": "3e8d4e8dff90d59578f92bd0dff018a919fb3565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d0cb04_c88e0f9f",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T14:41:09Z",
+      "side": 1,
+      "message": "maybe just baselineStatsFromNative and statsFromNative",
+      "range": {
+        "startLine": 545,
+        "startChar": 27,
+        "endLine": 545,
+        "endChar": 48
+      },
+      "revId": "3e8d4e8dff90d59578f92bd0dff018a919fb3565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dbdff64_a8a4d80b",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T14:41:09Z",
+      "side": 1,
+      "message": "Maybe remove unused functions?\nAlso for other File accessing functions below.",
+      "range": {
+        "startLine": 624,
+        "startChar": 17,
+        "endLine": 624,
+        "endChar": 26
+      },
+      "revId": "3e8d4e8dff90d59578f92bd0dff018a919fb3565",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

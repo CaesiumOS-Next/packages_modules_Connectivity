@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4410381b_f896b313",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T14:41:09Z",
+      "side": 1,
+      "message": "Please abandon the origial one and topic 80.1 with this one or upload with the same change-id.",
+      "range": {
+        "startLine": 15,
+        "startChar": 11,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "7298c53d11e0c9d624aca3c32cb45a7cff3648bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1419092_7e28bbab",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T14:41:09Z",
+      "side": 1,
+      "message": "IIUC you can read nextString to see if this file support idx field.",
+      "revId": "7298c53d11e0c9d624aca3c32cb45a7cff3648bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85760c82_186a2b35",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T14:41:09Z",
+      "side": 1,
+      "message": "nit: Use new API if feasible.",
+      "range": {
+        "startLine": 593,
+        "startChar": 16,
+        "endLine": 602,
+        "endChar": 41
+      },
+      "revId": "7298c53d11e0c9d624aca3c32cb45a7cff3648bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2069ee44_648ed2d3",
+        "filename": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-01-29T14:41:09Z",
+      "side": 1,
+      "message": "If there is only 1 caller maybe inline this?",
+      "range": {
+        "startLine": 615,
+        "startChar": 37,
+        "endLine": 615,
+        "endChar": 63
+      },
+      "revId": "7298c53d11e0c9d624aca3c32cb45a7cff3648bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
