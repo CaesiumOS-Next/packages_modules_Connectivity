@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22c1a2de_b9247b34",
+        "filename": "netd/Android.bp",
+        "patchSetId": 26
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-30T02:04:41Z",
+      "side": 1,
+      "message": "It must be 30 since it is packed inside the com.android.tethering mainline module, which has min_sdk_version: \"30\".\n\nThe module can\u0027t build if the min_sdk_version is 30.\n\n```\nerror: packages/modules/Connectivity/netd/Android.bp:16:1: module \"libnetd_updatable\" variant \"android_arm64_armv8-a_shared_cfi_apex30\": should \nsupport min_sdk_version(30) for \"com.android.tethering\": newer SDK(33).\n\nDependency path: com.android.tethering{os:android,arch:common,perform_override:,cfi:cfi,apex:com.android.tethering,apex_flattened:image}\n           via tag apex.dependencyTag: { name:sharedLib payload:true sourceOnly:false}\n    -\u003e libnetd_updatable{os:android,image:,arch:arm64_armv8-a,sdk:,link:shared,version:,cfi:cfi,apex:apex30}\n\nConsider adding \u0027min_sdk_version: \"30\"\u0027 to \"libnetd_updatable\"\n```",
+      "parentUuid": "80f879ac_e2bd0647",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "57e1f193df906835a62997655d6ece8a2f1f478c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f872fdc1_37711776",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "325e84af_3539fbee",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-30T02:04:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f872fdc1_37711776",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 73
+      },
+      "revId": "57e1f193df906835a62997655d6ece8a2f1f478c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56576d21_70356bbd",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-28T15:59:04Z",
       "side": 1,
       "message": "nit on the naming, why not ANetd_init, ANetd_tagSocket, etc...? That follows the standard naming conventions, and the fact that it\u0027s in an updatable libnetd doesn\u0027t seem particularly useful to encode into the function name",
+      "range": {
+        "startLine": 34,
+        "startChar": 29,
+        "endLine": 34,
+        "endChar": 51
+      },
+      "revId": "57e1f193df906835a62997655d6ece8a2f1f478c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f70a55_57aa58b4",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-30T02:04:41Z",
+      "side": 1,
+      "message": "We only move part of code from Netd (in platform) to this library (in mainline). The library will still being loaded by non-mainlined Netd process. The naming help us to aware the boundary between updatable and non-updatable code in Netd.",
+      "parentUuid": "56576d21_70356bbd",
       "range": {
         "startLine": 34,
         "startChar": 29,

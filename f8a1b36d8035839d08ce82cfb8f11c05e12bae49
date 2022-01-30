@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61090040_50e70522",
+        "filename": "netd/include/NetdUpdatablePublic.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-30T02:04:41Z",
+      "side": 1,
+      "message": "Okay, I see.\nYes, you are right. It needs extern \"C\", but it doesn\u0027t need [[gnu::visibility(\"default\")]]. Thanks for suggestion.",
+      "parentUuid": "0b334594_4278416a",
+      "range": {
+        "startLine": 21,
+        "startChar": 43,
+        "endLine": 21,
+        "endChar": 74
+      },
+      "revId": "f8a1b36d8035839d08ce82cfb8f11c05e12bae49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c6ea446_38085b7a",
