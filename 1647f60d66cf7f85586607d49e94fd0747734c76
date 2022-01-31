@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2110287_7175715d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1080076
+      },
+      "writtenOn": "2022-01-31T20:14:42Z",
+      "side": 1,
+      "message": "Looks good from my inexperienced NDK standpoint, leaving it to John to officially +1",
+      "revId": "1647f60d66cf7f85586607d49e94fd0747734c76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
