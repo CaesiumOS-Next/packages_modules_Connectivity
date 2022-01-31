@@ -78,7 +78,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
 
     /** Return Nearby service instance or null if current SDK is lower than T */
     private NearbyService createNearbyService(final Context context) {
-        if (!SdkLevel.isAtLeastT()) return null;
-        return new NearbyService(context);
+        // TODO: return NearbyService when it is available in this development branch
+        return null;
     }
 }
