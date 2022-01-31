@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ec1d44f_0345e7e1",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-31T10:12:14Z",
+      "side": 1,
+      "message": "If we\u0027re going to do this we should do it in another patch.",
+      "parentUuid": "2f053605_d0ee854f",
+      "range": {
+        "startLine": 244,
+        "startChar": 30,
+        "endLine": 245,
+        "endChar": 61
+      },
+      "revId": "a1d03db66aab43dcf50c52ee7e80b993e95825f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6c1bf33_cf3d8e05",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-29T02:23:28Z",
       "side": 1,
       "message": "If we\u0027d like to enable this for carrier wifi, we could do the following (together with the genericization of the subId checks):\n\n(nc.hasSingleTransport(TRANSPORT_CELLULAR) || nc.hasSingleTransport(TRANSPORT_WIFI))",
+      "range": {
+        "startLine": 1227,
+        "startChar": 19,
+        "endLine": 1227,
+        "endChar": 60
+      },
+      "revId": "a1d03db66aab43dcf50c52ee7e80b993e95825f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b02114a_400c7071",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-01-31T10:12:14Z",
+      "side": 1,
+      "message": "We might need to do something a little bit more complex than this. Let\u0027s discuss exactly what we need for this use case",
+      "parentUuid": "a6c1bf33_cf3d8e05",
       "range": {
         "startLine": 1227,
         "startChar": 19,
