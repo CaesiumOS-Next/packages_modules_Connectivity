@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c111270_58cd4474",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-31T17:41:25Z",
+      "side": 1,
+      "message": "provided",
+      "range": {
+        "startLine": 238,
+        "startChar": 82,
+        "endLine": 238,
+        "endChar": 86
+      },
+      "revId": "20553a7c40d24f0b266655f424fc3a419a86c4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0693419f_f311ffe1",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-31T17:41:25Z",
+      "side": 1,
+      "message": "in this case, we use default subId",
+      "range": {
+        "startLine": 242,
+        "startChar": 65,
+        "endLine": 243,
+        "endChar": 41
+      },
+      "revId": "20553a7c40d24f0b266655f424fc3a419a86c4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "542bbd50_660e1e22",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 14712,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-01-31T17:41:25Z",
+      "side": 1,
+      "message": "I was thinking this test will have CBS capabilities as requested. But do not see the same here.",
+      "range": {
+        "startLine": 14707,
+        "startChar": 8,
+        "endLine": 14712,
+        "endChar": 64
+      },
+      "revId": "20553a7c40d24f0b266655f424fc3a419a86c4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
