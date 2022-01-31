@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1aab47f_343bd6e8",
+        "filename": "framework-t/jarjar-rules.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-31T11:24:15Z",
+      "side": 1,
+      "message": "jarjar rules refactored by other changes below in the stack",
+      "parentUuid": "1f5c1bf3_535b4566",
+      "range": {
+        "startLine": 2,
+        "startChar": 28,
+        "endLine": 2,
+        "endChar": 53
+      },
+      "revId": "ac95be1a0f0f642e797df4de66a5830fecbd81dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6994b6ef_95ce0818",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-27T07:10:21Z",
       "side": 1,
       "message": "You shouldn\u0027t need to statically link this into both the service and the framework jar; just the framework jar should be enough, since you already have framework-connectivity-tiramisu.impl in \"libs\"\n\nBut then you need to have jarjar rules that match the framework jarjar rules, otherwise it won\u0027t be found at runtime. Other CLs on the way will probably need this kind of dependencies... So try to:\n\n - Create framework-connectivity-tiramisu-pre-jarjar, which is a java_library identical to framework-connectivity-tiramisu (just use one common java_defaults) but does not apply jarjar\n - Use the same defaults in framework-connectivity-tiramisu, with the jarjar rules. See framework-wifi-pre-jarjar which does the same thing\n - Have service-connectivity-tiramisu build against framework-connectivity-tiramisu-pre-jarjar instead of framework-connectivity-tiramisu.impl\n - Add to service-connectivity-tiramisu, using the jarjar rules of framework-connectivity-tiramisu:\n  \n  // Only apply jarjar rules from framework-connectivity-t so that references\n  // match. The general service-connectivity jarjar rules will be applied on the\n  // merged jar.\n  jarjar_rules: \":framework-connectivity-t-jarjar-rules\",",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 48
+      },
+      "revId": "ac95be1a0f0f642e797df4de66a5830fecbd81dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a221e00_d01dda4c",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-01-31T11:24:15Z",
+      "side": 1,
+      "message": "Done with change below in the stack",
+      "parentUuid": "6994b6ef_95ce0818",
       "range": {
         "startLine": 45,
         "startChar": 8,
