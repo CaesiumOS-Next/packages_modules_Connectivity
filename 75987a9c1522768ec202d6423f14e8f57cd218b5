@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c20d95b5_b9f80c7d",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-01-31T18:03:21Z",
+      "side": 1,
+      "message": "I resurrected aosp/1964824 here.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "75987a9c1522768ec202d6423f14e8f57cd218b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
