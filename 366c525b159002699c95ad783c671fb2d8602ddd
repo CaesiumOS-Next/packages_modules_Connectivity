@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f12597_b986d4b2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 6988,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T13:57:06Z",
+      "side": 1,
+      "message": "Pre-existing, but: since the code already makes a defensive copy of NetworkInfo when passing it to the NetworkAgent, suggest using that here. Something like:\n\n    // At this point the capabilities/properties are untrusted and unverified...\n    // ...\n    // Make a copy of NetworkInfo because it\u0027s used in this function.\n    networkInfo \u003d new NetworkInfo(networkInfo);\n    final NetworkAgentInfo nai \u003d new NetworkAgentInfo(na,\n        new Network(mNetIdManager.reserveNetId()), networkInfo, linkProperties,\n        ...\n\n    final String extraInfo \u003d networkInfo.getExtraInfo();\n    ...",
+      "range": {
+        "startLine": 6988,
+        "startChar": 33,
+        "endLine": 6988,
+        "endChar": 59
+      },
+      "revId": "366c525b159002699c95ad783c671fb2d8602ddd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
