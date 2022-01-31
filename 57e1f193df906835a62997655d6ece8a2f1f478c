@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4911ad17_5d563fff",
+        "filename": "netd/Android.bp",
+        "patchSetId": 26
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-01-31T20:19:13Z",
+      "side": 1,
+      "message": "The module can\u0027t build if the min_sdk_version is *33*.",
+      "parentUuid": "22c1a2de_b9247b34",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "57e1f193df906835a62997655d6ece8a2f1f478c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f872fdc1_37711776",
