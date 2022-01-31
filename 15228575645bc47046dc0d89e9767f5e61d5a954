@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f289f935_d4764965",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T14:55:45Z",
+      "side": 1,
+      "message": "LGTM but I think it\u0027s a bit confusing that the owner UID is filtered before storing into declaredCapabilities, and the rest of the NC is filtered after storing into declaredCapabilities. Would be good to treat both the same. See inline.",
+      "revId": "15228575645bc47046dc0d89e9767f5e61d5a954",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d27b039_3f9bfd93",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7466,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T14:55:45Z",
+      "side": 1,
+      "message": "Sanitizes data coming from the agent and stores it in nai.declaredCapabilities.",
+      "range": {
+        "startLine": 7465,
+        "startChar": 0,
+        "endLine": 7466,
+        "endChar": 57
+      },
+      "revId": "15228575645bc47046dc0d89e9767f5e61d5a954",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46e0698b_18924d5d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 7483,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T14:55:45Z",
+      "side": 1,
+      "message": "This is very different from the code above that prevents the change in owner UID: that code sanitizes the change before putting the nc into declaredCapabilities, and this code puts the nc into declaredCapabilities and then sanitizes it.\n\nThe new code seems unsafe/risky unless we\u0027re careful, because the (invalid) declared capabilities actually end up becoming visible to apps in some cases, e.g., in applyUnderlyingCapabilities. I assume there\u0027s a reason for doing so? Perhaps you could add a comment explaining why CS has to store the capabilities even if they\u0027re invalid? Is it because they might at some point become valid due to other changes (e.g., access UIDs become valid because carrier privileged app changes), so we can\u0027t just forget them immediately here?\n\nIf so, I\u0027d suggest making the behaviour the same in both cases, and making it clear that the semantics are:\n- Put whatever the agent declared into declaredCapabilities.\n- Sanitize the capabilities based on (the new) declaredCapabilities and the current capabilities.\n\nThat means that the owner UID in declaredCapabilities might be invalid. That\u0027s a minor risk of future errors, but I think on balance it will make things safer because they will be easier to understand.\n\n(One way to do this for the owner UID would be to make restrictCapabilitiesFromNetworkAgent non-static, so it can see the current capabilities, and have it reject an update if the owner UID is different from the one in the current capabilities.)",
+      "range": {
+        "startLine": 7483,
+        "startChar": 25,
+        "endLine": 7483,
+        "endChar": 61
+      },
+      "revId": "15228575645bc47046dc0d89e9767f5e61d5a954",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
