@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee6d7bc_ae96616c",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3024,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T15:02:40Z",
+      "side": 1,
+      "message": "Nit: \"can\" (\"gets to\" is a bit informal for written documentation I think).",
+      "range": {
+        "startLine": 3024,
+        "startChar": 11,
+        "endLine": 3024,
+        "endChar": 18
+      },
+      "revId": "9a30acf7442b8db0af4578e2aafdba38d85947c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
