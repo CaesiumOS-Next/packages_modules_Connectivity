@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f483aadb_5d120557",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 6961,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T01:50:38Z",
+      "side": 1,
+      "message": "Per discussion, this is reordered compared to networkMonitor.start(). Looking at the code it\u0027s a no-op, because starting NM doesn\u0027t do much, but still seems better to populate our local metadata about this network before we start the NM handler thread.",
+      "range": {
+        "startLine": 6961,
+        "startChar": 8,
+        "endLine": 6961,
+        "endChar": 36
+      },
+      "revId": "e2b78c8de9528d2068e838e3a2f82950e8f8331b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
