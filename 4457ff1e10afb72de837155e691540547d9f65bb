@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "387df88c_4cfd966a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T06:17:35Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "4457ff1e10afb72de837155e691540547d9f65bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5e20e15_5ec0ccf8",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T06:17:35Z",
+      "side": 1,
+      "message": "Suggest:\n\n    private void maybeThrow(int err, String msg) {\n        if (err !\u003d 0) {\n            throw new ServiceSpecificException(err, msg + : \" + Os.strerror(err));\n        }\n    }",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 13
+      },
+      "revId": "4457ff1e10afb72de837155e691540547d9f65bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739aed9e_f810be21",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T06:17:35Z",
+      "side": 1,
+      "message": "Is there a reason to change most of this file in this CL? The new code seems equivalent to the old code.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 19
+      },
+      "revId": "4457ff1e10afb72de837155e691540547d9f65bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c1f63ab_9677b511",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-01-31T06:17:35Z",
+      "side": 1,
+      "message": "Currently, the caller of these methods (ConnectivityService) catches RemoteException. Example:\n\n        try {\n            if (add) {\n                mNetd.bandwidthAddNaughtyApp(uid);\n            } else {\n                mNetd.bandwidthRemoveNaughtyApp(uid);\n            }\n        } catch (RemoteException | ServiceSpecificException e) {\n            throw new IllegalStateException(e);\n        }\n\nGiven that, might as well just add \"throws RemoteException\" to the method signature (partly because it will pretty much never happen unless netd crashes, in which case the system server is going to crash immediately anyway).",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 37
+      },
+      "revId": "4457ff1e10afb72de837155e691540547d9f65bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
