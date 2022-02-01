@@ -7150,18 +7150,23 @@ public class ConnectivityService extends IConnectivityManager.Stub
             NetworkScore currentScore, NetworkAgentConfig networkAgentConfig, int providerId,
             int uid) {
 
+        // Make a copy of the passed NI, LP, NC as the caller may hold a reference to them
+        // and mutate them at any time.
+        final NetworkInfo niCopy = new NetworkInfo(networkInfo);
+        final NetworkCapabilities ncCopy = new NetworkCapabilities(networkCapabilities);
+        final LinkProperties lpCopy = new LinkProperties(linkProperties);
+
         // At this point the capabilities/properties are untrusted and unverified, e.g. checks that
-        // the capabilities' access UID comply with security limitations. They will be sanitized
+        // the capabilities' access UIDs comply with security limitations. They will be sanitized
         // as the NAI registration finishes, in handleRegisterNetworkAgent(). This is
         // because some of the checks must happen on the handler thread.
         final NetworkAgentInfo nai = new NetworkAgentInfo(na,
-                new Network(mNetIdManager.reserveNetId()), new NetworkInfo(networkInfo),
-                linkProperties, networkCapabilities,
+                new Network(mNetIdManager.reserveNetId()), niCopy, lpCopy, ncCopy,
                 currentScore, mContext, mTrackerHandler, new NetworkAgentConfig(networkAgentConfig),
                 this, mNetd, mDnsResolver, providerId, uid, mLingerDelayMs,
                 mQosCallbackTracker, mDeps);
 
-        final String extraInfo = networkInfo.getExtraInfo();
+        final String extraInfo = niCopy.getExtraInfo();
         final String name = TextUtils.isEmpty(extraInfo)
                 ? nai.networkCapabilities.getSsid() : extraInfo;
         if (DBG) log("registerNetworkAgent " + nai);
@@ -7176,19 +7181,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void handleRegisterNetworkAgent(NetworkAgentInfo nai, INetworkMonitor networkMonitor) {
         if (VDBG) log("Network Monitor created for " +  nai);
-        // nai.nc and nai.lp are the same object that was passed by the network agent if the agent
-        // lives in the same process as this code (e.g. wifi), so make sure this code doesn't
-        // mutate their object. TODO : make this copy much earlier to avoid them mutating it
-        // while the network monitor is starting.
-        final NetworkCapabilities nc = new NetworkCapabilities(nai.networkCapabilities);
-        final LinkProperties lp = new LinkProperties(nai.linkProperties);
         // Store a copy of the declared capabilities.
         nai.declaredCapabilitiesUnsanitized = new NetworkCapabilities(nai.networkCapabilities);
         // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info said.
-        sanitizeCapabilitiesFromAgent(nai, nc);
-        nai.getAndSetNetworkCapabilities(mixInCapabilities(nai, nc));
-        processLinkPropertiesFromAgent(nai, lp);
-        nai.linkProperties = lp;
+        sanitizeCapabilitiesFromAgent(nai, nai.networkCapabilities);
+        nai.getAndSetNetworkCapabilities(mixInCapabilities(nai, nai.networkCapabilities));
+        processLinkPropertiesFromAgent(nai, nai.linkProperties);
 
         nai.onNetworkMonitorCreated(networkMonitor);
 
