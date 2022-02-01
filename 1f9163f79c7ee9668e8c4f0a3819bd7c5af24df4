@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3c262df_33b95cc7",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T03:59:20Z",
+      "side": 1,
+      "message": "// The build system automatically compiles against stubs not impl because\n  // of sdk_version: \"module_current\" above.",
+      "range": {
+        "startLine": 57,
+        "startChar": 28,
+        "endLine": 57,
+        "endChar": 30
+      },
+      "revId": "1f9163f79c7ee9668e8c4f0a3819bd7c5af24df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d2cb263_4dd256e3",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T03:59:20Z",
+      "side": 1,
+      "message": "Suggest something like:\n\n// Compile against the entire implementation of framework-connectivity,\n// including hidden methods. This is safe because if framework-connectivity-t is\n// on the bootclasspath (i.e., T), then framework-connectivity is also on the\n// bootclasspath (because it shipped in S).\n//\n// This compiles against the pre-jarjar target so that this code can use\n// non-jarjard names of widely-used packages such as com.android.net.module.util.",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 9
+      },
+      "revId": "1f9163f79c7ee9668e8c4f0a3819bd7c5af24df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d84c6b9b_61325804",
+        "filename": "framework/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T03:59:20Z",
+      "side": 1,
+      "message": "// This cannot be in the defaults clause above because if it were, it would be used\n// to generate the connectivity stubs. That would create a circular dependency\n// because the tethering stubs depend on the connectivity stubs (e.g.,\n// TetheringRequest depends on LinkAddress).",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 47
+      },
+      "revId": "1f9163f79c7ee9668e8c4f0a3819bd7c5af24df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ad791ad_1378a986",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T03:59:20Z",
+      "side": 1,
+      "message": "They are not necessary, and in the case of code that is already in framework-connectivity, the classes could be included in the apex twice.",
+      "range": {
+        "startLine": 46,
+        "startChar": 25,
+        "endLine": 46,
+        "endChar": 37
+      },
+      "revId": "1f9163f79c7ee9668e8c4f0a3819bd7c5af24df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33ce3e9b_29ff764d",
+        "filename": "service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T03:59:20Z",
+      "side": 1,
+      "message": "Maybe add:\n\n// This must be under android.net somewhere because that is hardcoded in ART in S.\n\nhere or elsewhere?",
+      "range": {
+        "startLine": 23,
+        "startChar": 63,
+        "endLine": 23,
+        "endChar": 64
+      },
+      "revId": "1f9163f79c7ee9668e8c4f0a3819bd7c5af24df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df4289d4_b4c88796",
+        "filename": "service/jarjar-rules.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T03:59:20Z",
+      "side": 1,
+      "message": "# This cannot be changed because it\u0027s hardcoded in ART in S.\n\n?",
+      "range": {
+        "startLine": 3,
+        "startChar": 65,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "1f9163f79c7ee9668e8c4f0a3819bd7c5af24df4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
