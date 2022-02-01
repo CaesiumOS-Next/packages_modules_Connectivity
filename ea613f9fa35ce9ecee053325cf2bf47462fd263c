@@ -22,6 +22,30 @@
       },
       "revId": "ea613f9fa35ce9ecee053325cf2bf47462fd263c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11298be5_f25d0b34",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1468761
+      },
+      "writtenOn": "2022-02-01T14:33:37Z",
+      "side": 1,
+      "message": "I agree there should be a single source of truth for these values.\nPreviously, these constants were defined by the Netd AIDL and used everywhere.\nBut currently, there\u0027s a copy of constant definitions in ConnectivityManager, and some code (like this) still references the Netd AIDL, while some references the ConnectivityManager constants.\n\nSadly it\u0027s not straight-forward to reference the ConnectivityManager-defined java constant from this cpp header file.\nAIDLs do have the advantage that they can generate client libraries for java \u0026 cpp, so there can be a single definition that is used from both.\n\nSome options I see here:\n1) Create an AIDL in the connectivity module that defines these constants. This AIDL can be used from both java and cpp in this module. Both the ConnectivityManager#FIREWALL_* constants as well as the constants defined here are changed to reference the AIDL values.\n2) Put in the literal int values, with a LINT.IfChange to make sure any change here also updates the corresponding value in ConnectivityManager, and vice versa\n3) Add the constant to the Netd AIDL and reference it here. If you want to deprecate netd and move to a single source of truth for these constants, you may have to change the other firewall constants in this file at some point anyway.\n4) Change TrafficController code so that the java side passes in everything that\u0027s required, and native code does not need to reference the firewall constants anymore\n\nWhat would you like to do?",
+      "parentUuid": "bd9cd9db_b7638717",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 63
+      },
+      "revId": "ea613f9fa35ce9ecee053325cf2bf47462fd263c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
