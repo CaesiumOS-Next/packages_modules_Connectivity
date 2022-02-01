@@ -64,6 +64,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c120a78_661de1b7",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-01T11:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3fc24c3_46f0b938",
+      "range": {
+        "startLine": 36,
+        "startChar": 51,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59e300fa_82c9266f",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-01T11:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1dbcf03f_8262c412",
+      "range": {
+        "startLine": 36,
+        "startChar": 33,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69114e29_d05ca7eb",
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2555ef7c_a6615155",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-01T11:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69114e29_d05ca7eb",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 20
+      },
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55520644_023ef214",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-02-01T09:23:48Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 303,
+        "endChar": 20
+      },
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62f54858_1eb985dc",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-01T11:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55520644_023ef214",
       "range": {
         "startLine": 303,
         "startChar": 8,
