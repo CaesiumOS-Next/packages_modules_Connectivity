@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d4448d_47945b2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T09:23:48Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed (especially, let\u0027s make sure that this code is not enabled in this CL.)",
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1dbcf03f_8262c412",
@@ -42,6 +59,52 @@
         "startChar": 51,
         "endLine": 36,
         "endChar": 74
+      },
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69114e29_d05ca7eb",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T09:23:48Z",
+      "side": 1,
+      "message": "If we made this method void and throw SSE here instead of returning an int, it would be more consistent with the other methods. I don\u0027t think anything calls this method at the moment (needs to be called by NetworkStatsService) but that code can definietly catch exceptions.",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 20
+      },
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55520644_023ef214",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T09:23:48Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 303,
+        "endChar": 20
       },
       "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
