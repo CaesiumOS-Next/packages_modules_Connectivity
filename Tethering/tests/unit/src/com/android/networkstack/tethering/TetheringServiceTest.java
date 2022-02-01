@@ -34,6 +34,7 @@ import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -178,6 +179,8 @@ public final class TetheringServiceTest {
     }
 
     private void runTether(final TestTetheringResult result) throws Exception {
+        when(mTethering.getTetherProvisioningCondition())
+                .thenReturn(EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED);
         mTetheringConnector.tether(TEST_IFACE_NAME, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG, result);
         verify(mTethering).isTetheringSupported();
         verify(mTethering).tether(TEST_IFACE_NAME, IpServer.STATE_TETHERED, result);
@@ -188,7 +191,7 @@ public final class TetheringServiceTest {
         runAsNoPermission((result) -> {
             mTetheringConnector.tether(TEST_IFACE_NAME, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
                     result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering).getTetherProvisioningCondition();
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
@@ -200,12 +203,14 @@ public final class TetheringServiceTest {
 
         runAsWriteSettings((result) -> {
             runTether(result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering, times(2)).getTetherProvisioningCondition();
             verifyNoMoreInteractionsForTethering();
         });
     }
 
     private void runUnTether(final TestTetheringResult result) throws Exception {
+        when(mTethering.getTetherProvisioningCondition())
+                .thenReturn(EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED);
         mTetheringConnector.untether(TEST_IFACE_NAME, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
                 result);
         verify(mTethering).isTetheringSupported();
@@ -217,7 +222,7 @@ public final class TetheringServiceTest {
         runAsNoPermission((result) -> {
             mTetheringConnector.untether(TEST_IFACE_NAME, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
                     result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering).getTetherProvisioningCondition();
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
@@ -229,7 +234,7 @@ public final class TetheringServiceTest {
 
         runAsWriteSettings((result) -> {
             runUnTether(result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering, times(2)).getTetherProvisioningCondition();
             verifyNoMoreInteractionsForTethering();
         });
     }
@@ -240,6 +245,8 @@ public final class TetheringServiceTest {
             listener.onResult(TETHER_ERROR_NO_ERROR);
             return null;
         }).when(mTethering).setUsbTethering(anyBoolean(), any(IIntResultListener.class));
+        when(mTethering.getTetherProvisioningCondition())
+                .thenReturn(EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED);
         mTetheringConnector.setUsbTethering(true /* enable */, TEST_CALLER_PKG,
                 TEST_ATTRIBUTION_TAG, result);
         verify(mTethering).isTetheringSupported();
@@ -252,7 +259,7 @@ public final class TetheringServiceTest {
         runAsNoPermission((result) -> {
             mTetheringConnector.setUsbTethering(true /* enable */, TEST_CALLER_PKG,
                     TEST_ATTRIBUTION_TAG, result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering).getTetherProvisioningCondition();
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
@@ -264,7 +271,7 @@ public final class TetheringServiceTest {
 
         runAsWriteSettings((result) -> {
             runSetUsbTethering(result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering, times(2)).getTetherProvisioningCondition();
             verifyNoMoreInteractionsForTethering();
         });
 
@@ -272,6 +279,8 @@ public final class TetheringServiceTest {
 
     private void runStartTethering(final TestTetheringResult result,
             final TetheringRequestParcel request) throws Exception {
+        when(mTethering.getTetherProvisioningCondition())
+                .thenReturn(EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED);
         mTetheringConnector.startTethering(request, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
                 result);
         verify(mTethering).isTetheringSupported();
@@ -286,7 +295,7 @@ public final class TetheringServiceTest {
         runAsNoPermission((result) -> {
             mTetheringConnector.startTethering(request, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
                     result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering).getTetherProvisioningCondition();
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
@@ -298,7 +307,7 @@ public final class TetheringServiceTest {
 
         runAsWriteSettings((result) -> {
             runStartTethering(result, request);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering, times(2)).getTetherProvisioningCondition();
             verifyNoMoreInteractionsForTethering();
         });
     }
@@ -334,6 +343,8 @@ public final class TetheringServiceTest {
     }
 
     private void runStopTethering(final TestTetheringResult result) throws Exception {
+        when(mTethering.getTetherProvisioningCondition())
+                .thenReturn(EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED);
         mTetheringConnector.stopTethering(TETHERING_WIFI, TEST_CALLER_PKG,
                 TEST_ATTRIBUTION_TAG, result);
         verify(mTethering).isTetheringSupported();
@@ -346,7 +357,7 @@ public final class TetheringServiceTest {
         runAsNoPermission((result) -> {
             mTetheringConnector.stopTethering(TETHERING_WIFI, TEST_CALLER_PKG,
                     TEST_ATTRIBUTION_TAG, result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering).getTetherProvisioningCondition();
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
@@ -358,12 +369,14 @@ public final class TetheringServiceTest {
 
         runAsWriteSettings((result) -> {
             runStopTethering(result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering, times(2)).getTetherProvisioningCondition();
             verifyNoMoreInteractionsForTethering();
         });
     }
 
     private void runRequestLatestTetheringEntitlementResult() throws Exception {
+        when(mTethering.getTetherProvisioningCondition())
+                .thenReturn(EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED);
         final MyResultReceiver result = new MyResultReceiver(null);
         mTetheringConnector.requestLatestTetheringEntitlementResult(TETHERING_WIFI, result,
                 true /* showEntitlementUi */, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG);
@@ -378,7 +391,7 @@ public final class TetheringServiceTest {
         final MyResultReceiver result = new MyResultReceiver(null);
         mTetheringConnector.requestLatestTetheringEntitlementResult(TETHERING_WIFI, result,
                 true /* showEntitlementUi */, TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG);
-        verify(mTethering).isTetherProvisioningRequired();
+        verify(mTethering).getTetherProvisioningCondition();
         result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
         verifyNoMoreInteractions(mTethering);
 
@@ -389,7 +402,7 @@ public final class TetheringServiceTest {
 
         runAsWriteSettings((none) -> {
             runRequestLatestTetheringEntitlementResult();
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering, times(2)).getTetherProvisioningCondition();
             verifyNoMoreInteractionsForTethering();
         });
     }
@@ -449,6 +462,8 @@ public final class TetheringServiceTest {
     }
 
     private void runStopAllTethering(final TestTetheringResult result) throws Exception {
+        when(mTethering.getTetherProvisioningCondition())
+                .thenReturn(EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED);
         mTetheringConnector.stopAllTethering(TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG, result);
         verify(mTethering).isTetheringSupported();
         verify(mTethering).untetherAll();
@@ -459,7 +474,7 @@ public final class TetheringServiceTest {
     public void testStopAllTethering() throws Exception {
         runAsNoPermission((result) -> {
             mTetheringConnector.stopAllTethering(TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG, result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering).getTetherProvisioningCondition();
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
@@ -471,12 +486,14 @@ public final class TetheringServiceTest {
 
         runAsWriteSettings((result) -> {
             runStopAllTethering(result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering, times(2)).getTetherProvisioningCondition();
             verifyNoMoreInteractionsForTethering();
         });
     }
 
     private void runIsTetheringSupported(final TestTetheringResult result) throws Exception {
+        when(mTethering.getTetherProvisioningCondition())
+                .thenReturn(EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED);
         mTetheringConnector.isTetheringSupported(TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG, result);
         verify(mTethering).isTetheringSupported();
         result.assertResult(TETHER_ERROR_NO_ERROR);
@@ -487,7 +504,7 @@ public final class TetheringServiceTest {
         runAsNoPermission((result) -> {
             mTetheringConnector.isTetheringSupported(TEST_CALLER_PKG, TEST_ATTRIBUTION_TAG,
                     result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering).getTetherProvisioningCondition();
             result.assertResult(TETHER_ERROR_NO_CHANGE_TETHERING_PERMISSION);
             verifyNoMoreInteractionsForTethering();
         });
@@ -499,7 +516,7 @@ public final class TetheringServiceTest {
 
         runAsWriteSettings((result) -> {
             runIsTetheringSupported(result);
-            verify(mTethering).isTetherProvisioningRequired();
+            verify(mTethering, times(2)).getTetherProvisioningCondition();
             verifyNoMoreInteractionsForTethering();
         });
     }
