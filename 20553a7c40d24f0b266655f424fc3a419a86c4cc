@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8867e779_88d21f8a",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-01T07:37:17Z",
+      "side": 1,
+      "message": "Done, but not sure the new version is better ; this must fit in one line. See if you like the new version and/or if you have a better suggestion that would fit.",
+      "parentUuid": "7c111270_58cd4474",
+      "range": {
+        "startLine": 238,
+        "startChar": 82,
+        "endLine": 238,
+        "endChar": 86
+      },
+      "revId": "20553a7c40d24f0b266655f424fc3a419a86c4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0693419f_f311ffe1",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ce56683_051f6074",
+        "filename": "service/src/com/android/server/connectivity/CarrierPrivilegeAuthenticator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-01T07:37:17Z",
+      "side": 1,
+      "message": "Ouch, you\u0027re right about the current behavior – but we *really* shouldn\u0027t do this. It would let the service package for the default sub have carrier privilege for WiFi or Ethernet networks, giving that carrier permissions they really shouldn\u0027t have.\n\nI checked the code paths and it looks fine to simply return false in this case, so done.",
+      "parentUuid": "0693419f_f311ffe1",
+      "range": {
+        "startLine": 242,
+        "startChar": 65,
+        "endLine": 243,
+        "endChar": 41
+      },
+      "revId": "20553a7c40d24f0b266655f424fc3a419a86c4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "542bbd50_660e1e22",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-01-31T17:41:25Z",
       "side": 1,
       "message": "I was thinking this test will have CBS capabilities as requested. But do not see the same here.",
+      "range": {
+        "startLine": 14707,
+        "startChar": 8,
+        "endLine": 14712,
+        "endChar": 64
+      },
+      "revId": "20553a7c40d24f0b266655f424fc3a419a86c4cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a35af49_c5ff5a67",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 14712,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-01T07:37:17Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary. This doesn\u0027t test the request ; it tests that the telephony network agent can set the access UIDs on the network in the right conditions.\n\nAs I understand it, it\u0027s fine for the telephony factory to set the service package as having access to any of its restricted networks if it wants to. For example, I think it should be fine to give it access to the IMS network.\n\nI added comments here to clarify the current behavior. If you think we should restrict this more, then I\u0027m happy to change it to only permit the factory to give access to the CBS network. Then I\u0027ll need one more line in the check in NetworkAgentInfo.\n\nPlease let me know what you think.",
+      "parentUuid": "542bbd50_660e1e22",
       "range": {
         "startLine": 14707,
         "startChar": 8,
