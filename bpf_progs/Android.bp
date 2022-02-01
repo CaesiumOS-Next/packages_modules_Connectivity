@@ -39,9 +39,8 @@ cc_library_headers {
         "com.android.tethering",
         ],
     visibility: [
-        // TODO: remove it when NetworkStatsService is moved into the mainline module and no more
-        // calls to JNI in libservices.core.
-        "//frameworks/base/services/core/jni",
+        // TODO: remove when NetworkStatsService code moves to packages/modules/Connectivity.
+        "//frameworks/base/packages/ConnectivityT/service",
         "//packages/modules/Connectivity/netd",
         "//packages/modules/Connectivity/service",
         "//packages/modules/Connectivity/service/native/libs/libclat",
