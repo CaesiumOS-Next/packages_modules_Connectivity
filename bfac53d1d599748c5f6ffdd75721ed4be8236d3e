@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dbcf03f_8262c412",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T09:17:47Z",
+      "side": 1,
+      "message": "Rename to USE_NETD, since this code will need to remain with us for several years?",
+      "range": {
+        "startLine": 36,
+        "startChar": 33,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3fc24c3_46f0b938",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T09:17:47Z",
+      "side": 1,
+      "message": "Let\u0027s set this to true for now? We can enable the new code in a 1-line CL after that. (Easier to review test and revert.)",
+      "range": {
+        "startLine": 36,
+        "startChar": 51,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "bfac53d1d599748c5f6ffdd75721ed4be8236d3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
