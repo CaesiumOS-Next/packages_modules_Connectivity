@@ -39,6 +39,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.TetheringManager;
 import android.net.util.SharedLog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,6 +74,10 @@ public class EntitlementManager {
     @VisibleForTesting
     protected static final String ACTION_PROVISIONING_ALARM =
             "com.android.networkstack.tethering.PROVISIONING_RECHECK_ALARM";
+
+    public static final int TETHERING_PROVISIONING_REQUIRED = 0;
+    public static final int TETHERING_PROVISIONING_NOT_REQUIRED = 1;
+    public static final int TETHERING_PROVISIONING_CARRIER_UNSUPPORT = 2;
 
     private final ComponentName mSilentProvisioningService;
     private static final int MS_PER_HOUR = 60 * 60 * 1000;
@@ -153,7 +158,7 @@ public class EntitlementManager {
     }
 
     private boolean isCellularUpstreamPermitted(final TetheringConfiguration config) {
-        if (!isTetherProvisioningRequired(config)) return true;
+        if (isTetherProvisioningRequired(config) != TETHERING_PROVISIONING_REQUIRED) return true;
 
         // If provisioning is required and EntitlementManager doesn't know any downstreams, cellular
         // upstream should not be enabled. Enable cellular upstream for exempted downstreams only
@@ -194,16 +199,14 @@ public class EntitlementManager {
         mExemptedDownstreams.set(downstreamType, false);
 
         final TetheringConfiguration config = mFetcher.fetchTetheringConfiguration();
-        if (!isTetherProvisioningRequired(config)) return;
+        if (isTetherProvisioningRequired(config) == TETHERING_PROVISIONING_NOT_REQUIRED) {
+            return;
+        }
 
         // If upstream is not cellular, provisioning app would not be launched
         // till upstream change to cellular.
         if (mUsingCellularAsUpstream) {
-            if (showProvisioningUi) {
-                runUiTetherProvisioning(downstreamType, config);
-            } else {
-                runSilentTetherProvisioning(downstreamType, config);
-            }
+            runTetheringProvisioning(showProvisioningUi, downstreamType, config);
             mNeedReRunProvisioningUi = false;
         } else {
             mNeedReRunProvisioningUi |= showProvisioningUi;
@@ -252,7 +255,8 @@ public class EntitlementManager {
     }
 
     private void maybeRunProvisioning(final TetheringConfiguration config) {
-        if (mCurrentDownstreams.isEmpty() || !isTetherProvisioningRequired(config)) {
+        if (mCurrentDownstreams.isEmpty()
+                || isTetherProvisioningRequired(config) == TETHERING_PROVISIONING_NOT_REQUIRED) {
             return;
         }
 
@@ -263,12 +267,8 @@ public class EntitlementManager {
         for (int downstream = mCurrentDownstreams.nextSetBit(0); downstream >= 0;
                 downstream = mCurrentDownstreams.nextSetBit(downstream + 1)) {
             if (mCurrentEntitlementResults.indexOfKey(downstream) < 0) {
-                if (mNeedReRunProvisioningUi) {
-                    mNeedReRunProvisioningUi = false;
-                    runUiTetherProvisioning(downstream, config);
-                } else {
-                    runSilentTetherProvisioning(downstream, config);
-                }
+                runTetheringProvisioning(mNeedReRunProvisioningUi, downstream, config);
+                mNeedReRunProvisioningUi = false;
             }
         }
     }
@@ -277,18 +277,30 @@ public class EntitlementManager {
      * Check if the device requires a provisioning check in order to enable tethering.
      *
      * @param config an object that encapsulates the various tethering configuration elements.
-     * @return a boolean - {@code true} indicating tether provisioning is required by the carrier.
+     * @return a int -
+     * {@link #TETHERING_PROVISIONING_NOT_REQUIRED} indicating tether provisioning is not required
+     * by carrier.
+     * {@link #TETHERING_PROVISIONING_REQUIRED} indicating tether provisioning is required
+     * by carrier.
+     * {@link #TETHERING_PROVISIONING_CARRIER_UNSUPPORT} indicating tethering is not supported
+     * by carrier.
      */
     @VisibleForTesting
-    protected boolean isTetherProvisioningRequired(final TetheringConfiguration config) {
-        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)
-                || config.provisioningApp.length == 0) {
-            return false;
+    protected int isTetherProvisioningRequired(final TetheringConfiguration config) {
+        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)) {
+            return TETHERING_PROVISIONING_NOT_REQUIRED;
         }
+
+        if (!config.carrierSupportsTethering) {
+            // To block tethering, behave as if running provisioning check and failed.
+            return TETHERING_PROVISIONING_CARRIER_UNSUPPORT;
+        }
+
         if (carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
-            return false;
+            return TETHERING_PROVISIONING_NOT_REQUIRED;
         }
-        return (config.provisioningApp.length == 2);
+        return (config.provisioningApp.length == 2)
+                ? TETHERING_PROVISIONING_REQUIRED : TETHERING_PROVISIONING_NOT_REQUIRED;
     }
 
     /**
@@ -310,9 +322,7 @@ public class EntitlementManager {
         mEntitlementCacheValue.clear();
         mCurrentEntitlementResults.clear();
 
-        // TODO: refine provisioning check to isTetherProvisioningRequired() ??
-        if (!config.hasMobileHotspotProvisionApp()
-                || carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
+        if (isTetherProvisioningRequired(config) == TETHERING_PROVISIONING_NOT_REQUIRED) {
             evaluateCellularPermission(config);
             return;
         }
@@ -364,10 +374,9 @@ public class EntitlementManager {
      * @param subId default data subscription ID.
      */
     @VisibleForTesting
-    protected Intent runSilentTetherProvisioning(int type, final TetheringConfiguration config) {
+    protected Intent runSilentTetherProvisioning(
+            int type, final TetheringConfiguration config, ResultReceiver receiver) {
         if (DBG) mLog.i("runSilentTetherProvisioning: " + type);
-        // For silent provisioning, settings would stop tethering when entitlement fail.
-        ResultReceiver receiver = buildProxyReceiver(type, false/* notifyFail */, null);
 
         Intent intent = new Intent();
         intent.putExtra(EXTRA_ADD_TETHER_TYPE, type);
@@ -381,11 +390,6 @@ public class EntitlementManager {
         // show UI, it is fine to always start setting's background service as system user.
         mContext.startService(intent);
         return intent;
-    }
-
-    private void runUiTetherProvisioning(int type, final TetheringConfiguration config) {
-        ResultReceiver receiver = buildProxyReceiver(type, true/* notifyFail */, null);
-        runUiTetherProvisioning(type, config, receiver);
     }
 
     /**
@@ -409,6 +413,34 @@ public class EntitlementManager {
         // user because only admin user is allowed to change tethering.
         mContext.startActivity(intent);
         return intent;
+    }
+
+    private void runTetheringProvisioning(
+            boolean showProvisioningUi, int downstreamType, final TetheringConfiguration config) {
+        ResultReceiver receiver =
+                buildProxyReceiver(downstreamType, showProvisioningUi/* notifyFail */, null);
+        if (!config.carrierSupportsTethering) {
+            receiver.send(TETHER_ERROR_PROVISIONING_FAILED, null);
+            if (showProvisioningUi) {
+                showCarrierUnsupportedDialog();
+            }
+            TetheringManager tetheringManager = mContext.getSystemService(TetheringManager.class);
+            tetheringManager.stopTethering(downstreamType);
+            return;
+        }
+
+        if (showProvisioningUi) {
+            runUiTetherProvisioning(downstreamType, config, receiver);
+        } else {
+            runSilentTetherProvisioning(downstreamType, config, receiver);
+        }
+    }
+
+    private void showCarrierUnsupportedDialog() {
+        mLog.i("showCarrierUnsupportedDialog");
+        Intent intent = new Intent("android.settings.TETHER_PROVISIONING_CARRIER_UI");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
     }
 
     @VisibleForTesting
@@ -632,9 +664,14 @@ public class EntitlementManager {
         }
 
         final TetheringConfiguration config = mFetcher.fetchTetheringConfiguration();
-        if (!isTetherProvisioningRequired(config)) {
-            receiver.send(TETHER_ERROR_NO_ERROR, null);
-            return;
+
+        switch (isTetherProvisioningRequired(config)) {
+            case TETHERING_PROVISIONING_NOT_REQUIRED:
+                receiver.send(TETHER_ERROR_NO_ERROR, null);
+                return;
+            case TETHERING_PROVISIONING_CARRIER_UNSUPPORT:
+                receiver.send(TETHER_ERROR_PROVISIONING_FAILED, null);
+                return;
         }
 
         final int cacheValue = mEntitlementCacheValue.get(
