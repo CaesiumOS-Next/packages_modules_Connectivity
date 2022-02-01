@@ -98,6 +98,7 @@ public class EntitlementManager {
     private boolean mNeedReRunProvisioningUi = false;
     private OnUiEntitlementFailedListener mListener;
     private TetheringConfigurationFetcher mFetcher;
+    private TetheringNotificationUpdater mNotificationUpdater;
 
     public EntitlementManager(Context ctx, Handler h, SharedLog log,
             Runnable callback) {
@@ -141,6 +142,10 @@ public class EntitlementManager {
          * @return TetheringConfiguration instance.
          */
         TetheringConfiguration fetchTetheringConfiguration();
+    }
+
+    public void setTetheringNotificationUpdater(final TetheringNotificationUpdater updater) {
+        mNotificationUpdater = updater;
     }
 
     /**
@@ -281,6 +286,10 @@ public class EntitlementManager {
      */
     @VisibleForTesting
     protected boolean isTetherProvisioningRequired(final TetheringConfiguration config) {
+        if (!config.carrierSupportsTethering) {
+            // To block tethering, behave as if running provisioning check and failed.
+            return true;
+        }
         if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)
                 || config.provisioningApp.length == 0) {
             return false;
@@ -311,8 +320,9 @@ public class EntitlementManager {
         mCurrentEntitlementResults.clear();
 
         // TODO: refine provisioning check to isTetherProvisioningRequired() ??
-        if (!config.hasMobileHotspotProvisionApp()
-                || carrierConfigAffirmsEntitlementCheckNotRequired(config)) {
+        if ((!config.hasMobileHotspotProvisionApp()
+                || carrierConfigAffirmsEntitlementCheckNotRequired(config))
+                && config.carrierSupportsTethering) {
             evaluateCellularPermission(config);
             return;
         }
@@ -346,6 +356,7 @@ public class EntitlementManager {
     //
     // TODO: find a better way to express this, or alter the checking process
     // entirely so that this is more intuitive.
+    // Cache this boolean in TetheringConfiguration to avoid double fetching carrier config?
     private boolean carrierConfigAffirmsEntitlementCheckNotRequired(
             final TetheringConfiguration config) {
         // Check carrier config for entitlement checks
@@ -368,6 +379,11 @@ public class EntitlementManager {
         if (DBG) mLog.i("runSilentTetherProvisioning: " + type);
         // For silent provisioning, settings would stop tethering when entitlement fail.
         ResultReceiver receiver = buildProxyReceiver(type, false/* notifyFail */, null);
+
+        if (!config.carrierSupportsTethering) {
+            receiver.send(TETHER_ERROR_PROVISIONING_FAILED, null);
+            return null;
+        }
 
         Intent intent = new Intent();
         intent.putExtra(EXTRA_ADD_TETHER_TYPE, type);
@@ -398,6 +414,14 @@ public class EntitlementManager {
     protected Intent runUiTetherProvisioning(int type, final TetheringConfiguration config,
             ResultReceiver receiver) {
         if (DBG) mLog.i("runUiTetherProvisioning: " + type);
+
+        if (!config.carrierSupportsTethering) {
+            receiver.send(TETHER_ERROR_PROVISIONING_FAILED, null);
+            // notifyTetheringDisabledByRestriction() is just a proof-of-concept.
+            // TODO: choose the string in notification.
+            mNotificationUpdater.notifyTetheringDisabledByRestriction();
+            return null;
+        }
 
         Intent intent = new Intent(Settings.ACTION_TETHER_PROVISIONING_UI);
         intent.putExtra(EXTRA_ADD_TETHER_TYPE, type);
