@@ -996,12 +996,16 @@ public class Tethering {
     }
 
     private boolean isProvisioningNeededButUnavailable() {
-        return isTetherProvisioningRequired() && !doesEntitlementPackageExist();
+        if (getTetherProvisioningCondition()
+                == EntitlementManager.TETHERING_PROVISIONING_REQUIRED) {
+            return !doesEntitlementPackageExist();
+        }
+        return false;
     }
 
-    boolean isTetherProvisioningRequired() {
+    int getTetherProvisioningCondition() {
         final TetheringConfiguration cfg = mConfig;
-        return mEntitlementMgr.isTetherProvisioningRequired(cfg);
+        return mEntitlementMgr.getTetherProvisioningCondition(cfg);
     }
 
     private boolean doesEntitlementPackageExist() {

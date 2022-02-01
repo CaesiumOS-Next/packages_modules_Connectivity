@@ -282,7 +282,8 @@ public class TetheringService extends Service {
 
             if (hasTetherPrivilegedPermission()) return true;
 
-            if (mTethering.isTetherProvisioningRequired()) return false;
+            if (mTethering.getTetherProvisioningCondition()
+                    != EntitlementManager.TETHERING_PROVISIONING_NOT_REQUIRED) return false;
 
             int uid = Binder.getCallingUid();
 
