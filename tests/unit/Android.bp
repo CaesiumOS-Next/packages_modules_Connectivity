@@ -170,5 +170,6 @@ android_test {
     ],
     jni_libs: [
         "libservice-connectivity",
+        "libservice-connectivity-tiramisu",
     ]
 }
