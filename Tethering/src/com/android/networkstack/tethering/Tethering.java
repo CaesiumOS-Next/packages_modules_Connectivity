@@ -326,6 +326,7 @@ public class Tethering {
         mEntitlementMgr.setTetheringConfigurationFetcher(() -> {
             return mConfig;
         });
+        mEntitlementMgr.setTetheringNotificationUpdater(mNotificationUpdater);
 
         mCarrierConfigChange = new VersionedBroadcastListener(
                 "CarrierConfigChangeListener", mContext, mHandler, filter,
