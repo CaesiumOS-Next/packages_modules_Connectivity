@@ -24,14 +24,17 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
+import static com.android.networkstack.apishim.common.CarrierConfigManagerShim.KEY_CARRIER_SUPPORTS_TETHERING_BOOL;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.TetheringConfigurationParcel;
 import android.net.util.SharedLog;
+import android.os.PersistableBundle;
 import android.provider.DeviceConfig;
 import android.provider.Settings;
+import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -145,6 +148,7 @@ public class TetheringConfiguration {
     public final String[] defaultIPv4DNS;
     public final boolean enableLegacyDhcpServer;
 
+    public final boolean carrierSupportsTethering;
     public final String[] provisioningApp;
     public final String provisioningAppNoUi;
     public final int provisioningCheckPeriod;
@@ -205,6 +209,11 @@ public class TetheringConfiguration {
         mEnableBpfOffload = getEnableBpfOffload(res);
         enableLegacyDhcpServer = getEnableLegacyDhcpServer(res);
 
+        PersistableBundle carrierConfig = getCarrierConfig(ctx, activeDataSubId);
+        carrierSupportsTethering =
+                (carrierConfig == null)
+                        ? true  /* default value of KEY_CARRIER_SUPPORTS_TETHERING_BOOL */
+                        : carrierConfig.getBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL);
         provisioningApp = getResourceStringArray(res, R.array.config_mobile_hotspot_provision_app);
         provisioningAppNoUi = getResourceString(res,
                 R.string.config_mobile_hotspot_provision_app_no_ui);
@@ -366,6 +375,21 @@ public class TetheringConfiguration {
         final StringJoiner sj = new StringJoiner(",", "[", "]");
         for (String s : strings) sj.add(s);
         return sj.toString();
+    }
+
+    private static PersistableBundle getCarrierConfig(Context ctx, int subId) {
+        final CarrierConfigManager configManager =
+                (CarrierConfigManager) ctx.getSystemService(Context.CARRIER_CONFIG_SERVICE);
+        if (configManager == null) return null;
+
+        final PersistableBundle carrierConfig =
+                configManager.getConfigForSubId(subId);
+
+        if (CarrierConfigManager.isConfigForIdentifiedCarrier(carrierConfig)) {
+            return carrierConfig;
+        }
+
+        return null;
     }
 
     /** Check whether dun is required. */
@@ -600,6 +624,7 @@ public class TetheringConfiguration {
         parcel.provisioningApp = provisioningApp;
         parcel.provisioningAppNoUi = provisioningAppNoUi;
         parcel.provisioningCheckPeriod = provisioningCheckPeriod;
+        parcel.carrierSupportsTethering = carrierSupportsTethering;
         return parcel;
     }
 }
