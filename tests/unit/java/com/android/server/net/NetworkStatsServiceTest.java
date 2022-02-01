@@ -109,6 +109,7 @@ import android.os.PowerManager;
 import android.os.SimpleClock;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.SparseArray;
 
 import androidx.annotation.Nullable;
 import androidx.test.InstrumentationRegistry;
@@ -117,6 +118,8 @@ import androidx.test.filters.SmallTest;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.LocationPermissionChecker;
+import com.android.net.module.util.Struct;
+import com.android.net.module.util.Struct.S64;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 import com.android.server.net.NetworkStatsService.AlertObserver;
@@ -197,8 +200,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     private HandlerThread mHandlerThread;
     @Mock
     private LocationPermissionChecker mLocationPermissionChecker;
+
     private @Mock IBpfMap<U32, U8> mUidCounterSetMap;
-    private @Mock NetworkStatsService.TagStatsDeleter mTagStatsDeleter;
+    private @Mock IBpfMap<S64, UidTagValue> mCookieTagMap;
+    private @Mock IBpfMap<StatsKey, StatsValue> mStatsMapA;
+    private @Mock IBpfMap<StatsKey, StatsValue> mStatsMapB;
+    private @Mock IBpfMap<U32, StatsValue> mAppUidStatsMap;
 
     private NetworkStatsService mService;
     private INetworkStatsSession mSession;
@@ -360,9 +367,20 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 return mUidCounterSetMap;
             }
 
-            @Override
-            public NetworkStatsService.TagStatsDeleter getTagStatsDeleter() {
-                return mTagStatsDeleter;
+            public IBpfMap<S64, UidTagValue> getCookieTagMap() {
+                return mCookieTagMap;
+            }
+
+            public IBpfMap<StatsKey, StatsValue> getStatsMapA() {
+                return mStatsMapA;
+            }
+
+            public IBpfMap<StatsKey, StatsValue> getStatsMapB() {
+                return mStatsMapB;
+            }
+
+            public IBpfMap<U32, StatsValue> getAppUidStatsMap() {
+                return mAppUidStatsMap;
             }
         };
     }
@@ -702,10 +720,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         final Intent intent = new Intent(ACTION_UID_REMOVED);
         intent.putExtra(EXTRA_UID, UID_BLUE);
         mServiceContext.sendBroadcast(intent);
-        verify(mTagStatsDeleter).deleteTagData(UID_BLUE);
+//        verify(mTagStatsDeleter).deleteTagData(UID_BLUE);
         intent.putExtra(EXTRA_UID, UID_RED);
         mServiceContext.sendBroadcast(intent);
-        verify(mTagStatsDeleter).deleteTagData(UID_RED);
+//        verify(mTagStatsDeleter).deleteTagData(UID_RED);
 
         // existing uid and total should remain unchanged; but removed UID
         // should be gone completely.
@@ -1677,6 +1695,15 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertNetworkTotal(sTemplateImsi1, 0L, 0L, 0L, 0L, 0);
     }
 
+    private static UidTagValue uidTag(int uid, long tag) {
+        return new UidTagValue(uid, tag);
+    }
+
+    @Test
+    public void testDeleteTagData() throws Exception {
+
+    }
+
     private static File getBaseDir(File statsDir) {
         File baseDir = new File(statsDir, "netstats");
         baseDir.mkdirs();
@@ -1762,6 +1789,60 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         // also include tethering details, since they are folded into UID
         when(mNetd.tetherGetStats()).thenReturn(tetherStatsParcels);
+
+        setStatsMapContents(detail);
+    }
+
+    private static final SparseArray<String> IFINDICES = new SparseArray<>();
+    static {
+        IFINDICES.put(42, TEST_IFACE);
+        IFINDICES.put(101, TEST_IFACE2);
+    }
+
+    private String ifname(long ifindex) {
+        return IFINDICES.get((int) ifindex);
+    }
+
+    private int ifindex(String iface) {
+        return IFINDICES.keyAt(IFINDICES.indexOfValue(iface));
+    }
+
+    private StatsKey toStatsKey(NetworkStats.Entry entry) {
+        return new StatsKey(entry, ifindex(entry.iface));
+    }
+
+    private NetworkStats.Entry toEntry(StatsKey key, StatsValue value) {
+        return new NetworkStats.Entry(
+                ifname(key.interfaceIndex), key.uid, key.counterSet, key.tag,
+                value.rxBytes, value.rxPackets, value.txBytes, value.txPackets, 0 /* operations */);
+    }
+
+    private static StatsValue add(StatsValue v1, StatsValue v2) {
+        return new StatsValue(v1.rxPackets + v2.rxPackets, v1.rxBytes + v2.rxBytes,
+                v1.txPackets + v2.txPackets, v1.txBytes + v2.txBytes);
+    }
+
+    private static <K extends Struct> void add(IBpfMap<K, StatsValue> map, K key, StatsValue value)
+            throws Exception {
+        final StatsValue existingValue = map.getValue(key);
+        if (existingValue != null) {
+            map.replaceEntry(key, add(existingValue, value));
+        } else {
+            map.insertEntry(key, value);
+        }
+    }
+
+    private void setStatsMapContents(NetworkStats stats) throws Exception {
+        mStatsMapA.clear();
+        mStatsMapB.clear();
+        mAppUidStatsMap.clear();
+        IBpfMap<StatsKey, StatsValue> currentMap = mStatsMapA;
+        for (NetworkStats.Entry entry : stats) {
+            final StatsValue value = new StatsValue(entry);
+            add(currentMap, toStatsKey(entry), value);
+            add(mAppUidStatsMap, new U32(entry.uid), value);
+            currentMap = (currentMap == mStatsMapA) ? mStatsMapB : mStatsMapA;
+        }
     }
 
     private void expectDefaultSettings() throws Exception {
