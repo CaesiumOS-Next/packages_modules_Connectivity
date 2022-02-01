@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019990321",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1966618?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "3d7258b1_eb649d77",
+          "description": "Change to \"service/native/TrafficControllerTest.cpp\"",
+          "replacements": [
+            {
+              "path": "service/native/TrafficControllerTest.cpp",
+              "range": {
+                "startLine": 758,
+                "startChar": 48,
+                "endLine": 758,
+                "endChar": 54
+              },
+              "replacement": "running"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "dee75342_603a9c84",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-01T20:10:03Z",
+      "side": 1,
+      "message": "Common typo found: \"runing\" -- should it be \"running\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 758,
+        "startChar": 48,
+        "endLine": 758,
+        "endChar": 54
+      },
+      "revId": "f5f4682172f7dfe42f18dfe535c3941103ae5860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019990321",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1966618?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "1879759a_252b6483",
+          "description": "Change to \"service/native/TrafficControllerTest.cpp\"",
+          "replacements": [
+            {
+              "path": "service/native/TrafficControllerTest.cpp",
+              "range": {
+                "startLine": 767,
+                "startChar": 3,
+                "endLine": 767,
+                "endChar": 13
+              },
+              "replacement": "triggered"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "36fe7adf_f48e6408",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-01T20:10:03Z",
+      "side": 1,
+      "message": "Common typo found: \"triggerred\" -- should it be \"triggered\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 767,
+        "startChar": 3,
+        "endLine": 767,
+        "endChar": 13
+      },
+      "revId": "f5f4682172f7dfe42f18dfe535c3941103ae5860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019990316",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1966618?revision\u003d1",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "4c9ebbe9_6a8e52d5",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-01T20:10:03Z",
+      "side": 1,
+      "message": "Please remove the trailing whitespace.",
+      "range": {
+        "startLine": 830,
+        "startChar": 74,
+        "endLine": 830,
+        "endChar": 75
+      },
+      "revId": "f5f4682172f7dfe42f18dfe535c3941103ae5860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000019990321",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1966618?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "37ca39d3_ae3c86f7",
+          "description": "Change to \"service/native/TrafficControllerTest.cpp\"",
+          "replacements": [
+            {
+              "path": "service/native/TrafficControllerTest.cpp",
+              "range": {
+                "startLine": 833,
+                "startChar": 48,
+                "endLine": 833,
+                "endChar": 56
+              },
+              "replacement": "its own"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "997938ba_e46cfa5b",
+        "filename": "service/native/TrafficControllerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-01T20:10:03Z",
+      "side": 1,
+      "message": "Common typo found: \"it\u0027s own\" -- should it be \"its own\"?\nif substituting in \u003cit is\u003e for \u003cit\u0027s\u003e would sound wrong, you should be using \u003cits\u003e (go/its-vs-its)\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 833,
+        "startChar": 48,
+        "endLine": 833,
+        "endChar": 56
+      },
+      "revId": "f5f4682172f7dfe42f18dfe535c3941103ae5860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
