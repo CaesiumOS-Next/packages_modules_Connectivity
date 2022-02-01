@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a48a19d_b1d1ef6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1468761
+      },
+      "writtenOn": "2022-02-01T15:07:32Z",
+      "side": 1,
+      "message": "Thank you",
+      "parentUuid": "45ee396d_8b967b18",
+      "revId": "1621a017d3980398093dbea58ff43af236fcec01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "debc8e6a_532d3a4c",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-02-01T14:27:24Z",
       "side": 1,
       "message": "Did you forget to update this IntDef? Please add BLOCKED_REASON_LOW_POWER_STANDBY here.",
+      "range": {
+        "startLine": 925,
+        "startChar": 39,
+        "endLine": 925,
+        "endChar": 40
+      },
+      "revId": "1621a017d3980398093dbea58ff43af236fcec01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0303763_7ed4bf69",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1468761
+      },
+      "writtenOn": "2022-02-01T15:07:32Z",
+      "side": 1,
+      "message": "Looks like I did, thanks for catching it.\nDone",
+      "parentUuid": "debc8e6a_532d3a4c",
       "range": {
         "startLine": 925,
         "startChar": 39,
