@@ -112,6 +112,7 @@ import android.os.SimpleClock;
 import android.provider.Settings;
 import android.system.ErrnoException;
 import android.telephony.TelephonyManager;
+import android.util.SparseArray;
 
 import androidx.annotation.Nullable;
 import androidx.test.InstrumentationRegistry;
@@ -120,6 +121,7 @@ import androidx.test.filters.SmallTest;
 import com.android.internal.util.test.BroadcastInterceptingContext;
 import com.android.net.module.util.IBpfMap;
 import com.android.net.module.util.LocationPermissionChecker;
+import com.android.net.module.util.Struct;
 import com.android.net.module.util.Struct.U32;
 import com.android.net.module.util.Struct.U8;
 import com.android.server.net.NetworkStatsService.AlertObserver;
@@ -727,11 +729,25 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
                 .insertEntry(TEST_IFACE, UID_BLUE, SET_DEFAULT, TAG_NONE,
                         4096L, 258L, 512L, 32L, 0L)
                 .insertEntry(TEST_IFACE, UID_GREEN, SET_DEFAULT, TAG_NONE, 16L, 1L, 16L, 1L, 0L));
+
+        assertTrue(statsMapsContainUid(UID_BLUE));
+        assertTrue(mAppUidStatsMap.containsKey(new UidStatsMapKey(UID_BLUE)));
+
+        assertTrue(statsMapsContainUid(UID_RED));
+        assertTrue(mAppUidStatsMap.containsKey(new UidStatsMapKey(UID_RED)));
+
         final Intent intent = new Intent(ACTION_UID_REMOVED);
         intent.putExtra(EXTRA_UID, UID_BLUE);
         mServiceContext.sendBroadcast(intent);
         intent.putExtra(EXTRA_UID, UID_RED);
         mServiceContext.sendBroadcast(intent);
+
+        // assert uid specific data was removed from stats maps.
+        assertFalse(statsMapsContainUid(UID_BLUE));
+        assertFalse(mAppUidStatsMap.containsKey(new UidStatsMapKey(UID_BLUE)));
+
+        assertFalse(statsMapsContainUid(UID_RED));
+        assertFalse(mAppUidStatsMap.containsKey(new UidStatsMapKey(UID_RED)));
 
         // existing uid and total should remain unchanged; but removed UID
         // should be gone completely.
@@ -1788,6 +1804,61 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
 
         // also include tethering details, since they are folded into UID
         when(mNetd.tetherGetStats()).thenReturn(tetherStatsParcels);
+
+        setStatsMapContents(detail);
+    }
+
+    private static final SparseArray<String> IFINDICES = new SparseArray<>();
+    static {
+        IFINDICES.put(42, TEST_IFACE);
+        IFINDICES.put(101, TEST_IFACE2);
+    }
+
+    private static String ifname(long ifindex) {
+        return IFINDICES.get((int) ifindex);
+    }
+
+    private static int ifindex(String iface) {
+        return IFINDICES.keyAt(IFINDICES.indexOfValue(iface));
+    }
+
+    private static StatsMapValue statsValueTotal(final StatsMapValue lhs, final StatsMapValue rhs) {
+        return new StatsMapValue(lhs.rxPackets + rhs.rxPackets, lhs.rxBytes + rhs.rxBytes,
+                lhs.txPackets + rhs.txPackets, lhs.txBytes + rhs.txBytes);
+    }
+
+    private static <K extends Struct> void addToStatsMap(final IBpfMap<K, StatsMapValue> statsMap,
+            K key, final StatsMapValue newValue) throws Exception {
+        final StatsMapValue existingValue = statsMap.getValue(key);
+        if (existingValue != null) {
+            statsMap.replaceEntry(key, statsValueTotal(newValue, existingValue));
+        } else {
+            statsMap.insertEntry(key, newValue);
+        }
+    }
+
+    private void setStatsMapContents(NetworkStats stats) throws Exception {
+        mStatsMapA.clear();
+        mStatsMapB.clear();
+        mAppUidStatsMap.clear();
+
+        IBpfMap<StatsMapKey, StatsMapValue> activeStatsMap = mStatsMapA;
+
+        for (NetworkStats.Entry entry : stats) {
+            final StatsMapKey statsMapKey = new StatsMapKey(entry.getUid(), entry.getTag(),
+                    entry.getSet(), ifindex(entry.getIface()));
+            final UidStatsMapKey uidMapKey = new UidStatsMapKey(entry.getUid());
+            final StatsMapValue value = new StatsMapValue(entry.getRxPackets(), entry.getRxBytes(),
+                    entry.getTxPackets(), entry.getTxBytes());
+
+            // entries should not be duplicated in both stats maps, so swap them to distribute the
+            // data across the maps.
+            addToStatsMap(activeStatsMap, statsMapKey, value);
+            addToStatsMap(mAppUidStatsMap, uidMapKey, value);
+
+            // swap active statsMap
+            activeStatsMap = (activeStatsMap == mStatsMapA) ? mStatsMapB : mStatsMapA;
+        }
     }
 
     private void expectDefaultSettings() throws Exception {
@@ -1951,6 +2022,12 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             }
         });
         return found.get();
+    }
+
+    private boolean statsMapsContainUid(int uid) throws ErrnoException {
+        boolean mapAContainsUid = statsMapContainsUid(mStatsMapA, uid);
+        boolean mapBContainsUid = statsMapContainsUid(mStatsMapB, uid);
+        return mapAContainsUid || mapBContainsUid;
     }
 
     private void initBpfMapsWithTagData(int uid) throws ErrnoException {
