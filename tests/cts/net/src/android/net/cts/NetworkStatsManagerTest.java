@@ -27,7 +27,10 @@ import static android.app.usage.NetworkStats.Bucket.STATE_FOREGROUND;
 import static android.app.usage.NetworkStats.Bucket.TAG_NONE;
 import static android.app.usage.NetworkStats.Bucket.UID_ALL;
 
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+
 import android.app.AppOpsManager;
+import android.app.Instrumentation;
 import android.app.usage.NetworkStats;
 import android.app.usage.NetworkStatsManager;
 import android.content.Context;
@@ -48,8 +51,20 @@ import android.telephony.TelephonyManager;
 import android.test.InstrumentationTestCase;
 import android.util.Log;
 
+import androidx.test.InstrumentationRegistry;
+
 import com.android.compatibility.common.util.ShellIdentityUtils;
 import com.android.compatibility.common.util.SystemUtil;
+import com.android.testutils.ConnectivityModuleTest;
+import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
+import com.android.testutils.DevSdkIgnoreRunner;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,7 +75,14 @@ import java.net.UnknownHostException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
+@IgnoreUpTo(SC_V2)
+@ConnectivityModuleTest
+@RunWith(DevSdkIgnoreRunner.class)
+@AppModeFull(reason = "instant apps cannot be granted USAGE_STATS")
 public class NetworkStatsManagerTest extends InstrumentationTestCase {
+    @Rule
+    public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
+
     private static final String LOG_TAG = "NetworkStatsManagerTest";
     private static final String APPOPS_SET_SHELL_COMMAND = "appops set {0} {1} {2}";
     private static final String APPOPS_GET_SHELL_COMMAND = "appops get {0} {1}";
@@ -152,9 +174,11 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
             };
 
     private String mPkg;
+    private Context mContext;
     private NetworkStatsManager mNsm;
     private ConnectivityManager mCm;
     private PackageManager mPm;
+    private Instrumentation mInstrumentation;
     private long mStartTime;
     private long mEndTime;
 
@@ -212,27 +236,27 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
         }
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        mNsm = (NetworkStatsManager) getInstrumentation().getContext()
-                .getSystemService(Context.NETWORK_STATS_SERVICE);
+    @Before
+    public void setUp() throws Exception {
+        mContext = InstrumentationRegistry.getContext();
+        mNsm = mContext.getSystemService(NetworkStatsManager.class);
         mNsm.setPollForce(true);
 
-        mCm = (ConnectivityManager) getInstrumentation().getContext()
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        mCm = mContext.getSystemService(ConnectivityManager.class);
 
-        mPm = getInstrumentation().getContext().getPackageManager();
+        mPm = mContext.getPackageManager();
 
-        mPkg = getInstrumentation().getContext().getPackageName();
+        mPkg = mContext.getPackageName();
+
+        mInstrumentation = InstrumentationRegistry.getInstrumentation();
 
         mWriteSettingsMode = getAppOpsMode(AppOpsManager.OPSTR_WRITE_SETTINGS);
         setAppOpsMode(AppOpsManager.OPSTR_WRITE_SETTINGS, "allow");
         mUsageStatsMode = getAppOpsMode(AppOpsManager.OPSTR_GET_USAGE_STATS);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         if (mWriteSettingsMode != null) {
             setAppOpsMode(AppOpsManager.OPSTR_WRITE_SETTINGS, mWriteSettingsMode);
         }
@@ -244,12 +268,12 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
 
     private void setAppOpsMode(String appop, String mode) throws Exception {
         final String command = MessageFormat.format(APPOPS_SET_SHELL_COMMAND, mPkg, appop, mode);
-        SystemUtil.runShellCommand(command);
+        SystemUtil.runShellCommand(mInstrumentation, command);
     }
 
     private String getAppOpsMode(String appop) throws Exception {
         final String command = MessageFormat.format(APPOPS_GET_SHELL_COMMAND, mPkg, appop);
-        String result = SystemUtil.runShellCommand(command);
+        String result = SystemUtil.runShellCommand(mInstrumentation, command);
         if (result == null) {
             Log.w(LOG_TAG, "App op " + appop + " could not be read.");
         }
@@ -257,7 +281,7 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
     }
 
     private boolean isInForeground() throws IOException {
-        String result = SystemUtil.runShellCommand(getInstrumentation(),
+        String result = SystemUtil.runShellCommand(mInstrumentation,
                 "cmd activity get-uid-state " + Process.myUid());
         return result.contains("FOREGROUND");
     }
@@ -349,15 +373,14 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
     private String getSubscriberId(int networkIndex) {
         int networkType = mNetworkInterfacesToTest[networkIndex].getNetworkType();
         if (ConnectivityManager.TYPE_MOBILE == networkType) {
-            TelephonyManager tm = (TelephonyManager) getInstrumentation().getContext()
-                    .getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager tm = mContext.getSystemService(TelephonyManager.class);
             return ShellIdentityUtils.invokeMethodWithShellPermissions(tm,
                     (telephonyManager) -> telephonyManager.getSubscriberId());
         }
         return "";
     }
 
-    @AppModeFull
+    @Test
     public void testDeviceSummary() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
             if (!shouldTestThisNetworkType(i, MINUTE / 2)) {
@@ -392,7 +415,7 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
         }
     }
 
-    @AppModeFull
+    @Test
     public void testUserSummary() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
             if (!shouldTestThisNetworkType(i, MINUTE / 2)) {
@@ -427,7 +450,7 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
         }
     }
 
-    @AppModeFull
+    @Test
     public void testAppSummary() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
             // Use tolerance value that large enough to make sure stats of at
@@ -497,7 +520,7 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
         }
     }
 
-    @AppModeFull
+    @Test
     public void testAppDetails() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
             // Relatively large tolerance to accommodate for history bucket size.
@@ -540,7 +563,7 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
         }
     }
 
-    @AppModeFull
+    @Test
     public void testUidDetails() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
             // Relatively large tolerance to accommodate for history bucket size.
@@ -593,7 +616,7 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
         }
     }
 
-    @AppModeFull
+    @Test
     public void testTagDetails() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
             // Relatively large tolerance to accommodate for history bucket size.
@@ -699,7 +722,7 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
                 bucket.getRxBytes(), bucket.getTxBytes()));
     }
 
-    @AppModeFull
+    @Test
     public void testUidTagStateDetails() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
             // Relatively large tolerance to accommodate for history bucket size.
@@ -776,7 +799,7 @@ public class NetworkStatsManagerTest extends InstrumentationTestCase {
         }
     }
 
-    @AppModeFull
+    @Test
     public void testCallback() throws Exception {
         for (int i = 0; i < mNetworkInterfacesToTest.length; ++i) {
             // Relatively large tolerance to accommodate for history bucket size.
