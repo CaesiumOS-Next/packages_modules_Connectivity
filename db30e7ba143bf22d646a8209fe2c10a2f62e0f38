@@ -46,6 +46,29 @@
       },
       "revId": "db30e7ba143bf22d646a8209fe2c10a2f62e0f38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d05758fe_ae6b969c",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T02:54:52Z",
+      "side": 1,
+      "message": "These should only be initialized if android::modules::sdklevel::IsAtLeastT().",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 5
+      },
+      "revId": "db30e7ba143bf22d646a8209fe2c10a2f62e0f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
