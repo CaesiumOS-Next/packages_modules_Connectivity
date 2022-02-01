@@ -16,6 +16,46 @@
       "message": "Lorenzo, could you also give an API-Review vote?",
       "revId": "1621a017d3980398093dbea58ff43af236fcec01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10841005_1229bce4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T14:27:24Z",
+      "side": 1,
+      "message": "API LGTM, but looks like you forgot to update the IntDef?",
+      "revId": "1621a017d3980398093dbea58ff43af236fcec01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "debc8e6a_532d3a4c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-01T14:27:24Z",
+      "side": 1,
+      "message": "Did you forget to update this IntDef? Please add BLOCKED_REASON_LOW_POWER_STANDBY here.",
+      "range": {
+        "startLine": 925,
+        "startChar": 39,
+        "endLine": 925,
+        "endChar": 40
+      },
+      "revId": "1621a017d3980398093dbea58ff43af236fcec01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
