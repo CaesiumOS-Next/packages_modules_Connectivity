@@ -87,6 +87,24 @@
       "parentUuid": "f4a36785_e838b3e8",
       "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a7b10e8_e56edbab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1868991
+      },
+      "writtenOn": "2022-02-01T07:59:33Z",
+      "side": 1,
+      "message": "Offline confirmed that OEM code can call module-lib APIs.  So we can abandon this cl.",
+      "parentUuid": "20de0a60_97bf2fbd",
+      "revId": "e6efe0068b56db93f434c82654d92b39e3be8c6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
