@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a56cc39b_cbe18ad5",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3035,
+      "author": {
+        "id": 1468761
+      },
+      "writtenOn": "2022-02-01T14:11:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c9c2db5_18bdfbfb",
+      "range": {
+        "startLine": 3035,
+        "startChar": 53,
+        "endLine": 3035,
+        "endChar": 54
+      },
+      "revId": "59db1d1f554de1e34674770fe9e0ba0cd6ec1ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a844ac33_796b6de0",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-28T01:47:28Z",
       "side": 1,
       "message": "Can we check that networking does not work here? Maybe just do an HTTP request like other tests in this file do? Or at least do a DNS query for \u003crandomstring\u003e-ds.metric.gstatic.com and check that it fails? Or will this make the test run very slowly?",
+      "range": {
+        "startLine": 3059,
+        "startChar": 8,
+        "endLine": 3059,
+        "endChar": 9
+      },
+      "revId": "59db1d1f554de1e34674770fe9e0ba0cd6ec1ed4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d34363a1_e81a2692",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3059,
+      "author": {
+        "id": 1468761
+      },
+      "writtenOn": "2022-02-01T14:11:19Z",
+      "side": 1,
+      "message": "Added a DNS query similar to\nhttps://cs.android.com/android/platform/superproject/+/master:packages/modules/Connectivity/tests/cts/hostside/app/src/com/android/cts/net/hostside/VpnTest.java;l\u003d793-801;drc\u003d7212fbee14c6d95f44a7adcea8a6ef21366e2730",
+      "parentUuid": "a844ac33_796b6de0",
       "range": {
         "startLine": 3059,
         "startChar": 8,
