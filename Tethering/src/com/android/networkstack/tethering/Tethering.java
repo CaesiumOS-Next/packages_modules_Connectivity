@@ -326,6 +326,7 @@ public class Tethering {
         mEntitlementMgr.setTetheringConfigurationFetcher(() -> {
             return mConfig;
         });
+        mEntitlementMgr.setTetheringNotificationUpdater(mNotificationUpdater);
 
         mCarrierConfigChange = new VersionedBroadcastListener(
                 "CarrierConfigChangeListener", mContext, mHandler, filter,
@@ -2462,9 +2463,14 @@ public class Tethering {
                 Settings.Global.TETHER_SUPPORTED, defaultVal) != 0;
         final boolean tetherEnabledInSettings = tetherSupported
                 && !mUserManager.hasUserRestriction(UserManager.DISALLOW_CONFIG_TETHERING);
+        final boolean isProvisioningNeededButUnavailable =
+                // If carrierSupportsTethering=false, behave as if provisioning is avaialble,
+                // so we don't hide tethering UI and prevent user from using wifi based tethering.
+                // EntitlementManager will fail the provisioning to block cellular based tethering.
+                mConfig.carrierSupportsTethering && isProvisioningNeededButUnavailable();
 
         return tetherEnabledInSettings && hasTetherableConfiguration()
-                && !isProvisioningNeededButUnavailable();
+                && !isProvisioningNeededButUnavailable;
     }
 
     private void dumpBpf(IndentingPrintWriter pw) {
