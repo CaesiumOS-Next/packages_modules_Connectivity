@@ -3522,7 +3522,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
                     final NetworkCapabilities networkCapabilities = new NetworkCapabilities(
                             (NetworkCapabilities) arg.second);
-                    processCapabilitiesFromAgent(nai, networkCapabilities);
+                    nai.declaredCapabilitiesUnsanitized =
+                            new NetworkCapabilities(networkCapabilities);
+                    sanitizeCapabilitiesFromAgent(nai, networkCapabilities);
                     updateCapabilities(nai.getCurrentScore(), nai, networkCapabilities);
                     break;
                 }
@@ -7176,11 +7178,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (VDBG) log("Network Monitor created for " +  nai);
         // nai.nc and nai.lp are the same object that was passed by the network agent if the agent
         // lives in the same process as this code (e.g. wifi), so make sure this code doesn't
-        // mutate their object
+        // mutate their object. TODO : make this copy much earlier to avoid them mutating it
+        // while the network monitor is starting.
         final NetworkCapabilities nc = new NetworkCapabilities(nai.networkCapabilities);
         final LinkProperties lp = new LinkProperties(nai.linkProperties);
-        // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info says.
-        processCapabilitiesFromAgent(nai, nc);
+        // Store a copy of the declared capabilities.
+        nai.declaredCapabilitiesUnsanitized = new NetworkCapabilities(nai.networkCapabilities);
+        // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info said.
+        sanitizeCapabilitiesFromAgent(nai, nc);
         nai.getAndSetNetworkCapabilities(mixInCapabilities(nai, nc));
         processLinkPropertiesFromAgent(nai, lp);
         nai.linkProperties = lp;
@@ -7641,12 +7646,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     /**
-     * Called when receiving NetworkCapabilities directly from a NetworkAgent.
-     * Stores into |nai| any data coming from the agent that might also be written to the network's
-     * NetworkCapabilities by ConnectivityService itself. This ensures that the data provided by the
-     * agent is not lost when updateCapabilities is called.
+     * Sanitize capabilities coming from a network agent, and store the original into the NAI.
+     *
+     * This method is called when receiving NetworkCapabilities directly from a NetworkAgent.
+     * Agents have restrictions on what capabilities they can send to Connectivity. For example,
+     * they can't change the owner UID from what they declared before, and complex restrictions
+     * apply to the accessUids field.
+     * They also should not mutate immutable capabilities, although for backward-compatibility
+     * this is not enforced and limited to just a log.
      */
-    private void processCapabilitiesFromAgent(NetworkAgentInfo nai, NetworkCapabilities nc) {
+    private void sanitizeCapabilitiesFromAgent(NetworkAgentInfo nai, NetworkCapabilities nc) {
         if (nc.hasConnectivityManagedCapability()) {
             Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
         }
@@ -7659,7 +7668,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     + nai.networkCapabilities.getOwnerUid() + " to " + nc.getOwnerUid());
             nc.setOwnerUid(nai.networkCapabilities.getOwnerUid());
         }
-        nai.declaredCapabilities = new NetworkCapabilities(nc);
         NetworkAgentInfo.restrictCapabilitiesFromNetworkAgent(nc, nai.creatorUid,
                 mCarrierPrivilegeAuthenticator);
     }
@@ -7788,8 +7796,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (nai.propagateUnderlyingCapabilities()) {
-            applyUnderlyingCapabilities(nai.declaredUnderlyingNetworks, nai.declaredCapabilities,
-                    newNc);
+            final NetworkCapabilities sanitized =
+                    new NetworkCapabilities(nai.declaredCapabilitiesUnsanitized);
+            applyUnderlyingCapabilities(nai.declaredUnderlyingNetworks, sanitized, newNc);
         }
 
         return newNc;
