@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1551162a_d078ac8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-02T14:06:02Z",
+      "side": 1,
+      "message": "Code LGTM. Would like to discuss the API a bit more.",
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16fb2a1e_a8e054cd",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-02T14:06:02Z",
+      "side": 1,
+      "message": "This seems a bit unnatural to me.\n\nAn app constructing an NsdServiceInfo would presumably do so to call registerService or resolveService. So it feels more natural to to add a Network parameter to these APIs than to use the NsdServiceInfo instead of to pass in the network, instead of putting it in the NsdServiceInfo.\n\nI think it feels unnatural because the network isn\u0027t really a property of the service itself. The service may be reachable through multiple networks (e.g., wifi and ethernet connected to the same hoeme network). So really the network is a property of the operation that is happening (i.e., a resolve).\n\nThat said, there might be a consistency argument here. I suppose it depends on whether NsdServiceInfo, in the existing API is primarily an object that the app discovers from the network (and is basically read-only), or if it\u0027s also a query object that the app can pass in.\n\nAt the moment, can an app construct an NsdServiceInfo with a name and service type, and pass that directly to resolveService and expect it to work?",
+      "range": {
+        "startLine": 53,
+        "startChar": 23,
+        "endLine": 53,
+        "endChar": 33
+      },
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd6678db_bf992076",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-02T14:06:02Z",
+      "side": 1,
+      "message": "Is \"network \u003d\u003d null\" a match? In this test, every discovered service should have a non-null network, right?",
+      "range": {
+        "startLine": 223,
+        "startChar": 25,
+        "endLine": 223,
+        "endChar": 44
+      },
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ed2673_e57ad14f",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-02T14:06:02Z",
+      "side": 1,
+      "message": "I think that soon after this callback is called, the network will validate: it has no INTERNET capability, so networkmonitor will just mark it validated without testing.\n\nIf you think you might need to expect more callbacks on |cb|, then I would suggest waiting for the validated callback. That way you know that no callbacks should arrive in the future unless something actually changes.",
+      "range": {
+        "startLine": 278,
+        "startChar": 57,
+        "endLine": 278,
+        "endChar": 62
+      },
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce75eb40_e7ea58de",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-02T14:06:02Z",
+      "side": 1,
+      "message": "// TODO: check that MDNS packets are sent only on testNetwork1.",
+      "range": {
+        "startLine": 436,
+        "startChar": 12,
+        "endLine": 436,
+        "endChar": 13
+      },
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
