@@ -198,7 +198,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     @Mock
     private LocationPermissionChecker mLocationPermissionChecker;
     private @Mock IBpfMap<U32, U8> mUidCounterSetMap;
-    private @Mock NetworkStatsService.TagStatsDeleter mTagStatsDeleter;
 
     private NetworkStatsService mService;
     private INetworkStatsSession mSession;
@@ -358,11 +357,6 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             @Override
             public IBpfMap<U32, U8> getUidCounterSetMap() {
                 return mUidCounterSetMap;
-            }
-
-            @Override
-            public NetworkStatsService.TagStatsDeleter getTagStatsDeleter() {
-                return mTagStatsDeleter;
             }
         };
     }
@@ -702,10 +696,8 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         final Intent intent = new Intent(ACTION_UID_REMOVED);
         intent.putExtra(EXTRA_UID, UID_BLUE);
         mServiceContext.sendBroadcast(intent);
-        verify(mTagStatsDeleter).deleteTagData(UID_BLUE);
         intent.putExtra(EXTRA_UID, UID_RED);
         mServiceContext.sendBroadcast(intent);
-        verify(mTagStatsDeleter).deleteTagData(UID_RED);
 
         // existing uid and total should remain unchanged; but removed UID
         // should be gone completely.
