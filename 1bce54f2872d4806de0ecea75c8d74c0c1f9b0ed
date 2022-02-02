@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a45d75e6_ead5786f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-02T01:42:50Z",
+      "side": 1,
+      "message": "I continue to think this is not the behavior we want, but it\u0027s what we agreed to do.",
+      "revId": "1bce54f2872d4806de0ecea75c8d74c0c1f9b0ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2beccc9c_19ff7ddf",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-02T01:42:50Z",
+      "side": 1,
+      "message": "I don\u0027t think we should test this because this behavior from the builder is incorrect ; in fact I added some TODOs to fix it just a few days ago. We should either remove this line or test the correct behavior (no exception when set on the builder, exception when calling build()) but turned off.\n\n(A builder should not mandate order in the calls. You can see some tests in ConnectivityServiceTest where I added these TODOs have to remove the specifier, then change the transports, then set it again, and that\u0027s silly)",
+      "range": {
+        "startLine": 678,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 58
+      },
+      "revId": "1bce54f2872d4806de0ecea75c8d74c0c1f9b0ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
