@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a6e8d6f_b01e5f19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-02T21:59:38Z",
+      "side": 1,
+      "message": "I am not sure if these test work as is (or work period as they will now operate on the actual maps; is that bad?). Will have to think about a sensible way to test this tomorrow.",
+      "revId": "24f6903c6ee53361094fc0acefc75651bdf72bee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
