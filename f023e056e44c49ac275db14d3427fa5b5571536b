@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45514ff5_2aae6d28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-02T20:04:17Z",
+      "side": 1,
+      "message": "I have tested this prototype CL with a TMO SIM and it works fine:\n\nWhen config\u003dtrue, cellular based hotspot and wifi based hotspot can be turned on.\n\nWhen config\u003dfalse: \n- try to turn on cellular based hotspot, it\u0027s immediately turned off and a notification displayed. \n- wifi based hotspot can be turned on.",
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
