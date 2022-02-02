@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000020025082",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1967167?revision\u003d5",
+      "fixSuggestions": [
+        {
+          "fixId": "9c3a3ff5_4b33127f",
+          "description": "Change to \"Tethering/src/com/android/networkstack/tethering/Tethering.java\"",
+          "replacements": [
+            {
+              "path": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+              "range": {
+                "startLine": 2467,
+                "startChar": 83,
+                "endLine": 2467,
+                "endChar": 92
+              },
+              "replacement": "available"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "5d9d2697_a3b01861",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2467,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-02T17:23:28Z",
+      "side": 1,
+      "message": "Common typo found: \"avaialble\" -- should it be \"available\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 2467,
+        "startChar": 83,
+        "endLine": 2467,
+        "endChar": 92
+      },
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000020025078",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1967167?revision\u003d5",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "3d5c6a57_37a82bbd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-02T17:23:28Z",
+      "side": 1,
+      "message": "Prefer to use ctx.getSystemService(CarrierConfigManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 382,
+        "startChar": 16,
+        "endLine": 382,
+        "endChar": 60
+      },
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
