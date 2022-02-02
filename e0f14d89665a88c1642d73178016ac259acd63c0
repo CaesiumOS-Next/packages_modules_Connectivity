@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4af0fe6d_33b5f4ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-02-02T04:59:50Z",
+      "side": 1,
+      "message": "Un-abandoning since on second thought it wasn\u0027t necessary.",
+      "revId": "e0f14d89665a88c1642d73178016ac259acd63c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
