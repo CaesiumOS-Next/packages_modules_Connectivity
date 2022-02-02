@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "489d421b_4ea93880",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-02T10:45:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4b6f5c6_11bb8464",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 9
+      },
+      "revId": "927532a095454d1509a1850a649dc6c4696612fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "064ccada_7e419323",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-26T15:55:25Z",
       "side": 1,
       "message": "Should we need to wait for ServiceUnregistered callback?",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 436,
+        "endChar": 9
+      },
+      "revId": "927532a095454d1509a1850a649dc6c4696612fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "721a1920_523d11e6",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-02T10:45:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "064ccada_7e419323",
       "range": {
         "startLine": 436,
         "startChar": 8,
