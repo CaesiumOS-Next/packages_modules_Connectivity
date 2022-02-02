@@ -46,6 +46,30 @@
       },
       "revId": "ea613f9fa35ce9ecee053325cf2bf47462fd263c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "935388ee_936bf979",
+        "filename": "service/native/include/Common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1468761
+      },
+      "writtenOn": "2022-02-02T22:01:42Z",
+      "side": 1,
+      "message": "Updated the CL according to (2).\nWith aosp/1966613, the TrafficController in system/netd is no longer used for Android T, so I\u0027ll abandon the Netd AIDL changes.\nWDYT?",
+      "parentUuid": "11298be5_f25d0b34",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 63
+      },
+      "revId": "ea613f9fa35ce9ecee053325cf2bf47462fd263c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
