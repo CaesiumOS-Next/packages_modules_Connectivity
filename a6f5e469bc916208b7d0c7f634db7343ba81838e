@@ -1,0 +1,30 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000020009571",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1967167?revision\u003d4",
+      "fixSuggestions": [],
+      "key": {
+        "uuid": "49f068db_0c1000cf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-02T03:40:20Z",
+      "side": 1,
+      "message": "Prefer to use ctx.getSystemService(CarrierConfigManager.class) instead to avoid the cast.",
+      "range": {
+        "startLine": 382,
+        "startChar": 16,
+        "endLine": 382,
+        "endChar": 60
+      },
+      "revId": "a6f5e469bc916208b7d0c7f634db7343ba81838e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
