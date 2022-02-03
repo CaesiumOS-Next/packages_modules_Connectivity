@@ -119,11 +119,11 @@ public class DscpPolicyTracker {
         // STATUS_REQUESTED_CLASSIFIER_NOT_SUPPORTED,
         // and for any other generic error STATUS_REQUEST_DECLINED
 
-        int addIndex = 0;
+        final int addIndex;
         // If a policy with a matching ID exists, replace it, otherwise use the next free
         // index for the policy.
         if (existingIndex != -1) {
-            addIndex = mPolicyIdToBpfMapIndex.get(policy.getPolicyId());
+            addIndex = existingIndex;
         } else {
             addIndex = getFirstFreeIndex();
         }
@@ -132,7 +132,7 @@ public class DscpPolicyTracker {
             mPolicyIdToBpfMapIndex.put(policy.getPolicyId(), addIndex);
 
             // Add v4 policy to mBpfDscpIpv4Policies if source and destination address
-            // are both null or if they are both instances of Inet6Address.
+            // are both null or if they are both instances of Inet4Address.
             if (matchesIpv4(policy)) {
                 mBpfDscpIpv4Policies.insertOrReplaceEntry(
                         new Struct.U32(addIndex),
