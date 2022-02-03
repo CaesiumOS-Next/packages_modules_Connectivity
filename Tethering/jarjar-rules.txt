@@ -8,7 +8,7 @@ rule android.util.LocalLog* com.android.networkstack.tethering.util.LocalLog@1
 rule android.net.shared.Inet4AddressUtils* com.android.networkstack.tethering.shared.Inet4AddressUtils@1
 
 # Classes from net-utils-framework-common
-rule com.android.net.module.util.** com.android.networkstack.tethering.util.@1
+rule com.android.net.module.util.TestBpfMap com.android.networkstack.tethering.util.TestBpfMap
 
 # Classes from net-utils-device-common
 rule com.android.net.module.util.Struct* com.android.networkstack.tethering.util.Struct@1
