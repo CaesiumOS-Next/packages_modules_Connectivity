@@ -19,6 +19,7 @@ package com.android.server.connectivity;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.telephony.TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED;
 
+import static com.android.networkstack.apishim.api31.ConstantsShim.RECEIVER_NOT_EXPORTED;
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertEquals;
@@ -138,10 +139,11 @@ public class CarrierPrivilegeAuthenticatorTest {
     @Test
     public void testConstructor() throws Exception {
         verify(mContext).registerReceiver(
-                        eq(mCarrierPrivilegeAuthenticator),
-                        any(IntentFilter.class),
-                        any(),
-                        any());
+                eq(mCarrierPrivilegeAuthenticator),
+                any(IntentFilter.class),
+                any(),
+                any(),
+                eq(RECEIVER_NOT_EXPORTED));
         final IntentFilter filter = getIntentFilter();
         assertEquals(1, filter.countActions());
         assertTrue(filter.hasAction(ACTION_MULTI_SIM_CONFIG_CHANGED));
