@@ -69,6 +69,7 @@ public class DscpPolicyValue extends Struct {
         return true;
     }
 
+    // TODO:  move to frameworks/libs/net and have this and BpfCoordinator import it.
     private byte[] toIpv4MappedAddressBytes(InetAddress ia) {
         final byte[] addr6 = new byte[16];
         if (ia != null) {
@@ -117,9 +118,7 @@ public class DscpPolicyValue extends Struct {
         return mask;
     }
 
-    // This constructor is necessary for BpfMap#getValue since all values must be
-    // in the constructor.
-    public DscpPolicyValue(final InetAddress src46, final InetAddress dst46, final int srcPort,
+    private DscpPolicyValue(final InetAddress src46, final InetAddress dst46, final int srcPort,
             final int dstPortStart, final int dstPortEnd, final short proto,
             final short dscp) {
         this.src46 = toAddressField(src46);
@@ -136,6 +135,7 @@ public class DscpPolicyValue extends Struct {
         // Use member variables for IP since byte[] is needed and api variables for everything else
         // so -1 is passed into mask if parameter is not present.
         this.mask = makeMask(this.src46, this.dst46, srcPort, dstPortStart, proto, dscp);
+        Log.e(TAG, "Dscp Policy: " + toString());
     }
 
     public DscpPolicyValue(final InetAddress src46, final InetAddress dst46, final int srcPort,
