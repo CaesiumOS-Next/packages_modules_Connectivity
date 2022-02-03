@@ -65,10 +65,12 @@ public class MyService extends Service {
             }
             final Context context = getApplicationContext();
             mReceiver = new MyBroadcastReceiver(DYNAMIC_RECEIVER);
-            context.registerReceiver(mReceiver, new IntentFilter(ACTION_RECEIVER_READY));
             context.registerReceiver(mReceiver,
-                    new IntentFilter(ACTION_RESTRICT_BACKGROUND_CHANGED));
-            context.registerReceiver(mReceiver, new IntentFilter(ACTION_SNOOZE_WARNING));
+                    new IntentFilter(ACTION_RECEIVER_READY), Context.RECEIVER_EXPORTED);
+            context.registerReceiver(mReceiver,
+                    new IntentFilter(ACTION_RESTRICT_BACKGROUND_CHANGED), Context.RECEIVER_EXPORTED);
+            context.registerReceiver(mReceiver,
+                    new IntentFilter(ACTION_SNOOZE_WARNING), Context.RECEIVER_EXPORTED);
             Log.d(TAG, "receiver registered");
         }
 
