@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af2116a7_be8fd71b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-03T04:22:10Z",
+      "side": 1,
+      "message": "Instead of doing this, is there a way to prevent libservice-connectivity from depending on libbase? I don\u0027t think there\u0027s any particularly complicated code in it at all. If it just depends on libbase for unique_fd, then maybe we can use the JUST_USE_INT hack instead?",
+      "revId": "dcae35166334fc3e350f446a534716e2024dcee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
