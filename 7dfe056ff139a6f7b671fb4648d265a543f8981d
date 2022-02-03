@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50fbf824_2845c38d",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-03T06:58:47Z",
+      "side": 1,
+      "message": "Right, but here \"network\" is the expected network by the test (renamed), where \"null\" means \"accept any network\". This is used in the legacy test.",
+      "parentUuid": "bd6678db_bf992076",
+      "range": {
+        "startLine": 223,
+        "startChar": 25,
+        "endLine": 223,
+        "endChar": 44
+      },
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1ed2673_e57ad14f",
@@ -87,6 +111,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26e1ac26_6a8a1187",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-03T06:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1ed2673_e57ad14f",
+      "range": {
+        "startLine": 278,
+        "startChar": 57,
+        "endLine": 278,
+        "endChar": 62
+      },
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ce75eb40_e7ea58de",
@@ -100,6 +148,30 @@
       "writtenOn": "2022-02-02T14:06:02Z",
       "side": 1,
       "message": "// TODO: check that MDNS packets are sent only on testNetwork1.",
+      "range": {
+        "startLine": 436,
+        "startChar": 12,
+        "endLine": 436,
+        "endChar": 13
+      },
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab9e02d0_42575b63",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 15
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-03T06:58:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce75eb40_e7ea58de",
       "range": {
         "startLine": 436,
         "startChar": 12,
