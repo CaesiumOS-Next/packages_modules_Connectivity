@@ -18,6 +18,8 @@ package com.android.server.connectivity;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_CBS;
 
+import static com.android.networkstack.apishim.ConstantsShim.RECEIVER_NOT_EXPORTED;
+
 import android.annotation.NonNull;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -157,7 +159,7 @@ public class CarrierPrivilegeAuthenticator extends BroadcastReceiver {
     private void registerForCarrierChanges() {
         final IntentFilter filter = new IntentFilter();
         filter.addAction(TelephonyManager.ACTION_MULTI_SIM_CONFIG_CHANGED);
-        mContext.registerReceiver(this, filter, null, mHandler);
+        mContext.registerReceiver(this, filter, null, mHandler, RECEIVER_NOT_EXPORTED /* flags */);
         registerCarrierPrivilegesListeners();
     }
 
