@@ -65,7 +65,7 @@ public final class DscpPolicy implements Parcelable {
     public static final int STATUS_REQUESTED_CLASSIFIER_NOT_SUPPORTED = 2;
 
     /**
-     * TODO: should this error case be supported?
+     * Policy was unable to be added due to exception or MAX_POLICIES hit.
      */
     public static final int STATUS_INSUFFICIENT_PROCESSING_RESOURCES = 3;
 
