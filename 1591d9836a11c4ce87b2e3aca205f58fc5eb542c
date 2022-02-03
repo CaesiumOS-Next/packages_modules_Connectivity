@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1c27d54_994f21e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-03T03:39:08Z",
+      "side": 1,
+      "message": "Let\u0027s see if this builds and passes tests, but it seems like it would be more correct to make this particular broadcast a protected broadcast.",
+      "revId": "1591d9836a11c4ce87b2e3aca205f58fc5eb542c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
