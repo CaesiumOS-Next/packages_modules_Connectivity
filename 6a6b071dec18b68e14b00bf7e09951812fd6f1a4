@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0895bb21_5042bbc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-03T04:18:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t our goal be to *remove* libc++ from the apex instead?",
+      "revId": "6a6b071dec18b68e14b00bf7e09951812fd6f1a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
