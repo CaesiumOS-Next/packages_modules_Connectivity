@@ -68,7 +68,8 @@ public class MyService extends Service {
             context.registerReceiver(mReceiver, new IntentFilter(ACTION_RECEIVER_READY));
             context.registerReceiver(mReceiver,
                     new IntentFilter(ACTION_RESTRICT_BACKGROUND_CHANGED));
-            context.registerReceiver(mReceiver, new IntentFilter(ACTION_SNOOZE_WARNING));
+            context.registerReceiver(
+                mReceiver, new IntentFilter(ACTION_SNOOZE_WARNING), Context.RECEIVER_EXPORTED);
             Log.d(TAG, "receiver registered");
         }
 
