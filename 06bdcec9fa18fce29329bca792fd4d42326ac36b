@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a61cb6d_9ddd7c10",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-03T10:07:37Z",
+      "side": 1,
+      "message": "Is this operation instantaneous or blocking? If not, do you need to wait for a callback before calling discoverServices?",
+      "range": {
+        "startLine": 414,
+        "startChar": 29,
+        "endLine": 414,
+        "endChar": 44
+      },
+      "revId": "06bdcec9fa18fce29329bca792fd4d42326ac36b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2df7cb75_b9dae27a",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 17
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-03T10:07:37Z",
+      "side": 1,
+      "message": "This does not look very robust. Might want to check that no discovery packets were sent on testnetwork2. Add a TODO?",
+      "range": {
+        "startLine": 427,
+        "startChar": 12,
+        "endLine": 427,
+        "endChar": 74
+      },
+      "revId": "06bdcec9fa18fce29329bca792fd4d42326ac36b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
