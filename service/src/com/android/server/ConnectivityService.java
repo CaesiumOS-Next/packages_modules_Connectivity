@@ -4410,6 +4410,9 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void destroyNativeNetwork(@NonNull NetworkAgentInfo nai) {
+        if (mDscpPolicyTracker != null) {
+            mDscpPolicyTracker.removeAllDscpPolicies(nai);
+        }
         try {
             mNetd.networkDestroy(nai.network.getNetId());
         } catch (RemoteException | ServiceSpecificException e) {
