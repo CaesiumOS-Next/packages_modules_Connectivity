@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a1ea9c7_189c9fb5",
+        "filename": "framework-t/api/current.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-03T08:20:05Z",
+      "side": 1,
+      "message": "Summarizing \"offline\" discussion: I think having the Network here has a number of advantages:\n\n - It allows developers to get a NsdServiceInfo from discovery and use it as-is for resolving, which will automatically use the right Network. The previous API was broken for that; this allows fixing it. Even if we left it broken and deprecated it, people would be likely to still use it because figuring out the Network adds code, and without it it appears to work most of the time.\n - Having the Network as a separate parameter in the callbacks would look like it is independent from NsdServiceInfo; which is not really true, since service addresses depend on the Network. A developer might think that they can get \"The service info on network 1\" and \"The service info on network 2\" looking at the API, but the NsdServiceInfo is actually not the same as resolved addresses are actually different\n - For registration, NsdServiceInfo shouldn\u0027t really be registered as-is on multiple networks as addresses will depend on the interfaces\n\nSo having the Network in the NsdServiceInfo seemed like a better option to me.\n\nAn app can indeed construct a NsdServiceInfo with just name/type and send it to resolveService; it should be the same as using a service info obtained from discovery (except it wouldn\u0027t have Network if not added too).",
+      "parentUuid": "16fb2a1e_a8e054cd",
+      "range": {
+        "startLine": 53,
+        "startChar": 23,
+        "endLine": 53,
+        "endChar": 33
+      },
+      "revId": "7dfe056ff139a6f7b671fb4648d265a543f8981d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd6678db_bf992076",
         "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
         "patchSetId": 15
