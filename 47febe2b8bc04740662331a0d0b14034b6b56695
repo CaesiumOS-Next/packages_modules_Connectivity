@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93757364_d547f30c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-04T12:48:47Z",
+      "side": 1,
+      "message": "it seems to me that jarjaring libs is a bad idea, we should only jarjar final targets",
+      "revId": "47febe2b8bc04740662331a0d0b14034b6b56695",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
