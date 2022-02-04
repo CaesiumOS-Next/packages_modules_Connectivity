@@ -16,6 +16,24 @@
       "message": "I have tested this prototype CL with a TMO SIM and it works fine:\n\nWhen config\u003dtrue, cellular based hotspot and wifi based hotspot can be turned on.\n\nWhen config\u003dfalse: \n- try to turn on cellular based hotspot, it\u0027s immediately turned off and a notification displayed. \n- wifi based hotspot can be turned on.",
       "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a56d9f9_9dfbd31f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-04T00:14:33Z",
+      "side": 1,
+      "message": "One issue: for \"USB tethering\", the notification is displayed but the toggle doesn\u0027t turn it self off. But I assume that\u0027s a bug that can be chased in parallel, not an overall design flaw.",
+      "parentUuid": "45514ff5_2aae6d28",
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
