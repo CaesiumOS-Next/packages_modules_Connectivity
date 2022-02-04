@@ -65,7 +65,6 @@ cc_library_shared {
     stl: "libc++_static",
     header_libs: [
         "bpf_connectivity_headers",
-        "libbase_headers",
     ],
     static_libs: [
         "libbase",
