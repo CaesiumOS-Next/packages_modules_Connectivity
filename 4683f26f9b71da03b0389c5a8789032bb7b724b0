@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f36a4f1c_4aaa76fb",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-02-04T18:45:48Z",
+      "side": 1,
+      "message": "Nit, connectivity likes the format as the baseline. Suggest reverting to that\n\nIn general, avoid formatting things that are not changed in your CL",
+      "range": {
+        "startLine": 248,
+        "startChar": 36,
+        "endLine": 258,
+        "endChar": 0
+      },
+      "revId": "4683f26f9b71da03b0389c5a8789032bb7b724b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
