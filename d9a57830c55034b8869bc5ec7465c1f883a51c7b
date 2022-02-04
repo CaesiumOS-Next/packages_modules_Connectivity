@@ -1,0 +1,133 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000020123471",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1973286?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "8a668389_ebafcc72",
+          "description": "Change to \"tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java\"",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+              "range": {
+                "startLine": 40,
+                "startChar": 20,
+                "endLine": 40,
+                "endChar": 30
+              },
+              "replacement": "Constructor"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "7ad010d2_a80f9377",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-04T21:44:50Z",
+      "side": 1,
+      "message": "Common typo found: \"Contructor\" -- should it be \"Constructor\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 40,
+        "startChar": 20,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "d9a57830c55034b8869bc5ec7465c1f883a51c7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000020123471",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1973286?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "060b4634_910b003a",
+          "description": "Change to \"tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java\"",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+              "range": {
+                "startLine": 47,
+                "startChar": 20,
+                "endLine": 47,
+                "endChar": 30
+              },
+              "replacement": "Constructor"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "f5d37fcf_35deab55",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-04T21:44:50Z",
+      "side": 1,
+      "message": "Common typo found: \"Contructor\" -- should it be \"Constructor\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 47,
+        "startChar": 20,
+        "endLine": 47,
+        "endChar": 30
+      },
+      "revId": "d9a57830c55034b8869bc5ec7465c1f883a51c7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000020123471",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1973286?revision\u003d1",
+      "fixSuggestions": [
+        {
+          "fixId": "f47b14e9_a8567ed6",
+          "description": "Change to \"tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java\"",
+          "replacements": [
+            {
+              "path": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+              "range": {
+                "startLine": 54,
+                "startChar": 20,
+                "endLine": 54,
+                "endChar": 30
+              },
+              "replacement": "Constructor"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "7e028f48_5856c8b9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-04T21:44:50Z",
+      "side": 1,
+      "message": "Common typo found: \"Contructor\" -- should it be \"Constructor\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 54,
+        "startChar": 20,
+        "endLine": 54,
+        "endChar": 30
+      },
+      "revId": "d9a57830c55034b8869bc5ec7465c1f883a51c7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
