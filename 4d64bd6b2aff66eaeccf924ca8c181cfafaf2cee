@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81279107_28fc1b32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-02-04T18:41:10Z",
+      "side": 1,
+      "message": "Question - does this need to be separate from aosp/1971439? Why not just do it together, and check it in as a topic?",
+      "revId": "4d64bd6b2aff66eaeccf924ca8c181cfafaf2cee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
