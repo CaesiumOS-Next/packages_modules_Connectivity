@@ -52,6 +52,7 @@ import android.net.UidRange;
 import android.net.Uri;
 import android.net.util.SharedLog;
 import android.os.Build;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
 import android.os.SystemConfigManager;
@@ -247,6 +248,10 @@ public class PermissionMonitor {
             final int permission = getPackageNetdNetworkPermission(app);
             if (isHigherNetworkPermission(permission, uidsPerm.get(uid, PERMISSION_NONE))) {
                 uidsPerm.put(uid, permission);
+                if (Process.isApplicationUid(uid)) {
+                    int sdkSandboxUid = Process.toSdkSandboxUid(uid);
+                    uidsPerm.put(sdkSandboxUid, permission);
+                }
             }
         }
         return uidsPerm;
@@ -262,7 +267,11 @@ public class PermissionMonitor {
             }
             final int otherNetdPerms = getNetdPermissionMask(app.requestedPermissions,
                     app.requestedPermissionsFlags);
-            appIdsPerm.put(appId, appIdsPerm.get(appId) | otherNetdPerms);
+            final int permission = appIdsPerm.get(appId) | otherNetdPerms;
+            appIdsPerm.put(appId, permission);
+            if (Process.isApplicationUid(appId)) {
+                appIdsPerm.put(Process.toSdkSandboxUid(appId), permission);
+            }
         }
         return appIdsPerm;
     }
@@ -288,11 +297,19 @@ public class PermissionMonitor {
         final SparseIntArray appIdsPerm = new SparseIntArray();
         for (final int uid : mSystemConfigManager.getSystemPermissionUids(INTERNET)) {
             final int appId = UserHandle.getAppId(uid);
-            appIdsPerm.put(appId, appIdsPerm.get(appId) | PERMISSION_INTERNET);
+            final int permission = appIdsPerm.get(appId) | PERMISSION_INTERNET;
+            appIdsPerm.put(appId, permission);
+            if (Process.isApplicationUid(appId)) {
+                appIdsPerm.put(Process.toSdkSandboxUid(appId), permission);
+            }
         }
         for (final int uid : mSystemConfigManager.getSystemPermissionUids(UPDATE_DEVICE_STATS)) {
             final int appId = UserHandle.getAppId(uid);
-            appIdsPerm.put(appId, appIdsPerm.get(appId) | PERMISSION_UPDATE_DEVICE_STATS);
+            final int permission = appIdsPerm.get(appId) | PERMISSION_UPDATE_DEVICE_STATS;
+            appIdsPerm.put(appId, permission);
+            if (Process.isApplicationUid(appId)) {
+                appIdsPerm.put(Process.toSdkSandboxUid(appId), permission);
+            }
         }
         return appIdsPerm;
     }
@@ -592,6 +609,12 @@ public class PermissionMonitor {
 
             SparseIntArray apps = new SparseIntArray();
             apps.put(uid, permission);
+
+            if (Process.isApplicationUid(uid)) {
+                int sdkSandboxUid = Process.toSdkSandboxUid(uid);
+                mUidToNetworkPerm.put(sdkSandboxUid, permission);
+                apps.put(sdkSandboxUid, permission);
+            }
             sendUidsNetworkPermission(apps, true /* add */);
         }
 
@@ -654,13 +677,25 @@ public class PermissionMonitor {
                 + ", tPerm=" + permissionToString(trafficPerm));
         if (permission != currentPermission) {
             final SparseIntArray apps = new SparseIntArray();
+            int sdkSandboxUid = -1;
+            if (Process.isApplicationUid(uid)) {
+                sdkSandboxUid = Process.toSdkSandboxUid(uid);
+            }
             if (permission == PERMISSION_NONE) {
                 mUidToNetworkPerm.delete(uid);
                 apps.put(uid, PERMISSION_NETWORK);  // doesn't matter which permission we pick here
+                if (sdkSandboxUid != -1) {
+                    mUidToNetworkPerm.delete(sdkSandboxUid);
+                    apps.put(sdkSandboxUid, PERMISSION_NETWORK);
+                }
                 sendUidsNetworkPermission(apps, false);
             } else {
                 mUidToNetworkPerm.put(uid, permission);
                 apps.put(uid, permission);
+                if (sdkSandboxUid != -1) {
+                    mUidToNetworkPerm.put(sdkSandboxUid, permission);
+                    apps.put(sdkSandboxUid, permission);
+                }
                 sendUidsNetworkPermission(apps, true);
             }
         }
@@ -828,6 +863,10 @@ public class PermissionMonitor {
     void sendPackagePermissionsForAppId(int appId, int permissions) {
         SparseIntArray netdPermissionsAppIds = new SparseIntArray();
         netdPermissionsAppIds.put(appId, permissions);
+        if (Process.isApplicationUid(appId)) {
+            int sdkSandboxAppId = Process.toSdkSandboxUid(appId);
+            netdPermissionsAppIds.put(sdkSandboxAppId, permissions);
+        }
         sendAppIdsTrafficPermission(netdPermissionsAppIds);
     }
 
@@ -925,9 +964,19 @@ public class PermissionMonitor {
                 // Doesn't matter which permission is set here.
                 removedUids.put(uid, PERMISSION_NETWORK);
                 mUidToNetworkPerm.delete(uid);
+                if (Process.isApplicationUid(uid)) {
+                    int sdkSandboxUid = Process.toSdkSandboxUid(uid);
+                    removedUids.put(sdkSandboxUid, PERMISSION_NETWORK);
+                    mUidToNetworkPerm.delete(sdkSandboxUid);
+                }
             } else {
                 updatedUids.put(uid, permission);
                 mUidToNetworkPerm.put(uid, permission);
+                if (Process.isApplicationUid(uid)) {
+                    int sdkSandboxUid = Process.toSdkSandboxUid(uid);
+                    updatedUids.put(sdkSandboxUid, permission);
+                    mUidToNetworkPerm.put(sdkSandboxUid, permission);
+                }
             }
         }
 
