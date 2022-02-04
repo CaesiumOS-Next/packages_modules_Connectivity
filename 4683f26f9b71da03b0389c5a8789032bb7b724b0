@@ -22,6 +22,30 @@
       },
       "revId": "4683f26f9b71da03b0389c5a8789032bb7b724b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e24d68c2_e588ac5f",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-02-04T21:26:56Z",
+      "side": 1,
+      "message": "Right. Unless the original formatting has impact the readability, we should not change it. It brings unnecessary burden to reviewer and interfere the real change intent. I have revert the diff here and will double check next time when user formatter in IDE. Thanks",
+      "parentUuid": "f36a4f1c_4aaa76fb",
+      "range": {
+        "startLine": 248,
+        "startChar": 36,
+        "endLine": 258,
+        "endChar": 0
+      },
+      "revId": "4683f26f9b71da03b0389c5a8789032bb7b724b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
