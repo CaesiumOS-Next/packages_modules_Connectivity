@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48a32d3c_150c8ccb",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-04T03:42:34Z",
+      "side": 1,
+      "message": "Perhaps not for this CL, but can you test that no packets are sent out on testnetwork2?\n\nDoes the test already implicitly verify that no service is found on testnetwork2 (for example, because it checks all the callbacks in order, and therefore ensures that no callback was ever fired on testnetwork2)? If so, great, and might want to add a comment explaining that.",
+      "revId": "792947307e0dd72869ffd705aac7c7a819daaec6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
