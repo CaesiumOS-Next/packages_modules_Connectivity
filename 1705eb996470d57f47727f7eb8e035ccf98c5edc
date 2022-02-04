@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9db56c2b_0894784f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-04T12:36:56Z",
+      "side": 1,
+      "message": "bypassing presubmit as the only thing that is still breaking is presubmit_retry_cloud-tf (99% flake) with unrelated error: \"testfile not found: /data/local/tmp/ajur/excludes.txt\"\n",
+      "revId": "1705eb996470d57f47727f7eb8e035ccf98c5edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
