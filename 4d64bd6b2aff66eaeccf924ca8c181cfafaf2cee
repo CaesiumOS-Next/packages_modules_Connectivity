@@ -16,6 +16,24 @@
       "message": "Question - does this need to be separate from aosp/1971439? Why not just do it together, and check it in as a topic?",
       "revId": "4d64bd6b2aff66eaeccf924ca8c181cfafaf2cee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13f9c029_324e2560",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-02-04T18:49:13Z",
+      "side": 1,
+      "message": "aosp/1971439 is the formal solution to resolve the CP change notification race. It works well on aosp/master. \n\nOnly one remains problem in aosp/1971439, the dependency (CarrierPrivilegesUtils introduced in compatibility-device-util-axt in aosp/1971439) does not CP to git_sc-mainline-prod and now it has a build break.\n\nI am asking Remi for help but did not receive response yet. This CL is a temporary fix to unblock the Carrier Privilege migration.",
+      "parentUuid": "81279107_28fc1b32",
+      "revId": "4d64bd6b2aff66eaeccf924ca8c181cfafaf2cee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
