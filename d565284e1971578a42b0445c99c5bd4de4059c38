@@ -16,6 +16,24 @@
       "message": "rebase since commit got conflict in module-lib-current.txt ",
       "revId": "d565284e1971578a42b0445c99c5bd4de4059c38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "489f3007_27e92172",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1937113
+      },
+      "writtenOn": "2022-02-06T15:52:33Z",
+      "side": 1,
+      "message": "\u003e ✔️ All files and artifacts have passed presubmit lint checks\n\u003e For more details see (https://android-build.googleplex.com/builds/treetop/android-review/1962981?revision\u003d2)\n\u003e \n\u003e Have a question? Found a bug? http://go/presubmit-lint-bug\n\nPlease fix.",
+      "parentUuid": "48cc1b6d_e9224c44",
+      "revId": "d565284e1971578a42b0445c99c5bd4de4059c38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
