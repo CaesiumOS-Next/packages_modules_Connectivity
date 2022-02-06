@@ -6994,10 +6994,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         // the capabilities' access UID comply with security limitations. They will be sanitized
         // as the NAI registration finishes, in handleRegisterNetworkAgent(). This is
         // because some of the checks must happen on the handler thread.
+        final NetworkAgentConfig config = new NetworkAgentConfig(networkAgentConfig);
         final NetworkAgentInfo nai = new NetworkAgentInfo(na,
                 new Network(mNetIdManager.reserveNetId()), new NetworkInfo(networkInfo),
                 linkProperties, networkCapabilities,
-                currentScore, mContext, mTrackerHandler, new NetworkAgentConfig(networkAgentConfig),
+                currentScore, mContext, mTrackerHandler, config,
                 this, mNetd, mDnsResolver, providerId, uid, mLingerDelayMs,
                 mQosCallbackTracker, mDeps);
 
@@ -7006,7 +7007,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 ? nai.networkCapabilities.getSsid() : extraInfo;
         if (DBG) log("registerNetworkAgent " + nai);
         mDeps.getNetworkStack().makeNetworkMonitor(
-                nai.network, name, new NetworkMonitorCallbacks(nai));
+                nai.network, config, name, new NetworkMonitorCallbacks(nai));
         // NetworkAgentInfo registration will finish when the NetworkMonitor is created.
         // If the network disconnects or sends any other event before that, messages are deferred by
         // NetworkAgent until nai.connect(), which will be called when finalizing the
