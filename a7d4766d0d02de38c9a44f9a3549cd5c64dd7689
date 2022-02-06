@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da74a595_1d0d9e53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-06T23:47:55Z",
+      "side": 1,
+      "message": "Failures are unrelated to this CL.\n\ncros_async_test_src_lib is not in networking code and has been broken since Feb 4:\n\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI52200010015458955\u0026testResultId\u003dTR46727886193683657 \n\n\ncom.android.captiveportallogin.DownloadServiceTest is in our code, but it\u0027s also been broken for a while. Looks it was broken by ag/16789354 which started requiring apps to declare the POST_NOTIFICATIONS permissions to post notifications; that CL didn\u0027t run our presubmits because it\u0027s not in our projects.",
+      "revId": "a7d4766d0d02de38c9a44f9a3549cd5c64dd7689",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
