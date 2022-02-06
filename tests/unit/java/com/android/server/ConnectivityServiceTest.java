@@ -1339,6 +1339,10 @@ public class ConnectivityServiceTest {
             return (mMockNetworkAgent == null) ? null : mMockNetworkAgent.getNetwork();
         }
 
+        public NetworkAgentConfig getNetworkAgentConfig() {
+            return null == mMockNetworkAgent ? null : mMockNetworkAgent.getNetworkAgentConfig();
+        }
+
         @Override
         public int getActiveVpnType() {
             return mVpnType;
