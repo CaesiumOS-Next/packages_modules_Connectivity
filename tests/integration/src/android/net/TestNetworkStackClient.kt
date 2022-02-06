@@ -61,10 +61,15 @@ class TestNetworkStackClient(private val context: Context) : NetworkStackClientB
         }
     }
 
-    override fun makeNetworkMonitor(network: Network, name: String?, cb: INetworkMonitorCallbacks) {
+    override fun makeNetworkMonitor(
+        network: Network,
+        config: NetworkAgentConfig,
+        name: String?,
+        cb: INetworkMonitorCallbacks
+    ) {
         val cbSpy = spy(NetworkMonitorCallbacksWrapper(cb))
         lastCallbacks[network] = cbSpy
-        super.makeNetworkMonitor(network, name, cbSpy)
+        super.makeNetworkMonitor(network, config, name, cbSpy)
     }
 
     fun verifyNetworkMonitorCreated(network: Network, timeoutMs: Long) {

@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.INetworkMonitorCallbacks
 import android.net.Network
+import android.net.NetworkAgentConfig
 import android.net.metrics.IpConnectivityLog
 import android.net.util.SharedLog
 import android.os.IBinder
@@ -102,6 +103,7 @@ class TestNetworkStackService : Service() {
         ) {
             val nm = NetworkMonitor(this@TestNetworkStackService, cb,
                     this.network,
+                    NetworkAgentConfig.Builder().build(),
                     mock(IpConnectivityLog::class.java), mock(SharedLog::class.java),
                     mock(NetworkStackService.NetworkStackServiceManager::class.java),
                     NetworkMonitorDeps(privateDnsBypassNetwork),
