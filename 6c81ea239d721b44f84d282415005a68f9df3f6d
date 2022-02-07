@@ -39,6 +39,30 @@
       },
       "revId": "6c81ea239d721b44f84d282415005a68f9df3f6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3916ed1_26fe1b64",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-07T22:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c51f550f_0833c2e9",
+      "range": {
+        "startLine": 309,
+        "startChar": 8,
+        "endLine": 309,
+        "endChar": 9
+      },
+      "revId": "6c81ea239d721b44f84d282415005a68f9df3f6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
