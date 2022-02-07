@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd9b7dae_08cd94cb",
+        "filename": "framework/src/android/net/NetworkAgentConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T14:01:28Z",
+      "side": 1,
+      "message": "Should this really be public and mutable? Mutable public fields are generally not good design for classes that have multiple customers.\n\nFrom an API perspective, this is immutable, because agent can\u0027t change after the object is built. And there\u0027s already a getter for CS and NetworkMonitor to read it.  So it doesn\u0027t need to be public.\n\nCan we make this private final, or at least private?",
+      "range": {
+        "startLine": 254,
+        "startChar": 4,
+        "endLine": 254,
+        "endChar": 10
+      },
+      "revId": "11c9f34499ff4c1adfd463e9cb0d9c85b1836e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caa5a785_dbd980df",
+        "filename": "tests/common/java/android/net/NetworkAgentConfigTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T14:01:28Z",
+      "side": 1,
+      "message": "Don\u0027t we want to test these on T as well? This \"else if\" means they\u0027ll only be tested on S but not on T.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 48
+      },
+      "revId": "11c9f34499ff4c1adfd463e9cb0d9c85b1836e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56cb1f1a_d49f4a57",
+        "filename": "tests/unit/java/com/android/internal/net/VpnProfileTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T14:01:28Z",
+      "side": 1,
+      "message": "Is there a reason for each new boolean configuration option to be an extra boolean? Could we instead have an integer holding flags? That would make it easier to add future options.",
+      "range": {
+        "startLine": 137,
+        "startChar": 71,
+        "endLine": 137,
+        "endChar": 73
+      },
+      "revId": "11c9f34499ff4c1adfd463e9cb0d9c85b1836e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
