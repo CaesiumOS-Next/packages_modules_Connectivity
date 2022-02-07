@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61801e58_49197cdb",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-07T14:35:08Z",
+      "side": 1,
+      "message": "I believe this could currently be called on a device running S (since CS is calling this), in which case the jni\u0027ed traffic controller has not been initialized (native_init is only called on T+). This is also an issue for setCounterSet and deleteTagData (although maybe less so as their users were not yet mainlined in S). There are two ways to solve this:\n\n1) only call native_dump if !USE_NETD\n2) let TrafficController open the bpf maps on \u003cT devices.\n\nI am not sure which one is more correct.",
+      "range": {
+        "startLine": 311,
+        "startChar": 16,
+        "endLine": 311,
+        "endChar": 20
+      },
+      "revId": "bc0bc44a79158e6e242744359c361968c5d5b617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
