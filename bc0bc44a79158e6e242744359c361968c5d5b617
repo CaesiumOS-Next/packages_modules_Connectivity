@@ -22,6 +22,30 @@
       },
       "revId": "bc0bc44a79158e6e242744359c361968c5d5b617",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa7b850d_7f5fa9f0",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-02-07T17:09:36Z",
+      "side": 1,
+      "message": "Use 1).\nIn pre-T devices, `adb shell dumpsys netd` is the equivalent.\n\nFor setCounterSet and deleteTagData, I expect that they can be replaced (and deleted) by Java implementation.",
+      "parentUuid": "61801e58_49197cdb",
+      "range": {
+        "startLine": 311,
+        "startChar": 16,
+        "endLine": 311,
+        "endChar": 20
+      },
+      "revId": "bc0bc44a79158e6e242744359c361968c5d5b617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
