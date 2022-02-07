@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ebb5cc_007e613e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T15:03:32Z",
+      "side": 1,
+      "message": "Initial feedback but haven\u0027t not a full review yet.",
+      "revId": "464a49c63fa3495b8127c3e917907980e05567f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc7739e_e917d721",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 7010,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T15:03:32Z",
+      "side": 1,
+      "message": "FWIW I think it would be better to be consistent to do what we do with LinkProperties and NetworkCapabilities: pass them in at network connection time. I don\u0027t think the NAC is in any way more important or more required than the LP or NC, nor is it known to CS any sooner or any later than those objects.\n\nAlso, I think passing the NAC in to the constructor will create further inconsistencies if in the future we decide that we need to pass an updated NAC to NM. (\"Why is the NetworkAgentConfig passed into the constructor here, but also updated via this AIDL method here? Couldn\u0027t we just use one AIDL method?\")",
+      "range": {
+        "startLine": 7010,
+        "startChar": 29,
+        "endLine": 7010,
+        "endChar": 35
+      },
+      "revId": "464a49c63fa3495b8127c3e917907980e05567f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
