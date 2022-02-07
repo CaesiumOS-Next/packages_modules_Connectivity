@@ -39,6 +39,30 @@
       },
       "revId": "464a49c63fa3495b8127c3e917907980e05567f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9de7604b_78600538",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 7010,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-07T17:59:52Z",
+      "side": 1,
+      "message": "I agree, which is why last week I uploaded aosp/1967241 and asked for a review, but you haven\u0027t looked at it yet. That patch moves LP NC and NI to work like NAC here, which is better because the current version holds to the object from the agent until the network monitor is created, and the agent has ample time to mutate it in the mean time.\n\nAs for passing the NAC in the constructor, if we make NAC immutable like you suggested on the previous patch, there should be no need to ever update it. But even if there is, passing in the constructor allows NetworkMonitor to never see an unseeded value ; see how today we create empty LP and NC in NetworkMonitor, while we used to use null before, converting the risk of a crash to the risk of using an incorrect value.",
+      "parentUuid": "8bc7739e_e917d721",
+      "range": {
+        "startLine": 7010,
+        "startChar": 29,
+        "endLine": 7010,
+        "endChar": 35
+      },
+      "revId": "464a49c63fa3495b8127c3e917907980e05567f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
