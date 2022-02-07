@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9f31abe_f678899b",
+        "filename": "framework/src/android/net/NetworkAgentConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-07T17:49:04Z",
+      "side": 1,
+      "message": "Made private. It\u0027s possible to make it final but it makes the code very ugly to only make this field final (need to expose a constructor with a NAC and just a boolean to override this fields, and all the associated boilerplate). I thought of at least making the builder hold the fields individually but it makes this patch much bigger, I\u0027d prefer to keep such a cleanup as a separate patch.",
+      "parentUuid": "bd9b7dae_08cd94cb",
+      "range": {
+        "startLine": 254,
+        "startChar": 4,
+        "endLine": 254,
+        "endChar": 10
+      },
+      "revId": "11c9f34499ff4c1adfd463e9cb0d9c85b1836e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caa5a785_dbd980df",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0b636a3_621e8c94",
+        "filename": "tests/common/java/android/net/NetworkAgentConfigTest.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-07T17:49:04Z",
+      "side": 1,
+      "message": "Definitely.",
+      "parentUuid": "caa5a785_dbd980df",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 48
+      },
+      "revId": "11c9f34499ff4c1adfd463e9cb0d9c85b1836e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56cb1f1a_d49f4a57",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-07T14:01:28Z",
       "side": 1,
       "message": "Is there a reason for each new boolean configuration option to be an extra boolean? Could we instead have an integer holding flags? That would make it easier to add future options.",
+      "range": {
+        "startLine": 137,
+        "startChar": 71,
+        "endLine": 137,
+        "endChar": 73
+      },
+      "revId": "11c9f34499ff4c1adfd463e9cb0d9c85b1836e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0274940d_33de66d7",
+        "filename": "tests/unit/java/com/android/internal/net/VpnProfileTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-07T17:49:04Z",
+      "side": 1,
+      "message": "This simply evolved organically. Filed b/218304083 for the cleanup.",
+      "parentUuid": "56cb1f1a_d49f4a57",
       "range": {
         "startLine": 137,
         "startChar": 71,
