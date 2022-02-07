@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ee065a1_7af3ee80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-02-07T21:33:55Z",
+      "side": 1,
+      "message": "Hi Lucas, \nThis is a fix for b/214398658, please take a look ",
+      "revId": "10f82232e5572ff1491e26d9db15a299148ba570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
