@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3cd723_69a776d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-07T02:16:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a94c1edc_f7e42684",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "d0267bdd5ec162f0a8a0ba8e0fb459f874a19fd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe4acc29_31a493e7",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "I think you meant \"when updating the test without reflashing the device\" ? Might want to add that",
       "parentUuid": "fe4acc29_31a493e7",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "d0267bdd5ec162f0a8a0ba8e0fb459f874a19fd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8596159a_ab81a621",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-07T02:16:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4155a3db_05f6484e",
       "range": {
         "startLine": 19,
         "startChar": 0,
