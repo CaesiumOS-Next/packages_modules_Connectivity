@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47447d33_56750853",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T15:29:42Z",
+      "side": 1,
+      "message": "Why are there changes both in module-lib-current and system-current? Did you forget to rebuild? Or am I misreading?",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50843969_fd886de0",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T15:29:42Z",
+      "side": 1,
+      "message": "I think the naming is confusing here. If this is a redaction flag, then it should specify redactions. But it actually does the opposite - it specifies inclusion. The \"REDACT_INCLUDE_*\" names are similarly confusing I think. Can you make these consistent somehow?",
+      "range": {
+        "startLine": 1007,
+        "startChar": 0,
+        "endLine": 1007,
+        "endChar": 54
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e02d6504_83184e22",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T15:29:42Z",
+      "side": 1,
+      "message": "Do we need to support callers passing in different levels of requested redactions? It seems like the code and API would be easier to understand if the API was just, \"redact this object according to the permissions of this package\".",
+      "range": {
+        "startLine": 1012,
+        "startChar": 56,
+        "endLine": 1013,
+        "endChar": 45
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47140790_2a44d93a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1694,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T15:29:42Z",
+      "side": 1,
+      "message": "This comment contradicts itself. First it says, \"this will remove any location sensitive data\" but then it says \"retrieving this location sensitive information... will be noted\". Was there a reason to change the original comment? Is the behaviour of this method changing? Or was the documentation incorrect?",
+      "range": {
+        "startLine": 1691,
+        "startChar": 0,
+        "endLine": 1694,
+        "endChar": 70
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
