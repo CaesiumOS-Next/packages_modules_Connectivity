@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe4acc29_31a493e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-07T00:28:35Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow ? The dynamic lib should be rebuilt when some patch modifies it, that\u0027s how it\u0027s found in frameworks/base/services/core/jni:libservices.core, so I\u0027m not sure how it would run against unmodified code.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "d0267bdd5ec162f0a8a0ba8e0fb459f874a19fd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
