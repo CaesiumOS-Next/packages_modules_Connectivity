@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd061774_1104b17d",
+        "filename": "framework/src/android/net/DhcpOption.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-07T23:48:21Z",
+      "side": 1,
+      "message": "Maybe indent this a little bit less so it does not wrap?",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 102
+      },
+      "revId": "82401fd7f8fb8f264e6c6d9522c647c42ee2a66a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
