@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4430e89_de7c7f80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T07:06:49Z",
+      "side": 1,
+      "message": "LGTM as far as it goes, though a lot of this CL will need to change.",
+      "revId": "2aa5a35fe391e5e4a8056211126eda2a1ff2297b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c9296a4_0756fa80",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T07:06:49Z",
+      "side": 1,
+      "message": "Nit: not needed? The shim will simply do nothing on S.",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 36
+      },
+      "revId": "2aa5a35fe391e5e4a8056211126eda2a1ff2297b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c045145_c228a078",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T07:06:49Z",
+      "side": 1,
+      "message": "Nit: usualy I\u0027ve seen our code use doTest instead of runTest. But be consistent with the rest of this file.",
+      "range": {
+        "startLine": 266,
+        "startChar": 16,
+        "endLine": 266,
+        "endChar": 20
+      },
+      "revId": "2aa5a35fe391e5e4a8056211126eda2a1ff2297b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f64f6bf_a77041e8",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T07:06:49Z",
+      "side": 1,
+      "message": "Ditto, unnecessary",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 36
+      },
+      "revId": "2aa5a35fe391e5e4a8056211126eda2a1ff2297b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f6facff_ade8c94b",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T07:06:49Z",
+      "side": 1,
+      "message": "|| !isAtLeastT()",
+      "range": {
+        "startLine": 459,
+        "startChar": 31,
+        "endLine": 459,
+        "endChar": 32
+      },
+      "revId": "2aa5a35fe391e5e4a8056211126eda2a1ff2297b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6fb7e74_24ddf945",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T07:06:49Z",
+      "side": 1,
+      "message": "Per discussion, could there be a race between a) NetworkMonitor entering ValidatedState as a result of getting notifyNetworkConnected and skipping validation an b) the network becoming disconnected?",
+      "range": {
+        "startLine": 464,
+        "startChar": 16,
+        "endLine": 464,
+        "endChar": 41
+      },
+      "revId": "2aa5a35fe391e5e4a8056211126eda2a1ff2297b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27e8c534_3564bc50",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 10329,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T07:06:49Z",
+      "side": 1,
+      "message": "Per discussion, might be good to check that NetworkMonitor gets the exact same NetworkAgentConfig passed to the wrapper. Doesn\u0027t need to be in this CL.",
+      "range": {
+        "startLine": 10329,
+        "startChar": 56,
+        "endLine": 10329,
+        "endChar": 61
+      },
+      "revId": "2aa5a35fe391e5e4a8056211126eda2a1ff2297b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
