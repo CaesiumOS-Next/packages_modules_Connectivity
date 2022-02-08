@@ -2879,6 +2879,7 @@ public class ConnectivityServiceTest {
     @Test
     public void testRequiresValidation() {
         assertTrue(NetworkMonitorUtils.isValidationRequired(
+                NetworkAgentConfigShimImpl.newInstance(null),
                 mCm.getDefaultRequest().networkCapabilities));
     }
 
@@ -7839,6 +7840,7 @@ public class ConnectivityServiceTest {
         // VPN networks do not satisfy the default request and are automatically validated
         // by NetworkMonitor
         assertFalse(NetworkMonitorUtils.isValidationRequired(
+                NetworkAgentConfigShimImpl.newInstance(mMockVpn.getNetworkAgentConfig()),
                 mMockVpn.getAgent().getNetworkCapabilities()));
         mMockVpn.getAgent().setNetworkValid(false /* isStrictMode */);
 
@@ -7989,6 +7991,7 @@ public class ConnectivityServiceTest {
         assertTrue(nc.hasCapability(NET_CAPABILITY_INTERNET));
 
         assertFalse(NetworkMonitorUtils.isValidationRequired(
+                NetworkAgentConfigShimImpl.newInstance(mMockVpn.getNetworkAgentConfig()),
                 mMockVpn.getAgent().getNetworkCapabilities()));
         assertTrue(NetworkMonitorUtils.isPrivateDnsValidationRequired(
                 mMockVpn.getAgent().getNetworkCapabilities()));
