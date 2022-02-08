@@ -22,6 +22,30 @@
       },
       "revId": "733db511a4955f80d9b71db61af11bfa0377fc2a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0027503_210cf7d6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityDiagnosticsManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1609802
+      },
+      "writtenOn": "2022-02-08T01:05:58Z",
+      "side": 1,
+      "message": "Comment updated. Yes, CarrierPrivilegesListener removes the need to wait for CCC change now, though we can not remove the sleep here due to the downstream actions don\u0027t have a signal to know when all have done (tracked by the TODO(b/157949581)). Thanks!",
+      "parentUuid": "71517bf0_3cd22b53",
+      "range": {
+        "startLine": 238,
+        "startChar": 45,
+        "endLine": 239,
+        "endChar": 36
+      },
+      "revId": "733db511a4955f80d9b71db61af11bfa0377fc2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
