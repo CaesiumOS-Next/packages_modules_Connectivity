@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cffddfde_a029cd7d",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T07:34:07Z",
+      "side": 1,
+      "message": "Per discussion, maybe just have this method only redact stuff that the caller does not have permission to see? That seems like the natural behaviour of a method called \"redact for uid\".",
+      "parentUuid": "e02d6504_83184e22",
+      "range": {
+        "startLine": 1012,
+        "startChar": 56,
+        "endLine": 1013,
+        "endChar": 45
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "47140790_2a44d93a",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 8
