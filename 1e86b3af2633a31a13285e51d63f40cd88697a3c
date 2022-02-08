@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74e6500e_0415c47c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T00:47:27Z",
+      "side": 1,
+      "message": "Given that this change is treehugged, feel free not to address them in this CL, but to upload a CL to fix the comments on top of this CL, and then merge this CL as is.",
+      "revId": "1e86b3af2633a31a13285e51d63f40cd88697a3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf4fb1d1_86527d67",
@@ -19,6 +36,29 @@
         "startChar": 11,
         "endLine": 180,
         "endChar": 86
+      },
+      "revId": "1e86b3af2633a31a13285e51d63f40cd88697a3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f409088_19c7ee43",
+        "filename": "tests/cts/net/src/android/net/cts/StaticIpConfigurationTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T00:47:27Z",
+      "side": 1,
+      "message": "Check that a configuration without an IPv4 address is invalid?",
+      "range": {
+        "startLine": 280,
+        "startChar": 4,
+        "endLine": 280,
+        "endChar": 5
       },
       "revId": "1e86b3af2633a31a13285e51d63f40cd88697a3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
