@@ -34,6 +34,46 @@
       "parentUuid": "45514ff5_2aae6d28",
       "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c8e4dd_29f455c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-08T03:59:18Z",
+      "side": 1,
+      "message": "Add test:\n - Unit test\n - CTS\n",
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1bdda06_63c71ab9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-08T03:59:18Z",
+      "side": 1,
+      "message": "Maybe this goes to Settings so we need to change Settings to check the carrier config also.",
+      "range": {
+        "startLine": 398,
+        "startChar": 7,
+        "endLine": 398,
+        "endChar": 38
+      },
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
