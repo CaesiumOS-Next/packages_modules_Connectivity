@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6713373f_3858f8ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-02-08T16:31:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03ddd25d_c72edc50",
+      "range": {
+        "startLine": 11,
+        "startChar": 53,
+        "endLine": 11,
+        "endChar": 56
+      },
+      "revId": "65e33a6c96d9d764955c3f6f8de810cb76b49f98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fba53834_cddba69c",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea6078ad_7c2c5c6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-02-08T16:31:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c4ff31e_661f8690",
+      "range": {
+        "startLine": 12,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 6
+      },
+      "revId": "65e33a6c96d9d764955c3f6f8de810cb76b49f98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e67b9b_c73a4363",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-02-08T16:31:56Z",
+      "side": 1,
+      "message": "Not sure, I\u0027ll try to figure it out\n\nI accidentally changed the order in aosp/1941233, and it causes high fail rate. I run tests with 10 iterations and consistently got at least one failure.",
+      "parentUuid": "fba53834_cddba69c",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 61
+      },
+      "revId": "65e33a6c96d9d764955c3f6f8de810cb76b49f98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3056f561_81383846",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-02-08T07:57:54Z",
       "side": 1,
       "message": "The default value is 10, not sure if it\u0027s good enough to test the flaky test.\nDo you know what\u0027s the fail rate before you fix it?\nIs the flaky test easy to reproduce?\nIf the fail rate is high(e.g. 30~50%), then I think run this test for 10 times is enough, otherwise, I think we should run this test for more times. e.g. (2/fail rate) times",
+      "range": {
+        "startLine": 19,
+        "startChar": 29,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "65e33a6c96d9d764955c3f6f8de810cb76b49f98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbbaefe5_c1173582",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-02-08T16:31:56Z",
+      "side": 1,
+      "message": "According to automated reports in b/215903863 failure rate is at least 12%.\n\nI consistently saw failures before the fix even with default iterations number.\n\nAs you suggested, I used (2/fail rate) iternations and double checked:\n- I see failures before the fix\n- no failures after the fix.",
+      "parentUuid": "3056f561_81383846",
       "range": {
         "startLine": 19,
         "startChar": 29,
