@@ -30,7 +30,7 @@ java_defaults {
 // T, and were moved to the module in T. Other bootclasspath classes in connectivity should go to
 // framework-connectivity.
 java_sdk_library {
-    name: "framework-connectivity-tiramisu",
+    name: "framework-connectivity-t",
     sdk_version: "module_current",
     min_sdk_version: "Tiramisu",
     defaults: [
