@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55a47551_047530ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T05:51:42Z",
+      "side": 1,
+      "message": "LGTM except perhaps VpnProfileTest might be affected by review comments on aosp/1962928.",
+      "revId": "34609d7194b0da585d776332280edfd042902d39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93d04582_ae2d75df",
+        "filename": "framework/src/android/net/NetworkAgentConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T05:51:42Z",
+      "side": 1,
+      "message": "and will be ignored if set.",
+      "range": {
+        "startLine": 261,
+        "startChar": 70,
+        "endLine": 261,
+        "endChar": 71
+      },
+      "revId": "34609d7194b0da585d776332280edfd042902d39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41154e3e_f2344146",
+        "filename": "framework/src/android/net/NetworkAgentConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T05:51:42Z",
+      "side": 1,
+      "message": "No space before punctuation.",
+      "range": {
+        "startLine": 262,
+        "startChar": 95,
+        "endLine": 262,
+        "endChar": 96
+      },
+      "revId": "34609d7194b0da585d776332280edfd042902d39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "591db6bb_1617a4f3",
+        "filename": "framework/src/android/net/NetworkAgentConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T05:51:42Z",
+      "side": 1,
+      "message": ". On other network types it will be ignored.",
+      "range": {
+        "startLine": 437,
+        "startChar": 71,
+        "endLine": 437,
+        "endChar": 72
+      },
+      "revId": "34609d7194b0da585d776332280edfd042902d39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07bf8515_de900d51",
+        "filename": "framework/src/android/net/NetworkAgentConfig.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-08T05:51:42Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 438,
+        "startChar": 73,
+        "endLine": 438,
+        "endChar": 74
+      },
+      "revId": "34609d7194b0da585d776332280edfd042902d39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
