@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a8a5344_463cd26b",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T10:09:40Z",
+      "side": 1,
+      "message": "Per discussion : this should be a long\n(kernel takes uint32, also for future proofing)",
+      "range": {
+        "startLine": 72,
+        "startChar": 99,
+        "endLine": 72,
+        "endChar": 102
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a50917a_5596adab",
         "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
         "patchSetId": 9
