@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79958543_74cbf4cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T07:31:33Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed.",
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79d7b232_1f051d7b",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T07:31:33Z",
+      "side": 1,
+      "message": "Per discussion: make this nullable and return null if UID does not have ACCESS_NETWORK_STATE?",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2d81bdd_8b3b2d8d",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T07:31:33Z",
+      "side": 1,
+      "message": "Consider the shell instead.",
+      "range": {
+        "startLine": 595,
+        "startChar": 70,
+        "endLine": 595,
+        "endChar": 79
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6fc27ef_2f26aa73",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T07:31:33Z",
+      "side": 1,
+      "message": "Optional: is it easy to unindent this code by moving it to a function?",
+      "range": {
+        "startLine": 616,
+        "startChar": 8,
+        "endLine": 616,
+        "endChar": 44
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a86e01b_475fde29",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T07:31:33Z",
+      "side": 1,
+      "message": "Identical to the previous method?",
+      "range": {
+        "startLine": 651,
+        "startChar": 32,
+        "endLine": 651,
+        "endChar": 45
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de33ba5d_e97facc9",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T07:31:33Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 719,
+        "startChar": 18,
+        "endLine": 719,
+        "endChar": 44
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6beda88_14abb82a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T07:31:33Z",
+      "side": 1,
+      "message": "Explain that this works because the phone always has location permissions?",
+      "range": {
+        "startLine": 725,
+        "startChar": 66,
+        "endLine": 725,
+        "endChar": 94
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3d9aee6_e4af4421",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T07:31:33Z",
+      "side": 1,
+      "message": "Consider adding a WifiInfo to the capabilities as well and checking that it\u0027s redacted.",
+      "range": {
+        "startLine": 731,
+        "startChar": 8,
+        "endLine": 731,
+        "endChar": 11
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
