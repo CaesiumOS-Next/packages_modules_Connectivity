@@ -52,6 +52,9 @@ java_defaults {
         "app-compat-annotations",
         "sdk_module-lib_current_framework-connectivity",
     ],
+    static_libs: [
+        "mdns_aidl_interface-lateststable-java",
+    ],
     impl_only_libs: [
         // The build system will use framework-bluetooth module_current stubs, because
         // of sdk_version: "module_current" above.
