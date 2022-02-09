@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc79e91_5bd05e16",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T21:35:41Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34927972_05095ce4",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T21:35:41Z",
+      "side": 1,
+      "message": "is this actually even needed?  This class has no jni...\nAnd the static initializer on the BpfMap class should already trigger this no?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f91005be_e311ef04",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T21:35:41Z",
+      "side": 1,
+      "message": "what I\u0027d like to see is explicit tests that the 2 uint64s in the map have the right value.\n\nie.\n\nmap is empty - check it is 0 0\nset bit 0  check it is 1 0\nset bit 64 check it is 1 1\nset bit 63 check it is X 1\nclear bit ...\nset bit ...\nclear bit ...\n\npresumably there should be an array of test cases,\n\n{ whether_to_set_or_clear, which_boolean, value_of_long0, value_of_long1 }\n... more test cases\n\n\n---\n\nThe test as written will pass even if all values of i update bit 0 of long 0",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d325542d_9b3c9ca9",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T21:35:41Z",
+      "side": 1,
+      "message": "this is a little bit better...",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 51
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
