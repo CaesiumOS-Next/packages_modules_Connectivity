@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9e1d4b6_d7430c81",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1659,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "536a5fc0_1b14274d",
+      "range": {
+        "startLine": 1659,
+        "startChar": 14,
+        "endLine": 1659,
+        "endChar": 25
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bebb318_da547e5f",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-27T10:55:07Z",
       "side": 1,
       "message": "I think we wanted flags ? This should be an int. Look at NetworkCallback.Flag.\n\nWe should probably move these flags to ConnectivityManager, in fact (but they are public API so you can\u0027t remove the old ones)",
+      "range": {
+        "startLine": 1660,
+        "startChar": 14,
+        "endLine": 1660,
+        "endChar": 42
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e3d5df3_3077f145",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1660,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bebb318_da547e5f",
       "range": {
         "startLine": 1660,
         "startChar": 14,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83c86e84_635c7f79",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b2f74bd_d81288d9",
+      "range": {
+        "startLine": 574,
+        "startChar": 19,
+        "endLine": 574,
+        "endChar": 29
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a44ba6d_27a1ba4e",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-01-27T10:55:07Z",
       "side": 1,
       "message": "\"Can\u0027t find a package without the NETWORK_SETTINGS permission\"",
+      "range": {
+        "startLine": 592,
+        "startChar": 23,
+        "endLine": 592,
+        "endChar": 54
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca4fe9f_df89fcd3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a44ba6d_27a1ba4e",
       "range": {
         "startLine": 592,
         "startChar": 23,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a66980a8_6410aa37",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7165e84b_d8929d3b",
+      "range": {
+        "startLine": 601,
+        "startChar": 0,
+        "endLine": 601,
+        "endChar": 45
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d01116e7_d27d6eff",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-01-27T10:55:07Z",
       "side": 1,
       "message": "s/the/a/\nor\ns/the//",
+      "range": {
+        "startLine": 603,
+        "startChar": 44,
+        "endLine": 603,
+        "endChar": 47
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "483d52cf_d29c5c81",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d01116e7_d27d6eff",
       "range": {
         "startLine": 603,
         "startChar": 44,
@@ -179,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99a9f1c6_f071663b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba7f403f_b9b9ea34",
+      "range": {
+        "startLine": 611,
+        "startChar": 90,
+        "endLine": 611,
+        "endChar": 93
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc88415b_9f928250",
@@ -192,6 +360,30 @@
       "writtenOn": "2022-01-27T10:55:07Z",
       "side": 1,
       "message": "likewise",
+      "range": {
+        "startLine": 641,
+        "startChar": 23,
+        "endLine": 641,
+        "endChar": 55
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c991bc2_489e72c1",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc88415b_9f928250",
       "range": {
         "startLine": 641,
         "startChar": 23,
@@ -225,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec6f2bb8_39218e43",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8fbbf8e_b369392f",
+      "range": {
+        "startLine": 712,
+        "startChar": 37,
+        "endLine": 712,
+        "endChar": 45
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c0fb6d9_b96cd2d1",
@@ -238,6 +454,30 @@
       "writtenOn": "2022-01-27T10:55:07Z",
       "side": 1,
       "message": "Generally fine, though ideally we\u0027d have a little bit more granular testing : here all your tests are between a UID that has no permissions and one that has all, and it would be nice to see the redaction tested on packages that have *some* of the permissions.\n\nBut for now it will do.",
+      "range": {
+        "startLine": 739,
+        "startChar": 4,
+        "endLine": 739,
+        "endChar": 5
+      },
+      "revId": "66e69ca78dabf4470da4ced732110a5e8a61ed7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82f9530a_4a91ac96",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3c0fb6d9_b96cd2d1",
       "range": {
         "startLine": 739,
         "startChar": 4,

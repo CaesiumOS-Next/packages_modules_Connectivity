@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff2a768_5fec835b",
+        "filename": "framework/api/system-current.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Apparently forgot to push the latest version... The comment you pointed out below also had already been corrected in my local changes.",
+      "parentUuid": "47447d33_56750853",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50843969_fd886de0",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-07T15:29:42Z",
       "side": 1,
       "message": "I think the naming is confusing here. If this is a redaction flag, then it should specify redactions. But it actually does the opposite - it specifies inclusion. The \"REDACT_INCLUDE_*\" names are similarly confusing I think. Can you make these consistent somehow?",
+      "range": {
+        "startLine": 1007,
+        "startChar": 0,
+        "endLine": 1007,
+        "endChar": 54
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baef7264_d2834494",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50843969_fd886de0",
       "range": {
         "startLine": 1007,
         "startChar": 0,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4094f38b_848e4fe9",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1013,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cffddfde_a029cd7d",
+      "range": {
+        "startLine": 1012,
+        "startChar": 56,
+        "endLine": 1013,
+        "endChar": 45
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47140790_2a44d93a",
@@ -107,6 +179,30 @@
       "writtenOn": "2022-02-07T15:29:42Z",
       "side": 1,
       "message": "This comment contradicts itself. First it says, \"this will remove any location sensitive data\" but then it says \"retrieving this location sensitive information... will be noted\". Was there a reason to change the original comment? Is the behaviour of this method changing? Or was the documentation incorrect?",
+      "range": {
+        "startLine": 1691,
+        "startChar": 0,
+        "endLine": 1694,
+        "endChar": 70
+      },
+      "revId": "e2cf4916f5e9beea7fd05b3bd844a58adfe26e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "294ae9b4_b76a18d6",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1694,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T06:07:10Z",
+      "side": 1,
+      "message": "The documentation was a bit inaccurate and a bit too specific. It used to sound like TransportInfo contains the only location-sensitive information, which is not accurate.\nI also took the opportunity to fix the javadoc style and some minor grammar.\n\nFixed",
+      "parentUuid": "47140790_2a44d93a",
       "range": {
         "startLine": 1691,
         "startChar": 0,
