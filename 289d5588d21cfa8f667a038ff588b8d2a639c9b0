@@ -45,6 +45,29 @@
       },
       "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "912930b0_069e07fc",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T09:41:36Z",
+      "side": 1,
+      "message": "this should probably be long.  int is only 2GB/s which is lower than cellular can deliver",
+      "range": {
+        "startLine": 1092,
+        "startChar": 12,
+        "endLine": 1092,
+        "endChar": 15
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
