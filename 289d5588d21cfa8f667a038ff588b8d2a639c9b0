@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "97e5e801_f1248160",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5544278d_6817628c",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8702cbdc_16d1e77e",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 9
@@ -37,6 +61,24 @@
       "writtenOn": "2022-02-09T09:42:34Z",
       "side": 1,
       "message": "(also consider whether it should bytes or bits per second... normally network rate limits are in bits-per-second)",
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60f80fdf_4d3db302",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:47:39Z",
+      "side": 1,
+      "message": "I know this is a little unfortunate, but in this case `struct tc_ratespec` accepts a rate in bytes per second. So I decided to just keep it consistent with that all the way up the stack (I figured having the rate limit converted to a different unit somewhere in the call stack could potentially be confusing and introduce bugs later on -- I will let the user of the API deal with the unit conversion).",
+      "parentUuid": "8702cbdc_16d1e77e",
       "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81527c50_1b1f8763",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a8a5344_463cd26b",
+      "range": {
+        "startLine": 72,
+        "startChar": 99,
+        "endLine": 72,
+        "endChar": 102
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a50917a_5596adab",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-02-09T09:44:41Z",
       "side": 1,
       "message": "you may want to clarify whether this is inclusive off protocol overhead (ie. tcp timestamps, tcp header, ip header, ethernet header, ethernet crc, ethernet framegap) or not, and if so what exactly this is counting.\n\n(I honestly don\u0027t know? I\u0027m guessing it coulds ip header through tcp payload? does it count mac header???)",
+      "range": {
+        "startLine": 387,
+        "startChar": 0,
+        "endLine": 387,
+        "endChar": 98
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d78a3df_e33779b1",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:47:39Z",
+      "side": 1,
+      "message": "I don\u0027t know; I will leave this comment open while I do some research. Will fix in follow up.",
+      "parentUuid": "3a50917a_5596adab",
       "range": {
         "startLine": 387,
         "startChar": 0,
@@ -123,6 +213,54 @@
       "writtenOn": "2022-02-09T09:41:36Z",
       "side": 1,
       "message": "this should probably be long.  int is only 2GB/s which is lower than cellular can deliver",
+      "range": {
+        "startLine": 1092,
+        "startChar": 12,
+        "endLine": 1092,
+        "endChar": 15
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d07f54d1_b8e1aeab",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b2a5563_cf984db9",
+      "range": {
+        "startLine": 1092,
+        "startChar": 12,
+        "endLine": 1092,
+        "endChar": 27
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d0a1cda_98554265",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:47:39Z",
+      "side": 1,
+      "message": "Good call. I will change it to long (but will assert the range [-1, INT_MAX] as that is what TcUtils supports right now). We could change this to UINT_MAX as part of a bug, or go all the way to uint64 (but that requires changing the netlink message and is a little more work). Will leave this open for the follow up work.",
+      "parentUuid": "912930b0_069e07fc",
       "range": {
         "startLine": 1092,
         "startChar": 12,
