@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cc47010_cd5880e4",
+        "filename": "bpf_progs/netd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T04:03:55Z",
+      "side": 1,
+      "message": "I think this one should also be AID_SYSTEM... since AID_NET_ADMIN is afaict being used for xtbpf ones for compatibility with iptables wrapper stuff.",
+      "range": {
+        "startLine": 341,
+        "startChar": 54,
+        "endLine": 341,
+        "endChar": 67
+      },
+      "revId": "e541aa40acdfc5be15c1551a1c50178e0620a2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
