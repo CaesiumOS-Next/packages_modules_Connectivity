@@ -22,6 +22,30 @@
       },
       "revId": "2bc2a926d89414bee8345aa8856c7b236ccc1b52",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dae9c934_b3dae10a",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-02-09T10:44:33Z",
+      "side": 1,
+      "message": "Done\n\nthanks for your advice\n\nUse \"DumpTestUtils.dumpService + add DUMP\" at L.167 to avoid that \"DumpTestUtils.dumpServiceWithShellPermission\" causes teardown failure (dump permission can\u0027t do setPreferTestNetworks)\n\n[4/7] android.net.EthernetTetheringTest#testTetherUdpV4: FAILED (9.070s)\n\nSTACKTRACE:\njava.lang.SecurityException: No android.permission.TETHER_PRIVILEGED or android.permission.WRITE_SETTINGS permission\n\tat android.net.TetheringManager.throwIfPermissionFailure(TetheringManager.java:440)\n\tat android.net.TetheringManager.-$$Nest$smthrowIfPermissionFailure(Unknown Source:0)\n\tat android.net.TetheringManager$RequestDispatcher.waitForResult(TetheringManager.java:431)\n\tat android.net.TetheringManager.setPreferTestNetworks(TetheringManager.java:1632)\n\tat android.net.EthernetTetheringTest.cleanUp(EthernetTetheringTest.java:185)\n\tat android.net.EthernetTetheringTest.tearDown(EthernetTetheringTest.java:217)",
+      "parentUuid": "f34bc12f_87f1bb08",
+      "range": {
+        "startLine": 999,
+        "startChar": 46,
+        "endLine": 999,
+        "endChar": 65
+      },
+      "revId": "2bc2a926d89414bee8345aa8856c7b236ccc1b52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
