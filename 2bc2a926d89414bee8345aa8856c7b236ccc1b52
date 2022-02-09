@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f34bc12f_87f1bb08",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-09T03:52:21Z",
+      "side": 1,
+      "message": "Instead of implement executeShellCommand by your own, use DumpTestUtil which added by Lorenzo recently ?\nframeworks/libs/net/common/testutils/devicetests/com/android/testutils/DumpTestUtils.java\n\nDumpTestUtils.dumpServiceWithShellPermission(Context.TETHERING_SERVICE, \"bpfRawMap\");",
+      "range": {
+        "startLine": 999,
+        "startChar": 46,
+        "endLine": 999,
+        "endChar": 65
+      },
+      "revId": "2bc2a926d89414bee8345aa8856c7b236ccc1b52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
