@@ -113,6 +113,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e39879ff_d673b85a",
+        "filename": "service/native/TrafficController.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-02-09T09:52:42Z",
+      "side": 1,
+      "message": "Done.\n\n- Adds AID_NET_ADMIN to system_server in aosp/1978086.\n- Change gid of cgroupskb programs to AID_SYSTEM in aosp/1978066.\n\nPrograms can be dumped correctly in the latest path.",
+      "parentUuid": "1fe808fd_60329d90",
+      "range": {
+        "startLine": 715,
+        "startChar": 4,
+        "endLine": 715,
+        "endChar": 6
+      },
+      "revId": "23d79b866462002079bee12c3682dedf35bd7156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c93c2ec_22322bd3",
