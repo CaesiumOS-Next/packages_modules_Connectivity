@@ -10637,7 +10637,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private boolean canNetworkBeRateLimited(@NonNull final NetworkAgentInfo networkAgent) {
-        if (!networkAgent.networkCapabilities.hasCapability(NET_CAPABILITY_INTERNET)) {
+        final NetworkCapabilities agentCaps = networkAgent.networkCapabilities;
+        // Allow test networks to be rate limited (they cannot hold NET_CAPABILITY_INTERNET).
+        if (!agentCaps.hasCapability(NET_CAPABILITY_INTERNET) && !agentCaps.hasTransport(
+                TRANSPORT_TEST)) {
             // rate limits only apply to networks that provide internet connectivity.
             return false;
         }
