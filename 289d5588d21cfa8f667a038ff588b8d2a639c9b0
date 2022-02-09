@@ -24,6 +24,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8702cbdc_16d1e77e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T09:42:34Z",
+      "side": 1,
+      "message": "(also consider whether it should bytes or bits per second... normally network rate limits are in bits-per-second)",
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b2a5563_cf984db9",
