@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bfbb79b_76dda6b9",
+        "filename": "Tethering/tests/privileged/src/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-09T00:36:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4ddd86a_9265d954",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 39
+      },
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4205353_0eec78d2",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-01-07T05:56:04Z",
       "side": 1,
       "message": "create a socket and pull the port from it to ensure that the port isn\u0027t already in use.\n\n1. socket to get port, set reuse port\n2. socket to ensure socket can bind to port, set reuse port\n3. blockPort(), check that socket fails",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 23
+      },
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c16d26e0_8298d417",
+        "filename": "Tethering/tests/privileged/src/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 35
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-09T00:36:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4205353_0eec78d2",
       "range": {
         "startLine": 46,
         "startChar": 8,
@@ -124,6 +172,24 @@
       "writtenOn": "2022-01-07T05:56:04Z",
       "side": 1,
       "message": "add binder.getcallinguid(), check against radio/system/root",
+      "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6592408c_08e2e05a",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 35
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-09T00:36:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b25bd4d_978f1073",
       "revId": "bd1c540c30ac07f0d45e20338053af5e7b54b616",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

@@ -189,6 +189,30 @@
       },
       "revId": "0e07a11e42997e33b38c8e751ed2c0e9d5e08645",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "920a2062_87e1ddc3",
+        "filename": "Tethering/tests/privileged/src/com/android/server/VendorConnectivityTest.kt",
+        "patchSetId": 33
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-09T00:36:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cea96187_163c23b5",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 90
+      },
+      "revId": "0e07a11e42997e33b38c8e751ed2c0e9d5e08645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
