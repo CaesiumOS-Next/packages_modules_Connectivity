@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "240ff36d_f5322fc7",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T22:56:45Z",
+      "side": 1,
+      "message": "{IPV4_,}TOS_BYTE might be better name, type of service seems too verbose and makes me think of something else",
+      "range": {
+        "startLine": 72,
+        "startChar": 30,
+        "endLine": 72,
+        "endChar": 45
+      },
+      "revId": "f1c40025d9039f03e6a64ac1c02d2079d30fe3af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4e4e31e_e2232ec6",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T22:56:45Z",
+      "side": 1,
+      "message": "bad name, suggests this is an offset.\n\ninstead just call this DONT_FRAG_FLAG_MASK or something",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 74,
+        "endChar": 56
+      },
+      "revId": "f1c40025d9039f03e6a64ac1c02d2079d30fe3af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87b7cbd6_7aa71ad8",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T22:56:45Z",
+      "side": 1,
+      "message": "not hex",
+      "range": {
+        "startLine": 75,
+        "startChar": 52,
+        "endLine": 75,
+        "endChar": 56
+      },
+      "revId": "f1c40025d9039f03e6a64ac1c02d2079d30fe3af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
