@@ -71,6 +71,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8f00b43_9980c25a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-09T05:37:45Z",
+      "side": 1,
+      "message": "Rather than behave as entitlement check failed (disable tethering). How about just block tethering to use the carrier? When KEY_CARRIER_SUPPORTS_TETHERING_BOOL\u003dfalse, tethering would not allow us to use  the carrier network. Notify the user if the carrier network is blocked, then user could switch the network to wifi or stop tethering by themselves.\n\nThere is #isCellularUpstreamPermitted function, we can simply check whether the carrier supports tethering in this function.\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/EntitlementManager.java;l\u003d149https://source.corp.google.com/aosp-master/packages/modules/Connectivity/Tethering/src/com/android/networkstack/tethering/UpstreamNetworkMonitor.java;l\u003d355",
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1bdda06_63c71ab9",
