@@ -86,6 +86,7 @@ java_defaults {
     ],
     static_libs: [
         "framework-connectivity-protos",
+        "mdns_aidl_interface-lateststable-java",
         "modules-utils-build",
         "modules-utils-preconditions",
     ],
