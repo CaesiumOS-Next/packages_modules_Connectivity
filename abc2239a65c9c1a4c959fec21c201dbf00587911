@@ -64,6 +64,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "765a7956_94c7744a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T16:19:36Z",
+      "side": 1,
+      "message": "The shell doesn\u0027t hold NETWORK_FACTORY, which means it can\u0027t see the subscription IDs.\n\nConsidering I need a process with ACCESS_NETWORK_STATE but none of the stronger permissions, I had to beef up the search function, which made it trivial to select just any process with the right permissions to test.",
+      "parentUuid": "d2d81bdd_8b3b2d8d",
+      "range": {
+        "startLine": 595,
+        "startChar": 70,
+        "endLine": 595,
+        "endChar": 79
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6fc27ef_2f26aa73",
@@ -77,6 +101,30 @@
       "writtenOn": "2022-02-09T07:31:33Z",
       "side": 1,
       "message": "Optional: is it easy to unindent this code by moving it to a function?",
+      "range": {
+        "startLine": 616,
+        "startChar": 8,
+        "endLine": 616,
+        "endChar": 44
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd5100a3_773d2be8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T16:19:36Z",
+      "side": 1,
+      "message": "I\u0027d have to pass lp, mtu, testUid, testPackage, and uid and package for the process without ACCESS_NETWORK_STATE, and uid and package for the privileged process. Not sure it\u0027s much better. Left as is.",
+      "parentUuid": "d6fc27ef_2f26aa73",
       "range": {
         "startLine": 616,
         "startChar": 8,
@@ -110,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb3be3f5_ffda55c2",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T16:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a86e01b_475fde29",
+      "range": {
+        "startLine": 651,
+        "startChar": 32,
+        "endLine": 651,
+        "endChar": 45
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de33ba5d_e97facc9",
@@ -123,6 +195,30 @@
       "writtenOn": "2022-02-09T07:31:33Z",
       "side": 1,
       "message": "Remove?",
+      "range": {
+        "startLine": 719,
+        "startChar": 18,
+        "endLine": 719,
+        "endChar": 44
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6777ee24_6d964760",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T16:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de33ba5d_e97facc9",
       "range": {
         "startLine": 719,
         "startChar": 18,
@@ -156,6 +252,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "628544ed_54ee7995",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T16:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6beda88_14abb82a",
+      "range": {
+        "startLine": 725,
+        "startChar": 66,
+        "endLine": 725,
+        "endChar": 94
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3d9aee6_e4af4421",
@@ -169,6 +289,30 @@
       "writtenOn": "2022-02-09T07:31:33Z",
       "side": 1,
       "message": "Consider adding a WifiInfo to the capabilities as well and checking that it\u0027s redacted.",
+      "range": {
+        "startLine": 731,
+        "startChar": 8,
+        "endLine": 731,
+        "endChar": 11
+      },
+      "revId": "abc2239a65c9c1a4c959fec21c201dbf00587911",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a610773b_a197d464",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T16:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3d9aee6_e4af4421",
       "range": {
         "startLine": 731,
         "startChar": 8,
