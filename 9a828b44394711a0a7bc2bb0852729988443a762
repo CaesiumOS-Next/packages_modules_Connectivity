@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5fc9844_4f65519e",
+        "filename": "Tethering/apex/permissions/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2022-02-09T18:34:33Z",
+      "side": 1,
+      "message": "let\u0027s limit default_visibility to Tethering project only.",
+      "revId": "9a828b44394711a0a7bc2bb0852729988443a762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
