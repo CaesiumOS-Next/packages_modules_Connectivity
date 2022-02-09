@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9f2b41a5_2fb39228",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T09:31:24Z",
+      "side": 1,
+      "message": "I think you should be able to merge this outside of the topic.",
+      "revId": "e541aa40acdfc5be15c1551a1c50178e0620a2e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8cc47010_cd5880e4",
         "filename": "bpf_progs/netd.c",
         "patchSetId": 1
