@@ -229,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c03b8d34_2b112e9c",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T04:15:54Z",
+      "side": 1,
+      "message": "(this file moved to a later patchset but) I tried to run it a hundred times and didn\u0027t observe the race you describe. However I observed a similar one, which is worse, as I think it can actually happen in production code.\n```\njava.util.concurrent.RejectedExecutionException: Task com.android.server.connectivity.Vpn$IkeV2VpnRunner$$ExternalSyntheticLambda1@e5f2830 rejected from java.util.concurrent.ThreadPoolExecutor@1e2eca9[Shutting down, pool size \u003d 1, active threads \u003d 1, queued tasks \u003d 3, completed tasks \u003d 6]\n        at \n[...]        com.android.server.connectivity.Vpn$IkeV2VpnRunner.onDefaultNetworkChanged(Vpn.java:2668)\n```\n\nNamely, the VPN connection fails and it shuts down the executor, but the callback is called and tries to run something on it. I think this can only happen if the thread processing the callback is pre-empted between the call to onAvailable and the submission to the executor, and some other thread removes the callback and shuts down the executor.\n\nThis race already existed ; it\u0027s not introduced by this patch. Filed b/218597891 to track it.",
+      "parentUuid": "f6fb7e74_24ddf945",
+      "range": {
+        "startLine": 464,
+        "startChar": 16,
+        "endLine": 464,
+        "endChar": 41
+      },
+      "revId": "2aa5a35fe391e5e4a8056211126eda2a1ff2297b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27e8c534_3564bc50",
