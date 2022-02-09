@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5544278d_6817628c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T09:26:01Z",
+      "side": 1,
+      "message": "-1",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b2a5563_cf984db9",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T09:26:01Z",
+      "side": 1,
+      "message": "Let\u0027s remove this, and return -1 if it\u0027s not set.",
+      "range": {
+        "startLine": 1092,
+        "startChar": 12,
+        "endLine": 1092,
+        "endChar": 27
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
