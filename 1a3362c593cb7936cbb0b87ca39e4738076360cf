@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73f2b624_3f316eeb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Can I @link to private members and native code?",
+      "parentUuid": "d12e932d_99bbb334",
+      "range": {
+        "startLine": 738,
+        "startChar": 47,
+        "endLine": 738,
+        "endChar": 56
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bfd8bed9_86be3c62",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 14
@@ -54,6 +78,30 @@
       "writtenOn": "2022-02-09T10:06:44Z",
       "side": 1,
       "message": "Let\u0027s have a comment about which threads should be able to access this.",
+      "range": {
+        "startLine": 841,
+        "startChar": 4,
+        "endLine": 841,
+        "endChar": 11
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e66f26e_b7974528",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfd8bed9_86be3c62",
       "range": {
         "startLine": 841,
         "startChar": 4,
@@ -77,6 +125,30 @@
       "writtenOn": "2022-02-09T10:06:44Z",
       "side": 1,
       "message": "We can remove these if you\u0027re not going to write about them",
+      "range": {
+        "startLine": 1398,
+        "startChar": 0,
+        "endLine": 1399,
+        "endChar": 38
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b624253_5cecae4e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1399,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7b44a91_be0a87fb",
       "range": {
         "startLine": 1398,
         "startChar": 0,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65c5b4cd_09556caa",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "I can\u0027t add it here as these two functions are part of the Dependencies and don\u0027t have access to ensureRunningOnConnectivityServiceThread(). I could add it to canNetworkBeRateLimited() instead, what do you think?",
+      "parentUuid": "e18f3b25_0e4e9771",
+      "range": {
+        "startLine": 1401,
+        "startChar": 20,
+        "endLine": 1401,
+        "endChar": 42
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90a48888_2ad3dc59",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 14
@@ -123,6 +219,30 @@
       "writtenOn": "2022-02-09T10:06:44Z",
       "side": 1,
       "message": ", e",
+      "range": {
+        "startLine": 1415,
+        "startChar": 39,
+        "endLine": 1415,
+        "endChar": 43
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84a7e09_63baa46f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90a48888_2ad3dc59",
       "range": {
         "startLine": 1415,
         "startChar": 39,
@@ -156,6 +276,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "653d99d8_ab6fb63c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 8949,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02b69ad4_d7275358",
+      "range": {
+        "startLine": 8949,
+        "startChar": 20,
+        "endLine": 8949,
+        "endChar": 22
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aac2ce65_4071d13c",
@@ -169,6 +313,30 @@
       "writtenOn": "2022-02-09T10:06:44Z",
       "side": 1,
       "message": "This assumes a network can never gain or lose the INTERNET capability.\n\nThis is in principle accurate... but not in practice.",
+      "range": {
+        "startLine": 10637,
+        "startChar": 0,
+        "endLine": 10640,
+        "endChar": 9
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5df2cd9e_d188de77",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 10640,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "I tried to fix this quickly by enabling/disabling the ingress rate limit in updateCapabilities. I wasn\u0027t able to get this right on the first try. Will investigate further, but for now, maybe we submit this without that part. I guess part of the issue is that updateCapabilities is called from updateNetworkInfo and at that point prevNc has never had the internet capability (because it was just created) but newNc has it.\n\n```\njava.lang.AssertionError: expected:\u003c-1\u003e but was:\u003c1000000\u003e\n        at org.junit.Assert.fail(Assert.java:89)\n        at org.junit.Assert.failNotEquals(Assert.java:835)\n        at org.junit.Assert.assertEquals(Assert.java:647)\n        at org.junit.Assert.assertEquals(Assert.java:633)\n        at com.android.server.ConnectivityServiceTest$ConnectivityServiceDependencies.enableIngressRateLimit(ConnectivityServiceTest.java:1975)\n        at com.android.server.ConnectivityService.updateNetworkInfo(ConnectivityService.java:8976)\n        at com.android.server.ConnectivityService.-$$Nest$mupdateNetworkInfo(Unknown Source:0)\n        at com.android.server.ConnectivityService$NetworkStateTrackerHandler.maybeHandleNetworkAgentMessage(ConnectivityService.java:3468)\n        at com.android.server.ConnectivityService$NetworkStateTrackerHandler.handleMessage(ConnectivityService.java:3753)\n```",
+      "parentUuid": "aac2ce65_4071d13c",
       "range": {
         "startLine": 10637,
         "startChar": 0,
@@ -225,6 +393,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9438f33a_3fc1bcec",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1973,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "97190e8c_83650490",
+      "range": {
+        "startLine": 1973,
+        "startChar": 12,
+        "endLine": 1973,
+        "endChar": 19
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6391215_b24c58a2",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1973,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3beb145a_021575f9",
+      "range": {
+        "startLine": 1973,
+        "startChar": 55,
+        "endLine": 1973,
+        "endChar": 58
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "899e799c_957105a1",
@@ -238,6 +454,30 @@
       "writtenOn": "2022-02-09T10:06:44Z",
       "side": 1,
       "message": "Did you want to also check here that it wasn\u0027t set to -1 ?",
+      "range": {
+        "startLine": 1985,
+        "startChar": 12,
+        "endLine": 1985,
+        "endChar": 44
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b769412_3d1c04e5",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1985,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "899e799c_957105a1",
       "range": {
         "startLine": 1985,
         "startChar": 12,
@@ -271,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fbcd4a0_69a593b1",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 15422,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ee11dae_d36d7c90",
+      "range": {
+        "startLine": 15421,
+        "startChar": 0,
+        "endLine": 15422,
+        "endChar": 54
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "440cd93d_74523ba3",
@@ -284,6 +548,30 @@
       "writtenOn": "2022-02-09T10:06:44Z",
       "side": 1,
       "message": "We have a lot of duplication of these statements.\n\nCan you cut out a class that exposes a method to these checks ?\n\n  assertRateLimitReceived(String iface, int limit)",
+      "range": {
+        "startLine": 15478,
+        "startChar": 16,
+        "endLine": 15479,
+        "endChar": 63
+      },
+      "revId": "1a3362c593cb7936cbb0b87ca39e4738076360cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94ee62f6_d04b1f4b",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 15479,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-09T13:49:40Z",
+      "side": 1,
+      "message": "Yes, but will do the clean up in a follow up.",
+      "parentUuid": "440cd93d_74523ba3",
       "range": {
         "startLine": 15478,
         "startChar": 16,
