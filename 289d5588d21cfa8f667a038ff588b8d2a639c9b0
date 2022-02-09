@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a50917a_5596adab",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-09T09:44:41Z",
+      "side": 1,
+      "message": "you may want to clarify whether this is inclusive off protocol overhead (ie. tcp timestamps, tcp header, ip header, ethernet header, ethernet crc, ethernet framegap) or not, and if so what exactly this is counting.\n\n(I honestly don\u0027t know? I\u0027m guessing it coulds ip header through tcp payload? does it count mac header???)",
+      "range": {
+        "startLine": 387,
+        "startChar": 0,
+        "endLine": 387,
+        "endChar": 98
+      },
+      "revId": "289d5588d21cfa8f667a038ff588b8d2a639c9b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b2a5563_cf984db9",
         "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
         "patchSetId": 9
