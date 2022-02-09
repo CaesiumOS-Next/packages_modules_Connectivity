@@ -4,6 +4,7 @@
 # build as an unexpected class outside of the android.net package.
 rule com.android.net.module.util.** android.net.connectivity.@0
 rule com.android.modules.utils.** android.net.connectivity.@0
+rule android.net.nsd.aidl.** android.net.connectivity.@0
 rule android.net.NetworkFactory* android.net.connectivity.@0
 
 # From modules-utils-preconditions
