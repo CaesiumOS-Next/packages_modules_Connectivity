@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ede4c23_ada725f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T10:41:47Z",
+      "side": 1,
+      "message": "When this automerges to sc-mainline-prod, it won\u0027t actually build any code, right? It will just enable the \"defaults\" rule? If so, LGTM.",
+      "revId": "91e3dc2fe6735a2b1eb1a1620baa40cac0a5582e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
