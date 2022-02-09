@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a20afb53_285a7523",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-09T03:53:09Z",
+      "side": 1,
+      "message": "LGTM, assume comment addressed.",
+      "revId": "25862d34c4371e36325e333e0647435eda293bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41ceeaf8_15219262",
+        "filename": "Tethering/src/com/android/networkstack/tethering/BpfCoordinator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1102,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-09T03:53:09Z",
+      "side": 1,
+      "message": "This is not used in this CL, maybe delete this. You could add this back together when you use it.",
+      "range": {
+        "startLine": 1102,
+        "startChar": 16,
+        "endLine": 1102,
+        "endChar": 93
+      },
+      "revId": "25862d34c4371e36325e333e0647435eda293bb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
