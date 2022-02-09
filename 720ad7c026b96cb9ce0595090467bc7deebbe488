@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82fecde3_8de89916",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T10:30:25Z",
+      "side": 1,
+      "message": "Identical to ag/16713870 merged internally.",
+      "revId": "720ad7c026b96cb9ce0595090467bc7deebbe488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79244f30_d36846ce",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-09T10:30:25Z",
+      "side": 1,
+      "message": "Once this is merged into AOSP, can you fix this tab by replacing it with spaces?",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 1
+      },
+      "revId": "720ad7c026b96cb9ce0595090467bc7deebbe488",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
