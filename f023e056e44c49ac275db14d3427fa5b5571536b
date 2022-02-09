@@ -92,6 +92,30 @@
       },
       "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c18dc1e_0ab6d082",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-09T03:56:01Z",
+      "side": 1,
+      "message": "Tom, can you ask Mark if there is any automated integration test that covers call flows involving Settings? If not, since Settings is not mainlined we try not to depend on Setting to implement this feature, but instead have the logic in Tether module as much as possible.",
+      "parentUuid": "b1bdda06_63c71ab9",
+      "range": {
+        "startLine": 398,
+        "startChar": 7,
+        "endLine": 398,
+        "endChar": 38
+      },
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
