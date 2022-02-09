@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92d528cd_f3e74378",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T17:32:50Z",
+      "side": 1,
+      "message": "Maybe just \"-1 codes for no bandwidth limitation\" or something like this, to clarify that by \"unset\" we mean no limit",
+      "range": {
+        "startLine": 1086,
+        "startChar": 84,
+        "endLine": 1087,
+        "endChar": 35
+      },
+      "revId": "a20843638f7340ce4c5198bdb489b8ef66722f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91557f17_d7ec72e3",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T17:32:50Z",
+      "side": 1,
+      "message": "Nit : maybe clarify that this is per-network.\n\nHow does this behave with clat by the way ? I expect the limit applied to the v6 interface will limit the sum of both so it\u0027s probably fine but",
+      "range": {
+        "startLine": 1100,
+        "startChar": 82,
+        "endLine": 1100,
+        "endChar": 83
+      },
+      "revId": "a20843638f7340ce4c5198bdb489b8ef66722f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "745260c6_d881f8c1",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-09T17:32:50Z",
+      "side": 1,
+      "message": "Since we\u0027re not going to be able to change the API, if we want to take up to a uint32, we should probably do so now.",
+      "range": {
+        "startLine": 1106,
+        "startChar": 38,
+        "endLine": 1106,
+        "endChar": 55
+      },
+      "revId": "a20843638f7340ce4c5198bdb489b8ef66722f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
