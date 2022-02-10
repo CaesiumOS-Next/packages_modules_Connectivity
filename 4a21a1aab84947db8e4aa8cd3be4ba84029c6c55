@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44fb05f6_2b64ce4d",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-10T22:09:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bc79e91_5bd05e16",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34927972_05095ce4",
@@ -72,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99ba2edc_a588340d",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-10T22:09:16Z",
+      "side": 1,
+      "message": "While this test case only uses testData for 2 longs, more could be used. Instead of adding in test api\u0027s to BpfBitmap to get values from the internal BpfMap I think it would suffice to test the (index +/- 1) and check that it is correctly unset.\n\n\nif (i !\u003d 0) assertFalse(mTestBitmap.get(i-1))\nassertTrue(mTestBitmap.get(i));\nassertFalse(mTestBitmap.get(i+1))",
+      "parentUuid": "f91005be_e311ef04",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d325542d_9b3c9ca9",
         "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
         "patchSetId": 6
@@ -83,6 +131,30 @@
       "writtenOn": "2022-02-09T21:35:41Z",
       "side": 1,
       "message": "this is a little bit better...",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 51
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d09dfc9_f4b727b4",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-10T22:09:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d325542d_9b3c9ca9",
       "range": {
         "startLine": 78,
         "startChar": 12,
