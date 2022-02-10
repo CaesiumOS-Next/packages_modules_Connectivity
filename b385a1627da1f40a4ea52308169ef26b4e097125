@@ -1,0 +1,256 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb12f842_f7417b9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "API LGTM.\n\nCode LGTM but see comments on the test. In particular, I think the code that determines permissions might be incorrect.",
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b3deee5_3c29974e",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1636,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "Mention that this will be null if the specified UID lacks that ACCESS_NETWORK_STATE permission.",
+      "range": {
+        "startLine": 1636,
+        "startChar": 94,
+        "endLine": 1636,
+        "endChar": 95
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "539940ac_1c94d57f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1691,
+        "startChar": 99,
+        "endLine": 1691,
+        "endChar": 100
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ac8de16_afb96182",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "Ideally this should go into CollectionUtils in frameworks/libs/net.",
+      "range": {
+        "startLine": 577,
+        "startChar": 24,
+        "endLine": 577,
+        "endChar": 35
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "757ff877_2b104271",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "Is it correct to say that if a permission is in requestedPermissions, then the app has that permission? The code in PermissionMonitor#hasPermission suggests that it is not, we need to check requestedPermissionsFlags too.\n\nNo need to fix in this CL since this is just a test, and not a security-sensitive test, but should probably fix it. In particular it would be bad if someone copied this code and put it somewhere that is actually security-sensitive. Maybe we could add a hasPermission utility method in frameworks/libs/net somewhere, since this is non-obvious and error-prone?\n\nThis method too would be a good fit for frameworks/libs/net.",
+      "range": {
+        "startLine": 596,
+        "startChar": 31,
+        "endLine": 596,
+        "endChar": 46
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da96c2da_2a15ec6a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "Great name :-)",
+      "range": {
+        "startLine": 607,
+        "startChar": 21,
+        "endLine": 607,
+        "endChar": 36
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0537d979_313d51a8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be called normalUid?",
+      "range": {
+        "startLine": 618,
+        "startChar": 18,
+        "endLine": 618,
+        "endChar": 25
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7324b09d_b8763598",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "Nit: might want to check groundedUid here too.",
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a16ed0c_baf45c76",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "ditto groundedUid",
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5369f037_c1c3e3b3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "Nit: no space before punctuation.",
+      "range": {
+        "startLine": 692,
+        "startChar": 71,
+        "endLine": 692,
+        "endChar": 72
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04be7ecb_2576b8e6",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "ditto groundedUid",
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e8726ae_e8abf363",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T00:58:32Z",
+      "side": 1,
+      "message": "This seems strange - there\u0027s no reason for those apps not to see the owner UID. Some of them like settings and systemui probably have a very legitimate reason for knowing. Maybe file a bug to fix that, or at least fix it on T+?\n\nFor the purposes of this CL, the code is correct since the behaviour of the redaction method matches the behaviour that such apps will get if they call getNetworkCapabilities themselves.",
+      "range": {
+        "startLine": 771,
+        "startChar": 0,
+        "endLine": 772,
+        "endChar": 37
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
