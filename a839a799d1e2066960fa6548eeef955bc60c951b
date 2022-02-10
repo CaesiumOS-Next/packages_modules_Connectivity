@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bf35311_52f3ca87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T12:41:40Z",
+      "side": 1,
+      "message": "Looks like there\u0027s a bug in this CL:\n\njava.lang.AssertionError: expected null, but was:\u003chttps://capport.example.com/api\u003e\njava.lang.AssertionError: expected null, but was:\u003chttps://capport.example.com/api\u003e\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat org.junit.Assert.failNotNull(Assert.java:756)\n\tat org.junit.Assert.assertNull(Assert.java:738)\n\tat org.junit.Assert.assertNull(Assert.java:748)\n\tat android.net.cts.ConnectivityManagerTest.lambda$testRedactLinkPropertiesForPackage$10$android-net-cts-ConnectivityManagerTest(ConnectivityManagerTest.java:652)",
+      "revId": "a839a799d1e2066960fa6548eeef955bc60c951b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
