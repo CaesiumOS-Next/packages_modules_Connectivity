@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a16a28f_2eb72d9f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1636,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b3deee5_3c29974e",
+      "range": {
+        "startLine": 1636,
+        "startChar": 94,
+        "endLine": 1636,
+        "endChar": 95
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "539940ac_1c94d57f",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-02-10T00:58:32Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 1691,
+        "startChar": 99,
+        "endLine": 1691,
+        "endChar": 100
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "679370f7_aa50febd",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "539940ac_1c94d57f",
       "range": {
         "startLine": 1691,
         "startChar": 99,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f07938b_289c9bde",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Yeah I was lazy and tired of making everything a topic \u003e.\u003e\n\nDone",
+      "parentUuid": "4ac8de16_afb96182",
+      "range": {
+        "startLine": 577,
+        "startChar": 24,
+        "endLine": 577,
+        "endChar": 35
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "757ff877_2b104271",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-02-10T00:58:32Z",
       "side": 1,
       "message": "Is it correct to say that if a permission is in requestedPermissions, then the app has that permission? The code in PermissionMonitor#hasPermission suggests that it is not, we need to check requestedPermissionsFlags too.\n\nNo need to fix in this CL since this is just a test, and not a security-sensitive test, but should probably fix it. In particular it would be bad if someone copied this code and put it somewhere that is actually security-sensitive. Maybe we could add a hasPermission utility method in frameworks/libs/net somewhere, since this is non-obvious and error-prone?\n\nThis method too would be a good fit for frameworks/libs/net.",
+      "range": {
+        "startLine": 596,
+        "startChar": 31,
+        "endLine": 596,
+        "endChar": 46
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d333dfd_d8b06ec8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "757ff877_2b104271",
       "range": {
         "startLine": 596,
         "startChar": 31,
@@ -133,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "106207c4_e9432ce7",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "da96c2da_2a15ec6a",
+      "range": {
+        "startLine": 607,
+        "startChar": 21,
+        "endLine": 607,
+        "endChar": 36
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0537d979_313d51a8",
@@ -146,6 +266,30 @@
       "writtenOn": "2022-02-10T00:58:32Z",
       "side": 1,
       "message": "Shouldn\u0027t this be called normalUid?",
+      "range": {
+        "startLine": 618,
+        "startChar": 18,
+        "endLine": 618,
+        "endChar": 25
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16aa908a_7b64574b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Argh had missed that one, thanks",
+      "parentUuid": "0537d979_313d51a8",
       "range": {
         "startLine": 618,
         "startChar": 18,
@@ -173,6 +317,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1182d438_8aa3f6ff",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7324b09d_b8763598",
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a16ed0c_baf45c76",
@@ -186,6 +348,24 @@
       "writtenOn": "2022-02-10T00:58:32Z",
       "side": 1,
       "message": "ditto groundedUid",
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229d6082_50f38ad3",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a16ed0c_baf45c76",
       "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -213,6 +393,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fa17eed_755b856c",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5369f037_c1c3e3b3",
+      "range": {
+        "startLine": 692,
+        "startChar": 71,
+        "endLine": 692,
+        "endChar": 72
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04be7ecb_2576b8e6",
@@ -230,6 +434,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f061edf1_277cdb6a",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04be7ecb_2576b8e6",
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e8726ae_e8abf363",
@@ -243,6 +465,30 @@
       "writtenOn": "2022-02-10T00:58:32Z",
       "side": 1,
       "message": "This seems strange - there\u0027s no reason for those apps not to see the owner UID. Some of them like settings and systemui probably have a very legitimate reason for knowing. Maybe file a bug to fix that, or at least fix it on T+?\n\nFor the purposes of this CL, the code is correct since the behaviour of the redaction method matches the behaviour that such apps will get if they call getNetworkCapabilities themselves.",
+      "range": {
+        "startLine": 771,
+        "startChar": 0,
+        "endLine": 772,
+        "endChar": 37
+      },
+      "revId": "b385a1627da1f40a4ea52308169ef26b4e097125",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0492d2b_f073d112",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-10T02:40:29Z",
+      "side": 1,
+      "message": "Fair ; this is essentially because of legacy behavior.\n\nAdded TODO as I don\u0027t think it belongs in this patch, and prepared aosp/1976973 to address it.",
+      "parentUuid": "1e8726ae_e8abf363",
       "range": {
         "startLine": 771,
         "startChar": 0,
