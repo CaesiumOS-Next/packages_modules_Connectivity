@@ -783,23 +783,35 @@ public class ConnectivityManagerTest {
             assertEquals(rssi, ((WifiInfo) redactedPrivileged.getTransportInfo()).getRssi());
 
             // The owner uid is only preserved when the network is a VPN and the uid is the
-            // same as the owner uid.
+            // same as the owner uid, or the app is highly privileged.
             nc.addTransportType(TRANSPORT_VPN);
             assertEquals(normalUid, redactNc(nc, normalUid, normalPkg).getOwnerUid());
-            assertEquals(INVALID_UID, redactNc(nc, privilegedUid, privilegedPkg).getOwnerUid());
+            assertEquals(normalUid, redactNc(nc, privilegedUid, privilegedPkg).getOwnerUid());
             nc.removeTransportType(TRANSPORT_VPN);
 
             // If the given uid doesn't hold location permissions, the owner uid will be set to
             // INVALID_UID even when sent to that UID (this avoids a wifi suggestor knowing where
-            // the device is by virtue of the device connecting to its own network).
+            // the device is by virtue of the device connecting to its own network). Highly
+            // privileged UIDs still can see the owner UID.
             assertEquals(INVALID_UID, redactNc(nc, normalUid, normalPkg).getOwnerUid());
+            assertEquals(normalUid, redactNc(nc, privilegedUid, privilegedPkg).getOwnerUid());
 
-            // If the given uid holds location permissions, the owner uid is preserved. This works
-            // because the shell holds ACCESS_FINE_LOCATION.
-            final int[] administratorUids2 = { privilegedUid };
+            final String locationPkg = findPackageByPermissions(
+                    List.of(ACCESS_NETWORK_STATE, ACCESS_FINE_LOCATION), /* requiredPermissions */
+                    List.of(NETWORK_SETTINGS, NETWORK_SETUP_WIZARD, NETWORK_STACK,
+                            PERMISSION_MAINLINE_NETWORK_STACK) /* forbiddenPermissions */);
+            assertNotNull("Couldn't find a package with location permissions "
+                    + "but not NETWORK_SETTINGS or similar", locationPkg);
+            final int locationUid = mPackageManager.getPackageUid(locationPkg, 0);
+
+            // If the given UID holds location permissions, then it is allowed to see the owner
+            // UID of networks that it built.
+            final int[] administratorUids2 = { locationUid };
             nc.setAdministratorUids(administratorUids2);
-            nc.setOwnerUid(privilegedUid);
-            assertEquals(privilegedUid, redactNc(nc, privilegedUid, privilegedPkg).getOwnerUid());
+            nc.setOwnerUid(locationUid);
+            assertEquals(locationUid, redactNc(nc, locationUid, locationPkg).getOwnerUid());
+            assertEquals(INVALID_UID, redactNc(nc, normalUid, normalPkg).getOwnerUid());
+            assertEquals(locationUid, redactNc(nc, privilegedUid, privilegedPkg).getOwnerUid());
         });
     }
 
