@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da21fe2_d72035fc",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T03:25:28Z",
+      "side": 1,
+      "message": "Package?",
+      "range": {
+        "startLine": 13,
+        "startChar": 255,
+        "endLine": 13,
+        "endChar": 258
+      },
+      "revId": "72794bb8d76b3962b31ba7c0005e301b8de776f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
