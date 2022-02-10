@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1a3d5b7_01e08d8f",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-10T21:26:07Z",
+      "side": 1,
+      "message": "error: invalid indirect read from stack R3 off -96+4 size 44. This is the same map update as before, not sure why there error is only present now.",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 267,
+        "endChar": 84
+      },
+      "revId": "c2f9f666456cea89b234b30f847477b847cad323",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
