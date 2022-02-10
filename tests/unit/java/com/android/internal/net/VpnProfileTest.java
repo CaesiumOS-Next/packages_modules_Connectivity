@@ -85,7 +85,8 @@ public class VpnProfileTest {
 
     private VpnProfile getSampleIkev2Profile(String key) {
         final VpnProfile p = new VpnProfile(key, true /* isRestrictedToTestNetworks */,
-                false /* excludesLocalRoutes */, true /* requiresPlatformValidation */);
+                false /* excludesLocalRoutes */, true /* requiresPlatformValidation */,
+                null /* ikeTunConnParams */);
 
         p.name = "foo";
         p.type = VpnProfile.TYPE_IKEV2_IPSEC_USER_PASS;
@@ -134,7 +135,7 @@ public class VpnProfileTest {
     public void testParcelUnparcel() {
         if (isAtLeastT()) {
             // excludeLocalRoutes, requiresPlatformValidation were added in T.
-            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 25);
+            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 26);
         } else {
             assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 23);
         }
