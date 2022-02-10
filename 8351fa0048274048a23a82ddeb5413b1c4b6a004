@@ -1,0 +1,47 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000020289629",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/1972139?revision\u003d2",
+      "fixSuggestions": [
+        {
+          "fixId": "8dde1076_c2b43e24",
+          "description": "Change to \"bpf_progs/dscp_policy.c\"",
+          "replacements": [
+            {
+              "path": "bpf_progs/dscp_policy.c",
+              "range": {
+                "startLine": 99,
+                "startChar": 52,
+                "endLine": 99,
+                "endChar": 63
+              },
+              "replacement": "comparison"
+            }
+          ]
+        }
+      ],
+      "key": {
+        "uuid": "61a4acf1_07e77b77",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2022-02-10T00:22:33Z",
+      "side": 1,
+      "message": "Common typo found: \"comparision\" -- should it be \"comparison\"?\nNote: a line containing \"common_typos_disable\" or \"common_typos_enable\" will turn off or on (respectively) the linter for subsequent lines in the file. Alternatively include the token \"NOTYPO\" within a line to skip typo linting that line or include \u0027No-Typo-Check: \u003creason\u003e\u0027in the commit message.",
+      "range": {
+        "startLine": 99,
+        "startChar": 52,
+        "endLine": 99,
+        "endChar": 63
+      },
+      "revId": "8351fa0048274048a23a82ddeb5413b1c4b6a004",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
