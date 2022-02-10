@@ -16,6 +16,23 @@
       "message": "Thanks Remi!",
       "revId": "d8965edd3d49ff266004a42b4c4265ca4962d567",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c377002_0b573d10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T08:16:00Z",
+      "side": 1,
+      "message": "The TH run sees a failing test, but that cannot be due to this CL since it\u0027s an OWNERS-only change.",
+      "revId": "d8965edd3d49ff266004a42b4c4265ca4962d567",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
