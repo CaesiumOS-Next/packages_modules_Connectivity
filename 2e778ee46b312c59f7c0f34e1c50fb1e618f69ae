@@ -16,6 +16,23 @@
       "message": "Identical to ag/16618517 merged internally, except that the internal CL has \"public final class IpSecManager\" and the AOSP CL has \"public class IpSecManager\". (This is because aosp/1970081 was merged into AOSP after the master change was merged.)",
       "revId": "2e778ee46b312c59f7c0f34e1c50fb1e618f69ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e041cc8d_d885c3e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-10T11:44:55Z",
+      "side": 1,
+      "message": "No need to add new CTS tests in this CL because it is just moving existing APIs, not adding any new APIs.",
+      "revId": "2e778ee46b312c59f7c0f34e1c50fb1e618f69ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
