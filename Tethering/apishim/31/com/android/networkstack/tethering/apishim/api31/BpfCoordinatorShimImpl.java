@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.IBpfMap.ThrowingBiConsumer;
 import com.android.networkstack.tethering.BpfCoordinator.Dependencies;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.BpfUtils;
@@ -410,7 +411,7 @@ public class BpfCoordinatorShimImpl
 
     @Override
     public void tetherOffloadRuleForEach(boolean downstream,
-            @NonNull BiConsumer<Tether4Key, Tether4Value> action) {
+            @NonNull ThrowingBiConsumer<Tether4Key, Tether4Value> action) {
         if (!isInitialized()) return;
 
         try {
