@@ -2289,9 +2289,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 nc.getApplicableRedactions(), redactionPermissionChecker,
                 includeLocationSensitiveInfo);
         final NetworkCapabilities newNc = new NetworkCapabilities(nc, redactions);
+
+        // Highly privileged processes (those who are allowed to learn about what other apps
+        // are doing and to see location even when it's off) can see the owner UID.
+        if (checkNetworkStackSettingsOrSetupPermission(callingPid, callingUid)) {
+            return newNc;
+        }
+
         // Reset owner uid if not destined for the owner app.
-        // TODO : calling UID is redacted because apps should generally not know what UID is
-        // bringing up the VPN, but this should not apply to some very privileged apps like settings
         if (callingUid != nc.getOwnerUid()) {
             newNc.setOwnerUid(INVALID_UID);
             return newNc;
@@ -2794,6 +2799,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_SETUP_WIZARD,
                 android.Manifest.permission.NETWORK_STACK,
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+    }
+
+    private boolean checkNetworkStackSettingsOrSetupPermission(int pid, int uid) {
+        return PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_SETTINGS, pid, uid)
+                || PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_SETUP_WIZARD, pid, uid)
+                || PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_STACK, pid, uid)
+                || PERMISSION_GRANTED == mContext.checkPermission(
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, pid, uid);
     }
 
     private void enforceAirplaneModePermission() {
