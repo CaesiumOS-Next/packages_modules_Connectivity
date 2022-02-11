@@ -34,6 +34,24 @@
       "parentUuid": "41eaad58_c6819a61",
       "revId": "b4e2964a2e007483b69dcd469b93d38bf5fc7645",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e738937_1ea7ea2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-11T07:19:22Z",
+      "side": 1,
+      "message": "Ohh, cool. I don\u0027t notice you have aosp/1972803 already.",
+      "parentUuid": "755160a9_9bb018d9",
+      "revId": "b4e2964a2e007483b69dcd469b93d38bf5fc7645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
