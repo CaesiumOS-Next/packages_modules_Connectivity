@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00e1901d_0d0f79ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-11T10:45:14Z",
+      "side": 1,
+      "message": "I\u0027m assuming you guys are keeping track, and this is indeed not only not used now, but won\u0027t be used in the future.",
+      "revId": "4dd5be660650b1dd7a282c82a6a8d4078293f257",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
