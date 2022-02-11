@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a57a697_289015b6",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-11T23:14:27Z",
+      "side": 0,
+      "message": "What is the reason 10/11 were being set to 0xff in BpfCoordinator? Currently QoS Bpf program needs all 0\u0027s before IPv4 address.",
+      "range": {
+        "startLine": 76,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 36
+      },
+      "revId": "0fc2ec6d687a13e4a36164639fea8761fff0536f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
