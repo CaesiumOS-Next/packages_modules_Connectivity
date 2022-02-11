@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92e96049_e9112e0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-11T01:03:36Z",
+      "side": 1,
+      "message": "you\u0027ll want to remove the spurious // commented out code",
+      "revId": "2ec2f7cce6bad6d35e1531a77824cdaf8adc3db3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
