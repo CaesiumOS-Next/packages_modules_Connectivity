@@ -16,6 +16,24 @@
       "message": "BTW, Build.VERSION_CODES.S_V2 has landed on aosp branch.\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/Build.java;l\u003d1153",
       "revId": "137bbed860487dbde010fef257ec95f3692b1e8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d58d9764_8fd4eb31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-02-11T08:13:06Z",
+      "side": 1,
+      "message": "We\u0027ll need it also ready in mainline branch.",
+      "parentUuid": "ad6a7236_a158e2d7",
+      "revId": "137bbed860487dbde010fef257ec95f3692b1e8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
