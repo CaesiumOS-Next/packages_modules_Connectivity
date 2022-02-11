@@ -198,6 +198,10 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
     @Mock
     private LocationPermissionChecker mLocationPermissionChecker;
     private @Mock IBpfMap<U32, U8> mUidCounterSetMap;
+    private @Mock IBpfMap<CookieTagMapKey, CookieTagMapValue> mCookieTagMap;
+    private @Mock IBpfMap<StatsMapKey, StatsMapValue> mStatsMapA;
+    private @Mock IBpfMap<StatsMapKey, StatsMapValue> mStatsMapB;
+    private @Mock IBpfMap<UidStatsMapKey, StatsMapValue> mAppUidStatsMap;
 
     private NetworkStatsService mService;
     private INetworkStatsSession mSession;
@@ -357,6 +361,26 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
             @Override
             public IBpfMap<U32, U8> getUidCounterSetMap() {
                 return mUidCounterSetMap;
+            }
+
+            @Override
+            public IBpfMap<CookieTagMapKey, CookieTagMapValue> getCookieTagMap() {
+                return mCookieTagMap;
+            }
+
+            @Override
+            public IBpfMap<StatsMapKey, StatsMapValue> getStatsMapA() {
+                return mStatsMapA;
+            }
+
+            @Override
+            public IBpfMap<StatsMapKey, StatsMapValue> getStatsMapB() {
+                return mStatsMapB;
+            }
+
+            @Override
+            public IBpfMap<UidStatsMapKey, StatsMapValue> getAppUidStatsMap() {
+                return mAppUidStatsMap;
             }
         };
     }
@@ -647,6 +671,18 @@ public class NetworkStatsServiceTest extends NetworkStatsBaseTest {
         assertNetworkTotal(sTemplateWifi, 0L, 0L, 0L, 0L, 0);
         assertUidTotal(sTemplateImsi2, UID_BLUE, 128L, 1L, 1024L, 8L, 10);
 
+    }
+
+    private void verifyDeleteTagData(int uid) throws Exception {
+        // TODO: Since some maps (e.g. CookieTagMap, StatsMapA, mStatsMapB and AppUidStatsMap)
+        // still use native BpfMap to add entry, can't verify whether the entry is really be deleted
+        // now. Verify whether the entry is deleted once all of the bpf map is switching to use java
+        // BpfMap implementation.
+        verify(mCookieTagMap).forEach(any());
+        verify(mStatsMapA).forEach(any());
+        verify(mStatsMapB).forEach(any());
+        verify(mUidCounterSetMap).deleteEntry(eq(new U32(uid)));
+        verify(mAppUidStatsMap).deleteEntry(eq(new UidStatsMapKey(uid)));
     }
 
     @Test
