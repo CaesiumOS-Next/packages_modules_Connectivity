@@ -18,6 +18,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <inttypes.h>
 #include <linux/if_tun.h>
 #include <linux/ioctl.h>
 #include <log/log.h>
@@ -27,7 +28,11 @@
 #include <sys/wait.h>
 #include <string>
 
+#include <bpf/BpfMap.h>
+#include <bpf/BpfUtils.h>
+#include <bpf_shared.h>
 #include <netjniutils/netjniutils.h>
+#include <private/android_filesystem_config.h>
 
 #include "libclat/bpfhelper.h"
 #include "libclat/clatutils.h"
@@ -292,6 +297,32 @@ int initTracker(const std::string& iface, const std::string& pfx96, const std::s
     return 0;
 }
 
+int tagSocketClat(int sockFd) {
+    uint64_t sock_cookie = bpf::getSocketCookie(sockFd);
+    if (sock_cookie == bpf::NONEXISTENT_COOKIE) return -errno;
+
+    bpf::BpfMap<uint64_t, UidTagValue> cookieTagMap;
+    auto res = cookieTagMap.init(COOKIE_TAG_MAP_PATH);
+    if (!res.ok()) {
+        ALOGE("Failed to init the cookieTagMap: %s", strerror(res.error().code()));
+        return -res.error().code();
+    }
+
+    // Tag packet socket with uid AID_CLAT and set tag as zero because tag is unused in bpf
+    // program for counting data usage in netd.c. Tagging socket is used to avoid counting
+    // duplicated clat traffic in bpf stat.
+    UidTagValue newKey = {.uid = (uint32_t)AID_CLAT, .tag = 0 /* unused */};
+    res = cookieTagMap.writeValue(sock_cookie, newKey, BPF_ANY);
+    if (!res.ok()) {
+        ALOGE("Failed to tag the socket: %s, fd: %d", strerror(res.error().code()),
+              cookieTagMap.getMap().get());
+        return -res.error().code();
+    }
+
+    ALOGI("tag uid AID_CLAT to socket fd %d, cookie %" PRIu64 "", sockFd, sock_cookie);
+    return 0;
+}
+
 static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         JNIEnv* env, jobject clazz, jobject tunJavaFd, jobject readSockJavaFd,
         jobject writeSockJavaFd, jstring iface, jstring pfx96, jstring v4, jstring v6) {
@@ -326,7 +357,14 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     snprintf(passedSockReadStr, sizeof(passedSockReadStr), "%d", readSock);
     snprintf(passedSockWriteStr, sizeof(passedSockWriteStr), "%d", writeSock);
 
-    // 2. we're going to use this as argv[0] to clatd to make ps output more useful
+    // 2. Tag socket as AID_CLAT to avoid duplicated data usage counting.
+    // Note that android_tag_socket_with_uid() doesn't allow to tag a packet socket fd.
+    if (int ret = tagSocketClat(writeSock)) {
+        throwIOException(env, "tagSocketClat for write socket failed", -ret);
+        return -1;
+    }
+
+    // 3. we're going to use this as argv[0] to clatd to make ps output more useful
     std::string progname("clatd-");
     progname += ifaceStr.c_str();
 
@@ -342,7 +380,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
                           nullptr};
     // clang-format on
 
-    // 3. register vfork requirement
+    // 4. register vfork requirement
     posix_spawnattr_t attr;
     if (int ret = posix_spawnattr_init(&attr)) {
         throwIOException(env, "posix_spawnattr_init failed", ret);
@@ -356,7 +394,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         return -1;
     }
 
-    // 4. register dup2() action: this is what 'clears' the CLOEXEC flag
+    // 5. register dup2() action: this is what 'clears' the CLOEXEC flag
     // on the tun fd that we want the child clatd process to inherit
     // (this will happen after the vfork, and before the execve).
     // Note that dup2(2) is a no-op if fd == new_fd but O_CLOEXEC flag well be removed.
@@ -387,7 +425,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         return -1;
     }
 
-    // 5. actually perform vfork/dup2/execve
+    // 6. actually perform vfork/dup2/execve
     pid_t pid;
     if (int ret = posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
         posix_spawnattr_destroy(&attr);
@@ -399,7 +437,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     posix_spawnattr_destroy(&attr);
     posix_spawn_file_actions_destroy(&fa);
 
-    // 6. Start BPF if any
+    // 7. Start BPF if any
     if (!net::clat::initMaps()) {
         net::clat::ClatdTracker tracker = {};
         if (!initTracker(ifaceStr.c_str(), pfx96Str.c_str(), v4Str.c_str(), v6Str.c_str(),
