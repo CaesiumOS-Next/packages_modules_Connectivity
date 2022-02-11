@@ -1846,6 +1846,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2418505f_beac98ee",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-11T19:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8e15f7e_7527e2ad",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 74
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6984cc1f_ef7f2846",
@@ -2119,6 +2143,30 @@
       "side": 1,
       "message": "Does this not work?\n\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/libs/net/common/testutils/devicetests/com/android/testutils/TestableNetworkCallback.kt;drc\u003d2f5bd16464d4e361df7710502b3307eb19197136;l\u003d198\n\n    fun assertNoCallback(timeoutMs: Long) {\n        val cb \u003d history.poll(timeoutMs)\n        if (null !\u003d cb) fail(\"Expected no callback but got $cb\")\n    }",
       "parentUuid": "62a30e9c_6b7862ed",
+      "range": {
+        "startLine": 440,
+        "startChar": 8,
+        "endLine": 440,
+        "endChar": 88
+      },
+      "revId": "5c4cf61b0ef013a4459138a5b3b10d1a6abcd497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "406e3637_88a08deb",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 59
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-11T19:29:34Z",
+      "side": 1,
+      "message": "That\u0027s the one I was trying to use. Unable to import and trying to use directly results in:\n\nerror: unresolved reference: assertNoCallback\n\nMaybe something with kotlin I\u0027m unware.",
+      "parentUuid": "cb38ef3e_ccfcd98f",
       "range": {
         "startLine": 440,
         "startChar": 8,
