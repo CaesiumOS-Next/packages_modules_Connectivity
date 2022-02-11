@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41eaad58_c6819a61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-11T06:59:13Z",
+      "side": 1,
+      "message": "This change remove deleteKernelTagData old implementation but don\u0027t add new one to cover it. Upload aosp/1981646 to keep the test coverage.",
+      "revId": "b4e2964a2e007483b69dcd469b93d38bf5fc7645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
