@@ -15,6 +15,7 @@
  */
 #define LOG_TAG "jniClatCoordinator"
 
+#include <android/multinetwork.h>
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -401,6 +402,14 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         throwIOException(env, "posix_spawn_file_actions_adddup2 for write socket failed", ret);
         return -1;
     }
+
+    // Tag socket
+    ALOGW("+android_tag_socket_with_uid passedSockRead %d", passedSockRead);
+    if (int ret = android_tag_socket_with_uid(passedSockRead, 0, 1027)) {
+        throwIOException(env, "android_tag_socket_with_uid for read socket failed", -ret);
+        return -1;
+    }
+    ALOGW("-android_tag_socket_with_uid passedSockRead %d", passedSockRead);
 
     // 5. actually perform vfork/dup2/execve
     pid_t pid;
