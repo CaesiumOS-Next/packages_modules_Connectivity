@@ -52,6 +52,9 @@ cc_library_shared {
         "-Wall",
         "-Werror",
         "-Wno-unused-parameter",
+        // Don't warn about S API usage even with
+        // min_sdk 30 for android_tag_socket_with_uid
+        "-Wno-unguarded-availability",
         "-Wthread-safety",
     ],
     srcs: [
@@ -71,6 +74,7 @@ cc_library_shared {
         "netd_aidl_interface-lateststable-ndk",
     ],
     shared_libs: [
+        "libandroid",
         "libbase",
         "libnetdutils",
         "liblog",
