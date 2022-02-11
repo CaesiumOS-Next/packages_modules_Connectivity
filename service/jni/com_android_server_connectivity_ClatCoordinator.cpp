@@ -15,6 +15,7 @@
  */
 #define LOG_TAG "jniClatCoordinator"
 
+#include <android/multinetwork.h>
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -40,6 +41,9 @@
 #define __INT_STRLEN(i) sizeof(#i)
 #define _INT_STRLEN(i) __INT_STRLEN(i)
 #define INT32_STRLEN _INT_STRLEN(INT32_MIN)
+
+// Sync from system/core/libcutils/include/cutils/android_filesystem_config.h
+#define AID_CLAT 1029
 
 #define DEVICEPREFIX "v4-"
 
@@ -343,7 +347,15 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     snprintf(passedSockReadStr, sizeof(passedSockReadStr), "%d", passedSockRead);
     snprintf(passedSockWriteStr, sizeof(passedSockWriteStr), "%d", passedSockWrite);
 
-    // 2. we're going to use this as argv[0] to clatd to make ps output more useful
+    // 2. tag packet socket with uid AID_CLAT and set tag as zero because tag is unused in bpf
+    // program netd.c. Tagging socket is used to avoid counting duplicated clat traffic in bpf
+    // stat.
+    if (int ret = android_tag_socket_with_uid(passedSockRead, 0 /* tag */, AID_CLAT)) {
+        throwIOException(env, "android_tag_socket_with_uid for read socket failed", -ret);
+        return -1;
+    }
+
+    // 3. we're going to use this as argv[0] to clatd to make ps output more useful
     std::string progname("clatd-");
     progname += ifaceStr.c_str();
 
@@ -359,7 +371,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
                           nullptr};
     // clang-format on
 
-    // 3. register vfork requirement
+    // 4. register vfork requirement
     posix_spawnattr_t attr;
     if (int ret = posix_spawnattr_init(&attr)) {
         throwIOException(env, "posix_spawnattr_init failed", ret);
@@ -373,7 +385,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         return -1;
     }
 
-    // 4. register dup2() action: this is what 'clears' the CLOEXEC flag
+    // 5. register dup2() action: this is what 'clears' the CLOEXEC flag
     // on the tun fd that we want the child clatd process to inherit
     // (this will happen after the vfork, and before the execve)
     posix_spawn_file_actions_t fa;
@@ -402,7 +414,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         return -1;
     }
 
-    // 5. actually perform vfork/dup2/execve
+    // 6. actually perform vfork/dup2/execve
     pid_t pid;
     if (int ret = posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
         posix_spawnattr_destroy(&attr);
@@ -414,7 +426,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     posix_spawnattr_destroy(&attr);
     posix_spawn_file_actions_destroy(&fa);
 
-    // 5. Start BPF if any
+    // 7. Start BPF if any
     if (!net::clat::initMaps()) {
         net::clat::ClatdTracker tracker = {};
         if (!initTracker(ifaceStr.c_str(), pfx96Str.c_str(), v4Str.c_str(), v6Str.c_str(),
