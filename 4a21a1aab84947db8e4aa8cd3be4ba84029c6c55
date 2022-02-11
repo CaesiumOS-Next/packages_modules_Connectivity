@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed7493a1_70652ff2",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-11T17:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34927972_05095ce4",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f91005be_e311ef04",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "not ideal, but that\u0027s probably a fair enough compromise...",
       "parentUuid": "99ba2edc_a588340d",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 43
+      },
+      "revId": "4a21a1aab84947db8e4aa8cd3be4ba84029c6c55",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0be2fcb9_17d2528f",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-11T17:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab38458e_83b42864",
       "range": {
         "startLine": 66,
         "startChar": 0,
