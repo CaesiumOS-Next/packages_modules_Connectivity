@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb4c72c_a1fcdd6b",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 3036,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-11T16:46:19Z",
+      "side": 1,
+      "message": "add a test for the non verbose one as well?",
+      "range": {
+        "startLine": 3036,
+        "startChar": 0,
+        "endLine": 3036,
+        "endChar": 67
+      },
+      "revId": "f727cc8f1612a4d699ef397185a42f93e2bedfb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
