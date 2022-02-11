@@ -16,6 +16,24 @@
       "message": "This change remove deleteKernelTagData old implementation but don\u0027t add new one to cover it. Upload aosp/1981646 to keep the test coverage.",
       "revId": "b4e2964a2e007483b69dcd469b93d38bf5fc7645",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "755160a9_9bb018d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-11T07:04:17Z",
+      "side": 1,
+      "message": "Actually, there is aosp/1972803, but none of that is ready yet. It\u0027s probably okay to keep this change, but we also need to add code to call into the BpfNetMaps version of deteleTagData until the java version is ready (this should unblock us to delete TrafficController entirely in netd -- once the dumpsys functionality has moved, of course).",
+      "parentUuid": "41eaad58_c6819a61",
+      "revId": "b4e2964a2e007483b69dcd469b93d38bf5fc7645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
