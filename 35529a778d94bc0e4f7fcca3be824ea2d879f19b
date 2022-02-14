@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24fc9e0_1afbb071",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-02-14T10:32:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb63d89a_cdce4acf",
+      "range": {
+        "startLine": 958,
+        "startChar": 3,
+        "endLine": 958,
+        "endChar": 38
+      },
+      "revId": "35529a778d94bc0e4f7fcca3be824ea2d879f19b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fff7edc3_04384504",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-14T03:30:31Z",
       "side": 1,
       "message": "parseTether4KeyValue seems never return null, this rull check seems redundant ?",
+      "range": {
+        "startLine": 1002,
+        "startChar": 12,
+        "endLine": 1002,
+        "endChar": 36
+      },
+      "revId": "35529a778d94bc0e4f7fcca3be824ea2d879f19b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c42f34ee_7201577d",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-02-14T10:32:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fff7edc3_04384504",
       "range": {
         "startLine": 1002,
         "startChar": 12,
