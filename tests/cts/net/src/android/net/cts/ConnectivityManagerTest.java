@@ -2908,15 +2908,23 @@ public class ConnectivityManagerTest {
             // Default network should be updated to validated cellular network.
             defaultCb.eventuallyExpect(CallbackEntry.AVAILABLE, NETWORK_CALLBACK_TIMEOUT_MS,
                     entry -> cellNetwork.equals(entry.getNetwork()));
-            // No callback except LinkPropertiesChanged which may be triggered randomly from network
+            // No callback except callbacks caused from the network side. If capabilities are
+            // updated, they should still not have the VALIDATED bit.
             wifiCb.assertNoCallbackThat(NO_CALLBACK_TIMEOUT_MS,
-                    c -> !(c instanceof CallbackEntry.LinkPropertiesChanged));
+                    c -> !(c instanceof CallbackEntry.LinkPropertiesChanged)
+                            && !isValidatedCaps(c));
         } finally {
             resetAvoidBadWifi(previousAvoidBadWifi);
             resetValidationConfig();
             // Reconnect wifi to reset the wifi status
             reconnectWifi();
         }
+    }
+
+    private boolean isValidatedCaps(CallbackEntry c) {
+        if (!(c instanceof CallbackEntry.CapabilitiesChanged)) return false;
+        final CallbackEntry.CapabilitiesChanged capsChanged = (CallbackEntry.CapabilitiesChanged) c;
+        return capsChanged.getCaps().hasCapability(NET_CAPABILITY_VALIDATED);
     }
 
     private void resetAvoidBadWifi(int settingValue) {
