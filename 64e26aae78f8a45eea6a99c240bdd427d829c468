@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a355bfc_7ccd4c52",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-02-14T04:20:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90c89b53_025aba29",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 29
+      },
+      "revId": "64e26aae78f8a45eea6a99c240bdd427d829c468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aab4e766_faf54b3d",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-27T11:08:54Z",
       "side": 1,
       "message": "Why not just throw the argument ?\n\n  .thenThrow(exception)",
+      "range": {
+        "startLine": 1077,
+        "startChar": 31,
+        "endLine": 1077,
+        "endChar": 61
+      },
+      "revId": "64e26aae78f8a45eea6a99c240bdd427d829c468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cbb570d_5725f2eb",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1077,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-02-14T04:20:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aab4e766_faf54b3d",
       "range": {
         "startLine": 1077,
         "startChar": 31,
