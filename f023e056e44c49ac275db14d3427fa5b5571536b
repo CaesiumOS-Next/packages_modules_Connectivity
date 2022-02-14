@@ -88,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ff28f0_58d5a8db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-14T20:14:51Z",
+      "side": 1,
+      "message": "Thanks Mark, though it sounds like this will create a sub-optimal UX that requires user to manually turn off hotspot.\n\nAs discussed offline, let\u0027s move forward w/ altering entitlement logic but with minimizing technical debts in mind.",
+      "parentUuid": "a8f00b43_9980c25a",
+      "revId": "f023e056e44c49ac275db14d3427fa5b5571536b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1bdda06_63c71ab9",

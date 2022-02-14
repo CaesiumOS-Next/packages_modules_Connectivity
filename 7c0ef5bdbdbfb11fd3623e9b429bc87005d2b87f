@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbb44ba1_5db44cb8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-14T20:14:51Z",
+      "side": 1,
+      "message": "If I read the comments below correctly, when TetheringConfiguration changes i.e. carrierSupportsTethering change from true to false, we do need to re-evaluate the entitlement status so to turn off tethering.",
+      "range": {
+        "startLine": 259,
+        "startChar": 59,
+        "endLine": 259,
+        "endChar": 94
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fef88fd_07a93e01",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-14T20:14:51Z",
+      "side": 1,
+      "message": "This can be moved into TetheringConfiguration class, so EntitlementManager doesn\u0027t read carrier configs twice.",
+      "range": {
+        "startLine": 359,
+        "startChar": 20,
+        "endLine": 359,
+        "endChar": 67
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
