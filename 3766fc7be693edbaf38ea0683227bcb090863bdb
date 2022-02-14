@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "773013cf_7fe88c10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-14T22:56:12Z",
+      "side": 1,
+      "message": "dropping this from topic to see if we can get presubmit on aosp/1972803 to pass.",
+      "revId": "3766fc7be693edbaf38ea0683227bcb090863bdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a01bedc8_9b8d5540",
