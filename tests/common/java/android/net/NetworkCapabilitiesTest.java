@@ -736,7 +736,7 @@ public class NetworkCapabilitiesTest {
                 () -> nc1.build().setNetworkSpecifier(specifier));
         assertThrows("Cannot set NetworkSpecifier on a NetworkCapability with multiple transports!",
                 IllegalStateException.class,
-                () -> nc1.setNetworkSpecifier(specifier));
+                () -> nc1.setNetworkSpecifier(specifier).build());
 
         // Sequence 2: Transport + NetworkSpecifier + Transport
         NetworkCapabilities.Builder nc2 = new NetworkCapabilities.Builder();
@@ -747,7 +747,7 @@ public class NetworkCapabilitiesTest {
                 () -> nc2.build().addTransportType(TRANSPORT_WIFI));
         assertThrows("Cannot set a second TransportType of a network which has a NetworkSpecifier!",
                 IllegalStateException.class,
-                () -> nc2.addTransportType(TRANSPORT_WIFI));
+                () -> nc2.addTransportType(TRANSPORT_WIFI).build());
     }
 
     @Test @IgnoreUpTo(Build.VERSION_CODES.R) // New behavior in updatable NetworkCapabilities (S+)
