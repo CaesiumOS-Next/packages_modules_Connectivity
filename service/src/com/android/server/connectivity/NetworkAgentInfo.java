@@ -728,8 +728,8 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     /**
      * Inform NetworkAgentInfo that a new NetworkMonitor was created.
      */
-    public void onNetworkMonitorCreated(INetworkMonitor networkMonitor) {
-        mNetworkMonitor = new NetworkMonitorManager(networkMonitor);
+    public void onNetworkMonitorCreated(INetworkMonitor networkMonitor, int networkMonitorVersion) {
+        mNetworkMonitor = new NetworkMonitorManager(networkMonitor, networkMonitorVersion);
     }
 
     /**

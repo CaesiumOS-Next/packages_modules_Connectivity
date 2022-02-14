@@ -3814,7 +3814,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         @Override
         public void onNetworkMonitorCreated(INetworkMonitor networkMonitor) {
+            int version = 1;
+            try {
+                version = networkMonitor.getInterfaceVersion();
+            } catch (RemoteException e) {
+                // Assume the worst : version 1. With the network stack down, the system
+                // will restart soon anyway.
+            }
             mHandler.sendMessage(mHandler.obtainMessage(EVENT_REGISTER_NETWORK_AGENT,
+                    version, 0 /* arg2 (unused) */,
                     new Pair<>(mNai.getAndDestroy(), networkMonitor)));
         }
 
@@ -5183,7 +5191,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_REGISTER_NETWORK_AGENT: {
                     final Pair<NetworkAgentInfo, INetworkMonitor> arg =
                             (Pair<NetworkAgentInfo, INetworkMonitor>) msg.obj;
-                    handleRegisterNetworkAgent(arg.first, arg.second);
+                    final int networkMonitorVersion = msg.arg1;
+                    handleRegisterNetworkAgent(arg.first, arg.second, networkMonitorVersion);
                     break;
                 }
                 case EVENT_REGISTER_NETWORK_REQUEST:
@@ -7153,7 +7162,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return nai.network;
     }
 
-    private void handleRegisterNetworkAgent(NetworkAgentInfo nai, INetworkMonitor networkMonitor) {
+    private void handleRegisterNetworkAgent(NetworkAgentInfo nai, INetworkMonitor networkMonitor,
+            int networkMonitorVersion) {
         if (VDBG) log("Network Monitor created for " +  nai);
         // nai.nc and nai.lp are the same object that was passed by the network agent if the agent
         // lives in the same process as this code (e.g. wifi), so make sure this code doesn't
@@ -7166,7 +7176,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         processLinkPropertiesFromAgent(nai, lp);
         nai.linkProperties = lp;
 
-        nai.onNetworkMonitorCreated(networkMonitor);
+        nai.onNetworkMonitorCreated(networkMonitor, networkMonitorVersion);
 
         mNetworkAgentInfos.add(nai);
         synchronized (mNetworkForNetId) {
