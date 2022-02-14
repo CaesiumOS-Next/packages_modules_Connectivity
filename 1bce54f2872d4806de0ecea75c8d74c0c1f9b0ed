@@ -39,7 +39,30 @@
       },
       "revId": "1bce54f2872d4806de0ecea75c8d74c0c1f9b0ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47060e72_4441725a",
+        "filename": "tests/common/java/android/net/NetworkCapabilitiesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-14T05:57:45Z",
+      "side": 1,
+      "message": "Uploaded aosp/1984467 to address that, does it help ? I think it tests for the actual behavior we\u0027d want, without failing on the current behavior",
+      "parentUuid": "2beccc9c_19ff7ddf",
+      "range": {
+        "startLine": 678,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 58
+      },
+      "revId": "1bce54f2872d4806de0ecea75c8d74c0c1f9b0ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
-  ],
-  "submitRequirementResults": []
+  ]
 }
