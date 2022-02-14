@@ -22,6 +22,30 @@
       },
       "revId": "db8c1c9cdf5361445c922bd4b9fb7a480f140f8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2332fcb9_8ccdad42",
+        "filename": "service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-02-14T08:24:24Z",
+      "side": 1,
+      "message": "frameworks/native/include/android/multinetwork.h:238:5: note: \u0027android_tag_socket_with_uid\u0027 has been marked as being introduced in Android 33 here, but the deployment target is Android 30.0.0\nint android_tag_socket_with_uid(int sockfd, int tag, uid_t uid) __INTRODUCED_IN(33);\n    ^\npackages/modules/Connectivity/service/jni/com_android_server_connectivity_ClatCoordinator.cpp:353:19: note: enclose \u0027android_tag_socket_with_uid\u0027 in a __builtin_available check to silence this warning\n    if (int ret \u003d android_tag_socket_with_uid(passedSockRead, 0 /* tag */, AID_CLAT)) {",
+      "parentUuid": "46ea1db0_ddafdd29",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "db8c1c9cdf5361445c922bd4b9fb7a480f140f8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
