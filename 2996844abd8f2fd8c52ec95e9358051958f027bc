@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91e6274f_34074695",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-02-14T04:33:02Z",
+      "side": 1,
+      "message": "nit: maybe remove newlines between them if you think it is better.\nfeel free to ignore.",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 72
+      },
+      "revId": "2996844abd8f2fd8c52ec95e9358051958f027bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
