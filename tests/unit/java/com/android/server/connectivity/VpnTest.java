@@ -1068,10 +1068,14 @@ public class VpnTest {
                 config -> Arrays.asList(config.flags).contains(flag)));
     }
 
-    private void setupPlatformVpnWithSpecificExceptionAndItsErrorCode(IkeException exception,
+    private void setupPlatformVpnWithSpecificExceptionAndItsErrorCode(Exception exception,
             String category, int errorType, int errorCode) throws Exception {
         final ArgumentCaptor<IkeSessionCallback> captor =
                 ArgumentCaptor.forClass(IkeSessionCallback.class);
+        if (exception instanceof IllegalArgumentException) {
+            when(mIkev2SessionCreator.createIkeSession(any(), any(), any(), any(), any(), any()))
+                    .thenThrow(exception);
+        }
 
         final Vpn vpn = createVpnAndSetupUidChecks(AppOpsManager.OPSTR_ACTIVATE_PLATFORM_VPN);
         when(mVpnProfileStore.get(vpn.getProfileNameForPackage(TEST_VPN_PKG)))
@@ -1084,10 +1088,13 @@ public class VpnTest {
 
         // Wait for createIkeSession() to be called before proceeding in order to ensure consistent
         // state
-        verify(mIkev2SessionCreator, timeout(TEST_TIMEOUT_MS))
-                .createIkeSession(any(), any(), any(), any(), captor.capture(), any());
-        final IkeSessionCallback ikeCb = captor.getValue();
-        ikeCb.onClosedWithException(exception);
+        if (exception instanceof IkeException) {
+            final IkeException ikeException = (IkeException) exception;
+            verify(mIkev2SessionCreator, timeout(TEST_TIMEOUT_MS))
+                    .createIkeSession(any(), any(), any(), any(), captor.capture(), any());
+            final IkeSessionCallback ikeCb = captor.getValue();
+            ikeCb.onClosedWithException(ikeException);
+        }
 
         verifyVpnManagerEvent(sessionKey, category, errorType, errorCode);
         if (errorType == VpnManager.ERROR_CLASS_NOT_RECOVERABLE) {
@@ -1159,6 +1166,15 @@ public class VpnTest {
                 errorCode);
     }
 
+    // This tests IllegalArgumentException for VpnManager app.
+    @Test
+    public void testStartPlatformVpnFailedWithIllegalArgumentException() throws Exception {
+        setupPlatformVpnWithSpecificExceptionAndItsErrorCode(new IllegalArgumentException(),
+                VpnManager.CATEGORY_EVENT_DEACTIVATED_BY_USER,
+                VpnManager.ERROR_CLASS_NOT_RECOVERABLE, 0 /* errorCode */);
+    }
+
+    // This tests IllegalArgumentException for legacy vpn.
     @Test
     public void testStartPlatformVpnIllegalArgumentExceptionInSetup() throws Exception {
         when(mIkev2SessionCreator.createIkeSession(any(), any(), any(), any(), any(), any()))
