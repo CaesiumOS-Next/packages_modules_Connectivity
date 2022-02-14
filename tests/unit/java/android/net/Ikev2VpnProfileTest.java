@@ -16,6 +16,9 @@
 
 package android.net;
 
+import static android.net.ipsec.ike.SaProposal.KEY_LEN_AES_128;
+import static android.net.ipsec.ike.SaProposal.KEY_LEN_UNUSED;
+
 import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -25,6 +28,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import android.net.ipsec.ike.ChildSaProposal;
+import android.net.ipsec.ike.IkeFqdnIdentification;
+import android.net.ipsec.ike.IkeSaProposal;
+import android.net.ipsec.ike.IkeSessionParams;
+import android.net.ipsec.ike.IkeTunnelConnectionParams;
+import android.net.ipsec.ike.SaProposal;
+import android.net.ipsec.ike.TunnelModeChildSessionParams;
 import android.os.Build;
 import android.test.mock.MockContext;
 
@@ -66,6 +76,32 @@ public class Ikev2VpnProfileTest {
     private static final String EXCL_LIST = "exclList";
     private static final byte[] PSK_BYTES = "preSharedKey".getBytes();
     private static final int TEST_MTU = 1300;
+
+    private static final IkeSaProposal SA_PROPOSAL = new IkeSaProposal.Builder()
+            .addEncryptionAlgorithm(SaProposal.ENCRYPTION_ALGORITHM_3DES, KEY_LEN_UNUSED)
+                .addIntegrityAlgorithm(SaProposal.INTEGRITY_ALGORITHM_HMAC_SHA1_96)
+                .addPseudorandomFunction(SaProposal.PSEUDORANDOM_FUNCTION_AES128_XCBC)
+                .addDhGroup(SaProposal.DH_GROUP_1024_BIT_MODP)
+                .build();
+    private static final ChildSaProposal CHILD_PROPOSAL = new ChildSaProposal.Builder()
+            .addEncryptionAlgorithm(SaProposal.ENCRYPTION_ALGORITHM_AES_CBC, KEY_LEN_AES_128)
+            .addIntegrityAlgorithm(SaProposal.INTEGRITY_ALGORITHM_NONE)
+            .addDhGroup(SaProposal.DH_GROUP_1024_BIT_MODP)
+            .build();
+
+    private static final IkeSessionParams IKE_PARAMS =
+            new IkeSessionParams.Builder()
+                    .setServerHostname("192.0.2.100")
+                    .addSaProposal(SA_PROPOSAL)
+                    .setLocalIdentification(new IkeFqdnIdentification("test.client.com"))
+                    .setRemoteIdentification(new IkeFqdnIdentification("test.server.com"))
+                    .setAuthPsk("psk".getBytes())
+                    .build();
+    private static final TunnelModeChildSessionParams CHILD_PARAMS =
+            new TunnelModeChildSessionParams.Builder()
+                    .addSaProposal(CHILD_PROPOSAL)
+                    .build();
+
 
     @Rule
     public final DevSdkIgnoreRule ignoreRule = new DevSdkIgnoreRule();
@@ -439,6 +475,19 @@ public class Ikev2VpnProfileTest {
         final Ikev2VpnProfile ikeProfile = builder.build();
 
         assertEquals(ikeProfile, Ikev2VpnProfile.fromVpnProfile(ikeProfile.toVpnProfile()));
+    }
+
+    @Test
+    public void testEquals() throws Exception {
+        final Ikev2VpnProfile.Builder builder = getBuilderWithDefaultOptions();
+        builder.setAuthDigitalSignature(mUserCert, mPrivateKey, mServerRootCa);
+        assertEquals(builder.build(), builder.build());
+
+        final IkeTunnelConnectionParams tunnelParams =
+                new IkeTunnelConnectionParams(IKE_PARAMS, CHILD_PARAMS);
+        final Ikev2VpnProfile.Builder builderWithtunnelParams =
+                new Ikev2VpnProfile.Builder(tunnelParams);
+        assertEquals(builderWithtunnelParams.build(), builderWithtunnelParams.build());
     }
 
     private static class CertificateAndKey {
