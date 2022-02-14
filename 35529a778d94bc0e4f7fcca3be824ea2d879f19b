@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb63d89a_cdce4acf",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-14T03:30:31Z",
+      "side": 1,
+      "message": "Ignore IgnoreUpTo in R seems not ideal. Could we still run udp4 test in R but just not verify bpf offload ?",
+      "range": {
+        "startLine": 958,
+        "startChar": 3,
+        "endLine": 958,
+        "endChar": 38
+      },
+      "revId": "35529a778d94bc0e4f7fcca3be824ea2d879f19b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff7edc3_04384504",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-14T03:30:31Z",
+      "side": 1,
+      "message": "parseTether4KeyValue seems never return null, this rull check seems redundant ?",
+      "range": {
+        "startLine": 1002,
+        "startChar": 12,
+        "endLine": 1002,
+        "endChar": 36
+      },
+      "revId": "35529a778d94bc0e4f7fcca3be824ea2d879f19b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
