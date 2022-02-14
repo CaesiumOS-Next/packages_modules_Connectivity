@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46ea1db0_ddafdd29",
+        "filename": "service/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-02-14T08:15:36Z",
+      "side": 1,
+      "message": "removing this cflag cause api level check failed (android_tag_socket_with_uid is Android 33)\n\npackages/modules/Connectivity/service/jni/com_android_server_connectivity_ClatCoordinator.cpp:353:19: error: \u0027android_tag_socket_with_uid\u0027 is only available on Android 33 or newer [-Werror,-Wunguarded-availability]\n    if (int ret \u003d android_tag_socket_with_uid(passedSockRead, 0 /* tag */, AID_CLAT)) {",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "db8c1c9cdf5361445c922bd4b9fb7a480f140f8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
