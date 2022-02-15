@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdf72d64_2de95169",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-15T09:32:25Z",
+      "side": 1,
+      "message": "Code is ready to merge but it conflicts with the NetworkStatsDataMigrationUtils changes in this file that are in internal master. Will hold off until those changes are cherry-picked back to AOSP.",
+      "revId": "7e64d4069b18f5ab720b0ea3a59defa8dc223130",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
