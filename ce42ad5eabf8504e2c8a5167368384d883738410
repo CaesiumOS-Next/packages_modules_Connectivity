@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b472261_857ba204",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-15T22:10:38Z",
+      "side": 1,
+      "message": "space after ;",
+      "range": {
+        "startLine": 96,
+        "startChar": 22,
+        "endLine": 96,
+        "endChar": 23
+      },
+      "revId": "ce42ad5eabf8504e2c8a5167368384d883738410",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
