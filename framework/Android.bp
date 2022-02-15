@@ -88,6 +88,7 @@ java_defaults {
         "modules-utils-preconditions",
     ],
     libs: [
+        "androidx.annotation_annotation",
         "framework-connectivity-tiramisu.stubs.module_lib",
         "unsupportedappusage",
     ],
