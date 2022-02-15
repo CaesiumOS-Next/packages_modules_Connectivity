@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b771ac6_d2e48b28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-02-15T09:10:44Z",
+      "side": 1,
+      "message": "Hi Lucas, Jean\nThis CL adds explicit check of RouteInfo type in NetworksDiagnostics.\nPlease take a look",
+      "revId": "16c2d9d62c84723c8897ff4e72a4f61a69a66a44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
