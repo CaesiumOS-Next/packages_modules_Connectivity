@@ -23,6 +23,8 @@ rule com.android.internal.util.WakeupMessage* com.android.connectivity.@0
 rule com.android.internal.messages.** com.android.connectivity.@0
 rule com.google.protobuf.** com.android.connectivity.@0
 
+rule androidx.annotation.** com.android.connectivity.@0
+
 # From dnsresolver_aidl_interface (newer AIDLs should go to android.net.resolv.aidl)
 rule android.net.resolv.aidl.** com.android.connectivity.@0
 rule android.net.IDnsResolver* com.android.connectivity.@0
