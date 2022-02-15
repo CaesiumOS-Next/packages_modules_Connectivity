@@ -174,7 +174,7 @@ class EthernetManagerTest {
 
     private fun createInterface(): TestNetworkInterface {
         val tnm = context.getSystemService(TestNetworkManager::class.java)
-        return tnm.createTapInterface().also { createdIfaces.add(it) }
+        return tnm.createTapInterface(false /* bringUp */).also { createdIfaces.add(it) }
     }
 
     private fun removeInterface(iface: TestNetworkInterface) {
