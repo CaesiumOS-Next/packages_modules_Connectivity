@@ -17,11 +17,13 @@ package android.net.cts
 
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
+import android.net.EthernetManager
 import android.net.EthernetManager.STATE_ABSENT
 import android.net.EthernetManager.STATE_LINK_DOWN
 import android.net.EthernetManager.STATE_LINK_UP
 import android.net.EthernetManager.ROLE_CLIENT
 import android.net.EthernetManager.ROLE_NONE
+import android.net.EthernetManager.InterfaceStateListener
 import android.net.IpConfiguration
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
@@ -44,8 +46,7 @@ import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.I
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
-import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
-import com.android.networkstack.apishim.EthernetManagerShimImpl
+import android.os.SystemClock
 import java.util.concurrent.Executor
 import kotlin.test.assertEquals
 
@@ -62,7 +63,7 @@ class EthernetManagerTest {
     val ignoreRule = DevSdkIgnoreRule(ignoreClassUpTo = SC_V2)
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
-    private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
+    private val em by lazy { context.getSystemService(EthernetManager::class.java) }
 
     private val createdIfaces = ArrayList<TestNetworkInterface>()
     private val addedListeners = ArrayList<InterfaceStateListener>()
@@ -123,6 +124,7 @@ class EthernetManagerTest {
             createInterface()
         }
         val listener = EthernetStateListener()
+        SystemClock.sleep(200)
         addInterfaceStateListener(executor, listener)
         listener.expectCallback(iface, STATE_LINK_UP, ROLE_CLIENT)
 
@@ -174,7 +176,7 @@ class EthernetManagerTest {
 
     private fun createInterface(): TestNetworkInterface {
         val tnm = context.getSystemService(TestNetworkManager::class.java)
-        return tnm.createTapInterface().also { createdIfaces.add(it) }
+        return tnm.createTapInterface(false /* bringUp */).also { createdIfaces.add(it) }
     }
 
     private fun removeInterface(iface: TestNetworkInterface) {
