@@ -1,4 +1,27 @@
 {
-  "comments": [],
-  "submitRequirementResults": []
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d5bcd0c_93f19192",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 10644,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-15T02:40:30Z",
+      "side": 1,
+      "message": "It could happen if a NetworkAgent sends us a LinkProperties with no interface name, right? Or in that case, would the interface name be an empty string?",
+      "range": {
+        "startLine": 10644,
+        "startChar": 24,
+        "endLine": 10644,
+        "endChar": 29
+      },
+      "revId": "2857ac4dd09b0aea9015caa6ea8f80392fb6987a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
 }
