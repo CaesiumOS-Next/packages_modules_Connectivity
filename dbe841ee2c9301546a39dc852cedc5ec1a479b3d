@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b947f9d7_7350edc5",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-15T21:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6892d0ae_40abb3fa",
+      "range": {
+        "startLine": 41,
+        "startChar": 32,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "dbe841ee2c9301546a39dc852cedc5ec1a479b3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cdcc0ef_bdbb1a58",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c86b5089_ec25deef",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-15T21:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cdcc0ef_bdbb1a58",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 86
+      },
+      "revId": "dbe841ee2c9301546a39dc852cedc5ec1a479b3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d82c26d_9849a5d6",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-15T21:15:57Z",
       "side": 1,
       "message": "this should probably be for i \u003d0 ;i \u003c 128; ++i instead",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "dbe841ee2c9301546a39dc852cedc5ec1a479b3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e46330ba_7b25ac18",
+        "filename": "Tethering/tests/privileged/src/com/android/net/module/util/BpfBitmapTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-15T21:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d82c26d_9849a5d6",
       "range": {
         "startLine": 97,
         "startChar": 0,
