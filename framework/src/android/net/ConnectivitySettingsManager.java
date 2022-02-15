@@ -38,6 +38,9 @@ import android.text.TextUtils;
 import android.util.ArraySet;
 import android.util.Range;
 
+import androidx.annotation.RequiresApi;
+
+import com.android.modules.utils.build.SdkLevel;
 import com.android.net.module.util.ConnectivitySettingsUtils;
 import com.android.net.module.util.ProxyUtils;
 
@@ -1090,8 +1093,12 @@ public class ConnectivitySettingsManager {
      * @return The rate limit in number of bytes per second or -1 if disabled.
      */
     public static long getIngressRateLimitInBytesPerSecond(@NonNull Context context) {
-        return Settings.Global.getLong(context.getContentResolver(),
-                INGRESS_RATE_LIMIT_BYTES_PER_SECOND, -1);
+        if (SdkLevel.isAtLeastT()) {
+            return Settings.Global.getLong(context.getContentResolver(),
+                    INGRESS_RATE_LIMIT_BYTES_PER_SECOND, -1);
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -1102,6 +1109,7 @@ public class ConnectivitySettingsManager {
      * @param context The {@link Context} to set the setting.
      * @param rateLimitInBytesPerSec The rate limit in number of bytes per second or -1 to disable.
      */
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     public static void setIngressRateLimitInBytesPerSecond(@NonNull Context context,
             @IntRange(from = -1, to = Integer.MAX_VALUE) long rateLimitInBytesPerSec) {
         if (rateLimitInBytesPerSec < -1) {
