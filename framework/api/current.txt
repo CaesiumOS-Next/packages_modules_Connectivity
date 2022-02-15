@@ -503,7 +503,7 @@ package android.net {
   public final class StaticIpConfiguration implements android.os.Parcelable {
     method public int describeContents();
     method @NonNull public java.util.List<java.net.InetAddress> getDnsServers();
-    method @Nullable public String getDomains();
+    method @NonNull public java.util.List<java.lang.String> getDomainList();
     method @Nullable public java.net.InetAddress getGateway();
     method @NonNull public android.net.LinkAddress getIpAddress();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
@@ -514,7 +514,7 @@ package android.net {
     ctor public StaticIpConfiguration.Builder();
     method @NonNull public android.net.StaticIpConfiguration build();
     method @NonNull public android.net.StaticIpConfiguration.Builder setDnsServers(@NonNull Iterable<java.net.InetAddress>);
-    method @NonNull public android.net.StaticIpConfiguration.Builder setDomains(@Nullable String);
+    method @NonNull public android.net.StaticIpConfiguration.Builder setDomainList(@NonNull java.util.List<java.lang.String>);
     method @NonNull public android.net.StaticIpConfiguration.Builder setGateway(@Nullable java.net.InetAddress);
     method @NonNull public android.net.StaticIpConfiguration.Builder setIpAddress(@NonNull android.net.LinkAddress);
   }

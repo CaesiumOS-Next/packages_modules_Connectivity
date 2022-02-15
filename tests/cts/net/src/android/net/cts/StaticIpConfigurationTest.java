@@ -43,6 +43,7 @@ import org.junit.runner.RunWith;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -60,7 +61,9 @@ public class StaticIpConfigurationTest {
     private static final InetAddress IPV6_ADDRESS = ipAddress("2001:4860:800d::68");
     private static final LinkAddress IPV6_LINK_ADDRESS = new LinkAddress("2001:db8::1/64");
     private static final String IFACE = "eth0";
-    private static final String FAKE_DOMAINS = "google.com";
+    private static final String FAKE_DOMAINS = "google.com,android.google.com";
+    private static final List<String> FAKE_DOMAIN_LIST = Arrays.asList("google.com",
+            "android.google.com");
 
     @Rule
     public final DevSdkIgnoreRule mIgnoreRule = new DevSdkIgnoreRule();
@@ -238,7 +241,7 @@ public class StaticIpConfigurationTest {
         final ArrayList<InetAddress> dnsServers = new ArrayList<>();
         dnsServers.add(DNS1);
 
-        final StaticIpConfiguration s = new StaticIpConfiguration.Builder()
+        StaticIpConfiguration s = new StaticIpConfiguration.Builder()
                 .setIpAddress(ADDR)
                 .setGateway(GATEWAY)
                 .setDomains(FAKE_DOMAINS)
@@ -251,6 +254,25 @@ public class StaticIpConfigurationTest {
         assertEquals(GATEWAY, s.getGateway());
         assertEquals(s.domains, s.getDomains());
         assertEquals(FAKE_DOMAINS, s.getDomains());
+        assertEquals(FAKE_DOMAIN_LIST, s.getDomainList());
+        assertTrue(s.dnsServers.equals(s.getDnsServers()));
+        assertEquals(1, s.getDnsServers().size());
+        assertEquals(DNS1, s.getDnsServers().get(0));
+
+        s = new StaticIpConfiguration.Builder()
+                .setIpAddress(ADDR)
+                .setGateway(GATEWAY)
+                .setDomainList(FAKE_DOMAIN_LIST)
+                .setDnsServers(dnsServers)
+                .build();
+
+        assertEquals(s.ipAddress, s.getIpAddress());
+        assertEquals(ADDR, s.getIpAddress());
+        assertEquals(s.gateway, s.getGateway());
+        assertEquals(GATEWAY, s.getGateway());
+        assertEquals(s.domains, s.getDomains());
+        assertEquals(FAKE_DOMAINS, s.getDomains());
+        assertEquals(FAKE_DOMAIN_LIST, s.getDomainList());
         assertTrue(s.dnsServers.equals(s.getDnsServers()));
         assertEquals(1, s.getDnsServers().size());
         assertEquals(DNS1, s.getDnsServers().get(0));

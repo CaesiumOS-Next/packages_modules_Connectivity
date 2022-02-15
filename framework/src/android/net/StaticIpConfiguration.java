@@ -29,6 +29,8 @@ import com.android.net.module.util.InetAddressUtils;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -105,9 +107,20 @@ public final class StaticIpConfiguration implements Parcelable {
     /**
      * Get a {@link String} containing the comma separated domains to search when resolving host
      * names on this link, in priority order.
+     * @hide
      */
+    @SystemApi
     public @Nullable String getDomains() {
         return domains;
+    }
+
+    /**
+     * Get a {@link List<String>} containing the list of domains to search when resolving host
+     * names on this link, in priority order.
+     */
+    public @NonNull List<String> getDomainList() {
+        if (domains == null) return Collections.emptyList();
+        return Arrays.asList(domains.split(","));
     }
 
     /**
@@ -167,9 +180,22 @@ public final class StaticIpConfiguration implements Parcelable {
          * @param newDomains A {@link String} containing the comma separated domains to search when
          *                   resolving host names on this link, in priority order.
          * @return The {@link Builder} for chaining.
+         * @hide
          */
+        @SystemApi
         public @NonNull Builder setDomains(@Nullable String newDomains) {
             mDomains = newDomains;
+            return this;
+        }
+
+        /**
+         * Sets the DNS domain search path to be used on the link; empty by default.
+         * @param newDomains A {@link List<String>} containing the domains to search when
+         *                   resolving host names on this link, in priority order.
+         * @return The {@link Builder} for chaining.
+         */
+        public @NonNull Builder setDomainList(@NonNull List<String> newDomains) {
+            mDomains = newDomains.isEmpty() ? null : String.join(",", newDomains);
             return this;
         }
 

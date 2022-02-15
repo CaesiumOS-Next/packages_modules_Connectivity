@@ -479,7 +479,12 @@ package android.net {
     ctor public StaticIpConfiguration(@Nullable android.net.StaticIpConfiguration);
     method public void addDnsServer(@NonNull java.net.InetAddress);
     method public void clear();
+    method @Nullable public String getDomains();
     method @NonNull public java.util.List<android.net.RouteInfo> getRoutes(@Nullable String);
+  }
+
+  public static final class StaticIpConfiguration.Builder {
+    method @NonNull public android.net.StaticIpConfiguration.Builder setDomains(@Nullable String);
   }
 
   public final class TcpKeepalivePacketData extends android.net.KeepalivePacketData implements android.os.Parcelable {
