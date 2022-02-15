@@ -16,7 +16,7 @@
 
 package android.net;
 
-import static com.android.testutils.ParcelUtils.assertParcelSane;
+import static com.android.testutils.ParcelUtils.assertParcelingInvariants;
 import static com.android.testutils.ParcelUtils.assertParcelingIsLossless;
 
 import static org.junit.Assert.assertEquals;
@@ -103,6 +103,6 @@ public class IpSecConfigTest {
         assertParcelingIsLossless(new IpSecConfig());
 
         IpSecConfig c = getSampleConfig();
-        assertParcelSane(c, 15);
+        assertParcelingInvariants(c, 15);
     }
 }

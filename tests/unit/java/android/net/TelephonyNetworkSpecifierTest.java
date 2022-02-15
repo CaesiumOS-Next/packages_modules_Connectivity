@@ -16,7 +16,7 @@
 
 package android.net;
 
-import static com.android.testutils.ParcelUtils.assertParcelSane;
+import static com.android.testutils.ParcelUtils.assertParcelingInvariants;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -85,7 +85,7 @@ public class TelephonyNetworkSpecifierTest {
         TelephonyNetworkSpecifier specifier = new TelephonyNetworkSpecifier.Builder()
                 .setSubscriptionId(TEST_SUBID)
                 .build();
-        assertParcelSane(specifier, 1 /* fieldCount */);
+        assertParcelingInvariants(specifier, 1 /* fieldCount */);
     }
 
     /**

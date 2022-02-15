@@ -17,7 +17,7 @@
 package com.android.internal.net;
 
 import static com.android.modules.utils.build.SdkLevel.isAtLeastT;
-import static com.android.testutils.ParcelUtils.assertParcelSane;
+import static com.android.testutils.ParcelUtils.assertParcelingInvariants;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -134,9 +134,9 @@ public class VpnProfileTest {
     public void testParcelUnparcel() {
         if (isAtLeastT()) {
             // excludeLocalRoutes, requiresPlatformValidation were added in T.
-            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 25);
+            assertParcelingInvariants(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 25);
         } else {
-            assertParcelSane(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 23);
+            assertParcelingInvariants(getSampleIkev2Profile(DUMMY_PROFILE_KEY), 23);
         }
     }
 

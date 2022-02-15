@@ -57,7 +57,7 @@ import com.android.net.module.util.NetworkStatsUtils.SUBSCRIBER_ID_MATCH_RULE_EX
 import com.android.testutils.DevSdkIgnoreRule
 import com.android.testutils.DevSdkIgnoreRunner
 import com.android.testutils.SC_V2
-import com.android.testutils.assertParcelSane
+import com.android.testutils.assertParcelingInvariants
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -414,9 +414,9 @@ class NetworkTemplateTest {
         val templateOem = NetworkTemplate(MATCH_MOBILE, null, null,
                 arrayOf<String>(), METERED_ALL, ROAMING_ALL, DEFAULT_NETWORK_ALL, 0,
                 OEM_MANAGED_YES, SUBSCRIBER_ID_MATCH_RULE_EXACT)
-        assertParcelSane(templateMobile, 10)
-        assertParcelSane(templateWifi, 10)
-        assertParcelSane(templateOem, 10)
+        assertParcelingInvariants(templateMobile, 10)
+        assertParcelingInvariants(templateWifi, 10)
+        assertParcelingInvariants(templateOem, 10)
     }
 
     // Verify NETWORK_TYPE_* constants in NetworkTemplate do not conflict with

@@ -23,7 +23,7 @@ import android.net.TetheringManager.TETHERING_USB
 import android.system.OsConstants.RT_SCOPE_UNIVERSE
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
-import com.android.testutils.assertParcelSane
+import com.android.testutils.assertParcelingInvariants
 import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.test.assertEquals
@@ -51,8 +51,8 @@ private fun makeLinkAddress(addr: String, prefixLength: Int, expTime: Long) = Li
 class TetheredClientTest {
     @Test
     fun testParceling() {
-        assertParcelSane(TEST_ADDRINFO1, fieldCount = 2)
-        assertParcelSane(makeTestClient(), fieldCount = 3)
+        assertParcelingInvariants(TEST_ADDRINFO1, fieldCount = 2)
+        assertParcelingInvariants(makeTestClient(), fieldCount = 3)
     }
 
     @Test

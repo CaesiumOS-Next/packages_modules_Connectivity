@@ -97,7 +97,7 @@ public class DhcpInfoTest {
 
     @Test
     public void testParcelDhcpInfo() throws Exception {
-        // Cannot use assertParcelSane() here because this requires .equals() to work as
+        // Cannot use assertParcelingInvariants() here because this requires .equals() to work as
         // defined, but DhcpInfo has a different legacy behavior that we cannot change.
         final DhcpInfo dhcpInfo = createDhcpInfoObject();
 

@@ -19,7 +19,7 @@ package android.net;
 import static android.net.NetworkCapabilities.REDACT_FOR_NETWORK_SETTINGS;
 import static android.net.NetworkCapabilities.REDACT_NONE;
 
-import static com.android.testutils.ParcelUtils.assertParcelSane;
+import static com.android.testutils.ParcelUtils.assertParcelingInvariants;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -42,7 +42,7 @@ public class VpnTransportInfoTest {
     @Test
     public void testParceling() {
         VpnTransportInfo v = new VpnTransportInfo(VpnManager.TYPE_VPN_PLATFORM, "12345");
-        assertParcelSane(v, 2 /* fieldCount */);
+        assertParcelingInvariants(v, 2 /* fieldCount */);
     }
 
     @Test
