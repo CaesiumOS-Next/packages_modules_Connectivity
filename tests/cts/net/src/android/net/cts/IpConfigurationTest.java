@@ -16,6 +16,7 @@
 
 package android.net.cts;
 
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.ParcelUtils.assertParcelingIsLossless;
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +26,6 @@ import android.net.IpConfiguration;
 import android.net.LinkAddress;
 import android.net.ProxyInfo;
 import android.net.StaticIpConfiguration;
-import android.os.Build;
 
 import androidx.test.runner.AndroidJUnit4;
 
@@ -106,7 +106,7 @@ public final class IpConfigurationTest {
         assertIpConfigurationEqual(ipConfig, new IpConfiguration(ipConfig));
     }
 
-    @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
+    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
     @Test
     public void testBuilder() {
         final IpConfiguration c = new IpConfiguration.Builder()
