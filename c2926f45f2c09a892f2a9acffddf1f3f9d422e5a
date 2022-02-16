@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b36011af_c4a600ec",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T11:55:07Z",
+      "side": 1,
+      "message": "Nit : you could simplify this to\n\n  return Regex(\"^(\\\\d+)\\\\.(\\\\d+)\").find(release)?.groupValues?.map { match -\u003e match.toInt() }\n          ?: fail(\"No pattern in release string : $release\")\n\n(and change the return value to List\u003cInt\u003e, or call .toIntArray())\nor\n\n  val (major, minor) \u003d Regex(\"^(\\\\d+)\\\\.(\\\\d+)\").find(release)?.destructured ?: fail\n  return major.toInt() to minor.toInt()\n\n(this would return a Pair of ints, you could then call it with :\nval (major, minor) \u003d getKernelVersion()",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 85
+      },
+      "revId": "c2926f45f2c09a892f2a9acffddf1f3f9d422e5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee8509e_b8549557",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T11:55:07Z",
+      "side": 1,
+      "message": "nit : you can say version[0]",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 31
+      },
+      "revId": "c2926f45f2c09a892f2a9acffddf1f3f9d422e5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
