@@ -185,6 +185,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d92550_4bd003b3",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2299f75_9ed1ad64",
+      "range": {
+        "startLine": 50,
+        "startChar": 33,
+        "endLine": 50,
+        "endChar": 68
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09f11538_822c5234",
@@ -198,6 +222,30 @@
       "writtenOn": "2022-02-16T02:20:37Z",
       "side": 1,
       "message": "seems like some spurious changes in this file",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 2
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e351cb5_8518949a",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09f11538_822c5234",
       "range": {
         "startLine": 18,
         "startChar": 1,
@@ -249,6 +297,54 @@
         "startChar": 47,
         "endLine": 41,
         "endChar": 65
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b53920d7_6f3db054",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b576f96_c80d0b1e",
+      "range": {
+        "startLine": 41,
+        "startChar": 47,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac97f3cb_323dab3d",
+        "filename": "service/src/com/android/server/connectivity/VendorConnectivityService.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:34:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b810402a_a2558bd7",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 39
       },
       "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
