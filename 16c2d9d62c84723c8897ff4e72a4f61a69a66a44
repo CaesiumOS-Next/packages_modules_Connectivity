@@ -16,6 +16,23 @@
       "message": "Hi Lucas, Jean\nThis CL adds explicit check of RouteInfo type in NetworksDiagnostics.\nPlease take a look",
       "revId": "16c2d9d62c84723c8897ff4e72a4f61a69a66a44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b8668d9_39617c4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-02-16T03:49:09Z",
+      "side": 1,
+      "message": "Could you please write some details in commit message saying that why did you do this change? What\u0027s the problem did you meet?",
+      "revId": "16c2d9d62c84723c8897ff4e72a4f61a69a66a44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
