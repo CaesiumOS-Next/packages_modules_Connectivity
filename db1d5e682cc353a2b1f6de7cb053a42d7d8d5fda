@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17422d08_f3646a05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T09:11:37Z",
+      "side": 1,
+      "message": "As you observed in chat, this patchset doesn\u0027t send the event to actually tear down the network.\n\nWhen we destroy the native network as this event is sent, won\u0027t it cause apps to immediately see errors like no route to host ? They\u0027ll likely try to reconnect immediately as their sockets get destroyed, and connect() will tell them there is no default network. This seems relatively disruptive, and requires apps to listen to default network changes to know when to retry ; we might be better off not destroying the native network immediately.\n\nAlso see inline commenst.",
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9826305_8db08607",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T09:11:37Z",
+      "side": 1,
+      "message": "We should clarify how this interacts with the linger timeout. ISTM the current implementation (assuming the message to actually disconnect is sent) would imply immediate disconnect, without lingering, as soon as all requests are satisfied by something else ; it\u0027s true that an agent can in fact disconnect the network whenever it wants, and this imposes a max 5s limit to survival, but within this limits it could be used to circumvent the min 2s linger timer when called on a network that\u0027s still functional.\n\nOne option is to have the network linger for the remaining amount of time allowed on the timer passed here if it stops satisfying any request before the timer expires, or we could use this timer to set the linger timer to the same value when this method is called.",
+      "range": {
+        "startLine": 975,
+        "startChar": 99,
+        "endLine": 975,
+        "endChar": 100
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a3eac3_0eeeaf76",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T09:11:37Z",
+      "side": 1,
+      "message": "I think this should just be called unregister(timeout) or unregisterWithTimeout(timeout) or unregisterPendingReplacement(timeout). After all that\u0027s what it does ; once this has been called the network will be reaped after the timeout.\n\nYou\u0027d then be able to implement unregister() as a call to unregister(0) and simplify the code.",
+      "range": {
+        "startLine": 983,
+        "startChar": 16,
+        "endLine": 983,
+        "endChar": 40
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c445892a_0793f691",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3505,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T09:11:37Z",
+      "side": 1,
+      "message": "We may also want to allow new calls to pendingReplacement with a lower timeout, which is trivial to do if we unify it with unregister(). I don\u0027t think it\u0027s particularly important though.",
+      "range": {
+        "startLine": 3505,
+        "startChar": 87,
+        "endLine": 3505,
+        "endChar": 97
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47e4582a_6edac467",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3507,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T09:11:37Z",
+      "side": 1,
+      "message": "Though it\u0027s reasonable to say this network can no longer update Score, NC and likely also LP (I took a quick look and think it\u0027s fine but we\u0027d have to check in detail), I think some of the events will still need to be handled. In particular stopping keepalive might be necessary because it releases hardware resources that a client would need to reuse before the max 5s delay of this API is over.",
+      "range": {
+        "startLine": 3507,
+        "startChar": 16,
+        "endLine": 3507,
+        "endChar": 22
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68025ea9_eaa27431",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T09:11:37Z",
+      "side": 1,
+      "message": "As discussed in chat : I think it\u0027s a lot more consistent with existing code if we make this a policy bit in FullScore. An important concrete difference is that you\u0027ll see the bit in logcat (and bug reports) immediately, while we\u0027d have to build new logs for this to be diagnose-able.",
+      "range": {
+        "startLine": 1012,
+        "startChar": 37,
+        "endLine": 1012,
+        "endChar": 57
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
