@@ -133,7 +133,8 @@ public class Nat464Xlat {
                 && nai.netAgentConfig().skip464xlat;
 
         return supported && connected && isIpv6OnlyNetwork && !skip464xlat
-            && (nai.networkCapabilities.hasTransport(TRANSPORT_CELLULAR)
+                && !nai.pendingReplacement
+                && (nai.networkCapabilities.hasTransport(TRANSPORT_CELLULAR)
                 ? isCellular464XlatEnabled() : true);
     }
 
