@@ -1,0 +1,533 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebf71b81_5a3741d9",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "This looks copy+pasted. Is this really what fails here? Almost certainly *something* fails, since this test performs loads of privileged operations.",
+      "range": {
+        "startLine": 76,
+        "startChar": 23,
+        "endLine": 76,
+        "endChar": 61
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1c4fd83_8b3df3e3",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "AFAIK this should cause the test never to run because IgnoreUpTo(TIRAMISU) means \"only run it after tiramisu\", and there is currently nothing after tiramisu.",
+      "range": {
+        "startLine": 77,
+        "startChar": 29,
+        "endLine": 77,
+        "endChar": 57
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c18d0da5_69e82ebe",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "This seems quite long/slow. Something lower like 5 (still quite long) might be better?",
+      "range": {
+        "startLine": 81,
+        "startChar": 59,
+        "endLine": 81,
+        "endChar": 65
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ac66869_c60b0a18",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "Generally, when using only one protocol, prefer IPv6.\n\nWhen using test IP addresses, prefer the example ranges (192.0.2.0/24, 2001:db8::/32).",
+      "range": {
+        "startLine": 82,
+        "startChar": 71,
+        "endLine": 82,
+        "endChar": 81
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78998f2f_e8d53a34",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "Often we use just \"mCm\".",
+      "range": {
+        "startLine": 96,
+        "startChar": 32,
+        "endLine": 96,
+        "endChar": 52
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a53ed3f_02c1895a",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "You might not need this thread, you could just use new Handler(Looper.getMainLooper()).",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 59
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c52232a2_b1d1c1e2",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "For readability, consider refactoring this initialization code out into one or more methods that you can put at the bottom of the file.",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 18
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a18650e8_47fd1c2c",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "Do you actually need the shell permission to make this NetworkRequest call? Both the request and the network have the NOT_RESTRICTED capability, right? If so you might not need any privileges to make the request.",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 47
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81715904_9f9ac954",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "You might be able to remove some of this code by using TestNetworkManager#setupTestNetwork. Bear in mind though that that is not very powerful and doesn\u0027t allow things like changing linkproperties or capabilities. What you have here is more verbose but more powerful.",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 59
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b339a1_c7fb7af5",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "I think TestableNetworkCallback has methods that are easier to use than this. In this specific case, maybe expectAvailableThenValidatedCallbacks?",
+      "range": {
+        "startLine": 155,
+        "startChar": 25,
+        "endLine": 155,
+        "endChar": 39
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fe99c10_620ebd75",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "FWIW, you can also create low-level socket FDs using something like:\n\n    Os.socket(AF_INET6, SOCK_DGRAM, 0);\n\nthough this test might not (yet?) need the extra flexibility that that offers. For simple use cases DatagramSocket is likely easier to use and less verbose.",
+      "range": {
+        "startLine": 157,
+        "startChar": 22,
+        "endLine": 157,
+        "endChar": 36
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f0d4fb2_3f9bf0b5",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "I generally prefer posix functions. Here you could just import android.system.Os and do something like:\n\n    Os.write(iface.getFileDescriptor().getFileDescriptor(), buffer);\n\nat which point this method becomes so small you can fold it into the caller(s).",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 72
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20ddaac_3349dddf",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "What data? There is no data here. sendPacketToTunInterface?",
+      "range": {
+        "startLine": 179,
+        "startChar": 24,
+        "endLine": 179,
+        "endChar": 46
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "190306d0_a2ba7d51",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "// Write packets to the tun fd as fast as possible for durationMillis ms.",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 12
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "290c8537_e0d6507b",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "Generally speaking most of our timing code uses SystemClock.elapsedRealtime() or elapsedRealtimeNanos. That has the advantage of never stepping due to clock changes. (And also it counts time spent in sleep, but currentTimeMillis does that as well.)\n\nI think currentTimeMillis is correct here unless the time steps during the test (unlikely unless the test runs soon after device boot when the NTP client starts). But you might also want to get into the habit of using elapsedRealtime everywhere.",
+      "range": {
+        "startLine": 192,
+        "startChar": 22,
+        "endLine": 192,
+        "endChar": 39
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10827659_f7c663b1",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "If all you want is a variable that can safely be read and written across threads, which seems to be what you\u0027re doing here, a simple \"volatile boolean\" is sufficient. (You can\u0027t do things like capture that in a lambda though, since captured variables must be final.)\n\nFor a good refresher/primer on the java memory model and synchronization, you can look at:\n\nhttps://developer.android.com/training/articles/smp\n\nif you haven\u0027t already.",
+      "range": {
+        "startLine": 198,
+        "startChar": 22,
+        "endLine": 198,
+        "endChar": 35
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06704c17_215c7f36",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "I think we have constants for this. NetworkStackConstants.ETHER_MTU maybe?",
+      "range": {
+        "startLine": 224,
+        "startChar": 44,
+        "endLine": 224,
+        "endChar": 48
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5892f28_f881850b",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "Out of curiosity, why update startMillis after the first packet is read, instead of before? Is it so that the send thread and the receive thread don\u0027t need explicit synchronization, and you can start the receive thread whenever you want? That seems quite handy :)",
+      "range": {
+        "startLine": 226,
+        "startChar": 12,
+        "endLine": 226,
+        "endChar": 24
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1a75c16_9832e2f9",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "This will take 1 second, right (the timeout in line 158)? Do you / should you remove that one second from the bandwidth calculations?",
+      "range": {
+        "startLine": 232,
+        "startChar": 56,
+        "endLine": 232,
+        "endChar": 77
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "048eb99d_03db3d37",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "I know this number doesn\u0027t actually get used for anything, but it\u0027s unrealistically low and likely not to work at all well (it\u0027s less than one packet). Maybe pick a more realistic number?",
+      "range": {
+        "startLine": 251,
+        "startChar": 40,
+        "endLine": 251,
+        "endChar": 44
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29d23fb6_922fdda4",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "This should be a function parameter. Even though you (currently) only ever use 15000, letting the caller pass it that 15000 will make the calling code more readable.\n\nAlso - could we make this number lower? Waiting 15s for a test to run is not great, especially if someone is trying to debug failures.\n\nThat said, maybe we want to tune this once the test is in presubmit. We\u0027ve seen in the past that the test infrastructure can often be slow such that simple operations take a few seonds.",
+      "range": {
+        "startLine": 264,
+        "startChar": 35,
+        "endLine": 264,
+        "endChar": 41
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57faafd3_b7e2e75f",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "I think some waiting is probably necessary here, because after the setIngress... call returns, the settings observer needs to fire, and the connectivityservice handler thread has to process the event. That probably takes a millisecond or two even if there is nothing else going on. If this takes too long it will probably skew the results.\n\n500ms is a bit long though... is there something we can do to find out if the filter is installed? For example, do something something like run \"tc filter show dev testtap3\" once every few milliseconds until we see that the filter is installed? You could put that into a \"private void awaitFilterInstalled(String iface, int timeoutMs)\" method.\n\nCTS does have permission to run shell commands - see for example\n\nhttps://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/cts/net/src/android/net/cts/NetworkStatsManagerTest.java;l\u003d245\n\n- but of course it may not have permission to dump tc parameters.",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 283,
+        "endChar": 42
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6338111d_d53c510c",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:40:42Z",
+      "side": 1,
+      "message": "You probably want a tolerance here (say, +/- 1%, or whatever is both comfortably greater than variance in runs and small enough that it\u0027s still reasonably accurate) to reduce test flakiness.",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 22
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
