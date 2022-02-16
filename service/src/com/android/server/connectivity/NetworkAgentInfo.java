@@ -106,6 +106,12 @@ import java.util.TreeSet;
 //       or tunnel) but does not disconnect from the AP/cell tower, or
 //    d. a stand-alone device offering a WiFi AP without an uplink for configuration purposes.
 // 5. registered, created, connected, validated
+// 6. pending replacement
+//    This is an optional state where the underlying native network is destroyed but the network is
+//    still connected for scoring purposes, so can satisfy requests, including the default request.
+//    It is used when the transport layer wants to replace a network with another network (e.g.,
+//    when Wi-Fi has roamed to a different BSSID that is part of a different L3 network) and does
+//    not want the device to switch to another network until the replacement connects and validates.
 //
 // The device's default network connection:
 // ----------------------------------------
@@ -726,6 +732,12 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
             mHandler.obtainMessage(NetworkAgent.EVENT_REMOVE_ALL_DSCP_POLICIES,
                     new Pair<>(NetworkAgentInfo.this, null)).sendToTarget();
         }
+
+        @Override
+        public void sendNotifyPendingReplacement(final int timeoutMillis) {
+            mHandler.obtainMessage(NetworkAgent.EVENT_NOTIFY_PENDING_REPLACEMENT,
+                    new Pair<>(NetworkAgentInfo.this, timeoutMillis)).sendToTarget();
+        }
     }
 
     /**
@@ -970,7 +982,7 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     /**
      * Update the ConnectivityService-managed bits in the score.
      *
-     * Call this after updating the network agent config.
+     * Call this after changing any data that might affect the score (e.g., agent config).
      */
     public void updateScoreForNetworkAgentUpdate() {
         mScore = mScore.mixInScore(networkCapabilities, networkAgentConfig,
