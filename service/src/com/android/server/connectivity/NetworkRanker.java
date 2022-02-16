@@ -61,6 +61,13 @@ public class NetworkRanker {
         FullScore getScore();
         /** Get capabilities of this scoreable */
         NetworkCapabilities getCapsNoCopy();
+        /**
+         * Is this scoreable pending replacement by another one?
+         * TODO: move this information to FullScore.
+         */
+        default boolean isPendingReplacement() {
+            return false;
+        }
     }
 
     public NetworkRanker() { }
@@ -261,6 +268,14 @@ public class NetworkRanker {
                 candidates = new ArrayList<>(accepted);
                 break;
             }
+        }
+
+        // If two networks are equivalent, and one is pending replacement, keep the other one. This
+        // ensures that when the replacement connects, it's preferred.
+        partitionInto(candidates, nai -> !nai.isPendingReplacement(), accepted, rejected);
+        if (accepted.size() == 1) return accepted.get(0);
+        if (accepted.size() > 0 && rejected.size() > 0) {
+            candidates = new ArrayList<>(accepted);
         }
 
         // At this point there are still multiple networks passing all the tests above. If any
