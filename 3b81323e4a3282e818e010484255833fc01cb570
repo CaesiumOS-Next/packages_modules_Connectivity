@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6f52576_5aba1b91",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-16T11:38:37Z",
+      "side": 1,
+      "message": "Added comment in aosp/1988186",
+      "parentUuid": "cad24239_d64a084b",
+      "range": {
+        "startLine": 114,
+        "startChar": 53,
+        "endLine": 114,
+        "endChar": 117
+      },
+      "revId": "3b81323e4a3282e818e010484255833fc01cb570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "792cec38_2d5d1a91",
@@ -71,6 +95,30 @@
       "writtenOn": "2022-02-16T07:31:58Z",
       "side": 1,
       "message": "Not for this CL, but AFAIK this code does not work on S. The setting can be set but it will not do anything. Can you get in touch with Patrick to see what to do here? The way forward might be to have this method throw on S- (and amend this test), or to skip this test until T.",
+      "range": {
+        "startLine": 299,
+        "startChar": 35,
+        "endLine": 299,
+        "endChar": 70
+      },
+      "revId": "3b81323e4a3282e818e010484255833fc01cb570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "def64cc8_04100050",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-16T11:38:37Z",
+      "side": 1,
+      "message": "Filed b/219893921 for Patrick",
+      "parentUuid": "792cec38_2d5d1a91",
       "range": {
         "startLine": 299,
         "startChar": 35,
@@ -102,7 +150,30 @@
       },
       "revId": "3b81323e4a3282e818e010484255833fc01cb570",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b21507b8_68a4e264",
+        "filename": "tests/cts/net/src/android/net/cts/IpConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-16T11:38:37Z",
+      "side": 1,
+      "message": "Refined/commented usage in aosp/1988186",
+      "parentUuid": "a25c56df_75197a3a",
+      "range": {
+        "startLine": 110,
+        "startChar": 5,
+        "endLine": 110,
+        "endChar": 27
+      },
+      "revId": "3b81323e4a3282e818e010484255833fc01cb570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
-  ],
-  "submitRequirementResults": []
+  ]
 }

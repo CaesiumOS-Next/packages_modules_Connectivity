@@ -22,6 +22,30 @@
       },
       "revId": "6d80f10bb36fa07f3eb26d8dd12f28dde7f1a7ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56d0f5d0_fc8386ac",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-16T11:38:37Z",
+      "side": 0,
+      "message": "Done in aosp/1988186",
+      "parentUuid": "54861cdf_1aaf5d33",
+      "range": {
+        "startLine": 113,
+        "startChar": 6,
+        "endLine": 113,
+        "endChar": 45
+      },
+      "revId": "6d80f10bb36fa07f3eb26d8dd12f28dde7f1a7ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
