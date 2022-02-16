@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "14de48d2_b2dc6e8d",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T18:49:59Z",
+      "side": 1,
+      "message": "Will update on next CL",
+      "parentUuid": "b36011af_c4a600ec",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 85
+      },
+      "revId": "c2926f45f2c09a892f2a9acffddf1f3f9d422e5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dee8509e_b8549557",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-16T11:55:07Z",
       "side": 1,
       "message": "nit : you can say version[0]",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 31
+      },
+      "revId": "c2926f45f2c09a892f2a9acffddf1f3f9d422e5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5723813d_05f03c28",
+        "filename": "tests/cts/net/src/android/net/cts/DscpPolicyTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T18:49:59Z",
+      "side": 1,
+      "message": "Will update on next CL",
+      "parentUuid": "dee8509e_b8549557",
       "range": {
         "startLine": 141,
         "startChar": 16,
