@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f19e5cb4_4a8dcd81",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-16T02:20:37Z",
+      "side": 1,
+      "message": "2022",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa6981e6_f89f26bd",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-16T02:20:37Z",
+      "side": 1,
+      "message": "note: it\u0027s not clear to me if this case can ever trigger (it\u0027s 262 and not a valid byte, but who knows if MPTCP sockets are TCP or MPTCP at this layer)",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afae8ec2_df93fa1e",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-16T02:20:37Z",
+      "side": 1,
+      "message": "bind4/block_port should be good enough",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5d08c4a_f6e8a4a1",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-16T02:20:37Z",
+      "side": 1,
+      "message": "bind4_block_port",
+      "range": {
+        "startLine": 57,
+        "startChar": 21,
+        "endLine": 57,
+        "endChar": 51
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74327fdd_34e37288",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-16T02:20:37Z",
+      "side": 1,
+      "message": "didn\u0027t we say this works with 5.4 (or maybe even 4.19)?",
+      "range": {
+        "startLine": 57,
+        "startChar": 61,
+        "endLine": 57,
+        "endChar": 62
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e77eb2e2_fe42c9cc",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-16T02:20:37Z",
+      "side": 1,
+      "message": "match above",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 67
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a02ddd8_8bd4f77a",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-16T02:20:37Z",
+      "side": 1,
+      "message": "this is doc string only, but should this be ConnectivityNativeService?",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09f11538_822c5234",
+        "filename": "service/jni/onload.cpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-16T02:20:37Z",
+      "side": 1,
+      "message": "seems like some spurious changes in this file",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 2
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
