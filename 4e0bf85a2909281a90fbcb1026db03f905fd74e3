@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4cfb07e_2183e3dc",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 42
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T02:09:53Z",
+      "side": 1,
+      "message": "ConnectivityNativeService with context CONNECTIVITY_NATIVE",
+      "range": {
+        "startLine": 23,
+        "startChar": 39,
+        "endLine": 23,
+        "endChar": 64
+      },
+      "revId": "4e0bf85a2909281a90fbcb1026db03f905fd74e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
