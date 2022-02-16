@@ -111,6 +111,8 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.timeout
 import org.mockito.Mockito.verify
+import java.io.IOException
+import java.net.DatagramSocket
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.Socket
@@ -1117,5 +1119,45 @@ class NetworkAgentTest {
                 qci, 2, 3, 4, 5,
                 remoteAddresses
         )
+    }
+
+    @Test
+    fun testNotifyPendingReplacement() {
+        // File the interesting request
+        val callback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
+        requestNetwork(makeTestNetworkRequest(), callback)
+
+        // Connect the first Network. This should satisfy the request.
+        // createConnectedNetworkAgent internally files a request; release it so that the network
+        // will be torn down if unneeded.
+        val (agent1, agent1callback) = createConnectedNetworkAgent()
+        val network1 = agent1.network!!
+        callback.expectAvailableThenValidatedCallbacks(network1)
+        mCM.unregisterNetworkCallback(agent1callback)
+        callback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+
+        // Check that the network exists by binding a socket to it.
+        network1.bindSocket(DatagramSocket())
+
+        // Connect a second agent. agent1 is preferred because it was already registered, so
+        // callback will not see any events, and agent2 will be unregistered as soon as its
+        // callback2 is unregistered.
+        val (agent2, agent2callback) = createConnectedNetworkAgent()
+        val network2 = agent2.network!!
+        mCM.unregisterNetworkCallback(agent2callback)
+        callback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+
+        // Say that the first network is pending replacement. This should destroy the underlying
+        // native network but will not send any callbacks.
+        agent1.notifyPendingReplacement(1000 /* timeoutMs */)
+        callback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+        assertThrows(IOException::class.java) { network1.bindSocket(DatagramSocket()) }
+
+        // Connect a third agent. Because the first agent is pending replacement, the new agent is
+        // preferred.
+        val (agent3, agent3callback) = createConnectedNetworkAgent()
+        val network3 = agent3.network!!
+        callback.expectAvailableCallbacks(network3)
+        mCM.unregisterNetworkCallback(agent3callback)
     }
 }
