@@ -3481,6 +3481,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return false;
     }
 
+    private boolean isDisconnectRequest(Message msg) {
+        return msg.what == NetworkAgent.EVENT_NETWORK_INFO_CHANGED
+                && ((NetworkInfo) msg.obj).getState() == NetworkInfo.State.DISCONNECTED;
+    }
+
     // must be stateless - things change under us.
     private class NetworkStateTrackerHandler extends Handler {
         public NetworkStateTrackerHandler(Looper looper) {
@@ -3494,6 +3499,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 if (VDBG) {
                     log(String.format("%s from unknown NetworkAgent", eventName(msg.what)));
                 }
+                return;
+            }
+
+            // If the network is pending replacement, the only thing that it can do is disconnect.
+            if (nai.pendingReplacement && !isDisconnectRequest(msg)) {
                 return;
             }
 
@@ -3598,10 +3608,25 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     }
                     break;
                 }
+                case NetworkAgent.EVENT_NOTIFY_PENDING_REPLACEMENT: {
+                    nai.pendingReplacement = true;
+                    if (shouldDestroyNativeNetwork(nai)) {
+                        destroyNativeNetwork(nai);
+                    }
+                }
             }
         }
 
         private boolean maybeHandleNetworkMonitorMessage(Message msg) {
+            // TODO: find a robust way to ignore all NetworkMonitor messages.
+            // This will probably require refactoring to ensure that the netId is always in the
+            // same field of incoming messages.
+            if (msg.what == EVENT_NETWORK_TESTED) {
+                final NetworkAgentInfo nai = getNetworkAgentInfoForNetId(
+                        ((NetworkTestedResults) msg.obj).mNetId);
+                if (nai.pendingReplacement) return true;
+            }
+
             switch (msg.what) {
                 default:
                     return false;
@@ -4105,6 +4130,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private static boolean shouldDestroyNativeNetwork(@NonNull NetworkAgentInfo nai) {
+        // If a network is pending replacement, then its native network has already been destroyed.
+        return nai.created && !nai.pendingReplacement;
+    }
+
     private void handleNetworkAgentDisconnected(Message msg) {
         NetworkAgentInfo nai = (NetworkAgentInfo) msg.obj;
         disconnectAndDestroyNetwork(nai);
@@ -4211,7 +4241,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void destroyNetwork(NetworkAgentInfo nai) {
-        if (nai.created) {
+        if (shouldDestroyNativeNetwork(nai)) {
             // Tell netd to clean up the configuration for this network
             // (routing rules, DNS, etc).
             // This may be slow as it requires a lot of netd shelling out to ip and
@@ -4220,12 +4250,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // network or service a new request from an app), so network traffic isn't interrupted
             // for an unnecessarily long time.
             destroyNativeNetwork(nai);
-            mDnsManager.removeNetwork(nai.network);
-
-            // clean up tc police filters on interface.
-            if (canNetworkBeRateLimited(nai) && mIngressRateLimit >= 0) {
-                mDeps.disableIngressRateLimit(nai.linkProperties.getInterfaceName());
-            }
         }
         mNetIdManager.releaseNetId(nai.network.getNetId());
         nai.onNetworkDestroyed();
@@ -4270,6 +4294,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
             mDnsResolver.destroyNetworkCache(nai.network.getNetId());
         } catch (RemoteException | ServiceSpecificException e) {
             loge("Exception destroying network: " + e);
+        }
+        mDnsManager.removeNetwork(nai.network);
+
+        // clean up tc police filters on interface.
+        if (canNetworkBeRateLimited(nai) && mIngressRateLimit >= 0) {
+            mDeps.disableIngressRateLimit(nai.linkProperties.getInterfaceName());
         }
     }
 
