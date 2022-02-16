@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dbcbf89_66d3ec92",
+        "filename": "tests/unit/java/android/net/Ikev2VpnProfileTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-02-16T17:53:08Z",
+      "side": 1,
+      "message": "Can we add one of these tests for Ikev2VpnProfile with a IkeTunnelConnectionParams?",
+      "range": {
+        "startLine": 471,
+        "startChar": 16,
+        "endLine": 471,
+        "endChar": 43
+      },
+      "revId": "7e2330a1cd6f4552010b64908b21c7b0e5842e8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5f37976_e997b3b1",
+        "filename": "tests/unit/java/android/net/Ikev2VpnProfileTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-02-16T17:53:08Z",
+      "side": 1,
+      "message": "This wouldn\u0027t have caught the equality reference comparison bug. Can we build these with two separate IkeTunnelConnectionParams objects",
+      "range": {
+        "startLine": 490,
+        "startChar": 53,
+        "endLine": 490,
+        "endChar": 85
+      },
+      "revId": "7e2330a1cd6f4552010b64908b21c7b0e5842e8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df53f5a7_472e1d7e",
+        "filename": "tests/unit/java/com/android/internal/net/VpnProfileTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-02-16T17:53:08Z",
+      "side": 1,
+      "message": "Please add a test for the encode/decode and parcel/unparcel with a IkeTunnelConnectionParams.",
+      "range": {
+        "startLine": 145,
+        "startChar": 16,
+        "endLine": 145,
+        "endChar": 32
+      },
+      "revId": "7e2330a1cd6f4552010b64908b21c7b0e5842e8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
