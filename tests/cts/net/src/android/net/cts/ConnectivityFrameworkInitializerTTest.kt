@@ -29,9 +29,9 @@ import kotlin.test.assertNotNull
 private val cfiShim = ConnectivityFrameworkInitShimImpl.newInstance()
 
 @RunWith(DevSdkIgnoreRunner::class)
-// ConnectivityFrameworkInitializerTiramisu was added in T
+// ConnectivityFrameworkInitializerT was added in T
 @IgnoreUpTo(SC_V2) // TODO: Use to Build.VERSION_CODES.SC_V2 when available
-class ConnectivityFrameworkInitializerTiramisuTest {
+class ConnectivityFrameworkInitializerTTest {
     @Test
     fun testServicesRegistered() {
         val ctx = InstrumentationRegistry.getInstrumentation().context as android.content.Context

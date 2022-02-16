@@ -1,7 +1,7 @@
 // Signature format: 2.0
 package android.net {
 
-  public final class ConnectivityFrameworkInitializerTiramisu {
+  public final class ConnectivityFrameworkInitializerT {
     method public static void registerServiceWrappers();
   }
 
