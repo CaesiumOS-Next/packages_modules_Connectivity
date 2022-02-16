@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a9e64a_9b6502b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:43:56Z",
+      "side": 1,
+      "message": "LGTM but we can probably run this on S too, not just T.",
+      "revId": "324d10d48e66ac5f9cae43f12dcb01069fcff503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ea8b959_79e2fe2f",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T14:43:56Z",
+      "side": 1,
+      "message": "Is this really SCv2? Looks like at least the constructor was module-lib API already in S:\n\nhttps://source.corp.google.com/aosp-master/prebuilts/sdk/31/module-lib/api/android.txt;l\u003d335",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "324d10d48e66ac5f9cae43f12dcb01069fcff503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
