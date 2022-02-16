@@ -16,6 +16,24 @@
       "message": "Hi Jean, Lucas,\n\nI have looked into why changing order of checks inside `checkTrafficOnVpn` causes flakyness but I coudn\u0027t find the cause.\n\nUnless you have any ideas, I\u0027d suggest we change the order back to original to fix the issue and file a bug to investigate this flakyness more thoroughly later.\n\n(there are currently ~20 P1 bugs related to this flakyness - see bugs in description + duplicates) ",
       "revId": "7bd33a19c3b42d2972ebf229f29d45b1f785ee39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f18b120_5246dcf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-02-16T02:26:43Z",
+      "side": 1,
+      "message": "I don\u0027t have objection if change the order back can fix the flaky test.\nThanks for trying to find out the root cause and fixing this!",
+      "parentUuid": "f903b11c_95c69612",
+      "revId": "7bd33a19c3b42d2972ebf229f29d45b1f785ee39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
