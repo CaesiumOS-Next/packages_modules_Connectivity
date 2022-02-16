@@ -34,6 +34,23 @@
       "parentUuid": "f903b11c_95c69612",
       "revId": "7bd33a19c3b42d2972ebf229f29d45b1f785ee39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9bf9e2a_409213df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-02-16T09:37:18Z",
+      "side": 1,
+      "message": "Hi Jean, \nPTAL for Code-Owners review",
+      "revId": "7bd33a19c3b42d2972ebf229f29d45b1f785ee39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
