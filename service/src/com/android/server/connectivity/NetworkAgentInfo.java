@@ -211,6 +211,9 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     // Delay between when the network is disconnected and when the native network is destroyed.
     public int teardownDelayMs;
 
+    // Whether this network is pending replacement.
+    public boolean pendingReplacement;
+
     // Captive portal info of the network from RFC8908, if any.
     // Obtained by ConnectivityService and merged into NetworkAgent-provided information.
     public CaptivePortalData capportApiData;
@@ -721,6 +724,12 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         @Override
         public void sendRemoveAllDscpPolicies() {
             mHandler.obtainMessage(NetworkAgent.EVENT_REMOVE_ALL_DSCP_POLICIES,
+                    new Pair<>(NetworkAgentInfo.this, null)).sendToTarget();
+        }
+
+        @Override
+        public void sendNotifyPendingReplacement(final int timeoutMillis) {
+            mHandler.obtainMessage(NetworkAgent.EVENT_NOTIFY_PENDING_REPLACEMENT,
                     new Pair<>(NetworkAgentInfo.this, null)).sendToTarget();
         }
     }
