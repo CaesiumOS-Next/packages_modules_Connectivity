@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad24239_d64a084b",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T07:31:58Z",
+      "side": 1,
+      "message": "Can this actually happen on any real device in the field? If not, we should say in the comment that it can\u0027t. (And... if it can\u0027t, should we instead not run these tests at all and remove this config stanza? More test suites means longer presubmits and higher flake rates.)",
+      "range": {
+        "startLine": 114,
+        "startChar": 53,
+        "endLine": 114,
+        "endChar": 117
+      },
+      "revId": "3b81323e4a3282e818e010484255833fc01cb570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "792cec38_2d5d1a91",
+        "filename": "tests/common/java/android/net/ConnectivitySettingsManagerTest.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T07:31:58Z",
+      "side": 1,
+      "message": "Not for this CL, but AFAIK this code does not work on S. The setting can be set but it will not do anything. Can you get in touch with Patrick to see what to do here? The way forward might be to have this method throw on S- (and amend this test), or to skip this test until T.",
+      "range": {
+        "startLine": 299,
+        "startChar": 35,
+        "endLine": 299,
+        "endChar": 70
+      },
+      "revId": "3b81323e4a3282e818e010484255833fc01cb570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a25c56df_75197a3a",
+        "filename": "tests/cts/net/src/android/net/cts/IpConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T07:31:58Z",
+      "side": 1,
+      "message": "It\u0027s not clear why only this method is marked ConnectivityModuleTest - given that this is defined by the tethering module, shouldn\u0027t the whole class be ConnectivityModuleTest?",
+      "range": {
+        "startLine": 110,
+        "startChar": 5,
+        "endLine": 110,
+        "endChar": 27
+      },
+      "revId": "3b81323e4a3282e818e010484255833fc01cb570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
