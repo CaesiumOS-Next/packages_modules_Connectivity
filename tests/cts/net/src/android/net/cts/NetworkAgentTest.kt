@@ -99,6 +99,7 @@ import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnStopSocketKeep
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnUnregisterQosCallback
 import com.android.testutils.TestableNetworkAgent.CallbackEntry.OnValidationStatus
 import com.android.testutils.TestableNetworkCallback
+import com.android.testutils.assertThrows
 import org.junit.After
 import org.junit.Assume.assumeFalse
 import org.junit.Before
@@ -111,6 +112,8 @@ import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.timeout
 import org.mockito.Mockito.verify
+import java.io.IOException
+import java.net.DatagramSocket
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.Socket
@@ -1117,5 +1120,71 @@ class NetworkAgentTest {
                 qci, 2, 3, 4, 5,
                 remoteAddresses
         )
+    }
+
+    @Test
+    fun testNotifyPendingReplacement() {
+        // Keeps an eye on all test networks.
+        val matchAllCallback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
+        registerNetworkCallback(makeTestNetworkRequest(), matchAllCallback)
+
+        // File a request that matches and keeps up the best-scoring test network.
+        val testCallback = TestableNetworkCallback(timeoutMs = DEFAULT_TIMEOUT_MS)
+        requestNetwork(makeTestNetworkRequest(), testCallback)
+
+        // Connect the first network. This should satisfy the request.
+        val (agent1, agent1callback) = createConnectedNetworkAgent()
+        val network1 = agent1.network!!
+        // createConnectedNetworkAgent internally files a request; release it so that the network
+        // will be torn down if unneeded.
+        matchAllCallback.expectAvailableThenValidatedCallbacks(network1)
+        testCallback.expectAvailableThenValidatedCallbacks(network1)
+        mCM.unregisterNetworkCallback(agent1callback)
+        matchAllCallback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+        testCallback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+
+        // Check that network1 exists by binding a socket to it and getting no exceptions.
+        network1.bindSocket(DatagramSocket())
+
+        // Connect a second agent. network1 is preferred because it was already registered, so
+        // callback will not see any events. agent2 will be unregistered as soon as its
+        // agent2callback is unregistered.
+        val (agent2, agent2callback) = createConnectedNetworkAgent()
+        val network2 = agent2.network!!
+        mCM.unregisterNetworkCallback(agent2callback)
+        matchAllCallback.expectAvailableThenValidatedCallbacks(network2)
+        matchAllCallback.expectCallback<Lost>(network2)
+        assertNull(mCM.getLinkProperties(network2))
+        testCallback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+
+        // Mark the first network as pending replacement. This should destroy the underlying
+        // native network and send onNetworkDestroyed, but will not send any NetworkCallbacks,
+        // because for callback and scoring purposes network1 is still connected.
+        agent1.notifyPendingReplacement(5_000 /* timeoutMs */)
+        agent1.expectCallback<OnNetworkDestroyed>()
+        testCallback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+        matchAllCallback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+        assertThrows(IOException::class.java) { network1.bindSocket(DatagramSocket()) }
+        assertNotNull(mCM.getLinkProperties(network1))
+
+        // Connect a third network. Because network1 is pending replacement, network3 is preferred
+        // as soon as it validates (until then, it is outscored by network1).
+        val (agent3, agent3callback) = createConnectedNetworkAgent()
+        val network3 = agent3.network!!
+        matchAllCallback.expectAvailableThenValidatedCallbacks(network3)
+        testCallback.expectAvailableDoubleValidatedCallbacks(network3)
+        mCM.unregisterNetworkCallback(agent3callback)
+
+        // As soon as the replacement arrives, network1 is disconnected.
+        // Check that this happens before the replacement timeout (5 seconds) fires.
+        matchAllCallback.expectCallback<Lost>(network1, 2_000 /* milliseconds */)
+        testCallback.assertNoCallback(NO_CALLBACK_TIMEOUT)
+
+        // Now mark network3 pending replacement with a low timeout, and check that if no
+        // replacement arrives, it is torn down.
+        agent3.notifyPendingReplacement(100 /* timeoutMs */)
+        matchAllCallback.expectCallback<Lost>(network3, 1000L /* timeoutMs */)
+        testCallback.expectCallback<Lost>(network3, 1000L /* timeoutMs */)
+        agent3.expectCallback<OnNetworkDestroyed>()
     }
 }

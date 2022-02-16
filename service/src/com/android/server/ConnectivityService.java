@@ -3482,6 +3482,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
         return false;
     }
 
+    private boolean isDisconnectRequest(Message msg) {
+        if (msg.what != NetworkAgent.EVENT_NETWORK_INFO_CHANGED) return false;
+        final NetworkInfo info = (NetworkInfo) ((Pair) msg.obj).second;
+        return info.getState() == NetworkInfo.State.DISCONNECTED;
+    }
+
     // must be stateless - things change under us.
     private class NetworkStateTrackerHandler extends Handler {
         public NetworkStateTrackerHandler(Looper looper) {
@@ -3495,6 +3501,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 if (VDBG) {
                     log(String.format("%s from unknown NetworkAgent", eventName(msg.what)));
                 }
+                return;
+            }
+
+            // If the network is pending replacement, the only thing that it can do is disconnect.
+            if (nai.pendingReplacement && !isDisconnectRequest(msg)) {
                 return;
             }
 
@@ -3599,12 +3610,51 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     }
                     break;
                 }
+                case NetworkAgent.EVENT_NOTIFY_PENDING_REPLACEMENT: {
+                    // If nai is not yet created, or is already pending replacement, ignore.
+                    if (!shouldDestroyNativeNetwork(nai)) break;
+
+                    final int timeoutMs = (int) arg.second;
+                    if (timeoutMs < 0 || timeoutMs > NetworkAgent.MAX_TEARDOWN_DELAY_MS) break;
+
+                    if (nai.isInactive()) {
+                        // Marking a network pending replacement is used to ensure that any requests
+                        // satisfied by the network do not switch to another network until a
+                        // replacement is available or the wait for a replacement times out.
+                        // If the network is inactive (nascent/lingering), then there are no such
+                        // requests, so marking it pending replacement is not useful.
+                        // Just disconnect it. Any requests filed after this happens can simply
+                        // wait until the replacement arrives.
+                        //
+                        // TODO: is this extra codepath worth it? The only advantage is that if
+                        // the network is lingering when it's marked pending, then it will be torn
+                        // down when the replacement arrives, instead of being torn down when the
+                        // replacement timer expires (or when the linger timer expires, if the
+                        // linger timer is less than the replacement timer). Maybe we could just
+                        // unconditionally clear the linger timers when the network is marked
+                        // pending replacement? Once a network is pending replacement, no new
+                        // requests can be lingered, so that is already taken care of.
+                        Log.d(TAG, "notifyPendingReplacement on lingering network, tearing down");
+                        disconnectAndDestroyNetwork(nai);
+                        return;
+                    }
+
+                    Log.d(TAG, "Marking " + nai.toShortString() + " pending replacement after "
+                            + timeoutMs + "ms" + nai.created);
+                    destroyNativeNetwork(nai);
+                    nai.pendingReplacement = true;
+
+                    nai.updateScoreForNetworkAgentUpdate();
+                    mHandler.postDelayed(() -> disconnectAndDestroyNetwork(nai), timeoutMs);
+                    break;
+                }
             }
         }
 
         private boolean maybeHandleNetworkMonitorMessage(Message msg) {
             final int netId = msg.arg2;
             final NetworkAgentInfo nai = getNetworkAgentInfoForNetId(netId);
+            if (nai != null && nai.pendingReplacement) return true;
             switch (msg.what) {
                 default:
                     return false;
@@ -4104,6 +4154,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
+    private static boolean shouldDestroyNativeNetwork(@NonNull NetworkAgentInfo nai) {
+        // If a network is pending replacement, then its native network has already been destroyed.
+        return nai.created && !nai.pendingReplacement;
+    }
+
     private void handleNetworkAgentDisconnected(Message msg) {
         NetworkAgentInfo nai = (NetworkAgentInfo) msg.obj;
         disconnectAndDestroyNetwork(nai);
@@ -4210,7 +4265,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
     }
 
     private void destroyNetwork(NetworkAgentInfo nai) {
-        if (nai.created) {
+        if (shouldDestroyNativeNetwork(nai)) {
             // Tell netd to clean up the configuration for this network
             // (routing rules, DNS, etc).
             // This may be slow as it requires a lot of netd shelling out to ip and
@@ -4219,15 +4274,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             // network or service a new request from an app), so network traffic isn't interrupted
             // for an unnecessarily long time.
             destroyNativeNetwork(nai);
-            mDnsManager.removeNetwork(nai.network);
-
-            // clean up tc police filters on interface.
-            if (canNetworkBeRateLimited(nai) && mIngressRateLimit >= 0) {
-                mDeps.disableIngressRateLimit(nai.linkProperties.getInterfaceName());
-            }
         }
         mNetIdManager.releaseNetId(nai.network.getNetId());
-        nai.onNetworkDestroyed();
     }
 
     private boolean createNativeNetwork(@NonNull NetworkAgentInfo nai) {
@@ -4270,6 +4318,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
         } catch (RemoteException | ServiceSpecificException e) {
             loge("Exception destroying network: " + e);
         }
+        mDnsManager.removeNetwork(nai.network);
+
+        // clean up tc police filters on interface.
+        if (canNetworkBeRateLimited(nai) && mIngressRateLimit >= 0) {
+            mDeps.disableIngressRateLimit(nai.linkProperties.getInterfaceName());
+        }
+        nai.onNetworkDestroyed();
     }
 
     // If this method proves to be too slow then we can maintain a separate
@@ -8522,11 +8577,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     log("   accepting network in place of " + previousSatisfier.toShortString());
                 }
                 previousSatisfier.removeRequest(previousRequest.requestId);
-                if (canSupportGracefulNetworkSwitch(previousSatisfier, newSatisfier)) {
+                if (canSupportGracefulNetworkSwitch(previousSatisfier, newSatisfier)
+                        && !previousSatisfier.pendingReplacement) {
                     // If this network switch can't be supported gracefully, the request is not
                     // lingered. This allows letting go of the network sooner to reclaim some
                     // performance on the new network, since the radio can't do both at the same
                     // time while preserving good performance.
+                    //
+                    // Also don't linger the request if the old network is pending replacement. A
+                    // network that is pending replacement does not provide actual network
+                    // connectivity, so lingering it is not useful. In particular this ensures that
+                    // if a network that is pending replacement is outscored by its replacement,
+                    // then it is torn down immediately instead of being lingered, and any apps that
+                    // were using it immediately get onLost and can connect using the new network.
                     previousSatisfier.lingerRequest(previousRequest.requestId, now);
                 }
             } else {
