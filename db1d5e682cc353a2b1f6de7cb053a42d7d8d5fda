@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3454fd4_7099db7b",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-16T09:36:27Z",
+      "side": 1,
+      "message": "(I guess this comment only makes sense if we decide to delay destroying the native network – with the current patch, the comment is essentially irrelevant aside from possibly some additional doc).",
+      "parentUuid": "d9826305_8db08607",
+      "range": {
+        "startLine": 975,
+        "startChar": 99,
+        "endLine": 975,
+        "endChar": 100
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4a3eac3_0eeeaf76",
         "filename": "framework/src/android/net/NetworkAgent.java",
         "patchSetId": 3
