@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e6f9aa9_324b8ae6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T13:37:11Z",
+      "side": 1,
+      "message": "LGTM but I think we should fix the the error message because the current message will be confusing to folks looking at bug reports.",
+      "revId": "1084ac673dff1de3ada3d4c339ae13b935a91e7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c0e0dbc_85188872",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-16T13:37:11Z",
+      "side": 1,
+      "message": "AFAICT this will result in the message \"Dump failed: Operation not supported on transport endpoint\".\n\nThat is not helpful because it makes it looks like the code encountered an error. But there are no errors here: this is a 100% error-free and expected codepath. A better error message would simply be:\n\n    dumpsys connectivity trafficcontroller dump not available on pre-T devices, use dumpsys netd trafficcontroller instead.",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 9
+      },
+      "revId": "1084ac673dff1de3ada3d4c339ae13b935a91e7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
