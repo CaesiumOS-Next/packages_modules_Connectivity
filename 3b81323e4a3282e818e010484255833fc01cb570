@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b57c1e71_1f6acacb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-16T08:21:39Z",
+      "side": 1,
+      "message": "LGTM, only nits and assume lorenzo\u0027s comment is addressed.",
+      "revId": "3b81323e4a3282e818e010484255833fc01cb570",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cad24239_d64a084b",
