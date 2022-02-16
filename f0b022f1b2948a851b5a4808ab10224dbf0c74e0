@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "811b5eb4_8b3bdf2f",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f19e5cb4_4a8dcd81",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "aa6981e6_f89f26bd",
         "filename": "bpf_progs/block.c",
         "patchSetId": 43
@@ -60,6 +84,30 @@
       "writtenOn": "2022-02-16T02:20:37Z",
       "side": 1,
       "message": "bind4/block_port should be good enough",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97a464d1_e861124d",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afae8ec2_df93fa1e",
       "range": {
         "startLine": 56,
         "startChar": 28,
@@ -116,6 +164,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "287f2344_885b78f7",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5d08c4a_f6e8a4a1",
+      "range": {
+        "startLine": 57,
+        "startChar": 21,
+        "endLine": 57,
+        "endChar": 51
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3223e6ad_4bed461d",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74327fdd_34e37288",
+      "range": {
+        "startLine": 57,
+        "startChar": 61,
+        "endLine": 57,
+        "endChar": 62
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e77eb2e2_fe42c9cc",
@@ -139,6 +235,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fbfcc2c_043336ee",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e77eb2e2_fe42c9cc",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 67
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a02ddd8_8bd4f77a",
@@ -152,6 +272,30 @@
       "writtenOn": "2022-02-16T02:20:37Z",
       "side": 1,
       "message": "this is doc string only, but should this be ConnectivityNativeService?",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "f0b022f1b2948a851b5a4808ab10224dbf0c74e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "888c8cb3_8dad3c7f",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 43
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-16T22:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a02ddd8_8bd4f77a",
       "range": {
         "startLine": 69,
         "startChar": 10,
