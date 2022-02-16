@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c18e111_a54d704e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-02-16T12:19:25Z",
+      "side": 1,
+      "message": "add ag/16904343 (jni stubs) to avoid sc-mainline-prod build break. need discussion with mark",
+      "revId": "aa8d459560e064bf1c866594f6d907591e3b00f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
