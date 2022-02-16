@@ -266,6 +266,10 @@ public class NetworkRanker {
 
         // If two networks are equivalent, and one is pending replacement, keep the other one. This
         // ensures that when the replacement connects, it's preferred.
+        // TODO: it would be better if we could prevent PENDING_REPLACEMENT networks from matching
+        // any new requests, but only allowed them to satisfy requests that they already satisfy.
+        // Can this be achieved by simply modifying nai.satisfies to return false if the network
+        // is pending replacement and is not already satisfying the request?
         partitionInto(candidates, nai -> !nai.getScore().hasPolicy(POLICY_PENDING_REPLACEMENT),
                 accepted, rejected);
         if (accepted.size() == 1) return accepted.get(0);
