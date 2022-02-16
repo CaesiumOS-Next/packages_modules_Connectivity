@@ -16,6 +16,29 @@
       "message": "It will need Lorenzo\u0027s owner vote.",
       "revId": "c127e4df874da234f966232ad2405a7d3010751a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbccf139_f8a974f5",
+        "filename": "tests/cts/net/src/android/net/cts/IpConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-16T02:13:35Z",
+      "side": 1,
+      "message": "This should work because T would always ship with a version of the module that has the newest behavior; but actually S should also pass the test if it has the newest version of the connectivity module installed.\n\nThis would be checked by having:\n\n  @ConnectivityModuleTest @DevSdkIgnoreRule.IngoreUpTo(Build.VERSION_CODES.R)\n  \nConnectivityModuleTest means \"this is a test for the updated connectivity/tethering module\"; in practice it means that is is skipped in wifi and NetworkStack/CaptivePortalLogin MTS, but run in tethering/connectivity MTS",
+      "range": {
+        "startLine": 109,
+        "startChar": 33,
+        "endLine": 109,
+        "endChar": 38
+      },
+      "revId": "c127e4df874da234f966232ad2405a7d3010751a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
