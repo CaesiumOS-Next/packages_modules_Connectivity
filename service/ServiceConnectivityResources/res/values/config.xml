@@ -136,4 +136,12 @@
          extreme adverse effects on performance of the new network.
     -->
     <bool translatable="false" name="config_cellular_radio_timesharing_capable">true</bool>
+
+    <!-- Whether the kernel supports ingress rate limiting.
+         
+         The following kernel config options need to be enabled to support this feature:
+         CONFIG_NET_SCHED, CONFIG_NET_SCH_INGRESS, CONFIG_NET_CLS_MATCHALL, CONFIG_NET_CLS_ACT,
+         CONFIG_NET_ACT_POLICE, CONFIG_NET_ACT_BPF.
+    -->
+    <bool translatable="false" name="config_ingress_rate_limiting_supported">true</bool>
 </resources>
