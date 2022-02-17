@@ -22,6 +22,30 @@
       },
       "revId": "76041fb5c38f709f06d22e1dfb54e5e685e090bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "788d0cf4_9aeeec48",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3856,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-17T15:30:10Z",
+      "side": 1,
+      "message": "Ok that\u0027s super confusing. If it doesn\u0027t contain the same data then it shouldn\u0027t have the same message number or use the same integer.\n\nRemoved from this CL and uploaded aosp/1989916 to rename one of the messages.",
+      "parentUuid": "23dfddac_7bd82002",
+      "range": {
+        "startLine": 3856,
+        "startChar": 73,
+        "endLine": 3856,
+        "endChar": 83
+      },
+      "revId": "76041fb5c38f709f06d22e1dfb54e5e685e090bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
