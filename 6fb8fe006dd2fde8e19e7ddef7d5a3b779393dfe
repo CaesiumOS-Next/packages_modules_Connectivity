@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29d19523_384e7f7a",
+        "filename": "service/src/com/android/server/BpfNetMaps.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-17T02:20:52Z",
+      "side": 1,
+      "message": "I wonder if throwing an exception here will cause the dump to fail with an error message? I was thinking you\u0027d just do something like print this message to the filedescriptor instead of throwing the exception. But if you\u0027ve tested this on S and the message is not too scary, that\u0027s fine too.",
+      "range": {
+        "startLine": 291,
+        "startChar": 22,
+        "endLine": 291,
+        "endChar": 46
+      },
+      "revId": "6fb8fe006dd2fde8e19e7ddef7d5a3b779393dfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
