@@ -158,6 +158,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "119cd11a_19e6abe9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-17T18:37:33Z",
+      "side": 1,
+      "message": "Older platform won\u0027t have the CarrierUnsupported carrier config which is an API added in T. \n\nTom can you confirm when when the config not existing we don\u0027t invoke the dialog?",
+      "parentUuid": "f1d14c6f_0fba2ea8",
+      "range": {
+        "startLine": 440,
+        "startChar": 8,
+        "endLine": 443,
+        "endChar": 39
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f6fd62d_479427d5",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 8
