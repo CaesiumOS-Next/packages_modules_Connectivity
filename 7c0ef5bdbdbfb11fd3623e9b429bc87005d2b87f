@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a61e1c9d_828d53c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-17T08:59:37Z",
+      "side": 1,
+      "message": "https://source.corp.google.com/android/packages/modules/Connectivity/tests/cts/tethering/src/android/tethering/cts/TetheringManagerTest.java?q\u003df:cts%20tetheringManagertest\u0026sq\u003dpackage:%5Eandroid$\n\nAdd some CTS tests in tetheringManagertest",
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fbb44ba1_5db44cb8",
@@ -42,6 +59,29 @@
         "startChar": 20,
         "endLine": 359,
         "endChar": 67
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43162d0c_7ca0daca",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-17T08:59:37Z",
+      "side": 1,
+      "message": "May use TetheringManager class directly.\n\nor use OnUiEntitlementFailedListener to send the failed result to callback function.",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 59
       },
       "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
