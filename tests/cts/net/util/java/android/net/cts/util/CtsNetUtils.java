@@ -17,6 +17,7 @@
 package android.net.cts.util;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
+import static android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED;
 import static android.net.NetworkCapabilities.TRANSPORT_CELLULAR;
 import static android.net.NetworkCapabilities.TRANSPORT_TEST;
 
@@ -362,7 +363,7 @@ public final class CtsNetUtils {
                 .build();
         mCellNetworkCallback = new TestNetworkCallback();
         mCm.requestNetwork(cellRequest, mCellNetworkCallback);
-        final Network cellNetwork = mCellNetworkCallback.waitForAvailable();
+        final Network cellNetwork = mCellNetworkCallback.waitForValidatedNetwork();
         assertNotNull("Cell network not available. " +
                 "Please ensure the device has working mobile data.", cellNetwork);
         return cellNetwork;
@@ -576,6 +577,7 @@ public final class CtsNetUtils {
      */
     public static class TestNetworkCallback extends ConnectivityManager.NetworkCallback {
         private final ConditionVariable mAvailableCv = new ConditionVariable(false);
+        private final ConditionVariable mValidatedCv = new ConditionVariable(false);
         private final CountDownLatch mLostLatch = new CountDownLatch(1);
         private final CountDownLatch mUnavailableLatch = new CountDownLatch(1);
 
@@ -599,6 +601,24 @@ public final class CtsNetUtils {
             return null;
         }
 
+        /**
+         * Wait for a network to validate.
+         *
+         * This method will return when it receives the first validated network. If a network was
+         * previously validated but was followed by onLost, this will wait for the next network
+         * to become validated.
+         */
+        public Network waitForValidatedNetwork() throws InterruptedException {
+            final long timeoutMs = TimeUnit.SECONDS.toMillis(CONNECTIVITY_CHANGE_TIMEOUT_SECS);
+            while (mValidatedCv.block(timeoutMs)) {
+                final Network n = currentNetwork;
+                if (n != null) return n;
+                Log.w(TAG, "onAvailable called but network was lost before it could be returned."
+                        + " Waiting for the next call to onAvailable.");
+            }
+            return null;
+        }
+
         public Network waitForLost() throws InterruptedException {
             return mLostLatch.await(CONNECTIVITY_CHANGE_TIMEOUT_SECS, TimeUnit.SECONDS)
                     ? lastLostNetwork : null;
@@ -613,6 +633,15 @@ public final class CtsNetUtils {
             Log.i(TAG, "CtsNetUtils TestNetworkCallback onAvailable " + network);
             currentNetwork = network;
             mAvailableCv.open();
+        }
+
+        @Override
+        public void onCapabilitiesChanged(Network network, NetworkCapabilities nc) {
+            Log.i(TAG, "CtsNetUtils TestNetworkCallback onCapabilitiesChanged " + network);
+            if (nc.hasCapability(NET_CAPABILITY_VALIDATED)) {
+                currentNetwork = network;
+                mValidatedCv.open();
+            }
         }
 
         @Override
