@@ -17,52 +17,83 @@ package android.net.cts
 
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.EthernetNetworkManagementException
+import android.net.EthernetNetworkUpdateRequest
 import android.net.InetAddresses
 import android.net.IpConfiguration
+import android.net.LinkAddress
+import android.net.LinkProperties
 import android.net.MacAddress
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.net.StaticIpConfiguration
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
-import android.platform.test.annotations.AppModeFull
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
-import com.android.net.module.util.ArrayTrackRecord
-import com.android.net.module.util.TrackRecord
-import com.android.testutils.DevSdkIgnoreRule
-import com.android.testutils.SC_V2
-import com.android.testutils.runAsShell
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import android.content.Context
-import org.junit.runner.RunWith
-import kotlin.test.assertNull
-import kotlin.test.fail
 import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.InterfaceStateChanged
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
+import android.os.OutcomeReceiver
+import android.platform.test.annotations.AppModeFull
+import android.util.Log
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
+import com.android.net.module.util.ArrayTrackRecord
+import com.android.net.module.util.TrackRecord
+import com.android.networkstack.apishim.EthernetManagerShimImpl
 import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
+import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_CLIENT
+import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_UP
-import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_CLIENT
-import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
-import com.android.networkstack.apishim.EthernetManagerShimImpl
+import com.android.testutils.DevSdkIgnoreRule
+import com.android.testutils.RecorderCallback.CallbackEntry.Companion.LOST
+import com.android.testutils.RecorderCallback.CallbackEntry.Available
+import com.android.testutils.RecorderCallback.CallbackEntry.Lost
 import com.android.testutils.RouterAdvertisementResponder
+import com.android.testutils.SC_V2
 import com.android.testutils.TapPacketReader
+import com.android.testutils.TestableNetworkCallback
+import com.android.testutils.runAsShell
 import com.android.testutils.waitForIdle
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 import java.net.Inet6Address
-import java.util.concurrent.Executor
-import kotlin.test.assertFalse
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import java.net.NetworkInterface
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.concurrent.TimeUnit
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
+private const val TAG = "EthernetManagerTest"
 private const val TIMEOUT_MS = 1000L
+private const val CB_TIMEOUT_MS = 30_000L
 private const val NO_CALLBACK_TIMEOUT_MS = 200L
+private const val LOCAL_IP_ADDRESS = "192.0.2.1/32"
+
 private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignment.DHCP,
-    IpConfiguration.ProxySettings.NONE, null, null)
+        IpConfiguration.ProxySettings.NONE, null, null)
+private val TEST_REQUEST = NetworkRequest.Builder()
+        .clearCapabilities()
+        .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+        .build()
+private val LOCAL_LINK_ADDRESS = LinkAddress(LOCAL_IP_ADDRESS)
+private val LOCAL_STATIC_IP_CONFIG = StaticIpConfiguration.Builder()
+        .setIpAddress(LOCAL_LINK_ADDRESS).build()
+private val LOCAL_IP_CONFIG = IpConfiguration.Builder()
+        .setStaticIpConfiguration(LOCAL_STATIC_IP_CONFIG).build()
 
 @AppModeFull(reason = "Instant apps can't access EthernetManager")
 @RunWith(AndroidJUnit4::class)
@@ -73,11 +104,14 @@ class EthernetManagerTest {
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
+    private val cm = context.getSystemService(ConnectivityManager::class.java)
+    private val executor: Executor = context.getMainExecutor()
 
     private val createdIfaces = ArrayList<EthernetTestInterface>()
     private val addedListeners = ArrayList<InterfaceStateListener>()
+    private val addedCallbacks = ArrayList<TestableNetworkCallback>()
 
-    private class EthernetTestInterface(
+    private inner class EthernetTestInterface(
         context: Context,
         private val handler: Handler
     ) {
@@ -169,6 +203,9 @@ class EthernetManagerTest {
         for (listener in addedListeners) {
             em.removeInterfaceStateListener(listener)
         }
+        for (callback in addedCallbacks) {
+            cm.unregisterNetworkCallback(callback)
+        }
     }
 
     private fun addInterfaceStateListener(executor: Executor, listener: InterfaceStateListener) {
@@ -240,5 +277,133 @@ class EthernetManagerTest {
         assertTrue(ifaces.contains(iface2.interfaceName))
 
         removeInterface(iface2)
+    }
+
+    private class EthernetConfigCallback :
+            OutcomeReceiver<String, EthernetNetworkManagementException> {
+        private val mDone = CompletableFuture<String>()
+        @Throws(Exception::class)
+        fun expectComplete(): String {
+            return mDone.get(CB_TIMEOUT_MS, TimeUnit.MILLISECONDS)
+        }
+
+        override fun onResult(result: String) {
+            Log.i(TAG, "EthManagementListener resulting network $result")
+            mDone.complete(result)
+        }
+
+        override fun onError(error: EthernetNetworkManagementException) {
+            Log.e(TAG, "EthManagementListener resulting error $error")
+            mDone.completeExceptionally(error)
+        }
+    }
+
+    @Throws(Exception::class)
+    private fun enableInterface(iface: String) {
+        val connectListener = EthernetConfigCallback()
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.enableInterface(iface, executor, connectListener)
+        }
+        assertEquals(iface, connectListener.expectComplete())
+    }
+
+    @Throws(Exception::class)
+    private fun disableInterface(iface: String) {
+        val disconnectListener = EthernetConfigCallback()
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.disableInterface(iface, executor, disconnectListener)
+        }
+        assertEquals(iface, disconnectListener.expectComplete())
+    }
+
+    @Throws(Exception::class)
+    private fun createTestNetwork(): String {
+        val testIface = createInterface()
+
+        Log.i(TAG, "Created test interface " + testIface.interfaceName)
+        val nc = NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST).build()
+        val iface = updateConfiguration(testIface.interfaceName, LOCAL_IP_CONFIG, nc)
+        assertEquals(testIface.interfaceName, iface,
+                "The test iface does not match the iface updated")
+        return testIface.interfaceName
+    }
+
+    @Throws(Exception::class)
+    private fun updateConfiguration(
+        iface: String,
+        ipConfig: IpConfiguration,
+        nc: NetworkCapabilities
+    ): String {
+        val listener = EthernetConfigCallback()
+        val request = EthernetNetworkUpdateRequest.Builder()
+                .setIpConfiguration(ipConfig)
+                .setNetworkCapabilities(nc)
+                .build()
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.updateConfiguration(iface, request, executor, listener)
+        }
+        return listener.expectComplete().also { assertEquals(it, iface) }
+    }
+
+    private fun createStaticIpConfig(addr: LinkAddress): IpConfiguration {
+        val staticIpConfig = StaticIpConfiguration.Builder().setIpAddress(addr).build()
+        return IpConfiguration.Builder().setStaticIpConfiguration(staticIpConfig).build()
+    }
+
+    private fun requestNetwork(request: NetworkRequest, cb: TestableNetworkCallback) {
+        cm.requestNetwork(request, cb)
+        addedCallbacks.add(cb)
+    }
+
+    @Test
+    fun testEnableDisableInterface() {
+        val cb = TestableNetworkCallback()
+        requestNetwork(TEST_REQUEST, cb)
+        val iface: String = createTestNetwork()
+        cb.expectAvailableThenValidatedCallbacks(CB_TIMEOUT_MS)
+
+        disableInterface(iface)
+        cb.expectCallback<Lost>(cb.lastAvailableNetwork!!, CB_TIMEOUT_MS)
+        enableInterface(iface)
+        cb.expectAvailableThenValidatedCallbacks(CB_TIMEOUT_MS)
+
+        // Cleanup, only needed if the above statements are successful.
+        disableInterface(iface)
+        cb.expectCallback<Lost>(cb.lastAvailableNetwork!!, CB_TIMEOUT_MS)
+    }
+
+    @Test
+    fun testUpdateConfiguration() {
+        val cb = TestableNetworkCallback()
+        requestNetwork(TEST_REQUEST, cb)
+        val iface: String = createTestNetwork()
+        cb.expectAvailableThenValidatedCallbacks(CB_TIMEOUT_MS)
+        val n = assertNotNull(cb.lastAvailableNetwork)
+
+        val testCapability = NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
+        val nc = NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
+                .addCapability(testCapability).build()
+        val newAddr = LinkAddress("192.0.2.2/32")
+        updateConfiguration(iface, createStaticIpConfig(newAddr), nc)
+        // UpdateConfiguration() currently does a restarts on the ethernet interface therefore lost
+        // will be expected first before available, as part of the restart.
+        cb.expectCallback<Lost>(n)
+
+        cb.expectCallback<Available>()
+        cb.expectCapabilitiesThat(cb.lastAvailableNetwork!!, CB_TIMEOUT_MS) {
+            netcap: NetworkCapabilities -> netcap.hasCapability(testCapability)
+        }
+        cb.expectLinkPropertiesThat(cb.lastAvailableNetwork!!, CB_TIMEOUT_MS) {
+            lp: LinkProperties ->
+            val linkAddr = lp.linkAddresses[0]
+            linkAddr.address == newAddr.address && linkAddr.prefixLength == newAddr.prefixLength
+        }
+
+        // Cleanup, only needed if the above statements are successful.
+        disableInterface(iface)
+        cb.eventuallyExpect(LOST, CB_TIMEOUT_MS)
     }
 }
