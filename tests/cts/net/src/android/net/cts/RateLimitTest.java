@@ -53,11 +53,10 @@ import android.platform.test.annotations.AppModeFull;
 import android.system.Os;
 import android.util.Log;
 
-import androidx.test.runner.AndroidJUnit4;
-
 import com.android.compatibility.common.util.SystemUtil;
 import com.android.net.module.util.PacketBuilder;
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRunner;
 import com.android.testutils.RecorderCallback.CallbackEntry;
 import com.android.testutils.TestableNetworkAgent;
 import com.android.testutils.TestableNetworkCallback;
@@ -78,8 +77,8 @@ import java.time.Duration;
 import java.util.Arrays;
 
 @AppModeFull(reason = "MANAGE_TEST_NETWORKS not grantable to instant apps")
+@RunWith(DevSdkIgnoreRunner.class)
 @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
-@RunWith(AndroidJUnit4.class)
 public class RateLimitTest {
     private static final String TAG = "RateLimitTest";
     private static final int NETWORK_CALLBACK_TIMEOUT_MS = 5_000;
