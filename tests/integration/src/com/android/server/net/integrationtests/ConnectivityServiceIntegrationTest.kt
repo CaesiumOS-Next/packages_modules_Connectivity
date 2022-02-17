@@ -124,6 +124,9 @@ class ConnectivityServiceIntegrationTest {
         private val httpsProbeUrl get() =
             realContext.getResources().getString(com.android.server.net.integrationtests.R.string
                     .config_captive_portal_https_url)
+        private val fallbackUrls get() =
+            realContext.getResources().getStringArray(com.android.server.net.integrationtests
+                    .R.array.config_captive_portal_fallback_urls)
 
         private class InstrumentationServiceConnection : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -234,6 +237,9 @@ class ConnectivityServiceIntegrationTest {
         cm.registerNetworkCallback(request, testCallback)
         nsInstrumentation.addHttpResponse(HttpResponse(httpProbeUrl, responseCode = 204))
         nsInstrumentation.addHttpResponse(HttpResponse(httpsProbeUrl, responseCode = 204))
+        for (url in fallbackUrls) {
+            nsInstrumentation.addHttpResponse(HttpResponse(url, responseCode = 204))
+        }
 
         val na = NetworkAgentWrapper(TRANSPORT_CELLULAR, LinkProperties(), null /* ncTemplate */,
                 context)

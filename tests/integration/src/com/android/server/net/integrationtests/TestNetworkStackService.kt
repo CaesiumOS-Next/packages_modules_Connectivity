@@ -19,10 +19,16 @@ package com.android.server.net.integrationtests
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.net.DnsResolver
+import android.net.DnsResolver.TYPE_A
+import android.net.DnsResolver.TYPE_AAAA
 import android.net.INetworkMonitorCallbacks
+import android.net.InetAddresses
 import android.net.Network
 import android.net.metrics.IpConnectivityLog
 import android.net.util.SharedLog
+import android.os.Handler
+import android.os.HandlerThread
 import android.os.IBinder
 import com.android.networkstack.netlink.TcpSocketTracker
 import com.android.server.NetworkStackService
@@ -35,8 +41,10 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.spy
 import java.io.ByteArrayInputStream
 import java.net.HttpURLConnection
+import java.net.InetAddress
 import java.net.URL
 import java.nio.charset.StandardCharsets
+import java.util.concurrent.Executor
 
 private const val TEST_NETID = 42
 
@@ -60,6 +68,43 @@ class TestNetworkStackService : Service() {
     private class NetworkMonitorDeps(private val privateDnsBypassNetwork: Network) :
             NetworkMonitor.Dependencies() {
         override fun getPrivateDnsBypassNetwork(network: Network?) = privateDnsBypassNetwork
+
+        private val handlerThread = HandlerThread("TestDnsResolver").apply { start() }
+        private val handler = Handler(handlerThread.getLooper())
+
+        private fun dnsAnswer(
+            qtype: Int,
+            executor: Executor,
+            callback: DnsResolver.Callback<List<InetAddress>>
+        ) {
+            val answers = when (qtype) {
+                TYPE_AAAA -> listOf("2001:db8::1")
+                TYPE_A -> listOf("192.0.2.1")
+                else -> listOf("2001:db8::1", "192.0.2.1")
+            }.map { InetAddresses.parseNumericAddress(it) }
+            handler.post { executor.execute { callback.onAnswer(answers, 0) } }
+        }
+
+        override fun getDnsResolver(): DnsResolver {
+            val TYPE_ANY = 255
+            val resolver = mock(DnsResolver::class.java)
+            // A or AAAA lookups
+            doAnswer { inv ->
+                val qtype = inv.getArgument<Int>(2)
+                val executor = inv.getArgument<Executor>(4)
+                val callback = inv.getArgument<DnsResolver.Callback<List<InetAddress>>>(6)
+                dnsAnswer(qtype, executor, callback)
+                null
+            }.`when`(resolver).query(any(), anyString(), anyInt(), anyInt(), any(), any(), any())
+            // "ADDRCONFIG" lookups
+            doAnswer { inv ->
+                val executor = inv.getArgument<Executor>(3)
+                val callback = inv.getArgument<DnsResolver.Callback<List<InetAddress>>>(5)
+                dnsAnswer(TYPE_ANY, executor, callback)
+                null
+            }.`when`(resolver).query(any(), anyString(), anyInt(), any(), any(), any())
+            return resolver
+        }
     }
 
     /**
@@ -87,12 +132,16 @@ class TestNetworkStackService : Service() {
     private inner class TestNetworkStackConnector(context: Context) : NetworkStackConnector(
             context, TestPermissionChecker(), NetworkStackService.Dependencies()) {
 
-        private val network = Network(TEST_NETID)
+        private val network = TestNetwork(TEST_NETID)
         private val privateDnsBypassNetwork = TestNetwork(TEST_NETID)
 
         private inner class TestNetwork(netId: Int) : Network(netId) {
             override fun openConnection(url: URL) = MockConnection(
                     url, InstrumentationConnector.processRequest(url))
+            override fun getAllByName(host: String): Array<InetAddress> {
+                return listOf("2001:db8::1", "192.0.2.1").map {
+                    InetAddresses.parseNumericAddress(it) }.toTypedArray()
+            }
         }
 
         override fun makeNetworkMonitor(
