@@ -17,7 +17,15 @@ package android.net.cts
 
 import android.Manifest.permission.MANAGE_TEST_NETWORKS
 import android.Manifest.permission.NETWORK_SETTINGS
+import android.net.ConnectivityManager
+import android.net.EthernetNetworkManagementException
+import android.net.EthernetNetworkUpdateRequest
 import android.net.IpConfiguration
+import android.net.LinkAddress
+import android.net.LinkProperties
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.net.StaticIpConfiguration
 import android.net.TestNetworkInterface
 import android.net.TestNetworkManager
 import android.platform.test.annotations.AppModeFull
@@ -39,6 +47,9 @@ import android.net.cts.EthernetManagerTest.EthernetStateListener.CallbackEntry.I
 import android.os.Handler
 import android.os.HandlerExecutor
 import android.os.Looper
+import android.os.OutcomeReceiver
+import android.util.Log
+import com.android.compatibility.common.util.SystemUtil.callWithShellPermissionIdentity
 import com.android.networkstack.apishim.common.EthernetManagerShim.InterfaceStateListener
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_ABSENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_DOWN
@@ -46,15 +57,33 @@ import com.android.networkstack.apishim.common.EthernetManagerShim.STATE_LINK_UP
 import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_CLIENT
 import com.android.networkstack.apishim.common.EthernetManagerShim.ROLE_NONE
 import com.android.networkstack.apishim.EthernetManagerShimImpl
+import com.android.testutils.RecorderCallback
+import com.android.testutils.TestableNetworkCallback
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
+import java.util.concurrent.TimeUnit
 import kotlin.test.assertFalse
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
+private const val TAG = "EthernetManagerTest"
 private const val TIMEOUT_MS = 1000L
+private const val CB_TIMEOUT_MS = 30_000L
 private const val NO_CALLBACK_TIMEOUT_MS = 200L
+private const val LOCAL_IP_ADDRESS = "192.168.26.5/32"
+
 private val DEFAULT_IP_CONFIGURATION = IpConfiguration(IpConfiguration.IpAssignment.DHCP,
-    IpConfiguration.ProxySettings.NONE, null, null)
+        IpConfiguration.ProxySettings.NONE, null, null)
+private val TEST_REQUEST = NetworkRequest.Builder()
+        .clearCapabilities()
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+        .addTransportType(NetworkCapabilities.TRANSPORT_TEST).build()
+private val LOCAL_LINK_ADDRESS = LinkAddress(LOCAL_IP_ADDRESS)
+private val LOCAL_STATIC_IP_CONFIG = StaticIpConfiguration.Builder()
+        .setIpAddress(LOCAL_LINK_ADDRESS).build()
+private val LOCAL_IP_CONFIG = IpConfiguration.Builder()
+        .setStaticIpConfiguration(LOCAL_STATIC_IP_CONFIG).build()
 
 @AppModeFull(reason = "Instant apps can't access EthernetManager")
 @RunWith(AndroidJUnit4::class)
@@ -65,9 +94,12 @@ class EthernetManagerTest {
 
     private val context by lazy { InstrumentationRegistry.getInstrumentation().context }
     private val em by lazy { EthernetManagerShimImpl.newInstance(context) }
+    private val cm = context.getSystemService(ConnectivityManager::class.java)
+    private val executor: Executor = context.getMainExecutor()
 
     private val createdIfaces = ArrayList<TestNetworkInterface>()
     private val addedListeners = ArrayList<InterfaceStateListener>()
+    private val addedCallbacks = ArrayList<TestableNetworkCallback>()
 
     private open class EthernetStateListener private constructor(
         private val history: ArrayTrackRecord<CallbackEntry>
@@ -122,7 +154,7 @@ class EthernetManagerTest {
 
         // If an interface exists when the callback is registered, it is reported on registration.
         val iface = runAsShell(MANAGE_TEST_NETWORKS) {
-            createInterface()
+            createDownedInterface()
         }
         val listener = EthernetStateListener()
         addInterfaceStateListener(executor, listener)
@@ -131,7 +163,7 @@ class EthernetManagerTest {
         // If an interface appears, existing callbacks see it.
         // TODO: fix the up/up/down/up callbacks and only send down/up.
         val iface2 = runAsShell(MANAGE_TEST_NETWORKS) {
-            createInterface()
+            createDownedInterface()
         }
         listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
         listener.expectCallback(iface2, STATE_LINK_UP, ROLE_CLIENT)
@@ -166,6 +198,9 @@ class EthernetManagerTest {
             for (listener in addedListeners) {
                 em.removeInterfaceStateListener(listener)
             }
+            for (callback in addedCallbacks) {
+                cm.unregisterNetworkCallback(callback)
+            }
         }
     }
 
@@ -174,7 +209,7 @@ class EthernetManagerTest {
         addedListeners.add(listener)
     }
 
-    private fun createInterface(): TestNetworkInterface {
+    private fun createDownedInterface(): TestNetworkInterface {
         val tnm = context.getSystemService(TestNetworkManager::class.java)
         return tnm.createTapInterface(false /* bringUp */).also { createdIfaces.add(it) }
     }
@@ -188,8 +223,8 @@ class EthernetManagerTest {
         em.setIncludeTestInterfaces(true)
 
         // Create two test interfaces and check the return list contains the interface names.
-        val iface1 = createInterface()
-        val iface2 = createInterface()
+        val iface1 = createDownedInterface()
+        val iface2 = createDownedInterface()
         var ifaces = em.getInterfaceList()
         assertTrue(ifaces.size > 0)
         assertTrue(ifaces.contains(iface1.getInterfaceName()))
@@ -210,5 +245,142 @@ class EthernetManagerTest {
         runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
             doTestGetInterfaceList()
         }
+    }
+
+    @Throws(Exception::class)
+    private fun connectNetwork(iface: String) {
+        val connectListener = EthManagementListener()
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.enableInterface(iface, executor, connectListener)
+        }
+        connectListener.expectComplete()
+    }
+
+    @Throws(Exception::class)
+    private fun disconnectNetwork(iface: String) {
+        val disconnectListener = EthManagementListener()
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.disableInterface(iface, executor, disconnectListener)
+        }
+        disconnectListener.expectComplete()
+    }
+
+    @Throws(Exception::class)
+    private fun createTestNetwork(): String {
+        val testIface = callWithShellPermissionIdentity {
+            createDownedInterface()
+        }
+
+        Log.i(TAG, "Created test interface " + testIface.getInterfaceName())
+        val iface = updateConfigurationWithDefaults(testIface.getInterfaceName())
+        assertEquals(testIface.getInterfaceName(), iface,
+                "The test iface does not match the iface updated")
+        return testIface.getInterfaceName()
+    }
+
+    @Throws(Exception::class)
+    private fun updateConfigurationWithDefaults(iface: String): String {
+        val nc = NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST).build()
+        return updateConfiguration(iface, LOCAL_IP_CONFIG, nc)
+    }
+
+    @Throws(Exception::class)
+    private fun updateConfiguration(
+        iface: String,
+        ipConfig: IpConfiguration,
+        nc: NetworkCapabilities
+    ): String {
+        val listener = EthManagementListener()
+        val request = EthernetNetworkUpdateRequest.Builder()
+                .setIpConfiguration(ipConfig)
+                .setNetworkCapabilities(nc)
+                .build()
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.updateConfiguration(iface, request, executor, listener)
+        }
+        val ret: String = listener.expectComplete()
+        assertNotNull("Provisioning test interface failed.", ret)
+        return ret
+    }
+
+    private class EthManagementListener :
+            OutcomeReceiver<String, EthernetNetworkManagementException> {
+        private val mDone = CompletableFuture<String>()
+        @Throws(Exception::class)
+        fun expectComplete(): String {
+            return mDone[CB_TIMEOUT_MS, TimeUnit.MILLISECONDS]
+        }
+
+        override fun onResult(result: String) {
+            Log.i(TAG, "EthManagementListener resulting network $result")
+            mDone.complete(result)
+        }
+
+        override fun onError(error: EthernetNetworkManagementException) {
+            Log.e(TAG, "EthManagementListener resulting error $error")
+        }
+    }
+
+    private fun createIpConfig(addr: LinkAddress): IpConfiguration {
+        val staticIpConfig = StaticIpConfiguration.Builder().setIpAddress(addr).build()
+        return IpConfiguration.Builder().setStaticIpConfiguration(staticIpConfig).build()
+    }
+
+    private fun requestNetwork(request: NetworkRequest, cb: TestableNetworkCallback) {
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            cm.requestNetwork(request, cb)
+        }
+        addedCallbacks.add(cb)
+    }
+
+    @Test
+    fun testConnectDisconnectNetwork() {
+        val cb = TestableNetworkCallback()
+        requestNetwork(TEST_REQUEST, cb)
+        val iface: String = createTestNetwork()
+        cb.expectAvailableThenValidatedCallbacks(CB_TIMEOUT_MS)
+
+        disconnectNetwork(iface)
+        cb.expectCallback(RecorderCallback.CallbackEntry.LOST,
+                cb.lastAvailableNetwork, CB_TIMEOUT_MS)
+        connectNetwork(iface)
+        cb.expectAvailableThenValidatedCallbacks(CB_TIMEOUT_MS)
+
+        // Cleanup, only needed if the above statements are successful.
+        disconnectNetwork(iface)
+        cb.expectCallback(RecorderCallback.CallbackEntry.LOST,
+                cb.lastAvailableNetwork, CB_TIMEOUT_MS)
+    }
+
+    @Test
+    fun testUpdateConfiguration() {
+        val cb = TestableNetworkCallback()
+        requestNetwork(TEST_REQUEST, cb)
+        val iface: String = createTestNetwork()
+        cb.expectAvailableThenValidatedCallbacks(CB_TIMEOUT_MS)
+        val n = cb.lastAvailableNetwork
+
+        val testCapability = NetworkCapabilities.NET_CAPABILITY_TEMPORARILY_NOT_METERED
+        val nc = NetworkCapabilities.Builder()
+                .addTransportType(NetworkCapabilities.TRANSPORT_TEST)
+                .addCapability(testCapability).build()
+        val ipAddress = "192.168.26.200/32"
+        val newAddr = LinkAddress(ipAddress)
+        updateConfiguration(iface, createIpConfig(newAddr), nc)
+        cb.expectCallback<RecorderCallback.CallbackEntry.Lost>(n!!)
+
+        cb.expectCallback<RecorderCallback.CallbackEntry.Available>()
+        cb.expectCapabilitiesThat(cb.lastAvailableNetwork!!, CB_TIMEOUT_MS) {
+            netcap: NetworkCapabilities -> netcap.hasCapability(testCapability)
+        }
+        cb.expectLinkPropertiesThat(cb.lastAvailableNetwork!!, CB_TIMEOUT_MS) {
+            lp: LinkProperties ->
+            val linkAddr = lp.linkAddresses[0]
+            linkAddr.address == newAddr.address && linkAddr.prefixLength == newAddr.prefixLength
+        }
+
+        disconnectNetwork(iface)
+        cb.eventuallyExpect(RecorderCallback.CallbackEntry.LOST, CB_TIMEOUT_MS)
     }
 }
