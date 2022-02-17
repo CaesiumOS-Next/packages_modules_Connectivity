@@ -63,6 +63,30 @@
       },
       "revId": "324d10d48e66ac5f9cae43f12dcb01069fcff503",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "154257dd_643f119d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-02-17T19:08:55Z",
+      "side": 1,
+      "message": "I actually misunderstood what you originally meant.\n\nCL running this in S as requested has been uploaded here:\nhttps://r.android.com/1990270",
+      "parentUuid": "d1c77263_97996280",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "324d10d48e66ac5f9cae43f12dcb01069fcff503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
