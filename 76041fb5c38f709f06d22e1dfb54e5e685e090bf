@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23dfddac_7bd82002",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3856,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-17T10:35:59Z",
+      "side": 1,
+      "message": "This is not the same event – it\u0027s handled by a different handler with different code. I\u0027d think it\u0027s good to unify the arguments but they already don\u0027t take the same kind of obj, and ConnDiagHandler messages don\u0027t particularly take the netId in arg2. So I think this probably should be reverted.\n\nIf you think we still should pass it, then we should document it in l.9585.",
+      "range": {
+        "startLine": 3856,
+        "startChar": 73,
+        "endLine": 3856,
+        "endChar": 83
+      },
+      "revId": "76041fb5c38f709f06d22e1dfb54e5e685e090bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
