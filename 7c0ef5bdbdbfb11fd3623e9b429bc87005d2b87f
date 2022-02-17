@@ -85,6 +85,75 @@
       },
       "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5faa9396_736910dc",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-17T09:03:54Z",
+      "side": 1,
+      "message": "TetheringManager#stopTethering is a oneway binder call, so this method is not synchronized. Also gettting TetheringManager means you would register additional tethering event callback which is redundant. You could reference onUiEntitlementFailed to know how to stopTethering inside EntitlementManager",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 59
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1d14c6f_0fba2ea8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-17T09:03:54Z",
+      "side": 1,
+      "message": "What would happen if the activity not exist ? Giving that tethering module would install to S and R device. The old devices don\u0027t have this new activity.",
+      "range": {
+        "startLine": 440,
+        "startChar": 8,
+        "endLine": 443,
+        "endChar": 39
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f6fd62d_479427d5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-17T09:03:54Z",
+      "side": 1,
+      "message": "Just have quick look, I don\u0027t review this carefully but this function name do not match its behavior anymore.",
+      "range": {
+        "startLine": 1005,
+        "startChar": 8,
+        "endLine": 1005,
+        "endChar": 36
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
