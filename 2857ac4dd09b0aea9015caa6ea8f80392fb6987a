@@ -22,6 +22,30 @@
       },
       "revId": "2857ac4dd09b0aea9015caa6ea8f80392fb6987a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac760aeb_bdec4809",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 10644,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-17T09:09:49Z",
+      "side": 1,
+      "message": "You are right, this does indeed happen, for instance TestNetworkAgentWrapper (used in ConnectivityServiceTests) does not set the interface by default. Reduced the log level and fixed the comment in aosp/1985028.",
+      "parentUuid": "5d5bcd0c_93f19192",
+      "range": {
+        "startLine": 10644,
+        "startChar": 24,
+        "endLine": 10644,
+        "endChar": 29
+      },
+      "revId": "2857ac4dd09b0aea9015caa6ea8f80392fb6987a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
