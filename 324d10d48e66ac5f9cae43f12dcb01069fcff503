@@ -39,6 +39,30 @@
       },
       "revId": "324d10d48e66ac5f9cae43f12dcb01069fcff503",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1c77263_97996280",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetNetworkSpecifierTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-02-17T00:20:51Z",
+      "side": 1,
+      "message": "I originally tried using S but DevSdkIgnoreRule.kt forces usage of S_V2 for S APIs:\n\nhttp://cs/android/frameworks/libs/net/common/testutils/devicetests/com/android/testutils/DevSdkIgnoreRule.kt?l\u003d50",
+      "parentUuid": "2ea8b959_79e2fe2f",
+      "range": {
+        "startLine": 36,
+        "startChar": 12,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "324d10d48e66ac5f9cae43f12dcb01069fcff503",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
