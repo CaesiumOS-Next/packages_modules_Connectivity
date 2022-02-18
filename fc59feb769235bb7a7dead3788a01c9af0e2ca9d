@@ -62,6 +62,121 @@
       },
       "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e2ac24a_2a983736",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-18T00:40:55Z",
+      "side": 1,
+      "message": "probably need to adjust",
+      "range": {
+        "startLine": 44,
+        "startChar": 25,
+        "endLine": 44,
+        "endChar": 57
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "633deeee_449f21df",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-18T00:40:55Z",
+      "side": 1,
+      "message": "does this helper serve a purpose? seems just 1 caller",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 53
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2cebde6_ec0e442e",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-18T00:40:55Z",
+      "side": 1,
+      "message": "seems spurious/pointless func.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 9
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea45f44_19f93d72",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-18T00:40:55Z",
+      "side": 1,
+      "message": "value",
+      "range": {
+        "startLine": 121,
+        "startChar": 45,
+        "endLine": 121,
+        "endChar": 49
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ad6794a_950275e1",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-18T00:40:55Z",
+      "side": 1,
+      "message": "value",
+      "range": {
+        "startLine": 134,
+        "startChar": 47,
+        "endLine": 134,
+        "endChar": 51
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
