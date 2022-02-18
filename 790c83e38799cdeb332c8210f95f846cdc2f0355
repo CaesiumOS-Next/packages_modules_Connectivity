@@ -16,6 +16,52 @@
       "message": "Just find I have submitted comment, fix in follow up is fine.",
       "revId": "790c83e38799cdeb332c8210f95f846cdc2f0355",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd61fab_3376154e",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-18T04:10:37Z",
+      "side": 1,
+      "message": "or static_assert here, or in both spots.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 75
+      },
+      "revId": "790c83e38799cdeb332c8210f95f846cdc2f0355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c50641e6_fed0fa91",
+        "filename": "service/native/jni/com_android_server_BpfNetMaps.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-18T04:10:37Z",
+      "side": 1,
+      "message": "please add a static assert here too like further down, but for int32_t",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 75
+      },
+      "revId": "790c83e38799cdeb332c8210f95f846cdc2f0355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
