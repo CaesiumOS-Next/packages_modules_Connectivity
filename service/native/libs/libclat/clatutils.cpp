@@ -22,8 +22,10 @@
 #include <linux/if_tun.h>
 #include <log/log.h>
 #include <stdlib.h>
-#include <string.h>
+#include <spawn.h>
 #include <unistd.h>
+
+#include <string>
 
 extern "C" {
 #include "checksum.h"
@@ -36,9 +38,15 @@ extern "C" {
 // Sync from system/netd/include/netid_client.h.
 #define MARK_UNSET 0u
 
+// Sync from system/netd/server/NetdConstants.h
+#define __INT_STRLEN(i) sizeof(#i)
+#define _INT_STRLEN(i) __INT_STRLEN(i)
+#define INT32_STRLEN _INT_STRLEN(INT32_MIN)
+
 namespace android {
 namespace net {
 namespace clat {
+static const char* kClatdPath = "/apex/com.android.tethering/bin/for-system/clatd";
 
 bool isIpv4AddressFree(in_addr_t addr) {
     int s = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
@@ -261,6 +269,109 @@ int configure_packet_socket(int sock, in6_addr* addr, int ifindex) {
     }
 
     return 0;
+}
+
+int startClatd(int tunFd, int readSock, int writeSock, const char* iface, const char* pfx96,
+        const char* v4, const char* v6) {
+    // Ignore argument validation check because it has been in the caller (ClatCoordinator JNI).
+
+    // 1. create a throwaway socket to reserve a file descriptor number
+    int passedTunFd = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (passedTunFd == -1) {
+        ALOGE("socket(ipv6/udp) for tun fd failed", errno);
+        return -errno;
+    }
+    int passedSockRead = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (passedSockRead == -1) {
+        ALOGE("socket(ipv6/udp) for read socket failed", errno);
+        return -errno;
+    }
+    int passedSockWrite = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    if (passedSockWrite == -1) {
+        ALOGE("socket(ipv6/udp) for write socket failed", errno);
+        return -errno;
+    }
+
+    // these are the FD we'll pass to clatd on the cli, so need it as a string
+    char passedTunFdStr[INT32_STRLEN];
+    char passedSockReadStr[INT32_STRLEN];
+    char passedSockWriteStr[INT32_STRLEN];
+    snprintf(passedTunFdStr, sizeof(passedTunFdStr), "%d", passedTunFd);
+    snprintf(passedSockReadStr, sizeof(passedSockReadStr), "%d", passedSockRead);
+    snprintf(passedSockWriteStr, sizeof(passedSockWriteStr), "%d", passedSockWrite);
+
+    // 2. we're going to use this as argv[0] to clatd to make ps output more useful
+    std::string progname("clatd-");
+    progname += iface;
+
+    // clang-format off
+    const char* args[] = {progname.c_str(),
+                          "-i", iface,
+                          "-p", pfx96,
+                          "-4", v4,
+                          "-6", v6,
+                          "-t", passedTunFdStr,
+                          "-r", passedSockReadStr,
+                          "-w", passedSockWriteStr,
+                          nullptr};
+    // clang-format on
+
+    // 3. register vfork requirement
+    posix_spawnattr_t attr;
+    if (int ret = posix_spawnattr_init(&attr)) {
+        ALOGE("posix_spawnattr_init failed(%s)", strerror(ret));
+        return -ret;
+    }
+
+    // TODO: use android::base::ScopeGuard.
+    if (int ret = posix_spawnattr_setflags(&attr, POSIX_SPAWN_USEVFORK)) {
+        posix_spawnattr_destroy(&attr);
+        ALOGE("posix_spawnattr_setflags failed(%s)", strerror(ret));
+        return -ret;
+    }
+
+    // 4. register dup2() action: this is what 'clears' the CLOEXEC flag
+    // on the tun fd that we want the child clatd process to inherit
+    // (this will happen after the vfork, and before the execve)
+    posix_spawn_file_actions_t fa;
+    if (int ret = posix_spawn_file_actions_init(&fa)) {
+        posix_spawnattr_destroy(&attr);
+        ALOGE("posix_spawn_file_actions_init failed(%s)", strerror(ret));
+        return -ret;
+    }
+
+    if (int ret = posix_spawn_file_actions_adddup2(&fa, tunFd, passedTunFd)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        ALOGE("posix_spawn_file_actions_adddup2 for tun fd failed(%s)", strerror(ret));
+        return -ret;
+    }
+    if (int ret = posix_spawn_file_actions_adddup2(&fa, readSock, passedSockRead)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        ALOGE("posix_spawn_file_actions_adddup2 for read socket failed(%s)", strerror(ret));
+        return -ret;
+    }
+    if (int ret = posix_spawn_file_actions_adddup2(&fa, writeSock, passedSockWrite)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        ALOGE("posix_spawn_file_actions_adddup2 for write socket failed(%s)", strerror(ret));
+        return -ret;
+    }
+
+    // 5. actually perform vfork/dup2/execve
+    pid_t pid = 0;
+    if (int ret = posix_spawn(&pid, kClatdPath, &fa, &attr, (char* const*)args, nullptr)) {
+        posix_spawnattr_destroy(&attr);
+        posix_spawn_file_actions_destroy(&fa);
+        ALOGE("posix_spawn failed(%s)", strerror(ret));
+        return -ret;
+    }
+
+    posix_spawnattr_destroy(&attr);
+    posix_spawn_file_actions_destroy(&fa);
+
+    return pid;
 }
 
 }  // namespace clat

@@ -55,6 +55,7 @@ cc_test {
         "libclat",
         "libip_checksum",
         "libnetd_test_tun_interface",
+        "libnetd_test_utils",  // for runCommand()
         "libnetdutils",  // for netdutils/UidConstants.h in bpf_shared.h
         "libtcutils",
     ],

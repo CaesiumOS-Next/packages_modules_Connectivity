@@ -27,6 +27,8 @@ int generateIpv6Address(const char* iface, const in_addr v4, const in6_addr& nat
                         in6_addr* v6);
 int detect_mtu(const struct in6_addr* plat_subnet, uint32_t plat_suffix, uint32_t mark);
 int configure_packet_socket(int sock, in6_addr* addr, int ifindex);
+int startClatd(int tunFd, int readSock, int writeSock, const char* iface, const char* pfx96,
+               const char* v4, const char* v6);
 
 // For testing
 typedef bool (*isIpv4AddrFreeFn)(in_addr_t);
