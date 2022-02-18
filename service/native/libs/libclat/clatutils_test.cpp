@@ -182,6 +182,28 @@ TEST_F(ClatUtils, ConfigurePacketSocket) {
     v6Iface.destroy();
 }
 
+TEST_F(ClatUtils, ClatdStartStop) {
+    TunInterface tun;
+    ASSERT_EQ(0, tun.init());
+
+    //int tunFd = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    int readSock = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    int writeSock = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    const std::string clatdName = StringPrintf("clatd-%s", tun.name().c_str());
+    std::string nat64Prefix = "2001:db8:cafe:f00d:1:2::";
+    std::string v4 = "192.0.0.4";
+    std::string v6 = "2a00:79e1:abc:6f02:807c:2aae:bfb9:3780";
+
+    EXPECT_LT(0, startClatd(tun.ifindex() /*tunFd*/, readSock, writeSock, tun.name().c_str(),
+            nat64Prefix.c_str(), v4.c_str(), v6.c_str()));
+
+    sleep(10);
+
+    close(readSock);
+    close(writeSock);
+    tun.destroy();
+}
+
 }  // namespace clat
 }  // namespace net
 }  // namespace android
