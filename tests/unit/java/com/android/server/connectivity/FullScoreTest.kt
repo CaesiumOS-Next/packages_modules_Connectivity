@@ -101,6 +101,7 @@ class FullScoreTest {
         assertFailsWith<IllegalArgumentException> {
             FullScore.policyNameOf(MAX_CS_MANAGED_POLICY + 1)
         }
+        assertEquals("IS_UNMETERED", FullScore.policyNameOf(POLICY_IS_UNMETERED))
     }
 
     fun getAllPolicies() = Regex("POLICY_.*").let { nameRegex ->
