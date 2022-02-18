@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94f3a344_4839d975",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-18T09:49:05Z",
+      "side": 1,
+      "message": "Done in aosp/1991870",
+      "parentUuid": "92d528cd_f3e74378",
+      "range": {
+        "startLine": 1086,
+        "startChar": 84,
+        "endLine": 1087,
+        "endChar": 35
+      },
+      "revId": "a20843638f7340ce4c5198bdb489b8ef66722f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91557f17_d7ec72e3",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-09T17:32:50Z",
       "side": 1,
       "message": "Nit : maybe clarify that this is per-network.\n\nHow does this behave with clat by the way ? I expect the limit applied to the v6 interface will limit the sum of both so it\u0027s probably fine but",
+      "range": {
+        "startLine": 1100,
+        "startChar": 82,
+        "endLine": 1100,
+        "endChar": 83
+      },
+      "revId": "a20843638f7340ce4c5198bdb489b8ef66722f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c23c924_17388cb5",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-18T09:49:05Z",
+      "side": 1,
+      "message": "Done in aosp/1991870\n\nClat uses the stacked interfaces in LinkProperties, right? The tc filter is only applied to the physical interface returned by LinkProperties#getInterfaceName() and runs before the clat hooks, so this should limit both v4 and v6 traffic.",
+      "parentUuid": "91557f17_d7ec72e3",
       "range": {
         "startLine": 1100,
         "startChar": 82,
@@ -68,7 +116,30 @@
       },
       "revId": "a20843638f7340ce4c5198bdb489b8ef66722f73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f6c6b5d_757785e2",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-18T09:49:05Z",
+      "side": 1,
+      "message": "Done in aosp/1991870",
+      "parentUuid": "745260c6_d881f8c1",
+      "range": {
+        "startLine": 1106,
+        "startChar": 38,
+        "endLine": 1106,
+        "endChar": 55
+      },
+      "revId": "a20843638f7340ce4c5198bdb489b8ef66722f73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
-  ],
-  "submitRequirementResults": []
+  ]
 }
