@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08359510_eff43cda",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1349877
+      },
+      "writtenOn": "2022-02-18T11:51:31Z",
+      "side": 1,
+      "message": "This comment can be deleted.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 48
+      },
+      "revId": "98c83d01489f7dfb2da8d516b9af08d9b390164d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
