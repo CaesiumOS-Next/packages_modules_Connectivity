@@ -90,6 +90,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50d67f8f_f03ca8d2",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-18T04:56:02Z",
+      "side": 1,
+      "message": "Should \"connectivity_native\" be a hard coded string somewhere?",
+      "range": {
+        "startLine": 58,
+        "startChar": 36,
+        "endLine": 58,
+        "endChar": 55
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6ceacc4_5a609bed",
+        "filename": "service/proguard.flags",
+        "patchSetId": 46
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-18T04:56:02Z",
+      "side": 1,
+      "message": "unsure why this file was added. Can it be deleted?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 73
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e2ac24a_2a983736",
         "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
         "patchSetId": 46
