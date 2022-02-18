@@ -14,12 +14,14 @@
 
 #include "libclat/clatutils.h"
 
+#include "test_utils.h"
+#include "tun_interface.h"
+
 #include <android-base/stringprintf.h>
 #include <arpa/inet.h>
 #include <gtest/gtest.h>
 #include <linux/if_packet.h>
 #include <linux/if_tun.h>
-#include "tun_interface.h"
 
 extern "C" {
 #include "checksum.h"
@@ -180,6 +182,56 @@ TEST_F(ClatUtils, ConfigurePacketSocket) {
 
     close(s);
     v6Iface.destroy();
+}
+
+namespace {
+
+std::vector<std::string> tryToFindProcesses(const std::string& processName, uint32_t maxTries = 1,
+                                            uint32_t intervalMs = 50) {
+    // Output looks like:(clatd)
+    // clat          4963   850 1 12:16:51 ?     00:00:00 clatd-netd10a88 -i netd10a88 ...
+    // ...
+    // root          5221  5219 0 12:18:12 ?     00:00:00 sh -c ps -Af | grep ' clatd-netdcc1a0'
+
+    if (maxTries == 0) return {};
+
+    std::string cmd = StringPrintf("ps -Af | grep '[0-9] %s'", processName.c_str());
+    std::vector<std::string> result;
+    for (uint32_t run = 1;;) {
+        result = runCommand(cmd);
+        if (result.size() || ++run > maxTries) {
+            break;
+        }
+
+        usleep(intervalMs * 1000);
+    }
+    return result;
+}
+
+void expectProcessExists(const std::string& processName) {
+    EXPECT_EQ(1U, tryToFindProcesses(processName, 5 /*maxTries*/).size());
+}
+
+}  // namespace
+
+TEST_F(ClatUtils, ClatdStart) {
+    TunInterface tun;
+    ASSERT_EQ(0, tun.init());
+
+    int readSock = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    int writeSock = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+    const std::string clatdName = StringPrintf("clatd-%s", tun.name().c_str());
+    std::string nat64Prefix = "2001:db8:cafe:f00d:1:2::";
+    std::string v4 = "192.0.0.4";
+    std::string v6 = "2a00:79e1:abc:6f02:807c:2aae:bfb9:3780";
+
+    EXPECT_LT(0, startClatd(tun.getFdForTesting(), readSock, writeSock, tun.name().c_str(),
+            nat64Prefix.c_str(), v4.c_str(), v6.c_str()));
+    expectProcessExists(clatdName);
+
+    tun.destroy();
+    close(readSock);
+    close(writeSock);
 }
 
 }  // namespace clat
