@@ -66,6 +66,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf359556_35b7c6be",
+        "filename": "bpf_progs/block.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-18T01:26:09Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this cause a load error since it is unused?",
+      "parentUuid": "08c362c3_38ca69c0",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 15
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5e2ac24a_2a983736",
         "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
         "patchSetId": 46
@@ -77,6 +101,30 @@
       "writtenOn": "2022-02-18T00:40:55Z",
       "side": 1,
       "message": "probably need to adjust",
+      "range": {
+        "startLine": 44,
+        "startChar": 25,
+        "endLine": 44,
+        "endChar": 57
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07e0bb2b_258ad535",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-18T01:26:09Z",
+      "side": 1,
+      "message": "yup, will push workspace update once other Connectivity change merges/fails treehugger",
+      "parentUuid": "5e2ac24a_2a983736",
       "range": {
         "startLine": 44,
         "startChar": 25,
@@ -112,6 +160,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6097344_d8e7489f",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-18T01:26:09Z",
+      "side": 1,
+      "message": "We can remove this",
+      "parentUuid": "633deeee_449f21df",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 53
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2cebde6_ec0e442e",
         "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
         "patchSetId": 46
@@ -123,6 +195,30 @@
       "writtenOn": "2022-02-18T00:40:55Z",
       "side": 1,
       "message": "seems spurious/pointless func.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 9
+      },
+      "revId": "fc59feb769235bb7a7dead3788a01c9af0e2ca9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69bdf671_953f482c",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 46
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-02-18T01:26:09Z",
+      "side": 1,
+      "message": "This was added per previous comments. Since the code is going to be delivered on multiple devices, it should exit if not on T.",
+      "parentUuid": "a2cebde6_ec0e442e",
       "range": {
         "startLine": 68,
         "startChar": 8,
