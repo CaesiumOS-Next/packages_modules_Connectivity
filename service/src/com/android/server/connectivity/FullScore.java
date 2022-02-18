@@ -98,9 +98,15 @@ public class FullScore {
     /** @hide */
     public static final int POLICY_EVER_VALIDATED_NOT_AVOIDED_WHEN_BAD = 57;
 
+    // This network has been destroyed and remains connected pending replacement. It should lose to
+    // an identical network that has not been destroyed, but should otherwise be scored exactly
+    // the same.
+    /** @hide */
+    public static final int POLICY_IS_DESTROYED = 56;
+
     // To help iterate when printing
     @VisibleForTesting
-    static final int MIN_CS_MANAGED_POLICY = POLICY_EVER_VALIDATED_NOT_AVOIDED_WHEN_BAD;
+    static final int MIN_CS_MANAGED_POLICY = POLICY_IS_DESTROYED;
     @VisibleForTesting
     static final int MAX_CS_MANAGED_POLICY = POLICY_IS_VALIDATED;
 
@@ -149,7 +155,7 @@ public class FullScore {
     // connectivity for backward compatibility.
     public static FullScore fromNetworkScore(@NonNull final NetworkScore score,
             @NonNull final NetworkCapabilities caps, @NonNull final NetworkAgentConfig config,
-            final boolean everValidated, final boolean yieldToBadWiFi) {
+            final boolean everValidated, final boolean yieldToBadWiFi, final boolean destroyed) {
         return withPolicies(score.getLegacyInt(), score.getPolicies(),
                 score.getKeepConnectedReason(),
                 caps.hasCapability(NET_CAPABILITY_VALIDATED),
@@ -159,6 +165,7 @@ public class FullScore {
                 config.explicitlySelected,
                 config.acceptUnvalidated,
                 yieldToBadWiFi,
+                destroyed,
                 false /* invincible */); // only prospective scores can be invincible
     }
 
@@ -167,7 +174,7 @@ public class FullScore {
      *
      * NetworkOffers have score filters that are compared to the scores of actual networks
      * to see if they could possibly beat the current satisfier. Some things the agent can't
-     * know in advance ; a good example is the validation bit – some networks will validate,
+     * know in advance; a good example is the validation bit – some networks will validate,
      * others won't. For comparison purposes, assume the best, so all possibly beneficial
      * networks will be brought up.
      *
@@ -195,7 +202,7 @@ public class FullScore {
         final boolean invincible = score.getLegacyInt() > NetworkRanker.LEGACY_INT_MAX;
         return withPolicies(score.getLegacyInt(), score.getPolicies(), KEEP_CONNECTED_NONE,
                 mayValidate, vpn, unmetered, everValidated, everUserSelected, acceptUnvalidated,
-                yieldToBadWiFi, invincible);
+                yieldToBadWiFi, false /* destroyed */, invincible);
     }
 
     /**
@@ -211,7 +218,8 @@ public class FullScore {
     public FullScore mixInScore(@NonNull final NetworkCapabilities caps,
             @NonNull final NetworkAgentConfig config,
             final boolean everValidated,
-            final boolean yieldToBadWifi) {
+            final boolean yieldToBadWifi,
+            final boolean destroyed) {
         return withPolicies(mLegacyInt, mPolicies, mKeepConnectedReason,
                 caps.hasCapability(NET_CAPABILITY_VALIDATED),
                 caps.hasTransport(TRANSPORT_VPN),
@@ -220,6 +228,7 @@ public class FullScore {
                 config.explicitlySelected,
                 config.acceptUnvalidated,
                 yieldToBadWifi,
+                destroyed,
                 false /* invincible */); // only prospective scores can be invincible
     }
 
@@ -236,6 +245,7 @@ public class FullScore {
             final boolean everUserSelected,
             final boolean acceptUnvalidated,
             final boolean yieldToBadWiFi,
+            final boolean destroyed,
             final boolean invincible) {
         return new FullScore(legacyInt, (externalPolicies & EXTERNAL_POLICIES_MASK)
                 | (isValidated       ? 1L << POLICY_IS_VALIDATED : 0)
@@ -245,6 +255,7 @@ public class FullScore {
                 | (everUserSelected  ? 1L << POLICY_EVER_USER_SELECTED : 0)
                 | (acceptUnvalidated ? 1L << POLICY_ACCEPT_UNVALIDATED : 0)
                 | (yieldToBadWiFi    ? 1L << POLICY_YIELD_TO_BAD_WIFI : 0)
+                | (destroyed         ? 1L << POLICY_IS_DESTROYED : 0)
                 | (invincible        ? 1L << POLICY_IS_INVINCIBLE : 0),
                 keepConnectedReason);
     }
