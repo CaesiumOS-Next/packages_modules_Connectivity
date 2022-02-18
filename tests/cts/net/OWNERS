@@ -3,3 +3,4 @@
 per-file src/android/net/cts/NetworkWatchlistTest.java=alanstokes@google.com
 
 # Bug component: 685852 = per-file *IpSec*
+per-file *IpSec* = file:platform/frameworks/base:master:/services/core/java/com/android/server/vcn/OWNERS
