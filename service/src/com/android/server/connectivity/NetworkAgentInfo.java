@@ -211,6 +211,9 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     // Delay between when the network is disconnected and when the native network is destroyed.
     public int teardownDelayMs;
 
+    // Whether this network is pending replacement.
+    public boolean pendingReplacement;
+
     // Captive portal info of the network from RFC8908, if any.
     // Obtained by ConnectivityService and merged into NetworkAgent-provided information.
     public CaptivePortalData capportApiData;
@@ -746,7 +749,7 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         final NetworkCapabilities oldNc = networkCapabilities;
         networkCapabilities = nc;
         mScore = mScore.mixInScore(networkCapabilities, networkAgentConfig, everValidatedForYield(),
-                yieldToBadWiFi());
+                yieldToBadWiFi(), pendingReplacement);
         final NetworkMonitorManager nm = mNetworkMonitor;
         if (nm != null) {
             nm.notifyNetworkCapabilitiesChanged(nc);
@@ -961,7 +964,7 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
      */
     public void setScore(final NetworkScore score) {
         mScore = FullScore.fromNetworkScore(score, networkCapabilities, networkAgentConfig,
-                everValidatedForYield(), yieldToBadWiFi());
+                everValidatedForYield(), yieldToBadWiFi(), pendingReplacement);
     }
 
     /**
@@ -971,7 +974,7 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
      */
     public void updateScoreForNetworkAgentUpdate() {
         mScore = mScore.mixInScore(networkCapabilities, networkAgentConfig,
-                everValidatedForYield(), yieldToBadWiFi());
+                everValidatedForYield(), yieldToBadWiFi(), pendingReplacement);
     }
 
     private boolean everValidatedForYield() {

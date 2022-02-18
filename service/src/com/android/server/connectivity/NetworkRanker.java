@@ -31,6 +31,7 @@ import static com.android.server.connectivity.FullScore.POLICY_EVER_VALIDATED_NO
 import static com.android.server.connectivity.FullScore.POLICY_IS_INVINCIBLE;
 import static com.android.server.connectivity.FullScore.POLICY_IS_VALIDATED;
 import static com.android.server.connectivity.FullScore.POLICY_IS_VPN;
+import static com.android.server.connectivity.FullScore.POLICY_PENDING_REPLACEMENT;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -261,6 +262,15 @@ public class NetworkRanker {
                 candidates = new ArrayList<>(accepted);
                 break;
             }
+        }
+
+        // If two networks are equivalent, and one is pending replacement, keep the other one. This
+        // ensures that when the replacement connects, it's preferred.
+        partitionInto(candidates, nai -> !nai.getScore().hasPolicy(POLICY_PENDING_REPLACEMENT),
+                accepted, rejected);
+        if (accepted.size() == 1) return accepted.get(0);
+        if (accepted.size() > 0 && rejected.size() > 0) {
+            candidates = new ArrayList<>(accepted);
         }
 
         // At this point there are still multiple networks passing all the tests above. If any
