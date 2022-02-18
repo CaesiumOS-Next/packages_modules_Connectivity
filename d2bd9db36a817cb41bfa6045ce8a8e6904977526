@@ -16,6 +16,29 @@
       "message": "Thanks for adding this.",
       "revId": "d2bd9db36a817cb41bfa6045ce8a8e6904977526",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e48556e_ed74d75e",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2178,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-18T03:17:34Z",
+      "side": 1,
+      "message": "Not for this change, but I guess it may be a good idea (in principle) to do the same thing for suspended and blocked. Especially in CTS, I think there isn\u0027t a guarantee that the mobile network isn\u0027t suspended when we ask for it ; blocked is harder to see but maybe it\u0027s also not impossible.",
+      "range": {
+        "startLine": 2176,
+        "startChar": 53,
+        "endLine": 2178,
+        "endChar": 35
+      },
+      "revId": "d2bd9db36a817cb41bfa6045ce8a8e6904977526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
