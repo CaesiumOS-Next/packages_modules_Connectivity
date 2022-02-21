@@ -212,9 +212,13 @@ void expectProcessExists(const std::string& processName) {
     EXPECT_EQ(1U, tryToFindProcesses(processName, 5 /*maxTries*/).size());
 }
 
+void expectProcessDoesNotExist(const std::string& processName) {
+    EXPECT_FALSE(tryToFindProcesses(processName).size());
+}
+
 }  // namespace
 
-TEST_F(ClatUtils, ClatdStart) {
+TEST_F(ClatUtils, ClatdStartStop) {
     TunInterface tun;
     ASSERT_EQ(0, tun.init());
 
@@ -225,9 +229,13 @@ TEST_F(ClatUtils, ClatdStart) {
     std::string v4 = "192.0.0.4";
     std::string v6 = "2a00:79e1:abc:6f02:807c:2aae:bfb9:3780";
 
-    EXPECT_LT(0, startClatd(tun.getFdForTesting(), readSock, writeSock, tun.name().c_str(),
-            nat64Prefix.c_str(), v4.c_str(), v6.c_str()));
+    int pid = startClatd(tun.getFdForTesting(), readSock, writeSock, tun.name().c_str(),
+            nat64Prefix.c_str(), v4.c_str(), v6.c_str());
+    EXPECT_LT(0, pid);
     expectProcessExists(clatdName);
+
+    stopClatd(pid);
+    expectProcessDoesNotExist(clatdName);
 
     tun.destroy();
     close(readSock);
