@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74a93ecb_e3b52f43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T14:51:13Z",
+      "side": 1,
+      "message": "Identical to ag/16657723 merged internally.\n\nYou\u0027ll need someone from mainline team (Paul Duffin, maybe, who reviewed the internal CL?) to review the hiddenapi files.",
+      "revId": "f3f0893d11c5f254e90db839126bb59581e505d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
