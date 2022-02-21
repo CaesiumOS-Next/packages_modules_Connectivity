@@ -29,6 +29,7 @@ int detect_mtu(const struct in6_addr* plat_subnet, uint32_t plat_suffix, uint32_
 int configure_packet_socket(int sock, in6_addr* addr, int ifindex);
 int startClatd(int tunFd, int readSock, int writeSock, const char* iface, const char* pfx96,
                const char* v4, const char* v6);
+void stopClatd(int pid);
 
 // For testing
 typedef bool (*isIpv4AddrFreeFn)(in_addr_t);

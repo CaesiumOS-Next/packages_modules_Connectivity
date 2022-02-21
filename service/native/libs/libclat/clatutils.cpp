@@ -23,6 +23,7 @@
 #include <log/log.h>
 #include <stdlib.h>
 #include <spawn.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include <string>
@@ -372,6 +373,43 @@ int startClatd(int tunFd, int readSock, int writeSock, const char* iface, const 
     posix_spawn_file_actions_destroy(&fa);
 
     return pid;
+}
+
+// Stop clatd process. SIGTERM with timeout first, if fail, SIGKILL.
+// See stopProcess() in system/netd/server/NetdConstants.cpp.
+// TODO: have a function stopProcess(int pid, const char *name) in common location and call it.
+static constexpr int WAITPID_ATTEMPTS = 50;
+static constexpr int WAITPID_RETRY_INTERVAL_US = 100000;
+
+void stopClatd(int pid) {
+    int err = kill(pid, SIGTERM);
+    if (err) {
+        err = errno;
+    }
+    if (err == ESRCH) {
+        ALOGE("clatd child process %d unexpectedly disappeared", pid);
+        return;
+    }
+    if (err) {
+        ALOGE("Error killing clatd child process %d: %s", pid, strerror(err));
+    }
+    int status = 0;
+    int ret = 0;
+    for (int count = 0; ret == 0 && count < WAITPID_ATTEMPTS; count++) {
+        usleep(WAITPID_RETRY_INTERVAL_US);
+        ret = waitpid(pid, &status, WNOHANG);
+    }
+    if (ret == 0) {
+        ALOGE("Failed to SIGTERM clatd pid=%d, try SIGKILL", pid);
+        // TODO: fix that kill failed or waitpid doesn't return.
+        kill(pid, SIGKILL);
+        ret = waitpid(pid, &status, 0);
+    }
+    if (ret == -1) {
+        ALOGE("Error waiting for clatd child process %d: %s", pid, strerror(errno));
+    } else {
+        ALOGD("clatd process %d terminated status=%d", pid, status);
+    }
 }
 
 }  // namespace clat
