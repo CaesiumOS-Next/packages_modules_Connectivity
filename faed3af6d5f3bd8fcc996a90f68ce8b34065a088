@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b52fa2_6633ba1e",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T01:16:32Z",
+      "side": 1,
+      "message": "Really? How does this happen? Does the call to adoptShellPermissionIdentity fail?",
+      "range": {
+        "startLine": 79,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 73
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f0acbd4_08e08ac2",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T01:16:32Z",
+      "side": 1,
+      "message": "10_000",
+      "range": {
+        "startLine": 158,
+        "startChar": 29,
+        "endLine": 158,
+        "endChar": 35
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7d4c4f_ca4167c0",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T01:16:32Z",
+      "side": 1,
+      "message": "I\u0027ve never seen this used: I think all our code assumes that it\u0027s zero. Might want to be consistent.",
+      "range": {
+        "startLine": 188,
+        "startChar": 20,
+        "endLine": 188,
+        "endChar": 40
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525ca4a8_125d5e8e",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T01:16:32Z",
+      "side": 1,
+      "message": "Great to see that you\u0027ve removed the fixed sleep. In order to avoid excessive CPU load, would put a sleep in this loop. If you don\u0027t know how long this takes, maybe something like SystemClock.sleep(5) or (10)?\n\nSystemClock#sleep is useful because unlike Thread.sleep it handles InterruptedException for you. That not only removes the need for a try/catch clause, but also makes the test more correct because dealing with InterruptedException is a bit tricky.",
+      "range": {
+        "startLine": 276,
+        "startChar": 8,
+        "endLine": 276,
+        "endChar": 13
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d418d52_3382ef9f",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T01:16:32Z",
+      "side": 1,
+      "message": "That\u0027s a moderately high number. Do you know whether it will work on slower hardware? Remember that CTS must pass on all Android devices. How fast can this code go on Pixel devices? To be safe, I\u0027d take that number and divide it by 5 or 10.",
+      "range": {
+        "startLine": 289,
+        "startChar": 61,
+        "endLine": 289,
+        "endChar": 64
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2aeec04_3d725844",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T01:16:32Z",
+      "side": 1,
+      "message": "up to one",
+      "range": {
+        "startLine": 294,
+        "startChar": 38,
+        "endLine": 294,
+        "endChar": 46
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
