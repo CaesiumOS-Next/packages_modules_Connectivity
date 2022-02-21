@@ -39,7 +39,30 @@
       },
       "revId": "98c83d01489f7dfb2da8d516b9af08d9b390164d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc7397c1_185696ec",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T03:51:02Z",
+      "side": 1,
+      "message": "Uploaded aosp/1991627 to fix.",
+      "parentUuid": "08359510_eff43cda",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 48
+      },
+      "revId": "98c83d01489f7dfb2da8d516b9af08d9b390164d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
-  ],
-  "submitRequirementResults": []
+  ]
 }
