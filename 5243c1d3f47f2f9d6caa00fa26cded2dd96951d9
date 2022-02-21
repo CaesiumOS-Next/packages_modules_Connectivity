@@ -305,6 +305,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de203349_9047b703",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-21T17:07:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a18650e8_47fd1c2c",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 47
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81715904_9f9ac954",
@@ -341,6 +365,30 @@
       "writtenOn": "2022-02-16T14:40:42Z",
       "side": 1,
       "message": "I think TestableNetworkCallback has methods that are easier to use than this. In this specific case, maybe expectAvailableThenValidatedCallbacks?",
+      "range": {
+        "startLine": 155,
+        "startChar": 25,
+        "endLine": 155,
+        "endChar": 39
+      },
+      "revId": "5243c1d3f47f2f9d6caa00fa26cded2dd96951d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a12ce5a9_a2585ee1",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-21T17:07:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1b339a1_c7fb7af5",
       "range": {
         "startLine": 155,
         "startChar": 25,

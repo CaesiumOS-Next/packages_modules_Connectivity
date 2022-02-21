@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "092c1977_bbf6dc20",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-21T17:07:41Z",
+      "side": 1,
+      "message": "I guess that\u0027s not it -- looks like it cannot access /dev/tun because of SELinux:\n\n```\n29778 02-21 09:51:00.595   617   617 W 617_4:/dev/bind: type\u003d1400 audit(0.0:356): avc: denied { read write } for path\u003d\"/dev/tun\" dev\u003d\"tmpfs\" ino\u003d553 scontext\u003du:r:ephemeral_app:s0:c93,c256,c512,c768 tcontext\u003du:object_r:tun_device:s0 tclass\u003dchr_file permissive\u003d0\n29779 02-21 09:51:00.601  4707  4723 E JavaBinder: !!! FAILED BINDER TRANSACTION !!!  (parcel size \u003d 124)\n29780 02-21 09:51:00.605     0     0 I binder  : 617:1549 transaction failed 29201/-1, size 128-8 line 3077\n29781 02-21 09:51:00.605     0     0 I binder  : send failed reply for transaction 226545 to 4707:4723\n```\n\n```\n29788 02-21 09:51:00.610  4707  4723 E TestRunner: java.lang.RuntimeException: android.os.DeadSystemException\n29789 02-21 09:51:00.610  4707  4723 E TestRunner: T\u003e\u003eat android.net.TestNetworkManager.createTunInterface(TestNetworkManager.java:160)\n29790 02-21 09:51:00.610  4707  4723 E TestRunner: T\u003e\u003eat android.net.cts.RateLimitTest.lambda$setUp$0$android-net-cts-RateLimitTest(RateLimitTest.java:116)\n29791 02-21 09:51:00.610  4707  4723 E TestRunner: T\u003e\u003eat android.net.cts.RateLimitTest$$ExternalSyntheticLambda0.run(Unknown Source:2)\n29792 02-21 09:51:00.610  4707  4723 E TestRunner: T\u003e\u003eat com.android.testutils.TestPermissionUtil$runAsShell$2.invoke(TestPermissionUtil.kt:64)\n```",
+      "parentUuid": "e2b52fa2_6633ba1e",
+      "range": {
+        "startLine": 79,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 73
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f0acbd4_08e08ac2",
         "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
         "patchSetId": 15
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-21T01:16:32Z",
       "side": 1,
       "message": "10_000",
+      "range": {
+        "startLine": 158,
+        "startChar": 29,
+        "endLine": 158,
+        "endChar": 35
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de4a181e_67f2606d",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-21T17:07:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f0acbd4_08e08ac2",
       "range": {
         "startLine": 158,
         "startChar": 29,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cae384ca_3112a0d2",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-21T17:07:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd7d4c4f_ca4167c0",
+      "range": {
+        "startLine": 188,
+        "startChar": 20,
+        "endLine": 188,
+        "endChar": 40
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "525ca4a8_125d5e8e",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-02-21T01:16:32Z",
       "side": 1,
       "message": "Great to see that you\u0027ve removed the fixed sleep. In order to avoid excessive CPU load, would put a sleep in this loop. If you don\u0027t know how long this takes, maybe something like SystemClock.sleep(5) or (10)?\n\nSystemClock#sleep is useful because unlike Thread.sleep it handles InterruptedException for you. That not only removes the need for a try/catch clause, but also makes the test more correct because dealing with InterruptedException is a bit tricky.",
+      "range": {
+        "startLine": 276,
+        "startChar": 8,
+        "endLine": 276,
+        "endChar": 13
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60d3b059_8885a300",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-21T17:07:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "525ca4a8_125d5e8e",
       "range": {
         "startLine": 276,
         "startChar": 8,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d1d46c3_574cf39e",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-21T17:07:41Z",
+      "side": 1,
+      "message": "The problem with reducing the dataLimit is that I have to increase the time the test runs, so it doesn\u0027t become flaky. On my Pixel 4a, I get ~60MB/s here.\n\n--\nI tried reducing this to 1MB/s, which caused the test to break on cuttlefish (but passed fine on sunfish; weird). Increasing it to 10s (tried 5s and 8s, both were flaky on cf) fixes it, but then that makes this test take forever.\n\nI want to investigate a little more on why that is the case, a burst size of 128KiB does not solely explain the results I am seeing. I have little knowledge of how act_police actually works / counts data (does it count the protocol headers?).",
+      "parentUuid": "2d418d52_3382ef9f",
+      "range": {
+        "startLine": 289,
+        "startChar": 61,
+        "endLine": 289,
+        "endChar": 64
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2aeec04_3d725844",
         "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
         "patchSetId": 15
@@ -129,6 +249,30 @@
       "writtenOn": "2022-02-21T01:16:32Z",
       "side": 1,
       "message": "up to one",
+      "range": {
+        "startLine": 294,
+        "startChar": 38,
+        "endLine": 294,
+        "endChar": 46
+      },
+      "revId": "faed3af6d5f3bd8fcc996a90f68ce8b34065a088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f485744f_af5cccec",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-21T17:07:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2aeec04_3d725844",
       "range": {
         "startLine": 294,
         "startChar": 38,
