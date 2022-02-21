@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f25d101f_0d6583e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T01:29:12Z",
+      "side": 1,
+      "message": "This is changing the behaviour so that any device that has EthernetService running (which includes pretty much any phone that supports USB OTG mode) will start to return true in isTetheringSupported. Is that really what we want?",
+      "revId": "48c7b6d5b80563918143ae42bcfa591b273e1b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "906b0d52_e8fb3762",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1545,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-21T01:29:12Z",
+      "side": 1,
+      "message": "On most phones, this will always return true even if the device does not have a USB-to-Ethernet adapter. Is this what we want here? Should you instead be calling something like EthernetManager#isAvailable?",
+      "range": {
+        "startLine": 1545,
+        "startChar": 20,
+        "endLine": 1545,
+        "endChar": 39
+      },
+      "revId": "48c7b6d5b80563918143ae42bcfa591b273e1b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
