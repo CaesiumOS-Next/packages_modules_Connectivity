@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5827aa95_50a98231",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-21T04:07:04Z",
+      "side": 1,
+      "message": "Yes, this is behavior change. It fix a bug that wifi p2p and ethernet tethering would not be supported if sb/wifi/bluetooth tethering are disabled. But it break the behavior the devices rely on disabling usb/wifi/bluetooth tethering to assume isTetheringSupported would return false. But they should use Settings.Global.TETHER_SUPPORTED Settings to disable the whole tethering instead of assuming isTetheringSupported would return false if some of tethering type is disabled.\n\nTwo options:\n1. In case, there is some devices in the field rely on this wrong behavior. Have a flag and let this change only apply after T. But this mean we end up two behavior. And we keep the wrong behavior before T even we think it is wrong...\n2. Still roll this out for R+ because it won\u0027t affect most devices because almost every device supports either hotspot or usb.\n\nI prefer option 2 because I think the impact is only for those device which don\u0027t support wifi,usb, bluetooth tethering and Settings.Global.TETHER_SUPPORTED don\u0027t set to false but these devices should not be too much.\n\nThis change may affect:\n1. test but TH is pass and we could be fixed it afterward. Some tests setup for OEM but they can fix it.\n2. If the device disable usb/wifi/bluetooth tethering:\n   before: Settings -\u003e no \"Hotspot \u0026 tethering\"\n   after : Settings -\u003e \"Hotspot \u0026 tethering\" -\u003e Ethernet tethering",
+      "parentUuid": "f25d101f_0d6583e0",
+      "revId": "48c7b6d5b80563918143ae42bcfa591b273e1b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "906b0d52_e8fb3762",
         "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
         "patchSetId": 5
@@ -48,6 +66,30 @@
       "writtenOn": "2022-02-21T01:29:12Z",
       "side": 1,
       "message": "On most phones, this will always return true even if the device does not have a USB-to-Ethernet adapter. Is this what we want here? Should you instead be calling something like EthernetManager#isAvailable?",
+      "range": {
+        "startLine": 1545,
+        "startChar": 20,
+        "endLine": 1545,
+        "endChar": 39
+      },
+      "revId": "48c7b6d5b80563918143ae42bcfa591b273e1b6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb8b52e5_6dfb25d7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1545,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-21T04:07:04Z",
+      "side": 1,
+      "message": "No, isAvailable could not be used to check whether ethernet tethering supported. It return true when there is tracking interface in EthernetFactory. So if ethernet tethering is enabled, there is no tracking interface in EthernetFactory and EthernetManager#isAvailable would return false.\n\nI think we always support ethernet tethering if ethernet is supported because there is no additional configuration inside tethering. If caller request ethernet tethering, tethering side always asking EthernetManager (if it is not null) and waiting callback to start ethernet tethering.\n\nSo checking whether EthernetManager is available is the existing behavior for whether support ethernet tethering",
+      "parentUuid": "906b0d52_e8fb3762",
       "range": {
         "startLine": 1545,
         "startChar": 20,
