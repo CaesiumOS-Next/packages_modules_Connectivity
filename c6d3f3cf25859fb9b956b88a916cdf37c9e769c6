@@ -22,6 +22,30 @@
       },
       "revId": "c6d3f3cf25859fb9b956b88a916cdf37c9e769c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9d59cd7_a53fe708",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T07:35:32Z",
+      "side": 1,
+      "message": "Yes. It\u0027s a bit tricky because it\u0027s used by more than one mainline module, plus the framework, and needs to be in the bootclasspath (because it\u0027s used in frameworks/base/core/java/android/net/metrics/NetworkEvent.java).",
+      "parentUuid": "026bfd31_6aa9c203",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "c6d3f3cf25859fb9b956b88a916cdf37c9e769c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
