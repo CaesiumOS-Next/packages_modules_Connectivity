@@ -28,6 +28,7 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
@@ -62,6 +63,7 @@ import com.android.testutils.TestableNetworkCallback;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -74,6 +76,8 @@ import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 @AppModeFull(reason = "Instant apps cannot access /dev/tun, so createTunInterface fails")
 @RunWith(DevSdkIgnoreRunner.class)
@@ -101,6 +105,21 @@ public class RateLimitTest {
     private TestableNetworkAgent mNetworkAgent;
     private Network mNetwork;
     private DatagramSocket mSocket;
+
+    @BeforeClass
+    public static void assumeKernelSupport() {
+        final String result = SystemUtil.runShellCommandOrThrow("gzip -cd /proc/config.gz");
+        HashSet<String> kernelConfig = Arrays.stream(result.split("\\R")).collect(
+                Collectors.toCollection(HashSet::new));
+
+        // make sure that if for some reason /proc/config.gz returns an empty string, this test
+        // does not silently fail.
+        assertNotEquals(0, result.length());
+
+        assumeTrue(kernelConfig.contains("CONFIG_NET_CLS_MATCHALL=y"));
+        assumeTrue(kernelConfig.contains("CONFIG_NET_ACT_POLICE=y"));
+        assumeTrue(kernelConfig.contains("CONFIG_NET_ACT_BPF=y"));
+    }
 
     @Before
     public void setUp() throws IOException {
