@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52058fe2_2d9fd8c9",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T01:34:00Z",
+      "side": 1,
+      "message": "Instead of this, can\u0027t we just say\n\n  new AuthenticationFailedException(\"VpnTest\");\n\nAfter all, it\u0027s what will actually be thrown, and the code is simpler and clearer.",
+      "range": {
+        "startLine": 1098,
+        "startChar": 0,
+        "endLine": 1100,
+        "endChar": 61
+      },
+      "revId": "409a5f293e9a5d916416baa862ca1d965582ef7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e15bb7c_ec96a0f6",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T01:34:00Z",
+      "side": 1,
+      "message": "Likewise with TemporaryFailureException",
+      "range": {
+        "startLine": 1108,
+        "startChar": 51,
+        "endLine": 1108,
+        "endChar": 79
+      },
+      "revId": "409a5f293e9a5d916416baa862ca1d965582ef7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
