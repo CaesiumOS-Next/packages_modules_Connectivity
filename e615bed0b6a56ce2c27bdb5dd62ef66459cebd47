@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34e957ea_62c669f3",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T01:15:17Z",
+      "side": 1,
+      "message": "Wait this checks for ACTIVATE_PLATFORM_VPN instead of ACTIVATE_VPN.\n\nThe intent of this test is to make sure that an app with only OPSTR_ACTIVATE_VPN can also activate a platform VPN. Thus the check for ACTIVATE_PLATFORM_VPN will have failed, but we will still have checked for ACTIVATE_VPN.",
+      "range": {
+        "startLine": 813,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 36
+      },
+      "revId": "e615bed0b6a56ce2c27bdb5dd62ef66459cebd47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c13f2ea_28baca6d",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T01:15:17Z",
+      "side": 1,
+      "message": "errorClass",
+      "range": {
+        "startLine": 948,
+        "startChar": 79,
+        "endLine": 948,
+        "endChar": 88
+      },
+      "revId": "e615bed0b6a56ce2c27bdb5dd62ef66459cebd47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a0f3681_9a4b24a0",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T01:15:17Z",
+      "side": 1,
+      "message": "Sorry we made small changes to the API and CATEGORY_EVENT_DEACTIVATED_BY_USER no longer sends error class and error code.",
+      "range": {
+        "startLine": 984,
+        "startChar": 11,
+        "endLine": 984,
+        "endChar": 76
+      },
+      "revId": "e615bed0b6a56ce2c27bdb5dd62ef66459cebd47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
