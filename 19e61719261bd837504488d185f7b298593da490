@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34d6c1e4_2878ebbe",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-22T01:55:16Z",
+      "side": 1,
+      "message": "Not for this change, but I think this can go away now",
+      "revId": "19e61719261bd837504488d185f7b298593da490",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
