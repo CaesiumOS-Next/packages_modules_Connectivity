@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff428d7e_864b2daf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T08:41:59Z",
+      "side": 1,
+      "message": "It doesn\u0027t check that transports have priority over pending replacement, but I added (drafts, at this point) comments in that test.\n\nAnyway for this patch it\u0027s fine.",
+      "parentUuid": "a84e08d4_e5d45eff",
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cddfecc_95613b35",
