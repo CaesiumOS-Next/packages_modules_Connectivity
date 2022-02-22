@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d711a3d_68e98c09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T00:10:34Z",
+      "side": 1,
+      "message": "The forrest run at:\n\nhttps://android-build.googleplex.com/builds/abtd/run/L27800000953137569\n\nsuggests that suite/test-mapping-mainline-presubmit-retry_cloud-tf-S-base-image passed, so hopefully this fixes it.",
+      "revId": "6cd02ab585ab772a9832bb350415d7cbbb722ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
