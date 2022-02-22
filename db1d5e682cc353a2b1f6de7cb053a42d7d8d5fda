@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08428e57_f246f283",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T01:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3454fd4_7099db7b",
+      "range": {
+        "startLine": 975,
+        "startChar": 99,
+        "endLine": 975,
+        "endChar": 100
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4a3eac3_0eeeaf76",
@@ -90,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd0adb52_81cdb295",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T01:42:21Z",
+      "side": 1,
+      "message": "Per discussion, I don\u0027t think this should just be called unregister() because in most cases it doesn\u0027t unregister immediately. Possible alternatives I can think of:\n\ndestroyPendingReplacement\ndestroyAndAwaitReplacement\ndestroyAndUnregisterAfterTimeout\ndestroyAndUnregisterAfterReplacementOrTimeout\nsetAwaitingReplacement\nsetExpectingReplacement\nunregisterAfterReplacementOrTimeout\n\nGenerally speaking I think it would be better to pick a name that describes the intent of the method (i.e., \"I am going to replace this network, please do what makes sense\") to give us more room to modify the implementation later if needed.",
+      "parentUuid": "a4a3eac3_0eeeaf76",
+      "range": {
+        "startLine": 983,
+        "startChar": 16,
+        "endLine": 983,
+        "endChar": 40
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c445892a_0793f691",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3
@@ -101,6 +149,30 @@
       "writtenOn": "2022-02-16T09:11:37Z",
       "side": 1,
       "message": "We may also want to allow new calls to pendingReplacement with a lower timeout, which is trivial to do if we unify it with unregister(). I don\u0027t think it\u0027s particularly important though.",
+      "range": {
+        "startLine": 3505,
+        "startChar": 87,
+        "endLine": 3505,
+        "endChar": 97
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "416463e7_577ccc05",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3505,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T01:42:21Z",
+      "side": 1,
+      "message": "I\u0027d prefer not to allow this. Saying that nothing at all is allowed makes things simpler and easier to reason about.",
+      "parentUuid": "c445892a_0793f691",
       "range": {
         "startLine": 3505,
         "startChar": 87,
@@ -147,6 +219,30 @@
       "writtenOn": "2022-02-16T09:11:37Z",
       "side": 1,
       "message": "As discussed in chat : I think it\u0027s a lot more consistent with existing code if we make this a policy bit in FullScore. An important concrete difference is that you\u0027ll see the bit in logcat (and bug reports) immediately, while we\u0027d have to build new logs for this to be diagnose-able.",
+      "range": {
+        "startLine": 1012,
+        "startChar": 37,
+        "endLine": 1012,
+        "endChar": 57
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b32ea2c7_6a5370bb",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T01:42:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68025ea9_eaa27431",
       "range": {
         "startLine": 1012,
         "startChar": 37,
