@@ -16,6 +16,52 @@
       "message": "FWIW, the forrest run that tests the broken configuration just passed: https://android-build.googleplex.com/builds/abtd/run/L68200000953145566?referrer\u003demail",
       "revId": "d8dd39655ead1e366ae43fe7a4048f081d5a646f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b555f0c8_1d7a897a",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T12:34:09Z",
+      "side": 1,
+      "message": "Are you sure this runs? Looks like the various assumeXyz methods work by throwing AssumptionViolatedException:\n\nhttps://source.corp.google.com/aosp-master/external/junit/src/main/java/org/junit/Assume.java;l\u003d129\n\nin which case the method will terminate early and the rate-limit will never be set to -1 again. Maybe instead do:\n\nYou could do something like:\n\n    ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, 1_000_000);\n    try {\n        assumeTrue(waitForTcPoliceFilterInstalled(Duration.ofSeconds(1)));\n    } finally {\n        ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, -1);\n    }\n\nor:\n\n    ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, 1_000_000);\n    final boolean filterInstalled \u003d waitForTcPoliceFilterInstalled(Duration.ofSeconds(1));\n    ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, -1);\n    assumeTrue(\"TC police filter not supported by device?\", filterInstalled);",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 86
+      },
+      "revId": "d8dd39655ead1e366ae43fe7a4048f081d5a646f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3fc82d3_7e8546ab",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T12:34:09Z",
+      "side": 1,
+      "message": "Suggest:\n\n    assertTrue(\"TC police filter not installed after 1 second\",\n            waitForTcPoliceFilterInstalled(...));",
+      "range": {
+        "startLine": 296,
+        "startChar": 18,
+        "endLine": 296,
+        "endChar": 19
+      },
+      "revId": "d8dd39655ead1e366ae43fe7a4048f081d5a646f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
