@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06491089_1ef5396d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7599,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-22T03:00:30Z",
+      "side": 1,
+      "message": "NetworkMonitor receives the PrivateDnsConfig from notifyPrivateDnsSettingsChanged, so you should be able to use it from there.\n\nI\u0027m not sure I understand your 2nd question, do you mean ConnectivityService would do unnecessary extra work by calling updateDnses ? I think this probably does not apply with the implementation in NetworkMonitor in any case ?",
+      "parentUuid": "054786ed_08d15b9c",
+      "range": {
+        "startLine": 7599,
+        "startChar": 13,
+        "endLine": 7599,
+        "endChar": 58
+      },
+      "revId": "4408941a969990814e9e7f4297562d8c62c98744",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d1855246_1632d59d",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 1
