@@ -33,6 +33,24 @@
       "message": "I think it would be useful to have a test that checks that the right version of notifyNetworkConnected is called on S- and T+ (with a S- test, and a T+ test).\n\nThis should help catch problems where we accidentally call the wrong method that is not necessarily supported on that platform.",
       "revId": "a14b3f2184ffd772192a6fd562b157324644d787",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32caa80f_7f40e5f9",
+        "filename": "tests/unit/java/com/android/server/ConnectivityServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T19:32:48Z",
+      "side": 1,
+      "message": "Done in aosp/1995390",
+      "parentUuid": "6f846cb8_9feb6edf",
+      "revId": "a14b3f2184ffd772192a6fd562b157324644d787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
