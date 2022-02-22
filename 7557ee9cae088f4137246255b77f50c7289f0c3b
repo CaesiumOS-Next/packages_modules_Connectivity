@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9d67079_70cad9a8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-22T17:02:13Z",
+      "side": 1,
+      "message": "I see a system API used. Can it be a resource instead, to minimize API impact? Tether MTS can still verify the existence of the UI.",
+      "range": {
+        "startLine": 437,
+        "startChar": 35,
+        "endLine": 437,
+        "endChar": 81
+      },
+      "revId": "7557ee9cae088f4137246255b77f50c7289f0c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
