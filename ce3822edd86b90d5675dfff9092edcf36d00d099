@@ -22,6 +22,30 @@
       },
       "revId": "ce3822edd86b90d5675dfff9092edcf36d00d099",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fa79468_caeba8a8",
+        "filename": "tests/cts/net/src/android/net/cts/ConnectivityManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2915,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T19:52:59Z",
+      "side": 1,
+      "message": "Changed to your latter suggestion, and updated the comment. I guess the drawback is that we won\u0027t catch a wrong onLost here, but I think that\u0027s covered well enough elsewhere that local readability is more important.",
+      "parentUuid": "0ff6bd22_82685802",
+      "range": {
+        "startLine": 2914,
+        "startChar": 20,
+        "endLine": 2915,
+        "endChar": 50
+      },
+      "revId": "ce3822edd86b90d5675dfff9092edcf36d00d099",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
