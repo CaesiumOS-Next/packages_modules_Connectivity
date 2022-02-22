@@ -29,6 +29,7 @@ import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 import android.content.Context;
 import android.icu.text.MessageFormat;
@@ -152,6 +153,8 @@ public class RateLimitTest {
         mSocket = new DatagramSocket(TEST_UDP_PORT);
         mSocket.setSoTimeout(1_000);
         mNetwork.bindSocket(mSocket);
+
+        assumeKernelSupport();
     }
 
     @After
@@ -162,6 +165,36 @@ public class RateLimitTest {
         mNetworkAgent.unregister();
         mTunInterface.getFileDescriptor().close();
         mCm.unregisterNetworkCallback(mNetworkCallback);
+    }
+
+    private boolean waitForTcPoliceFilterInstalled(Duration timeout) throws IOException {
+        final String command = MessageFormat.format("tc filter show ingress dev {0}",
+                mTunInterface.getInterfaceName());
+        // wait for tc police to show up
+        final long startTime = SystemClock.elapsedRealtime();
+        final long timeoutTime = startTime + timeout.toMillis();
+        while (!SystemUtil.runShellCommand(command).contains("police")) {
+            if (SystemClock.elapsedRealtime() > timeoutTime) {
+                return false;
+            }
+            SystemClock.sleep(10);
+        }
+        Log.v(TAG, "waited " + (SystemClock.elapsedRealtime() - startTime)
+                + "ms for tc police filter to appear");
+        return true;
+    }
+
+    private void assumeKernelSupport() throws IOException {
+        // TODO: this is not a great way to check kernel support, as it does hide potential issues
+        // with setting up the tc filter. /proc/config.gz should be read instead, but untrusted_app
+        // (which is the SELinux context this test runs in) does not have access to it.
+        ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, 1_000_000);
+        try {
+            assumeTrue("TC police filter not supported by device?",
+                    waitForTcPoliceFilterInstalled(Duration.ofSeconds(1)));
+        } finally {
+            ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, -1);
+        }
     }
 
     private void assertGreaterThan(final String msg, long lhs, long rhs) {
@@ -251,21 +284,6 @@ public class RateLimitTest {
         return reader.stopAndGetResult();
     }
 
-    void waitForTcPoliceFilterInstalled(Duration timeout) throws IOException {
-        final String command = MessageFormat.format("tc filter show ingress dev {0}",
-                mTunInterface.getInterfaceName());
-        // wait for tc police to show up
-        final long startTime = SystemClock.elapsedRealtime();
-        final long timeoutTime = startTime + timeout.toMillis();
-        while (!SystemUtil.runShellCommand(command).contains("police")) {
-            assertLessThan("timed out waiting for tc police filter",
-                    SystemClock.elapsedRealtime(), timeoutTime);
-            SystemClock.sleep(10);
-        }
-        Log.v(TAG, "waited " + (SystemClock.elapsedRealtime() - startTime)
-                + "ms for tc police filter to appear");
-    }
-
     @Test
     public void testIngressRateLimit_testLimit() throws Exception {
         // If this value is too low, this test might become flaky because of the burst value that
@@ -279,7 +297,8 @@ public class RateLimitTest {
         // enable rate limit and wait until the tc filter is installed before starting the test.
         ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext,
                 dataLimitInBytesPerSecond);
-        waitForTcPoliceFilterInstalled(Duration.ofSeconds(1));
+        assertTrue("TC police filter not installed after 1 second",
+                waitForTcPoliceFilterInstalled(Duration.ofSeconds(1)));
 
         resultInBytesPerSecond = runIngressDataRateMeasurement(Duration.ofSeconds(10));
         // Add 1% tolerance to reduce test flakiness. Burst size is constant at 128KiB.
