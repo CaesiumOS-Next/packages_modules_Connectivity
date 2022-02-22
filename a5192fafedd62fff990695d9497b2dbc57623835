@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd3cb513_6f31845e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T05:37:37Z",
+      "side": 1,
+      "message": "I think we should add a test to Network to make sure a network pending replacement loses to a new similar one, but still wins against one with a worse transport",
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cddfecc_95613b35",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T05:37:37Z",
+      "side": 1,
+      "message": "I think maybe it would help to describe a little bit more precisely what we mean here by \"destroyed\" and \"connected\". E.g.\n\n  The network agent has communicated that this network no longer functions, and\n  the netd has already been instructed to destroy the native network. The network\n  agent (and its associated Network object) still are reported as connected to\n  clients until it times out or stops satisfying any request.",
+      "range": {
+        "startLine": 101,
+        "startChar": 20,
+        "endLine": 101,
+        "endChar": 60
+      },
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d561d938_04b82e0f",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T05:37:37Z",
+      "side": 1,
+      "message": "Suggest adding @param",
+      "range": {
+        "startLine": 151,
+        "startChar": 5,
+        "endLine": 151,
+        "endChar": 6
+      },
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b436611b_a11d54bc",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T05:37:37Z",
+      "side": 1,
+      "message": "It doesn\u0027t really matter too much but for style consistency you could have in l.200.\n\n  // Prospective networks are never destroyed from the inception.\n  final boolean destroyed \u003d false;\n\nThe reason it\u0027s written like this is so that there is a place to explain the reasoning behind each of the default values for prospective scores.",
+      "range": {
+        "startLine": 205,
+        "startChar": 32,
+        "endLine": 205,
+        "endChar": 53
+      },
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83486614_bae17e99",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T05:37:37Z",
+      "side": 1,
+      "message": "Drive-by : This is now a bit inaccurate, though I guess any fix would belong in a separate patch as it\u0027s completely unrelated to this work.",
+      "range": {
+        "startLine": 97,
+        "startChar": 22,
+        "endLine": 97,
+        "endChar": 60
+      },
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f6fe699_1ab9f27e",
+        "filename": "service/src/com/android/server/connectivity/NetworkRanker.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T05:37:37Z",
+      "side": 1,
+      "message": "and one",
+      "range": {
+        "startLine": 267,
+        "startChar": 43,
+        "endLine": 267,
+        "endChar": 46
+      },
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5c45baf_863c2637",
+        "filename": "tests/unit/java/com/android/server/connectivity/FullScoreTest.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T05:37:37Z",
+      "side": 1,
+      "message": "Do we want to add a line in this test ?",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 5
+      },
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
