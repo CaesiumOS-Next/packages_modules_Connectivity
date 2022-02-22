@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a84e08d4_e5d45eff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T07:38:17Z",
+      "side": 1,
+      "message": "... that a validated pending replacement network outscores an unvalidated replacement. Is that enough here?",
+      "parentUuid": "bea67614_bc767622",
+      "revId": "a5192fafedd62fff990695d9497b2dbc57623835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cddfecc_95613b35",
