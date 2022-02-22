@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "026bfd31_6aa9c203",
+        "filename": "service/src/com/android/server/connectivity/FullScore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T05:21:14Z",
+      "side": 1,
+      "message": "Should this class not move to frameworks/libs/net ? It\u0027s a filegroup in frameworks/base and depends on nothing at all.\n\nAnyway, not for this patch",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "c6d3f3cf25859fb9b956b88a916cdf37c9e769c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
