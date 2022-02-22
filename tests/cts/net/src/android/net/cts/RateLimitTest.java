@@ -28,6 +28,7 @@ import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
 import static com.android.testutils.TestPermissionUtil.runAsShell;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
@@ -63,6 +64,7 @@ import com.android.testutils.TestableNetworkCallback;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -75,6 +77,8 @@ import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 @AppModeFull(reason = "Instant apps cannot access /dev/tun, so createTunInterface fails")
 @RunWith(DevSdkIgnoreRunner.class)
@@ -102,6 +106,21 @@ public class RateLimitTest {
     private TestableNetworkAgent mNetworkAgent;
     private Network mNetwork;
     private DatagramSocket mSocket;
+
+    @BeforeClass
+    public static void assumeKernelSupport() {
+        final String result = SystemUtil.runShellCommandOrThrow("gzip -cd /proc/config.gz");
+        HashSet<String> kernelConfig = Arrays.stream(result.split("\\R")).collect(
+                Collectors.toCollection(HashSet::new));
+
+        // make sure that if for some reason  /proc/config.gz returns an empty string, this test
+        // does not silently fail.
+        assertNotEquals(0, result.length());
+
+        assumeTrue(kernelConfig.contains("CONFIG_NET_CLS_MATCHALL=y"));
+        assumeTrue(kernelConfig.contains("CONFIG_NET_ACT_POLICE=y"));
+        assumeTrue(kernelConfig.contains("CONFIG_NET_ACT_BPF=y"));
+    }
 
     @Before
     public void setUp() throws IOException {
@@ -153,8 +172,6 @@ public class RateLimitTest {
         mSocket = new DatagramSocket(TEST_UDP_PORT);
         mSocket.setSoTimeout(1_000);
         mNetwork.bindSocket(mSocket);
-
-        assumeKernelSupport();
     }
 
     @After
@@ -182,19 +199,6 @@ public class RateLimitTest {
         Log.v(TAG, "waited " + (SystemClock.elapsedRealtime() - startTime)
                 + "ms for tc police filter to appear");
         return true;
-    }
-
-    private void assumeKernelSupport() throws IOException {
-        // TODO: this is not a great way to check kernel support, as it does hide potential issues
-        // with setting up the tc filter. /proc/config.gz should be read instead, but untrusted_app
-        // (which is the SELinux context this test runs in) does not have access to it.
-        ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, 1_000_000);
-        try {
-            assumeTrue("TC police filter not supported by device?",
-                    waitForTcPoliceFilterInstalled(Duration.ofSeconds(1)));
-        } finally {
-            ConnectivitySettingsManager.setIngressRateLimitInBytesPerSecond(mContext, -1);
-        }
     }
 
     private void assertGreaterThan(final String msg, long lhs, long rhs) {
