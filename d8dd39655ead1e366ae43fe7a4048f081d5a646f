@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e78a9c3_c2264295",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-22T12:00:24Z",
+      "side": 1,
+      "message": "FWIW, the forrest run that tests the broken configuration just passed: https://android-build.googleplex.com/builds/abtd/run/L68200000953145566?referrer\u003demail",
+      "revId": "d8dd39655ead1e366ae43fe7a4048f081d5a646f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
