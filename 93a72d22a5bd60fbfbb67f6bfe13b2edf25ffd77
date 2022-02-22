@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39664669_eedeccf6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-22T09:10:01Z",
+      "side": 1,
+      "message": "Previous treehugger run:\n\nhttps://android-build.googleplex.com/builds/treetop/android-review/1993693?ref\u003dCOMMENT\u0026revision\u003d1\u0026attemptKey\u003dpresubmit-3\n\nfailed only google_required_freeze/test-mapping-presubmit/vendor_img_cf_x86_rvc\n\nwhich is broken at HEAD, b/220801455.",
+      "revId": "93a72d22a5bd60fbfbb67f6bfe13b2edf25ffd77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
