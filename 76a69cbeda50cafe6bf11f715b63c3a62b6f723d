@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87d98433_5f421568",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T02:42:58Z",
+      "side": 1,
+      "message": "Still LGTM assuming comments on previous patches are done and ported to this patch",
+      "revId": "76a69cbeda50cafe6bf11f715b63c3a62b6f723d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
