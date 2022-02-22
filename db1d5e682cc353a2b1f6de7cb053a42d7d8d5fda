@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89e1e9f3_77ba83f6",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 1,
+      "message": "I continue to think \"unregisted\" should be part of the name because whatever we do the network will be unregistered. \"destroy\" is probably fine too, though I\u0027d favor \"unregister\" because that\u0027s what the existing method is called. I think it will also make it easier to explain to users of the NetworkAgent class. In that respect, I\u0027m fine with anything that contains \"unregister\" or \"destroy\", but I think \"set...\" or \"notify...\" is not sufficiently clear.\n\nMy main reservation about the term \"replacement\" is that all networks are unregistered automatically when they are replaced by something better, so it\u0027s a bit unclear what makes this different. But with your comment in mind, personally I would favor \"unregisterPendingReplacement\" or \"destroyPendingReplacement\".",
+      "parentUuid": "dd0adb52_81cdb295",
+      "range": {
+        "startLine": 983,
+        "startChar": 16,
+        "endLine": 983,
+        "endChar": 40
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c445892a_0793f691",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3

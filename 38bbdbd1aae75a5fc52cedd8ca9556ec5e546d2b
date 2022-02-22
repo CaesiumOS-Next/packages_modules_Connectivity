@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca7eaed2_905ae8c4",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 4250,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 0,
+      "message": "This change means that for an agent calling\n\n  agent \u003d registerNetworkAgent()\n  agent.unregister()\n\nThe agent will not receive the onNetworkDestroyed notification. I don\u0027t think it\u0027s a big deal necessarily, and it seems more correct with regard to the fact that we only send onNetworkCreated when it\u0027s actually created, and the fact that this notification is meant to tell the agent when it can reuse the interface.\n\nOnly thing is, it seems technically possible that some OEM code actually depends on it – you can imagine an agent changing its mind after it is registered and before it connects. One thing we could do is, send this notification only on T when the network is not created.",
+      "range": {
+        "startLine": 4250,
+        "startChar": 12,
+        "endLine": 4250,
+        "endChar": 30
+      },
+      "revId": "38bbdbd1aae75a5fc52cedd8ca9556ec5e546d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc24943c_8ce6fedb",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3635,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 1,
+      "message": "Does this mean as a client I can call\n\n new NetworkAgent()\n register()\n notifyPendingReplacement()\n markConnected()\n\n...and go on my merry way ?\n\nI think it\u0027s probably fine as we can just document it to be ignored until markConnected() is called, though intuitively I would expect it to behave as unregister() when called before markConnected(), especially seeing as that\u0027s what it does when the network is nascent.",
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04f23ee5_b5235b0f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3655,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 1,
+      "message": "Is this, in fact, useful ? We discussed this as a way to avoid doing a few things but AFAICT this patch does them all :\n• Tear down immediately if the network serves no requests\n• Don\u0027t linger new requests for agents pending replacements",
+      "range": {
+        "startLine": 3655,
+        "startChar": 24,
+        "endLine": 3655,
+        "endChar": 41
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cbe3b58_452c7904",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3662,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 1,
+      "message": "I think you actually need to start a rematch.\n\nConsider this scenario :\n• Wifi A connects and starts satisfying the default request\n• A request is filed for a different Wifi band. Wifi B connects and satisfies the request for a different band, and could satisfy the default request but it doesn\u0027t because it\u0027s newer than Wifi A.\n• Wifi A is marked as pending replacement.\n\nIn this situation, Wifi B will immediately start beating Wifi A so strictly speaking we should be rematching. I get that it\u0027s not the end of the world if we don\u0027t, considering we should see a replacement soon and even if we don\u0027t we\u0027ll timeout Wifi A soon, but I don\u0027t like too much the result that transitions will depend on whether anything else happens to trigger a rematch during the timeout.",
+      "range": {
+        "startLine": 3662,
+        "startChar": 24,
+        "endLine": 3662,
+        "endChar": 56
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1477579b_e3569232",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3672,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 1,
+      "message": "Some comments would probably be welcome by future reader on how this happens and why it\u0027s fine.",
+      "range": {
+        "startLine": 3672,
+        "startChar": 12,
+        "endLine": 3672,
+        "endChar": 58
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b76f6ff_a7a3442b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 4336,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 1,
+      "message": "IIUC this might cause a memory leak, because if the private DNS setting changes while a network is pending replacement, handlePrivateDnsSettingsChanged will call mDnsManager.updatePrivateDns on all networks in mNetworkAgentInfos, adding back this network to the map in DnsManager, never to be removed. To be sure it\u0027s a small leak, and very unlikely.\n\nSo strictly speaking I think mDnsManager.removeNetwork actually belongs with mNetworkAgentInfos.remove(). The native cache is already removed in l.4332, and no LP changes can touch mDnsManager after this (though... it might be a bit of a landmine)",
+      "range": {
+        "startLine": 4336,
+        "startChar": 20,
+        "endLine": 4336,
+        "endChar": 33
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52ad917c_5e71e4f9",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1168,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 1,
+      "message": "And possibly matchAllCallback.assertNoCallback",
+      "range": {
+        "startLine": 1168,
+        "startChar": 53,
+        "endLine": 1168,
+        "endChar": 54
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac00b12c_333a0833",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-22T10:41:08Z",
+      "side": 1,
+      "message": "Cases I can think of that are not tested :\n• Making sure that a pending-replacement wifi still wins against a non-zombie cell, which is kind of the use case we are building for.\n• calling unregister() during the pending replacement period will send onLost.\n• non-validated networks.",
+      "range": {
+        "startLine": 1204,
+        "startChar": 4,
+        "endLine": 1204,
+        "endChar": 5
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
