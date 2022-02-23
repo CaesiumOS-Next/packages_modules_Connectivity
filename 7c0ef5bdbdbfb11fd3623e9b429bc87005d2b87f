@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fed366e0_b9f02b01",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-23T10:10:04Z",
+      "side": 1,
+      "message": "Yes, and so my opinion is if carrier unsupport or need provisioning after config change, it shall do this method.",
+      "parentUuid": "fbb44ba1_5db44cb8",
+      "range": {
+        "startLine": 259,
+        "startChar": 59,
+        "endLine": 259,
+        "endChar": 94
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8764278_81176f2d",
@@ -87,6 +111,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e574ee_26f3fa31",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-23T10:10:04Z",
+      "side": 1,
+      "message": "yes, but may do it on another CL",
+      "parentUuid": "5fef88fd_07a93e01",
+      "range": {
+        "startLine": 359,
+        "startChar": 20,
+        "endLine": 359,
+        "endChar": 67
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43162d0c_7ca0daca",
@@ -123,6 +171,54 @@
       "writtenOn": "2022-02-17T09:03:54Z",
       "side": 1,
       "message": "TetheringManager#stopTethering is a oneway binder call, so this method is not synchronized. Also gettting TetheringManager means you would register additional tethering event callback which is redundant. You could reference onUiEntitlementFailed to know how to stopTethering inside EntitlementManager",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 59
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505b8de1_b6cc9401",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-23T10:10:04Z",
+      "side": 1,
+      "message": "Thanks, and it works.",
+      "parentUuid": "5faa9396_736910dc",
+      "range": {
+        "startLine": 427,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 59
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a95cf92b_77145e7b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-23T10:10:04Z",
+      "side": 1,
+      "message": "UIentitlementfailed is fine to work.",
+      "parentUuid": "43162d0c_7ca0daca",
       "range": {
         "startLine": 427,
         "startChar": 0,
@@ -193,6 +289,30 @@
       "writtenOn": "2022-02-17T09:03:54Z",
       "side": 1,
       "message": "Just have quick look, I don\u0027t review this carefully but this function name do not match its behavior anymore.",
+      "range": {
+        "startLine": 1005,
+        "startChar": 8,
+        "endLine": 1005,
+        "endChar": 36
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08f66fb4_dde28cf5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-23T10:10:04Z",
+      "side": 1,
+      "message": "I modified, thanks for the suggestion.",
+      "parentUuid": "9f6fd62d_479427d5",
       "range": {
         "startLine": 1005,
         "startChar": 8,

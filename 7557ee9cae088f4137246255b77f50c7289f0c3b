@@ -22,6 +22,30 @@
       },
       "revId": "7557ee9cae088f4137246255b77f50c7289f0c3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cbc2a80_eb020dbd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-23T10:10:04Z",
+      "side": 1,
+      "message": "As talked to Mark, his opinion is that we may need to apply api council first to make sure this is fine to add, or look for any other better idea instead of.\n\nOtherwise, hard code a string the way we might use it and should be better than use resouse.",
+      "parentUuid": "e9d67079_70cad9a8",
+      "range": {
+        "startLine": 437,
+        "startChar": 35,
+        "endLine": 437,
+        "endChar": 81
+      },
+      "revId": "7557ee9cae088f4137246255b77f50c7289f0c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
