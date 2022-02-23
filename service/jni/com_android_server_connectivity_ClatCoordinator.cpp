@@ -325,6 +325,17 @@ int tagSocketClat(int sockFd) {
     return 0;
 }
 
+// TODO: use unique_fd
+void closeFds(int num, ...) {
+    va_list valist;
+    va_start(valist, num);
+    for (int i = 0; i < num; i++) {
+        int fd = va_arg(valist, int);
+        if (fd > 0) close(fd);
+    }
+    va_end(valist);
+}
+
 static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         JNIEnv* env, jobject clazz, jobject tunJavaFd, jobject readSockJavaFd,
         jobject writeSockJavaFd, jstring iface, jstring pfx96, jstring v4, jstring v6) {
@@ -360,11 +371,13 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     int passedSockRead = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
     if (passedSockRead == -1) {
         throwIOException(env, "socket(ipv6/udp) for read socket failed", errno);
+        close(passedTunFd);
         return -1;
     }
     int passedSockWrite = socket(AF_INET6, SOCK_DGRAM | SOCK_CLOEXEC, 0);
     if (passedSockWrite == -1) {
         throwIOException(env, "socket(ipv6/udp) for write socket failed", errno);
+        closeFds(2, passedTunFd, passedSockRead);
         return -1;
     }
 
@@ -380,6 +393,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     // TODO: use ndk api android_tag_socket_with_uid() which needs SDK level 33.
     if (int ret = tagSocketClat(passedSockRead)) {
         throwIOException(env, "tagSocketClat for read socket failed", -ret);
+        closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
         return -1;
     }
 
@@ -403,6 +417,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     posix_spawnattr_t attr;
     if (int ret = posix_spawnattr_init(&attr)) {
         throwIOException(env, "posix_spawnattr_init failed", ret);
+        closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
         return -1;
     }
 
@@ -410,6 +425,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     if (int ret = posix_spawnattr_setflags(&attr, POSIX_SPAWN_USEVFORK)) {
         posix_spawnattr_destroy(&attr);
         throwIOException(env, "posix_spawnattr_setflags failed", ret);
+        closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
         return -1;
     }
 
@@ -420,6 +436,7 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
     if (int ret = posix_spawn_file_actions_init(&fa)) {
         posix_spawnattr_destroy(&attr);
         throwIOException(env, "posix_spawn_file_actions_init failed", ret);
+        closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
         return -1;
     }
 
@@ -427,18 +444,21 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         posix_spawnattr_destroy(&attr);
         posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn_file_actions_adddup2 for tun fd failed", ret);
+        closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
         return -1;
     }
     if (int ret = posix_spawn_file_actions_adddup2(&fa, readSock, passedSockRead)) {
         posix_spawnattr_destroy(&attr);
         posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn_file_actions_adddup2 for read socket failed", ret);
+        closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
         return -1;
     }
     if (int ret = posix_spawn_file_actions_adddup2(&fa, writeSock, passedSockWrite)) {
         posix_spawnattr_destroy(&attr);
         posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn_file_actions_adddup2 for write socket failed", ret);
+        closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
         return -1;
     }
 
@@ -448,11 +468,13 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         posix_spawnattr_destroy(&attr);
         posix_spawn_file_actions_destroy(&fa);
         throwIOException(env, "posix_spawn failed", ret);
+        closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
         return -1;
     }
 
     posix_spawnattr_destroy(&attr);
     posix_spawn_file_actions_destroy(&fa);
+    closeFds(3, passedTunFd, passedSockRead, passedSockWrite);
 
     // 7. Start BPF if any
     if (!net::clat::initMaps()) {
