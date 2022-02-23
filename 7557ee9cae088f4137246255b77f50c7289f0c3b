@@ -46,6 +46,30 @@
       },
       "revId": "7557ee9cae088f4137246255b77f50c7289f0c3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d832493_81fed5c7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-02-23T23:35:45Z",
+      "side": 1,
+      "message": "OK please follow up w/ API council familiar w/ Settings part to quickly conclude this.",
+      "parentUuid": "7cbc2a80_eb020dbd",
+      "range": {
+        "startLine": 437,
+        "startChar": 35,
+        "endLine": 437,
+        "endChar": 81
+      },
+      "revId": "7557ee9cae088f4137246255b77f50c7289f0c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
