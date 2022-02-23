@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fff773b_16e5dcf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-23T17:52:09Z",
+      "side": 1,
+      "message": "This fix looks good to me but we can\u0027t take the change without testing. I just upload a CL to simulate this bug: https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1996754\n\nWith that change, you could easy to verify your fix. You could rebase this change with that CL then have a simply modification in UpstreamNetworkMonitorTest#testLinkAddressChanged to verify this fix.\n\n    @Test\n    public void testLinkAddressChanged() {\n         ...\n         mCM.sendLinkProperties(cellAgent, true /* updateDefaultFirst */);\n         mLooper.dispatchAll();\n         assertEquals(cellAgent.linkProperties, mUNM.getCurrentPreferredUpstream().linkProperties);\n-        // BUG: no linkproperties change notification.\n-        assertEquals(UpstreamNetworkMonitor.NOTIFY_LOCAL_PREFIXES,\n-                mSM.messages.get(++messageIndex).arg1);\n-        assertEquals(messageIndex + 1, mSM.messages.size());\n+        verifyNotifyLinkPropertiesChange(messageIndex);\n     }\n",
+      "revId": "eaf5563b56d3bf573c73efd0d6855fdd3ef3491b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
