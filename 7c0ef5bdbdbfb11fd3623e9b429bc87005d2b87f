@@ -88,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62e435e5_9013000e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-23T11:09:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8764278_81176f2d",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 85
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fef88fd_07a93e01",
@@ -266,6 +290,30 @@
       "side": 1,
       "message": "Older platform won\u0027t have the CarrierUnsupported carrier config which is an API added in T. \n\nTom can you confirm when when the config not existing we don\u0027t invoke the dialog?",
       "parentUuid": "f1d14c6f_0fba2ea8",
+      "range": {
+        "startLine": 440,
+        "startChar": 8,
+        "endLine": 443,
+        "endChar": 39
+      },
+      "revId": "7c0ef5bdbdbfb11fd3623e9b429bc87005d2b87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "effa7d5f_ba3bedec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-02-23T11:09:12Z",
+      "side": 1,
+      "message": "Modified.",
+      "parentUuid": "119cd11a_19e6abe9",
       "range": {
         "startLine": 440,
         "startChar": 8,
