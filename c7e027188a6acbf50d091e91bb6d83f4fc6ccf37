@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "365acc94_03cf5b3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-24T09:45:25Z",
+      "side": 1,
+      "message": "Nit: this may not be understandable for people that do not have access to this branch, you could be a bit more generic and say \"downstream branches\" so at least it explains what it is",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "c7e027188a6acbf50d091e91bb6d83f4fc6ccf37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
