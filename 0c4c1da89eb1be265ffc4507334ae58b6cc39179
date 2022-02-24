@@ -22,6 +22,30 @@
       },
       "revId": "0c4c1da89eb1be265ffc4507334ae58b6cc39179",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8c5fe53_0f5099a4",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-02-24T17:51:52Z",
+      "side": 1,
+      "message": "Yes, this still a concern. The suggestion from Meng is good to me. If you want to follow the suggestion, please do it in separate CL. Or I am also fine that you just move Tethering#isProvisioningNeededButUnavailable into EntitlementManager. It can\u0027t guarantee, someone use config.provisioningApp directly outside of EntitlementManager. But at least you make EntitlementManger be the only user of use config.provisioningApp now.",
+      "parentUuid": "6a5dc970_88ca5b91",
+      "range": {
+        "startLine": 288,
+        "startChar": 18,
+        "endLine": 288,
+        "endChar": 48
+      },
+      "revId": "0c4c1da89eb1be265ffc4507334ae58b6cc39179",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
