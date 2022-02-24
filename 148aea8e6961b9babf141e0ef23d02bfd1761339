@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "020d43e7_11cfe96a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-02-24T22:45:49Z",
+      "side": 1,
+      "message": "In particular this ignores PACKET_OTHERHOST traffic that we received but isn\u0027t destined to our MAC address and thus we\u0027re not guilty of causing it and thus we shouldn\u0027t be charged for it.",
+      "revId": "148aea8e6961b9babf141e0ef23d02bfd1761339",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
