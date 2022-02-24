@@ -22,6 +22,29 @@
       },
       "revId": "911880b1663ba0ccc4f93d2381f630b67163ae45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca1d2ab9_4e129d66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-24T09:42:20Z",
+      "side": 1,
+      "message": "Can you explain what the differences are ? The change in tests/unit/Android.bp is also missing, is that on purpose ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 21,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "911880b1663ba0ccc4f93d2381f630b67163ae45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
