@@ -132,6 +132,12 @@ public class TetheringConfiguration {
      */
     public static final int DEFAULT_TETHER_OFFLOAD_POLL_INTERVAL_MS = 5000;
 
+    /**
+     * Dhcp target prefix length is only valid when its value larger than dhcp server address prefix
+     * length. Zero default value means target dhcp range feature is default disabled.
+     */
+    public static final int DEFAULT_DHCP_TARGET_PREFIX_LENGTH = 0;
+
     public final String[] tetherableUsbRegexs;
     public final String[] tetherableWifiRegexs;
     public final String[] tetherableWigigRegexs;
@@ -156,6 +162,7 @@ public class TetheringConfiguration {
     // TODO: Add to TetheringConfigurationParcel if required.
     private final boolean mEnableBpfOffload;
     private final boolean mEnableWifiP2pDedicatedIp;
+    private final int mP2pTargetDhcpPrefixLength;
 
     private final boolean mEnableSelectAllPrefixRange;
     private final int mUsbTetheringFunction;
@@ -222,6 +229,10 @@ public class TetheringConfiguration {
                 R.bool.config_tether_enable_legacy_wifi_p2p_dedicated_ip,
                 false /* defaultValue */);
 
+        mP2pTargetDhcpPrefixLength = mEnableWifiP2pDedicatedIp
+                ? getResourceInteger(res, R.integer.config_p2p_target_dhcp_prefix_length,
+                0 /* default dhcp target prefix length */) : 0;
+
         // Flags should normally not be booleans, but this is a kill-switch flag that is only used
         // to turn off the feature, so binary rollback problems do not apply.
         mEnableSelectAllPrefixRange = getDeviceConfigBoolean(
@@ -280,6 +291,15 @@ public class TetheringConfiguration {
         return mEnableWifiP2pDedicatedIp;
     }
 
+    /**
+     * Get target prefix length of target dhcp.
+     * This feature only support when wifi p2p use dedicated address. If
+     * #shouldEnableWifiP2pDedicatedIp is false, this method would always return 0.
+     */
+    public int getP2pTargetDhcpPrefixLength() {
+        return mP2pTargetDhcpPrefixLength;
+    }
+
     /** Does the dumping.*/
     public void dump(PrintWriter pw) {
         pw.print("activeDataSubId: ");
@@ -317,6 +337,9 @@ public class TetheringConfiguration {
 
         pw.print("enableWifiP2pDedicatedIp: ");
         pw.println(mEnableWifiP2pDedicatedIp);
+
+        pw.print("mP2pTargetDhcpPrefixLength: ");
+        pw.println(mP2pTargetDhcpPrefixLength);
 
         pw.print("mEnableSelectAllPrefixRange: ");
         pw.println(mEnableSelectAllPrefixRange);
