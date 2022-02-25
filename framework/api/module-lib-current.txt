@@ -171,10 +171,10 @@ package android.net {
 
   public final class ProfileNetworkPreference implements android.os.Parcelable {
     method public int describeContents();
+    method public int getBehavior();
+    method public int getEnterpriseId();
     method @NonNull public java.util.List<java.lang.Integer> getExcludedUids();
     method @NonNull public java.util.List<java.lang.Integer> getIncludedUids();
-    method public int getPreference();
-    method public int getPreferenceEnterpriseId();
     method public void writeToParcel(@NonNull android.os.Parcel, int);
     field @NonNull public static final android.os.Parcelable.Creator<android.net.ProfileNetworkPreference> CREATOR;
   }
@@ -182,10 +182,10 @@ package android.net {
   public static final class ProfileNetworkPreference.Builder {
     ctor public ProfileNetworkPreference.Builder();
     method @NonNull public android.net.ProfileNetworkPreference build();
+    method @NonNull public android.net.ProfileNetworkPreference.Builder setBehavior(int);
+    method @NonNull public android.net.ProfileNetworkPreference.Builder setEnterpriseId(int);
     method @NonNull public android.net.ProfileNetworkPreference.Builder setExcludedUids(@Nullable java.util.List<java.lang.Integer>);
     method @NonNull public android.net.ProfileNetworkPreference.Builder setIncludedUids(@Nullable java.util.List<java.lang.Integer>);
-    method @NonNull public android.net.ProfileNetworkPreference.Builder setPreference(int);
-    method @NonNull public android.net.ProfileNetworkPreference.Builder setPreferenceEnterpriseId(int);
   }
 
   public final class TestNetworkInterface implements android.os.Parcelable {
