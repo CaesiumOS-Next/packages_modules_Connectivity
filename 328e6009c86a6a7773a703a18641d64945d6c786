@@ -39,6 +39,30 @@
       },
       "revId": "328e6009c86a6a7773a703a18641d64945d6c786",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92fbc40f_f47de03a",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/UpstreamNetworkMonitorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1607903
+      },
+      "writtenOn": "2022-02-25T07:00:14Z",
+      "side": 1,
+      "message": "Done. Tested with the new change.",
+      "parentUuid": "61d0a079_f97bcc66",
+      "range": {
+        "startLine": 612,
+        "startChar": 8,
+        "endLine": 612,
+        "endChar": 40
+      },
+      "revId": "328e6009c86a6a7773a703a18641d64945d6c786",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
