@@ -149,7 +149,6 @@ public class TetheringConfiguration {
     public final Collection<Integer> preferredUpstreamIfaceTypes;
     public final String[] legacyDhcpRanges;
     public final String[] defaultIPv4DNS;
-    public final boolean enableLegacyDhcpServer;
 
     public final String[] provisioningApp;
     public final String provisioningAppNoUi;
@@ -158,6 +157,7 @@ public class TetheringConfiguration {
 
     public final int activeDataSubId;
 
+    private final boolean mEnableLegacyDhcpServer;
     private final int mOffloadPollInterval;
     // TODO: Add to TetheringConfigurationParcel if required.
     private final boolean mEnableBpfOffload;
@@ -210,7 +210,7 @@ public class TetheringConfiguration {
         legacyDhcpRanges = getLegacyDhcpRanges(res);
         defaultIPv4DNS = copy(DEFAULT_IPV4_DNS);
         mEnableBpfOffload = getEnableBpfOffload(res);
-        enableLegacyDhcpServer = getEnableLegacyDhcpServer(res);
+        mEnableLegacyDhcpServer = getEnableLegacyDhcpServer(res);
 
         provisioningApp = getResourceStringArray(res, R.array.config_mobile_hotspot_provision_app);
         provisioningAppNoUi = getResourceString(res,
@@ -239,6 +239,11 @@ public class TetheringConfiguration {
                 TETHER_ENABLE_SELECT_ALL_PREFIX_RANGES, true /* defaultValue */);
 
         configLog.log(toString());
+    }
+
+    /** Check whether using legacy dhcp server. */
+    public boolean useLegacyDhcpServer() {
+        return mEnableLegacyDhcpServer;
     }
 
     /** Check whether using ncm for usb tethering */
@@ -332,8 +337,8 @@ public class TetheringConfiguration {
         pw.print("enableBpfOffload: ");
         pw.println(mEnableBpfOffload);
 
-        pw.print("enableLegacyDhcpServer: ");
-        pw.println(enableLegacyDhcpServer);
+        pw.print("mEnableLegacyDhcpServer: ");
+        pw.println(mEnableLegacyDhcpServer);
 
         pw.print("enableWifiP2pDedicatedIp: ");
         pw.println(mEnableWifiP2pDedicatedIp);
@@ -365,7 +370,7 @@ public class TetheringConfiguration {
         sj.add(String.format("provisioningApp:%s", makeString(provisioningApp)));
         sj.add(String.format("provisioningAppNoUi:%s", provisioningAppNoUi));
         sj.add(String.format("enableBpfOffload:%s", mEnableBpfOffload));
-        sj.add(String.format("enableLegacyDhcpServer:%s", enableLegacyDhcpServer));
+        sj.add(String.format("mEnableLegacyDhcpServer:%s", mEnableLegacyDhcpServer));
         return String.format("TetheringConfiguration{%s}", sj.toString());
     }
 
@@ -619,7 +624,7 @@ public class TetheringConfiguration {
 
         parcel.legacyDhcpRanges = legacyDhcpRanges;
         parcel.defaultIPv4DNS = defaultIPv4DNS;
-        parcel.enableLegacyDhcpServer = enableLegacyDhcpServer;
+        parcel.enableLegacyDhcpServer = mEnableLegacyDhcpServer;
         parcel.provisioningApp = provisioningApp;
         parcel.provisioningAppNoUi = provisioningAppNoUi;
         parcel.provisioningCheckPeriod = provisioningCheckPeriod;
