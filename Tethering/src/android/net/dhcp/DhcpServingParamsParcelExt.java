@@ -185,6 +185,16 @@ public class DhcpServingParamsParcelExt extends DhcpServingParamsParcel {
         return this;
     }
 
+    /** Set target prefix length. If the value is smaller than server address prefix length, this
+     * configuration would not be ignored.
+     *
+     * <p>If not set, the default value is zero.
+     */
+    public DhcpServingParamsParcelExt setTargetPrefixLength(int prefixLength) {
+        this.targetPrefixLength = prefixLength;
+        return this;
+    }
+
     private static int[] toIntArray(@NonNull Collection<Inet4Address> addrs) {
         int[] res = new int[addrs.size()];
         int i = 0;

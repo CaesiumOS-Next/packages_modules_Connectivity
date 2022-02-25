@@ -643,4 +643,20 @@ public class TetheringConfigurationTest {
         assertArrayEquals(ncmRegexs, cfg.tetherableNcmRegexs);
     }
 
+    @Test
+    public void testP2pTargetDhcpPrefixLength() throws Exception {
+        final int defaultTargetPrefixLength = 0;
+        final int p2pTargetPrefixLength = 0;
+
+        final TetheringConfiguration defaultCfg =
+                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertEquals(defaultTargetPrefixLength, defaultCfg.getP2pTargetDhcpPrefixLength());
+
+
+        when(mResources.getInteger(R.integer.config_p2p_target_dhcp_prefix_length)).thenReturn(
+                p2pTargetPrefixLength);
+        final TetheringConfiguration p2pCfg =
+                new TetheringConfiguration(mMockContext, mLog, INVALID_SUBSCRIPTION_ID);
+        assertEquals(defaultTargetPrefixLength, p2pCfg.getP2pTargetDhcpPrefixLength());
+    }
 }
