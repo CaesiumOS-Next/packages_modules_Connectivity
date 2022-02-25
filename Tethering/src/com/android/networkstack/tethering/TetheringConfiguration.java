@@ -24,6 +24,7 @@ import static android.net.ConnectivityManager.TYPE_MOBILE_HIPRI;
 import static android.provider.DeviceConfig.NAMESPACE_CONNECTIVITY;
 
 import static com.android.net.module.util.DeviceConfigUtils.TETHERING_MODULE_NAME;
+import static com.android.net.module.util.NetworkStackConstants.IPV4_ADDR_BITS;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -149,6 +150,7 @@ public class TetheringConfiguration {
     // TODO: Add to TetheringConfigurationParcel if required.
     private final boolean mEnableBpfOffload;
     private final boolean mEnableWifiP2pDedicatedIp;
+    private final int mP2pLeasesSubnetPrefixLength;
 
     private final int mUsbTetheringFunction;
     protected final ContentResolver mContentResolver;
@@ -214,7 +216,23 @@ public class TetheringConfiguration {
                 R.bool.config_tether_enable_legacy_wifi_p2p_dedicated_ip,
                 false /* defaultValue */);
 
+        mP2pLeasesSubnetPrefixLength = getP2pLeasesSubnetPrefixLengthFromRes(res, configLog);
+
         configLog.log(toString());
+    }
+
+    private int getP2pLeasesSubnetPrefixLengthFromRes(final Resources res, final SharedLog log) {
+        if (!mEnableWifiP2pDedicatedIp) return 0;
+
+        int prefixLength = getResourceInteger(res,
+                R.integer.config_p2p_leases_subnet_prefix_length, 0 /* default value */);
+
+        if (prefixLength < 0 || prefixLength > IPV4_ADDR_BITS) {
+            log.e("Invalid p2p leases subnet prefix length configuration: " + prefixLength);
+            return 0;
+        }
+
+        return prefixLength;
     }
 
     /** Check whether using legacy dhcp server. */
@@ -272,6 +290,15 @@ public class TetheringConfiguration {
         return mEnableWifiP2pDedicatedIp;
     }
 
+    /**
+     * Get subnet prefix length of dhcp leases for wifi p2p.
+     * This feature only support when wifi p2p use dedicated address. If
+     * #shouldEnableWifiP2pDedicatedIp is false, this method would always return 0.
+     */
+    public int getP2pLeasesSubnetPrefixLength() {
+        return mP2pLeasesSubnetPrefixLength;
+    }
+
     /** Does the dumping.*/
     public void dump(PrintWriter pw) {
         pw.print("activeDataSubId: ");
@@ -309,6 +336,9 @@ public class TetheringConfiguration {
 
         pw.print("enableWifiP2pDedicatedIp: ");
         pw.println(mEnableWifiP2pDedicatedIp);
+
+        pw.print("p2pLeasesSubnetPrefixLength: ");
+        pw.println(mP2pLeasesSubnetPrefixLength);
 
         pw.print("mUsbTetheringFunction: ");
         pw.println(isUsingNcm() ? "NCM" : "RNDIS");
