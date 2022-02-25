@@ -148,26 +148,41 @@ public final class NetworkCapabilities implements Parcelable {
 
     /**
      * Enterprise capability identifier 1.
+     *
+     * This identifies a network for enterprise private use. The specific use is to be decided
+     * by Device Policy.
      */
     public static final int NET_ENTERPRISE_ID_1 = 1;
 
     /**
      * Enterprise capability identifier 2.
+     *
+     * This identifies a network for enterprise private use. The specific use is to be decided
+     * by Device Policy.
      */
     public static final int NET_ENTERPRISE_ID_2 = 2;
 
     /**
      * Enterprise capability identifier 3.
+     *
+     * This identifies a network for enterprise private use. The specific use is to be decided
+     * by Device Policy.
      */
     public static final int NET_ENTERPRISE_ID_3 = 3;
 
     /**
      * Enterprise capability identifier 4.
+     *
+     * This identifies a network for enterprise private use. The specific use is to be decided
+     * by Device Policy.
      */
     public static final int NET_ENTERPRISE_ID_4 = 4;
 
     /**
      * Enterprise capability identifier 5.
+     *
+     * This identifies a network for enterprise private use. The specific use is to be decided
+     * by Device Policy.
      */
     public static final int NET_ENTERPRISE_ID_5 = 5;
 

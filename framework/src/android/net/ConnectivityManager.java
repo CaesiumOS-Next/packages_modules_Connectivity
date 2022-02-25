@@ -1179,7 +1179,7 @@ public class ConnectivityManager {
             PROFILE_NETWORK_PREFERENCE_ENTERPRISE,
             PROFILE_NETWORK_PREFERENCE_ENTERPRISE_NO_FALLBACK
     })
-    public @interface ProfileNetworkPreferencePolicy {
+    public @interface ProfileNetworkPreferenceBehavior {
     }
 
     /**
@@ -5625,15 +5625,15 @@ public class ConnectivityManager {
     @RequiresPermission(android.Manifest.permission.NETWORK_STACK)
     @Deprecated
     public void setProfileNetworkPreference(@NonNull final UserHandle profile,
-            @ProfileNetworkPreferencePolicy final int preference,
+            @ProfileNetworkPreferenceBehavior final int preference,
             @Nullable @CallbackExecutor final Executor executor,
             @Nullable final Runnable listener) {
 
         ProfileNetworkPreference.Builder preferenceBuilder =
                 new ProfileNetworkPreference.Builder();
-        preferenceBuilder.setPreference(preference);
+        preferenceBuilder.setBehavior(preference);
         if (preference != PROFILE_NETWORK_PREFERENCE_DEFAULT) {
-            preferenceBuilder.setPreferenceEnterpriseId(NET_ENTERPRISE_ID_1);
+            preferenceBuilder.setEnterpriseId(NET_ENTERPRISE_ID_1);
         }
         setProfileNetworkPreferences(profile,
                 List.of(preferenceBuilder.build()), executor, listener);

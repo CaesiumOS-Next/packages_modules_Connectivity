@@ -24,7 +24,7 @@ import static android.net.NetworkCapabilities.NET_ENTERPRISE_ID_5;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
-import android.net.ConnectivityManager.ProfileNetworkPreferencePolicy;
+import android.net.ConnectivityManager.ProfileNetworkPreferenceBehavior;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -33,22 +33,21 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Network preferences to be set for the user profile
- * {@link ProfileNetworkPreferencePolicy}.
+ * Network preferences to be set for the user profile.
  * @hide
  */
 @SystemApi(client = MODULE_LIBRARIES)
 public final class ProfileNetworkPreference implements Parcelable {
-    private final @ProfileNetworkPreferencePolicy int mPreference;
-    private final @NetworkCapabilities.EnterpriseId int mPreferenceEnterpriseId;
+    private final @ProfileNetworkPreferenceBehavior int mBehavior;
+    private final @NetworkCapabilities.EnterpriseId int mEnterpriseId;
     private final List<Integer> mIncludedUids;
     private final List<Integer> mExcludedUids;
 
-    private ProfileNetworkPreference(int preference, List<Integer> includedUids,
+    private ProfileNetworkPreference(int behavior, List<Integer> includedUids,
             List<Integer> excludedUids,
-            @NetworkCapabilities.EnterpriseId int preferenceEnterpriseId) {
-        mPreference = preference;
-        mPreferenceEnterpriseId = preferenceEnterpriseId;
+            @NetworkCapabilities.EnterpriseId int enterpriseId) {
+        mBehavior = behavior;
+        mEnterpriseId = enterpriseId;
         if (includedUids != null) {
             mIncludedUids = new ArrayList<>(includedUids);
         } else {
@@ -63,14 +62,20 @@ public final class ProfileNetworkPreference implements Parcelable {
     }
 
     private ProfileNetworkPreference(Parcel in) {
-        mPreference = in.readInt();
+        mBehavior = in.readInt();
         mIncludedUids = in.readArrayList(Integer.class.getClassLoader());
         mExcludedUids = in.readArrayList(Integer.class.getClassLoader());
-        mPreferenceEnterpriseId = in.readInt();
+        mEnterpriseId = in.readInt();
     }
 
-    public int getPreference() {
-        return mPreference;
+    /*
+     * Get the behavior applied by this profile network preference.
+     *
+     * See the documentation for the individual behaviors for a description of the supported
+     * behaviors.
+     */
+    public int getBehavior() {
+        return mBehavior;
     }
 
     /**
@@ -114,17 +119,17 @@ public final class ProfileNetworkPreference implements Parcelable {
      * @return Preference enterprise identifier.
      *
      */
-    public @NetworkCapabilities.EnterpriseId int getPreferenceEnterpriseId() {
-        return mPreferenceEnterpriseId;
+    public @NetworkCapabilities.EnterpriseId int getEnterpriseId() {
+        return mEnterpriseId;
     }
 
     @Override
     public String toString() {
         return "ProfileNetworkPreference{"
-                + "mPreference=" + getPreference()
+                + "mPreference=" + getBehavior()
                 + "mIncludedUids=" + mIncludedUids.toString()
                 + "mExcludedUids=" + mExcludedUids.toString()
-                + "mPreferenceEnterpriseId=" + mPreferenceEnterpriseId
+                + "mPreferenceEnterpriseId=" + mEnterpriseId
                 + '}';
     }
 
@@ -133,73 +138,75 @@ public final class ProfileNetworkPreference implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final ProfileNetworkPreference that = (ProfileNetworkPreference) o;
-        return mPreference == that.mPreference
+        return mBehavior == that.mBehavior
                 && (Objects.equals(mIncludedUids, that.mIncludedUids))
                 && (Objects.equals(mExcludedUids, that.mExcludedUids))
-                && mPreferenceEnterpriseId == that.mPreferenceEnterpriseId;
+                && mEnterpriseId == that.mEnterpriseId;
     }
 
     @Override
     public int hashCode() {
-        return mPreference
-                + mPreferenceEnterpriseId * 2
+        return mBehavior
+                + mEnterpriseId * 2
                 + (Objects.hashCode(mIncludedUids) * 11)
                 + (Objects.hashCode(mExcludedUids) * 13);
     }
 
     /**
      * Builder used to create {@link ProfileNetworkPreference} objects.
-     * Specify the preferred Network preference
      */
     public static final class Builder {
-        private @ProfileNetworkPreferencePolicy int mPreference =
+        private @ProfileNetworkPreferenceBehavior int mBehavior =
                 PROFILE_NETWORK_PREFERENCE_DEFAULT;
         private @NonNull List<Integer> mIncludedUids = new ArrayList<>();
         private @NonNull List<Integer> mExcludedUids = new ArrayList<>();
-        private int mPreferenceEnterpriseId;
+        private int mEnterpriseId;
 
         /**
-         * Constructs an empty Builder with PROFILE_NETWORK_PREFERENCE_DEFAULT profile preference
+         * Constructs an empty Builder with PROFILE_NETWORK_PREFERENCE_DEFAULT behavior
          */
         public Builder() {}
 
         /**
-         * Set the profile network preference
-         * See the documentation for the individual preferences for a description of the supported
+         * Set the profile network preference behavior.
+         *
+         * See the documentation for the individual behaviors for a description of the supported
          * behaviors. Default value is PROFILE_NETWORK_PREFERENCE_DEFAULT.
-         * @param preference  the desired network preference to use
-         * @return The builder to facilitate chaining.
+         * @param behavior the desired behavior
+         * @return This builder
          */
         @NonNull
-        public Builder setPreference(@ProfileNetworkPreferencePolicy int preference) {
-            mPreference = preference;
+        public Builder setBehavior(@ProfileNetworkPreferenceBehavior int behavior) {
+            mBehavior = behavior;
             return this;
         }
 
         /**
-         * This is a list of uids for which profile perefence is set.
-         * Null would mean that this preference applies to all uids in the profile.
+         * Set the list of uids for which this profile preference is set.
+         *
+         * Null means that this preference applies to all uids in the profile.
          * {@see #setExcludedUids(List<Integer>)}
          * Included UIDs and Excluded UIDs can't both be non-empty.
-         * if both are empty, it means this request applies to all uids in the user profile.
-         * if included is not empty, then only included UIDs are applied.
-         * if excluded is not empty, then it is all uids in the user profile except these UIDs.
-         * @param uids  list of uids that are included
-         * @return The builder to facilitate chaining.
+         * If both are empty, it means this request applies to all uids in the user profile.
+         * If included is not empty, then only included UIDs are applied.
+         * If excluded is not empty, then it is all uids in the user profile except these UIDs.
+         * @param uids list of uids that are included
+         * @return This builder
          */
         @NonNull
         public Builder setIncludedUids(@Nullable List<Integer> uids) {
             if (uids != null) {
-                mIncludedUids = new ArrayList<Integer>(uids);
+                mIncludedUids = new ArrayList<>(uids);
             } else {
-                mIncludedUids = new ArrayList<Integer>();
+                mIncludedUids = new ArrayList<>();
             }
             return this;
         }
 
 
         /**
-         * This is a list of uids that are excluded for the profile perefence.
+         * Set the list of uids that are excluded for the profile preference.
+         *
          * {@see #setIncludedUids(List<Integer>)}
          * Included UIDs and Excluded UIDs can't both be non-empty.
          * if both are empty, it means this request applies to all uids in the user profile.
@@ -211,15 +218,15 @@ public final class ProfileNetworkPreference implements Parcelable {
         @NonNull
         public Builder setExcludedUids(@Nullable List<Integer> uids) {
             if (uids != null) {
-                mExcludedUids = new ArrayList<Integer>(uids);
+                mExcludedUids = new ArrayList<>(uids);
             } else {
-                mExcludedUids = new ArrayList<Integer>();
+                mExcludedUids = new ArrayList<>();
             }
             return this;
         }
 
         /**
-         * Check if given preference enterprise identifier is valid
+         * Check if the given preference enterprise identifier is valid
          *
          * Valid values starts from PROFILE_NETWORK_PREFERENCE_ENTERPRISE_ID_1 to
          * NetworkCapabilities.NET_ENTERPRISE_ID_5.
@@ -240,49 +247,49 @@ public final class ProfileNetworkPreference implements Parcelable {
          * fields set on this builder.
          */
         @NonNull
-        public ProfileNetworkPreference  build() {
+        public ProfileNetworkPreference build() {
             if (mIncludedUids.size() > 0 && mExcludedUids.size() > 0) {
                 throw new IllegalArgumentException("Both includedUids and excludedUids "
                         + "cannot be nonempty");
             }
 
-            if (((mPreference != PROFILE_NETWORK_PREFERENCE_DEFAULT)
-                    && (!isEnterpriseIdentifierValid(mPreferenceEnterpriseId)))
-                    || ((mPreference == PROFILE_NETWORK_PREFERENCE_DEFAULT)
-                    && (mPreferenceEnterpriseId != 0))) {
+            if (((mBehavior != PROFILE_NETWORK_PREFERENCE_DEFAULT)
+                    && (!isEnterpriseIdentifierValid(mEnterpriseId)))
+                    || ((mBehavior == PROFILE_NETWORK_PREFERENCE_DEFAULT)
+                    && (mEnterpriseId != 0))) {
                 throw new IllegalStateException("Invalid preference enterprise identifier");
             }
-            return new ProfileNetworkPreference(mPreference, mIncludedUids,
-                    mExcludedUids, mPreferenceEnterpriseId);
+            return new ProfileNetworkPreference(mBehavior, mIncludedUids,
+                    mExcludedUids, mEnterpriseId);
         }
 
         /**
          * Set the preference enterprise identifier.
          *
-         * Preference enterprise identifier will be used to create different network preferences
+         * This enterprise identifier will be used to create different network preferences
          * within enterprise preference category.
-         * Valid values starts from NetworkCapabilities.NET_ENTERPRISE_ID_1 to
+         * Valid values range from NetworkCapabilities.NET_ENTERPRISE_ID_1 to
          * NetworkCapabilities.NET_ENTERPRISE_ID_5.
-         * Preference identifier is not applicable if preference is set as
-         * PROFILE_NETWORK_PREFERENCE_DEFAULT. Default value is
+         * The enterprise identifier is not applicable if the preference is set as
+         * PROFILE_NETWORK_PREFERENCE_DEFAULT. The default value is
          * NetworkCapabilities.NET_ENTERPRISE_ID_1.
-         * @param preferenceId  preference sub level
-         * @return The builder to facilitate chaining.
+         *
+         * @param enterpriseId enterprise ID
+         * @return This builder
          */
         @NonNull
-        public Builder setPreferenceEnterpriseId(
-                @NetworkCapabilities.EnterpriseId int preferenceId) {
-            mPreferenceEnterpriseId = preferenceId;
+        public Builder setEnterpriseId(@NetworkCapabilities.EnterpriseId int enterpriseId) {
+            mEnterpriseId = enterpriseId;
             return this;
         }
     }
 
     @Override
     public void writeToParcel(@NonNull android.os.Parcel dest, int flags) {
-        dest.writeInt(mPreference);
+        dest.writeInt(mBehavior);
         dest.writeList(mIncludedUids);
         dest.writeList(mExcludedUids);
-        dest.writeInt(mPreferenceEnterpriseId);
+        dest.writeInt(mEnterpriseId);
     }
 
     @Override
@@ -292,7 +299,7 @@ public final class ProfileNetworkPreference implements Parcelable {
 
     @NonNull
     public static final Creator<ProfileNetworkPreference> CREATOR =
-            new Creator<ProfileNetworkPreference>() {
+            new Creator<>() {
                 @Override
                 public ProfileNetworkPreference[] newArray(int size) {
                     return new ProfileNetworkPreference[size];
