@@ -2242,7 +2242,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         newNc.setAdministratorUids(new int[0]);
         if (!checkAnyPermissionOf(
                 callerPid, callerUid, android.Manifest.permission.NETWORK_FACTORY)) {
-            newNc.setAccessUids(new ArraySet<>());
+            newNc.setUidsWithAccess(new ArraySet<>());
             newNc.setSubscriptionIds(Collections.emptySet());
         }
 
@@ -6381,7 +6381,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         if (nc.isPrivateDnsBroken()) {
             throw new IllegalArgumentException("Can't request broken private DNS");
         }
-        if (nc.hasAccessUids()) {
+        if (nc.hasUidsWithAccess()) {
             throw new IllegalArgumentException("Can't request access UIDs");
         }
     }
@@ -7838,7 +7838,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final NetworkCapabilities prevNc = nai.getAndSetNetworkCapabilities(newNc);
 
         updateVpnUids(nai, prevNc, newNc);
-        updateAccessUids(nai, prevNc, newNc);
+        updateUidsWithAccess(nai, prevNc, newNc);
         nai.updateScoreForNetworkAgentUpdate();
 
         if (nai.getCurrentScore() == oldScore && newNc.equalRequestableCapabilities(prevNc)) {
@@ -8068,17 +8068,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
     }
 
-    private void updateAccessUids(@NonNull NetworkAgentInfo nai,
+    private void updateUidsWithAccess(@NonNull NetworkAgentInfo nai,
             @Nullable NetworkCapabilities prevNc, @Nullable NetworkCapabilities newNc) {
         // In almost all cases both NC code for empty access UIDs. return as fast as possible.
-        final boolean prevEmpty = null == prevNc || prevNc.getAccessUidsNoCopy().isEmpty();
-        final boolean newEmpty = null == newNc || newNc.getAccessUidsNoCopy().isEmpty();
+        final boolean prevEmpty = null == prevNc || prevNc.getUidsWithAccessNoCopy().isEmpty();
+        final boolean newEmpty = null == newNc || newNc.getUidsWithAccessNoCopy().isEmpty();
         if (prevEmpty && newEmpty) return;
 
         final ArraySet<Integer> prevUids =
-                null == prevNc ? new ArraySet<>() : prevNc.getAccessUidsNoCopy();
+                null == prevNc ? new ArraySet<>() : prevNc.getUidsWithAccessNoCopy();
         final ArraySet<Integer> newUids =
-                null == newNc ? new ArraySet<>() : newNc.getAccessUidsNoCopy();
+                null == newNc ? new ArraySet<>() : newNc.getUidsWithAccessNoCopy();
 
         if (prevUids.equals(newUids)) return;
 
@@ -9033,7 +9033,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
             networkAgent.created = true;
             networkAgent.onNetworkCreated();
-            updateAccessUids(networkAgent, null, networkAgent.networkCapabilities);
+            updateUidsWithAccess(networkAgent, null, networkAgent.networkCapabilities);
         }
 
         if (!networkAgent.everConnected && state == NetworkInfo.State.CONNECTED) {
