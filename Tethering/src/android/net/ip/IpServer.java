@@ -241,6 +241,7 @@ public class IpServer extends StateMachine {
     private final LinkProperties mLinkProperties;
     private final boolean mUsingLegacyDhcp;
     private final boolean mUsingBpfOffload;
+    private final int mP2pTargetDhcpPrefixLength;
 
     private final Dependencies mDeps;
 
@@ -299,6 +300,7 @@ public class IpServer extends StateMachine {
         mLinkProperties = new LinkProperties();
         mUsingLegacyDhcp = config.useLegacyDhcpServer();
         mUsingBpfOffload = config.isBpfOffloadEnabled();
+        mP2pTargetDhcpPrefixLength = config.getP2pTargetDhcpPrefixLength();
         mPrivateAddressCoordinator = addressCoordinator;
         mDeps = deps;
         resetLinkProperties();
@@ -527,6 +529,9 @@ public class IpServer extends StateMachine {
             @Nullable Inet4Address clientAddr) {
         final boolean changePrefixOnDecline =
                 (mInterfaceType == TetheringManager.TETHERING_NCM && clientAddr == null);
+        final int targetPrefixLength = mInterfaceType == TetheringManager.TETHERING_WIFI_P2P
+                ? mP2pTargetDhcpPrefixLength : 0 /* default value */;
+
         return new DhcpServingParamsParcelExt()
             .setDefaultRouters(defaultRouter)
             .setDhcpLeaseTimeSecs(DHCP_LEASE_TIME_SECS)
@@ -534,7 +539,8 @@ public class IpServer extends StateMachine {
             .setServerAddr(serverAddr)
             .setMetered(true)
             .setSingleClientAddr(clientAddr)
-            .setChangePrefixOnDecline(changePrefixOnDecline);
+            .setChangePrefixOnDecline(changePrefixOnDecline)
+            .setTargetPrefixLength(targetPrefixLength);
             // TODO: also advertise link MTU
     }
 
