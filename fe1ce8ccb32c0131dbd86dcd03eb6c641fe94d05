@@ -16,6 +16,24 @@
       "message": "Unfortunately I think this line can\u0027t go into sc-mainline-prod for now, until we put the framework-t jar in the apex",
       "revId": "fe1ce8ccb32c0131dbd86dcd03eb6c641fe94d05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa45a45b_eac6201f",
+        "filename": "Tethering/apex/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-02-25T02:44:51Z",
+      "side": 1,
+      "message": "Done at aosp/1999073",
+      "parentUuid": "107182f6_11b643a8",
+      "revId": "fe1ce8ccb32c0131dbd86dcd03eb6c641fe94d05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
