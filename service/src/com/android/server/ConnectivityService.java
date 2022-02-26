@@ -3524,7 +3524,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     nai.declaredCapabilitiesUnsanitized =
                             new NetworkCapabilities(networkCapabilities);
                     sanitizeCapabilitiesFromAgent(nai, networkCapabilities);
-                    updateCapabilities(nai.getCurrentScore(), nai, networkCapabilities);
+                    updateCapabilities(nai.getScore(), nai, networkCapabilities);
                     break;
                 }
                 case NetworkAgent.EVENT_NETWORK_PROPERTIES_CHANGED: {
@@ -3737,7 +3737,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 log(nai.toShortString() + " validation " + (valid ? "passed" : "failed") + logMsg);
             }
             if (valid != nai.lastValidated) {
-                final int oldScore = nai.getCurrentScore();
+                final FullScore oldScore = nai.getScore();
                 nai.lastValidated = valid;
                 nai.everValidated |= valid;
                 updateCapabilities(oldScore, nai, nai.networkCapabilities);
@@ -7114,8 +7114,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      *         later : see {@link #updateLinkProperties}.
      * @param networkCapabilities the initial capabilites of this network. They can be updated
      *         later : see {@link #updateCapabilities}.
-     * @param initialScore the initial score of the network. See
-     *         {@link NetworkAgentInfo#getCurrentScore}.
+     * @param initialScore the initial score of the network. See {@link NetworkAgentInfo#getScore}.
      * @param networkAgentConfig metadata about the network. This is never updated.
      * @param providerId the ID of the provider owning this NetworkAgent.
      * @return the network created for this agent.
@@ -7837,7 +7836,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * @param nai the network having its capabilities updated.
      * @param nc the new network capabilities.
      */
-    private void updateCapabilities(final int oldScore, @NonNull final NetworkAgentInfo nai,
+    private void updateCapabilities(final FullScore oldScore, @NonNull final NetworkAgentInfo nai,
             @NonNull final NetworkCapabilities nc) {
         NetworkCapabilities newNc = mixInCapabilities(nai, nc);
         if (Objects.equals(nai.networkCapabilities, newNc)) return;
@@ -7848,7 +7847,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         updateAccessUids(nai, prevNc, newNc);
         nai.updateScoreForNetworkAgentUpdate();
 
-        if (nai.getCurrentScore() == oldScore && newNc.equalRequestableCapabilities(prevNc)) {
+        if (nai.getScore().equals(oldScore) && newNc.equalRequestableCapabilities(prevNc)) {
             // If the requestable capabilities haven't changed, and the score hasn't changed, then
             // the change we're processing can't affect any requests, it can only affect the listens
             // on this network. We might have been called by rematchNetworkAndRequests when a
@@ -7892,7 +7891,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     /** Convenience method to update the capabilities for a given network. */
     private void updateCapabilitiesForNetwork(NetworkAgentInfo nai) {
-        updateCapabilities(nai.getCurrentScore(), nai, nai.networkCapabilities);
+        updateCapabilities(nai.getScore(), nai, nai.networkCapabilities);
     }
 
     /**
