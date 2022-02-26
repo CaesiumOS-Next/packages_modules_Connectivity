@@ -24,6 +24,7 @@ import android.text.TextUtils
 import android.util.ArraySet
 import androidx.test.filters.SmallTest
 import com.android.server.connectivity.FullScore.MAX_CS_MANAGED_POLICY
+import com.android.server.connectivity.FullScore.MIN_CS_MANAGED_POLICY
 import com.android.server.connectivity.FullScore.POLICY_ACCEPT_UNVALIDATED
 import com.android.server.connectivity.FullScore.POLICY_EVER_USER_SELECTED
 import com.android.server.connectivity.FullScore.POLICY_IS_DESTROYED
@@ -64,33 +65,10 @@ class FullScoreTest {
     }
 
     @Test
-    fun testGetLegacyInt() {
-        val ns = FullScore(50, 0L /* policy */, KEEP_CONNECTED_NONE)
-        assertEquals(10, ns.legacyInt) // -40 penalty for not being validated
-        assertEquals(50, ns.legacyIntAsValidated)
-
-        val vpnNs = FullScore(101, 0L /* policy */, KEEP_CONNECTED_NONE).withPolicies(vpn = true)
-        assertEquals(101, vpnNs.legacyInt) // VPNs are not subject to unvalidation penalty
-        assertEquals(101, vpnNs.legacyIntAsValidated)
-        assertEquals(101, vpnNs.withPolicies(validated = true).legacyInt)
-        assertEquals(101, vpnNs.withPolicies(validated = true).legacyIntAsValidated)
-
-        val validatedNs = ns.withPolicies(validated = true)
-        assertEquals(50, validatedNs.legacyInt) // No penalty, this is validated
-        assertEquals(50, validatedNs.legacyIntAsValidated)
-
-        val chosenNs = ns.withPolicies(onceChosen = true)
-        assertEquals(10, chosenNs.legacyInt)
-        assertEquals(100, chosenNs.legacyIntAsValidated)
-        assertEquals(10, chosenNs.withPolicies(acceptUnvalidated = true).legacyInt)
-        assertEquals(50, chosenNs.withPolicies(acceptUnvalidated = true).legacyIntAsValidated)
-    }
-
-    @Test
     fun testToString() {
-        val string = FullScore(10, 0L /* policy */, KEEP_CONNECTED_NONE)
+        val string = FullScore(0L /* policy */, KEEP_CONNECTED_NONE)
                 .withPolicies(vpn = true, acceptUnvalidated = true).toString()
-        assertTrue(string.contains("Score(10"), string)
+        assertTrue(string.contains("Score("), string)
         assertTrue(string.contains("ACCEPT_UNVALIDATED"), string)
         assertTrue(string.contains("IS_VPN"), string)
         assertFalse(string.contains("IS_VALIDATED"), string)
@@ -113,7 +91,7 @@ class FullScoreTest {
 
     @Test
     fun testHasPolicy() {
-        val ns = FullScore(50, 0L /* policy */, KEEP_CONNECTED_NONE)
+        val ns = FullScore(0L /* policy */, KEEP_CONNECTED_NONE)
         assertFalse(ns.hasPolicy(POLICY_IS_VALIDATED))
         assertFalse(ns.hasPolicy(POLICY_IS_VPN))
         assertFalse(ns.hasPolicy(POLICY_EVER_USER_SELECTED))
@@ -130,12 +108,10 @@ class FullScoreTest {
         val policies = getAllPolicies()
 
         policies.forEach { policy ->
-            assertTrue(policy.get() as Int >= FullScore.MIN_CS_MANAGED_POLICY)
-            assertTrue(policy.get() as Int <= FullScore.MAX_CS_MANAGED_POLICY)
+            assertTrue(policy.get() as Int >= MIN_CS_MANAGED_POLICY)
+            assertTrue(policy.get() as Int <= MAX_CS_MANAGED_POLICY)
         }
-        assertEquals(FullScore.MIN_CS_MANAGED_POLICY,
-                policies.minOfOrNull { it.get() as Int })
-        assertEquals(FullScore.MAX_CS_MANAGED_POLICY,
-                policies.maxOfOrNull { it.get() as Int })
+        assertEquals(MIN_CS_MANAGED_POLICY, policies.minOfOrNull { it.get() as Int })
+        assertEquals(MAX_CS_MANAGED_POLICY, policies.maxOfOrNull { it.get() as Int })
     }
 }
