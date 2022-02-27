@@ -180,7 +180,7 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     // The capabilities originally announced by the NetworkAgent, regardless of any capabilities
     // that were added or removed due to this network's underlying networks.
     // Only set if #propagateUnderlyingCapabilities is true.
-    public @Nullable NetworkCapabilities declaredCapabilitiesUnsanitized;
+    private @Nullable NetworkCapabilities mDeclaredCapabilitiesUnsanitized;
 
     // Indicates if netd has been told to create this Network. From this point on the appropriate
     // routing rules are setup and routes are added so packets can begin flowing over the Network.
@@ -231,6 +231,65 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     // non-RFC8908 sources, such as Wi-Fi Passpoint, which can provide information such as Venue
     // URL, Terms & Conditions URL, and network friendly name.
     public CaptivePortalData networkAgentPortalData;
+
+    /**
+     * Sets the capabilities sent by the agent for later retrieval.
+     *
+     * This method does not sanitize the capabilities ; instead, {@code NetworkAgentInfo} has
+     * methods to retrieve the capabilities as they were passed here :
+     * {@link #getDeclaredCapabilitiesUnsanitizedNoCopy()} and a sanitized copy of them :
+     * {@link #originalCapabilitiesSanitized()}
+     *
+     * This method makes a defensive copy to avoid issues where the passed object is later mutated.
+     *
+     * @param caps the caps sent by the agent
+     */
+    public void setDeclaredCapabilities(@NonNull final NetworkCapabilities caps) {
+        mDeclaredCapabilitiesUnsanitized = new NetworkCapabilities(caps);
+    }
+
+    /**
+     * Returns the latest capabilies sent by the network agent.
+     *
+     * These capabilities are NOT sanitized. {@see #originalCapabilitiesSanitized()}
+     * This method does not make a defensive copy. Do not mutate the returned value.
+     *
+     * @return The capabilities
+     */
+    public NetworkCapabilities getDeclaredCapabilitiesUnsanitizedNoCopy() {
+        return mDeclaredCapabilitiesUnsanitized;
+    }
+
+    /**
+     * Get the latest capabilities sent by the network agent, after sanitizing them.
+     *
+     * These are the capabilities as they were sent by the agent (but sanitized to conform to
+     * their restrictions). They are NOT the capabilities currently applying to this agent ;
+     * for that, use {@link #networkCapabilities}.
+     *
+     * Agents have restrictions on what capabilities they can send to Connectivity. For example,
+     * they can't change the owner UID from what they declared before, and complex restrictions
+     * apply to the accessUids field.
+     * They also should not mutate immutable capabilities, although for backward-compatibility
+     * this is not enforced and limited to just a log.
+     *
+     * @param carrierPrivilegeAuthenticator the authenticator, to check access UIDs.
+     */
+    public NetworkCapabilities getDeclaredCapabilitiesSanitized(
+            final CarrierPrivilegeAuthenticator carrierPrivilegeAuthenticator) {
+        final NetworkCapabilities nc = new NetworkCapabilities(mDeclaredCapabilitiesUnsanitized);
+        if (nc.hasConnectivityManagedCapability()) {
+            Log.wtf(TAG, "BUG: " + this + " has CS-managed capability.");
+        }
+        if (networkCapabilities.getOwnerUid() != nc.getOwnerUid()) {
+            Log.e(TAG, toShortString() + ": ignoring attempt to change owner from "
+                    + networkCapabilities.getOwnerUid() + " to " + nc.getOwnerUid());
+            nc.setOwnerUid(networkCapabilities.getOwnerUid());
+        }
+        restrictCapabilitiesFromNetworkAgent(nc, creatorUid,
+                carrierPrivilegeAuthenticator);
+        return nc;
+    }
 
     // Networks are lingered when they become unneeded as a result of their NetworkRequests being
     // satisfied by a higher-scoring network. so as to allow communication to wrap up before the
