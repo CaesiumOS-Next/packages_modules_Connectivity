@@ -15723,6 +15723,41 @@ public class ConnectivityServiceTest {
         mCm.unregisterNetworkCallback(cb);
     }
 
+    @Test
+    public void testSanitizedCapabilitiesFromAgentDoesNotMutateArgument()
+            throws Exception {
+        final int ownerUid = Process.myUid();
+        final NetworkCapabilities unsanitized = new NetworkCapabilities.Builder()
+                .withoutDefaultCapabilities()
+                .addTransportType(TRANSPORT_WIFI)
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .setOwnerUid(ownerUid)
+                .setAdministratorUids(new int[] {ownerUid})
+                .setLinkUpstreamBandwidthKbps(20)
+                .setLinkDownstreamBandwidthKbps(10)
+                .setNetworkSpecifier(new MatchAllNetworkSpecifier())
+                .setTransportInfo(new TestTransportInfo())
+                .setSignalStrength(-75)
+                .setSsid("SSID1")
+                .setRequestorUid(ownerUid)
+                .setRequestorPackageName("TestPackage")
+                .setSubscriptionIds(Collections.singleton(ownerUid))
+                .setUids(UidRange.toIntRanges(uidRangesForUids(ownerUid)))
+                .setAllowedUids(Collections.singleton(ownerUid))
+                .setUnderlyingNetworks(List.of(new Network(99999)))
+                .build();
+        final NetworkInfo info = new NetworkInfo(TYPE_MOBILE, TelephonyManager.NETWORK_TYPE_LTE,
+                ConnectivityManager.getNetworkTypeName(TYPE_MOBILE),
+                TelephonyManager.getNetworkTypeName(TelephonyManager.NETWORK_TYPE_LTE));
+        final NetworkAgentInfo agent = fakeNai(unsanitized, info);
+        agent.setDeclaredCapabilities(unsanitized);
+        final NetworkCapabilities copyOfUnsanitized = new NetworkCapabilities(unsanitized);
+        final NetworkCapabilities sanitized = agent.getDeclaredCapabilitiesSanitized(
+                null /* carrierPrivilegeAuthenticator */);
+        assertEquals(copyOfUnsanitized, unsanitized);
+        assertNotEquals(sanitized, unsanitized);
+    }
+
     /**
      * Validate request counts are counted accurately on setProfileNetworkPreference on set/replace.
      */
