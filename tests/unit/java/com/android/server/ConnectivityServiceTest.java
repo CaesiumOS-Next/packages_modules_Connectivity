@@ -16525,4 +16525,19 @@ public class ConnectivityServiceTest {
         mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
         mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
     }
+
+    @Test
+    public void testSanitizedCapabilitiesFromAgentDoesNotMutateArgument()
+            throws Exception {
+        final NetworkCapabilities unsanitized = new NetworkCapabilities.Builder()
+                .addTransportType(TRANSPORT_CELLULAR).build();
+        final NetworkInfo info = new NetworkInfo(TYPE_MOBILE, TelephonyManager.NETWORK_TYPE_LTE,
+                ConnectivityManager.getNetworkTypeName(TYPE_MOBILE),
+                TelephonyManager.getNetworkTypeName(TelephonyManager.NETWORK_TYPE_LTE));
+        final NetworkAgentInfo agent = fakeNai(unsanitized, info);
+        agent.setDeclaredCapabilities(unsanitized);
+        final NetworkCapabilities sanitized = agent.getDeclaredCapabilitiesSanitized(
+                null /* carrierPrivilegeAuthenticator */);
+        assertEquals(sanitized, unsanitized);
+    }
 }
