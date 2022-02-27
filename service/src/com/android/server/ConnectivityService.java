@@ -3523,7 +3523,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     nai.declaredCapabilitiesUnsanitized =
                             new NetworkCapabilities((NetworkCapabilities) arg.second);
                     final NetworkCapabilities sanitized = sanitizedCapabilitiesFromAgent(
-                            nai, nai.declaredCapabilitiesUnsanitized);
+                            mCarrierPrivilegeAuthenticator, nai);
                     updateCapabilities(nai.getCurrentScore(), nai, sanitized);
                     break;
                 }
@@ -7184,7 +7184,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         nai.declaredCapabilitiesUnsanitized = new NetworkCapabilities(nai.networkCapabilities);
         // Make sure the LinkProperties and NetworkCapabilities reflect what the agent info said.
         final NetworkCapabilities nc =
-                sanitizedCapabilitiesFromAgent(nai, nai.declaredCapabilitiesUnsanitized);
+                sanitizedCapabilitiesFromAgent(mCarrierPrivilegeAuthenticator, nai);
         nai.getAndSetNetworkCapabilities(mixInCapabilities(nai, nc));
         processLinkPropertiesFromAgent(nai, lp);
         nai.linkProperties = lp;
@@ -7657,10 +7657,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * contain stuff they should not, and should generally be called by code that accesses
      * {@link NetworkAgentInfo#declaredCapabilitiesUnsanitized}.
      */
-    // TODO : move this to NetworkAgentInfo
-    private NetworkCapabilities sanitizedCapabilitiesFromAgent(@NonNull final NetworkAgentInfo nai,
-            @NonNull final NetworkCapabilities unsanitized) {
-        final NetworkCapabilities nc = new NetworkCapabilities(unsanitized);
+    private NetworkCapabilities sanitizedCapabilitiesFromAgent(
+            final CarrierPrivilegeAuthenticator carrierPrivilegeAuthenticator,
+            @NonNull final NetworkAgentInfo nai) {
+        final NetworkCapabilities nc = new NetworkCapabilities(nai.declaredCapabilitiesUnsanitized);
         if (nc.hasConnectivityManagedCapability()) {
             Log.wtf(TAG, "BUG: " + nai + " has CS-managed capability.");
         }
@@ -7670,7 +7670,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
             nc.setOwnerUid(nai.networkCapabilities.getOwnerUid());
         }
         NetworkAgentInfo.restrictCapabilitiesFromNetworkAgent(nc, nai.creatorUid,
-                mCarrierPrivilegeAuthenticator);
+                carrierPrivilegeAuthenticator);
         return nc;
     }
 
@@ -7799,7 +7799,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         if (nai.propagateUnderlyingCapabilities()) {
             applyUnderlyingCapabilities(nai.declaredUnderlyingNetworks,
-                    sanitizedCapabilitiesFromAgent(nai, nai.declaredCapabilitiesUnsanitized),
+                    sanitizedCapabilitiesFromAgent(mCarrierPrivilegeAuthenticator, nai),
                     newNc);
         }
 
