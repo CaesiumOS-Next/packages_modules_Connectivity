@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36870d45_7e4c96b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-02-28T02:18:33Z",
+      "side": 1,
+      "message": "Hmmm, maybe no?\nThis tells people this CL is not aosp first.\nThus they can easily know there might be some traces at ag/ CLs.",
+      "parentUuid": "f1f63b46_e2424618",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "911880b1663ba0ccc4f93d2381f630b67163ae45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca1d2ab9_4e129d66",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-24T09:42:20Z",
       "side": 1,
       "message": "Can you explain what the differences are ? The change in tests/unit/Android.bp is also missing, is that on purpose ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 21,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "911880b1663ba0ccc4f93d2381f630b67163ae45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ed09364_713ab398",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-02-28T02:18:33Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ca1d2ab9_4e129d66",
       "range": {
         "startLine": 15,
         "startChar": 21,
