@@ -69,11 +69,7 @@ public final class ConnectivityServiceInitializer extends SystemService {
     /** Return NsdService instance or null if current SDK is lower than T */
     private NsdService createNsdService(final Context context) {
         if (!SdkLevel.isAtLeastT()) return null;
-        try {
-            return NsdService.create(context);
-        } catch (InterruptedException e) {
-            Log.d(TAG, "Unable to get NSD service", e);
-            return null;
-        }
+
+        return NsdService.create(context);
     }
 }
