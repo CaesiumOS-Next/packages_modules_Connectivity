@@ -64,7 +64,6 @@ import com.android.testutils.TestableNetworkCallback;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -107,7 +106,6 @@ public class RateLimitTest {
     private Network mNetwork;
     private DatagramSocket mSocket;
 
-    @BeforeClass
     public static void assumeKernelSupport() {
         final String result = SystemUtil.runShellCommandOrThrow("gzip -cd /proc/config.gz");
         HashSet<String> kernelConfig = Arrays.stream(result.split("\\R")).collect(
@@ -124,6 +122,8 @@ public class RateLimitTest {
 
     @Before
     public void setUp() throws IOException {
+        assumeKernelSupport();
+
         mHandler = new Handler(Looper.getMainLooper());
 
         runAsShell(MANAGE_TEST_NETWORKS, () -> {
