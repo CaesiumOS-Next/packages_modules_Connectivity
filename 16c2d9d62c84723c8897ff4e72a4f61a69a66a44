@@ -33,6 +33,24 @@
       "message": "Could you please write some details in commit message saying that why did you do this change? What\u0027s the problem did you meet?",
       "revId": "16c2d9d62c84723c8897ff4e72a4f61a69a66a44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32b4168_123fe4e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1695414
+      },
+      "writtenOn": "2022-02-28T06:22:17Z",
+      "side": 1,
+      "message": "Updated the commit message",
+      "parentUuid": "0b8668d9_39617c4a",
+      "revId": "16c2d9d62c84723c8897ff4e72a4f61a69a66a44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
