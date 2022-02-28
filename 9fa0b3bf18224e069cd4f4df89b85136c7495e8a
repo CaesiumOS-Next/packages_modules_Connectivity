@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c9bcb32_f6deacd1",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-28T08:10:15Z",
+      "side": 1,
+      "message": "If this throws (or the runShellCommandOrThrow above throws), I expect that the failure will not be easy to debug. Maybe the test process will just crash.\n\nIf this gets the test to pass, then LGTM, but we might want to do better. (For example, could we use a Rule?)",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "9fa0b3bf18224e069cd4f4df89b85136c7495e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
