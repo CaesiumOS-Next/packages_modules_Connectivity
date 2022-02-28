@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4fdc473_bab96b8f",
+        "filename": "framework/src/android/net/LinkProperties.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1695414
+      },
+      "writtenOn": "2022-02-28T06:25:07Z",
+      "side": 1,
+      "message": "Hi, just checking to see if a resolution was found for this?",
+      "parentUuid": "cca0ca8f_a8c06814",
+      "range": {
+        "startLine": 722,
+        "startChar": 16,
+        "endLine": 722,
+        "endChar": 34
+      },
+      "revId": "1a9e9f1221d7f75707a15920151e5aee52773126",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97df754b_705d4ef7",
         "filename": "tests/cts/hostside/app3/src/com/android/cts/net/hostside/app3/ExcludedRoutesGatingTest.java",
         "patchSetId": 16
