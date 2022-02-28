@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "728d89fc_b24d9847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-28T11:06:32Z",
+      "side": 1,
+      "message": "All tests pass except https://android-build.googleplex.com/builds/tests/view?invocationId\u003dI87700010022514264\u0026testResultId\u003dTR56927914847299107 which is already broken with:\n\nPermission Denial: starting instrumentation ComponentInfo{com.android.frameworks.inprocesstests/androidx.test.runner.AndroidJUnitRunner} from pid\u003d6369, uid\u003d2000 not allowed because package com.android.frameworks.inprocesstests does not have a signature matching the target android",
+      "revId": "9fa0b3bf18224e069cd4f4df89b85136c7495e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c9bcb32_f6deacd1",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-02-28T08:10:15Z",
       "side": 1,
       "message": "If this throws (or the runShellCommandOrThrow above throws), I expect that the failure will not be easy to debug. Maybe the test process will just crash.\n\nIf this gets the test to pass, then LGTM, but we might want to do better. (For example, could we use a Rule?)",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "9fa0b3bf18224e069cd4f4df89b85136c7495e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9ff57f1_7c7c164d",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-28T11:06:32Z",
+      "side": 1,
+      "message": "Yeah, I think you are right. Let me experiment some more with this; I may be able to move this in a @BeforeClass method (b/203722419 makes me believe that *may* work). In the meantime, I will submit this as all tests pass, except one (unrelated) test that is already broken.",
+      "parentUuid": "0c9bcb32_f6deacd1",
       "range": {
         "startLine": 118,
         "startChar": 8,
