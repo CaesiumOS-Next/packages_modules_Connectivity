@@ -63,7 +63,30 @@
       },
       "revId": "9fa0b3bf18224e069cd4f4df89b85136c7495e8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02154b18_a9e83162",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-28T14:11:34Z",
+      "side": 1,
+      "message": "Okay, aosp/2002172 fixes the error reporting. If you think we\u0027ll reuse this in other places, I am happy to create a KernelConfigRule similar to DevSdkIgnoreRule.",
+      "parentUuid": "d9ff57f1_7c7c164d",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "9fa0b3bf18224e069cd4f4df89b85136c7495e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
-  ],
-  "submitRequirementResults": []
+  ]
 }
