@@ -34,6 +34,23 @@
       "parentUuid": "84c2cb46_a6f20683",
       "revId": "c7a9129538b8168ebe68d47e888df4961503e487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d0e48af_2a56376c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-02-28T03:17:23Z",
+      "side": 1,
+      "message": "Bypassing lint, this is not really add any API.\nBut only move files.",
+      "revId": "c7a9129538b8168ebe68d47e888df4961503e487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
