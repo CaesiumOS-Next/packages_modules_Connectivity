@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd27fb9_349f440a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-28T23:33:05Z",
+      "side": 1,
+      "message": "Build failure seems unrelated:\n\nThe system is out of resources.\nConsult the following stack trace for details.\njava.lang.OutOfMemoryError: Java heap space\n        at jdk.compiler/com.sun.tools.javac.util.ArrayUtils.ensureCapacity(ArrayUtils.java:60)\n        at jdk.compiler/com.sun.tools.javac.util.SharedNameTable.fromUtf(SharedNameTable.java:132)\n        at jdk.compiler/com.sun.tools.javac.util.Names.fromUtf(Names.java:398)\n        at jdk.compiler/com.sun.tools.javac.util.ByteBuffer.toName(ByteBuffer.java:159)\n        at jdk.compiler/com.sun.tools.javac.jvm.ClassWriter$CWSignatureGenerator.toName(ClassWriter.java:332)\n",
+      "revId": "3409b2ef6fba0477e57d6dfaa1e49cf360236a68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
