@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84c2cb46_a6f20683",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-28T02:05:46Z",
+      "side": 1,
+      "message": "to remove ?",
+      "revId": "c7a9129538b8168ebe68d47e888df4961503e487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
