@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e965beae_2cd2dfe0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-28T07:36:24Z",
+      "side": 1,
+      "message": "I have also created aosp/1996910 to fix this. (And tested the failing configuration in forrest: https://android-build.googleplex.com/builds/abtd/run/L52500000953160933)",
+      "revId": "347cfce6a69359d3b1725472d3128e8dd9d485a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27766e1c_01e1290c",
+        "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-02-28T07:36:24Z",
+      "side": 1,
+      "message": "does this work or does tearDown throw a null pointer exception if the assumption fails?",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "347cfce6a69359d3b1725472d3128e8dd9d485a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
