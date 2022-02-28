@@ -157,6 +157,52 @@
       "message": "cherry-pick LGTM but see comments on commit message",
       "revId": "4360fd8d21399e6239a9b7a923d92ff17bc97e21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b467f3fd_4ae80a1c",
+        "filename": "service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-28T03:19:47Z",
+      "side": 1,
+      "message": "Looks like this is already statically included by libtraffic_controller. Would it take less storage as static_libs ?\n\nMaybe file a bug since this is a cherry-pick.",
+      "range": {
+        "startLine": 78,
+        "startChar": 9,
+        "endLine": 78,
+        "endChar": 18
+      },
+      "revId": "4360fd8d21399e6239a9b7a923d92ff17bc97e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7f5ec2f_35399c6b",
+        "filename": "service/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-28T03:19:47Z",
+      "side": 1,
+      "message": "Can you double-check how much storage this uses ? I see ~860kB in some old build\n\nMaybe include that in the bug mentioned above.",
+      "range": {
+        "startLine": 82,
+        "startChar": 9,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "4360fd8d21399e6239a9b7a923d92ff17bc97e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
