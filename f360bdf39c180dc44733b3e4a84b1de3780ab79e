@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a77ffd_699923fc",
+        "filename": "framework/src/android/net/ConnectivitySettingsManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-02-28T08:34:39Z",
+      "side": 1,
+      "message": "Do we have an alternative in android. ?",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 15
+      },
+      "revId": "f360bdf39c180dc44733b3e4a84b1de3780ab79e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
