@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a04bad48_cbc4062b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-28T03:06:25Z",
+      "side": 1,
+      "message": "Typo: splitting",
+      "range": {
+        "startLine": 15,
+        "startChar": 21,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "4360fd8d21399e6239a9b7a923d92ff17bc97e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9921e25_6eae5caf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-28T03:06:25Z",
+      "side": 1,
+      "message": "Did you mean partial ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 49,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "4360fd8d21399e6239a9b7a923d92ff17bc97e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c95078_c3d1bcc3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-28T03:06:25Z",
+      "side": 1,
+      "message": "Let\u0027s say \"to aosp/1994130\" to be aosp-friendly",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "4360fd8d21399e6239a9b7a923d92ff17bc97e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74b2e5d3_e7b35b86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-02-28T03:06:25Z",
+      "side": 1,
+      "message": "cherry-pick LGTM but see comments on commit message",
+      "revId": "4360fd8d21399e6239a9b7a923d92ff17bc97e21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
