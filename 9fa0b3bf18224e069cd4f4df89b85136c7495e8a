@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60115ff9_0d58bc23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1112023
+      },
+      "writtenOn": "2022-02-28T18:21:48Z",
+      "side": 1,
+      "message": "FUI, SysUI tests have resolved this by using @RunWith(Functional.class)\n\nThe trick implemented there reports all exceptions that happen in @BeforeClass as if they occurred in each of the tests methods.\n\nhttps://source.corp.google.com/android/platform_testing/libraries/health/runners/microbenchmark/src/android/platform/test/microbenchmark/Functional.java;rcl\u003d57c91fd60fea901ef5584891409100e8b299f987;l\u003d135",
+      "revId": "9fa0b3bf18224e069cd4f4df89b85136c7495e8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c9bcb32_f6deacd1",
         "filename": "tests/cts/net/src/android/net/cts/RateLimitTest.java",
         "patchSetId": 2
