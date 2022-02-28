@@ -16,6 +16,23 @@
       "message": "This does not add any APIs, just move.",
       "revId": "eb6f4bef96409239af98a38c354c457604141602",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bace87c_d2b12992",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-02-28T05:29:05Z",
+      "side": 1,
+      "message": "Global-Approval because the changes to the files lacking OWNERS approval are identical to those in ag/16657723, which were reviewed by OWNERS and merged a few weeks ago.",
+      "revId": "eb6f4bef96409239af98a38c354c457604141602",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
