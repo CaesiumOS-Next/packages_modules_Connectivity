@@ -16,6 +16,24 @@
       "message": "to remove ?",
       "revId": "c7a9129538b8168ebe68d47e888df4961503e487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e95502e6_36e80903",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-02-28T02:21:33Z",
+      "side": 1,
+      "message": "Maybe not?\nThis CL is still not aosp first, from my point of view.\nAnd this line leave traces to give people why it is not.\nI\u0027ll remove that if you feel strongly.",
+      "parentUuid": "84c2cb46_a6f20683",
+      "revId": "c7a9129538b8168ebe68d47e888df4961503e487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
