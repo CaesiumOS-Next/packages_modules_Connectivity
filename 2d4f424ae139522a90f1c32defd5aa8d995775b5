@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bb5f4c5_05f13d28",
+        "filename": "framework/api/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T23:46:44Z",
+      "side": 1,
+      "message": "I don\u0027t think we usually say ...List for this kind of method. Is there any issue with making this an overload ?",
+      "range": {
+        "startLine": 517,
+        "startChar": 69,
+        "endLine": 517,
+        "endChar": 82
+      },
+      "revId": "2d4f424ae139522a90f1c32defd5aa8d995775b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45f3d8b1_88da9b6c",
+        "filename": "framework/src/android/net/StaticIpConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T23:46:44Z",
+      "side": 1,
+      "message": "You may want to observe this will override what was set by setDomainList, and possibly deprecate it in favor of the new API.",
+      "range": {
+        "startLine": 181,
+        "startChar": 81,
+        "endLine": 181,
+        "endChar": 82
+      },
+      "revId": "2d4f424ae139522a90f1c32defd5aa8d995775b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7970200_80e4b859",
+        "filename": "framework/src/android/net/StaticIpConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T23:46:44Z",
+      "side": 1,
+      "message": "If one of these strings contains a comma the API will not behave correctly.\n\nCommas are invalid in domain names, likely the simplest solution to this is to throw IllegalArgumentException if any of the passed domain contains a comma.",
+      "range": {
+        "startLine": 198,
+        "startChar": 70,
+        "endLine": 198,
+        "endChar": 80
+      },
+      "revId": "2d4f424ae139522a90f1c32defd5aa8d995775b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
