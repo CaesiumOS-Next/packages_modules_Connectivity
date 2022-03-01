@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "72107858_3a8b11e1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-01T02:52:25Z",
+      "side": 1,
+      "message": "It\u0027s really weird that I got below error message:\n```\nerror: incompatible types: AuthenticationFailedException cannot be converted to IkeException\n        setupPlatformVpnWithSpecificExceptionAndItsErrorCode(exception,\n                                                             ^\n```\n\nAnd aosp/1956069 won\u0027t get this error message when passing IkeNetworkLostException into setupPlatformVpnWithSpecificExceptionAndItsErrorCode(). :/",
+      "parentUuid": "52058fe2_2d9fd8c9",
+      "range": {
+        "startLine": 1098,
+        "startChar": 0,
+        "endLine": 1100,
+        "endChar": 61
+      },
+      "revId": "409a5f293e9a5d916416baa862ca1d965582ef7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e15bb7c_ec96a0f6",
         "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
         "patchSetId": 8
