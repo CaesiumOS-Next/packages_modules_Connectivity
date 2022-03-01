@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "193ed716_cec5fd0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T01:09:43Z",
+      "side": 1,
+      "message": "Let\u0027s beef it up at least in the following ways :\n• Check in the callbacks that the capabilities are the expected ones\n  (LP contains the right IP configuration, right interface name, the capabilities are expected etc)\n• Try to arrange for the network to validate and expect the validated callback (I think the test network infra has support for this)\n• Call update() with different caps while it\u0027s disconnected to ensure the same (might be in another test if you prefer)\n• Test the failure cases where we should return an exception\n• Try to actually transmit data on that network.\n\nMaybe for another test, we\u0027ll need to test the access UIDs :)\n",
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1110440f_ea7d846c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T01:09:43Z",
+      "side": 1,
+      "message": "Suggest the following style :\n\n  testAndCleanup(() -\u003e {},\n  () -\u003e {\n    if (null !\u003d mTestableCb) {\n      mCm.unregisterNetworkCallback(mTestableCb);\n    },\n  () -\u003e {\n    if (null !\u003d mTestNetwork) {\n      runWithShellPermissionIdentity(() -\u003e {\n          mTnm.teardownTestNetwork(mTestNetwork.getNetwork());\n          disconnectNetwork(mTestNetwork.getIface());\n      });\n    },\n  () -\u003e {\n    runWithShellPermissionIdentity(() -\u003e mEm.setIncludeTestInterfaces(false))\n  });",
+      "range": {
+        "startLine": 93,
+        "startChar": 27,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96bf8649_22d95927",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T01:09:43Z",
+      "side": 1,
+      "message": "Maybe create the executor once and for all in setup() (or even as a final member if that works)",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 61
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4794f275_df30964c",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T01:09:43Z",
+      "side": 1,
+      "message": "Also assertNull(ret.second)",
+      "range": {
+        "startLine": 157,
+        "startChar": 71,
+        "endLine": 157,
+        "endChar": 72
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f67f78a_a306d2eb",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T01:09:43Z",
+      "side": 1,
+      "message": "let\u0027s use expectAvailableCallbacksUnvalidated inline",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 166,
+        "endChar": 49
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad92b43c_ed8dcfc9",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T01:09:43Z",
+      "side": 1,
+      "message": "I don\u0027t think we should \"eventually\" expect. If any other callback is intervening in the mean time, we want to fail the test.",
+      "range": {
+        "startLine": 170,
+        "startChar": 11,
+        "endLine": 170,
+        "endChar": 21
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1eb5271_1eaf1c1d",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1015428
+      },
+      "writtenOn": "2022-03-01T01:09:43Z",
+      "side": 1,
+      "message": "You don\u0027t need this since the first argument already specifies LOST",
+      "range": {
+        "startLine": 171,
+        "startChar": 14,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
