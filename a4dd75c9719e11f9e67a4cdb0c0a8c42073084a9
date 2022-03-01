@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "605bcf7e_d1c3fbb2",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-01T05:49:38Z",
+      "side": 1,
+      "message": "Any reason you can\u0027t move the Behavior intdef to this class and just make this be ProfileNetworkPreference.Behevior?",
+      "range": {
+        "startLine": 27,
+        "startChar": 39,
+        "endLine": 27,
+        "endChar": 71
+      },
+      "revId": "a4dd75c9719e11f9e67a4cdb0c0a8c42073084a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70bd47a8_eb8ff6d6",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-01T05:49:38Z",
+      "side": 1,
+      "message": "mBehavior",
+      "range": {
+        "startLine": 129,
+        "startChar": 19,
+        "endLine": 129,
+        "endChar": 30
+      },
+      "revId": "a4dd75c9719e11f9e67a4cdb0c0a8c42073084a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "902a0fc3_5f87d05f",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-01T05:49:38Z",
+      "side": 1,
+      "message": "Per in-person discussion: do we anticipate a concrete need for this? Supporting both include and excludes means that the algorithms must be more complicated than they need to be to support only includes, and potentially are open to DoS attacks because converting the include/exclude combination into the data structures used by connectivity could take a fair amount of time.\n\nCan we live with only supporting includes?\n\nOr, can we live with supporting only includes or only excludes, but not both? That\u0027s what the VPN API does, for example: setAllowedApplication and setDisallowedApplication cannot both be called.",
+      "range": {
+        "startLine": 219,
+        "startChar": 23,
+        "endLine": 219,
+        "endChar": 38
+      },
+      "revId": "a4dd75c9719e11f9e67a4cdb0c0a8c42073084a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
