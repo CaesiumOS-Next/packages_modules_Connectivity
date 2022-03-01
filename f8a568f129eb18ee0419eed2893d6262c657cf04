@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebd5750_5d579aa1",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringConfigurationParcel.aidl",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-01T19:48:14Z",
+      "side": 1,
+      "message": "Since no info must pass to other class, remove this is correct.",
+      "parentUuid": "2ab81707_f8b3fcc0",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "f8a568f129eb18ee0419eed2893d6262c657cf04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19567579_e8a67ec2",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-02-24T17:51:52Z",
       "side": 1,
       "message": "Do you really need to change return value from boolean to int. It seems most of case you just use to to decide whether to run provisioning.\n\nIf you just return true when config.carrierSupportsTethering is false ?\n\nprotected boolean isTetherProvisioningRequired(final TetheringConfiguration config) {\n        if (SystemProperties.getBoolean(DISABLE_PROVISIONING_SYSPROP_KEY, false)\n                || config.provisioningApp.length \u003d\u003d 0) {\n            return false;\n        }\n\n+        if (!config.carrierSupportsTethering) {\n+            // If tethering doesn\u0027t support carrier network,\n+            // isTetherProvisioningRequired need to return true.\n+            // This could force tethering to run provisioning\n+            // check and get closed when it try to use carrier network.\n+            return true;\n+        }\n        \n        if (carrierConfigAffirmsEntitlementCheckNotRequired(config)) {\n            return false;\n        }\n        return (config.provisioningApp.length \u003d\u003d 2);\n    }",
+      "range": {
+        "startLine": 288,
+        "startChar": 14,
+        "endLine": 288,
+        "endChar": 17
+      },
+      "revId": "f8a568f129eb18ee0419eed2893d6262c657cf04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "398c3a3f_4f9978ee",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-01T19:48:14Z",
+      "side": 1,
+      "message": "Thanks for this suggestion,  but when I tried to figure out some conditions in some method, it may make me confuse if we only have 2 value with true/false to handle some situations.\n\nThus, I still keep the 3 values in this class.",
+      "parentUuid": "19567579_e8a67ec2",
       "range": {
         "startLine": 288,
         "startChar": 14,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39a6d04a_f271bd40",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-01T19:48:14Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "aa5348e6_fd603f19",
+      "range": {
+        "startLine": 422,
+        "startChar": 22,
+        "endLine": 422,
+        "endChar": 43
+      },
+      "revId": "f8a568f129eb18ee0419eed2893d6262c657cf04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d3662d3_14ccb6e7",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-02-24T17:51:52Z",
       "side": 1,
       "message": "With suggestion above, you could have change: \n        if (!isTetherProvisioningRequired(config)) {\n            receiver.send(TETHER_ERROR_NO_ERROR, null);\n            return;\n        }\n        \n+        if (!config.carrierSupportsTethering) {\n+            receiver.send(TETHER_ERROR_PROVISIONING_FAILED, null); \n+            return;\n+        }",
+      "range": {
+        "startLine": 668,
+        "startChar": 8,
+        "endLine": 676,
+        "endChar": 0
+      },
+      "revId": "f8a568f129eb18ee0419eed2893d6262c657cf04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f4e851_01dbd776",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-01T19:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d3662d3_14ccb6e7",
       "range": {
         "startLine": 668,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6622b178_1f9877c3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-01T19:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "621b859d_ce3b1043",
+      "range": {
+        "startLine": 998,
+        "startChar": 4,
+        "endLine": 1004,
+        "endChar": 5
+      },
+      "revId": "f8a568f129eb18ee0419eed2893d6262c657cf04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93f61d91_c02d667a",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-02-24T17:51:52Z",
       "side": 1,
       "message": "The only caller of this is TetheringService. I am not a fan to expose getTetherProvisioningCondition from EntitlementManger. I think outside of EntitlementManager, they only care whether provisioning is required. You could move isProisioningNeedeButUnavailable into EntitlementManager and only expose isTetherProvisioningRequired instead of getTetherProvisioningCondition.",
+      "range": {
+        "startLine": 1006,
+        "startChar": 4,
+        "endLine": 1009,
+        "endChar": 5
+      },
+      "revId": "f8a568f129eb18ee0419eed2893d6262c657cf04",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fc79dd2_daf92d16",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-01T19:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93f61d91_c02d667a",
       "range": {
         "startLine": 1006,
         "startChar": 4,

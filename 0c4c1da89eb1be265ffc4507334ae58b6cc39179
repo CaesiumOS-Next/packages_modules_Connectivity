@@ -46,6 +46,30 @@
       },
       "revId": "0c4c1da89eb1be265ffc4507334ae58b6cc39179",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "044dd74d_35bc9566",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-01T19:48:14Z",
+      "side": 1,
+      "message": "Thanks Meng, and Mark, I decide to move the carrier config method to entitlementManager.",
+      "parentUuid": "c8c5fe53_0f5099a4",
+      "range": {
+        "startLine": 288,
+        "startChar": 18,
+        "endLine": 288,
+        "endChar": 48
+      },
+      "revId": "0c4c1da89eb1be265ffc4507334ae58b6cc39179",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
