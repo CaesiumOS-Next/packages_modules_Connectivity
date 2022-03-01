@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8adf7ad9_f94b475e",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-01T02:52:14Z",
+      "side": 1,
+      "message": "Thanks for finding this!\nReverted.",
+      "parentUuid": "34e957ea_62c669f3",
+      "range": {
+        "startLine": 813,
+        "startChar": 8,
+        "endLine": 813,
+        "endChar": 36
+      },
+      "revId": "e615bed0b6a56ce2c27bdb5dd62ef66459cebd47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c13f2ea_28baca6d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed963a69_557d839b",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 948,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-01T02:52:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c13f2ea_28baca6d",
+      "range": {
+        "startLine": 948,
+        "startChar": 79,
+        "endLine": 948,
+        "endChar": 88
+      },
+      "revId": "e615bed0b6a56ce2c27bdb5dd62ef66459cebd47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a0f3681_9a4b24a0",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-22T01:15:17Z",
       "side": 1,
       "message": "Sorry we made small changes to the API and CATEGORY_EVENT_DEACTIVATED_BY_USER no longer sends error class and error code.",
+      "range": {
+        "startLine": 984,
+        "startChar": 11,
+        "endLine": 984,
+        "endChar": 76
+      },
+      "revId": "e615bed0b6a56ce2c27bdb5dd62ef66459cebd47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aae4f610_82bd80f1",
+        "filename": "tests/unit/java/com/android/server/connectivity/VpnTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1308163
+      },
+      "writtenOn": "2022-03-01T02:52:14Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "5a0f3681_9a4b24a0",
       "range": {
         "startLine": 984,
         "startChar": 11,
