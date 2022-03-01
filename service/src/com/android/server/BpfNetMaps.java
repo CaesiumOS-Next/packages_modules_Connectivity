@@ -54,6 +54,13 @@ public class BpfNetMaps {
         sInitialized = true;
     }
 
+    /** Constructor used after T that doesn't need to use netd anymore. */
+    public BpfNetMaps() {
+        this(null);
+
+        if (USE_NETD) throw new IllegalArgumentException("BpfNetMaps need to use netd before T");
+    }
+
     public BpfNetMaps(INetd netd) {
         ensureInitialized();
         mNetd = netd;
