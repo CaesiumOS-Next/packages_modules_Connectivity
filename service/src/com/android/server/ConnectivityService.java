@@ -737,10 +737,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final long MAX_TEST_ALLOW_BAD_WIFI_UNTIL_MS = 5 * 60 * 1000L;
 
     /**
-     * The priority of the tc police rate limiter -- smaller value is higher priority.
-     * This value needs to be coordinated with PRIO_CLAT, PRIO_TETHER4, and PRIO_TETHER6.
+     * The priority of the tc police rate limiter.
+     *
+     * Smaller value is higher priority.
+     * This value is supported on T+ devices and needs to be coordinated with PRIO_CLAT,
+     * PRIO_TETHER4, and PRIO_TETHER6.
      */
-    private static final short TC_PRIO_POLICE = 1;
+    private static final short TC_PRIO_POLICE = 3;
 
     /**
      * The BPF program attached to the tc-police hook to account for to-be-dropped traffic.

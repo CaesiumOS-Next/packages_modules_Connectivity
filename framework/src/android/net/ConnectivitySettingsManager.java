@@ -1085,6 +1085,8 @@ public class ConnectivitySettingsManager {
      *
      * The limit is only applicable to networks that provide internet connectivity. -1 codes for no
      * bandwidth limitation.
+     * The limit only applies to this device, meaning that tethered traffic is excluded from this
+     * limitation.
      *
      * @param context The {@link Context} to query the setting.
      * @return The rate limit in number of bytes per second or -1 if disabled.
@@ -1100,6 +1102,8 @@ public class ConnectivitySettingsManager {
      * The limit is applied to all networks that provide internet connectivity. It is applied on a
      * per-network basis, meaning that global ingress rate could exceed the limit when communicating
      * on multiple networks simultaneously.
+     * The limit only applies to this device, meaning that tethered traffic is excluded from this
+     * limitation.
      *
      * @param context The {@link Context} to set the setting.
      * @param rateLimitInBytesPerSec The rate limit in number of bytes per second or -1 to disable.
