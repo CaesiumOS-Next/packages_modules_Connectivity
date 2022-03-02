@@ -39,6 +39,30 @@
       },
       "revId": "aae279dcc685085cfdce06af4ddf7ad27c2cf980",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c9414b_6a4e9060",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 48
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-02T02:13:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec6ad884_cb2ff3c7",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "aae279dcc685085cfdce06af4ddf7ad27c2cf980",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
