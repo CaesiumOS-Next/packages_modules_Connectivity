@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f18ff174_dd3e5c28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-02T14:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf04dfc2_b51981fb",
+      "range": {
+        "startLine": 12,
+        "startChar": 23,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "70db1fbbc0f38a8512e6ab054e29bc02326e2785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8f5f090_9e9b253e",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1af3199b_e28abdc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-02T14:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8f5f090_9e9b253e",
+      "range": {
+        "startLine": 14,
+        "startChar": 20,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "70db1fbbc0f38a8512e6ab054e29bc02326e2785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ad33cbe_7a2f664a",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-02-22T02:39:14Z",
       "side": 1,
       "message": "You can refer to the header without links to the libcutils.\n```\n    header_libs: [\n        \"libcutils_headers\",\n    ],\n```",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "70db1fbbc0f38a8512e6ab054e29bc02326e2785",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a44ab478_f1260b1f",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-02T14:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ad33cbe_7a2f664a",
       "range": {
         "startLine": 48,
         "startChar": 0,
