@@ -5706,8 +5706,8 @@ public class ConnectivityManager {
     }
 
     /**
-     * Sets whether the specified UID is allowed to use data on metered networks even when
-     * background data is restricted.
+     * Add the specified UID to allow list to use data on metered networks even when
+     * background data is restricted. The deny list takes precedence over the allow list.
      *
      * @param uid uid of target app
      * @throws IllegalStateException if updating allow list failed.
@@ -5719,17 +5719,40 @@ public class ConnectivityManager {
             android.Manifest.permission.NETWORK_STACK,
             NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
     })
-    public void updateMeteredNetworkAllowList(final int uid, final boolean add) {
+    public void addUidToMeteredNetworkAllowList(final int uid) {
         try {
-            mService.updateMeteredNetworkAllowList(uid, add);
+            mService.updateMeteredNetworkAllowList(uid, true /* add */);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
     }
 
     /**
-     * Sets whether the specified UID is prevented from using background data on metered networks.
-     * Takes precedence over {@link #updateMeteredNetworkAllowList}.
+     * Remove the specified UID from allow list. The application can't use background data on
+     * metered networks when background data is restricted. The deny list takes precedence over
+     * the allow list.
+     *
+     * @param uid uid of target app
+     * @throws IllegalStateException if updating allow list failed.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.NETWORK_SETTINGS,
+            android.Manifest.permission.NETWORK_STACK,
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
+    })
+    public void removeUidFromMeteredNetworkAllowList(final int uid) {
+        try {
+            mService.updateMeteredNetworkAllowList(uid, false /* remove */);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Add the specified UID to deny list to prevent from using background data on metered
+     * networks. Takes precedence over {@link #addUidToMeteredNetworkAllowList}.
      *
      * @param uid uid of target app
      * @throws IllegalStateException if updating deny list failed.
@@ -5741,9 +5764,32 @@ public class ConnectivityManager {
             android.Manifest.permission.NETWORK_STACK,
             NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
     })
-    public void updateMeteredNetworkDenyList(final int uid, final boolean add) {
+    public void addUidToMeteredNetworkDenyList(final int uid) {
         try {
-            mService.updateMeteredNetworkDenyList(uid, add);
+            mService.updateMeteredNetworkDenyList(uid, true /* add */);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
+    /**
+     * Remove the specified UID from deny list. The application could use background data on metered
+     * networks if background data is not restricted. The deny list takes precedence over the
+     * allow list.
+     *
+     * @param uid uid of target app
+     * @throws IllegalStateException if updating deny list failed.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    @RequiresPermission(anyOf = {
+            android.Manifest.permission.NETWORK_SETTINGS,
+            android.Manifest.permission.NETWORK_STACK,
+            NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK
+    })
+    public void removeUidFromMeteredNetworkDenyList(final int uid) {
+        try {
+            mService.updateMeteredNetworkDenyList(uid, false /* remove */);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
