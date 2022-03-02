@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d44b2e0c_07671c58",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T01:59:18Z",
+      "side": 1,
+      "message": "one !\u003d 0",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 16
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11405e1a_dfffa306",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T01:59:18Z",
+      "side": 1,
+      "message": "you should be able to just write \u003d {}; here instead of memset I think",
+      "range": {
+        "startLine": 75,
+        "startChar": 25,
+        "endLine": 75,
+        "endChar": 26
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcc14318_973057d4",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T01:59:18Z",
+      "side": 1,
+      "message": "these should probably be called *_FLAG or HAS_*_FLAG\n\nie. HAS_SRC_IP_FLAG",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e2d7331_acad9143",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T01:59:18Z",
+      "side": 1,
+      "message": "this path is no longer valid, please use:\n\npackages/modules/Connectivity/bpf_progs/bpf_net_helpers.h\n\nor send me a pair of CLs to move bpf_net_helpers.h from there next to bpf_helpers.h,\n\nie. probably frameworks/libs/net/common/native/bpf_headers/include/bpf/bpf_net_helpers.h",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 78
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e1f9bca_c63c1edc",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T01:59:18Z",
+      "side": 1,
+      "message": "I\u0027d call this \u0027flags\u0027 or \u0027presentFields\u0027.",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da9d00f1_7afd4ab9",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T01:59:18Z",
+      "side": 1,
+      "message": "consider whether having a RuleEntry even makes sense...\ncouldn\u0027t you just reuse DscpPolicy?\n\nCould you then also simplify setting up the RuleEntry by just using copy assignment of the full DscpPolicy struct?",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
