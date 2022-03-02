@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71276bc1_cf709527",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T19:57:59Z",
+      "side": 1,
+      "message": "Note that tagging the socket to AID_CLAT",
+      "range": {
+        "startLine": 137,
+        "startChar": 17,
+        "endLine": 137,
+        "endChar": 31
+      },
+      "revId": "34bc154ec71b7518b163f77312ff1153d76e5fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f6d3c3b_fddd0309",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T19:57:59Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 137,
+        "startChar": 52,
+        "endLine": 137,
+        "endChar": 65
+      },
+      "revId": "34bc154ec71b7518b163f77312ff1153d76e5fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0006782b_d02877b1",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T19:57:59Z",
+      "side": 1,
+      "message": "would cause process data usage accounting to be bypassed.",
+      "range": {
+        "startLine": 138,
+        "startChar": 82,
+        "endLine": 138,
+        "endChar": 88
+      },
+      "revId": "34bc154ec71b7518b163f77312ff1153d76e5fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e4f216e_86dda83f",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T19:57:59Z",
+      "side": 1,
+      "message": "use forward /\u0027s",
+      "range": {
+        "startLine": 140,
+        "startChar": 50,
+        "endLine": 140,
+        "endChar": 51
+      },
+      "revId": "34bc154ec71b7518b163f77312ff1153d76e5fce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
