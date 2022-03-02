@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "687991a4_ee1eff3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T00:46:33Z",
+      "side": 1,
+      "message": "AFAIK clat was 4 already in S, see:\n  http://cs/sc-dev/system/netd/server/OffloadUtils.cpp?l\u003d208\n\nconstexpr uint16_t PRIO_CLAT \u003d 4;\n\nAlso this won\u0027t actually fully work, as not all tethered traffic gets offloaded by bpf...\n\nMy assumption was we\u0027d just not to XDP tethering when rate limitting is enabled...",
+      "revId": "b367a464532f4639728cacb98577c28b1aca4ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
