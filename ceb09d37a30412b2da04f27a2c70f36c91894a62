@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ba52173_c5dbc133",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-02T19:12:19Z",
+      "side": 1,
+      "message": "I think https://android.git.corp.google.com/platform/system/netd/+/228cffa9b4aac11fe5bc957fca4defb0ef5506de%5E%21/ \u0027NetworkController: Clear all clsact stubs in initialization\u0027 means the note is not needed...",
+      "revId": "ceb09d37a30412b2da04f27a2c70f36c91894a62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
