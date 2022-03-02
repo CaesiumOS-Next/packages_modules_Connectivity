@@ -16,6 +16,696 @@
       "message": "Temporarily +2ing so we can start treehugger.",
       "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9d67e7f_05af4c23",
+        "filename": "service/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Do you actually need this? libnet_utils_device_common_bpfjni above already does:\n\n    whole_static_libs: [\n        \"libtcutils\",\n    ],",
+      "range": {
+        "startLine": 69,
+        "startChar": 9,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "459f1476_327da5e9",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 49
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Typo, range.",
+      "range": {
+        "startLine": 22,
+        "startChar": 40,
+        "endLine": 22,
+        "endChar": 44
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0693286b_d3bccd6c",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 49
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "will not automatically assign one of the blocked ports.",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3954aab_a871fc27",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 49
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Looks like there are no tests for any of these exceptions. Can you add some? If the code doesn\u0027t actually throw exceptions, then maybe remove this documentation.",
+      "range": {
+        "startLine": 28,
+        "startChar": 15,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cec889a_ce6a8440",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 49
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "For consistency with the other methods, I think it would be better to call this blockPortForBind (and similarly, unblockPortForBind).",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b404df44_4d45870d",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Might want to say that this is a bitmap exactly 65536 entries long, with one entry per port number.",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 33
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3f67f64_bad45b6a",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "These values don\u0027t match the documentation in the AIDL file, which says the code of the ServiceSpecificException are a UNIX error code. (1 is EPERM)\n\nAlso they are not useful:\n- They are all \u003d\u003d 1 so they pass no information to the caller\n- Even if they were different, the names just encode the operation that failed. But the caller already knows the operation that failed, because they know what method they called.\n\nWould suggest making the behaviour match the documentation, and exposing a UNIX error to the caller. That allows us to pass back useful information, if not now, then at least in the future.\n\nOther possibilities include\n- Making the methods return a boolean success/failure instead of throwing, but that seems worse than passing an error.\n- In the AIDL file, defining specific BLOCK_PORT_* AIDL int constants for the codes that can appears in the ServiceSpecificException, and then using them here. That doesn\u0027t seem to provide much value.",
+      "range": {
+        "startLine": 59,
+        "startChar": 24,
+        "endLine": 59,
+        "endChar": 48
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca3aa76c_ceb4f238",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Suggest combining:\n\n    Log.e(TAG, \"Cannot open blocked ports map \" + BLOCKED_PORTS_MAP_PATH + \": \" + e);\n\n... but can this actually ever fail in practice? If it can\u0027t, then I\u0027d suggest just throwing IllegalStateException (or UnsupportedOperationException) and crashing the system here. Crashing the system will ensure that if this code is broken by a mainline module update, the module will be rolled back. And we already crash the system if attaching the program fails.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c4707df_4f64cd1a",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "The context to be used here is the context the service is running. That should be passed in via the service\u0027s constructor, like createIpSecService() or createNsdService() do.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 51
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7855b048_460b82d4",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "This method is a no-op because it never returns false. Could you try to add a testcase that shows that if the caller does not have permisison, the proper SecurityException is thrown?\n\nI think the test can do this by using seteuid to set its UID to something unprivileged (say, a random UID starting at FIRST_APPLICATION_UID + 2000 or something),",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 5
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf38e6f0_c1d9776f",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Having attachProgram catch the exception and return false, and then throwing here, causes the exception to be lost. Why not have attachProgram throw UnsupportedOperationException itself?",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 9
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b7d8a0f_ea7fa2c0",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "If the map couldn\u0027t be opened, this will fail with NullPointerException. Seems better to throw SSE with an error code of EOPNOTSUPP or similar.",
+      "range": {
+        "startLine": 106,
+        "startChar": 31,
+        "endLine": 106,
+        "endChar": 35
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0782ee_27bb6bef",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Why not just:\n\n    throw new ServiceSpecificException(e.errno, e.toString());\n\nhere and elsewhere?",
+      "range": {
+        "startLine": 109,
+        "startChar": 12,
+        "endLine": 109,
+        "endChar": 17
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad9799b2_f51ddc66",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Do we already have a test that blocking a given port twice silently succeeds, and that blocking an unblocked port similarly silently succeeds? If not, could you add one?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 9
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf883cf0_1b80c3ec",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Streams are generally discouraged in framework code because they cause unnecessary allocations that need to be GCd. Suggest:\n\n    return CollectionUtils.toIntArray(portMap);",
+      "range": {
+        "startLine": 149,
+        "startChar": 8,
+        "endLine": 149,
+        "endChar": 59
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285aeedd_a08efbac",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this code is useful because if it ever runs the system is going to crash immediately afterwards due to the UOE thrown at line 98. Per earlier comment, would suggest having this method throw UOE directly. Then you can remove detachProgram entirely.",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 25
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855aaaf8_299141e3",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "This should probably be placed into mts-tethering as well to ensure that a mainline module update doesn\u0027t break it. Because it requires root I think you need to put it in test/mts/tools/mts-tradefed/res/config/mts-tethering-tests-list-eng-only.xml.",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 13
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0b4c6aa_b8c41a8c",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "I bet this isn\u0027t actually true for this particular test :)",
+      "range": {
+        "startLine": 8,
+        "startChar": 18,
+        "endLine": 8,
+        "endChar": 60
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dab278c1_c798cfcd",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Libraries used by the test itself should probably be linked statically, to ensure that if a developer makes a change to a library, that change is immediately reflected when they re-run the test. This might include libutils, libcutils, libnetutils.",
+      "range": {
+        "startLine": 20,
+        "startChar": 9,
+        "endLine": 20,
+        "endChar": 17
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9230f1ed_20ae8708",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Do we need these?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 6
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7146d5ed_77b190ed",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "This test should be skipped on a device running R or S, right? Maybe you can use GTEST_SKIP (see unfortunately deleted sample code at https://android-review.googlesource.com/c/platform/system/bpf/+/1869329/11/libbpf_android/include/bpf/BpfUtils.h#b130 ) if !android::modules::sdklevel::IsAtLeastT() ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3590608c_1836d2b6",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Instead of not testing unblockAllPortsForBind at all, could we instead call the method anyway, and put back the list of blocked ports immediately? That seems better because otherwise we won\u0027t have any test enforcing correct behaviour of unblockAllPortsForBind on Qualcomm devices.",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 27
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "989699c3_617616ec",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this, binding to a port of 0 should always succeed (and if it doesn\u0027t, that\u0027s a reason for this test to fail becase it could indicate a bug in the BPF program)",
+      "range": {
+        "startLine": 65,
+        "startChar": 28,
+        "endLine": 65,
+        "endChar": 33
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04a1318f_f91b1aa8",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Looks like you\u0027re treating this as a port (hence the call to ntohs), but actually it\u0027s a filedescriptor number? Should this just be \"port\"?",
+      "range": {
+        "startLine": 75,
+        "startChar": 32,
+        "endLine": 75,
+        "endChar": 37
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922e9cb0_915ac741",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be SO_REUSEADDR? SO_REUSEPORT is generally used for load-balancing but is not very common on Android.",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 49
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c699075_32191cc9",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Nit: double space.",
+      "range": {
+        "startLine": 100,
+        "startChar": 31,
+        "endLine": 100,
+        "endChar": 33
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113952b0_64febccd",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Do you still need this, if you remove RETRY above?",
+      "range": {
+        "startLine": 111,
+        "startChar": 29,
+        "endLine": 111,
+        "endChar": 63
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a62011_a256b19c",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Multi-line statements should have braces. Also below.",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 37
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3a42b1a_405c9f24",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t guarantee that actualBlockedPorts and blockedPorts are the same. It only checks that all ports in blockedPorts are in actualBlockedPorts.\n\nIf you want to do this manually then I think you also need to check that blockedPorts and actualBlockedPorts are the same size, and that all ports in actualBlockedPorts are present in blockedPorts as well.\n\nBut I think you can just use \"actualBlockedPorts \u003d\u003d blockedPorts\" to do the comparison, or maybe even EXPECT_EQ(blockedPorts, actualBlockedPorts), since std::vector has a useful operator\u003d\u003d. If the service does not return ports in sorted order, then you\u0027ll need to sort the ports in actualBlockedPorts before you do that.",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 29
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6420169e_55d822c8",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T03:58:22Z",
+      "side": 1,
+      "message": "Nit: space after ,. Also elsewhere.",
+      "range": {
+        "startLine": 180,
+        "startChar": 27,
+        "endLine": 180,
+        "endChar": 28
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
