@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4683b420_7bed510d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T15:12:04Z",
+      "side": 1,
+      "message": "Code is mostly ready I think. The tests still need a bit more coverage.",
+      "revId": "36728e3301832368382e63b50426ce4821e08ba9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

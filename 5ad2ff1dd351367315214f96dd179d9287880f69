@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b42b39f_4fcd8d5c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3635,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T15:12:04Z",
+      "side": 1,
+      "message": "At the moment yes, you can do that and go on your merry way. It\u0027s actually already documented:\n\n     * \u003cp\u003eThis method has no effect if {@link #markConnected} has not yet been called.\n\nI\u0027m not sure it\u0027s worth making an effort to do better.\n\nUnless we think that certain link layers will simply *always* call this and never call unregister? But that actually seems something we would actively want to avoid: in general, unless the link layer has strong reason to believe that a replacement will arrive soon, it should always call unregister instead of this new method. The fact that this method can only be called in certain circumstances will help ensure that link layers do the right thing and call unregister() most of the time.",
+      "parentUuid": "dc24943c_8ce6fedb",
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04f23ee5_b5235b0f",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 22
@@ -31,6 +49,30 @@
       "writtenOn": "2022-02-22T10:41:08Z",
       "side": 1,
       "message": "Is this, in fact, useful ? We discussed this as a way to avoid doing a few things but AFAICT this patch does them all :\n• Tear down immediately if the network serves no requests\n• Don\u0027t linger new requests for agents pending replacements",
+      "range": {
+        "startLine": 3655,
+        "startChar": 24,
+        "endLine": 3655,
+        "endChar": 41
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1c0d38a_796bded9",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3655,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T15:12:04Z",
+      "side": 1,
+      "message": "The test continues to pass with it removed, so... :-) Done.",
+      "parentUuid": "04f23ee5_b5235b0f",
       "range": {
         "startLine": 3655,
         "startChar": 24,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b764324_a2235269",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3662,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T15:12:04Z",
+      "side": 1,
+      "message": "Ack. I don\u0027t think this will actually ever result in any changes, but I agree that it\u0027s very confusing if a rematch makes changes that were actually triggered by an event that happened much earlier. Done.",
+      "parentUuid": "9cbe3b58_452c7904",
+      "range": {
+        "startLine": 3662,
+        "startChar": 24,
+        "endLine": 3662,
+        "endChar": 56
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1477579b_e3569232",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-02-22T10:41:08Z",
       "side": 1,
       "message": "Some comments would probably be welcome by future reader on how this happens and why it\u0027s fine.",
+      "range": {
+        "startLine": 3672,
+        "startChar": 12,
+        "endLine": 3672,
+        "endChar": 58
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f7464d_7e4dd6fd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3672,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T15:12:04Z",
+      "side": 1,
+      "message": "But I\u0027m not sure exactly what you think it should say, so I added a generic comment explaining what\u0027s going. Let me know if you have better suggestions.",
+      "parentUuid": "1477579b_e3569232",
       "range": {
         "startLine": 3672,
         "startChar": 12,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ab523de_1aad8e7a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 4336,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T15:12:04Z",
+      "side": 1,
+      "message": "I think you\u0027re right, there is a leak here. I think there is already a leak in this code though. mDnsManager.removeNetwork is inside an if (nai.created), and if an agent registers but is never marked connected, nai.created is always false. So when handlePrivateDnsSettingsChanged runs on such a network, it will add a similar entry in DnsManager\u0027s data structures which will never be deleted.\n\nCalling DnsManager#removeNetwork when removing from mNetworkAgentInfos seems like it would fix both leaks. I\u0027m not sure that belongs in this change though. Added a TODO.",
+      "parentUuid": "8b76f6ff_a7a3442b",
+      "range": {
+        "startLine": 4336,
+        "startChar": 20,
+        "endLine": 4336,
+        "endChar": 33
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52ad917c_5e71e4f9",
@@ -123,6 +237,30 @@
       "writtenOn": "2022-02-22T10:41:08Z",
       "side": 1,
       "message": "And possibly matchAllCallback.assertNoCallback",
+      "range": {
+        "startLine": 1168,
+        "startChar": 53,
+        "endLine": 1168,
+        "endChar": 54
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41537350_c762f988",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1168,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T15:12:04Z",
+      "side": 1,
+      "message": "I previosly had lots of assertNoCallbacks here, but they made the test much slower (from \u003c300ms to almost 2s). So I don\u0027t want to add them unless they are actually neccesary. I believe that here they are not, because we never call any of the *Eventually* methods, so all callbacks sent by must be precisely accounted for. In particular, any spurious callback received on matchAllCallback after line 1159 would fail the test at line 1180.",
+      "parentUuid": "52ad917c_5e71e4f9",
       "range": {
         "startLine": 1168,
         "startChar": 53,

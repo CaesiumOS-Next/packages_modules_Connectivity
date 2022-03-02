@@ -230,6 +230,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c23e8e14_d579cae2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 3507,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T15:12:04Z",
+      "side": 1,
+      "message": "Attempted, but this is non-trivial due to limitations in the current keepalivetracker design, so the solution is hacky.",
+      "parentUuid": "47e4582a_6edac467",
+      "range": {
+        "startLine": 3507,
+        "startChar": 16,
+        "endLine": 3507,
+        "endChar": 22
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68025ea9_eaa27431",
