@@ -204,6 +204,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5deae58c_e83007c1",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 49
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-02T04:05:28Z",
+      "side": 1,
+      "message": "Based on the commented-out code, looks like the intent of this code is to throw if permisison is denied. If so, then for consistency with other code that throws exceptions, this should probably be called enforceBlockPortPermission.",
+      "range": {
+        "startLine": 83,
+        "startChar": 17,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3c4707df_4f64cd1a",
         "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
         "patchSetId": 49
