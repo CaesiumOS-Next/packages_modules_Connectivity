@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9f93a52_a354a7a1",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-03-02T00:05:54Z",
+      "side": 1,
+      "message": "nit: carrierConfigAffirmsCarrierNotSupport, to be consistent?\n\nI suppose there will be a follow-up clean up to consolidate `getCarrierConfig` to one time e.g. TetheringConfiguration? Currently there are multiple code path calling getCarrierConfig via carrierConfigAffirmsEntitlementCheckNotRequired and carrierConfigCarrierNotSupport, which is inefficient.",
+      "range": {
+        "startLine": 402,
+        "startChar": 20,
+        "endLine": 402,
+        "endChar": 50
+      },
+      "revId": "e61d16c775c74d87a9bc9d8d528a06f864f51e22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
