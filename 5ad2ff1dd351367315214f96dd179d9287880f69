@@ -292,6 +292,30 @@
       },
       "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97f31aa5_c239305b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 22
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T08:16:51Z",
+      "side": 1,
+      "message": "Added a test for wifi vs cell and for unregister(). Validation is sort of implicitly already tested because there are lots of assertions that check that the device only switches when the replacement validates.",
+      "parentUuid": "ac00b12c_333a0833",
+      "range": {
+        "startLine": 1204,
+        "startChar": 4,
+        "endLine": 1204,
+        "endChar": 5
+      },
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
