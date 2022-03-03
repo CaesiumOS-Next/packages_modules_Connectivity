@@ -499,7 +499,7 @@ static jlong com_android_server_connectivity_ClatCoordinator_tagSocket(JNIEnv* e
         return -1;
     }
 
-    // Tag packet socket with uid AID_CLAT and set tag as zero because tag is unused in bpf
+    // Tag raw socket with uid AID_CLAT and set tag as zero because tag is unused in bpf
     // program for counting data usage in netd.c. Tagging socket is used to avoid counting
     // duplicated clat traffic in bpf stat.
     UidTagValue newKey = {.uid = (uint32_t)AID_CLAT, .tag = 0 /* unused */};
@@ -512,6 +512,36 @@ static jlong com_android_server_connectivity_ClatCoordinator_tagSocket(JNIEnv* e
 
     ALOGI("tag uid AID_CLAT to socket fd %d, cookie %" PRIu64 "", sockFd, sock_cookie);
     return static_cast<jlong>(sock_cookie);
+}
+
+static void com_android_server_connectivity_ClatCoordinator_untagSocket(JNIEnv* env, jobject clazz,
+                                                                        jlong cookie) {
+    uint64_t sock_cookie = static_cast<uint64_t>(cookie);
+    if (sock_cookie == bpf::NONEXISTENT_COOKIE) {
+        jniThrowExceptionFmt(env, "java/io/IOException", "Invalid socket cookie");
+        return;
+    }
+
+    // The reason that deleting entry from cookie tag map directly is that the tag socket destroy
+    // listener only monitors on group INET_TCP, INET_UDP, INET6_TCP, INET6_UDP. The other socket
+    // types, ex: raw, are not able to be removed automatically by the listener.
+    // See TrafficController::makeSkDestroyListener.
+    bpf::BpfMap<uint64_t, UidTagValue> cookieTagMap;
+    auto res = cookieTagMap.init(COOKIE_TAG_MAP_PATH);
+    if (!res.ok()) {
+        throwIOException(env, "failed to init the cookieTagMap", res.error().code());
+        return;
+    }
+
+    res = cookieTagMap.deleteValue(sock_cookie);
+    if (!res.ok()) {
+        jniThrowExceptionFmt(env, "java/io/IOException", "Failed to untag the socket: %s",
+                             strerror(res.error().code()));
+        return;
+    }
+
+    ALOGI("untag socket cookie %" PRIu64 "", sock_cookie);
+    return;
 }
 
 /*
@@ -545,6 +575,8 @@ static const JNINativeMethod gMethods[] = {
          (void*)com_android_server_connectivity_ClatCoordinator_stopClatd},
         {"native_tagSocket", "(Ljava/io/FileDescriptor;)J",
          (void*)com_android_server_connectivity_ClatCoordinator_tagSocket},
+        {"native_untagSocket", "(J)V",
+         (void*)com_android_server_connectivity_ClatCoordinator_untagSocket},
 };
 
 int register_com_android_server_connectivity_ClatCoordinator(JNIEnv* env) {
