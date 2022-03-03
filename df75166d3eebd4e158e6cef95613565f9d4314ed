@@ -16,6 +16,29 @@
       "message": "Temporarily +2ing so we can see what TH thinks of this CL.",
       "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08d2bba7_27fe08e3",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 50
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T09:34:27Z",
+      "side": 1,
+      "message": "Suggest calling this connectivity_native_test because it\u0027s a single test target.",
+      "range": {
+        "startLine": 2,
+        "startChar": 11,
+        "endLine": 2,
+        "endChar": 36
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

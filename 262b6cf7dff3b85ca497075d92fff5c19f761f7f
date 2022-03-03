@@ -1242,6 +1242,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a74c7cd_134dbff3",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T09:34:27Z",
+      "side": 1,
+      "message": "It doesn\u0027t require the socket to be closed:\n\n$ python\nPython 3.9.9 (main, Jan 12 2022, 16:10:51) \n[GCC 11.2.0] on linux\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n\u003e\u003e\u003e from socket import *\n\u003e\u003e\u003e s \u003d socket(AF_INET6, SOCK_STREAM, 0)\n\u003e\u003e\u003e s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)\n\u003e\u003e\u003e s2 \u003d socket(AF_INET6, SOCK_STREAM, 0)\n\u003e\u003e\u003e s2.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)\n\u003e\u003e\u003e s.bind((\"::\", 12345))\n\u003e\u003e\u003e s2.bind((\"::\", 12345))\n\u003e\u003e\u003e s.getsockname()\n(\u0027::\u0027, 12345, 0, 0)\n\u003e\u003e\u003e s2.getsockname()\n(\u0027::\u0027, 12345, 0, 0)\n\u003e\u003e\u003e",
+      "parentUuid": "0b875fbb_ad5d87f6",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 49
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c699075_32191cc9",
         "filename": "tests/native/connectivity_native_test.cpp",
         "patchSetId": 49
