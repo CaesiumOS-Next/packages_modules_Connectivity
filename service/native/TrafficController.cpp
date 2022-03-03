@@ -88,7 +88,7 @@ static_assert(BPF_PERMISSION_UPDATE_DEVICE_STATS == INetd::PERMISSION_UPDATE_DEV
         }                                   \
     } while (0)
 
-const std::string uidMatchTypeToString(uint8_t match) {
+const std::string uidMatchTypeToString(uint32_t match) {
     std::string matchType;
     FLAG_MSG_TRANS(matchType, HAPPY_BOX_MATCH, match);
     FLAG_MSG_TRANS(matchType, PENALTY_BOX_MATCH, match);
@@ -462,7 +462,7 @@ int TrafficController::toggleUidOwnerMap(ChildChain chain, bool enable) {
     }
     Status res;
     BpfConfig newConfiguration;
-    uint8_t match;
+    uint32_t match;
     switch (chain) {
         case DOZABLE:
             match = DOZABLE_MATCH;
