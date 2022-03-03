@@ -885,17 +885,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
          *    They are therefore not thread-safe with respect to each other.
          *  - getNetworkForType() can be called at any time on binder threads. It is synchronized
          *    on mTypeLists to be thread-safe with respect to a concurrent remove call.
-         *  - getRestoreTimerForType(type) is also synchronized on mTypeLists.
          *  - dump is thread-safe with respect to concurrent add and remove calls.
          */
         private final ArrayList<NetworkAgentInfo> mTypeLists[];
         @NonNull
         private final ConnectivityService mService;
-
-        // Restore timers for requestNetworkForFeature (network type -> timer in ms). Types without
-        // an entry have no timer (equivalent to -1). Lazily loaded.
-        @NonNull
-        private ArrayMap<Integer, Integer> mRestoreTimers = new ArrayMap<>();
 
         LegacyTypeTracker(@NonNull ConnectivityService service) {
             mService = service;
@@ -963,34 +957,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 }
             }
             return null;
-        }
-
-        public int getRestoreTimerForType(int type) {
-            synchronized (mTypeLists) {
-                if (mRestoreTimers == null) {
-                    mRestoreTimers = loadRestoreTimers();
-                }
-                return mRestoreTimers.getOrDefault(type, -1);
-            }
-        }
-
-        private ArrayMap<Integer, Integer> loadRestoreTimers() {
-            final String[] configs = mService.mResources.get().getStringArray(
-                    R.array.config_legacy_networktype_restore_timers);
-            final ArrayMap<Integer, Integer> ret = new ArrayMap<>(configs.length);
-            for (final String config : configs) {
-                final String[] splits = TextUtils.split(config, ",");
-                if (splits.length != 2) {
-                    logwtf("Invalid restore timer token count: " + config);
-                    continue;
-                }
-                try {
-                    ret.put(Integer.parseInt(splits[0]), Integer.parseInt(splits[1]));
-                } catch (NumberFormatException e) {
-                    logwtf("Invalid restore timer number format: " + config, e);
-                }
-            }
-            return ret;
         }
 
         private void maybeLogBroadcast(NetworkAgentInfo nai, DetailedState state, int type,
@@ -3148,22 +3114,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     @Override
     public int getRestoreDefaultNetworkDelay(int networkType) {
-        String restoreDefaultNetworkDelayStr = mSystemProperties.get(
+        final String restoreDefaultNetworkDelayStr = mSystemProperties.get(
                 NETWORK_RESTORE_DELAY_PROP_NAME);
-        if(restoreDefaultNetworkDelayStr != null &&
-                restoreDefaultNetworkDelayStr.length() != 0) {
+        if (!TextUtils.isEmpty(restoreDefaultNetworkDelayStr)) {
             try {
                 return Integer.parseInt(restoreDefaultNetworkDelayStr);
             } catch (NumberFormatException e) {
             }
         }
-        // if the system property isn't set, use the value for the apn type
-        int ret = RESTORE_DEFAULT_NETWORK_DELAY;
-
-        if (mLegacyTypeTracker.isTypeSupported(networkType)) {
-            ret = mLegacyTypeTracker.getRestoreTimerForType(networkType);
-        }
-        return ret;
+        // Keep the historical behavior: return -1 for known types and the default for unknown types
+        return mLegacyTypeTracker.isTypeSupported(networkType) ? -1 : RESTORE_DEFAULT_NETWORK_DELAY;
     }
 
     private void dumpNetworkDiagnostics(IndentingPrintWriter pw) {

@@ -42,16 +42,6 @@
         -->
     </string-array>
 
-    <string-array translatable="false" name="config_legacy_networktype_restore_timers">
-        <item>2,60000</item><!-- mobile_mms -->
-        <item>3,60000</item><!-- mobile_supl -->
-        <item>4,60000</item><!-- mobile_dun -->
-        <item>5,60000</item><!-- mobile_hipri -->
-        <item>10,60000</item><!-- mobile_fota -->
-        <item>11,60000</item><!-- mobile_ims -->
-        <item>12,60000</item><!-- mobile_cbs -->
-    </string-array>
-
     <!-- Default supported concurrent socket keepalive slots per transport type, used by
          ConnectivityManager.createSocketKeepalive() for calculating the number of keepalive
          offload slots that should be reserved for privileged access. This string array should be
