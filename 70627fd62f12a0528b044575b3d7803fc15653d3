@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c888d9f_dab5e1bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-03-03T21:21:22Z",
+      "side": 1,
+      "message": "Sure, sounds good. I was actually planning to do most of the above in a separate CL but happy to put it in this one (was trying to avoid it getting too big). I\u0027ll upload a new CL with the above soon but may do the final one (transmit data on the network) in a separate CL depending on how much code it is.",
+      "parentUuid": "193ed716_cec5fd0d",
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1110440f_ea7d846c",
