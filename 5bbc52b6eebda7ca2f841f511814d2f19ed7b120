@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e98d6766_cbff6290",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-03T09:19:07Z",
+      "side": 1,
+      "message": "Nit: \"which can be used to make the p2p...\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 32,
+        "endLine": 9,
+        "endChar": 47
+      },
+      "revId": "5bbc52b6eebda7ca2f841f511814d2f19ed7b120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48df1efd_0cce5c81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-03T09:19:07Z",
+      "side": 1,
+      "message": "Nit: add verbs: \"configuration is only valid if its value is larger\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 14,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "5bbc52b6eebda7ca2f841f511814d2f19ed7b120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b2c26d8_a6d6677d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-03T09:19:07Z",
+      "side": 1,
+      "message": "Nit: long lines",
+      "range": {
+        "startLine": 11,
+        "startChar": 72,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "5bbc52b6eebda7ca2f841f511814d2f19ed7b120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "468e423d_5f65e835",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-03T09:19:07Z",
+      "side": 1,
+      "message": "Can you include some range checks, and at least log errors if the configured value is invalid ?",
+      "range": {
+        "startLine": 233,
+        "startChar": 18,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "5bbc52b6eebda7ca2f841f511814d2f19ed7b120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
