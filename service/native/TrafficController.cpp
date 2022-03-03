@@ -462,7 +462,7 @@ int TrafficController::toggleUidOwnerMap(ChildChain chain, bool enable) {
     }
     Status res;
     BpfConfig newConfiguration;
-    uint8_t match;
+    uint32_t match;
     switch (chain) {
         case DOZABLE:
             match = DOZABLE_MATCH;
