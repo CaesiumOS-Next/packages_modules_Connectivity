@@ -70,6 +70,30 @@
       },
       "revId": "e61d16c775c74d87a9bc9d8d528a06f864f51e22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ab545f6_b646a162",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-03T08:07:32Z",
+      "side": 1,
+      "message": "Should store whole bundle in TetheringConfiguration, it means storing redundant information (tethering doesn\u0027t care) in tethering side.\n\nAdd the TODO comment to keep two boolean (for KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL, KEY_CARRIER_SUPPORTS_TETHERING_BOOL) instead of cross process getCarrierConfig every time ? Then you could just have follow up CL to fix TODO.",
+      "parentUuid": "af175e9c_679ffa63",
+      "range": {
+        "startLine": 402,
+        "startChar": 20,
+        "endLine": 402,
+        "endChar": 50
+      },
+      "revId": "e61d16c775c74d87a9bc9d8d528a06f864f51e22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

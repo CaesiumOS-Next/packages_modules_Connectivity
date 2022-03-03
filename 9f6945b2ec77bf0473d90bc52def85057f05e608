@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "774ffd60_0b23f18d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-03T08:07:32Z",
+      "side": 1,
+      "message": "Add TODO and have follow up CL to avoid getting CarrierConfig twice ?",
+      "range": {
+        "startLine": 286,
+        "startChar": 8,
+        "endLine": 293,
+        "endChar": 9
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f43f13f4_565ea9f6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-03T08:07:32Z",
+      "side": 1,
+      "message": "If TETHERING_PROVISIONING_CARRIER_UNSUPPORT is true and entitlement app is not available, then isProvisioningNeededButUnavailable would be true. Is this expected ?",
+      "range": {
+        "startLine": 314,
+        "startChar": 15,
+        "endLine": 314,
+        "endChar": 91
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b638b067_9ad52213",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-03T08:07:32Z",
+      "side": 1,
+      "message": "This is behavior change. Please fix this TODO in separate CL. If it hard to review, if you mix too many behavior changes in single CL.",
+      "range": {
+        "startLine": 356,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 52
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31ed6089_68838c2f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-03T08:07:32Z",
+      "side": 1,
+      "message": "move this into l.471 ? If the code just return at l.469, buildProxyReceiver is redundant.",
+      "range": {
+        "startLine": 462,
+        "startChar": 0,
+        "endLine": 463,
+        "endChar": 93
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae964881_c3036efe",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-03T08:07:32Z",
+      "side": 1,
+      "message": "Before this CL, onTetherProvisioningFailed only be called when entitlement check fail. Now it would be either entitlement check fail or indicate by carrier config. Passing the reason into onTetherProvisioningFailed to indicate fail reason and update the log ? E.g. \n        mEntitlementMgr.setOnTetherProvisioningFailedListener((int downstream, String reason) -\u003e {\n            mLog.log(\"OBSERVED OnTetherProvisioningFailed: \" + reason);\n            stopTethering(downstream);\n        });",
+      "range": {
+        "startLine": 321,
+        "startChar": 24,
+        "endLine": 322,
+        "endChar": 52
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
