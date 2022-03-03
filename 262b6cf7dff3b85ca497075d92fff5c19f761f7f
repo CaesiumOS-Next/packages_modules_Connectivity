@@ -230,6 +230,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64f249c4_5bbba181",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 49
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1db7153f_db6b7e55",
+      "range": {
+        "startLine": 28,
+        "startChar": 15,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cec889a_ce6a8440",
@@ -914,6 +938,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "130976cb_31ac5868",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Adding \"mts-tethering\" to test_suites causes:\n\nbuild/make/core/main.mk:1425: error: overriding commands for target `out/host/linux-x86/mts-tethering/android-mts-tethering/testcases/connectivity_native_test\u0027, previously defined at build/make/core/main.mk:1425",
+      "parentUuid": "ce7a0865_d17b58d9",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 13
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0b4c6aa_b8c41a8c",
         "filename": "tests/native/Android.bp",
         "patchSetId": 49
@@ -1302,6 +1350,30 @@
       "side": 1,
       "message": "It doesn\u0027t require the socket to be closed:\n\n$ python\nPython 3.9.9 (main, Jan 12 2022, 16:10:51) \n[GCC 11.2.0] on linux\nType \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n\u003e\u003e\u003e from socket import *\n\u003e\u003e\u003e s \u003d socket(AF_INET6, SOCK_STREAM, 0)\n\u003e\u003e\u003e s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)\n\u003e\u003e\u003e s2 \u003d socket(AF_INET6, SOCK_STREAM, 0)\n\u003e\u003e\u003e s2.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)\n\u003e\u003e\u003e s.bind((\"::\", 12345))\n\u003e\u003e\u003e s2.bind((\"::\", 12345))\n\u003e\u003e\u003e s.getsockname()\n(\u0027::\u0027, 12345, 0, 0)\n\u003e\u003e\u003e s2.getsockname()\n(\u0027::\u0027, 12345, 0, 0)\n\u003e\u003e\u003e",
       "parentUuid": "0b875fbb_ad5d87f6",
+      "range": {
+        "startLine": 94,
+        "startChar": 37,
+        "endLine": 94,
+        "endChar": 49
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98ea12e4_48a33071",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a74c7cd_134dbff3",
       "range": {
         "startLine": 94,
         "startChar": 37,

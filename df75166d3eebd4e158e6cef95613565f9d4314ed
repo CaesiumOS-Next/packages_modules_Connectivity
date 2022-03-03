@@ -135,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a07a7c12_dcd500b0",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c439c2f9_7813eecc",
+      "range": {
+        "startLine": 72,
+        "startChar": 91,
+        "endLine": 72,
+        "endChar": 94
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fbd95c5_db0af795",
@@ -148,6 +172,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "This doesn\u0027t look like it belongs in a method called enforceBlockPortPermission.\n\nAlso, can this ever happen? The constructor just runs deps.getBpfBlockPortMap(), and that never returns null, it just crashes the system with UnsupportedOperationException if the map can\u0027t be opened. So if we ever get here, the map can\u0027t be null. Delete?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 9
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dcc04a1_b53c7de9",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fbd95c5_db0af795",
       "range": {
         "startLine": 82,
         "startChar": 0,
@@ -181,6 +229,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87d35c3f_78a4cfd3",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f945b89_e00e11ab",
+      "range": {
+        "startLine": 103,
+        "startChar": 12,
+        "endLine": 103,
+        "endChar": 49
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3418a426_e5accd40",
@@ -194,6 +266,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "Does this actually happen? Looking at BpfBitmap#set, it calls updateEntry, and I don\u0027t think that throws?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 61
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b193ee3d_6bfef0a3",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "This will never happen with updated code, insertEntry was replaced with updateEntry",
+      "parentUuid": "3418a426_e5accd40",
       "range": {
         "startLine": 107,
         "startChar": 0,
@@ -227,6 +323,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b0bb0a3_4d90550e",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb1d0d15_221ccf92",
+      "range": {
+        "startLine": 129,
+        "startChar": 73,
+        "endLine": 129,
+        "endChar": 77
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e638aa54_b67c2577",
@@ -240,6 +360,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "This shouldn\u0027t be Log.e since it\u0027s not an error. Maybe Log.d? Or nothing at all?",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 13
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db77143f_a4e75cbb",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e638aa54_b67c2577",
       "range": {
         "startLine": 175,
         "startChar": 12,
@@ -273,6 +417,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "843e7ea9_42d76a4e",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a80fa137_b55eb1d3",
+      "range": {
+        "startLine": 181,
+        "startChar": 17,
+        "endLine": 181,
+        "endChar": 30
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08d2bba7_27fe08e3",
@@ -286,6 +454,30 @@
       "writtenOn": "2022-03-03T09:34:27Z",
       "side": 1,
       "message": "Suggest calling this connectivity_native_test because it\u0027s a single test target.",
+      "range": {
+        "startLine": 2,
+        "startChar": 11,
+        "endLine": 2,
+        "endChar": 36
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e37b6e_d937ee05",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 50
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08d2bba7_27fe08e3",
       "range": {
         "startLine": 2,
         "startChar": 11,
@@ -319,6 +511,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c28d0abe_598c0f25",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 50
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ba7ca7a_4029e298",
+      "range": {
+        "startLine": 4,
+        "startChar": 9,
+        "endLine": 4,
+        "endChar": 21
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ede2749_a71a1603",
@@ -332,6 +548,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "Did you check that this correctly skips the tests on a device running S or older? (I\u0027m not sure if GTEST_SKIP can be used in SetUp.)",
+      "range": {
+        "startLine": 50,
+        "startChar": 55,
+        "endLine": 50,
+        "endChar": 65
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82909878_561ac75f",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Currently have no way to test on older device. Should this be a global check in all the test cases?",
+      "parentUuid": "9ede2749_a71a1603",
       "range": {
         "startLine": 50,
         "startChar": 55,
@@ -379,6 +619,30 @@
       "side": 1,
       "message": "This is just for testing, will move back once the eperm issue is resolved",
       "parentUuid": "c2967086_e9f79269",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb80cbdd_4ac67bfe",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "875d5822_0f2cd6c4",
       "range": {
         "startLine": 77,
         "startChar": 0,
@@ -485,6 +749,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3da1e46c_1cc4f11a",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "With previous change to updateEntry() in bpfMap, the test expectations here are that a double bind succeeds.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 54
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4dc2e302_44698935",
         "filename": "tests/native/connectivity_native_test.cpp",
         "patchSetId": 50
@@ -496,6 +783,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "This doesn\u0027t actually throw C++ exceptions, the exception is encoded in the return value. (So as currently written the test will still pass if any or all of these calls fail.) Take a look at netd_integration_test.cpp for examples of how to check the return value of binder IPCs.",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 175,
+        "endChar": 49
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "065f9c89_92353206",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dc2e302_44698935",
       "range": {
         "startLine": 175,
         "startChar": 4,
@@ -529,6 +840,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3d68b34_bacd986b",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76f5aa3d_6a943117",
+      "range": {
+        "startLine": 181,
+        "startChar": 31,
+        "endLine": 181,
+        "endChar": 60
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03a36ab5_fd41f98d",
@@ -542,6 +877,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "No commmented-out code please.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 65
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e720b2_a5a381fb",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03a36ab5_fd41f98d",
       "range": {
         "startLine": 186,
         "startChar": 0,
@@ -575,6 +934,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d45fcd23_8ebf6970",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32379796_7511b09f",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 11
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6c6776f1_51b40eab",
@@ -588,6 +971,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "ditto, check return value",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 11
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c9a338_ce442887",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T23:30:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c6776f1_51b40eab",
       "range": {
         "startLine": 219,
         "startChar": 4,
