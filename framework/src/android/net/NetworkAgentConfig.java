@@ -250,7 +250,7 @@ public final class NetworkAgentConfig implements Parcelable {
 
     /**
      * Whether network validation should be performed for this VPN network.
-     * {@see #isVpnValidationRequired}
+     * {@see #getVpnRequiresValidation}
      * @hide
      */
     private boolean mVpnRequiresValidation = false;
@@ -265,7 +265,7 @@ public final class NetworkAgentConfig implements Parcelable {
      * @hide
      */
     @SystemApi(client = MODULE_LIBRARIES)
-    public boolean isVpnValidationRequired() {
+    public boolean getVpnRequiresValidation() {
         return mVpnRequiresValidation;
     }
 
