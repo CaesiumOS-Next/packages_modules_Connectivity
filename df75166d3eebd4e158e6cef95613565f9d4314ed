@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ffd0adc_4b62e029",
+        "filename": "service/Android.bp",
+        "patchSetId": 50
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T17:08:21Z",
+      "side": 1,
+      "message": "This is what was auto generated when I updated/froze the api after the changes. Maybe an update to the script?",
+      "parentUuid": "828c8395_40032c7a",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 6
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "393b4176_8d03fbbc",
         "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
         "patchSetId": 50
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "Typo, success.",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d387a80_52634fda",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 50
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T17:08:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "393b4176_8d03fbbc",
       "range": {
         "startLine": 32,
         "startChar": 19,
@@ -319,6 +367,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "875d5822_0f2cd6c4",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T17:08:21Z",
+      "side": 1,
+      "message": "This is just for testing, will move back once the eperm issue is resolved",
+      "parentUuid": "c2967086_e9f79269",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37880e9c_12a5db89",
         "filename": "tests/native/connectivity_native_test.cpp",
         "patchSetId": 50
@@ -330,6 +402,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "Suggest doing ntohs() here. Passing ports around in host byte order is usually better because it\u0027s easier to log them, check their values, etc. etc.",
+      "range": {
+        "startLine": 127,
+        "startChar": 20,
+        "endLine": 127,
+        "endChar": 32
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f2ae6d_295f1b87",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T17:08:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37880e9c_12a5db89",
       "range": {
         "startLine": 127,
         "startChar": 20,
@@ -353,6 +449,30 @@
       "writtenOn": "2022-03-03T13:20:48Z",
       "side": 1,
       "message": "Ditto, ntohs.",
+      "range": {
+        "startLine": 133,
+        "startChar": 20,
+        "endLine": 133,
+        "endChar": 33
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a1455e_dca65ddb",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-03T17:08:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9b43dc8_c8c35ae6",
       "range": {
         "startLine": 133,
         "startChar": 20,
