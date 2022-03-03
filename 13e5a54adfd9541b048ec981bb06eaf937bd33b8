@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ede28f9_02421087",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-03T10:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fffc34f3_563b329a",
+      "range": {
+        "startLine": 320,
+        "startChar": 18,
+        "endLine": 320,
+        "endChar": 20
+      },
+      "revId": "13e5a54adfd9541b048ec981bb06eaf937bd33b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f100d88_67b8de25",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-03T10:00:10Z",
       "side": 1,
       "message": "nit: \u0027mE\u0027 -\u003e \u0027e\u0027 for consistent as L.324",
+      "range": {
+        "startLine": 350,
+        "startChar": 30,
+        "endLine": 350,
+        "endChar": 32
+      },
+      "revId": "13e5a54adfd9541b048ec981bb06eaf937bd33b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76776344_9d929c71",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-03T10:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f100d88_67b8de25",
       "range": {
         "startLine": 350,
         "startChar": 30,
