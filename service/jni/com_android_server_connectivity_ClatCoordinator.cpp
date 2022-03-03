@@ -323,6 +323,31 @@ int tagSocketClat(int sockFd) {
     return 0;
 }
 
+//+debug
+int untagSocket(uint64_t sock_cookie) {
+    ALOGD("+untagSocket %" PRIu64 "", sock_cookie);
+    if (sock_cookie == bpf::NONEXISTENT_COOKIE) return -errno;
+
+    bpf::BpfMap<uint64_t, UidTagValue> cookieTagMap;
+    auto res = cookieTagMap.init(COOKIE_TAG_MAP_PATH);
+    if (!res.ok()) {
+        ALOGE("Failed to init the cookieTagMap: %s", strerror(res.error().code()));
+        return -res.error().code();
+    }
+
+    res = cookieTagMap.deleteValue(sock_cookie);
+    if (!res.ok()) {
+        ALOGE("Failed to untag socket: %s\n", strerror(res.error().code()));
+        return -res.error().code();
+    }
+    ALOGD("-untagSocket %" PRIu64 "", sock_cookie);
+    return 0;
+}
+
+// TODO: cookie should not sbe stored in JNI.
+static uint64_t gWriteCookie = bpf::NONEXISTENT_COOKIE;
+//-debug
+
 static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         JNIEnv* env, jobject clazz, jobject tunJavaFd, jobject readSockJavaFd,
         jobject writeSockJavaFd, jstring iface, jstring pfx96, jstring v4, jstring v6) {
@@ -363,6 +388,10 @@ static jint com_android_server_connectivity_ClatCoordinator_startClatd(
         throwIOException(env, "tagSocketClat for write socket failed", -ret);
         return -1;
     }
+    //+debug
+    gWriteCookie = bpf::getSocketCookie(writeSock);
+    if (gWriteCookie == bpf::NONEXISTENT_COOKIE) return -1;
+    //-debug
 
     // 3. we're going to use this as argv[0] to clatd to make ps output more useful
     std::string progname("clatd-");
@@ -509,6 +538,14 @@ static void com_android_server_connectivity_ClatCoordinator_stopClatd(JNIEnv* en
     }
 
     stopClatdProcess(pid);
+
+//+debug
+    if (int ret = untagSocket(gWriteCookie)) {
+        throwIOException(env, "untagSocket failed", ret);
+        return;
+    }
+    gWriteCookie = bpf::NONEXISTENT_COOKIE;
+//-debug
 }
 
 /*
