@@ -208,6 +208,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1db7153f_db6b7e55",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 49
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "If unblockPortForBind throws SSE when passed a negative port number, shouldn\u0027t blockPortForBind do the same?\n\nIt looks like if an invalid port is passed in, it will throw IllegalArgumentException. Maybe document that here?",
+      "parentUuid": "2bf027cb_601cc8f3",
+      "range": {
+        "startLine": 28,
+        "startChar": 15,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2cec889a_ce6a8440",
         "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
         "patchSetId": 49
@@ -854,6 +878,30 @@
       "side": 1,
       "message": "Does this mean move the test or just raise a new CL with the change in mts-tethering-tests-list-eng-only.xml ?\n\nhttps://android-review.googlesource.com/c/platform/test/mts/+/2006392",
       "parentUuid": "855aaaf8_299141e3",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 13
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce7a0865_d17b58d9",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "No need to move the test. I think you need something like the CL you linked above (but see comments on that CL), and also, here you need to add \"mts-tethering\" to the test_suites, which right now only contains \"device-tests\" and \"vts\".",
+      "parentUuid": "a2ddc6ec_a9849189",
       "range": {
         "startLine": 5,
         "startChar": 12,

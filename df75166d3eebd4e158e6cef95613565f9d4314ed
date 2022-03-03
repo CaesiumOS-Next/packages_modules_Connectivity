@@ -20,6 +20,213 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "828c8395_40032c7a",
+        "filename": "service/Android.bp",
+        "patchSetId": 50
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Out of curiosity, what was wrong with the previous \"versions\" stanza? It seemed simpler.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 6
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "393b4176_8d03fbbc",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 50
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Typo, success.",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c439c2f9_7813eecc",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": ": \" + e);",
+      "range": {
+        "startLine": 72,
+        "startChar": 91,
+        "endLine": 72,
+        "endChar": 94
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fbd95c5_db0af795",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like it belongs in a method called enforceBlockPortPermission.\n\nAlso, can this ever happen? The constructor just runs deps.getBpfBlockPortMap(), and that never returns null, it just crashes the system with UnsupportedOperationException if the map can\u0027t be opened. So if we ever get here, the map can\u0027t be null. Delete?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 9
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f945b89_e00e11ab",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Probably shouldn\u0027t log anything in the success case?",
+      "range": {
+        "startLine": 103,
+        "startChar": 12,
+        "endLine": 103,
+        "endChar": 49
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3418a426_e5accd40",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Does this actually happen? Looking at BpfBitmap#set, it calls updateEntry, and I don\u0027t think that throws?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 61
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb1d0d15_221ccf92",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "map: \"",
+      "range": {
+        "startLine": 129,
+        "startChar": 73,
+        "endLine": 129,
+        "endChar": 77
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e638aa54_b67c2577",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be Log.e since it\u0027s not an error. Maybe Log.d? Or nothing at all?",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 13
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a80fa137_b55eb1d3",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 50
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Is this unused? If so, delete.",
+      "range": {
+        "startLine": 181,
+        "startChar": 17,
+        "endLine": 181,
+        "endChar": 30
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08d2bba7_27fe08e3",
         "filename": "tests/native/Android.bp",
         "patchSetId": 50
@@ -36,6 +243,236 @@
         "startChar": 11,
         "endLine": 2,
         "endChar": 36
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ba7ca7a_4029e298",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 50
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "I think this needs to be \"general-tests\" instead, because that allows us run this in presubmit.",
+      "range": {
+        "startLine": 4,
+        "startChar": 9,
+        "endLine": 4,
+        "endChar": 21
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ede2749_a71a1603",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Did you check that this correctly skips the tests on a device running S or older? (I\u0027m not sure if GTEST_SKIP can be used in SetUp.)",
+      "range": {
+        "startLine": 50,
+        "startChar": 55,
+        "endLine": 50,
+        "endChar": 65
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2967086_e9f79269",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "It\u0027s not useful to open another socket here if the previous socket is already closed. The second one will just succeed. Per other comment, I think SO_REUSEADDR should work here...",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37880e9c_12a5db89",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Suggest doing ntohs() here. Passing ports around in host byte order is usually better because it\u0027s easier to log them, check their values, etc. etc.",
+      "range": {
+        "startLine": 127,
+        "startChar": 20,
+        "endLine": 127,
+        "endChar": 32
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9b43dc8_c8c35ae6",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Ditto, ntohs.",
+      "range": {
+        "startLine": 133,
+        "startChar": 20,
+        "endLine": 133,
+        "endChar": 33
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dc2e302_44698935",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "This doesn\u0027t actually throw C++ exceptions, the exception is encoded in the return value. (So as currently written the test will still pass if any or all of these calls fail.) Take a look at netd_integration_test.cpp for examples of how to check the return value of binder IPCs.",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 175,
+        "endChar": 49
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f5aa3d_6a943117",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Check return value? Also for all the other IPCs in this test.",
+      "range": {
+        "startLine": 181,
+        "startChar": 31,
+        "endLine": 181,
+        "endChar": 60
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03a36ab5_fd41f98d",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "No commmented-out code please.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 65
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32379796_7511b09f",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "Check return value?\n\n    EXPECT_EQ(0, seteuid(...)) \u003c\u003c \"seteuid failed: \" \u003c\u003c strerror(errno);",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 11
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c6776f1_51b40eab",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-03T13:20:48Z",
+      "side": 1,
+      "message": "ditto, check return value",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 11
       },
       "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
