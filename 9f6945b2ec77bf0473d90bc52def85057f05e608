@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87d96d95_af12b102",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-03T15:35:04Z",
+      "side": 1,
+      "message": "sure.",
+      "parentUuid": "774ffd60_0b23f18d",
+      "range": {
+        "startLine": 286,
+        "startChar": 8,
+        "endLine": 293,
+        "endChar": 9
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f43f13f4_565ea9f6",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-03T08:07:32Z",
       "side": 1,
       "message": "If TETHERING_PROVISIONING_CARRIER_UNSUPPORT is true and entitlement app is not available, then isProvisioningNeededButUnavailable would be true. Is this expected ?",
+      "range": {
+        "startLine": 314,
+        "startChar": 15,
+        "endLine": 314,
+        "endChar": 91
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa63f908_f6a9f0b7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-03T15:35:04Z",
+      "side": 1,
+      "message": "Yes, because we want to assume this shall need provision.\n\nJust like the method name point out, isTetherProvisioningRequired(config) is true due to this need provisioning. doesEntitlementPackageExist is true due to package existed.\n\nThese both conditions shall fit the target of provisioning need.",
+      "parentUuid": "f43f13f4_565ea9f6",
       "range": {
         "startLine": 314,
         "startChar": 15,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a594348_79ef0ac3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-03T15:35:04Z",
+      "side": 1,
+      "message": "current version is to check config_mobile_hotspot_provision_app_no_ui is empty and KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL. Per my understanding, hasMobileHotspotProvisionApp seems to check the provisioningApp.length.\nThat means to check any provision app info in RRO.\n\nTherefore, it shall be fine if I use getTetherProvisioningCondition to handle it. \n \n```\n        if (!config.hasMobileHotspotProvisionApp()\n                || carrierConfigAffirmsEntitlementCheckNotRequired(config)) {\n            evaluateCellularPermission(config);\n            return;\n        }\n```\n\nWhat is your concern for this change?",
+      "parentUuid": "b638b067_9ad52213",
+      "range": {
+        "startLine": 356,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 52
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31ed6089_68838c2f",
         "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
         "patchSetId": 15
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-03T08:07:32Z",
       "side": 1,
       "message": "move this into l.471 ? If the code just return at l.469, buildProxyReceiver is redundant.",
+      "range": {
+        "startLine": 462,
+        "startChar": 0,
+        "endLine": 463,
+        "endChar": 93
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "364ec68d_37f51a16",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-03T15:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31ed6089_68838c2f",
       "range": {
         "startLine": 462,
         "startChar": 0,
@@ -106,6 +202,30 @@
       "writtenOn": "2022-03-03T08:07:32Z",
       "side": 1,
       "message": "Before this CL, onTetherProvisioningFailed only be called when entitlement check fail. Now it would be either entitlement check fail or indicate by carrier config. Passing the reason into onTetherProvisioningFailed to indicate fail reason and update the log ? E.g. \n        mEntitlementMgr.setOnTetherProvisioningFailedListener((int downstream, String reason) -\u003e {\n            mLog.log(\"OBSERVED OnTetherProvisioningFailed: \" + reason);\n            stopTethering(downstream);\n        });",
+      "range": {
+        "startLine": 321,
+        "startChar": 24,
+        "endLine": 322,
+        "endChar": 52
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cc2dd07_1b9de3b7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-03T15:35:04Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "ae964881_c3036efe",
       "range": {
         "startLine": 321,
         "startChar": 24,
