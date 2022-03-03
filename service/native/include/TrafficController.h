@@ -88,6 +88,7 @@ class TrafficController {
     static const char* LOCAL_POWERSAVE;
     static const char* LOCAL_RESTRICTED;
     static const char* LOCAL_LOW_POWER_STANDBY;
+    static const char* LOCAL_OEM_DENY;
 
   private:
     /*

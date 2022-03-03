@@ -982,6 +982,14 @@ public class ConnectivityManager {
     @SystemApi(client = MODULE_LIBRARIES)
     public static final int FIREWALL_CHAIN_LOW_POWER_STANDBY = 5;
 
+    /**
+     * Firewall chain used for OEM-specific application restrictions.
+     * Denylist of apps that will not have network access due to OEM-specific restrictions.
+     * @hide
+     */
+    @SystemApi(client = MODULE_LIBRARIES)
+    public static final int FIREWALL_CHAIN_OEM_DENY = 6;
+
     /** @hide */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = false, prefix = "FIREWALL_CHAIN_", value = {
@@ -989,7 +997,8 @@ public class ConnectivityManager {
         FIREWALL_CHAIN_STANDBY,
         FIREWALL_CHAIN_POWERSAVE,
         FIREWALL_CHAIN_RESTRICTED,
-        FIREWALL_CHAIN_LOW_POWER_STANDBY
+        FIREWALL_CHAIN_LOW_POWER_STANDBY,
+        FIREWALL_CHAIN_OEM_DENY
     })
     public @interface FirewallChain {}
     // LINT.ThenChange(packages/modules/Connectivity/service/native/include/Common.h)
