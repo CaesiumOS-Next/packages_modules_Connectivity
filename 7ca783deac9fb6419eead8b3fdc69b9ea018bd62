@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b189fb8_0c224786",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:39:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da4922a2_884657e9",
+      "range": {
+        "startLine": 50,
+        "startChar": 100,
+        "endLine": 50,
+        "endChar": 102
+      },
+      "revId": "7ca783deac9fb6419eead8b3fdc69b9ea018bd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f337519b_4c4fc81d",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3af609c_90f64471",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:39:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f337519b_4c4fc81d",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 221,
+        "endChar": 31
+      },
+      "revId": "7ca783deac9fb6419eead8b3fdc69b9ea018bd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "553c2c7a_3ad71791",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-03-04T06:13:01Z",
       "side": 1,
       "message": "Can you also check:\n\n    ASSERT_EQ(binder::Status::EX_SECURITY, status.exceptionCode());",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 30
+      },
+      "revId": "7ca783deac9fb6419eead8b3fdc69b9ea018bd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b28f2d_2c634803",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:39:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "553c2c7a_3ad71791",
       "range": {
         "startLine": 228,
         "startChar": 17,

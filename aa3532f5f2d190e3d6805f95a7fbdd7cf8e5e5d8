@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27bba512_ae85cb2c",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 51
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:39:17Z",
+      "side": 1,
+      "message": "ServiceSpecificException is only thrown now",
+      "parentUuid": "76cb1717_fc7d7630",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 6
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41d63a31_a8986d22",
