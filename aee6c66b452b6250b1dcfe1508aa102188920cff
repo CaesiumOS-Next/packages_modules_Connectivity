@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7be2289f_fb488322",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-04T02:40:29Z",
+      "side": 1,
+      "message": "passedT -\u003e t\npassedS -\u003e s\npassedS -\u003e s",
+      "range": {
+        "startLine": 322,
+        "startChar": 9,
+        "endLine": 322,
+        "endChar": 23
+      },
+      "revId": "aee6c66b452b6250b1dcfe1508aa102188920cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "143c8f51_4d950d06",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-04T02:40:29Z",
+      "side": 1,
+      "message": "will",
+      "range": {
+        "startLine": 362,
+        "startChar": 71,
+        "endLine": 362,
+        "endChar": 75
+      },
+      "revId": "aee6c66b452b6250b1dcfe1508aa102188920cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65e4e57_0c74eaf6",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-04T02:40:29Z",
+      "side": 1,
+      "message": "Note that even though dup2(2) ...",
+      "range": {
+        "startLine": 362,
+        "startChar": 12,
+        "endLine": 362,
+        "endChar": 16
+      },
+      "revId": "aee6c66b452b6250b1dcfe1508aa102188920cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0529f5c_b7262e26",
+        "filename": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-04T02:40:29Z",
+      "side": 1,
+      "message": "See implementation of bionic\u0027s ...",
+      "range": {
+        "startLine": 363,
+        "startChar": 7,
+        "endLine": 363,
+        "endChar": 10
+      },
+      "revId": "aee6c66b452b6250b1dcfe1508aa102188920cff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
