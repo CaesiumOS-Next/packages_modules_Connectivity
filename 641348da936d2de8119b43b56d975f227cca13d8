@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06be6774_97cf98cd",
+        "filename": "Tethering/common/TetheringLib/api/module-lib-current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:32:23Z",
+      "side": 1,
+      "message": "This is module-lib, but onTetheringSupported is regular system API. So maybe there is a use case for this to be system API as well?",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 56
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f9b8ed08_0783a61a",
         "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
         "patchSetId": 7
