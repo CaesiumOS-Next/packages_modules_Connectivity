@@ -74,10 +74,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNaughtyApp(final int uid) throws RemoteException {
-        if (USE_NETD) {
-            mNetd.bandwidthAddNaughtyApp(uid);
-            return;
-        }
         final int err = native_addNaughtyApp(uid);
         maybeThrow(err, "Unable to add naughty app");
     }
@@ -91,10 +87,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNaughtyApp(final int uid) throws RemoteException {
-        if (USE_NETD) {
-            mNetd.bandwidthRemoveNaughtyApp(uid);
-            return;
-        }
         final int err = native_removeNaughtyApp(uid);
         maybeThrow(err, "Unable to remove naughty app");
     }
@@ -108,10 +100,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void addNiceApp(final int uid) throws RemoteException {
-        if (USE_NETD) {
-            mNetd.bandwidthAddNiceApp(uid);
-            return;
-        }
         final int err = native_addNiceApp(uid);
         maybeThrow(err, "Unable to add nice app");
     }
@@ -125,10 +113,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void removeNiceApp(final int uid) throws RemoteException {
-        if (USE_NETD) {
-            mNetd.bandwidthRemoveNiceApp(uid);
-            return;
-        }
         final int err = native_removeNiceApp(uid);
         maybeThrow(err, "Unable to remove nice app");
     }
@@ -143,10 +127,6 @@ public class BpfNetMaps {
      *                                  cause of the failure.
      */
     public void setChildChain(final int childChain, final boolean enable) throws RemoteException {
-        if (USE_NETD) {
-            mNetd.firewallEnableChildChain(childChain, enable);
-            return;
-        }
         final int err = native_setChildChain(childChain, enable);
         maybeThrow(err, "Unable to set child chain");
     }
@@ -167,10 +147,6 @@ public class BpfNetMaps {
      */
     public int replaceUidChain(final String chainName, final boolean isAllowlist,
             final int[] uids) throws RemoteException {
-        if (USE_NETD) {
-            mNetd.firewallReplaceUidChain(chainName, isAllowlist, uids);
-            return 0;
-        }
         final int err = native_replaceUidChain(chainName, isAllowlist, uids);
         if (err != 0) {
             Log.e(TAG, "replaceUidChain failed: " + Os.strerror(-err));
@@ -190,10 +166,6 @@ public class BpfNetMaps {
      */
     public void setUidRule(final int childChain, final int uid, final int firewallRule)
             throws RemoteException {
-        if (USE_NETD) {
-            mNetd.firewallSetUidRule(childChain, uid, firewallRule);
-            return;
-        }
         final int err = native_setUidRule(childChain, uid, firewallRule);
         maybeThrow(err, "Unable to set uid rule");
     }
