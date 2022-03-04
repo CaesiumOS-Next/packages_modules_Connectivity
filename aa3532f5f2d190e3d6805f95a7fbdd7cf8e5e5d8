@@ -723,6 +723,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36cc2649_46efc7e0",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:41:59Z",
+      "side": 1,
+      "message": "That\u0027s better, yes.",
+      "parentUuid": "e62d77c9_c269f854",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 37
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4230967_9d6d9fa3",

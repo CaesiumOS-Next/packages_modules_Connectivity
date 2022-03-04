@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b0e8fdb_73b111a9",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:41:59Z",
+      "side": 1,
+      "message": "Transaction failed usually indicates a serious problem with binder (e.g., parcel too large, etc.) so we should not ever expect to see it in normal use, even with invalid input. Can we make sure these invalid cases use another exception? For negative/too large port numbers, EX_ILLEGAL_ARGUMENT seems the one to use.",
+      "range": {
+        "startLine": 228,
+        "startChar": 30,
+        "endLine": 228,
+        "endChar": 51
+      },
+      "revId": "0a24994867324b7ae2ce39ccb4d28a04d3b8ecea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
