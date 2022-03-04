@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da4922a2_884657e9",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:13:01Z",
+      "side": 1,
+      "message": "Long line.",
+      "range": {
+        "startLine": 50,
+        "startChar": 100,
+        "endLine": 50,
+        "endChar": 102
+      },
+      "revId": "7ca783deac9fb6419eead8b3fdc69b9ea018bd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f337519b_4c4fc81d",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:13:01Z",
+      "side": 1,
+      "message": "Can you also check the exception type?\n\n    ASSERT_EQ(binder::Status::EX_ILLEGAL_ARGUMENT, status.exceptionCode());",
+      "range": {
+        "startLine": 221,
+        "startChar": 16,
+        "endLine": 221,
+        "endChar": 31
+      },
+      "revId": "7ca783deac9fb6419eead8b3fdc69b9ea018bd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "553c2c7a_3ad71791",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:13:01Z",
+      "side": 1,
+      "message": "Can you also check:\n\n    ASSERT_EQ(binder::Status::EX_SECURITY, status.exceptionCode());",
+      "range": {
+        "startLine": 228,
+        "startChar": 17,
+        "endLine": 228,
+        "endChar": 30
+      },
+      "revId": "7ca783deac9fb6419eead8b3fdc69b9ea018bd62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
