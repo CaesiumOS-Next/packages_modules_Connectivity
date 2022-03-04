@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fce70d25_c0649ab5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-04T07:26:44Z",
+      "side": 1,
+      "message": "It\u0027s probably better to rebase this on top of the AIDL interface change instead of below, so that it can be merged afterwards (it can\u0027t be merged before)",
+      "revId": "637fc390c6790774f25a63104fd3484023388889",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338935c8_519e3dd6",
+        "filename": "TEST_MAPPING",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-04T07:26:44Z",
+      "side": 1,
+      "message": "For this to work you\u0027ll need to add:\n\n  defaults: [\"connectivity-mainline-presubmit-cc-defaults\"]\n  \nto the test build rule. Also it should have:\n\n  test_suites: [\"general-tests\"]\n  \nso that it\u0027s build in the general-tests package, which is one package used by TEST_MAPPING to run tests (along with device-tests).\n\nSee doc: https://source.android.com/compatibility/tests/development/test-mapping (it only covers general test-mapping so doesn\u0027t talk about what \"connectivity-mainline-presubmit-cc-defaults\" does, which is specific to mainline-presubmit)",
+      "revId": "637fc390c6790774f25a63104fd3484023388889",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
