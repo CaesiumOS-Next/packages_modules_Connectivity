@@ -281,6 +281,30 @@
       },
       "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83f9dae_3788c8e8",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T23:23:29Z",
+      "side": 1,
+      "message": "I guess the question is; would it be easier to read by using 1 struct even though presentFields wouldn\u0027t be used in 75% of the objects?",
+      "parentUuid": "46a9ee65_9b1d239c",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
