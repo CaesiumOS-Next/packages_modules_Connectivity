@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76cb1717_fc7d7630",
+        "filename": "service/binder/android/net/connectivity/aidl/ConnectivityNative.aidl",
+        "patchSetId": 51
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:08:38Z",
+      "side": 1,
+      "message": "Can also throw IllegalArgumentException if the port is negative or \u003e 65535, right?",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 6
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41d63a31_a8986d22",
         "filename": "tests/native/Android.bp",
         "patchSetId": 51
@@ -382,6 +405,29 @@
         "startChar": 4,
         "endLine": 221,
         "endChar": 45
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4d65e22_ee259a2b",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:08:38Z",
+      "side": 1,
+      "message": "Could you also add a testcase to see what happens if port \u003e 65535? Then whatever it does, document in the AIDL file.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 1
       },
       "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
