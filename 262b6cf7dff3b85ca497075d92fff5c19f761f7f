@@ -986,6 +986,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c56d392e_8711d651",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T05:38:12Z",
+      "side": 1,
+      "message": "Having run into this before when trying bpf_existence_test, I think maybe this will fix it?\n\n    compile_multilib: \"first\",\n\nIf not, just try to see which of the clauses in the build rule for bpf_existence_test fixes it.",
+      "parentUuid": "130976cb_31ac5868",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 13
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0b4c6aa_b8c41a8c",
         "filename": "tests/native/Android.bp",
         "patchSetId": 49
