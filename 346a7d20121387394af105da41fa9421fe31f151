@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c6e541_1297e7a2",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T07:04:24Z",
+      "side": 1,
+      "message": "If this code ever runs the device will continue booting just fine but the nearby service won\u0027t be published. This seems bad, it would be better to bootloop. It\u0027s super unlikely though, since the constructor will never throw UOE. Maybe convert the comment above into:\n\n    // TODO: delete when nearby is supported in all branches.\n\n?",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 24
+      },
+      "revId": "346a7d20121387394af105da41fa9421fe31f151",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
