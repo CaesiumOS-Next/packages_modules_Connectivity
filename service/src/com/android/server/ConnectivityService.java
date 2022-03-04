@@ -7550,6 +7550,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         for (RouteInfo route : routeDiff.updated) {
+            if (route.isIPv6Default()) continue;
             if (VDBG || DDBG) log("Updating Route [" + route + "] from network " + netId);
             try {
                 mNetd.networkUpdateRouteParcel(netId, convertRouteInfo(route));
