@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9b8ed08_0783a61a",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "This callback will be called only if {@link #onSupportedTetheringTypes} is not implemented. If it is called, it will be called immediately...",
+      "range": {
+        "startLine": 1045,
+        "startChar": 11,
+        "endLine": 1045,
+        "endChar": 14
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c65f87fa_f2ca9561",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "whether any tethering type is supported",
+      "range": {
+        "startLine": 1051,
+        "startChar": 28,
+        "endLine": 1051,
+        "endChar": 52
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dac80b4b_a049c833",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "If you end up using a native array (so you can use wirteIntArray, see comment above), you can use BitUtils#unpackBits.",
+      "range": {
+        "startLine": 1438,
+        "startChar": 0,
+        "endLine": 1440,
+        "endChar": 9
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "650559ea_4d92a09e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "AIDL supports integers and integer arrays just fine. See for example Parcel#writeIntArray.\n\nFor equality, you can use com.android.internal.util.ArrayUtils#equals.",
+      "range": {
+        "startLine": 282,
+        "startChar": 7,
+        "endLine": 282,
+        "endChar": 35
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d5407b_7d58c21d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "bitmap is one word, so I\u0027d make the M lowercase: mSupportedTypesBitmap.",
+      "range": {
+        "startLine": 284,
+        "startChar": 30,
+        "endLine": 284,
+        "endChar": 36
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0735ad94_5650cf69",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2495,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "updateSupportedTypes or updateSupportedTypesBitmap",
+      "range": {
+        "startLine": 2495,
+        "startChar": 17,
+        "endLine": 2495,
+        "endChar": 29
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6656a149_8a3fe32d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2502,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "Only one of the conditions below is in Settings though... maybe call this isTetheringAllowed?",
+      "range": {
+        "startLine": 2502,
+        "startChar": 35,
+        "endLine": 2502,
+        "endChar": 45
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b918e1c8_5544d03a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2511,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "Looks like this is reading the bitmap from a thread that is not the handler thread? If so, that\u0027s wrong; the bitmap should at least be marked volatile.",
+      "range": {
+        "startLine": 2511,
+        "startChar": 15,
+        "endLine": 2511,
+        "endChar": 35
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cade5564_22a574c2",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "This call only works on T though, right? Because updateSupportedDownstreams only updates the bitmap with Ethernet if isAtleastT()? If so, that\u0027s wrong - this test should run on R+.\n\nMaybe what you could do is:\n\n- Ensure updateSupportedDownstreams always populates all the downstreams correctly\n- Make the new callback correct in all cases (i.e., always reports Ethernet, p2p, ncm, etc. correctly, even on R and S)\n- Make old callback, and isTetheringSupported, ignore all bits in the bitmap that didn\u0027t matter on R and S (i.e., ncm, p2p, ethernet)",
+      "range": {
+        "startLine": 175,
+        "startChar": 20,
+        "endLine": 175,
+        "endChar": 48
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b04b61_a6306cda",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "Bitmap",
+      "range": {
+        "startLine": 1702,
+        "startChar": 51,
+        "endLine": 1702,
+        "endChar": 57
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9fa7f17_ae55ac83",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1799,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T15:30:53Z",
+      "side": 1,
+      "message": "Bitmap",
+      "range": {
+        "startLine": 1799,
+        "startChar": 59,
+        "endLine": 1799,
+        "endChar": 64
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
