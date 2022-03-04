@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65bd1dd3_68d4a930",
+        "filename": "service/Android.bp",
+        "patchSetId": 50
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T05:33:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ffd0adc_4b62e029",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 6
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "393b4176_8d03fbbc",
@@ -582,6 +606,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98592403_22396842",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T05:33:33Z",
+      "side": 1,
+      "message": "add \"\u003c\u003c \"Should be at least T device.;\"\"",
+      "parentUuid": "82909878_561ac75f",
+      "range": {
+        "startLine": 50,
+        "startChar": 55,
+        "endLine": 50,
+        "endChar": 65
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2967086_e9f79269",
@@ -760,6 +808,30 @@
       "writtenOn": "2022-03-03T23:30:07Z",
       "side": 1,
       "message": "With previous change to updateEntry() in bpfMap, the test expectations here are that a double bind succeeds.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 54
+      },
+      "revId": "df75166d3eebd4e158e6cef95613565f9d4314ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "605b70cb_544b73d5",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T05:33:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3da1e46c_1cc4f11a",
       "range": {
         "startLine": 171,
         "startChar": 0,
