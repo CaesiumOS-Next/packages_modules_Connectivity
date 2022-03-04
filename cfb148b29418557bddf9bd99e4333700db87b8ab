@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42b794c7_a3ddb61a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T14:55:06Z",
+      "side": 1,
+      "message": "LGTM (assuming comments addressed), but please ensure that before T ships you move to the EthernetManager APIs instead of checking whether the Ethernet service is available.",
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21cdb19c_1ee0e34b",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T14:55:06Z",
+      "side": 1,
+      "message": "I think \"whole\" is the wrong word here because wifi, usb, bluetooth, etc., aren\u0027t parts of tethering, but different types of tethering. Suggest instead something like \"Before T, isTetheringSupported would return true if...\"",
+      "range": {
+        "startLine": 1543,
+        "startChar": 21,
+        "endLine": 1543,
+        "endChar": 59
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f096617_e4dd7d3c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1544,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T14:55:06Z",
+      "side": 1,
+      "message": "hidden",
+      "range": {
+        "startLine": 1544,
+        "startChar": 55,
+        "endLine": 1544,
+        "endChar": 61
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b16ddb7f_f93474d9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1545,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T14:55:06Z",
+      "side": 1,
+      "message": "WiFi",
+      "range": {
+        "startLine": 1545,
+        "startChar": 19,
+        "endLine": 1545,
+        "endChar": 22
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "599d0284_9bc07833",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T14:55:06Z",
+      "side": 1,
+      "message": "tethering entirely",
+      "range": {
+        "startLine": 1546,
+        "startChar": 61,
+        "endLine": 1546,
+        "endChar": 76
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08e8e315_940c369a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T14:55:06Z",
+      "side": 1,
+      "message": "This is already available on T+. See EthernetManager#addInterfaceStateListener. It sounds like the right thing here is to say that Ethernet tethering is available iff there is at least one Ethernet interface present. It would be pretty simple to build an InterfaceStateListener that does that: just keep a Set of interfaces, and remove from the set if STATE_ABSENT, add to the set if !\u003d STATE_ABSENT.",
+      "range": {
+        "startLine": 1554,
+        "startChar": 7,
+        "endLine": 1554,
+        "endChar": 11
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d1839c5_1985f9a2",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2864,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T14:55:06Z",
+      "side": 1,
+      "message": "Do we run these unit tests on all platform versions? In other words, are these tests in mainline-presubmit? If so, this is fine. If not (e.g., if they are only in presubmit, not mainline-presubmit), then we can\u0027t just use isAtLeastT() here, because it will always be true.\n\nIf you don\u0027t know the answer to that, one easy way to check would be to introduce a bug in the else clause below and see if TH says the test fails.",
+      "range": {
+        "startLine": 2864,
+        "startChar": 12,
+        "endLine": 2864,
+        "endChar": 24
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
