@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d8fece5_13d71146",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T23:22:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d44b2e0c_07671c58",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 16
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11405e1a_dfffa306",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-02T01:59:18Z",
       "side": 1,
       "message": "you should be able to just write \u003d {}; here instead of memset I think",
+      "range": {
+        "startLine": 75,
+        "startChar": 25,
+        "endLine": 75,
+        "endChar": 26
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "027c674b_420ec884",
+        "filename": "bpf_progs/dscp_policy.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T23:22:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11405e1a_dfffa306",
       "range": {
         "startLine": 75,
         "startChar": 25,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "198f7a04_3a2bf3eb",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T23:22:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcc14318_973057d4",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 19
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e2d7331_acad9143",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-02T01:59:18Z",
       "side": 1,
       "message": "this path is no longer valid, please use:\n\npackages/modules/Connectivity/bpf_progs/bpf_net_helpers.h\n\nor send me a pair of CLs to move bpf_net_helpers.h from there next to bpf_helpers.h,\n\nie. probably frameworks/libs/net/common/native/bpf_headers/include/bpf/bpf_net_helpers.h",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 78
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c271ad1d_342e9f8b",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T23:22:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e2d7331_acad9143",
       "range": {
         "startLine": 36,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8379f3_05932ef8",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T23:22:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e1f9bca_c63c1edc",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da9d00f1_7afd4ab9",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-03-02T01:59:18Z",
       "side": 1,
       "message": "consider whether having a RuleEntry even makes sense...\ncouldn\u0027t you just reuse DscpPolicy?\n\nCould you then also simplify setting up the RuleEntry by just using copy assignment of the full DscpPolicy struct?",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a9ee65_9b1d239c",
+        "filename": "bpf_progs/dscp_policy.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T23:22:27Z",
+      "side": 1,
+      "message": "Not sure how much this would simplify the copy since that will still need to consider params from the skb (params copied from policy to entry depend upon mask)",
+      "parentUuid": "da9d00f1_7afd4ab9",
       "range": {
         "startLine": 70,
         "startChar": 2,
