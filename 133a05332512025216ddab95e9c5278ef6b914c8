@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76744bef_5f4bc3fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-04T01:00:46Z",
+      "side": 1,
+      "message": "Nit: maybe detail that it\u0027s dead code because the restore timers are never loaded, due to the map being non-null",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "133a05332512025216ddab95e9c5278ef6b914c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e8e5c2_bffa5842",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-04T01:00:46Z",
+      "side": 1,
+      "message": "So, apparently this wasn\u0027t covered by a test... Since you\u0027re updating the code would it be worth adding one ?",
+      "revId": "133a05332512025216ddab95e9c5278ef6b914c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8260810_3b8ac84e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-04T01:00:46Z",
+      "side": 0,
+      "message": "Oops ^^\u0027",
+      "range": {
+        "startLine": 970,
+        "startChar": 20,
+        "endLine": 970,
+        "endChar": 42
+      },
+      "revId": "116bd6e1a27fd1953f7ad11f1c895802a6125de7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
