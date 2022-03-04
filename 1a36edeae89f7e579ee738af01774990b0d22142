@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84d764f6_0725ae09",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T13:48:46Z",
+      "side": 1,
+      "message": "This name doesn\u0027t feel right because you\u0027re not adding an allowlist, you\u0027re adding a UID to an allowlist. Maybe something like\n\nvoid addUidToMeteredNetworkAllowList(int uid)\nvoid removeUidFromMeteredNetworkAllowList(int uid)",
+      "range": {
+        "startLine": 9,
+        "startChar": 200,
+        "endLine": 9,
+        "endChar": 226
+      },
+      "revId": "1a36edeae89f7e579ee738af01774990b0d22142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
