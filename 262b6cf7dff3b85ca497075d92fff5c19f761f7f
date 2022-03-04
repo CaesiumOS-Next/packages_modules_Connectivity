@@ -1008,6 +1008,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5e0075_44587913",
+        "filename": "tests/native/Android.bp",
+        "patchSetId": 49
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T05:51:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c56d392e_8711d651",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 13
+      },
+      "revId": "262b6cf7dff3b85ca497075d92fff5c19f761f7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0b4c6aa_b8c41a8c",
