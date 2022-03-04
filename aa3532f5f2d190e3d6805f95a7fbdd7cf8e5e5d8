@@ -63,6 +63,328 @@
       },
       "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1beceba_705a53f3",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "If you keep this (but as discussed below, maybe you don\u0027t need it?) rename to mPortsBlockedOnSystem.",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca960dcc_f62fb987",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "mActualBlockedPorts\n\nor mAlreadyBlockedPorts would be better maybe?",
+      "range": {
+        "startLine": 38,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 43
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ebf7e4b_88a9e6c4",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "Nit: could just remove portsBlockedOnSystem and use mActualBlockedPorts.size() \u003e 0",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 69
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fd846f5_31c761d9",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "Nit: \"testXyz\" suggests a test method not a test helper method. Maybe rename to runSocketTest or doSocketTest?",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c77964_cb69ca06",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "false /* expectBindFail */",
+      "range": {
+        "startLine": 73,
+        "startChar": 47,
+        "endLine": 73,
+        "endChar": 52
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bd83b7f_8b900a4b",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "false /* expectBindFail */",
+      "range": {
+        "startLine": 74,
+        "startChar": 48,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcdbac75_0a73ed1b",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "blockPort /* expectBindFail */",
+      "range": {
+        "startLine": 83,
+        "startChar": 52,
+        "endLine": 83,
+        "endChar": 61
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09b03008_0afdba43",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "Braces around if statements. Also suggest making more readable:\n\n    if (blockPort) {\n        EXPECT_EQ(-1, sock3);\n        status \u003d mService-\u003eunblockPortForBind(blockedPort);\n        EXPECT_TRUE(status.isOk()) \u003c\u003c status.exceptionMessage();\n    } else {\n        EXPECT_NE(-1, sock3);\n    }",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 72
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee17a5a_c75f8a87",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "Nit: you don\u0027t need this, everything not specified is initialized to 0 , and INADDR_ANY is all zeros.",
+      "range": {
+        "startLine": 107,
+        "startChar": 20,
+        "endLine": 107,
+        "endChar": 49
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2523cf8f_ddc5d9b9",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "Ditto, not needed?",
+      "range": {
+        "startLine": 111,
+        "startChar": 20,
+        "endLine": 111,
+        "endChar": 44
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42e0a764_517b952c",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "Close the socket first?",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 18
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35c5d770_bab711bf",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "bind unexpectedly failed, errno",
+      "range": {
+        "startLine": 121,
+        "startChar": 30,
+        "endLine": 121,
+        "endChar": 35
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cac67831_bfc5005e",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "Instead of skipping, can we do this here:\n\n    std::vector\u003cint\u003e blockedPorts;\n    if (mAlreadyBlockedPorts.size() \u003e 0) {\n        blockedPorts \u003d mAlreadyBlockedPorts;\n    } else {\n        for (int i : blockedPorts) {\n            status \u003d mService-\u003eblockPortForBind(i);\n            EXPECT_TRUE(status.isOk()) \u003c\u003c status.exceptionMessage();\n        }\n    }\n\nthen run the test, and then re-block the ports that were previously blocked?",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 37
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4230967_9d6d9fa3",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T06:05:19Z",
+      "side": 1,
+      "message": "Should be the same as other testcases?",
+      "range": {
+        "startLine": 221,
+        "startChar": 4,
+        "endLine": 221,
+        "endChar": 45
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
