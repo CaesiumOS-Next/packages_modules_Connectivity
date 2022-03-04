@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e72ae87_5e51624c",
+        "filename": "service/Android.bp",
+        "patchSetId": 52
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-04T05:40:58Z",
+      "side": 1,
+      "message": "Could you remove this chunk ? This change would have merge conflicts otherwise",
+      "revId": "b1b29b7145705662bffa214a50e349ec41e9129d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
