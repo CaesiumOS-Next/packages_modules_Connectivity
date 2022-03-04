@@ -111,6 +111,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf7bf544_7fd4cbdc",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1beceba_705a53f3",
+      "range": {
+        "startLine": 37,
+        "startChar": 9,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca960dcc_f62fb987",
@@ -124,6 +148,30 @@
       "writtenOn": "2022-03-04T06:05:19Z",
       "side": 1,
       "message": "mActualBlockedPorts\n\nor mAlreadyBlockedPorts would be better maybe?",
+      "range": {
+        "startLine": 38,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 43
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07256e3d_546cf155",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca960dcc_f62fb987",
       "range": {
         "startLine": 38,
         "startChar": 25,
@@ -157,6 +205,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d276e65f_22e9f4df",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ebf7e4b_88a9e6c4",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 69
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fd846f5_31c761d9",
@@ -170,6 +242,30 @@
       "writtenOn": "2022-03-04T06:05:19Z",
       "side": 1,
       "message": "Nit: \"testXyz\" suggests a test method not a test helper method. Maybe rename to runSocketTest or doSocketTest?",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bc6f8fa_402f1e2b",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fd846f5_31c761d9",
       "range": {
         "startLine": 68,
         "startChar": 9,
@@ -203,6 +299,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25d9572c_be0262b0",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36c77964_cb69ca06",
+      "range": {
+        "startLine": 73,
+        "startChar": 47,
+        "endLine": 73,
+        "endChar": 52
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bd83b7f_8b900a4b",
@@ -216,6 +336,30 @@
       "writtenOn": "2022-03-04T06:05:19Z",
       "side": 1,
       "message": "false /* expectBindFail */",
+      "range": {
+        "startLine": 74,
+        "startChar": 48,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e4bc01_8b0ac1e8",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bd83b7f_8b900a4b",
       "range": {
         "startLine": 74,
         "startChar": 48,
@@ -249,6 +393,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "889af20e_53cee780",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcdbac75_0a73ed1b",
+      "range": {
+        "startLine": 83,
+        "startChar": 52,
+        "endLine": 83,
+        "endChar": 61
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09b03008_0afdba43",
@@ -262,6 +430,30 @@
       "writtenOn": "2022-03-04T06:05:19Z",
       "side": 1,
       "message": "Braces around if statements. Also suggest making more readable:\n\n    if (blockPort) {\n        EXPECT_EQ(-1, sock3);\n        status \u003d mService-\u003eunblockPortForBind(blockedPort);\n        EXPECT_TRUE(status.isOk()) \u003c\u003c status.exceptionMessage();\n    } else {\n        EXPECT_NE(-1, sock3);\n    }",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 84,
+        "endChar": 72
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60ec917c_dc29c674",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09b03008_0afdba43",
       "range": {
         "startLine": 84,
         "startChar": 8,
@@ -295,6 +487,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fcc32da_8615c0f5",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ee17a5a_c75f8a87",
+      "range": {
+        "startLine": 107,
+        "startChar": 20,
+        "endLine": 107,
+        "endChar": 49
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2523cf8f_ddc5d9b9",
@@ -308,6 +524,30 @@
       "writtenOn": "2022-03-04T06:05:19Z",
       "side": 1,
       "message": "Ditto, not needed?",
+      "range": {
+        "startLine": 111,
+        "startChar": 20,
+        "endLine": 111,
+        "endChar": 44
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba61d511_b0e78644",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2523cf8f_ddc5d9b9",
       "range": {
         "startLine": 111,
         "startChar": 20,
@@ -341,6 +581,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b80bfe74_c85f922a",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42e0a764_517b952c",
+      "range": {
+        "startLine": 119,
+        "startChar": 12,
+        "endLine": 119,
+        "endChar": 18
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35c5d770_bab711bf",
@@ -354,6 +618,30 @@
       "writtenOn": "2022-03-04T06:05:19Z",
       "side": 1,
       "message": "bind unexpectedly failed, errno",
+      "range": {
+        "startLine": 121,
+        "startChar": 30,
+        "endLine": 121,
+        "endChar": 35
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f1fc87_d534ea5c",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35c5d770_bab711bf",
       "range": {
         "startLine": 121,
         "startChar": 30,
@@ -389,6 +677,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e62d77c9_c269f854",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Since ports are added back in tearDown() I think it would be better to do:\n\n    if (mAlreadyBlockedPorts.size() \u003e 0) {\n        status \u003d mService-\u003eunblockAllPortsForBind();\n    }",
+      "parentUuid": "cac67831_bfc5005e",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 37
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4230967_9d6d9fa3",
         "filename": "tests/native/connectivity_native_test.cpp",
         "patchSetId": 51
@@ -400,6 +712,30 @@
       "writtenOn": "2022-03-04T06:05:19Z",
       "side": 1,
       "message": "Should be the same as other testcases?",
+      "range": {
+        "startLine": 221,
+        "startChar": 4,
+        "endLine": 221,
+        "endChar": 45
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e221c3f_b47fa7ed",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4230967_9d6d9fa3",
       "range": {
         "startLine": 221,
         "startChar": 4,
@@ -423,6 +759,30 @@
       "writtenOn": "2022-03-04T06:08:38Z",
       "side": 1,
       "message": "Could you also add a testcase to see what happens if port \u003e 65535? Then whatever it does, document in the AIDL file.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 1
+      },
+      "revId": "aa3532f5f2d190e3d6805f95a7fbdd7cf8e5e5d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec9fd8d_aebddd95",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 51
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-04T06:22:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4d65e22_ee259a2b",
       "range": {
         "startLine": 222,
         "startChar": 0,
