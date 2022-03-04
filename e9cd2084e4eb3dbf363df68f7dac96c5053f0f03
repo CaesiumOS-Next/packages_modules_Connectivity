@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a18b6c15_c93513bf",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 4209,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T09:25:22Z",
+      "side": 1,
+      "message": "If there are multiple NetworkRequests in the NetworkRequestInfo, then we will put all of them into mNetworkRequests, but only one of them will be released.\n\nIn general it seems like this method is pretty late to be doing this bookkeeping here in handleRegisterNetworkRequests, because this method is called for lots of types of requests, even internal ones. It seems better to put this code in handleRegisterNetworkRequest and handlerRegisterNetworkRequestWithIntent, which is much closer to where this code was being called before, and where AIUI we are guaranteed to have exactly one NetworkRequests in the NetworkRequestInfo.",
+      "range": {
+        "startLine": 4209,
+        "startChar": 46,
+        "endLine": 4209,
+        "endChar": 49
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b895d9e_c5179375",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6376,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T09:25:22Z",
+      "side": 1,
+      "message": "This is a behaviour change on S: previously, an app that requested CBS would get an exception, now the request will succeed and will later get onUnavailable. Maybe we should have an SDK version check here?",
+      "range": {
+        "startLine": 6376,
+        "startChar": 16,
+        "endLine": 6376,
+        "endChar": 90
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a32ebaa3_322f59f0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6388,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T09:25:22Z",
+      "side": 1,
+      "message": "CONNECTIVITY_INTERNAL is obsolete and nothing should be checking for it any more. This should call checkConnectivityRestrictedNetworksPermission instead.",
+      "range": {
+        "startLine": 6388,
+        "startChar": 44,
+        "endLine": 6388,
+        "endChar": 65
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72eecdaf_6d1905a0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6577,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-04T09:25:22Z",
+      "side": 1,
+      "message": "Why does this post a message to its handler? It\u0027s guaranteed to be running on the handler thread already, because its only caller (handleRegisterNetworkRequests) calls ensureRunningOnConnectivityServiceThread.",
+      "range": {
+        "startLine": 6577,
+        "startChar": 17,
+        "endLine": 6577,
+        "endChar": 28
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
