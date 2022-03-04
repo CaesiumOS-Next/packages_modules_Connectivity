@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97c0fa3d_3c688c7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1244622
+      },
+      "writtenOn": "2022-03-04T04:57:37Z",
+      "side": 1,
+      "message": "Pls get the owner CR+2. Thanks.",
+      "revId": "bd754e387c52bb81b7f6111c7a267f96ee0e3f0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
