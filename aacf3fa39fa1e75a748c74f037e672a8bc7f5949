@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "609994fa_0328f38c",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-05T22:35:57Z",
+      "side": 1,
+      "message": "I wonder if we should / need to check SOL_DOMAIN is AF_INET or AF_INET6 here as well... I know we check on the client side, but client side checks can\u0027t be trusted.",
+      "range": {
+        "startLine": 155,
+        "startChar": 27,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "aacf3fa39fa1e75a748c74f037e672a8bc7f5949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a6972ef_43161190",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-05T22:35:57Z",
+      "side": 1,
+      "message": "this \u0027else\u0027 is not needed (due to the return)",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 12
+      },
+      "revId": "aacf3fa39fa1e75a748c74f037e672a8bc7f5949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
