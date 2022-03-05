@@ -22,6 +22,30 @@
       },
       "revId": "0a24994867324b7ae2ce39ccb4d28a04d3b8ecea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eb3cc9c_b28c7b55",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-05T00:21:50Z",
+      "side": 1,
+      "message": "From strace it looks like the binder times out in the middle of the transaction:\n\n  1644 12:35:12.041879 write(1, \"[ RUN      ] ConnectivityNativeB\"..., 57[ RUN      ] ConnectivityNativeBinderTest.UnblockMaxPort\n  1645 ) \u003d 57 \u003c0.000025\u003e\n  1646 12:35:12.041981 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39a20) \u003d 0 \u003c0.000232\u003e\n  1647 12:35:12.042284 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39a20) \u003d 0 \u003c0.000078\u003e\n  1648 12:35:12.042436 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39a20) \u003d 0 \u003c0.000044\u003e\n  1649 12:35:12.042591 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39b90) \u003d 0 \u003c0.000088\u003e\n  1650 12:35:12.042729 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39ae0) \u003d 0 \u003c0.423723\u003e\n  1651 12:35:12.466541 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39c50) \u003d 0 \u003c0.000016\u003e\n  1652 12:35:12.466614 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39b40) \u003d 0 \u003c0.000703\u003e\n  1653 12:35:12.467366 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39cb0) \u003d 0 \u003c0.000013\u003e\n  1654 12:35:12.467447 write(1, \"packages/modules/Connectivity/te\"..., 219packages/modules/Connectivity/tests/native/connectivity_native_test.cpp:256: Failure\n  1655 Expected equality of these values:\n  1656   binder::Status::EX_SERVICE_SPECIFIC\n  1657     Which is: -8\n  1658   status.exceptionCode()\n  1659     Which is: -129\n  1660 ) \u003d 219 \u003c0.000019\u003e\n  1661 12:35:12.467505 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39e30) \u003d 0 \u003c0.000010\u003e\n  1662 12:35:12.467575 ioctl(3, BINDER_WRITE_READ, 0x7fff1ce39e10) \u003d 0 \u003c0.000012\u003e\n  1663 12:35:12.467617 write(1, \"[  FAILED  ] ConnectivityNativeB\"..., 66[  FAILED  ] ConnectivityNativeBinderTest.UnblockMaxPort (425 ms)\n\nStrange since the opposite call block/unblock which both use the same internal API seem to work fine for the same input value.",
+      "parentUuid": "9b0e8fdb_73b111a9",
+      "range": {
+        "startLine": 228,
+        "startChar": 30,
+        "endLine": 228,
+        "endChar": 51
+      },
+      "revId": "0a24994867324b7ae2ce39ccb4d28a04d3b8ecea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
