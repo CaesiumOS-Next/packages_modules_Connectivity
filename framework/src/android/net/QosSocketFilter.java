@@ -18,6 +18,12 @@ package android.net;
 
 import static android.net.QosCallbackException.EX_TYPE_FILTER_NONE;
 import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED;
+import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_NOT_BOUND;
+import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED;
+import static android.system.OsConstants.IPPROTO_TCP;
+import static android.system.OsConstants.IPPROTO_UDP;
+import static android.system.OsConstants.SOCK_DGRAM;
+import static android.system.OsConstants.SOCK_STREAM;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
@@ -78,13 +84,19 @@ public class QosSocketFilter extends QosFilter {
      */
     @Override
     public int validate() {
-        final InetSocketAddress sa = getAddressFromFileDescriptor();
-        if (sa == null) {
-            return QosCallbackException.EX_TYPE_FILTER_SOCKET_NOT_BOUND;
+        final InetSocketAddress sa = getLocalAddressFromFileDescriptor();
+        final InetSocketAddress da = getRemoteAddressFromFileDescriptor();
+
+        if (sa == null || (sa.getAddress().isAnyLocalAddress() && sa.getPort() == 0)) {
+            return EX_TYPE_FILTER_SOCKET_NOT_BOUND;
         }
 
         if (!sa.equals(mQosSocketInfo.getLocalSocketAddress())) {
             return EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED;
+        }
+
+        if (da == null || !da.equals(mQosSocketInfo.getRemoteSocketAddress())) {
+            return EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED;
         }
 
         return EX_TYPE_FILTER_NONE;
@@ -98,7 +110,7 @@ public class QosSocketFilter extends QosFilter {
      * @return the local address
      */
     @Nullable
-    private InetSocketAddress getAddressFromFileDescriptor() {
+    private InetSocketAddress getLocalAddressFromFileDescriptor() {
         final ParcelFileDescriptor parcelFileDescriptor = mQosSocketInfo.getParcelFileDescriptor();
         if (parcelFileDescriptor == null) return null;
 
@@ -110,6 +122,34 @@ public class QosSocketFilter extends QosFilter {
             address = Os.getsockname(fd);
         } catch (final ErrnoException e) {
             Log.e(TAG, "getAddressFromFileDescriptor: getLocalAddress exception", e);
+            return null;
+        }
+        if (address instanceof InetSocketAddress) {
+            return (InetSocketAddress) address;
+        }
+        return null;
+    }
+
+    /**
+     * The remote address of the socket's connected.
+     *
+     * <p>Note: If the socket is no longer connected, null is returned.
+     *
+     * @return the remote address
+     */
+    @Nullable
+    private InetSocketAddress getRemoteAddressFromFileDescriptor() {
+        final ParcelFileDescriptor parcelFileDescriptor = mQosSocketInfo.getParcelFileDescriptor();
+        if (parcelFileDescriptor == null) return null;
+
+        final FileDescriptor fd = parcelFileDescriptor.getFileDescriptor();
+        if (fd == null) return null;
+
+        final SocketAddress address;
+        try {
+            address = Os.getpeername(fd);
+        } catch (final ErrnoException e) {
+            Log.e(TAG, "getAddressFromFileDescriptor: getRemoteAddress exception", e);
             return null;
         }
         if (address instanceof InetSocketAddress) {
@@ -156,6 +196,18 @@ public class QosSocketFilter extends QosFilter {
     }
 
     /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean matchesProtocolId(final int protocol) {
+        if ((mQosSocketInfo.getSocketType() == SOCK_STREAM && protocol == IPPROTO_TCP)
+                || (mQosSocketInfo.getSocketType() == SOCK_DGRAM && protocol == IPPROTO_UDP)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Called from {@link QosSocketFilter#matchesLocalAddress(InetAddress, int, int)}
      * and {@link QosSocketFilter#matchesRemoteAddress(InetAddress, int, int)} with the
      * filterSocketAddress coming from {@link QosSocketInfo#getLocalSocketAddress()}.
@@ -174,6 +226,7 @@ public class QosSocketFilter extends QosFilter {
             final int startPort, final int endPort) {
         return startPort <= filterSocketAddress.getPort()
                 && endPort >= filterSocketAddress.getPort()
-                && filterSocketAddress.getAddress().equals(address);
+                && (address.isAnyLocalAddress()
+                        || filterSocketAddress.getAddress().equals(address));
     }
 }
