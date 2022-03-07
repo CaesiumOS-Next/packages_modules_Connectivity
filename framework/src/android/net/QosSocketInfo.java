@@ -165,7 +165,12 @@ public final class QosSocketInfo implements Parcelable {
     /* Parcelable methods */
     private QosSocketInfo(final Parcel in) {
         mNetwork = Objects.requireNonNull(Network.CREATOR.createFromParcel(in));
-        mParcelFileDescriptor = ParcelFileDescriptor.CREATOR.createFromParcel(in);
+        final boolean withFd = in.readBoolean();
+        if (withFd) {
+            mParcelFileDescriptor = ParcelFileDescriptor.CREATOR.createFromParcel(in);
+        } else {
+            mParcelFileDescriptor = null;
+        }
 
         final int localAddressLength = in.readInt();
         mLocalSocketAddress = readSocketAddress(in, localAddressLength);
@@ -199,8 +204,32 @@ public final class QosSocketInfo implements Parcelable {
     @Override
     public void writeToParcel(@NonNull final Parcel dest, final int flags) {
         mNetwork.writeToParcel(dest, 0);
+        dest.writeBoolean(true);
         mParcelFileDescriptor.writeToParcel(dest, 0);
 
+        final byte[] localAddress = mLocalSocketAddress.getAddress().getAddress();
+        dest.writeInt(localAddress.length);
+        dest.writeByteArray(localAddress);
+        dest.writeInt(mLocalSocketAddress.getPort());
+
+        if (mRemoteSocketAddress == null) {
+            dest.writeInt(0);
+        } else {
+            final byte[] remoteAddress = mRemoteSocketAddress.getAddress().getAddress();
+            dest.writeInt(remoteAddress.length);
+            dest.writeByteArray(remoteAddress);
+            dest.writeInt(mRemoteSocketAddress.getPort());
+        }
+        dest.writeInt(mSocketType);
+    }
+
+    /**
+     * @hide
+     */
+    public void writeToParcelWithoutFd(@NonNull final Parcel dest, final int flags) {
+        mNetwork.writeToParcel(dest, 0);
+
+        dest.writeBoolean(false);
         final byte[] localAddress = mLocalSocketAddress.getAddress().getAddress();
         dest.writeInt(localAddress.length);
         dest.writeByteArray(localAddress);
