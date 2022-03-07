@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a83590e_13039686",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T04:59:54Z",
+      "side": 1,
+      "message": "Just upload a patch to fix my comment and give +2 to unblock this CL but you still miss second-party-review. You could just respin this CL again to update the uploader or just add second-party-review from your side :)",
+      "revId": "82244fd16c34aad1cc51f480ea98a134d5974ee0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
