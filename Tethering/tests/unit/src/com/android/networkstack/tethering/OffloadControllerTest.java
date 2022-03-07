@@ -26,7 +26,6 @@ import static android.net.NetworkStats.UID_TETHERING;
 import static android.net.RouteInfo.RTN_UNICAST;
 import static android.provider.Settings.Global.TETHER_OFFLOAD_DISABLED;
 
-import static com.android.modules.utils.build.SdkLevel.isAtLeastS;
 import static com.android.networkstack.tethering.OffloadController.StatsType.STATS_PER_IFACE;
 import static com.android.networkstack.tethering.OffloadController.StatsType.STATS_PER_UID;
 import static com.android.networkstack.tethering.OffloadHardwareInterface.ForwardedStats;
@@ -665,12 +664,7 @@ public class OffloadControllerTest {
         final OffloadHardwareInterface.ControlCallback callback = mControlCallbackCaptor.getValue();
         callback.onStoppedLimitReached();
         mTetherStatsProviderCb.expectNotifyStatsUpdated();
-
-        if (isAtLeastS()) {
-            mTetherStatsProviderCb.expectNotifyWarningOrLimitReached();
-        } else {
-            mTetherStatsProviderCb.expectLegacyNotifyLimitReached();
-        }
+        mTetherStatsProviderCb.expectNotifyLimitReached();
     }
 
     @Test
@@ -680,7 +674,7 @@ public class OffloadControllerTest {
         final OffloadHardwareInterface.ControlCallback callback = mControlCallbackCaptor.getValue();
         callback.onWarningReached();
         mTetherStatsProviderCb.expectNotifyStatsUpdated();
-        mTetherStatsProviderCb.expectNotifyWarningOrLimitReached();
+        mTetherStatsProviderCb.expectNotifyWarningReached();
     }
 
     @Test
