@@ -165,7 +165,12 @@ public final class QosSocketInfo implements Parcelable {
     /* Parcelable methods */
     private QosSocketInfo(final Parcel in) {
         mNetwork = Objects.requireNonNull(Network.CREATOR.createFromParcel(in));
-        mParcelFileDescriptor = ParcelFileDescriptor.CREATOR.createFromParcel(in);
+        final boolean withFd = in.readBoolean();
+        if (withFd) {
+            mParcelFileDescriptor = ParcelFileDescriptor.CREATOR.createFromParcel(in);
+        } else {
+            mParcelFileDescriptor = null;
+        }
 
         final int localAddressLength = in.readInt();
         mLocalSocketAddress = readSocketAddress(in, localAddressLength);
@@ -198,8 +203,27 @@ public final class QosSocketInfo implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull final Parcel dest, final int flags) {
+        writeToParcelInternal(dest, flags, /*includeFd=*/ true);
+    }
+
+    /**
+     * Used when sending QosSocketInfo to telephony, which does not need access to the socket FD.
+     * @hide
+     */
+    public void writeToParcelWithoutFd(@NonNull final Parcel dest, final int flags) {
+        writeToParcelInternal(dest, flags, /*includeFd=*/ false);
+    }
+
+    private void writeToParcelInternal(
+            @NonNull final Parcel dest, final int flags, boolean includeFd) {
         mNetwork.writeToParcel(dest, 0);
-        mParcelFileDescriptor.writeToParcel(dest, 0);
+
+        if (includeFd) {
+            dest.writeBoolean(true);
+            mParcelFileDescriptor.writeToParcel(dest, 0);
+        } else {
+            dest.writeBoolean(false);
+        }
 
         final byte[] localAddress = mLocalSocketAddress.getAddress().getAddress();
         dest.writeInt(localAddress.length);
