@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8d37389_1e9e3e87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T16:50:55Z",
+      "side": 1,
+      "message": "Could we make this feature only affect the device after T+ ? And also have MTS test ? I am nervous that ship a new feature in the field without enough testing. If we need to support this feature in S or R devices, please also have a flag to gate this feature for easy roll-back.",
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92bc146e_9039ddfd",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T16:50:55Z",
+      "side": 1,
+      "message": "This is only used for log print, maybe change to String because it would be more readable than integer?",
+      "range": {
+        "startLine": 145,
+        "startChar": 56,
+        "endLine": 145,
+        "endChar": 66
+      },
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2486681e_016d564d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T16:50:55Z",
+      "side": 1,
+      "message": "If provisioning is required, this function only check entitlement result. Probably more safe to check if carrier is unsupported, then return false for isCellularUpstreamPermitted. Currently this function would return correct because it rely on no entitlement check if carrier is unsupported. If you want to keep rely on this, at least you need to add the comment why this function could return correctly if carrier is unsupported because the relationship is not obvious that people may easy to miss it if we have refactor in the future.\n\nSame comment for l.278 at maybeRunProvisioning.",
+      "range": {
+        "startLine": 171,
+        "startChar": 20,
+        "endLine": 171,
+        "endChar": 47
+      },
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aa97fc2_07e6078c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T16:50:55Z",
+      "side": 1,
+      "message": "We should avoid ship the code that get carrier config twice at the same function. Giving that tethering module would be freeze soon this month. The TODO could be move KEY_CARRIER_SUPPORTS_TETHERING_BOOL and KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL into TetheringConfiguration to avoid getting carrier config every times.\n\nThen have the code like this:\n\n    final PersistableBundle carrierConfig \u003d getCarrierConfig(config);\n\n    if (carrierConfig !\u003d null) {\n        isCarrierNotSupport(carrierConfig) return TETHERING_PROVISIONING_CARRIER_UNSUPPORT;\n        \n        isEntitlementCheckNotRequired(carrierConfig) return TETHERING_PROVISIONING_NOT_REQUIRED;\n    }\n    \n    private boolean carrierConfigAffirmsCarrierNotSupport(final PersistableBundle carrierConfig) {\n        // A CarrierConfigManager was found and it has a config.\n        final boolean mIsCarrierSupport \u003d carrierConfig.getBoolean(\n                KEY_CARRIER_SUPPORTS_TETHERING_BOOL);\n        return !mIsCarrierSupport;\n    }\n    \n    private boolean isEntitlementCheckNotRequired(final PersistableBundle carrierConfig) {\n        // A CarrierConfigManager was found and it has a config.\n        final boolean isEntitlementCheckRequired \u003d carrierConfig.getBoolean(\n                CarrierConfigManager.KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL);\n        return !isEntitlementCheckRequired;\n    }",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 62
+      },
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b67450_64f978a5",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T16:50:55Z",
+      "side": 1,
+      "message": "Is it only apply this feature into T+ ?",
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

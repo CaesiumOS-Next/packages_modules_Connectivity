@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dae59f7_248edce9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T16:50:55Z",
+      "side": 1,
+      "message": "Per talk, this need to be this change.",
+      "parentUuid": "0a594348_79ef0ac3",
+      "range": {
+        "startLine": 356,
+        "startChar": 8,
+        "endLine": 356,
+        "endChar": 52
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31ed6089_68838c2f",
