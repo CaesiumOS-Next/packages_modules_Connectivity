@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b543a858_8a7e5319",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T03:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21cdb19c_1ee0e34b",
+      "range": {
+        "startLine": 1543,
+        "startChar": 21,
+        "endLine": 1543,
+        "endChar": 59
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f096617_e4dd7d3c",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-04T14:55:06Z",
       "side": 1,
       "message": "hidden",
+      "range": {
+        "startLine": 1544,
+        "startChar": 55,
+        "endLine": 1544,
+        "endChar": 61
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5836d27d_3767d5e9",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1544,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T03:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f096617_e4dd7d3c",
       "range": {
         "startLine": 1544,
         "startChar": 55,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b17d8b1_70c46811",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1545,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T03:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b16ddb7f_f93474d9",
+      "range": {
+        "startLine": 1545,
+        "startChar": 19,
+        "endLine": 1545,
+        "endChar": 22
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "599d0284_9bc07833",
@@ -100,6 +172,30 @@
       "writtenOn": "2022-03-04T14:55:06Z",
       "side": 1,
       "message": "tethering entirely",
+      "range": {
+        "startLine": 1546,
+        "startChar": 61,
+        "endLine": 1546,
+        "endChar": 76
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5421150_35742abe",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T03:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "599d0284_9bc07833",
       "range": {
         "startLine": 1546,
         "startChar": 61,
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0551d5c_826a7b8a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1554,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T03:04:02Z",
+      "side": 1,
+      "message": "Ack, will have follow up CL to fix this before T ship.",
+      "parentUuid": "08e8e315_940c369a",
+      "range": {
+        "startLine": 1554,
+        "startChar": 7,
+        "endLine": 1554,
+        "endChar": 11
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5d1839c5_1985f9a2",
         "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
         "patchSetId": 7
@@ -146,6 +266,30 @@
       "writtenOn": "2022-03-04T14:55:06Z",
       "side": 1,
       "message": "Do we run these unit tests on all platform versions? In other words, are these tests in mainline-presubmit? If so, this is fine. If not (e.g., if they are only in presubmit, not mainline-presubmit), then we can\u0027t just use isAtLeastT() here, because it will always be true.\n\nIf you don\u0027t know the answer to that, one easy way to check would be to introduce a bug in the else clause below and see if TH says the test fails.",
+      "range": {
+        "startLine": 2864,
+        "startChar": 12,
+        "endLine": 2864,
+        "endChar": 24
+      },
+      "revId": "cfb148b29418557bddf9bd99e4333700db87b8ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08fda255_56fa2caf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2864,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-07T03:04:02Z",
+      "side": 1,
+      "message": "Yes, we run this in all platform. This would be included in ConnectivityCoverageTests which is in mainline-presubmit",
+      "parentUuid": "5d1839c5_1985f9a2",
       "range": {
         "startLine": 2864,
         "startChar": 12,
