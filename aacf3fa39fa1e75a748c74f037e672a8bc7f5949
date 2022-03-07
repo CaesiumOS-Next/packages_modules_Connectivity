@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4648a446_75a4b0d3",
+        "filename": "netd/BpfHandler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-07T06:45:32Z",
+      "side": 1,
+      "message": "Done. \n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2010316/\n\nThanks both of you.",
+      "parentUuid": "1ce6f552_a44903ea",
+      "range": {
+        "startLine": 155,
+        "startChar": 27,
+        "endLine": 155,
+        "endChar": 37
+      },
+      "revId": "aacf3fa39fa1e75a748c74f037e672a8bc7f5949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a6972ef_43161190",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-03-06T01:36:18Z",
       "side": 1,
       "message": "nit: it can be one line because sockCookie is only used once. The return object is also quite obvious from the name of getSocketCookie().",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 46
+      },
+      "revId": "aacf3fa39fa1e75a748c74f037e672a8bc7f5949",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a265325_3c0ff754",
+        "filename": "netd/BpfHandlerTest.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-07T06:45:32Z",
+      "side": 1,
+      "message": "Done\n\nhttps://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/2010316/",
+      "parentUuid": "ca16834b_663a45c0",
       "range": {
         "startLine": 194,
         "startChar": 0,
