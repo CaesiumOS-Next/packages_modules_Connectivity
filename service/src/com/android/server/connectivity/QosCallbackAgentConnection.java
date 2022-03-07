@@ -149,6 +149,7 @@ class QosCallbackAgentConnection implements IBinder.DeathRecipient {
 
     void sendEventEpsQosSessionAvailable(final QosSession session,
             final EpsBearerQosSessionAttributes attributes) {
+        if (!validateOrSendErrorAndUnregister()) return;
         try {
             if (DBG) log("sendEventEpsQosSessionAvailable: sending...");
             mCallback.onQosEpsBearerSessionAvailable(session, attributes);
@@ -159,6 +160,7 @@ class QosCallbackAgentConnection implements IBinder.DeathRecipient {
 
     void sendEventNrQosSessionAvailable(final QosSession session,
             final NrQosSessionAttributes attributes) {
+        if (!validateOrSendErrorAndUnregister()) return;
         try {
             if (DBG) log("sendEventNrQosSessionAvailable: sending...");
             mCallback.onNrQosSessionAvailable(session, attributes);
@@ -168,6 +170,7 @@ class QosCallbackAgentConnection implements IBinder.DeathRecipient {
     }
 
     void sendEventQosSessionLost(@NonNull final QosSession session) {
+        if (!validateOrSendErrorAndUnregister()) return;
         try {
             if (DBG) log("sendEventQosSessionLost: sending...");
             mCallback.onQosSessionLost(session);
@@ -183,6 +186,16 @@ class QosCallbackAgentConnection implements IBinder.DeathRecipient {
         } catch (final RemoteException e) {
             loge("sendEventQosCallbackError: remote exception", e);
         }
+    }
+
+    private boolean validateOrSendErrorAndUnregister() {
+        final int exceptionType = mFilter.validate();
+        if (exceptionType != EX_TYPE_FILTER_NONE) {
+            sendEventQosCallbackError(exceptionType);
+            mQosCallbackTracker.unregisterCallback(mCallback);
+            return false;
+        }
+        return true;
     }
 
     private static void log(@NonNull final String msg) {
