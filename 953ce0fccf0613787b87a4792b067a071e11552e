@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f7c4324_56c8c00c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-07T01:39:19Z",
+      "side": 1,
+      "message": "Suggestion for name: unregisterAfterReplacementOrTimeout.",
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
