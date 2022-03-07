@@ -46,6 +46,7 @@ public final class QosCallbackException extends Exception {
             EX_TYPE_FILTER_SOCKET_NOT_BOUND,
             EX_TYPE_FILTER_NOT_SUPPORTED,
             EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED,
+            EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED,
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface ExceptionType {}
@@ -68,6 +69,9 @@ public final class QosCallbackException extends Exception {
     /** {@hide} */
     public static final int EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED = 4;
 
+    /** {@hide} */
+    public static final int EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED = 5;
+
     /**
      * Creates exception based off of a type and message.  Not all types of exceptions accept a
      * custom message.
@@ -87,6 +91,9 @@ public final class QosCallbackException extends Exception {
             case EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED:
                 return new QosCallbackException(
                         new SocketLocalAddressChangedException());
+            case EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED:
+                return new QosCallbackException(
+                        new SocketRemoteAddressChangedException());
             default:
                 Log.wtf(TAG, "create: No case setup for exception type: '" + type + "'");
                 return new QosCallbackException(
