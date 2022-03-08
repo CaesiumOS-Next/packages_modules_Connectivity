@@ -16,6 +16,23 @@
       "message": "Hi Lucas, Jean\nAs discussed with Jean and Lorenzo last Friday, to avoid inconsistencies in LinkProperties API, we will simplify our compatibility approach to simply filter out non RTN_UNICAST routes.\n\nPlease review",
       "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fcb96d0_8cc58e9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1725373
+      },
+      "writtenOn": "2022-03-08T12:03:11Z",
+      "side": 1,
+      "message": "Hi Lucas, \nSince Jean is out of office, could you please take a look at this CL?",
+      "revId": "82b3c35a6509c8cfc7f9a27d9cd8802c63e570a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
