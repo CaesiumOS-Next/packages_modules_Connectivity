@@ -601,13 +601,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // Handle private DNS validation status updates.
     private static final int EVENT_PRIVATE_DNS_VALIDATION_UPDATE = 38;
 
-    /**
-     * used to remove a network request, either a listener or a real request and call unavailable
-     * arg1 = UID of caller
-     * obj  = NetworkRequest
-     */
-    private static final int EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE = 39;
-
      /**
       * Event for NetworkMonitor/NetworkAgentInfo to inform ConnectivityService that the network has
       * been tested.
@@ -4322,7 +4315,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private boolean hasCarrierPrivilegeForNetworkCaps(final int callingUid,
             @NonNull final NetworkCapabilities caps) {
-        if (SdkLevel.isAtLeastT() && mCarrierPrivilegeAuthenticator != null) {
+        if (mCarrierPrivilegeAuthenticator != null) {
             return mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
                     callingUid, caps);
         }
@@ -5227,11 +5220,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_RELEASE_NETWORK_REQUEST: {
                     handleReleaseNetworkRequest((NetworkRequest) msg.obj, msg.arg1,
                             /* callOnUnavailable */ false);
-                    break;
-                }
-                case EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE: {
-                    handleReleaseNetworkRequest((NetworkRequest) msg.obj, msg.arg1,
-                            /* callOnUnavailable */ true);
                     break;
                 }
                 case EVENT_SET_ACCEPT_UNVALIDATED: {
@@ -6544,7 +6532,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
             String callingPackageName, String callingAttributionTag) {
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
-            if (!networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
+            if (SdkLevel.isAtLeastT()
+                    && !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
                 enforceConnectivityRestrictedNetworksPermission();
             }
         } else {
@@ -6745,9 +6734,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private void releaseNetworkRequestAndCallOnUnavailable(NetworkRequest networkRequest) {
         ensureNetworkRequestHasType(networkRequest);
-        mHandler.sendMessage(mHandler.obtainMessage(
-                EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE, mDeps.getCallingUid(), 0,
-                networkRequest));
+        handleReleaseNetworkRequest(networkRequest, mDeps.getCallingUid(),
+                /* callOnUnavailable */ true);
     }
 
     private void handleRegisterNetworkProvider(NetworkProviderInfo npi) {
