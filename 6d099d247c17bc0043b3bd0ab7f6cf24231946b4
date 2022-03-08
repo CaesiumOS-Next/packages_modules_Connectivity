@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09ee8db_f4ded9a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "LGTM assuming comments adddressed.",
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1007500_e53ca14a",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5709,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "to the list of UIds that are allowed to",
+      "range": {
+        "startLine": 5709,
+        "startChar": 29,
+        "endLine": 5709,
+        "endChar": 45
+      },
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e47efbed_abdd5f87",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5709,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "Adds",
+      "range": {
+        "startLine": 5709,
+        "startChar": 7,
+        "endLine": 5709,
+        "endChar": 10
+      },
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b6f6343_1b914773",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5731,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "Removes",
+      "range": {
+        "startLine": 5731,
+        "startChar": 7,
+        "endLine": 5731,
+        "endChar": 13
+      },
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "345f4c3d_bbbe6253",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5731,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "the list of UIDs that are allowed to",
+      "range": {
+        "startLine": 5731,
+        "startChar": 37,
+        "endLine": 5731,
+        "endChar": 70
+      },
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c783584c_8b6de033",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5754,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "Adds",
+      "range": {
+        "startLine": 5754,
+        "startChar": 7,
+        "endLine": 5754,
+        "endChar": 10
+      },
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c65acc_d61e8b26",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5754,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "the list of UIDs that are not allowed to use",
+      "range": {
+        "startLine": 5754,
+        "startChar": 32,
+        "endLine": 5754,
+        "endChar": 63
+      },
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69163c93_e0a86852",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5776,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "Removes",
+      "range": {
+        "startLine": 5776,
+        "startChar": 7,
+        "endLine": 5776,
+        "endChar": 13
+      },
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82fd328a_cfebb043",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5776,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 1,
+      "message": "the list of UIds that can use",
+      "range": {
+        "startLine": 5776,
+        "startChar": 37,
+        "endLine": 5776,
+        "endChar": 69
+      },
+      "revId": "6d099d247c17bc0043b3bd0ab7f6cf24231946b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

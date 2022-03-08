@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "115a8ab9_cba9d4a7",
+        "filename": "tests/unit/java/com/android/server/NetworkManagementServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:41:55Z",
+      "side": 0,
+      "message": "Oops. Looks like there was a bug here, this should have been \"false /* enabled */\". The test probably passed becuause it was verifying the operation that was already verified in line 253.",
+      "range": {
+        "startLine": 261,
+        "startChar": 59,
+        "endLine": 261,
+        "endChar": 63
+      },
+      "revId": "9edd999725357a6b424a260f5d7ecbcbf604f8c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
