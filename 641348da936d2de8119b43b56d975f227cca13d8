@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76399ab9_4b515015",
+        "filename": "Tethering/common/TetheringLib/api/module-lib-current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06be6774_97cf98cd",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 56
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9b8ed08_0783a61a",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-04T15:30:53Z",
       "side": 1,
       "message": "This callback will be called only if {@link #onSupportedTetheringTypes} is not implemented. If it is called, it will be called immediately...",
+      "range": {
+        "startLine": 1045,
+        "startChar": 11,
+        "endLine": 1045,
+        "endChar": 14
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ce5c3d0_e3c1ec7b",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1045,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9b8ed08_0783a61a",
       "range": {
         "startLine": 1045,
         "startChar": 11,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c22f04_8e622d13",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c65f87fa_f2ca9561",
+      "range": {
+        "startLine": 1051,
+        "startChar": 28,
+        "endLine": 1051,
+        "endChar": 52
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dac80b4b_a049c833",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-04T15:30:53Z",
       "side": 1,
       "message": "If you end up using a native array (so you can use wirteIntArray, see comment above), you can use BitUtils#unpackBits.",
+      "range": {
+        "startLine": 1438,
+        "startChar": 0,
+        "endLine": 1440,
+        "endChar": 9
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c3d9bf0_78b0654d",
+        "filename": "Tethering/common/TetheringLib/src/android/net/TetheringManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Just rename to unpackBits which probably more reusable for tethering.\n\nHere are the reasons that I don\u0027t want to using native array and BitUtils.\n1. Giving that we already use bitmap in server side, covert it to native array then pass to client side seems redundant. No matter what we need to cover it to a set because the surface of API \"onSupportedTetheringTypes(@NonNull Set\u003cInteger\u003e supportedTypes)\". We can covert bitmap to a set directly instead of covering bitamp to native array then cover it to a set.\n2. BitUtils is a @hide class in bootclass path and it non-updatable code and it don\u0027t support unpackBits to a set.\n3. Giving I need to unpack bit in bootclass path class and it just a simple util. I\u0027d prefer just add this util directly here instead of link a new class which include more methods that tethering don\u0027t need to use because proguard don\u0027t enable in framework-xxxx.jar libraries.",
+      "parentUuid": "dac80b4b_a049c833",
       "range": {
         "startLine": 1438,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f452be6d_5036e8b6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Yes, AIDL supports primitive int array but don\u0027t support Integer object array. I don\u0027t want to covert the bitmap to primitive int array. The API surface is Set\u003cInteger\u003e, the value copy between primitive int array and Integer set is annoy. \n\nIf I understand the suggestion here correctly, it would be:\nhave a Parcelable object and it would encapsulate the parcel. In server side covert bitmap to native array and writeToParcel then pass the parcel Parcelable object to client side. In client side, use createFromParcel and covert native array to set.",
+      "parentUuid": "650559ea_4d92a09e",
+      "range": {
+        "startLine": 282,
+        "startChar": 7,
+        "endLine": 282,
+        "endChar": 35
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99d5407b_7d58c21d",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-03-04T15:30:53Z",
       "side": 1,
       "message": "bitmap is one word, so I\u0027d make the M lowercase: mSupportedTypesBitmap.",
+      "range": {
+        "startLine": 284,
+        "startChar": 30,
+        "endLine": 284,
+        "endChar": 36
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d32cac_c8537004",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99d5407b_7d58c21d",
       "range": {
         "startLine": 284,
         "startChar": 30,
@@ -162,6 +306,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab1f4574_4d7093b8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2495,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0735ad94_5650cf69",
+      "range": {
+        "startLine": 2495,
+        "startChar": 17,
+        "endLine": 2495,
+        "endChar": 29
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6656a149_8a3fe32d",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-03-04T15:30:53Z",
       "side": 1,
       "message": "Only one of the conditions below is in Settings though... maybe call this isTetheringAllowed?",
+      "range": {
+        "startLine": 2502,
+        "startChar": 35,
+        "endLine": 2502,
+        "endChar": 45
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a1cfdb2_b5f6c10f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2502,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6656a149_8a3fe32d",
       "range": {
         "startLine": 2502,
         "startChar": 35,
@@ -208,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7b0094f_59aaeb4d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/Tethering.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2511,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done, thanks for catching this.",
+      "parentUuid": "b918e1c8_5544d03a",
+      "range": {
+        "startLine": 2511,
+        "startChar": 15,
+        "endLine": 2511,
+        "endChar": 35
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cade5564_22a574c2",
@@ -221,6 +437,30 @@
       "writtenOn": "2022-03-04T15:30:53Z",
       "side": 1,
       "message": "This call only works on T though, right? Because updateSupportedDownstreams only updates the bitmap with Ethernet if isAtleastT()? If so, that\u0027s wrong - this test should run on R+.\n\nMaybe what you could do is:\n\n- Ensure updateSupportedDownstreams always populates all the downstreams correctly\n- Make the new callback correct in all cases (i.e., always reports Ethernet, p2p, ncm, etc. correctly, even on R and S)\n- Make old callback, and isTetheringSupported, ignore all bits in the bitmap that didn\u0027t matter on R and S (i.e., ncm, p2p, ethernet)",
+      "range": {
+        "startLine": 175,
+        "startChar": 20,
+        "endLine": 175,
+        "endChar": 48
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1bc3592_8d14cba3",
+        "filename": "Tethering/tests/integration/src/android/net/EthernetTetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "No, this should also be able to run before T. Before T, updateSupportedDownstreams would update Ethernet if any of wifi, usb and bt is not disabled.\n\nI think we need to keep consistency between old API(old callback and isTetheringSupported) and new callback. For R and S, it would be very strange that the caller get the new callback says ethernet is supported but start ethernet tethering fail because of isTetheringSupported is false (and no UI). Or make start ethernet tethering work while isTetheringSupported is false also be very weird.\n\nThe behavior would be:\n    - For R and S: if wifi, usb, bluetooth are all disabled, updateSupportedDownstreams would populates zero supported tethering type. And both old/new callback and isTetheringSupported would have same behavior. If one of wifi, usb bluetooth type is enabled, updateSupportedDownstreams populates all the downstreams correctly.\n    - After T, updateSupportedDownstreams always populates all the downstreams correctly.\n    \nI don\u0027t change any behavior in this test. Before this change, R and S ethernet tethering would also not be supported if wifi, usb and bluetooth are disabled.",
+      "parentUuid": "cade5564_22a574c2",
       "range": {
         "startLine": 175,
         "startChar": 20,
@@ -254,6 +494,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68a1706f_84d66854",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85b04b61_a6306cda",
+      "range": {
+        "startLine": 1702,
+        "startChar": 51,
+        "endLine": 1702,
+        "endChar": 57
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9fa7f17_ae55ac83",
@@ -267,6 +531,30 @@
       "writtenOn": "2022-03-04T15:30:53Z",
       "side": 1,
       "message": "Bitmap",
+      "range": {
+        "startLine": 1799,
+        "startChar": 59,
+        "endLine": 1799,
+        "endChar": 64
+      },
+      "revId": "641348da936d2de8119b43b56d975f227cca13d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0a7fa84_dccc005c",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/TetheringTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1799,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-08T10:24:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9fa7f17_ae55ac83",
       "range": {
         "startLine": 1799,
         "startChar": 59,
