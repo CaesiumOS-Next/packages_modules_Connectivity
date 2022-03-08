@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb7fdd37_280875b4",
+        "filename": "tests/unit/java/android/net/EthernetNetworkUpdateRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-03-08T21:12:12Z",
+      "side": 1,
+      "message": "Also as an FYI, in addition to this unit test Patrick added (thanks Patrick), I have a CTS test for EthernetNetworkUpdateRequest here:\nhttps://r.android.com/1991050\n\nOnce EthernetNetworkUpdateRequest moves into packages/modules/Connectivity (which from what I understand shouldn\u0027t be too long), I\u0027ll be able to get the CTS test to pass TH and continue the review process.",
+      "parentUuid": "bd7f1eec_f921ea49",
+      "revId": "30d33f4ee36c923cb20b33127288eace20c45061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7e46e03_4b6e071a",
         "filename": "tests/unit/java/android/net/EthernetNetworkUpdateRequestTest.java",
         "patchSetId": 3
