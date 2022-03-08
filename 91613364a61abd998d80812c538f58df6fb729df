@@ -39,6 +39,30 @@
       },
       "revId": "91613364a61abd998d80812c538f58df6fb729df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aaf3d36_fb949b28",
+        "filename": "framework/src/android/net/Network.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2022-03-08T17:23:45Z",
+      "side": 1,
+      "message": "Sorry - \"connection oriented\" not \"connection-based\"",
+      "parentUuid": "7b3706f5_1d0e6b70",
+      "range": {
+        "startLine": 416,
+        "startChar": 57,
+        "endLine": 416,
+        "endChar": 90
+      },
+      "revId": "91613364a61abd998d80812c538f58df6fb729df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
