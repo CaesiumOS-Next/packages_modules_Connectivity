@@ -601,13 +601,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
     // Handle private DNS validation status updates.
     private static final int EVENT_PRIVATE_DNS_VALIDATION_UPDATE = 38;
 
-    /**
-     * used to remove a network request, either a listener or a real request and call unavailable
-     * arg1 = UID of caller
-     * obj  = NetworkRequest
-     */
-    private static final int EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE = 39;
-
      /**
       * Event for NetworkMonitor/NetworkAgentInfo to inform ConnectivityService that the network has
       * been tested.
@@ -2925,18 +2918,28 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.NETWORK_SETTINGS);
     }
 
-    private void enforceConnectivityRestrictedNetworksPermission() {
-        try {
-            mContext.enforceCallingOrSelfPermission(
-                    android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS,
-                    "ConnectivityService");
-            return;
-        } catch (SecurityException e) { /* fallback to ConnectivityInternalPermission */ }
+    private boolean checkConnectivityRestrictedNetworksPermission(int callerPid, int callerUid) {
+        if (checkAnyPermissionOf(callerPid, callerUid,
+                android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS)) {
+            return true;
+        }
         //  TODO: Remove this fallback check after all apps have declared
         //   CONNECTIVITY_USE_RESTRICTED_NETWORKS.
-        mContext.enforceCallingOrSelfPermission(
-                android.Manifest.permission.CONNECTIVITY_INTERNAL,
-                "ConnectivityService");
+        if (checkAnyPermissionOf(callerPid, callerUid,
+                android.Manifest.permission.CONNECTIVITY_INTERNAL)) {
+            return true;
+        }
+        return false;
+    }
+
+    private void enforceConnectivityRestrictedNetworksPermission() {
+        final int callingUid = Binder.getCallingUid();
+        final int callingPid = Binder.getCallingPid();
+        if (!checkConnectivityRestrictedNetworksPermission(callingPid, callingUid)) {
+            throw new SecurityException("ConnectivityService: Neither user " + callingUid
+                    + " nor process " + callingPid
+                    + " has the permission to access restricted network.");
+        }
     }
 
     private void enforceKeepalivePermission() {
@@ -4322,7 +4325,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
     private boolean hasCarrierPrivilegeForNetworkCaps(final int callingUid,
             @NonNull final NetworkCapabilities caps) {
-        if (SdkLevel.isAtLeastT() && mCarrierPrivilegeAuthenticator != null) {
+        if (mCarrierPrivilegeAuthenticator != null) {
             return mCarrierPrivilegeAuthenticator.hasCarrierPrivilegeForNetworkCapabilities(
                     callingUid, caps);
         }
@@ -4367,6 +4370,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         }
                     }
                 }
+                // Since it is possible that a carrier app loses privilege later.
+                // To maintain API consistency, onUnavailable is fired for both
+                // newly incoming problematic requests and requests that lose
+                // permission, instead of throwing exception only when permissions
+                // are enforced when requesting.
                 if (req.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
                     if (!hasCarrierPrivilegeForNetworkCaps(nri.mUid, req.networkCapabilities)
                             && !checkConnectivityRestrictedNetworksPermission(
@@ -4386,7 +4394,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
         }
 
         if (requestToBeReleased != null) {
-            releaseNetworkRequestAndCallOnUnavailable(requestToBeReleased);
+            handleReleaseNetworkRequest(requestToBeReleased, mDeps.getCallingUid(),
+                    /* callOnUnavailable */ true);
             return;
         }
 
@@ -5227,11 +5236,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_RELEASE_NETWORK_REQUEST: {
                     handleReleaseNetworkRequest((NetworkRequest) msg.obj, msg.arg1,
                             /* callOnUnavailable */ false);
-                    break;
-                }
-                case EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE: {
-                    handleReleaseNetworkRequest((NetworkRequest) msg.obj, msg.arg1,
-                            /* callOnUnavailable */ true);
                     break;
                 }
                 case EVENT_SET_ACCEPT_UNVALIDATED: {
@@ -6544,22 +6548,17 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private void enforceNetworkRequestPermissions(NetworkCapabilities networkCapabilities,
             String callingPackageName, String callingAttributionTag) {
         if (networkCapabilities.hasCapability(NET_CAPABILITY_NOT_RESTRICTED) == false) {
-            if (!networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
+            // For CBS, the permission check is deferred to when the request is processed
+            // on the handler thread to fire onUnavailable fired for both
+            // newly incoming problematic requests and requests that lose
+            // permission. See handleRegisterNetworkRequest.
+            if (SdkLevel.isAtLeastT()
+                    && !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CBS)) {
                 enforceConnectivityRestrictedNetworksPermission();
             }
         } else {
             enforceChangePermission(callingPackageName, callingAttributionTag);
         }
-    }
-
-    private boolean checkConnectivityRestrictedNetworksPermission(int callerPid, int callerUid) {
-        if (checkAnyPermissionOf(callerPid, callerUid,
-                android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS)
-                || checkAnyPermissionOf(callerPid, callerUid,
-                android.Manifest.permission.CONNECTIVITY_INTERNAL)) {
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -6741,13 +6740,6 @@ public class ConnectivityService extends IConnectivityManager.Stub
         ensureNetworkRequestHasType(networkRequest);
         mHandler.sendMessage(mHandler.obtainMessage(
                 EVENT_RELEASE_NETWORK_REQUEST, mDeps.getCallingUid(), 0, networkRequest));
-    }
-
-    private void releaseNetworkRequestAndCallOnUnavailable(NetworkRequest networkRequest) {
-        ensureNetworkRequestHasType(networkRequest);
-        mHandler.sendMessage(mHandler.obtainMessage(
-                EVENT_RELEASE_NETWORK_REQUEST_AND_CALL_UNAVAILABLE, mDeps.getCallingUid(), 0,
-                networkRequest));
     }
 
     private void handleRegisterNetworkProvider(NetworkProviderInfo npi) {
