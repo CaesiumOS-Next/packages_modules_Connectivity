@@ -375,8 +375,7 @@ public class Network implements Parcelable {
     /**
      * Binds the specified {@link DatagramSocket} to this {@code Network}. All data traffic on the
      * socket will be sent on this {@code Network}, irrespective of any process-wide network binding
-     * set by {@link ConnectivityManager#bindProcessToNetwork}. The socket must not be
-     * connected.
+     * set by {@link ConnectivityManager#bindProcessToNetwork}.
      */
     public void bindSocket(DatagramSocket socket) throws IOException {
         // Query a property of the underlying socket to ensure that the socket's file descriptor
