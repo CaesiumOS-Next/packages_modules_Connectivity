@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7f1eec_f921ea49",
+        "filename": "tests/unit/java/android/net/EthernetNetworkUpdateRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:51:17Z",
+      "side": 1,
+      "message": "This test looks good, but it seems like a better place for it would be under packages/modules/Connectivity/tests/common, which contains similar tests for other API data classes (e.g., LinkProperties, NetworkCapabilities, RouteInfo...). That way it will run in CTS and also add API coverage.",
+      "revId": "30d33f4ee36c923cb20b33127288eace20c45061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7e46e03_4b6e071a",
+        "filename": "tests/unit/java/android/net/EthernetNetworkUpdateRequestTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-08T15:51:17Z",
+      "side": 1,
+      "message": "Specifying the field count has proven brittle in the past due to mainline releases not being synchronized with CTS releases. For a unit test this doesn\u0027t matter, but for a CTS test it does. Suggest instead using assertParcelingIsLossless.",
+      "range": {
+        "startLine": 51,
+        "startChar": 41,
+        "endLine": 51,
+        "endChar": 42
+      },
+      "revId": "30d33f4ee36c923cb20b33127288eace20c45061",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
