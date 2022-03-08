@@ -5850,10 +5850,8 @@ public class ConnectivityServiceTest {
         final TestNetworkCallback networkCallback = new TestNetworkCallback();
 
         mServiceContext.setPermission(CONNECTIVITY_USE_RESTRICTED_NETWORKS, PERMISSION_DENIED);
-        // Now file the test request and expect it.
-        mCm.requestNetwork(nr, networkCallback);
-        networkCallback.expectCallback(CallbackEntry.UNAVAILABLE, (Network) null);
-        mCm.unregisterNetworkCallback(networkCallback);
+        // Now file the test request and expect it throws.
+        assertThrows(SecurityException.class, () -> mCm.requestNetwork(nr, networkCallback));
     }
 
     private static class TestKeepaliveCallback extends PacketKeepaliveCallback {
