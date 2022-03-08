@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad3cce53_75ea5e03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-08T09:43:38Z",
+      "side": 1,
+      "message": "Comments are addressed in aosp/2015175",
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a18b6c15_c93513bf",
@@ -26,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ebd82f5f_a7d15e38",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 4209,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-08T09:43:38Z",
+      "side": 1,
+      "message": "Stupid question: Why do we want to releaseNetworkRequestAndCallOnUnavailable for apps that request CBS but don\u0027t have enough priviledge, instead of checking permission and throws in ensureSufficientPermissionsForRequest?\n\nIIUC this is changed between patchset 5 and 6.\nBut did not find any trace of reason of doing this.\n\nAdd sooraj@ to input.",
+      "parentUuid": "a18b6c15_c93513bf",
+      "range": {
+        "startLine": 4209,
+        "startChar": 46,
+        "endLine": 4209,
+        "endChar": 49
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b895d9e_c5179375",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 19
@@ -37,6 +78,30 @@
       "writtenOn": "2022-03-04T09:25:22Z",
       "side": 1,
       "message": "This is a behaviour change on S: previously, an app that requested CBS would get an exception, now the request will succeed and will later get onUnavailable. Maybe we should have an SDK version check here?",
+      "range": {
+        "startLine": 6376,
+        "startChar": 16,
+        "endLine": 6376,
+        "endChar": 90
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "036222d6_1bb449d6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6376,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-08T09:43:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b895d9e_c5179375",
       "range": {
         "startLine": 6376,
         "startChar": 16,
@@ -72,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad4ecc9e_a348019b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6388,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-08T09:43:38Z",
+      "side": 1,
+      "message": "Hmmm, no?\nThis is the checkConnectivityRestrictedNetworksPermission, not sure what you mean.\nIIUC this function is a equivalent to enforceConnectivityRestrictedNetworksPermission but taking callingUid/pid and without throwing.\n\nSo the question becomes: for enforceConnectivityRestrictedNetworksPermission is it safe to remove CONNECTIVITY_INTERNAL check?\n\nAnother option is to refactor enforceConnectivityRestrictedNetworksPermission to call checkConnectivityRestrictedNetworksPermission, which will lose the original message in SecurityException, WDYT?",
+      "parentUuid": "a32ebaa3_322f59f0",
+      "range": {
+        "startLine": 6388,
+        "startChar": 44,
+        "endLine": 6388,
+        "endChar": 65
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72eecdaf_6d1905a0",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 19
@@ -83,6 +172,30 @@
       "writtenOn": "2022-03-04T09:25:22Z",
       "side": 1,
       "message": "Why does this post a message to its handler? It\u0027s guaranteed to be running on the handler thread already, because its only caller (handleRegisterNetworkRequests) calls ensureRunningOnConnectivityServiceThread.",
+      "range": {
+        "startLine": 6577,
+        "startChar": 17,
+        "endLine": 6577,
+        "endChar": 28
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "038fa8c7_1a06ec13",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6577,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-08T09:43:38Z",
+      "side": 1,
+      "message": "Done, but since this \"looks very similar\" to releaseNetworkRequest just above, if someone calls this in a binder thread this will be super error-prone.\nDo we need to another ensureRunningOnConnectivityServiceThread inovacation at the top of this function?",
+      "parentUuid": "72eecdaf_6d1905a0",
       "range": {
         "startLine": 6577,
         "startChar": 17,
