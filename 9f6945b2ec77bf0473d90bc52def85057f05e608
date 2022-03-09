@@ -119,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "361c8090_6a0f344c",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-09T15:55:52Z",
+      "side": 1,
+      "message": "Per discussed with Mark, isTetherProvisioningRequired use getTetherProvisioningCondition(config) \u003d\u003d TETHERING_PROVISIONING_REQUIRED instead.",
+      "parentUuid": "9d5c24f6_c9bdd91a",
+      "range": {
+        "startLine": 314,
+        "startChar": 15,
+        "endLine": 314,
+        "endChar": 91
+      },
+      "revId": "9f6945b2ec77bf0473d90bc52def85057f05e608",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b638b067_9ad52213",

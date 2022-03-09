@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63fc07d3_01d77fec",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-09T15:55:52Z",
+      "side": 1,
+      "message": "sure.",
+      "parentUuid": "92bc146e_9039ddfd",
+      "range": {
+        "startLine": 145,
+        "startChar": 56,
+        "endLine": 145,
+        "endChar": 66
+      },
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2486681e_016d564d",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-07T16:50:55Z",
       "side": 1,
       "message": "If provisioning is required, this function only check entitlement result. Probably more safe to check if carrier is unsupported, then return false for isCellularUpstreamPermitted. Currently this function would return correct because it rely on no entitlement check if carrier is unsupported. If you want to keep rely on this, at least you need to add the comment why this function could return correctly if carrier is unsupported because the relationship is not obvious that people may easy to miss it if we have refactor in the future.\n\nSame comment for l.278 at maybeRunProvisioning.",
+      "range": {
+        "startLine": 171,
+        "startChar": 20,
+        "endLine": 171,
+        "endChar": 47
+      },
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b311a7f0_f340c8f3",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-09T15:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2486681e_016d564d",
       "range": {
         "startLine": 171,
         "startChar": 20,
@@ -87,6 +135,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e98cb7fe_f7efd77a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-09T15:55:52Z",
+      "side": 1,
+      "message": "Sure, it can do that in follow-up CL.\n\nFile a bug, b/223519515 to trace it.",
+      "parentUuid": "0aa97fc2_07e6078c",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 62
+      },
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29b67450_64f978a5",
@@ -104,6 +176,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "606ebc7b_4b3c9188",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-09T15:55:52Z",
+      "side": 1,
+      "message": "Yes, I add a atleastT here.",
+      "parentUuid": "29b67450_64f978a5",
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee65d839_b2e3ced8",
@@ -117,6 +207,30 @@
       "writtenOn": "2022-03-09T00:25:39Z",
       "side": 1,
       "message": "default should be true.",
+      "range": {
+        "startLine": 413,
+        "startChar": 51,
+        "endLine": 413,
+        "endChar": 53
+      },
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a170144_e83ee418",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-09T15:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee65d839_b2e3ced8",
       "range": {
         "startLine": 413,
         "startChar": 51,
