@@ -3380,6 +3380,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             pw.increaseIndent();
             nai.dumpInactivityTimers(pw);
             pw.decreaseIndent();
+            pw.println("Nat464Xlat:");
+            pw.increaseIndent();
+            nai.dumpNat464Xlat(pw);
+            pw.decreaseIndent();
             pw.decreaseIndent();
         }
     }
