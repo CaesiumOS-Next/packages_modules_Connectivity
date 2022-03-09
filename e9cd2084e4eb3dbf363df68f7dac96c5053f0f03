@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c0f881c1_9b314877",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 4209,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-03-09T06:56:24Z",
+      "side": 1,
+      "message": "No, this was done due to review comment that we will lose consistency if we throw exception while request is coming in. for eg: it is possible that a carrier app lose its privilege later. In that case we will have to send unavailable. But for another app that doesnt have privilege, we may throw when the request comes in. This was perceived as an inconsistency and hence we ended up with this design",
+      "parentUuid": "85375fd8_b0d8dc27",
+      "range": {
+        "startLine": 4209,
+        "startChar": 46,
+        "endLine": 4209,
+        "endChar": 49
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b895d9e_c5179375",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 19
