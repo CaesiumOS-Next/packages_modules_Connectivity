@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85375fd8_b0d8dc27",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 4209,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:37:18Z",
+      "side": 1,
+      "message": "I think the reason is that ensureSufficientPermissionsForRequest can\u0027t safely call hasCarrierPrivilegeForNetworkRequest because it\u0027s on the wrong thread. Sooraj, is that right?",
+      "parentUuid": "ebd82f5f_a7d15e38",
+      "range": {
+        "startLine": 4209,
+        "startChar": 46,
+        "endLine": 4209,
+        "endChar": 49
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b895d9e_c5179375",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 19
@@ -159,6 +183,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "067e17ca_77065f22",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6388,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:37:18Z",
+      "side": 1,
+      "message": "Hmm, good point. I was confused by the fact that this code adds a new function instead of refactoring the existing function :-\\\n\nYou\u0027re right that if we do this then an app with CONNECTIVITY_INTERNAL but not CONNECTIVITY_USE_RESTRICTED_NETWORKS won\u0027t be able to bring up restricted networks.\n\nDo you think you could remove the code duplication and make enforceConnectivityRestrictedNetworksPermission call check checkConnectivityRestrictedNetworksPermission? They do the same thing now.\n\nSeparately, there\u0027s a TODO in enforceConnectivityRestrictedNetworksPermission to remove CONNECTIVITY_INTERNAL.\n\n        //  TODO: Remove this fallback check after all apps have declared\n        //   CONNECTIVITY_USE_RESTRICTED_NETWORKS.\n        mContext.enforceCallingOrSelfPermission(\n                android.Manifest.permission.CONNECTIVITY_INTERNAL,\n                \"ConnectivityService\");\n\nMaybe you could clean up this TODO, so that, say, if SdkLevel.isAtLeastT(), then we don\u0027t check for CONNECTIVITY_INTERNAL at all?\n\nCommented on aosp/2015175.",
+      "parentUuid": "ad4ecc9e_a348019b",
+      "range": {
+        "startLine": 6388,
+        "startChar": 44,
+        "endLine": 6388,
+        "endChar": 65
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72eecdaf_6d1905a0",
@@ -196,6 +244,30 @@
       "side": 1,
       "message": "Done, but since this \"looks very similar\" to releaseNetworkRequest just above, if someone calls this in a binder thread this will be super error-prone.\nDo we need to another ensureRunningOnConnectivityServiceThread inovacation at the top of this function?",
       "parentUuid": "72eecdaf_6d1905a0",
+      "range": {
+        "startLine": 6577,
+        "startChar": 17,
+        "endLine": 6577,
+        "endChar": 28
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64fb8980_d400a3ac",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 6577,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:37:18Z",
+      "side": 1,
+      "message": "This method only has one caller so it seems best just to move the two lines (in fact I think the first line isn\u0027t really necessary) to the caller and delete the method. I think that will prevent this type of confusion. See comment on aosp/2015175.",
+      "parentUuid": "038fa8c7_1a06ec13",
       "range": {
         "startLine": 6577,
         "startChar": 17,
