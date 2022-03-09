@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3253a8b_65ab281d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:38:39Z",
+      "side": 1,
+      "message": "Generally LGTM assuming comments addressed, but we still need to address the core comment at https://android-review.googlesource.com/c/platform/packages/modules/Connectivity/+/1950396/comment/a18b6c15_c93513bf/",
+      "revId": "4516c2fb0ec2f3e62f1a48f94028dd46c73edae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "787a3f5a_4103631f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2932,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:38:39Z",
+      "side": 1,
+      "message": "Let\u0027s see if we can safely address this TODO now. Could you replace this with something like:\n\n        //  TODO: Remove when S is no longer supported.\n        if (!SdkLevel.isAtLeastT()) {\n            mContext.enforceCallingOrSelfPermission(\n                    android.Manifest.permission.CONNECTIVITY_INTERNAL,\n                    \"ConnectivityService\");\n        }\n\nIt\u0027s probably best to do that in a separate CL.",
+      "range": {
+        "startLine": 2930,
+        "startChar": 0,
+        "endLine": 2932,
+        "endChar": 39
+      },
+      "revId": "4516c2fb0ec2f3e62f1a48f94028dd46c73edae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db7940dd_feb5cba3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6535,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:38:39Z",
+      "side": 1,
+      "message": "Maybe add a comment that for CBS, the permission check is deferred to when the request is processed on the handler thread?",
+      "range": {
+        "startLine": 6535,
+        "startChar": 12,
+        "endLine": 6535,
+        "endChar": 37
+      },
+      "revId": "4516c2fb0ec2f3e62f1a48f94028dd46c73edae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcfe3694_dd8a7c94",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6535,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:38:39Z",
+      "side": 1,
+      "message": "Suggest adding a comment that for CBS, the permission check is done when the request is processed on the handler thread. Otherwise this code looks like CBS doesn\u0027t need any permissions.",
+      "range": {
+        "startLine": 6535,
+        "startChar": 12,
+        "endLine": 6535,
+        "endChar": 37
+      },
+      "revId": "4516c2fb0ec2f3e62f1a48f94028dd46c73edae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75f2fa80_02ba7713",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6544,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:38:39Z",
+      "side": 1,
+      "message": "This method duplicates code in enforceConnectivityRestrictedNetworksPermission. Maybe refactor enforceConnectivityRestrictedNetworksPermission to call this method instead of duplicating the code?",
+      "range": {
+        "startLine": 6544,
+        "startChar": 20,
+        "endLine": 6544,
+        "endChar": 65
+      },
+      "revId": "4516c2fb0ec2f3e62f1a48f94028dd46c73edae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ba95ac6_c899b803",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6735,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:38:39Z",
+      "side": 1,
+      "message": "This function only has one caller. Maybe move its code into the caller? If you do that it might become obvious that the code is running on the handler thread, and thus can safely call handleReleaseNetworkRequest (unlike releaseNetworkRequest right above).",
+      "range": {
+        "startLine": 6735,
+        "startChar": 17,
+        "endLine": 6735,
+        "endChar": 58
+      },
+      "revId": "4516c2fb0ec2f3e62f1a48f94028dd46c73edae5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
