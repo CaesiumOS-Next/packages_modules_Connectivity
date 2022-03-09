@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f507aef0_443864c1",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 61
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T02:05:59Z",
+      "side": 1,
+      "message": "IllegalArgumentException is better I think.",
+      "parentUuid": "a303a2d4_9ed4a358",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 37
+      },
+      "revId": "87b02e194fc5388f4fd19ab3343e65a4d0854eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af7bf24c_a2b2ec13",
         "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
         "patchSetId": 61
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-04T22:18:53Z",
       "side": 1,
       "message": "Same as above but with EX_SECURITY",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "87b02e194fc5388f4fd19ab3343e65a4d0854eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "357fa1bf_19fbe901",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 61
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T02:05:59Z",
+      "side": 1,
+      "message": "SecurityException is better.",
+      "parentUuid": "af7bf24c_a2b2ec13",
       "range": {
         "startLine": 103,
         "startChar": 8,
