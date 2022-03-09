@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f839791f_99acedd1",
+        "filename": "tests/cts/net/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T16:54:39Z",
+      "side": 1,
+      "message": "I\u0027ve never seen this syntax before. Could you add to the commit message (or in this file itself) a link to a page that explains this syntax and what it does?",
+      "range": {
+        "startLine": 5,
+        "startChar": 24,
+        "endLine": 5,
+        "endChar": 34
+      },
+      "revId": "8cf7420b6bf5c93fa221bd2d368dbefbb21fe990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de6677cb_226f501c",
+        "filename": "tests/cts/net/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T16:54:39Z",
+      "side": 1,
+      "message": "What does this match? There\u0027s no file called *IpSec* in packages/modules/Connectivity/test/cts/net. Should this use ** or something?",
+      "range": {
+        "startLine": 5,
+        "startChar": 35,
+        "endLine": 5,
+        "endChar": 42
+      },
+      "revId": "8cf7420b6bf5c93fa221bd2d368dbefbb21fe990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be48af3c_f329cb3e",
+        "filename": "tests/cts/net/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T16:54:39Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand this correctly, but to my untrained eye, line 5 looks like a comment and I assume it does not have any effect on the OWNERS, i.e., to who can approve changes to these files.\n\nBut this line is a change to the actual code OWNERS. If that\u0027s intentional, then you should mention it in the commit message.\n\nAlso, don\u0027t you need ** here?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 105
+      },
+      "revId": "8cf7420b6bf5c93fa221bd2d368dbefbb21fe990",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
