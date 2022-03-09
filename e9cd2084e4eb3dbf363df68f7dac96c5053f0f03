@@ -163,6 +163,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40c58473_ad0eee3c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 4209,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T16:32:17Z",
+      "side": 1,
+      "message": "I don\u0027t think we have code to send onUnavailable in this situation. That\u0027s a bug though - if the app loses privilege to access the CBS network, then presumably we must remove the request, because otherwise the CBS network would remain connected? And generally we don\u0027t remove requests unless onUnavailable is called, so I really don\u0027t think we\u0027re doing that here.\n\nThe access UIDs are orthogonal I think. They specify who can access the network once it\u0027s up, not who can request the network. So if the app loses permission it might lose the ability to send traffic on CBS, but CBS will remain connected.\n\nOne simple solution I can think of is just to accept these limitations.\n1. An app can request CBS if it is currently the carrier privilege app for that carrier. If not, we throw an exception.\n2. Once that request is filed, the network will remain requested and the system will try to connect it and keep it connected until the app withdraws the request.\n3. Whether the app can use the CBS network to send packets is determined by whether it\u0027s in the list of access UIDs.\n\nDoes that work?\n\nNote that AFAIK #2 is already true today.\n\nDo we have an existing design doc for this where these questions have already been explired?",
+      "parentUuid": "02488f16_585305b7",
+      "range": {
+        "startLine": 4209,
+        "startChar": 46,
+        "endLine": 4209,
+        "endChar": 49
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b895d9e_c5179375",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 19
