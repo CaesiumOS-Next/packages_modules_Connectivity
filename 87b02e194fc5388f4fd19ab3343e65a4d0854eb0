@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69961ebe_75222908",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 61
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T06:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f507aef0_443864c1",
+      "range": {
+        "startLine": 102,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 37
+      },
+      "revId": "87b02e194fc5388f4fd19ab3343e65a4d0854eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af7bf24c_a2b2ec13",
@@ -95,6 +119,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e6cc9a2_ad41bf7c",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 61
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T06:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "357fa1bf_19fbe901",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "87b02e194fc5388f4fd19ab3343e65a4d0854eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b5c58d1_4106465b",
@@ -108,6 +156,30 @@
       "writtenOn": "2022-03-04T20:57:33Z",
       "side": 1,
       "message": "Comes back as EX_TRANSACTION_FAILED.\n\nIf status \u003d mService-\u003eblockPortForBind(-1); is called multiple times in same test, only first expect fails though...",
+      "range": {
+        "startLine": 235,
+        "startChar": 4,
+        "endLine": 235,
+        "endChar": 75
+      },
+      "revId": "87b02e194fc5388f4fd19ab3343e65a4d0854eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9f10937_24e90bc4",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T06:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b5c58d1_4106465b",
       "range": {
         "startLine": 235,
         "startChar": 4,
@@ -141,6 +213,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f328b62_08488c11",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T06:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87089ab7_5f5392be",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 1
+      },
+      "revId": "87b02e194fc5388f4fd19ab3343e65a4d0854eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efe4b968_7e9df6fe",
@@ -154,6 +250,30 @@
       "writtenOn": "2022-03-04T20:57:33Z",
       "side": 1,
       "message": "same issue as BlockNegativePort",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 251,
+        "endChar": 1
+      },
+      "revId": "87b02e194fc5388f4fd19ab3343e65a4d0854eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04af52e3_01729293",
+        "filename": "tests/native/connectivity_native_test.cpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T06:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efe4b968_7e9df6fe",
       "range": {
         "startLine": 248,
         "startChar": 0,

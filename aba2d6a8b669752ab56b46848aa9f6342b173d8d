@@ -71,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20fa8212_16e7cddc",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T06:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e0ddc2b_7176a1ff",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 71
+      },
+      "revId": "aba2d6a8b669752ab56b46848aa9f6342b173d8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff1b03a2_e7de0b7a",
@@ -84,6 +108,30 @@
       "writtenOn": "2022-03-09T02:05:59Z",
       "side": 1,
       "message": "Remove?",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 118,
+        "endChar": 50
+      },
+      "revId": "aba2d6a8b669752ab56b46848aa9f6342b173d8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d2dd9d_b0c034ec",
+        "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
+        "patchSetId": 64
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T06:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff1b03a2_e7de0b7a",
       "range": {
         "startLine": 118,
         "startChar": 8,
