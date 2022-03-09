@@ -187,6 +187,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45e2135f_35a17c26",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 4209,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-03-09T17:14:53Z",
+      "side": 1,
+      "message": "https://docs.google.com/document/d/1TPgiyMSBHe2tZzeOQtUa5s3lYP1fH3wpAJBfsY3ZpsY/edit?resourcekey\u003d0-LGhpIPdnS4d0tIO0sERijA#heading\u003dh.xgjl2srtytjt\n\nIs the design doc that captured the design. But this design was suggesting to not let the request get in if it is not carrier app. But this was changed during code review. \n\nI am actually fine with the above proposal. That is in line with my initial proposal.",
+      "parentUuid": "40c58473_ad0eee3c",
+      "range": {
+        "startLine": 4209,
+        "startChar": 46,
+        "endLine": 4209,
+        "endChar": 49
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b895d9e_c5179375",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 19
