@@ -330,6 +330,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54755d45_79f11d9b",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T23:55:29Z",
+      "side": 1,
+      "message": "Will change long to int and add comment",
+      "parentUuid": "a3be2bc0_56646ef1",
+      "range": {
+        "startLine": 70,
+        "startChar": 48,
+        "endLine": 70,
+        "endChar": 80
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b604cc63_fc7fcff4",
@@ -343,6 +367,30 @@
       "writtenOn": "2022-03-09T02:40:38Z",
       "side": 1,
       "message": "Looks like NetworkInterface.getByName can return null:\n\nhttps://cs.android.com/android/platform/superproject/+/master:libcore/ojluni/src/main/java/java/net/NetworkInterface.java;l\u003d325\n\nMaybe the following would work?\n\n    final NetworkInterface iface;\n    try {\n        iface \u003d NetworkInterface.getByName(iface);\n    } catch (IOException e) {\n        iface \u003d null;\n    }\n    return (iface !\u003d null) ? iface.getIndex() : 0;",
+      "range": {
+        "startLine": 119,
+        "startChar": 23,
+        "endLine": 119,
+        "endChar": 24
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bbdb6d8_de67df76",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T23:55:29Z",
+      "side": 1,
+      "message": "Final cannot be used for iface (compile error: iface may have already been assigned), but change made.",
+      "parentUuid": "b604cc63_fc7fcff4",
       "range": {
         "startLine": 119,
         "startChar": 23,
@@ -376,6 +424,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95272ef6_2bf817bb",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T23:55:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8d0279d_93bcff2b",
+      "range": {
+        "startLine": 122,
+        "startChar": 57,
+        "endLine": 122,
+        "endChar": 61
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89b490af_ea3b3dde",
@@ -389,6 +461,30 @@
       "writtenOn": "2022-03-09T02:40:38Z",
       "side": 1,
       "message": "This looks wrong. It finds the first free index in the per-interface map, but then in line 154 it uses that index in the device-global map. Won\u0027t that be incorrect as soon as more than one interface has one policy?\n\nWhen the first policy is created on any interface, it will pick index 0 because that interface\u0027s SparseIntArray is empty. That will write rule 0 in the map. So far so good, but then when the first policy is created on another interface, that will also pick 0 because that interface\u0027s SparseIntArray is empty. That will stomp over the previous rule.\n\nAm I missing something?",
+      "range": {
+        "startLine": 144,
+        "startChar": 23,
+        "endLine": 144,
+        "endChar": 40
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad0907ab_0ec9b27c",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1203633
+      },
+      "writtenOn": "2022-03-09T23:55:29Z",
+      "side": 1,
+      "message": "sia should not be passed in. This is an oversight, rules would have been replaced for different iface index\u0027s.\n\nWill update to iterating over mIfaceIndexToPolicyIdBpfMapIndex to find first free index in each spareIntArray",
+      "parentUuid": "89b490af_ea3b3dde",
       "range": {
         "startLine": 144,
         "startChar": 23,
