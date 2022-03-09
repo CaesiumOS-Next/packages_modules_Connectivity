@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f50d69cf_64d831c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-09T03:06:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e98d6766_cbff6290",
+      "range": {
+        "startLine": 9,
+        "startChar": 32,
+        "endLine": 9,
+        "endChar": 47
+      },
+      "revId": "5bbc52b6eebda7ca2f841f511814d2f19ed7b120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48df1efd_0cce5c81",
@@ -70,6 +94,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b310616e_5e5446a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-09T03:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b2c26d8_a6d6677d",
+      "range": {
+        "startLine": 11,
+        "startChar": 72,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "5bbc52b6eebda7ca2f841f511814d2f19ed7b120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7a1b9ec_9c6f6c29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-09T03:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48df1efd_0cce5c81",
+      "range": {
+        "startLine": 11,
+        "startChar": 14,
+        "endLine": 11,
+        "endChar": 58
+      },
+      "revId": "5bbc52b6eebda7ca2f841f511814d2f19ed7b120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "468e423d_5f65e835",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-03T09:19:07Z",
       "side": 1,
       "message": "Can you include some range checks, and at least log errors if the configured value is invalid ?",
+      "range": {
+        "startLine": 233,
+        "startChar": 18,
+        "endLine": 234,
+        "endChar": 58
+      },
+      "revId": "5bbc52b6eebda7ca2f841f511814d2f19ed7b120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8311507_ca34d57f",
+        "filename": "Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-09T03:06:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "468e423d_5f65e835",
       "range": {
         "startLine": 233,
         "startChar": 18,
