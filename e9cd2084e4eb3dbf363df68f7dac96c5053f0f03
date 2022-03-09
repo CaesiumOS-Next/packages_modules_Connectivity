@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "feae95ce_2797b49f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 4209,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T07:09:44Z",
+      "side": 1,
+      "message": "If an app loses privilege later, we\u0027d send onLost though, right? Not onUnavailable? So thinkgs would be inconsistent either way? Or am I missing something?",
+      "parentUuid": "c0f881c1_9b314877",
+      "range": {
+        "startLine": 4209,
+        "startChar": 46,
+        "endLine": 4209,
+        "endChar": 49
+      },
+      "revId": "e9cd2084e4eb3dbf363df68f7dac96c5053f0f03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b895d9e_c5179375",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 19
