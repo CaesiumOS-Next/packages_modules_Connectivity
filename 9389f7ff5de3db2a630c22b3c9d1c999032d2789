@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "130b1ee5_01d55bcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 66
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T09:20:18Z",
+      "side": 1,
+      "message": "On a 4.19 device, this fails to boot with:\n\n03-09 18:16:36.716  4174  4174 E AndroidRuntime: \t... 10 more\n03-09 18:16:53.190  4459  4459 E AndroidRuntime: *** FATAL EXCEPTION IN SYSTEM PROCESS: main\n03-09 18:16:53.190  4459  4459 E AndroidRuntime: java.lang.RuntimeException: Failed to create service com.android.server.ConnectivityServiceInitializer: service constructor threw an exception\n03-09 18:16:53.190  4459  4459 E AndroidRuntime: \tat com.android.server.SystemServiceManager.startService(SystemServiceManager.java:199)\n...\n03-09 18:16:53.190  4459  4459 E AndroidRuntime: Caused by: java.lang.UnsupportedOperationException: Unable to attach to BPF_CGROUP_INET4_BIND: java.io.IOException: Failed to retrieve bpf program from /sys/fs/bpf/prog_block_bind4_block_port: No such file or directory\n03-09 18:16:53.190  4459  4459 E AndroidRuntime: \tat com.android.server.connectivity.ConnectivityNativeService.attachProgram(ConnectivityNativeService.java:175)\n...\n\nIs this because we only load the program on 5.4 and above kernels? If so, why? Can we load it on all kernels on S?",
+      "revId": "9389f7ff5de3db2a630c22b3c9d1c999032d2789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
