@@ -305,6 +305,98 @@
       },
       "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3be2bc0_56646ef1",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T02:40:38Z",
+      "side": 1,
+      "message": "Good to see you are fixing this as well. Can you mention in the commit message that you are doing so?\n\nI\u0027m not sure this is correct (see comment below in addDscpPolicyInternal), but if it is, can you add a comment explaining what this is? Something like the following?\n\n    // The actual policy rules used by the BPF code to process packets\n    // are in mBpfDscpIpv4Policies and mBpfDscpIpv4Policies. Both of\n    // these can contain up to MAX_POLICIES rules.\n    //\n    // A given policy always consumes one entry in both the IPv4 and\n    // IPv6 maps even if if\u0027s an IPv4-only or IPv6-only policy.\n    //\n    // Each interface index has a SparseIntArray of rules which maps a\n    // policy ID to the index of the corresponding rule in the maps.\n    // mIfaceIndexToPolicyIdBpfMapIndex maps the interface index to\n    // the per-interface SparseIntArray.\n\nAlso, why Long? If it\u0027s an interface index, it can just be an Integer. And if so, could this just be another SparseIntArray?",
+      "range": {
+        "startLine": 70,
+        "startChar": 48,
+        "endLine": 70,
+        "endChar": 80
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b604cc63_fc7fcff4",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T02:40:38Z",
+      "side": 1,
+      "message": "Looks like NetworkInterface.getByName can return null:\n\nhttps://cs.android.com/android/platform/superproject/+/master:libcore/ojluni/src/main/java/java/net/NetworkInterface.java;l\u003d325\n\nMaybe the following would work?\n\n    final NetworkInterface iface;\n    try {\n        iface \u003d NetworkInterface.getByName(iface);\n    } catch (IOException e) {\n        iface \u003d null;\n    }\n    return (iface !\u003d null) ? iface.getIndex() : 0;",
+      "range": {
+        "startLine": 119,
+        "startChar": 23,
+        "endLine": 119,
+        "endChar": 24
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d0279d_93bcff2b",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T02:40:38Z",
+      "side": 1,
+      "message": "int",
+      "range": {
+        "startLine": 122,
+        "startChar": 57,
+        "endLine": 122,
+        "endChar": 61
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89b490af_ea3b3dde",
+        "filename": "service/src/com/android/server/connectivity/DscpPolicyTracker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T02:40:38Z",
+      "side": 1,
+      "message": "This looks wrong. It finds the first free index in the per-interface map, but then in line 154 it uses that index in the device-global map. Won\u0027t that be incorrect as soon as more than one interface has one policy?\n\nWhen the first policy is created on any interface, it will pick index 0 because that interface\u0027s SparseIntArray is empty. That will write rule 0 in the map. So far so good, but then when the first policy is created on another interface, that will also pick 0 because that interface\u0027s SparseIntArray is empty. That will stomp over the previous rule.\n\nAm I missing something?",
+      "range": {
+        "startLine": 144,
+        "startChar": 23,
+        "endLine": 144,
+        "endChar": 40
+      },
+      "revId": "3b67d4a7e318c2129106fab233a53bc3f09e16ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
