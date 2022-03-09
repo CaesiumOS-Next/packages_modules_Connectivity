@@ -16,6 +16,15 @@
 
 package android.net;
 
+import static android.net.QosCallbackException.EX_TYPE_FILTER_NONE;
+import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED;
+import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_NOT_BOUND;
+import static android.net.QosCallbackException.EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED;
+import static android.system.OsConstants.IPPROTO_TCP;
+import static android.system.OsConstants.IPPROTO_UDP;
+
+import static com.android.testutils.DevSdkIgnoreRuleKt.SC_V2;
+
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -24,11 +33,13 @@ import android.os.Build;
 import androidx.test.filters.SmallTest;
 
 import com.android.testutils.DevSdkIgnoreRule;
+import com.android.testutils.DevSdkIgnoreRule.IgnoreUpTo;
 import com.android.testutils.DevSdkIgnoreRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
@@ -36,7 +47,8 @@ import java.net.InetSocketAddress;
 @SmallTest
 @DevSdkIgnoreRule.IgnoreUpTo(Build.VERSION_CODES.R)
 public class QosSocketFilterTest {
-
+    private static final int TEST_NET_ID = 1777;
+    private final Network mNetwork = new Network(TEST_NET_ID);
     @Test
     public void testPortExactMatch() {
         final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.4");
@@ -76,6 +88,72 @@ public class QosSocketFilterTest {
         final InetAddress addressB = InetAddresses.parseNumericAddress("1.2.3.5");
         assertFalse(QosSocketFilter.matchesAddress(
                 new InetSocketAddress(addressA, 10), addressB, 10, 10));
+    }
+
+    @Test
+    public void testAddressMatchWithAnyLocalAddresses() {
+        final InetAddress addressA = InetAddresses.parseNumericAddress("1.2.3.4");
+        final InetAddress addressB = InetAddresses.parseNumericAddress("0.0.0.0");
+        assertTrue(QosSocketFilter.matchesAddress(
+                new InetSocketAddress(addressA, 10), addressB, 10, 10));
+    }
+
+    @Test
+    public void testProtocolIdMatch() throws Exception {
+        DatagramSocket socket;
+        socket = new DatagramSocket(new InetSocketAddress("127.0.0.1", 31757));
+        socket.connect(new InetSocketAddress("127.0.0.1", 33750));
+        QosSocketInfo socketInfo = new QosSocketInfo(mNetwork, socket);
+        QosSocketFilter socketFilter = new QosSocketFilter(socketInfo);
+        assertTrue(socketFilter.matchesProtocolId(IPPROTO_UDP));
+        assertFalse(socketFilter.matchesProtocolId(IPPROTO_TCP));
+        socket.close();
+    }
+
+    @Test
+    public void testValidate() throws Exception {
+        DatagramSocket socket;
+        socket = new DatagramSocket(new InetSocketAddress("127.0.0.1", 23757));
+        socket.connect(new InetSocketAddress("127.0.0.1", 27750));
+        QosSocketInfo socketInfo = new QosSocketInfo(mNetwork, socket);
+        QosSocketFilter socketFilter = new QosSocketFilter(socketInfo);
+        assertTrue(socketFilter.validate() == EX_TYPE_FILTER_NONE);
+        socket.close();
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
+    public void testValidateUnbind() throws Exception {
+        DatagramSocket socket;
+        socket = new DatagramSocket(null);
+        QosSocketInfo socketInfo = new QosSocketInfo(mNetwork, socket);
+        QosSocketFilter socketFilter = new QosSocketFilter(socketInfo);
+        assertTrue(socketFilter.validate() == EX_TYPE_FILTER_SOCKET_NOT_BOUND);
+        socket.close();
+    }
+
+    @Test
+    public void testValidateLocalAddressChanged() throws Exception {
+        DatagramSocket socket;
+        socket = new DatagramSocket(null);
+        QosSocketInfo socketInfo = new QosSocketInfo(mNetwork, socket);
+        QosSocketFilter socketFilter = new QosSocketFilter(socketInfo);
+        socket.bind(new InetSocketAddress("127.0.0.1", 15357));
+        assertTrue(socketFilter.validate() == EX_TYPE_FILTER_SOCKET_LOCAL_ADDRESS_CHANGED);
+        socket.close();
+    }
+
+    @Test @IgnoreUpTo(SC_V2)
+    public void testValidateRemoteAddressChanged() throws Exception {
+        DatagramSocket socket;
+        socket = new DatagramSocket(new InetSocketAddress("127.0.0.1", 7758));
+        socket.connect(new InetSocketAddress("127.0.0.1", 8751));
+        QosSocketInfo socketInfo = new QosSocketInfo(mNetwork, socket);
+        QosSocketFilter socketFilter = new QosSocketFilter(socketInfo);
+        assertTrue(socketFilter.validate() == EX_TYPE_FILTER_NONE);
+        socket.disconnect();
+        socket.connect(new InetSocketAddress("127.0.0.1", 8770));
+        assertTrue(socketFilter.validate() == EX_TYPE_FILTER_SOCKET_REMOTE_ADDRESS_CHANGED);
+        socket.close();
     }
 }
 
