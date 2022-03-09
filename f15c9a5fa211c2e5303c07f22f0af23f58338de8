@@ -102,6 +102,29 @@
       "message": "Is it only apply this feature into T+ ?",
       "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee65d839_b2e3ced8",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-03-09T00:25:39Z",
+      "side": 1,
+      "message": "default should be true.",
+      "range": {
+        "startLine": 413,
+        "startChar": 51,
+        "endLine": 413,
+        "endChar": 53
+      },
+      "revId": "f15c9a5fa211c2e5303c07f22f0af23f58338de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
