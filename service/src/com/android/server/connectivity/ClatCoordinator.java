@@ -29,10 +29,17 @@ import android.net.IpPrefix;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.system.ErrnoException;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.internal.util.IndentingPrintWriter;
+import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.InterfaceParams;
+import com.android.net.module.util.bpf.ClatEgress4Key;
+import com.android.net.module.util.bpf.ClatEgress4Value;
+import com.android.net.module.util.bpf.ClatIngress6Key;
+import com.android.net.module.util.bpf.ClatIngress6Value;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -68,6 +75,13 @@ public class ClatCoordinator {
     private static final int INVALID_IFINDEX = 0;
     private static final int INVALID_PID = 0;
     private static final long INVALID_COOKIE = 0;
+
+    private static final String CLAT_EGRESS4_MAP_PATH = makeMapPath("egress4");
+    private static final String CLAT_INGRESS6_MAP_PATH = makeMapPath("ingress6");
+
+    private static String makeMapPath(String which) {
+        return "/sys/fs/bpf/map_clatd_clat_" + which + "_map";
+    }
 
     @NonNull
     private final INetd mNetd;
@@ -200,6 +214,30 @@ public class ClatCoordinator {
          */
         public void untagSocket(long cookie) throws IOException {
             native_untagSocket(cookie);
+        }
+
+        /** Get ingress6 BPF map. */
+        @Nullable
+        public BpfMap<ClatIngress6Key, ClatIngress6Value> getBpfIngress6Map() {
+            try {
+                return new BpfMap<>(CLAT_INGRESS6_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, ClatIngress6Key.class, ClatIngress6Value.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create ingress6 map: " + e);
+                return null;
+            }
+        }
+
+        /** Get egress4 BPF map. */
+        @Nullable
+        public BpfMap<ClatEgress4Key, ClatEgress4Value> getBpfEgress4Map() {
+            try {
+                return new BpfMap<>(CLAT_EGRESS4_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, ClatEgress4Key.class, ClatEgress4Value.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create egress4 map: " + e);
+                return null;
+            }
         }
     }
 
@@ -413,6 +451,71 @@ public class ClatCoordinator {
         mXlatLocalAddress6 = null;
         mPid = INVALID_PID;
         mCookie = INVALID_COOKIE;
+    }
+
+    private void dumpBpfIngress(@NonNull IndentingPrintWriter pw) {
+        try (BpfMap<ClatIngress6Key, ClatIngress6Value> map = mDeps.getBpfIngress6Map()) {
+            if (map == null) {
+                pw.println("No BPF ingress6 map");
+                return;
+            }
+            if (map.isEmpty()) {
+                pw.println("<empty>");
+            }
+            pw.println("BPF ingress map: iif nat64Prefix v6Addr -> v4Addr oif");
+            pw.increaseIndent();
+            map.forEach((k, v) -> {
+                // TODO: print interface name
+                pw.println(String.format("%d %s/96 %s -> %s %d", k.iif, k.pfx96, k.local6,
+                        v.local4, v.oif));
+            });
+            pw.decreaseIndent();
+        } catch (ErrnoException e) {
+            pw.println("Error dumping BPF ingress6 map: " + e);
+        }
+    }
+
+    private void dumpBpfEgress(@NonNull IndentingPrintWriter pw) {
+        try (BpfMap<ClatEgress4Key, ClatEgress4Value> map = mDeps.getBpfEgress4Map()) {
+            if (map == null) {
+                pw.println("No BPF egress4 map");
+                return;
+            }
+            if (map.isEmpty()) {
+                pw.println("<empty>");
+            }
+            pw.println("BPF egress map: iif v4Addr -> v6Addr nat64Prefix oif");
+            pw.increaseIndent();
+            map.forEach((k, v) -> {
+                // TODO: print interface name
+                pw.println(String.format("%d %s -> %s %s/96 %d", k.iif, k.local4, v.local6,
+                        v.pfx96, v.oif));
+            });
+            pw.decreaseIndent();
+        } catch (ErrnoException e) {
+            pw.println("Error dumping BPF ingress6 map: " + e);
+        }
+    }
+
+    /**
+     * Dump the cordinator information.
+     *
+     * @param pw print writer.
+     */
+    public void dump(@NonNull IndentingPrintWriter pw) {
+        pw.println("Interface: " + mIface);
+        pw.println("Nat64Prefix: " + mNat64Prefix);
+        pw.println("XlatLocalAddress4: " + mXlatLocalAddress4);
+        pw.println("XlatLocalAddress6: " + mXlatLocalAddress6);
+        pw.println("Caltd pid: " + (mPid > 0 ? mPid : "<not started>"));
+        pw.println("Socket cookie: " + (mCookie > 0 ? mCookie : "<not started>"));
+
+        pw.println("Forwarding rules:");
+        pw.increaseIndent();
+        dumpBpfIngress(pw);
+        dumpBpfEgress(pw);
+        pw.decreaseIndent();
+        pw.println();
     }
 
     private static native String native_selectIpv4Address(String v4addr, int prefixlen)
