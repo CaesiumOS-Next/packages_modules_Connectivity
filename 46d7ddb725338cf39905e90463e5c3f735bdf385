@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b422f10_cefc860e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-09T01:39:02Z",
+      "side": 1,
+      "message": "Failing tests are already broken following kernel update:\n - CtsNetTestCases failing with same error since build 8274645\n - Same for IpSecManagerTest, SSLCertificateSocketFactoryTest since 8267402",
+      "revId": "46d7ddb725338cf39905e90463e5c3f735bdf385",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
