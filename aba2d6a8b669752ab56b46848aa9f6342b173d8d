@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79b2191c_255bb31f",
+        "filename": "service/Android.bp",
+        "patchSetId": 64
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-09T06:01:56Z",
+      "side": 1,
+      "message": "This conflicts in sc-mainline-prod, which in the line above this, has NetworkStackApiStableShims instead of NetworkStackApiCurrentShims. Could you move this to the beginning of the list, just before dnsresolver_aidl_interface-V9-java?",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 63
+      },
+      "revId": "aba2d6a8b669752ab56b46848aa9f6342b173d8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e0ddc2b_7176a1ff",
         "filename": "service/src/com/android/server/connectivity/ConnectivityNativeService.java",
         "patchSetId": 64
