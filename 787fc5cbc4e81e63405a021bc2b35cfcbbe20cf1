@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec1a5c6e_8712e6c8",
+        "filename": "tests/cts/net/src/android/net/cts/IpSecManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-09T09:26:47Z",
+      "side": 1,
+      "message": "It seems the assertion doesn\u0027t have to be nested?\nIf so maybe assertThrows + assertEquals?",
+      "range": {
+        "startLine": 132,
+        "startChar": 11,
+        "endLine": 139,
+        "endChar": 13
+      },
+      "revId": "787fc5cbc4e81e63405a021bc2b35cfcbbe20cf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
