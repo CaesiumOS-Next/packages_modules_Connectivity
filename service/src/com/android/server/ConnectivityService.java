@@ -2923,11 +2923,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 android.Manifest.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS)) {
             return true;
         }
-        //  TODO: Remove this fallback check after all apps have declared
-        //   CONNECTIVITY_USE_RESTRICTED_NETWORKS.
-        if (checkAnyPermissionOf(callerPid, callerUid,
-                android.Manifest.permission.CONNECTIVITY_INTERNAL)) {
-            return true;
+        //  TODO: Remove when S is no longer supported.
+        if (!SdkLevel.isAtLeastT()) {
+            if (checkAnyPermissionOf(callerPid, callerUid,
+                    android.Manifest.permission.CONNECTIVITY_INTERNAL)) {
+                return true;
+            }
         }
         return false;
     }
