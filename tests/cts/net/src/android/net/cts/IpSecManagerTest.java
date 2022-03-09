@@ -134,6 +134,8 @@ public class IpSecManagerTest extends IpSecBaseTest {
                 fail("Duplicate SPI was allowed to be created");
             } catch (IpSecManager.SpiUnavailableException expected) {
                 // This is a success case because we expect a dupe SPI to throw
+                assertTrue("Exception was not caused by duplicate SPI.",
+                        expected.getSpi() == droidSpi.getSpi());
             }
 
             randomSpi.close();
