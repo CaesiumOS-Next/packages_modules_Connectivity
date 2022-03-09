@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a62009c3_d286d666",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1138358
+      },
+      "writtenOn": "2022-03-09T19:01:57Z",
+      "side": 1,
+      "message": "Also check SdkLevel.isAtLeastT() here to be safe? And add a comment that this is only used when carrierConfigAffirmsCarrierNotSupport() is true.",
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
