@@ -186,6 +186,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5936c2c_cf353f16",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "IIUC there is no enforcement except the API name to make sure the caller has a pending replacement, right?\nDoes it mean the caller can call this API to fulfill their own unknown purpose without actually has a pending replacement?\nIf so, destroyAndUnregisterAfterTimeout sounds more clear to me.",
+      "parentUuid": "6f0779ba_51d82134",
+      "range": {
+        "startLine": 983,
+        "startChar": 16,
+        "endLine": 983,
+        "endChar": 40
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c445892a_0793f691",
         "filename": "service/src/com/android/server/ConnectivityService.java",
         "patchSetId": 3

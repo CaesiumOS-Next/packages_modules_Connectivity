@@ -35,6 +35,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb815d08_0d993cd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "Not finished about the test part.\nBut there are some comments.",
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb9bb245_e90dd52e",
@@ -53,6 +70,29 @@
         "startChar": 93,
         "endLine": 959,
         "endChar": 29
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bda6d797_3c7b3d34",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "From above, the native network will be destroyed immediately.\nDoes this mean the network stays CONNECTED but cannot actually be used?\nIf so, is it better to change status to something like DISCONNECTED or SUSPENDED?\nGiven that it will take efforts to clarify issues where the network is CONNECTED but cannot be used. Also some apps might actually rely on the status to do socket stuff.",
+      "range": {
+        "startLine": 967,
+        "startChar": 35,
+        "endLine": 967,
+        "endChar": 44
       },
       "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
@@ -99,6 +139,190 @@
         "startChar": 26,
         "endLine": 982,
         "endChar": 46
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25220ee7_afbd9fb5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3641,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "Should we clamp the value to a legal range before using it?",
+      "range": {
+        "startLine": 3641,
+        "startChar": 20,
+        "endLine": 3641,
+        "endChar": 21
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6d4f9c3_6ffa2bd6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3643,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "IIUC we are actually marking the network destroyed, right?\nIf so maybe update the comment to make it more clear.",
+      "range": {
+        "startLine": 3643,
+        "startChar": 41,
+        "endLine": 3643,
+        "endChar": 60
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c95c5c60_00bd58e0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3674,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "Stupid question: Why?",
+      "range": {
+        "startLine": 3674,
+        "startChar": 36,
+        "endLine": 3674,
+        "endChar": 67
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810b38b5_4c34c50d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 8622,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "Is it better to include this into canSupportGracefulNetworkSwitch?",
+      "range": {
+        "startLine": 8622,
+        "startChar": 27,
+        "endLine": 8622,
+        "endChar": 55
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acca4eae_dc4b70a1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 8628,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "destroyed?\nalso for other places.",
+      "range": {
+        "startLine": 8628,
+        "startChar": 75,
+        "endLine": 8628,
+        "endChar": 94
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad4071c7_c0a90fda",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "nit: IIUC you can say\n makeTestNetworkCapabilities(...) \u003d  NetworkCapabilities().apply { ...}",
+      "range": {
+        "startLine": 258,
+        "startChar": 15,
+        "endLine": 258,
+        "endChar": 43
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8746c18_b41c8f84",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "Why? Maybe add a comment to describe it?",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 306,
+        "endChar": 9
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080583ab_c3baa7d2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T11:26:07Z",
+      "side": 1,
+      "message": "Is it better to move this to callers so this method can be used in more cases?",
+      "range": {
+        "startLine": 322,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 47
       },
       "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
