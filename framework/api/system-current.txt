@@ -360,6 +360,7 @@ package android.net {
   }
 
   public class NetworkReleasedException extends java.lang.Exception {
+    ctor public NetworkReleasedException();
   }
 
   public class NetworkRequest implements android.os.Parcelable {
@@ -469,9 +470,11 @@ package android.net {
   }
 
   public class SocketLocalAddressChangedException extends java.lang.Exception {
+    ctor public SocketLocalAddressChangedException();
   }
 
   public class SocketNotBoundException extends java.lang.Exception {
+    ctor public SocketNotBoundException();
   }
 
   public final class StaticIpConfiguration implements android.os.Parcelable {
