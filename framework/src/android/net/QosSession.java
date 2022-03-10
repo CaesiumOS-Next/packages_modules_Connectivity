@@ -58,7 +58,7 @@ public final class QosSession implements Parcelable {
     }
 
     /**
-     * Gets the session id that is unique within that type.
+     * Gets the QosSession identifier which is set by the actor providing the QoS.
      * <p/>
      * Note: The session id is set by the actor providing the qos.  It can be either manufactured by
      * the actor, but also may have a particular meaning within that type.  For example, using the
