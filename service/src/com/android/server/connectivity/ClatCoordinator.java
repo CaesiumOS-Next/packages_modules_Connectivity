@@ -24,6 +24,7 @@ import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.INetd;
+import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
 import android.os.ParcelFileDescriptor;
@@ -36,6 +37,7 @@ import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.InterfaceParams;
+import com.android.net.module.util.TcUtils;
 import com.android.net.module.util.bpf.ClatEgress4Key;
 import com.android.net.module.util.bpf.ClatEgress4Value;
 import com.android.net.module.util.bpf.ClatIngress6Key;
@@ -43,6 +45,8 @@ import com.android.net.module.util.bpf.ClatIngress6Value;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
@@ -277,6 +281,58 @@ public class ClatCoordinator {
         mEgressMap = mDeps.getBpfEgress4Map();
     }
 
+    // The parameters {pfx96Str, v4Str, v6Str} are valid v4/v6 address format from caller.
+    // It is guaranteed to convert {Inet4Address, Inet6Address} object.
+    private void maybeStartBpf(final String ifaceStr, final String tunIfaceStr,
+            final String pfx96Str, final String v4Str, final String v6Str) {
+        if (mIngressMap == null || mEgressMap == null) return;
+
+        final int ifaceIndex = mDeps.getInterfaceIndex(ifaceStr);
+        if (ifaceIndex == INVALID_IFINDEX) {
+            Log.e(TAG, "Fail to get interface index for interface " + ifaceStr);
+            return;
+        }
+
+        final int tunIfaceIndex = mDeps.getInterfaceIndex(tunIfaceStr);
+        if (tunIfaceIndex == INVALID_IFINDEX) {
+            Log.e(TAG, "Fail to get interface index for interface " + tunIfaceStr);
+            return;
+        }
+
+        final short isEthernet;
+        try {
+            isEthernet = TcUtils.isEthernet(ifaceStr) ? ETHER : RAWIP;
+        } catch (IOException e) {
+            Log.e(TAG, "Fail to call isEthernet for interface " + ifaceStr);
+            return;
+        }
+
+        final Inet4Address local4 = (Inet4Address) InetAddresses.parseNumericAddress(v4Str);
+        final Inet6Address local6 = (Inet6Address) InetAddresses.parseNumericAddress(v6Str);
+        final Inet6Address pfx96 = (Inet6Address) InetAddresses.parseNumericAddress(pfx96Str);
+
+        final ClatEgress4Key txKey = new ClatEgress4Key(tunIfaceIndex, local4);
+        final ClatEgress4Value txValue = new ClatEgress4Value(ifaceIndex, local6, pfx96,
+                isEthernet);
+        final ClatIngress6Key rxKey = new ClatIngress6Key(ifaceIndex, pfx96, local6);
+        final ClatIngress6Value rxValue = new ClatIngress6Value(tunIfaceIndex, local4);
+
+        try {
+            mEgressMap.insertEntry(txKey, txValue);
+        } catch (ErrnoException | IllegalStateException e) {
+            Log.e(TAG, "Could not insert entry (" + txKey + ", " + txValue + "): " + e);
+            return;
+        }
+
+        try {
+            mIngressMap.insertEntry(rxKey, rxValue);
+        } catch (ErrnoException | IllegalStateException e) {
+            // TODO: rewinding the egress map
+            Log.e(TAG, "Could not insert entry (" + rxKey + ", " + rxValue + "): " + e);
+            return;
+        }
+    }
+
     /**
      * Start clatd for a given interface and NAT64 prefix.
      */
@@ -424,6 +480,8 @@ public class ClatCoordinator {
         try {
             mPid = mDeps.startClatd(tunFd.getFileDescriptor(), readSock6.getFileDescriptor(),
                     writeSock6.getFileDescriptor(), iface, pfx96, v4, v6);
+            maybeStartBpf(iface, tunIface, pfx96, v4, v6);
+
             mIface = iface;
             mNat64Prefix = pfx96;
             mXlatLocalAddress4 = v4;
