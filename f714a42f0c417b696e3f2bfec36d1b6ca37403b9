@@ -196,6 +196,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80adb1ac_6f54307d",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-10T13:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a62009c3_d286d666",
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41a58c25_8da8cdcf",
@@ -219,6 +237,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2780feb2_7730331f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-10T13:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41a58c25_8da8cdcf",
+      "range": {
+        "startLine": 264,
+        "startChar": 17,
+        "endLine": 264,
+        "endChar": 45
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fb873b4_7b4a7abe",
@@ -232,6 +274,24 @@
       "writtenOn": "2022-03-10T09:12:41Z",
       "side": 1,
       "message": "call mEnMgr.startProvisioningIfNeeded here and verify that no provisioning fail happen while upstream is not cellular here.",
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03db0778_4f38d1e1",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-10T13:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fb873b4_7b4a7abe",
       "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
