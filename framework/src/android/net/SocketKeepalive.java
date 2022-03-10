@@ -251,6 +251,8 @@ public abstract class SocketKeepalive implements AutoCloseable {
                     executor.execute(() -> {
                         mSlot = null;
                         callback.onStopped();
+                        mPfd.close();
+                        mPfd = null;
                     });
                 } finally {
                     Binder.restoreCallingIdentity(token);
@@ -264,6 +266,8 @@ public abstract class SocketKeepalive implements AutoCloseable {
                     executor.execute(() -> {
                         mSlot = null;
                         callback.onError(error);
+                        mPfd.close();
+                        mPfd = null;
                     });
                 } finally {
                     Binder.restoreCallingIdentity(token);
