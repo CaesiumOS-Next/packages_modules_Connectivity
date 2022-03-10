@@ -16,6 +16,92 @@
       "message": "Suggestion for name: unregisterAfterReplacementOrTimeout.",
       "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65c6194e_fbf05e38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T02:10:06Z",
+      "side": 1,
+      "message": "Still not finished but there are some comments.",
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb9bb245_e90dd52e",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T02:10:06Z",
+      "side": 1,
+      "message": "Stupid Question: what caused the native network to be destroyed? This function call?",
+      "range": {
+        "startLine": 958,
+        "startChar": 93,
+        "endLine": 959,
+        "endChar": 29
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "683d7a96_4c790691",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 973,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T02:10:06Z",
+      "side": 1,
+      "message": "Does l.954~l.971 also happen after this method is called? if so maybe describe it at the beginning of l.954?",
+      "range": {
+        "startLine": 973,
+        "startChar": 7,
+        "endLine": 973,
+        "endChar": 34
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f91878_428b3f24",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-10T02:10:06Z",
+      "side": 1,
+      "message": "Question: do we have test for this?",
+      "range": {
+        "startLine": 982,
+        "startChar": 26,
+        "endLine": 982,
+        "endChar": 46
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
