@@ -1,6 +1,184 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "23810183_3d57558d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T08:58:09Z",
+      "side": 1,
+      "message": "LGTM assume comments addressed.",
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34e8988a_9c32eccf",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T08:58:09Z",
+      "side": 1,
+      "message": "only allow downstream looks wrong, this case did support non-cellular upstream.\n\nmaybe says:\nIf #getTetherProvisioningCondition return TETHERING_PROVISIONING_CARRIER_UNSUPPORT, that means cellular upstream is not supported and entitlement check result is empty because entitlement check should not be run.",
+      "range": {
+        "startLine": 171,
+        "startChar": 81,
+        "endLine": 172,
+        "endChar": 40
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c31a966_ee96233a",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T08:58:09Z",
+      "side": 1,
+      "message": "Remove the comment here and maybe add below comment before l.282.\n\nIf tethering provisioning is required but entitlement check result is empty, this means tethering may need to run entitlement check or carrier network is not supported.",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 35
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d2f875a_d63425e7",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T08:58:09Z",
+      "side": 1,
+      "message": "it means check follow up condition to know whether provisioning is required.",
+      "range": {
+        "startLine": 294,
+        "startChar": 41,
+        "endLine": 295,
+        "endChar": 71
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beee0fa0_a1bf31a6",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T08:58:09Z",
+      "side": 1,
+      "message": "it means tethering could not use cellular as upstream.",
+      "range": {
+        "startLine": 296,
+        "startChar": 42,
+        "endLine": 297,
+        "endChar": 70
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "420e4f82_4363b54e",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T08:58:09Z",
+      "side": 1,
+      "message": "whether to disable entitlement check. If value is false, follow up condition to know whether provisioning is required.",
+      "range": {
+        "startLine": 299,
+        "startChar": 30,
+        "endLine": 299,
+        "endChar": 71
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdba9e0b_e651bd69",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T08:58:09Z",
+      "side": 1,
+      "message": "Checks whether provisioning is required from RRO configuration.",
+      "range": {
+        "startLine": 300,
+        "startChar": 23,
+        "endLine": 301,
+        "endChar": 56
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79ab49c3_3f837727",
+        "filename": "Tethering/src/com/android/networkstack/tethering/EntitlementManager.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T08:58:09Z",
+      "side": 1,
+      "message": "This seems not necessary anymore: if getTetherProvisioningCondition is TETHERING_PROVISIONING_REQUIRED, this means onfig.provisioningApp.length always equals two. And this is private method which grantee we don\u0027t need to worry about the usage outside of EntitlementManager",
+      "range": {
+        "startLine": 345,
+        "startChar": 8,
+        "endLine": 348,
+        "endChar": 9
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a62009c3_d286d666",
