@@ -194,6 +194,63 @@
       "message": "Also check SdkLevel.isAtLeastT() here to be safe? And add a comment that this is only used when carrierConfigAffirmsCarrierNotSupport() is true.",
       "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a58c25_8da8cdcf",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T09:12:41Z",
+      "side": 1,
+      "message": "The function name indicate that this is for required provisioning. Passing boolean to change the behavior break the meaning of function name.\n\nYou could rename the function to more meaningful name without touch much existing code like this:\n\nprivate void setupForRequiredProvisioning() {\n    setupTetheringConfiguration(true /* carrierSupported */);\n}\n\nprivate void setupTetheringConfiguration(boolean carrierSupported) {\n    ....\n    mCarrierConfig.putBoolean(KEY_CARRIER_SUPPORTS_TETHERING_BOOL, carrierSupported);\n    ....\n}",
+      "range": {
+        "startLine": 264,
+        "startChar": 17,
+        "endLine": 264,
+        "endChar": 45
+      },
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fb873b4_7b4a7abe",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T09:12:41Z",
+      "side": 1,
+      "message": "call mEnMgr.startProvisioningIfNeeded here and verify that no provisioning fail happen while upstream is not cellular here.",
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8dd271b_a45416bd",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T09:12:41Z",
+      "side": 1,
+      "message": "Please also test:\n1. entitlement check -\u003e simulate sim change that carrier is not supported then call mEnMgr.reevaluateSimCardProvisioning(mConfig);",
+      "revId": "f714a42f0c417b696e3f2bfec36d1b6ca37403b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
