@@ -24,18 +24,28 @@ import static com.android.net.module.util.NetworkStackConstants.IPV6_MIN_MTU;
 import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.net.INetd;
+import android.net.InetAddresses;
 import android.net.InterfaceConfigurationParcel;
 import android.net.IpPrefix;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
 import android.os.ServiceSpecificException;
+import android.system.ErrnoException;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.BpfMap;
 import com.android.net.module.util.InterfaceParams;
+import com.android.net.module.util.TcUtils;
+import com.android.net.module.util.bpf.ClatEgress4Key;
+import com.android.net.module.util.bpf.ClatEgress4Value;
+import com.android.net.module.util.bpf.ClatIngress6Key;
+import com.android.net.module.util.bpf.ClatIngress6Value;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
@@ -69,10 +79,25 @@ public class ClatCoordinator {
     private static final int INVALID_PID = 0;
     private static final long INVALID_COOKIE = 0;
 
+    private static final String CLAT_EGRESS4_MAP_PATH = makeMapPath("egress4");
+    private static final String CLAT_INGRESS6_MAP_PATH = makeMapPath("ingress6");
+
+    private static String makeMapPath(String which) {
+        return "/sys/fs/bpf/map_clatd_clat_" + which + "_map";
+    }
+
+    // For better code clarity when used for 'oifIsEthernet' parameter in ClatEgress4Value.
+    static final short ETHER = 1;
+    static final short RAWIP = 0;
+
     @NonNull
     private final INetd mNetd;
     @NonNull
     private final Dependencies mDeps;
+    @Nullable
+    private final BpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap;
+    @Nullable
+    private final BpfMap<ClatEgress4Key, ClatEgress4Value> mEgressMap;
     @Nullable
     private String mIface = null;
     @Nullable
@@ -83,6 +108,12 @@ public class ClatCoordinator {
     private String mXlatLocalAddress6 = null;
     private int mPid = INVALID_PID;
     private long mCookie = INVALID_COOKIE;
+
+    // Used to record interface index and stacked interface index.
+    // It is used to avoid that we can't make the key because the interface index can't be
+    // queried after an interface is destroyed earlier while removing a bpf entry.
+    private int mIfaceIndex = INVALID_IFINDEX;
+    private int mStackedIfaceIndex = INVALID_IFINDEX;
 
     @VisibleForTesting
     abstract static class Dependencies {
@@ -201,6 +232,35 @@ public class ClatCoordinator {
         public void untagSocket(long cookie) throws IOException {
             native_untagSocket(cookie);
         }
+
+        /** Get ingress6 BPF map. */
+        @Nullable
+        public BpfMap<ClatIngress6Key, ClatIngress6Value> getBpfIngress6Map() {
+            try {
+                return new BpfMap<>(CLAT_INGRESS6_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, ClatIngress6Key.class, ClatIngress6Value.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create ingress6 map: " + e);
+                return null;
+            }
+        }
+
+        /** Get egress4 BPF map. */
+        @Nullable
+        public BpfMap<ClatEgress4Key, ClatEgress4Value> getBpfEgress4Map() {
+            try {
+                return new BpfMap<>(CLAT_EGRESS4_MAP_PATH,
+                    BpfMap.BPF_F_RDWR, ClatEgress4Key.class, ClatEgress4Value.class);
+            } catch (ErrnoException e) {
+                Log.e(TAG, "Cannot create egress4 map: " + e);
+                return null;
+            }
+        }
+
+        /** Checks if the network interface uses an ethernet L2 header. */
+        public boolean isEthernet(String iface) throws IOException {
+            return TcUtils.isEthernet(iface);
+        }
     }
 
     @VisibleForTesting
@@ -227,6 +287,51 @@ public class ClatCoordinator {
     public ClatCoordinator(@NonNull Dependencies deps) {
         mDeps = deps;
         mNetd = mDeps.getNetd();
+        mIngressMap = mDeps.getBpfIngress6Map();
+        mEgressMap = mDeps.getBpfEgress4Map();
+    }
+
+    // The interface information {ifaceStr, ifaceIndex, tunIfaceIndex, pfx96Str, v4Str, v6Str}
+    // validation is guaranteed by #clatStart.
+    private void maybeStartBpf(final String ifaceStr, final int ifaceIndex,
+            final int tunIfaceIndex, final String pfx96Str, final String v4Str,
+            final String v6Str) {
+        // TODO: attach program.
+
+        if (mIngressMap == null || mEgressMap == null) return;
+
+        final short isEthernet;
+        try {
+            isEthernet = mDeps.isEthernet(ifaceStr) ? ETHER : RAWIP;
+        } catch (IOException e) {
+            Log.e(TAG, "Fail to call isEthernet for interface " + ifaceStr);
+            return;
+        }
+
+        final Inet4Address local4 = (Inet4Address) InetAddresses.parseNumericAddress(v4Str);
+        final Inet6Address local6 = (Inet6Address) InetAddresses.parseNumericAddress(v6Str);
+        final Inet6Address pfx96 = (Inet6Address) InetAddresses.parseNumericAddress(pfx96Str);
+
+        final ClatEgress4Key txKey = new ClatEgress4Key(tunIfaceIndex, local4);
+        final ClatEgress4Value txValue = new ClatEgress4Value(ifaceIndex, local6, pfx96,
+                isEthernet);
+        final ClatIngress6Key rxKey = new ClatIngress6Key(ifaceIndex, pfx96, local6);
+        final ClatIngress6Value rxValue = new ClatIngress6Value(tunIfaceIndex, local4);
+
+        try {
+            mEgressMap.insertEntry(txKey, txValue);
+        } catch (ErrnoException | IllegalStateException e) {
+            Log.e(TAG, "Could not insert entry (" + txKey + ", " + txValue + "): " + e);
+            return;
+        }
+
+        try {
+            mIngressMap.insertEntry(rxKey, rxValue);
+        } catch (ErrnoException | IllegalStateException e) {
+            // TODO: rewinding the egress map
+            Log.e(TAG, "Could not insert entry (" + rxKey + ", " + rxValue + "): " + e);
+            return;
+        }
     }
 
     /**
@@ -373,10 +478,22 @@ public class ClatCoordinator {
         }
 
         // [5] Start clatd.
+        final int tunIfaceIndex = mDeps.getInterfaceIndex(tunIface);
+        if (tunIfaceIndex == INVALID_IFINDEX) {
+            tunFd.close();
+            readSock6.close();
+            writeSock6.close();
+            throw new IOException("Fail to get interface index for interface " + tunIface);
+        }
+
         try {
             mPid = mDeps.startClatd(tunFd.getFileDescriptor(), readSock6.getFileDescriptor(),
                     writeSock6.getFileDescriptor(), iface, pfx96, v4, v6);
+            maybeStartBpf(iface, ifaceIndex, tunIfaceIndex, pfx96, v4, v6);
+
             mIface = iface;
+            mIfaceIndex = ifaceIndex;
+            mStackedIfaceIndex = tunIfaceIndex;
             mNat64Prefix = pfx96;
             mXlatLocalAddress4 = v4;
             mXlatLocalAddress6 = v6;
@@ -408,6 +525,8 @@ public class ClatCoordinator {
         Log.i(TAG, "clatd on " + mIface + " stopped");
 
         mIface = null;
+        mIfaceIndex = INVALID_IFINDEX;
+        mStackedIfaceIndex = INVALID_IFINDEX;
         mNat64Prefix = null;
         mXlatLocalAddress4 = null;
         mXlatLocalAddress6 = null;

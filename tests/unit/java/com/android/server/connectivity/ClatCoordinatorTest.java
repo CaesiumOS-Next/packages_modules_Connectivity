@@ -33,12 +33,18 @@ import static org.mockito.Mockito.inOrder;
 
 import android.annotation.NonNull;
 import android.net.INetd;
+import android.net.InetAddresses;
 import android.net.IpPrefix;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
 
 import androidx.test.filters.SmallTest;
 
+import com.android.net.module.util.BpfMap;
+import com.android.net.module.util.bpf.ClatEgress4Key;
+import com.android.net.module.util.bpf.ClatEgress4Value;
+import com.android.net.module.util.bpf.ClatIngress6Key;
+import com.android.net.module.util.bpf.ClatIngress6Value;
 import com.android.testutils.DevSdkIgnoreRule;
 import com.android.testutils.DevSdkIgnoreRunner;
 
@@ -52,6 +58,8 @@ import org.mockito.Spy;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.util.Objects;
 
 @RunWith(DevSdkIgnoreRunner.class)
@@ -61,6 +69,7 @@ public class ClatCoordinatorTest {
     private static final String BASE_IFACE = "test0";
     private static final String STACKED_IFACE = "v4-test0";
     private static final int BASE_IFINDEX = 1000;
+    private static final int STACKED_IFINDEX = 1001;
 
     private static final IpPrefix NAT64_IP_PREFIX = new IpPrefix("64:ff9b::/96");
     private static final String NAT64_PREFIX_STRING = "64:ff9b::";
@@ -74,6 +83,12 @@ public class ClatCoordinatorTest {
 
     private static final String XLAT_LOCAL_IPV4ADDR_STRING = "192.0.0.46";
     private static final String XLAT_LOCAL_IPV6ADDR_STRING = "2001:db8:0:b11::464";
+    private static final Inet4Address INET4_LOCAL4 = (Inet4Address)
+            InetAddresses.parseNumericAddress(XLAT_LOCAL_IPV4ADDR_STRING);
+    private static final Inet6Address INET6_LOCAL6 = (Inet6Address)
+            InetAddresses.parseNumericAddress(XLAT_LOCAL_IPV6ADDR_STRING);
+    private static final Inet6Address INET6_PFX96 = (Inet6Address)
+            InetAddresses.parseNumericAddress(NAT64_PREFIX_STRING);
     private static final int CLATD_PID = 10483;
 
     private static final int TUN_FD = 534;
@@ -87,8 +102,19 @@ public class ClatCoordinatorTest {
     private static final ParcelFileDescriptor PACKET_SOCK_PFD = new ParcelFileDescriptor(
             new FileDescriptor());
 
+    private static final ClatEgress4Key EGRESS_KEY = new ClatEgress4Key(STACKED_IFINDEX,
+            INET4_LOCAL4);
+    private static final ClatEgress4Value EGRESS_VALUE = new ClatEgress4Value(BASE_IFINDEX,
+            INET6_LOCAL6, INET6_PFX96, (short) 1 /* isEthernet, 1 = true */);
+    private static final ClatIngress6Key INGRESS_KEY = new ClatIngress6Key(BASE_IFINDEX,
+            INET6_PFX96, INET6_LOCAL6);
+    private static final ClatIngress6Value INGRESS_VALUE = new ClatIngress6Value(STACKED_IFINDEX,
+            INET4_LOCAL4);
+
     @Mock private INetd mNetd;
     @Spy private TestDependencies mDeps = new TestDependencies();
+    @Mock private BpfMap<ClatIngress6Key, ClatIngress6Value> mIngressMap;
+    @Mock private BpfMap<ClatEgress4Key, ClatEgress4Value> mEgressMap;
 
     /**
       * The dependency injection class is used to mock the JNI functions and system functions
@@ -129,6 +155,8 @@ public class ClatCoordinatorTest {
         public int getInterfaceIndex(String ifName) {
             if (BASE_IFACE.equals(ifName)) {
                 return BASE_IFINDEX;
+            } else if (STACKED_IFACE.equals(ifName)) {
+                return STACKED_IFINDEX;
             }
             fail("unsupported arg: " + ifName);
             return -1;
@@ -285,6 +313,26 @@ public class ClatCoordinatorTest {
                 fail("unsupported arg: " + cookie);
             }
         }
+
+        /** Get ingress6 BPF map. */
+        @Override
+        public BpfMap<ClatIngress6Key, ClatIngress6Value> getBpfIngress6Map() {
+            return mIngressMap;
+        }
+
+        /** Get egress4 BPF map. */
+        @Override
+        public BpfMap<ClatEgress4Key, ClatEgress4Value> getBpfEgress4Map() {
+            return mEgressMap;
+        }
+
+        /** Checks if the network interface uses an ethernet L2 header. */
+        public boolean isEthernet(String iface) throws IOException {
+            if (BASE_IFACE.equals(iface)) return true;
+
+            fail("unsupported arg: " + iface);
+            return false;
+        }
     };
 
     @NonNull
@@ -309,8 +357,8 @@ public class ClatCoordinatorTest {
     @Test
     public void testStartStopClatd() throws Exception {
         final ClatCoordinator coordinator = makeClatCoordinator();
-        final InOrder inOrder = inOrder(mNetd, mDeps);
-        clearInvocations(mNetd, mDeps);
+        final InOrder inOrder = inOrder(mNetd, mDeps, mIngressMap, mEgressMap);
+        clearInvocations(mNetd, mDeps, mIngressMap, mEgressMap);
 
         // [1] Start clatd.
         final String addr6For464xlat = coordinator.clatStart(BASE_IFACE, NETID, NAT64_IP_PREFIX);
@@ -354,12 +402,15 @@ public class ClatCoordinatorTest {
                 eq(XLAT_LOCAL_IPV6ADDR_STRING), eq(BASE_IFINDEX));
 
         // Start clatd.
+        inOrder.verify(mDeps).getInterfaceIndex(eq(STACKED_IFACE));
         inOrder.verify(mDeps).startClatd(
                 argThat(fd -> Objects.equals(TUN_PFD.getFileDescriptor(), fd)),
                 argThat(fd -> Objects.equals(PACKET_SOCK_PFD.getFileDescriptor(), fd)),
                 argThat(fd -> Objects.equals(RAW_SOCK_PFD.getFileDescriptor(), fd)),
                 eq(BASE_IFACE), eq(NAT64_PREFIX_STRING),
                 eq(XLAT_LOCAL_IPV4ADDR_STRING), eq(XLAT_LOCAL_IPV6ADDR_STRING));
+        inOrder.verify(mEgressMap).insertEntry(eq(EGRESS_KEY), eq(EGRESS_VALUE));
+        inOrder.verify(mIngressMap).insertEntry(eq(INGRESS_KEY), eq(INGRESS_VALUE));
         inOrder.verifyNoMoreInteractions();
 
         // [2] Start clatd again failed.
