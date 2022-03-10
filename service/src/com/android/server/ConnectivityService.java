@@ -301,6 +301,7 @@ import java.util.SortedSet;
 import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * @hide
@@ -10532,8 +10533,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
             @NonNull final UserHandle profile,
             @NonNull final ProfileNetworkPreference profileNetworkPreference) {
         final UidRange profileUids = UidRange.createForUser(profile);
-        Set<UidRange> uidRangeSet = UidRangeUtils.convertListToUidRange(
-                profileNetworkPreference.getIncludedUids());
+        Set<UidRange> uidRangeSet = UidRangeUtils.convertListToUidRange(Arrays.stream(
+                        profileNetworkPreference.getIncludedUids()).boxed().collect(
+                        Collectors.toList()));
+
         if (uidRangeSet.size() > 0) {
             if (!UidRangeUtils.isRangeSetInUidRange(profileUids, uidRangeSet)) {
                 throw new IllegalArgumentException(
@@ -10541,7 +10544,8 @@ public class ConnectivityService extends IConnectivityManager.Stub
             }
         } else {
             ArraySet<UidRange> disallowUidRangeSet = UidRangeUtils.convertListToUidRange(
-                    profileNetworkPreference.getExcludedUids());
+                    Arrays.stream(profileNetworkPreference.getExcludedUids()).boxed().collect(
+                            Collectors.toList()));
             if (disallowUidRangeSet.size() > 0) {
                 if (!UidRangeUtils.isRangeSetInUidRange(profileUids, disallowUidRangeSet)) {
                     throw new IllegalArgumentException(
