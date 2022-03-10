@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf7bf3b5_ae32553e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T16:54:36Z",
+      "side": 1,
+      "message": "The new patchset you made would disable existing test before T which is regression, please fix it.",
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b5a9c40_ac2ac624",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T16:54:36Z",
+      "side": 1,
+      "message": "Rename to setupCarrierConfig?",
+      "range": {
+        "startLine": 285,
+        "startChar": 17,
+        "endLine": 285,
+        "endChar": 44
+      },
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "780887d2_a67ed111",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T16:54:36Z",
+      "side": 1,
+      "message": "This disable this test case before T, please have new test case to cover this flow.",
+      "range": {
+        "startLine": 452,
+        "startChar": 8,
+        "endLine": 452,
+        "endChar": 42
+      },
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a79f03_eb50f141",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T16:54:36Z",
+      "side": 1,
+      "message": "Why check sdklevel after calling setupForRequiredProvisioning() instead of checking at beginning (l.726) ? More graceful way is using annotation rule:\nYou could use @IgnoreUpTo(SC_V2), then the test only run after T.\nExample: https://source.corp.google.com/aosp-master/packages/modules/Connectivity/tests/unit/java/com/android/server/ConnectivityServiceTest.java;l\u003d15407?q\u003dpackages%2Fmodules%2FConnectivity%2Ftests%2Funit%2Fjava%2Fcom%2Fandroid%2Fserver%2FConnectivityServiceTest.java\u0026sq\u003dpackage:aosp-master",
+      "range": {
+        "startLine": 727,
+        "startChar": 8,
+        "endLine": 727,
+        "endChar": 42
+      },
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65fda21_c30609ed",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T16:54:36Z",
+      "side": 1,
+      "message": "You could remove times(1) because default verify once.",
+      "range": {
+        "startLine": 744,
+        "startChar": 48,
+        "endLine": 744,
+        "endChar": 58
+      },
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1aed09d_3cc6a42d",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T16:54:36Z",
+      "side": 1,
+      "message": "Use @IgnoreUpTo(SC_V2) instead ?",
+      "range": {
+        "startLine": 752,
+        "startChar": 8,
+        "endLine": 752,
+        "endChar": 42
+      },
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ef19d1b_779ad1b8",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1308504
+      },
+      "writtenOn": "2022-03-10T16:54:36Z",
+      "side": 1,
+      "message": "It seems you skip the stop flow for restart provisioning. Maybe change as below ?\n\n        mEnMgr.notifyUpstream(true);\n        mLooper.dispatchAll();\n        verify(mTetherProvisioningFailedListener)\n                .onTetherProvisioningFailed(TETHERING_WIFI, \"Carrier does not support.\");\n        mEnMgr.stopProvisioningIfNeeded(TETHERING_WIFI);\n        reset(mTetherProvisioningFailedListener);\n                \n\n        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);\n        mLooper.dispatchAll();\n\n        verify(mTetherProvisioningFailedListener)\n                .onTetherProvisioningFailed(TETHERING_WIFI, \"Carrier does not support.\");",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 765,
+        "endChar": 89
+      },
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
