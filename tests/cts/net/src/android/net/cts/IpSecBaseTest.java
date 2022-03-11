@@ -16,14 +16,21 @@
 
 package android.net.cts;
 
+import static android.net.IpSecAlgorithm.AUTH_AES_CMAC;
+import static android.net.IpSecAlgorithm.AUTH_AES_XCBC;
 import static android.net.IpSecAlgorithm.AUTH_CRYPT_AES_GCM;
+import static android.net.IpSecAlgorithm.AUTH_CRYPT_CHACHA20_POLY1305;
 import static android.net.IpSecAlgorithm.AUTH_HMAC_MD5;
 import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA1;
 import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA256;
 import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA384;
 import static android.net.IpSecAlgorithm.AUTH_HMAC_SHA512;
 import static android.net.IpSecAlgorithm.CRYPT_AES_CBC;
+import static android.net.IpSecAlgorithm.CRYPT_AES_CTR;
 import static android.system.OsConstants.FIONREAD;
+
+import static com.android.compatibility.common.util.PropertyUtil.getFirstApiLevel;
+import static com.android.compatibility.common.util.PropertyUtil.getVendorApiLevel;
 
 import static org.junit.Assert.assertArrayEquals;
 
@@ -32,6 +39,7 @@ import android.net.ConnectivityManager;
 import android.net.IpSecAlgorithm;
 import android.net.IpSecManager;
 import android.net.IpSecTransform;
+import android.os.Build;
 import android.platform.test.annotations.AppModeFull;
 import android.system.ErrnoException;
 import android.system.Os;
@@ -65,7 +73,9 @@ import java.net.SocketException;
 import java.net.SocketImpl;
 import java.net.SocketOptions;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -92,16 +102,22 @@ public class IpSecBaseTest {
         0x20, 0x21, 0x22, 0x23
     };
 
-    private static final Set<String> MANDATORY_IPSEC_ALGOS_SINCE_P = new HashSet<>();
+    protected static final Map<String, Integer> ALGO_TO_REQUIRED_MINSDK = new HashMap<>();
 
     static {
-        MANDATORY_IPSEC_ALGOS_SINCE_P.add(CRYPT_AES_CBC);
-        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_MD5);
-        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA1);
-        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA256);
-        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA384);
-        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_HMAC_SHA512);
-        MANDATORY_IPSEC_ALGOS_SINCE_P.add(AUTH_CRYPT_AES_GCM);
+        ALGO_TO_REQUIRED_MINSDK.put(CRYPT_AES_CBC, Build.VERSION_CODES.P);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_HMAC_MD5, Build.VERSION_CODES.P);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_HMAC_SHA1, Build.VERSION_CODES.P);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_HMAC_SHA256, Build.VERSION_CODES.P);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_HMAC_SHA384, Build.VERSION_CODES.P);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_HMAC_SHA512, Build.VERSION_CODES.P);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_CRYPT_AES_GCM, Build.VERSION_CODES.P);
+
+        // TODO: b/170424293 Use Build.VERSION_CODES.S when is finalized
+        ALGO_TO_REQUIRED_MINSDK.put(CRYPT_AES_CTR, Build.VERSION_CODES.R + 1);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_AES_CMAC, Build.VERSION_CODES.R + 1);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_AES_XCBC, Build.VERSION_CODES.R + 1);
+        ALGO_TO_REQUIRED_MINSDK.put(AUTH_CRYPT_CHACHA20_POLY1305, Build.VERSION_CODES.R + 1);
     }
 
     protected static final byte[] AUTH_KEY = getKey(256);
@@ -125,9 +141,12 @@ public class IpSecBaseTest {
     /** Checks if an IPsec algorithm is enabled on the device */
     protected static boolean hasIpSecAlgorithm(String algorithm) {
         if (SdkLevel.isAtLeastS()) {
-            return IpSecAlgorithm.getSupportedAlgorithms().contains(algorithm);
+            return ALGO_TO_REQUIRED_MINSDK.containsKey(algorithm) &&
+                        Math.min(getFirstApiLevel(), getVendorApiLevel()) >= ALGO_TO_REQUIRED_MINSDK.get(algorithm) &&
+                            IpSecAlgorithm.getSupportedAlgorithms().contains(algorithm);
         } else {
-            return MANDATORY_IPSEC_ALGOS_SINCE_P.contains(algorithm);
+            return ALGO_TO_REQUIRED_MINSDK.containsKey(algorithm) &&
+                        ALGO_TO_REQUIRED_MINSDK.get(algorithm) < Build.VERSION_CODES.S;
         }
     }
 

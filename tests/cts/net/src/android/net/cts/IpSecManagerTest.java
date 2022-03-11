@@ -708,30 +708,15 @@ public class IpSecManagerTest extends IpSecBaseTest {
     @IgnoreUpTo(Build.VERSION_CODES.R)
     @Test
     public void testGetSupportedAlgorithms() throws Exception {
-        final Map<String, Integer> algoToRequiredMinSdk = new HashMap<>();
-        algoToRequiredMinSdk.put(CRYPT_AES_CBC, Build.VERSION_CODES.P);
-        algoToRequiredMinSdk.put(AUTH_HMAC_MD5, Build.VERSION_CODES.P);
-        algoToRequiredMinSdk.put(AUTH_HMAC_SHA1, Build.VERSION_CODES.P);
-        algoToRequiredMinSdk.put(AUTH_HMAC_SHA256, Build.VERSION_CODES.P);
-        algoToRequiredMinSdk.put(AUTH_HMAC_SHA384, Build.VERSION_CODES.P);
-        algoToRequiredMinSdk.put(AUTH_HMAC_SHA512, Build.VERSION_CODES.P);
-        algoToRequiredMinSdk.put(AUTH_CRYPT_AES_GCM, Build.VERSION_CODES.P);
-
-        // TODO: b/170424293 Use Build.VERSION_CODES.S when is finalized
-        algoToRequiredMinSdk.put(CRYPT_AES_CTR, Build.VERSION_CODES.R + 1);
-        algoToRequiredMinSdk.put(AUTH_AES_CMAC, Build.VERSION_CODES.R + 1);
-        algoToRequiredMinSdk.put(AUTH_AES_XCBC, Build.VERSION_CODES.R + 1);
-        algoToRequiredMinSdk.put(AUTH_CRYPT_CHACHA20_POLY1305, Build.VERSION_CODES.R + 1);
-
         final Set<String> supportedAlgos = IpSecAlgorithm.getSupportedAlgorithms();
 
         // Verify all supported algorithms are valid
         for (String algo : supportedAlgos) {
-            assertTrue("Found invalid algo " + algo, algoToRequiredMinSdk.keySet().contains(algo));
+            assertTrue("Found invalid algo " + algo, ALGO_TO_REQUIRED_MINSDK.keySet().contains(algo));
         }
 
         // Verify all mandatory algorithms are supported
-        for (Entry<String, Integer> entry : algoToRequiredMinSdk.entrySet()) {
+        for (Entry<String, Integer> entry : ALGO_TO_REQUIRED_MINSDK.entrySet()) {
             if (Math.min(getFirstApiLevel(), getVendorApiLevel()) >= entry.getValue()) {
                 assertTrue(
                         "Fail to support " + entry.getKey(),
