@@ -232,6 +232,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91a960bd_cfa312a5",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-14T12:57:59Z",
+      "side": 1,
+      "message": "After discussion, changed to destroyAndAwaitReplacement.",
+      "parentUuid": "cfc30a96_d743d2aa",
+      "range": {
+        "startLine": 983,
+        "startChar": 16,
+        "endLine": 983,
+        "endChar": 40
+      },
+      "revId": "db1d5e682cc353a2b1f6de7cb053a42d7d8d5fda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c445892a_0793f691",

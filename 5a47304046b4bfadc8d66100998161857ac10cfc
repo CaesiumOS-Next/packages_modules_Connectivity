@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffdce8d3_1b20cf3a",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-14T12:57:59Z",
+      "side": 1,
+      "message": "It\u0027s one sentence, I think:\n\ngo/android-api-guidelines#docs-style-guide\nhttps://www.oracle.com/technical-resources/articles/java/javadoc-tool.html\n\n\"Write the first sentence as a short summary of the method, as Javadoc automatically places it in the method summary table (and index).\"",
+      "parentUuid": "d127c8bc_a70d76d3",
+      "range": {
+        "startLine": 954,
+        "startChar": 7,
+        "endLine": 955,
+        "endChar": 39
+      },
+      "revId": "5a47304046b4bfadc8d66100998161857ac10cfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73522f2b_c158bccc",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "666af65f_4ff2f8da",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-14T12:57:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73522f2b_c158bccc",
+      "range": {
+        "startLine": 1173,
+        "startChar": 11,
+        "endLine": 1173,
+        "endChar": 25
+      },
+      "revId": "5a47304046b4bfadc8d66100998161857ac10cfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "629bf47a_801999a2",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-03-14T09:50:33Z",
       "side": 1,
       "message": "Maybealso  matchAllCallback.assertNoCallback?",
+      "revId": "5a47304046b4bfadc8d66100998161857ac10cfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e00d2d8_dad8c6ca",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-14T12:57:59Z",
+      "side": 1,
+      "message": "Each call to assertNoCallback takes 200ms, and the test currently only takes 400ms.  Instead, added a comment explaining that the expect at line 1197 implicitly ensures that no callbacks are sent after line 1176.",
+      "parentUuid": "629bf47a_801999a2",
       "revId": "5a47304046b4bfadc8d66100998161857ac10cfc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

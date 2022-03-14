@@ -335,6 +335,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bac8083_f738194f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3641,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-14T12:57:59Z",
+      "side": 1,
+      "message": "\u003c 0 is a programming error and the behaviour is undefined. This is already documented in the javadoc: the \"@IntRange(from \u003d 0, to \u003d MAX_TEARDOWN_DELAY_MS)\" turns into something like:\n\nValue is between 0 and 5000 inclusive.\n\n0 behaves the same as all other values: it\u0027s posted to the handler, except with a delay of 0ms.\n\nIf you think 0 is ambiguous and needs to be clarified, then I suppose we could make it start from 1, but that does not seem like much of an improvement?\n\nLeft as is for now.",
+      "parentUuid": "5d8a1359_47ca8953",
+      "range": {
+        "startLine": 3641,
+        "startChar": 20,
+        "endLine": 3641,
+        "endChar": 21
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6d4f9c3_6ffa2bd6",
@@ -702,6 +726,30 @@
       "side": 1,
       "message": "nit: If so I think we should name it differently or add documentation to let user know unlike createConnectedNetworkAgent, to use this function the caller should prepare their own callback to hold the network first. Otherwise this might be errorpone or flaky if the caller doesn\u0027t prepare the callback and the network is nascent for a short period of time.",
       "parentUuid": "3cc995cb_81605612",
+      "range": {
+        "startLine": 322,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 47
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09ffe7df_2484ac58",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-14T12:57:59Z",
+      "side": 1,
+      "message": "It\u0027s already documented in comments. createConnectedNetworkAgent has:\n\n        // Ensure this NetworkAgent is never unneeded by filing a request with its specifier.\n\nand connectNetwork has:\n\n        // createConnectedNetworkAgent internally files a request; release it so that the network\n        // will be torn down if unneeded.\n\nThe behaviour in the method I\u0027m adding here is, I think, easier to understand - usually, registering a NetworkAgent without filing a request for it will always results in that network disconnected when the nascent timer expires.",
+      "parentUuid": "e4c2d41f_2161b1c2",
       "range": {
         "startLine": 322,
         "startChar": 8,
