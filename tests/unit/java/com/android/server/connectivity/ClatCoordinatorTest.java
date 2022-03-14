@@ -423,6 +423,8 @@ public class ClatCoordinatorTest {
         inOrder.verify(mDeps).stopClatd(eq(BASE_IFACE), eq(NAT64_PREFIX_STRING),
                 eq(XLAT_LOCAL_IPV4ADDR_STRING), eq(XLAT_LOCAL_IPV6ADDR_STRING), eq(CLATD_PID));
         inOrder.verify(mDeps).untagSocket(eq(RAW_SOCK_COOKIE));
+        inOrder.verify(mEgressMap).deleteEntry(eq(EGRESS_KEY));
+        inOrder.verify(mIngressMap).deleteEntry(eq(INGRESS_KEY));
         inOrder.verifyNoMoreInteractions();
 
         // [4] Expect an IO exception while stopping a clatd that doesn't exist.

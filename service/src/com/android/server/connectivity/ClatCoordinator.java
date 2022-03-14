@@ -518,6 +518,32 @@ public class ClatCoordinator {
         return v6;
     }
 
+    // The parameter {ifaceIndex, tunIfaceIndex, pfx96Str, v4Str, v6Str} is passed by #clatStop
+    // which uses #clatStart has initialized and validated member variables.
+    private void maybeStopBpf(final int ifaceIndex, final int tunIfaceIndex,
+            final String pfx96Str, final String v4Str, final String v6Str) {
+        final Inet4Address local4 = (Inet4Address) InetAddresses.parseNumericAddress(v4Str);
+        final Inet6Address local6 = (Inet6Address) InetAddresses.parseNumericAddress(v6Str);
+        final Inet6Address pfx96 = (Inet6Address) InetAddresses.parseNumericAddress(pfx96Str);
+
+        final ClatEgress4Key txKey = new ClatEgress4Key(tunIfaceIndex, local4);
+        final ClatIngress6Key rxKey = new ClatIngress6Key(ifaceIndex, pfx96, local6);
+
+        try {
+            mEgressMap.deleteEntry(txKey);
+        } catch (ErrnoException | IllegalStateException e) {
+            Log.e(TAG, "Could not delete entry (" + txKey + "): " + e);
+        }
+
+        try {
+            mIngressMap.deleteEntry(rxKey);
+        } catch (ErrnoException | IllegalStateException e) {
+            Log.e(TAG, "Could not delete entry (" + rxKey + "): " + e);
+        }
+
+        // TODO: dettach program.
+    }
+
     /**
      * Stop clatd
      */
@@ -529,6 +555,8 @@ public class ClatCoordinator {
 
         mDeps.stopClatd(mIface, mNat64Prefix, mXlatLocalAddress4, mXlatLocalAddress6, mPid);
         mDeps.untagSocket(mCookie);
+        maybeStopBpf(mIfaceIndex, mStackedIfaceIndex, mNat64Prefix, mXlatLocalAddress4,
+                mXlatLocalAddress6);
 
         Log.i(TAG, "clatd on " + mIface + " stopped");
 
