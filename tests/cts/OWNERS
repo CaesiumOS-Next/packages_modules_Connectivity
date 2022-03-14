@@ -1,3 +1,9 @@
 # Bug component: 31808
+# Bug component: 685852 = per-file *IpSec*
 set noparent
 file:platform/packages/modules/Connectivity:master:/OWNERS_core_networking_xts
+
+# For CTS ownership, which doesn't understand file:
+lorenzo@google.com
+
+per-file net/src/android/net/cts/NetworkWatchlistTest.java=alanstokes@google.com
