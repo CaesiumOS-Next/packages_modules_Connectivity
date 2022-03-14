@@ -116,6 +116,7 @@ import com.android.networkstack.tethering.TetherStatsKey;
 import com.android.networkstack.tethering.TetherStatsValue;
 import com.android.networkstack.tethering.TetherUpstream6Key;
 import com.android.networkstack.tethering.TetheringConfiguration;
+import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -184,6 +185,7 @@ public class IpServerTest {
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private ConntrackMonitor mConntrackMonitor;
+    @Mock private TetheringMetrics mTetheringMetrics;
     @Mock private BpfMap<Tether4Key, Tether4Value> mBpfDownstream4Map;
     @Mock private BpfMap<Tether4Key, Tether4Value> mBpfUpstream4Map;
     @Mock private BpfMap<TetherDownstream6Key, Tether6Value> mBpfDownstream6Map;
@@ -232,7 +234,7 @@ public class IpServerTest {
         when(mTetherConfig.useLegacyDhcpServer()).thenReturn(usingLegacyDhcp);
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, mTetherConfig, mAddressCoordinator, mDependencies);
+                mCallback, mTetherConfig, mAddressCoordinator, mDependencies, mTetheringMetrics);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -364,7 +366,7 @@ public class IpServerTest {
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
-                mDependencies);
+                mDependencies, mTetheringMetrics);
         mIpServer.start();
         mLooper.dispatchAll();
         verify(mCallback).updateInterfaceState(

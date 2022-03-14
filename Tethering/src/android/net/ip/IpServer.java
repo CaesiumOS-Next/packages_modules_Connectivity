@@ -69,6 +69,7 @@ import com.android.networkstack.tethering.BpfCoordinator.ClientInfo;
 import com.android.networkstack.tethering.BpfCoordinator.Ipv6ForwardingRule;
 import com.android.networkstack.tethering.PrivateAddressCoordinator;
 import com.android.networkstack.tethering.TetheringConfiguration;
+import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
 
@@ -281,13 +282,15 @@ public class IpServer extends StateMachine {
 
     private LinkAddress mIpv4Address;
 
+    private TetheringMetrics mTetheringMetrics;
+
     // TODO: Add a dependency object to pass the data members or variables from the tethering
     // object. It helps to reduce the arguments of the constructor.
     public IpServer(
             String ifaceName, Looper looper, int interfaceType, SharedLog log,
             INetd netd, @NonNull BpfCoordinator coordinator, Callback callback,
             TetheringConfiguration config, PrivateAddressCoordinator addressCoordinator,
-            Dependencies deps) {
+            Dependencies deps, TetheringMetrics tetheringMetrics) {
         super(ifaceName, looper);
         mLog = log.forSubComponent(ifaceName);
         mNetd = netd;
@@ -301,6 +304,7 @@ public class IpServer extends StateMachine {
         mUsingBpfOffload = config.isBpfOffloadEnabled();
         mPrivateAddressCoordinator = addressCoordinator;
         mDeps = deps;
+        mTetheringMetrics = tetheringMetrics;
         resetLinkProperties();
         mLastError = TetheringManager.TETHER_ERROR_NO_ERROR;
         mServingMode = STATE_AVAILABLE;
@@ -1175,6 +1179,7 @@ public class IpServer extends StateMachine {
                 // TODO: Make this a fatal error once Bluetooth IPv6 is sorted.
                 return;
             }
+            mTetheringMetrics.updateErrorCode(mLastError, mInterfaceType);
         }
 
         @Override
@@ -1195,6 +1200,9 @@ public class IpServer extends StateMachine {
             stopConntrackMonitoring();
 
             resetLinkProperties();
+
+            mTetheringMetrics.updateErrorCode(mLastError, mInterfaceType);
+            mTetheringMetrics.writeStats(mInterfaceType);
         }
 
         @Override
