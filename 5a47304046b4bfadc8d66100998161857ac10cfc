@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d127c8bc_a70d76d3",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-14T09:50:33Z",
+      "side": 1,
+      "message": "nit can be ignored: IIRC jean told me javadoc title cannot go over 1 line?",
+      "range": {
+        "startLine": 954,
+        "startChar": 7,
+        "endLine": 955,
+        "endChar": 39
+      },
+      "revId": "5a47304046b4bfadc8d66100998161857ac10cfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73522f2b_c158bccc",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-14T09:50:33Z",
+      "side": 1,
+      "message": "Removed? maybe update the comment.",
+      "range": {
+        "startLine": 1173,
+        "startChar": 11,
+        "endLine": 1173,
+        "endChar": 25
+      },
+      "revId": "5a47304046b4bfadc8d66100998161857ac10cfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "629bf47a_801999a2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 28
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-14T09:50:33Z",
+      "side": 1,
+      "message": "Maybealso  matchAllCallback.assertNoCallback?",
+      "revId": "5a47304046b4bfadc8d66100998161857ac10cfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

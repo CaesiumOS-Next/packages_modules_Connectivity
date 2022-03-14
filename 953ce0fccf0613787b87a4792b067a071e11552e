@@ -146,6 +146,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66a7841e_b01d66e0",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-14T09:50:33Z",
+      "side": 1,
+      "message": "It seems to me to affect scoring should not be a reason of preventing us from using the correct capabilities.\nMayhaps in long term we could use tricks like how we manage unvalidated networks.\nBut agree to left it as is.",
+      "parentUuid": "0a618a0d_a875b965",
+      "range": {
+        "startLine": 967,
+        "startChar": 35,
+        "endLine": 967,
+        "endChar": 44
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "683d7a96_4c790691",
@@ -277,6 +301,30 @@
       "side": 1,
       "message": "From the perspective of a developer, I think it\u0027s better to ignore invalid input instead of clamping. The resulting failure mode is more obvious and easier to understand.",
       "parentUuid": "25220ee7_afbd9fb5",
+      "range": {
+        "startLine": 3641,
+        "startChar": 20,
+        "endLine": 3641,
+        "endChar": 21
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d8a1359_47ca8953",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 3641,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-14T09:50:33Z",
+      "side": 1,
+      "message": "nit: Ok but it is unclear to me what will happen if the caller input with timeoutMs is \u003c\u003d 0.\nMaybe document that in the API javadoc?\nIIUC it depends on how the postDelayed is implemented.",
+      "parentUuid": "54ec3a55_bb4f14fc",
       "range": {
         "startLine": 3641,
         "startChar": 20,
@@ -569,6 +617,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b400c75f_047ac5a4",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-14T09:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b5eb26a_94eb68f9",
+      "range": {
+        "startLine": 303,
+        "startChar": 8,
+        "endLine": 306,
+        "endChar": 9
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "080583ab_c3baa7d2",
@@ -606,6 +678,30 @@
       "side": 1,
       "message": "Personally I don\u0027t think so. The reason I wrote this method because I didn\u0027t want to clutter the callers with boilerplate code that does not help the reader understand what is being tested.",
       "parentUuid": "080583ab_c3baa7d2",
+      "range": {
+        "startLine": 322,
+        "startChar": 8,
+        "endLine": 324,
+        "endChar": 47
+      },
+      "revId": "953ce0fccf0613787b87a4792b067a071e11552e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4c2d41f_2161b1c2",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 27
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-14T09:50:33Z",
+      "side": 1,
+      "message": "nit: If so I think we should name it differently or add documentation to let user know unlike createConnectedNetworkAgent, to use this function the caller should prepare their own callback to hold the network first. Otherwise this might be errorpone or flaky if the caller doesn\u0027t prepare the callback and the network is nascent for a short period of time.",
+      "parentUuid": "3cc995cb_81605612",
       "range": {
         "startLine": 322,
         "startChar": 8,
