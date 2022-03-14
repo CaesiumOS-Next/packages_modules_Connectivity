@@ -36,6 +36,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24171d74_fd15db3f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 3635,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-14T07:46:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b42b39f_4fcd8d5c",
+      "revId": "5ad2ff1dd351367315214f96dd179d9287880f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04f23ee5_b5235b0f",
