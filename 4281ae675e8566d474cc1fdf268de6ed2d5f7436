@@ -88,6 +88,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b46cce78_13cfda43",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-14T07:18:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "780887d2_a67ed111",
+      "range": {
+        "startLine": 452,
+        "startChar": 8,
+        "endLine": 452,
+        "endChar": 42
+      },
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55a79f03_eb50f141",
@@ -242,6 +266,30 @@
       "writtenOn": "2022-03-10T16:54:36Z",
       "side": 1,
       "message": "It seems you skip the stop flow for restart provisioning. Maybe change as below ?\n\n        mEnMgr.notifyUpstream(true);\n        mLooper.dispatchAll();\n        verify(mTetherProvisioningFailedListener)\n                .onTetherProvisioningFailed(TETHERING_WIFI, \"Carrier does not support.\");\n        mEnMgr.stopProvisioningIfNeeded(TETHERING_WIFI);\n        reset(mTetherProvisioningFailedListener);\n                \n\n        mEnMgr.startProvisioningIfNeeded(TETHERING_WIFI, true);\n        mLooper.dispatchAll();\n\n        verify(mTetherProvisioningFailedListener)\n                .onTetherProvisioningFailed(TETHERING_WIFI, \"Carrier does not support.\");",
+      "range": {
+        "startLine": 757,
+        "startChar": 0,
+        "endLine": 765,
+        "endChar": 89
+      },
+      "revId": "4281ae675e8566d474cc1fdf268de6ed2d5f7436",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b800cb81_002fe862",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-14T07:18:37Z",
+      "side": 1,
+      "message": "Thanks for this suggestion.",
+      "parentUuid": "8ef19d1b_779ad1b8",
       "range": {
         "startLine": 757,
         "startChar": 0,
