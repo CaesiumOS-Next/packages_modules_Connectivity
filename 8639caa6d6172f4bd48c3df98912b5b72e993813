@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "863ff5d9_45aa975c",
+        "filename": "tests/cts/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-14T13:45:26Z",
+      "side": 1,
+      "message": "Per https://b.corp.google.com/issues/224454753#comment2 I don\u0027t think we should switch back from \"file\" to \"include\". I suggested a few options in that comment, do you think one or more of them would work?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 7
+      },
+      "revId": "8639caa6d6172f4bd48c3df98912b5b72e993813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
