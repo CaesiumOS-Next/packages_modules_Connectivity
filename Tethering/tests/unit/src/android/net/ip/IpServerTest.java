@@ -51,6 +51,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doAnswer;
@@ -116,6 +117,7 @@ import com.android.networkstack.tethering.TetherLimitKey;
 import com.android.networkstack.tethering.TetherLimitValue;
 import com.android.networkstack.tethering.TetherUpstream6Key;
 import com.android.networkstack.tethering.TetheringConfiguration;
+import com.android.networkstack.tethering.metrics.TetheringMetrics;
 import com.android.networkstack.tethering.util.InterfaceSet;
 import com.android.networkstack.tethering.util.PrefixUtils;
 import com.android.testutils.DevSdkIgnoreRule;
@@ -186,6 +188,7 @@ public class IpServerTest {
     @Mock private NetworkStatsManager mStatsManager;
     @Mock private TetheringConfiguration mTetherConfig;
     @Mock private ConntrackMonitor mConntrackMonitor;
+    @Mock private TetheringMetrics mTetheringMetrics;
     @Mock private BpfMap<Tether4Key, Tether4Value> mBpfDownstream4Map;
     @Mock private BpfMap<Tether4Key, Tether4Value> mBpfUpstream4Map;
     @Mock private BpfMap<TetherDownstream6Key, Tether6Value> mBpfDownstream6Map;
@@ -235,7 +238,7 @@ public class IpServerTest {
         when(mTetherConfig.getP2pLeasesSubnetPrefixLength()).thenReturn(P2P_SUBNET_PREFIX_LENGTH);
         mIpServer = new IpServer(
                 IFACE_NAME, mLooper.getLooper(), interfaceType, mSharedLog, mNetd, mBpfCoordinator,
-                mCallback, mTetherConfig, mAddressCoordinator, mDependencies);
+                mCallback, mTetherConfig, mAddressCoordinator, mDependencies, mTetheringMetrics);
         mIpServer.start();
         mNeighborEventConsumer = neighborCaptor.getValue();
 
@@ -367,7 +370,7 @@ public class IpServerTest {
                 .thenReturn(mIpNeighborMonitor);
         mIpServer = new IpServer(IFACE_NAME, mLooper.getLooper(), TETHERING_BLUETOOTH, mSharedLog,
                 mNetd, mBpfCoordinator, mCallback, mTetherConfig, mAddressCoordinator,
-                mDependencies);
+                mDependencies, mTetheringMetrics);
         mIpServer.start();
         mLooper.dispatchAll();
         verify(mCallback).updateInterfaceState(
@@ -451,6 +454,8 @@ public class IpServerTest {
                 mIpServer, STATE_AVAILABLE, TETHER_ERROR_NO_ERROR);
         inOrder.verify(mCallback).updateLinkProperties(
                 eq(mIpServer), any(LinkProperties.class));
+        verify(mTetheringMetrics).updateErrorCode(anyInt(), eq(TETHER_ERROR_NO_ERROR));
+        verify(mTetheringMetrics).sendReport(anyInt());
         verifyNoMoreInteractions(mNetd, mCallback, mAddressCoordinator);
     }
 
@@ -658,6 +663,8 @@ public class IpServerTest {
         usbTeardownOrder.verify(mCallback).updateLinkProperties(
                 eq(mIpServer), mLinkPropertiesCaptor.capture());
         assertNoAddressesNorRoutes(mLinkPropertiesCaptor.getValue());
+        verify(mTetheringMetrics).updateErrorCode(anyInt(), eq(TETHER_ERROR_TETHER_IFACE_ERROR));
+        verify(mTetheringMetrics).sendReport(anyInt());
     }
 
     @Test
@@ -676,6 +683,9 @@ public class IpServerTest {
         usbTeardownOrder.verify(mCallback).updateLinkProperties(
                 eq(mIpServer), mLinkPropertiesCaptor.capture());
         assertNoAddressesNorRoutes(mLinkPropertiesCaptor.getValue());
+        verify(mTetheringMetrics).updateErrorCode(anyInt(),
+                eq(TETHER_ERROR_ENABLE_FORWARDING_ERROR));
+        verify(mTetheringMetrics).sendReport(anyInt());
     }
 
     @Test
