@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "457abbc2_21d425e3",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "2180c778_adec2c23",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ada3fdc_b32fd71b",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-01-26T05:29:04Z",
       "side": 1,
       "message": "Can this be frameworks/opt/net/ethernet/tests:__subpackages__ ? Hidden APIs should not be used by production code",
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c227e15_a80bbbde",
+        "filename": "framework-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ada3fdc_b32fd71b",
       "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32550282_53046f17",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5a83e0a7_0b7746ee",
+      "range": {
+        "startLine": 18,
+        "startChar": 21,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ab7f637_dc4b0ed5",
@@ -77,6 +143,24 @@
       "writtenOn": "2022-01-28T07:00:26Z",
       "side": 1,
       "message": "Shouldn\u0027t these APIs be module-lib instead of system?",
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cc1d9e0_eec7158c",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4ab7f637_dc4b0ed5",
       "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -104,6 +188,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aaaca46_37795ce1",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6a9e4512_aa67703b",
+      "range": {
+        "startLine": 8,
+        "startChar": 42,
+        "endLine": 8,
+        "endChar": 67
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec1bd9e6_e7c01aa4",
@@ -117,6 +225,24 @@
       "writtenOn": "2022-01-26T05:29:04Z",
       "side": 1,
       "message": "This shouldn\u0027t be necessary, since \"sdk_version: module_current\" should already give the latest non-updatable stubs (\"android\"). If something is fixed by adding that, this is probably because of an API that is in the old prebuilts, but no longer in the latest module_current; so updating the prebuilts would break it.\n\nWhat actually fails if your remove this ? We can discuss it in chat",
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4f5326c_4c6c2328",
+        "filename": "framework/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Thanks for the suggestion, using \"sdk_module-lib_current_framework-connectivity\" to replace the \"framework-connectivity.stubs.module_lib\" in the framework-connectivity-tiramisu.",
+      "parentUuid": "ec1bd9e6_e7c01aa4",
       "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -144,6 +270,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86de08bf_42d39bbf",
+        "filename": "framework/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c5300db_147d2923",
+      "range": {
+        "startLine": 109,
+        "startChar": 44,
+        "endLine": 109,
+        "endChar": 46
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "beccbd23_94ae553d",
@@ -157,6 +307,30 @@
       "writtenOn": "2022-01-26T05:29:04Z",
       "side": 1,
       "message": "To be consistent with others, could you call it \"updatable-sources\" ?",
+      "range": {
+        "startLine": 33,
+        "startChar": 27,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fb9d95d_1aafbb5a",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beccbd23_94ae553d",
       "range": {
         "startLine": 33,
         "startChar": 27,
@@ -213,6 +387,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "accdd91e_1dff3990",
+        "filename": "service-t/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Ah, yes, moved it to libs. Thanks for catching!",
+      "parentUuid": "7acea4dd_ca4c2c4e",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 39
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ea8db9e_06e0efcb",
@@ -236,6 +434,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a05ed76_81c16e50",
+        "filename": "service-t/src/com/android/server/ConnectivityServiceInitializer.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ea8db9e_06e0efcb",
+      "range": {
+        "startLine": 46,
+        "startChar": 27,
+        "endLine": 46,
+        "endChar": 58
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52e4a08f_89d29c10",
@@ -249,6 +471,30 @@
       "writtenOn": "2022-01-26T05:29:04Z",
       "side": 1,
       "message": "While we\u0027re here, should this be eth\\\\d+ ? Does this work for eth10 or eth11 today ?",
+      "range": {
+        "startLine": 170,
+        "startChar": 68,
+        "endLine": 170,
+        "endChar": 74
+      },
+      "revId": "2832704eed7f964d160393b2afe3d8710880f06f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9117ae3c_7e7fbc83",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1406251
+      },
+      "writtenOn": "2022-03-14T14:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52e4a08f_89d29c10",
       "range": {
         "startLine": 170,
         "startChar": 68,
