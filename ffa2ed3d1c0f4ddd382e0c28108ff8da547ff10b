@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33c790fd_7047b8b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-15T04:16:25Z",
+      "side": 1,
+      "message": "LGTM with nits that can be ignored but might want to go through the questions to make sure it is safe before merging.",
+      "revId": "ffa2ed3d1c0f4ddd382e0c28108ff8da547ff10b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2ce6fd9_a9017068",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-15T04:16:25Z",
+      "side": 1,
+      "message": "Stupid Question: How do we choose a valid replacement if we have multiple networks awaiting?\nConsider below scenario, what\u0027s the replacement we are waiting for?\n\nconnect network1: wifi\nnetwork1.destroyAndAwaitReplacement(1)\nconnect network2: wifi with different ESSID, but better than network1.\nconnect network3: ethernet, but best among all.\nconnect network4: wifi but with the same ESSID, but worse.\n\nIt seems to me the network which is best and better than network1 is the replacement, so it is network3 in the above case?\nIf so, do we want to be more specific about the replacement?\nI\u0027m ok to leave it as is.",
+      "range": {
+        "startLine": 974,
+        "startChar": 10,
+        "endLine": 974,
+        "endChar": 31
+      },
+      "revId": "ffa2ed3d1c0f4ddd382e0c28108ff8da547ff10b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39ea89c_5b81eef0",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 8630,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-15T04:16:25Z",
+      "side": 1,
+      "message": "Stupid question: I\u0027m not sure I understand how this works.\nWhen we have a replacement with the same score,\nIIUC we prefer current network over the new one.\nIf so the newSatisfier can never be the new network?\nDo I miss something?",
+      "range": {
+        "startLine": 8629,
+        "startChar": 51,
+        "endLine": 8630,
+        "endChar": 63
+      },
+      "revId": "ffa2ed3d1c0f4ddd382e0c28108ff8da547ff10b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e379fdf7_08a93d5b",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-15T04:16:25Z",
+      "side": 1,
+      "message": "Question: I don\u0027t follow how network2 is helping with test coverage, since it is disconnected immediately. Is it better if we keep it connected but worse than network1, and verify CS choose network3 instead of network2?",
+      "range": {
+        "startLine": 1173,
+        "startChar": 7,
+        "endLine": 1178,
+        "endChar": 51
+      },
+      "revId": "ffa2ed3d1c0f4ddd382e0c28108ff8da547ff10b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50c8a9d4_aa13a268",
+        "filename": "tests/cts/net/src/android/net/cts/NetworkAgentTest.kt",
+        "patchSetId": 29
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-15T04:16:25Z",
+      "side": 1,
+      "message": "Is it better to separate the section below to a another test?",
+      "revId": "ffa2ed3d1c0f4ddd382e0c28108ff8da547ff10b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
