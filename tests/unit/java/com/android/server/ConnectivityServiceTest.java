@@ -159,8 +159,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
 import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.AdditionalMatchers.aryEq;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -15612,14 +15612,20 @@ public class ConnectivityServiceTest {
         doReturn(-1).when(mResources)
                 .getInteger(R.integer.config_validationFailureAfterRoamIgnoreTimeMillis);
 
+        final String bssid1 = "AA:AA:AA:AA:AA:AA";
+        final String bssid2 = "BB:BB:BB:BB:BB:BB";
         mCellNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_CELLULAR);
         mCellNetworkAgent.connect(true);
         NetworkCapabilities wifiNc1 = new NetworkCapabilities()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_VPN)
+                .addCapability(NET_CAPABILITY_NOT_RESTRICTED)
+                .addCapability(NET_CAPABILITY_TRUSTED)
+                .addCapability(NET_CAPABILITY_NOT_VCN_MANAGED)
                 .addTransportType(TRANSPORT_WIFI)
-                .setTransportInfo(new WifiInfo.Builder().setBssid("AA:AA:AA:AA:AA:AA").build());
-        NetworkCapabilities wifiNc2 = new NetworkCapabilities()
-                .addTransportType(TRANSPORT_WIFI)
-                .setTransportInfo(new WifiInfo.Builder().setBssid("BB:BB:BB:BB:BB:BB").build());
+                .setTransportInfo(new WifiInfo.Builder().setBssid(bssid1).build());
+        NetworkCapabilities wifiNc2 = new NetworkCapabilities(wifiNc1)
+                .setTransportInfo(new WifiInfo.Builder().setBssid(bssid2).build());
         final LinkProperties wifiLp = new LinkProperties();
         wifiLp.setInterfaceName(WIFI_IFNAME);
         mWiFiNetworkAgent = new TestNetworkAgentWrapper(TRANSPORT_WIFI, wifiLp, wifiNc1);
@@ -15636,9 +15642,22 @@ public class ConnectivityServiceTest {
 
         // Wi-Fi roaming from wifiNc1 to wifiNc2.
         mWiFiNetworkAgent.setNetworkCapabilities(wifiNc2, true);
+        // TODO: register the callbacks with NETWORK_SETTINGS so we can check the unredacted BSSID
+        // in the WifiInfo.
+        mDefaultNetworkCallback.expectCapabilitiesThat(mWiFiNetworkAgent, (nc) ->
+                !((WifiInfo) nc.getTransportInfo()).getBSSID().equals(bssid1)
+        );
         mWiFiNetworkAgent.setNetworkInvalid(false);
         mCm.reportNetworkConnectivity(mWiFiNetworkAgent.getNetwork(), false);
         mDefaultNetworkCallback.expectAvailableCallbacksValidated(mCellNetworkAgent);
+
+        // Wi-Fi is still connected and would become the default network if cell were to disconnect.
+        // This assertion ensures that the network did not switch to cellular because Wi-Fi
+        // disconnected (e.g., because the capability change to wifiNc2 caused it to stop
+        // satisfying the default request).
+        mCellNetworkAgent.disconnect();
+        mDefaultNetworkCallback.expectCallback(CallbackEntry.LOST, mCellNetworkAgent);
+        mDefaultNetworkCallback.expectAvailableCallbacksUnvalidated(mWiFiNetworkAgent);
     }
 
     @Test
