@@ -3534,6 +3534,7 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case NetworkAgent.EVENT_NETWORK_CAPABILITIES_CHANGED: {
                     final NetworkCapabilities networkCapabilities = new NetworkCapabilities(
                             (NetworkCapabilities) arg.second);
+                    updateWifiRoamTimeStamp(nai, networkCapabilities);
                     processCapabilitiesFromAgent(nai, networkCapabilities);
                     updateCapabilities(nai.getCurrentScore(), nai, networkCapabilities);
                     break;
@@ -3677,6 +3678,19 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mHandler.postDelayed(() -> nai.disconnect(), timeoutMs);
                     break;
                 }
+                case NetworkAgent.EVENT_BLOCK_NETWORK_TEST_RESULT: {
+                    final int timeoutMs = (int) arg.second;
+                    if (timeoutMs < 0 || timeoutMs > NetworkAgent.MAX_TEARDOWN_DELAY_MS) {
+                        Log.e(TAG, "Invalid network replacement timer " + timeoutMs
+                                + ", must be between 0 and " + NetworkAgent.MAX_TEARDOWN_DELAY_MS);
+                    }
+                    nai.testResultBlocked = true;
+                    mHandler.removeMessages(EVENT_BLOCK_NETWORK_TEST_RESULT_TIMEOUT);
+                    mHandler.sendMessageDelayed(
+                        mHandler.obtainMessage(EVENT_BLOCK_NETWORK_TEST_RESULT_TIMEOUT, nai),
+                        timeoutMs);
+                    break;
+                }
             }
         }
 
@@ -3790,12 +3804,24 @@ public class ConnectivityService extends IConnectivityManager.Stub
             final boolean wasValidated = nai.lastValidated;
             final boolean wasDefault = isDefaultNetwork(nai);
 
+            if (!valid) {
+                final int blockTimeOut = mResources.get().getInteger(
+                        R.integer.config_networkTestResultBlockTime);
+                if (blockTimeOut >= 0 && blockTimeOut <= NetworkAgent.MAX_TEARDOWN_DELAY_MS) {
+                    if (System.currentTimeMillis() - nai.lastRoamTimeStamp <= blockTimeOut) {
+                        log (nai.toShortString() + " validation failure result blocked");
+                        return;
+                    }
+                }
+            }
+
             if (DBG) {
                 final String logMsg = !TextUtils.isEmpty(redirectUrl)
                         ? " with redirect to " + redirectUrl
                         : "";
                 log(nai.toShortString() + " validation " + (valid ? "passed" : "failed") + logMsg);
             }
+
             if (valid != nai.lastValidated) {
                 final int oldScore = nai.getCurrentScore();
                 nai.lastValidated = valid;
@@ -5391,6 +5417,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 case EVENT_INGRESS_RATE_LIMIT_CHANGED:
                     handleIngressRateLimitChanged();
                     break;
+                case EVENT_BLOCK_NETWORK_TEST_RESULT_TIMEOUT: {
+                    NetworkAgentInfo nai = (NetworkAgentInfo) msg.obj;
+                    nai.clearBlockingNetworkTestResult();
+                    break;    
+                }
             }
         }
     }
@@ -9602,6 +9633,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
         final TransportInfo ti = vpn.networkCapabilities.getTransportInfo();
         if (!(ti instanceof VpnTransportInfo)) return VpnManager.TYPE_VPN_NONE;
         return ((VpnTransportInfo) ti).getType();
+    }
+
+    private void updateWifiRoamTimeStamp(NetworkAgentInfo nai, NetworkCapabilities nc) {
+        if (nai == null) return;
+        final WifiInfo prevWifiInfo = (WifiInfo) (nai.networkCapabilities.getTransportInfo());
+        final WifiInfo newWifiInfo = (WifiInfo) (nc.getTransportInfo);
+        if (!prevWifiInfo.getBSSID().equals(newWifiInfo.getBSSID())) {
+            nai.lastRoamTimeStamp = System.currentTimeMillis();
+        }
     }
 
     /**
