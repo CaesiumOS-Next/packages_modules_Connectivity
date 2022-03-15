@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ac9d400_53efd921",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T04:37:49Z",
+      "side": 1,
+      "message": "Bypassing lint because its claim that there are no CTS tests is incorrect. Filed b/222431157 about that.",
+      "revId": "ffa2ed3d1c0f4ddd382e0c28108ff8da547ff10b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2ce6fd9_a9017068",
