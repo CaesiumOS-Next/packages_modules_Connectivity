@@ -3677,6 +3677,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     mHandler.postDelayed(() -> nai.disconnect(), timeoutMs);
                     break;
                 }
+                case NetworkAgent.EVENT_BLOCK_NETWORK_TEST_RESULT: {
+                    final int timeoutMs = (int) arg.second;
+                    if (timeoutMs < 0 || timeoutMs > NetworkAgent.MAX_TEARDOWN_DELAY_MS) {
+                        Log.e(TAG, "Invalid network replacement timer " + timeoutMs
+                                + ", must be between 0 and " + NetworkAgent.MAX_TEARDOWN_DELAY_MS);
+                    }
+                    nai.testResultBlocked = true;
+                    mHandler.postDelayed(() -> nai.clearBlockingNetworkTestResult(), timeoutMs);
+                    break;
+                }
             }
         }
 
@@ -3796,6 +3806,10 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         : "";
                 log(nai.toShortString() + " validation " + (valid ? "passed" : "failed") + logMsg);
             }
+            if (nai.testResultBlocked) {
+                return;
+            }
+
             if (valid != nai.lastValidated) {
                 final int oldScore = nai.getCurrentScore();
                 nai.lastValidated = valid;
