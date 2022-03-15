@@ -136,4 +136,6 @@
          extreme adverse effects on performance of the new network.
     -->
     <bool translatable="false" name="config_cellular_radio_timesharing_capable">true</bool>
+    <!-- Whether block network test result or not for Wi-Fi transport  and how long it blocks. -->
+    <integer translatable="false" name="config_networkTestResultBlockTime">-1</integer>
 </resources>
