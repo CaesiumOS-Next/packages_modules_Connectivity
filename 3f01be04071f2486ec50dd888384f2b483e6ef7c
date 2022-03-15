@@ -16,6 +16,24 @@
       "message": "We\u0027ve got major issues on some OEM devices with changes in that file recently (b/223341407), so I think it would be better for our team to get more eyes on this change and think about what the impact could be on OEM devices that may be using different permission logic.\n\nConsidering that could you wait before merging this change, until we sort out some of these issues ?",
       "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08deeb84_4928d386",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1013030
+      },
+      "writtenOn": "2022-03-15T18:29:18Z",
+      "side": 1,
+      "message": "As discussed offline, will wait for another pair of eyes to review before merging (the TH failure appears unrelated, also occurring on other CLs like go/aog/1991628 )",
+      "parentUuid": "1019ce06_ac912788",
+      "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
