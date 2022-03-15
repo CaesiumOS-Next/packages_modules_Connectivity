@@ -16,6 +16,40 @@
       "message": "Sounds like Jean\u0027s out. Remi, could you take a look?",
       "revId": "b20fcf6d4406039b9aa62a8e35f98de5fc1a6835",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc02d1e9_3776d400",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-15T11:43:44Z",
+      "side": 1,
+      "message": "LGTM overall but I\u0027m not a good reviewer for VCN. Will ask the team if there\u0027s anyone else familiar with this.",
+      "revId": "b20fcf6d4406039b9aa62a8e35f98de5fc1a6835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b63af813_bae9d957",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2065,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-15T11:43:44Z",
+      "side": 1,
+      "message": "This is a behavior change of APIs on S, but seems low-risk since it\u0027s an S+ system API (not many users), and there shouldn\u0027t be implementations depending on the administrator UIDs being empty.",
+      "revId": "b20fcf6d4406039b9aa62a8e35f98de5fc1a6835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
