@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a8e23c9_fb87804f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 6536,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-03-15T06:18:55Z",
+      "side": 1,
+      "message": "this would let any restricted capabilities for carrier privilege, where as the requirement is only for the CBS. Why do we expand the access here?",
+      "range": {
+        "startLine": 6532,
+        "startChar": 12,
+        "endLine": 6536,
+        "endChar": 13
+      },
+      "revId": "9afe7ce7e9ae7177af39abac8300feda5dba9eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
