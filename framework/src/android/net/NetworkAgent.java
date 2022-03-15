@@ -204,6 +204,12 @@ public abstract class NetworkAgent {
     public static final int MAX_TEARDOWN_DELAY_MS = 5000;
 
     /**
+     * The maximum value for the blocking validation result, in milliseconds.
+     * @hide
+     */
+    public static final int MAX_VALIDATION_FAILURE_BLOCKING_TIME_MS = 10000;
+
+    /**
      * Sent by ConnectivityService to the NetworkAgent to inform the agent of the
      * networks status - whether we could use the network or could not, due to
      * either a bad network configuration (no internet link) or captive portal.
