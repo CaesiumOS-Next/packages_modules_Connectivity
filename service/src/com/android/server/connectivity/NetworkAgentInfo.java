@@ -192,6 +192,9 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
     public boolean everConnected;
     // Whether this network has been destroyed and is being kept temporarily until it is replaced.
     public boolean destroyed;
+    // When the network is not ready for the validation check, wait for secs to make it ready to do
+    // a Validation check to prevent unexpected switching between two different networks.
+    public boolean testResultBlocked;
 
     // Set to true if this Network successfully passed validation or if it did not satisfy the
     // default NetworkRequest in which case validation will not be attempted.
@@ -437,6 +440,15 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
 
         notifyDisconnected();
         maybeUnlinkDeathMonitor();
+    }
+
+    /**
+     * If the result of validation check of this network had been blocked, 
+     * clear the blocking and force reevaluate.
+     */
+    public void clearBlockingNetworkTestResult() {
+        testResultBlocked = false;
+        networkMonitor().forceReevaluation();
     }
 
     private void maybeUnlinkDeathMonitor() {
@@ -736,6 +748,12 @@ public class NetworkAgentInfo implements Comparable<NetworkAgentInfo>, NetworkRa
         @Override
         public void sendDestroyAndAwaitReplacement(final int timeoutMillis) {
             mHandler.obtainMessage(NetworkAgent.EVENT_DESTROY_AND_AWAIT_REPLACEMENT,
+                    new Pair<>(NetworkAgentInfo.this, timeoutMillis)).sendToTarget();
+        }
+
+        @Override
+        public void sendBlockNetworkTestResult(final int timeoutMillis) {
+            mHandler.obtainMessage(NetworkAgent.EVENT_BLOCK_NETWORK_TEST_RESULT,
                     new Pair<>(NetworkAgentInfo.this, timeoutMillis)).sendToTarget();
         }
     }
