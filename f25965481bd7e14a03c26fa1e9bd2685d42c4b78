@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "364d3aa3_52da9790",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-15T02:57:59Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "739942ea_c44ffa62",
+      "range": {
+        "startLine": 336,
+        "startChar": 8,
+        "endLine": 336,
+        "endChar": 65
+      },
+      "revId": "f25965481bd7e14a03c26fa1e9bd2685d42c4b78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f89df21c_81829397",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-03-14T15:53:45Z",
       "side": 1,
       "message": "Do you run the test before T, this seems doesn\u0027t work. I think you miss define the rule with rule annotation as below:\n\n    @Rule\n    public final DevSdkIgnoreRule ignoreRule \u003d new DevSdkIgnoreRule();",
+      "range": {
+        "startLine": 712,
+        "startChar": 5,
+        "endLine": 712,
+        "endChar": 15
+      },
+      "revId": "f25965481bd7e14a03c26fa1e9bd2685d42c4b78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "074da074_d82de326",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-15T02:57:59Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "f89df21c_81829397",
       "range": {
         "startLine": 712,
         "startChar": 5,
@@ -81,6 +129,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b8f2df3_6b6da132",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-15T02:57:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f66261f9_a79abbe6",
+      "revId": "f25965481bd7e14a03c26fa1e9bd2685d42c4b78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8504e12_a1348447",
@@ -104,6 +170,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3ab87a0_3eb21a2e",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-15T02:57:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8504e12_a1348447",
+      "range": {
+        "startLine": 734,
+        "startChar": 8,
+        "endLine": 734,
+        "endChar": 42
+      },
+      "revId": "f25965481bd7e14a03c26fa1e9bd2685d42c4b78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72a64a18_97eebe0a",
@@ -117,6 +207,30 @@
       "writtenOn": "2022-03-14T15:53:45Z",
       "side": 1,
       "message": "You don\u0027t need this if you already ignore the test before T",
+      "range": {
+        "startLine": 760,
+        "startChar": 8,
+        "endLine": 760,
+        "endChar": 42
+      },
+      "revId": "f25965481bd7e14a03c26fa1e9bd2685d42c4b78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d59e5a9_78085f8f",
+        "filename": "Tethering/tests/unit/src/com/android/networkstack/tethering/EntitlementManagerTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1432429
+      },
+      "writtenOn": "2022-03-15T02:57:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a64a18_97eebe0a",
       "range": {
         "startLine": 760,
         "startChar": 8,
