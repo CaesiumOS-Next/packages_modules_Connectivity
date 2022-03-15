@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1019ce06_ac912788",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-15T14:10:30Z",
+      "side": 1,
+      "message": "We\u0027ve got major issues on some OEM devices with changes in that file recently (b/223341407), so I think it would be better for our team to get more eyes on this change and think about what the impact could be on OEM devices that may be using different permission logic.\n\nConsidering that could you wait before merging this change, until we sort out some of these issues ?",
+      "revId": "3f01be04071f2486ec50dd888384f2b483e6ef7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
