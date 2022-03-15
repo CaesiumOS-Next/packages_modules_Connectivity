@@ -83,6 +83,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58c5cbcd_2812258c",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5874,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:59:22Z",
+      "side": 1,
+      "message": "In addition, all APIs backed by modules need CTS tests.",
+      "parentUuid": "a63d42be_39451f2b",
+      "range": {
+        "startLine": 5874,
+        "startChar": 4,
+        "endLine": 5874,
+        "endChar": 14
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5a5d766_3ab834d4",
         "filename": "framework/src/android/net/ConnectivityManager.java",
         "patchSetId": 1
@@ -140,6 +164,30 @@
       "writtenOn": "2022-03-15T13:50:55Z",
       "side": 1,
       "message": "Similarly - DHCP is a Wi-Fi concept, and some Wi-Fi networks don\u0027t even use DHCP at all (IPv6-only networks). Why should DHCP disable connectivity checks? And what is a DHCP \"session\"? I don\u0027t think there\u0027s any such concept in the DHCP protocol.\n\nBut also - why do you have both this method and setRoamSession? They have the same goal, right? Temporarily disable connectivity checks? We should not have two APIs that do basically the same thing.",
+      "range": {
+        "startLine": 5886,
+        "startChar": 16,
+        "endLine": 5886,
+        "endChar": 30
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "489b0e40_b97efd8f",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5886,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:59:22Z",
+      "side": 1,
+      "message": "This separate method is gone in PS2.",
+      "parentUuid": "8faa02bd_c65a60e7",
       "range": {
         "startLine": 5886,
         "startChar": 16,
