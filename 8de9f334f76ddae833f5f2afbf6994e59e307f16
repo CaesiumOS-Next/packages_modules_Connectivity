@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24cfedd5_982ad413",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "Bug: 216567577",
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f12f7886_4c84aa56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "Need a Test: stanza explaining how this was tested. Please run the repo upload scripts when prompted, they will explain what this needs to look like.",
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51de3246_c687abc5",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5873,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "API methods need docstrings explaining what the API does and how to use it. See:\n\nhttps://android.googlesource.com/platform/developers/docs/+/refs/heads/master/api-guidelines/index.md#docs",
+      "range": {
+        "startLine": 5871,
+        "startChar": 0,
+        "endLine": 5873,
+        "endChar": 7
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a63d42be_39451f2b",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5874,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "This CL will not build unless you update the .txt files with \"m update-api\".\n\nThis method should not be available to privileged apps, only the system, so it should be @SystemApi(client \u003d MODULE_LIBRARIES), not @SystemApi.",
+      "range": {
+        "startLine": 5874,
+        "startChar": 4,
+        "endLine": 5874,
+        "endChar": 14
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a5d766_3ab834d4",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5875,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "I don\u0027t think setRoamSession is a good name. From the context of this CL, \"roam\" could mean Wi-Fi roaming, GSM roaming, or any other type of roaming. From the context in the bug, this CL is about Wi-Fi roaming, but that\u0027s not visible here.\n\nThat said - it\u0027s not really ConnectivityManager / ConnectivityService\u0027s business to decide what to do when roaming. Roaming is a Wi-Fi concept and ConnectivityService doesn\u0027t really know much about Wi-Fi at all. It deals with abstract things such as networks and network capabilities. Again from the context of this bug, the intent of this CL is to disable connectivity checks when roaming. But I don\u0027t think this should be done every time the device roams - most roams preserve network connectivity just fine and there is no need to suppress connectivity checks while roaming; many Android devices don\u0027t do it.\n\nIf the intent is to disable connectivity checks temporarily, then this method should be called something like \"setIgnoreValidationResults\".",
+      "range": {
+        "startLine": 5875,
+        "startChar": 16,
+        "endLine": 5875,
+        "endChar": 30
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "265f9d5a_742938d6",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5875,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "This information is coming from a network transport (e.g., Wi-Fi), on a specific network, to ConnectivityService. Such information should be passed through the network\u0027s NetworkAgent, not through separate APIs in ConnectivityManager.\n\nSending the call through NetworkAgent will ensure that it is properly ordered with other NetworkAgent updates. As it is, if, for example, Wi-Fi does:\n\nagent.markConnected();\nmConnectivityManager.setRoamSession(agent.getNetwork(), true);\n\nthen the setRoamSession will likely run *before* the markConnected call, and likely be ignored.",
+      "range": {
+        "startLine": 5875,
+        "startChar": 31,
+        "endLine": 5875,
+        "endChar": 46
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8faa02bd_c65a60e7",
+        "filename": "framework/src/android/net/ConnectivityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5886,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "Similarly - DHCP is a Wi-Fi concept, and some Wi-Fi networks don\u0027t even use DHCP at all (IPv6-only networks). Why should DHCP disable connectivity checks? And what is a DHCP \"session\"? I don\u0027t think there\u0027s any such concept in the DHCP protocol.\n\nBut also - why do you have both this method and setRoamSession? They have the same goal, right? Temporarily disable connectivity checks? We should not have two APIs that do basically the same thing.",
+      "range": {
+        "startLine": 5886,
+        "startChar": 16,
+        "endLine": 5886,
+        "endChar": 30
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c7a3e2_9d5f71cd",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3809,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "There can be more than one network with TYPE_WIFI on the system. This information should probably be per-network and live in the NetworkAgentInfo for that network.",
+      "range": {
+        "startLine": 3809,
+        "startChar": 20,
+        "endLine": 3809,
+        "endChar": 78
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b737272e_c0156498",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3900,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "This looks incorrect. These three booleans apply to all networks on the device, but whether a network is roaming or not is a property of that network (consider: many devices support STA+STA when more than one network can be roaming at the same time). This information should probably live in the NetworkAgentInfo for the network.\n\nStyle nits:\n- Class members should probably be close to the beginning of the class.\n- You don\u0027t need to initialize member booleans to false, the Java language spec guarantees that they are set to false when the class is constructed.",
+      "range": {
+        "startLine": 3898,
+        "startChar": 0,
+        "endLine": 3900,
+        "endChar": 39
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f3c27d0_c3a4a00e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3903,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "These permission checks provide little to no protection because virtually all apps have INTERNET and probably most apps have ACCESS_NETWORK_STATE. So this permission check allows pretty much anything.\n\nAs previously commented, this should probably live in NetworkAgent instead; that way, only legitimate NetworkAgents will be able to call it.",
+      "range": {
+        "startLine": 3902,
+        "startChar": 0,
+        "endLine": 3903,
+        "endChar": 36
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbeaf9f8_b21e8f33",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3907,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "It seems bad to support null here. If ConnectivityService is going to trust an external component to make revalidation decisions, then that external component should be at least well-informed enough to pass in the correct Network object. (This  will also fix itself if this API is moved to NetworkAgent.)",
+      "range": {
+        "startLine": 3906,
+        "startChar": 0,
+        "endLine": 3907,
+        "endChar": 42
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c734f29_9994135f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5451,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-15T13:50:55Z",
+      "side": 1,
+      "message": "If roaming times out, shouldn\u0027t forceReevaluation be called?",
+      "range": {
+        "startLine": 5451,
+        "startChar": 21,
+        "endLine": 5451,
+        "endChar": 47
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
