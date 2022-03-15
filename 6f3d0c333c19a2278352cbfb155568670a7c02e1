@@ -16,6 +16,24 @@
       "message": "Tyler, I move VendorConnectivityTest to unit test and adjust the jarjar rule. Now the JNI of test could be registered successfully. But it fail as below, probably because the test don\u0027t have sufficient permission to do bpf operation. Currently the only test have permission may be TetheringPrivilegedTests. If so, maybe we could move TetheringPrivilegedTests from Tethering to Connectivity and rename it to ConnectivityPrivilegedTests (or similar) then put your test into it (we may need to deal with jarjar again, suggest you just use connectivity-jarjar-rules).\n \n[1815/1844] com.android.server.connectivity.VendorConnectivityTest#testPortBlockedUdp: FAILED (483ms)\n\nSTACKTRACE:\njava.lang.AssertionError: Expected an exception of class android.system.ErrnoException to be thrown, but was completed successfully.\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat kotlin.test.junit.JUnitAsserter.fail(JUnitSupport.kt:56)\n\tat kotlin.test.AssertionsKt__AssertionsImplKt.checkResultIsFailure(AssertionsImpl.kt:22)\n\tat kotlin.test.AssertionsKt.checkResultIsFailure(Unknown Source:1)\n\tat com.android.server.connectivity.VendorConnectivityTest.testPortBlockedUdp(VendorConnectivityTest.kt:61)",
       "revId": "6f3d0c333c19a2278352cbfb155568670a7c02e1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96ad8667_3633280b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1440575
+      },
+      "writtenOn": "2022-03-15T01:02:45Z",
+      "side": 1,
+      "message": "Instead of moving all of the tetheringPrivilegedTests right now wouldn\u0027t it also suffice to add a new /privileged/ location with VendorConnectivityTest to Connectivity?\n\nThe only addition to the bp file would be the certificate right?\n    certificate: \"networkstack\"\n    \n@Lorenzo for input as well",
+      "parentUuid": "64dbecb4_d7afd9d7",
+      "revId": "6f3d0c333c19a2278352cbfb155568670a7c02e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
