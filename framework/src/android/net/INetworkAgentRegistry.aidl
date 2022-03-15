@@ -48,4 +48,5 @@ oneway interface INetworkAgentRegistry {
     void sendRemoveDscpPolicy(int policyId);
     void sendRemoveAllDscpPolicies();
     void sendDestroyAndAwaitReplacement(int timeoutMillis);
+    void sendBlockNetworkTestResult(int timeoutMillis);
 }
