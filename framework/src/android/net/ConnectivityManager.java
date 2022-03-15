@@ -5866,4 +5866,16 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * @hide
+     */
+    @SystemApi
+    public void setWifiQcBlockSession(Network network, boolean block) {
+        try {
+            mService.setWifiQcBlockSession(network, block);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }

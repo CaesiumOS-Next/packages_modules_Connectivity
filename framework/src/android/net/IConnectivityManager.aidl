@@ -245,4 +245,6 @@ interface IConnectivityManager
     void setFirewallChainEnabled(int chain, boolean enable);
 
     void replaceFirewallChain(int chain, in int[] uids);
+
+    void setWifiQcBlockSession(in Network network, boolean block);
 }

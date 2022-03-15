@@ -3632,6 +3632,16 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 }
                 case NetworkAgent.EVENT_DESTROY_AND_AWAIT_REPLACEMENT: {
+                    final int timeoutMs = (int) arg.second;
+                    if (timeoutMs < 0 || timeoutMs > NetworkAgent.MAX_TEARDOWN_DELAY_MS) {
+                        Log.e(TAG, "Invalid network replacement timer " + timeoutMs
+                                + ", must be between 0 and " + NetworkAgent.MAX_TEARDOWN_DELAY_MS);
+                    }
+                    nai.testResultBlocked = true;
+                    mHandler.postDelayed(() -> nai.clearBlockingNetworkTestResult(), timeoutMs);
+                    break;
+                }
+                case NetworkAgent.EVENT_DESTROY_AND_AWAIT_REPLACEMENT: {
                     // If nai is not yet created, or is already destroyed, ignore.
                     if (!shouldDestroyNativeNetwork(nai)) break;
 
@@ -3796,6 +3806,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         : "";
                 log(nai.toShortString() + " validation " + (valid ? "passed" : "failed") + logMsg);
             }
+
+            
+            if (nai.testResultBlocked) {
+                return;
+            }
+
             if (valid != nai.lastValidated) {
                 final int oldScore = nai.getCurrentScore();
                 nai.lastValidated = valid;

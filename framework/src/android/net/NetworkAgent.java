@@ -442,6 +442,14 @@ public abstract class NetworkAgent {
      */
     public static final int EVENT_DESTROY_AND_AWAIT_REPLACEMENT = BASE + 29;
 
+    /**
+     * Sent by the NEtworkAgent to COnnectivityService to know this network's validation check result
+     * is not reliable, therefore ignore the result for at least the specified time.
+     * arg1 = timeout in miliseconds
+     */
+    public static final int EVENT_BLOCK_NETWORK_TEST_RESULT = BASE + 30;
+
+
     private static NetworkInfo getLegacyNetworkInfo(final NetworkAgentConfig config) {
         final NetworkInfo ni = new NetworkInfo(config.legacyType, config.legacySubType,
                 config.legacyTypeName, config.legacySubTypeName);
@@ -989,6 +997,10 @@ public abstract class NetworkAgent {
         queueOrSendMessage(reg -> reg.sendDestroyAndAwaitReplacement(timeoutMillis));
     }
 
+    public void blockNetworkTestResult(
+        @IntRange(from = 0, to = MAX_TEARDOWN_DELAY_MS) int timeoutMillis) {
+        queueOrSendMessage(reg -> reg.sendBlockNetworkTestResult(timeoutMillis));
+    }
     /**
      * Change the legacy subtype of this network agent.
      *
