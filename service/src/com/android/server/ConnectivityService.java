@@ -718,7 +718,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
      * Used internally when INGRESS_RATE_LIMIT_BYTES_PER_SECOND setting changes.
      */
     private static final int EVENT_INGRESS_RATE_LIMIT_CHANGED = 56;
+  /**
+     * Event to initialize ROAM flag when roam was not completed with timeout 5 sec.
+     */
+    private static final int EVENT_ROAM_SESSION_TIMEOUT = 57;
 
+    /**
+     * Event to initialize DCHP flag when roam was not completed with timeout 5 sec.
+     */
+    private static final int EVENT_DHCP_SESSION_TIMEOUT = 58;
     /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
@@ -3796,6 +3804,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         : "";
                 log(nai.toShortString() + " validation " + (valid ? "passed" : "failed") + logMsg);
             }
+
+            if (mRoamSession || mDhcpSession) {
+                if (nai.networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                    if (!valid) mNeedsReevaluation = true;
+                    return;
+                }
+            }
             if (valid != nai.lastValidated) {
                 final int oldScore = nai.getCurrentScore();
                 nai.lastValidated = valid;
@@ -3879,6 +3894,48 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 maybeHandleNetworkAgentMessage(msg);
             }
         }
+    }
+    boolean mRoamSession = false;
+    boolean mDhcpSession = false;
+    boolean mNeedsReevaluation = false;
+    public void setRoamSession(Network network, boolean roamStart) {
+        enforceAccessPermission();
+        enforceInternetPermission();
+        if (!roamStart && !mDhcpSession && mNeedsReevaluation) {
+            final NetworkAgentInfo nai;
+            if (network == null) {
+                nai = getDefaultNetwork();
+            } else {
+                nai = getNetworkAgentInfoForNetwork(network);
+            }
+            if (nai != null) {
+                nai.networkMonitor().forceReevaluation(mDeps.getCallingUid());
+            }
+            mNeedsReevaluation = false;
+        }
+        if (roamStart) mHandler.sendMessageDelayed(EVENT_ROAM_SESSION_TIMEOUT, 5*1000);
+        else mHandler.removeMessages(EVENT_ROAM_SESSION_TIMEOUT);
+        mRoamSession = roamStart;
+    }
+
+    public void setDhcpSession(Network network, boolean dhcpStart) {
+        enforceAccessPermission();
+        enforceInternetPermission();
+        if (!dhcpStart && !mRoamSession && mNeedsReevaluation) {
+            final NetworkAgentInfo nai;
+            if (network == null) {
+                nai = getDefaultNetwork();
+            } else {
+                nai = getNetworkAgentInfoForNetwork(network);
+            }
+            if (nai != null) {
+                nai.networkMonitor().forceReevaluation(mDeps.getCallingUid());
+            }
+            mNeedsReevaluation = false;
+        }
+        if (dhcpStart) mHandler.sendMessageDelayed(EVENT_DHCP_SESSION_TIMEOUT, 5*1000);
+        else mHandler.removeMessages(EVENT_DHCP_SESSION_TIMEOUT);
+        mDhcpSession = dhcpStart;
     }
 
     private class NetworkMonitorCallbacks extends INetworkMonitorCallbacks.Stub {
@@ -5390,6 +5447,12 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case EVENT_INGRESS_RATE_LIMIT_CHANGED:
                     handleIngressRateLimitChanged();
+                    break;
+                case EVENT_ROAM_SESSION_TIMEOUT:
+                    mRoamSession = false;
+                    break;
+                case EVENT_DCHP_SESSION_TIMEOUT:
+                    mDhcpSession = false;
                     break;
             }
         }

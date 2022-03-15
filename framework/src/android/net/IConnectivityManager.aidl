@@ -245,4 +245,7 @@ interface IConnectivityManager
     void setFirewallChainEnabled(int chain, boolean enable);
 
     void replaceFirewallChain(int chain, in int[] uids);
+
+    void setRoamSession(in Network network, boolean roamStart);
+    void setDhcpSession(in Network network, boolean dhcpStart);
 }

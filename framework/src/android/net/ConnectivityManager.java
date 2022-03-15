@@ -5866,4 +5866,28 @@ public class ConnectivityManager {
             throw e.rethrowFromSystemServer();
         }
     }
+
+
+    /**
+     * @hide
+     */
+    @SystemApi
+    public void setRoamSession(Network network, boolean roamStart) {
+        try {
+            mService.setRoamSession(network,roamStart);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+    /**
+     * @hide
+     */
+    @SystemApi
+    public void setDhcpSession(Network network, boolean dhcpStart) {
+        try {
+            mService.setDhcpSession(network, dhcpStart);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
 }
