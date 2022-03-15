@@ -720,6 +720,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
     private static final int EVENT_INGRESS_RATE_LIMIT_CHANGED = 56;
 
     /**
+     * Event to initialize QC Block flag when roam or dhcp not completed with timeout 5 sec.
+     */
+    private static final int EVENT_WIFI_QC_BLOCK_SESSION_ENDED = 57;
+
+    /**
      * Argument for {@link #EVENT_PROVISIONING_NOTIFICATION} to indicate that the notification
      * should be shown.
      */
@@ -3796,6 +3801,14 @@ public class ConnectivityService extends IConnectivityManager.Stub
                         : "";
                 log(nai.toShortString() + " validation " + (valid ? "passed" : "failed") + logMsg);
             }
+
+            if (mWifiQcBlockSession) {
+                if (nai.networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                    if (!valid) mNeedsReevaluation = true;
+                    return;
+                }
+            }
+
             if (valid != nai.lastValidated) {
                 final int oldScore = nai.getCurrentScore();
                 nai.lastValidated = valid;
@@ -3879,6 +3892,43 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 maybeHandleNetworkAgentMessage(msg);
             }
         }
+    }
+
+    boolean mWifiQcBlockSession = false;
+    boolean mNeedsReevaluation = false;
+    public void setWifiQcBlockSession(Network network, boolean block) {
+        enforceAccessPermission();
+        enforceInternetPermission();
+        mWifiQcBlockSession = block;
+        mHandler.removeMessages(EVENT_WIFI_QC_BLOCK_SESSION_ENDED);
+        if (block) {
+            mHandler.sendMessageDelayed(
+                    mHandler.obtainMessage(EVENT_WIFI_QC_BLOCK_SESSION_ENDED, network)
+                    , 5*1000);
+        } else {
+            mHandler.sendMessage(mHandler.obtainMessage(EVENT_WIFI_QC_BLOCK_SESSION_ENDED, network));
+        }
+    }
+
+
+    public void setDhcpSession(Network network, boolean dhcpStart) {
+        enforceAccessPermission();
+        enforceInternetPermission();
+        if (!dhcpStart && !mRoamSession && mNeedsReevaluation) {
+            final NetworkAgentInfo nai;
+            if (network == null) {
+                nai = getDefaultNetwork();
+            } else {
+                nai = getNetworkAgentInfoForNetwork(network);
+            }
+            if (nai != null) {
+                nai.networkMonitor().forceReevaluation(mDeps.getCallingUid());
+            }
+            mNeedsReevaluation = false;
+        }
+        if (dhcpStart) mHandler.sendMessageDelayed(EVENT_DHCP_SESSION_TIMEOUT, 5*1000);
+        else mHandler.removeMessages(EVENT_DHCP_SESSION_TIMEOUT);
+        mDhcpSession = dhcpStart;
     }
 
     private class NetworkMonitorCallbacks extends INetworkMonitorCallbacks.Stub {
@@ -5390,6 +5440,22 @@ public class ConnectivityService extends IConnectivityManager.Stub
                     break;
                 case EVENT_INGRESS_RATE_LIMIT_CHANGED:
                     handleIngressRateLimitChanged();
+                    break;
+                case EVENT_WIFI_QC_BLOCK_SESSION_ENDED:
+                    mWifiQcBlockSession = false;
+                    if (mNeedsReevaluation) {
+                        Network network = (Network)msg.obj;
+                        final NetworkAgentInfo nai;
+                        if (network == null) {
+                            nai = getDefaultNetwork();
+                        } else {
+                            nai = getNetworkAgentInfoForNetwork(network);
+                        }
+                        if (nai != null) {
+                            nai.networkMonitor().forceReevaluation(mDeps.getCallingUid());
+                        }
+                        mNeedsReevaluation = false;
+                    }
                     break;
             }
         }
