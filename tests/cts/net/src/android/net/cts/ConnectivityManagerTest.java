@@ -1039,6 +1039,26 @@ public class ConnectivityManagerTest {
         }
     }
 
+    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @Test
+    public void testNetworkAgentIfCallerDoesNotHaveRequiredPermissionToSetUnderlyingNetworks()
+            throws Exception {
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .setUnderlyingNetworks(List.of(mCm.getActiveNetwork()))
+                .build();
+        assertThrows(SecurityException.class, () -> {
+            new NetworkAgent(mContext, Looper.getMainLooper(), TAG, nc,
+                    new LinkProperties(), 10 /* score */, new NetworkAgentConfig.Builder().build(),
+                    new NetworkProvider(mContext, Looper.getMainLooper(), TAG)) {};
+        });
+        nc.setUnderlyingNetworks(null);
+        final NetworkAgent agent = new NetworkAgent(mContext, Looper.getMainLooper(), TAG, nc,
+                new LinkProperties(), 10 /* score */, new NetworkAgentConfig.Builder().build(),
+                new NetworkProvider(mContext, Looper.getMainLooper(), TAG)) {};
+        nc.setUnderlyingNetworks(List.of(mCm.getActiveNetwork()));
+        assertThrows(SecurityException.class, () -> agent.sendNetworkCapabilities(nc));
+    }
+
     /**
      * Tests both registerNetworkCallback and unregisterNetworkCallback similarly to
      * {@link #testRegisterNetworkCallback} except that a {@code PendingIntent} is used instead
