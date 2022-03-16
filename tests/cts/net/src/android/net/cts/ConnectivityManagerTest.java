@@ -1041,6 +1041,24 @@ public class ConnectivityManagerTest {
 
     @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
     @Test
+    public void testRegisterNetworkCallbackWithUnderlyingNetwork_withoutRequiredPermission()
+            throws Exception {
+        // This was a part of testRegisterNetworkCallbackWithUnderlyingNetwork() in
+        // ConnectivityServiceTest in the first place, but ConnectivityServiceTest has
+        // NETWORK_FACTORY which makes the test cannot test the case of the caller doesn't declare
+        // related permissions.
+        final TestableNetworkCallback callback = new TestableNetworkCallback();
+        final NetworkCapabilities nc = new NetworkCapabilities.Builder()
+                .setUnderlyingNetworks(List.of(mCm.getActiveNetwork()))
+                .build();
+        final NetworkRequest request = new NetworkRequest.Builder().setCapabilities(nc).build();
+        // registerNetworkCallback() will throw SecurityException due to lack of related
+        // permissions.
+        assertThrows(SecurityException.class, () -> mCm.registerNetworkCallback(request, callback));
+    }
+
+    @DevSdkIgnoreRule.IgnoreUpTo(SC_V2)
+    @Test
     public void testNetworkAgentIfCallerDoesNotHaveRequiredPermissionToSetUnderlyingNetworks()
             throws Exception {
         final NetworkCapabilities nc = new NetworkCapabilities.Builder()
