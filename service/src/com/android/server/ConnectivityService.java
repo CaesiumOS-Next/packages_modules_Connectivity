@@ -2858,6 +2858,15 @@ public class ConnectivityService extends IConnectivityManager.Stub
                 NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
     }
 
+    private boolean checkNetworkFactoryOrSettingsPermission(int pid, int uid) {
+        return PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_FACTORY, pid, uid)
+                || PERMISSION_GRANTED == mContext.checkPermission(
+                android.Manifest.permission.NETWORK_SETTINGS, pid, uid)
+                || PERMISSION_GRANTED == mContext.checkPermission(
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK, pid, uid);
+    }
+
     private boolean checkSettingsPermission() {
         return checkAnyPermissionOf(
                 android.Manifest.permission.NETWORK_SETTINGS,
@@ -6388,6 +6397,11 @@ public class ConnectivityService extends IConnectivityManager.Stub
             int callerPid, int callerUid, String callerPackageName) {
         if (null != nc.getSsid() && !checkSettingsPermission(callerPid, callerUid)) {
             throw new SecurityException("Insufficient permissions to request a specific SSID");
+        }
+
+        if (null != nc.getUnderlyingNetworks()
+                && !checkNetworkFactoryOrSettingsPermission(callerPid, callerUid)) {
+            throw new SecurityException("Insufficient permissions to request underlying networks");
         }
 
         if (nc.hasSignalStrength()
