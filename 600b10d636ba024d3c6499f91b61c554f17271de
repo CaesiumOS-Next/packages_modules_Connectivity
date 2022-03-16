@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6ed19c9_f80795c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 71
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-16T02:14:54Z",
+      "side": 1,
+      "message": "FAILED: out/soong/build.ninja\ncd \"$(dirname \"out/soong/.bootstrap/bin/soong_build\")\" \u0026\u0026 BUILDER\u003d\"$PWD/$(basename \"out/soong/.bootstrap/bin/soong_build\")\" \u0026\u0026 cd / \u0026\u0026 env -i \"$BUILDER\"     --top \"$TOP\"     --out \"out/soong\"     -n \"out\"     -d \"out/soong/build.ninja.d\"     -t -l out/.module_paths/Android.bp.list -globFile out/soong/.bootstrap/build-globs.ninja -o out/soong/build.ninja --available_env out/soong/soong.environment.available --used_env out/soong/soong.environment.used Android.bp\nerror: packages/modules/Connectivity/service/Android.bp:26:20: unrecognized property \"min_sdk_version\"\nerror: packages/modules/Connectivity/service/Android.bp:37:23: unrecognized property \"versions_with_info\"\nninja: build stopped: subcommand failed.\n01:57:02 soong bootstrap failed with: exit status 1",
+      "revId": "600b10d636ba024d3c6499f91b61c554f17271de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
