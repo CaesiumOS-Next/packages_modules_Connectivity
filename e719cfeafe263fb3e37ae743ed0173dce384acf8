@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd4f6ea5_4f4c4f61",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-03-16T05:07:30Z",
+      "side": 1,
+      "message": "We already have common method for this in com.android.net.module.util.PermissionUtils.",
+      "range": {
+        "startLine": 450,
+        "startChar": 17,
+        "endLine": 450,
+        "endChar": 39
+      },
+      "revId": "e719cfeafe263fb3e37ae743ed0173dce384acf8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
