@@ -16,6 +16,23 @@
       "message": "Change is identical to ag/17148740 apart from a difference in whitespace in framework/Android.bp",
       "revId": "0a171c006c4a128d55df0502eb4d68dbf0e6da95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8278d1f3_6fd594c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-03-16T15:58:16Z",
+      "side": 1,
+      "message": "captiveportallogin tests are failing due to an known unrelated issue",
+      "revId": "0a171c006c4a128d55df0502eb4d68dbf0e6da95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
