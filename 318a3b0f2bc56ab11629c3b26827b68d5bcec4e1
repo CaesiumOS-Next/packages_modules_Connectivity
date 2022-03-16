@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea6da4a6_1b41b493",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003247
+      },
+      "writtenOn": "2022-03-16T01:13:24Z",
+      "side": 1,
+      "message": "hmm these TH failures look pretty likely to be real.\n\nhttps://android-build.googleplex.com/builds/tests/view?invocationId\u003dI36800010027657534\u0026testResultId\u003dTR31527933578889835\n\nTest case: android.net.testutils.TestableNetworkCallbackTest#testPollForNextCallback\n\ncom.android.networkstack.tethering.testutils.InterpretException: Failure: poll(2) \u003d Available(133) time 1..4\n\nthough I don\u0027t know how to interpret things...",
+      "revId": "318a3b0f2bc56ab11629c3b26827b68d5bcec4e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
