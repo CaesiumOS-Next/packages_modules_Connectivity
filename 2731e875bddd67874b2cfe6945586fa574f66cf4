@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd3a1a5a_1d8010fd",
+        "filename": "tests/cts/OWNERS",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T05:58:12Z",
+      "side": 1,
+      "message": "Pre-existing, but while you\u0027re at it, could you fix this to **IpSec* ? The single asterisk won\u0027t match anything because there are no files called *IpSec* in the directory of the OWNERS file.\n\nPutting it all together, it sounds like we\u0027d want something like:\n\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n# Bug component: 31808\nset noparent\nfile:platform/packages/modules/Connectivity:master:/OWNERS_core_networking_xts\n\nper-file net/src/android/net/cts/NetworkWatchlistTest.java\u003dalanstokes@google.com\n\n# Bug component: 685852 \u003d per-file **IpSec*\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d",
+      "range": {
+        "startLine": 2,
+        "startChar": 35,
+        "endLine": 2,
+        "endChar": 42
+      },
+      "revId": "2731e875bddd67874b2cfe6945586fa574f66cf4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

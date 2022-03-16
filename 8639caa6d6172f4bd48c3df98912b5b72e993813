@@ -46,6 +46,30 @@
       },
       "revId": "8639caa6d6172f4bd48c3df98912b5b72e993813",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb18c089_ee75d62f",
+        "filename": "tests/cts/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T05:58:12Z",
+      "side": 1,
+      "message": "If that means all CTS issues will be routed to me, that doesn\u0027t sound great, since I am not very responsive to bug mail. Based on your reading of the documentation, would doing something like this:\n\n# Bug template url: http://b/new?component\u003d31808\n\nwork? That template will automatically assign to android-networking-bugs@, which is our triage rotation.",
+      "parentUuid": "36c7cae6_f41ddc3a",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 7
+      },
+      "revId": "8639caa6d6172f4bd48c3df98912b5b72e993813",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
