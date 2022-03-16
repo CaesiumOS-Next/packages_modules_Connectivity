@@ -16,6 +16,23 @@
       "message": "Please add test coverage in this CL. If we don\u0027t have coverage, that will block a future mainline release.\n\nIt looks like NetworkAgentTest#testQosCallbackWhenNetworkReleased already covers NetworkReleasedException. So you need to add coverage for SocketLocalAddressChangedException and SocketNotBoundException. It looks like you could achieve this in a very similar way to how testQosCallbackOnError works, so it shouldn\u0027t be difficult?\n\nAt worst, you can just call the constructor.",
       "revId": "1e1e1a23401851359f7b2ca45724f5523588f757",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55072acb_b7205b7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T10:38:32Z",
+      "side": 1,
+      "message": "Other than the lack of test coverage, LGTM.",
+      "revId": "1e1e1a23401851359f7b2ca45724f5523588f757",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
