@@ -18,6 +18,7 @@ package com.android.server.connectivity;
 
 import static android.Manifest.permission.BIND_VPN_SERVICE;
 import static android.Manifest.permission.CONTROL_VPN;
+import static android.Manifest.permission.NETWORK_SETTINGS;
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.content.pm.UserInfo.FLAG_ADMIN;
@@ -1130,11 +1131,13 @@ public class VpnTest {
 
     @Test
     public void testStartRacoonNumericAddress() throws Exception {
+        doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(NETWORK_SETTINGS);
         startRacoon("1.2.3.4", "1.2.3.4");
     }
 
     @Test
     public void testStartRacoonHostname() throws Exception {
+        doReturn(PERMISSION_GRANTED).when(mContext).checkCallingOrSelfPermission(NETWORK_SETTINGS);
         startRacoon("hostname", "5.6.7.8"); // address returned by deps.resolve
     }
 
