@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37cf9def_865bd52a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 3691,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T05:34:08Z",
+      "side": 1,
+      "message": "Per discussion, consider maintaining a \"last roam timestamp\" inside NetworkAgentInfo. The last roam timestamp would be updated every time the BSSID in the WifiInfo changes.\n\nThe WifiInfo is updated in updateCapabilities. you can get it from the capabilities by doing something like (WifiInfo) nc.getTransportInfo().\n\nThat way, in the normal codepath, nothing changes. Then, if validation fails (in processing EVENT_NETWORK_TESTED), the code could look at the last roam time. If it\u0027s more than, say, 5-10 seconds ago, the code would ignore the failure and send itself a message to force revalidation after X seconds (5?).",
+      "range": {
+        "startLine": 3691,
+        "startChar": 24,
+        "endLine": 3691,
+        "endChar": 41
+      },
+      "revId": "3b8fab007aeb5de0c13433404306010220229edb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
