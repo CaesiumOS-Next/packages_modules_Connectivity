@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e33b68ee_9bfa93b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T03:56:44Z",
+      "side": 1,
+      "message": "This should explain why this change is being made. Is it because this API should be consistent with PreferentialNetworkServiceConfig.Builder? Or because of API guidelines to prefer native arrays when passing around primive arrays?\n\nhttps://g3doc.corp.google.com/company/teams/android-api-council/guidelines/index.md?cl\u003dhead#exception-for-primitives",
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f617768_a856c07c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T03:56:44Z",
+      "side": 1,
+      "message": "LGTM assuming comments addressed. API LGTM except looks like the setters should be marked @NonNull, not @Nullable?",
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113577f0_3241ef2b",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T03:56:44Z",
+      "side": 1,
+      "message": "Why is this @Nullable? The corresponding getter on the built object (line 175) is @NonNull. If the caller passes in null here, what will the getter return?\n\nIf it will return an empty array, then presumably that means that calling setExcludedUids(null) and calling setExcludedUids(new int[0) is the same? And that null isn\u0027t really a valid value? If so, this should probably be marked @NonNull.",
+      "range": {
+        "startLine": 186,
+        "startChar": 88,
+        "endLine": 186,
+        "endChar": 103
+      },
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be726df9_4b7af344",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T03:56:44Z",
+      "side": 1,
+      "message": "Per discussion, not clear whether allowing users to pass null makes sense, because it appears to be the same as passing in []. If that\u0027s correct, and you mark this as @NonNull, then don\u0027t forget to remove this bit of documentation.",
+      "range": {
+        "startLine": 179,
+        "startChar": 11,
+        "endLine": 179,
+        "endChar": 15
+      },
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8a9865a_61f6b261",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10538,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T03:56:44Z",
+      "side": 1,
+      "message": "Streams are frowned upon in framework code because they cause unnecessary allocations. It shouldn\u0027t be hard to provide a simple helper method that converts int[] to Set\u003cUidRange\u003e. Given that getIncludedUids already returns a clone, you can simply sort it with Arrays.sort and then loop over them, just like convertListToUidRange does. In fact, would be even better if you added a convertListToUidRange method that takes an integer array.",
+      "range": {
+        "startLine": 10536,
+        "startChar": 72,
+        "endLine": 10538,
+        "endChar": 44
+      },
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
