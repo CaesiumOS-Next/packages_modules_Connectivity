@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b4af3d2_57f0160a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1594463
+      },
+      "writtenOn": "2022-03-16T13:40:44Z",
+      "side": 1,
+      "message": "Is this a cherry-pick? Should the Change-Id be identical to Merged-In?",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "1bc5454f41561d66d91bd7789e97d31e60a66277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
