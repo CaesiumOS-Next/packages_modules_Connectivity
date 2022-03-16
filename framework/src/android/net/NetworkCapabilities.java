@@ -880,6 +880,15 @@ public final class NetworkCapabilities implements Parcelable {
         return Objects.equals(getUnderlyingNetworks(), nc.getUnderlyingNetworks());
     }
 
+    private boolean satisfiedByUnderlyingNetworks(@NonNull NetworkCapabilities nc) {
+        if (mUnderlyingNetworks == null) return true;
+        if (nc.getUnderlyingNetworks() == null) return false;
+        for (Network network : mUnderlyingNetworks) {
+            if (!nc.getUnderlyingNetworks().contains(network)) return false;
+        }
+        return true;
+    }
+
     /**
      * Tests for the presence of a capability on this instance.
      *
@@ -942,6 +951,7 @@ public final class NetworkCapabilities implements Parcelable {
         if (isPrivateDnsBroken()) {
             return "privateDnsBroken";
         }
+        if (mUnderlyingNetworks != null) return "underlyingNetworks";
         return null;
     }
 
@@ -1960,7 +1970,8 @@ public final class NetworkCapabilities implements Parcelable {
                 && (onlyImmutable || satisfiedByUids(nc))
                 && (onlyImmutable || satisfiedBySSID(nc))
                 && (onlyImmutable || satisfiedByRequestor(nc))
-                && (onlyImmutable || satisfiedBySubscriptionIds(nc)));
+                && (onlyImmutable || satisfiedBySubscriptionIds(nc))
+                && (onlyImmutable || satisfiedByUnderlyingNetworks(nc)));
     }
 
     /**
@@ -2644,7 +2655,7 @@ public final class NetworkCapabilities implements Parcelable {
     /**
      * Builder class for NetworkCapabilities.
      *
-     * This class is mainly for for {@link NetworkAgent} instances to use. Many fields in
+     * This class is mainly for {@link NetworkAgent} instances to use. Many fields in
      * the built class require holding a signature permission to use - mostly
      * {@link android.Manifest.permission.NETWORK_FACTORY}, but refer to the specific
      * description of each setter. As this class lives entirely in app space it does not
@@ -3052,10 +3063,27 @@ public final class NetworkCapabilities implements Parcelable {
         /**
          * Set the underlying networks of this network.
          *
+         * This API is protected by {@link android.Manifest.permission.NETWORK_FACTORY} and
+         * {@link android.Manifest.permission.NETWORK_SETTINGS} permissions.
+         *
+         * The underlying networks are usually set by {@link NetworkAgent}s, who hold the
+         * {@link android.Manifest.permission.NETWORK_FACTORY} permission.
+         *
+         * The underlying networks are also registrable for the callers, who hold the
+         * {@link android.Manifest.permission.NETWORK_SETTINGS} permission. For example, system UI
+         * or Settings.
+         *
          * @param networks The underlying networks of this network.
          */
         @NonNull
+        @RequiresPermission(anyOf = {
+                android.Manifest.permission.NETWORK_FACTORY,
+                android.Manifest.permission.NETWORK_SETTINGS,
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK})
         public Builder setUnderlyingNetworks(@Nullable List<Network> networks) {
+            // The permission will be checked later when the system server receives the built object
+            // or the permission will be checked when the NetworkAgent is created or when a
+            // NetworkAgent calls sendNetworkCapabilities().
             mCaps.setUnderlyingNetworks(networks);
             return this;
         }

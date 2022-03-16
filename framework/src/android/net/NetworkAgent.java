@@ -16,6 +16,8 @@
 
 package android.net;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 import android.annotation.IntDef;
 import android.annotation.IntRange;
 import android.annotation.NonNull;
@@ -120,6 +122,8 @@ public abstract class NetworkAgent {
     private NetworkInfo mNetworkInfo;
     @NonNull
     private final Object mRegisterLock = new Object();
+    @NonNull
+    private Context mContext;
 
     /**
      * The ID of the {@link NetworkProvider} that created this object, or
@@ -443,6 +447,23 @@ public abstract class NetworkAgent {
         return ni;
     }
 
+    private void enforceAnyPermissionOf(String... permissions) {
+        for (String permission : permissions) {
+            if (mContext.checkCallingOrSelfPermission(permission) == PERMISSION_GRANTED) {
+                return;
+            }
+        }
+        throw new SecurityException("Requires one of the following permissions: "
+                + String.join(", ", permissions) + ".");
+    }
+
+    private void enforceNetworkFactoryOrSettingsPermission() {
+        enforceAnyPermissionOf(
+                android.Manifest.permission.NETWORK_SETTINGS,
+                android.Manifest.permission.NETWORK_FACTORY,
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+    }
+
     // Temporary backward compatibility constructor
     public NetworkAgent(@NonNull Context context, @NonNull Looper looper, @NonNull String logTag,
             @NonNull NetworkCapabilities nc, @NonNull LinkProperties lp, int score,
@@ -499,9 +520,14 @@ public abstract class NetworkAgent {
         mHandler = new NetworkAgentHandler(looper);
         LOG_TAG = logTag;
         mNetworkInfo = new NetworkInfo(ni);
+        mContext = context;
         this.providerId = providerId;
         if (ni == null || nc == null || lp == null) {
             throw new IllegalArgumentException();
+        }
+
+        if (nc.getUnderlyingNetworks() != null) {
+            enforceNetworkFactoryOrSettingsPermission();
         }
 
         mInitialConfiguration = new InitialConfiguration(context,
@@ -1001,6 +1027,9 @@ public abstract class NetworkAgent {
      */
     public final void sendNetworkCapabilities(@NonNull NetworkCapabilities networkCapabilities) {
         Objects.requireNonNull(networkCapabilities);
+        if (networkCapabilities.getUnderlyingNetworks() != null) {
+            enforceNetworkFactoryOrSettingsPermission();
+        }
         mBandwidthUpdatePending.set(false);
         mLastBwRefreshTime = System.currentTimeMillis();
         final NetworkCapabilities nc =
