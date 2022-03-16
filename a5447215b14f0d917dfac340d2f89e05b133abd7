@@ -102,6 +102,30 @@
       },
       "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "765deff4_e8e38484",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10538,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T03:57:43Z",
+      "side": 1,
+      "message": "(In tests, you can keep using streams if you want. But if you take the suggested approach of adding a convertListToUidRange overload that takes int[], then you can use that in the tests as well.)",
+      "parentUuid": "a8a9865a_61f6b261",
+      "range": {
+        "startLine": 10536,
+        "startChar": 72,
+        "endLine": 10538,
+        "endChar": 44
+      },
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
