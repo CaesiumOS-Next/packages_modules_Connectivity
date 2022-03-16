@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9008880b_4997ff8e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-03-16T05:28:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e33b68ee_9bfa93b0",
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "1f617768_a856c07c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -58,6 +76,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1336acd0_552a161c",
+        "filename": "framework/api/module-lib-current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-03-16T05:28:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "113577f0_3241ef2b",
+      "range": {
+        "startLine": 186,
+        "startChar": 88,
+        "endLine": 186,
+        "endChar": 103
+      },
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be726df9_4b7af344",
@@ -71,6 +113,30 @@
       "writtenOn": "2022-03-16T03:56:44Z",
       "side": 1,
       "message": "Per discussion, not clear whether allowing users to pass null makes sense, because it appears to be the same as passing in []. If that\u0027s correct, and you mark this as @NonNull, then don\u0027t forget to remove this bit of documentation.",
+      "range": {
+        "startLine": 179,
+        "startChar": 11,
+        "endLine": 179,
+        "endChar": 15
+      },
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d46861fd_1b6011ad",
+        "filename": "framework/src/android/net/ProfileNetworkPreference.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-03-16T05:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be726df9_4b7af344",
       "range": {
         "startLine": 179,
         "startChar": 11,
@@ -118,6 +184,30 @@
       "side": 1,
       "message": "(In tests, you can keep using streams if you want. But if you take the suggested approach of adding a convertListToUidRange overload that takes int[], then you can use that in the tests as well.)",
       "parentUuid": "a8a9865a_61f6b261",
+      "range": {
+        "startLine": 10536,
+        "startChar": 72,
+        "endLine": 10538,
+        "endChar": 44
+      },
+      "revId": "a5447215b14f0d917dfac340d2f89e05b133abd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21c21ca9_03fdb169",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 10538,
+      "author": {
+        "id": 1112039
+      },
+      "writtenOn": "2022-03-16T05:28:58Z",
+      "side": 1,
+      "message": "thought about it, but decided to go ahead with streams as the impact was small for 3/18 deadline. But let me make the change now itself.",
+      "parentUuid": "765deff4_e8e38484",
       "range": {
         "startLine": 10536,
         "startChar": 72,
