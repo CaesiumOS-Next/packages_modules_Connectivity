@@ -221,6 +221,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d3906e_98d11584",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3809,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89c7a3e2_9d5f71cd",
+      "range": {
+        "startLine": 3809,
+        "startChar": 20,
+        "endLine": 3809,
+        "endChar": 78
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b737272e_c0156498",
@@ -234,6 +258,30 @@
       "writtenOn": "2022-03-15T13:50:55Z",
       "side": 1,
       "message": "This looks incorrect. These three booleans apply to all networks on the device, but whether a network is roaming or not is a property of that network (consider: many devices support STA+STA when more than one network can be roaming at the same time). This information should probably live in the NetworkAgentInfo for the network.\n\nStyle nits:\n- Class members should probably be close to the beginning of the class.\n- You don\u0027t need to initialize member booleans to false, the Java language spec guarantees that they are set to false when the class is constructed.",
+      "range": {
+        "startLine": 3898,
+        "startChar": 0,
+        "endLine": 3900,
+        "endChar": 39
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2eeeec6_9f3e5dc1",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3900,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b737272e_c0156498",
       "range": {
         "startLine": 3898,
         "startChar": 0,
@@ -267,6 +315,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1573a93c_ab03db12",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3903,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f3c27d0_c3a4a00e",
+      "range": {
+        "startLine": 3902,
+        "startChar": 0,
+        "endLine": 3903,
+        "endChar": 36
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbeaf9f8_b21e8f33",
@@ -290,6 +362,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7f40cd3_c599c60b",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3907,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbeaf9f8_b21e8f33",
+      "range": {
+        "startLine": 3906,
+        "startChar": 0,
+        "endLine": 3907,
+        "endChar": 42
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c734f29_9994135f",
@@ -303,6 +399,30 @@
       "writtenOn": "2022-03-15T13:50:55Z",
       "side": 1,
       "message": "If roaming times out, shouldn\u0027t forceReevaluation be called?",
+      "range": {
+        "startLine": 5451,
+        "startChar": 21,
+        "endLine": 5451,
+        "endChar": 47
+      },
+      "revId": "8de9f334f76ddae833f5f2afbf6994e59e307f16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d41605a9_95562c2f",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5451,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c734f29_9994135f",
       "range": {
         "startLine": 5451,
         "startChar": 21,

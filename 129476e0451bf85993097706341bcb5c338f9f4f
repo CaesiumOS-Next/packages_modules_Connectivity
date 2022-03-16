@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a8f475_8a9e1b47",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Blank line before here.",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 5
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88a76532_a8997596",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Ignores Wi-Fi validation failures after roam.\n\nIf validation fails on a Wi-Fi network after a roam to a new BSSID, assume that the roam temporarily disrupted network connectivity, and ignore all failures until this time has passed. NetworkMonitor will continue to attempt validation, and if it fails after this time has passed, the network will be marked unvalidated.\n\nOnly supported up to S. On T+, the Wi-Fi code should use destroyAndAwaitReplacement in order to ensure that apps see the network disconnect and reconnect.",
+      "range": {
+        "startLine": 139,
+        "startChar": 9,
+        "endLine": 139,
+        "endChar": 94
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c08dbbf5_f6c41d4b",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Would rename to config_validationFailureAfterRoamIgnoreTimeMillis.",
+      "range": {
+        "startLine": 140,
+        "startChar": 40,
+        "endLine": 140,
+        "endChar": 73
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "152e653f_937ece8a",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3795,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "If this code runs, nai.partialConnectivity might already have been updated. We should try to avoid that. Maybe put it the new code at the very beginning of the function?\n\n            final boolean valid \u003d ((testResult \u0026 NETWORK_VALIDATION_RESULT_VALID) !\u003d 0);\n            if (!valid \u0026\u0026 shouldIgnoreValidationFailureAfterRoam(nai)) {\n                return;\n            }\n\n            final boolean wasValidated \u003d nai.lastValidated;\n            final boolean wasDefault \u003d isDefaultNetwork(nai);\n\n            final boolean wasPartial \u003d nai.partialConnectivity;\n            nai.partialConnectivity \u003d ((testResult \u0026 NETWORK_VALIDATION_RESULT_PARTIAL) !\u003d 0);\n            ...",
+      "range": {
+        "startLine": 3795,
+        "startChar": 12,
+        "endLine": 3795,
+        "endChar": 25
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e959945e_662480a6",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3799,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Suggest using SystemClock.elapsedRealtime instead, because it\u0027s monotonic and correctly counts time spent in sleep.",
+      "range": {
+        "startLine": 3799,
+        "startChar": 49,
+        "endLine": 3799,
+        "endChar": 66
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae63ca36_7c56291d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3801,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Is this only needed in case the clock steps backwards? If so, I think you can remove it of you switch to elapsedRealtime.",
+      "range": {
+        "startLine": 3801,
+        "startChar": 28,
+        "endLine": 3801,
+        "endChar": 69
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a8cf12b_430dd8d5",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3802,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "This code should be refactored out to a function. Something like:\n\n    private boolean shouldIgnoreValidationFailureAfterRoam(NetworkAgentInfo nai) {\n\nThen here you can do:\n\n    if (!valid \u0026\u0026 shouldIgnoreValidationFailureAfterRoam(nai)) {\n        return;\n    }\n\nIn shouldIgnoreValidationFailureAfterRoam I think we probably want to disable the new codepath on T, something like:\n\n    // T+ devices should use destroyAndAwaitReplacement.\n    if (!SdkLevel.isAtLeastT()) return false;",
+      "range": {
+        "startLine": 3795,
+        "startChar": 0,
+        "endLine": 3802,
+        "endChar": 0
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae06614_86999f9e",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3802,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "\"blocked because only XYZms after roam\"",
+      "range": {
+        "startLine": 3802,
+        "startChar": 79,
+        "endLine": 3802,
+        "endChar": 86
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8b74d7c_4385e09c",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "Should this also send a message to force validation after a few seconds? Or will NetworkMonitor revalidate anyway, as part of its normal retry behaviour? If this code relies on NetworkMonitor to retry anyway, then would suggest something like:\n\n    // Assume the validation failure is due to a temporary failure after roaming\n    // and ignore it. NetworkMonitor will continue to retry validation. If it\n    // continues to fail after the block timeout expires, the network will be\n    // marked unvalidated. If it succeeds, then validation state will not change.",
+      "range": {
+        "startLine": 3804,
+        "startChar": 20,
+        "endLine": 3804,
+        "endChar": 21
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b9a668_8a9a3a2d",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 9622,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "This method gets called on all networks, not just wifi, so would rename to maybeUpdateWifiRoamTimestamp.",
+      "range": {
+        "startLine": 9622,
+        "startChar": 17,
+        "endLine": 9622,
+        "endChar": 40
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfa83a62_ffb493a2",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-16T17:39:25Z",
+      "side": 1,
+      "message": "\"Timestamp\" is one word, so the S should be lowercase - lastRoamTimestamp.",
+      "range": {
+        "startLine": 196,
+        "startChar": 24,
+        "endLine": 196,
+        "endChar": 33
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
