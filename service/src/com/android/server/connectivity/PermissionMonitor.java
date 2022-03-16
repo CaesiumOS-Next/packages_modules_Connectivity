@@ -23,6 +23,7 @@ import static android.Manifest.permission.NETWORK_STACK;
 import static android.Manifest.permission.UPDATE_DEVICE_STATS;
 import static android.content.pm.PackageInfo.REQUESTED_PERMISSION_GRANTED;
 import static android.content.pm.PackageManager.GET_PERMISSIONS;
+import static android.content.pm.PackageManager.MATCH_ANY_USER;
 import static android.net.ConnectivitySettingsManager.UIDS_ALLOWED_ON_RESTRICTED_NETWORKS;
 import static android.net.INetd.PERMISSION_INTERNET;
 import static android.net.INetd.PERMISSION_NETWORK;
@@ -220,8 +221,8 @@ public class PermissionMonitor {
         return targetPermission > currentPermission;
     }
 
-    private List<PackageInfo> getInstalledPackagesAsUser(final UserHandle user) {
-        return mPackageManager.getInstalledPackagesAsUser(GET_PERMISSIONS, user.getIdentifier());
+    private List<PackageInfo> getInstalledPackagesAsUser(final int flags, final UserHandle user) {
+        return mPackageManager.getInstalledPackagesAsUser(flags, user.getIdentifier());
     }
 
     private synchronized void updateAllApps(final List<PackageInfo> apps) {
@@ -338,10 +339,23 @@ public class PermissionMonitor {
         updateUidsAllowedOnRestrictedNetworks(mDeps.getUidsAllowedOnRestrictedNetworks(mContext));
 
         final List<UserHandle> usrs = mUserManager.getUserHandles(true /* excludeDying */);
-        // Update netd permissions for all users.
+        // Update uids network permissions for all users.
         for (UserHandle user : usrs) {
             onUserAdded(user);
         }
+
+        // Update app ids traffic permissions.
+        // TODO(b/224775316): Currently bpf stores traffic permission by app id for every users
+        //  because underlying permission enforcement code does not support different permissions
+        //  for different users for a given app. So PermissionMonitor checks the traffic permissions
+        //  from primary user that should contain mostly all packages. But different users may
+        //  install different packages to have different permissions. Consider to determine traffic
+        //  permission from all users.
+        final List<PackageInfo> apps = getInstalledPackagesAsUser(
+                GET_PERMISSIONS | MATCH_ANY_USER, mContext.getUser());
+        final SparseIntArray appIds = makeAppIdsTrafficPerm(apps);
+        updateAppIdsTrafficPermission(appIds, getSystemTrafficPerm());
+
         log("Users: " + mUsers.size() + ", UidToNetworkPerm: " + mUidToNetworkPerm.size());
     }
 
@@ -452,7 +466,7 @@ public class PermissionMonitor {
     public synchronized void onUserAdded(@NonNull UserHandle user) {
         mUsers.add(user);
 
-        final List<PackageInfo> apps = getInstalledPackagesAsUser(user);
+        final List<PackageInfo> apps = getInstalledPackagesAsUser(GET_PERMISSIONS, user);
 
         // Save all apps
         updateAllApps(apps);
@@ -460,10 +474,6 @@ public class PermissionMonitor {
         // Uids network permissions
         final SparseIntArray uids = makeUidsNetworkPerm(apps);
         updateUidsNetworkPermission(uids);
-
-        // App ids traffic permission
-        final SparseIntArray appIds = makeAppIdsTrafficPerm(apps);
-        updateAppIdsTrafficPermission(appIds, getSystemTrafficPerm());
     }
 
     /**
