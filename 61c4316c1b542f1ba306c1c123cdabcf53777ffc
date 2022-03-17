@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d8da11c_fade683b",
+        "filename": "tests/cts/net/src/android/net/cts/Ikev2VpnTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1221725
+      },
+      "writtenOn": "2022-03-17T21:57:53Z",
+      "side": 1,
+      "message": "Nit: One other thing we could check is that the sessionKey is the same as the one from startProvisionedVpnProfileSession",
+      "range": {
+        "startLine": 433,
+        "startChar": 53,
+        "endLine": 433,
+        "endChar": 54
+      },
+      "revId": "61c4316c1b542f1ba306c1c123cdabcf53777ffc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
