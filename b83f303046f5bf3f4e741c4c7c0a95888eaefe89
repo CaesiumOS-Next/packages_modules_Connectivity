@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4589130a_cf0fdf68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T06:30:36Z",
+      "side": 1,
+      "message": "LGTM but let\u0027s amke sure we follow up on the permission issue (see inline).",
+      "revId": "b83f303046f5bf3f4e741c4c7c0a95888eaefe89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "389e0024_8d47edde",
+        "filename": "framework-t/api/module-lib-current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T06:30:36Z",
+      "side": 1,
+      "message": "Should this be MANAGE_ETHERNET_NETWORKS? ACCESS_NETWORK_STATE is a normal permission available to all apps, and it\u0027s strange to have a module-lib API (which requires being able to access hidden APIs) require a normal permission. Given that addInterfaceStateListener above also requires ACCESS_NETWORK_STATE, no need to fix in this CL, but let\u0027s think about that in a follow-up.\n\nIf we change it, we should change the permisison on addInterfaceStateListener as well.",
+      "range": {
+        "startLine": 36,
+        "startChar": 68,
+        "endLine": 36,
+        "endChar": 88
+      },
+      "revId": "b83f303046f5bf3f4e741c4c7c0a95888eaefe89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
