@@ -50,6 +50,24 @@
       "message": "This is a behavior change of APIs on S, but seems low-risk since it\u0027s an S+ system API (not many users), and there shouldn\u0027t be implementations depending on the administrator UIDs being empty.",
       "revId": "b20fcf6d4406039b9aa62a8e35f98de5fc1a6835",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f32b61_e6084e34",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 2065,
+      "author": {
+        "id": 1306837
+      },
+      "writtenOn": "2022-03-17T10:33:09Z",
+      "side": 1,
+      "message": "I think the question becomes: do we want to allow VCN (AND any other apps with NETWORK_STACK permission) to register ConnectivityDiagnosticsCallback for admin UIDs of the network?\n\nFrom the documentation of API:\n\n     * Registers a ConnectivityDiagnosticsCallback with the System.\n     *\n     * \u003cp\u003eOnly apps that offer network connectivity to the user should be registering callbacks.\n     * These are the only apps whose callbacks will be invoked by the system. Apps considered to\n     * meet these conditions include:\n     *\n     * \u003cul\u003e\n     *   \u003cli\u003eCarrier apps with active subscriptions\n     *   \u003cli\u003eActive VPNs\n     *   \u003cli\u003eWiFi Suggesters\n     * \u003c/ul\u003e\n\nI think the answer should be yes, since admin uids are the callers that manage network connectivity.",
+      "parentUuid": "b63af813_bae9d957",
+      "revId": "b20fcf6d4406039b9aa62a8e35f98de5fc1a6835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
