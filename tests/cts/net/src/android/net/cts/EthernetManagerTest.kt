@@ -116,6 +116,10 @@ class EthernetManagerTest {
 
     @Test
     public fun testCallbacks() {
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.setIncludeTestInterfaces(true)
+        }
+
         val executor = HandlerExecutor(Handler(Looper.getMainLooper()))
 
         // If an interface exists when the callback is registered, it is reported on registration.
@@ -149,9 +153,6 @@ class EthernetManagerTest {
 
     @Before
     fun setUp() {
-        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
-            em.setIncludeTestInterfaces(true)
-        }
     }
 
     @After
@@ -180,5 +181,39 @@ class EthernetManagerTest {
     private fun removeInterface(iface: TestNetworkInterface) {
         iface.fileDescriptor.close()
         createdIfaces.remove(iface)
+    }
+
+    @Test
+    public fun testGetInterfaceList() {
+        // Treat test interface not as an ethernet interface and the return interface list
+        // should be empty.
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.setIncludeTestInterfaces(false)
+        }
+        val iface = runAsShell(MANAGE_TEST_NETWORKS) {
+            createInterface()
+        }
+        assertEquals(0, em.getInterfaceList().size)
+        removeInterface(iface)
+
+        // Treat test interface as an ethernet interface and add two test interfaces.
+        runAsShell(MANAGE_TEST_NETWORKS, NETWORK_SETTINGS) {
+            em.setIncludeTestInterfaces(true)
+        }
+        val iface1 = runAsShell(MANAGE_TEST_NETWORKS) {
+            createInterface()
+        }
+        val iface2 = runAsShell(MANAGE_TEST_NETWORKS) {
+            createInterface()
+        }
+        assertEquals(2, em.getInterfaceList().size)
+
+        // Remove one existing interface and check the current interface list size.
+        removeInterface(iface2)
+        assertEquals(1, em.getInterfaceList().size)
+
+        // Cleanup.
+        removeInterface(iface1)
+        assertEquals(0, em.getInterfaceList().size)
     }
 }
