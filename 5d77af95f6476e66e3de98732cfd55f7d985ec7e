@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4b26e68_06b518e0",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T14:04:18Z",
+      "side": 1,
+      "message": "Suggest reordering for clarity:\n\n        final Throwable testcause \u003d new Throwable(ERROR_MESSAGE);\n        final QosCallbackException exception \u003d new QosCallbackException(testcause);\n        assertEquals(testcause, exception.getCause());\n\n        final QosCallbackException exceptionMsg \u003d new QosCallbackException(ERROR_MESSAGE);\n        assertEquals(ERROR_MESSAGE, exceptionMsg.getMessage());",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 63
+      },
+      "revId": "5d77af95f6476e66e3de98732cfd55f7d985ec7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24144b6d_d0ff2dad",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T14:04:18Z",
+      "side": 1,
+      "message": "Suggest renaming to assertThrowableMessageContains",
+      "range": {
+        "startLine": 85,
+        "startChar": 17,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "5d77af95f6476e66e3de98732cfd55f7d985ec7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab9b8dc0_78a5e3b2",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T14:04:18Z",
+      "side": 1,
+      "message": "throw new QosCallbackException(exception.getCause());",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "5d77af95f6476e66e3de98732cfd55f7d985ec7e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
