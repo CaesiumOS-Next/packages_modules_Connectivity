@@ -47,6 +47,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78cfa830_d510a9a0",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T08:35:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88a76532_a8997596",
+      "range": {
+        "startLine": 139,
+        "startChar": 9,
+        "endLine": 139,
+        "endChar": 94
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3853a96a_5b1a1c26",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T08:35:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40a8f475_8a9e1b47",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 139,
+        "endChar": 5
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c08dbbf5_f6c41d4b",
@@ -60,6 +108,30 @@
       "writtenOn": "2022-03-16T17:39:25Z",
       "side": 1,
       "message": "Would rename to config_validationFailureAfterRoamIgnoreTimeMillis.",
+      "range": {
+        "startLine": 140,
+        "startChar": 40,
+        "endLine": 140,
+        "endChar": 73
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b019dc76_371c7b58",
+        "filename": "service/ServiceConnectivityResources/res/values/config.xml",
+        "patchSetId": 14
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T08:35:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c08dbbf5_f6c41d4b",
       "range": {
         "startLine": 140,
         "startChar": 40,
@@ -185,6 +257,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c8a380f_f1df1bef",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3802,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T08:35:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a8cf12b_430dd8d5",
+      "range": {
+        "startLine": 3795,
+        "startChar": 0,
+        "endLine": 3802,
+        "endChar": 0
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fc71732_1defd1a2",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 3802,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T08:35:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ae06614_86999f9e",
+      "range": {
+        "startLine": 3802,
+        "startChar": 79,
+        "endLine": 3802,
+        "endChar": 86
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8b74d7c_4385e09c",
@@ -231,6 +351,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb8fef3_689930d3",
+        "filename": "service/src/com/android/server/ConnectivityService.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 9622,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T08:35:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92b9a668_8a9a3a2d",
+      "range": {
+        "startLine": 9622,
+        "startChar": 17,
+        "endLine": 9622,
+        "endChar": 40
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfa83a62_ffb493a2",
@@ -244,6 +388,30 @@
       "writtenOn": "2022-03-16T17:39:25Z",
       "side": 1,
       "message": "\"Timestamp\" is one word, so the S should be lowercase - lastRoamTimestamp.",
+      "range": {
+        "startLine": 196,
+        "startChar": 24,
+        "endLine": 196,
+        "endChar": 33
+      },
+      "revId": "129476e0451bf85993097706341bcb5c338f9f4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51ab46e0_45f7b0dc",
+        "filename": "service/src/com/android/server/connectivity/NetworkAgentInfo.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T08:35:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfa83a62_ffb493a2",
       "range": {
         "startLine": 196,
         "startChar": 24,
