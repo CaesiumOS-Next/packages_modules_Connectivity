@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c07ab37_e2ee3380",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-17T09:10:45Z",
+      "side": 1,
+      "message": "Is it possible that the current user at this point is not primary user? It may break your assumption here.",
+      "range": {
+        "startLine": 355,
+        "startChar": 50,
+        "endLine": 355,
+        "endChar": 67
+      },
+      "revId": "75d1d8d90212e3289ccf5f96ad145f28faa7eda3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
