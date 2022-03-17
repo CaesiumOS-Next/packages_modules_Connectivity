@@ -59,6 +59,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9f2b222_83f311ea",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-03-17T00:46:00Z",
+      "side": 1,
+      "message": "Good suggestion but after some updating, I\u0027m preferring the current form as the @After method could apply to multiple tests. I\u0027ll keep as-is for now but separate out using what you suggest above if that doesn\u0027t hold true in the future. I also added a single try/catch so as to avoid teardown declaring exception.",
+      "parentUuid": "1110440f_ea7d846c",
+      "range": {
+        "startLine": 93,
+        "startChar": 27,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96bf8649_22d95927",
@@ -72,6 +96,30 @@
       "writtenOn": "2022-03-01T01:09:43Z",
       "side": 1,
       "message": "Maybe create the executor once and for all in setup() (or even as a final member if that works)",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 61
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0690f8aa_330e873b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-03-17T00:46:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96bf8649_22d95927",
       "range": {
         "startLine": 142,
         "startChar": 0,
@@ -105,6 +153,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f866e1e0_321540e2",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-03-17T00:46:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4794f275_df30964c",
+      "range": {
+        "startLine": 157,
+        "startChar": 71,
+        "endLine": 157,
+        "endChar": 72
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f67f78a_a306d2eb",
@@ -118,6 +190,30 @@
       "writtenOn": "2022-03-01T01:09:43Z",
       "side": 1,
       "message": "let\u0027s use expectAvailableCallbacksUnvalidated inline",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 166,
+        "endChar": 49
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2f5b4c3_9368288b",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-03-17T00:46:00Z",
+      "side": 1,
+      "message": "Done. Turns out there is this method expectAvailableThenValidatedCallbacks() which I could use.",
+      "parentUuid": "1f67f78a_a306d2eb",
       "range": {
         "startLine": 162,
         "startChar": 17,
@@ -151,6 +247,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3644f46a_59eee1a8",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-03-17T00:46:00Z",
+      "side": 1,
+      "message": "I\u0027ve updated the test to no longer rely on eventually and only use this in the teardown method where it is now inlined.",
+      "parentUuid": "ad92b43c_ed8dcfc9",
+      "range": {
+        "startLine": 170,
+        "startChar": 11,
+        "endLine": 170,
+        "endChar": 21
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1eb5271_1eaf1c1d",
@@ -164,6 +284,30 @@
       "writtenOn": "2022-03-01T01:09:43Z",
       "side": 1,
       "message": "You don\u0027t need this since the first argument already specifies LOST",
+      "range": {
+        "startLine": 171,
+        "startChar": 14,
+        "endLine": 171,
+        "endChar": 69
+      },
+      "revId": "70627fd62f12a0528b044575b3d7803fc15653d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a754365_e646a682",
+        "filename": "tests/cts/net/src/android/net/cts/EthernetManagerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1470463
+      },
+      "writtenOn": "2022-03-17T00:46:00Z",
+      "side": 1,
+      "message": "Looks like this was there since eventuallyExpect requires a predicate. Instead of leaving as-is or putting something like c -\u003e true, I added a new overload that doesn\u0027t require the predicate.",
+      "parentUuid": "d1eb5271_1eaf1c1d",
       "range": {
         "startLine": 171,
         "startChar": 14,
