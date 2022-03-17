@@ -16,6 +16,24 @@
       "message": "I fail to see how making global maps non-global makes anything better.\n\nIf anything we should be making the maps more global.",
       "revId": "b0d282e9db09419659a6a47544bc6dba2dd80d8a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c88f775_b7044013",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1348424
+      },
+      "writtenOn": "2022-03-17T13:22:27Z",
+      "side": 1,
+      "message": "you are right. move to this topic which uses global maps. \n \nhttps://android-review.googlesource.com/q/hashtag:java_clat_bpf_map_prog+(status:open%20OR%20status:merged)",
+      "parentUuid": "0f98d3df_f44db378",
+      "revId": "b0d282e9db09419659a6a47544bc6dba2dd80d8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
