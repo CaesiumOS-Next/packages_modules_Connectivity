@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89478577_1429272f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-17T09:16:40Z",
+      "side": 1,
+      "message": "I\u0027m not sure this change is \"obviously OK\" enough to be released as hotfix; I\u0027m wondering if there could be another way to make it simpler. I think we can discuss it later.",
+      "revId": "75d1d8d90212e3289ccf5f96ad145f28faa7eda3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ecf1f46_ae85234c",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-17T09:16:40Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this needs to use \"AsUser\" and MATCH_ANY_USER; do you know what the difference will be depending on mContext.getUser() in that case ? Or is this expected to return the same thing for everyone when MATCH_ANY_USER is used ?",
+      "range": {
+        "startLine": 354,
+        "startChar": 39,
+        "endLine": 354,
+        "endChar": 65
+      },
+      "revId": "75d1d8d90212e3289ccf5f96ad145f28faa7eda3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c07ab37_e2ee3380",
         "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
         "patchSetId": 2

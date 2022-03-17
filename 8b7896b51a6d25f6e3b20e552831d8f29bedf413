@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e6433f6_ac7afafc",
+        "filename": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-17T09:16:40Z",
+      "side": 0,
+      "message": "Is it really OK to remove this here ? Is it possible that the list of packages changes when a user is added, and the permissions still need to be updated ?",
+      "range": {
+        "startLine": 466,
+        "startChar": 8,
+        "endLine": 466,
+        "endChar": 37
+      },
+      "revId": "8b7896b51a6d25f6e3b20e552831d8f29bedf413",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
