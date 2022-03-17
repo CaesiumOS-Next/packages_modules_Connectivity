@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98b118b2_8f6921d2",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-17T08:00:40Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 125,
+        "startChar": 12,
+        "endLine": 125,
+        "endChar": 13
+      },
+      "revId": "c76284dd3e28fb86aa31595b0508d3cd8f45c8a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fef5c1fc_46079b42",
+        "filename": "framework/src/android/net/NetworkAgent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-17T08:00:40Z",
+      "side": 1,
+      "message": "Nit: pack to a method since it\u0027s used in multiple places.",
+      "range": {
+        "startLine": 526,
+        "startChar": 8,
+        "endLine": 528,
+        "endChar": 9
+      },
+      "revId": "c76284dd3e28fb86aa31595b0508d3cd8f45c8a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b35c6b7a_2a3a91bb",
+        "filename": "framework/src/android/net/NetworkCapabilities.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 3075,
+      "author": {
+        "id": 1304263
+      },
+      "writtenOn": "2022-03-17T08:00:40Z",
+      "side": 1,
+      "message": "If the cap is built by an app, then the permission will never be verified. Building a NC does not have to be used in the NetworkAgent.(E.g. Build a NC to set into a NetworkRequest) This comment does not look accurate.",
+      "range": {
+        "startLine": 3073,
+        "startChar": 12,
+        "endLine": 3075,
+        "endChar": 60
+      },
+      "revId": "c76284dd3e28fb86aa31595b0508d3cd8f45c8a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
