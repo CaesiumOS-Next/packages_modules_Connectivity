@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff5d1703_2bcfd1ec",
+        "filename": "framework-t/api/system-current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-17T06:16:42Z",
+      "side": 1,
+      "message": "Not sure \"network\" is the right name here, since a network can contain more than one interface, and usually (at least in the case of android.net.Network) only exists when connected. \"Interface\"?",
+      "range": {
+        "startLine": 16,
+        "startChar": 215,
+        "endLine": 16,
+        "endChar": 222
+      },
+      "revId": "73cf60351f68b6f4c024a79b1ceb2ed3693f3281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
