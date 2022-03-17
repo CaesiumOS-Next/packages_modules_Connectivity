@@ -38,6 +38,7 @@ import android.telephony.data.NrQosSessionAttributes;
 import android.util.Log;
 
 import com.android.internal.annotations.VisibleForTesting;
+import com.android.net.module.util.PermissionUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -120,6 +121,8 @@ public abstract class NetworkAgent {
     private NetworkInfo mNetworkInfo;
     @NonNull
     private final Object mRegisterLock = new Object();
+    @NonNull
+    private final Context mContext;
 
     /**
      * The ID of the {@link NetworkProvider} that created this object, or
@@ -451,6 +454,19 @@ public abstract class NetworkAgent {
         return ni;
     }
 
+    private void enforceNetworkFactoryOrSettingsPermission() {
+        PermissionUtils.enforceAnyPermissionOf(mContext,
+                android.Manifest.permission.NETWORK_SETTINGS,
+                android.Manifest.permission.NETWORK_FACTORY,
+                NetworkStack.PERMISSION_MAINLINE_NETWORK_STACK);
+    }
+
+    private void validateCallerPermission(@NonNull NetworkCapabilities nc) {
+        if (nc.getUnderlyingNetworks() != null) {
+            enforceNetworkFactoryOrSettingsPermission();
+        }
+    }
+
     // Temporary backward compatibility constructor
     public NetworkAgent(@NonNull Context context, @NonNull Looper looper, @NonNull String logTag,
             @NonNull NetworkCapabilities nc, @NonNull LinkProperties lp, int score,
@@ -507,10 +523,13 @@ public abstract class NetworkAgent {
         mHandler = new NetworkAgentHandler(looper);
         LOG_TAG = logTag;
         mNetworkInfo = new NetworkInfo(ni);
+        mContext = context;
         this.providerId = providerId;
         if (ni == null || nc == null || lp == null) {
             throw new IllegalArgumentException();
         }
+
+        validateCallerPermission(nc);
 
         mInitialConfiguration = new InitialConfiguration(context,
                 new NetworkCapabilities(nc, NetworkCapabilities.REDACT_NONE),
@@ -1048,6 +1067,7 @@ public abstract class NetworkAgent {
      */
     public final void sendNetworkCapabilities(@NonNull NetworkCapabilities networkCapabilities) {
         Objects.requireNonNull(networkCapabilities);
+        validateCallerPermission(networkCapabilities);
         mBandwidthUpdatePending.set(false);
         mLastBwRefreshTime = System.currentTimeMillis();
         final NetworkCapabilities nc =
