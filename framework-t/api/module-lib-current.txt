@@ -33,6 +33,7 @@ package android.net {
 
   public class EthernetManager {
     method @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public void addInterfaceStateListener(@NonNull java.util.concurrent.Executor, @NonNull android.net.EthernetManager.InterfaceStateListener);
+    method @NonNull @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE) public java.util.List<java.lang.String> getInterfaceList();
     method public void removeInterfaceStateListener(@NonNull android.net.EthernetManager.InterfaceStateListener);
     method public void setIncludeTestInterfaces(boolean);
     field public static final int ROLE_CLIENT = 1; // 0x1
