@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8a9fdc_fcf6a5f7",
+        "filename": "tests/cts/net/src/android/net/cts/NsdManagerTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 1308473
+      },
+      "writtenOn": "2022-03-17T01:45:04Z",
+      "side": 1,
+      "message": "Nit: Also add comments to say testing discovery without an Executor.",
+      "range": {
+        "startLine": 351,
+        "startChar": 7,
+        "endLine": 351,
+        "endChar": 8
+      },
+      "revId": "5ed51fede86a3cb26d1eff68754e92a913cb65e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
