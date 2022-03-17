@@ -45,6 +45,7 @@ import android.net.NetworkRequest;
 import android.net.ProxyInfo;
 import android.net.TestNetworkInterface;
 import android.net.VpnManager;
+import android.net.VpnProfileState;
 import android.net.cts.util.CtsNetUtils;
 import android.os.Build;
 import android.os.Process;
@@ -426,6 +427,10 @@ public class Ikev2VpnTest {
         cb.waitForAvailable();
         final Network vpnNetwork = cb.currentNetwork;
         assertNotNull(vpnNetwork);
+        final VpnProfileState profileState = sVpnMgr.getProvisionedVpnProfileState();
+        assertEquals(VpnProfileState.STATE_CONNECTED, profileState.getState());
+        assertFalse(profileState.isAlwaysOn());
+        assertFalse(profileState.isLockdownEnabled());
 
         final NetworkCapabilities caps = sCM.getNetworkCapabilities(vpnNetwork);
         assertTrue(caps.hasTransport(TRANSPORT_VPN));
