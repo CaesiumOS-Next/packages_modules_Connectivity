@@ -22,6 +22,30 @@
       },
       "revId": "e5f99fddff780c340e1dc238f475bc46a0dfd7a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "194ab6e9_b2bcdfeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1288034
+      },
+      "writtenOn": "2022-03-18T08:03:33Z",
+      "side": 1,
+      "message": "Or maybe a better example with the current netd interface:\nhttps://cs.android.com/android/platform/superproject/+/master:frameworks/libs/net/common/netd/Android.bp;drc\u003df748d3f31e1971c09683868f51126eeb119b0eba;l\u003d96",
+      "parentUuid": "743691ad_ee8b1ec8",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "e5f99fddff780c340e1dc238f475bc46a0dfd7a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
