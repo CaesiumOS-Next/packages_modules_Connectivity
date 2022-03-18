@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ccfd423_dae03718",
+        "filename": "tests/cts/net/src/android/net/cts/QosCallbackExceptionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2022-03-18T09:43:12Z",
+      "side": 1,
+      "message": "I think this test will only pass starting from S, because on R, the QosCallbackException classes are non-updatable OEM code and do not have your new constructors. So you want Build.VERSION_CODES.R here. (IgnoreUpTo R means start running on S)",
+      "range": {
+        "startLine": 36,
+        "startChar": 32,
+        "endLine": 36,
+        "endChar": 33
+      },
+      "revId": "e5aebcdd317233020eef36a67c7fbf9b5b36e958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
